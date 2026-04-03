@@ -12,9 +12,9 @@ export async function processNoShowPrediction(prisma: any) {
         include: { psw: { include: { user: true } }, client: true },
     });
     for (const upcoming of upcomingVisits) {
-        if (!upcoming.assignedPswId || !upcoming.tenantId) continue;
-        const pastMissed = await prisma.visit.count({ where: { assignedPswId: upcoming.assignedPswId, status: "missed" as any, requestedStartAt: { gt: oneMonthAgo } } });
-        const recentWellness = await prisma.wellnessPulse.findFirst({ where: { pswId: upcoming.assignedPswId }, orderBy: { createdAt: "desc" } });
+        if (!upcoming.assignedProviderId || !upcoming.tenantId) continue;
+        const pastMissed = await prisma.visit.count({ where: { assignedProviderId: upcoming.assignedProviderId, status: "missed" as any, requestedStartAt: { gt: oneMonthAgo } } });
+        const recentWellness = await prisma.wellnessPulse.findFirst({ where: { providerId: upcoming.assignedProviderId }, orderBy: { createdAt: "desc" } });
         const score = recentWellness?.score || 5;
         if (pastMissed > 0 && score <= 3) {
             const dispatcher = await prisma.user.findFirst({ where: { tenantId: upcoming.tenantId, role: "coordinator" } });
@@ -31,10 +31,10 @@ export async function processTargetedSurveys(prisma: any) {
     let surveysSent = 0;
     const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
-    const lowActivityUsers = await prisma.user.findMany({ where: { roles: { has: "psw" }, status: "active" }, include: { pswProfile: true } });
+    const lowActivityUsers = await prisma.user.findMany({ where: { roles: { has: "psw" }, status: "active" }, include: { providerProfile: true } });
     for (const pswUser of lowActivityUsers) {
-        if (!pswUser.tenantId || !pswUser.pswProfile) continue;
-        const recentTimesheets = await prisma.timesheet.count({ where: { pswId: pswUser.pswProfile.id, createdAt: { gt: oneMonthAgo } } });
+        if (!pswUser.tenantId || !pswUser.providerProfile) continue;
+        const recentTimesheets = await prisma.timesheet.count({ where: { providerId: pswUser.providerProfile.id, createdAt: { gt: oneMonthAgo } } });
         if (recentTimesheets === 0) {
             const recentlySurveyed = await prisma.appNotification.findFirst({ where: { userId: pswUser.id, title: "Quarterly Check-In Survey", createdAt: { gt: ninetyDaysAgo } } });
             if (!recentlySurveyed) {
@@ -49,7 +49,7 @@ export async function processTargetedSurveys(prisma: any) {
 export async function processBirthdayWishes(prisma: any) {
     let birthdayWishes = 0;
     const todayMonthDay = new Date().toISOString().slice(5, 10);
-    const birthdayProfiles = await prisma.pswProfile.findMany({ where: { dob: { not: null } }, include: { user: true } });
+    const birthdayProfiles = await prisma.providerProfile.findMany({ where: { dob: { not: null } }, include: { user: true } });
     for (const profile of birthdayProfiles) {
         if (!profile.dob || !profile.user) continue;
         const profileMonthDay = new Date(profile.dob).toISOString().slice(5, 10);
@@ -57,7 +57,7 @@ export async function processBirthdayWishes(prisma: any) {
             const alreadySentToday = await prisma.communicationLog.findFirst({ where: { sender: "system", recipient: "psw", bodyText: { contains: "Happy Birthday" }, createdAt: { gt: new Date(Date.now() - 24 * 60 * 60 * 1000) } } });
             if (!alreadySentToday) {
                 await prisma.communicationLog.create({ data: { tenantId: profile.tenantId || "system", sender: "system", recipient: "psw", channel: "sms", status: "sent", bodyText: `Happy Birthday ${profile.user.fullName}! From all of us at PrimeCare, we've gifted you 50 CareCoins. Thank you for your service!` } });
-                await prisma.gamificationProfile.updateMany({ where: { pswId: profile.id }, data: { careCoins: { increment: 50 } } });
+                await prisma.gamificationProfile.updateMany({ where: { providerId: profile.id }, data: { careCoins: { increment: 50 } } });
                 birthdayWishes++;
             }
         }

@@ -16,11 +16,15 @@ class MasterLayout extends ConsumerWidget {
     // Condition check to see if we apply the advanced ProviderTopBar
     final isProvider = role.contains('rn') || role.contains('rmt') || role.contains('physio') || role.contains('chiro');
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobileOrTablet = screenWidth < 900;
+
     return Scaffold(
-      appBar: isProvider ? ProviderTopBar(role: role) : const TopBarLayout(),
+      appBar: isProvider ? ProviderTopBar(role: role, isMobile: isMobileOrTablet) : const TopBarLayout(),
+      drawer: isMobileOrTablet ? const Drawer(child: SidebarLayout()) : null,
       body: Row(
         children: [
-          const SidebarLayout(),
+          if (!isMobileOrTablet) const SidebarLayout(),
           Expanded(child: child),
         ],
       ),

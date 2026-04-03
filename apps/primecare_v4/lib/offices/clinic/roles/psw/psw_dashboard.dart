@@ -67,64 +67,75 @@ class PswDashboard extends ConsumerWidget {
 
                     const SizedBox(height: 32),
 
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // LEFT: Today's Care Shifts
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Active Care Schedule', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final isDesktop = constraints.maxWidth > 800;
+
+                        final leftPane = Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Active Care Schedule', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                            const SizedBox(height: 16),
+                            GlassSurface(
+                              padding: const EdgeInsets.all(24),
+                              child: Column(
+                                children: [
+                                  _buildCareRow('Eleanor Rigby', 'Bathing & Grooming', 'READY', '14:30', isNext: true),
+                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                  _buildCareRow('John Smith', 'Meal Prep (Low Sodium)', 'UPCOMING', '16:00'),
+                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                  _buildCareRow('Martha Wayne', 'Ambulation / Walking Support', 'UPCOMING', '18:00'),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+
+                        final rightPane = Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Incident Reports (Recent)', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                            const SizedBox(height: 16),
+                            GlassSurface(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                children: metrics.recentActivity.map((log) => Column(
                                   children: [
-                                    _buildCareRow('Eleanor Rigby', 'Bathing & Grooming', 'READY', '14:30', isNext: true),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildCareRow('John Smith', 'Meal Prep (Low Sodium)', 'UPCOMING', '16:00'),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildCareRow('Martha Wayne', 'Ambulation / Walking Support', 'UPCOMING', '18:00'),
+                                    AuditLogTile(
+                                      title: log.title, 
+                                      subtitle: log.subtitle, 
+                                      timestamp: log.timestamp, 
+                                      icon: _getActivityIcon(log.icon), 
+                                      iconColor: _getStatusColor(log.color)
+                                    ),
+                                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
                                   ],
-                                ),
+                                )).toList(),
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          ],
+                        );
 
-                        const SizedBox(width: 24),
-
-                        // RIGHT: ADL LOGS
-                        Expanded(
-                          flex: 1,
-                          child: Column(
+                        if (isDesktop) {
+                          return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Incident Reports (Recent)', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  children: metrics.recentActivity.map((log) => Column(
-                                    children: [
-                                      AuditLogTile(
-                                        title: log.title, 
-                                        subtitle: log.subtitle, 
-                                        timestamp: log.timestamp, 
-                                        icon: _getActivityIcon(log.icon), 
-                                        iconColor: _getStatusColor(log.color)
-                                      ),
-                                      const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                    ],
-                                  )).toList(),
-                                ),
-                              ),
+                              Expanded(flex: 2, child: leftPane),
+                              const SizedBox(width: 24),
+                              Expanded(flex: 1, child: rightPane),
                             ],
-                          ),
-                        )
-                      ],
+                          );
+                        } else {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              leftPane,
+                              const SizedBox(height: 32),
+                              rightPane,
+                            ],
+                          );
+                        }
+                      },
                     )
                   ],
                 ),

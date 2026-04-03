@@ -65,7 +65,7 @@ export function buildTenant(overrides?: Partial<TestTenant>): TestTenant {
 export interface TestVisit {
     id: string;
     clientId: string;
-    pswId: string;
+    providerId: string;
     serviceId: string;
     tenantId: string;
     status: string;
@@ -79,7 +79,7 @@ export function buildVisit(overrides?: Partial<TestVisit>): TestVisit {
     return {
         id,
         clientId: 'client-1',
-        pswId: 'psw-1',
+        providerId: 'psw-1',
         serviceId: 'service-1',
         tenantId: 'tenant-default',
         status: 'scheduled',

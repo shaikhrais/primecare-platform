@@ -89,18 +89,18 @@ app.openapi(createRoute({
   path: '/dispatch',
   summary: 'Drag and Drop Visits Dispatch',
   request: { 
-    body: { content: { 'application/json': { schema: z.object({ visitId: z.string(), pswId: z.string(), scheduledTime: z.string() }) } } }
+    body: { content: { 'application/json': { schema: z.object({ visitId: z.string(), providerId: z.string(), scheduledTime: z.string() }) } } }
   },
   responses: { 200: { description: 'Dispatched', content: { 'application/json': { schema: z.any() } } }, 401: { description: 'Unauthorized' } }
 }), async (c) => {
-  const { visitId, pswId, scheduledTime } = c.req.valid('json');
+  const { visitId, providerId, scheduledTime } = c.req.valid('json');
   const user = c.var.user;
   if (!user) return c.json({ error: 'Unauthorized' }, 401);
 
   const updatedVisit = await (c.var.prisma as any).visit.update({
     where: { id: visitId },
     data: { 
-        assignedPswId: pswId, 
+        assignedProviderId: providerId, 
         requestedStartAt: new Date(scheduledTime),
         status: 'scheduled'
     }

@@ -59,7 +59,7 @@ const offerShiftRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.object({
-                        pswIds: z.array(z.string().uuid()),
+                        providerIds: z.array(z.string().uuid()),
                     }),
                 },
             },
@@ -85,14 +85,14 @@ const offerShiftRoute = createRoute({
 r.openapi(offerShiftRoute, async (c) => {
     const prisma = c.get('prisma');
     const { id } = c.req.valid('param');
-    const { pswIds } = c.req.valid('json');
+    const { providerIds } = c.req.valid('json');
     const payload = c.get('jwtPayload');
 
-    const assignments = await Promise.all(pswIds.map(pswId =>
+    const assignments = await Promise.all(providerIds.map(providerId =>
         prisma.shiftAssignment.create({
             data: {
                 visitId: id,
-                pswId,
+                providerId,
                 status: 'offered',
                 tenantId: payload.tenantId,
             }
@@ -104,7 +104,7 @@ r.openapi(offerShiftRoute, async (c) => {
         data: { status: 'offered' }
     });
 
-    await logAudit(prisma, payload.sub, 'OFFER_SHIFT', 'VISIT', id, { pswIds });
+    await logAudit(prisma, payload.sub, 'OFFER_SHIFT', 'VISIT', id, { providerIds });
     return c.json({ success: true, count: assignments.length }, 200);
 });
 
@@ -142,7 +142,7 @@ r.openapi(suggestPswsRoute, async (c) => {
     });
     if (!visit) return c.json({ error: 'Visit not found' }, 404);
 
-    const psws = await prisma.pswProfile.findMany({
+    const psws = await prisma.providerProfile.findMany({
         where: { isApproved: true, tenantId: visit.tenantId },
         include: { availability: true }
     });

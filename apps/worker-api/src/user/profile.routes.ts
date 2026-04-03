@@ -39,7 +39,7 @@ r.openapi(getProfileRoute, async (c) => {
             // R18: Exclude passwordHash from query — defense in depth
             select: {
                 id: true, email: true, roles: true, phone: true, status: true, createdAt: true,
-                pswProfile: true, clientProfile: true,
+                providerProfile: true, clientProfile: true,
             }
         });
 
@@ -50,13 +50,13 @@ r.openapi(getProfileRoute, async (c) => {
 
         if (activeRole === 'psw') {
             profile = {
-                firstName: userWithProfile.pswProfile?.fullName?.split(' ')[0] || '',
-                lastName: userWithProfile.pswProfile?.fullName?.split(' ').slice(1).join(' ') || '',
+                firstName: userWithProfile.providerProfile?.fullName?.split(' ')[0] || '',
+                lastName: userWithProfile.providerProfile?.fullName?.split(' ').slice(1).join(' ') || '',
                 email: userWithProfile.email,
                 phoneNumber: userWithProfile.phone,
-                address: userWithProfile.pswProfile?.address,
-                avatarUrl: userWithProfile.pswProfile?.avatarUrl,
-                bio: userWithProfile.pswProfile?.bio,
+                address: userWithProfile.providerProfile?.address,
+                avatarUrl: userWithProfile.providerProfile?.avatarUrl,
+                bio: userWithProfile.providerProfile?.bio,
                 createdAt: userWithProfile.createdAt
             };
         } else if (activeRole === 'client') {
@@ -132,7 +132,7 @@ r.openapi(updateProfileRoute, async (c) => {
             // R20: Don't load passwordHash — only need roles + tenantId for profile update
             select: {
                 id: true, email: true, roles: true, phone: true, tenantId: true,
-                pswProfile: true, clientProfile: true,
+                providerProfile: true, clientProfile: true,
             }
         });
 
@@ -176,7 +176,7 @@ r.openapi(updateProfileRoute, async (c) => {
         }
 
         if (activeRole === 'psw') {
-            await prisma.pswProfile.upsert({
+            await prisma.providerProfile.upsert({
                 where: { userId: userId },
                 create: { 
                     userId: userId, 

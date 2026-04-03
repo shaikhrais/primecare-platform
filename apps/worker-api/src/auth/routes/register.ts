@@ -99,7 +99,7 @@ r.openapi(registerRoute, async (c) => {
                 }
             });
         } else if (role === 'psw') {
-            await tx.pswProfile.create({
+            await tx.providerProfile.create({
                 data: {
                     userId: newUser.id,
                     fullName: email.split('@')[0],

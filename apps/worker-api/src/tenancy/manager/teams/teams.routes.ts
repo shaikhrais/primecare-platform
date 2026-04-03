@@ -22,7 +22,7 @@ r.openapi(getTeamsRoute, async (c) => {
     try {
         const users = await prisma.user.findMany({
             where: { tenantId },
-            include: { pswProfile: true, rnProfile: true },
+            include: { providerProfile: true, rnProfile: true },
             take: 100
         });
 

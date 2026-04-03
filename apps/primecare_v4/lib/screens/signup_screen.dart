@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../services/auth_service.dart';
 import 'auth_layout.dart';
 
@@ -32,10 +33,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     // Simulate slight delay for aesthetic UI feeling
     await Future.delayed(const Duration(milliseconds: 600));
 
-    // Fallback if role missing in AuthService (which it isn't, but signup logic is basic in stub)
-    final success = await ref.read(authProvider.notifier).login(
+    // Call the true register method securely
+    final success = await ref.read(authProvider.notifier).register(
       _emailController.text,
       _passwordController.text,
+      _firstNameController.text,
+      _lastNameController.text,
+      _selectedRole
     );
     
     if (!mounted) return;
@@ -59,14 +63,14 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'Create Account',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, fontFamily: 'Outfit', color: Color(0xFF191C1E)),
+          Text(
+            'auth.create_account'.tr(),
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, fontFamily: 'Outfit', color: Color(0xFF191C1E)),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Register as a clinician or enterprise admin.',
-            style: TextStyle(fontSize: 16, color: Colors.blueGrey, fontFamily: 'Inter'),
+          Text(
+            'auth.subtitle'.tr(),
+            style: const TextStyle(fontSize: 16, color: Colors.blueGrey, fontFamily: 'Inter'),
           ),
           const SizedBox(height: 32),
           Row(
@@ -74,14 +78,14 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               Expanded(
                 child: TextField(
                   controller: _firstNameController,
-                  decoration: AuthInputDecoration.get('First Name', Icons.person_outline),
+                  decoration: AuthInputDecoration.get('auth.first_name'.tr(), Icons.person_outline),
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: TextField(
                   controller: _lastNameController,
-                  decoration: AuthInputDecoration.get('Last Name', Icons.person_outline),
+                  decoration: AuthInputDecoration.get('auth.last_name'.tr(), Icons.person_outline),
                 ),
               ),
             ],
@@ -89,13 +93,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           const SizedBox(height: 24),
           TextField(
             controller: _emailController,
-            decoration: AuthInputDecoration.get('Email Address', Icons.email_outlined),
+            decoration: AuthInputDecoration.get('auth.email'.tr(), Icons.email_outlined),
             keyboardType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 24),
           DropdownButtonFormField<String>(
             value: _selectedRole,
-            decoration: AuthInputDecoration.get('Clinical Role', Icons.work_outline),
+            decoration: AuthInputDecoration.get('auth.role'.tr(), Icons.work_outline),
             items: _roles.map((role) {
               return DropdownMenuItem(
                 value: role,
@@ -109,7 +113,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           const SizedBox(height: 24),
           TextField(
             controller: _passwordController,
-            decoration: AuthInputDecoration.get('Password', Icons.lock_outline),
+            decoration: AuthInputDecoration.get('auth.password'.tr(), Icons.lock_outline),
             obscureText: true,
           ),
           const SizedBox(height: 40),
@@ -130,18 +134,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
               child: _isLoading 
                   ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                  : const Text('Register', style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
+                  : Text('auth.register'.tr(), style: const TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 32),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Already have an account?', style: TextStyle(color: Colors.blueGrey)),
+              Text('auth.already_have_account'.tr(), style: const TextStyle(color: Colors.blueGrey)),
               TextButton(
                 onPressed: () => context.go('/login'),
                 style: TextButton.styleFrom(foregroundColor: const Color(0xFF006948)),
-                child: const Text('Log In', style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Text('auth.login'.tr(), style: const TextStyle(fontWeight: FontWeight.bold)),
               ),
             ],
           ),

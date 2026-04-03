@@ -28,12 +28,12 @@ export class VisitService {
         serviceId: string;
         requestedStartAt: string;
         durationMinutes: number;
-        assignedPswId?: string;
+        assignedProviderId?: string;
         clientNotes?: string;
         priority?: string;
         requiredSkills?: string[];
     }, tenantId: string, actorUserId: string) {
-        const status = data.assignedPswId ? 'scheduled' : 'requested';
+        const status = data.assignedProviderId ? 'scheduled' : 'requested';
 
         const visit = await this.prisma.visit.create({
             data: {
@@ -41,7 +41,7 @@ export class VisitService {
                 serviceId: data.serviceId,
                 requestedStartAt: new Date(data.requestedStartAt),
                 durationMinutes: data.durationMinutes,
-                assignedPswId: data.assignedPswId,
+                assignedProviderId: data.assignedProviderId,
                 status,
                 clientNotes: data.clientNotes,
                 tenantId,
@@ -51,7 +51,7 @@ export class VisitService {
         });
 
         await logAudit(this.prisma, actorUserId, 'CREATE_VISIT', 'VISIT', visit.id, {
-            assignedPswId: data.assignedPswId,
+            assignedProviderId: data.assignedProviderId,
             status,
         });
 
@@ -64,14 +64,14 @@ export class VisitService {
         serviceId: string;
         requestedStartAt: string;
         durationMinutes: number;
-        assignedPswId?: string;
+        assignedProviderId?: string;
         clientNotes?: string;
         priority?: string;
         requiredSkills?: string[];
         recurrenceRuleString: string;
         recurrenceEndDate?: string | null;
     }, tenantId: string, actorUserId: string) {
-        const status = data.assignedPswId ? 'scheduled' : 'requested';
+        const status = data.assignedProviderId ? 'scheduled' : 'requested';
         const start = new Date(data.requestedStartAt);
         const endLimit = data.recurrenceEndDate
             ? new Date(data.recurrenceEndDate)
@@ -88,7 +88,7 @@ export class VisitService {
             serviceId: data.serviceId,
             requestedStartAt: date,
             durationMinutes: data.durationMinutes,
-            assignedPswId: data.assignedPswId,
+            assignedProviderId: data.assignedProviderId,
             status,
             clientNotes: data.clientNotes,
             tenantId,
@@ -105,7 +105,7 @@ export class VisitService {
         });
 
         await logAudit(this.prisma, actorUserId, 'CREATE_VISIT_SERIES', 'VISIT', firstVisit?.id || 'batch', {
-            assignedPswId: data.assignedPswId,
+            assignedProviderId: data.assignedProviderId,
             status,
             count: visitsToCreate.length,
         });

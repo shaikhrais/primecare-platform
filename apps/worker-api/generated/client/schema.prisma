@@ -37,8 +37,8 @@ model User {
   DailyEntry         DailyEntry[]
   reportedIncidents  Incident[]          @relation("Reporter")
   sentMessages       Message[]
-  verifiedDocs       PswDocument[]       @relation("VerifiedBy")
-  pswProfile         PswProfile?
+  verifiedDocs       ProviderDocument[]  @relation("VerifiedBy")
+  providerProfile    ProviderProfile?
   reviewedTimesheets Timesheet[]         @relation("ReviewedBy")
   telehealthSessions TelehealthSession[]
   tenant             Tenant              @relation(fields: [tenantId], references: [id])
@@ -64,9 +64,9 @@ model User {
   gamificationProfile        GamificationProfile?
   reputation                 UserReputation?
   DailyActivity              DailyActivity[]
-  shiftCheckIns              PswShiftLog[]               @relation("UserShiftLogs")
+  shiftCheckIns              ProviderShiftLog[]          @relation("UserShiftLogs")
   adlCareLogs                AdlCareLog[]                @relation("UserAdlLogs")
-  pswVitals                  PswVitalSign[]              @relation("UserPswVitals")
+  providerVitals             ProviderVitalSign[]         @relation("UserPswVitals")
   behaviorNotes              BehaviorNote[]              @relation("UserBehaviorNotes")
   nutritionRecords           NutritionRecord[]           @relation("UserNutrition")
   mobilityLogs               MobilityLog[]               @relation("UserMobility")
@@ -79,12 +79,12 @@ model User {
 }
 
 model Tenant {
-  id                   String                @id @default(uuid())
+  id                   String                 @id @default(uuid())
   name                 String
-  slug                 String                @unique
-  status               String                @default("active")
-  createdAt            DateTime              @default(now()) @map("created_at")
-  updatedAt            DateTime              @updatedAt @map("updated_at")
+  slug                 String                 @unique
+  status               String                 @default("active")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
   auditLogs            AuditLog[]
   bookings             Booking[]
   clientProfiles       ClientProfile[]
@@ -92,8 +92,8 @@ model Tenant {
   incidents            Incident[]
   invoices             Invoice[]
   messageThreads       MessageThread[]
-  pswAvailability      PswAvailability[]
-  pswProfiles          PswProfile[]
+  pswAvailability      ProviderAvailability[]
+  providerProfiles     ProviderProfile[]
   services             Service[]
   shiftAssignments     ShiftAssignment[]
   timesheets           Timesheet[]
@@ -196,9 +196,9 @@ model Tenant {
   staffGroups           StaffGroup[]
   platformRoles         PlatformRole[]
   DailyActivity         DailyActivity[]
-  shiftCheckIns         PswShiftLog[]               @relation("TenantShiftLogs")
+  shiftCheckIns         ProviderShiftLog[]          @relation("TenantShiftLogs")
   adlCareLogs           AdlCareLog[]                @relation("TenantAdlLogs")
-  pswVitals             PswVitalSign[]              @relation("TenantPswVitals")
+  providerVitals        ProviderVitalSign[]         @relation("TenantPswVitals")
   behaviorNotes         BehaviorNote[]              @relation("TenantBehaviorNotes")
   nutritionRecords      NutritionRecord[]           @relation("TenantNutrition")
   mobilityLogs          MobilityLog[]               @relation("TenantMobility")
@@ -408,16 +408,16 @@ model RegistryEntry {
 }
 
 model MessageThread {
-  id         String         @id @default(uuid())
-  threadType String         @map("thread_type")
-  clientId   String?        @map("client_id")
-  pswId      String?        @map("psw_id")
-  createdAt  DateTime       @default(now()) @map("created_at")
-  tenantId   String         @map("tenant_id")
+  id         String           @id @default(uuid())
+  threadType String           @map("thread_type")
+  clientId   String?          @map("client_id")
+  providerId String?          @map("provider_id")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  tenantId   String           @map("tenant_id")
   messages   Message[]
-  client     ClientProfile? @relation(fields: [clientId], references: [id])
-  psw        PswProfile?    @relation("PswToThreads", fields: [pswId], references: [id])
-  tenant     Tenant         @relation(fields: [tenantId], references: [id])
+  client     ClientProfile?   @relation(fields: [clientId], references: [id])
+  psw        ProviderProfile? @relation("ProviderToThreads", fields: [providerId], references: [id])
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("messages_threads")
@@ -629,9 +629,9 @@ model ClientProfile {
   serviceAuthorizations ServiceAuthorization[]
   consentForms          ConsentForm[]
   familyMembers         FamilyMember[]
-  shiftCheckIns         PswShiftLog[]               @relation("ClientShiftLogs")
+  shiftCheckIns         ProviderShiftLog[]          @relation("ClientShiftLogs")
   adlCareLogs           AdlCareLog[]                @relation("ClientAdlLogs")
-  pswVitals             PswVitalSign[]              @relation("ClientPswVitals")
+  providerVitals        ProviderVitalSign[]         @relation("ClientPswVitals")
   behaviorNotes         BehaviorNote[]              @relation("ClientBehaviorNotes")
   nutritionRecords      NutritionRecord[]           @relation("ClientNutrition")
   mobilityLogs          MobilityLog[]               @relation("ClientMobility")
@@ -643,7 +643,7 @@ model ClientProfile {
   @@map("client_profiles")
 }
 
-model PswProfile {
+model ProviderProfile {
   id                    String                 @id @default(uuid())
   userId                String                 @unique @map("user_id")
   fullName              String                 @map("full_name")
@@ -651,6 +651,7 @@ model PswProfile {
   languages             String
   serviceAreas          String                 @map("service_areas")
   availabilityJson      Json?                  @map("availability_json")
+  providerType          String                 @default("PSW") @map("provider_type")
   isApproved            Boolean                @default(false) @map("is_approved")
   approvedAt            DateTime?              @map("approved_at")
   trustScore            Int                    @default(100) @map("trust_score")
@@ -661,17 +662,17 @@ model PswProfile {
   address               String?
   avatarUrl             String?                @map("avatar_url")
   skills                String
-  messageThreads        MessageThread[]        @relation("PswToThreads")
-  availability          PswAvailability[]      @relation("PswToAvailability")
-  documents             PswDocument[]          @relation("PswToDocuments")
+  messageThreads        MessageThread[]        @relation("ProviderToThreads")
+  availability          ProviderAvailability[] @relation("ProviderToAvailability")
+  documents             ProviderDocument[]     @relation("ProviderToDocuments")
   tenant                Tenant                 @relation(fields: [tenantId], references: [id])
   user                  User                   @relation(fields: [userId], references: [id])
-  assignments           ShiftAssignment[]      @relation("PswToAssignments")
-  timesheets            Timesheet[]            @relation("PswToTimesheets")
-  checkEvents           VisitCheckEvent[]      @relation("PswToCheckEvents")
-  checklists            VisitChecklist[]       @relation("PswToChecklists")
-  notes                 VisitNote[]            @relation("PswToNotes")
-  assignedVisits        Visit[]                @relation("PswToVisits")
+  assignments           ShiftAssignment[]      @relation("ProviderToAssignments")
+  timesheets            Timesheet[]            @relation("ProviderToTimesheets")
+  checkEvents           VisitCheckEvent[]      @relation("ProviderToCheckEvents")
+  checklists            VisitChecklist[]       @relation("ProviderToChecklists")
+  notes                 VisitNote[]            @relation("ProviderToNotes")
+  assignedVisits        Visit[]                @relation("ProviderToVisits")
   handovers             ShiftHandover[]
   overrides             AvailabilityOverride[]
   payouts               Payout[]
@@ -682,7 +683,7 @@ model PswProfile {
   performanceReviews    PerformanceReview[]
 
   @@index([tenantId])
-  @@map("psw_profiles")
+  @@map("provider_profiles")
 }
 
 model Visit {
@@ -694,7 +695,7 @@ model Visit {
   recurrenceRuleString String?            @map("recurrence_rule_string")
   recurrenceEndDate    DateTime?          @map("recurrence_end_date")
   status               String?            @default("requested")
-  assignedPswId        String?            @map("assigned_psw_id")
+  assignedProviderId   String?            @map("assigned_provider_id")
   serviceAddressLine1  String?            @map("service_address_line1")
   serviceAddressLine2  String?            @map("service_address_line2")
   serviceCity          String?            @map("service_city")
@@ -724,7 +725,7 @@ model Visit {
   notes                VisitNote[]
   feedbacks            Feedback[]
   matches              VisitMatch[]
-  psw                  PswProfile?        @relation("PswToVisits", fields: [assignedPswId], references: [id])
+  psw                  ProviderProfile?   @relation("ProviderToVisits", fields: [assignedProviderId], references: [id])
   booking              Booking?           @relation(fields: [bookingId], references: [id])
   client               ClientProfile      @relation(fields: [clientId], references: [id])
   service              Service            @relation(fields: [serviceId], references: [id])
@@ -735,7 +736,7 @@ model Visit {
 
   @@index([tenantId])
   @@index([tenantId, status])
-  @@index([tenantId, assignedPswId])
+  @@index([tenantId, assignedProviderId])
   @@index([tenantId, requestedStartAt])
   @@map("visits")
 }
@@ -761,52 +762,52 @@ model Service {
 }
 
 model VisitCheckEvent {
-  id                String     @id @default(uuid())
-  visitId           String     @map("visit_id")
-  pswId             String     @map("psw_id")
-  eventType         String     @map("event_type")
+  id                String          @id @default(uuid())
+  visitId           String          @map("visit_id")
+  providerId        String          @map("provider_id")
+  eventType         String          @map("event_type")
   lat               Float?
   lng               Float?
-  accuracyM         Float?     @map("accuracy_m")
-  computedDistanceM Float?     @map("computed_distance_m")
-  deviceTimeIso     DateTime?  @map("device_time_iso")
-  serverTime        DateTime?  @default(now()) @map("server_time")
+  accuracyM         Float?          @map("accuracy_m")
+  computedDistanceM Float?          @map("computed_distance_m")
+  deviceTimeIso     DateTime?       @map("device_time_iso")
+  serverTime        DateTime?       @default(now()) @map("server_time")
   result            String
-  rejectReason      String?    @map("reject_reason")
-  isOverride        Boolean?   @default(false) @map("is_override")
-  overrideByUserId  String?    @map("override_by_user_id")
-  overrideReason    String?    @map("override_reason")
-  createdAt         DateTime   @default(now()) @map("created_at")
-  tenantId          String     @map("tenant_id")
-  overriddenBy      User?      @relation(fields: [overrideByUserId], references: [id])
-  pswProfile        PswProfile @relation("PswToCheckEvents", fields: [pswId], references: [id])
-  tenant            Tenant     @relation(fields: [tenantId], references: [id])
-  visit             Visit      @relation(fields: [visitId], references: [id])
+  rejectReason      String?         @map("reject_reason")
+  isOverride        Boolean?        @default(false) @map("is_override")
+  overrideByUserId  String?         @map("override_by_user_id")
+  overrideReason    String?         @map("override_reason")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  tenantId          String          @map("tenant_id")
+  overriddenBy      User?           @relation(fields: [overrideByUserId], references: [id])
+  providerProfile   ProviderProfile @relation("ProviderToCheckEvents", fields: [providerId], references: [id])
+  tenant            Tenant          @relation(fields: [tenantId], references: [id])
+  visit             Visit           @relation(fields: [visitId], references: [id])
 
   @@index([tenantId])
   @@map("visit_check_events")
 }
 
 model VisitNote {
-  id        String     @id @default(uuid())
-  visitId   String     @map("visit_id")
-  pswId     String     @map("psw_id")
-  noteText  String     @map("note_text")
-  createdAt DateTime   @default(now()) @map("created_at")
-  psw       PswProfile @relation("PswToNotes", fields: [pswId], references: [id])
-  visit     Visit      @relation(fields: [visitId], references: [id])
+  id         String          @id @default(uuid())
+  visitId    String          @map("visit_id")
+  providerId String          @map("provider_id")
+  noteText   String          @map("note_text")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  psw        ProviderProfile @relation("ProviderToNotes", fields: [providerId], references: [id])
+  visit      Visit           @relation(fields: [visitId], references: [id])
 
   @@map("visit_notes")
 }
 
 model VisitChecklist {
-  id        String     @id @default(uuid())
-  visitId   String     @map("visit_id")
-  pswId     String     @map("psw_id")
-  checklist Json       @map("checklist_json")
-  createdAt DateTime   @default(now()) @map("created_at")
-  psw       PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])
-  visit     Visit      @relation(fields: [visitId], references: [id])
+  id         String          @id @default(uuid())
+  visitId    String          @map("visit_id")
+  providerId String          @map("provider_id")
+  checklist  Json            @map("checklist_json")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  psw        ProviderProfile @relation("ProviderToChecklists", fields: [providerId], references: [id])
+  visit      Visit           @relation(fields: [visitId], references: [id])
 
   @@map("visit_checklists")
 }
@@ -880,35 +881,35 @@ model Booking {
   @@map("bookings")
 }
 
-model PswAvailability {
-  id        String     @id @default(uuid())
-  pswId     String     @map("psw_id")
-  dayOfWeek Int        @map("day_of_week")
-  startTime String     @map("start_time")
-  endTime   String     @map("end_time")
-  tenantId  String     @map("tenant_id")
-  psw       PswProfile @relation("PswToAvailability", fields: [pswId], references: [id])
-  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+model ProviderAvailability {
+  id         String          @id @default(uuid())
+  providerId String          @map("provider_id")
+  dayOfWeek  Int             @map("day_of_week")
+  startTime  String          @map("start_time")
+  endTime    String          @map("end_time")
+  tenantId   String          @map("tenant_id")
+  psw        ProviderProfile @relation("ProviderToAvailability", fields: [providerId], references: [id])
+  tenant     Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
-  @@map("psw_availability")
+  @@map("provider_availability")
 }
 
-model PswDocument {
-  id         String     @id @default(uuid())
-  pswId      String     @map("psw_id")
-  docType    String     @map("doc_type")
-  fileKey    String     @map("file_key")
-  status     String?    @default("pending")
-  expiryDate DateTime?  @map("expiry_date")
-  verifiedBy String?    @map("verified_by")
-  verifiedAt DateTime?  @map("verified_at")
-  createdAt  DateTime   @default(now()) @map("created_at")
-  updatedAt  DateTime   @updatedAt @map("updated_at")
-  psw        PswProfile @relation("PswToDocuments", fields: [pswId], references: [id])
-  verifier   User?      @relation("VerifiedBy", fields: [verifiedBy], references: [id])
+model ProviderDocument {
+  id         String          @id @default(uuid())
+  providerId String          @map("provider_id")
+  docType    String          @map("doc_type")
+  fileKey    String          @map("file_key")
+  status     String?         @default("pending")
+  expiryDate DateTime?       @map("expiry_date")
+  verifiedBy String?         @map("verified_by")
+  verifiedAt DateTime?       @map("verified_at")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
+  psw        ProviderProfile @relation("ProviderToDocuments", fields: [providerId], references: [id])
+  verifier   User?           @relation("VerifiedBy", fields: [verifiedBy], references: [id])
 
-  @@map("psw_documents")
+  @@map("provider_documents")
 }
 
 // ==========================================
@@ -916,16 +917,16 @@ model PswDocument {
 // ==========================================
 
 model ShiftAssignment {
-  id         String     @id @default(uuid())
-  visitId    String     @map("visit_id")
-  pswId      String     @map("psw_id")
-  status     String     @default("offered")
+  id         String          @id @default(uuid())
+  visitId    String          @map("visit_id")
+  providerId String          @map("provider_id")
+  status     String          @default("offered")
   score      Float?
-  assignedAt DateTime   @default(now()) @map("assigned_at")
-  tenantId   String     @map("tenant_id")
-  psw        PswProfile @relation("PswToAssignments", fields: [pswId], references: [id])
-  tenant     Tenant     @relation(fields: [tenantId], references: [id])
-  visit      Visit      @relation(fields: [visitId], references: [id])
+  assignedAt DateTime        @default(now()) @map("assigned_at")
+  tenantId   String          @map("tenant_id")
+  psw        ProviderProfile @relation("ProviderToAssignments", fields: [providerId], references: [id])
+  tenant     Tenant          @relation(fields: [tenantId], references: [id])
+  visit      Visit           @relation(fields: [visitId], references: [id])
 
   @@index([tenantId])
   @@index([tenantId, status])
@@ -934,7 +935,7 @@ model ShiftAssignment {
 
 model Timesheet {
   id           String          @id @default(uuid())
-  pswId        String          @map("psw_id")
+  providerId   String          @map("provider_id")
   weekId       String          @map("week_id")
   totalMinutes Int?            @default(0) @map("total_minutes")
   status       String?         @default("draft")
@@ -945,7 +946,7 @@ model Timesheet {
   updatedAt    DateTime        @updatedAt @map("updated_at")
   tenantId     String          @map("tenant_id")
   items        TimesheetItem[]
-  psw          PswProfile      @relation("PswToTimesheets", fields: [pswId], references: [id])
+  psw          ProviderProfile @relation("ProviderToTimesheets", fields: [providerId], references: [id])
   reviewer     User?           @relation("ReviewedBy", fields: [reviewedBy], references: [id])
   tenant       Tenant          @relation(fields: [tenantId], references: [id])
 
@@ -967,7 +968,7 @@ model TimesheetItem {
 
 model ShiftHandover {
   id             String   @id @default(uuid())
-  pswId          String   @map("psw_id")
+  providerId     String   @map("provider_id")
   visitId        String   @map("visit_id")
   tenantId       String   @map("tenant_id")
   handoverNotes  String   @map("handover_notes")
@@ -975,9 +976,9 @@ model ShiftHandover {
   suppliesNeeded String?  @map("supplies_needed")
   createdAt      DateTime @default(now()) @map("created_at")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  visit  Visit      @relation(fields: [visitId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  visit  Visit           @relation(fields: [visitId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("shift_handovers")
@@ -985,32 +986,32 @@ model ShiftHandover {
 
 model AvailabilityOverride {
   id          String   @id @default(uuid())
-  pswId       String   @map("psw_id")
+  providerId  String   @map("provider_id")
   tenantId    String   @map("tenant_id")
   date        DateTime
   startTime   String   @map("start_time")
   endTime     String   @map("end_time")
   isAvailable Boolean  @default(true) @map("is_available")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
-  @@map("psw_availability_overrides")
+  @@map("provider_availability_overrides")
 }
 
 model VisitMatch {
-  id        String   @id @default(uuid())
-  visitId   String   @map("visit_id")
-  pswId     String   @map("psw_id")
-  score     Float
-  status    String   @default("pending") // pending, rejected, accepted
-  createdAt DateTime @default(now()) @map("created_at")
-  tenantId  String   @map("tenant_id")
+  id         String   @id @default(uuid())
+  visitId    String   @map("visit_id")
+  providerId String   @map("provider_id")
+  score      Float
+  status     String   @default("pending") // pending, rejected, accepted
+  createdAt  DateTime @default(now()) @map("created_at")
+  tenantId   String   @map("tenant_id")
 
-  visit  Visit      @relation(fields: [visitId], references: [id])
-  psw    PswProfile @relation("VisitMatches", fields: [pswId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  visit  Visit           @relation(fields: [visitId], references: [id])
+  psw    ProviderProfile @relation("VisitMatches", fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("visit_matches")
@@ -1107,15 +1108,15 @@ model BookingRequest {
 }
 
 model FleetStatus {
-  id              String     @id @default(uuid())
-  pswId           String     @unique @map("psw_id")
+  id              String          @id @default(uuid())
+  providerId      String          @unique @map("provider_id")
   lat             Float?
   lng             Float?
-  status          String     @default("available") // available, en_route, on_site, offline
-  batteryLevel    Int?       @map("battery_level")
-  lastHeartbeatAt DateTime   @default(now()) @map("last_heartbeat_at")
-  currentVisitId  String?    @map("current_visit_id")
-  psw             PswProfile @relation(fields: [pswId], references: [id])
+  status          String          @default("available") // available, en_route, on_site, offline
+  batteryLevel    Int?            @map("battery_level")
+  lastHeartbeatAt DateTime        @default(now()) @map("last_heartbeat_at")
+  currentVisitId  String?         @map("current_visit_id")
+  psw             ProviderProfile @relation(fields: [providerId], references: [id])
 
   @@map("fleet_status")
 }
@@ -1205,7 +1206,7 @@ model MedicationRecon {
 
 model SupervisionLog {
   id             String   @id @default(uuid())
-  pswId          String   @map("psw_id")
+  providerId     String   @map("provider_id")
   rnId           String   @map("rn_id")
   tenantId       String   @map("tenant_id")
   competencies   String
@@ -1213,9 +1214,9 @@ model SupervisionLog {
   feedback       String?
   createdAt      DateTime @default(now()) @map("created_at")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  rn     User       @relation(fields: [rnId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  rn     User            @relation(fields: [rnId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("supervision_logs")
@@ -1344,7 +1345,7 @@ model MAR_Entry {
 model EVVRecord {
   id                 String   @id @default(uuid())
   visitId            String   @map("visit_id")
-  pswId              String   @map("psw_id")
+  providerId         String   @map("provider_id")
   checkType          String   @map("check_type") // check_in, check_out
   lat                Float?
   lng                Float?
@@ -1361,7 +1362,7 @@ model EVVRecord {
 
   @@index([tenantId])
   @@index([visitId])
-  @@index([pswId])
+  @@index([providerId])
   @@map("evv_records")
 }
 
@@ -1430,19 +1431,19 @@ model DailyAuditSignOff {
 }
 
 model WellnessPulse {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  pswId     String?  @map("psw_id")
-  tenantId  String   @map("tenant_id")
-  status    String // great, okay, struggling, burnout
-  score     Int?     @default(5) // 1-10 wellness score
-  note      String?
-  createdAt DateTime @default(now()) @map("created_at")
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  providerId String?  @map("provider_id")
+  tenantId   String   @map("tenant_id")
+  status     String // great, okay, struggling, burnout
+  score      Int?     @default(5) // 1-10 wellness score
+  note       String?
+  createdAt  DateTime @default(now()) @map("created_at")
 
   user   User   @relation(fields: [userId], references: [id])
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
-  @@index([pswId])
+  @@index([providerId])
   @@index([tenantId])
   @@map("wellness_pulses")
 }
@@ -1532,7 +1533,7 @@ model BillingCode {
 
 model Payout {
   id          String    @id @default(uuid())
-  pswId       String    @map("psw_id")
+  providerId  String    @map("provider_id")
   tenantId    String    @map("tenant_id")
   amount      Decimal
   currency    String    @default("CAD")
@@ -1541,8 +1542,8 @@ model Payout {
   processedAt DateTime? @map("processed_at")
   createdAt   DateTime  @default(now()) @map("created_at")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("payouts")
@@ -1550,7 +1551,7 @@ model Payout {
 
 model MileageLog {
   id                  String   @id @default(uuid())
-  pswId               String   @map("psw_id")
+  providerId          String   @map("provider_id")
   date                DateTime
   fromVisitId         String?  @map("from_visit_id")
   toVisitId           String?  @map("to_visit_id")
@@ -1564,11 +1565,11 @@ model MileageLog {
   createdAt           DateTime @default(now()) @map("created_at")
   tenantId            String   @map("tenant_id")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
-  @@index([pswId])
+  @@index([providerId])
   @@map("mileage_logs")
 }
 
@@ -1760,7 +1761,7 @@ model TrainingModule {
 
 model TrainingAssignment {
   id          String         @id @default(uuid())
-  pswId       String?        @map("psw_id")
+  providerId  String?        @map("provider_id")
   staffId     String?        @map("staff_id")
   moduleId    String         @map("module_id")
   status      String         @default("assigned") // assigned, completed
@@ -2132,7 +2133,7 @@ model FamilyMember {
 
 model PerformanceReview {
   id             String    @id @default(uuid())
-  pswId          String    @map("psw_id")
+  providerId     String    @map("provider_id")
   reviewerId     String    @map("reviewer_id")
   periodStart    DateTime  @map("period_start")
   periodEnd      DateTime  @map("period_end")
@@ -2148,12 +2149,12 @@ model PerformanceReview {
   updatedAt      DateTime  @updatedAt @map("updated_at")
   tenantId       String    @map("tenant_id")
 
-  psw      PswProfile @relation(fields: [pswId], references: [id])
-  reviewer User       @relation("ReviewAuthor", fields: [reviewerId], references: [id])
-  tenant   Tenant     @relation(fields: [tenantId], references: [id])
+  psw      ProviderProfile @relation(fields: [providerId], references: [id])
+  reviewer User            @relation("ReviewAuthor", fields: [reviewerId], references: [id])
+  tenant   Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
-  @@index([pswId])
+  @@index([providerId])
   @@map("performance_reviews")
 }
 
@@ -2351,9 +2352,9 @@ model ScreenFunctionality {
 // ==========================================
 
 // 1. Shift Check-In / Check-Out Form
-model PswShiftLog {
+model ProviderShiftLog {
   id           String    @id @default(uuid())
-  pswId        String    @map("psw_id")
+  providerId   String    @map("provider_id")
   clientId     String    @map("client_id")
   tenantId     String    @map("tenant_id")
   date         DateTime  @default(now())
@@ -2364,21 +2365,21 @@ model PswShiftLog {
   shiftStatus  String    @default("STARTED") // STARTED, COMPLETED, MISSED
   signatureUrl String?   @map("signature_url")
 
-  psw    User          @relation("UserShiftLogs", fields: [pswId], references: [id])
+  psw    User          @relation("UserShiftLogs", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientShiftLogs", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantShiftLogs", fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@index([clientId])
-  @@map("psw_shift_logs")
+  @@map("provider_shift_logs")
 }
 
 // 2. Client Daily Care Log (ADL Record)
 model AdlCareLog {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   hygiene     String? // Bathing / Grooming / Oral care
   dressing    String? // Assistance level
@@ -2391,7 +2392,7 @@ model AdlCareLog {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  psw    User          @relation("UserAdlLogs", fields: [pswId], references: [id])
+  psw    User          @relation("UserAdlLogs", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientAdlLogs", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantAdlLogs", fields: [tenantId], references: [id])
 
@@ -2400,11 +2401,11 @@ model AdlCareLog {
 }
 
 // 3. Vital Signs & Health Monitoring (Dedicated PSW schema)
-model PswVitalSign {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+model ProviderVitalSign {
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   temperature   Float?
   pulse         Int?
@@ -2415,7 +2416,7 @@ model PswVitalSign {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserPswVitals", fields: [pswId], references: [id])
+  psw    User          @relation("UserPswVitals", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientPswVitals", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantPswVitals", fields: [tenantId], references: [id])
 
@@ -2425,10 +2426,10 @@ model PswVitalSign {
 
 // 6. Behavior & Mental Status Notes
 model BehaviorNote {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   mood            String? // Calm / Agitated / Confused
   orientation     String? // Person / Place / Time
@@ -2437,7 +2438,7 @@ model BehaviorNote {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserBehaviorNotes", fields: [pswId], references: [id])
+  psw    User          @relation("UserBehaviorNotes", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientBehaviorNotes", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantBehaviorNotes", fields: [tenantId], references: [id])
 
@@ -2447,10 +2448,10 @@ model BehaviorNote {
 
 // 7. Nutrition & Hydration Record
 model NutritionRecord {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   mealsTakenPct Int?    @map("meals_taken_pct")
   snacks        String?
@@ -2459,7 +2460,7 @@ model NutritionRecord {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserNutrition", fields: [pswId], references: [id])
+  psw    User          @relation("UserNutrition", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientNutrition", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantNutrition", fields: [tenantId], references: [id])
 
@@ -2469,10 +2470,10 @@ model NutritionRecord {
 
 // 8. Mobility & Exercise Log
 model MobilityLog {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   movementType    String? @map("movement_type") // Walk / Transfer / Exercise
   distanceOrDur   String? @map("distance_or_duration")
@@ -2481,7 +2482,7 @@ model MobilityLog {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserMobility", fields: [pswId], references: [id])
+  psw    User          @relation("UserMobility", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientMobility", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantMobility", fields: [tenantId], references: [id])
 
@@ -2491,10 +2492,10 @@ model MobilityLog {
 
 // 9. Infection Control Checklist
 model InfectionControlChecklist {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   handHygieneDone  Boolean @default(false) @map("hand_hygiene_done")
   ppeUsed          Boolean @default(false) @map("ppe_used")
@@ -2503,7 +2504,7 @@ model InfectionControlChecklist {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserInfectionControl", fields: [pswId], references: [id])
+  psw    User          @relation("UserInfectionControl", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientInfectionControl", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantInfectionControl", fields: [tenantId], references: [id])
 
@@ -2513,10 +2514,10 @@ model InfectionControlChecklist {
 
 // 10. Progress Notes (Narrative)
 model NarrativeProgressNote {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   whatWasDone     String  @map("what_was_done") @db.Text
   clientResponse  String  @map("client_response") @db.Text
@@ -2525,7 +2526,7 @@ model NarrativeProgressNote {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserNarrativeNotes", fields: [pswId], references: [id])
+  psw    User          @relation("UserNarrativeNotes", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientNarrativeNotes", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantNarrativeNotes", fields: [tenantId], references: [id])
 
@@ -2535,10 +2536,10 @@ model NarrativeProgressNote {
 
 // 11. Care Plan Follow-Up Form
 model CarePlanFollowUp {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   tasksAssigned  String? @map("tasks_assigned") @db.Text
   tasksCompleted String? @map("tasks_completed") @db.Text
@@ -2547,7 +2548,7 @@ model CarePlanFollowUp {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserCarePlanFollowUp", fields: [pswId], references: [id])
+  psw    User          @relation("UserCarePlanFollowUp", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientCarePlanFollowUp", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantCarePlanFollowUp", fields: [tenantId], references: [id])
 
@@ -2555,42 +2556,9 @@ model CarePlanFollowUp {
   @@map("care_plan_follow_ups")
 }
 
-model Clinic {
-  id              String    @id @default(uuid())
-  name            String
-  location        String
-  patientVolume   Int
-  efficiencyScore Float
-  revenue         Float
-  status          String    @default("ACTIVE")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  patients        Patient[]
-}
+// Domain: d_clients.prisma
 
-model Patient {
-  id        String   @id @default(uuid())
-  firstName String
-  lastName  String
-  age       Int
-  gender    String
-  status    String   @default("ACTIVE") // ACTIVE, DISCHARGED
-  avatarUrl String?
-  clinicId  String
-  clinic    Clinic   @relation(fields: [clinicId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model FinancialRecord {
-  id        String   @id @default(uuid())
-  month     String // e.g. "Jan", "Feb"
-  revenue   Float
-  expenses  Float
-  clinicId  String?
-  createdAt DateTime @default(now())
-}
-
+// 
 // 11_family_portal.prisma
 // Extends the core data model to explicitly support Family App dashboard metrics
 
@@ -2629,34 +2597,121 @@ model FamilyClinicalMessage {
   isRead     Boolean  @default(false)
 }
 
-model PatientIntake {
-  id            String    @id @default(uuid())
+// 
+model Clinic {
+  id              String    @id @default(uuid())
+  name            String
+  location        String
+  patientVolume   Int
+  efficiencyScore Float
+  revenue         Float
+  status          String    @default("ACTIVE")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  patients        Patient[]
+}
+
+model Patient {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  age       Int
+  gender    String
+  status    String   @default("ACTIVE") // ACTIVE, DISCHARGED
+  avatarUrl String?
+  clinicId  String
+  clinic    Clinic   @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FinancialRecord {
+  id        String   @id @default(uuid())
+  month     String // e.g. "Jan", "Feb"
+  revenue   Float
+  expenses  Float
+  clinicId  String?
+  createdAt DateTime @default(now())
+}
+
+// 
+model ClientTrendNode {
+  id            String   @id @default(uuid())
   tenantId      String
-  patientName   String
-  status        String // PENDING, SCHEDULED, IN_PROGRESS, APPROVED, DRAFT
-  priority      String // LOW, MED, HIGH
-  franchiseCity String
-  coordinatorId String?
-  scheduledDate DateTime?
-  scheduledTime String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  monthLabel    String
+  revenueAmount Float
+  apptCount     Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([tenantId])
 }
 
-model IntakeReferralMetric {
+model ClientClinicNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  clinicName    String
+  starRating    Int
+  revenueString String
+  rank          Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClientDemographicNode {
+  id          String   @id @default(uuid())
+  tenantId    String
+  cohortGroup String
+  percentage  Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// 
+model HealthNetRevenueNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  quarterLabel String
+  revenueValue Float
+  grossMargin  Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model HealthNetEfficiencyNode {
   id              String   @id @default(uuid())
   tenantId        String
-  sourceName      String
-  conversionCount Int      @default(0)
-  totalLeads      Int      @default(0)
+  clinicName      String
+  efficiencyScore Float
+  patientsSeen    Int
+  waitTimesAvg    Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
   @@index([tenantId])
 }
 
+model HealthNetNetworkNode {
+  id             String   @id @default(uuid())
+  tenantId       String
+  regionName     String
+  clinicCount    Int
+  demographicCat String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// Domain: d_compliance.prisma
+
+// 
 model JobOpening {
   id               String   @id @default(uuid())
   tenantId         String
@@ -2702,6 +2757,207 @@ model InterviewEvent {
   @@index([tenantId])
 }
 
+// 
+model IncidentReportNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  incidentType String
+  severity     String // Critical, High, Low
+  franchise    String
+  description  String
+  status       String // Open, Under Investigation, Closed
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model AuditLogNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  franchise     String
+  auditDate     DateTime @default(now())
+  auditorName   String
+  score         Float
+  compliancePct Float
+  status        String // Passed, Failed, Warning
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model PatientSatisfactionNode {
+  id        String   @id @default(uuid())
+  tenantId  String
+  franchise String
+  score     Float
+  comments  String?
+  type      String // Commendation, Complaint, Neutral
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// Domain: d_franchise.prisma
+
+// 
+model FranchiseRevenueNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  monthYear     String
+  revenueAmt    Int
+  patientVisits Int
+  growthPct     Float
+  status        String // On Track, At Risk
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClinicPerformanceNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  locationName String
+  managerName  String
+  revenue      String
+  visits       Int
+  growth       String
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model FranchiseBookingNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  patientName     String
+  clinicAssigned  String
+  appointmentType String
+  scheduledTime   String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// 
+model LocalNetworkNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  locationName    String
+  occupancyRate   Float
+  serverLoadScore Float
+  staffActive     Int
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalFinanceNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  monthLabel   String
+  grossRevenue Float
+  netMargin    Float
+  growthYoY    Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalActivityNode {
+  id         String   @id @default(uuid())
+  tenantId   String
+  eventTitle String
+  eventType  String
+  eventTime  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// 
+model LocalMarketingAnalyticNode {
+  id         String   @id @default(uuid())
+  tenantId   String
+  metricType String
+  value      Float
+  growthYoY  Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalCampaignNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  campaignName String
+  managerName  String
+  roiFactor    Float
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalContentNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  assetTitle   String
+  assetType    String
+  deployedDate String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// Domain: d_intake.prisma
+
+// 
+model PatientIntake {
+  id            String    @id @default(uuid())
+  tenantId      String
+  patientName   String
+  status        String // PENDING, SCHEDULED, IN_PROGRESS, APPROVED, DRAFT
+  priority      String // LOW, MED, HIGH
+  franchiseCity String
+  coordinatorId String?
+  scheduledDate DateTime?
+  scheduledTime String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([tenantId])
+}
+
+model IntakeReferralMetric {
+  id              String   @id @default(uuid())
+  tenantId        String
+  sourceName      String
+  conversionCount Int      @default(0)
+  totalLeads      Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// Domain: d_internal.prisma
+
+// 
 model InvoiceRecord {
   id             String   @id @default(uuid())
   tenantId       String
@@ -2747,6 +3003,131 @@ model FinancialGoal {
   @@index([tenantId])
 }
 
+// 
+model PatientAdmissionNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  patientName   String
+  priority      String // Critical, High, Normal
+  condition     String
+  location      String
+  attendingPhys String
+  status        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClinicalShiftNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  providerName String
+  role         String // RN, RPN, PSW
+  startTime    DateTime
+  endTime      DateTime
+  facility     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model MedicalAuditNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  regionCode      String // NY, IL, CA
+  survivalRate    Float
+  readmissionRate Float
+  averageWaitTime Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// 
+model OutreachEventNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  eventName       String
+  location        String
+  scheduledDate   DateTime
+  status          String // Upcoming, Completed, Active
+  participantGoal Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ParticipantMetricNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  metricDate      String
+  totalReached    Int
+  engagementScore Float
+  healthScreened  Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model OutreachBudgetNode {
+  id             String   @id @default(uuid())
+  tenantId       String
+  projectName    String
+  allocatedFunds Int
+  fundsUsed      Int
+  sponsor        String
+  status         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// 
+model SchedulerTrendNode {
+  id        String   @id @default(uuid())
+  tenantId  String
+  dayLabel  String
+  apptCount Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SchedulerRosterNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  providerName String
+  specialty    String
+  shiftTime    String
+  isAvailable  Boolean
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SchedulerFacilityNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  facilityName  String
+  occupancyRate Float
+  status        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// Domain: d_reporting.prisma
+
+// 
 model FacilityNode {
   id           String   @id @default(uuid())
   tenantId     String
@@ -2791,48 +3172,7 @@ model OpsIssueTicket {
   @@index([tenantId])
 }
 
-model IncidentReportNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  incidentType String
-  severity     String // Critical, High, Low
-  franchise    String
-  description  String
-  status       String // Open, Under Investigation, Closed
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model AuditLogNode {
-  id            String   @id @default(uuid())
-  tenantId      String
-  franchise     String
-  auditDate     DateTime @default(now())
-  auditorName   String
-  score         Float
-  compliancePct Float
-  status        String // Passed, Failed, Warning
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model PatientSatisfactionNode {
-  id        String   @id @default(uuid())
-  tenantId  String
-  franchise String
-  score     Float
-  comments  String?
-  type      String // Commendation, Complaint, Neutral
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
+// 
 model SalesDealNode {
   id             String   @id @default(uuid())
   tenantId       String
@@ -2875,6 +3215,7 @@ model RepPerformanceNode {
   @@index([tenantId])
 }
 
+// 
 model MarketingCampaignNode {
   id           String   @id @default(uuid())
   tenantId     String
@@ -2917,48 +3258,9 @@ model ContentAssetNode {
   @@index([tenantId])
 }
 
-model PatientAdmissionNode {
-  id            String   @id @default(uuid())
-  tenantId      String
-  patientName   String
-  priority      String // Critical, High, Normal
-  condition     String
-  location      String
-  attendingPhys String
-  status        String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+// Domain: d_support.prisma
 
-  @@index([tenantId])
-}
-
-model ClinicalShiftNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  providerName String
-  role         String // RN, RPN, PSW
-  startTime    DateTime
-  endTime      DateTime
-  facility     String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model MedicalAuditNode {
-  id              String   @id @default(uuid())
-  tenantId        String
-  regionCode      String // NY, IL, CA
-  survivalRate    Float
-  readmissionRate Float
-  averageWaitTime Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
+// 
 model SupportTicketNode {
   id            String   @id @default(uuid())
   tenantId      String
@@ -3000,205 +3302,7 @@ model SystemTelemetryNode {
   @@index([tenantId])
 }
 
-model CurriculumNode {
-  id            String   @id @default(uuid())
-  tenantId      String
-  programName   String
-  department    String
-  status        String
-  completionPct Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model InstructorNode {
-  id              String   @id @default(uuid())
-  tenantId        String
-  facilitatorName String
-  assignedCourse  String
-  status          String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model CertificationNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  staffName    String
-  clinicalRole String
-  certName     String
-  expiresAt    DateTime
-  status       String // Compliant, Expiring, Expired
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model FranchiseRevenueNode {
-  id            String   @id @default(uuid())
-  tenantId      String
-  monthYear     String
-  revenueAmt    Int
-  patientVisits Int
-  growthPct     Float
-  status        String // On Track, At Risk
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model ClinicPerformanceNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  locationName String
-  managerName  String
-  revenue      String
-  visits       Int
-  growth       String
-  status       String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model FranchiseBookingNode {
-  id              String   @id @default(uuid())
-  tenantId        String
-  patientName     String
-  clinicAssigned  String
-  appointmentType String
-  scheduledTime   String
-  status          String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model OutreachEventNode {
-  id              String   @id @default(uuid())
-  tenantId        String
-  eventName       String
-  location        String
-  scheduledDate   DateTime
-  status          String // Upcoming, Completed, Active
-  participantGoal Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model ParticipantMetricNode {
-  id              String   @id @default(uuid())
-  tenantId        String
-  metricDate      String
-  totalReached    Int
-  engagementScore Float
-  healthScreened  Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model OutreachBudgetNode {
-  id             String   @id @default(uuid())
-  tenantId       String
-  projectName    String
-  allocatedFunds Int
-  fundsUsed      Int
-  sponsor        String
-  status         String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model LocalNetworkNode {
-  id              String   @id @default(uuid())
-  tenantId        String
-  locationName    String
-  occupancyRate   Float
-  serverLoadScore Float
-  staffActive     Int
-  status          String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model LocalFinanceNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  monthLabel   String
-  grossRevenue Float
-  netMargin    Float
-  growthYoY    Float
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model LocalActivityNode {
-  id         String   @id @default(uuid())
-  tenantId   String
-  eventTitle String
-  eventType  String
-  eventTime  String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model LocalMarketingAnalyticNode {
-  id         String   @id @default(uuid())
-  tenantId   String
-  metricType String
-  value      Float
-  growthYoY  Float
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model LocalCampaignNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  campaignName String
-  managerName  String
-  roiFactor    Float
-  status       String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model LocalContentNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  assetTitle   String
-  assetType    String
-  deployedDate String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
+// 
 model SupportAgentNode {
   id            String   @id @default(uuid())
   tenantId      String
@@ -3236,111 +3340,44 @@ model ResolutionFeedbackNode {
   @@index([tenantId])
 }
 
-model ClientTrendNode {
+// Domain: d_training.prisma
+
+// 
+model CurriculumNode {
   id            String   @id @default(uuid())
   tenantId      String
-  monthLabel    String
-  revenueAmount Float
-  apptCount     Int
+  programName   String
+  department    String
+  status        String
+  completionPct Int
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   @@index([tenantId])
 }
 
-model ClientClinicNode {
-  id            String   @id @default(uuid())
-  tenantId      String
-  clinicName    String
-  starRating    Int
-  revenueString String
-  rank          Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model ClientDemographicNode {
-  id          String   @id @default(uuid())
-  tenantId    String
-  cohortGroup String
-  percentage  Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model HealthNetRevenueNode {
-  id           String   @id @default(uuid())
-  tenantId     String
-  quarterLabel String
-  revenueValue Float
-  grossMargin  Float
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model HealthNetEfficiencyNode {
+model InstructorNode {
   id              String   @id @default(uuid())
   tenantId        String
-  clinicName      String
-  efficiencyScore Float
-  patientsSeen    Int
-  waitTimesAvg    Int
+  facilitatorName String
+  assignedCourse  String
+  status          String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
   @@index([tenantId])
 }
 
-model HealthNetNetworkNode {
-  id             String   @id @default(uuid())
-  tenantId       String
-  regionName     String
-  clinicCount    Int
-  demographicCat String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model SchedulerTrendNode {
-  id        String   @id @default(uuid())
-  tenantId  String
-  dayLabel  String
-  apptCount Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model SchedulerRosterNode {
+model CertificationNode {
   id           String   @id @default(uuid())
   tenantId     String
-  providerName String
-  specialty    String
-  shiftTime    String
-  isAvailable  Boolean
+  staffName    String
+  clinicalRole String
+  certName     String
+  expiresAt    DateTime
+  status       String // Compliant, Expiring, Expired
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model SchedulerFacilityNode {
-  id            String   @id @default(uuid())
-  tenantId      String
-  facilityName  String
-  occupancyRate Float
-  status        String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
 
   @@index([tenantId])
 }

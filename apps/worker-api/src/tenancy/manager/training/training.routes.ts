@@ -12,7 +12,7 @@ const assignRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.object({
-                        moduleId: z.string(), pswId: z.string().optional(), staffId: z.string().optional(),
+                        moduleId: z.string(), providerId: z.string().optional(), staffId: z.string().optional(),
                     })
                 }
             }
@@ -30,7 +30,7 @@ trainingAdmin.openapi(assignRoute, async (c) => {
     const body = c.req.valid('json');
 
     const assignment = await prisma.trainingAssignment.create({
-        data: { moduleId: body.moduleId, pswId: body.pswId, staffId: body.staffId, status: 'assigned' },
+        data: { moduleId: body.moduleId, providerId: body.providerId, staffId: body.staffId, status: 'assigned' },
     });
 
     return c.json({ id: assignment.id }, 200);

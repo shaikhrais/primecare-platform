@@ -83,7 +83,7 @@ model MedicationRecon {
 
 model SupervisionLog {
   id             String   @id @default(uuid())
-  pswId          String   @map("psw_id")
+  providerId     String   @map("provider_id")
   rnId           String   @map("rn_id")
   tenantId       String   @map("tenant_id")
   competencies   String
@@ -91,9 +91,9 @@ model SupervisionLog {
   feedback       String?
   createdAt      DateTime @default(now()) @map("created_at")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  rn     User       @relation(fields: [rnId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  rn     User            @relation(fields: [rnId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("supervision_logs")
@@ -222,7 +222,7 @@ model MAR_Entry {
 model EVVRecord {
   id                 String   @id @default(uuid())
   visitId            String   @map("visit_id")
-  pswId              String   @map("psw_id")
+  providerId         String   @map("provider_id")
   checkType          String   @map("check_type") // check_in, check_out
   lat                Float?
   lng                Float?
@@ -239,7 +239,7 @@ model EVVRecord {
 
   @@index([tenantId])
   @@index([visitId])
-  @@index([pswId])
+  @@index([providerId])
   @@map("evv_records")
 }
 
@@ -308,19 +308,19 @@ model DailyAuditSignOff {
 }
 
 model WellnessPulse {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  pswId     String?  @map("psw_id")
-  tenantId  String   @map("tenant_id")
-  status    String // great, okay, struggling, burnout
-  score     Int?     @default(5) // 1-10 wellness score
-  note      String?
-  createdAt DateTime @default(now()) @map("created_at")
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  providerId String?  @map("provider_id")
+  tenantId   String   @map("tenant_id")
+  status     String // great, okay, struggling, burnout
+  score      Int?     @default(5) // 1-10 wellness score
+  note       String?
+  createdAt  DateTime @default(now()) @map("created_at")
 
   user   User   @relation(fields: [userId], references: [id])
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
-  @@index([pswId])
+  @@index([providerId])
   @@index([tenantId])
   @@map("wellness_pulses")
 }

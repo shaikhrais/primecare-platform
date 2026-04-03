@@ -8,7 +8,7 @@
 
 interface NoteContext {
     date: string;
-    pswId: string;
+    providerId: string;
     content: string;
 }
 
@@ -19,11 +19,11 @@ export class WeeklyLLMSummary {
      */
     private static async fetchWeeklyContext(patientId: string): Promise<NoteContext[]> {
         return [
-            { date: 'Mon', pswId: 'psw_1', content: 'Patient was tired, refused lunch but drank Ensure. Vitals stable.' },
-            { date: 'Tue', pswId: 'psw_2', content: 'Great day, participated in bingo. Slight complaint of lower back ache.' },
-            { date: 'Wed', pswId: 'psw_1', content: 'Back ache persists, but mobility is fine. Ate 100% of dinner.' },
-            { date: 'Thu', pswId: 'psw_1', content: 'Shower routine completed safely. No redness on skin.' },
-            { date: 'Fri', pswId: 'psw_3', content: 'Quiet morning. Enjoyed watching television in the common room.' },
+            { date: 'Mon', providerId: 'psw_1', content: 'Patient was tired, refused lunch but drank Ensure. Vitals stable.' },
+            { date: 'Tue', providerId: 'psw_2', content: 'Great day, participated in bingo. Slight complaint of lower back ache.' },
+            { date: 'Wed', providerId: 'psw_1', content: 'Back ache persists, but mobility is fine. Ate 100% of dinner.' },
+            { date: 'Thu', providerId: 'psw_1', content: 'Shower routine completed safely. No redness on skin.' },
+            { date: 'Fri', providerId: 'psw_3', content: 'Quiet morning. Enjoyed watching television in the common room.' },
         ];
     }
 

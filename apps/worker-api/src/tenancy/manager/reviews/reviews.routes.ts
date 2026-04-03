@@ -12,7 +12,7 @@ const listRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.array(z.object({
-                        id: z.string(), pswId: z.string(), overallRating: z.number().nullable(),
+                        id: z.string(), providerId: z.string(), overallRating: z.number().nullable(),
                         status: z.string(), periodStart: z.string(), periodEnd: z.string(),
                     }))
                 }
@@ -46,7 +46,7 @@ const createRoute2 = createRoute({
             content: {
                 'application/json': {
                     schema: z.object({
-                        pswId: z.string(), periodStart: z.string(), periodEnd: z.string(),
+                        providerId: z.string(), periodStart: z.string(), periodEnd: z.string(),
                         overallRating: z.number().min(1).max(5).optional(),
                         strengths: z.string().optional(), improvements: z.string().optional(),
                         notes: z.string().optional(),
@@ -70,7 +70,7 @@ reviews.openapi(createRoute2, async (c) => {
 
     const review = await prisma.performanceReview.create({
         data: {
-            pswId: body.pswId, reviewerId,
+            providerId: body.providerId, reviewerId,
             periodStart: new Date(body.periodStart), periodEnd: new Date(body.periodEnd),
             overallRating: body.overallRating, strengths: body.strengths,
             improvements: body.improvements, notes: body.notes,
@@ -80,10 +80,10 @@ reviews.openapi(createRoute2, async (c) => {
     return c.json(review, 200);
 });
 
-// GET /kpi/:pswId — PSW KPIs
+// GET /kpi/:providerId — PSW KPIs
 const kpiRoute = createRoute({
-    method: 'get', path: '/kpi/{pswId}', summary: 'PSW KPI Home', tags: ['Reviews'],
-    request: { params: z.object({ pswId: z.string() }) },
+    method: 'get', path: '/kpi/{providerId}', summary: 'PSW KPI Home', tags: ['Reviews'],
+    request: { params: z.object({ providerId: z.string() }) },
     responses: {
         200: {
             content: {
@@ -103,16 +103,16 @@ const kpiRoute = createRoute({
 reviews.openapi(kpiRoute, async (c) => {
     const prisma = c.get('prisma');
     const tenantId = (c.get('jwtPayload') as any).tenantId;
-    const { pswId } = c.req.valid('param');
+    const { providerId } = c.req.valid('param');
 
     const [visits, incidents, feedbacks, checkEvents] = await Promise.all([
-        prisma.visit.count({ where: { assignedPswId: pswId } }),
-        prisma.incident.count({ where: { reporterUserId: pswId, tenantId } }),
+        prisma.visit.count({ where: { assignedProviderId: providerId } }),
+        prisma.incident.count({ where: { reporterUserId: providerId, tenantId } }),
         prisma.feedback.findMany({ where: { tenantId } }),
-        prisma.visitCheckEvent.findMany({ where: { pswId, eventType: 'check_in' } }),
+        prisma.visitCheckEvent.findMany({ where: { providerId, eventType: 'check_in' } }),
     ]);
 
-    const completedVisits = await prisma.visit.count({ where: { assignedPswId: pswId, status: 'completed' } });
+    const completedVisits = await prisma.visit.count({ where: { assignedProviderId: providerId, status: 'completed' } });
     const avgSatisfaction = feedbacks.length > 0 ? feedbacks.reduce((s: number, f: any) => s + f.rating, 0) / feedbacks.length : 0;
 
     // On-time: check-in within 15 min of scheduled time

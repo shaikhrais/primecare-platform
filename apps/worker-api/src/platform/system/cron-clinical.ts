@@ -52,10 +52,10 @@ export async function processHandoverDigest(prisma: any) {
 }
 
 export async function processSupervisionScheduling(prisma: any) {
-  const pswProfiles = await prisma.pswProfile.findMany({ include: { user: true } });
-  for (const psw of pswProfiles) {
-    const visitCount = await prisma.visit.count({ where: { pswId: psw.id, status: "completed" } });
-    const latestSup = await prisma.supervisionLog.findFirst({ where: { pswId: psw.id }, orderBy: { createdAt: "desc" } });
+  const providerProfiles = await prisma.providerProfile.findMany({ include: { user: true } });
+  for (const psw of providerProfiles) {
+    const visitCount = await prisma.visit.count({ where: { providerId: psw.id, status: "completed" } });
+    const latestSup = await prisma.supervisionLog.findFirst({ where: { providerId: psw.id }, orderBy: { createdAt: "desc" } });
     if (visitCount > 50 && !latestSup && psw.user?.tenantId) {
       const headRn = await prisma.user.findFirst({ where: { tenantId: psw.user.tenantId, role: "rn" } });
       if (headRn) {
@@ -93,7 +93,7 @@ export async function processSentimentAnalysis(prisma: any, longNotes: any[]) {
         await prisma.appNotification.create({
           data: { userId: rnManager.id, tenantId: note.visit?.tenantId, type: "critical",
             title: "SENTIMENT DRIFT WARNING",
-            message: `Automated semantics sweep detected burnout indicators in a VisitNote by PSW ${note.visit?.psw?.user?.fullName || note.visit?.assignedPswId}. A clinical SupervisionLog is highly recommended.` },
+            message: `Automated semantics sweep detected burnout indicators in a VisitNote by PSW ${note.visit?.psw?.user?.fullName || note.visit?.assignedProviderId}. A clinical SupervisionLog is highly recommended.` },
         });
         sentimentFlags++;
       }
@@ -106,7 +106,7 @@ export async function processPeerMatching(prisma: any) {
   let peerMatches = 0;
   const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
   const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  const juniorPsws = await prisma.pswProfile.findMany({ where: { createdAt: { gt: ninetyDaysAgo } }, include: { user: true } });
+  const juniorPsws = await prisma.providerProfile.findMany({ where: { createdAt: { gt: ninetyDaysAgo } }, include: { user: true } });
   for (const junior of juniorPsws) {
     if (!junior.user?.tenantId) continue;
     const existingMatch = await prisma.systemEvent.findFirst({ where: { operation: "MENTORSHIP_MATCH", entityId: junior.id } });
@@ -119,7 +119,7 @@ export async function processPeerMatching(prisma: any) {
             message: `Welcome to PrimeCare! We've paired you with RN ${veteranRn.fullName} for clinical guidance and support.` },
         });
         await prisma.systemEvent.create({
-          data: { tenantId: junior.user.tenantId, operation: "MENTORSHIP_MATCH", modelName: "PswProfile", entityId: junior.id, payload: `Matched with RN ${veteranRn.id}` },
+          data: { tenantId: junior.user.tenantId, operation: "MENTORSHIP_MATCH", modelName: "ProviderProfile", entityId: junior.id, payload: `Matched with RN ${veteranRn.id}` },
         });
         peerMatches++;
       }

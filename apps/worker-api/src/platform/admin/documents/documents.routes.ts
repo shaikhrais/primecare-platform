@@ -31,8 +31,8 @@ documents.openapi(listRoute, async (c) => {
 
     const where: any = {};
     if (userId) {
-        const psw = await prisma.pswProfile.findUnique({ where: { userId } });
-        if (psw) where.pswId = psw.id;
+        const psw = await prisma.providerProfile.findUnique({ where: { userId } });
+        if (psw) where.providerId = psw.id;
     }
     if (type) where.docType = type;
 
@@ -99,7 +99,7 @@ const uploadRoute = createRoute({
                 'application/json': {
                     schema: z.object({
                         fileName: z.string(), docType: z.string(), contentType: z.string().optional(),
-                        pswId: z.string().optional(), clientId: z.string().optional(),
+                        providerId: z.string().optional(), clientId: z.string().optional(),
                     })
                 }
             }
@@ -129,10 +129,10 @@ documents.openapi(uploadRoute, async (c) => {
 
     // Create document record (status: pending until verified)
     let doc: any;
-    if (body.pswId) {
+    if (body.providerId) {
         doc = await prisma.pswDocument.create({
             data: {
-                pswId: body.pswId, docType: body.docType,
+                providerId: body.providerId, docType: body.docType,
                 fileKey, status: 'pending',
             },
         });

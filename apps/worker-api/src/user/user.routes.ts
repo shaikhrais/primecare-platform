@@ -41,7 +41,7 @@ user.openapi(createRoute({
             email: true,
             roles: true,
             clientProfile: { select: { fullName: true } },
-            pswProfile: { select: { fullName: true } }
+            providerProfile: { select: { fullName: true } }
         }
     });
     
@@ -50,7 +50,7 @@ user.openapi(createRoute({
         id: c.id,
         email: c.email,
         roles: c.roles,
-        displayName: c.clientProfile?.fullName || c.pswProfile?.fullName || c.email.split('@')[0]
+        displayName: c.clientProfile?.fullName || c.providerProfile?.fullName || c.email.split('@')[0]
     }));
 
     return c.json(directory, 200);

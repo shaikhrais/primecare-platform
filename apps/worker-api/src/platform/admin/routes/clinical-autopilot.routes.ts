@@ -61,7 +61,7 @@ r.openapi(runAutoPilotRoute, async (c) => {
                     gte: now,
                     lte: next48Hours
                 },
-                assignedPswId: null
+                assignedProviderId: null
             },
             include: {
                 assignments: true // to check if we already offered it
@@ -78,8 +78,8 @@ r.openapi(runAutoPilotRoute, async (c) => {
 
             // 2. Find eligible active PSWs in this tenant
             // Simplified matching logic: Active, has matching skills 
-            // In a real scenario, this would check `PswAvailability` and overlapping `ShiftAssignment`.
-            const eligiblePsws = await prisma.pswProfile.findMany({
+            // In a real scenario, this would check `ProviderAvailability` and overlapping `ShiftAssignment`.
+            const eligiblePsws = await prisma.providerProfile.findMany({
                 where: {
                     tenantId: user.tenantId,
                     isApproved: true,
@@ -99,7 +99,7 @@ r.openapi(runAutoPilotRoute, async (c) => {
                 await prisma.shiftAssignment.create({
                     data: {
                         visitId: visit.id,
-                        pswId: psw.id,
+                        providerId: psw.id,
                         tenantId: user.tenantId,
                         status: 'offered',
                         score: confidence 
@@ -109,7 +109,7 @@ r.openapi(runAutoPilotRoute, async (c) => {
                 await prisma.aIInference.create({
                     data: {
                         modelName: 'clinical_autopilot_matcher',
-                        predictionData: JSON.stringify({ visitId: visit.id, pswId: psw.id }),
+                        predictionData: JSON.stringify({ visitId: visit.id, providerId: psw.id }),
                         confidenceScore: confidence,
                         userId: psw.id
                     }

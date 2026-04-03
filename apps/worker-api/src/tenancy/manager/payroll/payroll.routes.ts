@@ -75,7 +75,7 @@ r.openapi(approvePayrollBatchRoute, async (c) => {
 
             const payout = await tx.payout.create({
                 data: {
-                    pswId: timesheet.pswId,
+                    providerId: timesheet.providerId,
                     tenantId,
                     amount,
                     currency: 'CAD',

@@ -6,7 +6,10 @@ class DioClient {
   late Dio _dio;
 
   DioClient() {
-    final baseUrl = dotenv.env['API_URL'] ?? 'https://primecare-api.itpro-mohammed.workers.dev';
+    String baseUrl = dotenv.env['API_URL'] ?? 'https://primecare-api.itpro-mohammed.workers.dev';
+    if (!baseUrl.endsWith('/v1')) {
+      baseUrl = '$baseUrl/v1';
+    }
     
     _dio = Dio(
       BaseOptions(

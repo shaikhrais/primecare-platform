@@ -56,7 +56,7 @@ const approveRoute = createRoute({
                 'application/json': {
                     schema: z.object({
                         serviceId: z.string(), durationMinutes: z.number().optional(),
-                        assignedPswId: z.string().optional(),
+                        assignedProviderId: z.string().optional(),
                     })
                 }
             }
@@ -84,8 +84,8 @@ bookingApproval.openapi(approveRoute, async (c) => {
             clientId: request.clientId, serviceId: body.serviceId, tenantId,
             requestedStartAt: request.preferredDate,
             durationMinutes: body.durationMinutes || 60,
-            status: body.assignedPswId ? 'assigned' : 'requested',
-            assignedPswId: body.assignedPswId || null,
+            status: body.assignedProviderId ? 'assigned' : 'requested',
+            assignedProviderId: body.assignedProviderId || null,
             clientNotes: request.notes || '',
         },
     });

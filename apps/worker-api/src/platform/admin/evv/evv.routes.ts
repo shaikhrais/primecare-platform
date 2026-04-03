@@ -12,7 +12,7 @@ const listRoute = createRoute({
         query: z.object({
             startDate: z.string().optional(),
             endDate: z.string().optional(),
-            pswId: z.string().optional(),
+            providerId: z.string().optional(),
             status: z.string().optional(),
         }),
     },
@@ -21,7 +21,7 @@ const listRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.array(z.object({
-                        id: z.string(), visitId: z.string(), pswId: z.string(),
+                        id: z.string(), visitId: z.string(), providerId: z.string(),
                         checkType: z.string(), verificationMethod: z.string(),
                         status: z.string(), capturedAt: z.string(),
                     }))
@@ -39,7 +39,7 @@ evv.openapi(listRoute, async (c) => {
     const query = c.req.valid('query');
 
     const where: any = { tenantId };
-    if (query.pswId) where.pswId = query.pswId;
+    if (query.providerId) where.providerId = query.providerId;
     if (query.status) where.status = query.status;
     if (query.startDate || query.endDate) {
         where.capturedAt = {};
@@ -188,9 +188,9 @@ evv.openapi(exportRoute, async (c) => {
     });
 
     if (format === 'csv') {
-        const header = 'id,visitId,pswId,checkType,lat,lng,verificationMethod,status,capturedAt\n';
+        const header = 'id,visitId,providerId,checkType,lat,lng,verificationMethod,status,capturedAt\n';
         const rows = records.map((r: any) =>
-            `${r.id},${r.visitId},${r.pswId},${r.checkType},${r.lat},${r.lng},${r.verificationMethod},${r.status},${r.capturedAt.toISOString()}`
+            `${r.id},${r.visitId},${r.providerId},${r.checkType},${r.lat},${r.lng},${r.verificationMethod},${r.status},${r.capturedAt.toISOString()}`
         ).join('\n');
         return new Response(header + rows, {
             headers: { 'Content-Type': 'text/csv', 'Content-Disposition': 'attachment; filename=evv-export.csv' },

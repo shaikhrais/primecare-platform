@@ -22,7 +22,7 @@ r.openapi(getTelemetryHealthRoute, async (c) => {
     const [totalVisits, openIncidents, unassignedShifts, totalLedgerEntries] = await Promise.all([
         prisma.visit.count({ where: { tenantId } }),
         prisma.incident.count({ where: { tenantId, status: { not: 'resolved' } } }),
-        prisma.visit.count({ where: { tenantId, assignedPswId: null } }),
+        prisma.visit.count({ where: { tenantId, assignedProviderId: null } }),
         prisma.transactionLedger.count({ where: { tenantId } })
     ]);
 

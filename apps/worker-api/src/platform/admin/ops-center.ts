@@ -51,7 +51,7 @@ export const opsCenterRoute = createRoute({
                             message: z.string(),
                             timestamp: z.string(),
                             visitId: z.string().optional(),
-                            pswId: z.string().optional(),
+                            providerId: z.string().optional(),
                         })),
                     }),
                 },
@@ -176,13 +176,13 @@ export async function handleOpsCenter(c: any) {
                     message: `${v.psw?.fullName || 'PSW'} is ${minsLate}min late for ${v.client?.fullName || 'client'} visit`,
                     timestamp: now.toISOString(),
                     visitId: v.id,
-                    pswId: v.assignedPswId,
+                    providerId: v.assignedProviderId,
                 });
             }
         });
 
         // Unassigned visit alerts
-        activeVisitRows.filter((v: any) => !v.assignedPswId).forEach((v: any) => {
+        activeVisitRows.filter((v: any) => !v.assignedProviderId).forEach((v: any) => {
             alerts.push({
                 id: `unassigned-${v.id}`,
                 type: 'unassigned',
@@ -201,7 +201,7 @@ export async function handleOpsCenter(c: any) {
                 severity: f.batteryLevel < 10 ? 'critical' : 'warning',
                 message: `${f.name}'s device battery is at ${f.batteryLevel}%`,
                 timestamp: now.toISOString(),
-                pswId: f.id,
+                providerId: f.id,
             });
         });
 

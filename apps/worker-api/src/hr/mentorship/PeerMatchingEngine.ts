@@ -20,7 +20,7 @@ export class PeerMatchingEngine {
      * Executes fetching the current caregiver roster.
      */
     private static async getCaregiverRoster(prisma: any): Promise<CaregiverData[]> {
-        const profiles = await prisma?.pswProfile?.findMany() || [];
+        const profiles = await prisma?.providerProfile?.findMany() || [];
         
         return profiles.map((p: any, idx: number) => ({
             workerId: p.tenantId,

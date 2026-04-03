@@ -60,7 +60,7 @@ model TrainingModule {
 
 model TrainingAssignment {
   id          String         @id @default(uuid())
-  pswId       String?        @map("psw_id")
+  providerId  String?        @map("provider_id")
   staffId     String?        @map("staff_id")
   moduleId    String         @map("module_id")
   status      String         @default("assigned") // assigned, completed
@@ -432,7 +432,7 @@ model FamilyMember {
 
 model PerformanceReview {
   id             String    @id @default(uuid())
-  pswId          String    @map("psw_id")
+  providerId     String    @map("provider_id")
   reviewerId     String    @map("reviewer_id")
   periodStart    DateTime  @map("period_start")
   periodEnd      DateTime  @map("period_end")
@@ -448,12 +448,12 @@ model PerformanceReview {
   updatedAt      DateTime  @updatedAt @map("updated_at")
   tenantId       String    @map("tenant_id")
 
-  psw      PswProfile @relation(fields: [pswId], references: [id])
-  reviewer User       @relation("ReviewAuthor", fields: [reviewerId], references: [id])
-  tenant   Tenant     @relation(fields: [tenantId], references: [id])
+  psw      ProviderProfile @relation(fields: [providerId], references: [id])
+  reviewer User            @relation("ReviewAuthor", fields: [reviewerId], references: [id])
+  tenant   Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
-  @@index([pswId])
+  @@index([providerId])
   @@map("performance_reviews")
 }
 

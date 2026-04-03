@@ -9,10 +9,10 @@ export async function processComplianceSync(prisma: any) {
   let complianceMetricsProcessed = 0;
   const activeTenants = await prisma.tenant.findMany();
   for (const tenant of activeTenants) {
-    const totalPsws = await prisma.pswProfile.count({ where: { tenantId: tenant?.id } });
+    const totalPsws = await prisma.providerProfile.count({ where: { tenantId: tenant?.id } });
     const verifiedDocs = await prisma.pswDocument.count({ where: { psw: { tenantId: tenant?.id }, status: "verified" } });
     await prisma.systemEvent.create({
-      data: { tenantId: tenant?.id, operation: "COMPLIANCE_SYNC", modelName: "PswDocument", entityId: tenant?.id,
+      data: { tenantId: tenant?.id, operation: "COMPLIANCE_SYNC", modelName: "ProviderDocument", entityId: tenant?.id,
         payload: JSON.stringify({ totalPsws, verifiedDocs, timestamp: new Date() }) },
     });
     complianceMetricsProcessed++;

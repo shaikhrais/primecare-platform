@@ -1,0 +1,14 @@
+{
+  "auth": {
+    "login": "Iniciar sesión",
+    "create_account": "Registrarse",
+    "subtitle": "Regístrese como clínico o administrador de empresa.",
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "email": "Correo electrónico",
+    "role": "Rol clínico",
+    "password": "Contraseña",
+    "register": "Registrarse",
+    "already_have_account": "¿Ya tienes una cuenta?"
+  }
+}

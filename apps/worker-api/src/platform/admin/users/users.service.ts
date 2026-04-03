@@ -10,7 +10,7 @@ export class AdminUserService {
                 status: true,
                 createdAt: true,
                 clientProfile: { select: { fullName: true } },
-                pswProfile: { select: { fullName: true, isApproved: true } },
+                providerProfile: { select: { fullName: true, isApproved: true } },
             },
             orderBy: { createdAt: 'desc' },
         });
@@ -20,13 +20,13 @@ export class AdminUserService {
         const user = await this.prisma.user.update({
             where: { id },
             data: { status: 'verified' },
-            include: { pswProfile: true },
+            include: { providerProfile: true },
         });
 
         // Feature 25: Universal Onboarding Assignment
-        if (user.roles?.includes('psw') && user.pswProfile) {
-            await this.prisma.pswProfile.update({
-                where: { id: user.pswProfile.id },
+        if (user.roles?.includes('psw') && user.providerProfile) {
+            await this.prisma.providerProfile.update({
+                where: { id: user.providerProfile.id },
                 data: { isApproved: true }
             });
 
@@ -48,14 +48,14 @@ export class AdminUserService {
                 
                 await this.prisma.trainingAssignment.create({
                     data: {
-                        pswId: user.pswProfile.id,
+                        providerId: user.providerProfile.id,
                         moduleId: moduleRecord.id,
                         status: 'assigned',
                         dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
                     }
                 });
             }
-            console.log(`[UsersService] Feature 25 Fired: Seeded 5 Training Modules for newly verified PSW ${user.pswProfile.id}`);
+            console.log(`[UsersService] Feature 25 Fired: Seeded 5 Training Modules for newly verified PSW ${user.providerProfile.id}`);
         }
 
         return {
@@ -70,7 +70,7 @@ export class AdminUserService {
                 roles: data.roles || ['staff'],
                 status: data.status || 'active',
                 tenantId: data.tenantId || 'system',
-                pswProfile: data.roles.includes('psw') ? {
+                providerProfile: data.roles.includes('psw') ? {
                     create: {
                         fullName: data.fullName,
                         tenantId: data.tenantId || 'system'

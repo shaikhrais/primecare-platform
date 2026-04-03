@@ -130,7 +130,7 @@ auditExport.openapi(regulatoryRoute, async (c) => {
 
     const [clients, staff, totalVisits, completedVisits, incidents, feedbacks, evvValid, evvTotal] = await Promise.all([
         prisma.clientProfile.count({ where: { tenantId, status: 'active' } }),
-        prisma.pswProfile.count({ where: { tenantId } }),
+        prisma.providerProfile.count({ where: { tenantId } }),
         prisma.visit.count({ where: { createdAt: { gte: qStart, lt: qEnd } } }),
         prisma.visit.count({ where: { status: 'completed', createdAt: { gte: qStart, lt: qEnd } } }),
         prisma.incident.count({ where: { tenantId, createdAt: { gte: qStart, lt: qEnd } } }),

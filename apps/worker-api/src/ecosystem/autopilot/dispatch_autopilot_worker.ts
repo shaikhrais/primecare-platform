@@ -34,7 +34,7 @@ export class DispatchAutopilot {
             where: {
                 tenantId,
                 status: 'requested',
-                assignedPswId: null,
+                assignedProviderId: null,
                 requestedStartAt: { lte: fourHoursFromNow }
             }
         });

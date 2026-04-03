@@ -22,8 +22,8 @@ model User {
   DailyEntry         DailyEntry[]
   reportedIncidents  Incident[]          @relation("Reporter")
   sentMessages       Message[]
-  verifiedDocs       PswDocument[]       @relation("VerifiedBy")
-  pswProfile         PswProfile?
+  verifiedDocs       ProviderDocument[]  @relation("VerifiedBy")
+  providerProfile    ProviderProfile?
   reviewedTimesheets Timesheet[]         @relation("ReviewedBy")
   telehealthSessions TelehealthSession[]
   tenant             Tenant              @relation(fields: [tenantId], references: [id])
@@ -49,9 +49,9 @@ model User {
   gamificationProfile        GamificationProfile?
   reputation                 UserReputation?
   DailyActivity              DailyActivity[]
-  shiftCheckIns              PswShiftLog[]               @relation("UserShiftLogs")
+  shiftCheckIns              ProviderShiftLog[]          @relation("UserShiftLogs")
   adlCareLogs                AdlCareLog[]                @relation("UserAdlLogs")
-  pswVitals                  PswVitalSign[]              @relation("UserPswVitals")
+  providerVitals             ProviderVitalSign[]         @relation("UserPswVitals")
   behaviorNotes              BehaviorNote[]              @relation("UserBehaviorNotes")
   nutritionRecords           NutritionRecord[]           @relation("UserNutrition")
   mobilityLogs               MobilityLog[]               @relation("UserMobility")
@@ -64,12 +64,12 @@ model User {
 }
 
 model Tenant {
-  id                   String                @id @default(uuid())
+  id                   String                 @id @default(uuid())
   name                 String
-  slug                 String                @unique
-  status               String                @default("active")
-  createdAt            DateTime              @default(now()) @map("created_at")
-  updatedAt            DateTime              @updatedAt @map("updated_at")
+  slug                 String                 @unique
+  status               String                 @default("active")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
   auditLogs            AuditLog[]
   bookings             Booking[]
   clientProfiles       ClientProfile[]
@@ -77,8 +77,8 @@ model Tenant {
   incidents            Incident[]
   invoices             Invoice[]
   messageThreads       MessageThread[]
-  pswAvailability      PswAvailability[]
-  pswProfiles          PswProfile[]
+  pswAvailability      ProviderAvailability[]
+  providerProfiles     ProviderProfile[]
   services             Service[]
   shiftAssignments     ShiftAssignment[]
   timesheets           Timesheet[]
@@ -181,9 +181,9 @@ model Tenant {
   staffGroups           StaffGroup[]
   platformRoles         PlatformRole[]
   DailyActivity         DailyActivity[]
-  shiftCheckIns         PswShiftLog[]               @relation("TenantShiftLogs")
+  shiftCheckIns         ProviderShiftLog[]          @relation("TenantShiftLogs")
   adlCareLogs           AdlCareLog[]                @relation("TenantAdlLogs")
-  pswVitals             PswVitalSign[]              @relation("TenantPswVitals")
+  providerVitals        ProviderVitalSign[]         @relation("TenantPswVitals")
   behaviorNotes         BehaviorNote[]              @relation("TenantBehaviorNotes")
   nutritionRecords      NutritionRecord[]           @relation("TenantNutrition")
   mobilityLogs          MobilityLog[]               @relation("TenantMobility")
@@ -393,16 +393,16 @@ model RegistryEntry {
 }
 
 model MessageThread {
-  id         String         @id @default(uuid())
-  threadType String         @map("thread_type")
-  clientId   String?        @map("client_id")
-  pswId      String?        @map("psw_id")
-  createdAt  DateTime       @default(now()) @map("created_at")
-  tenantId   String         @map("tenant_id")
+  id         String           @id @default(uuid())
+  threadType String           @map("thread_type")
+  clientId   String?          @map("client_id")
+  providerId String?          @map("provider_id")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  tenantId   String           @map("tenant_id")
   messages   Message[]
-  client     ClientProfile? @relation(fields: [clientId], references: [id])
-  psw        PswProfile?    @relation("PswToThreads", fields: [pswId], references: [id])
-  tenant     Tenant         @relation(fields: [tenantId], references: [id])
+  client     ClientProfile?   @relation(fields: [clientId], references: [id])
+  psw        ProviderProfile? @relation("ProviderToThreads", fields: [providerId], references: [id])
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("messages_threads")

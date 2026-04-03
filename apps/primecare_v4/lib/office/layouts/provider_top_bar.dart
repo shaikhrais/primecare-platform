@@ -7,8 +7,9 @@ import '../../services/auth_service.dart';
 
 class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String role;
+  final bool isMobile;
   
-  const ProviderTopBar({Key? key, required this.role}) : super(key: key);
+  const ProviderTopBar({Key? key, required this.role, this.isMobile = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,24 +37,28 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
           children: [
             // Left Section: Logo, Title, Badge
             const Icon(Icons.health_and_safety, color: Color(0xFF006565), size: 28),
-            const SizedBox(width: 8),
-            const Text(
-              'PrimeCare Provider Portal',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            const SizedBox(width: 12),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: const Color(0xFF006565),
-                borderRadius: BorderRadius.circular(50)
+            if (!isMobile) ...[
+              const SizedBox(width: 8),
+              const Text(
+                'PrimeCare Provider Portal',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              child: Text(
-                mappedRole.toUpperCase(),
-                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12),
+              const SizedBox(width: 12),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF006565),
+                  borderRadius: BorderRadius.circular(50)
+                ),
+                child: Text(
+                  mappedRole.toUpperCase(),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12),
+                ),
               ),
-            ),
-            const SizedBox(width: 32),
+              const SizedBox(width: 32),
+            ] else ...[
+              const SizedBox(width: 16),
+            ],
 
             // Center Section: Global Search
             Expanded(
@@ -80,28 +85,30 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
       ),
       actions: [
         // Right Section
-        IconButton(
-          icon: const Badge(child: Icon(Icons.notifications_outlined)),
-          tooltip: 'Notifications',
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: const Badge(child: Icon(Icons.chat_bubble_outline)),
-          tooltip: 'Messages',
-          onPressed: () {},
-        ),
-        
-        // Quick Add Component
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: RoleQuickActionsMenu(role: mappedRole),
-        ),
+        if (!isMobile) ...[
+          IconButton(
+            icon: const Badge(child: Icon(Icons.notifications_outlined)),
+            tooltip: 'Notifications',
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Badge(child: Icon(Icons.chat_bubble_outline)),
+            tooltip: 'Messages',
+            onPressed: () {},
+          ),
+          
+          // Quick Add Component
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: RoleQuickActionsMenu(role: mappedRole),
+          ),
 
-        IconButton(
-          icon: const Icon(Icons.help_outline),
-          tooltip: 'Help / Policy',
-          onPressed: () {},
-        ),
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            tooltip: 'Help / Policy',
+            onPressed: () {},
+          ),
+        ],
 
         // Profile Menu Component
         PopupMenuButton<String>(

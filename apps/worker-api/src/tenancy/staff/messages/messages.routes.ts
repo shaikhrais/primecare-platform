@@ -82,7 +82,7 @@ r.openapi(auditChatsRoute, async (c) => {
     }
 
     const threads = await prisma.messageThread.findMany({
-        where: { OR: [{ clientId: targetUserId }, { pswId: targetUserId }] },
+        where: { OR: [{ clientId: targetUserId }, { providerId: targetUserId }] },
         include: { messages: true, client: { select: { id: true, fullName: true } } }
     });
 

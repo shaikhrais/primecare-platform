@@ -1,0 +1,14 @@
+{
+  "auth": {
+    "login": "Log In",
+    "create_account": "Create Account",
+    "subtitle": "Register as a clinician or enterprise admin.",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email Address",
+    "role": "Clinical Role",
+    "password": "Password",
+    "register": "Register",
+    "already_have_account": "Already have an account?"
+  }
+}

@@ -85,7 +85,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       GoRoute(path: AppRoutes.login, builder: (context, state) => const LoginScreen()),
-      GoRoute(path: AppRoutes.signup, builder: (context, state) => const SignUpScreen()),
+      GoRoute(path: AppRoutes.signup, builder: (context, state) => const SignupScreen()),
       GoRoute(path: AppRoutes.forgotPassword, builder: (context, state) => const ForgotPasswordScreen()),
       
       ShellRoute(

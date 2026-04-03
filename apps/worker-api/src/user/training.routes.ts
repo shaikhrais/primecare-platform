@@ -66,9 +66,9 @@ sharedTraining.openapi(progressRoute, async (c) => {
     const userId = (c.get('jwtPayload') as any).sub;
 
     // Check for PSW profile
-    const psw = await prisma.pswProfile.findUnique({ where: { userId } });
+    const psw = await prisma.providerProfile.findUnique({ where: { userId } });
     const where: any = {};
-    if (psw) where.pswId = psw.id;
+    if (psw) where.providerId = psw.id;
     else where.staffId = userId; // Fallback to staffId
 
     const assignments = await prisma.trainingAssignment.findMany({

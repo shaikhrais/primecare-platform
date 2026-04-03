@@ -14,7 +14,7 @@ const VisitParamsSchema = z.object({
 
 const AssignPswSchema = z.object({
     visitId: z.string().uuid(),
-    pswId: z.string().uuid(),
+    providerId: z.string().uuid(),
 });
 
 // POST /assign
@@ -49,17 +49,17 @@ const assignPswRoute = createRoute({
 
 r.openapi(assignPswRoute, async (c) => {
     const prisma = c.get('prisma');
-    const { visitId, pswId } = c.req.valid('json');
+    const { visitId, providerId } = c.req.valid('json');
     const payload = c.get('jwtPayload');
 
-    const psw = await prisma.pswProfile.findUnique({ where: { id: pswId } });
+    const psw = await prisma.providerProfile.findUnique({ where: { id: providerId } });
     if (!psw) return c.json({ error: 'PSW not found' }, 404);
 
     const [visit] = await prisma.$transaction([
         prisma.visit.update({
             where: { id: visitId },
             data: {
-                assignedPswId: pswId,
+                assignedProviderId: providerId,
                 status: 'scheduled',
             },
         }),
@@ -69,7 +69,7 @@ r.openapi(assignPswRoute, async (c) => {
                 action: 'ASSIGN_PSW',
                 resourceType: 'VISIT',
                 resourceId: visitId,
-                metadata: JSON.stringify({ pswId }),
+                metadata: JSON.stringify({ providerId }),
                 tenantId: payload.tenantId
             }
         })

@@ -4,7 +4,7 @@ import { handlePending, handleBatchApprove, handleRun, handleSummary } from './p
 
 const payroll = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-const pendingRoute = createRoute({ method: 'get', path: '/pending', summary: 'List timesheets pending approval', tags: ['Payroll'], request: { query: z.object({ weekId: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), pswId: z.string(), pswName: z.string(), weekId: z.string(), totalMinutes: z.number(), status: z.string() })) } }, description: 'Pending timesheets' },
+const pendingRoute = createRoute({ method: 'get', path: '/pending', summary: 'List timesheets pending approval', tags: ['Payroll'], request: { query: z.object({ weekId: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), providerId: z.string(), pswName: z.string(), weekId: z.string(), totalMinutes: z.number(), status: z.string() })) } }, description: 'Pending timesheets' },
     '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
     '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
 } });

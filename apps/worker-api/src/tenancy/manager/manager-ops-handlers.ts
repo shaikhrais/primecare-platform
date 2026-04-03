@@ -8,7 +8,7 @@ export async function handleStats(c: any) {
     const tenantId = c.get('jwtPayload').tenantId;
     const [activeClients, activeProviders, paidInvoices] = await Promise.all([
         prisma.clientProfile.count({ where: { tenantId } }),
-        prisma.pswProfile.count({ where: { tenantId } }),
+        prisma.providerProfile.count({ where: { tenantId } }),
         prisma.invoice.findMany({ where: { tenantId, status: 'paid' }, select: { total: true } })
     ]);
     const revenue = paidInvoices.reduce((acc: number, inv: any) => acc + Number(inv.total || 0), 0);
@@ -55,7 +55,7 @@ export async function handleLogisticsBoard(c: any) {
     const tenantId = c.get('jwtPayload').tenantId;
     const [unassignedShifts, availableStaff] = await Promise.all([
         prisma.visit.findMany({ where: { tenantId, status: 'posted' }, include: { client: true, service: true }, take: 20 }),
-        prisma.pswProfile.findMany({ where: { tenantId, isApproved: true }, include: { user: true }, take: 10 })
+        prisma.providerProfile.findMany({ where: { tenantId, isApproved: true }, include: { user: true }, take: 10 })
     ]);
     const formattedShifts = unassignedShifts.map((visit: any) => {
         const durationHours = visit.durationMinutes ? (visit.durationMinutes / 60).toFixed(1) : '1.0';
@@ -75,7 +75,7 @@ export async function handleGetIncidents(c: any) {
 export async function handleGetLocations(c: any) {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
-    const psws = await prisma.pswProfile.findMany({ where: { user: { tenantId } }, select: { id: true, fullName: true, isOnline: true }, take: 30 });
+    const psws = await prisma.providerProfile.findMany({ where: { user: { tenantId } }, select: { id: true, fullName: true, isOnline: true }, take: 30 });
     const locations = psws.map((psw: any) => ({ id: psw.id, name: psw.fullName, x: Math.random() * 90 + 5, y: Math.random() * 90 + 5, status: psw.isOnline ? 'on-time' : 'delayed' }));
     return c.json(locations, 200);
 }
@@ -117,13 +117,13 @@ export async function handleAuthorizeCrisisPay(c: any) {
     const { visitId } = c.req.valid('param');
     const tenantId = c.get('jwtPayload').tenantId;
     const visit = await prisma.visit.findUnique({ where: { id: visitId, tenantId }, include: { service: true } });
-    if (!visit || !visit.assignedPswId) return c.json({ error: 'Visit is not assigned to a PSW.' }, 404);
+    if (!visit || !visit.assignedProviderId) return c.json({ error: 'Visit is not assigned to a PSW.' }, 404);
     const targetSurgeMultiplier = 1.5;
     const baseAmount = visit.service?.hourlyRate || 25;
     const crisisBonusAmount = (baseAmount * targetSurgeMultiplier) - baseAmount;
     const [updatedVisit, retroactivePayout] = await prisma.$transaction([
         prisma.visit.update({ where: { id: visitId }, data: { isSurgeActive: true, surgeMultiplier: targetSurgeMultiplier } }),
-        prisma.payout.create({ data: { pswId: visit.assignedPswId, amount: crisisBonusAmount, currency: 'CAD', status: 'pending', notes: `Retroactive Crisis Pay Authorization for Visit ${visitId}` } }),
+        prisma.payout.create({ data: { providerId: visit.assignedProviderId, amount: crisisBonusAmount, currency: 'CAD', status: 'pending', notes: `Retroactive Crisis Pay Authorization for Visit ${visitId}` } }),
         prisma.auditLog.create({ data: { actorUserId: c.get('jwtPayload').sub, action: 'AUTHORIZE_CRISIS_PAY', resourceType: 'VISIT', resourceId: visitId, metadata: JSON.stringify({ surgeMultiplier: targetSurgeMultiplier, bonusAmount: crisisBonusAmount }), tenantId } })
     ]);
     console.log(`[Worker] Feature 20 Fired: Retroactive Crisis Pay authorized for Visit ${visitId}. Payout ${retroactivePayout.id} queued.`);

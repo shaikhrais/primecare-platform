@@ -29,7 +29,7 @@ export const requireClientAssignedToPSW = async (c: Context<{ Bindings: Bindings
     const assignment = await prisma.visit.findFirst({
         where: {
             clientId: clientId,
-            assignedPswId: user.sub,
+            assignedProviderId: user.sub,
             tenantId: user.tenantId,
         },
         select: { id: true }

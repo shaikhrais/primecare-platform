@@ -316,7 +316,7 @@ exports.Prisma.MessageThreadScalarFieldEnum = {
   id: 'id',
   threadType: 'threadType',
   clientId: 'clientId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   createdAt: 'createdAt',
   tenantId: 'tenantId'
 };
@@ -454,7 +454,7 @@ exports.Prisma.ClientProfileScalarFieldEnum = {
   franchiseId: 'franchiseId'
 };
 
-exports.Prisma.PswProfileScalarFieldEnum = {
+exports.Prisma.ProviderProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   fullName: 'fullName',
@@ -462,6 +462,7 @@ exports.Prisma.PswProfileScalarFieldEnum = {
   languages: 'languages',
   serviceAreas: 'serviceAreas',
   availabilityJson: 'availabilityJson',
+  providerType: 'providerType',
   isApproved: 'isApproved',
   approvedAt: 'approvedAt',
   trustScore: 'trustScore',
@@ -483,7 +484,7 @@ exports.Prisma.VisitScalarFieldEnum = {
   recurrenceRuleString: 'recurrenceRuleString',
   recurrenceEndDate: 'recurrenceEndDate',
   status: 'status',
-  assignedPswId: 'assignedPswId',
+  assignedProviderId: 'assignedProviderId',
   serviceAddressLine1: 'serviceAddressLine1',
   serviceAddressLine2: 'serviceAddressLine2',
   serviceCity: 'serviceCity',
@@ -523,7 +524,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
 exports.Prisma.VisitCheckEventScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   eventType: 'eventType',
   lat: 'lat',
   lng: 'lng',
@@ -543,7 +544,7 @@ exports.Prisma.VisitCheckEventScalarFieldEnum = {
 exports.Prisma.VisitNoteScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   noteText: 'noteText',
   createdAt: 'createdAt'
 };
@@ -551,7 +552,7 @@ exports.Prisma.VisitNoteScalarFieldEnum = {
 exports.Prisma.VisitChecklistScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   checklist: 'checklist',
   createdAt: 'createdAt'
 };
@@ -604,18 +605,18 @@ exports.Prisma.BookingScalarFieldEnum = {
   tenantId: 'tenantId'
 };
 
-exports.Prisma.PswAvailabilityScalarFieldEnum = {
+exports.Prisma.ProviderAvailabilityScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   dayOfWeek: 'dayOfWeek',
   startTime: 'startTime',
   endTime: 'endTime',
   tenantId: 'tenantId'
 };
 
-exports.Prisma.PswDocumentScalarFieldEnum = {
+exports.Prisma.ProviderDocumentScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   docType: 'docType',
   fileKey: 'fileKey',
   status: 'status',
@@ -629,7 +630,7 @@ exports.Prisma.PswDocumentScalarFieldEnum = {
 exports.Prisma.ShiftAssignmentScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   status: 'status',
   score: 'score',
   assignedAt: 'assignedAt',
@@ -638,7 +639,7 @@ exports.Prisma.ShiftAssignmentScalarFieldEnum = {
 
 exports.Prisma.TimesheetScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   weekId: 'weekId',
   totalMinutes: 'totalMinutes',
   status: 'status',
@@ -660,7 +661,7 @@ exports.Prisma.TimesheetItemScalarFieldEnum = {
 
 exports.Prisma.ShiftHandoverScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   visitId: 'visitId',
   tenantId: 'tenantId',
   handoverNotes: 'handoverNotes',
@@ -671,7 +672,7 @@ exports.Prisma.ShiftHandoverScalarFieldEnum = {
 
 exports.Prisma.AvailabilityOverrideScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   tenantId: 'tenantId',
   date: 'date',
   startTime: 'startTime',
@@ -682,7 +683,7 @@ exports.Prisma.AvailabilityOverrideScalarFieldEnum = {
 exports.Prisma.VisitMatchScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   score: 'score',
   status: 'status',
   createdAt: 'createdAt',
@@ -747,7 +748,7 @@ exports.Prisma.BookingRequestScalarFieldEnum = {
 
 exports.Prisma.FleetStatusScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   lat: 'lat',
   lng: 'lng',
   status: 'status',
@@ -809,7 +810,7 @@ exports.Prisma.MedicationReconScalarFieldEnum = {
 
 exports.Prisma.SupervisionLogScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   rnId: 'rnId',
   tenantId: 'tenantId',
   competencies: 'competencies',
@@ -906,7 +907,7 @@ exports.Prisma.MAR_EntryScalarFieldEnum = {
 exports.Prisma.EVVRecordScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   checkType: 'checkType',
   lat: 'lat',
   lng: 'lng',
@@ -966,7 +967,7 @@ exports.Prisma.DailyAuditSignOffScalarFieldEnum = {
 exports.Prisma.WellnessPulseScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  pswId: 'pswId',
+  providerId: 'providerId',
   tenantId: 'tenantId',
   status: 'status',
   score: 'score',
@@ -1030,7 +1031,7 @@ exports.Prisma.BillingCodeScalarFieldEnum = {
 
 exports.Prisma.PayoutScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   tenantId: 'tenantId',
   amount: 'amount',
   currency: 'currency',
@@ -1042,7 +1043,7 @@ exports.Prisma.PayoutScalarFieldEnum = {
 
 exports.Prisma.MileageLogScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   date: 'date',
   fromVisitId: 'fromVisitId',
   toVisitId: 'toVisitId',
@@ -1178,7 +1179,7 @@ exports.Prisma.TrainingModuleScalarFieldEnum = {
 
 exports.Prisma.TrainingAssignmentScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   staffId: 'staffId',
   moduleId: 'moduleId',
   status: 'status',
@@ -1443,7 +1444,7 @@ exports.Prisma.FamilyMemberScalarFieldEnum = {
 
 exports.Prisma.PerformanceReviewScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   reviewerId: 'reviewerId',
   periodStart: 'periodStart',
   periodEnd: 'periodEnd',
@@ -1582,9 +1583,9 @@ exports.Prisma.ScreenFunctionalityScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PswShiftLogScalarFieldEnum = {
+exports.Prisma.ProviderShiftLogScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   date: 'date',
@@ -1598,7 +1599,7 @@ exports.Prisma.PswShiftLogScalarFieldEnum = {
 
 exports.Prisma.AdlCareLogScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   hygiene: 'hygiene',
@@ -1612,9 +1613,9 @@ exports.Prisma.AdlCareLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.PswVitalSignScalarFieldEnum = {
+exports.Prisma.ProviderVitalSignScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   temperature: 'temperature',
@@ -1628,7 +1629,7 @@ exports.Prisma.PswVitalSignScalarFieldEnum = {
 
 exports.Prisma.BehaviorNoteScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   mood: 'mood',
@@ -1640,7 +1641,7 @@ exports.Prisma.BehaviorNoteScalarFieldEnum = {
 
 exports.Prisma.NutritionRecordScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   mealsTakenPct: 'mealsTakenPct',
@@ -1652,7 +1653,7 @@ exports.Prisma.NutritionRecordScalarFieldEnum = {
 
 exports.Prisma.MobilityLogScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   movementType: 'movementType',
@@ -1664,7 +1665,7 @@ exports.Prisma.MobilityLogScalarFieldEnum = {
 
 exports.Prisma.InfectionControlChecklistScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   handHygieneDone: 'handHygieneDone',
@@ -1676,7 +1677,7 @@ exports.Prisma.InfectionControlChecklistScalarFieldEnum = {
 
 exports.Prisma.NarrativeProgressNoteScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   whatWasDone: 'whatWasDone',
@@ -1688,7 +1689,7 @@ exports.Prisma.NarrativeProgressNoteScalarFieldEnum = {
 
 exports.Prisma.CarePlanFollowUpScalarFieldEnum = {
   id: 'id',
-  pswId: 'pswId',
+  providerId: 'providerId',
   clientId: 'clientId',
   tenantId: 'tenantId',
   tasksAssigned: 'tasksAssigned',
@@ -1696,40 +1697,6 @@ exports.Prisma.CarePlanFollowUpScalarFieldEnum = {
   notCompleted: 'notCompleted',
   reasonNotDone: 'reasonNotDone',
   recordedAt: 'recordedAt'
-};
-
-exports.Prisma.ClinicScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  location: 'location',
-  patientVolume: 'patientVolume',
-  efficiencyScore: 'efficiencyScore',
-  revenue: 'revenue',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.PatientScalarFieldEnum = {
-  id: 'id',
-  firstName: 'firstName',
-  lastName: 'lastName',
-  age: 'age',
-  gender: 'gender',
-  status: 'status',
-  avatarUrl: 'avatarUrl',
-  clinicId: 'clinicId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.FinancialRecordScalarFieldEnum = {
-  id: 'id',
-  month: 'month',
-  revenue: 'revenue',
-  expenses: 'expenses',
-  clinicId: 'clinicId',
-  createdAt: 'createdAt'
 };
 
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
@@ -1767,26 +1734,97 @@ exports.Prisma.FamilyClinicalMessageScalarFieldEnum = {
   isRead: 'isRead'
 };
 
-exports.Prisma.PatientIntakeScalarFieldEnum = {
+exports.Prisma.ClinicScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
-  patientName: 'patientName',
+  name: 'name',
+  location: 'location',
+  patientVolume: 'patientVolume',
+  efficiencyScore: 'efficiencyScore',
+  revenue: 'revenue',
   status: 'status',
-  priority: 'priority',
-  franchiseCity: 'franchiseCity',
-  coordinatorId: 'coordinatorId',
-  scheduledDate: 'scheduledDate',
-  scheduledTime: 'scheduledTime',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.IntakeReferralMetricScalarFieldEnum = {
+exports.Prisma.PatientScalarFieldEnum = {
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  age: 'age',
+  gender: 'gender',
+  status: 'status',
+  avatarUrl: 'avatarUrl',
+  clinicId: 'clinicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FinancialRecordScalarFieldEnum = {
+  id: 'id',
+  month: 'month',
+  revenue: 'revenue',
+  expenses: 'expenses',
+  clinicId: 'clinicId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ClientTrendNodeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  sourceName: 'sourceName',
-  conversionCount: 'conversionCount',
-  totalLeads: 'totalLeads',
+  monthLabel: 'monthLabel',
+  revenueAmount: 'revenueAmount',
+  apptCount: 'apptCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClientClinicNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  clinicName: 'clinicName',
+  starRating: 'starRating',
+  revenueString: 'revenueString',
+  rank: 'rank',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClientDemographicNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  cohortGroup: 'cohortGroup',
+  percentage: 'percentage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HealthNetRevenueNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  quarterLabel: 'quarterLabel',
+  revenueValue: 'revenueValue',
+  grossMargin: 'grossMargin',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HealthNetEfficiencyNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  clinicName: 'clinicName',
+  efficiencyScore: 'efficiencyScore',
+  patientsSeen: 'patientsSeen',
+  waitTimesAvg: 'waitTimesAvg',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HealthNetNetworkNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  regionName: 'regionName',
+  clinicCount: 'clinicCount',
+  demographicCat: 'demographicCat',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1830,6 +1868,167 @@ exports.Prisma.InterviewEventScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.IncidentReportNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  incidentType: 'incidentType',
+  severity: 'severity',
+  franchise: 'franchise',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AuditLogNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  franchise: 'franchise',
+  auditDate: 'auditDate',
+  auditorName: 'auditorName',
+  score: 'score',
+  compliancePct: 'compliancePct',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PatientSatisfactionNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  franchise: 'franchise',
+  score: 'score',
+  comments: 'comments',
+  type: 'type',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FranchiseRevenueNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  monthYear: 'monthYear',
+  revenueAmt: 'revenueAmt',
+  patientVisits: 'patientVisits',
+  growthPct: 'growthPct',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClinicPerformanceNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  locationName: 'locationName',
+  managerName: 'managerName',
+  revenue: 'revenue',
+  visits: 'visits',
+  growth: 'growth',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FranchiseBookingNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  patientName: 'patientName',
+  clinicAssigned: 'clinicAssigned',
+  appointmentType: 'appointmentType',
+  scheduledTime: 'scheduledTime',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocalNetworkNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  locationName: 'locationName',
+  occupancyRate: 'occupancyRate',
+  serverLoadScore: 'serverLoadScore',
+  staffActive: 'staffActive',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocalFinanceNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  monthLabel: 'monthLabel',
+  grossRevenue: 'grossRevenue',
+  netMargin: 'netMargin',
+  growthYoY: 'growthYoY',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocalActivityNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  eventTitle: 'eventTitle',
+  eventType: 'eventType',
+  eventTime: 'eventTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocalMarketingAnalyticNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  metricType: 'metricType',
+  value: 'value',
+  growthYoY: 'growthYoY',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocalCampaignNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  campaignName: 'campaignName',
+  managerName: 'managerName',
+  roiFactor: 'roiFactor',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocalContentNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  assetTitle: 'assetTitle',
+  assetType: 'assetType',
+  deployedDate: 'deployedDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PatientIntakeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  patientName: 'patientName',
+  status: 'status',
+  priority: 'priority',
+  franchiseCity: 'franchiseCity',
+  coordinatorId: 'coordinatorId',
+  scheduledDate: 'scheduledDate',
+  scheduledTime: 'scheduledTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IntakeReferralMetricScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  sourceName: 'sourceName',
+  conversionCount: 'conversionCount',
+  totalLeads: 'totalLeads',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.InvoiceRecordScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1869,6 +2068,107 @@ exports.Prisma.FinancialGoalScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PatientAdmissionNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  patientName: 'patientName',
+  priority: 'priority',
+  condition: 'condition',
+  location: 'location',
+  attendingPhys: 'attendingPhys',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClinicalShiftNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  providerName: 'providerName',
+  role: 'role',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  facility: 'facility',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MedicalAuditNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  regionCode: 'regionCode',
+  survivalRate: 'survivalRate',
+  readmissionRate: 'readmissionRate',
+  averageWaitTime: 'averageWaitTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OutreachEventNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  eventName: 'eventName',
+  location: 'location',
+  scheduledDate: 'scheduledDate',
+  status: 'status',
+  participantGoal: 'participantGoal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ParticipantMetricNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  metricDate: 'metricDate',
+  totalReached: 'totalReached',
+  engagementScore: 'engagementScore',
+  healthScreened: 'healthScreened',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OutreachBudgetNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  projectName: 'projectName',
+  allocatedFunds: 'allocatedFunds',
+  fundsUsed: 'fundsUsed',
+  sponsor: 'sponsor',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SchedulerTrendNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dayLabel: 'dayLabel',
+  apptCount: 'apptCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SchedulerRosterNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  providerName: 'providerName',
+  specialty: 'specialty',
+  shiftTime: 'shiftTime',
+  isAvailable: 'isAvailable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SchedulerFacilityNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  facilityName: 'facilityName',
+  occupancyRate: 'occupancyRate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FacilityNodeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1903,42 +2203,6 @@ exports.Prisma.OpsIssueTicketScalarFieldEnum = {
   facilityName: 'facilityName',
   severity: 'severity',
   status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.IncidentReportNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  incidentType: 'incidentType',
-  severity: 'severity',
-  franchise: 'franchise',
-  description: 'description',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.AuditLogNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  franchise: 'franchise',
-  auditDate: 'auditDate',
-  auditorName: 'auditorName',
-  score: 'score',
-  compliancePct: 'compliancePct',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.PatientSatisfactionNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  franchise: 'franchise',
-  score: 'score',
-  comments: 'comments',
-  type: 'type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -2015,42 +2279,6 @@ exports.Prisma.ContentAssetNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PatientAdmissionNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  patientName: 'patientName',
-  priority: 'priority',
-  condition: 'condition',
-  location: 'location',
-  attendingPhys: 'attendingPhys',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.ClinicalShiftNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  providerName: 'providerName',
-  role: 'role',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  facility: 'facility',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.MedicalAuditNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  regionCode: 'regionCode',
-  survivalRate: 'survivalRate',
-  readmissionRate: 'readmissionRate',
-  averageWaitTime: 'averageWaitTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.SupportTicketNodeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2086,175 +2314,6 @@ exports.Prisma.SystemTelemetryNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CurriculumNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  programName: 'programName',
-  department: 'department',
-  status: 'status',
-  completionPct: 'completionPct',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.InstructorNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  facilitatorName: 'facilitatorName',
-  assignedCourse: 'assignedCourse',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CertificationNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  staffName: 'staffName',
-  clinicalRole: 'clinicalRole',
-  certName: 'certName',
-  expiresAt: 'expiresAt',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.FranchiseRevenueNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  monthYear: 'monthYear',
-  revenueAmt: 'revenueAmt',
-  patientVisits: 'patientVisits',
-  growthPct: 'growthPct',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.ClinicPerformanceNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  locationName: 'locationName',
-  managerName: 'managerName',
-  revenue: 'revenue',
-  visits: 'visits',
-  growth: 'growth',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.FranchiseBookingNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  patientName: 'patientName',
-  clinicAssigned: 'clinicAssigned',
-  appointmentType: 'appointmentType',
-  scheduledTime: 'scheduledTime',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.OutreachEventNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  eventName: 'eventName',
-  location: 'location',
-  scheduledDate: 'scheduledDate',
-  status: 'status',
-  participantGoal: 'participantGoal',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.ParticipantMetricNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  metricDate: 'metricDate',
-  totalReached: 'totalReached',
-  engagementScore: 'engagementScore',
-  healthScreened: 'healthScreened',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.OutreachBudgetNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  projectName: 'projectName',
-  allocatedFunds: 'allocatedFunds',
-  fundsUsed: 'fundsUsed',
-  sponsor: 'sponsor',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.LocalNetworkNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  locationName: 'locationName',
-  occupancyRate: 'occupancyRate',
-  serverLoadScore: 'serverLoadScore',
-  staffActive: 'staffActive',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.LocalFinanceNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  monthLabel: 'monthLabel',
-  grossRevenue: 'grossRevenue',
-  netMargin: 'netMargin',
-  growthYoY: 'growthYoY',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.LocalActivityNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  eventTitle: 'eventTitle',
-  eventType: 'eventType',
-  eventTime: 'eventTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.LocalMarketingAnalyticNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  metricType: 'metricType',
-  value: 'value',
-  growthYoY: 'growthYoY',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.LocalCampaignNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  campaignName: 'campaignName',
-  managerName: 'managerName',
-  roiFactor: 'roiFactor',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.LocalContentNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  assetTitle: 'assetTitle',
-  assetType: 'assetType',
-  deployedDate: 'deployedDate',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.SupportAgentNodeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2286,92 +2345,34 @@ exports.Prisma.ResolutionFeedbackNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ClientTrendNodeScalarFieldEnum = {
+exports.Prisma.CurriculumNodeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  monthLabel: 'monthLabel',
-  revenueAmount: 'revenueAmount',
-  apptCount: 'apptCount',
+  programName: 'programName',
+  department: 'department',
+  status: 'status',
+  completionPct: 'completionPct',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ClientClinicNodeScalarFieldEnum = {
+exports.Prisma.InstructorNodeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  clinicName: 'clinicName',
-  starRating: 'starRating',
-  revenueString: 'revenueString',
-  rank: 'rank',
+  facilitatorName: 'facilitatorName',
+  assignedCourse: 'assignedCourse',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ClientDemographicNodeScalarFieldEnum = {
+exports.Prisma.CertificationNodeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  cohortGroup: 'cohortGroup',
-  percentage: 'percentage',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.HealthNetRevenueNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  quarterLabel: 'quarterLabel',
-  revenueValue: 'revenueValue',
-  grossMargin: 'grossMargin',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.HealthNetEfficiencyNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  clinicName: 'clinicName',
-  efficiencyScore: 'efficiencyScore',
-  patientsSeen: 'patientsSeen',
-  waitTimesAvg: 'waitTimesAvg',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.HealthNetNetworkNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  regionName: 'regionName',
-  clinicCount: 'clinicCount',
-  demographicCat: 'demographicCat',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.SchedulerTrendNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  dayLabel: 'dayLabel',
-  apptCount: 'apptCount',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.SchedulerRosterNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  providerName: 'providerName',
-  specialty: 'specialty',
-  shiftTime: 'shiftTime',
-  isAvailable: 'isAvailable',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.SchedulerFacilityNodeScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  facilityName: 'facilityName',
-  occupancyRate: 'occupancyRate',
+  staffName: 'staffName',
+  clinicalRole: 'clinicalRole',
+  certName: 'certName',
+  expiresAt: 'expiresAt',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2435,7 +2436,7 @@ exports.Prisma.ModelName = {
   ReferralPipeline: 'ReferralPipeline',
   SupplyForecastMetrics: 'SupplyForecastMetrics',
   ClientProfile: 'ClientProfile',
-  PswProfile: 'PswProfile',
+  ProviderProfile: 'ProviderProfile',
   Visit: 'Visit',
   Service: 'Service',
   VisitCheckEvent: 'VisitCheckEvent',
@@ -2444,8 +2445,8 @@ exports.Prisma.ModelName = {
   Incident: 'Incident',
   DailyEntry: 'DailyEntry',
   Booking: 'Booking',
-  PswAvailability: 'PswAvailability',
-  PswDocument: 'PswDocument',
+  ProviderAvailability: 'ProviderAvailability',
+  ProviderDocument: 'ProviderDocument',
   ShiftAssignment: 'ShiftAssignment',
   Timesheet: 'Timesheet',
   TimesheetItem: 'TimesheetItem',
@@ -2525,74 +2526,74 @@ exports.Prisma.ModelName = {
   DailyActivity: 'DailyActivity',
   PlatformScreen: 'PlatformScreen',
   ScreenFunctionality: 'ScreenFunctionality',
-  PswShiftLog: 'PswShiftLog',
+  ProviderShiftLog: 'ProviderShiftLog',
   AdlCareLog: 'AdlCareLog',
-  PswVitalSign: 'PswVitalSign',
+  ProviderVitalSign: 'ProviderVitalSign',
   BehaviorNote: 'BehaviorNote',
   NutritionRecord: 'NutritionRecord',
   MobilityLog: 'MobilityLog',
   InfectionControlChecklist: 'InfectionControlChecklist',
   NarrativeProgressNote: 'NarrativeProgressNote',
   CarePlanFollowUp: 'CarePlanFollowUp',
-  Clinic: 'Clinic',
-  Patient: 'Patient',
-  FinancialRecord: 'FinancialRecord',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',
-  PatientIntake: 'PatientIntake',
-  IntakeReferralMetric: 'IntakeReferralMetric',
-  JobOpening: 'JobOpening',
-  JobCandidate: 'JobCandidate',
-  InterviewEvent: 'InterviewEvent',
-  InvoiceRecord: 'InvoiceRecord',
-  InsuranceClaim: 'InsuranceClaim',
-  FinancialGoal: 'FinancialGoal',
-  FacilityNode: 'FacilityNode',
-  StaffUtilization: 'StaffUtilization',
-  OpsIssueTicket: 'OpsIssueTicket',
-  IncidentReportNode: 'IncidentReportNode',
-  AuditLogNode: 'AuditLogNode',
-  PatientSatisfactionNode: 'PatientSatisfactionNode',
-  SalesDealNode: 'SalesDealNode',
-  KeyAccountNode: 'KeyAccountNode',
-  RepPerformanceNode: 'RepPerformanceNode',
-  MarketingCampaignNode: 'MarketingCampaignNode',
-  LocalGrowthNode: 'LocalGrowthNode',
-  ContentAssetNode: 'ContentAssetNode',
-  PatientAdmissionNode: 'PatientAdmissionNode',
-  ClinicalShiftNode: 'ClinicalShiftNode',
-  MedicalAuditNode: 'MedicalAuditNode',
-  SupportTicketNode: 'SupportTicketNode',
-  PatientFeedbackNode: 'PatientFeedbackNode',
-  SystemTelemetryNode: 'SystemTelemetryNode',
-  CurriculumNode: 'CurriculumNode',
-  InstructorNode: 'InstructorNode',
-  CertificationNode: 'CertificationNode',
-  FranchiseRevenueNode: 'FranchiseRevenueNode',
-  ClinicPerformanceNode: 'ClinicPerformanceNode',
-  FranchiseBookingNode: 'FranchiseBookingNode',
-  OutreachEventNode: 'OutreachEventNode',
-  ParticipantMetricNode: 'ParticipantMetricNode',
-  OutreachBudgetNode: 'OutreachBudgetNode',
-  LocalNetworkNode: 'LocalNetworkNode',
-  LocalFinanceNode: 'LocalFinanceNode',
-  LocalActivityNode: 'LocalActivityNode',
-  LocalMarketingAnalyticNode: 'LocalMarketingAnalyticNode',
-  LocalCampaignNode: 'LocalCampaignNode',
-  LocalContentNode: 'LocalContentNode',
-  SupportAgentNode: 'SupportAgentNode',
-  TicketVolumeNode: 'TicketVolumeNode',
-  ResolutionFeedbackNode: 'ResolutionFeedbackNode',
+  Clinic: 'Clinic',
+  Patient: 'Patient',
+  FinancialRecord: 'FinancialRecord',
   ClientTrendNode: 'ClientTrendNode',
   ClientClinicNode: 'ClientClinicNode',
   ClientDemographicNode: 'ClientDemographicNode',
   HealthNetRevenueNode: 'HealthNetRevenueNode',
   HealthNetEfficiencyNode: 'HealthNetEfficiencyNode',
   HealthNetNetworkNode: 'HealthNetNetworkNode',
+  JobOpening: 'JobOpening',
+  JobCandidate: 'JobCandidate',
+  InterviewEvent: 'InterviewEvent',
+  IncidentReportNode: 'IncidentReportNode',
+  AuditLogNode: 'AuditLogNode',
+  PatientSatisfactionNode: 'PatientSatisfactionNode',
+  FranchiseRevenueNode: 'FranchiseRevenueNode',
+  ClinicPerformanceNode: 'ClinicPerformanceNode',
+  FranchiseBookingNode: 'FranchiseBookingNode',
+  LocalNetworkNode: 'LocalNetworkNode',
+  LocalFinanceNode: 'LocalFinanceNode',
+  LocalActivityNode: 'LocalActivityNode',
+  LocalMarketingAnalyticNode: 'LocalMarketingAnalyticNode',
+  LocalCampaignNode: 'LocalCampaignNode',
+  LocalContentNode: 'LocalContentNode',
+  PatientIntake: 'PatientIntake',
+  IntakeReferralMetric: 'IntakeReferralMetric',
+  InvoiceRecord: 'InvoiceRecord',
+  InsuranceClaim: 'InsuranceClaim',
+  FinancialGoal: 'FinancialGoal',
+  PatientAdmissionNode: 'PatientAdmissionNode',
+  ClinicalShiftNode: 'ClinicalShiftNode',
+  MedicalAuditNode: 'MedicalAuditNode',
+  OutreachEventNode: 'OutreachEventNode',
+  ParticipantMetricNode: 'ParticipantMetricNode',
+  OutreachBudgetNode: 'OutreachBudgetNode',
   SchedulerTrendNode: 'SchedulerTrendNode',
   SchedulerRosterNode: 'SchedulerRosterNode',
-  SchedulerFacilityNode: 'SchedulerFacilityNode'
+  SchedulerFacilityNode: 'SchedulerFacilityNode',
+  FacilityNode: 'FacilityNode',
+  StaffUtilization: 'StaffUtilization',
+  OpsIssueTicket: 'OpsIssueTicket',
+  SalesDealNode: 'SalesDealNode',
+  KeyAccountNode: 'KeyAccountNode',
+  RepPerformanceNode: 'RepPerformanceNode',
+  MarketingCampaignNode: 'MarketingCampaignNode',
+  LocalGrowthNode: 'LocalGrowthNode',
+  ContentAssetNode: 'ContentAssetNode',
+  SupportTicketNode: 'SupportTicketNode',
+  PatientFeedbackNode: 'PatientFeedbackNode',
+  SystemTelemetryNode: 'SystemTelemetryNode',
+  SupportAgentNode: 'SupportAgentNode',
+  TicketVolumeNode: 'TicketVolumeNode',
+  ResolutionFeedbackNode: 'ResolutionFeedbackNode',
+  CurriculumNode: 'CurriculumNode',
+  InstructorNode: 'InstructorNode',
+  CertificationNode: 'CertificationNode'
 };
 
 /**

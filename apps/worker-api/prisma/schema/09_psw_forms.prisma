@@ -3,9 +3,9 @@
 // ==========================================
 
 // 1. Shift Check-In / Check-Out Form
-model PswShiftLog {
+model ProviderShiftLog {
   id           String    @id @default(uuid())
-  pswId        String    @map("psw_id")
+  providerId   String    @map("provider_id")
   clientId     String    @map("client_id")
   tenantId     String    @map("tenant_id")
   date         DateTime  @default(now())
@@ -16,21 +16,21 @@ model PswShiftLog {
   shiftStatus  String    @default("STARTED") // STARTED, COMPLETED, MISSED
   signatureUrl String?   @map("signature_url")
 
-  psw    User          @relation("UserShiftLogs", fields: [pswId], references: [id])
+  psw    User          @relation("UserShiftLogs", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientShiftLogs", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantShiftLogs", fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@index([clientId])
-  @@map("psw_shift_logs")
+  @@map("provider_shift_logs")
 }
 
 // 2. Client Daily Care Log (ADL Record)
 model AdlCareLog {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   hygiene     String? // Bathing / Grooming / Oral care
   dressing    String? // Assistance level
@@ -43,7 +43,7 @@ model AdlCareLog {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  psw    User          @relation("UserAdlLogs", fields: [pswId], references: [id])
+  psw    User          @relation("UserAdlLogs", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientAdlLogs", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantAdlLogs", fields: [tenantId], references: [id])
 
@@ -52,11 +52,11 @@ model AdlCareLog {
 }
 
 // 3. Vital Signs & Health Monitoring (Dedicated PSW schema)
-model PswVitalSign {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+model ProviderVitalSign {
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   temperature   Float?
   pulse         Int?
@@ -67,7 +67,7 @@ model PswVitalSign {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserPswVitals", fields: [pswId], references: [id])
+  psw    User          @relation("UserPswVitals", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientPswVitals", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantPswVitals", fields: [tenantId], references: [id])
 
@@ -77,10 +77,10 @@ model PswVitalSign {
 
 // 6. Behavior & Mental Status Notes
 model BehaviorNote {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   mood            String? // Calm / Agitated / Confused
   orientation     String? // Person / Place / Time
@@ -89,7 +89,7 @@ model BehaviorNote {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserBehaviorNotes", fields: [pswId], references: [id])
+  psw    User          @relation("UserBehaviorNotes", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientBehaviorNotes", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantBehaviorNotes", fields: [tenantId], references: [id])
 
@@ -99,10 +99,10 @@ model BehaviorNote {
 
 // 7. Nutrition & Hydration Record
 model NutritionRecord {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   mealsTakenPct Int?    @map("meals_taken_pct")
   snacks        String?
@@ -111,7 +111,7 @@ model NutritionRecord {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserNutrition", fields: [pswId], references: [id])
+  psw    User          @relation("UserNutrition", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientNutrition", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantNutrition", fields: [tenantId], references: [id])
 
@@ -121,10 +121,10 @@ model NutritionRecord {
 
 // 8. Mobility & Exercise Log
 model MobilityLog {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   movementType    String? @map("movement_type") // Walk / Transfer / Exercise
   distanceOrDur   String? @map("distance_or_duration")
@@ -133,7 +133,7 @@ model MobilityLog {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserMobility", fields: [pswId], references: [id])
+  psw    User          @relation("UserMobility", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientMobility", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantMobility", fields: [tenantId], references: [id])
 
@@ -143,10 +143,10 @@ model MobilityLog {
 
 // 9. Infection Control Checklist
 model InfectionControlChecklist {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   handHygieneDone  Boolean @default(false) @map("hand_hygiene_done")
   ppeUsed          Boolean @default(false) @map("ppe_used")
@@ -155,7 +155,7 @@ model InfectionControlChecklist {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserInfectionControl", fields: [pswId], references: [id])
+  psw    User          @relation("UserInfectionControl", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientInfectionControl", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantInfectionControl", fields: [tenantId], references: [id])
 
@@ -165,10 +165,10 @@ model InfectionControlChecklist {
 
 // 10. Progress Notes (Narrative)
 model NarrativeProgressNote {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   whatWasDone     String  @map("what_was_done") @db.Text
   clientResponse  String  @map("client_response") @db.Text
@@ -177,7 +177,7 @@ model NarrativeProgressNote {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserNarrativeNotes", fields: [pswId], references: [id])
+  psw    User          @relation("UserNarrativeNotes", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientNarrativeNotes", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantNarrativeNotes", fields: [tenantId], references: [id])
 
@@ -187,10 +187,10 @@ model NarrativeProgressNote {
 
 // 11. Care Plan Follow-Up Form
 model CarePlanFollowUp {
-  id       String @id @default(uuid())
-  pswId    String @map("psw_id")
-  clientId String @map("client_id")
-  tenantId String @map("tenant_id")
+  id         String @id @default(uuid())
+  providerId String @map("provider_id")
+  clientId   String @map("client_id")
+  tenantId   String @map("tenant_id")
 
   tasksAssigned  String? @map("tasks_assigned") @db.Text
   tasksCompleted String? @map("tasks_completed") @db.Text
@@ -199,7 +199,7 @@ model CarePlanFollowUp {
 
   recordedAt DateTime @default(now()) @map("recorded_at")
 
-  psw    User          @relation("UserCarePlanFollowUp", fields: [pswId], references: [id])
+  psw    User          @relation("UserCarePlanFollowUp", fields: [providerId], references: [id])
   client ClientProfile @relation("ClientCarePlanFollowUp", fields: [clientId], references: [id])
   tenant Tenant        @relation("TenantCarePlanFollowUp", fields: [tenantId], references: [id])
 

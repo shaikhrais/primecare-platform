@@ -48,9 +48,9 @@ model ClientProfile {
   serviceAuthorizations ServiceAuthorization[]
   consentForms          ConsentForm[]
   familyMembers         FamilyMember[]
-  shiftCheckIns         PswShiftLog[]               @relation("ClientShiftLogs")
+  shiftCheckIns         ProviderShiftLog[]          @relation("ClientShiftLogs")
   adlCareLogs           AdlCareLog[]                @relation("ClientAdlLogs")
-  pswVitals             PswVitalSign[]              @relation("ClientPswVitals")
+  providerVitals        ProviderVitalSign[]         @relation("ClientPswVitals")
   behaviorNotes         BehaviorNote[]              @relation("ClientBehaviorNotes")
   nutritionRecords      NutritionRecord[]           @relation("ClientNutrition")
   mobilityLogs          MobilityLog[]               @relation("ClientMobility")
@@ -62,7 +62,7 @@ model ClientProfile {
   @@map("client_profiles")
 }
 
-model PswProfile {
+model ProviderProfile {
   id                    String                 @id @default(uuid())
   userId                String                 @unique @map("user_id")
   fullName              String                 @map("full_name")
@@ -70,6 +70,7 @@ model PswProfile {
   languages             String
   serviceAreas          String                 @map("service_areas")
   availabilityJson      Json?                  @map("availability_json")
+  providerType          String                 @default("PSW") @map("provider_type")
   isApproved            Boolean                @default(false) @map("is_approved")
   approvedAt            DateTime?              @map("approved_at")
   trustScore            Int                    @default(100) @map("trust_score")
@@ -80,17 +81,17 @@ model PswProfile {
   address               String?
   avatarUrl             String?                @map("avatar_url")
   skills                String
-  messageThreads        MessageThread[]        @relation("PswToThreads")
-  availability          PswAvailability[]      @relation("PswToAvailability")
-  documents             PswDocument[]          @relation("PswToDocuments")
+  messageThreads        MessageThread[]        @relation("ProviderToThreads")
+  availability          ProviderAvailability[] @relation("ProviderToAvailability")
+  documents             ProviderDocument[]     @relation("ProviderToDocuments")
   tenant                Tenant                 @relation(fields: [tenantId], references: [id])
   user                  User                   @relation(fields: [userId], references: [id])
-  assignments           ShiftAssignment[]      @relation("PswToAssignments")
-  timesheets            Timesheet[]            @relation("PswToTimesheets")
-  checkEvents           VisitCheckEvent[]      @relation("PswToCheckEvents")
-  checklists            VisitChecklist[]       @relation("PswToChecklists")
-  notes                 VisitNote[]            @relation("PswToNotes")
-  assignedVisits        Visit[]                @relation("PswToVisits")
+  assignments           ShiftAssignment[]      @relation("ProviderToAssignments")
+  timesheets            Timesheet[]            @relation("ProviderToTimesheets")
+  checkEvents           VisitCheckEvent[]      @relation("ProviderToCheckEvents")
+  checklists            VisitChecklist[]       @relation("ProviderToChecklists")
+  notes                 VisitNote[]            @relation("ProviderToNotes")
+  assignedVisits        Visit[]                @relation("ProviderToVisits")
   handovers             ShiftHandover[]
   overrides             AvailabilityOverride[]
   payouts               Payout[]
@@ -101,7 +102,7 @@ model PswProfile {
   performanceReviews    PerformanceReview[]
 
   @@index([tenantId])
-  @@map("psw_profiles")
+  @@map("provider_profiles")
 }
 
 model Visit {
@@ -113,7 +114,7 @@ model Visit {
   recurrenceRuleString String?            @map("recurrence_rule_string")
   recurrenceEndDate    DateTime?          @map("recurrence_end_date")
   status               String?            @default("requested")
-  assignedPswId        String?            @map("assigned_psw_id")
+  assignedProviderId   String?            @map("assigned_provider_id")
   serviceAddressLine1  String?            @map("service_address_line1")
   serviceAddressLine2  String?            @map("service_address_line2")
   serviceCity          String?            @map("service_city")
@@ -143,7 +144,7 @@ model Visit {
   notes                VisitNote[]
   feedbacks            Feedback[]
   matches              VisitMatch[]
-  psw                  PswProfile?        @relation("PswToVisits", fields: [assignedPswId], references: [id])
+  psw                  ProviderProfile?   @relation("ProviderToVisits", fields: [assignedProviderId], references: [id])
   booking              Booking?           @relation(fields: [bookingId], references: [id])
   client               ClientProfile      @relation(fields: [clientId], references: [id])
   service              Service            @relation(fields: [serviceId], references: [id])
@@ -154,7 +155,7 @@ model Visit {
 
   @@index([tenantId])
   @@index([tenantId, status])
-  @@index([tenantId, assignedPswId])
+  @@index([tenantId, assignedProviderId])
   @@index([tenantId, requestedStartAt])
   @@map("visits")
 }
@@ -180,52 +181,52 @@ model Service {
 }
 
 model VisitCheckEvent {
-  id                String     @id @default(uuid())
-  visitId           String     @map("visit_id")
-  pswId             String     @map("psw_id")
-  eventType         String     @map("event_type")
+  id                String          @id @default(uuid())
+  visitId           String          @map("visit_id")
+  providerId        String          @map("provider_id")
+  eventType         String          @map("event_type")
   lat               Float?
   lng               Float?
-  accuracyM         Float?     @map("accuracy_m")
-  computedDistanceM Float?     @map("computed_distance_m")
-  deviceTimeIso     DateTime?  @map("device_time_iso")
-  serverTime        DateTime?  @default(now()) @map("server_time")
+  accuracyM         Float?          @map("accuracy_m")
+  computedDistanceM Float?          @map("computed_distance_m")
+  deviceTimeIso     DateTime?       @map("device_time_iso")
+  serverTime        DateTime?       @default(now()) @map("server_time")
   result            String
-  rejectReason      String?    @map("reject_reason")
-  isOverride        Boolean?   @default(false) @map("is_override")
-  overrideByUserId  String?    @map("override_by_user_id")
-  overrideReason    String?    @map("override_reason")
-  createdAt         DateTime   @default(now()) @map("created_at")
-  tenantId          String     @map("tenant_id")
-  overriddenBy      User?      @relation(fields: [overrideByUserId], references: [id])
-  pswProfile        PswProfile @relation("PswToCheckEvents", fields: [pswId], references: [id])
-  tenant            Tenant     @relation(fields: [tenantId], references: [id])
-  visit             Visit      @relation(fields: [visitId], references: [id])
+  rejectReason      String?         @map("reject_reason")
+  isOverride        Boolean?        @default(false) @map("is_override")
+  overrideByUserId  String?         @map("override_by_user_id")
+  overrideReason    String?         @map("override_reason")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  tenantId          String          @map("tenant_id")
+  overriddenBy      User?           @relation(fields: [overrideByUserId], references: [id])
+  providerProfile   ProviderProfile @relation("ProviderToCheckEvents", fields: [providerId], references: [id])
+  tenant            Tenant          @relation(fields: [tenantId], references: [id])
+  visit             Visit           @relation(fields: [visitId], references: [id])
 
   @@index([tenantId])
   @@map("visit_check_events")
 }
 
 model VisitNote {
-  id        String     @id @default(uuid())
-  visitId   String     @map("visit_id")
-  pswId     String     @map("psw_id")
-  noteText  String     @map("note_text")
-  createdAt DateTime   @default(now()) @map("created_at")
-  psw       PswProfile @relation("PswToNotes", fields: [pswId], references: [id])
-  visit     Visit      @relation(fields: [visitId], references: [id])
+  id         String          @id @default(uuid())
+  visitId    String          @map("visit_id")
+  providerId String          @map("provider_id")
+  noteText   String          @map("note_text")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  psw        ProviderProfile @relation("ProviderToNotes", fields: [providerId], references: [id])
+  visit      Visit           @relation(fields: [visitId], references: [id])
 
   @@map("visit_notes")
 }
 
 model VisitChecklist {
-  id        String     @id @default(uuid())
-  visitId   String     @map("visit_id")
-  pswId     String     @map("psw_id")
-  checklist Json       @map("checklist_json")
-  createdAt DateTime   @default(now()) @map("created_at")
-  psw       PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])
-  visit     Visit      @relation(fields: [visitId], references: [id])
+  id         String          @id @default(uuid())
+  visitId    String          @map("visit_id")
+  providerId String          @map("provider_id")
+  checklist  Json            @map("checklist_json")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  psw        ProviderProfile @relation("ProviderToChecklists", fields: [providerId], references: [id])
+  visit      Visit           @relation(fields: [visitId], references: [id])
 
   @@map("visit_checklists")
 }
@@ -299,33 +300,33 @@ model Booking {
   @@map("bookings")
 }
 
-model PswAvailability {
-  id        String     @id @default(uuid())
-  pswId     String     @map("psw_id")
-  dayOfWeek Int        @map("day_of_week")
-  startTime String     @map("start_time")
-  endTime   String     @map("end_time")
-  tenantId  String     @map("tenant_id")
-  psw       PswProfile @relation("PswToAvailability", fields: [pswId], references: [id])
-  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+model ProviderAvailability {
+  id         String          @id @default(uuid())
+  providerId String          @map("provider_id")
+  dayOfWeek  Int             @map("day_of_week")
+  startTime  String          @map("start_time")
+  endTime    String          @map("end_time")
+  tenantId   String          @map("tenant_id")
+  psw        ProviderProfile @relation("ProviderToAvailability", fields: [providerId], references: [id])
+  tenant     Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
-  @@map("psw_availability")
+  @@map("provider_availability")
 }
 
-model PswDocument {
-  id         String     @id @default(uuid())
-  pswId      String     @map("psw_id")
-  docType    String     @map("doc_type")
-  fileKey    String     @map("file_key")
-  status     String?    @default("pending")
-  expiryDate DateTime?  @map("expiry_date")
-  verifiedBy String?    @map("verified_by")
-  verifiedAt DateTime?  @map("verified_at")
-  createdAt  DateTime   @default(now()) @map("created_at")
-  updatedAt  DateTime   @updatedAt @map("updated_at")
-  psw        PswProfile @relation("PswToDocuments", fields: [pswId], references: [id])
-  verifier   User?      @relation("VerifiedBy", fields: [verifiedBy], references: [id])
+model ProviderDocument {
+  id         String          @id @default(uuid())
+  providerId String          @map("provider_id")
+  docType    String          @map("doc_type")
+  fileKey    String          @map("file_key")
+  status     String?         @default("pending")
+  expiryDate DateTime?       @map("expiry_date")
+  verifiedBy String?         @map("verified_by")
+  verifiedAt DateTime?       @map("verified_at")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
+  psw        ProviderProfile @relation("ProviderToDocuments", fields: [providerId], references: [id])
+  verifier   User?           @relation("VerifiedBy", fields: [verifiedBy], references: [id])
 
-  @@map("psw_documents")
+  @@map("provider_documents")
 }

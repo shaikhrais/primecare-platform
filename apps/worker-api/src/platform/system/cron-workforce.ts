@@ -95,7 +95,7 @@ export async function processLateShiftAlerts(prisma: any, env: any, reqUrl: stri
 export async function processPerformanceReviews(prisma: any) {
   let reviewDraftsCreated = 0;
   const oneYearAgo = new Date(); oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  const oneYearAnniversaries = await prisma.pswProfile.findMany({ where: { createdAt: { lte: oneYearAgo } }, include: { user: true } });
+  const oneYearAnniversaries = await prisma.providerProfile.findMany({ where: { createdAt: { lte: oneYearAgo } }, include: { user: true } });
   for (const psw of oneYearAnniversaries) {
     if (!psw.user?.tenantId) continue;
     const recentReview = await prisma.auditLog.findFirst({ where: { resourceType: "PSW_PROFILE", resourceId: psw.id, action: "ANNIVERSARY_REVIEW_CREATED", createdAt: { gte: new Date(Date.now() - 330 * 24 * 60 * 60 * 1000) } } });
@@ -116,10 +116,10 @@ export async function processPerformanceReviews(prisma: any) {
 
 export async function processDismissalSafeguard(prisma: any) {
   let dangerZoneFlags = 0;
-  const activePsws = await prisma.pswProfile.findMany({ include: { user: true } });
+  const activePsws = await prisma.providerProfile.findMany({ include: { user: true } });
   for (const psw of activePsws) {
     if (!psw.user?.tenantId) continue;
-    const missedCount = await prisma.visit.count({ where: { assignedPswId: psw.id, status: "missed" as any } });
+    const missedCount = await prisma.visit.count({ where: { assignedProviderId: psw.id, status: "missed" as any } });
     if (missedCount >= 3) {
       const alerted = await prisma.systemEvent.findFirst({ where: { operation: "DISMISSAL_SAFEGUARD_ALERT", entityId: psw.id } });
       if (!alerted) {
@@ -131,7 +131,7 @@ export async function processDismissalSafeguard(prisma: any) {
               message: `PSW ${psw.user.fullName} has accumulated ${missedCount} "No Show" incidents. Automated suspension protocols are recommended.` },
           });
           await prisma.systemEvent.create({
-            data: { tenantId: psw.user.tenantId, operation: "DISMISSAL_SAFEGUARD_ALERT", modelName: "PswProfile", entityId: psw.id, payload: "3+ missed shifts" },
+            data: { tenantId: psw.user.tenantId, operation: "DISMISSAL_SAFEGUARD_ALERT", modelName: "ProviderProfile", entityId: psw.id, payload: "3+ missed shifts" },
           });
           dangerZoneFlags++;
         }

@@ -26,16 +26,16 @@ const homeRoute = createRoute({
 allied.openapi(homeRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = (c.get('jwtPayload') as any).sub;
-    const psw = await prisma.pswProfile.findUnique({ where: { userId } });
+    const psw = await prisma.providerProfile.findUnique({ where: { userId } });
     if (!psw) return c.json({ assignedClients: 0, todayVisits: 0, completedThisWeek: 0, pendingNotes: 0 }, 200);
 
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
 
     const [assigned, todayCount, weekCount] = await Promise.all([
-        prisma.visit.count({ where: { assignedPswId: psw.id, status: { in: ['assigned', 'in_progress'] } } }),
-        prisma.visit.count({ where: { assignedPswId: psw.id, requestedStartAt: { gte: today } } }),
-        prisma.visit.count({ where: { assignedPswId: psw.id, status: 'completed', requestedStartAt: { gte: weekAgo } } }),
+        prisma.visit.count({ where: { assignedProviderId: psw.id, status: { in: ['assigned', 'in_progress'] } } }),
+        prisma.visit.count({ where: { assignedProviderId: psw.id, requestedStartAt: { gte: today } } }),
+        prisma.visit.count({ where: { assignedProviderId: psw.id, status: 'completed', requestedStartAt: { gte: weekAgo } } }),
     ]);
 
     return c.json({
@@ -67,10 +67,10 @@ const treatmentsRoute = createRoute({
 allied.openapi(treatmentsRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = (c.get('jwtPayload') as any).sub;
-    const psw = await prisma.pswProfile.findUnique({ where: { userId } });
+    const psw = await prisma.providerProfile.findUnique({ where: { userId } });
 
     const visits = await prisma.visit.findMany({
-        where: { assignedPswId: psw?.id, status: { in: ['assigned', 'in_progress', 'completed'] } },
+        where: { assignedProviderId: psw?.id, status: { in: ['assigned', 'in_progress', 'completed'] } },
         include: { client: { select: { fullName: true } }, service: { select: { name: true } } },
         orderBy: { requestedStartAt: 'desc' }, take: 50,
     });
@@ -105,8 +105,8 @@ allied.openapi(signOffRoute, async (c) => {
         await prisma.visit.update({ where: { id: visitId }, data: { status: 'completed' } });
         if (notes) {
             const userId = (c.get('jwtPayload') as any).sub;
-            const psw = await prisma.pswProfile.findUnique({ where: { userId } });
-            if (psw) await prisma.visitNote.create({ data: { visitId, pswId: psw.id, noteText: notes } });
+            const psw = await prisma.providerProfile.findUnique({ where: { userId } });
+            if (psw) await prisma.visitNote.create({ data: { visitId, providerId: psw.id, noteText: notes } });
         }
         return c.json({ success: true }, 200);
     } catch { return c.json({ error: 'Visit not found' }, 404); }

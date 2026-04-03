@@ -39,7 +39,7 @@ behavioralModule.openapi(
         const { workerId, infractionType } = c.req.valid('json');
 
         // Fetch User constraints
-        const profile = await db.pswProfile.findUnique({ where: { userId: workerId }});
+        const profile = await db.providerProfile.findUnique({ where: { userId: workerId }});
         if (!profile) return c.json({ newTrustScore: 0, isLockedForRetraining: false, message: 'Invalid Worker' }, 404);
 
         // Algorithmic decay calculation based on corporate vulnerability
@@ -56,7 +56,7 @@ behavioralModule.openapi(
         // If the trust score falls below 70, the Mentor physically locks the user's app layout
         const requiresLockout = newScore < 70;
 
-        await db.pswProfile.update({
+        await db.providerProfile.update({
             where: { userId: workerId },
             data: { 
                 trustScore: newScore,

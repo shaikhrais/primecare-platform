@@ -43,7 +43,7 @@ r.openapi(predictiveStaffingRoute, async (c) => {
                 status: 'active'
             },
             include: {
-                pswProfile: true,
+                providerProfile: true,
                 reportedIncidents: {
                     where: {
                         createdAt: {
@@ -73,7 +73,7 @@ r.openapi(predictiveStaffingRoute, async (c) => {
             const riskFactors: string[] = [];
 
             // A. Hours worked in the last 14 days
-            const pswTimesheets = timesheets.filter((t: any) => t.pswId === psw.pswProfile?.id);
+            const pswTimesheets = timesheets.filter((t: any) => t.providerId === psw.providerProfile?.id);
             let totalMinutes = 0;
             pswTimesheets.forEach((ts: any) => {
                 ts.items.forEach((item: any) => totalMinutes += item.minutes);
@@ -105,8 +105,8 @@ r.openapi(predictiveStaffingRoute, async (c) => {
 
             return {
                 userId: psw.id,
-                pswId: psw.pswProfile?.id,
-                name: psw.pswProfile?.fullName || psw.email,
+                providerId: psw.providerProfile?.id,
+                name: psw.providerProfile?.fullName || psw.email,
                 score: Math.max(0, Math.min(score, 100)), // Cap between 0 and 100
                 riskLevel: score >= 70 ? 'High' : score >= 40 ? 'Medium' : 'Low',
                 riskFactors,

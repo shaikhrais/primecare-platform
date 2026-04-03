@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../office/components/glass_surface.dart';
 
@@ -162,6 +163,10 @@ class _AuthLayoutState extends State<AuthLayout> {
                       ),
                     ),
                     onSelected: (String result) {
+                      if (result == 'EN') context.setLocale(const Locale('en'));
+                      if (result == 'FR') context.setLocale(const Locale('fr'));
+                      if (result == 'ES') context.setLocale(const Locale('es'));
+                      
                       ScaffoldMessenger.of(context).showSnackBar(
                          SnackBar(content: Text('Language changed to $result')),
                       );
@@ -243,7 +248,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                 ),
                 const Spacer(),
                 Text(
-                  heroTitle,
+                  widget.heroTitle,
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -254,7 +259,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                 if (!isCompact) ...[
                   const SizedBox(height: 16),
                   Text(
-                    heroSubtitle,
+                    widget.heroSubtitle,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Colors.white.withOpacity(0.8),
                       fontFamily: 'Inter',

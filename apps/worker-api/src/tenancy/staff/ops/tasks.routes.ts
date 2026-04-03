@@ -106,7 +106,7 @@ r.openapi(listTasksRoute, async (c) => {
         where: { tenantId },
         orderBy: { createdAt: 'desc' },
         include: {
-            assignee: { select: { id: true, email: true, roles: true, pswProfile: { select: { fullName: true } }, clientProfile: { select: { fullName: true } } } },
+            assignee: { select: { id: true, email: true, roles: true, providerProfile: { select: { fullName: true } }, clientProfile: { select: { fullName: true } } } },
             group: { select: { id: true, name: true } }
         }
     });

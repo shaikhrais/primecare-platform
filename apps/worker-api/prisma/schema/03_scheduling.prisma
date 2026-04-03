@@ -3,16 +3,16 @@
 // ==========================================
 
 model ShiftAssignment {
-  id         String     @id @default(uuid())
-  visitId    String     @map("visit_id")
-  pswId      String     @map("psw_id")
-  status     String     @default("offered")
+  id         String          @id @default(uuid())
+  visitId    String          @map("visit_id")
+  providerId String          @map("provider_id")
+  status     String          @default("offered")
   score      Float?
-  assignedAt DateTime   @default(now()) @map("assigned_at")
-  tenantId   String     @map("tenant_id")
-  psw        PswProfile @relation("PswToAssignments", fields: [pswId], references: [id])
-  tenant     Tenant     @relation(fields: [tenantId], references: [id])
-  visit      Visit      @relation(fields: [visitId], references: [id])
+  assignedAt DateTime        @default(now()) @map("assigned_at")
+  tenantId   String          @map("tenant_id")
+  psw        ProviderProfile @relation("ProviderToAssignments", fields: [providerId], references: [id])
+  tenant     Tenant          @relation(fields: [tenantId], references: [id])
+  visit      Visit           @relation(fields: [visitId], references: [id])
 
   @@index([tenantId])
   @@index([tenantId, status])
@@ -21,7 +21,7 @@ model ShiftAssignment {
 
 model Timesheet {
   id           String          @id @default(uuid())
-  pswId        String          @map("psw_id")
+  providerId   String          @map("provider_id")
   weekId       String          @map("week_id")
   totalMinutes Int?            @default(0) @map("total_minutes")
   status       String?         @default("draft")
@@ -32,7 +32,7 @@ model Timesheet {
   updatedAt    DateTime        @updatedAt @map("updated_at")
   tenantId     String          @map("tenant_id")
   items        TimesheetItem[]
-  psw          PswProfile      @relation("PswToTimesheets", fields: [pswId], references: [id])
+  psw          ProviderProfile @relation("ProviderToTimesheets", fields: [providerId], references: [id])
   reviewer     User?           @relation("ReviewedBy", fields: [reviewedBy], references: [id])
   tenant       Tenant          @relation(fields: [tenantId], references: [id])
 
@@ -54,7 +54,7 @@ model TimesheetItem {
 
 model ShiftHandover {
   id             String   @id @default(uuid())
-  pswId          String   @map("psw_id")
+  providerId     String   @map("provider_id")
   visitId        String   @map("visit_id")
   tenantId       String   @map("tenant_id")
   handoverNotes  String   @map("handover_notes")
@@ -62,9 +62,9 @@ model ShiftHandover {
   suppliesNeeded String?  @map("supplies_needed")
   createdAt      DateTime @default(now()) @map("created_at")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  visit  Visit      @relation(fields: [visitId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  visit  Visit           @relation(fields: [visitId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("shift_handovers")
@@ -72,32 +72,32 @@ model ShiftHandover {
 
 model AvailabilityOverride {
   id          String   @id @default(uuid())
-  pswId       String   @map("psw_id")
+  providerId  String   @map("provider_id")
   tenantId    String   @map("tenant_id")
   date        DateTime
   startTime   String   @map("start_time")
   endTime     String   @map("end_time")
   isAvailable Boolean  @default(true) @map("is_available")
 
-  psw    PswProfile @relation(fields: [pswId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
-  @@map("psw_availability_overrides")
+  @@map("provider_availability_overrides")
 }
 
 model VisitMatch {
-  id        String   @id @default(uuid())
-  visitId   String   @map("visit_id")
-  pswId     String   @map("psw_id")
-  score     Float
-  status    String   @default("pending") // pending, rejected, accepted
-  createdAt DateTime @default(now()) @map("created_at")
-  tenantId  String   @map("tenant_id")
+  id         String   @id @default(uuid())
+  visitId    String   @map("visit_id")
+  providerId String   @map("provider_id")
+  score      Float
+  status     String   @default("pending") // pending, rejected, accepted
+  createdAt  DateTime @default(now()) @map("created_at")
+  tenantId   String   @map("tenant_id")
 
-  visit  Visit      @relation(fields: [visitId], references: [id])
-  psw    PswProfile @relation("VisitMatches", fields: [pswId], references: [id])
-  tenant Tenant     @relation(fields: [tenantId], references: [id])
+  visit  Visit           @relation(fields: [visitId], references: [id])
+  psw    ProviderProfile @relation("VisitMatches", fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@map("visit_matches")
@@ -194,15 +194,15 @@ model BookingRequest {
 }
 
 model FleetStatus {
-  id              String     @id @default(uuid())
-  pswId           String     @unique @map("psw_id")
+  id              String          @id @default(uuid())
+  providerId      String          @unique @map("provider_id")
   lat             Float?
   lng             Float?
-  status          String     @default("available") // available, en_route, on_site, offline
-  batteryLevel    Int?       @map("battery_level")
-  lastHeartbeatAt DateTime   @default(now()) @map("last_heartbeat_at")
-  currentVisitId  String?    @map("current_visit_id")
-  psw             PswProfile @relation(fields: [pswId], references: [id])
+  status          String          @default("available") // available, en_route, on_site, offline
+  batteryLevel    Int?            @map("battery_level")
+  lastHeartbeatAt DateTime        @default(now()) @map("last_heartbeat_at")
+  currentVisitId  String?         @map("current_visit_id")
+  psw             ProviderProfile @relation(fields: [providerId], references: [id])
 
   @@map("fleet_status")
 }

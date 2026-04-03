@@ -1,0 +1,14 @@
+{
+  "auth": {
+    "login": "Connexion",
+    "create_account": "Créer un compte",
+    "subtitle": "Inscrivez-vous en tant que clinicien ou administrateur.",
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
+    "email": "Adresse de courriel",
+    "role": "Rôle clinique",
+    "password": "Mot de passe",
+    "register": "S'inscrire",
+    "already_have_account": "Vous avez déjà un compte ?"
+  }
+}

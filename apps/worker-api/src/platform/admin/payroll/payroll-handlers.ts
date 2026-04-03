@@ -7,7 +7,7 @@ export async function handlePending(c: any) {
     const prisma = c.get('prisma'); const tenantId = (c.get('jwtPayload') as any).tenantId; const weekId = c.req.query('weekId');
     const where: any = { tenantId, status: 'submitted' }; if (weekId) where.weekId = weekId;
     const timesheets = await prisma.timesheet.findMany({ where, include: { psw: { select: { fullName: true } } }, orderBy: { submittedAt: 'desc' } });
-    return c.json(timesheets.map((t: any) => ({ id: t.id, pswId: t.pswId, pswName: t.psw?.fullName || '', weekId: t.weekId, totalMinutes: t.totalMinutes || 0, status: t.status })), 200);
+    return c.json(timesheets.map((t: any) => ({ id: t.id, providerId: t.providerId, pswName: t.psw?.fullName || '', weekId: t.weekId, totalMinutes: t.totalMinutes || 0, status: t.status })), 200);
 }
 
 export async function handleBatchApprove(c: any) {
@@ -21,7 +21,7 @@ export async function handleRun(c: any) {
     const result = await prisma.$transaction(async (tx: any) => {
         const approved = await tx.timesheet.findMany({ where: { tenantId, weekId, status: 'approved' } });
         let totalAmount = 0;
-        for (const ts of approved) { const hours = (ts.totalMinutes || 0) / 60; const amount = hours * rate; totalAmount += amount; await tx.payout.create({ data: { pswId: ts.pswId, tenantId, amount, status: 'pending' } }); await tx.timesheet.update({ where: { id: ts.id }, data: { status: 'paid' } }); }
+        for (const ts of approved) { const hours = (ts.totalMinutes || 0) / 60; const amount = hours * rate; totalAmount += amount; await tx.payout.create({ data: { providerId: ts.providerId, tenantId, amount, status: 'pending' } }); await tx.timesheet.update({ where: { id: ts.id }, data: { status: 'paid' } }); }
         // Feature 27: Payroll Pre-Flight Check
         const historicalBaseline = await tx.payout.aggregate({ _avg: { amount: true }, where: { tenantId } });
         const baselineTotal = (historicalBaseline._avg.amount || 0) * (approved.length || 1);

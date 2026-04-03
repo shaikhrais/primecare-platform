@@ -49,7 +49,7 @@ const createThreadRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.object({
-                        threadType: z.string(), clientId: z.string().optional(), pswId: z.string().optional(),
+                        threadType: z.string(), clientId: z.string().optional(), providerId: z.string().optional(),
                     })
                 }
             }
@@ -68,7 +68,7 @@ messaging.openapi(createThreadRoute, async (c) => {
     const body = c.req.valid('json');
 
     const thread = await prisma.messageThread.create({
-        data: { tenantId, threadType: body.threadType, clientId: body.clientId, pswId: body.pswId },
+        data: { tenantId, threadType: body.threadType, clientId: body.clientId, providerId: body.providerId },
     });
 
     return c.json({ id: thread.id }, 200);

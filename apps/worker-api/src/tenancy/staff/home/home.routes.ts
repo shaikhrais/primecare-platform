@@ -36,7 +36,7 @@ r.openapi(getStaffStatsRoute, async (c) => {
     // REAL DATA: Home Staff KPI Stats
     const [urgentSchedulingNeeds, activeCaregivers, missingTimesheets] = await Promise.all([
         prisma.visit.count({ where: { status: 'requested', tenantId } }),
-        prisma.pswProfile.count({ where: { isApproved: true, tenantId } }),
+        prisma.providerProfile.count({ where: { isApproved: true, tenantId } }),
         prisma.visit.count({
             where: {
                 status: 'completed',
