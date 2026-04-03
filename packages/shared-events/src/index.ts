@@ -1,2 +1,1 @@
-// Export everything
-export * from './';
+export * from './eventBus';
