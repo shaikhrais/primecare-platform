@@ -9,8 +9,8 @@ import { Bindings, Variables } from './bindings';
 import { captureWorkerException } from './_shared/middleware/sentry';
 
 const { CorsRegistry } = AdminRegistry;
-const CORS_ORIGINS = ['https://primecare-admin.pages.dev', 'https://primecare-v3.pages.dev', 'https://primecare-v4.pages.dev', 'https://primecare-app.pages.dev', 'https://primecare-web.pages.dev', 'https://primecare-mobile.pages.dev', 'http://localhost:8787'];
-const CORS_PREVIEW_RE = /^https:\/\/[a-z0-9]+\.primecare-(admin|app|web|mobile|v3|v4)\.pages\.dev$|^http:\/\/localhost:\d+$|^http:\/\/127\.0\.0\.1:\d+$/;
+const CORS_ORIGINS = ['https://primecare-admin.pages.dev', 'https://primecare-v4.pages.dev', 'https://primecare-app.pages.dev', 'https://primecare-web.pages.dev', 'https://primecare-mobile.pages.dev', 'http://localhost:8787'];
+const CORS_PREVIEW_RE = /^https:\/\/[a-z0-9]+\.primecare-(admin|app|web|mobile|v4)\.pages\.dev$|^http:\/\/localhost:\d+$|^http:\/\/127\.0\.0\.1:\d+$/;
 
 type AppType = OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>;
 
@@ -26,7 +26,7 @@ export function registerCorsMiddleware(app: AppType) {
         } catch(e) {
           console.error("Invalid UUID fallback", e);
         } if (tenant) { allowedOrigins = tenant?.corsAllowedOrigins || allowedOrigins; allowedMethods = tenant?.corsAllowedMethods || allowedMethods; allowedHeaders = tenant?.corsAllowedHeaders || allowedHeaders; } } }
-        const corsMiddleware = cors({ origin: (reqOrigin) => { if (allowedOrigins.includes(reqOrigin)) return reqOrigin; if (/^https:\/\/[a-z0-9]+\.primecare-(admin|app|web|v3|v4)\.pages\.dev$|^http:\/\/localhost:\d+$|^http:\/\/127\.0\.0\.1:\d+$/.test(reqOrigin)) return reqOrigin; return allowedOrigins[0]; }, allowMethods: allowedMethods, allowHeaders: allowedHeaders, exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS), maxAge: CorsRegistry.MAX_AGE, credentials: CorsRegistry.CREDENTIALS });
+        const corsMiddleware = cors({ origin: (reqOrigin) => { if (allowedOrigins.includes(reqOrigin)) return reqOrigin; if (/^https:\/\/[a-z0-9]+\.primecare-(admin|app|web|v4)\.pages\.dev$|^http:\/\/localhost:\d+$|^http:\/\/127\.0\.0\.1:\d+$/.test(reqOrigin)) return reqOrigin; return allowedOrigins[0]; }, allowMethods: allowedMethods, allowHeaders: allowedHeaders, exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS), maxAge: CorsRegistry.MAX_AGE, credentials: CorsRegistry.CREDENTIALS });
         return await corsMiddleware(c, next);
     });
 }
