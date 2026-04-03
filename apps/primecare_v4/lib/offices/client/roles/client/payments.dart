@@ -17,9 +17,9 @@ class PaymentsView extends StatelessWidget {
           children: [
             Text('My Billing & Payments', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
             const SizedBox(height: 24),
-            _buildPayRow('Monthly Care Charge (April)', '$2,400', 'PAID', Colors.teal),
-            _buildPayRow('Pharmacy Out-of-Pocket', '$42.50', 'PAID', Colors.teal),
-            _buildPayRow('Upcoming Physio Session', '$120.00', 'PENDING', Colors.orange),
+            _buildPayRow('Monthly Care Charge (April)', r'$2,400', 'PAID', Colors.teal),
+            _buildPayRow('Pharmacy Out-of-Pocket', r'$42.50', 'PAID', Colors.teal),
+            _buildPayRow('Upcoming Physio Session', r'$120.00', 'PENDING', Colors.orange),
           ],
         ),
       ),

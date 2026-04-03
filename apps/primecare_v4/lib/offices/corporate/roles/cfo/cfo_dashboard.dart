@@ -87,13 +87,13 @@ class CfoDashboard extends ConsumerWidget {
                                 padding: const EdgeInsets.all(24),
                                 child: Column(
                                   children: [
-                                    RegionPerformanceCard(region: 'Greater Toronto Area', facilityCount: '24 Units', revenue: '$5.2M', margin: '34%'),
+                                    RegionPerformanceCard(region: 'Greater Toronto Area', facilityCount: '24 Units', revenue: '\$5.2M', margin: '34%'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    RegionPerformanceCard(region: 'Vancouver Metro', facilityCount: '16 Units', revenue: '$3.1M', margin: '29%'),
+                                    RegionPerformanceCard(region: 'Vancouver Metro', facilityCount: '16 Units', revenue: '\$3.1M', margin: '29%'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    RegionPerformanceCard(region: 'Montreal / East', facilityCount: '12 Units', revenue: '$2.4M', margin: '22%'),
+                                    RegionPerformanceCard(region: 'Montreal / East', facilityCount: '12 Units', revenue: '\$2.4M', margin: '22%'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    RegionPerformanceCard(region: 'US Expansion (TX)', facilityCount: '4 Units', revenue: '$1.1M', margin: '18%', marginColor: Colors.orange),
+                                    RegionPerformanceCard(region: 'US Expansion (TX)', facilityCount: '4 Units', revenue: '\$1.1M', margin: '18%', marginColor: Colors.orange),
                                   ],
                                 ),
                               ),

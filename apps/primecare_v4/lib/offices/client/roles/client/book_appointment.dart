@@ -33,7 +33,7 @@ class BookAppointmentView extends StatelessWidget {
         padding: const EdgeInsets.all(24),
         child: Row(
           children: [
-            Icon(Icons.calendar_add_on_outlined, color: color),
+            Icon(Icons.calendar_month, color: color),
             const SizedBox(width: 20),
             Expanded(
               child: Column(

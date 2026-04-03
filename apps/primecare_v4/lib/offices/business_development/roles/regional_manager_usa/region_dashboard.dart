@@ -55,7 +55,7 @@ class RegionDashboard extends ConsumerWidget {
                         spacing: 16,
                         runSpacing: 16,
                         children: [
-                          _buildKpi(cardWidth, 'Total Revenue', '$2.4M', Icons.payments_outlined, AppTheme.primary, 'Region Target: $2.8M'),
+                          _buildKpi(cardWidth, 'Total Revenue', r'$2.4M', Icons.payments_outlined, AppTheme.primary, r'Region Target: $2.8M'),
                           _buildKpi(cardWidth, 'State Clusters', '8 States', Icons.map_outlined, Colors.indigo, '3 New states pending'),
                           _buildKpi(cardWidth, 'CMS Rating', '4.8/5.0', Icons.stars_outlined, Colors.teal, 'Network Average'),
                           _buildKpi(cardWidth, 'Net Growth', '+18%', Icons.trending_up, Colors.orange, 'Last 30 days'),
@@ -81,11 +81,11 @@ class RegionDashboard extends ConsumerWidget {
                               padding: const EdgeInsets.all(24),
                               child: Column(
                                 children: [
-                                  RegionPerformanceCard(region: 'New York Metro', facilityCount: '36 Units', revenue: '$1.1M', margin: '32.1% ACTIVE'),
+                                  RegionPerformanceCard(region: 'New York Metro', facilityCount: '36 Units', revenue: r'$1.1M', margin: '32.1% ACTIVE'),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  RegionPerformanceCard(region: 'New Jersey Satellite', facilityCount: '18 Units', revenue: '$640k', margin: '24.5% STABLE', marginColor: Colors.blue),
+                                  RegionPerformanceCard(region: 'New Jersey Satellite', facilityCount: '18 Units', revenue: r'$640k', margin: '24.5% STABLE', marginColor: Colors.blue),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  RegionPerformanceCard(region: 'Florida Cluster', facilityCount: '42 Units', revenue: '$1.2M', margin: '28.2% ACTIVE'),
+                                  RegionPerformanceCard(region: 'Florida Cluster', facilityCount: '42 Units', revenue: r'$1.2M', margin: '28.2% ACTIVE'),
                                 ],
                               ),
                             ),

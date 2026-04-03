@@ -82,11 +82,11 @@ class BusDevDashboard extends ConsumerWidget {
                                 padding: const EdgeInsets.all(24),
                                 child: Column(
                                   children: [
-                                    _buildPipelineItem('Brampton South', 'Negotiation Phase', '$450k Peak', '60% PROBABILITY'),
+                                    _buildPipelineItem('Brampton South', 'Negotiation Phase', '\$450k Peak', '60% PROBABILITY'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
                                     _buildPipelineItem('Mississauga East', 'Discovery Call', 'N/A', 'HOT LEAD', isHot: true),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildPipelineItem('Oakville Central', 'Agreement Signed', '$720k Peak', 'CLOSED WON', isWon: true),
+                                    _buildPipelineItem('Oakville Central', 'Agreement Signed', '\$720k Peak', 'CLOSED WON', isWon: true),
                                   ],
                                 ),
                               ),

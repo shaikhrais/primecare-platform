@@ -82,11 +82,11 @@ class BillingDashboard extends ConsumerWidget {
                                 padding: const EdgeInsets.all(24),
                                 child: Column(
                                   children: [
-                                    _buildBillingRow('Hamilton Health Cluster', 'Q1 Services', '$14,200', 'READY'),
+                                    _buildBillingRow('Hamilton Health Cluster', 'Q1 Services', '\$14,200', 'READY'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildBillingRow('Ministry of Health', 'Provider Remittance', '$82,400', 'OVERDUE', isOverdue: true),
+                                    _buildBillingRow('Ministry of Health', 'Provider Remittance', '\$82,400', 'OVERDUE', isOverdue: true),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildBillingRow('Private Insurer (Manulife)', 'Occupational Therapy', '$4,200', 'PENDING'),
+                                    _buildBillingRow('Private Insurer (Manulife)', 'Occupational Therapy', '\$4,200', 'PENDING'),
                                   ],
                                 ),
                               ),

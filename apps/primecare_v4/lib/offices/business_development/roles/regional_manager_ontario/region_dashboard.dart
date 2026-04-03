@@ -55,7 +55,7 @@ class RegionDashboard extends ConsumerWidget {
                         spacing: 16,
                         runSpacing: 16,
                         children: [
-                          _buildKpi(cardWidth, 'Total Revenue', '$1.8M', Icons.payments_outlined, AppTheme.primary, 'Region Target: $2.0M'),
+                          _buildKpi(cardWidth, 'Total Revenue', '\$1.8M', Icons.payments_outlined, AppTheme.primary, 'Region Target: \$2.0M'),
                           _buildKpi(cardWidth, 'Active Facilities', '42', Icons.business_outlined, Colors.indigo, '3 New in pipeline'),
                           _buildKpi(cardWidth, 'Care Compliance', '97%', Icons.verified_user_outlined, Colors.teal, 'Target: 98%'),
                           _buildKpi(cardWidth, 'Staffing Velocity', '+12%', Icons.person_add_alt_1_outlined, Colors.orange, 'Last 30 days'),
@@ -81,11 +81,11 @@ class RegionDashboard extends ConsumerWidget {
                               padding: const EdgeInsets.all(24),
                               child: Column(
                                 children: [
-                                  RegionPerformanceCard(region: 'Toronto GTA', facilityCount: '18 Units', revenue: '$820k', margin: '32% ACTIVE'),
+                                  RegionPerformanceCard(region: 'Toronto GTA', facilityCount: '18 Units', revenue: '\$820k', margin: '32% ACTIVE'),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  RegionPerformanceCard(region: 'Hamilton Corridor', facilityCount: '12 Units', revenue: '$440k', margin: '28% ACTIVE'),
+                                  RegionPerformanceCard(region: 'Hamilton Corridor', facilityCount: '12 Units', revenue: '\$440k', margin: '28% ACTIVE'),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  RegionPerformanceCard(region: 'Ottawa East', facilityCount: '12 Units', revenue: '$540k', margin: '22% STABLE', marginColor: Colors.blue),
+                                  RegionPerformanceCard(region: 'Ottawa East', facilityCount: '12 Units', revenue: '\$540k', margin: '22% STABLE', marginColor: Colors.blue),
                                 ],
                               ),
                             ),
