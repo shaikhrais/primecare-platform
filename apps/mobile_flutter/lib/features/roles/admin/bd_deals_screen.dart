@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:primecare_mobile/core/api_config.dart';
+import 'package:primecare_mobile/core/api_client.dart';
 
 final bdDealsProvider = FutureProvider<List<dynamic>>((ref) async {
   try {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8787/v1/client/bd/deals'));
+    final response = await http.get(Uri.parse('${ApiClient.baseUrl}${ApiConfig.endpoints['clientBdDeals']}'));
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return json['deals'] as List<dynamic>;
@@ -30,7 +32,7 @@ class _BdDealsScreenState extends ConsumerState<BdDealsScreen> {
   Future<void> _updateDealStage(String id, String newStage) async {
      try {
         final res = await http.put(
-           Uri.parse('http://127.0.0.1:8787/v1/client/bd/deals/\$id'),
+           Uri.parse('${ApiClient.baseUrl}${ApiConfig.endpoints['clientBdDeals']}/\$id'),
            headers: {'Content-Type': 'application/json'},
            body: jsonEncode({'stage': newStage})
         );

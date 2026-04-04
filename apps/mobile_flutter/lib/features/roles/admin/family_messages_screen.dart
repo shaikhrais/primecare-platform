@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:primecare_mobile/core/api_config.dart';
+import 'package:primecare_mobile/core/api_client.dart';
 
 final familyMsgsProvider = FutureProvider<List<dynamic>>((ref) async {
   try {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8787/v1/client/family-messages'));
+    final response = await http.get(Uri.parse('${ApiClient.baseUrl}${ApiConfig.endpoints['clientFamilymessages']}'));
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return json['messages'] as List<dynamic>;

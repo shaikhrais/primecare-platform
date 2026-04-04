@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:primecare_mobile/core/api_config.dart';
+import 'package:primecare_mobile/core/api_client.dart';
 
 final opsIssuesProvider = FutureProvider<List<dynamic>>((ref) async {
   try {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8787/v1/client/ops/issues'));
+    final response = await http.get(Uri.parse('${ApiClient.baseUrl}${ApiConfig.endpoints['clientOpsIssues']}'));
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return json['issues'] as List<dynamic>;
@@ -30,7 +32,7 @@ class _OpsIssueTrackerScreenState extends ConsumerState<OpsIssueTrackerScreen> {
   Future<void> _updateIssueStatus(String id, String newStatus) async {
      try {
         final res = await http.put(
-           Uri.parse('http://127.0.0.1:8787/v1/client/ops/issues/\$id'),
+           Uri.parse('${ApiClient.baseUrl}${ApiConfig.endpoints['clientOpsIssues']}/\$id'),
            headers: {'Content-Type': 'application/json'},
            body: jsonEncode({'status': newStatus})
         );
