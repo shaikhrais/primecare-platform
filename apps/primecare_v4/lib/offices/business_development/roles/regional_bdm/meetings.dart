@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
-import '../../../../components/generic_feature_screen.dart';
+import '../../../../components/page_template.dart';
+import '../../../../components/clinical_glass.dart';
 
-class MeetingsScreen extends StatelessWidget {
-  const MeetingsScreen({super.key});
+class RegionalBdmMeetingsScreen extends StatelessWidget {
+  const RegionalBdmMeetingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const GenericFeatureScreen(featureId: 'MeetingsScreen');
+    return PageTemplate(
+      title: 'Meetings & Syncs',
+      subtitle: 'Schedule of client meetings, discovery days, and virtual check-ins.',
+      kpiCards: const [
+        KPIConfig(label: 'Meetings This Week', value: '18', trend: '+4', color: Colors.blue),
+        KPIConfig(label: 'Discovery Days', value: '2', trend: 'Soon', color: Colors.orange),
+        KPIConfig(label: 'Held Rate', value: '94%', trend: 'Steady', color: Colors.green),
+      ],
+      sections: [
+        ClinicalGlass(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Upcoming Calendar', style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 16),
+              const Text('Interactive weekly calendar detailing times, links, and attendees...'),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
