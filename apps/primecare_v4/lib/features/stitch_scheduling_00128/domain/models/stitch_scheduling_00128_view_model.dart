@@ -1,0 +1,10 @@
+class StitchScheduling00128ViewModel {
+  final String title;
+  final String status;
+  final List<String> views; final int conflicts; final String primaryResource;
+  
+  StitchScheduling00128ViewModel({
+    required this.title,
+    required this.status,
+  });
+}

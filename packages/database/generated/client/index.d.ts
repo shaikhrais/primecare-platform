@@ -639,6 +639,11 @@ export type NarrativeProgressNote = $Result.DefaultSelection<Prisma.$NarrativePr
  */
 export type CarePlanFollowUp = $Result.DefaultSelection<Prisma.$CarePlanFollowUpPayload>
 /**
+ * Model DynamicFeatureRecord
+ * 
+ */
+export type DynamicFeatureRecord = $Result.DefaultSelection<Prisma.$DynamicFeatureRecordPayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2313,6 +2318,16 @@ export class PrismaClient<
   get carePlanFollowUp(): Prisma.CarePlanFollowUpDelegate<ExtArgs>;
 
   /**
+   * `prisma.dynamicFeatureRecord`: Exposes CRUD operations for the **DynamicFeatureRecord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DynamicFeatureRecords
+    * const dynamicFeatureRecords = await prisma.dynamicFeatureRecord.findMany()
+    * ```
+    */
+  get dynamicFeatureRecord(): Prisma.DynamicFeatureRecordDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3477,6 +3492,7 @@ export namespace Prisma {
     InfectionControlChecklist: 'InfectionControlChecklist',
     NarrativeProgressNote: 'NarrativeProgressNote',
     CarePlanFollowUp: 'CarePlanFollowUp',
+    DynamicFeatureRecord: 'DynamicFeatureRecord',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3552,7 +3568,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -12306,6 +12322,76 @@ export namespace Prisma {
           }
         }
       }
+      DynamicFeatureRecord: {
+        payload: Prisma.$DynamicFeatureRecordPayload<ExtArgs>
+        fields: Prisma.DynamicFeatureRecordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DynamicFeatureRecordFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DynamicFeatureRecordFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>
+          }
+          findFirst: {
+            args: Prisma.DynamicFeatureRecordFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DynamicFeatureRecordFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>
+          }
+          findMany: {
+            args: Prisma.DynamicFeatureRecordFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>[]
+          }
+          create: {
+            args: Prisma.DynamicFeatureRecordCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>
+          }
+          createMany: {
+            args: Prisma.DynamicFeatureRecordCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DynamicFeatureRecordCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>[]
+          }
+          delete: {
+            args: Prisma.DynamicFeatureRecordDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>
+          }
+          update: {
+            args: Prisma.DynamicFeatureRecordUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>
+          }
+          deleteMany: {
+            args: Prisma.DynamicFeatureRecordDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DynamicFeatureRecordUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DynamicFeatureRecordUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DynamicFeatureRecordPayload>
+          }
+          aggregate: {
+            args: Prisma.DynamicFeatureRecordAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDynamicFeatureRecord>
+          }
+          groupBy: {
+            args: Prisma.DynamicFeatureRecordGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DynamicFeatureRecordGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DynamicFeatureRecordCountArgs<ExtArgs>
+            result: $Utils.Optional<DynamicFeatureRecordCountAggregateOutputType> | number
+          }
+        }
+      }
       FamilyAppointment: {
         payload: Prisma.$FamilyAppointmentPayload<ExtArgs>
         fields: Prisma.FamilyAppointmentFieldRefs
@@ -17097,6 +17183,7 @@ export namespace Prisma {
     infectionLogs: number
     narrativeNotes: number
     carePlanFollowUps: number
+    dynamicFeatureRecords: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17189,6 +17276,7 @@ export namespace Prisma {
     infectionLogs?: boolean | TenantCountOutputTypeCountInfectionLogsArgs
     narrativeNotes?: boolean | TenantCountOutputTypeCountNarrativeNotesArgs
     carePlanFollowUps?: boolean | TenantCountOutputTypeCountCarePlanFollowUpsArgs
+    dynamicFeatureRecords?: boolean | TenantCountOutputTypeCountDynamicFeatureRecordsArgs
   }
 
   // Custom InputTypes
@@ -17823,6 +17911,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountCarePlanFollowUpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CarePlanFollowUpWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDynamicFeatureRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DynamicFeatureRecordWhereInput
   }
 
 
@@ -21562,6 +21657,7 @@ export namespace Prisma {
     infectionLogs?: boolean | Tenant$infectionLogsArgs<ExtArgs>
     narrativeNotes?: boolean | Tenant$narrativeNotesArgs<ExtArgs>
     carePlanFollowUps?: boolean | Tenant$carePlanFollowUpsArgs<ExtArgs>
+    dynamicFeatureRecords?: boolean | Tenant$dynamicFeatureRecordsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -21707,6 +21803,7 @@ export namespace Prisma {
     infectionLogs?: boolean | Tenant$infectionLogsArgs<ExtArgs>
     narrativeNotes?: boolean | Tenant$narrativeNotesArgs<ExtArgs>
     carePlanFollowUps?: boolean | Tenant$carePlanFollowUpsArgs<ExtArgs>
+    dynamicFeatureRecords?: boolean | Tenant$dynamicFeatureRecordsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21806,6 +21903,7 @@ export namespace Prisma {
       infectionLogs: Prisma.$InfectionControlChecklistPayload<ExtArgs>[]
       narrativeNotes: Prisma.$NarrativeProgressNotePayload<ExtArgs>[]
       carePlanFollowUps: Prisma.$CarePlanFollowUpPayload<ExtArgs>[]
+      dynamicFeatureRecords: Prisma.$DynamicFeatureRecordPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -22284,6 +22382,7 @@ export namespace Prisma {
     infectionLogs<T extends Tenant$infectionLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$infectionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InfectionControlChecklistPayload<ExtArgs>, T, "findMany"> | Null>
     narrativeNotes<T extends Tenant$narrativeNotesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$narrativeNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NarrativeProgressNotePayload<ExtArgs>, T, "findMany"> | Null>
     carePlanFollowUps<T extends Tenant$carePlanFollowUpsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$carePlanFollowUpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanFollowUpPayload<ExtArgs>, T, "findMany"> | Null>
+    dynamicFeatureRecords<T extends Tenant$dynamicFeatureRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$dynamicFeatureRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24445,6 +24544,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CarePlanFollowUpScalarFieldEnum | CarePlanFollowUpScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.dynamicFeatureRecords
+   */
+  export type Tenant$dynamicFeatureRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    where?: DynamicFeatureRecordWhereInput
+    orderBy?: DynamicFeatureRecordOrderByWithRelationInput | DynamicFeatureRecordOrderByWithRelationInput[]
+    cursor?: DynamicFeatureRecordWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DynamicFeatureRecordScalarFieldEnum | DynamicFeatureRecordScalarFieldEnum[]
   }
 
   /**
@@ -150946,6 +151065,971 @@ export namespace Prisma {
 
 
   /**
+   * Model DynamicFeatureRecord
+   */
+
+  export type AggregateDynamicFeatureRecord = {
+    _count: DynamicFeatureRecordCountAggregateOutputType | null
+    _min: DynamicFeatureRecordMinAggregateOutputType | null
+    _max: DynamicFeatureRecordMaxAggregateOutputType | null
+  }
+
+  export type DynamicFeatureRecordMinAggregateOutputType = {
+    id: string | null
+    featureId: string | null
+    tenantId: string | null
+    patientId: string | null
+    entityType: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DynamicFeatureRecordMaxAggregateOutputType = {
+    id: string | null
+    featureId: string | null
+    tenantId: string | null
+    patientId: string | null
+    entityType: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DynamicFeatureRecordCountAggregateOutputType = {
+    id: number
+    featureId: number
+    tenantId: number
+    patientId: number
+    entityType: number
+    payload: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DynamicFeatureRecordMinAggregateInputType = {
+    id?: true
+    featureId?: true
+    tenantId?: true
+    patientId?: true
+    entityType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DynamicFeatureRecordMaxAggregateInputType = {
+    id?: true
+    featureId?: true
+    tenantId?: true
+    patientId?: true
+    entityType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DynamicFeatureRecordCountAggregateInputType = {
+    id?: true
+    featureId?: true
+    tenantId?: true
+    patientId?: true
+    entityType?: true
+    payload?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DynamicFeatureRecordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DynamicFeatureRecord to aggregate.
+     */
+    where?: DynamicFeatureRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DynamicFeatureRecords to fetch.
+     */
+    orderBy?: DynamicFeatureRecordOrderByWithRelationInput | DynamicFeatureRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DynamicFeatureRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DynamicFeatureRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DynamicFeatureRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DynamicFeatureRecords
+    **/
+    _count?: true | DynamicFeatureRecordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DynamicFeatureRecordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DynamicFeatureRecordMaxAggregateInputType
+  }
+
+  export type GetDynamicFeatureRecordAggregateType<T extends DynamicFeatureRecordAggregateArgs> = {
+        [P in keyof T & keyof AggregateDynamicFeatureRecord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDynamicFeatureRecord[P]>
+      : GetScalarType<T[P], AggregateDynamicFeatureRecord[P]>
+  }
+
+
+
+
+  export type DynamicFeatureRecordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DynamicFeatureRecordWhereInput
+    orderBy?: DynamicFeatureRecordOrderByWithAggregationInput | DynamicFeatureRecordOrderByWithAggregationInput[]
+    by: DynamicFeatureRecordScalarFieldEnum[] | DynamicFeatureRecordScalarFieldEnum
+    having?: DynamicFeatureRecordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DynamicFeatureRecordCountAggregateInputType | true
+    _min?: DynamicFeatureRecordMinAggregateInputType
+    _max?: DynamicFeatureRecordMaxAggregateInputType
+  }
+
+  export type DynamicFeatureRecordGroupByOutputType = {
+    id: string
+    featureId: string
+    tenantId: string
+    patientId: string | null
+    entityType: string
+    payload: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: DynamicFeatureRecordCountAggregateOutputType | null
+    _min: DynamicFeatureRecordMinAggregateOutputType | null
+    _max: DynamicFeatureRecordMaxAggregateOutputType | null
+  }
+
+  type GetDynamicFeatureRecordGroupByPayload<T extends DynamicFeatureRecordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DynamicFeatureRecordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DynamicFeatureRecordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DynamicFeatureRecordGroupByOutputType[P]>
+            : GetScalarType<T[P], DynamicFeatureRecordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DynamicFeatureRecordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    featureId?: boolean
+    tenantId?: boolean
+    patientId?: boolean
+    entityType?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dynamicFeatureRecord"]>
+
+  export type DynamicFeatureRecordSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    featureId?: boolean
+    tenantId?: boolean
+    patientId?: boolean
+    entityType?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dynamicFeatureRecord"]>
+
+  export type DynamicFeatureRecordSelectScalar = {
+    id?: boolean
+    featureId?: boolean
+    tenantId?: boolean
+    patientId?: boolean
+    entityType?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DynamicFeatureRecordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type DynamicFeatureRecordIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $DynamicFeatureRecordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DynamicFeatureRecord"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      featureId: string
+      tenantId: string
+      patientId: string | null
+      entityType: string
+      payload: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dynamicFeatureRecord"]>
+    composites: {}
+  }
+
+  type DynamicFeatureRecordGetPayload<S extends boolean | null | undefined | DynamicFeatureRecordDefaultArgs> = $Result.GetResult<Prisma.$DynamicFeatureRecordPayload, S>
+
+  type DynamicFeatureRecordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DynamicFeatureRecordFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DynamicFeatureRecordCountAggregateInputType | true
+    }
+
+  export interface DynamicFeatureRecordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DynamicFeatureRecord'], meta: { name: 'DynamicFeatureRecord' } }
+    /**
+     * Find zero or one DynamicFeatureRecord that matches the filter.
+     * @param {DynamicFeatureRecordFindUniqueArgs} args - Arguments to find a DynamicFeatureRecord
+     * @example
+     * // Get one DynamicFeatureRecord
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DynamicFeatureRecordFindUniqueArgs>(args: SelectSubset<T, DynamicFeatureRecordFindUniqueArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DynamicFeatureRecord that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DynamicFeatureRecordFindUniqueOrThrowArgs} args - Arguments to find a DynamicFeatureRecord
+     * @example
+     * // Get one DynamicFeatureRecord
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DynamicFeatureRecordFindUniqueOrThrowArgs>(args: SelectSubset<T, DynamicFeatureRecordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DynamicFeatureRecord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DynamicFeatureRecordFindFirstArgs} args - Arguments to find a DynamicFeatureRecord
+     * @example
+     * // Get one DynamicFeatureRecord
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DynamicFeatureRecordFindFirstArgs>(args?: SelectSubset<T, DynamicFeatureRecordFindFirstArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DynamicFeatureRecord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DynamicFeatureRecordFindFirstOrThrowArgs} args - Arguments to find a DynamicFeatureRecord
+     * @example
+     * // Get one DynamicFeatureRecord
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DynamicFeatureRecordFindFirstOrThrowArgs>(args?: SelectSubset<T, DynamicFeatureRecordFindFirstOrThrowArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DynamicFeatureRecords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DynamicFeatureRecordFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DynamicFeatureRecords
+     * const dynamicFeatureRecords = await prisma.dynamicFeatureRecord.findMany()
+     * 
+     * // Get first 10 DynamicFeatureRecords
+     * const dynamicFeatureRecords = await prisma.dynamicFeatureRecord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dynamicFeatureRecordWithIdOnly = await prisma.dynamicFeatureRecord.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DynamicFeatureRecordFindManyArgs>(args?: SelectSubset<T, DynamicFeatureRecordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DynamicFeatureRecord.
+     * @param {DynamicFeatureRecordCreateArgs} args - Arguments to create a DynamicFeatureRecord.
+     * @example
+     * // Create one DynamicFeatureRecord
+     * const DynamicFeatureRecord = await prisma.dynamicFeatureRecord.create({
+     *   data: {
+     *     // ... data to create a DynamicFeatureRecord
+     *   }
+     * })
+     * 
+     */
+    create<T extends DynamicFeatureRecordCreateArgs>(args: SelectSubset<T, DynamicFeatureRecordCreateArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DynamicFeatureRecords.
+     * @param {DynamicFeatureRecordCreateManyArgs} args - Arguments to create many DynamicFeatureRecords.
+     * @example
+     * // Create many DynamicFeatureRecords
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DynamicFeatureRecordCreateManyArgs>(args?: SelectSubset<T, DynamicFeatureRecordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DynamicFeatureRecords and returns the data saved in the database.
+     * @param {DynamicFeatureRecordCreateManyAndReturnArgs} args - Arguments to create many DynamicFeatureRecords.
+     * @example
+     * // Create many DynamicFeatureRecords
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DynamicFeatureRecords and only return the `id`
+     * const dynamicFeatureRecordWithIdOnly = await prisma.dynamicFeatureRecord.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DynamicFeatureRecordCreateManyAndReturnArgs>(args?: SelectSubset<T, DynamicFeatureRecordCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DynamicFeatureRecord.
+     * @param {DynamicFeatureRecordDeleteArgs} args - Arguments to delete one DynamicFeatureRecord.
+     * @example
+     * // Delete one DynamicFeatureRecord
+     * const DynamicFeatureRecord = await prisma.dynamicFeatureRecord.delete({
+     *   where: {
+     *     // ... filter to delete one DynamicFeatureRecord
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DynamicFeatureRecordDeleteArgs>(args: SelectSubset<T, DynamicFeatureRecordDeleteArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DynamicFeatureRecord.
+     * @param {DynamicFeatureRecordUpdateArgs} args - Arguments to update one DynamicFeatureRecord.
+     * @example
+     * // Update one DynamicFeatureRecord
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DynamicFeatureRecordUpdateArgs>(args: SelectSubset<T, DynamicFeatureRecordUpdateArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DynamicFeatureRecords.
+     * @param {DynamicFeatureRecordDeleteManyArgs} args - Arguments to filter DynamicFeatureRecords to delete.
+     * @example
+     * // Delete a few DynamicFeatureRecords
+     * const { count } = await prisma.dynamicFeatureRecord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DynamicFeatureRecordDeleteManyArgs>(args?: SelectSubset<T, DynamicFeatureRecordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DynamicFeatureRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DynamicFeatureRecordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DynamicFeatureRecords
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DynamicFeatureRecordUpdateManyArgs>(args: SelectSubset<T, DynamicFeatureRecordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DynamicFeatureRecord.
+     * @param {DynamicFeatureRecordUpsertArgs} args - Arguments to update or create a DynamicFeatureRecord.
+     * @example
+     * // Update or create a DynamicFeatureRecord
+     * const dynamicFeatureRecord = await prisma.dynamicFeatureRecord.upsert({
+     *   create: {
+     *     // ... data to create a DynamicFeatureRecord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DynamicFeatureRecord we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DynamicFeatureRecordUpsertArgs>(args: SelectSubset<T, DynamicFeatureRecordUpsertArgs<ExtArgs>>): Prisma__DynamicFeatureRecordClient<$Result.GetResult<Prisma.$DynamicFeatureRecordPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DynamicFeatureRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DynamicFeatureRecordCountArgs} args - Arguments to filter DynamicFeatureRecords to count.
+     * @example
+     * // Count the number of DynamicFeatureRecords
+     * const count = await prisma.dynamicFeatureRecord.count({
+     *   where: {
+     *     // ... the filter for the DynamicFeatureRecords we want to count
+     *   }
+     * })
+    **/
+    count<T extends DynamicFeatureRecordCountArgs>(
+      args?: Subset<T, DynamicFeatureRecordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DynamicFeatureRecordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DynamicFeatureRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DynamicFeatureRecordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DynamicFeatureRecordAggregateArgs>(args: Subset<T, DynamicFeatureRecordAggregateArgs>): Prisma.PrismaPromise<GetDynamicFeatureRecordAggregateType<T>>
+
+    /**
+     * Group by DynamicFeatureRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DynamicFeatureRecordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DynamicFeatureRecordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DynamicFeatureRecordGroupByArgs['orderBy'] }
+        : { orderBy?: DynamicFeatureRecordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DynamicFeatureRecordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDynamicFeatureRecordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DynamicFeatureRecord model
+   */
+  readonly fields: DynamicFeatureRecordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DynamicFeatureRecord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DynamicFeatureRecordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DynamicFeatureRecord model
+   */ 
+  interface DynamicFeatureRecordFieldRefs {
+    readonly id: FieldRef<"DynamicFeatureRecord", 'String'>
+    readonly featureId: FieldRef<"DynamicFeatureRecord", 'String'>
+    readonly tenantId: FieldRef<"DynamicFeatureRecord", 'String'>
+    readonly patientId: FieldRef<"DynamicFeatureRecord", 'String'>
+    readonly entityType: FieldRef<"DynamicFeatureRecord", 'String'>
+    readonly payload: FieldRef<"DynamicFeatureRecord", 'Json'>
+    readonly createdAt: FieldRef<"DynamicFeatureRecord", 'DateTime'>
+    readonly updatedAt: FieldRef<"DynamicFeatureRecord", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DynamicFeatureRecord findUnique
+   */
+  export type DynamicFeatureRecordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which DynamicFeatureRecord to fetch.
+     */
+    where: DynamicFeatureRecordWhereUniqueInput
+  }
+
+  /**
+   * DynamicFeatureRecord findUniqueOrThrow
+   */
+  export type DynamicFeatureRecordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which DynamicFeatureRecord to fetch.
+     */
+    where: DynamicFeatureRecordWhereUniqueInput
+  }
+
+  /**
+   * DynamicFeatureRecord findFirst
+   */
+  export type DynamicFeatureRecordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which DynamicFeatureRecord to fetch.
+     */
+    where?: DynamicFeatureRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DynamicFeatureRecords to fetch.
+     */
+    orderBy?: DynamicFeatureRecordOrderByWithRelationInput | DynamicFeatureRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DynamicFeatureRecords.
+     */
+    cursor?: DynamicFeatureRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DynamicFeatureRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DynamicFeatureRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DynamicFeatureRecords.
+     */
+    distinct?: DynamicFeatureRecordScalarFieldEnum | DynamicFeatureRecordScalarFieldEnum[]
+  }
+
+  /**
+   * DynamicFeatureRecord findFirstOrThrow
+   */
+  export type DynamicFeatureRecordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which DynamicFeatureRecord to fetch.
+     */
+    where?: DynamicFeatureRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DynamicFeatureRecords to fetch.
+     */
+    orderBy?: DynamicFeatureRecordOrderByWithRelationInput | DynamicFeatureRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DynamicFeatureRecords.
+     */
+    cursor?: DynamicFeatureRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DynamicFeatureRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DynamicFeatureRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DynamicFeatureRecords.
+     */
+    distinct?: DynamicFeatureRecordScalarFieldEnum | DynamicFeatureRecordScalarFieldEnum[]
+  }
+
+  /**
+   * DynamicFeatureRecord findMany
+   */
+  export type DynamicFeatureRecordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which DynamicFeatureRecords to fetch.
+     */
+    where?: DynamicFeatureRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DynamicFeatureRecords to fetch.
+     */
+    orderBy?: DynamicFeatureRecordOrderByWithRelationInput | DynamicFeatureRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DynamicFeatureRecords.
+     */
+    cursor?: DynamicFeatureRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DynamicFeatureRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DynamicFeatureRecords.
+     */
+    skip?: number
+    distinct?: DynamicFeatureRecordScalarFieldEnum | DynamicFeatureRecordScalarFieldEnum[]
+  }
+
+  /**
+   * DynamicFeatureRecord create
+   */
+  export type DynamicFeatureRecordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DynamicFeatureRecord.
+     */
+    data: XOR<DynamicFeatureRecordCreateInput, DynamicFeatureRecordUncheckedCreateInput>
+  }
+
+  /**
+   * DynamicFeatureRecord createMany
+   */
+  export type DynamicFeatureRecordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DynamicFeatureRecords.
+     */
+    data: DynamicFeatureRecordCreateManyInput | DynamicFeatureRecordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DynamicFeatureRecord createManyAndReturn
+   */
+  export type DynamicFeatureRecordCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DynamicFeatureRecords.
+     */
+    data: DynamicFeatureRecordCreateManyInput | DynamicFeatureRecordCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DynamicFeatureRecord update
+   */
+  export type DynamicFeatureRecordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DynamicFeatureRecord.
+     */
+    data: XOR<DynamicFeatureRecordUpdateInput, DynamicFeatureRecordUncheckedUpdateInput>
+    /**
+     * Choose, which DynamicFeatureRecord to update.
+     */
+    where: DynamicFeatureRecordWhereUniqueInput
+  }
+
+  /**
+   * DynamicFeatureRecord updateMany
+   */
+  export type DynamicFeatureRecordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DynamicFeatureRecords.
+     */
+    data: XOR<DynamicFeatureRecordUpdateManyMutationInput, DynamicFeatureRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which DynamicFeatureRecords to update
+     */
+    where?: DynamicFeatureRecordWhereInput
+  }
+
+  /**
+   * DynamicFeatureRecord upsert
+   */
+  export type DynamicFeatureRecordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DynamicFeatureRecord to update in case it exists.
+     */
+    where: DynamicFeatureRecordWhereUniqueInput
+    /**
+     * In case the DynamicFeatureRecord found by the `where` argument doesn't exist, create a new DynamicFeatureRecord with this data.
+     */
+    create: XOR<DynamicFeatureRecordCreateInput, DynamicFeatureRecordUncheckedCreateInput>
+    /**
+     * In case the DynamicFeatureRecord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DynamicFeatureRecordUpdateInput, DynamicFeatureRecordUncheckedUpdateInput>
+  }
+
+  /**
+   * DynamicFeatureRecord delete
+   */
+  export type DynamicFeatureRecordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+    /**
+     * Filter which DynamicFeatureRecord to delete.
+     */
+    where: DynamicFeatureRecordWhereUniqueInput
+  }
+
+  /**
+   * DynamicFeatureRecord deleteMany
+   */
+  export type DynamicFeatureRecordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DynamicFeatureRecords to delete
+     */
+    where?: DynamicFeatureRecordWhereInput
+  }
+
+  /**
+   * DynamicFeatureRecord without action
+   */
+  export type DynamicFeatureRecordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DynamicFeatureRecord
+     */
+    select?: DynamicFeatureRecordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DynamicFeatureRecordInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -209788,6 +210872,20 @@ export namespace Prisma {
   export type CarePlanFollowUpScalarFieldEnum = (typeof CarePlanFollowUpScalarFieldEnum)[keyof typeof CarePlanFollowUpScalarFieldEnum]
 
 
+  export const DynamicFeatureRecordScalarFieldEnum: {
+    id: 'id',
+    featureId: 'featureId',
+    tenantId: 'tenantId',
+    patientId: 'patientId',
+    entityType: 'entityType',
+    payload: 'payload',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DynamicFeatureRecordScalarFieldEnum = (typeof DynamicFeatureRecordScalarFieldEnum)[keyof typeof DynamicFeatureRecordScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -211124,6 +212222,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistListRelationFilter
     narrativeNotes?: NarrativeProgressNoteListRelationFilter
     carePlanFollowUps?: CarePlanFollowUpListRelationFilter
+    dynamicFeatureRecords?: DynamicFeatureRecordListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -211239,6 +212338,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistOrderByRelationAggregateInput
     narrativeNotes?: NarrativeProgressNoteOrderByRelationAggregateInput
     carePlanFollowUps?: CarePlanFollowUpOrderByRelationAggregateInput
+    dynamicFeatureRecords?: DynamicFeatureRecordOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -211357,6 +212457,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistListRelationFilter
     narrativeNotes?: NarrativeProgressNoteListRelationFilter
     carePlanFollowUps?: CarePlanFollowUpListRelationFilter
+    dynamicFeatureRecords?: DynamicFeatureRecordListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -221620,6 +222721,76 @@ export namespace Prisma {
     recordedAt?: DateTimeWithAggregatesFilter<"CarePlanFollowUp"> | Date | string
   }
 
+  export type DynamicFeatureRecordWhereInput = {
+    AND?: DynamicFeatureRecordWhereInput | DynamicFeatureRecordWhereInput[]
+    OR?: DynamicFeatureRecordWhereInput[]
+    NOT?: DynamicFeatureRecordWhereInput | DynamicFeatureRecordWhereInput[]
+    id?: StringFilter<"DynamicFeatureRecord"> | string
+    featureId?: StringFilter<"DynamicFeatureRecord"> | string
+    tenantId?: StringFilter<"DynamicFeatureRecord"> | string
+    patientId?: StringNullableFilter<"DynamicFeatureRecord"> | string | null
+    entityType?: StringFilter<"DynamicFeatureRecord"> | string
+    payload?: JsonFilter<"DynamicFeatureRecord">
+    createdAt?: DateTimeFilter<"DynamicFeatureRecord"> | Date | string
+    updatedAt?: DateTimeFilter<"DynamicFeatureRecord"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type DynamicFeatureRecordOrderByWithRelationInput = {
+    id?: SortOrder
+    featureId?: SortOrder
+    tenantId?: SortOrder
+    patientId?: SortOrderInput | SortOrder
+    entityType?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type DynamicFeatureRecordWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DynamicFeatureRecordWhereInput | DynamicFeatureRecordWhereInput[]
+    OR?: DynamicFeatureRecordWhereInput[]
+    NOT?: DynamicFeatureRecordWhereInput | DynamicFeatureRecordWhereInput[]
+    featureId?: StringFilter<"DynamicFeatureRecord"> | string
+    tenantId?: StringFilter<"DynamicFeatureRecord"> | string
+    patientId?: StringNullableFilter<"DynamicFeatureRecord"> | string | null
+    entityType?: StringFilter<"DynamicFeatureRecord"> | string
+    payload?: JsonFilter<"DynamicFeatureRecord">
+    createdAt?: DateTimeFilter<"DynamicFeatureRecord"> | Date | string
+    updatedAt?: DateTimeFilter<"DynamicFeatureRecord"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type DynamicFeatureRecordOrderByWithAggregationInput = {
+    id?: SortOrder
+    featureId?: SortOrder
+    tenantId?: SortOrder
+    patientId?: SortOrderInput | SortOrder
+    entityType?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DynamicFeatureRecordCountOrderByAggregateInput
+    _max?: DynamicFeatureRecordMaxOrderByAggregateInput
+    _min?: DynamicFeatureRecordMinOrderByAggregateInput
+  }
+
+  export type DynamicFeatureRecordScalarWhereWithAggregatesInput = {
+    AND?: DynamicFeatureRecordScalarWhereWithAggregatesInput | DynamicFeatureRecordScalarWhereWithAggregatesInput[]
+    OR?: DynamicFeatureRecordScalarWhereWithAggregatesInput[]
+    NOT?: DynamicFeatureRecordScalarWhereWithAggregatesInput | DynamicFeatureRecordScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DynamicFeatureRecord"> | string
+    featureId?: StringWithAggregatesFilter<"DynamicFeatureRecord"> | string
+    tenantId?: StringWithAggregatesFilter<"DynamicFeatureRecord"> | string
+    patientId?: StringNullableWithAggregatesFilter<"DynamicFeatureRecord"> | string | null
+    entityType?: StringWithAggregatesFilter<"DynamicFeatureRecord"> | string
+    payload?: JsonWithAggregatesFilter<"DynamicFeatureRecord">
+    createdAt?: DateTimeWithAggregatesFilter<"DynamicFeatureRecord"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DynamicFeatureRecord"> | Date | string
+  }
+
   export type FamilyAppointmentWhereInput = {
     AND?: FamilyAppointmentWhereInput | FamilyAppointmentWhereInput[]
     OR?: FamilyAppointmentWhereInput[]
@@ -226249,6 +227420,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -226363,6 +227535,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -226477,6 +227650,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -226591,6 +227765,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -237563,6 +238738,82 @@ export namespace Prisma {
     recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DynamicFeatureRecordCreateInput = {
+    id?: string
+    featureId: string
+    patientId?: string | null
+    entityType: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDynamicFeatureRecordsInput
+  }
+
+  export type DynamicFeatureRecordUncheckedCreateInput = {
+    id?: string
+    featureId: string
+    tenantId: string
+    patientId?: string | null
+    entityType: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DynamicFeatureRecordUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureId?: StringFieldUpdateOperationsInput | string
+    patientId?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDynamicFeatureRecordsNestedInput
+  }
+
+  export type DynamicFeatureRecordUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    patientId?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DynamicFeatureRecordCreateManyInput = {
+    id?: string
+    featureId: string
+    tenantId: string
+    patientId?: string | null
+    entityType: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DynamicFeatureRecordUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureId?: StringFieldUpdateOperationsInput | string
+    patientId?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DynamicFeatureRecordUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    patientId?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -243352,6 +244603,12 @@ export namespace Prisma {
     none?: PlatformRoleWhereInput
   }
 
+  export type DynamicFeatureRecordListRelationFilter = {
+    every?: DynamicFeatureRecordWhereInput
+    some?: DynamicFeatureRecordWhereInput
+    none?: DynamicFeatureRecordWhereInput
+  }
+
   export type BookingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -243589,6 +244846,10 @@ export namespace Prisma {
   }
 
   export type PlatformRoleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DynamicFeatureRecordOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -249404,6 +250665,37 @@ export namespace Prisma {
     recordedAt?: SortOrder
   }
 
+  export type DynamicFeatureRecordCountOrderByAggregateInput = {
+    id?: SortOrder
+    featureId?: SortOrder
+    tenantId?: SortOrder
+    patientId?: SortOrder
+    entityType?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DynamicFeatureRecordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    featureId?: SortOrder
+    tenantId?: SortOrder
+    patientId?: SortOrder
+    entityType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DynamicFeatureRecordMinOrderByAggregateInput = {
+    id?: SortOrder
+    featureId?: SortOrder
+    tenantId?: SortOrder
+    patientId?: SortOrder
+    entityType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type FamilyAppointmentCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -254150,6 +255442,13 @@ export namespace Prisma {
     connect?: CarePlanFollowUpWhereUniqueInput | CarePlanFollowUpWhereUniqueInput[]
   }
 
+  export type DynamicFeatureRecordCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DynamicFeatureRecordCreateWithoutTenantInput, DynamicFeatureRecordUncheckedCreateWithoutTenantInput> | DynamicFeatureRecordCreateWithoutTenantInput[] | DynamicFeatureRecordUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DynamicFeatureRecordCreateOrConnectWithoutTenantInput | DynamicFeatureRecordCreateOrConnectWithoutTenantInput[]
+    createMany?: DynamicFeatureRecordCreateManyTenantInputEnvelope
+    connect?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -254771,6 +256070,13 @@ export namespace Prisma {
     connectOrCreate?: CarePlanFollowUpCreateOrConnectWithoutTenantInput | CarePlanFollowUpCreateOrConnectWithoutTenantInput[]
     createMany?: CarePlanFollowUpCreateManyTenantInputEnvelope
     connect?: CarePlanFollowUpWhereUniqueInput | CarePlanFollowUpWhereUniqueInput[]
+  }
+
+  export type DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DynamicFeatureRecordCreateWithoutTenantInput, DynamicFeatureRecordUncheckedCreateWithoutTenantInput> | DynamicFeatureRecordCreateWithoutTenantInput[] | DynamicFeatureRecordUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DynamicFeatureRecordCreateOrConnectWithoutTenantInput | DynamicFeatureRecordCreateOrConnectWithoutTenantInput[]
+    createMany?: DynamicFeatureRecordCreateManyTenantInputEnvelope
+    connect?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -256049,6 +257355,20 @@ export namespace Prisma {
     deleteMany?: CarePlanFollowUpScalarWhereInput | CarePlanFollowUpScalarWhereInput[]
   }
 
+  export type DynamicFeatureRecordUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DynamicFeatureRecordCreateWithoutTenantInput, DynamicFeatureRecordUncheckedCreateWithoutTenantInput> | DynamicFeatureRecordCreateWithoutTenantInput[] | DynamicFeatureRecordUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DynamicFeatureRecordCreateOrConnectWithoutTenantInput | DynamicFeatureRecordCreateOrConnectWithoutTenantInput[]
+    upsert?: DynamicFeatureRecordUpsertWithWhereUniqueWithoutTenantInput | DynamicFeatureRecordUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DynamicFeatureRecordCreateManyTenantInputEnvelope
+    set?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    disconnect?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    delete?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    connect?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    update?: DynamicFeatureRecordUpdateWithWhereUniqueWithoutTenantInput | DynamicFeatureRecordUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DynamicFeatureRecordUpdateManyWithWhereWithoutTenantInput | DynamicFeatureRecordUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DynamicFeatureRecordScalarWhereInput | DynamicFeatureRecordScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -257293,6 +258613,20 @@ export namespace Prisma {
     update?: CarePlanFollowUpUpdateWithWhereUniqueWithoutTenantInput | CarePlanFollowUpUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: CarePlanFollowUpUpdateManyWithWhereWithoutTenantInput | CarePlanFollowUpUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: CarePlanFollowUpScalarWhereInput | CarePlanFollowUpScalarWhereInput[]
+  }
+
+  export type DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DynamicFeatureRecordCreateWithoutTenantInput, DynamicFeatureRecordUncheckedCreateWithoutTenantInput> | DynamicFeatureRecordCreateWithoutTenantInput[] | DynamicFeatureRecordUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DynamicFeatureRecordCreateOrConnectWithoutTenantInput | DynamicFeatureRecordCreateOrConnectWithoutTenantInput[]
+    upsert?: DynamicFeatureRecordUpsertWithWhereUniqueWithoutTenantInput | DynamicFeatureRecordUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DynamicFeatureRecordCreateManyTenantInputEnvelope
+    set?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    disconnect?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    delete?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    connect?: DynamicFeatureRecordWhereUniqueInput | DynamicFeatureRecordWhereUniqueInput[]
+    update?: DynamicFeatureRecordUpdateWithWhereUniqueWithoutTenantInput | DynamicFeatureRecordUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DynamicFeatureRecordUpdateManyWithWhereWithoutTenantInput | DynamicFeatureRecordUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DynamicFeatureRecordScalarWhereInput | DynamicFeatureRecordScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutRegistriesInput = {
@@ -264189,6 +265523,20 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCarePlanFollowUpsInput, TenantUpdateWithoutCarePlanFollowUpsInput>, TenantUncheckedUpdateWithoutCarePlanFollowUpsInput>
   }
 
+  export type TenantCreateNestedOneWithoutDynamicFeatureRecordsInput = {
+    create?: XOR<TenantCreateWithoutDynamicFeatureRecordsInput, TenantUncheckedCreateWithoutDynamicFeatureRecordsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDynamicFeatureRecordsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutDynamicFeatureRecordsNestedInput = {
+    create?: XOR<TenantCreateWithoutDynamicFeatureRecordsInput, TenantUncheckedCreateWithoutDynamicFeatureRecordsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDynamicFeatureRecordsInput
+    upsert?: TenantUpsertWithoutDynamicFeatureRecordsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDynamicFeatureRecordsInput, TenantUpdateWithoutDynamicFeatureRecordsInput>, TenantUncheckedUpdateWithoutDynamicFeatureRecordsInput>
+  }
+
   export type PatientCreateNestedManyWithoutClinicInput = {
     create?: XOR<PatientCreateWithoutClinicInput, PatientUncheckedCreateWithoutClinicInput> | PatientCreateWithoutClinicInput[] | PatientUncheckedCreateWithoutClinicInput[]
     connectOrCreate?: PatientCreateOrConnectWithoutClinicInput | PatientCreateOrConnectWithoutClinicInput[]
@@ -265182,6 +266530,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUsersInput = {
@@ -265295,6 +266644,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUsersInput = {
@@ -266891,6 +268241,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -267004,6 +268355,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCheckEventUpsertWithWhereUniqueWithoutOverriddenByInput = {
@@ -270014,6 +271366,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutChildTenantsInput = {
@@ -270127,6 +271480,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutChildTenantsInput = {
@@ -270245,6 +271599,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutParentTenantInput = {
@@ -270358,6 +271713,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutParentTenantInput = {
@@ -271653,6 +273009,36 @@ export namespace Prisma {
 
   export type CarePlanFollowUpCreateManyTenantInputEnvelope = {
     data: CarePlanFollowUpCreateManyTenantInput | CarePlanFollowUpCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DynamicFeatureRecordCreateWithoutTenantInput = {
+    id?: string
+    featureId: string
+    patientId?: string | null
+    entityType: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DynamicFeatureRecordUncheckedCreateWithoutTenantInput = {
+    id?: string
+    featureId: string
+    patientId?: string | null
+    entityType: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DynamicFeatureRecordCreateOrConnectWithoutTenantInput = {
+    where: DynamicFeatureRecordWhereUniqueInput
+    create: XOR<DynamicFeatureRecordCreateWithoutTenantInput, DynamicFeatureRecordUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DynamicFeatureRecordCreateManyTenantInputEnvelope = {
+    data: DynamicFeatureRecordCreateManyTenantInput | DynamicFeatureRecordCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -273177,6 +274563,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutChildTenantsInput = {
@@ -273290,6 +274677,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUpsertWithWhereUniqueWithoutParentTenantInput = {
@@ -274278,6 +275666,36 @@ export namespace Prisma {
     data: XOR<CarePlanFollowUpUpdateManyMutationInput, CarePlanFollowUpUncheckedUpdateManyWithoutTenantInput>
   }
 
+  export type DynamicFeatureRecordUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DynamicFeatureRecordWhereUniqueInput
+    update: XOR<DynamicFeatureRecordUpdateWithoutTenantInput, DynamicFeatureRecordUncheckedUpdateWithoutTenantInput>
+    create: XOR<DynamicFeatureRecordCreateWithoutTenantInput, DynamicFeatureRecordUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DynamicFeatureRecordUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DynamicFeatureRecordWhereUniqueInput
+    data: XOR<DynamicFeatureRecordUpdateWithoutTenantInput, DynamicFeatureRecordUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DynamicFeatureRecordUpdateManyWithWhereWithoutTenantInput = {
+    where: DynamicFeatureRecordScalarWhereInput
+    data: XOR<DynamicFeatureRecordUpdateManyMutationInput, DynamicFeatureRecordUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DynamicFeatureRecordScalarWhereInput = {
+    AND?: DynamicFeatureRecordScalarWhereInput | DynamicFeatureRecordScalarWhereInput[]
+    OR?: DynamicFeatureRecordScalarWhereInput[]
+    NOT?: DynamicFeatureRecordScalarWhereInput | DynamicFeatureRecordScalarWhereInput[]
+    id?: StringFilter<"DynamicFeatureRecord"> | string
+    featureId?: StringFilter<"DynamicFeatureRecord"> | string
+    tenantId?: StringFilter<"DynamicFeatureRecord"> | string
+    patientId?: StringNullableFilter<"DynamicFeatureRecord"> | string | null
+    entityType?: StringFilter<"DynamicFeatureRecord"> | string
+    payload?: JsonFilter<"DynamicFeatureRecord">
+    createdAt?: DateTimeFilter<"DynamicFeatureRecord"> | Date | string
+    updatedAt?: DateTimeFilter<"DynamicFeatureRecord"> | Date | string
+  }
+
   export type TenantCreateWithoutRegistriesInput = {
     id?: string
     name: string
@@ -274389,6 +275807,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegistriesInput = {
@@ -274502,6 +275921,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegistriesInput = {
@@ -274631,6 +276051,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegistriesInput = {
@@ -274744,6 +276165,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutApiKeysInput = {
@@ -274857,6 +276279,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApiKeysInput = {
@@ -274970,6 +276393,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApiKeysInput = {
@@ -275099,6 +276523,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApiKeysInput = {
@@ -275212,6 +276637,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -275438,6 +276864,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -275551,6 +276978,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -275799,6 +277227,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -275912,6 +277341,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSystemEventsInput = {
@@ -276025,6 +277455,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemEventsInput = {
@@ -276138,6 +277569,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemEventsInput = {
@@ -276380,6 +277812,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemEventsInput = {
@@ -276493,6 +277926,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutSystemEventsInput = {
@@ -276725,6 +278159,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeadsInput = {
@@ -276838,6 +278273,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeadsInput = {
@@ -276967,6 +278403,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeadsInput = {
@@ -277080,6 +278517,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutDevicesInput = {
@@ -277425,6 +278863,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemTouchpointsInput = {
@@ -277538,6 +278977,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemTouchpointsInput = {
@@ -277667,6 +279107,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemTouchpointsInput = {
@@ -277780,6 +279221,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type MessageCreateWithoutThreadInput = {
@@ -278107,6 +279549,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMessageThreadsInput = {
@@ -278220,6 +279663,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMessageThreadsInput = {
@@ -278567,6 +280011,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMessageThreadsInput = {
@@ -278680,6 +280125,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutSentMessagesInput = {
@@ -279077,6 +280523,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPlatformRolesInput = {
@@ -279190,6 +280637,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPlatformRolesInput = {
@@ -279403,6 +280851,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPlatformRolesInput = {
@@ -279516,6 +280965,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RoleScreenAccessUpsertWithWhereUniqueWithoutRoleInput = {
@@ -280328,6 +281778,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClientProfilesInput = {
@@ -280441,6 +281892,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClientProfilesInput = {
@@ -281894,6 +283346,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClientProfilesInput = {
@@ -282007,6 +283460,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutClientProfileInput = {
@@ -282906,6 +284360,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProviderProfilesInput = {
@@ -283019,6 +284474,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProviderProfilesInput = {
@@ -283828,6 +285284,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProviderProfilesInput = {
@@ -283941,6 +285398,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutProviderProfileInput = {
@@ -284984,6 +286442,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitsInput = {
@@ -285097,6 +286556,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitsInput = {
@@ -285748,6 +287208,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitsInput = {
@@ -285861,6 +287322,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ShiftHandoverUpsertWithWhereUniqueWithoutVisitInput = {
@@ -286035,6 +287497,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServicesInput = {
@@ -286148,6 +287611,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServicesInput = {
@@ -286405,6 +287869,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServicesInput = {
@@ -286518,6 +287983,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutServiceInput = {
@@ -286855,6 +288321,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCheckEventsInput = {
@@ -286968,6 +288435,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCheckEventsInput = {
@@ -287392,6 +288860,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCheckEventsInput = {
@@ -287505,6 +288974,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutCheckEventsInput = {
@@ -288645,6 +290115,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -288758,6 +290229,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -289216,6 +290688,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -289329,6 +290802,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutIncidentsInput = {
@@ -289763,6 +291237,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyEntriesInput = {
@@ -289876,6 +291351,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyEntriesInput = {
@@ -290332,6 +291808,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyEntriesInput = {
@@ -290445,6 +291922,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyEntryInput = {
@@ -290766,6 +292244,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingsInput = {
@@ -290879,6 +292358,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingsInput = {
@@ -291221,6 +292701,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingsInput = {
@@ -291334,6 +292815,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutBookingInput = {
@@ -291542,6 +293024,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswAvailabilityInput = {
@@ -291655,6 +293138,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswAvailabilityInput = {
@@ -291869,6 +293353,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswAvailabilityInput = {
@@ -291982,6 +293467,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProviderProfileCreateWithoutDocumentsInput = {
@@ -292570,6 +294056,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutShiftAssignmentsInput = {
@@ -292683,6 +294170,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutShiftAssignmentsInput = {
@@ -292988,6 +294476,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutShiftAssignmentsInput = {
@@ -293101,6 +294590,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutAssignmentsInput = {
@@ -293527,6 +295017,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimesheetsInput = {
@@ -293640,6 +295131,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimesheetsInput = {
@@ -293989,6 +295481,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimesheetsInput = {
@@ -294102,6 +295595,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TimesheetCreateWithoutItemsInput = {
@@ -294645,6 +296139,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHandoversInput = {
@@ -294758,6 +296253,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHandoversInput = {
@@ -295069,6 +296565,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHandoversInput = {
@@ -295182,6 +296679,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProviderProfileCreateWithoutOverridesInput = {
@@ -295374,6 +296872,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAvailabilityOverridesInput = {
@@ -295487,6 +296986,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAvailabilityOverridesInput = {
@@ -295701,6 +297201,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAvailabilityOverridesInput = {
@@ -295814,6 +297315,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCreateWithoutMatchesInput = {
@@ -296097,6 +297599,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitMatchesInput = {
@@ -296210,6 +297713,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitMatchesInput = {
@@ -296521,6 +298025,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitMatchesInput = {
@@ -296634,6 +298139,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutWaitlistEntriesInput = {
@@ -296893,6 +298399,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWaitlistEntriesInput = {
@@ -297006,6 +298513,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWaitlistEntriesInput = {
@@ -297293,6 +298801,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWaitlistEntriesInput = {
@@ -297406,6 +298915,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutStaffTasksInput = {
@@ -297519,6 +299029,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffTasksInput = {
@@ -297632,6 +299143,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffTasksInput = {
@@ -297899,6 +299411,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffTasksInput = {
@@ -298012,6 +299525,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffGroupUpsertWithoutTasksInput = {
@@ -298275,6 +299789,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffGroupsInput = {
@@ -298388,6 +299903,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffGroupsInput = {
@@ -298577,6 +300093,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffGroupsInput = {
@@ -298690,6 +300207,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffGroupMemberUpsertWithWhereUniqueWithoutGroupInput = {
@@ -299234,6 +300752,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingRequestsInput = {
@@ -299347,6 +300866,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingRequestsInput = {
@@ -299593,6 +301113,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingRequestsInput = {
@@ -299706,6 +301227,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProviderProfileCreateWithoutFleetStatusInput = {
@@ -300094,6 +301616,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCarePlansInput = {
@@ -300207,6 +301730,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCarePlansInput = {
@@ -300566,6 +302090,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCarePlansInput = {
@@ -300679,6 +302204,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutCarePlansAuthoredInput = {
@@ -300911,6 +302437,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalRecordsInput = {
@@ -301024,6 +302551,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalRecordsInput = {
@@ -301153,6 +302681,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalRecordsInput = {
@@ -301266,6 +302795,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutAssessmentsInput = {
@@ -301603,6 +303133,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalAssessmentsInput = {
@@ -301716,6 +303247,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalAssessmentsInput = {
@@ -302081,6 +303613,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalAssessmentsInput = {
@@ -302194,6 +303727,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutMedicationReconsInput = {
@@ -302531,6 +304065,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicationReconsInput = {
@@ -302644,6 +304179,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicationReconsInput = {
@@ -303009,6 +304545,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicationReconsInput = {
@@ -303122,6 +304659,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProviderProfileCreateWithoutSupervisionLogsInput = {
@@ -303427,6 +304965,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSupervisionLogsInput = {
@@ -303540,6 +305079,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSupervisionLogsInput = {
@@ -303873,6 +305413,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -303986,6 +305527,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFhirSyncLogsInput = {
@@ -304099,6 +305641,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFhirSyncLogsInput = {
@@ -304212,6 +305755,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFhirSyncLogsInput = {
@@ -304341,6 +305885,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFhirSyncLogsInput = {
@@ -304454,6 +305999,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutVitalSignsInput = {
@@ -304795,6 +306341,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPatientAlertsInput = {
@@ -304908,6 +306455,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPatientAlertsInput = {
@@ -305148,6 +306696,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPatientAlertsInput = {
@@ -305261,6 +306810,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPatientAlertsInput = {
@@ -305547,6 +307097,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPrescriptionsInput = {
@@ -305660,6 +307211,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPrescriptionsInput = {
@@ -305969,6 +307521,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPrescriptionsInput = {
@@ -306082,6 +307635,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPrescriptionsInput = {
@@ -306663,6 +308217,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEvvRecordsInput = {
@@ -306776,6 +308331,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEvvRecordsInput = {
@@ -306905,6 +308461,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEvvRecordsInput = {
@@ -307018,6 +308575,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutServiceAuthorizationsInput = {
@@ -307242,6 +308800,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServiceAuthorizationsInput = {
@@ -307355,6 +308914,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServiceAuthorizationsInput = {
@@ -307601,6 +309161,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServiceAuthorizationsInput = {
@@ -307714,6 +309275,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutConsentFormsInput = {
@@ -307938,6 +309500,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConsentFormsInput = {
@@ -308051,6 +309614,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConsentFormsInput = {
@@ -308297,6 +309861,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConsentFormsInput = {
@@ -308410,6 +309975,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutDailyAuditSignOffsInput = {
@@ -308636,6 +310202,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -308749,6 +310316,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -309088,6 +310656,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -309201,6 +310770,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyAuditSignOffInput = {
@@ -309524,6 +311094,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWellnessPulsesInput = {
@@ -309637,6 +311208,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWellnessPulsesInput = {
@@ -309885,6 +311457,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -309998,6 +311571,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutInvoicesInput = {
@@ -310222,6 +311796,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoicesInput = {
@@ -310335,6 +311910,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoicesInput = {
@@ -310609,6 +312185,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoicesInput = {
@@ -310722,6 +312299,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -310936,6 +312514,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInsuranceProvidersInput = {
@@ -311049,6 +312628,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInsuranceProvidersInput = {
@@ -311210,6 +312790,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInsuranceProvidersInput = {
@@ -311323,6 +312904,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClaimUpsertWithWhereUniqueWithoutProviderInput = {
@@ -311452,6 +313034,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClaimsInput = {
@@ -311565,6 +313148,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClaimsInput = {
@@ -311830,6 +313414,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClaimsInput = {
@@ -311943,6 +313528,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutClaimsInput = {
@@ -312283,6 +313869,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayoutsInput = {
@@ -312396,6 +313983,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayoutsInput = {
@@ -312610,6 +314198,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayoutsInput = {
@@ -312723,6 +314312,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProviderProfileCreateWithoutMileageLogsInput = {
@@ -312915,6 +314505,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMileageLogsInput = {
@@ -313028,6 +314619,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMileageLogsInput = {
@@ -313242,6 +314834,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMileageLogsInput = {
@@ -313355,6 +314948,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFinancialAccountsInput = {
@@ -313468,6 +315062,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialAccountsInput = {
@@ -313581,6 +315176,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialAccountsInput = {
@@ -313744,6 +315340,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialAccountsInput = {
@@ -313857,6 +315454,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryUpsertWithWhereUniqueWithoutAccountInput = {
@@ -313986,6 +315584,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialTransactionsInput = {
@@ -314099,6 +315698,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialTransactionsInput = {
@@ -314288,6 +315888,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialTransactionsInput = {
@@ -314401,6 +316002,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryUpsertWithWhereUniqueWithoutTransactionInput = {
@@ -314604,6 +316206,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialJournalEntriesInput = {
@@ -314717,6 +316320,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialJournalEntriesInput = {
@@ -314916,6 +316520,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialJournalEntriesInput = {
@@ -315029,6 +316634,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialTransactionCreateWithoutReconciliationsInput = {
@@ -315202,6 +316808,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialReconciliationsInput = {
@@ -315315,6 +316922,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialReconciliationsInput = {
@@ -315516,6 +317124,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialReconciliationsInput = {
@@ -315629,6 +317238,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBankTransactionsInput = {
@@ -315742,6 +317352,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBankTransactionsInput = {
@@ -315855,6 +317466,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBankTransactionsInput = {
@@ -316010,6 +317622,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBankTransactionsInput = {
@@ -316123,6 +317736,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput = {
@@ -316252,6 +317866,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTransactionLedgerInput = {
@@ -316365,6 +317980,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTransactionLedgerInput = {
@@ -316607,6 +318223,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTransactionLedgerInput = {
@@ -316720,6 +318337,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutLedgerEntriesInput = {
@@ -317295,6 +318913,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeedbacksInput = {
@@ -317408,6 +319027,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeedbacksInput = {
@@ -317745,6 +319365,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeedbacksInput = {
@@ -317858,6 +319479,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutFeedbacksInput = {
@@ -318068,6 +319690,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingModulesInput = {
@@ -318181,6 +319804,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingModulesInput = {
@@ -318340,6 +319964,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingModulesInput = {
@@ -318453,6 +320078,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput = {
@@ -318656,6 +320282,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSurveysInput = {
@@ -318769,6 +320396,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSurveysInput = {
@@ -318922,6 +320550,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSurveysInput = {
@@ -319035,6 +320664,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput = {
@@ -319231,6 +320861,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegionsInput = {
@@ -319344,6 +320975,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegionsInput = {
@@ -319503,6 +321135,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegionsInput = {
@@ -319616,6 +321249,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BranchCapacityUpsertWithWhereUniqueWithoutRegionInput = {
@@ -319819,6 +321453,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBranchStatsInput = {
@@ -319932,6 +321567,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBranchStatsInput = {
@@ -320061,6 +321697,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBranchStatsInput = {
@@ -320174,6 +321811,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutComplianceRecordsInput = {
@@ -320287,6 +321925,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutComplianceRecordsInput = {
@@ -320400,6 +322039,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutComplianceRecordsInput = {
@@ -320529,6 +322169,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutComplianceRecordsInput = {
@@ -320642,6 +322283,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFranchisesInput = {
@@ -320755,6 +322397,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFranchisesInput = {
@@ -320868,6 +322511,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFranchisesInput = {
@@ -321141,6 +322785,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFranchisesInput = {
@@ -321254,6 +322899,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ResellerAgreementUpsertWithWhereUniqueWithoutFranchiseInput = {
@@ -321518,6 +323164,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInventoryItemsInput = {
@@ -321631,6 +323278,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInventoryItemsInput = {
@@ -321871,6 +323519,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInventoryItemsInput = {
@@ -321984,6 +323633,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutInventoryItemsInput = {
@@ -322241,6 +323891,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -322354,6 +324005,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -322627,6 +324279,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -322740,6 +324393,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPurchaseOrdersInput = {
@@ -322970,6 +324624,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -323083,6 +324738,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -323436,6 +325092,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -323549,6 +325206,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutTelehealthSessionsInput = {
@@ -323898,6 +325556,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceListingsInput = {
@@ -324011,6 +325670,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceListingsInput = {
@@ -324140,6 +325800,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceListingsInput = {
@@ -324253,6 +325914,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSlasInput = {
@@ -324366,6 +326028,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSlasInput = {
@@ -324479,6 +326142,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSlasInput = {
@@ -324608,6 +326272,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSlasInput = {
@@ -324721,6 +326386,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiRecommendationsInput = {
@@ -324834,6 +326500,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRecommendationsInput = {
@@ -324947,6 +326614,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRecommendationsInput = {
@@ -325076,6 +326744,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRecommendationsInput = {
@@ -325189,6 +326858,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSentimentAnalysesInput = {
@@ -325302,6 +326972,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSentimentAnalysesInput = {
@@ -325415,6 +327086,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSentimentAnalysesInput = {
@@ -325544,6 +327216,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSentimentAnalysesInput = {
@@ -325657,6 +327330,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSecurityThreatsInput = {
@@ -325770,6 +327444,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSecurityThreatsInput = {
@@ -325883,6 +327558,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSecurityThreatsInput = {
@@ -326012,6 +327688,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSecurityThreatsInput = {
@@ -326125,6 +327802,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutPerformedAuditsInput = {
@@ -326351,6 +328029,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTechnicalAuditsInput = {
@@ -326464,6 +328143,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTechnicalAuditsInput = {
@@ -326712,6 +328392,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTechnicalAuditsInput = {
@@ -326825,6 +328506,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyNotificationsInput = {
@@ -327049,6 +328731,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyNotificationsInput = {
@@ -327162,6 +328845,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyNotificationsInput = {
@@ -327408,6 +329092,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyNotificationsInput = {
@@ -327521,6 +329206,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutCareFeedbacksInput = {
@@ -327836,6 +329522,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCareFeedbacksInput = {
@@ -327949,6 +329636,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCareFeedbacksInput = {
@@ -328292,6 +329980,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCareFeedbacksInput = {
@@ -328405,6 +330094,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutReferralsInput = {
@@ -328518,6 +330208,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutReferralsInput = {
@@ -328631,6 +330322,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutReferralsInput = {
@@ -328760,6 +330452,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutReferralsInput = {
@@ -328873,6 +330566,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyMembersInput = {
@@ -329097,6 +330791,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyMembersInput = {
@@ -329210,6 +330905,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyMembersInput = {
@@ -329456,6 +331152,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyMembersInput = {
@@ -329569,6 +331266,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProviderProfileCreateWithoutPerformanceReviewsInput = {
@@ -329874,6 +331572,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPerformanceReviewsInput = {
@@ -329987,6 +331686,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPerformanceReviewsInput = {
@@ -330320,6 +332020,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPerformanceReviewsInput = {
@@ -330433,6 +332134,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebhookDeliveryCreateWithoutEndpointInput = {
@@ -330576,6 +332278,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWebhookEndpointsInput = {
@@ -330689,6 +332392,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWebhookEndpointsInput = {
@@ -330848,6 +332552,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWebhookEndpointsInput = {
@@ -330961,6 +332666,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebhookEndpointCreateWithoutDeliveriesInput = {
@@ -331142,6 +332848,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIotEventsInput = {
@@ -331255,6 +332962,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIotEventsInput = {
@@ -331497,6 +333205,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIotEventsInput = {
@@ -331610,6 +333319,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutIotEventsInput = {
@@ -331842,6 +333552,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAppNotificationsInput = {
@@ -331955,6 +333666,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAppNotificationsInput = {
@@ -332197,6 +333909,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAppNotificationsInput = {
@@ -332310,6 +334023,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAppNotificationsInput = {
@@ -332542,6 +334256,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutGamificationProfilesInput = {
@@ -332655,6 +334370,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutGamificationProfilesInput = {
@@ -332897,6 +334613,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutGamificationProfilesInput = {
@@ -333010,6 +334727,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutGamificationProfileInput = {
@@ -333242,6 +334960,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiInferencesInput = {
@@ -333355,6 +335074,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiInferencesInput = {
@@ -333484,6 +335204,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiInferencesInput = {
@@ -333597,6 +335318,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutCommunicationLogsInput = {
@@ -333710,6 +335432,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCommunicationLogsInput = {
@@ -333823,6 +335546,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCommunicationLogsInput = {
@@ -333952,6 +335676,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCommunicationLogsInput = {
@@ -334065,6 +335790,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutDailyActivityInput = {
@@ -334178,6 +335904,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyActivityInput = {
@@ -334291,6 +336018,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyActivityInput = {
@@ -334533,6 +336261,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyActivityInput = {
@@ -334646,6 +336375,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutDailyActivityInput = {
@@ -335302,6 +337032,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutShiftCheckInsInput = {
@@ -335415,6 +337146,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutShiftCheckInsInput = {
@@ -335780,6 +337512,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutShiftCheckInsInput = {
@@ -335893,6 +337626,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutAdlCareLogsInput = {
@@ -336230,6 +337964,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdlCareLogsInput = {
@@ -336343,6 +338078,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdlCareLogsInput = {
@@ -336708,6 +338444,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdlCareLogsInput = {
@@ -336821,6 +338558,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutProviderVitalsInput = {
@@ -337158,6 +338896,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProviderVitalsInput = {
@@ -337271,6 +339010,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProviderVitalsInput = {
@@ -337636,6 +339376,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProviderVitalsInput = {
@@ -337749,6 +339490,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutBehaviorNotesInput = {
@@ -338086,6 +339828,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBehaviorNotesInput = {
@@ -338199,6 +339942,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBehaviorNotesInput = {
@@ -338564,6 +340308,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBehaviorNotesInput = {
@@ -338677,6 +340422,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutNutritionRecordsInput = {
@@ -339014,6 +340760,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNutritionRecordsInput = {
@@ -339127,6 +340874,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNutritionRecordsInput = {
@@ -339492,6 +341240,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNutritionRecordsInput = {
@@ -339605,6 +341354,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutMobilityLogsInput = {
@@ -339942,6 +341692,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMobilityLogsInput = {
@@ -340055,6 +341806,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMobilityLogsInput = {
@@ -340420,6 +342172,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMobilityLogsInput = {
@@ -340533,6 +342286,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutInfectionLogsInput = {
@@ -340870,6 +342624,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInfectionLogsInput = {
@@ -340983,6 +342738,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInfectionLogsInput = {
@@ -341348,6 +343104,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInfectionLogsInput = {
@@ -341461,6 +343218,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutNarrativeNotesInput = {
@@ -341798,6 +343556,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogCreateNestedManyWithoutTenantInput
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNarrativeNotesInput = {
@@ -341911,6 +343670,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUncheckedCreateNestedManyWithoutTenantInput
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNarrativeNotesInput = {
@@ -342276,6 +344036,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUpdateManyWithoutTenantNestedInput
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNarrativeNotesInput = {
@@ -342389,6 +344150,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUncheckedUpdateManyWithoutTenantNestedInput
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutCarePlanFollowUpsInput = {
@@ -342726,6 +344488,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogCreateNestedManyWithoutTenantInput
     infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCarePlanFollowUpsInput = {
@@ -342839,6 +344602,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUncheckedCreateNestedManyWithoutTenantInput
     infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
     narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCarePlanFollowUpsInput = {
@@ -343204,6 +344968,7 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUpdateManyWithoutTenantNestedInput
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCarePlanFollowUpsInput = {
@@ -343317,6 +345082,479 @@ export namespace Prisma {
     mobilityLogs?: MobilityLogUncheckedUpdateManyWithoutTenantNestedInput
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutDynamicFeatureRecordsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: ProviderAvailabilityCreateNestedManyWithoutTenantInput
+    providerProfiles?: ProviderProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
+    shiftCheckIns?: ProviderShiftLogCreateNestedManyWithoutTenantInput
+    adlCareLogs?: AdlCareLogCreateNestedManyWithoutTenantInput
+    providerVitals?: ProviderVitalSignCreateNestedManyWithoutTenantInput
+    behaviorNotes?: BehaviorNoteCreateNestedManyWithoutTenantInput
+    nutritionRecords?: NutritionRecordCreateNestedManyWithoutTenantInput
+    mobilityLogs?: MobilityLogCreateNestedManyWithoutTenantInput
+    infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
+    narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
+    carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDynamicFeatureRecordsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: ProviderAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    providerProfiles?: ProviderProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
+    shiftCheckIns?: ProviderShiftLogUncheckedCreateNestedManyWithoutTenantInput
+    adlCareLogs?: AdlCareLogUncheckedCreateNestedManyWithoutTenantInput
+    providerVitals?: ProviderVitalSignUncheckedCreateNestedManyWithoutTenantInput
+    behaviorNotes?: BehaviorNoteUncheckedCreateNestedManyWithoutTenantInput
+    nutritionRecords?: NutritionRecordUncheckedCreateNestedManyWithoutTenantInput
+    mobilityLogs?: MobilityLogUncheckedCreateNestedManyWithoutTenantInput
+    infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
+    narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
+    carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDynamicFeatureRecordsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDynamicFeatureRecordsInput, TenantUncheckedCreateWithoutDynamicFeatureRecordsInput>
+  }
+
+  export type TenantUpsertWithoutDynamicFeatureRecordsInput = {
+    update: XOR<TenantUpdateWithoutDynamicFeatureRecordsInput, TenantUncheckedUpdateWithoutDynamicFeatureRecordsInput>
+    create: XOR<TenantCreateWithoutDynamicFeatureRecordsInput, TenantUncheckedCreateWithoutDynamicFeatureRecordsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDynamicFeatureRecordsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDynamicFeatureRecordsInput, TenantUncheckedUpdateWithoutDynamicFeatureRecordsInput>
+  }
+
+  export type TenantUpdateWithoutDynamicFeatureRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: ProviderAvailabilityUpdateManyWithoutTenantNestedInput
+    providerProfiles?: ProviderProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
+    shiftCheckIns?: ProviderShiftLogUpdateManyWithoutTenantNestedInput
+    adlCareLogs?: AdlCareLogUpdateManyWithoutTenantNestedInput
+    providerVitals?: ProviderVitalSignUpdateManyWithoutTenantNestedInput
+    behaviorNotes?: BehaviorNoteUpdateManyWithoutTenantNestedInput
+    nutritionRecords?: NutritionRecordUpdateManyWithoutTenantNestedInput
+    mobilityLogs?: MobilityLogUpdateManyWithoutTenantNestedInput
+    infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
+    narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
+    carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDynamicFeatureRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: ProviderAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    providerProfiles?: ProviderProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftCheckIns?: ProviderShiftLogUncheckedUpdateManyWithoutTenantNestedInput
+    adlCareLogs?: AdlCareLogUncheckedUpdateManyWithoutTenantNestedInput
+    providerVitals?: ProviderVitalSignUncheckedUpdateManyWithoutTenantNestedInput
+    behaviorNotes?: BehaviorNoteUncheckedUpdateManyWithoutTenantNestedInput
+    nutritionRecords?: NutritionRecordUncheckedUpdateManyWithoutTenantNestedInput
+    mobilityLogs?: MobilityLogUncheckedUpdateManyWithoutTenantNestedInput
+    infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
+    narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
+    carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PatientCreateWithoutClinicInput = {
@@ -346326,6 +348564,16 @@ export namespace Prisma {
     recordedAt?: Date | string
   }
 
+  export type DynamicFeatureRecordCreateManyTenantInput = {
+    id?: string
+    featureId: string
+    patientId?: string | null
+    entityType: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AuditLogUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
@@ -348524,6 +350772,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutParentTenantInput = {
@@ -348637,6 +350886,7 @@ export namespace Prisma {
     infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
     narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantInput = {
@@ -350023,6 +352273,36 @@ export namespace Prisma {
     notCompleted?: NullableStringFieldUpdateOperationsInput | string | null
     reasonNotDone?: NullableStringFieldUpdateOperationsInput | string | null
     recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DynamicFeatureRecordUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureId?: StringFieldUpdateOperationsInput | string
+    patientId?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DynamicFeatureRecordUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureId?: StringFieldUpdateOperationsInput | string
+    patientId?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DynamicFeatureRecordUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureId?: StringFieldUpdateOperationsInput | string
+    patientId?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageCreateManyThreadInput = {
@@ -355156,6 +357436,10 @@ export namespace Prisma {
      * @deprecated Use CarePlanFollowUpDefaultArgs instead
      */
     export type CarePlanFollowUpArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CarePlanFollowUpDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DynamicFeatureRecordDefaultArgs instead
+     */
+    export type DynamicFeatureRecordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DynamicFeatureRecordDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

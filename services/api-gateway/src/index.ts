@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { handleMockUIEndpoint } from './mock_ui_service';
+import { prismaMiddleware } from '@primecare/shared-utils';
 
 type Bindings = {
   AUTH_SERVICE: Fetcher;
@@ -34,6 +35,7 @@ app.use('*', cors({
 }));
 
 // Global Middleware
+app.use('*', prismaMiddleware());
 app.use('*', async (c, next) => {
   const start = Date.now();
   await next();

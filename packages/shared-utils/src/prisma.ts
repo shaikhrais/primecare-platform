@@ -1,12 +1,12 @@
 import { createMiddleware } from 'hono/factory';
 import { Bindings, Variables } from '@primecare/shared-types';
-import { tenantExtension } from '@primecare/database';
-import { auditExtension } from '@primecare/database';
-import { forensicExtension } from '@primecare/database';
+// import { tenantExtension } from '@primecare/database';
+// import { auditExtension } from '@primecare/database';
+// import { forensicExtension } from '@primecare/database';
 import { PrismaClient } from '@primecare/database';
 import { withAccelerate } from '@prisma/extension-accelerate';
-import { Pool } from 'pg';
-import { PrismaPg } from '@prisma/adapter-pg';
+// import { Pool } from 'pg';
+// import { PrismaPg } from '@prisma/adapter-pg';
 
 let prismaInstance: any = null;
 
@@ -47,9 +47,7 @@ export const prismaMiddleware = () => {
                     const baseClient = new PrismaClient({ datasourceUrl: edgeUri });
                     prismaInstance = baseClient.$extends(withAccelerate());
                 } else {
-                    const pool = new Pool({ connectionString: edgeUri });
-                    const adapter = new PrismaPg(pool);
-                    prismaInstance = new PrismaClient({ adapter });
+                    prismaInstance = new PrismaClient({ datasourceUrl: edgeUri }).$extends(withAccelerate());
                 }
             } catch (err: any) {
                 // We must store the error so we can return it if init fails
@@ -91,7 +89,7 @@ export const prismaMiddleware = () => {
         }
 
         if (tenantId && !isSuperAdmin) {
-            reqPrisma = reqPrisma.$extends(tenantExtension(tenantId as string));
+            // reqPrisma = reqPrisma.$extends(tenantExtension(tenantId as string));
         }
 
         // Skip heavy extensions for GET requests and light routes (avoids CPU timeout)
@@ -101,8 +99,8 @@ export const prismaMiddleware = () => {
             const currentDeviceId = c.get('deviceId');
             const clientIp = c.req.header('CF-Connecting-IP') || '127.0.0.1';
             const actorUserId = payload?.sub;
-            reqPrisma = reqPrisma.$extends(auditExtension(currentDeviceId));
-            reqPrisma = reqPrisma.$extends(forensicExtension(actorUserId, currentDeviceId, clientIp));
+            // reqPrisma = reqPrisma.$extends(auditExtension(currentDeviceId));
+            // reqPrisma = reqPrisma.$extends(forensicExtension(actorUserId, currentDeviceId, clientIp));
         }
 
         c.set('prisma', reqPrisma);

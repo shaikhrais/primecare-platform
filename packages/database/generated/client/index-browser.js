@@ -1699,6 +1699,17 @@ exports.Prisma.CarePlanFollowUpScalarFieldEnum = {
   recordedAt: 'recordedAt'
 };
 
+exports.Prisma.DynamicFeatureRecordScalarFieldEnum = {
+  id: 'id',
+  featureId: 'featureId',
+  tenantId: 'tenantId',
+  patientId: 'patientId',
+  entityType: 'entityType',
+  payload: 'payload',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2544,6 +2555,7 @@ exports.Prisma.ModelName = {
   InfectionControlChecklist: 'InfectionControlChecklist',
   NarrativeProgressNote: 'NarrativeProgressNote',
   CarePlanFollowUp: 'CarePlanFollowUp',
+  DynamicFeatureRecord: 'DynamicFeatureRecord',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

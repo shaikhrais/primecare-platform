@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/dynamic_page_providers.dart';
+import '../providers/adapter_providers.dart';
 import '../office/components/glass_surface.dart';
+import 'stitch_engine/stitch_engine_renderer.dart';
 
 class GenericFeatureScreen extends ConsumerWidget {
   final String featureId;
@@ -10,7 +10,7 @@ class GenericFeatureScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncData = ref.watch(dynamicPageProvider(featureId));
+    final asyncData = ref.watch(adapterFeatureDataProvider(featureId));
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -56,46 +56,16 @@ class GenericFeatureScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 
-                // Advanced Responsive Data Rendering
+                // Advanced Responsive Data Rendering via Stitch Engine Interpreter
                 Expanded(
                   child: asyncData.when(
                     loading: () => const Center(child: CircularProgressIndicator(color: Color(0xFF006565))),
                     error: (e, st) => Center(child: Text('Error loading $featureId: $e')),
                     data: (items) {
-                      if (items.isEmpty) {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.folder_open, size: 64, color: Colors.blueGrey.withValues(alpha: 0.5)),
-                              const SizedBox(height: 16),
-                              const Text('No records found.', style: TextStyle(color: Colors.blueGrey, fontSize: 16)),
-                            ],
-                          ),
-                        );
-                      }
-                      
-                      if (isMobile) {
-                        // Mobile: Vertical Card List
-                        return ListView.separated(
-                          itemCount: items.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: 12),
-                          itemBuilder: (context, index) => _buildMobileCard(items[index]),
-                        );
-                      } else {
-                        // Desktop/Tablet: Responsive Grid of Premium Cards
-                        final crossAxisCount = isTablet ? 2 : 3;
-                        return GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: crossAxisCount,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: isTablet ? 1.5 : 1.8,
-                          ),
-                          itemCount: items.length,
-                          itemBuilder: (context, index) => _buildGridCard(items[index]),
-                        );
-                      }
+                      return StitchEngineRenderer(
+                        featureId: featureId,
+                        items: items,
+                      );
                     },
                   ),
                 ),
@@ -114,100 +84,6 @@ class GenericFeatureScreen extends ConsumerWidget {
         }
         return const SizedBox.shrink();
       }),
-    );
-  }
-
-  Widget _buildMobileCard(Map<String, dynamic> item) {
-    return GlassSurface(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(color: Colors.teal.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-                child: const Icon(Icons.analytics, color: Colors.teal, size: 22),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(item['title'] ?? 'Record Data', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                    const SizedBox(height: 4),
-                    Text('ID: ${item['id'] ?? 'SYS-UNK'}', style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(item['status'] ?? 'Active', style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
-              Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey.shade400),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGridCard(Map<String, dynamic> item) {
-    return GlassSurface(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: Colors.teal.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
-                child: const Icon(Icons.auto_awesome_mosaic, color: Colors.teal, size: 26),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  item['status'] ?? 'ACTIVE',
-                  style: const TextStyle(color: Colors.green, fontSize: 11, fontWeight: FontWeight.bold),
-                ),
-              )
-            ],
-          ),
-          const Spacer(),
-          Text(item['title'] ?? 'System Entity', style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18, color: Colors.black87)),
-          const SizedBox(height: 8),
-          Text(
-            item['description'] ?? 'No extended metadata available for this highly secured node object block.',
-            style: TextStyle(color: Colors.grey.shade600, fontSize: 13, height: 1.4),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 16),
-          Divider(color: Colors.grey.shade200),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('REF: ${item['id'] ?? '0x00'}', style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w600)),
-              TextButton(
-                onPressed: () {},
-                child: const Text('View Module'),
-              )
-            ],
-          )
-        ],
-      ),
     );
   }
 }

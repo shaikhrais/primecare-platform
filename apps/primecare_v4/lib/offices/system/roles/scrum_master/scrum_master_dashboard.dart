@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class ScrumMasterDashboard extends ConsumerWidget {
@@ -100,7 +101,7 @@ class ScrumMasterDashboard extends ConsumerWidget {
 
                         const SizedBox(width: 24),
 
-                        // RIGHT: DLQ Control
+                        // RIGHT: DLQ Control & 110 Screen Master Index
                         Expanded(
                           flex: 1,
                           child: Column(
@@ -132,6 +133,24 @@ class ScrumMasterDashboard extends ConsumerWidget {
                                       ),
                                     ),
                                   ],
+                                ),
+                              ),
+                              
+                              const SizedBox(height: 32),
+                              
+                              const Text('110 Master Archetypes UI Index', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(20),
+                                child: Container(
+                                  height: 400, // Fixed height with scroll for the 110 blocks
+                                  child: SingleChildScrollView(
+                                    child: Wrap(
+                                      spacing: 8,
+                                      runSpacing: 8,
+                                      children: List.generate(110, (index) => _buildFeatureDot(context, index + 1)),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -181,6 +200,27 @@ class ScrumMasterDashboard extends ConsumerWidget {
         child: Text(
           'R${index + 1}', 
           style: const TextStyle(color: Colors.tealAccent, fontSize: 9, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureDot(BuildContext context, int index) {
+    return InkWell(
+      onTap: () => context.go('/provider/feature/stitch_feature_$index'),
+      child: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          color: Colors.deepPurpleAccent.withValues(alpha: 0.1),
+          border: Border.all(color: Colors.deepPurpleAccent.withValues(alpha: 0.3)),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Text(
+            'F$index', 
+            style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

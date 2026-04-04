@@ -205,6 +205,7 @@ model Tenant {
   infectionLogs         InfectionControlChecklist[] @relation("TenantInfectionControl")
   narrativeNotes        NarrativeProgressNote[]     @relation("TenantNarrativeNotes")
   carePlanFollowUps     CarePlanFollowUp[]          @relation("TenantCarePlanFollowUp")
+  dynamicFeatureRecords DynamicFeatureRecord[]
 
   @@map("tenants")
 }
@@ -2554,6 +2555,27 @@ model CarePlanFollowUp {
 
   @@index([tenantId])
   @@map("care_plan_follow_ups")
+}
+
+// ==========================================
+// DYNAMIC FEATURES (Stitch Generated EAV Model)
+// ==========================================
+
+model DynamicFeatureRecord {
+  id         String   @id @default(uuid())
+  featureId  String   @map("feature_id")
+  tenantId   String   @map("tenant_id")
+  patientId  String?  @map("patient_id")
+  entityType String   @map("entity_type")
+  payload    Json
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([featureId, tenantId])
+  @@index([patientId])
+  @@map("dynamic_feature_records")
 }
 
 // Domain: d_clients.prisma

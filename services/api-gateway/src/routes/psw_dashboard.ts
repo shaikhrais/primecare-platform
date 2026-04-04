@@ -1,6 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
-
+import { PrismaClient } from '@primecare/database';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
 const pswDashboardRouter = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

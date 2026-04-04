@@ -4,7 +4,10 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
-    "@primecare/database": "^1.0.0"
+    "@primecare/database": "^1.0.0",
+    "@prisma/extension-accelerate": "^2.0.2",
+    "@sentry/cloudflare": "^10.47.0",
+    "@sentry/core": "^10.47.0"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

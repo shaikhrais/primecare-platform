@@ -190,6 +190,7 @@ model Tenant {
   infectionLogs         InfectionControlChecklist[] @relation("TenantInfectionControl")
   narrativeNotes        NarrativeProgressNote[]     @relation("TenantNarrativeNotes")
   carePlanFollowUps     CarePlanFollowUp[]          @relation("TenantCarePlanFollowUp")
+  dynamicFeatureRecords DynamicFeatureRecord[]
 
   @@map("tenants")
 }
