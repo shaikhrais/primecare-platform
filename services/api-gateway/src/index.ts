@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { handleMockUIEndpoint } from './mock_ui_service';
 
 type Bindings = {
   AUTH_SERVICE: Fetcher;
@@ -57,6 +58,14 @@ app.all('/api/notifications/*', (c) => c.env.NOTIFICATION_SERVICE ? c.env.NOTIFI
 app.all('/api/compliance/*', (c) => c.env.COMPLIANCE_SERVICE ? c.env.COMPLIANCE_SERVICE.fetch(c.req.raw) : c.text('COMPLIANCE_SERVICE offline', 502));
 app.all('/api/franchise/*', (c) => c.env.FRANCHISE_REPORTING_SERVICE ? c.env.FRANCHISE_REPORTING_SERVICE.fetch(c.req.raw) : c.text('FRANCHISE_REPORTING_SERVICE offline', 502));
 
+// ----------------------------------------------------
+// UI Compatibility Layer: Mock interceptor for unimplemented v1 routes
+// ----------------------------------------------------
+app.all('/v1/*', async (c) => {
+  // If we eventually configure valid v1 fetchers, we could insert logic here.
+  // Currently, all v1 routes map strictly to the MockUIService to satisfy flutter hydrated boards.
+  return handleMockUIEndpoint(c);
+});
 
 // ----------------------------------------------------
 // Swagger Hub: OpenAPI Federated Aggregator
@@ -87,7 +96,7 @@ app.get('/openapi.json', async (c) => {
     try {
       const res = await b.instance.fetch(new Request('http://internal/openapi.json'));
       if(!res.ok) return;
-      const spec = await res.json();
+      const spec = (await res.json()) as any;
       merged.paths = { ...merged.paths, ...(spec.paths || {}) };
       merged.components.schemas = { ...merged.components.schemas, ...(spec.components?.schemas || {}) };
     } catch(err) {
