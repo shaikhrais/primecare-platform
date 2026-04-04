@@ -1,6 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../services/dio_client.dart';
+import '../core/network/api_client.dart';
 
-final dioClientProvider = Provider<DioClient>((ref) => DioClient());
-
-final dioProvider = Provider((ref) => ref.watch(dioClientProvider).dio);
+final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());

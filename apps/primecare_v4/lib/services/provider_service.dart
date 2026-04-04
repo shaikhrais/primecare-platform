@@ -1,5 +1,6 @@
-import 'package:dio/dio.dart';
-
+import '../core/config/api_config.dart';
+import '../core/network/api_client.dart';
+import '../core/network/api_error.dart';
 enum ProviderRole { psw, rn, rmt, unknown }
 
 ProviderRole _parseRole(String? type) {
@@ -49,35 +50,38 @@ class ProviderProfile {
 /// A unified service bridging the frontend to the backend Domain Modular Monolith structure.
 /// This replaces disparate silos like RnService and PswService.
 class ProviderService {
-  final Dio _dio;
+  final ApiClient _apiClient;
 
-  ProviderService(this._dio);
+  ProviderService(this._apiClient);
 
   /// Fetches the unified provider profile natively mapped to the logged-in Identity.
   Future<ProviderProfile> getSelfProfile() async {
     try {
-      // Hits the newly structured /v1/providers/ API gateway scope
-      final response = await _dio.get('/v1/providers/profile/me');
+      // Hits the newly structured API gateway scope
+      final endpoint = ApiConfig.endpoints['providerDashboard']!;
+      final response = await _apiClient.get(endpoint);
       
       if (response.statusCode == 200) {
         return ProviderProfile.fromJson(response.data as Map<String, dynamic>);
       }
       throw Exception('Failed to load active provider profile: ${response.statusCode}');
-    } on DioException catch (e) {
-      throw Exception('Network error during provider telemetry: ${e.message}');
+    } catch (e) {
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 
   /// Logs a check-in event using standard Unified identifiers.
   Future<void> logCheckIn(String visitId, double lat, double lng) async {
     try {
-      await _dio.post('/v1/visits/$visitId/checkin', data: {
+      final baseEndpoint = ApiConfig.endpoints['providerCheckin']!;
+      final endpoint = baseEndpoint.replaceAll(':visitId', visitId);
+      await _apiClient.post(endpoint, body: {
         'lat': lat,
         'lng': lng,
         'timestamp': DateTime.now().toIso8601String(),
       });
-    } on DioException catch (e) {
-      throw Exception('Failed to transmit standardized geo telemetry: ${e.message}');
+    } catch (e) {
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 }

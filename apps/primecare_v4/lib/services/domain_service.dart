@@ -1,65 +1,67 @@
-import 'package:primecare_v4/services/dio_client.dart';
+import '../core/config/api_config.dart';
+import '../core/network/api_client.dart';
+import '../core/network/api_error.dart';
 
 class DomainService {
-  final DioClient _dioClient = DioClient();
+  final ApiClient _apiClient = ApiClient();
 
   // Intake Domain
   Future<Map<String, dynamic>> openCase(Map<String, dynamic> data) async {
     try {
-      final response = await _dioClient.dio.post('/intake/cases', data: data);
+      final response = await _apiClient.post(ApiConfig.endpoints['intakeCases']!, body: data);
       return response.data;
     } catch (e) {
-      throw Exception('Failed to open case: $e');
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 
   // Care Plans Domain
   Future<Map<String, dynamic>> updateCarePlan(Map<String, dynamic> data) async {
     try {
-      final response = await _dioClient.dio.post('/care-plans/update', data: data);
+      final response = await _apiClient.post(ApiConfig.endpoints['carePlansUpdate']!, body: data);
       return response.data;
     } catch (e) {
-      throw Exception('Failed to update care plan: $e');
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 
   // Training Domain
   Future<Map<String, dynamic>> completeTrainingCourse(Map<String, dynamic> data) async {
     try {
-      final response = await _dioClient.dio.post('/training/complete', data: data);
+      final response = await _apiClient.post(ApiConfig.endpoints['trainingComplete']!, body: data);
       return response.data;
     } catch (e) {
-      throw Exception('Failed to log training completion: $e');
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 
   // Support Domain
   Future<Map<String, dynamic>> escalateTicket(Map<String, dynamic> data) async {
     try {
-      final response = await _dioClient.dio.post('/support/tickets/escalate', data: data);
+      final response = await _apiClient.post(ApiConfig.endpoints['supportEscalate']!, body: data);
       return response.data;
     } catch (e) {
-      throw Exception('Failed to escalate ticket: $e');
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 
   // Franchise Domain
   Future<Map<String, dynamic>> updateTerritory(Map<String, dynamic> data) async {
     try {
-      final response = await _dioClient.dio.post('/franchise/territory/update', data: data);
+      final response = await _apiClient.post(ApiConfig.endpoints['franchiseTerritoryUpdate']!, body: data);
       return response.data;
     } catch (e) {
-      throw Exception('Failed to update territory: $e');
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 
   // Reporting Domain (Fetch)
   Future<Map<String, dynamic>> getReportingSummary() async {
     try {
-      final response = await _dioClient.dio.get('/reporting/summary');
+      final response = await _apiClient.get(ApiConfig.endpoints['reportingSummary']!);
       return response.data;
     } catch (e) {
-      throw Exception('Failed to fetch reporting analytics: $e');
+      throw Exception(ApiErrorAdapter.mapApiError(e));
     }
   }
 }

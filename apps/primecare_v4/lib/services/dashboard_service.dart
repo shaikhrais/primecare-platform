@@ -1,4 +1,5 @@
-import 'package:dio/dio.dart';
+import '../core/config/api_config.dart';
+import '../core/network/api_client.dart';
 
 class KpiMetric {
   final String title;
@@ -67,13 +68,14 @@ class DashboardMetrics {
 }
 
 class DashboardService {
-  final Dio _dio;
+  final ApiClient _apiClient;
 
-  DashboardService(this._dio);
+  DashboardService(this._apiClient);
 
   Future<DashboardMetrics> getMetrics() async {
     try {
-      final response = await _dio.get('/v1/dashboard/metrics');
+      final endpoint = ApiConfig.endpoints['providerMetrics']!;
+      final response = await _apiClient.get(endpoint);
       if (response.statusCode == 200) {
         return DashboardMetrics.fromJson(response.data as Map<String, dynamic>);
       }

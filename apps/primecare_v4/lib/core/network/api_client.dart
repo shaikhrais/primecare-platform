@@ -1,19 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../config/api_config.dart';
 
-class DioClient {
-  late Dio _dio;
+class ApiClient {
+  late final Dio _dio;
 
-  DioClient() {
-    String baseUrl = dotenv.env['API_URL'] ?? 'https://primecare-api.itpro-mohammed.workers.dev';
-    if (!baseUrl.endsWith('/v1')) {
-      baseUrl = '$baseUrl/v1';
-    }
-    
+  ApiClient() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: baseUrl,
+        baseUrl: '${ApiConfig.baseUrl}/${ApiConfig.version}',
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
         headers: {
@@ -33,22 +28,29 @@ class DioClient {
           }
           return handler.next(options);
         },
-        onError: (DioException e, handler) {
-          // Log errors or handle global error states (e.g. 401 logout)
-          if (e.response?.statusCode == 401) {
-            // Potential auto-logout or refresh logic
-          }
-          return handler.next(e);
-        },
       ),
     );
-
-    // Add logging interceptor in debug mode
+    
     _dio.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,
+      error: true,
     ));
   }
 
-  Dio get dio => _dio;
+  Future<Response> get(String path, {Map<String, dynamic>? query}) async {
+    return _dio.get(path, queryParameters: query);
+  }
+
+  Future<Response> post(String path, {dynamic body}) async {
+    return _dio.post(path, data: body);
+  }
+
+  Future<Response> put(String path, {dynamic body}) async {
+    return _dio.put(path, data: body);
+  }
+
+  Future<Response> delete(String path, {dynamic body}) async {
+    return _dio.delete(path, data: body);
+  }
 }

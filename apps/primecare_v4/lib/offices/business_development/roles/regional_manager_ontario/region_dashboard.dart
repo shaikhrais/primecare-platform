@@ -14,7 +14,7 @@ class RegionDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    ref.watch(dioProvider);
+    ref.watch(apiClientProvider);
 
     return Scaffold(
       backgroundColor: Colors.transparent,

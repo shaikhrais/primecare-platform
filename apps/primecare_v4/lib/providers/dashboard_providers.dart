@@ -3,8 +3,8 @@ import '../services/dashboard_service.dart';
 import 'api_providers.dart';
 
 final dashboardServiceProvider = Provider<DashboardService>((ref) {
-  final dio = ref.watch(dioProvider);
-  return DashboardService(dio);
+  final apiClient = ref.watch(apiClientProvider);
+  return DashboardService(apiClient);
 });
 
 final dashboardMetricsProvider = FutureProvider<DashboardMetrics>((ref) async {

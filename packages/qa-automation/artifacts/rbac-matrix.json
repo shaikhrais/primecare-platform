@@ -1,0 +1,7133 @@
+[
+  {
+    "endpoint": "/ai-command",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ai-command/models",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ai-command/inferences",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ai-command/config",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/finance/multi-currency",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/finance/multi-currency/rates",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/audit-trail",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/franchise",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/supply-chain",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/supply-chain/vendors",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/marketing/campaigns",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/visits/unassigned",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/invoices",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/settings/logo",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/settings/save",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/content/publish",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/search/reindex",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/registry/ui-override/commit",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/capacity",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/regions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/supply-demand",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/logistics",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/predictive/dispatch",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/optimize",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reseller/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/erp/suppliers",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/erp/stock/sync",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/telehealth/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/rcm/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/rcm/claims",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/pharmacy/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/health",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/insights",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/predictive",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/churn",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/forgot-password",
+    "method": "GET",
+    "allowed_roles": [],
+    "blocked_roles": []
+  },
+  {
+    "endpoint": "/reset-password",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/services/catalog",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/support/nursing-chat",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/shifts/triage",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/crisis-mode",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/fhir/import",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/performance/rankings",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/finance/pl",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/training",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/gamification",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/iot/events",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/documents/signing",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/communications/sms",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/schedule/payouts/request",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/credentials/vault",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/leads",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/services",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/blog",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/clinical/supervision/roster",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/endpoints",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/env-audit",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/auto-fix",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/security/scan",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/threats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/sessions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/tenants",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/audit-logs",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/governance",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/chat",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/tickets",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/platform/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/capacity",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/home",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/forms/{formId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/impersonate",
+    "method": "POST",
+    "allowed_roles": [
+      "super_admin"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/forgot-password",
+    "method": "POST",
+    "allowed_roles": [],
+    "blocked_roles": []
+  },
+  {
+    "endpoint": "/login",
+    "method": "POST",
+    "allowed_roles": [],
+    "blocked_roles": []
+  },
+  {
+    "endpoint": "/switch-role",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/onboard-business",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/osm",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/osm/callback",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/register",
+    "method": "POST",
+    "allowed_roles": [],
+    "blocked_roles": []
+  },
+  {
+    "endpoint": "/refresh",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/logout",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/whoami",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/macro",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/surge",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/broadcast",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/checkout",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/threads",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/threads",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/threads/{threadId}/messages",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/threads/{threadId}/messages",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/change-password",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/catalog",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/my-progress",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/directory",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/entry",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/pnl",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/invoices",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/invoices/{id}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/statement",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/payment-methods",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/requests",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/:id/status",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{clientId}",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{clientId}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/feed",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/pay-invoice",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/members",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/members",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/feed/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/message",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/schedule/upcoming",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/surveys",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/analytics",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/profile",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/profile",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/request",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/requests",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/team",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/profile/medical-summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/profile",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/team/roster",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/support/feedback",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/invoices",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/services",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/strike",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/protocols",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/global-state",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/roles",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/next-action",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/commit-overrides",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/export",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/trigger-automation",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/optimize",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/backup",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/publish-content",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reindex-search",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/suspend-reseller",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/shifts",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/locations/{id}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/roles/{id}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/templates/{id}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/regions",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/surveys",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/training-modules",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/emergency/trigger",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/audit-chain/verify",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/audit-chain/history/{modelName}/{entityId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/audit-chain/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/predictions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/vitals/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/telehealth/session",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/download",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/compliance-home",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/regulatory-report",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/alerts",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/utilization/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/approve",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/reject",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/scrub",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/submit/{id}",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/appeal/{id}",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/era",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/system/sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/system/submit",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/client/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/templates",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/expiring",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/blog",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/blog",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/faqs",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/faqs",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/compliance-sweep",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/training-reminders",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/authorization-exhaustion",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/inventory-reorder",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/design/sync-fonts",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/design/sync-tokens",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/traffic/routing-rules",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/workflows/visual-logic",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/workflows/rollback",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/workflows/schemas",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/workflows/rate-limits",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/templates/no-code",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/security/rbac-matrix",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/media/redact-document",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/media/cdn-sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/media/lifecycle-policies",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/localization/i18n-dictionary",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/governance/scripts-manifest",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/compliance/legal-blockers",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/analytics/browser-matrix",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/accessibility/aria-labels",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/content/rich-text-policies",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/content/dynamic-routing",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/keys",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/db-push",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{clientId}/discharge",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{clientId}/readmit",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{clientId}/discharge-summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/pending",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/upload",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/download",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/verify",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/inventory",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/purchase-orders",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/po/create",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/inventory/add",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/exceptions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/exceptions/{id}/approve",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/compliance-summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/export",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/accounts",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/initialize",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/invoices",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/balances",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reconcile",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reconcile/auto",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reconciliation-summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reports/p-and-l",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reports/balance-sheet",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reports/daily-summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reports/trading-account",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reports/forecast",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reports/tax-filing",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/tax-remittance",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/earnings",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reconciliation/unmatched",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reconciliation/match",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/fhir/export",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/fhir/import",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/fhir/sync-log",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/convert",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/churn-risks",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/drip-sequences",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/revenue-attribution",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/subscribers",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/promotions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/syndication/vault",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/syndication/post",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/read",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/broadcast",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/family/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ops/center",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/pending",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/batch/approve",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/run",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/summary/{weekId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/prescriptions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/orders",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/verify-barcode",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/mar/sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/insurance-providers",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/insurance-providers",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/insurance-providers/{id}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/billing-codes",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/billing-codes",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/billing-codes/{id}",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/convert",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/analytics",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/export",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/clinical-autopilot/run",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/provision",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/env-audit",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/audits",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/response-bot/audit",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/registry/sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/devices",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/devices/:id/authorize",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/devices/:id/revoke",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/devices/:deviceId/activity",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/forensic-trails",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/daily-summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/cors",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/cors",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/verify-integrity",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/business-model",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/members",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/members",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/members/{userId}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/iot-events",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/gamification",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/notifications",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/ai-inferences",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/communication-logs",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/sessions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/vitals",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/session/start",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/triage/open",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/vitals/verify",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/verify",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/roles",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/elevate",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/status",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/churn-heatmap",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/assign",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/cancel",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/post",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/offer",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/suggest",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/surge",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/deliveries",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/test/{id}",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/metrics",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/parse",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/registry/sweep",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/registry/integrity",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/forensics/flush",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/governance/reseed",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/system/deploy",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/sweep",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/touchpoints/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/touchpoints",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/incident-sla",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/hash",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/engage",
+    "method": "POST",
+    "allowed_roles": [
+      "admin"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/disengage",
+    "method": "POST",
+    "allowed_roles": [
+      "admin"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/register-device",
+    "method": "POST",
+    "allowed_roles": [],
+    "blocked_roles": []
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/read",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/create-payment-intent",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/connect",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/upload",
+    "method": "PUT",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/file/{key}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/upload",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/payroll-audit",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/kpi",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/today",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/:id",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/branch-health",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/compliance/sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/feedback/{id}/triage",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/intake/waitlist",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/schedule/logistics-board",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/incidents",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/locations",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/approvals",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/approvals/{id}/approve",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/approvals/{id}/reject",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/schedule/logistics-board/{visitId}/crisis-pay",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/pending",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/approve",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/kpi/{providerId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/assign",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/compliance",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/modules",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/home/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/treatments",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/treatments/{visitId}/sign-off",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/customers",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/hub",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/hub/audit",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/hub/multidisciplinary",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/submit",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/compliance/scan",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/grid",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/visits",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/tickets",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/tickets/{id}/messages",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/tickets/{id}/reply",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "super_admin",
+      "scrum_master"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/complete",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{role}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/dispatch",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/territory/update",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/:patientId",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/history",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/hardware/purchase",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/incident",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/wellness",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/store/redeem",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/calculate",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/submit-override",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/history",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/check-in",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/check-out",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/accept",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/swaps",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/accept",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/decline",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/no-show",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/assigned",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/complete",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/pulse",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/templates",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/client/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/caps/{assessmentId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/review",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/assessments",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/recon",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/supervision",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/sign-off",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/audit/list",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reconciliation/pending",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/reconciliation/{id}/approve",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/profiles",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/review",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/schedule/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/administer",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/history/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/prn",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/review",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/psw/{providerId}/overview",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/roster",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/assessments/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/assessments",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/progress/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/chronic/{clientId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/match/override",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/waitlist/sync",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/incident/ack",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/home/stats",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/dispatch-map",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/matching/run",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/incidents",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/sos-dispatch",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/schedule/master",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/shifts/broadcast",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/fleet/ping",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/heartbeat",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/positions",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/eta/{visitId}",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/request",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/requests",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/requests/{visitId}/approve",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/trigger",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/active",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/acknowledge",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/:id",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}/prioritize",
+    "method": "PATCH",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/{id}",
+    "method": "DELETE",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/summary",
+    "method": "GET",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  },
+  {
+    "endpoint": "/update",
+    "method": "POST",
+    "allowed_roles": [
+      "admin",
+      "ops"
+    ],
+    "blocked_roles": [
+      "client",
+      "family"
+    ]
+  }
+]

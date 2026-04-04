@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/api_providers.dart';
 import '../routes/app_routes.dart';
+import '../core/config/api_config.dart';
 
 class AuthState {
   final bool isAuthenticated;
@@ -107,10 +108,10 @@ class AuthNotifier extends Notifier<AuthState> {
 
   Future<bool> login(String email, String password) async {
     try {
-      final dio = ref.read(dioProvider);
-      final response = await dio.post(
-        '/auth/login',
-        data: {'email': email, 'password': password},
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        ApiConfig.endpoints['login']!,
+        body: {'email': email, 'password': password},
       );
 
       if (response.statusCode == 200) {
@@ -164,10 +165,10 @@ class AuthNotifier extends Notifier<AuthState> {
 
   Future<bool> register(String email, String password, String firstName, String lastName, String role) async {
     try {
-      final dio = ref.read(dioProvider);
-      final response = await dio.post(
-        '/auth/register',
-        data: {
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        ApiConfig.endpoints['register']!,
+        body: {
           'email': email,
           'password': password,
           'firstName': firstName,
