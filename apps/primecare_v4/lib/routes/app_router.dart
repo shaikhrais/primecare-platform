@@ -7,6 +7,7 @@ import 'app_routes.dart';
 import '../components/generic_feature_screen.dart';
 
 import '../screens/login_screen.dart';
+import '../screens/splash_screen.dart';
 import '../screens/signup_screen.dart';
 import '../screens/forgot_password_screen.dart';
 
@@ -61,15 +62,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
 
   return GoRouter(
-    initialLocation: AppRoutes.login,
+    initialLocation: AppRoutes.splash,
     refreshListenable: authListenable,
     redirect: (BuildContext context, GoRouterState state) {
       final isLoggingIn = state.matchedLocation == AppRoutes.login || 
                            state.matchedLocation == AppRoutes.signup || 
                            state.matchedLocation == AppRoutes.forgotPassword;
+      final isSplash = state.matchedLocation == AppRoutes.splash;
       
       final isLoggedIn = authState.isAuthenticated;
       final role = authState.role ?? '';
+
+      // Allow splash to render unhindered
+      if (isSplash) return null;
 
       if (!isLoggedIn && !isLoggingIn) {
         return AppRoutes.login;
@@ -82,6 +87,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
+      GoRoute(path: AppRoutes.splash, builder: (context, state) => const SplashScreen()),
       GoRoute(path: AppRoutes.login, builder: (context, state) => const LoginScreen()),
       GoRoute(path: AppRoutes.signup, builder: (context, state) => const SignupScreen()),
       GoRoute(path: AppRoutes.forgotPassword, builder: (context, state) => const ForgotPasswordScreen()),
@@ -100,6 +106,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return MasterLayout(shellType: type, child: child);
         },
         routes: [
+      GoRoute(path: AppRoutes.splash, builder: (context, state) => const SplashScreen()),
           GoRoute(path: AppRoutes.globalSettings, builder: (context, state) => const GlobalSettingsScreen()),
           GoRoute(path: AppRoutes.globalProfile, builder: (context, state) => const GlobalProfileScreen()),
           GoRoute(path: AppRoutes.notificationCenter, builder: (context, state) => const NotificationCenterScreen()),
@@ -203,6 +210,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         builder: (context, state, child) => MasterLayout(shellType: AppShellType.provider, child: child),
         routes: [
+      GoRoute(path: AppRoutes.splash, builder: (context, state) => const SplashScreen()),
                 GoRoute(
           path: '/provider/feature/:id',
           builder: (context, state) => GenericFeatureScreen(featureId: state.pathParameters['id'] ?? 'feature'),
@@ -261,6 +269,7 @@ GoRoute(
       ShellRoute(
         builder: (context, state, child) => MasterLayout(shellType: AppShellType.client, child: child),
         routes: [
+      GoRoute(path: AppRoutes.splash, builder: (context, state) => const SplashScreen()),
         GoRoute(
           path: AppRoutes.patientDashboard,
           builder: (context, state) => const patient_dash.ClientDashboard(),
@@ -275,6 +284,7 @@ GoRoute(
       ShellRoute(
         builder: (context, state, child) => MasterLayout(shellType: AppShellType.admin, child: child),
         routes: [
+      GoRoute(path: AppRoutes.splash, builder: (context, state) => const SplashScreen()),
           GoRoute(
             path: AppRoutes.scrumMasterDashboard,
             builder: (context, state) => const scrum_master_dash.ScrumMasterDashboard(),
