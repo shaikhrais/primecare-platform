@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import 'package:go_router/go_router.dart';
 
 class CeoSidebar extends StatelessWidget {
   const CeoSidebar({super.key});
@@ -20,6 +21,6 @@ class CeoSidebar extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, IconData icon, String label) {
-    return ListTile(key: const Key('data-status-id=corporate-ceo-ceo-action-1'), leading: Icon(icon, color: AppTheme.primary), title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)), onTap: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Navigating to $label'))),);
+    return ListTile(key: const Key('data-status-id=corporate-ceo-ceo-action-1'), leading: Icon(icon, color: AppTheme.primary), title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)), onTap: () => context.go('/dashboard/ceo/${label.toLowerCase().replaceAll(' ', '-')}'),);
   }
 }

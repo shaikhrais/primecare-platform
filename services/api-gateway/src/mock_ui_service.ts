@@ -63,7 +63,7 @@ export async function handleMockUIEndpoint(c: Context) {
   }
 
   // Generate the highly robust 110-feature memory cache for Stitch integration
-  const mockPayload = generateStitchFeatures(safeIdentifier);
+  const mockPayload = await generateStitchFeatures(safeIdentifier, prisma);
 
   const responseObj: Record<string, any> = {
     _meta: { source: 'api-gateway:mock_ui_service:stitch_110_engine', timestamp: Date.now() },
@@ -75,7 +75,7 @@ export async function handleMockUIEndpoint(c: Context) {
   return c.json(responseObj);
 }
 
-function generateStitchFeatures(key: string): any[] {
+async function generateStitchFeatures(key: string, prisma: any): Promise<any[]> {
   // Try to parse the feature number out of patterns like "stitch_feature_42"
   const match = key.match(/\d+/);
   const seed = match ? parseInt(match[0], 10) : 1;
@@ -83,6 +83,20 @@ function generateStitchFeatures(key: string): any[] {
 
   const records = [];
   
+  let shiftCount = 0;
+  let visitCount = 0;
+  let userCount = 0;
+  
+  if (prisma) {
+    try {
+      shiftCount = await prisma.shiftAssignment.count();
+      visitCount = await prisma.visit.count();
+      userCount = await prisma.user.count();
+    } catch (e: any) {
+      console.warn('[MockUIService Prisma Hydration Warn]', e.message);
+    }
+  }
+
   let i = seed;
   for (let k = 0; k < countToGenerate; k++) {
     // We deterministically build the 150 archetype variants mapping to the extended domains
@@ -126,7 +140,7 @@ function generateStitchFeatures(key: string): any[] {
           type: 'CALENDAR',
           title: `Resource Scheduling Hub [Archetype ${i}]`,
           views: ['Day', 'Week', 'Month'],
-          conflicts: Math.floor(Math.random() * 5),
+          conflicts: shiftCount,
           primaryResource: 'PSW Fleet',
           status: 'Optimized'
         });
@@ -135,8 +149,8 @@ function generateStitchFeatures(key: string): any[] {
           id: `stitch-pharmacy-00${i}`,
           type: 'DISPENSARY',
           title: `Pharmacy Fulfillment Logs [Archetype ${i}]`,
-          inventoryAlerts: Math.floor(Math.random() * 10) > 5 ? ['Low Stock: Amoxicillin'] : [],
-          prescriptionsPending: Math.floor(Math.random() * 50),
+          inventoryAlerts: userCount > 5 ? ['Low Stock: Amoxicillin'] : [],
+          prescriptionsPending: userCount * 3,
           status: 'Active Dispensing'
         });
       } else if (i % 4 === 2) {
@@ -145,7 +159,7 @@ function generateStitchFeatures(key: string): any[] {
           type: 'ANALYTICS',
           title: `Director Data Studio [Archetype ${i}]`,
           reportsAvailable: ['Monthly Outcomes', 'Cost Reduction', 'Staff Utilization'],
-          aiForecast: 'Positive Trend detected in recovery times.',
+          aiForecast: `Platform visits aggregate: ${visitCount}`,
           status: 'Live Sync'
         });
       } else {
@@ -153,7 +167,7 @@ function generateStitchFeatures(key: string): any[] {
           id: `stitch-messaging-00${i}`,
           type: 'COMMUNICATION',
           title: `Secure Care Chat [Archetype ${i}]`,
-          unreadCount: Math.floor(Math.random() * 8),
+          unreadCount: userCount * 2,
           encryption: 'E2EE Active',
           activeThreads: ['Cardiology Team', 'Patient Support'],
           status: 'Connected'

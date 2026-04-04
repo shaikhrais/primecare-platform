@@ -761,7 +761,7 @@
     "type": "Action/Navigation",
     "label": "Interactive Element",
     "expected_behavior": "Navigate or Trigger Logic",
-    "actual_behavior": "Executes defined logic",
+    "actual_behavior": "Navigates to /dashboard/ceo/${label.toLowerCase().replaceAll(",
     "status": "implemented",
     "notes": "Wired",
     "filepath": "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_v4\\lib\\offices\\corporate\\roles\\ceo\\ceo_sidebar.dart"
@@ -787,7 +787,7 @@
     "type": "Action/Navigation",
     "label": "Interactive Element",
     "expected_behavior": "Navigate or Trigger Logic",
-    "actual_behavior": "Executes defined logic",
+    "actual_behavior": "Navigates to /dashboard/cfo/${label.toLowerCase().replaceAll(",
     "status": "implemented",
     "notes": "Wired",
     "filepath": "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_v4\\lib\\offices\\corporate\\roles\\cfo\\cfo_sidebar.dart"
