@@ -57,9 +57,8 @@ class SidebarLayout extends ConsumerWidget {
                   if (targetRoute.isNotEmpty) {
                     context.go(targetRoute);
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${item.label} route initializing...'))
-                    );
+                    final formattedId = item.label.toLowerCase().replaceAll(' ', '_');
+                    context.go('/provider/feature/$formattedId');
                   }
                 },
                 hoverColor: const Color(0xFF006565).withValues(alpha: 0.05),

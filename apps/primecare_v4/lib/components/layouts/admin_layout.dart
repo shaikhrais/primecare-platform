@@ -25,10 +25,11 @@ class AdminLayout extends StatelessWidget {
           ),
         ],
       ),
-      body: Row(
-        children: [
-          // Basic Admin Navigation Sidebar
-          Container(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isMobile = constraints.maxWidth < 900;
+          
+          final sidebar = Container(
             width: 250,
             color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
             child: ListView(
@@ -36,26 +37,87 @@ class AdminLayout extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.dashboard),
                   title: const Text('Executive Dashboard'),
-                  // Using context.go ensures ONLY the nested child rebuilds, preserving TopBar and Sidebar completely.
-                  onTap: () => context.go(AppRoutes.ceoDashboard),
+                  onTap: () {
+                    context.go(AppRoutes.ceoDashboard);
+                    if (isMobile) Navigator.pop(context);
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.analytics),
                   title: const Text('Global Reports'),
-                  // Simulating another view in the same shell
-                  onTap: () => context.go(AppRoutes.complianceManagerDashboard),
+                  onTap: () {
+                    context.go(AppRoutes.complianceManagerDashboard);
+                    if (isMobile) Navigator.pop(context);
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.settings),
                   title: const Text('System Settings'),
-                  onTap: () => context.go(AppRoutes.globalSettings),
+                  onTap: () {
+                    context.go(AppRoutes.globalSettings);
+                    if (isMobile) Navigator.pop(context);
+                  },
                 ),
               ],
             ),
-          ),
-          // Main Content perfectly isolated. Only this widget rebuilds on context.go()
-          Expanded(child: child),
-        ],
+          );
+
+          if (isMobile) {
+            return child;
+          }
+          
+          return Row(
+            children: [
+              sidebar,
+              Expanded(child: child),
+            ],
+          );
+        },
+      ),
+      drawer: LayoutBuilder(
+        builder: (context, constraints) {
+          final isMobile = constraints.maxWidth < 900;
+          
+          if (!isMobile) return const SizedBox.shrink();
+          
+          return Drawer(
+            child: Container(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+                    child: const Text('Admin Console', style: TextStyle(color: Colors.white, fontSize: 24)),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.dashboard),
+                    title: const Text('Executive Dashboard'),
+                    onTap: () {
+                      context.go(AppRoutes.ceoDashboard);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.analytics),
+                    title: const Text('Global Reports'),
+                    onTap: () {
+                      context.go(AppRoutes.complianceManagerDashboard);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text('System Settings'),
+                    onTap: () {
+                      context.go(AppRoutes.globalSettings);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

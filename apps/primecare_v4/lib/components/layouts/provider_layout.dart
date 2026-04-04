@@ -18,11 +18,25 @@ class ProviderLayout extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: ProviderTopBar(role: role),
-      body: Row(
-        children: [
-          const SidebarLayout(), // The Luminous Glassmorphic Sidebar
-          Expanded(child: child),
-        ],
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth < 900) {
+            return child;
+          }
+          return Row(
+            children: [
+              const SidebarLayout(), // The Luminous Glassmorphic Sidebar
+              Expanded(child: child),
+            ],
+          );
+        },
+      ),
+      drawer: LayoutBuilder(
+        builder: (context, constraints) {
+          return constraints.maxWidth < 900 
+            ? const Drawer(child: SidebarLayout()) 
+            : const SizedBox.shrink();
+        },
       ),
     );
   }

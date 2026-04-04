@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../providers/dynamic_page_providers.dart';
+import 'package:primecare_v4/providers/dynamic_page_providers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';

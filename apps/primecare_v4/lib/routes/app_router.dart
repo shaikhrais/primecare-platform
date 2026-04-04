@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../services/auth_service.dart';
 import 'app_routes.dart';
+import '../components/generic_feature_screen.dart';
 
 import '../screens/login_screen.dart';
 import '../screens/signup_screen.dart';
@@ -197,7 +198,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         builder: (context, state, child) => MasterLayout(shellType: AppShellType.provider, child: child),
         routes: [
-        GoRoute(
+                GoRoute(
+          path: '/provider/feature/:id',
+          builder: (context, state) => GenericFeatureScreen(featureId: state.pathParameters['id'] ?? 'feature'),
+        ),
+GoRoute(
           path: AppRoutes.rnDashboard,
           builder: (context, state) => const rn_dash.RnDashboard(),
         ),
