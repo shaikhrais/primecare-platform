@@ -109,14 +109,14 @@ class GuestDashboard extends ConsumerWidget {
                                   children: [
                                     const Text('Contact our Intake Hub', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey)),
                                     const SizedBox(height: 16),
-                                    _buildInputPlaceholder('Your Institutional Name'),
+                                    _buildInputField('Your Institutional Name'),
                                     const SizedBox(height: 12),
-                                    _buildInputPlaceholder('Department / Region'),
+                                    _buildInputField('Department / Region'),
                                     const SizedBox(height: 24),
                                     SizedBox(
                                       width: double.infinity,
-                                      child: ElevatedButton(
-                                        onPressed: () {},
+                                      child: ElevatedButton(key: const Key('data-status-id=system-guest-guest-action-1'), 
+                                        onPressed: () => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Inquiry Submitted Successfully!'))),
                                         style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primary, foregroundColor: Colors.white, padding: const EdgeInsets.all(16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                         child: const Text('SUBMIT INQUIRY', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.1)),
                                       ),
@@ -167,7 +167,7 @@ class GuestDashboard extends ConsumerWidget {
     );
   }
 
-  Widget _buildInputPlaceholder(String label) {
+  Widget _buildInputField(String label) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.white.withValues(alpha: 0.1))),

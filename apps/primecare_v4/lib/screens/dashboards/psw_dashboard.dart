@@ -11,7 +11,7 @@ class PswDashboardScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('PSW Dashboard'),
         actions: [
-          IconButton(
+          IconButton(key: const Key('data-status-id=shared-global-psw-action-1'), 
             icon: const Icon(Icons.logout),
             onPressed: () {
               ref.read(authProvider.notifier).logout();

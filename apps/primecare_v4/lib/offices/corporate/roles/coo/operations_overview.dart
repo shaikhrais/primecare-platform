@@ -161,7 +161,7 @@ class OperationsOverviewView extends ConsumerWidget {
               ],
             ),
           ),
-          ElevatedButton(
+          ElevatedButton(key: const Key('data-status-id=corporate-coo-operations-action-1'), 
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: statusColor.withValues(alpha: 0.1),

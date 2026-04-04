@@ -62,7 +62,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: ElevatedButton(
+              child: ElevatedButton(key: const Key('data-status-id=shared-global-forgot-action-1'), 
                 onPressed: _isLoading ? null : _resetPassword,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -83,7 +83,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 color: const Color(0xFF006948).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: ElevatedButton(
+              child: ElevatedButton(key: const Key('data-status-id=shared-global-forgot-action-2'), 
                 onPressed: () => setState(() {
                   _isSent = false;
                   _emailController.clear();

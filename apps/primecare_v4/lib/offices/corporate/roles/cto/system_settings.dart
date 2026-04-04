@@ -161,7 +161,7 @@ class SystemSettingsView extends ConsumerWidget {
               ],
             ),
           ),
-          ElevatedButton(
+          ElevatedButton(key: const Key('data-status-id=corporate-cto-system-action-1'), 
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: statusColor.withValues(alpha: 0.1),

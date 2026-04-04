@@ -161,7 +161,7 @@ class DocumentVaultScreen extends ConsumerWidget {
               ],
             ),
           ),
-          ElevatedButton(
+          ElevatedButton(key: const Key('data-status-id=shared-global-document-action-1'), 
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: statusColor.withValues(alpha: 0.1),

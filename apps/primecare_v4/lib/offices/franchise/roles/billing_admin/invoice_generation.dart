@@ -161,7 +161,7 @@ class InvoiceGenerationView extends ConsumerWidget {
               ],
             ),
           ),
-          ElevatedButton(
+          ElevatedButton(key: const Key('data-status-id=franchise-billing-invoice-action-1'), 
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: statusColor.withValues(alpha: 0.1),

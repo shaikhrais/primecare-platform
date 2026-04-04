@@ -15,11 +15,11 @@ class AdminLayout extends StatelessWidget {
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
-          IconButton(
+          IconButton(key: const Key('data-status-id=shared-global-admin-action-1'), 
             icon: const Icon(Icons.notifications), 
             onPressed: () => context.go(AppRoutes.notificationCenter)
           ),
-          IconButton(
+          IconButton(key: const Key('data-status-id=shared-global-admin-action-3'), 
             icon: const Icon(Icons.account_circle), 
             onPressed: () => context.go(AppRoutes.globalProfile)
           ),
@@ -34,7 +34,7 @@ class AdminLayout extends StatelessWidget {
             color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
             child: ListView(
               children: [
-                ListTile(
+                ListTile(key: const Key('data-status-id=shared-global-admin-action-5'), 
                   leading: const Icon(Icons.dashboard),
                   title: const Text('Executive Dashboard'),
                   onTap: () {
@@ -42,7 +42,7 @@ class AdminLayout extends StatelessWidget {
                     if (isMobile) Navigator.pop(context);
                   },
                 ),
-                ListTile(
+                ListTile(key: const Key('data-status-id=shared-global-admin-action-7'), 
                   leading: const Icon(Icons.analytics),
                   title: const Text('Global Reports'),
                   onTap: () {
@@ -50,7 +50,7 @@ class AdminLayout extends StatelessWidget {
                     if (isMobile) Navigator.pop(context);
                   },
                 ),
-                ListTile(
+                ListTile(key: const Key('data-status-id=shared-global-admin-action-9'), 
                   leading: const Icon(Icons.settings),
                   title: const Text('System Settings'),
                   onTap: () {
@@ -89,7 +89,7 @@ class AdminLayout extends StatelessWidget {
                     decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
                     child: const Text('Admin Console', style: TextStyle(color: Colors.white, fontSize: 24)),
                   ),
-                  ListTile(
+                  ListTile(key: const Key('data-status-id=shared-global-admin-action-11'), 
                     leading: const Icon(Icons.dashboard),
                     title: const Text('Executive Dashboard'),
                     onTap: () {
@@ -97,7 +97,7 @@ class AdminLayout extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  ListTile(
+                  ListTile(key: const Key('data-status-id=shared-global-admin-action-13'), 
                     leading: const Icon(Icons.analytics),
                     title: const Text('Global Reports'),
                     onTap: () {
@@ -105,7 +105,7 @@ class AdminLayout extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  ListTile(
+                  ListTile(key: const Key('data-status-id=shared-global-admin-action-15'), 
                     leading: const Icon(Icons.settings),
                     title: const Text('System Settings'),
                     onTap: () {

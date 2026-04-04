@@ -161,7 +161,7 @@ class RpnNotesView extends ConsumerWidget {
               ],
             ),
           ),
-          ElevatedButton(
+          ElevatedButton(key: const Key('data-status-id=clinic-rpn-rpn-action-1'), 
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: statusColor.withValues(alpha: 0.1),

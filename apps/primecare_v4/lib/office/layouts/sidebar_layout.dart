@@ -46,7 +46,7 @@ class SidebarLayout extends ConsumerWidget {
 
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
-              child: ListTile(
+              child: ListTile(key: const Key('data-status-id=shared-global-sidebar-action-1'), 
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 leading: Icon(item.icon, size: 22, color: const Color(0xFF006565)),
                 title: Text(

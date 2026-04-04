@@ -12,7 +12,7 @@ class AdminDashboardScreen extends ConsumerWidget {
         title: const Text('Administrator Dashboard'),
         backgroundColor: Colors.deepPurple,
         actions: [
-          IconButton(
+          IconButton(key: const Key('data-status-id=shared-global-admin-action-1'), 
             icon: const Icon(Icons.logout),
             onPressed: () {
               ref.read(authProvider.notifier).logout();

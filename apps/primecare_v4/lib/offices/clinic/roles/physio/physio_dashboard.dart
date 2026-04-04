@@ -117,7 +117,7 @@ class PhysioDashboard extends ConsumerWidget {
                                         ),
                                       ),
                                       if (metrics.kpis.any((kpi) => kpi.status == 'danger'))
-                                        ElevatedButton(
+                                        ElevatedButton(key: const Key('data-status-id=clinic-physio-physio-action-1'), 
                                           onPressed: () {}, 
                                           style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
                                           child: const Text('View All'),

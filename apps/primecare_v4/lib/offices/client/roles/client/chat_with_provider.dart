@@ -55,7 +55,7 @@ class ChatWithProviderView extends StatelessWidget {
         child: Row(
           children: [
             const Expanded(child: TextField(decoration: InputDecoration(hintText: 'Type your secure message...', border: InputBorder.none))),
-            IconButton(icon: const Icon(Icons.send, color: AppTheme.primary), onPressed: () {}),
+            IconButton(key: const Key('data-status-id=client-client-chat-action-1'), icon: const Icon(Icons.send, color: AppTheme.primary), onPressed: () {}),
           ],
         ),
       ),

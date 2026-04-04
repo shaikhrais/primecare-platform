@@ -88,7 +88,7 @@ class TicketsView extends ConsumerWidget {
   }
 
   Widget _buildTicketItem(BuildContext context, String id, String user, String subject, String status, String time, Color statusColor) {
-    return ListTile(
+    return ListTile(key: const Key('data-status-id=support-customer-tickets-action-1'), onTap: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Viewing ticket $id'))),
       contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       leading: CircleAvatar(
         backgroundColor: statusColor.withValues(alpha: 0.1),
@@ -107,9 +107,6 @@ class TicketsView extends ConsumerWidget {
       ),
       subtitle: Text(subject, style: const TextStyle(color: Colors.blueGrey, fontSize: 13)),
       trailing: Text(time, style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
-      onTap: () {
-        // Ticket detail navigation
-      },
     );
   }
 

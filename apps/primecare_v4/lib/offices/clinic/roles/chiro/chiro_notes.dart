@@ -127,7 +127,7 @@ class _ChiroNotesViewState extends ConsumerState<ChiroNotesView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
+                  TextButton(key: const Key('data-status-id=clinic-chiro-chiro-action-1'), 
                     onPressed: () => Navigator.pop(context), 
                     child: const Text('Cancel', style: TextStyle(color: Colors.blueGrey)),
                   ),

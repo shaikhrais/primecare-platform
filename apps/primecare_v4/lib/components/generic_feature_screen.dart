@@ -76,7 +76,7 @@ class GenericFeatureScreen extends ConsumerWidget {
       ),
       floatingActionButton: LayoutBuilder(builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
-          return FloatingActionButton(
+          return FloatingActionButton(key: const Key('data-status-id=shared-global-generic-action-1'), 
             backgroundColor: const Color(0xFF006565),
             onPressed: () {},
             child: const Icon(Icons.add, color: Colors.white),

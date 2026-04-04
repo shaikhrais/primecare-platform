@@ -65,7 +65,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           const SizedBox(height: 16),
           Align(
             alignment: Alignment.centerRight,
-            child: TextButton(
+            child: TextButton(key: const Key('data-status-id=shared-global-login-action-1'), 
               onPressed: () => context.push('/forgot-password'),
               style: TextButton.styleFrom(foregroundColor: const Color(0xFF006948)),
               child: const Text('Forgot Password?', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -79,7 +79,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: ElevatedButton(
+            child: ElevatedButton(key: const Key('data-status-id=shared-global-login-action-3'), 
               onPressed: _isLoading ? null : _login,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
@@ -97,7 +97,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Don\'t have an account?', style: TextStyle(color: Colors.blueGrey)),
-              TextButton(
+              TextButton(key: const Key('data-status-id=shared-global-login-action-4'), 
                 onPressed: () => context.push('/signup'),
                 style: TextButton.styleFrom(foregroundColor: const Color(0xFF006948)),
                 child: const Text('Sign Up', style: TextStyle(fontWeight: FontWeight.bold)),

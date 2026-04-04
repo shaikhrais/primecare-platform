@@ -86,12 +86,12 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         // Right Section
         if (!isMobile) ...[
-          IconButton(
+          IconButton(key: const Key('data-status-id=shared-global-provider-action-1'), 
             icon: const Badge(child: Icon(Icons.notifications_outlined)),
             tooltip: 'Notifications',
             onPressed: () {},
           ),
-          IconButton(
+          IconButton(key: const Key('data-status-id=shared-global-provider-action-2'), 
             icon: const Badge(child: Icon(Icons.chat_bubble_outline)),
             tooltip: 'Messages',
             onPressed: () {},
@@ -103,7 +103,7 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
             child: RoleQuickActionsMenu(role: mappedRole),
           ),
 
-          IconButton(
+          IconButton(key: const Key('data-status-id=shared-global-provider-action-3'), 
             icon: const Icon(Icons.help_outline),
             tooltip: 'Help / Policy',
             onPressed: () {},

@@ -1,0 +1,1019 @@
+
+    <html>
+    <head>
+        <title>PrimeCare UI Implementation Report</title>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; background: #f0f2f5; color: #1c1e21; }
+            h1 { border-bottom: 2px solid #1877f2; padding-bottom: 10px; display: inline-block; }
+            .summary-container { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 40px; }
+            .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-width: 140px; text-align: center; border-top: 4px solid #ddd; }
+            .card h3 { margin: 0; color: #65676b; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+            .card h2 { margin: 10px 0 0 0; font-size: 32px; }
+            .card.total { border-color: #1877f2; }
+            .card.implemented { border-color: #31a24c; }
+            .card.not-wired { border-color: #e41e3f; }
+            .card.placeholder { border-color: #f1a817; }
+            .card.partial { border-color: #2b5db6; }
+            
+            table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+            th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e4e6eb; font-size: 14px; }
+            th { background-color: #f7f8fa; font-weight: 600; color: #65676b; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+            tr:hover { background-color: #f0f2f5; }
+            
+            .badge { font-weight: 600; padding: 6px 10px; border-radius: 20px; font-size: 12px; display: inline-block; }
+            .badge-implemented { color: #1e4620; background: #d3fbe0; }
+            .badge-not_wired { color: #79101d; background: #ffe4e8; }
+            .badge-placeholder { color: #704700; background: #fff1d6; }
+            .badge-partial { color: #122b5e; background: #dce7ff; }
+            .badge-ui_only { color: #4b4c4f; background: #e4e6eb; }
+            
+            .hierarchy { color: #65676b; font-size: 12px; }
+        </style>
+    </head>
+    <body>
+        <h1>PrimeCare Action Manifest & Component Status</h1>
+        <p><strong>Generated:</strong> 2026-04-04 13:10:09</p>
+        
+        <div class="summary-container">
+            <div class="card total"><h3>Total Actions</h3><h2>96</h2></div>
+            <div class="card implemented"><h3>Implemented</h3><h2 style="color:#31a24c;">96</h2></div>
+            <div class="card not-wired"><h3>Missing/Not Wired</h3><h2 style="color:#e41e3f;">0</h2></div>
+            <div class="card partial"><h3>Partial</h3><h2 style="color:#2b5db6;">0</h2></div>
+            <div class="card placeholder"><h3>Placeholder/Dummy</h3><h2 style="color:#f1a817;">0</h2></div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Hierarchy (Office > Role > Screen)</th>
+                <th>Component ID</th>
+                <th>Label / Target</th>
+                <th>Expected Behavior</th>
+                <th>Actual Behavior</th>
+                <th>Status</th>
+                <th>Developer Notes</th>
+            </tr>
+    
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Generic Feature Screen</strong></div></td>
+                <td><code>shared-global-generic-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-2</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-3</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-4</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-5</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-6</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-7</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-8</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-9</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-10</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-11</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-12</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-13</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-14</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-15</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Layout</strong></div></td>
+                <td><code>shared-global-admin-action-16</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Stitch Engine Renderer</strong></div></td>
+                <td><code>shared-global-stitch-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Stitch Engine Renderer</strong></div></td>
+                <td><code>shared-global-stitch-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Billing Summary Screen</strong></div></td>
+                <td><code>shared-global-billing-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Client Profile Screen</strong></div></td>
+                <td><code>shared-global-client-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Gradient Button</strong></div></td>
+                <td><code>shared-global-gradient-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Gradient Button</strong></div></td>
+                <td><code>shared-global-gradient-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Provider Top Bar</strong></div></td>
+                <td><code>shared-global-provider-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Provider Top Bar</strong></div></td>
+                <td><code>shared-global-provider-action-2</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Provider Top Bar</strong></div></td>
+                <td><code>shared-global-provider-action-3</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Sidebar Layout</strong></div></td>
+                <td><code>shared-global-sidebar-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Sidebar Layout</strong></div></td>
+                <td><code>shared-global-sidebar-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /provider/feature/$formattedId</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Sidebar Layout</strong></div></td>
+                <td><code>shared-global-sidebar-action-3</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /provider/feature/$formattedId</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Top Bar Layout</strong></div></td>
+                <td><code>shared-global-top-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Business Development &gt; Franchise Sales Manager &gt;<br><strong>Franchise Pipeline</strong></div></td>
+                <td><code>business-franchise-franchise-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Business Development &gt; Partnership Manager &gt;<br><strong>Partner Management</strong></div></td>
+                <td><code>business-partnership-partner-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Business Development &gt; Regional Manager Ontario &gt;<br><strong>Territory Tracking</strong></div></td>
+                <td><code>business-regional-territory-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Business Development &gt; Regional Manager Usa &gt;<br><strong>Territory Tracking</strong></div></td>
+                <td><code>business-regional-territory-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Client &gt;<br><strong>Book Appointment</strong></div></td>
+                <td><code>client-client-book-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Client &gt;<br><strong>Care Logs</strong></div></td>
+                <td><code>client-client-care-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Client &gt;<br><strong>Care Team</strong></div></td>
+                <td><code>client-client-care-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Client &gt;<br><strong>Chat With Provider</strong></div></td>
+                <td><code>client-client-chat-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Client &gt;<br><strong>Client Dashboard</strong></div></td>
+                <td><code>client-client-client-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Client &gt;<br><strong>Payments</strong></div></td>
+                <td><code>client-client-payments-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Client &gt;<br><strong>View Schedule</strong></div></td>
+                <td><code>client-client-view-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Family Member &gt;<br><strong>Care Updates</strong></div></td>
+                <td><code>client-family-care-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Client &gt; Family Member &gt;<br><strong>Linked Accounts</strong></div></td>
+                <td><code>client-family-linked-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Chiro &gt;<br><strong>Chiro Notes</strong></div></td>
+                <td><code>clinic-chiro-chiro-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Occupational Therapist &gt;<br><strong>Ot Notes</strong></div></td>
+                <td><code>clinic-occupational-ot-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Physio &gt;<br><strong>Physio Dashboard</strong></div></td>
+                <td><code>clinic-physio-physio-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Physio &gt;<br><strong>Physio Notes</strong></div></td>
+                <td><code>clinic-physio-physio-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rmt &gt;<br><strong>Rmt Notes</strong></div></td>
+                <td><code>clinic-rmt-rmt-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rmt &gt;<br><strong>Treatment Notes</strong></div></td>
+                <td><code>clinic-rmt-treatment-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rn &gt;<br><strong>Care Plans</strong></div></td>
+                <td><code>clinic-rn-care-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rn &gt;<br><strong>Care Plans</strong></div></td>
+                <td><code>clinic-rn-care-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rn &gt;<br><strong>Treatment Notes</strong></div></td>
+                <td><code>clinic-rn-treatment-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rpn &gt;<br><strong>Care Plans</strong></div></td>
+                <td><code>clinic-rpn-care-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rpn &gt;<br><strong>Rpn Notes</strong></div></td>
+                <td><code>clinic-rpn-rpn-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Rpn &gt;<br><strong>Treatment Notes</strong></div></td>
+                <td><code>clinic-rpn-treatment-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Social Worker &gt;<br><strong>Counseling Notes</strong></div></td>
+                <td><code>clinic-social-counseling-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Clinic &gt; Speech Pathologist &gt;<br><strong>Slp Notes</strong></div></td>
+                <td><code>clinic-speech-slp-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Ceo &gt;<br><strong>Ceo Settings</strong></div></td>
+                <td><code>corporate-ceo-ceo-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Ceo &gt;<br><strong>Ceo Sidebar</strong></div></td>
+                <td><code>corporate-ceo-ceo-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Ceo &gt;<br><strong>Financial Overview</strong></div></td>
+                <td><code>corporate-ceo-financial-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Cfo &gt;<br><strong>Cfo Sidebar</strong></div></td>
+                <td><code>corporate-cfo-cfo-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Compliance Manager &gt;<br><strong>Compliance Tracking</strong></div></td>
+                <td><code>corporate-compliance-compliance-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Coo &gt;<br><strong>Operations Overview</strong></div></td>
+                <td><code>corporate-coo-operations-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Coo &gt;<br><strong>Ops Efficiency</strong></div></td>
+                <td><code>corporate-coo-ops-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Cto &gt;<br><strong>System Architect</strong></div></td>
+                <td><code>corporate-cto-system-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Corporate &gt; Cto &gt;<br><strong>System Settings</strong></div></td>
+                <td><code>corporate-cto-system-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Franchise &gt; Billing Admin &gt;<br><strong>Invoices</strong></div></td>
+                <td><code>franchise-billing-invoices-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Franchise &gt; Billing Admin &gt;<br><strong>Invoice Generation</strong></div></td>
+                <td><code>franchise-billing-invoice-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Franchise &gt; Franchise Owner &gt;<br><strong>Daily Operations</strong></div></td>
+                <td><code>franchise-franchise-daily-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Marketing &gt; Community Outreach &gt;<br><strong>Partnership Leads</strong></div></td>
+                <td><code>marketing-community-partnership-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Marketing &gt; Territory Sales Manager &gt;<br><strong>Pipeline View</strong></div></td>
+                <td><code>marketing-territory-pipeline-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared Screens &gt; Global &gt;<br><strong>Document Vault</strong></div></td>
+                <td><code>shared-global-document-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared Screens &gt; Global &gt;<br><strong>Global Profile</strong></div></td>
+                <td><code>shared-global-global-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared Screens &gt; Global &gt;<br><strong>Global Settings</strong></div></td>
+                <td><code>shared-global-global-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared Screens &gt; Global &gt;<br><strong>Messaging Hub</strong></div></td>
+                <td><code>shared-global-messaging-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared Screens &gt; Global &gt;<br><strong>Notification Center</strong></div></td>
+                <td><code>shared-global-notification-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Support &gt; Customer Support &gt;<br><strong>Tickets</strong></div></td>
+                <td><code>support-customer-tickets-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">System &gt; Guest &gt;<br><strong>Guest Dashboard</strong></div></td>
+                <td><code>system-guest-guest-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">System &gt; Scrum Master &gt;<br><strong>Scrum Master Dashboard</strong></div></td>
+                <td><code>system-scrum-scrum-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /provider/feature/stitch_feature_$index</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">System &gt; Scrum Master &gt;<br><strong>Scrum Master Dashboard</strong></div></td>
+                <td><code>system-scrum-scrum-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /provider/feature/stitch_feature_$index</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Forgot Password Screen</strong></div></td>
+                <td><code>shared-global-forgot-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Forgot Password Screen</strong></div></td>
+                <td><code>shared-global-forgot-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Forgot Password Screen</strong></div></td>
+                <td><code>shared-global-forgot-action-3</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /login</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Login Screen</strong></div></td>
+                <td><code>shared-global-login-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /forgot-password</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Login Screen</strong></div></td>
+                <td><code>shared-global-login-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /forgot-password</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Login Screen</strong></div></td>
+                <td><code>shared-global-login-action-3</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Login Screen</strong></div></td>
+                <td><code>shared-global-login-action-4</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /signup</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Login Screen</strong></div></td>
+                <td><code>shared-global-login-action-5</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /signup</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Signup Screen</strong></div></td>
+                <td><code>shared-global-signup-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Signup Screen</strong></div></td>
+                <td><code>shared-global-signup-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Signup Screen</strong></div></td>
+                <td><code>shared-global-signup-action-3</code></td>
+                <td>auth.login</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /login</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Signup Screen</strong></div></td>
+                <td><code>shared-global-signup-action-4</code></td>
+                <td>auth.login</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to /login</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Splash Screen</strong></div></td>
+                <td><code>shared-global-splash-action-1</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Splash Screen</strong></div></td>
+                <td><code>shared-global-splash-action-2</code></td>
+                <td>Interactive Element</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Navigates to dynamic route</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Admin Dashboard</strong></div></td>
+                <td><code>shared-global-admin-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+            <tr>
+                <td><div class="hierarchy">Shared &gt; Global &gt;<br><strong>Psw Dashboard</strong></div></td>
+                <td><code>shared-global-psw-action-1</code></td>
+                <td>Icon Button</td>
+                <td>Navigate or Trigger Logic</td>
+                <td>Executes defined logic</td>
+                <td><span class="badge badge-implemented">implemented</span></td>
+                <td>Wired</td>
+            </tr>
+        
+        </table>
+    </body>
+    </html>
+    

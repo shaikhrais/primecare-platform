@@ -206,7 +206,7 @@ class ScrumMasterDashboard extends ConsumerWidget {
   }
 
   Widget _buildFeatureDot(BuildContext context, int index) {
-    return InkWell(
+    return InkWell(key: const Key('data-status-id=system-scrum-scrum-action-1'), 
       onTap: () => context.go('/provider/feature/stitch_feature_$index'),
       child: Container(
         width: 48,

@@ -85,7 +85,7 @@ class BillingSummaryScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 32),
-          ElevatedButton(
+          ElevatedButton(key: const Key('data-status-id=shared-global-billing-action-1'), 
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal,
               foregroundColor: Colors.white,

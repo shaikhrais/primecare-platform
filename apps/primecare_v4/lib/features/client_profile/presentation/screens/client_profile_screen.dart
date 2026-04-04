@@ -71,11 +71,12 @@ class ClientProfileScreen extends ConsumerWidget {
           const SizedBox(height: 24),
           const Text('Recent Diagnoses', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
-          ...viewModel.recentDiagnoses.map((d) => ListTile(
+          ...viewModel.recentDiagnoses.map((d) => ListTile(key: const Key('data-status-id=shared-global-client-action-1'), 
             leading: const Icon(Icons.medical_services_outlined, color: Colors.teal),
             title: Text(d, style: const TextStyle(fontWeight: FontWeight.w600)),
             tileColor: Colors.white.withOpacity(0.5),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            onTap: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Viewing diagnosis $d'))),
           ))
         ],
       ),

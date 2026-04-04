@@ -123,7 +123,7 @@ class StitchEngineRenderer extends StatelessWidget {
             const SizedBox(height: 16),
             TextFormField(decoration: const InputDecoration(labelText: 'Secondary Details', border: OutlineInputBorder())),
             const SizedBox(height: 24),
-            ElevatedButton(
+            ElevatedButton(key: const Key('data-status-id=shared-global-stitch-action-1'), 
               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF006565), foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16)),
               onPressed: () {},
               child: const Text('Submit Record'),
@@ -217,7 +217,7 @@ class StitchEngineRenderer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('REF: ${item.id}', style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w600)),
-              TextButton(
+              TextButton(key: const Key('data-status-id=shared-global-stitch-action-2'), 
                 onPressed: () {},
                 child: const Text('View Payload'),
               )

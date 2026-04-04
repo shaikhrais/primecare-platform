@@ -124,7 +124,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: ElevatedButton(
+            child: ElevatedButton(key: const Key('data-status-id=shared-global-signup-action-2'), 
               onPressed: _isLoading ? null : _signup,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
@@ -142,7 +142,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('auth.already_have_account'.tr(), style: const TextStyle(color: Colors.blueGrey)),
-              TextButton(
+              TextButton(key: const Key('data-status-id=shared-global-signup-action-3'), 
                 onPressed: () => context.go('/login'),
                 style: TextButton.styleFrom(foregroundColor: const Color(0xFF006948)),
                 child: Text('auth.login'.tr(), style: const TextStyle(fontWeight: FontWeight.bold)),

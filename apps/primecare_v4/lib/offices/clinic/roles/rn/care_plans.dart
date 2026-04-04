@@ -163,12 +163,12 @@ class CarePlansView extends ConsumerWidget {
           Row(
             children: [
               const Spacer(),
-              TextButton(
+              TextButton(key: const Key('data-status-id=clinic-rn-care-action-1'), 
                 onPressed: () {}, 
                 child: const Text('View Full History', style: TextStyle(fontSize: 13)),
               ),
               const SizedBox(width: 8),
-              ElevatedButton(
+              ElevatedButton(key: const Key('data-status-id=clinic-rn-care-action-2'), 
                 onPressed: () {}, 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primary.withValues(alpha: 0.1),
