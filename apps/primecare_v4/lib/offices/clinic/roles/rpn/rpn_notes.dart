@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../providers/dynamic_page_providers.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
@@ -79,15 +81,28 @@ class RpnNotesView extends ConsumerWidget {
                               const SizedBox(height: 16),
                               GlassSurface(
                                 padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _buildLedgerRow(Icons.file_copy, 'System Report Generated', 'Nominal status.', Colors.teal),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildLedgerRow(Icons.update, 'Periodic Sync', 'Synchronized across regions.', Colors.indigo),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildLedgerRow(Icons.check_circle, 'Verification Process', 'Completed', Colors.teal),
-                                  ],
+                                child: Consumer(
+                                  builder: (context, ref, child) {
+                                    final dataAsync = ref.watch(dynamicPageProvider('officeRpnNotesView'));
+                                    return dataAsync.when(
+                                      loading: () => const Center(child: CircularProgressIndicator()),
+                                      error: (e, st) => Text('Error: $e'),
+                                      data: (items) {
+                                        if (items.isEmpty) return const Text('No records found.', style: TextStyle(color: Colors.blueGrey));
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: items.map((item) {
+                                            return Column(
+                                              children: [
+                                                _buildLedgerRow(Icons.api, item['title'] ?? 'Record', item['status'] ?? 'Active', Colors.teal),
+                                                const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                              ],
+                                            );
+                                          }).toList(),
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                             ],
