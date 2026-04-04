@@ -87,19 +87,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: AppRoutes.forgotPassword, builder: (context, state) => const ForgotPasswordScreen()),
       
       ShellRoute(
-        builder: (context, state, child) => MasterLayout(shellType: AppShellType.none, child: child),
+        builder: (context, state, child) {
+          final role = authState.role ?? '';
+          AppShellType type = AppShellType.none;
+          if (role == 'ceo' || role.endsWith('manager') || role == 'scrum_master') {
+            type = AppShellType.admin;
+          } else if (role == 'client' || role == 'family_member') {
+            type = AppShellType.client;
+          } else if (role.isNotEmpty) {
+            type = AppShellType.provider;
+          }
+          return MasterLayout(shellType: type, child: child);
+        },
         routes: [
           GoRoute(path: AppRoutes.globalSettings, builder: (context, state) => const GlobalSettingsScreen()),
           GoRoute(path: AppRoutes.globalProfile, builder: (context, state) => const GlobalProfileScreen()),
           GoRoute(path: AppRoutes.notificationCenter, builder: (context, state) => const NotificationCenterScreen()),
           GoRoute(path: AppRoutes.messagingHub, builder: (context, state) => const MessagingHubScreen()),
           GoRoute(path: AppRoutes.documentVault, builder: (context, state) => const DocumentVaultScreen()),
-        ]
-      ),
-
-      ShellRoute(
-        builder: (context, state, child) => MasterLayout(shellType: AppShellType.admin, child: child),
-        routes: [
         GoRoute(
           path: AppRoutes.guestDashboard,
           builder: (context, state) => const guest_dash.GuestDashboard(),
