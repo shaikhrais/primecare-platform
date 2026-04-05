@@ -3,7 +3,7 @@
  * Health, branding, stats, marketing leads, public registries, telemetry
  */
 import { OpenAPIHono, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from './bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 
 /** Worker start time — used to calculate uptime in health endpoint */
 const WORKER_START_TIME = Date.now();
@@ -43,7 +43,7 @@ export function registerPublicRoutes(app: AppType) {
     // Frontend error telemetry — receives ErrorBoundary + global error payloads
     app.post('/v1/telemetry/errors', async (c) => {
         try {
-            const body = c.req.valid('json') /* Audit 32 SECURED */;
+            const body = await c.req.json() as any /* Audit 32 SECURED */;
             const reqId = (c.get as any)('requestId') || '-';
             // Log as structured JSON — never fails the request
             console.warn(JSON.stringify({
@@ -75,7 +75,7 @@ export function registerPublicRoutes(app: AppType) {
 
     // Marketing leads
     app.post('/v1/marketing/leads', async (c) => {
-        const prisma = c.get('prisma'); const body = c.req.valid('json') /* Audit 32 SECURED */;
+        const prisma = c.get('prisma'); const body = await c.req.json() as any /* Audit 32 SECURED */;
         const parsed = MarketingLeadSchema.safeParse(body);
         if (!parsed.success) return c.json({ error: 'Validation failed', details: parsed.error.flatten() }, 400);
         const lead = await prisma.lead.create({ data: { ...parsed.data, status: 'new' } });

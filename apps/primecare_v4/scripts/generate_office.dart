@@ -252,5 +252,5 @@ ${goRoutes.join('\n')}
 });
 ''');
 
-  print('Successfully generated the 36-role PrimeCare V4 architecture!');
+  stdout.writeln('Successfully generated the 36-role PrimeCare V4 architecture!');
 }

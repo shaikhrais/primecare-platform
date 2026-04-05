@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/adapter_providers.dart';
 import '../../domain/models/client_profile_models.dart';
@@ -44,7 +44,7 @@ class ClientProfileScreen extends ConsumerWidget {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundColor: Colors.blue.withOpacity(0.1),
+                  backgroundColor: Colors.blue.withValues(alpha: 0.1),
                   child: const Icon(Icons.person, size: 40, color: Colors.blue),
                 ),
                 const SizedBox(width: 24),
@@ -60,7 +60,7 @@ class ClientProfileScreen extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.1),
+                    color: Colors.green.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Text(viewModel.status, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
@@ -74,7 +74,7 @@ class ClientProfileScreen extends ConsumerWidget {
           ...viewModel.recentDiagnoses.map((d) => ListTile(key: const Key('data-status-id=shared-global-client-action-1'), 
             leading: const Icon(Icons.medical_services_outlined, color: Colors.teal),
             title: Text(d, style: const TextStyle(fontWeight: FontWeight.w600)),
-            tileColor: Colors.white.withOpacity(0.5),
+            tileColor: Colors.white.withValues(alpha: 0.5),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             onTap: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Viewing diagnosis $d'))),
           ))

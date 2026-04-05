@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import type { Bindings, Variables } from '../bindings';
+import type { Bindings, Variables } from '@primecare/shared-types';
 
 export const diagnosticsModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

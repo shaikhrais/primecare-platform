@@ -5,7 +5,7 @@
 import { setCookie } from 'hono/cookie';
 import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
 import { isLegacyHash } from '@primecare/shared-utils';
-import { comparePassword, hashPassword } from '@primecare/shared-auth';
+import { comparePassword, hashPassword } from '@primecare/shared-utils';
 import { logAudit } from '@primecare/shared-utils';
 
 export async function handleLogin(c: any) {

@@ -32,7 +32,7 @@ void main() {
         title = title.replaceAllMapped(RegExp(r'[A-Z]'), (match) => ' ${match.group(0)}').trim();
       }
 
-      print('Upgrading $className ($title) in ${file.path}');
+      stdout.writeln('Upgrading $className ($title) in ${file.path}');
 
       final newContent = '''
 import 'package:flutter/material.dart';
@@ -203,5 +203,5 @@ class $className extends ConsumerWidget {
     }
   }
 
-  print('\\nSuccessfully upgraded \$upgradedCount stub pages to high fidelity Riverpod UI.');
+  stdout.writeln('\\nSuccessfully upgraded $upgradedCount stub pages to high fidelity Riverpod UI.');
 }

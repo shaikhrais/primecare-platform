@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/adapter_providers.dart';
-import '../../../generic_feature/domain/models/feature_view_model.dart';
+
 import '../../domain/models/provider_dashboard_models.dart';
 import '../../../../office/components/glass_surface.dart';
 
@@ -81,8 +81,8 @@ class ProviderDashboardScreen extends ConsumerWidget {
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.redAccent.withOpacity(0.1),
-              border: Border.all(color: Colors.redAccent.withOpacity(0.3)),
+              color: Colors.redAccent.withValues(alpha: 0.1),
+              border: Border.all(color: Colors.redAccent.withValues(alpha: 0.3)),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(

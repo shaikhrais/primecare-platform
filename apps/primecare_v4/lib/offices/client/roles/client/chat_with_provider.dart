@@ -7,9 +7,7 @@ class ChatWithProviderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Column(
+        return Column(
         children: [
           Expanded(
             child: ListView(
@@ -23,8 +21,7 @@ class ChatWithProviderView extends StatelessWidget {
           ),
           _buildChatInput(),
         ],
-      ),
-    );
+      );
   }
 
   Widget _buildMsg(String text, bool isMe, Color color) {

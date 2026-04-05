@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StitchPharmacy00149Screen extends StatelessWidget {
-  const StitchPharmacy00149Screen({Key? key}) : super(key: key);
+  const StitchPharmacy00149Screen({super.key});
 
   @override
   Widget build(BuildContext context) {

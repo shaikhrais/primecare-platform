@@ -1,4 +1,4 @@
-import '../dtos/stitch_pharmacy_00129_dto.dart';
+﻿import '../dtos/stitch_pharmacy_00129_dto.dart';
 import '../../domain/models/stitch_pharmacy_00129_view_model.dart';
 
 class StitchPharmacy00129Mapper {
@@ -6,6 +6,8 @@ class StitchPharmacy00129Mapper {
     return StitchPharmacy00129ViewModel(
       title: dto.title,
       status: dto.status,
+      inventoryAlerts: [],
+      prescriptionsPending: 0,
     );
   }
 }

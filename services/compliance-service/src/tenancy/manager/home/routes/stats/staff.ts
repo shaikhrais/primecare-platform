@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../../../../generated/client/edge';
+import { PrismaClient } from '@primecare/database';
 
 export const getStaffStats = async (prisma: any) => {
     const thirtyDaysAgo = new Date();

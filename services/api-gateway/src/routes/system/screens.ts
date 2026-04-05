@@ -1,12 +1,17 @@
 import { Hono } from 'hono'
-import { PrismaClient } from '../../generated/client'
-import { withPrisma } from '../../middleware/prisma'
+import { PrismaClient } from '@primecare/database'
+import { Bindings, Variables } from '@primecare/shared-types'
+import { prismaMiddleware } from '@primecare/shared-utils'
 
-const screensRouter = new Hono()
+const screensRouter = new Hono<{ Bindings: Bindings, Variables: Variables }>()
 
-screensRouter.get('/', withPrisma, async (c) => {
-  const prisma = c.get('prisma') as PrismaClient
+screensRouter.get('/', prismaMiddleware(), async (c) => {
+  const prisma = c.get('prisma') as any
   
+  if (!prisma) {
+      return c.json({ success: false, error: 'Database unavailable' }, 503)
+  }
+
   try {
     // Fetch all active screens explicitly configured in the database
     const screens = await prisma.platformScreen.findMany({

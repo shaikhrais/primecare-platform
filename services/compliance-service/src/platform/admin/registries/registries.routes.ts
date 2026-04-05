@@ -63,7 +63,7 @@ r.put('/:id', async (c) => {
     const prisma = c.get('prisma');
     const { id } = c.req.param();
     // R11: Parse and validate body
-    const raw = c.req.valid('json') /* Audit 32 SECURED */;
+    const raw = await c.req.json() as any /* Audit 32 SECURED */;
     const parsed = updateRegistrySchema.safeParse(raw);
     if (!parsed.success) return c.json({ error: 'Invalid input' }, 400);
     const body = parsed.data;
@@ -96,7 +96,7 @@ const createRegistrySchema = z.object({
 
 r.post('/', async (c) => {
     const prisma = c.get('prisma');
-    const raw = c.req.valid('json') /* Audit 32 SECURED */;
+    const raw = await c.req.json() as any /* Audit 32 SECURED */;
     const parsed = createRegistrySchema.safeParse(raw);
     if (!parsed.success) return c.json({ error: 'Invalid input', details: parsed.error.flatten() }, 400);
     const body = parsed.data;

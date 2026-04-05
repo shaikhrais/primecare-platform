@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StitchScheduling00116Screen extends StatelessWidget {
-  const StitchScheduling00116Screen({Key? key}) : super(key: key);
+  const StitchScheduling00116Screen({super.key});
 
   @override
   Widget build(BuildContext context) {

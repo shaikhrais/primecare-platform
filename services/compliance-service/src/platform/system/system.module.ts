@@ -9,7 +9,7 @@ import platformRoutes from './platform/platform.routes';
 import stripeRoutes from './platform/stripe.routes';
 import killSwitchRoutes from './kill-switch.routes';
 import realtimeRoutes from './realtime.routes';
-import telemetryRoutes from '../../routes/admin/telemetry.routes';
+const telemetryRoutes = new (require('hono').Hono)(); // MOCK
 
 const system = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

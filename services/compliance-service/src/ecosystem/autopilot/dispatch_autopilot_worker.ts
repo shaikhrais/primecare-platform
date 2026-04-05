@@ -1,4 +1,4 @@
-import type { PrismaClient } from '../../../generated/client';
+import type { PrismaClient } from '@primecare/database';
 
 export class DispatchAutopilot {
     private db: PrismaClient;

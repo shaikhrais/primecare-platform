@@ -1,4 +1,4 @@
-import '../dtos/stitch_analytics_00118_dto.dart';
+﻿import '../dtos/stitch_analytics_00118_dto.dart';
 import '../../domain/models/stitch_analytics_00118_view_model.dart';
 
 class StitchAnalytics00118Mapper {
@@ -6,6 +6,8 @@ class StitchAnalytics00118Mapper {
     return StitchAnalytics00118ViewModel(
       title: dto.title,
       status: dto.status,
+      reportsAvailable: [],
+      aiForecast: '',
     );
   }
 }

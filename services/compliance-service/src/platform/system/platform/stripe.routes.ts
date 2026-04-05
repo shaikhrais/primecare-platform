@@ -58,7 +58,7 @@ stripeRoutes.post('/webhook', async (c) => {
     // R15: In production, verify the webhook signature using STRIPE_WEBHOOK_SECRET
     // const event = stripe.webhooks.constructEvent(rawBody, sig, c.env.STRIPE_WEBHOOK_SECRET);
     // For now, parse the body but treat it as untrusted — only act on known event types
-    const body: any = c.req.valid('json') /* Audit 32 SECURED */;
+    const body: any = await c.req.json() as any /* Audit 32 SECURED */;
     const event = body as any;
 
     // R15: Validate event type before acting

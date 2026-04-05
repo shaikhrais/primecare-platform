@@ -1,4 +1,4 @@
-import '../dtos/stitch_messaging_00131_dto.dart';
+﻿import '../dtos/stitch_messaging_00131_dto.dart';
 import '../../domain/models/stitch_messaging_00131_view_model.dart';
 
 class StitchMessaging00131Mapper {
@@ -6,6 +6,9 @@ class StitchMessaging00131Mapper {
     return StitchMessaging00131ViewModel(
       title: dto.title,
       status: dto.status,
+      unreadCount: 0,
+      encryption: '',
+      activeThreads: [],
     );
   }
 }

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
-import type { Bindings, Variables } from '../bindings';
+import type { Bindings, Variables } from '@primecare/shared-types';
 
 export const ecosystemModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

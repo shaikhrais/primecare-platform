@@ -13,21 +13,7 @@ class ClientIntakeFormsView extends ConsumerWidget {
     final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          'Patient Intake Digitization',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Outfit',
-            color: AppTheme.primary,
-          ),
-        ),
-      ),
-      body: metricsAsync.when(
+    return metricsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error: $err')),
         data: (metrics) => SingleChildScrollView(
@@ -75,8 +61,7 @@ class ClientIntakeFormsView extends ConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildIntakeRow(String patient, String stage, String progress, Color color) {

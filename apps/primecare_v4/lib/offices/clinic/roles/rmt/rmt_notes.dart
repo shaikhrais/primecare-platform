@@ -25,39 +25,7 @@ class _RmtNotesViewState extends ConsumerState<RmtNotesView> {
     final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          'Registered Massage Therapy Notes',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Outfit',
-            color: AppTheme.primary,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.teal.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  'SYNCED',
-                  style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 10),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: metricsAsync.when(
+    return metricsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error: $err')),
         data: (metrics) => SingleChildScrollView(
@@ -149,8 +117,7 @@ class _RmtNotesViewState extends ConsumerState<RmtNotesView> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildPatientHeader(ThemeData theme) {

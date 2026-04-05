@@ -1,4 +1,4 @@
-import '../dtos/stitch_scheduling_00136_dto.dart';
+﻿import '../dtos/stitch_scheduling_00136_dto.dart';
 import '../../domain/models/stitch_scheduling_00136_view_model.dart';
 
 class StitchScheduling00136Mapper {
@@ -6,6 +6,9 @@ class StitchScheduling00136Mapper {
     return StitchScheduling00136ViewModel(
       title: dto.title,
       status: dto.status,
+      views: [],
+      conflicts: 0,
+      primaryResource: '',
     );
   }
 }

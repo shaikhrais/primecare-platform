@@ -27,6 +27,21 @@ Thumbs.db
 .wrangler/
 .dev.vars
 
+# Turbo build cache
+.turbo/
+
+# Development temp scripts
+fix_*.ts
+fix_*.js
+fix_*.dart
+scaffold*.js
+scaffold*.dart
+generate_*.py
+generate_*.dart
+temp-*
+patch_*.dart
+migrate_*.dart
+
 # Prisma
 prisma/migrations/
 
@@ -64,4 +79,16 @@ test-reports/
 **/local.properties
 **/*.log.txt
 **/build_out*.txt
-**/*.txt
+**/analyze*.txt
+**/compile_errors*.txt
+**/build_errors*.txt
+**/remaining_stubs.txt
+
+# Service build/debug dumps
+**/errors.txt
+**/errors2.txt
+**/build-log.txt
+**/verify_results*.txt
+**/typecheck*.txt
+**/out*.log
+**/analyze_output*.txt

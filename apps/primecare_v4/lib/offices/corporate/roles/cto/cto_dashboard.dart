@@ -13,9 +13,7 @@ class CtoDashboard extends ConsumerWidget {
     final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF020617), // Deep space navy for CTO
-      body: metricsAsync.when(
+    return metricsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error loading metrics: $err', style: const TextStyle(color: Colors.white))),
         data: (metrics) => CustomScrollView(
@@ -137,8 +135,7 @@ class CtoDashboard extends ConsumerWidget {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildKpi(double width, String title, String value, IconData icon, Color color, [String? subtitle]) {

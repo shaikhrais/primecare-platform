@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
-import { hashPassword } from '@primecare/shared-auth';
+import { hashPassword } from '@primecare/shared-utils';;
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -44,7 +44,7 @@ r.openapi(hashRoute, async (c) => {
 // R11: upsert-user kept for dev bootstrapping only — production gated above
 r.post('/upsert-user', async (c) => {
     const prisma = c.get('prisma');
-    const body = c.req.valid('json') /* Audit 32 SECURED */;
+    const body = await c.req.json() as any /* Audit 32 SECURED */;
     // R11: Validate required fields
     const { email, roles, tenantSlug } = body;
     if (!email) return c.json({ error: 'email required' }, 400);

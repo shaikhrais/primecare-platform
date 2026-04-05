@@ -55,13 +55,13 @@ reports.openapi(exportDataRoute, async (c) => {
         }
 
         if (format === 'csv') {
-            if (data.length === 0) return c.text('No data for export', 200);
+            if (data.length === 0) return c.text('No data for export', 200) as any;
             const headers = Object.keys(data[0]).join(',');
             const rows = data.map(obj => Object.values(obj).map(v => `"${v}"`).join(',')).join('\n');
             const csv = `${headers}\n${rows}`;
             c.header('Content-Type', 'text/csv');
             c.header('Content-Disposition', `attachment; filename="export_${type}.csv"`);
-            return c.text(csv, 200);
+            return c.text(csv, 200) as any;
         }
 
         // PDF implementation would go here (e.g. using a lib or specialized worker)

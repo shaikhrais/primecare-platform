@@ -43,7 +43,7 @@ class StitchEngineRenderer extends StatelessWidget {
     if (isMobile) {
       return ListView.separated(
         itemCount: items.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
+        separatorBuilder: (_, _) => const SizedBox(height: 12),
         itemBuilder: (context, index) => _buildListCard(items[index]),
       );
     } else {
@@ -67,7 +67,7 @@ class StitchEngineRenderer extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.hub_outlined, size: 64, color: Colors.blueGrey.withOpacity(0.5)),
+          Icon(Icons.hub_outlined, size: 64, color: Colors.blueGrey.withValues(alpha: 0.5)),
           const SizedBox(height: 16),
           const Text('No UI-bound Data Adapters available.', style: TextStyle(color: Colors.blueGrey, fontSize: 16)),
         ],
@@ -99,7 +99,7 @@ class StitchEngineRenderer extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(color: Colors.red.withOpacity(0.1), borderRadius: BorderRadius.circular(16)),
+                  decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(16)),
                   child: const Text('LIVE', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
                 )
               ],
@@ -144,7 +144,7 @@ class StitchEngineRenderer extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(color: Colors.teal.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(color: Colors.teal.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
                 child: const Icon(Icons.analytics, color: Colors.teal, size: 22),
               ),
               const SizedBox(width: 16),
@@ -185,13 +185,13 @@ class StitchEngineRenderer extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: Colors.teal.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+                decoration: BoxDecoration(color: Colors.teal.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
                 child: const Icon(Icons.auto_awesome_mosaic, color: Colors.teal, size: 26),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.green.withOpacity(0.15),
+                  color: Colors.green.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(

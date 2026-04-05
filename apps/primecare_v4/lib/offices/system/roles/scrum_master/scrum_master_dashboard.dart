@@ -12,9 +12,7 @@ class ScrumMasterDashboard extends ConsumerWidget {
     final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF030712), // Deeper navy for terminal feel
-      body: metricsAsync.when(
+    return metricsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator(color: Colors.tealAccent)),
         error: (err, stack) => Center(child: Text('TERMINAL_ERR: $err', style: const TextStyle(color: Colors.redAccent, fontFamily: 'monospace'))),
         data: (metrics) => CustomScrollView(
@@ -142,7 +140,7 @@ class ScrumMasterDashboard extends ConsumerWidget {
                               const SizedBox(height: 16),
                               GlassSurface(
                                 padding: const EdgeInsets.all(20),
-                                child: Container(
+                                child: SizedBox(
                                   height: 400, // Fixed height with scroll for the 110 blocks
                                   child: SingleChildScrollView(
                                     child: Wrap(
@@ -164,8 +162,7 @@ class ScrumMasterDashboard extends ConsumerWidget {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildHudsonCard(String label, String value, IconData icon, Color color) {

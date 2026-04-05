@@ -16,9 +16,7 @@ class RegionDashboard extends ConsumerWidget {
     final theme = Theme.of(context);
     ref.watch(apiClientProvider);
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: CustomScrollView(
+    return CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
@@ -125,8 +123,7 @@ class RegionDashboard extends ConsumerWidget {
             ),
           )
         ],
-      ),
-    );
+      );
   }
 
   Widget _buildKpi(double width, String title, String value, IconData icon, Color color, [String? subtitle]) {

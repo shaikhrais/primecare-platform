@@ -13,9 +13,7 @@ class GuestDashboard extends ConsumerWidget {
     final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: metricsAsync.when(
+    return metricsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
         data: (metrics) => CustomScrollView(
@@ -135,8 +133,7 @@ class GuestDashboard extends ConsumerWidget {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildKpi(double width, String title, String value, IconData icon, Color color, [String? subtitle]) {

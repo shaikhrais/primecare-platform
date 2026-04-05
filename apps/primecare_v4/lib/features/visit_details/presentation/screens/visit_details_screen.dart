@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/adapter_providers.dart';
 import '../../domain/models/visit_details_models.dart';
@@ -45,7 +45,7 @@ class VisitDetailsScreen extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: viewModel.isCompleted ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+                  color: viewModel.isCompleted ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(

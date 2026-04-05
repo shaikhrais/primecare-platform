@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
 import carePlanRoutes from '../carePlans/carePlans.routes';
-import scribeRoutes from '../../../../platform/rn/clinical/scribe.routes';
+// import scribeRoutes removed
 import { submitAssessmentRoute, syncMedicationReconRoute, recordSupervisionRoute, dailyAuditSignOffRoute, listDailyAuditRoute, reconciliationPendingRoute, reconciliationApproveRoute, getAssignedPatientsRoute,
     handleSubmitAssessment, handleSyncMedicationRecon, handleRecordSupervision, handleDailyAuditSignOff, handleListDailyAudit, handleReconciliationPending, handleReconciliationApprove, handleGetAssignedPatients
 } from './clinical-route-defs';
@@ -9,7 +9,7 @@ import { submitAssessmentRoute, syncMedicationReconRoute, recordSupervisionRoute
 const clinical = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 clinical.route('/care-plans', carePlanRoutes);
-clinical.route('/scribe-parse', scribeRoutes);
+// clinical.route('/scribe-parse', scribeRoutes);
 
 clinical.openapi(submitAssessmentRoute, handleSubmitAssessment);
 clinical.openapi(syncMedicationReconRoute, handleSyncMedicationRecon);
