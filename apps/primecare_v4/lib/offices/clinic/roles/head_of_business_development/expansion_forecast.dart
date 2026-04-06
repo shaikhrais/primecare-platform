@@ -1,191 +1,192 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
 class ExpansionForecastScreen extends ConsumerWidget {
   const ExpansionForecastScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Expansion Forecast',
-                      style: PrimeCareTheme.typography.heroTitle.copyWith(
-                        color: PrimeCareTheme.colors.navyIndigo,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Track projected clinic rollouts and territory mapping.',
-                      style: PrimeCareTheme.typography.body.copyWith(
-                        color: PrimeCareTheme.colors.slateGray,
-                      ),
-                    ),
-                  ],
-                ),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  icon: LucideIcons.download,
-                  label: 'Export Report',
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            ClinicalGlassPanel(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('National Rollout Map', style: PrimeCareTheme.typography.h2),
-                      Row(
-                        children: [
-                          _buildLegendItem('Signed', PrimeCareTheme.colors.emeraldTeal),
-                          const SizedBox(width: 16),
-                          _buildLegendItem('In Progress', PrimeCareTheme.colors.amberWarning),
-                          const SizedBox(width: 16),
-                          _buildLegendItem('Target', PrimeCareTheme.colors.coralRed),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  Container(
-                    height: 400,
-                    decoration: BoxDecoration(
-                      color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(LucideIcons.map, size: 64, color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.3)),
-                          const SizedBox(height: 16),
-                          Text('Interactive Map Canvas Initializing...', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: ClinicalGlassPanel(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Projected Revenue by Region', style: PrimeCareTheme.typography.h2),
-                        const SizedBox(height: 24),
-                        _buildRegionForecast('Ontario', '\$2.4M', 12),
-                        const SizedBox(height: 16),
-                        _buildRegionForecast('British Columbia', '\$1.1M', 5),
-                        const SizedBox(height: 16),
-                        _buildRegionForecast('Alberta', '\$850k', 3),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 24),
-                Expanded(
-                  flex: 2,
-                  child: ClinicalGlassPanel(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Timeline', style: PrimeCareTheme.typography.h2),
-                        const SizedBox(height: 24),
-                        _buildTimelineEvent('Q3 2026', 'Opening 3 clinics in GTA'),
-                        const SizedBox(height: 12),
-                        _buildTimelineEvent('Q4 2026', 'Soft launch in Vancouver'),
-                        const SizedBox(height: 12),
-                        _buildTimelineEvent('Q1 2027', 'Calgary flagship opening'),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+    return PageTemplate(
+      title: 'Expansion Forecast',
+      subtitle: 'Predictive modeling for future franchise and clinic growth.',
+      kpiCards: [
+        KPICardData(
+          title: 'Projected Q3 Growth',
+          value: '+15%',
+          icon: LucideIcons.trendingUp,
+          trend: 2.5,
+          trendLabel: 'vs conservative model',
         ),
-      ),
-    );
-  }
-
-  Widget _buildLegendItem(String label, Color color) {
-    return Row(
-      children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        KPICardData(
+          title: 'Est. Revenue Impact',
+          value: '\$8.5M',
+          icon: LucideIcons.dollarSign,
+          trend: 10.0,
+          trendLabel: 'expected by year end',
         ),
-        const SizedBox(width: 8),
-        Text(label, style: PrimeCareTheme.typography.label),
+        KPICardData(
+          title: 'Target Locations',
+          value: '12',
+          icon: LucideIcons.mapPin,
+          trend: 0.0,
+          trendLabel: 'active in forecast',
+        ),
+        KPICardData(
+          title: 'Risk Adjusted ROI',
+          value: '22%',
+          icon: LucideIcons.barChart2,
+          trend: -1.2,
+          trendLabel: 'due to market shifts',
+        ),
       ],
-    );
-  }
-
-  Widget _buildRegionForecast(String region, String revenue, int clinics) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(region, style: PrimeCareTheme.typography.h3),
-            Text('Projected: $clinics new clinics', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-          ],
-        ),
-        Text(revenue, style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.emeraldTeal)),
-      ],
-    );
-  }
-
-  Widget _buildTimelineEvent(String date, String event) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 4, right: 12),
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(color: PrimeCareTheme.colors.navyIndigo, shape: BoxShape.circle),
-        ),
-        Expanded(
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(date, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: PrimeCareTheme.colors.navyIndigo)),
-              const SizedBox(height: 4),
-              Text(event, style: PrimeCareTheme.typography.body),
+              Text('Forecast Models', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildModelSelector('Aggressive Growth', 'High risk, high reward', false),
+              _buildModelSelector('Baseline (Current)', 'Standard trajectory', true),
+              _buildModelSelector('Conservative', 'Recession adjusted', false),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Key Variables', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildVariableRow('Interest Rates', 'Stable at 4.5%'),
+              _buildVariableRow('Market Demand', 'Increasing (+8%)'),
+              _buildVariableRow('Competitor Action', 'Moderate'),
+              _buildVariableRow('Supply Chain', 'Delayed (30 days)'),
             ],
           ),
         ),
       ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Quarterly Trajectory (Baseline Model)', style: PrimeCareTheme.typography.h2),
+              const SizedBox(height: 24),
+              // Placeholder for a chart, using a styled container
+              Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(LucideIcons.lineChart, size: 48, color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.5)),
+                      const SizedBox(height: 12),
+                      Text('Interactive Chart Visualization', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Text('Regional Projections', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildProjectionRow('Ontario', '\$4.2M expected', '+12%', true),
+              _buildProjectionRow('British Columbia', '\$2.1M expected', '+8%', true),
+              _buildProjectionRow('Alberta', '\$1.0M expected', '-2%', false),
+              _buildProjectionRow('Nova Scotia', '\$1.2M expected', '+15%', true),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildModelSelector(String name, String description, bool isSelected) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isSelected ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05) : Colors.transparent,
+        border: Border.all(
+          color: isSelected ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.surfaceContainerHighest,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            isSelected ? LucideIcons.checkCircle : LucideIcons.circle,
+            color: isSelected ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.slateGray,
+            size: 20,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name, style: PrimeCareTheme.typography.body.copyWith(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+                Text(description, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVariableRow(String variable, String state) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(variable, style: PrimeCareTheme.typography.body),
+          Text(state, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontStyle: FontStyle.italic)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProjectionRow(String region, String revenue, String growth, bool isPositive) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.5))),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: Text(region, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600))),
+          Expanded(child: Text(revenue, style: PrimeCareTheme.typography.body)),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: isPositive ? PrimeCareTheme.colors.emeraldTeal.withOpacity(0.1) : PrimeCareTheme.colors.coralRed.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              growth,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: isPositive ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

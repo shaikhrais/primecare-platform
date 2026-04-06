@@ -1,244 +1,234 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class AssignedClientsScreen extends StatelessWidget {
+class AssignedClientsScreen extends ConsumerWidget {
   const AssignedClientsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          const SizedBox(height: 32),
-          Expanded(
-            child: _buildClientGrid(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Assigned Clients',
-          style: TextStyle(
-            fontFamily: 'Outfit',
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF191C1E),
-          ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Assigned Clients',
+      subtitle: 'Manage and monitor your nursing caseload.',
+      kpiCards: [
+        KPICardData(
+          title: 'Total Caseload',
+          value: '18',
+          icon: LucideIcons.users,
+          trend: 2.0,
+          trendLabel: 'vs last week',
         ),
-        const SizedBox(height: 24),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF2F4F6),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.search, color: Color(0xFF3D4A42)),
-                    hintText: 'Search patients by name, ID, or diagnosis...',
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                      fontFamily: 'Inter',
-                      color: Color(0xFF3D4A42),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 24),
-            _buildFilterChip('All', true),
-            const SizedBox(width: 12),
-            _buildFilterChip('Critical', false),
-            const SizedBox(width: 12),
-            _buildFilterChip('Routine', false),
-          ],
+        KPICardData(
+          title: 'High Acuity',
+          value: '4',
+          icon: LucideIcons.activity,
+          trend: 0.0,
+          trendLabel: 'Requires daily check',
+        ),
+        KPICardData(
+          title: 'Pending Assessments',
+          value: '3',
+          icon: LucideIcons.clipboardList,
+          trend: -1.0,
+          trendLabel: 'due this week',
+        ),
+        KPICardData(
+          title: 'Recent Admissions',
+          value: '2',
+          icon: LucideIcons.userPlus,
+          trend: 1.0,
+          trendLabel: 'in last 7 days',
         ),
       ],
-    );
-  }
-
-  Widget _buildFilterChip(String label, bool isSelected) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFF006948) : Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: isSelected ? null : Border.all(color: const Color(0xFFBCCAC0), width: 1),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontFamily: 'Inter',
-          fontWeight: FontWeight.w600,
-          color: isSelected ? Colors.white : const Color(0xFF3D4A42),
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Acuity Breakdown', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildAcuityRow('High (Daily)', 4, PrimeCareTheme.colors.coralRed),
+              _buildAcuityRow('Medium (Weekly)', 8, PrimeCareTheme.colors.navyIndigo),
+              _buildAcuityRow('Low (Monthly)', 6, PrimeCareTheme.colors.emeraldTeal),
+            ],
+          ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildClientGrid() {
-    final clients = [
-      {'name': 'Jane Smith', 'age': '72', 'dx': 'Congestive Heart Failure', 'next': 'Vitals Check @ 10:30 AM', 'critical': true},
-      {'name': 'John Doe', 'age': '65', 'dx': 'Type 2 Diabetes', 'next': 'Blood Sugar Monitoring @ 1:00 PM', 'critical': false},
-      {'name': 'Alice Johnson', 'age': '81', 'dx': 'Post-Op Hip Replacement', 'next': 'Physical Therapy @ 2:15 PM', 'critical': false},
-      {'name': 'Robert Brown', 'age': '59', 'dx': 'Chronic Obstructive Pulm. Disease', 'next': 'Medication Admin @ 9:00 AM', 'critical': true},
-      {'name': 'Emily Davis', 'age': '45', 'dx': 'Asthma', 'next': 'Routine Check @ 3:00 PM', 'critical': false},
-      {'name': 'Michael Wilson', 'age': '68', 'dx': 'Hypertension', 'next': 'BP Check @ 11:30 AM', 'critical': false},
-    ];
-
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 24,
-        mainAxisSpacing: 24,
-        childAspectRatio: 1.1,
-      ),
-      itemCount: clients.length,
-      itemBuilder: (context, index) {
-        return _buildClientCard(clients[index]);
-      },
-    );
-  }
-
-  Widget _buildClientCard(Map<String, dynamic> client) {
-    final isCritical = client['critical'] as bool;
-    
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9), // Glassmorphic feel
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withOpacity(0.5)),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF191C1E).withOpacity(0.04),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: isCritical ? const Color(0xFFE54A4A) : const Color(0xFF006948),
-                width: 4,
-              ),
-            ),
-          ),
-          padding: const EdgeInsets.all(24.0),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Text(
-                      client['name']!,
-                      style: const TextStyle(
-                        fontFamily: 'Outfit',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF191C1E),
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: isCritical ? const Color(0xFFFCE8E8) : const Color(0xFFE6F0EC),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      isCritical ? 'Critical' : 'Routine',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: isCritical ? const Color(0xFFE54A4A) : const Color(0xFF006948),
-                      ),
-                    ),
-                  ),
+                  Text('Client Roster', style: PrimeCareTheme.typography.h2),
+                  _buildFilterButton(),
                 ],
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Age ${client['age']} • ${client['dx']}',
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 14,
-                  color: Color(0xFF3D4A42),
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              const SizedBox(height: 24),
+              _buildClientRow(
+                'Eleanor Rigby',
+                '82 yrs',
+                'Post-op Hip Replacement',
+                'High',
+                'Visited Yesterday',
+                LucideIcons.user,
               ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF2F4F6),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.access_time_filled, size: 16, color: Color(0xFF5654A8)), // Navy Indigo
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        client['next']!,
-                        style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF1E1B4B), // Navy
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
+              _buildClientRow(
+                'John Smith',
+                '65 yrs',
+                'Diabetic Foot Ulcer',
+                'High',
+                'Visited Today 9:00 AM',
+                LucideIcons.user,
               ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF006948),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    elevation: 0,
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'View Patient Record',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
+              _buildClientRow(
+                'Maria Garcia',
+                '71 yrs',
+                'Hypertension Management',
+                'Medium',
+                'Visited 3 days ago',
+                LucideIcons.user,
+              ),
+              _buildClientRow(
+                'Robert Chen',
+                '58 yrs',
+                'IV Antibiotics (PICC line)',
+                'High',
+                'Visited Today 1:30 PM',
+                LucideIcons.user,
+              ),
+              _buildClientRow(
+                'Margaret Atwood',
+                '88 yrs',
+                'Palliative Care',
+                'Medium',
+                'Visited Yesterday',
+                LucideIcons.user,
               ),
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildAcuityRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
+          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterButton() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Icon(LucideIcons.filter, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+          const SizedBox(width: 8),
+          Text('Filter clients', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildClientRow(String name, String age, String diagnosis, String acuity, String lastVisit, IconData icon) {
+    Color acuityColor = acuity == 'High' ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.navyIndigo;
+    
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border(left: BorderSide(color: acuityColor, width: 4)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
+                  child: Icon(icon, color: PrimeCareTheme.colors.navyIndigo),
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(height: 4),
+                    Text('$age • $diagnosis', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Acuity', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                const SizedBox(height: 4),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: acuityColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    acuity,
+                    style: PrimeCareTheme.typography.label.copyWith(color: acuityColor, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text('Last Visit', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                const SizedBox(height: 4),
+                Text(lastVisit, style: PrimeCareTheme.typography.label.copyWith(fontStyle: FontStyle.italic)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

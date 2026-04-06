@@ -1,339 +1,215 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class CarePlansView extends StatelessWidget {
-  const CarePlansView({super.key});
+class CarePlansScreen extends ConsumerWidget {
+  const CarePlansScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Care Plans',
+      subtitle: 'Review, evaluate, and update nursing care plans.',
+      kpiCards: [
+        KPICardData(
+          title: 'Active Care Plans',
+          value: '18',
+          icon: LucideIcons.fileText,
+          trend: 0.0,
+          trendLabel: 'matching caseload',
+        ),
+        KPICardData(
+          title: 'Due for Review',
+          value: '4',
+          icon: LucideIcons.refreshCw,
+          trend: 2.0,
+          trendLabel: 'require updates',
+        ),
+        KPICardData(
+          title: 'Goals Achieved',
+          value: '12',
+          icon: LucideIcons.target,
+          trend: 5.0,
+          trendLabel: 'in past 30 days',
+        ),
+        KPICardData(
+          title: 'New Orders',
+          value: '2',
+          icon: LucideIcons.filePlus,
+          trend: 0.0,
+          trendLabel: 'pending integration',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Care Plan Status', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildStatusRow('Active & Updated', 12, PrimeCareTheme.colors.emeraldTeal),
+              _buildStatusRow('Review Pending', 4, PrimeCareTheme.colors.coralRed),
+              _buildStatusRow('New - Awaiting Drafting', 2, PrimeCareTheme.colors.navyIndigo),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Common Interventions', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildInterventionRow('Wound Care Protocol', '8 clients'),
+              _buildInterventionRow('Medication Management', '15 clients'),
+              _buildInterventionRow('Pain Assessment', '10 clients'),
+              _buildInterventionRow('Fall Risk Precautions', '12 clients'),
+            ],
+          ),
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Care Plans Due for Review', style: PrimeCareTheme.typography.h2),
+              const SizedBox(height: 24),
+              _buildCarePlanCard(
+                'Eleanor Rigby',
+                'Post-op Hip Replacement',
+                'Evaluate mobility goals and pain management effectiveness.',
+                'Due Today',
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildCarePlanCard(
+                'John Smith',
+                'Diabetic Foot Ulcer',
+                'Update wound measurement and review antibiotic therapy.',
+                'Due Tomorrow',
+                PrimeCareTheme.colors.coralRed,
+              ),
+              const SizedBox(height: 32),
+              Text('Recently Updated', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildCarePlanCard(
+                'Maria Garcia',
+                'Hypertension Management',
+                'Added daily BP monitoring logs and adjusted sodium intake goals.',
+                'Updated 2 days ago',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildCarePlanCard(
+                'Robert Chen',
+                'IV Antibiotics (PICC line)',
+                'PICC line dressing changed. No signs of infection at site.',
+                'Updated Yesterday',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatusRow(String label, int count, Color color) {
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
+          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInterventionRow(String name, String usage) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: Text(name, style: PrimeCareTheme.typography.body)),
+          Text(usage, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCarePlanCard(String clientName, String primaryDiagnosis, String reviewNotes, String status, Color statusColor) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: statusColor, width: 4)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Active Care Plans',
-                style: TextStyle(
-                  fontFamily: 'Outfit',
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF191C1E),
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF006948), // Emerald Teal
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  elevation: 0,
-                ),
-                onPressed: () {},
-                icon: const Icon(Icons.add),
-                label: const Text(
-                  'New Care Plan',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
+                child: Text(
+                  status,
+                  style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 32),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return _buildCarePlanCard(index);
-              },
-            ),
+          const SizedBox(height: 4),
+          Row(
+            children: [
+              Icon(LucideIcons.activity, size: 14, color: PrimeCareTheme.colors.slateGray),
+              const SizedBox(width: 6),
+              Text(primaryDiagnosis, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+            ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCarePlanCard(int index) {
-    // Dummy Data varied by index
-    final names = ['Arthur Dent', 'Ford Prefect', 'Trillian Astra'];
-    final mrns = ['8821-42', '8821-43', '8821-44'];
-    final diagnoses = ['Post-Op Recovery (Cardiac)', 'Chronic Pain Management', 'Hypertension Protocol'];
-    final progresses = [0.78, 0.40, 0.92];
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF191C1E).withOpacity(0.04),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-        border: Border.all(color: const Color(0xFFE0E3E5).withOpacity(0.5)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header Section
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: Color(0xFFE6E8EA))),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF006948).withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          names[index][0],
-                          style: const TextStyle(
-                            fontFamily: 'Outfit',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF006948),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          names[index],
-                          style: const TextStyle(
-                            fontFamily: 'Outfit',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF191C1E),
-                          ),
-                        ),
-                        Text(
-                          'MRN: ${mrns[index]} • ${diagnoses[index]}',
-                          style: const TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                            color: Color(0xFF5654A8), // Navy Indigo
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_vert, color: Color(0xFF3D4A42)),
-                )
-              ],
-            ),
-          ),
-          
-          // Body Section
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Goals & Progress
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Goal Completion',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Color(0xFF3D4A42),
-                            ),
-                          ),
-                          Text(
-                            '${(progresses[index] * 100).toInt()}%',
-                            style: const TextStyle(
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Color(0xFF006948),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: LinearProgressIndicator(
-                          value: progresses[index],
-                          backgroundColor: const Color(0xFFE6F0EC),
-                          valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF006948)),
-                          minHeight: 12,
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      const Text(
-                        'Active Goals',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Color(0xFF5654A8),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      _buildGoalItem('Mobilize 50m without assistance', true),
-                      _buildGoalItem('Maintain O2 Sat > 94%', false),
-                      _buildGoalItem('Report pain < 4/10', true),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 48),
-                
-                // Interventions
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Nursing Interventions',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Color(0xFF5654A8),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      _buildInterventionItem('Wound Care Q4H', Icons.local_hospital),
-                      _buildInterventionItem('Pain Assessment', Icons.monitor_heart),
-                      _buildInterventionItem('Incentive Spirometry Q1H', Icons.air),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          
-          // Footer / Outcomes
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            decoration: const BoxDecoration(
-              color: Color(0xFFF2F4F6),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
+          const SizedBox(height: 16),
+          Text('Key Focus:', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 4),
+          Text(reviewNotes, style: PrimeCareTheme.typography.body),
+          const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                foregroundColor: PrimeCareTheme.colors.navyIndigo,
               ),
+              child: const Text('View Full Plan'),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.trending_down, color: Color(0xFF006948), size: 18),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'Pain Score Trending: 3/10',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: Color(0xFF006948),
-                      ),
-                    ),
-                  ],
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Review Plan',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF5654A8),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGoalItem(String title, bool isMet) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            isMet ? Icons.check_circle : Icons.radio_button_unchecked,
-            size: 20,
-            color: isMet ? const Color(0xFF006948) : const Color(0xFFBCCAC0),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 14,
-                color: const Color(0xFF191C1E),
-                decoration: isMet ? TextDecoration.lineThrough : null,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInterventionItem(String title, IconData icon) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF7F9FB),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFE6E8EA)),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: const Color(0xFF5654A8)),
-          const SizedBox(width: 12),
-          Text(
-            title,
-            style: const TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-              color: Color(0xFF191C1E),
-            ),
-          ),
+          )
         ],
       ),
     );

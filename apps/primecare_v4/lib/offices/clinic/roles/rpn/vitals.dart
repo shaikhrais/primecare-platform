@@ -3,183 +3,206 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
 class VitalsScreen extends ConsumerWidget {
   const VitalsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Vital Signs',
-                      style: PrimeCareTheme.typography.heroTitle.copyWith(
-                        color: PrimeCareTheme.colors.navyIndigo,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Log and review ongoing patient telemetry.',
-                      style: PrimeCareTheme.typography.body.copyWith(
-                        color: PrimeCareTheme.colors.slateGray,
-                      ),
-                    ),
-                  ],
-                ),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  icon: LucideIcons.plus,
-                  label: 'Record New Vitals',
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: ClinicalGlassPanel(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Recent Logs', style: PrimeCareTheme.typography.h2),
-                        const SizedBox(height: 24),
-                        _buildRecentLog('John Carmichael', 'BP: 140/90, HR: 88, Temp: 37.1', '10 mins ago', true),
-                        const SizedBox(height: 16),
-                        _buildRecentLog('Eleanor Vance', 'BP: 110/70, HR: 72, Temp: 36.8', '2 hours ago', false),
-                        const SizedBox(height: 16),
-                        _buildRecentLog('Sylvia Plath', 'BP: 95/60, HR: 65, Temp: 36.5', 'Yesterday', false),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 24),
-                Expanded(
-                  flex: 3,
-                  child: ClinicalGlassPanel(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Quick Entry - Patient Context', style: PrimeCareTheme.typography.h2),
-                        const SizedBox(height: 24),
-                        ClinicalSearchTextField(hintText: 'Select patient by name or ID...'),
-                        const SizedBox(height: 24),
-                        Row(
-                          children: [
-                            Expanded(child: _buildInput('Blood Pressure', 'mmHg')),
-                            const SizedBox(width: 16),
-                            Expanded(child: _buildInput('Heart Rate', 'bpm')),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(child: _buildInput('SpO2', '%')),
-                            const SizedBox(width: 16),
-                            Expanded(child: _buildInput('Temperature', '°C')),
-                          ],
-                        ),
-                        const SizedBox(height: 32),
-                        ClinicalGlassButton(
-                          onPressed: () {},
-                          label: 'Save Vitals',
-                          isFullWidth: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+    return PageTemplate(
+      title: 'Vitals & Biometrics',
+      subtitle: 'Monitor continuous telemetry and record point-of-care vital signs.',
+      headerTrailing: [
+        ClinicalSearchTextField(hintText: 'Search patients or devices...'),
+        const SizedBox(width: 16),
+        ClinicalGlassButton(
+          onPressed: () {},
+          label: 'Log Vitals',
+          icon: LucideIcons.plus,
+          isPrimary: true,
         ),
+      ],
+      kpiCards: [
+        MetricCardData(
+          title: 'Critical Alerts',
+          value: '3',
+          icon: LucideIcons.activity,
+          trend: 'Immediate action req.',
+          isUp: false,
+          color: PrimeCareTheme.colors.coralRed,
+        ),
+        MetricCardData(
+          title: 'Scheduled Checks',
+          value: '22',
+          icon: LucideIcons.clipboardList,
+          trend: 'For next 4 hours',
+          isUp: true,
+        ),
+        MetricCardData(
+          title: 'Telemetry Connected',
+          value: '95%',
+          icon: LucideIcons.wifi,
+          trend: 'All systems online',
+          isUp: true,
+        ),
+      ],
+      sidebarContent: [
+        _buildActiveTelemetryList(),
+      ],
+      mainContent: [
+        _buildDashboardGrid(),
+      ],
+    );
+  }
+
+  Widget _buildActiveTelemetryList() {
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(LucideIcons.activity, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              const SizedBox(width: 8),
+              Text('Continuous Telemetry', style: PrimeCareTheme.typography.h3),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildTelemetryItem('John C.', 'HR: 85 bpm', LucideIcons.heart, PrimeCareTheme.colors.emeraldTeal),
+          const SizedBox(height: 12),
+          _buildTelemetryItem('Marcus A.', 'SpO2: 89%', LucideIcons.wind, PrimeCareTheme.colors.amberWarning),
+          const SizedBox(height: 12),
+          _buildTelemetryItem('Sylvia P.', 'BP: 145/95', LucideIcons.activity, PrimeCareTheme.colors.coralRed),
+        ],
       ),
     );
   }
 
-  Widget _buildRecentLog(String patient, String summary, String time, bool abnormal) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: abnormal ? PrimeCareTheme.colors.coralRed.withOpacity(0.05) : PrimeCareTheme.colors.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: abnormal ? PrimeCareTheme.colors.coralRed.withOpacity(0.3) : Colors.transparent,
+  Widget _buildTelemetryItem(String patient, String metric, IconData icon, Color statusColor) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: statusColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: statusColor, size: 16),
         ),
-      ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(patient, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+              Text(metric, style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDashboardGrid() {
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 24,
+      mainAxisSpacing: 24,
+      shrinkWrap: true,
+      childAspectRatio: 1.5,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        _buildVitalCard(
+          title: 'Heart Rate',
+          value: '72 bpm',
+          patient: 'Eleanor Vance',
+          icon: LucideIcons.heart,
+          color: PrimeCareTheme.colors.royalPurple,
+          time: '2 mins ago',
+        ),
+        _buildVitalCard(
+          title: 'Blood Pressure',
+          value: '120/80',
+          patient: 'Eleanor Vance',
+          icon: LucideIcons.activity,
+          color: PrimeCareTheme.colors.emeraldTeal,
+          time: '5 mins ago',
+        ),
+        _buildVitalCard(
+          title: 'Temperature',
+          value: '37.8 °C',
+          patient: 'Sylvia Plath',
+          icon: LucideIcons.thermometer,
+          color: PrimeCareTheme.colors.amberWarning,
+          isWarning: true,
+          time: '12 mins ago',
+        ),
+        _buildVitalCard(
+          title: 'Oxygen Saturation',
+          value: '98%',
+          patient: 'Arthur Dent',
+          icon: LucideIcons.wind,
+          color: PrimeCareTheme.colors.navyIndigo,
+          time: '1 hour ago',
+        ),
+      ],
+    );
+  }
+
+  Widget _buildVitalCard({
+    required String title,
+    required String value,
+    required String patient,
+    required IconData icon,
+    required Color color,
+    required String time,
+    bool isWarning = false,
+  }) {
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(24),
+      border: isWarning ? Border.all(color: color.withOpacity(0.5)) : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                patient,
-                style: PrimeCareTheme.typography.h3,
+              Row(
+                children: [
+                  Icon(icon, color: color, size: 20),
+                  const SizedBox(width: 8),
+                  Text(title, style: PrimeCareTheme.typography.h3),
+                ],
               ),
-              Text(
-                time,
-                style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
-              ),
+              if (isWarning)
+                Icon(LucideIcons.alertTriangle, color: color, size: 20),
             ],
           ),
-          const SizedBox(height: 8),
+          const Spacer(),
           Text(
-            summary,
-            style: PrimeCareTheme.typography.body.copyWith(
-              color: abnormal ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.navyIndigo,
-              fontWeight: abnormal ? FontWeight.bold : FontWeight.normal,
+            value,
+            style: PrimeCareTheme.typography.heroTitle.copyWith(
+              color: isWarning ? color : PrimeCareTheme.colors.navyIndigo,
             ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(LucideIcons.user, size: 14, color: PrimeCareTheme.colors.slateGray),
+                  const SizedBox(width: 4),
+                  Text(patient, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+                ],
+              ),
+              Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+            ],
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildInput(String label, String unit) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.w600)),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: PrimeCareTheme.colors.surfaceContainerHigh,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              const Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                  ),
-                ),
-              ),
-              Text(
-                unit,
-                style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

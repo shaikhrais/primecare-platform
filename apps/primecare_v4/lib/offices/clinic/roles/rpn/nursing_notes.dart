@@ -3,105 +3,199 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
 class NursingNotesScreen extends ConsumerWidget {
   const NursingNotesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Nursing Notes',
-                      style: PrimeCareTheme.typography.heroTitle.copyWith(
-                        color: PrimeCareTheme.colors.navyIndigo,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Daily charting and SOAP notes for assigned patient roster.',
-                      style: PrimeCareTheme.typography.body.copyWith(
-                        color: PrimeCareTheme.colors.slateGray,
-                      ),
-                    ),
-                  ],
-                ),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  icon: LucideIcons.penTool,
-                  label: 'New Entry',
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            ClinicalGlassPanel(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      Icon(LucideIcons.fileSignature, color: PrimeCareTheme.colors.emeraldTeal),
-                      const SizedBox(width: 8),
-                      Text('SOAP Note Editor', style: PrimeCareTheme.typography.h3),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  _buildNoteArea('Subjective (S)'),
-                  const SizedBox(height: 16),
-                  _buildNoteArea('Objective (O)'),
-                  const SizedBox(height: 16),
-                  _buildNoteArea('Assessment (A)'),
-                  const SizedBox(height: 16),
-                  _buildNoteArea('Plan (P)'),
-                  const SizedBox(height: 24),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ClinicalGlassButton(onPressed: () {}, label: 'Sign & Submit'),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return PageTemplate(
+      title: 'Nursing Notes',
+      subtitle: 'Chronological clinical charting, assessments, and progress notes.',
+      headerTrailing: [
+        ClinicalSearchTextField(hintText: 'Search keyword, date, or patient...'),
+        const SizedBox(width: 16),
+        ClinicalGlassButton(
+          onPressed: () {},
+          label: 'New Entry',
+          icon: LucideIcons.filePlus,
+          isPrimary: true,
         ),
+      ],
+      kpiCards: [
+        MetricCardData(
+          title: 'Notes Today',
+          value: '14',
+          icon: LucideIcons.fileText,
+          trend: 'Charts updated',
+          isUp: true,
+        ),
+        MetricCardData(
+          title: 'Cosign Required',
+          value: '2',
+          icon: LucideIcons.edit3,
+          trend: 'Pending RN review',
+          isUp: false,
+          color: PrimeCareTheme.colors.amberWarning,
+        ),
+      ],
+      sidebarContent: [
+        _buildTemplatesPanel(),
+      ],
+      mainContent: [
+        _buildNotesFeed(),
+      ],
+    );
+  }
+
+  Widget _buildTemplatesPanel() {
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(LucideIcons.layoutTemplate, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              const SizedBox(width: 8),
+              Text('Smart Templates', style: PrimeCareTheme.typography.h3),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildActionItem('SOAP Note', LucideIcons.stethoscope),
+          _buildActionItem('Shift Handoff', LucideIcons.arrowRightLeft),
+          _buildActionItem('Wound Assessment', LucideIcons.activity),
+          _buildActionItem('Fall Incident', LucideIcons.alertTriangle, color: PrimeCareTheme.colors.coralRed),
+        ],
       ),
     );
   }
 
-  Widget _buildNoteArea(String label) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Container(
-          height: 100,
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
-          ),
-          child: const TextField(
-            maxLines: null,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Start typing...',
+  Widget _buildActionItem(String title, IconData icon, {Color? color}) {
+    final effectiveColor = color ?? PrimeCareTheme.colors.royalPurple;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: ClinicalGlassButton(
+        onPressed: () {},
+        label: title,
+        icon: icon,
+      ),
+    );
+  }
+
+  Widget _buildNotesFeed() {
+    return ClinicalGlassPanel(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Recent Entries', style: PrimeCareTheme.typography.h2),
+                ClinicalGlassButton(
+                  onPressed: () {},
+                  label: 'Filter: Shift',
+                  icon: LucideIcons.filter,
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+          const Divider(height: 1),
+          _buildNoteCard(
+            patient: 'Sylvia Plath',
+            time: '14:30 PM • Today',
+            type: 'Pain Assessment',
+            content: 'Patient reported pain level 7/10 in lower back. Administered PRN Morphine 5mg at 14:15. Pain reassessed at 14:45, down to 3/10. Will continue to monitor.',
+            author: 'Jane Doe, RPN',
+          ),
+          const Divider(height: 1),
+          _buildNoteCard(
+            patient: 'Marcus Aurelius',
+            time: '11:00 AM • Today',
+            type: 'Wound Care (SOAP)',
+            content: 'S: Patient states "the dressing feels loose".\nO: Removed old dressing from left leg ulcer. Minimal serous exudate. Wound bed 80% granulation tissue. Cleansed with normal saline. Applied fresh foam dressing.\nA: Wound healing progressing normally.\nP: Continue daily dressing changes.',
+            author: 'Jane Doe, RPN',
+          ),
+          const Divider(height: 1),
+          _buildNoteCard(
+            patient: 'John Carmichael',
+            time: '08:15 AM • Today',
+            type: 'Shift Assessment',
+            content: 'Patient alert and oriented x3. Vital signs stable within normal limits. Lung sounds clear bilaterally. Independent with ADLs this morning.',
+            author: 'Jane Doe, RPN',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNoteCard({
+    required String patient,
+    required String time,
+    required String type,
+    required String content,
+    required String author,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.royalPurple.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(LucideIcons.fileText, color: PrimeCareTheme.colors.royalPurple, size: 16),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(patient, style: PrimeCareTheme.typography.h3),
+                      Text(type, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.royalPurple, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+              ),
+              Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            content,
+            style: PrimeCareTheme.typography.body.copyWith(
+              height: 1.5,
+              color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.8),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Entered by: $author', style: PrimeCareTheme.typography.label),
+              Row(
+                children: [
+                  ClinicalGlassButton(
+                    onPressed: () {},
+                    label: 'Edit',
+                    icon: LucideIcons.edit2,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
