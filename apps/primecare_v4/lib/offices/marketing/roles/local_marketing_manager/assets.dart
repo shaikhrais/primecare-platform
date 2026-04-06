@@ -4,106 +4,279 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 
-class LocalAssetsScreen extends ConsumerWidget {
+class LocalAssetsScreen extends ConsumerStatefulWidget {
   const LocalAssetsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LocalAssetsScreen> createState() => _LocalAssetsScreenState();
+}
+
+class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Local Brand Assets',
-                      style: PrimeCareTheme.typography.heroTitle.copyWith(
-                        color: PrimeCareTheme.colors.navyIndigo,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Download approved branding and templates for local use.',
-                      style: PrimeCareTheme.typography.body.copyWith(
-                        color: PrimeCareTheme.colors.slateGray,
-                      ),
-                    ),
-                  ],
-                ),
-                ClinicalSearchTextField(hintText: 'Search assets...'),
-              ],
-            ),
+            _buildHeader(),
             const SizedBox(height: 32),
-            Text('Quick Downloads', style: PrimeCareTheme.typography.h2),
-            const SizedBox(height: 16),
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 3,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 2.0,
-              children: [
-                 _buildAssetCard('Clinic Logo Pack', 'SVG/PNG', LucideIcons.image),
-                 _buildAssetCard('Standard Intake Form', 'PDF', LucideIcons.fileText),
-                 _buildAssetCard('Corporate Fonts', 'ZIP', LucideIcons.downloadCloud),
-              ],
-            ),
-             const SizedBox(height: 32),
-            Text('Promotional Templates', style: PrimeCareTheme.typography.h2),
-            const SizedBox(height: 16),
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 3,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 2.0,
-              children: [
-                 _buildAssetCard('Facebook Ad Template', 'PSD', LucideIcons.facebook),
-                 _buildAssetCard('Grand Opening Flyer', 'PDF', LucideIcons.layout),
-                 _buildAssetCard('Local Email Header', 'PNG', LucideIcons.mail),
-              ],
-            ),
+            _buildFilters(),
+            const SizedBox(height: 32),
+            _buildAssetGallery(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildAssetCard(String title, String format, IconData icon) {
-    return Container(
-      decoration: BoxDecoration(
-        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  Widget _buildHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Local Marketing Assets',
+              style: PrimeCareTheme.typography.heroTitle.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Access and download corporate-approved templates customized for your local clinic.',
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          width: 300,
+          child: ClinicalSearchTextField(hintText: 'Search flyers, social posts...'),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilters() {
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(icon, color: PrimeCareTheme.colors.navyIndigo),
+              _buildFilterTab('All Materials', isActive: true),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(title, style: PrimeCareTheme.typography.h3),
-                  Text(format, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                ],
-              ),
+              _buildFilterTab('Print & Mailers', isActive: false),
+              const SizedBox(width: 12),
+              _buildFilterTab('Social Media', isActive: false),
+              const SizedBox(width: 12),
+              _buildFilterTab('Digital Ads', isActive: false),
             ],
           ),
-          Icon(LucideIcons.download, size: 20, color: PrimeCareTheme.colors.emeraldTeal),
+          OutlinedButton.icon(
+            onPressed: () {},
+            icon: const Icon(LucideIcons.arrowDownToLine, size: 16),
+            label: const Text('Download Selected'),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: PrimeCareTheme.colors.navyIndigo,
+              side: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterTab(String label, {required bool isActive}) {
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isActive ? PrimeCareTheme.colors.navyIndigo : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isActive ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+        ),
+        child: Text(
+          label,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: isActive ? Colors.white : PrimeCareTheme.colors.slateGray,
+            fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAssetGallery() {
+    return GridView.count(
+      crossAxisCount: 4,
+      crossAxisSpacing: 24,
+      mainAxisSpacing: 24,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      childAspectRatio: 0.85,
+      children: [
+        _buildAssetCard(
+          name: 'Q3 Wellness Check Flyer',
+          type: 'Print Materials',
+          format: 'PDF',
+          status: 'Active',
+          icon: LucideIcons.fileText,
+        ),
+        _buildAssetCard(
+          name: 'FB Retargeting - Local',
+          type: 'Social Media',
+          format: 'PNG',
+          status: 'Active',
+          icon: LucideIcons.image,
+        ),
+        _buildAssetCard(
+          name: 'Welcome Mailer (New Patient)',
+          type: 'Direct Mail',
+          format: 'PDF',
+          status: 'Active',
+          icon: LucideIcons.mail,
+        ),
+        _buildAssetCard(
+          name: 'Local Event Banner',
+          type: 'Print Materials',
+          format: 'EPS',
+          status: 'Archived',
+          icon: LucideIcons.layoutTemplate,
+        ),
+        _buildAssetCard(
+          name: 'Community Outreach Post',
+          type: 'Social Media',
+          format: 'JPG',
+          status: 'Active',
+          icon: LucideIcons.share2,
+        ),
+        _buildAssetCard(
+          name: 'Flu Season Reminder',
+          type: 'Digital Banner',
+          format: 'HTML5',
+          status: 'Upcoming',
+          icon: LucideIcons.globe,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAssetCard({
+    required String name,
+    required String type,
+    required String format,
+    required String status,
+    required IconData icon,
+  }) {
+    Color statusColor;
+    if (status == 'Active') {
+      statusColor = PrimeCareTheme.colors.emeraldTeal;
+    } else if (status == 'Upcoming') {
+      statusColor = Colors.amber.shade700;
+    } else {
+      statusColor = PrimeCareTheme.colors.slateGray;
+    }
+
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: PrimeCareTheme.colors.surfaceContainerLow,
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                border: Border(bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5))),
+              ),
+              child: Center(
+                child: Icon(icon, size: 48, color: PrimeCareTheme.colors.surfaceContainerHighest),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: statusColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        status,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: statusColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      format,
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  type,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(LucideIcons.download, size: 14, color: Colors.white),
+                        label: Text('Download', style: PrimeCareTheme.typography.label.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
