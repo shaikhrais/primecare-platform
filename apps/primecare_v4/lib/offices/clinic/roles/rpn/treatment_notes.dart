@@ -1,174 +1,142 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/providers/dynamic_page_providers.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class TreatmentNotesView extends ConsumerWidget {
-  const TreatmentNotesView({super.key});
+class RpnTreatmentNotesScreen extends ConsumerWidget {
+  const RpnTreatmentNotesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-        data: (metrics) => CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'RPN Clinical Assessment Hub',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primary,
-                        fontFamily: 'Outfit',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Overview and analytical breakdown for RPN Clinical Assessment Hub.',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: Colors.blueGrey,
-                        fontFamily: 'Inter',
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-
-                    // TOP KPI METRICS
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        final cardWidth = constraints.maxWidth > 1200 
-                            ? (constraints.maxWidth - 48) / 4 
-                            : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                        return Wrap(
-                          spacing: 16,
-                          runSpacing: 16,
-                          children: [
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'Activity Level', value: 'High', icon: Icons.show_chart, iconColor: Colors.teal)),
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'Pending Items', value: '12', icon: Icons.pending_actions, iconColor: Colors.orange)),
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'System Sync', value: 'Active', icon: Icons.sync, iconColor: Colors.indigo)),
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'Alerts', value: '0', icon: Icons.notification_important, iconColor: Colors.red)),
-                          ],
-                        );
-                      },
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    // LISTINGS / LEDGER
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('RPN Clinical Assessment Hub Ledger', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(24),
-                                child: Consumer(
-                                  builder: (context, ref, child) {
-                                    final dataAsync = ref.watch(dynamicPageProvider('officeTreatmentNotesView'));
-                                    return dataAsync.when(
-                                      loading: () => const Center(child: CircularProgressIndicator()),
-                                      error: (e, st) => Text('Error: $e'),
-                                      data: (items) {
-                                        if (items.isEmpty) return const Text('No records found.', style: TextStyle(color: Colors.blueGrey));
-                                        return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: items.map((item) {
-                                            return Column(
-                                              children: [
-                                                _buildLedgerRow(Icons.api, item['title'] ?? 'Record', item['status'] ?? 'Active', Colors.teal),
-                                                const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                              ],
-                                            );
-                                          }).toList(),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 24),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Change Log', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  children: [
-                                    AuditLogTile(title: 'Update Triggered', subtitle: 'Automated policy sync.', timestamp: '1 Hr Ago', icon: Icons.history, iconColor: Colors.teal),
-                                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                    AuditLogTile(title: 'Audit Warning', subtitle: 'Item requires review.', timestamp: '3 Hrs Ago', icon: Icons.warning, iconColor: Colors.orange),
-                                  ]
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
+    return PageTemplate(
+      title: 'Treatment Notes',
+      subtitle: 'Specific documentation for ongoing medical treatments and procedures.',
+      kpiCards: [
+        KPICardData(
+          title: 'Treatments Logged',
+          value: '4',
+          icon: LucideIcons.activity,
+          trend: 0.0,
+          trendLabel: 'today',
         ),
-      );
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Treatment Types', style: PrimeCareTheme.typography.h3),
+               const SizedBox(height: 16),
+              _buildFilterRow('Wound Care', 2, PrimeCareTheme.colors.coralRed),
+              _buildFilterRow('IV Therapy', 1, PrimeCareTheme.colors.navyIndigo),
+               _buildFilterRow('Respiratory Therapy', 1, PrimeCareTheme.colors.emeraldTeal),
+            ],
+          ),
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Recent Treatments', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Log Treatment'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildNoteCard(
+                 'Maria Garcia',
+                 'Wound Care',
+                 'May 14, 2024 • 14:00',
+                 'Dressing changed on sacral ulcer. Exudate is minimal and serous. Wound bed is 80% granulated tissue. Reapplied foam dressing as per protocol.',
+                 PrimeCareTheme.colors.coralRed
+               ),
+               _buildNoteCard(
+                 'John Smith',
+                 'IV Therapy',
+                 'May 14, 2024 • 10:30',
+                 'Started normal saline IV at 100mL/hr via right AC peripheral IV. Site is patent, no signs of infiltration or phlebitis.',
+                 PrimeCareTheme.colors.navyIndigo
+               ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildLedgerRow(IconData icon, String title, String subtitle, Color statusColor) {
+  Widget _buildFilterRow(String label, int count, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
-            child: Icon(icon, color: statusColor, size: 20),
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text(subtitle, style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
-              ],
-            ),
-          ),
-          ElevatedButton(key: const Key('data-status-id=clinic-rpn-treatment-action-1'), 
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: statusColor.withValues(alpha: 0.1),
-              foregroundColor: statusColor,
-              elevation: 0,
-            ),
-            child: const Text('View'),
-          )
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
+  }
+
+  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
+                ),
+                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(note, style: PrimeCareTheme.typography.body),
+        ],
+      )
+     );
   }
 }

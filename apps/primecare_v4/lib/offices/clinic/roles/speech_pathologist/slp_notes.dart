@@ -1,187 +1,149 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class SlpNotesView extends ConsumerStatefulWidget {
-  const SlpNotesView({super.key});
-
-  @override
-  ConsumerState<SlpNotesView> createState() => _SlpNotesViewState();
-}
-
-class _SlpNotesViewState extends ConsumerState<SlpNotesView> {
-  final _subjectiveController = TextEditingController();
-  final _objectiveController = TextEditingController();
-  final _assessmentController = TextEditingController();
-  final _planController = TextEditingController();
-  
-  bool _dietReconciled = false;
+class SlpNotesScreen extends ConsumerWidget {
+  const SlpNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-        data: (metrics) => SingleChildScrollView(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Speech-Language Pathology Notes',
+      subtitle: 'Document speech, language, swallowing, and cognitive-communication assessments.',
+      kpiCards: [
+        KPICardData(
+          title: 'Notes Today',
+          value: '5',
+          icon: LucideIcons.fileText,
+          trend: 0.0,
+          trendLabel: 'on track',
+        ),
+        KPICardData(
+          title: 'Swallow Studies',
+          value: '2',
+          icon: LucideIcons.coffee, // Representing feeding/swallowing
+          trend: 0.0,
+          trendLabel: 'scheduled today',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // PATIENT HEADER
-              _buildPatientHeader(theme),
-              const SizedBox(height: 32),
-
-              // CLINICAL VITALS HUD
-              Text('Cognitive & Respiratory Baseline', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+              Text('Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(child: KpiStatCard(title: 'Cognitive Status', value: 'AOx3', icon: Icons.psychology, iconColor: Colors.teal, subtitle: 'Alert & Oriented')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Swallow Stage', value: 'Level 2', icon: Icons.local_drink, iconColor: Colors.indigo, subtitle: 'Nectar Thick')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'SpO2', value: '98%', icon: Icons.air, iconColor: Colors.blue, subtitle: 'Post-swallow eval')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Comm. Scale', value: 'FCCS 3', icon: Icons.record_voice_over, iconColor: Colors.orange, subtitle: 'Functional Comm')),
-                ],
-              ),
-
-              const SizedBox(height: 32),
-
-              // DIET RECONCILIATION
-              GlassSurface(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: Row(
-                  children: [
-                    const Icon(Icons.restaurant_menu, color: AppTheme.primary),
-                    const SizedBox(width: 16),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Diet & Liquid Consistency Verification', style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text('Verify safe swallowing protocols are documented before signing note.', style: TextStyle(color: Colors.blueGrey, fontSize: 12)),
-                        ],
-                      ),
-                    ),
-                    Switch.adaptive(
-                      value: _dietReconciled, 
-                      onChanged: (v) => setState(() => _dietReconciled = v),
-                      activeTrackColor: Colors.teal,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 32),
-
-              // SOAP NOTE EDITOR
-              Text('Progress Note (SOAP)', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-              const SizedBox(height: 16),
-              _buildSoapField('Subjective', 'Patient reports occasional coughing when drinking thin liquids...', _subjectiveController),
-              _buildSoapField('Objective', 'Bedside swallow evaluation performed. No overt signs of aspiration on nectar-thick...', _objectiveController),
-              _buildSoapField('Assessment', 'Mild oropharyngeal dysphagia. Tolerating Level 2 modifications well...', _assessmentController),
-              _buildSoapField('Plan', 'Continue modified diet. Introduce oral motor exercises 3x daily...', _planController),
-
-              const SizedBox(height: 48),
-
-              // ACTIONS
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(key: const Key('data-status-id=clinic-speech-slp-action-1'), 
-                    onPressed: () => Navigator.pop(context), 
-                    child: const Text('Cancel', style: TextStyle(color: Colors.blueGrey)),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    onPressed: () {}, 
-                    icon: const Icon(Icons.draw),
-                    label: const Text('Save & Sign SLP Note'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primary,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
+              _buildFilterRow('Dysphagia', 4, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow('Aphasia', 2, PrimeCareTheme.colors.navyIndigo),
+               _buildFilterRow('Cognitive-Comm', 1, PrimeCareTheme.colors.lavenderLustre),
             ],
           ),
         ),
-      );
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Add Note'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildNoteCard(
+                 'James Wilson',
+                 'Dysphagia',
+                 'May 14, 2024 • 10:15',
+                 'Clinical Swallow Evaluation completed at bedside. Patient exhibited overt signs of aspiration (coughing, throat clearing) with thin liquids. Tolerated nectar-thick liquids without clinical signs. Diet recommendation: Pureed solids, Nectar-thick liquids. Initiated effortful swallow exercises.',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+               _buildNoteCard(
+                 'Eleanor Rigby',
+                 'Aphasia',
+                 'May 14, 2024 • 13:45',
+                 'Session focused on expressive language recovery post-CVA. Patient demonstrated improved naming of familiar objects (8/10 accuracy) using phonemic cues. Continues to struggle with multi-step commands. Plan: continue semantic feature analysis therapy.',
+                 PrimeCareTheme.colors.navyIndigo
+               ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildPatientHeader(ThemeData theme) {
-    return GlassSurface(
-      padding: const EdgeInsets.all(24),
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CircleAvatar(
-            radius: 30,
-            backgroundColor: AppTheme.primary,
-            child: Text('AD', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Arthur Dent', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                const Text('DOB: 12/05/1978 (45 Yrs) | MRN: #4489221', style: TextStyle(color: Colors.blueGrey)),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.teal.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text('ACTIVE REHAB', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)),
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 
-  Widget _buildSoapField(String title, String hint, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
+  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, fontSize: 13)),
-          const SizedBox(height: 8),
-          TextField(
-            controller: controller,
-            maxLines: null,
-            minLines: 3,
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: TextStyle(color: Colors.blueGrey.withValues(alpha: 0.5)),
-              filled: true,
-              fillColor: Colors.white.withValues(alpha: 0.5),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-            ),
-          ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
+                ),
+                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(note, style: PrimeCareTheme.typography.body),
         ],
-      ),
-    );
+      )
+     );
   }
 }

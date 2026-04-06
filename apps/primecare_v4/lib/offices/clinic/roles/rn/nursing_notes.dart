@@ -1,379 +1,188 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class NursingNotesScreen extends StatelessWidget {
+class NursingNotesScreen extends ConsumerWidget {
   const NursingNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Nursing Notes',
+      subtitle: 'Document clinical observations, interventions, and outcomes.',
+      kpiCards: [
+        KPICardData(
+          title: 'Notes Today',
+          value: '12',
+          icon: LucideIcons.fileSignature,
+          trend: 20.0,
+          trendLabel: 'vs yesterday',
+        ),
+        KPICardData(
+          title: 'Awaiting Signature',
+          value: '1',
+          icon: LucideIcons.penTool,
+          trend: 0.0,
+          trendLabel: 'from supervisor',
+        ),
+        KPICardData(
+          title: 'Drafts',
+          value: '3',
+          icon: LucideIcons.files,
+          trend: 0.0,
+          trendLabel: 'in progress',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Nursing Notes',
-                style: TextStyle(
-                  fontFamily: 'Outfit',
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF191C1E),
-                ),
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF006948), // Emerald Teal
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  elevation: 0,
-                ),
-                onPressed: () {},
-                icon: const Icon(Icons.add),
-                label: const Text(
-                  'New Note',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
+              Text('Note Types', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildNoteTypeFilter('Assessment Note', true),
+              _buildNoteTypeFilter('Progress Note', false),
+              _buildNoteTypeFilter('Transfer Note', false),
+              _buildNoteTypeFilter('Discharge Summary', false),
             ],
           ),
-          const SizedBox(height: 32),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left Pane: Recent Notes List
-                Expanded(
-                  flex: 4,
-                  child: _buildNotesList(),
-                ),
-                const SizedBox(width: 32),
-                // Right Pane: Active Note Details
-                Expanded(
-                  flex: 6,
-                  child: _buildActiveNote(),
-                ),
-              ],
-            ),
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('New Note'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildNoteCard(
+                 'Eleanor Rigby',
+                 'Assessment Note',
+                 '10:30 AM',
+                 'Completed full body assessment. Wound on left hip shows signs of healing, no exudate. Client denies pain at rest, reports 2/10 during mobility exercises.',
+                 'Signed',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+               _buildNoteCard(
+                 'John Smith',
+                 'Progress Note',
+                 '09:15 AM',
+                 'Administered morning medications as scheduled. Blood glucose was 6.5 mmol/L. Client ate 100% of breakfast.',
+                 'Draft',
+                 PrimeCareTheme.colors.coralRed
+               ),
+               _buildNoteCard(
+                 'Maria Garcia',
+                 'Assessment Note',
+                 'Yesterday, 3:00 PM',
+                 'Routine follow-up. Blood pressure remains elevated at 145/90. Discussed dietary modifications and importance of sodium restriction.',
+                 'Signed',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget _buildNotesList() {
+  Widget _buildNoteTypeFilter(String label, bool isSelected) {
     return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFF2F4F6), // surface-container-low
-        borderRadius: BorderRadius.circular(24),
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+       decoration: BoxDecoration(
+        color: isSelected ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05) : Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
       ),
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const TextField(
-              decoration: InputDecoration(
-                icon: Icon(Icons.search, color: Color(0xFF3D4A42)),
-                hintText: 'Search notes...',
-                border: InputBorder.none,
-                hintStyle: TextStyle(
-                  fontFamily: 'Inter',
-                  color: Color(0xFF3D4A42),
-                ),
-              ),
-            ),
+          Text(
+            label,
+            style: PrimeCareTheme.typography.body.copyWith(
+               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+               color: isSelected ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.textPrimary,
+            )
           ),
-          const SizedBox(height: 24),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return _buildNoteListItem(index);
-              },
-            ),
-          ),
+           if (isSelected)
+            Icon(LucideIcons.check, size: 16, color: PrimeCareTheme.colors.navyIndigo),
         ],
       ),
     );
   }
 
-  Widget _buildNoteListItem(int index) {
-    bool isActive = index == 0;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+  Widget _buildNoteCard(String clientName, String type, String time, String content, String status, Color statusColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isActive ? Colors.white : Colors.transparent,
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
-        border: isActive ? null : Border.all(color: const Color(0xFFBCCAC0).withOpacity(0.4)),
-        boxShadow: isActive
-            ? [
-                BoxShadow(
-                  color: const Color(0xFF191C1E).withOpacity(0.04),
-                  blurRadius: 16,
-                  offset: const Offset(0, 4),
-                )
-              ]
-            : null,
+        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Jane Smith',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color(0xFF191C1E),
-                ),
-              ),
-              Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF006948),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'Shift Assessment - Morning',
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-              color: Color(0xFF3D4A42),
-            ),
-          ),
-          const SizedBox(height: 12),
-          const Row(
-            children: [
-              Icon(Icons.calendar_today, size: 12, color: Color(0xFFBCCAC0)),
-              SizedBox(width: 4),
-              Text(
-                'Oct 24, 2026 • 09:15 AM',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 12,
-                  color: Color(0xFF6D7A72),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActiveNote() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF191C1E).withOpacity(0.04),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(32),
-            decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: Color(0xFFE6E8EA))),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
                   children: [
-                    const Text(
-                      'Shift Assessment - Morning',
-                      style: TextStyle(
-                        fontFamily: 'Outfit',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF191C1E),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE6F0EC),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Text(
-                            'Signed',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF006948),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        const Text(
-                          'Patient: Jane Smith',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                            color: Color(0xFF3D4A42),
-                          ),
-                        ),
-                      ],
-                    ),
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(type, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: PrimeCareTheme.colors.navyIndigo)),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.print_outlined, color: Color(0xFF5654A8)),
-                )
-              ],
-            ),
-          ),
-          // Content
-          const Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Subjective',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF5654A8), // Navy Indigo
-                    ),
+                 Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 12),
+           Text(content, style: PrimeCareTheme.typography.body),
+           const SizedBox(height: 16),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: statusColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Patient reports feeling "a bit short of breath" this morning. Denies chest pain. States she slept well through the night.',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 15,
-                      height: 1.6,
-                      color: Color(0xFF191C1E),
-                    ),
+                  child: Text(
+                    status,
+                    style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 32),
-                  Text(
-                    'Objective',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF5654A8),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Vitals: BP 130/80, HR 88, RR 20, O2 Sat 94% on room air.\nLung sounds diminished in bases bilaterally, no wheezes or crackles noted. $+2 edema in lower extremities.',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 15,
-                      height: 1.6,
-                      color: Color(0xFF191C1E),
-                    ),
-                  ),
-                  SizedBox(height: 32),
-                  Text(
-                    'Assessment',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF5654A8),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Stable symptoms of CHF. Current mild exacerbation managed with recent Lasix dose increment.',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 15,
-                      height: 1.6,
-                      color: Color(0xFF191C1E),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // Footer Actions
-          Container(
-            padding: const EdgeInsets.all(32),
-            decoration: const BoxDecoration(
-              color: Color(0xFFF2F4F6),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
+                ),
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
-                    'Add Addendum',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF3D4A42),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF006948),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                    elevation: 0,
-                  ),
-                  onPressed: () {},
-                  child: const Text('Co-Sign Note'),
-                ),
-              ],
-            ),
-          ),
+                  style: TextButton.styleFrom(foregroundColor: PrimeCareTheme.colors.navyIndigo),
+                  child: const Text('View / Edit'),
+                )
+             ],
+           )
         ],
-      ),
-    );
+      )
+     );
   }
 }

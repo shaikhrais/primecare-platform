@@ -1,187 +1,149 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class PhysioNotesView extends ConsumerStatefulWidget {
-  const PhysioNotesView({super.key});
-
-  @override
-  ConsumerState<PhysioNotesView> createState() => _PhysioNotesViewState();
-}
-
-class _PhysioNotesViewState extends ConsumerState<PhysioNotesView> {
-  final _subjectiveController = TextEditingController();
-  final _objectiveController = TextEditingController();
-  final _assessmentController = TextEditingController();
-  final _planController = TextEditingController();
-  
-  bool _contraindicationsReconciled = false;
+class PhysioNotesScreen extends ConsumerWidget {
+  const PhysioNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-        data: (metrics) => SingleChildScrollView(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Physiotherapy Notes',
+      subtitle: 'Document MSK assessments, range of motion, and therapeutic exercises.',
+      kpiCards: [
+        KPICardData(
+          title: 'Assessments Today',
+          value: '3',
+          icon: LucideIcons.activity,
+          trend: 0.5,
+          trendLabel: 'vs yesterday',
+        ),
+        KPICardData(
+          title: 'Exercises Prescribed',
+          value: '12',
+          icon: LucideIcons.dumbbell,
+          trend: 1.2,
+          trendLabel: 'this week',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // PATIENT HEADER
-              _buildPatientHeader(theme),
-              const SizedBox(height: 32),
-
-              // CLINICAL VITALS HUD
-              Text('Functional Mobility Baseline', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+              Text('Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(child: KpiStatCard(title: 'Pain Scale', value: '6/10', icon: Icons.personal_injury, iconColor: Colors.red, subtitle: 'Lumbar Flexion')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Weight Bearing', value: 'PWB', icon: Icons.directions_walk, iconColor: Colors.indigo, subtitle: 'Right Lower Extremity')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Berg Balance Scale', value: '42/56', icon: Icons.monitor_weight, iconColor: Colors.orange, subtitle: 'Low Fall Risk')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'O2 Saturation', value: '97%', icon: Icons.air, iconColor: Colors.blue, subtitle: 'Post-Activity')),
-                ],
-              ),
-
-              const SizedBox(height: 32),
-
-              // SAFETY RECONCILIATION
-              GlassSurface(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: Row(
-                  children: [
-                    const Icon(Icons.warning_amber_rounded, color: AppTheme.primary),
-                    const SizedBox(width: 16),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Post-Op Contraindications Verification', style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text('Verify that specific surgical movement restrictions (e.g., hip precautions) are maintained during session.', style: TextStyle(color: Colors.blueGrey, fontSize: 12)),
-                        ],
-                      ),
-                    ),
-                    Switch.adaptive(
-                      value: _contraindicationsReconciled, 
-                      onChanged: (v) => setState(() => _contraindicationsReconciled = v),
-                      activeTrackColor: Colors.teal,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 32),
-
-              // SOAP NOTE EDITOR
-              Text('Physiotherapy Note (SOAP)', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-              const SizedBox(height: 16),
-              _buildSoapField('Subjective', 'Patient reports increased mobility but sharp pain when ascending stairs...', _subjectiveController),
-              _buildSoapField('Objective', 'Active knee flexion measured at 95° via goniometer. Quad strength 3+/5...', _objectiveController),
-              _buildSoapField('Assessment', 'Progressing well through Phase 2 rehab protocol. Mild patellar tracking deviation noted...', _assessmentController),
-              _buildSoapField('Plan', 'Introduce closed-chain kinetic exercises. Recommend icing post-activity. Next session Friday...', _planController),
-
-              const SizedBox(height: 48),
-
-              // ACTIONS
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(key: const Key('data-status-id=clinic-physio-physio-action-1'), 
-                    onPressed: () => Navigator.pop(context), 
-                    child: const Text('Cancel', style: TextStyle(color: Colors.blueGrey)),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    onPressed: () {}, 
-                    icon: const Icon(Icons.draw),
-                    label: const Text('Save & Sign Physio Note'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primary,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
+              _buildFilterRow('Initial Eval', 2, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow('Progress Note', 5, PrimeCareTheme.colors.emeraldTeal),
+               _buildFilterRow('Discharge Exam', 1, PrimeCareTheme.colors.lavenderLustre),
             ],
           ),
         ),
-      );
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Add Note'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildNoteCard(
+                 'David Chen',
+                 'Initial Eval',
+                 'May 14, 2024 • 08:30',
+                 'Patient s/p right ACL reconstruction (patellar tendon autograft) 2 weeks ago. Currently PWB (Partial Weight Bearing) with crutches. Knee flexion AROM 0-70 degrees. Moderate effusion noted. Performed gentle patellar mobilizations and initiated quad sets. Plan: 3x/week for range of motion and strengthening.',
+                 PrimeCareTheme.colors.navyIndigo
+               ),
+               _buildNoteCard(
+                 'Sarah Miller',
+                 'Progress Note',
+                 'May 14, 2024 • 13:00',
+                 'Session 6 for adhesive capsulitis (frozen shoulder) left side. Tolerated grade III anterior/inferior glides well. Active forward flexion improved to 120 degrees (+10 deg from last session). Instructed on wall walking exercises for home program.',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildPatientHeader(ThemeData theme) {
-    return GlassSurface(
-      padding: const EdgeInsets.all(24),
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CircleAvatar(
-            radius: 30,
-            backgroundColor: AppTheme.primary,
-            child: Text('AD', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Arthur Dent', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                const Text('DOB: 12/05/1978 (45 Yrs) | MRN: #4489221', style: TextStyle(color: Colors.blueGrey)),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.teal.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text('ACTIVE REHAB', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)),
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 
-  Widget _buildSoapField(String title, String hint, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
+  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, fontSize: 13)),
-          const SizedBox(height: 8),
-          TextField(
-            controller: controller,
-            maxLines: null,
-            minLines: 3,
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: TextStyle(color: Colors.blueGrey.withValues(alpha: 0.5)),
-              filled: true,
-              fillColor: Colors.white.withValues(alpha: 0.5),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-            ),
-          ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
+                ),
+                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(note, style: PrimeCareTheme.typography.body),
         ],
-      ),
-    );
+      )
+     );
   }
 }

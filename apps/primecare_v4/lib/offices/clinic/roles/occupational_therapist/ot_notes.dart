@@ -1,187 +1,149 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class OtNotesView extends ConsumerStatefulWidget {
-  const OtNotesView({super.key});
-
-  @override
-  ConsumerState<OtNotesView> createState() => _OtNotesViewState();
-}
-
-class _OtNotesViewState extends ConsumerState<OtNotesView> {
-  final _subjectiveController = TextEditingController();
-  final _objectiveController = TextEditingController();
-  final _assessmentController = TextEditingController();
-  final _planController = TextEditingController();
-  
-  bool _deviceReconciled = false;
+class OtNotesScreen extends ConsumerWidget {
+  const OtNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-        data: (metrics) => SingleChildScrollView(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Occupational Therapy Notes',
+      subtitle: 'Document ADL assessments, cognitive evaluations, and home safety recommendations.',
+      kpiCards: [
+        KPICardData(
+          title: 'Notes Today',
+          value: '4',
+          icon: LucideIcons.fileText,
+          trend: 0.0,
+          trendLabel: 'on track',
+        ),
+        KPICardData(
+          title: 'Home Assessments',
+          value: '1',
+          icon: LucideIcons.home,
+          trend: 0.0,
+          trendLabel: 'scheduled this week',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // PATIENT HEADER
-              _buildPatientHeader(theme),
-              const SizedBox(height: 32),
-
-              // CLINICAL VITALS HUD
-              Text('ADL & Functional Baseline', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+              Text('Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(child: KpiStatCard(title: 'ADL Independence', value: 'Min Assist', icon: Icons.accessibility, iconColor: Colors.teal, subtitle: 'Dressing/Grooming')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Grip Strength', value: '18 lbs', icon: Icons.front_hand, iconColor: Colors.orange, subtitle: 'Right Hand')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Fine Motor', value: 'Fair+', icon: Icons.pan_tool, iconColor: Colors.indigo, subtitle: '9-Hole Peg Test')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Home Setup', value: 'Barrier', icon: Icons.house, iconColor: Colors.red, subtitle: 'Stairs Noted')),
-                ],
-              ),
-
-              const SizedBox(height: 32),
-
-              // SAFETY RECONCILIATION
-              GlassSurface(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: Row(
-                  children: [
-                    const Icon(Icons.wheelchair_pickup, color: AppTheme.primary),
-                    const SizedBox(width: 16),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Assistive Device Verification', style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text('Verify sizing and structural integrity of walking aids, splints, or ADL equipment before use.', style: TextStyle(color: Colors.blueGrey, fontSize: 12)),
-                        ],
-                      ),
-                    ),
-                    Switch.adaptive(
-                      value: _deviceReconciled, 
-                      onChanged: (v) => setState(() => _deviceReconciled = v),
-                      activeTrackColor: Colors.teal,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 32),
-
-              // SOAP NOTE EDITOR
-              Text('Therapy Session Note (SOAP)', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-              const SizedBox(height: 16),
-              _buildSoapField('Subjective', 'Patient states "I am having trouble reaching the top cabinets in my kitchen"...', _subjectiveController),
-              _buildSoapField('Objective', 'Completed 30 minutes of ADL simulation targeting upper extremity reaching. Requires min assist...', _objectiveController),
-              _buildSoapField('Assessment', 'Shoulder flexion improving. Patient demonstrates excellent safety awareness using reacher grabber...', _assessmentController),
-              _buildSoapField('Plan', 'Fabricate resting hand splint for right hand. Continue ADL retraining 2x/week...', _planController),
-
-              const SizedBox(height: 48),
-
-              // ACTIONS
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(key: const Key('data-status-id=clinic-occupational-ot-action-1'), 
-                    onPressed: () => Navigator.pop(context), 
-                    child: const Text('Cancel', style: TextStyle(color: Colors.blueGrey)),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    onPressed: () {}, 
-                    icon: const Icon(Icons.draw),
-                    label: const Text('Save & Sign OT Note'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primary,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
+              _buildFilterRow('ADL Assessment', 3, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow('Cognitive Eval', 1, PrimeCareTheme.colors.navyIndigo),
+               _buildFilterRow('Home Safety', 0, PrimeCareTheme.colors.lavenderLustre),
             ],
           ),
         ),
-      );
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Add Note'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildNoteCard(
+                 'Maria Garcia',
+                 'ADL Assessment',
+                 'May 14, 2024 • 11:00',
+                 'Assessed patient\'s ability to perform lower body dressing independently. Patient required moderate verbal cues and SBA (Stand-By Assist) due to decreased hip flexion and balance confidence. Recommend use of a reacher and sock aid.',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+               _buildNoteCard(
+                 'John Smith',
+                 'Cognitive Eval',
+                 'May 14, 2024 • 14:30',
+                 'Administered MoCA. Score: 24/30. Mild deficits noted in delayed recall and visuospatial domains. Patient exhibited adequate safety awareness during simulated kitchen task but required cueing for sequencing. Plan: focus on compensatory memory strategies.',
+                 PrimeCareTheme.colors.navyIndigo
+               ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildPatientHeader(ThemeData theme) {
-    return GlassSurface(
-      padding: const EdgeInsets.all(24),
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CircleAvatar(
-            radius: 30,
-            backgroundColor: AppTheme.primary,
-            child: Text('AD', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Arthur Dent', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                const Text('DOB: 12/05/1978 (45 Yrs) | MRN: #4489221', style: TextStyle(color: Colors.blueGrey)),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.teal.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text('ADL THERAPY', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)),
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 
-  Widget _buildSoapField(String title, String hint, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
+  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, fontSize: 13)),
-          const SizedBox(height: 8),
-          TextField(
-            controller: controller,
-            maxLines: null,
-            minLines: 3,
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: TextStyle(color: Colors.blueGrey.withValues(alpha: 0.5)),
-              filled: true,
-              fillColor: Colors.white.withValues(alpha: 0.5),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-            ),
-          ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
+                ),
+                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(note, style: PrimeCareTheme.typography.body),
         ],
-      ),
-    );
+      )
+     );
   }
 }

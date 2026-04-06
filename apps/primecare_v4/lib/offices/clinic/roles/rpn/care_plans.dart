@@ -1,174 +1,185 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/providers/dynamic_page_providers.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class CarePlansView extends ConsumerWidget {
-  const CarePlansView({super.key});
+class RpnCarePlansScreen extends ConsumerWidget {
+  const RpnCarePlansScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-        data: (metrics) => CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'RPN Care Navigation & Goals',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primary,
-                        fontFamily: 'Outfit',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Overview and analytical breakdown for RPN Care Navigation & Goals.',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: Colors.blueGrey,
-                        fontFamily: 'Inter',
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-
-                    // TOP KPI METRICS
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        final cardWidth = constraints.maxWidth > 1200 
-                            ? (constraints.maxWidth - 48) / 4 
-                            : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                        return Wrap(
-                          spacing: 16,
-                          runSpacing: 16,
-                          children: [
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'Activity Level', value: 'High', icon: Icons.show_chart, iconColor: Colors.teal)),
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'Pending Items', value: '12', icon: Icons.pending_actions, iconColor: Colors.orange)),
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'System Sync', value: 'Active', icon: Icons.sync, iconColor: Colors.indigo)),
-                            SizedBox(width: cardWidth, child: KpiStatCard(title: 'Alerts', value: '0', icon: Icons.notification_important, iconColor: Colors.red)),
-                          ],
-                        );
-                      },
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    // LISTINGS / LEDGER
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('RPN Care Navigation & Goals Ledger', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(24),
-                                child: Consumer(
-                                  builder: (context, ref, child) {
-                                    final dataAsync = ref.watch(dynamicPageProvider('officeCarePlansView'));
-                                    return dataAsync.when(
-                                      loading: () => const Center(child: CircularProgressIndicator()),
-                                      error: (e, st) => Text('Error: $e'),
-                                      data: (items) {
-                                        if (items.isEmpty) return const Text('No records found.', style: TextStyle(color: Colors.blueGrey));
-                                        return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: items.map((item) {
-                                            return Column(
-                                              children: [
-                                                _buildLedgerRow(Icons.api, item['title'] ?? 'Record', item['status'] ?? 'Active', Colors.teal),
-                                                const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                              ],
-                                            );
-                                          }).toList(),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 24),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Change Log', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  children: [
-                                    AuditLogTile(title: 'Update Triggered', subtitle: 'Automated policy sync.', timestamp: '1 Hr Ago', icon: Icons.history, iconColor: Colors.teal),
-                                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                    AuditLogTile(title: 'Audit Warning', subtitle: 'Item requires review.', timestamp: '3 Hrs Ago', icon: Icons.warning, iconColor: Colors.orange),
-                                  ]
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
+    return PageTemplate(
+      title: 'Care Plans (RPN)',
+      subtitle: 'Review and execute active nursing care plans for assigned patients.',
+      kpiCards: [
+        KPICardData(
+          title: 'Active Plans',
+          value: '18',
+          icon: LucideIcons.clipboardList,
+          trend: 0.0,
+          trendLabel: 'currently assigned',
         ),
-      );
+        KPICardData(
+          title: 'Interventions Due',
+          value: '5',
+          icon: LucideIcons.clock,
+          trend: 2.0,
+          trendLabel: 'this shift',
+        ),
+        KPICardData(
+          title: 'Goals Met',
+          value: '2',
+          icon: LucideIcons.checkCircle,
+          trend: 1.0,
+          trendLabel: 'this week',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Plan Types', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('Wound Care Protocol', 4, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow('Diabetic Management', 8, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow('Post-Op Recovery', 6, PrimeCareTheme.colors.lavenderLustre),
+            ],
+          ),
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Active Interventions', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Log Intervention'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildCarePlanCard(
+                 'Maria Garcia',
+                 'Diabetic Management',
+                 'Requires Q6H blood glucose monitoring and dietary assistance. Ensure foot check performed daily.',
+                 '1 Goal Met • 2 Active',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+               _buildCarePlanCard(
+                 'John Smith',
+                 'Post-Op Recovery',
+                 'Monitor surgical site for signs of infection. Administer PRN analgesics as prescribed. Assist with early ambulation.',
+                 '0 Goals Met • 3 Active',
+                 PrimeCareTheme.colors.lavenderLustre
+               ),
+               _buildCarePlanCard(
+                 'Eleanor Rigby',
+                 'Wound Care Protocol',
+                 'Stage 2 pressure ulcer on sacrum. Perform dressing change every 48 hours or when soiled. Apply barrier cream.',
+                 '1 Goal Met • 1 Active',
+                 PrimeCareTheme.colors.navyIndigo,
+                 requiresAction: true
+               ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildLedgerRow(IconData icon, String title, String subtitle, Color statusColor) {
+  Widget _buildFilterRow(String label, int count, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
-            child: Icon(icon, color: statusColor, size: 20),
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text(subtitle, style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
-              ],
-            ),
-          ),
-          ElevatedButton(key: const Key('data-status-id=clinic-rpn-care-action-1'), 
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: statusColor.withValues(alpha: 0.1),
-              foregroundColor: statusColor,
-              elevation: 0,
-            ),
-            child: const Text('View'),
-          )
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
+  }
+
+  Widget _buildCarePlanCard(String clientName, String planType, String details, String goals, Color themeColor, {bool requiresAction = false}) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(planType, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
+                ),
+                if (requiresAction)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.coralRed.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text('DUE TODAY', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.coralRed, fontWeight: FontWeight.bold)),
+                  )
+             ],
+           ),
+           const SizedBox(height: 12),
+           Text(details, style: PrimeCareTheme.typography.body),
+           const SizedBox(height: 16),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Text(goals, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                TextButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(LucideIcons.fileText, size: 16),
+                  label: const Text('View Full Plan'),
+                  style: TextButton.styleFrom(foregroundColor: PrimeCareTheme.colors.navyIndigo),
+                )
+             ],
+           )
+        ],
+      )
+     );
   }
 }

@@ -1,301 +1,199 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/shared/components/page_template.dart';
 
-class MedicationSupportScreen extends ConsumerWidget {
-  const MedicationSupportScreen({super.key});
+class RpnMedicationSupportScreen extends ConsumerWidget {
+  const RpnMedicationSupportScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
-      title: 'Medication Support (eMAR)',
-      subtitle: 'Track and administer medications, manage schedules, and ensure compliance.',
-      headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search patients or medications...'),
-        const SizedBox(width: 16),
-        ClinicalGlassButton(
-          onPressed: () {},
-          label: 'Scan Barcode',
-          icon: LucideIcons.scanLine,
-          isPrimary: true,
-        ),
-      ],
+      title: 'Medication Administration (MAR)',
+      subtitle: 'Administer, witness, and document patient medications securely.',
       kpiCards: [
-        MetricCardData(
-          title: 'Due Next 2h',
-          value: '18',
-          icon: LucideIcons.clock,
-          trend: '+3 from yesterday',
-          isUp: false,
+        KPICardData(
+          title: 'Scheduled Now',
+          value: '12',
+          icon: LucideIcons.pill,
+          trend: 2.0,
+          trendLabel: 'due within hour',
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Administered',
-          value: '104',
+          value: '45',
           icon: LucideIcons.checkCircle,
-          trend: '94% Compliance',
-          isUp: true,
+          trend: 10.0,
+          trendLabel: 'this shift',
         ),
-        MetricCardData(
-          title: 'Missed / Refused',
-          value: '2',
+        KPICardData(
+          title: 'Missed/Refused',
+          value: '1',
           icon: LucideIcons.alertTriangle,
-          trend: 'Requires follow-up',
-          isUp: false,
-          color: PrimeCareTheme.colors.coralRed,
+          trend: -1.0,
+          trendLabel: 'requires review',
         ),
       ],
       sidebarContent: [
-        _buildPRNPanel(),
-        const SizedBox(height: 24),
-        _buildPharmacyAlerts(),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Time Blocks', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('08:00 (Morning)', 0, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow('12:00 (Noon)', 12, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow('17:00 (Evening)', 8, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow('PRN (As Needed)', 3, PrimeCareTheme.colors.slateGray),
+            ],
+          ),
+        ),
       ],
       mainContent: [
-        _buildEMARTimeline(),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Current Med Pass (12:00)', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.scanLine),
+                    label: const Text('Scan Patient ID'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildMedicationCard(
+                 'Maria Garcia',
+                 'Metformin - 500mg',
+                 'PO (Oral) • With Food',
+                 'Due at 12:00 PM',
+                 PrimeCareTheme.colors.navyIndigo,
+                 'Pending'
+               ),
+               _buildMedicationCard(
+                 'John Smith',
+                 'Insulin Lispro (Humalog) - 5 units',
+                 'SubQ • With Meal',
+                 'Due at 12:00 PM',
+                 PrimeCareTheme.colors.coralRed,
+                 'Requires Co-Sign'
+               ),
+               _buildMedicationCard(
+                 'Eleanor Rigby',
+                 'Acetaminophen - 650mg',
+                 'PO (Oral) • PRN for Pain',
+                 'Requested 11:45 PM',
+                 PrimeCareTheme.colors.lavenderLustre,
+                 'Pending'
+               ),
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildPRNPanel() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(LucideIcons.pill, color: PrimeCareTheme.colors.navyIndigo, size: 20),
-              const SizedBox(width: 8),
-              Text('Quick PRN Access', style: PrimeCareTheme.typography.h3),
-            ],
-          ),
-          const SizedBox(height: 16),
-          _buildQuickPRNBtn('Morphine 2mg', 'Sylvia P.', LucideIcons.syringe),
-          const SizedBox(height: 8),
-          _buildQuickPRNBtn('Tylenol 500mg', 'Marcus aurelius', LucideIcons.pill),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildQuickPRNBtn(String drug, String patient, IconData icon) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          Icon(icon, color: PrimeCareTheme.colors.royalPurple, size: 18),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(drug, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-                Text(patient, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-              ],
-            ),
-          ),
-          Icon(LucideIcons.chevronRight, size: 16, color: PrimeCareTheme.colors.slateGray),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPharmacyAlerts() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      border: Border.all(color: PrimeCareTheme.colors.amberWarning.withOpacity(0.3)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(LucideIcons.alertCircle, color: PrimeCareTheme.colors.amberWarning, size: 20),
-              const SizedBox(width: 8),
-              Text('Pharmacy Alerts', style: PrimeCareTheme.typography.h3),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Supply for "Atorvastatin 20mg" running low for 3 patients.',
-            style: PrimeCareTheme.typography.body,
-          ),
-          const SizedBox(height: 12),
-          ClinicalGlassButton(
-            onPressed: () {},
-            label: 'Request Refill',
-            icon: LucideIcons.refreshCw,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEMARTimeline() {
-    return ClinicalGlassPanel(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Scheduled Administrations', style: PrimeCareTheme.typography.h2),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'Filter: 12:00 PM',
-                  icon: LucideIcons.filter,
-                ),
-              ],
-            ),
-          ),
-          const Divider(height: 1),
-          _buildMedicationRow(
-            time: '12:00 PM',
-            patient: 'John Carmichael',
-            room: 'Room 204A',
-            medication: 'Metformin 500mg',
-            route: 'Oral (PO)',
-            status: 'Due',
-          ),
-          const Divider(height: 1),
-          _buildMedicationRow(
-            time: '12:00 PM',
-            patient: 'Eleanor Vance',
-            room: 'Room 205B',
-            medication: 'Lisinopril 10mg',
-            route: 'Oral (PO)',
-            status: 'Due',
-          ),
-          const Divider(height: 1),
-          _buildMedicationRow(
-            time: '01:00 PM',
-            patient: 'Arthur Dent',
-            room: 'Room 102A',
-            medication: 'Insulin Glargine 10u',
-            route: 'Subcutaneous (SubQ)',
-            status: 'Upcoming',
-          ),
-          const Divider(height: 1),
-          _buildMedicationRow(
-            time: '08:30 AM',
-            patient: 'Sylvia Plath',
-            room: 'Room 201A',
-            medication: 'Morphine 5mg',
-            route: 'Subcutaneous (SubQ) - PRN',
-            status: 'Administered',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMedicationRow({
-    required String time,
-    required String patient,
-    required String room,
-    required String medication,
-    required String route,
-    required String status,
-  }) {
-    Color statusColor;
-    IconData statusIcon;
-
-    switch (status) {
-      case 'Due':
-        statusColor = PrimeCareTheme.colors.amberWarning;
-        statusIcon = LucideIcons.clock;
-        break;
-      case 'Upcoming':
-        statusColor = PrimeCareTheme.colors.royalPurple;
-        statusIcon = LucideIcons.calendarClock;
-        break;
-      case 'Administered':
-        statusColor = PrimeCareTheme.colors.emeraldTeal;
-        statusIcon = LucideIcons.checkCircle;
-        break;
-      default:
-        statusColor = PrimeCareTheme.colors.slateGray;
-        statusIcon = LucideIcons.circle;
-    }
-
+  Widget _buildFilterRow(String label, int count, Color color) {
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
+          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMedicationCard(String clientName, String medication, String route, String time, Color themeColor, String status) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 80,
-            child: Text(
-              time,
-              style: PrimeCareTheme.typography.body.copyWith(
-                fontWeight: FontWeight.bold,
-                color: PrimeCareTheme.colors.navyIndigo,
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(statusIcon, color: statusColor, size: 20),
-          ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(medication, style: PrimeCareTheme.typography.h3),
-                const SizedBox(height: 4),
-                Text(route, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                const SizedBox(height: 12),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
                 Row(
                   children: [
-                    Icon(LucideIcons.user, size: 14, color: PrimeCareTheme.colors.slateGray),
-                    const SizedBox(width: 4),
-                    Text(patient, style: PrimeCareTheme.typography.body),
-                    const SizedBox(width: 16),
-                    Icon(LucideIcons.doorOpen, size: 14, color: PrimeCareTheme.colors.slateGray),
-                    const SizedBox(width: 4),
-                    Text(room, style: PrimeCareTheme.typography.label),
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(time, style: PrimeCareTheme.typography.label),
                   ],
                 ),
-              ],
-            ),
-          ),
-          if (status == 'Due')
-            ClinicalGlassButton(
-              onPressed: () {},
-              label: 'Administer',
-              icon: LucideIcons.scan,
-            )
-          else if (status == 'Upcoming')
-            ClinicalGlassButton(
-              onPressed: () {},
-              label: 'Details',
-              icon: LucideIcons.info,
-            )
-          else
-             Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  'Verified',
-                  style: PrimeCareTheme.typography.label.copyWith(
-                    color: PrimeCareTheme.colors.emeraldTeal,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: status == 'Pending' ? PrimeCareTheme.colors.coralRed.withOpacity(0.1) : themeColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(4),
                   ),
+                  child: Text(status, style: PrimeCareTheme.typography.label.copyWith(
+                    color: status == 'Pending' ? PrimeCareTheme.colors.coralRed : themeColor, 
+                    fontWeight: FontWeight.bold
+                  )),
+                )
+             ],
+           ),
+           const SizedBox(height: 12),
+           Text(medication, style: PrimeCareTheme.typography.h2.copyWith(color: themeColor)),
+           const SizedBox(height: 4),
+           Text(route, style: PrimeCareTheme.typography.body),
+           const SizedBox(height: 16),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.end,
+             children: [
+                OutlinedButton(
+                  onPressed: () {},
+                  child: const Text('Hold/Refused'),
                 ),
-              ),
+                const SizedBox(width: 12),
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(LucideIcons.check),
+                  label: const Text('Administer'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                    foregroundColor: Colors.white,
+                  ),
+                )
+             ],
+           )
         ],
-      ),
-    );
+      )
+     );
   }
 }

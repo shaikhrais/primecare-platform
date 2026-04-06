@@ -1,337 +1,182 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class VitalsScreen extends StatelessWidget {
+class VitalsScreen extends ConsumerWidget {
   const VitalsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Vitals & Flowsheets',
+      subtitle: 'Monitor continuous patient metrics and clinical observations.',
+      kpiCards: [
+        KPICardData(
+          title: 'Measurements Today',
+          value: '45',
+          icon: LucideIcons.activity,
+          trend: 10.0,
+          trendLabel: 'vs yesterday',
+        ),
+        KPICardData(
+          title: 'Alerts Active',
+          value: '2',
+          icon: LucideIcons.alertCircle,
+          trend: -1.0,
+          trendLabel: 'requiring review',
+        ),
+        KPICardData(
+          title: 'Devices Synced',
+          value: '100%',
+          icon: LucideIcons.radio,
+          trend: 0.0,
+          trendLabel: 'Bluetooth active',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Vital Signs Dashboard',
-                style: TextStyle(
-                  fontFamily: 'Outfit',
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF191C1E),
-                ),
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF006948), // Emerald Teal
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  elevation: 0,
-                ),
-                onPressed: () {},
-                icon: const Icon(Icons.add),
-                label: const Text(
-                  'Record Vitals',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
+              Text('Alerts Filter', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('Critical (Action Req)', 1, PrimeCareTheme.colors.coralRed),
+               _buildFilterRow('Warning (Monitor)', 1, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow('Normal', 43, PrimeCareTheme.colors.emeraldTeal),
+               _buildFilterRow('Missing Data', 0, PrimeCareTheme.colors.slateGray),
             ],
           ),
-          const SizedBox(height: 32),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left Panel: Entry Form Placeholder
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF191C1E).withOpacity(0.04),
-                          blurRadius: 24,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
-                      border: Border.all(color: const Color(0xFFE0E3E5).withOpacity(0.5)),
-                    ),
-                    padding: const EdgeInsets.all(32.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Quick Entry',
-                          style: TextStyle(
-                            fontFamily: 'Outfit',
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF5654A8), // Navy Indigo
-                          ),
-                        ),
-                        const SizedBox(height: 32),
-                        _buildInputField('Blood Pressure', 'mmHg', 'e.g., 120/80'),
-                        const SizedBox(height: 24),
-                        _buildInputField('Heart Rate', 'bpm', 'e.g., 75'),
-                        const SizedBox(height: 24),
-                        _buildInputField('SpO2', '%', 'e.g., 98'),
-                        const SizedBox(height: 24),
-                        _buildInputField('Temperature', '°C', 'e.g., 37.0'),
-                        const SizedBox(height: 24),
-                        _buildInputField('Respiratory Rate', 'bpm', 'e.g., 16'),
-                        const Spacer(),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF006948),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              elevation: 0,
-                            ),
-                            onPressed: () {},
-                            child: const Text(
-                              'Save Readings',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 32),
-                // Right Panel: Recent Readings & Trends
-                Expanded(
-                  flex: 6,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Recent Measurements',
-                        style: TextStyle(
-                          fontFamily: 'Outfit',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF191C1E),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 1.5,
-                          children: [
-                            _buildMetricCard(
-                              title: 'Blood Pressure',
-                              value: '142/90',
-                              unit: 'mmHg',
-                              icon: Icons.monitor_heart,
-                              isAbnormal: true,
-                              trend: '+5 from last',
-                            ),
-                            _buildMetricCard(
-                              title: 'Heart Rate',
-                              value: '88',
-                              unit: 'bpm',
-                              icon: Icons.favorite,
-                              isAbnormal: false,
-                              trend: '-2 from last',
-                            ),
-                            _buildMetricCard(
-                              title: 'SpO2',
-                              value: '97',
-                              unit: '%',
-                              icon: Icons.air,
-                              isAbnormal: false,
-                              trend: 'Stable',
-                            ),
-                            _buildMetricCard(
-                              title: 'Temperature',
-                              value: '38.1',
-                              unit: '°C',
-                              icon: Icons.thermostat,
-                              isAbnormal: true,
-                              trend: '+0.4 from last',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInputField(String label, String unit, String hint) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: Color(0xFF3D4A42),
-              ),
-            ),
-            Text(
-              unit,
-              style: const TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 12,
-                color: Color(0xFF6D7A72),
-              ),
-            ),
-          ],
         ),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF2F4F6),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: const TextStyle(
-                fontFamily: 'Inter',
-                color: Color(0xFFBCCAC0),
-              ),
-              border: InputBorder.none,
-            ),
-            keyboardType: TextInputType.number,
-            style: const TextStyle(
-              fontFamily: 'Inter',
-              color: Color(0xFF191C1E),
-            ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Active Alerts', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Add Reading'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildVitalsCard(
+                 'Maria Garcia',
+                 'Blood Pressure (High)',
+                 '155 / 95 mmHg',
+                 '10 mins ago',
+                 'Re-check in 1 hour. Consider PRN medication if >160/100.',
+                 PrimeCareTheme.colors.coralRed
+               ),
+               _buildVitalsCard(
+                 'John Smith',
+                 'Blood Glucose (Low)',
+                 '3.8 mmol/L',
+                 '30 mins ago',
+                 'Provided 15g fast-acting carbohydrate.',
+                 PrimeCareTheme.colors.lavenderLustre
+               ),
+               const SizedBox(height: 32),
+               Text('Recent Normal Readings', style: PrimeCareTheme.typography.h3),
+               const SizedBox(height: 16),
+               _buildVitalsCard(
+                 'Eleanor Rigby',
+                 'Temperature',
+                 '36.8 °C',
+                 '1 hour ago',
+                 'Normal reading. Continuing scheduled observations.',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildMetricCard({
-    required String title,
-    required String value,
-    required String unit,
-    required IconData icon,
-    required bool isAbnormal,
-    required String trend,
-  }) {
-    Color valueColor = isAbnormal ? const Color(0xFFBA1A1A) : const Color(0xFF191C1E);
-    Color bgHighlight = isAbnormal ? const Color(0xFFFFF4F4) : const Color(0xFFE6F0EC);
-    Color iconColor = isAbnormal ? const Color(0xFFBA1A1A) : const Color(0xFF006948);
-
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isAbnormal ? const Color(0xFFFFDADA) : const Color(0xFFE0E3E5).withOpacity(0.5),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF191C1E).withOpacity(0.02),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  color: Color(0xFF5654A8), // Navy Indigo
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
+               Container(
+                width: 12,
+                height: 12,
                 decoration: BoxDecoration(
-                  color: bgHighlight,
+                  color: color,
                   shape: BoxShape.circle,
-                ),
-                child: Icon(icon, size: 20, color: iconColor),
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontFamily: 'Outfit',
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: valueColor,
-                  height: 1.0,
                 ),
               ),
               const SizedBox(width: 8),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 6.0),
-                child: Text(
-                  unit,
-                  style: const TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 16,
-                    color: Color(0xFF6D7A72),
-                  ),
-                ),
-              ),
+              Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(
-            trend,
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: isAbnormal ? const Color(0xFF93000A) : const Color(0xFF6D7A72),
-            ),
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
+  }
+
+  Widget _buildVitalsCard(String clientName, String metric, String value, String time, String notes, Color statusColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: statusColor, width: 4)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(metric, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: statusColor)),
+                  ],
+                ),
+                 Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 12),
+           Row(
+             children: [
+               Text(value, style: PrimeCareTheme.typography.h1.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+               const Spacer(),
+                OutlinedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(LucideIcons.lineChart, size: 16),
+                  label: const Text('Trend'),
+                )
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(notes, style: PrimeCareTheme.typography.body),
+        ],
+      )
+     );
   }
 }

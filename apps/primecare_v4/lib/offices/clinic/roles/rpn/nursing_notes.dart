@@ -1,201 +1,149 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/shared/components/page_template.dart';
 
-class NursingNotesScreen extends ConsumerWidget {
-  const NursingNotesScreen({super.key});
+class RpnNursingNotesScreen extends ConsumerWidget {
+  const RpnNursingNotesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Nursing Notes',
-      subtitle: 'Chronological clinical charting, assessments, and progress notes.',
-      headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search keyword, date, or patient...'),
-        const SizedBox(width: 16),
-        ClinicalGlassButton(
-          onPressed: () {},
-          label: 'New Entry',
-          icon: LucideIcons.filePlus,
-          isPrimary: true,
-        ),
-      ],
+      subtitle: 'Document clinical observations and patient interactions.',
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Notes Today',
-          value: '14',
+          value: '12',
           icon: LucideIcons.fileText,
-          trend: 'Charts updated',
-          isUp: true,
+          trend: 2.0,
+          trendLabel: 'vs yesterday',
         ),
-        MetricCardData(
-          title: 'Cosign Required',
-          value: '2',
-          icon: LucideIcons.edit3,
-          trend: 'Pending RN review',
-          isUp: false,
-          color: PrimeCareTheme.colors.amberWarning,
+        KPICardData(
+          title: 'Required Notes',
+          value: '4',
+          icon: LucideIcons.alertCircle,
+          trend: 0.0,
+          trendLabel: 'end of shift',
         ),
       ],
       sidebarContent: [
-        _buildTemplatesPanel(),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Categories', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('Routine Care', 8, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow('Change in Status', 1, PrimeCareTheme.colors.coralRed),
+               _buildFilterRow('Family Communication', 3, PrimeCareTheme.colors.navyIndigo),
+            ],
+          ),
+        ),
       ],
       mainContent: [
-        _buildNotesFeed(),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Add Note'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildNoteCard(
+                 'Maria Garcia',
+                 'Change in Status',
+                 'May 14, 2024 • 13:45',
+                 'Patient reported feeling dizzy when standing up. Vitals taken. BP 110/70 lying down, 90/60 standing. Instructed patient to sit on edge of bed before standing. Monitored for 30 mins, dizziness resolved.',
+                 PrimeCareTheme.colors.coralRed
+               ),
+               _buildNoteCard(
+                 'John Smith',
+                 'Routine Care',
+                 'May 14, 2024 • 10:00',
+                 'Assisted with morning ADLs. Patient ate 100% of breakfast. Complained of mild pain in left shoulder (2/10), repositioned for comfort. PRN Tylenol offered but declined.',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildTemplatesPanel() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(LucideIcons.layoutTemplate, color: PrimeCareTheme.colors.navyIndigo, size: 20),
-              const SizedBox(width: 8),
-              Text('Smart Templates', style: PrimeCareTheme.typography.h3),
-            ],
-          ),
-          const SizedBox(height: 16),
-          _buildActionItem('SOAP Note', LucideIcons.stethoscope),
-          _buildActionItem('Shift Handoff', LucideIcons.arrowRightLeft),
-          _buildActionItem('Wound Assessment', LucideIcons.activity),
-          _buildActionItem('Fall Incident', LucideIcons.alertTriangle, color: PrimeCareTheme.colors.coralRed),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActionItem(String title, IconData icon, {Color? color}) {
-    final effectiveColor = color ?? PrimeCareTheme.colors.royalPurple;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: ClinicalGlassButton(
-        onPressed: () {},
-        label: title,
-        icon: icon,
-      ),
-    );
-  }
-
-  Widget _buildNotesFeed() {
-    return ClinicalGlassPanel(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Recent Entries', style: PrimeCareTheme.typography.h2),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'Filter: Shift',
-                  icon: LucideIcons.filter,
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
-          const Divider(height: 1),
-          _buildNoteCard(
-            patient: 'Sylvia Plath',
-            time: '14:30 PM • Today',
-            type: 'Pain Assessment',
-            content: 'Patient reported pain level 7/10 in lower back. Administered PRN Morphine 5mg at 14:15. Pain reassessed at 14:45, down to 3/10. Will continue to monitor.',
-            author: 'Jane Doe, RPN',
-          ),
-          const Divider(height: 1),
-          _buildNoteCard(
-            patient: 'Marcus Aurelius',
-            time: '11:00 AM • Today',
-            type: 'Wound Care (SOAP)',
-            content: 'S: Patient states "the dressing feels loose".\nO: Removed old dressing from left leg ulcer. Minimal serous exudate. Wound bed 80% granulation tissue. Cleansed with normal saline. Applied fresh foam dressing.\nA: Wound healing progressing normally.\nP: Continue daily dressing changes.',
-            author: 'Jane Doe, RPN',
-          ),
-          const Divider(height: 1),
-          _buildNoteCard(
-            patient: 'John Carmichael',
-            time: '08:15 AM • Today',
-            type: 'Shift Assessment',
-            content: 'Patient alert and oriented x3. Vital signs stable within normal limits. Lung sounds clear bilaterally. Independent with ADLs this morning.',
-            author: 'Jane Doe, RPN',
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard({
-    required String patient,
-    required String time,
-    required String type,
-    required String content,
-    required String author,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
+  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: PrimeCareTheme.colors.royalPurple.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(LucideIcons.fileText, color: PrimeCareTheme.colors.royalPurple, size: 16),
-                  ),
-                  const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(patient, style: PrimeCareTheme.typography.h3),
-                      Text(type, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.royalPurple, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ],
-              ),
-              Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            content,
-            style: PrimeCareTheme.typography.body.copyWith(
-              height: 1.5,
-              color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.8),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Entered by: $author', style: PrimeCareTheme.typography.label),
-              Row(
-                children: [
-                  ClinicalGlassButton(
-                    onPressed: () {},
-                    label: 'Edit',
-                    icon: LucideIcons.edit2,
-                  ),
-                ],
-              ),
-            ],
-          ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
+                ),
+                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(note, style: PrimeCareTheme.typography.body),
         ],
-      ),
-    );
+      )
+     );
   }
 }

@@ -1,426 +1,244 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class MedicationNotesScreen extends StatelessWidget {
-  const MedicationNotesScreen({super.key});
+class MedicationAdministrationScreen extends ConsumerWidget {
+  const MedicationAdministrationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Medication Administration (MAR)',
+      subtitle: 'Track, verify, and document client medications.',
+      kpiCards: [
+        KPICardData(
+          title: 'Due Now',
+          value: '8',
+          icon: LucideIcons.clock,
+          trend: 0.0,
+          trendLabel: 'across 5 clients',
+        ),
+        KPICardData(
+          title: 'Given Today',
+          value: '35',
+          icon: LucideIcons.checkCircle2,
+          trend: 10.0,
+          trendLabel: 'doses administered',
+        ),
+        KPICardData(
+          title: 'Missed/Refused',
+          value: '1',
+          icon: LucideIcons.xCircle,
+          trend: -5.0,
+          trendLabel: 'requires follow up',
+        ),
+        KPICardData(
+          title: 'PRN Given',
+          value: '4',
+          icon: LucideIcons.activity,
+          trend: 0.0,
+          trendLabel: 'as needed meds',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Schedule Filter', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('Morning (08:00 - 12:00)', true),
+               _buildFilterRow('Afternoon (12:00 - 17:00)', false),
+              _buildFilterRow('Evening (17:00 - 22:00)', false),
+              _buildFilterRow('Night (22:00 - 08:00)', false),
+              _buildFilterRow('PRN (As Needed)', false),
+            ],
+          ),
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Morning Medications', style: PrimeCareTheme.typography.h2),
+                   Text('10:00 AM', style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildClientMedicationGroup(
+                'Eleanor Rigby',
+                'Room 204',
+                [
+                  _MedicationItem('Lisinopril', '10mg', 'PO', '09:00', PrimeCareTheme.colors.emeraldTeal, 'Given'),
+                  _MedicationItem('Metformin', '500mg', 'PO', '09:00', PrimeCareTheme.colors.emeraldTeal, 'Given'),
+                  _MedicationItem('Furosemide', '20mg', 'PO', '10:00', PrimeCareTheme.colors.coralRed, 'Due Now'),
+                ]
+              ),
+              const SizedBox(height: 16),
+              _buildClientMedicationGroup(
+                'John Smith',
+                'Room 112',
+                [
+                  _MedicationItem('Insulin Glargine', '15 units', 'SubQ', '08:00', PrimeCareTheme.colors.emeraldTeal, 'Given'),
+                  _MedicationItem('Aspirin', '81mg', 'PO', '10:00', PrimeCareTheme.colors.coralRed, 'Due Now'),
+                ]
+              ),
+               const SizedBox(height: 32),
+              Text('PRN Requests', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildPrnRequest(
+                'Maria Garcia',
+                'Acetaminophen',
+                '500mg PO for Headache (Reported 6/10)',
+                '10:15 AM'
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilterRow(String label, bool isSelected) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+       decoration: BoxDecoration(
+        color: isSelected ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05) : Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: PrimeCareTheme.typography.body.copyWith(
+               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+               color: isSelected ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.textPrimary,
+            )
+          ),
+           if (isSelected)
+            Icon(LucideIcons.check, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildClientMedicationGroup(String clientName, String location, List<_MedicationItem> medications) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+       decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Medication Administration',
-                style: TextStyle(
-                  fontFamily: 'Outfit',
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF191C1E),
-                ),
-              ),
-              Row(
-                children: [
-                  OutlinedButton.icon(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: const Color(0xFF5654A8), // Navy Indigo
-                      side: const BorderSide(color: Color(0xFF5654A8)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                    ),
-                    onPressed: () {},
-                    icon: const Icon(Icons.history),
-                    label: const Text(
-                      'MAR History',
-                      style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF006948), // Emerald Teal
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      elevation: 0,
-                    ),
-                    onPressed: () {},
-                    icon: const Icon(Icons.add),
-                    label: const Text(
-                      'Record PRN',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+               Text(location, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
             ],
           ),
-          const SizedBox(height: 32),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left Panel: Patient Summary & Alerts
-                Expanded(
-                  flex: 3,
-                  child: _buildSummaryPanel(),
-                ),
-                const SizedBox(width: 32),
-                // Right Panel: Medication Schedule
-                Expanded(
-                  flex: 7,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF2F4F6), // surface-container-low
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Scheduled Medications',
-                          style: TextStyle(
-                            fontFamily: 'Outfit',
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF191C1E),
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              _buildMedicationCard(
-                                '09:00 AM',
-                                'Metoprolol Tartrate 50mg PO BID',
-                                'Hold if HR < 60',
-                                'Pending',
-                              ),
-                              _buildMedicationCard(
-                                '09:00 AM',
-                                'Furosemide 40mg PO Daily',
-                                null,
-                                'Administered',
-                              ),
-                              _buildMedicationCard(
-                                '12:00 PM',
-                                'Acetaminophen 650mg PO PRN',
-                                'For temp > 38.5C or mild pain',
-                                'Pending',
-                              ),
-                              _buildMedicationCard(
-                                '06:00 PM',
-                                'Metoprolol Tartrate 50mg PO BID',
-                                'Hold if HR < 60',
-                                'Pending',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          const SizedBox(height: 16),
+          ...medications.map((med) => _buildMedicationRow(med)).toList(),
         ],
       ),
     );
   }
 
-  Widget _buildSummaryPanel() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Patient Info
-        Container(
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF191C1E).withOpacity(0.04),
-                blurRadius: 24,
-                offset: const Offset(0, 8),
-              ),
-            ],
-            border: Border.all(color: const Color(0xFFE0E3E5).withOpacity(0.5)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF5654A8).withOpacity(0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'A',
-                        style: TextStyle(
-                          fontFamily: 'Outfit',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF5654A8),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Arthur Dent',
-                          style: TextStyle(
-                            fontFamily: 'Outfit',
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF191C1E),
-                          ),
-                        ),
-                        Text(
-                          'MRN: 8821-42',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                            color: Color(0xFF5654A8),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Divider(color: Color(0xFFE6E8EA)),
-              ),
-              _buildInfoRow('Wgt', '82.5 kg'),
-              const SizedBox(height: 8),
-              _buildInfoRow('Allergies', 'Penicillin (Anaphylaxis)', isAlert: true),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        // Alert Card
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFF4F4), // Light red bg
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFFFDADA)),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(Icons.warning_amber_rounded, color: Color(0xFFBA1A1A), size: 24),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Missed Dose Alert',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF93000A),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '06:00 AM dose of Levothyroxine was missed. Please review and document.',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 14,
-                        color: const Color(0xFF93000A).withOpacity(0.8),
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+  Widget _buildMedicationRow(_MedicationItem med) {
+     return Padding(
+       padding: const EdgeInsets.only(bottom: 12.0),
+       child: Row(
+         children: [
+           Container(
+             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+             decoration: BoxDecoration(
+               color: med.statusColor.withOpacity(0.1),
+               borderRadius: BorderRadius.circular(4),
+             ),
+             child: Text(med.time, style: PrimeCareTheme.typography.label.copyWith(color: med.statusColor, fontWeight: FontWeight.bold)),
+           ),
+           const SizedBox(width: 12),
+           Expanded(
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 Text(med.name, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+                 Text('${med.dose} • ${med.route}', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+               ],
+             ),
+           ),
+           if (med.status == 'Due Now')
+             ElevatedButton(
+               onPressed: () {},
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                 foregroundColor: Colors.white,
+                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+               ),
+               child: const Text('Administer'),
+             )
+           else
+            Text(med.status, style: PrimeCareTheme.typography.label.copyWith(color: med.statusColor, fontWeight: FontWeight.bold)),
+         ],
+       ),
+     );
   }
 
-  Widget _buildInfoRow(String label, String value, {bool isAlert = false}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 14,
-            color: Color(0xFF6D7A72),
-          ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-            color: isAlert ? const Color(0xFFBA1A1A) : const Color(0xFF191C1E),
-          ),
-        ),
-      ],
-    );
+  Widget _buildPrnRequest(String clientName, String medication, String reason, String time) {
+     return Container(
+       padding: const EdgeInsets.all(16),
+       decoration: BoxDecoration(
+          color: PrimeCareTheme.colors.lavenderLustre.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: PrimeCareTheme.colors.lavenderLustre.withOpacity(0.3)),
+       ),
+       child: Row(
+         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         children: [
+           Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Text('$clientName - $time', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+               const SizedBox(height: 4),
+               Text(medication, style: PrimeCareTheme.typography.body),
+               Text(reason, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+            ElevatedButton(
+               onPressed: () {},
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: PrimeCareTheme.colors.lavenderLustre,
+                 foregroundColor: Colors.black87,
+               ),
+               child: const Text('Review PRN'),
+             )
+         ],
+       ),
+     );
   }
+}
 
-  Widget _buildMedicationCard(String time, String medName, String? instructions, String status) {
-    bool isAdministered = status == 'Administered';
-    Color statusColor = isAdministered ? const Color(0xFF006948) : const Color(0xFF5654A8);
-    Color statusBg = isAdministered ? const Color(0xFFE6F0EC) : const Color(0xFFE2DFFF);
+class _MedicationItem {
+  final String name;
+  final String dose;
+  final String route;
+  final String time;
+  final Color statusColor;
+  final String status;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE0E3E5).withOpacity(0.5)),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF191C1E).withOpacity(0.04),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Time Column
-          SizedBox(
-            width: 80,
-            child: Text(
-              time,
-              style: const TextStyle(
-                fontFamily: 'Outfit',
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF191C1E),
-              ),
-            ),
-          ),
-          Container(
-            width: 4,
-            height: 60,
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          // Details
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      medName,
-                      style: const TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF191C1E),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: statusBg,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        status,
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: statusColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                if (instructions != null) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    instructions,
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14,
-                      color: Color(0xFF6D7A72),
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-                const SizedBox(height: 16),
-                if (!isAdministered)
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF006948), // Emerald Teal
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          elevation: 0,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                        ),
-                        onPressed: () {},
-                        child: const Text('Administer'),
-                      ),
-                      const SizedBox(width: 12),
-                      OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: const Color(0xFF3D4A42),
-                          side: const BorderSide(color: Color(0xFFBCCAC0)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: const Text('Hold'),
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  _MedicationItem(this.name, this.dose, this.route, this.time, this.statusColor, this.status);
 }

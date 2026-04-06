@@ -1,103 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/shared/components/page_template.dart';
 
-class VitalsScreen extends ConsumerWidget {
-  const VitalsScreen({super.key});
+class RpnVitalsScreen extends ConsumerWidget {
+  const RpnVitalsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
-      title: 'Vitals & Biometrics',
-      subtitle: 'Monitor continuous telemetry and record point-of-care vital signs.',
-      headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search patients or devices...'),
-        const SizedBox(width: 16),
-        ClinicalGlassButton(
-          onPressed: () {},
-          label: 'Log Vitals',
-          icon: LucideIcons.plus,
-          isPrimary: true,
-        ),
-      ],
+      title: 'Vitals & Flowsheets',
+      subtitle: 'Monitor continuous patient metrics and clinical observations.',
       kpiCards: [
-        MetricCardData(
-          title: 'Critical Alerts',
-          value: '3',
+        KPICardData(
+          title: 'Measurements Today',
+          value: '45',
           icon: LucideIcons.activity,
-          trend: 'Immediate action req.',
-          isUp: false,
-          color: PrimeCareTheme.colors.coralRed,
+          trend: 10.0,
+          trendLabel: 'vs yesterday',
         ),
-        MetricCardData(
-          title: 'Scheduled Checks',
-          value: '22',
-          icon: LucideIcons.clipboardList,
-          trend: 'For next 4 hours',
-          isUp: true,
+        KPICardData(
+          title: 'Alerts Active',
+          value: '2',
+          icon: LucideIcons.alertCircle,
+          trend: -1.0,
+          trendLabel: 'requiring review',
         ),
-        MetricCardData(
-          title: 'Telemetry Connected',
-          value: '95%',
-          icon: LucideIcons.wifi,
-          trend: 'All systems online',
-          isUp: true,
+        KPICardData(
+          title: 'Devices Synced',
+          value: '100%',
+          icon: LucideIcons.radio,
+          trend: 0.0,
+          trendLabel: 'Bluetooth active',
         ),
       ],
       sidebarContent: [
-        _buildActiveTelemetryList(),
-      ],
-      mainContent: [
-        _buildDashboardGrid(),
-      ],
-    );
-  }
-
-  Widget _buildActiveTelemetryList() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(LucideIcons.activity, color: PrimeCareTheme.colors.navyIndigo, size: 20),
-              const SizedBox(width: 8),
-              Text('Continuous Telemetry', style: PrimeCareTheme.typography.h3),
-            ],
-          ),
-          const SizedBox(height: 16),
-          _buildTelemetryItem('John C.', 'HR: 85 bpm', LucideIcons.heart, PrimeCareTheme.colors.emeraldTeal),
-          const SizedBox(height: 12),
-          _buildTelemetryItem('Marcus A.', 'SpO2: 89%', LucideIcons.wind, PrimeCareTheme.colors.amberWarning),
-          const SizedBox(height: 12),
-          _buildTelemetryItem('Sylvia P.', 'BP: 145/95', LucideIcons.activity, PrimeCareTheme.colors.coralRed),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTelemetryItem(String patient, String metric, IconData icon, Color statusColor) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: statusColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: statusColor, size: 16),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(patient, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-              Text(metric, style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold)),
+              Text('Alerts Filter', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('Critical (Action Req)', 1, PrimeCareTheme.colors.coralRed),
+               _buildFilterRow('Warning (Monitor)', 1, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow('Normal', 43, PrimeCareTheme.colors.emeraldTeal),
+               _buildFilterRow('Missing Data', 0, PrimeCareTheme.colors.slateGray),
+            ],
+          ),
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Active Alerts', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Add Reading'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildVitalsCard(
+                 'Maria Garcia',
+                 'Blood Pressure (High)',
+                 '155 / 95 mmHg',
+                 '10 mins ago',
+                 'Re-check in 1 hour. Consider PRN medication if >160/100.',
+                 PrimeCareTheme.colors.coralRed
+               ),
+               _buildVitalsCard(
+                 'John Smith',
+                 'Blood Glucose (Low)',
+                 '3.8 mmol/L',
+                 '30 mins ago',
+                 'Provided 15g fast-acting carbohydrate.',
+                 PrimeCareTheme.colors.lavenderLustre
+               ),
+               const SizedBox(height: 32),
+               Text('Recent Normal Readings', style: PrimeCareTheme.typography.h3),
+               const SizedBox(height: 16),
+               _buildVitalsCard(
+                 'Eleanor Rigby',
+                 'Temperature',
+                 '36.8 °C',
+                 '1 hour ago',
+                 'Normal reading. Continuing scheduled observations.',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
             ],
           ),
         ),
@@ -105,104 +108,75 @@ class VitalsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildDashboardGrid() {
-    return GridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 24,
-      mainAxisSpacing: 24,
-      shrinkWrap: true,
-      childAspectRatio: 1.5,
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        _buildVitalCard(
-          title: 'Heart Rate',
-          value: '72 bpm',
-          patient: 'Eleanor Vance',
-          icon: LucideIcons.heart,
-          color: PrimeCareTheme.colors.royalPurple,
-          time: '2 mins ago',
-        ),
-        _buildVitalCard(
-          title: 'Blood Pressure',
-          value: '120/80',
-          patient: 'Eleanor Vance',
-          icon: LucideIcons.activity,
-          color: PrimeCareTheme.colors.emeraldTeal,
-          time: '5 mins ago',
-        ),
-        _buildVitalCard(
-          title: 'Temperature',
-          value: '37.8 °C',
-          patient: 'Sylvia Plath',
-          icon: LucideIcons.thermometer,
-          color: PrimeCareTheme.colors.amberWarning,
-          isWarning: true,
-          time: '12 mins ago',
-        ),
-        _buildVitalCard(
-          title: 'Oxygen Saturation',
-          value: '98%',
-          patient: 'Arthur Dent',
-          icon: LucideIcons.wind,
-          color: PrimeCareTheme.colors.navyIndigo,
-          time: '1 hour ago',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildVitalCard({
-    required String title,
-    required String value,
-    required String patient,
-    required IconData icon,
-    required Color color,
-    required String time,
-    bool isWarning = false,
-  }) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      border: isWarning ? Border.all(color: color.withOpacity(0.5)) : null,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Icon(icon, color: color, size: 20),
-                  const SizedBox(width: 8),
-                  Text(title, style: PrimeCareTheme.typography.h3),
-                ],
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
-              if (isWarning)
-                Icon(LucideIcons.alertTriangle, color: color, size: 20),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          const Spacer(),
-          Text(
-            value,
-            style: PrimeCareTheme.typography.heroTitle.copyWith(
-              color: isWarning ? color : PrimeCareTheme.colors.navyIndigo,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(LucideIcons.user, size: 14, color: PrimeCareTheme.colors.slateGray),
-                  const SizedBox(width: 4),
-                  Text(patient, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-                ],
-              ),
-              Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-            ],
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
+  }
+
+  Widget _buildVitalsCard(String clientName, String metric, String value, String time, String notes, Color statusColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: statusColor, width: 4)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(metric, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: statusColor)),
+                  ],
+                ),
+                 Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 12),
+           Row(
+             children: [
+               Text(value, style: PrimeCareTheme.typography.h1.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+               const Spacer(),
+                OutlinedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(LucideIcons.lineChart, size: 16),
+                  label: const Text('Trend'),
+                )
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(notes, style: PrimeCareTheme.typography.body),
+        ],
+      )
+     );
   }
 }

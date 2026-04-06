@@ -1,187 +1,149 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class ChiroNotesView extends ConsumerStatefulWidget {
-  const ChiroNotesView({super.key});
-
-  @override
-  ConsumerState<ChiroNotesView> createState() => _ChiroNotesViewState();
-}
-
-class _ChiroNotesViewState extends ConsumerState<ChiroNotesView> {
-  final _subjectiveController = TextEditingController();
-  final _objectiveController = TextEditingController();
-  final _assessmentController = TextEditingController();
-  final _planController = TextEditingController();
-  
-  bool _imagingReconciled = false;
+class ChiroNotesScreen extends ConsumerWidget {
+  const ChiroNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-        data: (metrics) => SingleChildScrollView(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Chiropractic Treatment Notes',
+      subtitle: 'Document MSK assessments, adjustments, and rehabilitation exercises.',
+      kpiCards: [
+        KPICardData(
+          title: 'Notes Today',
+          value: '8',
+          icon: LucideIcons.fileText,
+          trend: 1.0,
+          trendLabel: 'vs yesterday',
+        ),
+        KPICardData(
+          title: 'Initial Assessments',
+          value: '2',
+          icon: LucideIcons.userPlus,
+          trend: 0.0,
+          trendLabel: 'this week',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // PATIENT HEADER
-              _buildPatientHeader(theme),
-              const SizedBox(height: 32),
-
-              // CLINICAL VITALS HUD
-              Text('Spinal & Subluxation Baseline', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+              Text('Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(child: KpiStatCard(title: 'Subluxation', value: 'C5-C6', icon: Icons.straighten, iconColor: Colors.teal, subtitle: 'Right Fixation')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Cobb Angle', value: '12°', icon: Icons.rotate_right, iconColor: Colors.orange, subtitle: 'Thoracic Dextroscoliosis')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Pain Scale', value: '5/10', icon: Icons.personal_injury, iconColor: Colors.red, subtitle: 'Lumbar Extension')),
-                  const SizedBox(width: 16),
-                  Expanded(child: KpiStatCard(title: 'Reflexes', value: '+2', icon: Icons.flash_on, iconColor: Colors.indigo, subtitle: 'Patellar Bilaterally')),
-                ],
-              ),
-
-              const SizedBox(height: 32),
-
-              // SAFETY RECONCILIATION
-              GlassSurface(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: Row(
-                  children: [
-                    const Icon(Icons.co2, color: AppTheme.primary),
-                    const SizedBox(width: 16),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Imaging & Red Flag Review', style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text('Verify recent X-Ray/MRI reports and screen for VBAI/myelopathy symptoms before cervical adjusting.', style: TextStyle(color: Colors.blueGrey, fontSize: 12)),
-                        ],
-                      ),
-                    ),
-                    Switch.adaptive(
-                      value: _imagingReconciled, 
-                      onChanged: (v) => setState(() => _imagingReconciled = v),
-                      activeTrackColor: Colors.teal,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 32),
-
-              // SOAP NOTE EDITOR
-              Text('Adjustment Note (SOAP)', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-              const SizedBox(height: 16),
-              _buildSoapField('Subjective', 'Patient reports sharp pain radiating down right leg for past 3 days...', _subjectiveController),
-              _buildSoapField('Objective', 'Positive straight leg raise on right at 45°. Decreased L5 sensation...', _objectiveController),
-              _buildSoapField('Assessment', 'Lumbar radiculopathy secondary to L4-L5 disc involvement. Responding to flexion-distraction...', _assessmentController),
-              _buildSoapField('Plan', 'Applied Diversified adjustments to L4, L5, and Sacrum. Flexion-distraction for 10 mins. Advised ice...', _planController),
-
-              const SizedBox(height: 48),
-
-              // ACTIONS
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(key: const Key('data-status-id=clinic-chiro-chiro-action-1'), 
-                    onPressed: () => Navigator.pop(context), 
-                    child: const Text('Cancel', style: TextStyle(color: Colors.blueGrey)),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    onPressed: () {}, 
-                    icon: const Icon(Icons.draw),
-                    label: const Text('Save & Sign Chiro Note'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primary,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
+              _buildFilterRow('Initial Assessment', 2, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow('Spinal Adjustment', 6, PrimeCareTheme.colors.emeraldTeal),
+               _buildFilterRow('Re-Evaluation', 1, PrimeCareTheme.colors.lavenderLustre),
             ],
           ),
         ),
-      );
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.plus),
+                    label: const Text('Add Note'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildNoteCard(
+                 'Arthur Dent',
+                 'Initial Assessment',
+                 'May 14, 2024 • 09:00',
+                 'Patient presented with acute lower back pain (L4-L5) radiating to the right glute. Pain rated 7/10. Decreased ROM in lumbar flexion and right lateral bending. Positive SLR on right at 45 degrees. Plan: Focus on pain reduction and restoring mobility, 2x/week for 3 weeks.',
+                 PrimeCareTheme.colors.navyIndigo
+               ),
+               _buildNoteCard(
+                 'Tricia McMillan',
+                 'Spinal Adjustment',
+                 'May 14, 2024 • 10:30',
+                 'Routine adjustment. Cervical and thoracic manipulation performed (C5-C6, T3-T4). Patient reported immediate relief of neck stiffness. Prescribed at-home neck stretches (2 sets of 10, daily).',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildPatientHeader(ThemeData theme) {
-    return GlassSurface(
-      padding: const EdgeInsets.all(24),
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CircleAvatar(
-            radius: 30,
-            backgroundColor: AppTheme.primary,
-            child: Text('AD', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Arthur Dent', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                const Text('DOB: 12/05/1978 (45 Yrs) | MRN: #4489221', style: TextStyle(color: Colors.blueGrey)),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.teal.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text('ACTIVE EPISODE', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)),
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 
-  Widget _buildSoapField(String title, String hint, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
+  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, fontSize: 13)),
-          const SizedBox(height: 8),
-          TextField(
-            controller: controller,
-            maxLines: null,
-            minLines: 3,
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: TextStyle(color: Colors.blueGrey.withValues(alpha: 0.5)),
-              filled: true,
-              fillColor: Colors.white.withValues(alpha: 0.5),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              ),
-            ),
-          ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
+                ),
+                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(note, style: PrimeCareTheme.typography.body),
         ],
-      ),
-    );
+      )
+     );
   }
 }

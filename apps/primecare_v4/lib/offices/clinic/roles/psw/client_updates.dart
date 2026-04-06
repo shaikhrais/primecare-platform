@@ -1,168 +1,129 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class ClientUpdatesScreen extends ConsumerWidget {
-  const ClientUpdatesScreen({super.key});
+class PswClientUpdatesScreen extends ConsumerWidget {
+  const PswClientUpdatesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Client Updates',
-                      style: PrimeCareTheme.typography.heroTitle.copyWith(
-                        color: PrimeCareTheme.colors.navyIndigo,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Latest feed from clinical team regarding your patients.',
-                      style: PrimeCareTheme.typography.body.copyWith(
-                        color: PrimeCareTheme.colors.slateGray,
-                      ),
-                    ),
-                  ],
-                ),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  icon: LucideIcons.plus,
-                  label: 'Add Note',
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            _buildUpdateCard(
-              clientName: 'Arthur Pendelton',
-              author: 'Sarah Jenkins, RN',
-              time: '2 hours ago',
-              content: 'Patient complained of minor dizziness during morning walk. Vitals normal. Keep monitoring during afternoon shift.',
-              isUrgent: true,
-            ),
-            const SizedBox(height: 16),
-            _buildUpdateCard(
-              clientName: 'Eleanor Vance',
-              author: 'Dr. Mike Lee',
-              time: 'Yesterday, 4:30 PM',
-              content: 'Adjusted evening medication dosage. Ensure patient takes new pills with full glass of water.',
-              isUrgent: false,
-            ),
-            const SizedBox(height: 16),
-            _buildUpdateCard(
-              clientName: 'Miriam Foster',
-              author: 'Family Coordinator',
-              time: '3 days ago',
-              content: 'Daughter will be visiting tomorrow during the 1-3pm shift. Please coordinate with her regarding lunch.',
-              isUrgent: false,
-            ),
-          ],
+    return PageTemplate(
+      title: 'Care Team Updates',
+      subtitle: 'Communicate changes in client condition to nurses and care coordinators.',
+      kpiCards: [
+         KPICardData(title: 'Updates Sent', value: '3', icon: LucideIcons.messageSquare, trend: 1.0, trendLabel: 'today'),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Topic Areas', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('Condition Change', 2, PrimeCareTheme.colors.coralBlush),
+              _buildFilterRow('General Supply Need', 5, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow('Scheduling Note', 1, PrimeCareTheme.colors.lavenderLustre),
+            ],
+          ),
         ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Communication Log', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.send),
+                    label: const Text('Send New Update'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildUpdateCard(
+                 'Elena Kagan',
+                 'Condition Change',
+                 'May 14, 2024 • 11:30',
+                 'Client reported increasing dizziness when standing up this morning. Left a voicemail for RN.',
+                 PrimeCareTheme.colors.coralBlush
+               ),
+               _buildUpdateCard(
+                 'Sonia Sotomayor',
+                 'General Supply Need',
+                 'May 13, 2024 • 15:00',
+                 'Running low on adult briefs (size L). Please request more on next delivery.',
+                 PrimeCareTheme.colors.navyIndigo
+               ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
+          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+        ],
       ),
     );
   }
 
-  Widget _buildUpdateCard({
-    required String clientName,
-    required String author,
-    required String time,
-    required String content,
-    required bool isUrgent,
-  }) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      border: Border.all(
-        color: isUrgent ? PrimeCareTheme.colors.coralRed.withOpacity(0.3) : PrimeCareTheme.colors.surfaceContainerHighest,
+  Widget _buildUpdateCard(String clientName, String category, String time, String note, Color themeColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 16,
-                    backgroundColor: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
-                    child: Text(
-                      clientName.substring(0, 1),
-                      style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        clientName,
-                        style: PrimeCareTheme.typography.h3,
-                      ),
-                      Text(
-                        'By: $author',
-                        style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              if (isUrgent)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: PrimeCareTheme.colors.coralRed.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(LucideIcons.alertCircle, size: 14, color: PrimeCareTheme.colors.coralRed),
-                      const SizedBox(width: 4),
-                      Text(
-                        'Urgent',
-                        style: PrimeCareTheme.typography.label.copyWith(
-                          color: PrimeCareTheme.colors.coralRed,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              else
-                Text(
-                  time,
-                  style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+                Row(
+                  children: [
+                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    const SizedBox(width: 8),
+                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                    const SizedBox(width: 8),
+                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
+                  ],
                 ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            content,
-            style: PrimeCareTheme.typography.body.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.8),
-              height: 1.5,
-            ),
-          ),
-          if (isUrgent) ...[
-            const SizedBox(height: 12),
-            Text(
-              time,
-              style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
-            ),
-          ],
+                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+             ],
+           ),
+           const SizedBox(height: 16),
+           Text(note, style: PrimeCareTheme.typography.body),
         ],
-      ),
-    );
+      )
+     );
   }
 }

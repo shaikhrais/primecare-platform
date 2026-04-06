@@ -1,250 +1,178 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class AssignedClientsScreen extends ConsumerWidget {
-  const AssignedClientsScreen({super.key});
+class RpnAssignedClientsScreen extends ConsumerWidget {
+  const RpnAssignedClientsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: _buildClientsTable(),
-                ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 1,
-                  child: _buildPatientLoadAnalytics(),
-                ),
-              ],
-            ),
-          ],
+    return PageTemplate(
+      title: 'Assigned Clients',
+      subtitle: 'Manage your active patient load and assignments.',
+      kpiCards: [
+        KPICardData(
+          title: 'Total Active',
+          value: '18',
+          icon: LucideIcons.users,
+          trend: 2.0,
+          trendLabel: 'vs last week',
         ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Assigned Clients',
-              style: PrimeCareTheme.typography.heroTitle.copyWith(
-                color: PrimeCareTheme.colors.navyIndigo,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Manage and view your assigned patient roster and acuity levels.',
-              style: PrimeCareTheme.typography.body.copyWith(
-                color: PrimeCareTheme.colors.slateGray,
-              ),
-            ),
-          ],
+        KPICardData(
+          title: 'High Acuity',
+          value: '4',
+          icon: LucideIcons.alertCircle,
+          trend: 0.0,
+          trendLabel: 'stable',
         ),
-        SizedBox(
-          width: 300,
-          child: ClinicalSearchTextField(
-            hintText: 'Search patients...',
-          ),
+        KPICardData(
+          title: 'New Admits',
+          value: '2',
+          icon: LucideIcons.userPlus,
+          trend: 1.0,
+          trendLabel: 'this shift',
         ),
       ],
-    );
-  }
-
-  Widget _buildClientsTable() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Active Roster',
-                style: PrimeCareTheme.typography.h2.copyWith(
-                  color: PrimeCareTheme.colors.navyIndigo,
-                ),
-              ),
-              TextButton.icon(
-                onPressed: () {},
-                icon: const Icon(LucideIcons.listFilter, size: 16),
-                label: const Text('Filter'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          _buildClientRow('John Carmichael', '78', 'Wound Care Mgmt', 'Room 302', 'High Acuity', Colors.orange),
-          const Divider(height: 32, color: Colors.black12),
-          _buildClientRow('Eleanor Vance', '82', 'Catheter Maintenance', 'Room 105', 'Routine', PrimeCareTheme.colors.emeraldTeal),
-          const Divider(height: 32, color: Colors.black12),
-          _buildClientRow('Sylvia Plath', '65', 'Palliative Support', 'Home Health', 'Routine', PrimeCareTheme.colors.emeraldTeal),
-          const Divider(height: 32, color: Colors.black12),
-          _buildClientRow('Arthur Pendelton', '90', 'Medication Admin', 'Room 214', 'Routine', PrimeCareTheme.colors.emeraldTeal),
-          const Divider(height: 32, color: Colors.black12),
-          _buildClientRow('Margaret Atwood', '74', 'Post-Op Observation', 'Room 410', 'Observation', Colors.blue),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildClientRow(String name, String age, String dx, String room, String status, MaterialColor color) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          flex: 2,
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: PrimeCareTheme.typography.h3.copyWith(
-                  color: PrimeCareTheme.colors.navyIndigo,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Age: $age • $room',
-                style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
-              ),
+              Text('Units', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('North Wing', 10, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow('South Wing', 8, PrimeCareTheme.colors.lavenderLustre),
             ],
           ),
         ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            dx,
-            style: PrimeCareTheme.typography.body.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo,
-              fontWeight: FontWeight.w500,
-            ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Client Roster', style: PrimeCareTheme.typography.h2),
+                   ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.filter),
+                    label: const Text('Filter'),
+                    style: ElevatedButton.styleFrom(
+                       backgroundColor: Colors.white.withOpacity(0.1),
+                       foregroundColor: PrimeCareTheme.colors.navyIndigo,
+                       elevation: 0,
+                    ),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildClientCard(
+                 'Maria Garcia',
+                 'Room 201-A',
+                 'Diabetic Management, Hypertension',
+                 'High',
+                 PrimeCareTheme.colors.coralRed
+               ),
+               _buildClientCard(
+                 'John Smith',
+                 'Room 204-B',
+                 'Post-Op Recovery, Wound Care',
+                 'Medium',
+                 PrimeCareTheme.colors.lavenderLustre
+               ),
+               _buildClientCard(
+                 'Eleanor Rigby',
+                 'Room 205-A',
+                 'Routine Monitoring, Mobility Assist',
+                 'Low',
+                 PrimeCareTheme.colors.emeraldTeal
+               ),
+            ],
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: color.shade50,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: color.shade200),
-          ),
-          child: Text(
-            status,
-            style: PrimeCareTheme.typography.label.copyWith(
-              color: color.shade700,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(LucideIcons.chevronRight, color: PrimeCareTheme.colors.slateGray),
         ),
       ],
     );
   }
 
-  Widget _buildPatientLoadAnalytics() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'Patient Load',
-            style: PrimeCareTheme.typography.h3.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo,
-            ),
-          ),
-          const SizedBox(height: 24),
-          _buildLoadBar('High Acuity', 0.2, Colors.orange),
-          const SizedBox(height: 16),
-          _buildLoadBar('Observation', 0.15, Colors.blue),
-          const SizedBox(height: 16),
-          _buildLoadBar('Routine', 0.65, PrimeCareTheme.colors.emeraldTeal),
-          const SizedBox(height: 32),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: PrimeCareTheme.colors.surfaceContainerLow,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                Icon(LucideIcons.users, color: PrimeCareTheme.colors.emeraldTeal),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Total Patients',
-                        style: PrimeCareTheme.typography.label,
-                      ),
-                      Text(
-                        '14 Assigned',
-                        style: PrimeCareTheme.typography.h3,
-                      ),
-                    ],
-                  ),
+          Row(
+            children: [
+               Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
+            ],
           ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 
-  Widget _buildLoadBar(String label, double fill, Color color) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          height: 8,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: PrimeCareTheme.colors.slateGray.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: FractionallySizedBox(
-            alignment: Alignment.centerLeft,
-            widthFactor: fill,
-            child: Container(
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+  Widget _buildClientCard(String name, String room, String careDetails, String acuity, Color statusColor) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: statusColor, width: 4)),
+      ),
+      child: Row(
+        children: [
+           CircleAvatar(
+             radius: 24,
+             backgroundColor: statusColor.withOpacity(0.2),
+             child: Text(name[0], style: PrimeCareTheme.typography.h3.copyWith(color: statusColor)),
+           ),
+           const SizedBox(width: 16),
+           Expanded(
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                  Row(
+                    children: [
+                      Text(name, style: PrimeCareTheme.typography.h3),
+                      const SizedBox(width: 8),
+                       Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: statusColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(acuity, style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text('$room • $careDetails', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+               ],
+             )
+           ),
+           OutlinedButton(
+             onPressed: () {},
+             child: const Text('View Profile'),
+           )
+        ],
+      )
+     );
   }
 }
-

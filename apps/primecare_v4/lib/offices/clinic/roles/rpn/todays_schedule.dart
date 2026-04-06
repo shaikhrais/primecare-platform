@@ -1,230 +1,183 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/shared/components/page_template.dart';
 
-class TodaysScheduleScreen extends ConsumerWidget {
-  const TodaysScheduleScreen({super.key});
+class RpnTodaysScheduleScreen extends ConsumerWidget {
+  const RpnTodaysScheduleScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
-      title: 'Today\'s Schedule',
-      subtitle: 'Manage appointments, shift duties, patient rounds, and handoffs.',
-      headerTrailing: [
-        ClinicalGlassButton(
-          onPressed: () {},
-          label: 'Request Coverage',
-          icon: LucideIcons.userMinus,
-        ),
-        const SizedBox(width: 16),
-        ClinicalGlassButton(
-          onPressed: () {},
-          label: 'Create Block',
-          icon: LucideIcons.calendarPlus,
-          isPrimary: true,
-        ),
-      ],
+      title: 'Today\'s Clinical Schedule',
+      subtitle: 'Your assigned patient interactions and procedures for the day.',
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Total Appointments',
-          value: '8',
+          value: '14',
           icon: LucideIcons.calendar,
-          trend: 'Expected workload',
-          isUp: true,
+          trend: 0.0,
+          trendLabel: 'scheduled',
         ),
-        MetricCardData(
-          title: 'Upcoming',
-          value: '3',
-          icon: LucideIcons.clock,
-          trend: 'Next 3 hours',
-          isUp: false,
+        KPICardData(
+          title: 'Completed',
+          value: '8',
+          icon: LucideIcons.checkSquare,
+          trend: 1.0,
+          trendLabel: 'on track',
         ),
-        MetricCardData(
-          title: 'Handoffs Pending',
-          value: '1',
-          icon: LucideIcons.arrowRightLeft,
-          trend: 'Shift end at 4:00 PM',
-          isUp: false,
-          color: PrimeCareTheme.colors.amberWarning,
+         KPICardData(
+          title: 'Missed',
+          value: '0',
+          icon: LucideIcons.alertTriangle,
+          trend: 0.0,
+          trendLabel: 'today',
         ),
       ],
       sidebarContent: [
-        _buildShiftDetails(),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Schedule Filters', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              _buildFilterRow('Medication Pass', 6, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow('Wound Care', 3, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow('Vitals / Routine', 5, PrimeCareTheme.colors.lavenderLustre),
+            ],
+          ),
+        ),
       ],
       mainContent: [
-        _buildScheduleTimeline(),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text('Upcoming Events', style: PrimeCareTheme.typography.h2),
+                   OutlinedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(LucideIcons.printer),
+                    label: const Text('Print Schedule'),
+                  ),
+                 ],
+               ),
+               const SizedBox(height: 24),
+               _buildScheduleItem(
+                 '14:00',
+                 'Maria Garcia',
+                 'Wound Care - Dressing Change',
+                 'Room 201-A',
+                 PrimeCareTheme.colors.emeraldTeal,
+                 'Next'
+               ),
+               _buildScheduleItem(
+                 '15:00',
+                 'John Smith',
+                 'Medication Pass - PRN Review',
+                 'Room 204-B',
+                 PrimeCareTheme.colors.navyIndigo,
+                 'Scheduled'
+               ),
+                _buildScheduleItem(
+                 '16:30',
+                 'Eleanor Rigby',
+                 'Vitals - Comprehensive Check',
+                 'Room 205-A',
+                 PrimeCareTheme.colors.lavenderLustre,
+                 'Scheduled'
+               ),
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildShiftDetails() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildFilterRow(String label, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(LucideIcons.user, color: PrimeCareTheme.colors.navyIndigo, size: 20),
-              const SizedBox(width: 8),
-              Text('Shift Information', style: PrimeCareTheme.typography.h3),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: Icon(LucideIcons.clock, color: PrimeCareTheme.colors.slateGray),
-            title: Text('08:00 AM - 04:00 PM', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-            subtitle: Text('Day Shift', style: PrimeCareTheme.typography.label),
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: Icon(LucideIcons.mapPin, color: PrimeCareTheme.colors.slateGray),
-            title: Text('East Wing, Unit B', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-            subtitle: Text('Primary Assignment', style: PrimeCareTheme.typography.label),
-          ),
-          const SizedBox(height: 16),
-          ClinicalGlassButton(
-            onPressed: () {},
-            label: 'Start Handoff Procedure',
-            icon: LucideIcons.arrowRight,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildScheduleTimeline() {
-    return ClinicalGlassPanel(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: Text('Timeline', style: PrimeCareTheme.typography.h2),
-          ),
-          const Divider(height: 1),
-          _buildTimelineItem(
-            time: '08:00 AM',
-            title: 'Morning Handoff',
-            description: 'Received report from night shift charge nurse.',
-            isCompleted: true,
-          ),
-          _buildTimelineItem(
-            time: '09:00 AM',
-            title: 'Patient Rounds',
-            description: 'Assessments and morning vitals for East Wing.',
-            isCompleted: true,
-          ),
-          _buildTimelineItem(
-            time: '11:00 AM',
-            title: 'Wound Care',
-            description: 'Dressing change for Marcus Aurelius (Room 102B).',
-            isCompleted: true,
-          ),
-          _buildTimelineItem(
-            time: '01:00 PM',
-            title: 'Medication Administration',
-            description: 'Afternoon scheduled medications.',
-            isCurrent: true,
-          ),
-          _buildTimelineItem(
-            time: '02:30 PM',
-            title: 'Multidisciplinary Team Meeting',
-            description: 'Discuss care plan for newly admitted patient.',
-          ),
-          _buildTimelineItem(
-            time: '03:30 PM',
-            title: 'End of Shift Charting',
-            description: 'Finalize nursing notes and assessments.',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTimelineItem({
-    required String time,
-    required String title,
-    required String description,
-    bool isCompleted = false,
-    bool isCurrent = false,
-  }) {
-    final statusColor = isCompleted
-        ? PrimeCareTheme.colors.emeraldTeal
-        : (isCurrent ? PrimeCareTheme.colors.royalPurple : PrimeCareTheme.colors.slateGray);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 80,
-            child: Text(
-              time,
-              style: PrimeCareTheme.typography.body.copyWith(
-                fontWeight: FontWeight.bold,
-                color: isCompleted ? PrimeCareTheme.colors.slateGray : PrimeCareTheme.colors.navyIndigo,
-              ),
-            ),
-          ),
-          Column(
-            children: [
-              Container(
-                width: 16,
-                height: 16,
+               Container(
+                width: 12,
+                height: 12,
                 decoration: BoxDecoration(
+                  color: color,
                   shape: BoxShape.circle,
-                  color: isCompleted || isCurrent ? statusColor : Colors.transparent,
-                  border: Border.all(color: statusColor, width: 2),
                 ),
               ),
-              if (!isCompleted && !isCurrent) // Simulate timeline line for future items
-                Container(
-                  width: 2,
-                  height: 60,
-                  color: PrimeCareTheme.colors.surfaceContainerHighest,
-                ),
+              const SizedBox(width: 8),
+              Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: PrimeCareTheme.typography.h3.copyWith(
-                    color: isCompleted ? PrimeCareTheme.colors.slateGray : PrimeCareTheme.colors.navyIndigo,
-                    decoration: isCompleted ? TextDecoration.lineThrough : null,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  description,
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    color: PrimeCareTheme.colors.slateGray,
-                  ),
-                ),
-                if (isCurrent)
-                  Padding(
-                     padding: const EdgeInsets.only(top: 16),
-                     child: ClinicalGlassButton(
-                       onPressed: () {},
-                       label: 'Join / Start',
-                       icon: LucideIcons.playCircle,
-                       isPrimary: true,
-                     ),
-                  )
-              ],
-            ),
-          ),
+          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
+  }
+
+  Widget _buildScheduleItem(String time, String clientName, String task, String location, Color themeColor, String status) {
+     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
+      child: Row(
+        children: [
+           SizedBox(
+             width: 60,
+             child: Text(time, style: PrimeCareTheme.typography.h3.copyWith(color: themeColor)),
+           ),
+           Container(
+             width: 1,
+             height: 40,
+             color: PrimeCareTheme.colors.slateGray.withOpacity(0.3),
+             margin: const EdgeInsets.symmetric(horizontal: 16),
+           ),
+           Expanded(
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Text(task, style: PrimeCareTheme.typography.body),
+                      const SizedBox(width: 8),
+                      Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                      const SizedBox(width: 8),
+                      Text(location, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                    ],
+                  )
+               ],
+             )
+           ),
+           Container(
+             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+             decoration: BoxDecoration(
+               color: status == 'Next' ? themeColor.withOpacity(0.1) : PrimeCareTheme.colors.slateGray.withOpacity(0.1),
+               borderRadius: BorderRadius.circular(20),
+             ),
+             child: Text(status, style: PrimeCareTheme.typography.label.copyWith(
+               color: status == 'Next' ? themeColor : PrimeCareTheme.colors.slateGray,
+               fontWeight: FontWeight.bold
+             )),
+           )
+        ],
+      )
+     );
   }
 }
