@@ -11,7 +11,7 @@ class RpnClientHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
-      title: 'Client History',
+      title: 'Client Medical History',
       subtitle: 'Review comprehensive medical history and past treatments.',
       kpiCards: [
         KPICardData(
@@ -22,18 +22,18 @@ class RpnClientHistoryScreen extends ConsumerWidget {
           trendLabel: 'on file',
         ),
         KPICardData(
+          title: 'Active Diagnoses',
+          value: '3',
+          icon: LucideIcons.activity,
+          trend: 0.0,
+          trendLabel: 'managed',
+        ),
+        KPICardData(
           title: 'Recent Discharges',
           value: '1',
           icon: LucideIcons.logOut,
-          trend: 0.0,
-          trendLabel: 'this month',
-        ),
-        KPICardData(
-          title: 'Alerts Active',
-          value: '3',
-          icon: LucideIcons.alertCircle,
           trend: -1.0,
-          trendLabel: 'allergies & tags',
+          trendLabel: 'this month',
         ),
       ],
       sidebarContent: [
@@ -42,185 +42,320 @@ class RpnClientHistoryScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Client Selection', style: PrimeCareTheme.typography.h3),
-              const SizedBox(height: 16),
+              Text('Active Patient Roster', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 24),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search clients...',
-                  prefixIcon: const Icon(LucideIcons.search),
+                  hintText: 'Search clients by name, ID...',
+                  hintStyle: TextStyle(color: PrimeCareTheme.colors.outline),
+                  prefixIcon: Icon(LucideIcons.search, color: PrimeCareTheme.colors.primary),
+                  filled: true,
+                  fillColor: PrimeCareTheme.colors.surfaceContainerLowest,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide.none,
                   ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 ),
+                style: TextStyle(color: PrimeCareTheme.colors.onSurface),
               ),
-              const SizedBox(height: 16),
-               _buildClientListTile('Maria Garcia', 'Rm 201-A'),
+              const SizedBox(height: 24),
+               _buildClientListTile('Maria Garcia', 'Rm 201-A', isActive: true),
                _buildClientListTile('John Smith', 'Rm 204-B'),
                _buildClientListTile('Eleanor Rigby', 'Rm 205-A'),
+               _buildClientListTile('Arthur Dent', 'Rm 201-B'),
             ],
           ),
         ),
       ],
       mainContent: [
-        ClinicalGlassPanel(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             ClinicalGlassPanel(
+               padding: const EdgeInsets.all(32),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   Column(
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
-                       Text('Maria Garcia', style: PrimeCareTheme.typography.h2),
-                       Text('DOB: 1945-08-12 (78 years) • Female', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                       Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Text('Maria Garcia', style: PrimeCareTheme.typography.display.copyWith(fontSize: 32)),
+                           const SizedBox(height: 8),
+                           Text('DOB: 1945-08-12 (78 years) • Female • MRN: 8849-2A', 
+                            style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.onSurfaceVariant)
+                           ),
+                         ],
+                       ),
+                       Wrap(
+                         spacing: 8,
+                         children: [
+                           _buildAllergyTag('Penicillin', PrimeCareTheme.colors.error),
+                           _buildAllergyTag('Latex', PrimeCareTheme.colors.error),
+                         ],
+                       )
                      ],
+                   ),
+                 ],
+               ),
+             ),
+             const SizedBox(height: 32),
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text(
+                     'Chronological History',
+                     style: PrimeCareTheme.typography.h2,
                    ),
                    Row(
                      children: [
-                       _buildAllergyTag('Penicillin'),
+                       Icon(LucideIcons.filter, size: 18, color: PrimeCareTheme.colors.primary),
                        const SizedBox(width: 8),
-                       _buildAllergyTag('Latex'),
+                       Text('Filter by Type', style: TextStyle(color: PrimeCareTheme.colors.primary, fontWeight: FontWeight.bold)),
                      ],
                    )
                  ],
                ),
-               const SizedBox(height: 32),
-               Text('Past Medical History', style: PrimeCareTheme.typography.h3),
-               const SizedBox(height: 16),
-               _buildHistoryEntry(
-                 'Type 2 Diabetes Mellitus',
-                 'Diagnosed 2010',
-                 'Managed with Metformin and dietary controls. Recent HbA1c 7.2%.',
-                 LucideIcons.activity
-               ),
-               _buildHistoryEntry(
-                 'Hypertension',
-                 'Diagnosed 2015',
-                 'Controlled with Lisinopril 10mg daily.',
-                 LucideIcons.heart
-               ),
-                _buildHistoryEntry(
-                 'Total Knee Replacement (Right)',
-                 'Performed 2021',
-                 'Full recovery. Routine physical therapy completed.',
-                 LucideIcons.activitySquare
-               ),
-               const SizedBox(height: 32),
-               Text('Recent Encounters', style: PrimeCareTheme.typography.h3),
-               const SizedBox(height: 16),
-               _buildEncounterEntry(
-                 'Routine Follow-up',
-                 'May 15, 2024',
-                 'Dr. Thorne',
-                 'Vitals stable. Patient denies any new concerns. Scheduled for 3-month follow-up.'
-               ),
-               _buildEncounterEntry(
-                 'Wound Care Assessment',
-                 'May 01, 2024',
-                 'RN Sarah',
-                 'Initial assessment of minor skin tear on left forearm. Cleaned and dressed. Healing well.'
-               ),
-            ],
-          ),
+             ),
+             _buildHistoryTimelineEntry(
+               date: 'May 15, 2024',
+               time: '14:30',
+               type: 'Routine Follow-up',
+               author: 'Dr. Thorne',
+               content: 'Patient states she is feeling well. Blood pressure within normal limits (128/82). Discussed importance of maintaining low-sodium diet. Scheduled for 3-month follow-up. No changes to medication.',
+               themeColor: PrimeCareTheme.colors.tertiary,
+               icon: LucideIcons.stethoscope,
+             ),
+             _buildHistoryTimelineEntry(
+               date: 'May 01, 2024',
+               time: '09:15',
+               type: 'Wound Care Assessment',
+               author: 'RN Sarah Jenkins',
+               content: 'Initial assessment of minor skin tear on left forearm. Cleaned with saline and applied sterile dressing. Wound edges are approximated. Educated patient on signs of infection to monitor.',
+               themeColor: PrimeCareTheme.colors.primary,
+               icon: LucideIcons.activitySquare,
+             ),
+             _buildHistoryTimelineEntry(
+               date: 'April 10, 2024',
+               time: '11:00',
+               type: 'Specialist Note: Cardiology',
+               author: 'Dr. H. McCoy',
+               content: 'Echocardiogram results reviewed. Mild left ventricular hypertrophy noted, consistent with history of hypertension. Current medication regimen is adequate. Will review again in 6 months.',
+               themeColor: PrimeCareTheme.colors.secondary,
+               icon: LucideIcons.heartPulse,
+             ),
+             _buildHistoryTimelineEntry(
+               date: 'February 22, 2024',
+               time: '16:00',
+               type: 'Discharge Summary',
+               author: 'Dr. Thorne',
+               content: 'Patient discharged after brief admission for acute bronchitis. Tolerating oral antibiotics. Follow-up with primary care in 1 week.',
+               themeColor: PrimeCareTheme.colors.error,
+               icon: LucideIcons.logOut,
+               isLast: true,
+             ),
+          ],
         ),
       ],
     );
   }
 
-  Widget _buildClientListTile(String name, String details) {
-    return ListTile(
-      leading: CircleAvatar(
-        radius: 16,
-        backgroundColor: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
-        child: Text(name[0], style: TextStyle(color: PrimeCareTheme.colors.navyIndigo, fontSize: 12)),
+  Widget _buildClientListTile(String name, String details, {bool isActive = false}) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        color: isActive ? PrimeCareTheme.colors.primary.withOpacity(0.1) : Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isActive ? PrimeCareTheme.colors.primary.withOpacity(0.3) : Colors.transparent,
+        )
       ),
-      title: Text(name, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
-      subtitle: Text(details, style: TextStyle(fontSize: 12, color: PrimeCareTheme.colors.slateGray)),
-      contentPadding: EdgeInsets.zero,
-      onTap: () {},
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 20,
+          backgroundColor: isActive ? PrimeCareTheme.colors.primary : PrimeCareTheme.colors.surfaceContainerLowest,
+          child: Text(
+            name[0], 
+            style: TextStyle(
+              color: isActive ? PrimeCareTheme.colors.onPrimary : PrimeCareTheme.colors.onSurface, 
+              fontWeight: FontWeight.bold
+            )
+          ),
+        ),
+        title: Text(name, style: PrimeCareTheme.typography.h3.copyWith(fontSize: 16)),
+        subtitle: Text(details, style: TextStyle(color: PrimeCareTheme.colors.onSurfaceVariant)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        onTap: () {},
+      ),
     );
   }
 
-  Widget _buildAllergyTag(String allergy) {
+  Widget _buildAllergyTag(String allergy, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: PrimeCareTheme.colors.coralRed.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: PrimeCareTheme.colors.coralRed),
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(LucideIcons.alertTriangle, size: 14, color: PrimeCareTheme.colors.coralRed),
-          const SizedBox(width: 4),
-          Text(allergy, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.coralRed, fontWeight: FontWeight.bold)),
+          Icon(LucideIcons.alertTriangle, size: 14, color: color),
+          const SizedBox(width: 8),
+          Text(allergy, style: PrimeCareTheme.typography.label.copyWith(color: color, fontWeight: FontWeight.bold)),
         ],
       )
     );
   }
 
-  Widget _buildHistoryEntry(String condition, String date, String notes, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: PrimeCareTheme.colors.navyIndigo),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(condition, style: PrimeCareTheme.typography.h3),
-                    Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(notes, style: PrimeCareTheme.typography.body),
-              ],
-            )
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEncounterEntry(String type, String date, String provider, String notes) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        border: Border.all(color: PrimeCareTheme.colors.slateGray.withOpacity(0.2)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _buildHistoryTimelineEntry({
+    required String date,
+    required String time,
+    required String type,
+    required String author,
+    required String content,
+    required Color themeColor,
+    required IconData icon,
+    bool isLast = false,
+  }) {
+     return IntrinsicHeight(
+       child: Row(
+         crossAxisAlignment: CrossAxisAlignment.stretch,
+         children: [
+           // Timeline side
+           SizedBox(
+             width: 100,
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: [
+                 Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.onSurface, fontWeight: FontWeight.bold)),
+                 const SizedBox(height: 4),
+                 Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.onSurfaceVariant)),
+               ],
+             ),
+           ),
+           const SizedBox(width: 16),
+           // Timeline line and node
+           Column(
              children: [
-               Text(type, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
-               Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+               Container(
+                 width: 32,
+                 height: 32,
+                 decoration: BoxDecoration(
+                   color: themeColor.withOpacity(0.2),
+                   shape: BoxShape.circle,
+                 ),
+                 child: Center(
+                   child: Container(
+                     width: 12,
+                     height: 12,
+                     decoration: BoxDecoration(
+                       color: themeColor,
+                       shape: BoxShape.circle,
+                     )
+                   )
+                 )
+               ),
+               Expanded(
+                 child: isLast ? const SizedBox() : Container(
+                   width: 2,
+                   margin: const EdgeInsets.symmetric(vertical: 8),
+                   decoration: BoxDecoration(
+                     gradient: LinearGradient(
+                       begin: Alignment.topCenter,
+                       end: Alignment.bottomCenter,
+                       colors: [
+                         themeColor.withOpacity(0.5),
+                         PrimeCareTheme.colors.surfaceContainerHighest,
+                       ]
+                     )
+                   ),
+                 ),
+               ),
              ],
            ),
-           const SizedBox(height: 4),
-           Text('Provider: $provider', style: TextStyle(fontSize: 12, color: PrimeCareTheme.colors.navyIndigo)),
-           const SizedBox(height: 8),
-           Text(notes, style: PrimeCareTheme.typography.body),
-        ],
-      )
-    );
+           const SizedBox(width: 24),
+           // Timeline Content
+           Expanded(
+             child: Container(
+               margin: const EdgeInsets.only(bottom: 32),
+               decoration: BoxDecoration(
+                 color: PrimeCareTheme.colors.surfaceContainerLowest,
+                 borderRadius: BorderRadius.circular(24),
+                 boxShadow: [
+                   BoxShadow(
+                     color: themeColor.withOpacity(0.03),
+                     blurRadius: 20,
+                     offset: const Offset(0, 10),
+                   ),
+                 ],
+               ),
+               child: ClinicalGlassPanel(
+                 padding: const EdgeInsets.all(24),
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Expanded(
+                           child: Row(
+                             children: [
+                               Icon(icon, size: 20, color: themeColor),
+                               const SizedBox(width: 12),
+                               Expanded(child: Text(type, style: PrimeCareTheme.typography.h3)),
+                             ],
+                           ),
+                         ),
+                         Container(
+                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                           decoration: BoxDecoration(
+                             color: PrimeCareTheme.colors.surfaceContainerHighest,
+                             borderRadius: BorderRadius.circular(12),
+                           ),
+                           child: Text(
+                             'Author: $author', 
+                             style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.onSurfaceVariant)
+                           ),
+                         )
+                       ],
+                     ),
+                     const SizedBox(height: 16),
+                     Text(
+                       content,
+                       style: PrimeCareTheme.typography.body.copyWith(
+                         color: PrimeCareTheme.colors.onSurfaceVariant,
+                         height: 1.6,
+                       )
+                     ),
+                     const SizedBox(height: 16),
+                     Row(
+                       children: [
+                         TextButton.icon(
+                           onPressed: () {},
+                           icon: Icon(LucideIcons.fileText, size: 16, color: PrimeCareTheme.colors.primary),
+                           label: Text('View Full Report', style: TextStyle(color: PrimeCareTheme.colors.primary)),
+                           style: TextButton.styleFrom(
+                             padding: EdgeInsets.zero,
+                           ),
+                         )
+                       ],
+                     )
+                   ],
+                 )
+               ),
+             ),
+           )
+         ],
+       ),
+     );
   }
 }

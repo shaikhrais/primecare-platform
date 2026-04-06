@@ -12,96 +12,124 @@ class RpnIncidentReportsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Incident Reports',
-      subtitle: 'Document and track clinical incidents and near misses.',
+      subtitle: 'Log, track, and review clinical incidents and near misses.',
       kpiCards: [
         KPICardData(
-          title: 'Reports Filed',
-          value: '2',
-          icon: LucideIcons.fileText,
+          title: 'Total Incidents',
+          value: '4',
+          icon: LucideIcons.fileWarning,
           trend: 0.0,
           trendLabel: 'this month',
         ),
         KPICardData(
-          title: 'Awaiting Sign-off',
+          title: 'Critical Severity',
           value: '1',
-          icon: LucideIcons.clock,
+          icon: LucideIcons.alertTriangle,
           trend: 1.0,
-          trendLabel: 'from RN/Manager',
+          trendLabel: 'requires action',
         ),
         KPICardData(
-          title: 'Closed Incidents',
-          value: '45',
+          title: 'Resolved',
+          value: '3',
           icon: LucideIcons.checkCircle,
-          trend: 5.0,
-          trendLabel: 'YTD',
+          trend: 0.0,
+          trendLabel: 'closed status',
         ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
           padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Categories', style: PrimeCareTheme.typography.h3),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      PrimeCareTheme.colors.primary,
+                      PrimeCareTheme.colors.primaryContainer,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(LucideIcons.plus, color: Colors.white),
+                  label: const Text('File New Report', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Text('Filter by Status', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Fall / Injury', 1, PrimeCareTheme.colors.coralRed),
-               _buildFilterRow('Medication Error', 0, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Near Miss', 1, PrimeCareTheme.colors.lavenderLustre),
-               _buildFilterRow('Behavioural', 0, PrimeCareTheme.colors.slateGray),
+              _buildFilterOption('Under Investigation', 1, PrimeCareTheme.colors.secondary),
+              _buildFilterOption('Requires Review', 0, PrimeCareTheme.colors.error),
+              _buildFilterOption('Closed / Resolved', 3, PrimeCareTheme.colors.tertiary),
             ],
           ),
         ),
       ],
       mainContent: [
-        ClinicalGlassPanel(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Reports', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(LucideIcons.filePlus),
-                    label: const Text('New Report'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PrimeCareTheme.colors.coralRed,
-                      foregroundColor: Colors.white,
-                    ),
-                  ),
-                 ],
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+               child: Text(
+                 'Recent Incident Reports',
+                 style: PrimeCareTheme.typography.h2,
                ),
-               const SizedBox(height: 24),
-               _buildIncidentCard(
-                 'IR-2024-089',
-                 'Maria Garcia',
-                 'Fall / Injury',
-                 'May 14, 2024 • 14:30',
-                 'Client found on floor beside bed. Stated she slipped while reaching for water. No apparent injuries, neuro vitals stable. RN notified and physician informed.',
-                 PrimeCareTheme.colors.coralRed,
-                 'Awaiting Sign-off'
-               ),
-               _buildIncidentCard(
-                 'IR-2024-081',
-                 'Eleanor Rigby',
-                 'Near Miss',
-                 'May 02, 2024 • 09:15',
-                 'Incorrect medication dosage dispensed from pharmacy. Caught during MAR verification prior to administration. Pharmacy contacted and correct dose obtained.',
-                 PrimeCareTheme.colors.lavenderLustre,
-                 'Closed'
-               ),
-            ],
-          ),
+             ),
+             _buildIncidentCard(
+               incidentId: 'INC-2024-089',
+               type: 'Medication Administration Error',
+               patientName: 'Arthur Dent',
+               location: 'Room 201-B',
+               date: 'Today, 11:30 AM',
+               summary: 'Incorrect dosage of Lisinopril prepared. Error caught globally during secondary check. No medication administered to patient.',
+               status: 'Under Investigation',
+               severity: 'Critical',
+               themeColor: PrimeCareTheme.colors.error,
+             ),
+             const SizedBox(height: 16),
+             _buildIncidentCard(
+               incidentId: 'INC-2024-085',
+               type: 'Patient Fall (Unwitnessed)',
+               patientName: 'Maria Garcia',
+               location: 'Bathroom 201',
+               date: 'Yesterday, 02:15 AM',
+               summary: 'Patient found on bathroom floor. Denies pain or hitting head. Vitals within normal limits. Post-fall protocol initiated.',
+               status: 'Resolved',
+               severity: 'Moderate',
+               themeColor: PrimeCareTheme.colors.secondary,
+             ),
+             const SizedBox(height: 16),
+             _buildIncidentCard(
+               incidentId: 'INC-2024-081',
+               type: 'Equipment Failure',
+               patientName: 'Ward-Wide',
+               location: 'IV Pump Station',
+               date: 'May 10, 09:00 AM',
+               summary: 'Infusion pump #1224 failed self-test during setup. Tagged and removed from service. Backup pump utilized without delay in care.',
+               status: 'Resolved',
+               severity: 'Low',
+               themeColor: PrimeCareTheme.colors.tertiary,
+             ),
+          ],
         ),
       ],
     );
   }
 
-  Widget _buildFilterRow(String label, int count, Color color) {
+  Widget _buildFilterOption(String label, int count, Color color) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -115,72 +143,140 @@ class RpnIncidentReportsScreen extends ConsumerWidget {
                   shape: BoxShape.circle,
                 ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: PrimeCareTheme.colors.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.onSurface,
+            )),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildIncidentCard(String id, String clientName, String category, String time, String description, Color highlightColor, String status) {
-     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
+  Widget _buildIncidentCard({
+    required String incidentId,
+    required String type,
+    required String patientName,
+    required String location,
+    required String date,
+    required String summary,
+    required String status,
+    required String severity,
+    required Color themeColor,
+  }) {
+    final bool isCritical = severity == 'Critical';
+    
+    return Container(
       decoration: BoxDecoration(
-        color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(16),
-        border: Border(left: BorderSide(color: highlightColor, width: 4)),
+        color: PrimeCareTheme.colors.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          if (isCritical)
+            BoxShadow(
+              color: themeColor.withOpacity(0.15),
+              blurRadius: 48,
+              offset: const Offset(0, 8),
+            )
+          else
+            BoxShadow(
+              color: PrimeCareTheme.colors.surface.withOpacity(0.6),
+              blurRadius: 32,
+              offset: const Offset(0, 16),
+            ),
+        ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
+      child: ClinicalGlassPanel(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Row(
                   children: [
-                    Text(id, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
-                    const SizedBox(width: 12),
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: themeColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(LucideIcons.alertTriangle, size: 14, color: themeColor),
+                          const SizedBox(width: 8),
+                          Text(severity.toUpperCase(), style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(incidentId, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.outline)),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: highlightColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: highlightColor, fontWeight: FontWeight.bold)),
-                )
-             ],
-           ),
-           const SizedBox(height: 12),
-           Row(
-             children: [
-                Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
-                const SizedBox(width: 4),
-                Text(category, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                const SizedBox(width: 16),
-                Icon(LucideIcons.calendar, size: 14, color: PrimeCareTheme.colors.slateGray),
-                const SizedBox(width: 4),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 12),
-           Text(description, style: PrimeCareTheme.typography.body),
-           const SizedBox(height: 16),
-           Align(
-             alignment: Alignment.centerRight,
-             child: OutlinedButton(
-                onPressed: () {},
-                child: const Text('View Full Report'),
+                Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.outline)),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Text(type, style: PrimeCareTheme.typography.h3.copyWith(fontSize: 20)),
+            const SizedBox(height: 8),
+            Row(
+               children: [
+                 Icon(LucideIcons.user, size: 16, color: PrimeCareTheme.colors.secondary),
+                 const SizedBox(width: 8),
+                 Text(patientName, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.secondary)),
+                 const SizedBox(width: 12),
+                 Text('•', style: TextStyle(color: PrimeCareTheme.colors.outline)),
+                 const SizedBox(width: 12),
+                 Icon(LucideIcons.mapPin, size: 16, color: PrimeCareTheme.colors.outline),
+                 const SizedBox(width: 8),
+                 Text(location, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.outline)),
+               ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              summary,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.onSurfaceVariant,
+                height: 1.6,
               )
-           )
-        ],
-      )
-     );
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: PrimeCareTheme.colors.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(LucideIcons.activity, size: 14, color: PrimeCareTheme.colors.onSurface),
+                      const SizedBox(width: 8),
+                      Text('Status: $status', style: PrimeCareTheme.typography.label),
+                    ],
+                  ),
+                ),
+                TextButton.icon(
+                  onPressed: () {},
+                  icon: Icon(LucideIcons.arrowRight, size: 16, color: PrimeCareTheme.colors.primary),
+                  label: Text('View Details', style: TextStyle(color: PrimeCareTheme.colors.primary, fontWeight: FontWeight.bold)),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
