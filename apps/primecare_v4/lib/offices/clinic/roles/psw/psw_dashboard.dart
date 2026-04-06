@@ -77,11 +77,11 @@ class PswDashboard extends ConsumerWidget {
                               padding: const EdgeInsets.all(24),
                               child: Column(
                                 children: [
-                                  _buildCareRow('Eleanor Rigby', 'Bathing & Grooming', 'READY', '14:30', isNext: true),
+                                  _buildCareRow('Arthur Dent', 'Bathing & Grooming - West Wing', 'READY', '14:30', isNext: true),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildCareRow('John Smith', 'Meal Prep (Low Sodium)', 'UPCOMING', '16:00'),
+                                  _buildCareRow('Sarah Jenkins', 'Meal Prep (Low Sodium) - East Wing', 'UPCOMING', '16:00'),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildCareRow('Martha Wayne', 'Ambulation / Walking Support', 'UPCOMING', '18:00'),
+                                  _buildCareRow('Elena Rodriguez', 'Ambulation / Walking Support - South Wing', 'UPCOMING', '18:00'),
                                 ],
                               ),
                             ),
@@ -176,6 +176,28 @@ class PswDashboard extends ConsumerWidget {
               Text(status, style: TextStyle(color: isNext ? Colors.orange : Colors.teal, fontSize: 11, fontWeight: FontWeight.bold)),
             ],
           ),
+          if (isNext) ...[
+            const SizedBox(width: 16),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppTheme.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                elevation: 0,
+              ),
+              child: const Text('Start Visit', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.bold)),
+            )
+          ] else ...[
+            const SizedBox(width: 16),
+            OutlinedButton(
+               onPressed: null,
+               style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+               ),
+               child: const Text('Upcoming', style: TextStyle(fontFamily: 'Inter', color: Colors.blueGrey)),
+            )
+          ]
         ],
       ),
     );

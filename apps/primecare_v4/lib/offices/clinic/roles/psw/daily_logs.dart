@@ -5,8 +5,8 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
-class DailyLogsView extends ConsumerWidget {
-  const DailyLogsView({super.key});
+class DailyLogsScreen extends ConsumerWidget {
+  const DailyLogsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

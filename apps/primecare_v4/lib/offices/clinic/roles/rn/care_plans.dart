@@ -1,169 +1,339 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/audit_log_tile.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
 
-class CarePlansView extends ConsumerWidget {
+class CarePlansView extends StatelessWidget {
   const CarePlansView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-        data: (metrics) => SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // ACTIVE PATIENT LIST
-              Text('Active Care Tracks', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-              const SizedBox(height: 16),
-              _buildCarePlanCard(
-                context,
-                'Arthur Dent',
-                'Post-Op Recovery (Cardiac)',
-                '75%',
-                Colors.teal,
-                ['Wound Healing', 'Mobilization Tier 2', 'Dietary Sync'],
-              ),
-              const SizedBox(height: 16),
-              _buildCarePlanCard(
-                context,
-                'Ford Prefect',
-                'Chronic Pain Management',
-                '40%',
-                Colors.orange,
-                ['Physiotherapy Lvl 1', 'Medication Adjustment', 'Mental Health Support'],
-              ),
-              
-              const SizedBox(height: 32),
-
-              // RECENT PLAN UPDATES
-              Text('Care Navigation Logs', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-              const SizedBox(height: 16),
-              GlassSurface(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    AuditLogTile(
-                      title: 'Goal Achieved: Stage 1 Mobilization', 
-                      subtitle: 'Arthur Dent successfully moved 50m with walker.', 
-                      timestamp: '2h ago', 
-                      icon: Icons.check_circle_outline, 
-                      iconColor: Colors.teal
-                    ),
-                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                    AuditLogTile(
-                      title: 'Plan Modified: Nutritional Track', 
-                      subtitle: 'Ford Prefect diet updated to Low Sodium by Dietitian.', 
-                      timestamp: 'Yesterday', 
-                      icon: Icons.edit_note, 
-                      iconColor: Colors.orange
-                    ),
-                  ],
+              const Text(
+                'Active Care Plans',
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF191C1E),
                 ),
               ),
-
-              const SizedBox(height: 48),
-              
-              // GLOBAL ACTIONS
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: () {}, 
-                  icon: const Icon(Icons.add_task),
-                  label: const Text('Initiate New Care Track'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.all(20),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF006948), // Emerald Teal
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  elevation: 0,
+                ),
+                onPressed: () {},
+                icon: const Icon(Icons.add),
+                label: const Text(
+                  'New Care Plan',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ),
             ],
           ),
-        ),
-      );
+          const SizedBox(height: 32),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return _buildCarePlanCard(index);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
-  Widget _buildCarePlanCard(BuildContext context, String name, String track, String progress, Color color, List<String> goals) {
-    return GlassSurface(
-      padding: const EdgeInsets.all(24),
+  Widget _buildCarePlanCard(int index) {
+    // Dummy Data varied by index
+    final names = ['Arthur Dent', 'Ford Prefect', 'Trillian Astra'];
+    final mrns = ['8821-42', '8821-43', '8821-44'];
+    final diagnoses = ['Post-Op Recovery (Cardiac)', 'Chronic Pain Management', 'Hypertension Protocol'];
+    final progresses = [0.78, 0.40, 0.92];
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF191C1E).withOpacity(0.04),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
+        ],
+        border: Border.all(color: const Color(0xFFE0E3E5).withOpacity(0.5)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: color.withValues(alpha: 0.1),
-                child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold)),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          // Header Section
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: Color(0xFFE6E8EA))),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
-                    Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(track, style: const TextStyle(color: Colors.blueGrey, fontSize: 13)),
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF006948).withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          names[index][0],
+                          style: const TextStyle(
+                            fontFamily: 'Outfit',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF006948),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          names[index],
+                          style: const TextStyle(
+                            fontFamily: 'Outfit',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF191C1E),
+                          ),
+                        ),
+                        Text(
+                          'MRN: ${mrns[index]} • ${diagnoses[index]}',
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            color: Color(0xFF5654A8), // Navy Indigo
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(progress, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 18)),
-                  const Text('COMPLETION', style: TextStyle(color: Colors.blueGrey, fontSize: 10, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ],
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.more_vert, color: Color(0xFF3D4A42)),
+                )
+              ],
+            ),
           ),
-          const SizedBox(height: 20),
-          LinearProgressIndicator(
-            value: double.parse(progress.replaceAll('%', '')) / 100.0,
-            backgroundColor: color.withValues(alpha: 0.1),
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-            minHeight: 8,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          const SizedBox(height: 24),
-          const Text('Top Priority Goals', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey)),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            children: goals.map((goal) => Chip(
-              label: Text(goal, style: const TextStyle(fontSize: 11)),
-              backgroundColor: Colors.white.withValues(alpha: 0.5),
-              side: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
-              padding: EdgeInsets.zero,
-            )).toList(),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              const Spacer(),
-              TextButton(key: const Key('data-status-id=clinic-rn-care-action-1'), 
-                onPressed: () {}, 
-                child: const Text('View Full History', style: TextStyle(fontSize: 13)),
-              ),
-              const SizedBox(width: 8),
-              ElevatedButton(key: const Key('data-status-id=clinic-rn-care-action-2'), 
-                onPressed: () {}, 
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primary.withValues(alpha: 0.1),
-                  foregroundColor: AppTheme.primary,
-                  elevation: 0,
+          
+          // Body Section
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Goals & Progress
+                Expanded(
+                  flex: 5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Goal Completion',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Color(0xFF3D4A42),
+                            ),
+                          ),
+                          Text(
+                            '${(progresses[index] * 100).toInt()}%',
+                            style: const TextStyle(
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Color(0xFF006948),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: LinearProgressIndicator(
+                          value: progresses[index],
+                          backgroundColor: const Color(0xFFE6F0EC),
+                          valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF006948)),
+                          minHeight: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Active Goals',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Color(0xFF5654A8),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildGoalItem('Mobilize 50m without assistance', true),
+                      _buildGoalItem('Maintain O2 Sat > 94%', false),
+                      _buildGoalItem('Report pain < 4/10', true),
+                    ],
+                  ),
                 ),
-                child: const Text('Modify Plan', style: TextStyle(fontSize: 13)),
+                const SizedBox(width: 48),
+                
+                // Interventions
+                Expanded(
+                  flex: 5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Nursing Interventions',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Color(0xFF5654A8),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildInterventionItem('Wound Care Q4H', Icons.local_hospital),
+                      _buildInterventionItem('Pain Assessment', Icons.monitor_heart),
+                      _buildInterventionItem('Incentive Spirometry Q1H', Icons.air),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          // Footer / Outcomes
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            decoration: const BoxDecoration(
+              color: Color(0xFFF2F4F6),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(24),
+                bottomRight: Radius.circular(24),
               ),
-            ],
-          )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.trending_down, color: Color(0xFF006948), size: 18),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'Pain Score Trending: 3/10',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: Color(0xFF006948),
+                      ),
+                    ),
+                  ],
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Review Plan',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF5654A8),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGoalItem(String title, bool isMet) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            isMet ? Icons.check_circle : Icons.radio_button_unchecked,
+            size: 20,
+            color: isMet ? const Color(0xFF006948) : const Color(0xFFBCCAC0),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: const Color(0xFF191C1E),
+                decoration: isMet ? TextDecoration.lineThrough : null,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInterventionItem(String title, IconData icon) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F9FB),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFE6E8EA)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: const Color(0xFF5654A8)),
+          const SizedBox(width: 12),
+          Text(
+            title,
+            style: const TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Color(0xFF191C1E),
+            ),
+          ),
         ],
       ),
     );
