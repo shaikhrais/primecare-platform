@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
-import '../../../../components/layouts/master_layout.dart';
+import '../../../../components/page_template.dart';
+import '../../../../components/clinical_glass.dart';
 
-class UsaLayout extends StatelessWidget {
-  final Widget child;
-  const UsaLayout({super.key, required this.child});
+class UsaLayoutScreen extends StatelessWidget {
+  const UsaLayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MasterLayout(shellType: AppShellType.provider, child: child);
+    return PageTemplate(
+      title: 'USA Expansion Hub',
+      subtitle: 'Centralized tools and metrics for the US Expansion territory.',
+      kpiCards: const [
+        KPIConfig(label: 'Active Facilities', value: '12', trend: '+2', color: Colors.blue),
+        KPIConfig(label: 'Compliance Rate', value: '100%', trend: 'Perfect', color: Colors.green),
+      ],
+      sections: [
+        ClinicalGlass(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Navigation & Setup', style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 16),
+              const Text('This shell wraps all other US Expansion management screens...'),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
