@@ -54,7 +54,7 @@ class PrimeCareTheme {
   static const Color onSurfaceVariant = Color(0xFF40484A);
   static const Color outline = Color(0xFF70787A);
   static const Color outlineVariant = Color(0xFFBFC8CA);
-  
+
   static const Color textPrimary = Color(0xFF191C1B);
 
   // Expose legacy colors on PrimeCareTheme directly
@@ -69,28 +69,75 @@ class PrimeCareTheme {
   static const Color royalPurple = Color(0xFF381E72);
   static const Color brownSolid = Color(0xFF795548);
 
-
   // Material Typography (Flutter defaults approximate)
-  static const TextStyle displayLarge = TextStyle(fontSize: 57, fontWeight: FontWeight.normal);
-  static const TextStyle displayMedium = TextStyle(fontSize: 45, fontWeight: FontWeight.normal);
-  static const TextStyle displaySmall = TextStyle(fontSize: 36, fontWeight: FontWeight.normal);
-  static const TextStyle display = TextStyle(fontSize: 36, fontWeight: FontWeight.normal);
-  
-  static const TextStyle headlineLarge = TextStyle(fontSize: 32, fontWeight: FontWeight.bold);
-  static const TextStyle headlineMedium = TextStyle(fontSize: 28, fontWeight: FontWeight.w600);
-  static const TextStyle headlineSmall = TextStyle(fontSize: 24, fontWeight: FontWeight.w600);
-  
-  static const TextStyle titleLarge = TextStyle(fontSize: 22, fontWeight: FontWeight.w500);
-  static const TextStyle titleMedium = TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
-  static const TextStyle titleSmall = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+  static const TextStyle displayLarge = TextStyle(
+    fontSize: 57,
+    fontWeight: FontWeight.normal,
+  );
+  static const TextStyle displayMedium = TextStyle(
+    fontSize: 45,
+    fontWeight: FontWeight.normal,
+  );
+  static const TextStyle displaySmall = TextStyle(
+    fontSize: 36,
+    fontWeight: FontWeight.normal,
+  );
+  static const TextStyle display = TextStyle(
+    fontSize: 36,
+    fontWeight: FontWeight.normal,
+  );
 
-  static const TextStyle bodyLarge = TextStyle(fontSize: 16, fontWeight: FontWeight.normal);
-  static const TextStyle bodyMedium = TextStyle(fontSize: 14, fontWeight: FontWeight.normal);
-  static const TextStyle bodySmall = TextStyle(fontSize: 12, fontWeight: FontWeight.normal);
+  static const TextStyle headlineLarge = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle headlineMedium = TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.w600,
+  );
+  static const TextStyle headlineSmall = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+  );
 
-  static const TextStyle labelLarge = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
-  static const TextStyle labelMedium = TextStyle(fontSize: 12, fontWeight: FontWeight.w500);
-  static const TextStyle labelSmall = TextStyle(fontSize: 11, fontWeight: FontWeight.w500);
+  static const TextStyle titleLarge = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle titleMedium = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle titleSmall = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle bodyLarge = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  );
+  static const TextStyle bodyMedium = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+  );
+  static const TextStyle bodySmall = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const TextStyle labelLarge = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle labelMedium = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle labelSmall = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+  );
 }
 
 class _PrimeCareColors {
@@ -103,7 +150,7 @@ class _PrimeCareColors {
   Color get surfaceContainerLowest => PrimeCareTheme.surfaceContainerLowest;
   Color get coralRed => PrimeCareTheme.coralRed;
   Color get amberWarning => PrimeCareTheme.amberWarning;
-  
+
   Color get lavenderLustre => PrimeCareTheme.lavenderLustre;
   Color get cloudGray => PrimeCareTheme.cloudGray;
   Color get coralBlush => PrimeCareTheme.coralBlush;

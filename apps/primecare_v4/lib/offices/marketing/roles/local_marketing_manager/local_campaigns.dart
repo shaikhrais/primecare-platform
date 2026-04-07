@@ -1,208 +1,218 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class LocalCampaigns extends ConsumerWidget {
-  const LocalCampaigns({super.key});
+class LocalCampaignsScreen extends ConsumerWidget {
+  const LocalCampaignsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Local Marketing & Regional Growth',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Orchestrating neighborhood campaigns, clinic lead generation, and local brand presence.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // LOCAL MKTG KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
-                            .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Local Campaigns
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Active Regional Campaigns',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildCampaignRow(
-                                    'Brampton: Healthy Aging',
-                                    'Door-to-Door / Flyers',
-                                    'ACTIVE',
-                                    '342 Leads',
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildCampaignRow(
-                                    'Toronto: Post-Op Care',
-                                    'Local Pharmacy Ads',
-                                    'ACTIVE',
-                                    '124 Leads',
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildCampaignRow(
-                                    'Vaughan: Mobility Hub',
-                                    'Google Maps / Local',
-                                    'PAUSED',
-                                    '12 Leads',
-                                    isPaused: true,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+    return PageTemplate(
+      title: 'Regional Campaigns Heatmap',
+      subtitle: 'Orchestrating neighborhood campaigns, clinic lead generation, and local brand presence.',
+      headerTrailing: Row(
+        children: [
+          ClinicalGlassButton(
+            onPressed: () {},
+            icon: LucideIcons.download,
+            label: 'Export Data',
+            isPrimary: false,
+          ),
+          const SizedBox(width: 16),
+          ClinicalGlassButton(
+            onPressed: () {},
+            icon: LucideIcons.plus,
+            label: 'New Local Campaign',
+            isPrimary: true,
+          ),
+        ],
+      ),
+      kpiCards: [
+        KPICardData(
+          title: 'Local Leads',
+          value: '4,208',
+          icon: LucideIcons.users,
+          trend: 8.4,
+          trendLabel: 'vs last month',
+          color: PrimeCareTheme.colors.navyIndigo,
+        ),
+        KPICardData(
+          title: 'Region Reach',
+          value: '1.2M',
+          icon: LucideIcons.eye,
+          trend: 2.1,
+          trendLabel: 'vs last month',
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+        KPICardData(
+          title: 'Avg CPL',
+          value: '\$82',
+          icon: LucideIcons.dollarSign,
+          trend: -12.0,
+          trendLabel: 'vs target',
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+        KPICardData(
+          title: 'Active Campaigns',
+          value: '14',
+          icon: LucideIcons.flag,
+          trend: 0.0,
+          trendLabel: 'running',
+          color: PrimeCareTheme.colors.slateGray,
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: EdgeInsets.zero,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Campaign Performance Heatmap',
+                      style: PrimeCareTheme.typography.h3.copyWith(
+                        color: Colors.white,
                       ),
-
-                      const SizedBox(width: 24),
-
-                      // RIGHT: Market Logs
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Local Growth Feed',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: metrics.recentActivity
-                                    .map(
-                                      (log) => Column(
-                                        children: [
-                                          AuditLogTile(
-                                            title: log.title,
-                                            subtitle: log.subtitle,
-                                            timestamp: log.timestamp,
-                                            icon: _getActivityIcon(log.icon),
-                                            iconColor: _getStatusColor(
-                                              log.color,
-                                            ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.blueGrey,
-                                            height: 16,
-                                            thickness: 0.1,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          LucideIcons.flame,
+                          color: PrimeCareTheme.colors.emeraldTeal,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'High Lead Density',
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: PrimeCareTheme.colors.emeraldTeal,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 400,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(24),
+                    bottomRight: Radius.circular(24),
+                  ),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                      'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1200',
+                    ),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black54,
+                      BlendMode.darken,
+                    ),
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        LucideIcons.globe,
+                        size: 48,
+                        color: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.8),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Geospatial Heatmap Rendering...',
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
                         ),
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Active Regional Campaigns',
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
+              const SizedBox(height: 24),
+              _buildCampaignRow(
+                'Brampton: Healthy Aging',
+                'Door-to-Door / Flyers',
+                'ACTIVE',
+                '342 Leads',
+              ),
+              const Divider(color: Colors.white12, height: 24),
+              _buildCampaignRow(
+                'Toronto: Post-Op Care',
+                'Local Pharmacy Ads',
+                'ACTIVE',
+                '124 Leads',
+              ),
+              const Divider(color: Colors.white12, height: 24),
+              _buildCampaignRow(
+                'Vaughan: Mobility Hub',
+                'Google Maps / Local',
+                'PAUSED',
+                '12 Leads',
+                isPaused: true,
+              ),
 
-  Widget _buildKpi(
-    double width,
-    String title,
-    String value,
-    IconData icon,
-    Color color, [
-    String? subtitle,
-  ]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(
-        title: title,
-        value: value,
-        subtitle: subtitle,
-        icon: icon,
-        iconColor: color,
-      ),
+              const SizedBox(height: 48),
+
+              Text(
+                'Local Growth Feed',
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildFeedItem(
+                time: '14:32',
+                action: 'Campaign Launched',
+                target: 'Brampton North Expansion',
+                isSuccess: true,
+              ),
+              _buildFeedLine(),
+              _buildFeedItem(
+                time: '11:15',
+                action: 'Budget Alert',
+                target: 'Toronto: Post-Op Care at 90%',
+                isSuccess: false,
+              ),
+              _buildFeedLine(),
+              _buildFeedItem(
+                time: '09:00',
+                action: 'Milestone Reached',
+                target: '100th Lead in Vaughan',
+                isSuccess: true,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -213,103 +223,134 @@ class LocalCampaigns extends ConsumerWidget {
     String performance, {
     bool isPaused = false,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: isPaused
-                ? Colors.blueGrey.withValues(alpha: 0.1)
-                : AppTheme.primary.withValues(alpha: 0.1),
-            child: Icon(
-              Icons.room_outlined,
-              color: isPaused ? Colors.blueGrey : AppTheme.primary,
-              size: 20,
-            ),
+    Color iconColor = isPaused ? PrimeCareTheme.colors.slateGray : PrimeCareTheme.colors.emeraldTeal;
+    
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: iconColor.withOpacity(0.1),
+            shape: BoxShape.circle,
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  type,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
-                ),
-              ],
-            ),
+          child: Icon(
+            LucideIcons.store,
+            color: iconColor,
+            size: 20,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                performance,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isPaused ? Colors.blueGrey : Colors.teal,
+                title,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                status,
-                style: const TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.1,
-                  color: Colors.blueGrey,
+                type,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
               ),
             ],
           ),
-        ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              performance,
+              style: PrimeCareTheme.typography.body.copyWith(
+                fontWeight: FontWeight.bold,
+                color: iconColor,
+              ),
+            ),
+            Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+                fontSize: 10,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeedLine() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 19),
+      child: Container(
+        height: 24,
+        width: 2,
+        color: PrimeCareTheme.colors.surfaceContainerHighest,
       ),
     );
   }
 
-  IconData _getIcon(String title) {
-    if (title.contains('Leads')) return Icons.person_add_alt_1_outlined;
-    if (title.contains('Share')) return Icons.pie_chart_outline;
-    if (title.contains('CPL')) return Icons.payments_outlined;
-    if (title.contains('Campaign')) return Icons.campaign_outlined;
-    return Icons.insights;
-  }
+  Widget _buildFeedItem({
+    required String time,
+    required String action,
+    required String target,
+    required bool isSuccess,
+  }) {
+    Color stateColor = isSuccess ? PrimeCareTheme.colors.emeraldTeal : Colors.amber.shade700;
 
-  IconData _getActivityIcon(String icon) {
-    switch (icon) {
-      case 'hail':
-        return Icons.hail;
-      case 'file':
-        return Icons.file_download_outlined;
-      case 'warning':
-        return Icons.warning_amber_outlined;
-      default:
-        return Icons.history;
-    }
-  }
-
-  Color _getStatusColor(String status) {
-    switch (status) {
-      case 'success':
-      case 'teal':
-        return Colors.teal;
-      case 'warning':
-      case 'orange':
-        return Colors.orange;
-      case 'danger':
-      case 'red':
-        return Colors.red;
-      case 'info':
-      case 'indigo':
-      case 'blue':
-        return Colors.indigo;
-      default:
-        return Colors.blueGrey;
-    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 50,
+          child: Text(
+            time,
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: stateColor.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            isSuccess ? LucideIcons.checkCircle : LucideIcons.alertTriangle,
+            size: 16,
+            color: stateColor,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                action,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                target,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

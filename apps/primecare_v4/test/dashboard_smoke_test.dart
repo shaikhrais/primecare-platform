@@ -924,7 +924,7 @@ void main() {
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(family_member_dash.FamilyDashboard), findsOneWidget);
+      expect(find.byType(family_member_dash.FamilyDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());

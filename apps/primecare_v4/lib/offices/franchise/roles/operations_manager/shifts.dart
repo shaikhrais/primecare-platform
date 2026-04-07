@@ -1,359 +1,302 @@
-import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class ShiftsScreen extends StatelessWidget {
+class ShiftsScreen extends ConsumerWidget {
   const ShiftsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Live Dispatch & Shifts',
+      subtitle:
+          'Real-time tracking of caregivers in the field and active shift progress.',
+      headerTrailing: Row(
         children: [
-          _buildHeader(context),
-          const SizedBox(height: 24),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildKPIs(context),
-                  const SizedBox(height: 24),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          ClinicalGlassButton(
+            label: 'GPS Settings',
+            icon: LucideIcons.mapPin,
+            onPressed: () {},
+            isPrimary: false,
+          ),
+          const SizedBox(width: 12),
+          ClinicalGlassButton(
+            label: 'Broadcast Message',
+            icon: LucideIcons.radio,
+            onPressed: () {},
+            isPrimary: true,
+          ),
+        ],
+      ),
+      kpiCards: [
+        KPICardData(
+          title: 'Active in Field',
+          value: '38',
+          icon: LucideIcons.car,
+          trend: 0.0,
+          trendLabel: 'Currently dispatched',
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+        KPICardData(
+          title: 'En Route',
+          value: '12',
+          icon: LucideIcons.navigation,
+          trend: 0.0,
+          trendLabel: 'To next client',
+          color: PrimeCareTheme.colors.navyIndigo,
+        ),
+        KPICardData(
+          title: 'Off Route / Idle',
+          value: '2',
+          icon: LucideIcons.mapPinOff,
+          trend: -15.0,
+          trendLabel: '> 15m delay',
+          color: PrimeCareTheme.colors.coralRed,
+          isUp: false,
+        ),
+        KPICardData(
+          title: 'Avg ETA Accuracy',
+          value: '94%',
+          icon: LucideIcons.timer,
+          trend: 1.0,
+          trendLabel: 'vs target',
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Live Fleet Telemetry (Map View)',
+                      style: PrimeCareTheme.typography.h2,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          LucideIcons.satellite,
+                          color: PrimeCareTheme.colors.emeraldTeal,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Connected',
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: PrimeCareTheme.colors.emeraldTeal,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 350,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest
+                      .withOpacity(0.3),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                      'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1200',
+                    ),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black54,
+                      BlendMode.darken,
+                    ),
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            _buildLiveDispatchMapPlaceholder(context),
-                            const SizedBox(height: 24),
-                            _buildActiveShiftsList(context),
-                          ],
+                      Icon(
+                        LucideIcons.map,
+                        size: 48,
+                        color: PrimeCareTheme.colors.emeraldTeal.withOpacity(
+                          0.8,
                         ),
                       ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            _buildRouteEfficiency(context),
-                            const SizedBox(height: 24),
-                            _buildShiftEvents(context),
-                          ],
+                      const SizedBox(height: 16),
+                      Text(
+                        'GIS Rendering Engine initializing...',
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Live Dispatch & Shifts',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Real-time tracking of caregivers in the field and active shift progress',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            _buildActionIconButton(context, LucideIcons.mapPin, 'GPS Settings'),
-            const SizedBox(width: 12),
-            _buildActionIconButton(
-              context,
-              LucideIcons.radio,
-              'Broadcast Message',
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionIconButton(
-    BuildContext context,
-    IconData icon,
-    String tooltip,
-  ) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
-      ),
-      child: IconButton(
-        icon: Icon(icon, color: Colors.white),
-        onPressed: () {},
-        tooltip: tooltip,
-      ),
-    );
-  }
-
-  Widget _buildKPIs(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'Active in Field',
-            '38',
-            LucideIcons.car,
-            'Currently dispatched',
-            PrimeCareTheme.emeraldTeal,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'En Route',
-            '12',
-            LucideIcons.navigation,
-            'To next client',
-            Colors.blue,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'Off Route / Idle',
-            '2',
-            LucideIcons.mapPinOff,
-            '> 15m delay',
-            Colors.orange,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'Avg ETA Accuracy',
-            '94%',
-            LucideIcons.timer,
-            '+1% vs target',
-            PrimeCareTheme.emeraldTeal,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildKPIUnit(
-    BuildContext context,
-    String title,
-    String value,
-    IconData icon,
-    String subtitle,
-    Color color,
-  ) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
                 ),
               ),
-              Icon(icon, color: color, size: 20),
             ],
           ),
-          const SizedBox(height: 16),
-          Text(
-            value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              color: color.withValues(alpha: 0.8),
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLiveDispatchMapPlaceholder(BuildContext context) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ),
+        const SizedBox(height: 24),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Live Fleet Telemetry (Map View)',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Active Staff in Field',
+                    style: PrimeCareTheme.typography.h3,
+                  ),
+                  const Icon(LucideIcons.moreHorizontal, color: Colors.white70),
+                ],
+              ),
+              const SizedBox(height: 24),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  headingTextStyle: PrimeCareTheme.typography.label.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                  dataTextStyle: PrimeCareTheme.typography.body,
+                  columns: const [
+                    DataColumn(label: Text('Staff Member')),
+                    DataColumn(label: Text('Client ETA')),
+                    DataColumn(label: Text('Progress')),
+                    DataColumn(label: Text('Action')),
+                  ],
+                  rows: [
+                    _buildDataRow(
+                      'Sarah Jenkins (RN)',
+                      'Arrived 10m ago',
+                      0.8,
+                      PrimeCareTheme.colors.emeraldTeal,
+                    ),
+                    _buildDataRow(
+                      'Mike Ross (PSW)',
+                      'ETA 15m (On Time)',
+                      0.3,
+                      Colors.blue,
+                    ),
+                    _buildDataRow(
+                      'Lisa Wong (LPN)',
+                      'ETA 2m (Late)',
+                      0.9,
+                      Colors.orange,
+                    ),
+                    _buildDataRow(
+                      'John Smith (PSW)',
+                      'Idle > 10m',
+                      0.1,
+                      PrimeCareTheme.colors.coralRed,
+                    ),
+                  ],
                 ),
               ),
+            ],
+          ),
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Row(
                 children: [
                   const Icon(
-                    LucideIcons.satellite,
-                    color: PrimeCareTheme.emeraldTeal,
-                    size: 16,
+                    LucideIcons.route,
+                    color: PrimeCareTheme.colors.emeraldTeal,
+                    size: 24,
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Connected',
-                    style: TextStyle(
-                      color: PrimeCareTheme.emeraldTeal.withValues(alpha: 0.8),
-                      fontWeight: FontWeight.bold,
+                  const SizedBox(width: 12),
+                  Text('Route Efficiency', style: PrimeCareTheme.typography.h3),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: _buildCategoryBar(
+                      'Optimal',
+                      65,
+                      PrimeCareTheme.colors.emeraldTeal,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Container(
-            width: double.infinity,
-            height: 300,
-            decoration: BoxDecoration(
-              color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-              image: const DecorationImage(
-                image: NetworkImage(
-                  'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1200',
-                ),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    LucideIcons.map,
-                    size: 48,
-                    color: PrimeCareTheme.emeraldTeal.withValues(alpha: 0.8),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildCategoryBar('Sub-Opt.', 25, Colors.orange),
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'GIS Rendering Engine initializing...',
-                    style: TextStyle(color: Colors.white70),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildCategoryBar('Re-routed', 10, Colors.blue),
                   ),
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActiveShiftsList(BuildContext context) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+              const SizedBox(height: 24),
               Text(
-                'Active Staff in Field',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                'AI suggestions saved 14h of total drive time today.',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
               ),
-              const Icon(LucideIcons.moreHorizontal, color: Colors.white70),
             ],
           ),
-          const SizedBox(height: 24),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              headingTextStyle: const TextStyle(
-                color: Colors.white70,
-                fontWeight: FontWeight.w600,
+        ),
+        const SizedBox(height: 24),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    LucideIcons.activitySquare,
+                    color: Colors.blue,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    'Live Shift Events',
+                    style: PrimeCareTheme.typography.h3,
+                  ),
+                ],
               ),
-              dataTextStyle: const TextStyle(color: Colors.white),
-              columns: const [
-                DataColumn(label: Text('Staff Member')),
-                DataColumn(label: Text('Client ETA')),
-                DataColumn(label: Text('Progress')),
-                DataColumn(label: Text('Action')),
-              ],
-              rows: [
-                _buildDataRow(
-                  'Sarah Jenkins (RN)',
-                  'Arrived 10m ago',
-                  0.8,
-                  PrimeCareTheme.emeraldTeal,
-                ),
-                _buildDataRow(
-                  'Mike Ross (PSW)',
-                  'ETA 15m (On Time)',
-                  0.3,
-                  Colors.blue,
-                ),
-                _buildDataRow(
-                  'Lisa Wong (LPN)',
-                  'ETA 2m (Late)',
-                  0.9,
-                  Colors.orange,
-                ),
-                _buildDataRow(
-                  'John Smith (PSW)',
-                  'Idle > 10m',
-                  0.1,
-                  Colors.redAccent,
-                ),
-              ],
-            ),
+              const SizedBox(height: 24),
+              _buildEventItem(
+                'S. Jenkins Completed Care',
+                'Client: Jane Doe',
+                'Just now',
+              ),
+              const Divider(color: Colors.white12, height: 24),
+              _buildEventItem(
+                'M. Ross Started Travel',
+                'Dest: Appt #452',
+                '10m ago',
+              ),
+              const Divider(color: Colors.white12, height: 24),
+              _buildEventItem(
+                'L. Wong SOS Ping',
+                'Manual check-in required',
+                '12m ago',
+                isAlert: true,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -381,7 +324,7 @@ class ShiftsScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
               child: LinearProgressIndicator(
                 value: progress,
-                backgroundColor: Colors.white12,
+                backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
                 valueColor: AlwaysStoppedAnimation<Color>(statusColor),
                 minHeight: 6,
               ),
@@ -406,65 +349,13 @@ class ShiftsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRouteEfficiency(BuildContext context) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                LucideIcons.route,
-                color: PrimeCareTheme.emeraldTeal,
-                size: 24,
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'Route Efficiency (Live)',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Expanded(
-                child: _buildCategoryBar(
-                  'Optimal',
-                  65,
-                  PrimeCareTheme.emeraldTeal,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(child: _buildCategoryBar('Sub-Opt.', 25, Colors.orange)),
-              const SizedBox(width: 12),
-              Expanded(child: _buildCategoryBar('Re-routed', 10, Colors.blue)),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Text(
-            'AI suggestions saved 14h of total drive time today.',
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: Colors.white70),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildCategoryBar(String label, double height, Color color) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
           '${height.toInt()}%',
-          style: const TextStyle(
+          style: PrimeCareTheme.typography.label.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -484,52 +375,12 @@ class ShiftsScreen extends StatelessWidget {
         Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.white70, fontSize: 11),
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+            fontSize: 11,
+          ),
         ),
       ],
-    );
-  }
-
-  Widget _buildShiftEvents(BuildContext context) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(LucideIcons.activitySquare, color: Colors.blue, size: 24),
-              const SizedBox(width: 12),
-              Text(
-                'Live Shift Events',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          _buildEventItem(
-            'S. Jenkins Completed Care',
-            'Client: Jane Doe',
-            'Just now',
-          ),
-          const Divider(color: Colors.white12, height: 24),
-          _buildEventItem(
-            'M. Ross Started Travel',
-            'Dest: Appt #452',
-            '10m ago',
-          ),
-          const Divider(color: Colors.white12, height: 24),
-          _buildEventItem(
-            'L. Wong SOS Ping',
-            'Manual check-in required',
-            '12m ago',
-            isAlert: true,
-          ),
-        ],
-      ),
     );
   }
 
@@ -546,14 +397,16 @@ class ShiftsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: isAlert
-                ? Colors.redAccent.withValues(alpha: 0.2)
-                : Colors.white.withValues(alpha: 0.1),
+                ? PrimeCareTheme.colors.coralRed.withOpacity(0.2)
+                : PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(
+                    0.5,
+                  ),
             shape: BoxShape.circle,
           ),
           child: Icon(
             isAlert ? LucideIcons.alertCircle : LucideIcons.checkCircle,
             size: 16,
-            color: isAlert ? Colors.redAccent : Colors.white,
+            color: isAlert ? PrimeCareTheme.colors.coralRed : Colors.white,
           ),
         ),
         const SizedBox(width: 16),
@@ -563,10 +416,11 @@ class ShiftsScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  color: isAlert ? Colors.redAccent : Colors.white,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: isAlert
+                      ? PrimeCareTheme.colors.coralRed
+                      : Colors.white,
                   fontWeight: FontWeight.w500,
-                  fontSize: 13,
                 ),
               ),
               const SizedBox(height: 4),
@@ -575,11 +429,15 @@ class ShiftsScreen extends StatelessWidget {
                 children: [
                   Text(
                     subtitle,
-                    style: const TextStyle(color: Colors.white70, fontSize: 11),
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                   ),
                   Text(
                     time,
-                    style: const TextStyle(color: Colors.white54, fontSize: 11),
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                   ),
                 ],
               ),

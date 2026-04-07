@@ -11,37 +11,37 @@ class TerritoryMapScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
-      title: 'Territory Coverage',
+      title: 'Territory Atlas',
       subtitle:
-          'Geographical distribution of active franchises and corporate clinics.',
+          'Geospatial representation of clinical expansion zones and pipeline activity.',
       kpiCards: [
         KPICardData(
-          title: 'Total Covered Regions',
-          value: '42',
-          icon: LucideIcons.map,
-          trend: 5.0,
-          trendLabel: 'vs last year',
+          title: 'Total Opportunity Value',
+          value: '\$24.8M',
+          icon: LucideIcons.dollarSign,
+          trend: 12.5,
+          trendLabel: 'vs last quarter',
         ),
         KPICardData(
-          title: 'Open White Space',
-          value: '18',
-          icon: LucideIcons.scanLine,
-          trend: -2.0,
-          trendLabel: 'territories targeted',
+          title: 'Lead Conversion Rate',
+          value: '18.5%',
+          icon: LucideIcons.barChart2,
+          trend: 2.1,
+          trendLabel: 'rolling 30 days',
         ),
         KPICardData(
-          title: 'Market Penetration',
-          value: '34%',
-          icon: LucideIcons.pieChart,
-          trend: 1.5,
-          trendLabel: 'overall market share',
+          title: 'Active Expansion Leads',
+          value: '142',
+          icon: LucideIcons.users,
+          trend: 8.0,
+          trendLabel: 'qualified leads',
         ),
         KPICardData(
-          title: 'Highest Density',
-          value: 'Ontario',
-          icon: LucideIcons.mapPin,
+          title: 'Strategic Priorities',
+          value: '4',
+          icon: LucideIcons.target,
           trend: 0.0,
-          trendLabel: '15 locations',
+          trendLabel: 'focus regions',
         ),
       ],
       sidebarContent: [
@@ -50,27 +50,27 @@ class TerritoryMapScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Map Filters', style: PrimeCareTheme.typography.h3),
-              const SizedBox(height: 16),
-              _buildFilterToggle(
-                'Corporate Clinics',
-                true,
+              Text('Expansion Pipeline', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 24),
+              _buildPipelineRow(
+                'Discovery',
+                45,
+                PrimeCareTheme.colors.slateGray,
+              ),
+              _buildPipelineRow(
+                'Qualified',
+                32,
                 PrimeCareTheme.colors.navyIndigo,
               ),
-              _buildFilterToggle(
-                'Franchise Locations',
-                true,
+              _buildPipelineRow(
+                'Negotiation',
+                18,
                 PrimeCareTheme.colors.emeraldTeal,
               ),
-              _buildFilterToggle(
-                'Target Territories',
-                false,
-                PrimeCareTheme.colors.coralRed,
-              ),
-              _buildFilterToggle(
-                'Competitor Hotspots',
-                false,
-                PrimeCareTheme.colors.slateGray,
+              _buildPipelineRow(
+                'Closed Won',
+                12,
+                PrimeCareTheme.colors.tealEmerald,
               ),
             ],
           ),
@@ -81,97 +81,142 @@ class TerritoryMapScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Region Breakdown', style: PrimeCareTheme.typography.h3),
+              Text('Market Dynamics', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildRegionRow('East Coast', 18),
-              _buildRegionRow('Central', 15),
-              _buildRegionRow('West Coast', 9),
+              _buildFilterToggle(
+                'Show Competitors',
+                true,
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildFilterToggle(
+                'Show Open Whitespace',
+                true,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterToggle(
+                'Show Corporate Clinics',
+                false,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
       ],
       mainContent: [
         ClinicalGlassPanel(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(0), // No padding for full map impact
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Interactive Territory Map',
-                    style: PrimeCareTheme.typography.h2,
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(LucideIcons.zoomIn),
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: const Icon(LucideIcons.zoomOut),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Geospatial Expansion Map',
+                      style: PrimeCareTheme.typography.h2,
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(LucideIcons.filter),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: const Icon(LucideIcons.maximize2),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 24),
-              // Placeholder for actual interactive map
+              // Map Visual Area
               Container(
-                height: 400,
+                height: 500,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: PrimeCareTheme.colors.surfaceContainerHighest
                       .withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(12),
                   image: const DecorationImage(
                     image: NetworkImage(
-                      'https://via.placeholder.com/800x400/e2e8f0/64748b?text=Geospatial+Map+Visualization',
+                      'https://via.placeholder.com/1200x500/0f172a/00685b?text=Geospatial+Territory+Atlas',
                     ),
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      'Map Widget Placeholder',
-                      style: PrimeCareTheme.typography.h3,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ClinicalGlassButton(
+                      label: 'Recenter Map',
+                      icon: LucideIcons.crosshair,
+                      onPressed: () {},
+                      isPrimary: true,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
-              Text('Territory Analytics', style: PrimeCareTheme.typography.h3),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Strategic Growth Targets',
+                style: PrimeCareTheme.typography.h3,
+              ),
+              const SizedBox(height: 24),
+              _buildTargetProgress(
+                'EMEA Oncology Hubs',
+                0.65,
+                '\$4.2M / \$6.5M',
+              ),
               const SizedBox(height: 16),
-              _buildAnalyticsRow(
-                'GTA (Greater Toronto Area)',
-                'High Density',
-                '92%',
-                'Saturated',
+              _buildTargetProgress(
+                'APAC Genomic Labs',
+                0.32,
+                '\$1.8M / \$5.6M',
               ),
-              _buildAnalyticsRow(
-                'Calgary Metropolitan',
-                'Medium Density',
-                '45%',
-                'Growth Opportunity',
-              ),
-              _buildAnalyticsRow(
-                'Halifax Regional Municipality',
-                'Low Density',
-                '15%',
-                'Prime Target',
+              const SizedBox(height: 16),
+              _buildTargetProgress(
+                'North America Primary Care',
+                0.88,
+                '\$12.5M / \$14.2M',
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPipelineRow(String stage, int count, Color color) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        children: [
+          Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          ),
+          const SizedBox(width: 12),
+          Expanded(child: Text(stage, style: PrimeCareTheme.typography.body)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -192,76 +237,33 @@ class TerritoryMapScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildRegionRow(String region, int count) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(region, style: PrimeCareTheme.typography.body),
-          Text(
-            count.toString(),
-            style: PrimeCareTheme.typography.label.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAnalyticsRow(
-    String region,
-    String density,
-    String penetration,
-    String recommendation,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(
-              0.5,
-            ),
-          ),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Text(
-              region,
+  Widget _buildTargetProgress(String target, double progress, String valueStr) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              target,
               style: PrimeCareTheme.typography.body.copyWith(
                 fontWeight: FontWeight.w600,
               ),
             ),
+            Text(valueStr, style: PrimeCareTheme.typography.label),
+          ],
+        ),
+        const SizedBox(height: 8),
+        LinearProgressIndicator(
+          value: progress,
+          backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
+          valueColor: AlwaysStoppedAnimation<Color>(
+            PrimeCareTheme.colors.emeraldTeal,
           ),
-          Expanded(
-            flex: 1,
-            child: Text(density, style: PrimeCareTheme.typography.body),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(penetration, style: PrimeCareTheme.typography.body),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              recommendation,
-              style: PrimeCareTheme.typography.label.copyWith(
-                color: recommendation == 'Prime Target'
-                    ? PrimeCareTheme.colors.coralRed
-                    : PrimeCareTheme.colors.navyIndigo,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
+          minHeight: 8,
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ],
     );
   }
 }

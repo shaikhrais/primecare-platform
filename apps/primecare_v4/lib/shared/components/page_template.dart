@@ -7,6 +7,8 @@ class KPICardData {
   final IconData? icon;
   final dynamic trend;
   final String? trendLabel;
+  final bool? isUp;
+  final Color? color;
 
   const KPICardData({
     required this.title,
@@ -14,6 +16,8 @@ class KPICardData {
     this.icon,
     this.trend,
     this.trendLabel,
+    this.isUp,
+    this.color,
   });
 }
 
@@ -23,9 +27,9 @@ class PageTemplate extends StatelessWidget {
   final IconData? icon;
   final List<Widget>? actions;
   final Widget? body;
-  
-  final Widget? headerTrailing;
-  
+
+  final dynamic headerTrailing;
+
   // Alternative content properties for custom code pages
   final List<KPICardData>? kpiCards;
   final List<Widget>? mainContent;
@@ -62,7 +66,9 @@ class PageTemplate extends StatelessWidget {
                   padding: const EdgeInsets.all(PrimeCareTheme.spacing3),
                   decoration: BoxDecoration(
                     color: PrimeCareTheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(PrimeCareTheme.radiusMd),
+                    borderRadius: BorderRadius.circular(
+                      PrimeCareTheme.radiusMd,
+                    ),
                   ),
                   child: Icon(
                     icon,
@@ -76,10 +82,7 @@ class PageTemplate extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: PrimeCareTheme.headlineMedium,
-                    ),
+                    Text(title, style: PrimeCareTheme.headlineMedium),
                     const SizedBox(height: PrimeCareTheme.spacing1),
                     Text(
                       subtitle,
@@ -92,27 +95,40 @@ class PageTemplate extends StatelessWidget {
               ),
               if (actions != null) ...[
                 const SizedBox(width: PrimeCareTheme.spacing4),
-                ...actions!.map((action) => Padding(
-                      padding: const EdgeInsets.only(left: PrimeCareTheme.spacing2),
-                      child: action,
-                    )),
+                ...actions!.map(
+                  (action) => Padding(
+                    padding: const EdgeInsets.only(
+                      left: PrimeCareTheme.spacing2,
+                    ),
+                    child: action,
+                  ),
+                ),
+              ],
+              if (headerTrailing != null) ...[
+                if (headerTrailing is Widget)
+                  headerTrailing
+                else if (headerTrailing is List<Widget>)
+                  Row(mainAxisSize: MainAxisSize.min, children: headerTrailing)
+                else
+                  const SizedBox(),
               ],
             ],
           ),
         ),
-        
+
         // Main Content Area
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: PrimeCareTheme.spacing6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: PrimeCareTheme.spacing6,
+            ),
             child: body ?? _buildAlternativeBody(context),
           ),
         ),
       ],
     );
   }
-  
-  
+
   double _parseTrend(dynamic trend) {
     if (trend == null) return 0.0;
     if (trend is double) return trend;
@@ -128,7 +144,7 @@ class PageTemplate extends StatelessWidget {
     if (kpiCards == null && mainContent == null && sidebarContent == null) {
       return const SizedBox.shrink();
     }
-    
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -140,7 +156,9 @@ class PageTemplate extends StatelessWidget {
               if (kpiCards != null && kpiCards!.isNotEmpty) ...[
                 LayoutBuilder(
                   builder: (context, constraints) {
-                    final int crossAxisCount = constraints.maxWidth < 600 ? 1 : (constraints.maxWidth < 900 ? 2 : 4);
+                    final int crossAxisCount = constraints.maxWidth < 600
+                        ? 1
+                        : (constraints.maxWidth < 900 ? 2 : 4);
                     return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -155,7 +173,7 @@ class PageTemplate extends StatelessWidget {
                         return _buildKpiCard(kpiCards![index]);
                       },
                     );
-                  }
+                  },
                 ),
                 const SizedBox(height: PrimeCareTheme.spacing5),
               ],
@@ -163,28 +181,25 @@ class PageTemplate extends StatelessWidget {
             ],
           ),
         ),
-        
+
         // Sidebar Area
         if (sidebarContent != null && sidebarContent!.isNotEmpty) ...[
           const SizedBox(width: PrimeCareTheme.spacing5),
-          Expanded(
-            flex: 1,
-            child: ListView(
-              children: sidebarContent!,
-            ),
-          ),
+          Expanded(flex: 1, child: ListView(children: sidebarContent!)),
         ],
       ],
     );
   }
-  
+
   Widget _buildKpiCard(KPICardData data) {
     return Container(
       padding: const EdgeInsets.all(PrimeCareTheme.spacing4),
       decoration: BoxDecoration(
         color: PrimeCareTheme.surface,
         borderRadius: BorderRadius.circular(PrimeCareTheme.radiusLg),
-        border: Border.all(color: PrimeCareTheme.outlineVariant.withOpacity(0.5)),
+        border: Border.all(
+          color: PrimeCareTheme.outlineVariant.withOpacity(0.5),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,35 +224,44 @@ class PageTemplate extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                data.value,
-                style: PrimeCareTheme.headlineMedium,
-              ),
-              if (data.trend != null && data.trendLabel != null)
+              Text(data.value, style: PrimeCareTheme.headlineMedium),
+              if (data.trend != null && data.trendLabel != null ||
+                  data.isUp != null)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
                       children: [
                         Icon(
-                          (_parseTrend(data.trend) > 0) ? Icons.arrow_upward : Icons.arrow_downward,
+                          (data.isUp == true || _parseTrend(data.trend) > 0)
+                              ? Icons.arrow_upward
+                              : Icons.arrow_downward,
                           size: 14,
-                          color: (_parseTrend(data.trend) > 0) ? PrimeCareTheme.secondary : PrimeCareTheme.error,
+                          color:
+                              (data.isUp == true || _parseTrend(data.trend) > 0)
+                              ? PrimeCareTheme.secondary
+                              : PrimeCareTheme.error,
                         ),
-                        Text(
-                          '${data.trend!.abs()}%',
-                          style: PrimeCareTheme.labelMedium.copyWith(
-                            color: (_parseTrend(data.trend) > 0) ? PrimeCareTheme.secondary : PrimeCareTheme.error,
+                        if (data.trend != null)
+                          Text(
+                            '${_parseTrend(data.trend).abs()}%',
+                            style: PrimeCareTheme.labelMedium.copyWith(
+                              color:
+                                  (data.isUp == true ||
+                                      _parseTrend(data.trend) > 0)
+                                  ? PrimeCareTheme.secondary
+                                  : PrimeCareTheme.error,
+                            ),
                           ),
-                        ),
                       ],
                     ),
-                    Text(
-                      data.trendLabel!,
-                      style: PrimeCareTheme.labelSmall.copyWith(
-                        color: PrimeCareTheme.outline,
+                    if (data.trendLabel != null)
+                      Text(
+                        data.trendLabel!,
+                        style: PrimeCareTheme.labelSmall.copyWith(
+                          color: PrimeCareTheme.outline,
+                        ),
                       ),
-                    ),
                   ],
                 ),
             ],

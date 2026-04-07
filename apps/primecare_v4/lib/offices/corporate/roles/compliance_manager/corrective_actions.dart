@@ -246,9 +246,7 @@ class CorrectiveActionsScreen extends ConsumerWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
-              status == 'Overdue'
-                  ? LucideIcons.clock
-                  : LucideIcons.checkSquare,
+              status == 'Overdue' ? LucideIcons.clock : LucideIcons.checkSquare,
               color: statusColor,
               size: 20,
             ),

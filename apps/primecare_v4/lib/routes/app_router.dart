@@ -1185,7 +1185,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.pswCareTasks,
-            builder: (context, state) => const psw_care_tasks.PswCareTasksScreen(),
+            builder: (context, state) =>
+                const psw_care_tasks.PswCareTasksScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswAdlTracking,
@@ -1194,7 +1195,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.pswDailyLogs,
-            builder: (context, state) => const psw_daily_logs.PswDailyLogsScreen(),
+            builder: (context, state) =>
+                const psw_daily_logs.PswDailyLogsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswCheckInOut,
@@ -1218,7 +1220,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.pswDocuments,
-            builder: (context, state) => const psw_documents.PswDocumentsScreen(),
+            builder: (context, state) =>
+                const psw_documents.PswDocumentsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswSettings,
@@ -1337,7 +1340,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.cfoExpenses,
-              builder: (context, state) => const cfo_expenses.CfoExpensesScreen(),
+              builder: (context, state) =>
+                  const cfo_expenses.CfoExpensesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoFranchiseFinancials,
@@ -1360,7 +1364,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.cfoInvoices,
-              builder: (context, state) => const cfo_invoices.CfoInvoicesScreen(),
+              builder: (context, state) =>
+                  const cfo_invoices.CfoInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoProfitability,
@@ -1882,7 +1887,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.adminClaims,
-              builder: (context, state) => const admin_claims.FranchiseClaimsScreen(),
+              builder: (context, state) =>
+                  const admin_claims.FranchiseClaimsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReconciliation,
@@ -1896,11 +1902,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.adminRefunds,
-              builder: (context, state) => const admin_refunds.FranchiseRefundsScreen(),
+              builder: (context, state) =>
+                  const admin_refunds.FranchiseRefundsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReports,
-              builder: (context, state) => const admin_reports.FranchiseReportsScreen(),
+              builder: (context, state) =>
+                  const admin_reports.FranchiseReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.hrHiringApplicants,
@@ -2051,7 +2059,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.rmtHomecare,
-              builder: (context, state) => const rmt_homecare.RmtHomecareScreen(),
+              builder: (context, state) =>
+                  const rmt_homecare.RmtHomecareScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtSessionHistory,
@@ -2070,7 +2079,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.rmtInvoices,
-              builder: (context, state) => const rmt_invoices.RmtInvoicesScreen(),
+              builder: (context, state) =>
+                  const rmt_invoices.RmtInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.customerSupportTickets,
@@ -2475,7 +2485,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.cfoExpenses,
-              builder: (context, state) => const cfo_expenses.CfoExpensesScreen(),
+              builder: (context, state) =>
+                  const cfo_expenses.CfoExpensesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoFranchiseFinancials,
@@ -2498,7 +2509,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.cfoInvoices,
-              builder: (context, state) => const cfo_invoices.CfoInvoicesScreen(),
+              builder: (context, state) =>
+                  const cfo_invoices.CfoInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoProfitability,
@@ -3020,7 +3032,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.adminClaims,
-              builder: (context, state) => const admin_claims.FranchiseClaimsScreen(),
+              builder: (context, state) =>
+                  const admin_claims.FranchiseClaimsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReconciliation,
@@ -3034,11 +3047,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.adminRefunds,
-              builder: (context, state) => const admin_refunds.FranchiseRefundsScreen(),
+              builder: (context, state) =>
+                  const admin_refunds.FranchiseRefundsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReports,
-              builder: (context, state) => const admin_reports.FranchiseReportsScreen(),
+              builder: (context, state) =>
+                  const admin_reports.FranchiseReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.hrHiringApplicants,
@@ -3189,7 +3204,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.rmtHomecare,
-              builder: (context, state) => const rmt_homecare.RmtHomecareScreen(),
+              builder: (context, state) =>
+                  const rmt_homecare.RmtHomecareScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtSessionHistory,
@@ -3208,7 +3224,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             GoRoute(
               path: AppRoutes.rmtInvoices,
-              builder: (context, state) => const rmt_invoices.RmtInvoicesScreen(),
+              builder: (context, state) =>
+                  const rmt_invoices.RmtInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.customerSupportTickets,
@@ -3549,7 +3566,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.patientDashboard,
-            builder: (context, state) => const patient_dash.ClientDashboardScreen(),
+            builder: (context, state) =>
+                const patient_dash.ClientDashboardScreen(),
           ),
           GoRoute(
             path: AppRoutes.familyMemberDashboard,

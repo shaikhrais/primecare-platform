@@ -3,407 +3,294 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class LocalLeadsScreen extends ConsumerStatefulWidget {
+class LocalLeadsScreen extends ConsumerWidget {
   const LocalLeadsScreen({super.key});
 
   @override
-  ConsumerState<LocalLeadsScreen> createState() => _LocalLeadsScreenState();
-}
-
-class _LocalLeadsScreenState extends ConsumerState<LocalLeadsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Lead Generation Dashboard',
+      subtitle: 'Monitor incoming leads, acquisition cost, and conversion performance from local campaigns.',
+      headerTrailing: Row(
         children: [
-          _buildHeader(),
-          const SizedBox(height: 32),
-          _buildFunnelOverview(),
-          const SizedBox(height: 32),
-          Text(
-            'Recent Leads',
-            style: PrimeCareTheme.typography.h2.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo,
-            ),
+          ClinicalGlassButton(
+            onPressed: () {},
+            icon: LucideIcons.download,
+            label: 'Export Data',
+            isPrimary: false,
           ),
-          const SizedBox(height: 16),
-          _buildLeadsTable(),
+          const SizedBox(width: 16),
+          ClinicalGlassButton(
+            onPressed: () {},
+            icon: LucideIcons.plus,
+            label: 'Manual Entry',
+            isPrimary: true,
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Local Lead Generation',
-              style: PrimeCareTheme.typography.heroTitle.copyWith(
-                color: PrimeCareTheme.colors.navyIndigo,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Monitor incoming leads from local events and campaigns.',
-              style: PrimeCareTheme.typography.body.copyWith(
-                color: PrimeCareTheme.colors.slateGray,
-              ),
-            ),
-          ],
+      kpiCards: [
+        KPICardData(
+          title: 'Total Leads',
+          value: '12,842',
+          icon: LucideIcons.users,
+          trend: 12.0,
+          trendLabel: 'vs last month',
+          color: PrimeCareTheme.colors.navyIndigo,
         ),
-        Row(
-          children: [
-            ClinicalGlassButton(
-              onPressed: () {},
-              icon: LucideIcons.download,
-              label: 'Export Data',
-            ),
-            const SizedBox(width: 16),
-            ClinicalGlassButton(
-              onPressed: () {},
-              icon: LucideIcons.plus,
-              label: 'Manual Entry',
-              isActive: true,
-            ),
-          ],
+        KPICardData(
+          title: 'Conversion Rate',
+          value: '18.4%',
+          icon: LucideIcons.percent,
+          trend: 2.1,
+          trendLabel: 'vs last month',
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+        KPICardData(
+          title: 'Cost per Lead',
+          value: '\$142.50',
+          icon: LucideIcons.dollarSign,
+          trend: -5.0,
+          trendLabel: 'vs target',
+          color: PrimeCareTheme.colors.navyIndigo,
+        ),
+        KPICardData(
+          title: 'Quality Score',
+          value: '8.2/10',
+          icon: LucideIcons.award,
+          trend: 0.0,
+          trendLabel: 'avg rating',
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Lead Acquisition by Source (12 Months)',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  Row(
+                    children: [
+                      _buildLegend(PrimeCareTheme.colors.emeraldTeal, 'Organic'),
+                      const SizedBox(width: 16),
+                      _buildLegend(PrimeCareTheme.colors.navyIndigo, 'Paid'),
+                      const SizedBox(width: 16),
+                      _buildLegend(PrimeCareTheme.colors.slateGray, 'Referral'),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+              SizedBox(
+                height: 400,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildStackedBar('Jan', 40, 70, 20),
+                    _buildStackedBar('Feb', 50, 60, 25),
+                    _buildStackedBar('Mar', 65, 85, 30),
+                    _buildStackedBar('Apr', 80, 100, 35),
+                    _buildStackedBar('May', 75, 95, 40),
+                    _buildStackedBar('Jun', 90, 110, 45),
+                    _buildStackedBar('Jul', 110, 130, 50),
+                    _buildStackedBar('Aug', 125, 140, 55),
+                    _buildStackedBar('Sep', 140, 150, 60),
+                    _buildStackedBar('Oct', 160, 170, 70),
+                    _buildStackedBar('Nov', 180, 190, 80),
+                    _buildStackedBar('Dec', 195, 200, 95),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    LucideIcons.star,
+                    color: PrimeCareTheme.colors.emeraldTeal,
+                  ),
+                  const SizedBox(width: 12),
+                  Text('Recent High-Value', style: PrimeCareTheme.typography.h3),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildHighValueLead(
+                'Marcus Thorne',
+                'Thorne Healthcare',
+                '\$120k',
+                94,
+              ),
+              const Divider(color: Colors.white12, height: 24),
+              _buildHighValueLead(
+                'Saki Tanaka',
+                'Tanaka Clinics',
+                '\$85k',
+                91,
+              ),
+              const Divider(color: Colors.white12, height: 24),
+              _buildHighValueLead(
+                'Julian Vogel',
+                'Vogel & Co',
+                '\$62k',
+                88,
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildFunnelOverview() {
+  Widget _buildLegend(Color color, String label) {
     return Row(
       children: [
-        Expanded(
-          child: _buildFunnelStep(
-            title: 'New Leads',
-            count: 145,
-            percentage: '100%',
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          label,
+          style: PrimeCareTheme.typography.label.copyWith(
             color: PrimeCareTheme.colors.slateGray,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Icon(LucideIcons.chevronRight, color: Colors.grey),
-        ),
-        Expanded(
-          child: _buildFunnelStep(
-            title: 'Contacted',
-            count: 85,
-            percentage: '58%',
-            color: PrimeCareTheme.colors.navyIndigo,
+      ],
+    );
+  }
+
+  Widget _buildStackedBar(String label, double organic, double paid, double referral) {
+    final maxTotal = 400.0; // Arbitrary max for scaling
+    final total = organic + paid + referral;
+    final scale = 350 / maxTotal;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          width: 32,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+          ),
+          clipBehavior: Clip.hardEdge,
+          child: Column(
+            children: [
+              Container(
+                height: referral * scale,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+              Container(
+                height: paid * scale,
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+              Container(
+                height: organic * scale,
+                color: PrimeCareTheme.colors.emeraldTeal,
+              ),
+            ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Icon(LucideIcons.chevronRight, color: Colors.grey),
-        ),
-        Expanded(
-          child: _buildFunnelStep(
-            title: 'Consultation',
-            count: 42,
-            percentage: '29%',
-            color: PrimeCareTheme.colors.emeraldTeal,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Icon(LucideIcons.chevronRight, color: Colors.grey),
-        ),
-        Expanded(
-          child: _buildFunnelStep(
-            title: 'New Patient',
-            count: 28,
-            percentage: '19%',
-            color: PrimeCareTheme.colors.coralRed,
+        const SizedBox(height: 12),
+        Text(
+          label,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildFunnelStep({
-    required String title,
-    required int count,
-    required String percentage,
-    required Color color,
-  }) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Text(
-              title,
-              style: PrimeCareTheme.typography.label.copyWith(
-                color: color,
-                fontWeight: FontWeight.bold,
-              ),
+  Widget _buildHighValueLead(
+    String name,
+    String company,
+    String value,
+    int score,
+  ) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CircleAvatar(
+          radius: 20,
+          backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
+          child: Text(
+            name[0],
+            style: PrimeCareTheme.typography.h3.copyWith(
+              color: PrimeCareTheme.colors.emeraldTeal,
             ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            count.toString(),
-            style: PrimeCareTheme.typography.heroTitle.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Conv. Rate: $percentage',
-            style: PrimeCareTheme.typography.label.copyWith(
-              color: PrimeCareTheme.colors.slateGray,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLeadsTable() {
-    return ClinicalGlassPanel(
-      padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          _buildTableHeader(),
-          _buildTableRow(
-            name: 'Sarah Jenkins',
-            source: 'Health Fair Booth',
-            date: 'Oct 15, 2026',
-            status: 'New',
-            temperature: 'Hot',
-          ),
-          Divider(
-            height: 1,
-            color: PrimeCareTheme.colors.surfaceContainerHighest,
-          ),
-          _buildTableRow(
-            name: 'Michael Chang',
-            source: 'Facebook Ad',
-            date: 'Oct 14, 2026',
-            status: 'Contacted',
-            temperature: 'Warm',
-          ),
-          Divider(
-            height: 1,
-            color: PrimeCareTheme.colors.surfaceContainerHighest,
-          ),
-          _buildTableRow(
-            name: 'Aisha Patel',
-            source: 'Direct/Walk-in',
-            date: 'Oct 12, 2026',
-            status: 'Consultation',
-            temperature: 'Hot',
-          ),
-          Divider(
-            height: 1,
-            color: PrimeCareTheme.colors.surfaceContainerHighest,
-          ),
-          _buildTableRow(
-            name: 'Robert Davis',
-            source: 'Referral',
-            date: 'Oct 10, 2026',
-            status: 'New Patient',
-            temperature: 'Converted',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTableHeader() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      decoration: BoxDecoration(
-        color: PrimeCareTheme.colors.surfaceContainerLow,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
         ),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Text(
-              'LEAD NAME',
-              style: PrimeCareTheme.typography.label.copyWith(
-                fontSize: 11,
-                color: PrimeCareTheme.colors.slateGray,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              'SOURCE',
-              style: PrimeCareTheme.typography.label.copyWith(
-                fontSize: 11,
-                color: PrimeCareTheme.colors.slateGray,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              'DATE ACQUIRED',
-              style: PrimeCareTheme.typography.label.copyWith(
-                fontSize: 11,
-                color: PrimeCareTheme.colors.slateGray,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              'STATUS',
-              style: PrimeCareTheme.typography.label.copyWith(
-                fontSize: 11,
-                color: PrimeCareTheme.colors.slateGray,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              'TEMPERATURE',
-              style: PrimeCareTheme.typography.label.copyWith(
-                fontSize: 11,
-                color: PrimeCareTheme.colors.slateGray,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(width: 40),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTableRow({
-    required String name,
-    required String source,
-    required String date,
-    required String status,
-    required String temperature,
-  }) {
-    Color tempColor;
-    if (temperature == 'Hot' || temperature == 'Converted') {
-      tempColor = PrimeCareTheme.colors.coralRed;
-    } else if (temperature == 'Warm') {
-      tempColor = Colors.amber.shade700;
-    } else {
-      tempColor = PrimeCareTheme.colors.emeraldTeal; // Cold/Cool
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 16,
-                  backgroundColor:
-                      PrimeCareTheme.colors.surfaceContainerHighest,
-                  child: Text(
-                    name[0],
-                    style: TextStyle(
-                      color: PrimeCareTheme.colors.navyIndigo,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
-                const SizedBox(width: 12),
-                Text(
-                  name,
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    color: PrimeCareTheme.colors.navyIndigo,
-                    fontWeight: FontWeight.bold,
-                  ),
+              ),
+              Text(
+                company,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              source,
-              style: PrimeCareTheme.typography.body.copyWith(
-                color: PrimeCareTheme.colors.slateGray,
               ),
-            ),
+            ],
           ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              date,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              value,
               style: PrimeCareTheme.typography.body.copyWith(
-                color: PrimeCareTheme.colors.slateGray,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              status,
-              style: PrimeCareTheme.typography.body.copyWith(
+                fontWeight: FontWeight.bold,
                 color: PrimeCareTheme.colors.navyIndigo,
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Row(
+            Row(
               children: [
-                Icon(
-                  temperature == 'Converted'
-                      ? LucideIcons.checkCircle
-                      : LucideIcons.flame,
-                  size: 16,
-                  color: tempColor,
+                const Icon(
+                  LucideIcons.flame,
+                  size: 14,
+                  color: PrimeCareTheme.colors.emeraldTeal,
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 4),
                 Text(
-                  temperature,
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    color: tempColor,
-                    fontWeight: FontWeight.bold,
+                  score.toString(),
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.emeraldTeal,
                   ),
                 ),
               ],
             ),
-          ),
-          IconButton(
-            icon: Icon(
-              LucideIcons.moreHorizontal,
-              color: PrimeCareTheme.colors.slateGray,
-            ),
-            onPressed: () {},
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }

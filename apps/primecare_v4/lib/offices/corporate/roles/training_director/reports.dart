@@ -90,23 +90,27 @@ class TrainingReportsScreen extends ConsumerWidget {
   }
 
   Widget _buildReportLink(String title) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: PrimeCareTheme.colors.cloudGray.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.transparent),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title, style: PrimeCareTheme.typography.body),
-          Icon(
-            LucideIcons.chevronRight,
-            size: 16,
-            color: PrimeCareTheme.colors.slateGray,
-          ),
-        ],
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: PrimeCareTheme.colors.cloudGray.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.transparent),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title, style: PrimeCareTheme.typography.body),
+            Icon(
+              LucideIcons.chevronRight,
+              size: 16,
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -122,35 +126,35 @@ class TrainingReportsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Completion Trend (YTD)',
-                  style: PrimeCareTheme.typography.h3,
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: PrimeCareTheme.colors.cloudGray.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          LucideIcons.lineChart,
-                          size: 48,
-                          color: PrimeCareTheme.colors.slateGray.withOpacity(
-                            0.5,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Line Chart Placeholder',
-                          style: PrimeCareTheme.typography.label,
-                        ),
-                      ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Completion Trend (YTD)',
+                      style: PrimeCareTheme.typography.h3,
                     ),
+                    Icon(
+                      LucideIcons.moreHorizontal,
+                      color: PrimeCareTheme.colors.slateGray,
+                      size: 20,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  height: 220,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildLinePoint('Jan', 0.3),
+                      _buildLinePoint('Feb', 0.5),
+                      _buildLinePoint('Mar', 0.4),
+                      _buildLinePoint('Apr', 0.7),
+                      _buildLinePoint('May', 0.6),
+                      _buildLinePoint('Jun', 0.8),
+                      _buildLinePoint('Jul', 0.9),
+                    ],
                   ),
                 ),
               ],
@@ -165,36 +169,77 @@ class TrainingReportsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Dept Distribution', style: PrimeCareTheme.typography.h3),
-                const SizedBox(height: 16),
-                Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: PrimeCareTheme.colors.cloudGray.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          LucideIcons.pieChart,
-                          size: 48,
-                          color: PrimeCareTheme.colors.slateGray.withOpacity(
-                            0.5,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Dept Distribution',
+                      style: PrimeCareTheme.typography.h3,
+                    ),
+                    Icon(
+                      LucideIcons.pieChart,
+                      color: PrimeCareTheme.colors.slateGray,
+                      size: 20,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                Center(
+                  child: Container(
+                    height: 180,
+                    width: 180,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.3),
+                        width: 24,
+                      ),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '42%',
+                            style: PrimeCareTheme.typography.h2.copyWith(
+                              color: PrimeCareTheme.colors.emeraldTeal,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Pie Chart Placeholder',
-                          style: PrimeCareTheme.typography.label,
-                        ),
-                      ],
+                          Text(
+                            'Nursing',
+                            style: PrimeCareTheme.typography.label,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+                const SizedBox(height: 16),
               ],
             ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLinePoint(String label, double heightRatio) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          width: 12,
+          height: 180 * heightRatio,
+          decoration: BoxDecoration(
+            color: PrimeCareTheme.colors.navyIndigo,
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          label,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
           ),
         ),
       ],
@@ -221,13 +266,19 @@ class TrainingReportsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           _buildExportRow('Q3 Compliance Report.pdf', 'Oct 15, 2026', '2.4 MB'),
-          const Divider(),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Divider(height: 1, thickness: 1),
+          ),
           _buildExportRow(
             'Nursing_Training_Matrix.xlsx',
             'Oct 12, 2026',
             '1.1 MB',
           ),
-          const Divider(),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Divider(height: 1, thickness: 1),
+          ),
           _buildExportRow('Trainer_Scores_Sep26.csv', 'Oct 01, 2026', '450 KB'),
         ],
       ),
@@ -236,21 +287,21 @@ class TrainingReportsScreen extends ConsumerWidget {
 
   Widget _buildExportRow(String title, String date, String size) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: PrimeCareTheme.colors.cloudGray,
-                  borderRadius: BorderRadius.circular(10),
+                  color: PrimeCareTheme.colors.cloudGray.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   LucideIcons.fileText,
-                  size: 18,
+                  size: 20,
                   color: PrimeCareTheme.colors.navyIndigo,
                 ),
               ),
@@ -261,13 +312,15 @@ class TrainingReportsScreen extends ConsumerWidget {
                   Text(
                     title,
                     style: PrimeCareTheme.typography.body.copyWith(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 4),
                   Text(
                     '$date  •  $size',
-                    style: PrimeCareTheme.typography.label,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                   ),
                 ],
               ),
@@ -277,6 +330,7 @@ class TrainingReportsScreen extends ConsumerWidget {
             icon: const Icon(LucideIcons.download),
             onPressed: () {},
             color: PrimeCareTheme.colors.slateGray,
+            splashRadius: 24,
           ),
         ],
       ),

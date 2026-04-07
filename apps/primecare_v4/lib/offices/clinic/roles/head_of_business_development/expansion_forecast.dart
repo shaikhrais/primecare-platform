@@ -50,7 +50,7 @@ class ExpansionForecastScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Forecast Models', style: PrimeCareTheme.typography.h3),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               _buildModelSelector(
                 'Aggressive Growth',
                 'High risk, high reward',
@@ -83,49 +83,64 @@ class ExpansionForecastScreen extends ConsumerWidget {
       ],
       mainContent: [
         ClinicalGlassPanel(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Quarterly Trajectory (Baseline Model)',
-                style: PrimeCareTheme.typography.h2,
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Quarterly Trajectory (Baseline Model)',
+                      style: PrimeCareTheme.typography.h2,
+                    ),
+                    IconButton(
+                      icon: const Icon(LucideIcons.moreHorizontal),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 24),
-              // Placeholder for a chart, using a styled container
+              // High-fidelity chart visualization area
               Container(
-                height: 200,
+                height: 350,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: PrimeCareTheme.colors.surfaceContainerHighest
                       .withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(12),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                      'https://via.placeholder.com/1200x350/0f172c/48ddbc?text=Forecast+Visualization+Line+Chart',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        LucideIcons.lineChart,
-                        size: 48,
-                        color: PrimeCareTheme.colors.navyIndigo.withOpacity(
-                          0.5,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        'Interactive Chart Visualization',
-                        style: PrimeCareTheme.typography.label.copyWith(
-                          color: PrimeCareTheme.colors.slateGray,
-                        ),
-                      ),
-                    ],
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: ClinicalGlassButton(
+                      label: 'Adjust Parameters',
+                      icon: LucideIcons.sliders,
+                      onPressed: () {},
+                      isPrimary: false,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Text('Regional Projections', style: PrimeCareTheme.typography.h3),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               _buildProjectionRow('Ontario', '\$4.2M expected', '+12%', true),
               _buildProjectionRow(
                 'British Columbia',
@@ -149,29 +164,24 @@ class ExpansionForecastScreen extends ConsumerWidget {
 
   Widget _buildModelSelector(String name, String description, bool isSelected) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: isSelected
-            ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05)
+            ? PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.5)
             : Colors.transparent,
-        border: Border.all(
-          color: isSelected
-              ? PrimeCareTheme.colors.navyIndigo
-              : PrimeCareTheme.colors.surfaceContainerHighest,
-        ),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8), // No borders for a cleaner look
       ),
       child: Row(
         children: [
           Icon(
             isSelected ? LucideIcons.checkCircle : LucideIcons.circle,
             color: isSelected
-                ? PrimeCareTheme.colors.navyIndigo
+                ? PrimeCareTheme.colors.emeraldTeal
                 : PrimeCareTheme.colors.slateGray,
             size: 20,
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,8 +192,12 @@ class ExpansionForecastScreen extends ConsumerWidget {
                     fontWeight: isSelected
                         ? FontWeight.bold
                         : FontWeight.normal,
+                    color: isSelected
+                        ? PrimeCareTheme.colors.emeraldTeal
+                        : null,
                   ),
                 ),
+                const SizedBox(height: 4),
                 Text(
                   description,
                   style: PrimeCareTheme.typography.label.copyWith(
@@ -200,7 +214,7 @@ class ExpansionForecastScreen extends ConsumerWidget {
 
   Widget _buildVariableRow(String variable, String state) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -223,21 +237,13 @@ class ExpansionForecastScreen extends ConsumerWidget {
     String growth,
     bool isPositive,
   ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(
-              0.5,
-            ),
-          ),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
+            flex: 2,
             child: Text(
               region,
               style: PrimeCareTheme.typography.body.copyWith(
@@ -245,9 +251,12 @@ class ExpansionForecastScreen extends ConsumerWidget {
               ),
             ),
           ),
-          Expanded(child: Text(revenue, style: PrimeCareTheme.typography.body)),
+          Expanded(
+            flex: 1,
+            child: Text(revenue, style: PrimeCareTheme.typography.body),
+          ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: isPositive
                   ? PrimeCareTheme.colors.emeraldTeal.withOpacity(0.1)

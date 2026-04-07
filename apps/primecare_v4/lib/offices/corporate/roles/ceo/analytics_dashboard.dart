@@ -5,6 +5,7 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
 
 class CeoAnalyticsDashboard extends ConsumerWidget {
   const CeoAnalyticsDashboard({super.key});

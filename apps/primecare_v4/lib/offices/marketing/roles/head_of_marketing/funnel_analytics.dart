@@ -3,248 +3,193 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
-class FunnelAnalyticsScreen extends ConsumerStatefulWidget {
+class FunnelAnalyticsScreen extends ConsumerWidget {
   const FunnelAnalyticsScreen({super.key});
 
   @override
-  ConsumerState<FunnelAnalyticsScreen> createState() =>
-      _FunnelAnalyticsScreenState();
-}
-
-class _FunnelAnalyticsScreenState extends ConsumerState<FunnelAnalyticsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PageTemplate(
+      title: 'Funnel Analytics Dashboard',
+      subtitle: 'Comprehensive breakdown of the patient acquisition funnel over the last 30 days.',
+      headerTrailing: Row(
         children: [
-          _buildHeader(),
-          const SizedBox(height: 32),
-          _buildMetricCards(),
-          const SizedBox(height: 32),
-          Row(
+          ClinicalGlassButton(
+            onPressed: () {},
+            icon: LucideIcons.download,
+            label: 'Export Report',
+            isPrimary: false,
+          ),
+          const SizedBox(width: 16),
+          ClinicalGlassButton(
+            onPressed: () {},
+            icon: LucideIcons.calendar,
+            label: 'Last 30 Days',
+            isPrimary: true,
+          ),
+        ],
+      ),
+      kpiCards: [
+        KPICardData(
+          title: 'Total Impressions',
+          value: '1.25M',
+          icon: LucideIcons.eye,
+          trend: 5.2,
+          trendLabel: 'vs last period',
+          color: PrimeCareTheme.colors.slateGray,
+        ),
+        KPICardData(
+          title: 'Aggregate CTR',
+          value: '2.4%',
+          icon: LucideIcons.mousePointerClick,
+          trend: 0.2, // Arbitrary representation
+          trendLabel: 'above benchmark',
+          color: PrimeCareTheme.colors.navyIndigo,
+        ),
+        KPICardData(
+          title: 'Cost Per Lead',
+          value: '\$118',
+          icon: LucideIcons.dollarSign,
+          trend: -12.0,
+          trendLabel: 'vs last period',
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+        KPICardData(
+          title: 'Total Patients (Acquired)',
+          value: '1,328',
+          icon: LucideIcons.userCheck,
+          trend: 8.1,
+          trendLabel: 'vs last period',
+          color: PrimeCareTheme.colors.navyIndigo,
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(32),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(flex: 2, child: _buildMainFunnel()),
-              const SizedBox(width: 24),
-              Expanded(flex: 1, child: _buildChannelBreakdown()),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Funnel Analytics Dashboard',
-              style: PrimeCareTheme.typography.heroTitle.copyWith(
-                color: PrimeCareTheme.colors.navyIndigo,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Comprehensive breakdown of the patient acquisition funnel over the last 30 days.',
-              style: PrimeCareTheme.typography.body.copyWith(
-                color: PrimeCareTheme.colors.slateGray,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            ClinicalGlassButton(
-              onPressed: () {},
-              icon: LucideIcons.download,
-              label: 'Export Report',
-            ),
-            const SizedBox(width: 16),
-            ClinicalGlassButton(
-              onPressed: () {},
-              icon: LucideIcons.calendar,
-              label: 'Last 30 Days',
-              isActive: true, // Primary action
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMetricCards() {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildMetricCard(
-            'Total Impressions',
-            '1.25M',
-            '+5.2% vs last period',
-            LucideIcons.eye,
-            PrimeCareTheme.colors.slateGray,
-          ),
-        ),
-        const SizedBox(width: 24),
-        Expanded(
-          child: _buildMetricCard(
-            'Aggregate CTR',
-            '2.4%',
-            '0.2% above benchmark',
-            LucideIcons.mousePointerClick,
-            PrimeCareTheme.colors.navyIndigo,
-          ),
-        ),
-        const SizedBox(width: 24),
-        Expanded(
-          child: _buildMetricCard(
-            'Cost Per Lead',
-            '\$118',
-            '-12% vs last period',
-            LucideIcons.dollarSign,
-            PrimeCareTheme.colors.emeraldTeal,
-          ),
-        ),
-        const SizedBox(width: 24),
-        Expanded(
-          child: _buildMetricCard(
-            'Total Patients (Acquired)',
-            '1,328',
-            '+8.1% vs last period',
-            LucideIcons.userCheck,
-            PrimeCareTheme.colors.navyIndigo,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMetricCard(
-    String title,
-    String value,
-    String subtitle,
-    IconData icon,
-    Color accentColor,
-  ) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
               Text(
-                title,
-                style: PrimeCareTheme.typography.label.copyWith(
-                  color: PrimeCareTheme.colors.slateGray,
-                  fontWeight: FontWeight.w600,
+                'Global Funnel Stages',
+                style: PrimeCareTheme.typography.h2.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
+              const SizedBox(height: 8),
+              Text(
+                'End-to-end patient acquisition journey across all channels.',
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                child: Icon(icon, color: accentColor, size: 20),
+              ),
+              const SizedBox(height: 48),
+              _buildFunnelStageModern(
+                'Impressions',
+                '1,250,400',
+                '100%',
+                PrimeCareTheme.colors.surfaceContainerHighest,
+                1.0,
+                LucideIcons.eye,
+              ),
+              _buildConnectingArrowModern('2.4% CTR'),
+              _buildFunnelStageModern(
+                'Clicks',
+                '30,009',
+                '2.4%',
+                PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.1),
+                0.85,
+                LucideIcons.mousePointerClick,
+              ),
+              _buildConnectingArrowModern('12% Conv. Rate'),
+              _buildFunnelStageModern(
+                'Leads Generated (MQLs)',
+                '3,601',
+                '0.28%',
+                PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.3),
+                0.70,
+                LucideIcons.filter,
+              ),
+              _buildConnectingArrowModern('45% Qual. Rate'),
+              _buildFunnelStageModern(
+                'Consultations Booked (SQLs)',
+                '1,620',
+                '0.12%',
+                PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.7),
+                0.55,
+                LucideIcons.calendarCheck,
+              ),
+              _buildConnectingArrowModern('82% Show Rate'),
+              _buildFunnelStageModern(
+                'New Patients',
+                '1,328',
+                '0.10%',
+                PrimeCareTheme.colors.navyIndigo,
+                0.40,
+                LucideIcons.userCheck,
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          Text(
-            value,
-            style: PrimeCareTheme.typography.display.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            subtitle,
-            style: PrimeCareTheme.typography.body.copyWith(
-              color: PrimeCareTheme.colors.slateGray,
-              fontSize: 13,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Top Channels',
+                    style: PrimeCareTheme.typography.h3.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
+                  Icon(
+                    LucideIcons.pieChart,
+                    color: PrimeCareTheme.colors.slateGray,
+                    size: 20,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildChannelRow(
+                'Organic Search',
+                45,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              const SizedBox(height: 24),
+              _buildChannelRow(
+                'Paid Social (Meta)',
+                30,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              const SizedBox(height: 24),
+              _buildChannelRow(
+                'Google Ads (PPC)',
+                15,
+                PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.6),
+              ),
+              const SizedBox(height: 24),
+              _buildChannelRow('Referrals', 10, PrimeCareTheme.colors.slateGray),
 
-  Widget _buildMainFunnel() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Global Funnel Stages',
-            style: PrimeCareTheme.typography.h2.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo,
-            ),
+              const SizedBox(height: 32),
+              Text(
+                'Channel ROI Overview',
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildRoiCard('Organic Search', '8.4x', '+1.2x'),
+              const SizedBox(height: 12),
+              _buildRoiCard('Paid Social', '3.2x', '-0.4x'),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            'End-to-end patient acquisition journey across all channels.',
-            style: PrimeCareTheme.typography.body.copyWith(
-              color: PrimeCareTheme.colors.slateGray,
-            ),
-          ),
-          const SizedBox(height: 48),
-          _buildFunnelStageModern(
-            'Impressions',
-            '1,250,400',
-            '100%',
-            PrimeCareTheme.colors.surfaceContainerHighest,
-            1.0,
-            LucideIcons.eye,
-          ),
-          _buildConnectingArrowModern('2.4% CTR'),
-          _buildFunnelStageModern(
-            'Clicks',
-            '30,009',
-            '2.4%',
-            PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.1),
-            0.85,
-            LucideIcons.mousePointerClick,
-          ),
-          _buildConnectingArrowModern('12% Conv. Rate'),
-          _buildFunnelStageModern(
-            'Leads Generated (MQLs)',
-            '3,601',
-            '0.28%',
-            PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.3),
-            0.70,
-            LucideIcons.filter,
-          ),
-          _buildConnectingArrowModern('45% Qual. Rate'),
-          _buildFunnelStageModern(
-            'Consultations Booked (SQLs)',
-            '1,620',
-            '0.12%',
-            PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.7),
-            0.55,
-            LucideIcons.calendarCheck,
-          ),
-          _buildConnectingArrowModern('82% Show Rate'),
-          _buildFunnelStageModern(
-            'New Patients',
-            '1,328',
-            '0.10%',
-            PrimeCareTheme.colors.navyIndigo,
-            0.40,
-            LucideIcons.userCheck,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -354,65 +299,6 @@ class _FunnelAnalyticsScreenState extends ConsumerState<FunnelAnalyticsScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildChannelBreakdown() {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Top Channels',
-                style: PrimeCareTheme.typography.h3.copyWith(
-                  color: PrimeCareTheme.colors.navyIndigo,
-                ),
-              ),
-              Icon(
-                LucideIcons.pieChart,
-                color: PrimeCareTheme.colors.slateGray,
-                size: 20,
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          _buildChannelRow(
-            'Organic Search',
-            45,
-            PrimeCareTheme.colors.emeraldTeal,
-          ),
-          const SizedBox(height: 24),
-          _buildChannelRow(
-            'Paid Social (Meta)',
-            30,
-            PrimeCareTheme.colors.navyIndigo,
-          ),
-          const SizedBox(height: 24),
-          _buildChannelRow(
-            'Google Ads (PPC)',
-            15,
-            PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.6),
-          ),
-          const SizedBox(height: 24),
-          _buildChannelRow('Referrals', 10, PrimeCareTheme.colors.slateGray),
-
-          const SizedBox(height: 32),
-          Text(
-            'Channel ROI Overview',
-            style: PrimeCareTheme.typography.h3.copyWith(
-              color: PrimeCareTheme.colors.navyIndigo,
-            ),
-          ),
-          const SizedBox(height: 16),
-          _buildRoiCard('Organic Search', '8.4x', '+1.2x'),
-          const SizedBox(height: 12),
-          _buildRoiCard('Paid Social', '3.2x', '-0.4x'),
-        ],
       ),
     );
   }
