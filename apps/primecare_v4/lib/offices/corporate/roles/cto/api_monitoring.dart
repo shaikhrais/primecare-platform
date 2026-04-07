@@ -1,96 +1,52 @@
-import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
 class ApiMonitoringScreen extends StatelessWidget {
   const ApiMonitoringScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(context),
-          const SizedBox(height: 24),
-          Expanded(
-            child: SingleChildScrollView(
+    return PageTemplate(
+      header: PageHeader(
+        title: 'API Monitoring & Traffic',
+        subtitle:
+            'Track API request volume, latency, endpoint usage, and token limits.',
+        actions: [
+          _buildActionIconButton(context, LucideIcons.download, 'Export Logs'),
+          const SizedBox(width: 12),
+          _buildActionIconButton(context, LucideIcons.webhook, 'Webhooks'),
+        ],
+      ),
+      content: [
+        _buildKPIs(context),
+        const SizedBox(height: 24),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 2,
               child: Column(
                 children: [
-                  _buildKPIs(context),
+                  _buildTrafficChart(context),
                   const SizedBox(height: 24),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            _buildTrafficChart(context),
-                            const SizedBox(height: 24),
-                            _buildEndpointsTable(context),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            _buildLatencyPercentiles(context),
-                            const SizedBox(height: 24),
-                            _buildTokenUsage(context),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  _buildEndpointsTable(context),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'API Monitoring & Traffic',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            const SizedBox(width: 24),
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  _buildLatencyPercentiles(context),
+                  const SizedBox(height: 24),
+                  _buildTokenUsage(context),
+                ],
               ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              'Track API request volume, latency, endpoint usage, and token limits.',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            _buildActionIconButton(
-              context,
-              LucideIcons.download,
-              'Export Logs',
-            ),
-            const SizedBox(width: 12),
-            _buildActionIconButton(context, LucideIcons.webhook, 'Webhooks'),
           ],
         ),
       ],
@@ -293,7 +249,7 @@ class ApiMonitoringScreen extends StatelessWidget {
     double clientHeight,
     double serverHeight,
   ) {
-    return Container(
+    return SizedBox(
       width: 32,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,

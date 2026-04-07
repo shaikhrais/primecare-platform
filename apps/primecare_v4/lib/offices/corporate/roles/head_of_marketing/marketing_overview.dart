@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import '../../../../office/components/page_template.dart';
+import '../../../../office/components/clinical_glass_panel.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -17,194 +19,115 @@ class MarketingOverview extends ConsumerWidget {
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Global Brand & Growth Marketing',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
+      data: (metrics) => PageTemplate(
+        title: 'Global Brand & Growth Marketing',
+        subtitle: 'Orchestrating regional outreach, lead velocity, and institutional brand authority.',
+        kpiCards: metrics.kpis
+            .map(
+              (kpi) => KpiStatCard(
+                title: kpi.title,
+                value: kpi.value,
+                subtitle: kpi.subtitle,
+                icon: _getIcon(kpi.title),
+                iconColor: _getStatusColor(kpi.status),
+              ),
+            )
+            .toList(),
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // LEFT: Regional Campaigns
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Active Expansion Campaigns',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Outfit',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Orchestrating regional outreach, lead velocity, and institutional brand authority.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
+                    const SizedBox(height: 16),
+                    ClinicalGlassPanel(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          _buildCampaignRow(
+                            'Healthy Aging: NY Cluster',
+                            'Paid Search / Meta',
+                            'ACTIVE',
+                            '4.2k Leads',
+                          ),
+                          const SizedBox(height: 24),
+                          _buildCampaignRow(
+                            'PrimeCare Discovery: ON',
+                            'Local Outreach',
+                            'ACTIVE',
+                            '2.1k Leads',
+                          ),
+                          const SizedBox(height: 24),
+                          _buildCampaignRow(
+                            'Post-Op Mobility: FLA',
+                            'Affiliate / Clinic Hub',
+                            'PAUSED',
+                            '0.4k Leads',
+                            isPaused: true,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // MARKETING KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
+                  ],
+                ),
+              ),
+              const SizedBox(width: 24),
+              // RIGHT: Market Trends
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Marketing Audit Trail',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Outfit',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ClinicalGlassPanel(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: metrics.recentActivity
                             .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
+                              (log) => Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: AuditLogTile(
+                                  title: log.title,
+                                  subtitle: log.subtitle,
+                                  timestamp: log.timestamp,
+                                  icon: _getActivityIcon(log.icon),
+                                  iconColor: _getStatusColor(
+                                    log.color,
+                                  ),
+                                ),
                               ),
                             )
                             .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Regional Campaigns
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Active Expansion Campaigns',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildCampaignRow(
-                                    'Healthy Aging: NY Cluster',
-                                    'Paid Search / Meta',
-                                    'ACTIVE',
-                                    '4.2k Leads',
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildCampaignRow(
-                                    'PrimeCare Discovery: ON',
-                                    'Local Outreach',
-                                    'ACTIVE',
-                                    '2.1k Leads',
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildCampaignRow(
-                                    'Post-Op Mobility: FLA',
-                                    'Affiliate / Clinic Hub',
-                                    'PAUSED',
-                                    '0.4k Leads',
-                                    isPaused: true,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
-
-                      const SizedBox(width: 24),
-
-                      // RIGHT: Market Trends
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Marketing Audit Trail',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: metrics.recentActivity
-                                    .map(
-                                      (log) => Column(
-                                        children: [
-                                          AuditLogTile(
-                                            title: log.title,
-                                            subtitle: log.subtitle,
-                                            timestamp: log.timestamp,
-                                            icon: _getActivityIcon(log.icon),
-                                            iconColor: _getStatusColor(
-                                              log.color,
-                                            ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.blueGrey,
-                                            height: 16,
-                                            thickness: 0.1,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildKpi(
-    double width,
-    String title,
-    String value,
-    IconData icon,
-    Color color, [
-    String? subtitle,
-  ]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(
-        title: title,
-        value: value,
-        subtitle: subtitle,
-        icon: icon,
-        iconColor: color,
-      ),
-    );
-  }
 
   Widget _buildCampaignRow(
     String title,
@@ -222,7 +145,7 @@ class MarketingOverview extends ConsumerWidget {
                 ? Colors.blueGrey.withValues(alpha: 0.1)
                 : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(
-              Icons.hub_outlined,
+              LucideIcons.share2,
               color: isPaused ? Colors.blueGrey : AppTheme.primary,
               size: 20,
             ),
@@ -273,26 +196,26 @@ class MarketingOverview extends ConsumerWidget {
   }
 
   IconData _getIcon(String title) {
-    if (title.contains('Reach')) return Icons.campaign_outlined;
-    if (title.contains('Cost')) return Icons.payments_outlined;
-    if (title.contains('Velocity')) return Icons.speed;
-    if (title.contains('Equity')) return Icons.star_outline;
-    if (title.contains('ROI')) return Icons.trending_up;
-    return Icons.insights;
+    if (title.contains('Reach')) return LucideIcons.megaphone;
+    if (title.contains('Cost')) return LucideIcons.coins;
+    if (title.contains('Velocity')) return LucideIcons.zap;
+    if (title.contains('Equity')) return LucideIcons.star;
+    if (title.contains('ROI')) return LucideIcons.trendingUp;
+    return LucideIcons.activity;
   }
 
   IconData _getActivityIcon(String icon) {
     switch (icon) {
       case 'verified':
-        return Icons.verified;
+        return LucideIcons.badgeCheck;
       case 'video':
-        return Icons.video_library_outlined;
+        return LucideIcons.video;
       case 'savings':
-        return Icons.savings_outlined;
+        return LucideIcons.piggyBank;
       case 'warning':
-        return Icons.warning_amber_outlined;
+        return LucideIcons.alertTriangle;
       default:
-        return Icons.history;
+        return LucideIcons.history;
     }
   }
 

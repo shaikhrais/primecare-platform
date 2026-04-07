@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import '../../../../office/components/page_template.dart';
+import '../../../../office/components/clinical_glass_panel.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -11,196 +13,89 @@ class FranchiseSalesDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Franchise Growth: Expansion Pipeline',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Monitor potential franchise partners, discovery day conversions, and regional territory sales.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // FRANCHISE KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
-                            .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      data: (metrics) => PageTemplate(
+        title: 'Franchise Growth: Expansion Pipeline',
+        subtitle: 'Monitor potential franchise partners, discovery day conversions, and regional territory sales.',
+        kpiCards: metrics.kpis
+            .map(
+              (kpi) => KpiStatCard(
+                title: kpi.title,
+                value: kpi.value,
+                subtitle: kpi.subtitle,
+                icon: _getIcon(kpi.title),
+                iconColor: _getStatusColor(kpi.status),
+              ),
+            )
+            .toList(),
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // LEFT: Sales Funnel
+              Expanded(
+                flex: 2,
+                child: ClinicalGlassPanel(
+                  title: 'Active Prospect Pipeline',
+                  icon: LucideIcons.funnel,
+                  child: Column(
                     children: [
-                      // LEFT: Sales Funnel
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Active Prospect Pipeline',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildProspectRow(
-                                    'Discovery Day: Toronto',
-                                    '8 Qualified Leads',
-                                    'HIGH PRIORITY',
-                                    Colors.teal,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildProspectRow(
-                                    'Territory Sale: Vancouver',
-                                    'Ref: #BC-202',
-                                    'PENDING SIG',
-                                    Colors.indigo,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildProspectRow(
-                                    'Partner Inquiry: Florida',
-                                    'Web Lead v4',
-                                    'FOLLOW UP',
-                                    Colors.orange,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                      _buildProspectRow(
+                        'Discovery Day: Toronto',
+                        '8 Qualified Leads',
+                        'HIGH PRIORITY',
+                        Colors.teal,
                       ),
-
-                      const SizedBox(width: 24),
-
-                      // RIGHT: Sales Audit Feed
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Lead Activity Feed',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: metrics.recentActivity
-                                    .map(
-                                      (log) => Column(
-                                        children: [
-                                          AuditLogTile(
-                                            title: log.title,
-                                            subtitle: log.subtitle,
-                                            timestamp: log.timestamp,
-                                            icon: _getActivityIcon(log.icon),
-                                            iconColor: _getStatusColor(
-                                              log.color,
-                                            ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.blueGrey,
-                                            height: 16,
-                                            thickness: 0.1,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
-                        ),
+                      const SizedBox(height: 16),
+                      _buildProspectRow(
+                        'Territory Sale: Vancouver',
+                        'Ref: #BC-202',
+                        'PENDING SIG',
+                        Colors.indigo,
+                      ),
+                      const SizedBox(height: 16),
+                      _buildProspectRow(
+                        'Partner Inquiry: Florida',
+                        'Web Lead v4',
+                        'FOLLOW UP',
+                        Colors.orange,
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(width: 24),
+              // RIGHT: Sales Audit Feed
+              Expanded(
+                flex: 1,
+                child: ClinicalGlassPanel(
+                  title: 'Lead Activity Feed',
+                  icon: LucideIcons.activity,
+                  child: Column(
+                    children: metrics.recentActivity
+                        .map(
+                          (log) => Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: AuditLogTile(
+                              title: log.title,
+                              subtitle: log.subtitle,
+                              timestamp: log.timestamp,
+                              icon: _getActivityIcon(log.icon),
+                              iconColor: _getStatusColor(log.color),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildKpi(
-    double width,
-    String title,
-    String value,
-    IconData icon,
-    Color color, [
-    String? subtitle,
-  ]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(
-        title: title,
-        value: value,
-        subtitle: subtitle,
-        icon: icon,
-        iconColor: color,
       ),
     );
   }
@@ -211,8 +106,12 @@ class FranchiseSalesDashboard extends ConsumerWidget {
     String status,
     Color statusColor,
   ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: statusColor.withValues(alpha: 0.02),
+        borderRadius: BorderRadius.circular(16), // xl rounding
+      ),
       child: Row(
         children: [
           Container(
@@ -222,7 +121,7 @@ class FranchiseSalesDashboard extends ConsumerWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(
-              Icons.rocket_launch_outlined,
+              LucideIcons.rocket,
               color: statusColor,
               size: 20,
             ),
@@ -246,13 +145,20 @@ class FranchiseSalesDashboard extends ConsumerWidget {
               ],
             ),
           ),
-          Text(
-            status,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: statusColor,
-              fontSize: 10,
-              letterSpacing: 1.1,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: statusColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              status,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: statusColor,
+                fontSize: 10,
+                letterSpacing: 1.1,
+              ),
             ),
           ),
         ],
@@ -261,23 +167,23 @@ class FranchiseSalesDashboard extends ConsumerWidget {
   }
 
   IconData _getIcon(String title) {
-    if (title.contains('Leads')) return Icons.filter_alt_outlined;
-    if (title.contains('Conversion')) return Icons.track_changes_outlined;
-    if (title.contains('Pipeline')) return Icons.account_tree_outlined;
-    if (title.contains('Proposals')) return Icons.assignment_outlined;
-    return Icons.insights;
+    if (title.contains('Leads')) return LucideIcons.filter;
+    if (title.contains('Conversion')) return LucideIcons.target;
+    if (title.contains('Pipeline')) return LucideIcons.network;
+    if (title.contains('Proposals')) return LucideIcons.fileText;
+    return LucideIcons.barChart2;
   }
 
   IconData _getActivityIcon(String icon) {
     switch (icon) {
       case 'verified':
-        return Icons.verified_user_outlined;
+        return LucideIcons.shieldCheck;
       case 'lock':
-        return Icons.lock_outline;
+        return LucideIcons.lock;
       case 'cloud_done':
-        return Icons.cloud_done_outlined;
+        return LucideIcons.cloudLightning;
       default:
-        return Icons.history;
+        return LucideIcons.history;
     }
   }
 
@@ -301,3 +207,4 @@ class FranchiseSalesDashboard extends ConsumerWidget {
     }
   }
 }
+

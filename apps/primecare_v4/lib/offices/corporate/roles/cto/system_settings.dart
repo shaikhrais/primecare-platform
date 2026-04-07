@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/providers/dynamic_page_providers.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
+import '../../../../office/components/clinical_glass_panel.dart';
+import '../../../../office/components/page_template.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
@@ -19,205 +19,171 @@ class SystemSettingsView extends ConsumerWidget {
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(child: Text('Error: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
+      data: (metrics) => PageTemplate(
+        title: 'Global Infrastructure Settings',
+        subtitle: 'Overview and analytical breakdown for Global Infrastructure Settings.',
+        kpiCards: [
+          _buildKpiCard('Activity Level', 'High', LucideIcons.activity, AppTheme.emeraldTeal),
+          _buildKpiCard('Pending Items', '12', LucideIcons.clock, AppTheme.amberWarning),
+          _buildKpiCard('System Sync', 'Active', LucideIcons.refreshCw, AppTheme.navyIndigo),
+          _buildKpiCard('Alerts', '0', LucideIcons.bell, Colors.redAccent),
+        ],
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Global Infrastructure Settings',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
+                    'Global Infrastructure Settings Ledger',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
                       fontFamily: 'Outfit',
+                      color: theme.colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Overview and analytical breakdown for Global Infrastructure Settings.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
+                  const SizedBox(height: 16),
+                  ClinicalGlassPanel(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final dataAsync = ref.watch(
+                            dynamicPageProvider('officeSystemSettingsView'),
+                          );
+                          return dataAsync.when(
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            error: (e, st) => Text('Error: $e'),
+                            data: (items) {
+                              if (items.isEmpty) {
+                                return const Text(
+                                  'No records found.',
+                                  style: TextStyle(color: Colors.blueGrey),
+                                );
+                              }
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: items.map((item) {
+                                  return _buildLedgerRow(
+                                    LucideIcons.settings,
+                                    item['title'] ?? 'Record',
+                                    item['status'] ?? 'Active',
+                                    AppTheme.emeraldTeal,
+                                    theme,
+                                  );
+                                }).toList(),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // TOP KPI METRICS
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Activity Level',
-                              value: 'High',
-                              icon: Icons.show_chart,
-                              iconColor: Colors.teal,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Pending Items',
-                              value: '12',
-                              icon: Icons.pending_actions,
-                              iconColor: Colors.orange,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'System Sync',
-                              value: 'Active',
-                              icon: Icons.sync,
-                              iconColor: Colors.indigo,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Alerts',
-                              value: '0',
-                              icon: Icons.notification_important,
-                              iconColor: Colors.red,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  // LISTINGS / LEDGER
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Global Infrastructure Settings Ledger',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Consumer(
-                                builder: (context, ref, child) {
-                                  final dataAsync = ref.watch(
-                                    dynamicPageProvider(
-                                      'officeSystemSettingsView',
-                                    ),
-                                  );
-                                  return dataAsync.when(
-                                    loading: () => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    error: (e, st) => Text('Error: $e'),
-                                    data: (items) {
-                                      if (items.isEmpty)
-                                        return const Text(
-                                          'No records found.',
-                                          style: TextStyle(
-                                            color: Colors.blueGrey,
-                                          ),
-                                        );
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: items.map((item) {
-                                          return Column(
-                                            children: [
-                                              _buildLedgerRow(
-                                                Icons.api,
-                                                item['title'] ?? 'Record',
-                                                item['status'] ?? 'Active',
-                                                Colors.teal,
-                                              ),
-                                              const Divider(
-                                                color: Colors.blueGrey,
-                                                height: 24,
-                                                thickness: 0.1,
-                                              ),
-                                            ],
-                                          );
-                                        }).toList(),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Change Log',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(
-                                    title: 'Update Triggered',
-                                    subtitle: 'Automated policy sync.',
-                                    timestamp: '1 Hr Ago',
-                                    icon: Icons.history,
-                                    iconColor: Colors.teal,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 16,
-                                    thickness: 0.1,
-                                  ),
-                                  AuditLogTile(
-                                    title: 'Audit Warning',
-                                    subtitle: 'Item requires review.',
-                                    timestamp: '3 Hrs Ago',
-                                    icon: Icons.warning,
-                                    iconColor: Colors.orange,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 24),
+            Expanded(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Change Log',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Outfit',
+                      color: theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ClinicalGlassPanel(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column(
+                        children: [
+                          _buildAuditLogTile(
+                            'Update Triggered',
+                            'Automated policy sync.',
+                            '1 Hr Ago',
+                            LucideIcons.history,
+                            AppTheme.emeraldTeal,
+                            theme,
+                          ),
+                          _buildAuditLogTile(
+                            'Audit Warning',
+                            'Item requires review.',
+                            '3 Hrs Ago',
+                            LucideIcons.alertTriangle,
+                            AppTheme.amberWarning,
+                            theme,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildKpiCard(String title, String value, IconData icon, Color color) {
+    return ClinicalGlassPanel(
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(icon, color: color, size: 28),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '+2.4%',
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Outfit',
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 14,
+                fontFamily: 'Inter',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -227,18 +193,91 @@ class SystemSettingsView extends ConsumerWidget {
     String title,
     String subtitle,
     Color statusColor,
+    ThemeData theme,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.blueGrey.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: statusColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: statusColor, size: 20),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 13,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                'View Data',
+                style: TextStyle(
+                  color: statusColor,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAuditLogTile(
+    String title,
+    String subtitle,
+    String timestamp,
+    IconData icon,
+    Color iconColor,
+    ThemeData theme,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: statusColor.withValues(alpha: 0.1),
+              color: iconColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, color: statusColor, size: 20),
+            child: Icon(icon, color: iconColor, size: 18),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -248,26 +287,29 @@ class SystemSettingsView extends ConsumerWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    fontFamily: 'Inter',
                   ),
                 ),
                 Text(
                   subtitle,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 12,
+                    fontFamily: 'Inter',
+                  ),
                 ),
               ],
             ),
           ),
-          ElevatedButton(
-            key: const Key('data-status-id=corporate-cto-system-action-1'),
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: statusColor.withValues(alpha: 0.1),
-              foregroundColor: statusColor,
-              elevation: 0,
+          Text(
+            timestamp,
+            style: const TextStyle(
+              color: Colors.blueGrey,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
             ),
-            child: const Text('View'),
           ),
         ],
       ),

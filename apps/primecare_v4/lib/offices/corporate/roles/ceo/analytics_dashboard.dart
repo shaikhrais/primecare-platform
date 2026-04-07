@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import '../../../../office/components/page_template.dart';
+import '../../../../office/components/clinical_glass_panel.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 
@@ -12,173 +14,128 @@ class CeoAnalyticsDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
-    return metricsAsync.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Executive Oversight: Global Performance',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Real-time intelligence across all regions, clinical outcomes, and financial integrity.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // CEO KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
-                            .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Strategic Initiatives
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Strategic Roadmap Progress',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildStrategyRow(
-                                    'Nationwide Expansion',
-                                    'Q2 Milestone: 84%',
-                                    Colors.teal,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildStrategyRow(
-                                    'Clinical Excellence Sync',
-                                    'Target reached',
-                                    Colors.indigo,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildStrategyRow(
-                                    'AI Diagnostics Rollout',
-                                    'Phase 3 (On track)',
-                                    Colors.orange,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(width: 24),
-
-                      // RIGHT: Executive Audit Feed
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Executive Audit Feed',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: metrics.recentActivity
-                                    .map(
-                                      (log) => Column(
-                                        children: [
-                                          AuditLogTile(
-                                            title: log.title,
-                                            subtitle: log.subtitle,
-                                            timestamp: log.timestamp,
-                                            icon: _getActivityIcon(log.icon),
-                                            iconColor: _getStatusColor(
-                                              log.color,
-                                            ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.blueGrey,
-                                            height: 16,
-                                            thickness: 0.1,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+    return PageTemplate(
+      title: 'Global Analytics',
+      subtitle: 'Real-time intelligence across all regions, clinical outcomes, and financial integrity.',
+      headerIcon: LucideIcons.pieChart,
+      actions: [
+        FilledButton.icon(
+          onPressed: () {},
+          icon: const Icon(LucideIcons.download, size: 16),
+          label: const Text('Export Report'),
+          style: FilledButton.styleFrom(
+            backgroundColor: PrimeCareTheme.emeraldTeal,
+            foregroundColor: Colors.white,
           ),
-        ],
+        ),
+      ],
+      body: metricsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+        data: (metrics) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // KPI ROW
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final cardWidth = constraints.maxWidth > 1200
+                    ? (constraints.maxWidth - 48) / 4
+                    : (constraints.maxWidth > 600
+                        ? (constraints.maxWidth - 16) / 2
+                        : constraints.maxWidth);
+                return Wrap(
+                  spacing: 16,
+                  runSpacing: 16,
+                  children: metrics.kpis
+                      .map(
+                        (kpi) => _buildKpi(
+                          cardWidth,
+                          kpi.title,
+                          kpi.value,
+                          _getIcon(kpi.title),
+                          _getStatusColor(kpi.status),
+                          kpi.subtitle,
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+            ),
+            const SizedBox(height: 24),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // LEFT: Strategic Initiatives
+                Expanded(
+                  flex: 2,
+                  child: ClinicalGlassPanel(
+                    title: 'Strategic Roadmap Progress',
+                    icon: LucideIcons.map,
+                    child: Column(
+                      children: [
+                        _buildStrategyRow(
+                          'Nationwide Expansion',
+                          'Q2 Milestone: 84%',
+                          PrimeCareTheme.emeraldTeal,
+                        ),
+                        Divider(
+                          color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.1),
+                          height: 24,
+                        ),
+                        _buildStrategyRow(
+                          'Clinical Excellence Sync',
+                          'Target reached',
+                          PrimeCareTheme.navyIndigo,
+                        ),
+                        Divider(
+                          color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.1),
+                          height: 24,
+                        ),
+                        _buildStrategyRow(
+                          'AI Diagnostics Rollout',
+                          'Phase 3 (On track)',
+                          Colors.amber.shade700,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 24),
+                // RIGHT: Executive Audit Feed
+                Expanded(
+                  flex: 1,
+                  child: ClinicalGlassPanel(
+                    title: 'Executive Audit Feed',
+                    icon: LucideIcons.activity,
+                    child: Column(
+                      children: metrics.recentActivity
+                          .map(
+                            (log) => Column(
+                              children: [
+                                AuditLogTile(
+                                  title: log.title,
+                                  subtitle: log.subtitle,
+                                  timestamp: log.timestamp,
+                                  icon: _getActivityIcon(log.icon),
+                                  iconColor: _getStatusColor(log.color),
+                                ),
+                                Divider(
+                                  color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.1),
+                                  height: 16,
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -199,6 +156,8 @@ class CeoAnalyticsDashboard extends ConsumerWidget {
         subtitle: subtitle,
         icon: icon,
         iconColor: color,
+        trend: '+2.4%', // Visual indication
+        trendUp: true,
       ),
     );
   }
@@ -214,7 +173,7 @@ class CeoAnalyticsDashboard extends ConsumerWidget {
               color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(Icons.auto_graph_outlined, color: color, size: 20),
+            child: Icon(LucideIcons.trendingUp, color: color, size: 20),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -230,35 +189,38 @@ class CeoAnalyticsDashboard extends ConsumerWidget {
                 ),
                 Text(
                   status,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
+                  style: TextStyle(
+                    color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.6),
+                    fontSize: 12,
+                  ),
                 ),
               ],
             ),
           ),
-          const Icon(Icons.chevron_right, color: Colors.blueGrey, size: 16),
+          Icon(LucideIcons.chevronRight, color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.4), size: 16),
         ],
       ),
     );
   }
 
   IconData _getIcon(String title) {
-    if (title.contains('Profit')) return Icons.monetization_on_outlined;
-    if (title.contains('Revenue')) return Icons.account_balance_outlined;
-    if (title.contains('Staff')) return Icons.group_outlined;
-    if (title.contains('Security')) return Icons.security_outlined;
-    return Icons.insights;
+    if (title.contains('Profit')) return LucideIcons.dollarSign;
+    if (title.contains('Revenue')) return LucideIcons.briefcase;
+    if (title.contains('Staff')) return LucideIcons.users;
+    if (title.contains('Security')) return LucideIcons.shieldCheck;
+    return LucideIcons.lineChart;
   }
 
   IconData _getActivityIcon(String icon) {
     switch (icon) {
       case 'verified':
-        return Icons.verified_user_outlined;
+        return LucideIcons.shieldCheck;
       case 'lock':
-        return Icons.lock_outline;
+        return LucideIcons.lock;
       case 'cloud_done':
-        return Icons.cloud_done_outlined;
+        return LucideIcons.cloud;
       default:
-        return Icons.history;
+        return LucideIcons.history;
     }
   }
 
@@ -266,7 +228,7 @@ class CeoAnalyticsDashboard extends ConsumerWidget {
     switch (status) {
       case 'success':
       case 'teal':
-        return Colors.teal;
+        return PrimeCareTheme.emeraldTeal;
       case 'warning':
       case 'orange':
         return Colors.orange;
@@ -276,9 +238,9 @@ class CeoAnalyticsDashboard extends ConsumerWidget {
       case 'info':
       case 'indigo':
       case 'blue':
-        return Colors.indigo;
+        return PrimeCareTheme.navyIndigo;
       default:
-        return Colors.blueGrey;
+        return PrimeCareTheme.navyIndigo.withValues(alpha: 0.6);
     }
   }
 }

@@ -1,99 +1,90 @@
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
 class PlatformUsageScreen extends StatelessWidget {
   const PlatformUsageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(context),
-          const SizedBox(height: 24),
-          Expanded(
-            child: SingleChildScrollView(
+    return PageTemplate(
+      title: 'Platform Usage & Capacity',
+      subtitle:
+          'Monitor concurrency, active sessions, storage tiers, and capacity planning.',
+      headerTrailing: [
+        ClinicalGlassButton(
+          onPressed: () {},
+          label: 'Scale Tiers',
+          icon: LucideIcons.cloudRain,
+          isPrimary: true,
+        ),
+        const SizedBox(width: 12),
+        ClinicalGlassButton(
+          onPressed: () {},
+          label: 'Export Usage',
+          icon: LucideIcons.download,
+        ),
+      ],
+      kpiCards: [
+        KPICardData(
+          title: 'Peak Concurrency',
+          value: '4,280',
+          icon: LucideIcons.users,
+          trend: 'Users/min',
+          isUp: true,
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+        KPICardData(
+          title: 'Total Storage Used',
+          value: '14.2 TB',
+          icon: LucideIcons.database,
+          trend: '78% of provisioned',
+          isUp: false,
+          color: PrimeCareTheme.colors.amberWarning,
+        ),
+        KPICardData(
+          title: 'MAU',
+          value: '124.5k',
+          icon: LucideIcons.activity,
+          trend: '+12% MoM',
+          isUp: true,
+          color: PrimeCareTheme.colors.emeraldTeal,
+        ),
+        KPICardData(
+          title: 'Capacity Headroom',
+          value: '6.5 Mo',
+          icon: LucideIcons.calendar,
+          trend: 'Before auto-scale',
+          isUp: true,
+          color: PrimeCareTheme.colors.navyIndigo,
+        ),
+      ],
+      mainContent: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 2,
               child: Column(
                 children: [
-                  _buildKPIs(context),
+                  _buildConcurrencyChart(),
                   const SizedBox(height: 24),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            _buildConcurrencyChart(context),
-                            const SizedBox(height: 24),
-                            _buildActiveSessionsList(context),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            _buildStorageUtilization(context),
-                            const SizedBox(height: 24),
-                            _buildCapacityForecast(context),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  _buildActiveSessionsList(),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Platform Usage & Capacity',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            const SizedBox(width: 24),
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  _buildStorageUtilization(),
+                  const SizedBox(height: 24),
+                  _buildCapacityForecast(),
+                ],
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Monitor concurrency, active sessions, storage tiers, and capacity planning.',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            _buildActionIconButton(
-              context,
-              LucideIcons.cloudRain,
-              'Scale Tiers',
-            ),
-            const SizedBox(width: 12),
-            _buildActionIconButton(
-              context,
-              LucideIcons.download,
-              'Export Usage',
             ),
           ],
         ),
@@ -101,126 +92,7 @@ class PlatformUsageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActionIconButton(
-    BuildContext context,
-    IconData icon,
-    String tooltip,
-  ) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
-      ),
-      child: IconButton(
-        icon: Icon(icon, color: Colors.white),
-        onPressed: () {},
-        tooltip: tooltip,
-      ),
-    );
-  }
-
-  Widget _buildKPIs(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'Peak Concurrency',
-            '4,280',
-            LucideIcons.users,
-            'Users/min',
-            PrimeCareTheme.emeraldTeal,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'Total Storage Used',
-            '14.2 TB',
-            LucideIcons.database,
-            '78% of provisioned',
-            Colors.orange,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'MAU',
-            '124.5k',
-            LucideIcons.activity,
-            '+12% MoM',
-            PrimeCareTheme.emeraldTeal,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildKPIUnit(
-            context,
-            'Est. Capacity Headroom',
-            '6.5 Mo',
-            LucideIcons.calendar,
-            'Before auto-scale',
-            Colors.blue,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildKPIUnit(
-    BuildContext context,
-    String title,
-    String value,
-    IconData icon,
-    String subtitle,
-    Color color,
-  ) {
-    return ClinicalGlassPanel(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Icon(icon, color: color, size: 20),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              color: color.withValues(alpha: 0.8),
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildConcurrencyChart(BuildContext context) {
+  Widget _buildConcurrencyChart() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -231,18 +103,12 @@ class PlatformUsageScreen extends StatelessWidget {
             children: [
               Text(
                 '24h Concurrency Timeline',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: PrimeCareTheme.typography.h3,
               ),
-              Text(
-                'Filter by Region',
-                style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'Filter by Region',
+                icon: LucideIcons.filter,
               ),
             ],
           ),
@@ -251,14 +117,24 @@ class PlatformUsageScreen extends StatelessWidget {
             height: 200,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.02),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+              color: PrimeCareTheme.colors.cloudGray.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(16),
             ),
-            child: const Center(
-              child: Text(
-                '[Concurrency Spline Chart Placeholder]',
-                style: TextStyle(color: Colors.white38),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    LucideIcons.barChart2,
+                    size: 48,
+                    color: PrimeCareTheme.colors.slateGray.withOpacity(0.5),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Concurrency Spline Chart Placeholder',
+                    style: PrimeCareTheme.typography.label,
+                  ),
+                ],
               ),
             ),
           ),
@@ -267,42 +143,53 @@ class PlatformUsageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActiveSessionsList(BuildContext context) {
+  Widget _buildActiveSessionsList() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Active Session Distribution',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Active Session Distribution',
+                style: PrimeCareTheme.typography.h3,
+              ),
+              Icon(
+                LucideIcons.moreHorizontal,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+            ],
           ),
           const SizedBox(height: 24),
           _buildSessionRow(
             'US East (N. Virginia)',
             1845,
             0.45,
-            PrimeCareTheme.emeraldTeal,
+            PrimeCareTheme.colors.emeraldTeal,
           ),
           const SizedBox(height: 16),
           _buildSessionRow(
             'US West (Oregon)',
             1220,
             0.30,
-            PrimeCareTheme.emeraldTeal,
+            PrimeCareTheme.colors.emeraldTeal,
           ),
           const SizedBox(height: 16),
           _buildSessionRow(
             'EU Central (Frankfurt)',
             840,
             0.20,
-            Colors.blueAccent,
+            PrimeCareTheme.colors.navyIndigo,
           ),
           const SizedBox(height: 16),
-          _buildSessionRow('AP South (Mumbai)', 375, 0.05, Colors.orange),
+          _buildSessionRow(
+            'AP South (Mumbai)',
+            375,
+            0.05,
+            PrimeCareTheme.colors.amberWarning,
+          ),
         ],
       ),
     );
@@ -320,50 +207,43 @@ class PlatformUsageScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              region,
-              style: const TextStyle(color: Colors.white70, fontSize: 13),
-            ),
+            Text(region, style: PrimeCareTheme.typography.body),
             Text(
               '$sessions',
-              style: const TextStyle(
-                color: Colors.white,
+              style: PrimeCareTheme.typography.body.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
         const SizedBox(height: 8),
-        LinearProgressIndicator(
-          value: fraction,
-          backgroundColor: Colors.white12,
-          valueColor: AlwaysStoppedAnimation<Color>(color),
-          minHeight: 6,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: fraction,
+            backgroundColor: PrimeCareTheme.colors.cloudGray,
+            valueColor: AlwaysStoppedAnimation<Color>(color),
+            minHeight: 6,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildStorageUtilization(BuildContext context) {
+  Widget _buildStorageUtilization() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Storage Tier Utilization',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text('Storage Tier Utilization', style: PrimeCareTheme.typography.h3),
           const SizedBox(height: 24),
           _buildStorageTier(
             'Hot (SSD)',
             '4.2 TB',
             '6.0 TB',
             0.70,
-            Colors.redAccent,
+            PrimeCareTheme.colors.amberWarning,
           ),
           const SizedBox(height: 20),
           _buildStorageTier(
@@ -371,7 +251,7 @@ class PlatformUsageScreen extends StatelessWidget {
             '8.1 TB',
             '10.0 TB',
             0.81,
-            Colors.orange,
+            PrimeCareTheme.colors.amberWarning,
           ),
           const SizedBox(height: 20),
           _buildStorageTier(
@@ -379,8 +259,8 @@ class PlatformUsageScreen extends StatelessWidget {
             '1.9 TB',
             'Unlimited',
             0.1,
-            PrimeCareTheme.emeraldTeal,
-          ), // Just a visual proxy
+            PrimeCareTheme.colors.emeraldTeal,
+          ),
         ],
       ),
     );
@@ -401,14 +281,15 @@ class PlatformUsageScreen extends StatelessWidget {
           children: [
             Text(
               name,
-              style: const TextStyle(
-                color: Colors.white,
+              style: PrimeCareTheme.typography.body.copyWith(
                 fontWeight: FontWeight.w600,
               ),
             ),
             Text(
               '$used / $total',
-              style: const TextStyle(color: Colors.white54, fontSize: 12),
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ),
           ],
         ),
@@ -417,7 +298,7 @@ class PlatformUsageScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
             value: fill,
-            backgroundColor: Colors.white12,
+            backgroundColor: PrimeCareTheme.colors.cloudGray,
             valueColor: AlwaysStoppedAnimation<Color>(color),
             minHeight: 8,
           ),
@@ -426,7 +307,7 @@ class PlatformUsageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCapacityForecast(BuildContext context) {
+  Widget _buildCapacityForecast() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -434,59 +315,60 @@ class PlatformUsageScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                LucideIcons.trendingUp,
-                color: PrimeCareTheme.emeraldTeal,
-                size: 24,
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  LucideIcons.trendingUp,
+                  color: PrimeCareTheme.colors.emeraldTeal,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
-              Text(
-                'Capacity Forecaster',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text('Capacity Forecaster', style: PrimeCareTheme.typography.h3),
             ],
-          ),
-          const SizedBox(height: 24),
-          const Text(
-            'Predicted threshold crossing for Database Compute tier (R5.4xlarge) based on current linear growth vector.',
-            style: TextStyle(color: Colors.white70, fontSize: 12, height: 1.4),
           ),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Est. Crossing Date:',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
+          Text(
+            'Predicted threshold crossing for Database Compute tier (R5.4xlarge) based on current linear growth vector.',
+            style: PrimeCareTheme.typography.label,
+          ),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: PrimeCareTheme.colors.cloudGray.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Est. Crossing Date',
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              Text(
-                'Nov 15, 2026',
-                style: TextStyle(
-                  color: Colors.orange.shade300,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                Text(
+                  'Nov 15, 2026',
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: PrimeCareTheme.colors.amberWarning,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 24),
           SizedBox(
             width: double.infinity,
-            child: OutlinedButton(
+            child: ClinicalGlassButton(
               onPressed: () {},
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  color: PrimeCareTheme.emeraldTeal.withValues(alpha: 0.5),
-                ),
-                foregroundColor: PrimeCareTheme.emeraldTeal,
-              ),
-              child: const Text('Provision Next Tier Now'),
+              label: 'Provision Next Tier Now',
+              isPrimary: false,
             ),
           ),
         ],
@@ -494,3 +376,4 @@ class PlatformUsageScreen extends StatelessWidget {
     );
   }
 }
+

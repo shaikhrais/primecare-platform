@@ -191,7 +191,7 @@ class CertificationsScreen extends ConsumerWidget {
               ],
             ),
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildStaffCertItem(
             staffName: 'Amanda Rivera',
             role: 'RN',
@@ -201,7 +201,7 @@ class CertificationsScreen extends ConsumerWidget {
             expiryDate: 'Jan 15, 2027',
             status: 'Active',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildStaffCertItem(
             staffName: 'John Carmichael',
             role: 'RN',
@@ -211,7 +211,7 @@ class CertificationsScreen extends ConsumerWidget {
             expiryDate: 'Nov 12, 2026',
             status: 'Expiring Soon',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildStaffCertItem(
             staffName: 'Elena Rostova',
             role: 'MD',

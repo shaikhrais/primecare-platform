@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class CtoDashboard extends ConsumerWidget {
@@ -10,346 +11,389 @@ class CtoDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(
-        child: Text(
-          'Error loading metrics: $err',
-          style: const TextStyle(color: Colors.white),
-        ),
-      ),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.hub_outlined,
-                        color: Colors.blueAccent,
-                        size: 28,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        'Infrastructure & CTO Hub',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontFamily: 'Outfit',
-                        ),
-                      ),
-                      const Spacer(),
-                      _buildVersionBadge('v4.2.1-stable'),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Real-time orchestration of the PrimeCare core engine and Cloudflare edges.',
-                    style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // INFRA HUD row
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
-                            .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Endpoint Status
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Microservice Health Matrix',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildServiceStatus(
-                                    'Core Worker-API',
-                                    'OPERATIONAL',
-                                    Colors.greenAccent,
-                                  ),
-                                  const Divider(
-                                    color: Colors.white10,
-                                    height: 24,
-                                    thickness: 0.5,
-                                  ),
-                                  _buildServiceStatus(
-                                    'Auth-Vault v2',
-                                    'OPERATIONAL',
-                                    Colors.greenAccent,
-                                  ),
-                                  const Divider(
-                                    color: Colors.white10,
-                                    height: 24,
-                                    thickness: 0.5,
-                                  ),
-                                  _buildServiceStatus(
-                                    'Prisma-Pulse Proxy',
-                                    'OPERATIONAL',
-                                    Colors.greenAccent,
-                                  ),
-                                  const Divider(
-                                    color: Colors.white10,
-                                    height: 24,
-                                    thickness: 0.5,
-                                  ),
-                                  _buildServiceStatus(
-                                    'Media Transmuxing',
-                                    'OPERATIONAL',
-                                    Colors.greenAccent,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(width: 24),
-
-                      // RIGHT: Deployments
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Direct Deployment Feed',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: metrics.recentActivity
-                                    .map(
-                                      (log) => Column(
-                                        children: [
-                                          AuditLogTile(
-                                            title: log.title,
-                                            subtitle: log.subtitle,
-                                            timestamp: log.timestamp,
-                                            icon: _getActivityIcon(log.icon),
-                                            iconColor: _getStatusColor(
-                                              log.color,
-                                            ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.white10,
-                                            height: 16,
-                                            thickness: 0.5,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+      error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+      data: (metrics) => PageTemplate(
+        title: 'CTO Command Center',
+        subtitle: 'Infrastructure & Orchestration',
+        icon: LucideIcons.terminal,
+        actions: [
+          _buildActionIconButton(context, LucideIcons.refreshCcw, 'Refresh Cache'),
+          const SizedBox(width: 12),
+          _buildActionIconButton(context, LucideIcons.settings, 'System Settings'),
         ],
-      ),
-    );
-  }
-
-  Widget _buildKpi(
-    double width,
-    String title,
-    String value,
-    IconData icon,
-    Color color, [
-    String? subtitle,
-  ]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(
-        title: title,
-        value: value,
-        subtitle: subtitle,
-        icon: icon,
-        iconColor: color,
-      ),
-    );
-  }
-
-  Widget _buildServiceStatus(
-    String name,
-    String status,
-    Color color, [
-    String? note,
-  ]) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
+        body: ListView(
+          padding: const EdgeInsets.only(bottom: 32),
+          children: [
+            _buildKPIs(context, metrics),
+            const SizedBox(height: 24),
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 16,
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildMicroserviceHealth(context),
+                    ],
                   ),
                 ),
-                if (note != null)
-                  Text(
-                    note,
-                    style: const TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 12,
-                    ),
+                const SizedBox(width: 24),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildDeploymentFeed(context, metrics),
+                    ],
                   ),
+                ),
               ],
             ),
-          ),
-          Text(
-            status,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              letterSpacing: 1.1,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildVersionBadge(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.blueAccent.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.blueAccent.withValues(alpha: 0.3)),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.blueAccent,
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
+          ],
         ),
       ),
     );
   }
 
-  IconData _getIcon(String title) {
-    if (title.contains('Uptime')) return Icons.cloud_done_outlined;
-    if (title.contains('Throughput')) return Icons.speed;
-    if (title.contains('Connections')) return Icons.storage_outlined;
-    if (title.contains('Latency')) return Icons.bolt;
-    if (title.contains('Staff')) return Icons.people;
-    return Icons.insights;
+  Widget _buildActionIconButton(BuildContext context, IconData icon, String tooltip) {
+    return Container(
+      decoration: BoxDecoration(
+        color: PrimeCareTheme.surface.withValues(alpha: 0.8),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: PrimeCareTheme.outlineVariant.withValues(alpha: 0.5)),
+      ),
+      child: IconButton(
+        icon: Icon(icon, color: PrimeCareTheme.surfaceOn),
+        onPressed: () {},
+        tooltip: tooltip,
+      ),
+    );
   }
 
-  IconData _getActivityIcon(String icon) {
+  Widget _buildKPIs(BuildContext context, dynamic metrics) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cardWidth = constraints.maxWidth > 1200
+            ? (constraints.maxWidth - 48) / 4
+            : (constraints.maxWidth > 600
+                ? (constraints.maxWidth - 16) / 2
+                : constraints.maxWidth);
+
+        return Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: metrics.kpis
+              .map<Widget>(
+                (kpi) => SizedBox(
+                  width: cardWidth,
+                  child: _buildKPIUnit(
+                    context,
+                    kpi.title,
+                    kpi.value,
+                    _getLucideIcon(kpi.title),
+                    kpi.subtitle ?? '',
+                    _getLucideStatusColor(kpi.status),
+                  ),
+                ),
+              )
+              .toList(),
+        );
+      },
+    );
+  }
+
+  Widget _buildKPIUnit(BuildContext context, String title, String value, IconData icon, String trend, Color trendColor) {
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 20, color: PrimeCareTheme.surfaceOnVariant),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: PrimeCareTheme.surfaceOnVariant,
+                        fontWeight: FontWeight.w500,
+                      ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            value,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: PrimeCareTheme.surfaceOn,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Outfit',
+                ),
+          ),
+          if (trend.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Text(
+              trend,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: trendColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ]
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMicroserviceHealth(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Microservice Health Matrix',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Outfit',
+                color: PrimeCareTheme.surfaceOn,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                color: PrimeCareTheme.emeraldTeal.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Text(
+                'v4.2.1-stable',
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: PrimeCareTheme.emeraldTeal,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              _buildServiceRow(context, 'Core Worker-API', 'Active', '99.99% Uptime in trailing 24h', PrimeCareTheme.emeraldTeal),
+              const Divider(color: PrimeCareTheme.surfaceDim, height: 32),
+              _buildServiceRow(context, 'Auth-Vault v2', 'Active', 'Latencies < 40ms', PrimeCareTheme.emeraldTeal),
+              const Divider(color: PrimeCareTheme.surfaceDim, height: 32),
+              _buildServiceRow(context, 'Prisma-Pulse Proxy', 'Degraded', 'Replication lag detected', PrimeCareTheme.amberWarning),
+              const Divider(color: PrimeCareTheme.surfaceDim, height: 32),
+              _buildServiceRow(context, 'Media Transmuxing', 'Active', 'Queue depth normal', PrimeCareTheme.emeraldTeal),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildServiceRow(BuildContext context, String name, String status, String note, Color statusColor) {
+    return Row(
+      children: [
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(
+            color: statusColor,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: statusColor.withValues(alpha: 0.4),
+                blurRadius: 6,
+                spreadRadius: 2,
+              )
+            ],
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: PrimeCareTheme.surfaceOn,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                note,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: PrimeCareTheme.surfaceOnVariant,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: statusColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            status.toUpperCase(),
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: statusColor,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDeploymentFeed(BuildContext context, dynamic metrics) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Direct Deployment Feed',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Outfit',
+            color: PrimeCareTheme.surfaceOn,
+          ),
+        ),
+        const SizedBox(height: 16),
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: metrics.recentActivity
+                .take(4)
+                .map<Widget>(
+                  (log) => Column(
+                    children: [
+                      _buildAuditRow(
+                        context,
+                        log.title,
+                        log.subtitle,
+                        _getLucideActivityIcon(log.icon),
+                        _getLucideStatusColor(log.color),
+                        log.timestamp,
+                      ),
+                      if (log != metrics.recentActivity.take(4).last)
+                        const Divider(color: PrimeCareTheme.surfaceDim, height: 24),
+                    ],
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAuditRow(BuildContext context, String title, String subtitle, IconData icon, Color color, String time) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, size: 16, color: color),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: PrimeCareTheme.surfaceOn,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: PrimeCareTheme.surfaceOnVariant,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Text(
+          time,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            color: PrimeCareTheme.surfaceOnVariant,
+          ),
+        ),
+      ],
+    );
+  }
+
+  IconData _getLucideIcon(String title) {
+    if (title.contains('Uptime')) return LucideIcons.cloud;
+    if (title.contains('Throughput')) return LucideIcons.zap;
+    if (title.contains('Connections')) return LucideIcons.server;
+    if (title.contains('Latency')) return LucideIcons.activity;
+    if (title.contains('Staff')) return LucideIcons.users;
+    return LucideIcons.barChart2;
+  }
+
+  IconData _getLucideActivityIcon(String icon) {
     switch (icon) {
       case 'verified':
-        return Icons.verified;
+        return LucideIcons.checkCircle;
       case 'person_add':
-        return Icons.person_add;
+        return LucideIcons.userPlus;
       case 'security':
-        return Icons.security;
+        return LucideIcons.shieldCheck;
       case 'rocket':
-        return Icons.rocket_launch;
+        return LucideIcons.rocket;
       case 'schema':
-        return Icons.schema;
+        return LucideIcons.database;
       case 'cleaning':
-        return Icons.cleaning_services;
+        return LucideIcons.wrench;
       default:
-        return Icons.history;
+        return LucideIcons.history;
     }
   }
 
-  Color _getStatusColor(String status) {
+  Color _getLucideStatusColor(String status) {
     switch (status) {
       case 'success':
       case 'green':
       case 'teal':
-        return Colors.tealAccent;
+        return PrimeCareTheme.emeraldTeal;
       case 'warning':
       case 'orange':
-        return Colors.orangeAccent;
+        return PrimeCareTheme.amberWarning;
       case 'danger':
       case 'red':
-        return Colors.redAccent;
+        return Colors.red;
       case 'info':
       case 'blue':
       case 'indigo':
-        return Colors.blueAccent;
+        return PrimeCareTheme.navyIndigo;
       default:
-        return Colors.blueGrey;
+        return PrimeCareTheme.surfaceOnVariant;
     }
   }
 }

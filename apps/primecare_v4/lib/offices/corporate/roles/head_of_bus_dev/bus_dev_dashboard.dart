@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import '../../../../office/components/page_template.dart';
+import '../../../../office/components/clinical_glass_panel.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -17,195 +19,116 @@ class BusDevDashboard extends ConsumerWidget {
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Business Development Leadership',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
+      data: (metrics) => PageTemplate(
+        title: 'Business Development Leadership',
+        subtitle: 'Strategic orchestration of franchise expansion and clinical partnership growth.',
+        kpiCards: metrics.kpis
+            .map(
+              (kpi) => KpiStatCard(
+                title: kpi.title,
+                value: kpi.value,
+                subtitle: kpi.subtitle,
+                icon: _getIcon(kpi.title),
+                iconColor: _getStatusColor(kpi.status),
+              ),
+            )
+            .toList(),
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // LEFT: Partner Pipeline
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Franchise Acquisition Pipeline',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Outfit',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Strategic orchestration of franchise expansion and clinical partnership growth.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
+                    const SizedBox(height: 16),
+                    ClinicalGlassPanel(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          _buildPipelineItem(
+                            'Brampton South',
+                            'Negotiation Phase',
+                            r'$450k Peak',
+                            '60% PROBABILITY',
+                          ),
+                          const SizedBox(height: 24),
+                          _buildPipelineItem(
+                            'Mississauga East',
+                            'Discovery Call',
+                            'N/A',
+                            'HOT LEAD',
+                            isHot: true,
+                          ),
+                          const SizedBox(height: 24),
+                          _buildPipelineItem(
+                            'Oakville Central',
+                            'Agreement Signed',
+                            r'$720k Peak',
+                            'CLOSED WON',
+                            isWon: true,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // BUSDEV KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
+                  ],
+                ),
+              ),
+              const SizedBox(width: 24),
+              // RIGHT: Market Logs
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Growth Audit Trail',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Outfit',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ClinicalGlassPanel(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: metrics.recentActivity
                             .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
+                              (log) => Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: AuditLogTile(
+                                  title: log.title,
+                                  subtitle: log.subtitle,
+                                  timestamp: log.timestamp,
+                                  icon: _getActivityIcon(log.icon),
+                                  iconColor: _getStatusColor(
+                                    log.color,
+                                  ),
+                                ),
                               ),
                             )
                             .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Partner Pipeline
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Franchise Acquisition Pipeline',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildPipelineItem(
-                                    'Brampton South',
-                                    'Negotiation Phase',
-                                    '\$450k Peak',
-                                    '60% PROBABILITY',
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildPipelineItem(
-                                    'Mississauga East',
-                                    'Discovery Call',
-                                    'N/A',
-                                    'HOT LEAD',
-                                    isHot: true,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildPipelineItem(
-                                    'Oakville Central',
-                                    'Agreement Signed',
-                                    '\$720k Peak',
-                                    'CLOSED WON',
-                                    isWon: true,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
-
-                      const SizedBox(width: 24),
-
-                      // RIGHT: Market Logs
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Growth Audit Trail',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: metrics.recentActivity
-                                    .map(
-                                      (log) => Column(
-                                        children: [
-                                          AuditLogTile(
-                                            title: log.title,
-                                            subtitle: log.subtitle,
-                                            timestamp: log.timestamp,
-                                            icon: _getActivityIcon(log.icon),
-                                            iconColor: _getStatusColor(
-                                              log.color,
-                                            ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.blueGrey,
-                                            height: 16,
-                                            thickness: 0.1,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildKpi(
-    double width,
-    String title,
-    String value,
-    IconData icon,
-    Color color, [
-    String? subtitle,
-  ]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(
-        title: title,
-        value: value,
-        subtitle: subtitle,
-        icon: icon,
-        iconColor: color,
-      ),
-    );
-  }
 
   Widget _buildPipelineItem(
     String location,
@@ -227,10 +150,10 @@ class BusDevDashboard extends ConsumerWidget {
                       : AppTheme.primary.withValues(alpha: 0.1)),
             child: Icon(
               isWon
-                  ? Icons.check_circle_outline
+                  ? LucideIcons.checkCircle2
                   : (isHot
-                        ? Icons.whatshot_outlined
-                        : Icons.corporate_fare_outlined),
+                        ? LucideIcons.flame
+                        : LucideIcons.building2),
               color: isWon
                   ? Colors.teal
                   : (isHot ? Colors.orange : AppTheme.primary),
@@ -282,24 +205,24 @@ class BusDevDashboard extends ConsumerWidget {
   }
 
   IconData _getIcon(String title) {
-    if (title.contains('Lead')) return Icons.account_tree_outlined;
-    if (title.contains('Franchise')) return Icons.add_home_work_outlined;
+    if (title.contains('Lead')) return LucideIcons.users;
+    if (title.contains('Franchise')) return LucideIcons.home;
     if (title.contains('Revenue') || title.contains('Deal'))
-      return Icons.payments_outlined;
-    if (title.contains('Conversion')) return Icons.trending_up;
-    return Icons.insights;
+      return LucideIcons.coins;
+    if (title.contains('Conversion')) return LucideIcons.trendingUp;
+    return LucideIcons.activity;
   }
 
   IconData _getActivityIcon(String icon) {
     switch (icon) {
       case 'verified':
-        return Icons.verified;
+        return LucideIcons.badgeCheck;
       case 'person_add':
-        return Icons.person_add_alt_1_outlined;
+        return LucideIcons.userPlus;
       case 'lock':
-        return Icons.lock_outline;
+        return LucideIcons.lock;
       default:
-        return Icons.history;
+        return LucideIcons.history;
     }
   }
 

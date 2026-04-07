@@ -178,7 +178,7 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
               style: PrimeCareTheme.typography.h2,
             ),
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 16),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: DataTable(

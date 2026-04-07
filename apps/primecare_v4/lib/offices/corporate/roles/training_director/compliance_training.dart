@@ -184,7 +184,7 @@ class ComplianceTrainingScreen extends ConsumerWidget {
               ],
             ),
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildModuleItem(
             title: 'Annual HIPAA & Privacy',
             audience: 'All Staff',
@@ -192,7 +192,7 @@ class ComplianceTrainingScreen extends ConsumerWidget {
             completionRate: 98.5,
             status: 'On Track',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildModuleItem(
             title: 'Infection Control (IPAC) Base',
             audience: 'Clinical & Support',
@@ -200,7 +200,7 @@ class ComplianceTrainingScreen extends ConsumerWidget {
             completionRate: 95.0,
             status: 'On Track',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildModuleItem(
             title: 'Workplace Violence Prevention',
             audience: 'All Staff',

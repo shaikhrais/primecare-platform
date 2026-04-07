@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import '../../../../office/components/clinical_glass_panel.dart';
+import '../../../../office/components/page_template.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
@@ -17,201 +18,191 @@ class ComplianceDashboard extends ConsumerWidget {
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
+      data: (metrics) => PageTemplate(
+        title: 'Compliance & Risk Governance',
+        subtitle: 'Ensuring institutional integrity through automated audit and risk oversight.',
+        kpiCards: metrics.kpis
+            .map(
+              (kpi) => _buildKpiCard(
+                kpi.title,
+                kpi.value,
+                _getLucideIcon(kpi.title),
+                _getStatusColor(kpi.status),
+                kpi.subtitle,
+              ),
+            )
+            .toList(),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // LEFT: Audit Queue
+            Expanded(
+              flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.gavel_outlined,
-                        color: Colors.blueGrey,
-                        size: 28,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        'Compliance & Risk Governance',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme.primary,
-                          fontFamily: 'Outfit',
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
                   Text(
-                    'Ensuring institutional integrity through automated audit and risk oversight.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
+                    'Institutional Audit Queue',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Outfit',
+                      color: theme.colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 32),
-
-                  // COMPLIANCE KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
-                            .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Audit Queue
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Institutional Audit Queue',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildAuditItem(
-                                    'Hamilton Clinic',
-                                    'Annual Safety Review',
-                                    'IN PROGRESS',
-                                    '88%',
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildAuditItem(
-                                    'Toronto West',
-                                    'Medication Storage Audit',
-                                    'URGENT',
-                                    '42%',
-                                    isUrgent: true,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 24,
-                                    thickness: 0.1,
-                                  ),
-                                  _buildAuditItem(
-                                    'Ottawa Region',
-                                    'Credentialing Verification',
-                                    'COMPLETED',
-                                    '100%',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                  const SizedBox(height: 16),
+                  ClinicalGlassPanel(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column(
+                        children: [
+                          _buildAuditItem(
+                            'Hamilton Clinic',
+                            'Annual Safety Review',
+                            'IN PROGRESS',
+                            '88%',
+                          ),
+                          const Divider(
+                            color: Colors.blueGrey,
+                            height: 24,
+                            thickness: 0.1,
+                          ),
+                          _buildAuditItem(
+                            'Toronto West',
+                            'Medication Storage Audit',
+                            'URGENT',
+                            '42%',
+                            isUrgent: true,
+                          ),
+                          const Divider(
+                            color: Colors.blueGrey,
+                            height: 24,
+                            thickness: 0.1,
+                          ),
+                          _buildAuditItem(
+                            'Ottawa Region',
+                            'Credentialing Verification',
+                            'COMPLETED',
+                            '100%',
+                          ),
+                        ],
                       ),
-
-                      const SizedBox(width: 24),
-
-                      // RIGHT: Risk Feed
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Incident Mitigation Feed',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: metrics.recentActivity
-                                    .map(
-                                      (log) => Column(
-                                        children: [
-                                          AuditLogTile(
-                                            title: log.title,
-                                            subtitle: log.subtitle,
-                                            timestamp: log.timestamp,
-                                            icon: _getActivityIcon(log.icon),
-                                            iconColor: _getStatusColor(
-                                              log.color,
-                                            ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.blueGrey,
-                                            height: 16,
-                                            thickness: 0.1,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 24),
+            // RIGHT: Risk Feed
+            Expanded(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Incident Mitigation Feed',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Outfit',
+                      color: theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ClinicalGlassPanel(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: metrics.recentActivity
+                            .map(
+                              (log) => Column(
+                                children: [
+                                  _buildAuditLogTile(
+                                    log.title,
+                                    log.subtitle,
+                                    log.timestamp,
+                                    _getActivityIcon(log.icon),
+                                    _getStatusColor(log.color),
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 16,
+                                    thickness: 0.1,
+                                  ),
+                                ],
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildKpi(
-    double width,
-    String title,
-    String value,
-    IconData icon,
-    Color color, [
-    String? subtitle,
-  ]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(
-        title: title,
-        value: value,
-        subtitle: subtitle,
-        icon: icon,
-        iconColor: color,
+  Widget _buildKpiCard(String title, String value, IconData icon, Color color, [String? subtitle]) {
+    return ClinicalGlassPanel(
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(icon, color: color, size: 28),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '+1.2%',
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Outfit',
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 14,
+                fontFamily: 'Inter',
+              ),
+            ),
+            if (subtitle != null) ...[
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: const TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                ),
+              ),
+            ]
+          ],
+        ),
       ),
     );
   }
@@ -231,13 +222,13 @@ class ComplianceDashboard extends ConsumerWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: isUrgent
-                  ? Colors.red.withValues(alpha: 0.1)
-                  : AppTheme.primary.withValues(alpha: 0.1),
+                  ? Colors.redAccent.withOpacity(0.1)
+                  : AppTheme.emeraldTeal.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(
-              isUrgent ? Icons.priority_high : Icons.fact_check,
-              color: isUrgent ? Colors.red : AppTheme.primary,
+              isUrgent ? LucideIcons.alertOctagon : LucideIcons.checkSquare,
+              color: isUrgent ? Colors.redAccent : AppTheme.emeraldTeal,
               size: 20,
             ),
           ),
@@ -249,13 +240,18 @@ class ComplianceDashboard extends ConsumerWidget {
                 Text(
                   facility,
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     fontSize: 16,
+                    fontFamily: 'Inter',
                   ),
                 ),
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 13,
+                    fontFamily: 'Inter',
+                  ),
                 ),
               ],
             ),
@@ -266,17 +262,19 @@ class ComplianceDashboard extends ConsumerWidget {
               Text(
                 progress,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isUrgent ? Colors.red : Colors.teal,
+                  fontWeight: FontWeight.w600,
+                  color: isUrgent ? Colors.redAccent : AppTheme.emeraldTeal,
+                  fontFamily: 'Inter',
                 ),
               ),
               Text(
                 status,
                 style: const TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
                   letterSpacing: 1.1,
                   color: Colors.blueGrey,
+                  fontFamily: 'Inter',
                 ),
               ),
             ],
@@ -286,24 +284,81 @@ class ComplianceDashboard extends ConsumerWidget {
     );
   }
 
-  IconData _getIcon(String title) {
-    if (title.contains('Audit')) return Icons.verified_user_outlined;
-    if (title.contains('Risk')) return Icons.warning_amber_outlined;
-    if (title.contains('Policy')) return Icons.auto_stories_outlined;
-    if (title.contains('License')) return Icons.badge_outlined;
-    return Icons.insights;
+  Widget _buildAuditLogTile(
+    String title,
+    String subtitle,
+    String timestamp,
+    IconData icon,
+    Color color,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: color, size: 20),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 13,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            timestamp,
+            style: const TextStyle(
+              color: Colors.blueGrey,
+              fontSize: 12,
+              fontFamily: 'Inter',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  IconData _getLucideIcon(String title) {
+    if (title.contains('Audit')) return LucideIcons.shieldCheck;
+    if (title.contains('Risk')) return LucideIcons.alertTriangle;
+    if (title.contains('Policy')) return LucideIcons.bookOpen;
+    if (title.contains('License')) return LucideIcons.award;
+    return LucideIcons.activity;
   }
 
   IconData _getActivityIcon(String icon) {
     switch (icon) {
       case 'verified':
-        return Icons.playlist_add_check;
+        return LucideIcons.listChecks;
       case 'lock':
-        return Icons.shield_outlined;
+        return LucideIcons.shield;
       case 'cloud_done':
-        return Icons.cloud_done_outlined;
+        return LucideIcons.cloud;
       default:
-        return Icons.history;
+        return LucideIcons.history;
     }
   }
 
@@ -311,19 +366,20 @@ class ComplianceDashboard extends ConsumerWidget {
     switch (status) {
       case 'success':
       case 'teal':
-        return Colors.teal;
+        return AppTheme.emeraldTeal;
       case 'warning':
       case 'orange':
-        return Colors.orange;
+        return AppTheme.amberWarning;
       case 'danger':
       case 'red':
-        return Colors.red;
+        return Colors.redAccent;
       case 'info':
       case 'indigo':
       case 'blue':
-        return Colors.indigo;
+        return AppTheme.navyIndigo;
       default:
         return Colors.blueGrey;
     }
   }
 }
+

@@ -1,223 +1,188 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/providers/dynamic_page_providers.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import 'package:primecare_v4/providers/dynamic_page_providers.dart';
+import '../../../../office/components/page_template.dart';
+import '../../../../office/components/clinical_glass_panel.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
 
 class FinancialOverviewView extends ConsumerWidget {
   const FinancialOverviewView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
-    return metricsAsync.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(child: Text('Error: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Institutional Financial Performance',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Overview and analytical breakdown for Institutional Financial Performance.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // TOP KPI METRICS
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Activity Level',
-                              value: 'High',
-                              icon: Icons.show_chart,
-                              iconColor: Colors.teal,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Pending Items',
-                              value: '12',
-                              icon: Icons.pending_actions,
-                              iconColor: Colors.orange,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'System Sync',
-                              value: 'Active',
-                              icon: Icons.sync,
-                              iconColor: Colors.indigo,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Alerts',
-                              value: '0',
-                              icon: Icons.notification_important,
-                              iconColor: Colors.red,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  // LISTINGS / LEDGER
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Institutional Financial Performance Ledger',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Consumer(
-                                builder: (context, ref, child) {
-                                  final dataAsync = ref.watch(
-                                    dynamicPageProvider(
-                                      'officeFinancialOverviewView',
-                                    ),
-                                  );
-                                  return dataAsync.when(
-                                    loading: () => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    error: (e, st) => Text('Error: $e'),
-                                    data: (items) {
-                                      if (items.isEmpty)
-                                        return const Text(
-                                          'No records found.',
-                                          style: TextStyle(
-                                            color: Colors.blueGrey,
-                                          ),
-                                        );
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: items.map((item) {
-                                          return Column(
-                                            children: [
-                                              _buildLedgerRow(
-                                                Icons.api,
-                                                item['title'] ?? 'Record',
-                                                item['status'] ?? 'Active',
-                                                Colors.teal,
-                                              ),
-                                              const Divider(
-                                                color: Colors.blueGrey,
-                                                height: 24,
-                                                thickness: 0.1,
-                                              ),
-                                            ],
-                                          );
-                                        }).toList(),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Change Log',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(
-                                    title: 'Update Triggered',
-                                    subtitle: 'Automated policy sync.',
-                                    timestamp: '1 Hr Ago',
-                                    icon: Icons.history,
-                                    iconColor: Colors.teal,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 16,
-                                    thickness: 0.1,
-                                  ),
-                                  AuditLogTile(
-                                    title: 'Audit Warning',
-                                    subtitle: 'Item requires review.',
-                                    timestamp: '3 Hrs Ago',
-                                    icon: Icons.warning,
-                                    iconColor: Colors.orange,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+    return PageTemplate(
+      title: 'Institutional Financial Performance',
+      subtitle: 'Overview and analytical breakdown for Institutional Financial Performance.',
+      headerIcon: LucideIcons.landmark,
+      actions: [
+        FilledButton.icon(
+          onPressed: () {},
+          icon: const Icon(LucideIcons.download, size: 16),
+          label: const Text('Export Ledger'),
+          style: FilledButton.styleFrom(
+            backgroundColor: PrimeCareTheme.emeraldTeal,
+            foregroundColor: Colors.white,
           ),
-        ],
+        ),
+      ],
+      body: metricsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error: $err')),
+        data: (metrics) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // TOP KPI METRICS
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final cardWidth = constraints.maxWidth > 1200
+                    ? (constraints.maxWidth - 48) / 4
+                    : (constraints.maxWidth > 600
+                        ? (constraints.maxWidth - 16) / 2
+                        : constraints.maxWidth);
+                return Wrap(
+                  spacing: 16,
+                  runSpacing: 16,
+                  children: [
+                    SizedBox(
+                      width: cardWidth,
+                      child: KpiStatCard(
+                        title: 'Activity Level',
+                        value: 'High',
+                        icon: LucideIcons.trendingUp,
+                        iconColor: PrimeCareTheme.emeraldTeal,
+                      ),
+                    ),
+                    SizedBox(
+                      width: cardWidth,
+                      child: KpiStatCard(
+                        title: 'Pending Items',
+                        value: '12',
+                        icon: LucideIcons.clock,
+                        iconColor: Colors.orange,
+                      ),
+                    ),
+                    SizedBox(
+                      width: cardWidth,
+                      child: KpiStatCard(
+                        title: 'System Sync',
+                        value: 'Active',
+                        icon: LucideIcons.refreshCcw,
+                        iconColor: PrimeCareTheme.navyIndigo,
+                      ),
+                    ),
+                    SizedBox(
+                      width: cardWidth,
+                      child: KpiStatCard(
+                        title: 'Alerts',
+                        value: '0',
+                        icon: LucideIcons.alertTriangle,
+                        iconColor: Colors.red,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+
+            const SizedBox(height: 24),
+
+            // LISTINGS / LEDGER
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: ClinicalGlassPanel(
+                    title: 'Financial Performance Ledger',
+                    icon: LucideIcons.server,
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        final dataAsync = ref.watch(
+                          dynamicPageProvider(
+                            'officeFinancialOverviewView',
+                          ),
+                        );
+                        return dataAsync.when(
+                          loading: () => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          error: (e, st) => Text('Error: $e'),
+                          data: (items) {
+                            if (items.isEmpty) {
+                              return Text(
+                                'No records found.',
+                                style: TextStyle(
+                                  color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.6),
+                                ),
+                              );
+                            }
+                            return Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: items.map((item) {
+                                return Column(
+                                  children: [
+                                    _buildLedgerRow(
+                                      LucideIcons.code,
+                                      item['title'] ?? 'Record',
+                                      item['status'] ?? 'Active',
+                                      PrimeCareTheme.emeraldTeal,
+                                    ),
+                                    Divider(
+                                      color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.1),
+                                      height: 24,
+                                    ),
+                                  ],
+                                );
+                              }).toList(),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 24),
+                Expanded(
+                  flex: 1,
+                  child: ClinicalGlassPanel(
+                    title: 'Change Log',
+                    icon: LucideIcons.history,
+                    child: Column(
+                      children: [
+                        AuditLogTile(
+                          title: 'Update Triggered',
+                          subtitle: 'Automated policy sync.',
+                          timestamp: '1 Hr Ago',
+                          icon: LucideIcons.history,
+                          iconColor: PrimeCareTheme.emeraldTeal,
+                        ),
+                        Divider(
+                          color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.1),
+                          height: 16,
+                        ),
+                        AuditLogTile(
+                          title: 'Audit Warning',
+                          subtitle: 'Item requires review.',
+                          timestamp: '3 Hrs Ago',
+                          icon: LucideIcons.alertTriangle,
+                          iconColor: Colors.orange,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -254,7 +219,10 @@ class FinancialOverviewView extends ConsumerWidget {
                 ),
                 Text(
                   subtitle,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
+                  style: TextStyle(
+                    color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.6), 
+                    fontSize: 12
+                  ),
                 ),
               ],
             ),

@@ -266,19 +266,13 @@ class TrainingReportsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           _buildExportRow('Q3 Compliance Report.pdf', 'Oct 15, 2026', '2.4 MB'),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: Divider(height: 1, thickness: 1),
-          ),
+          const SizedBox(height: 16),
           _buildExportRow(
             'Nursing_Training_Matrix.xlsx',
             'Oct 12, 2026',
             '1.1 MB',
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: Divider(height: 1, thickness: 1),
-          ),
+          const SizedBox(height: 16),
           _buildExportRow('Trainer_Scores_Sep26.csv', 'Oct 01, 2026', '450 KB'),
         ],
       ),

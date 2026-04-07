@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/providers/dynamic_page_providers.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import '../../../../office/components/clinical_glass_panel.dart';
+import '../../../../office/components/page_template.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -18,209 +19,102 @@ class FranchisePipelineView extends ConsumerWidget {
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(child: Text('Error: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Strategic Franchise Expansion',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Overview and analytical breakdown for Strategic Franchise Expansion.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // TOP KPI METRICS
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Activity Level',
-                              value: 'High',
-                              icon: Icons.show_chart,
-                              iconColor: Colors.teal,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Pending Items',
-                              value: '12',
-                              icon: Icons.pending_actions,
-                              iconColor: Colors.orange,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'System Sync',
-                              value: 'Active',
-                              icon: Icons.sync,
-                              iconColor: Colors.indigo,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: KpiStatCard(
-                              title: 'Alerts',
-                              value: '0',
-                              icon: Icons.notification_important,
-                              iconColor: Colors.red,
-                            ),
-                          ),
-                        ],
+      error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+      data: (metrics) => PageTemplate(
+        title: 'Strategic Franchise Expansion',
+        subtitle: 'Overview and analytical breakdown for Strategic Franchise Expansion.',
+        kpiCards: metrics.kpis
+            .map(
+              (kpi) => KpiStatCard(
+                title: kpi.title,
+                value: kpi.value,
+                subtitle: kpi.subtitle,
+                icon: _getLucideIcon(kpi.title),
+                iconColor: _getStatusColor(kpi.status),
+              ),
+            )
+            .toList(),
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // LEFT: Franchise Pipeline Ledger
+              Expanded(
+                flex: 2,
+                child: ClinicalGlassPanel(
+                  title: 'Strategic Franchise Expansion Ledger',
+                  icon: LucideIcons.briefcase,
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final dataAsync = ref.watch(
+                        dynamicPageProvider('officeFranchisePipelineView'),
+                      );
+                      return dataAsync.when(
+                        loading: () => const Center(child: CircularProgressIndicator()),
+                        error: (e, st) => Text('Error: $e'),
+                        data: (items) {
+                          if (items.isEmpty) {
+                            return const Padding(
+                              padding: EdgeInsets.all(24.0),
+                              child: Text(
+                                'No records found.',
+                                style: TextStyle(color: Colors.blueGrey, fontFamily: 'Inter'),
+                              ),
+                            );
+                          }
+                          return Column(
+                            children: items.map((item) {
+                              return Column(
+                                children: [
+                                  _buildLedgerRow(
+                                    LucideIcons.briefcase,
+                                    item['title'] ?? 'Record',
+                                    item['status'] ?? 'Active',
+                                    AppTheme.emeraldTeal,
+                                  ),
+                                  const SizedBox(height: 16),
+                                ],
+                              );
+                            }).toList(),
+                          );
+                        },
                       );
                     },
                   ),
-
-                  const SizedBox(height: 32),
-
-                  // LISTINGS / LEDGER
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Strategic Franchise Expansion Ledger',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Consumer(
-                                builder: (context, ref, child) {
-                                  final dataAsync = ref.watch(
-                                    dynamicPageProvider(
-                                      'officeFranchisePipelineView',
-                                    ),
-                                  );
-                                  return dataAsync.when(
-                                    loading: () => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    error: (e, st) => Text('Error: $e'),
-                                    data: (items) {
-                                      if (items.isEmpty)
-                                        return const Text(
-                                          'No records found.',
-                                          style: TextStyle(
-                                            color: Colors.blueGrey,
-                                          ),
-                                        );
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: items.map((item) {
-                                          return Column(
-                                            children: [
-                                              _buildLedgerRow(
-                                                Icons.api,
-                                                item['title'] ?? 'Record',
-                                                item['status'] ?? 'Active',
-                                                Colors.teal,
-                                              ),
-                                              const Divider(
-                                                color: Colors.blueGrey,
-                                                height: 24,
-                                                thickness: 0.1,
-                                              ),
-                                            ],
-                                          );
-                                        }).toList(),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Change Log',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(
-                                    title: 'Update Triggered',
-                                    subtitle: 'Automated policy sync.',
-                                    timestamp: '1 Hr Ago',
-                                    icon: Icons.history,
-                                    iconColor: Colors.teal,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 16,
-                                    thickness: 0.1,
-                                  ),
-                                  AuditLogTile(
-                                    title: 'Audit Warning',
-                                    subtitle: 'Item requires review.',
-                                    timestamp: '3 Hrs Ago',
-                                    icon: Icons.warning,
-                                    iconColor: Colors.orange,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(width: 24),
+              // RIGHT: Change Log
+              Expanded(
+                flex: 1,
+                child: ClinicalGlassPanel(
+                  title: 'Change Log',
+                  icon: LucideIcons.history,
+                  child: Column(
+                    children: metrics.recentActivity
+                        .map(
+                          (log) => Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: AuditLogTile(
+                              title: log.title,
+                              subtitle: log.subtitle,
+                              timestamp: log.timestamp,
+                              icon: _getActivityIcon(log.icon),
+                              iconColor: _getStatusColor(log.color),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
+
 
   Widget _buildLedgerRow(
     IconData icon,
@@ -228,14 +122,18 @@ class FranchisePipelineView extends ConsumerWidget {
     String subtitle,
     Color statusColor,
   ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: statusColor.withValues(alpha: 0.02),
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: statusColor.withValues(alpha: 0.1),
+              color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: statusColor, size: 20),
@@ -248,31 +146,76 @@ class FranchisePipelineView extends ConsumerWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     fontSize: 16,
+                    fontFamily: 'Inter',
                   ),
                 ),
                 Text(
                   subtitle,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 13,
+                    fontFamily: 'Inter',
+                  ),
                 ),
               ],
             ),
           ),
           ElevatedButton(
-            key: const Key(
-              'data-status-id=business-franchise-franchise-action-1',
-            ),
+            key: const Key('data-status-id=business-franchise-franchise-action-1'),
             onPressed: () {},
             style: ElevatedButton.styleFrom(
-              backgroundColor: statusColor.withValues(alpha: 0.1),
+              backgroundColor: statusColor.withOpacity(0.1),
               foregroundColor: statusColor,
               elevation: 0,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            child: const Text('View'),
+            child: const Text('View', style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w600)),
           ),
         ],
       ),
     );
+  }
+
+
+
+  IconData _getLucideIcon(String title) {
+    if (title.contains('Activity')) return LucideIcons.trendingUp;
+    if (title.contains('Pending')) return LucideIcons.clock;
+    if (title.contains('Sync')) return LucideIcons.refreshCcw;
+    if (title.contains('Alert')) return LucideIcons.alertCircle;
+    return LucideIcons.activity;
+  }
+
+  IconData _getActivityIcon(String icon) {
+    switch (icon) {
+      case 'history':
+        return LucideIcons.history;
+      case 'warning':
+        return LucideIcons.alertTriangle;
+      default:
+        return LucideIcons.info;
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'success':
+      case 'teal':
+        return AppTheme.emeraldTeal;
+      case 'warning':
+      case 'orange':
+        return AppTheme.amberWarning;
+      case 'danger':
+      case 'red':
+        return Colors.redAccent;
+      case 'info':
+      case 'indigo':
+      case 'blue':
+        return AppTheme.navyIndigo;
+      default:
+        return Colors.blueGrey;
+    }
   }
 }

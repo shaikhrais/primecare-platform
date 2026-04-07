@@ -169,9 +169,8 @@ class AssessmentsScreen extends ConsumerWidget {
                   icon: LucideIcons.filter,
                 ),
               ],
-            ),
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildAssessmentRow(
             staffName: 'Michael Ray',
             role: 'PSW',
@@ -180,7 +179,7 @@ class AssessmentsScreen extends ConsumerWidget {
             score: '92%',
             status: 'Passed',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildAssessmentRow(
             staffName: 'Elena Rostova',
             role: 'MD',
@@ -189,7 +188,7 @@ class AssessmentsScreen extends ConsumerWidget {
             score: 'Pending Review',
             status: 'Requires Sign-off',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildAssessmentRow(
             staffName: 'John Carmichael',
             role: 'RN',

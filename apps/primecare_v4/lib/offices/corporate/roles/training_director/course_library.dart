@@ -201,7 +201,7 @@ class CourseLibraryScreen extends ConsumerWidget {
               ],
             ),
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildCourseRow(
             id: 'CRS-402',
             title: 'Handling Aggressive Behaviors',
@@ -210,7 +210,7 @@ class CourseLibraryScreen extends ConsumerWidget {
             duration: '45 mins',
             status: 'Published',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildCourseRow(
             id: 'CRS-405',
             title: 'Medication Administration v3',
@@ -219,7 +219,7 @@ class CourseLibraryScreen extends ConsumerWidget {
             duration: '1h 30m',
             status: 'Draft',
           ),
-          const Divider(height: 1),
+          const SizedBox(height: 8),
           _buildCourseRow(
             id: 'CRS-510',
             title: 'Empathy in End-of-Life Care',

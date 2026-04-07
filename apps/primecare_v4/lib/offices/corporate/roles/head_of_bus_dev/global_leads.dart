@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import '../../../../office/components/page_template.dart';
+import '../../../../office/components/clinical_glass_panel.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
@@ -16,110 +18,94 @@ class GlobalLeadsView extends ConsumerWidget {
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(child: Text('Error: $err')),
-      data: (metrics) => SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // GROWTH HUD
-            Row(
+      data: (metrics) => PageTemplate(
+        title: 'Global Leads',
+        subtitle: 'Lead Lifecycle Tracking & BizDev Command Palette',
+        kpiCards: [
+          KpiStatCard(
+            title: 'Actionable Leads',
+            value: '142',
+            icon: LucideIcons.star,
+            iconColor: Colors.indigo,
+            subtitle: '8 High Priority',
+          ),
+          KpiStatCard(
+            title: 'Conversion Rate',
+            value: '18%',
+            icon: LucideIcons.pieChart,
+            iconColor: Colors.teal,
+            subtitle: 'Target: 20%',
+          ),
+          KpiStatCard(
+            title: 'Pipeline Value',
+            value: r'$1.4M',
+            icon: LucideIcons.rocket,
+            iconColor: Colors.orange,
+            subtitle: 'Q3 Forecast',
+          ),
+        ],
+        children: [
+          // PIPELINE STAGES
+          Text(
+            'Lead Lifecycle Tracking',
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Outfit',
+            ),
+          ),
+          const SizedBox(height: 16),
+          _buildLeadRow(
+            'Toronto West Clinic Group',
+            'PROPOSAL SENT',
+            '85%',
+            Colors.teal,
+          ),
+          _buildLeadRow(
+            'Vancouver Health Collective',
+            'NEGOTIATION',
+            '60%',
+            Colors.orange,
+          ),
+          _buildLeadRow(
+            'Montreal Private Care',
+            'QUALIFICATION',
+            '25%',
+            Colors.indigo,
+          ),
+
+          const SizedBox(height: 32),
+
+          // BUSINESS TOOLS
+          Text(
+            'BizDev Command Palette',
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Outfit',
+            ),
+          ),
+          const SizedBox(height: 16),
+          ClinicalGlassPanel(
+            padding: const EdgeInsets.all(24),
+            child: Column(
               children: [
-                Expanded(
-                  child: KpiStatCard(
-                    title: 'Actionable Leads',
-                    value: '142',
-                    icon: Icons.stars,
-                    iconColor: Colors.indigo,
-                    subtitle: '8 High Priority',
-                  ),
+                _buildCmdRow(
+                  'Generate Global ROI Matrix',
+                  LucideIcons.barChart3,
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: KpiStatCard(
-                    title: 'Conversion Rate',
-                    value: '18%',
-                    icon: Icons.pie_chart,
-                    iconColor: Colors.teal,
-                    subtitle: 'Target: 20%',
-                  ),
+                const SizedBox(height: 24),
+                _buildCmdRow(
+                  'Access Partnership Repository',
+                  LucideIcons.handshake,
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: KpiStatCard(
-                    title: 'Pipeline Value',
-                    value: r'$1.4M',
-                    icon: Icons.rocket_launch,
-                    iconColor: Colors.orange,
-                    subtitle: 'Q3 Forecast',
-                  ),
+                const SizedBox(height: 24),
+                _buildCmdRow(
+                  'Market Density Visualization',
+                  LucideIcons.map,
                 ),
               ],
             ),
-
-            const SizedBox(height: 32),
-
-            // PIPELINE STAGES
-            Text(
-              'Lead Lifecycle Tracking',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Outfit',
-              ),
-            ),
-            const SizedBox(height: 16),
-            _buildLeadRow(
-              'Toronto West Clinic Group',
-              'PROPOSAL SENT',
-              '85%',
-              Colors.teal,
-            ),
-            _buildLeadRow(
-              'Vancouver Health Collective',
-              'NEGOTIATION',
-              '60%',
-              Colors.orange,
-            ),
-            _buildLeadRow(
-              'Montreal Private Care',
-              'QUALIFICATION',
-              '25%',
-              Colors.indigo,
-            ),
-
-            const SizedBox(height: 32),
-
-            // BUSINESS TOOLS
-            Text(
-              'BizDev Command Palette',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Outfit',
-              ),
-            ),
-            const SizedBox(height: 16),
-            GlassSurface(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  _buildCmdRow(
-                    'Generate Global ROI Matrix',
-                    Icons.analytics_outlined,
-                  ),
-                  const Divider(height: 32, thickness: 0.1),
-                  _buildCmdRow(
-                    'Access Partnership Repository',
-                    Icons.handshake_outlined,
-                  ),
-                  const Divider(height: 32, thickness: 0.1),
-                  _buildCmdRow(
-                    'Market Density Visualization',
-                    Icons.map_outlined,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -132,7 +118,7 @@ class GlobalLeadsView extends ConsumerWidget {
   ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: GlassSurface(
+      child: ClinicalGlassPanel(
         padding: const EdgeInsets.all(20),
         child: Row(
           children: [
@@ -173,7 +159,7 @@ class GlobalLeadsView extends ConsumerWidget {
         const SizedBox(width: 16),
         Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
         const Spacer(),
-        const Icon(Icons.chevron_right, color: Colors.blueGrey, size: 16),
+        const Icon(LucideIcons.chevronRight, color: Colors.blueGrey, size: 16),
       ],
     );
   }
