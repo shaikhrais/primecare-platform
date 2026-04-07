@@ -11,7 +11,10 @@ class RmtDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('RmtDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'RmtDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

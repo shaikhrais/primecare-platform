@@ -12,9 +12,16 @@ class RmtClientsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Massage Therapy Clients',
-      subtitle: 'Manage client profiles, contact information, and specific treatment preferences.',
+      subtitle:
+          'Manage client profiles, contact information, and specific treatment preferences.',
       kpiCards: [
-        KPICardData(title: 'Active Clients', value: '45', icon: LucideIcons.users, trend: 5.0, trendLabel: 'this month'),
+        KPICardData(
+          title: 'Active Clients',
+          value: '45',
+          icon: LucideIcons.users,
+          trend: 5.0,
+          trendLabel: 'this month',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -36,11 +43,11 @@ class RmtClientsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Client Roster', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Client Roster', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.userPlus),
                     label: const Text('Add Client'),
@@ -49,11 +56,21 @@ class RmtClientsScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildClientCard('John Doe', 'Active', 'Last Visit: May 02, 2024', PrimeCareTheme.colors.emeraldTeal),
-               _buildClientCard('Jane Smith', 'Active', 'Last Visit: April 28, 2024', PrimeCareTheme.colors.emeraldTeal),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildClientCard(
+                'John Doe',
+                'Active',
+                'Last Visit: May 02, 2024',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildClientCard(
+                'Jane Smith',
+                'Active',
+                'Last Visit: April 28, 2024',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -69,19 +86,33 @@ class RmtClientsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildClientCard(String clientName, String status, String lastVisit, Color themeColor) {
-     return Container(
+  Widget _buildClientCard(
+    String clientName,
+    String status,
+    String lastVisit,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -92,24 +123,35 @@ class RmtClientsScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Text(clientName, style: PrimeCareTheme.typography.h3),
-                const SizedBox(height: 4),
-                Text(lastVisit, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           Container(
-             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-             decoration: BoxDecoration(
-               color: themeColor.withOpacity(0.2),
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-           )
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 4),
+              Text(
+                lastVisit,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

@@ -12,7 +12,8 @@ class AdminDashboardScreen extends ConsumerWidget {
         title: const Text('Administrator Dashboard'),
         backgroundColor: Colors.deepPurple,
         actions: [
-          IconButton(key: const Key('data-status-id=shared-global-admin-action-1'), 
+          IconButton(
+            key: const Key('data-status-id=shared-global-admin-action-1'),
             icon: const Icon(Icons.logout),
             onPressed: () {
               ref.read(authProvider.notifier).logout();
@@ -24,7 +25,11 @@ class AdminDashboardScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.admin_panel_settings, size: 80, color: Color(0xFFBB86FC)),
+            const Icon(
+              Icons.admin_panel_settings,
+              size: 80,
+              color: Color(0xFFBB86FC),
+            ),
             const SizedBox(height: 24),
             Text(
               'Welcome, Platform Administrator',

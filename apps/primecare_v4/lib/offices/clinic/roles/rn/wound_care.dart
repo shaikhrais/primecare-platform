@@ -45,9 +45,21 @@ class WoundCareScreen extends ConsumerWidget {
               Text('Wound Types', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
               _buildTypeRow('Surgical', 5, PrimeCareTheme.colors.emeraldTeal),
-              _buildTypeRow('Pressure Ulcer', 4, PrimeCareTheme.colors.coralRed),
-              _buildTypeRow('Diabetic Ulcer', 3, PrimeCareTheme.colors.navyIndigo),
-              _buildTypeRow('Venous Leg Ulcer', 2, PrimeCareTheme.colors.lavenderLustre),
+              _buildTypeRow(
+                'Pressure Ulcer',
+                4,
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildTypeRow(
+                'Diabetic Ulcer',
+                3,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildTypeRow(
+                'Venous Leg Ulcer',
+                2,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -61,7 +73,10 @@ class WoundCareScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Recent Assessments', style: PrimeCareTheme.typography.h2),
+                  Text(
+                    'Recent Assessments',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
                   ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.camera),
@@ -77,15 +92,15 @@ class WoundCareScreen extends ConsumerWidget {
               _buildWoundCard(
                 'John Smith',
                 'Diabetic Foot Ulcer',
-                 'Right Heel',
+                'Right Heel',
                 'Length: 4cm, Width: 3cm, Depth: 0.5cm. Granulation tissue present. Minimal exudate.',
                 'Dressing Changed Today',
                 PrimeCareTheme.colors.emeraldTeal,
               ),
-               _buildWoundCard(
+              _buildWoundCard(
                 'Eleanor Rigby',
                 'Surgical Incision',
-                 'Left Hip',
+                'Left Hip',
                 'Incision site healing well. Margins approximated. No redness or swelling.',
                 'Staples Removed',
                 PrimeCareTheme.colors.emeraldTeal,
@@ -93,7 +108,7 @@ class WoundCareScreen extends ConsumerWidget {
               _buildWoundCard(
                 'William Davis',
                 'Pressure Ulcer (Stage 2)',
-                 'Sacrum',
+                'Sacrum',
                 'Length: 2cm, Width: 2cm, Depth: <0.1cm. Slight maceration around edges. Barrier cream applied.',
                 'Needs Review',
                 PrimeCareTheme.colors.coralRed,
@@ -113,25 +128,34 @@ class WoundCareScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-   Widget _buildWoundCard(String clientName, String woundType, String location, String notes, String status, Color statusColor) {
+  Widget _buildWoundCard(
+    String clientName,
+    String woundType,
+    String location,
+    String notes,
+    String status,
+    Color statusColor,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
@@ -143,19 +167,25 @@ class WoundCareScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(clientName, style: PrimeCareTheme.typography.h3),
-                Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
                   status,
-                  style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: statusColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -163,47 +193,64 @@ class WoundCareScreen extends ConsumerWidget {
           const SizedBox(height: 8),
           Row(
             children: [
-               Text(woundType, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
-               const SizedBox(width: 8),
-               Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-               const SizedBox(width: 8),
-               Row(
-                 children: [
-                   Icon(LucideIcons.mapPin, size: 14, color: PrimeCareTheme.colors.slateGray),
-                   const SizedBox(width: 4),
-                   Text(location, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                 ],
-               )
-            ],
-          ),
-           const SizedBox(height: 12),
-           Text(notes, style: PrimeCareTheme.typography.body),
-            const SizedBox(height: 16),
-           Row(
-             children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                     onPressed: () {},
-                     icon: const Icon(LucideIcons.history, size: 16),
-                     label: const Text('View History'),
-                  ),
+              Text(
+                woundType,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(width: 16),
-                 Expanded(
-                  child: ElevatedButton.icon(
-                     onPressed: () {},
-                     icon: const Icon(LucideIcons.edit2, size: 16),
-                     label: const Text('Update'),
-                      style: ElevatedButton.styleFrom(
-                      backgroundColor: PrimeCareTheme.colors.navyIndigo,
-                      foregroundColor: Colors.white,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '•',
+                style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+              ),
+              const SizedBox(width: 8),
+              Row(
+                children: [
+                  Icon(
+                    LucideIcons.mapPin,
+                    size: 14,
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    location,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
                     ),
                   ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(notes, style: PrimeCareTheme.typography.body),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(LucideIcons.history, size: 16),
+                  label: const Text('View History'),
                 ),
-             ],
-           )
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(LucideIcons.edit2, size: 16),
+                  label: const Text('Update'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
-      )
+      ),
     );
-   }
+  }
 }

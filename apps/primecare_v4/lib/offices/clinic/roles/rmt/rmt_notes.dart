@@ -14,7 +14,13 @@ class RmtNotesScreen extends ConsumerWidget {
       title: 'Massage Treatment Records',
       subtitle: 'Comprehensive overview of all clinical documentation.',
       kpiCards: [
-        KPICardData(title: 'Total Notes', value: '156', icon: LucideIcons.folders, trend: 12.0, trendLabel: 'this month'),
+        KPICardData(
+          title: 'Total Notes',
+          value: '156',
+          icon: LucideIcons.folders,
+          trend: 12.0,
+          trendLabel: 'this month',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,8 +30,16 @@ class RmtNotesScreen extends ConsumerWidget {
             children: [
               Text('Note Types', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('SOAP Notes', 130, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Assessments', 26, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow(
+                'SOAP Notes',
+                130,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Assessments',
+                26,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -36,25 +50,41 @@ class RmtNotesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Activity', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Recent Activity', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.search),
                     label: const Text('Search Records'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
+                      backgroundColor:
+                          PrimeCareTheme.colors.surfaceContainerHighest,
                       foregroundColor: PrimeCareTheme.colors.navyIndigo,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildNoteCard('Alan Turing', 'SOAP Note', 'May 14, 2024', PrimeCareTheme.colors.navyIndigo),
-               _buildNoteCard('Grace Hopper', 'Assessment', 'May 13, 2024', PrimeCareTheme.colors.emeraldTeal),
-               _buildNoteCard('Ada Lovelace', 'SOAP Note', 'May 12, 2024', PrimeCareTheme.colors.navyIndigo),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildNoteCard(
+                'Alan Turing',
+                'SOAP Note',
+                'May 14, 2024',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildNoteCard(
+                'Grace Hopper',
+                'Assessment',
+                'May 13, 2024',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildNoteCard(
+                'Ada Lovelace',
+                'SOAP Note',
+                'May 12, 2024',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -70,19 +100,33 @@ class RmtNotesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard(String clientName, String category, String time, Color themeColor) {
-     return Container(
+  Widget _buildNoteCard(
+    String clientName,
+    String category,
+    String time,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -93,23 +137,37 @@ class RmtNotesScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
-                ),
-             ],
-           ),
-           Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Text(
+            time,
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

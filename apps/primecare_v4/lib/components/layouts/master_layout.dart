@@ -12,8 +12,8 @@ class MasterLayout extends ConsumerWidget {
   final AppShellType shellType;
 
   const MasterLayout({
-    super.key, 
-    required this.child, 
+    super.key,
+    required this.child,
     this.shellType = AppShellType.none,
   });
 
@@ -22,7 +22,7 @@ class MasterLayout extends ConsumerWidget {
     // Generate a strictly local animation for the inner child whenever the page URL changes.
     // This physically prevents the Top Bar and Sidebar from reloading, and smoothly cross-fades the middle content.
     final String currentUri = GoRouterState.of(context).uri.toString();
-    
+
     final Widget animatedChild = AnimatedSwitcher(
       duration: const Duration(milliseconds: 350),
       switchInCurve: Curves.easeOutCubic,
@@ -32,7 +32,10 @@ class MasterLayout extends ConsumerWidget {
           opacity: animation,
           child: SlideTransition(
             position: Tween<Offset>(
-              begin: const Offset(0.01, 0.0), // Tiny subliminal slide from the right
+              begin: const Offset(
+                0.01,
+                0.0,
+              ), // Tiny subliminal slide from the right
               end: Offset.zero,
             ).animate(animation),
             child: child,
@@ -40,7 +43,9 @@ class MasterLayout extends ConsumerWidget {
         );
       },
       child: KeyedSubtree(
-        key: ValueKey(currentUri), // The key forces the transition to trigger ONLY on route changes!
+        key: ValueKey(
+          currentUri,
+        ), // The key forces the transition to trigger ONLY on route changes!
         child: child,
       ),
     );
@@ -60,4 +65,3 @@ class MasterLayout extends ConsumerWidget {
     }
   }
 }
-

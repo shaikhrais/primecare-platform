@@ -12,7 +12,8 @@ class ComplianceCasesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Compliance Cases & Investigations',
-      subtitle: 'Manage internal investigations, whistleblower reports, and regulatory compliance inquiries.',
+      subtitle:
+          'Manage internal investigations, whistleblower reports, and regulatory compliance inquiries.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search cases by ID or keyword...'),
         const SizedBox(width: 16),
@@ -59,9 +60,7 @@ class ComplianceCasesScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildInvestigatorWorkload(),
       ],
-      mainContent: [
-        _buildCaseList(),
-      ],
+      mainContent: [_buildCaseList()],
     );
   }
 
@@ -73,7 +72,11 @@ class ComplianceCasesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.inbox, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.inbox,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Case Sources (YTD)', style: PrimeCareTheme.typography.h3),
             ],
@@ -96,10 +99,13 @@ class ComplianceCasesScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(source, style: PrimeCareTheme.typography.body),
-        Text(count, style: PrimeCareTheme.typography.label.copyWith(
-          color: PrimeCareTheme.colors.slateGray,
-          fontWeight: FontWeight.bold,
-        )),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -112,9 +118,16 @@ class ComplianceCasesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.users, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.users,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
-              Text('Investigator Workload', style: PrimeCareTheme.typography.h3),
+              Text(
+                'Investigator Workload',
+                style: PrimeCareTheme.typography.h3,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -133,9 +146,12 @@ class ComplianceCasesScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(name, style: PrimeCareTheme.typography.body),
-        Text(count, style: PrimeCareTheme.typography.label.copyWith(
-          color: PrimeCareTheme.colors.slateGray,
-        )),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+          ),
+        ),
       ],
     );
   }
@@ -150,7 +166,10 @@ class ComplianceCasesScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Active Compliance Cases', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Active Compliance Cases',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Filter',
@@ -232,10 +251,13 @@ class ComplianceCasesScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text(id, style: PrimeCareTheme.typography.body.copyWith(
-                      color: PrimeCareTheme.colors.slateGray,
-                      fontWeight: FontWeight.bold,
-                    )),
+                    Text(
+                      id,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Text(title, style: PrimeCareTheme.typography.h3),
                   ],
@@ -243,42 +265,56 @@ class ComplianceCasesScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.tag,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(source, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.user, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.user,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('Lead: $assignedTo', style: PrimeCareTheme.typography.label),
+                    Text(
+                      'Lead: $assignedTo',
+                      style: PrimeCareTheme.typography.label,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: PrimeCareTheme.colors.cloudGray,
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Text(
-                   status,
-                   style: PrimeCareTheme.typography.label.copyWith(
-                     color: PrimeCareTheme.colors.navyIndigo,
-                     fontWeight: FontWeight.bold,
-                   ),
-                 ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'View Case',
-                  icon: LucideIcons.folderOpen,
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.cloudGray,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-             ],
+                child: Text(
+                  status,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'View Case',
+                icon: LucideIcons.folderOpen,
+              ),
+            ],
           ),
         ],
       ),

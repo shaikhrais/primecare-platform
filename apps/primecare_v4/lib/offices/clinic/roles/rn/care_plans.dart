@@ -51,9 +51,21 @@ class CarePlansScreen extends ConsumerWidget {
             children: [
               Text('Care Plan Status', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildStatusRow('Active & Updated', 12, PrimeCareTheme.colors.emeraldTeal),
-              _buildStatusRow('Review Pending', 4, PrimeCareTheme.colors.coralRed),
-              _buildStatusRow('New - Awaiting Drafting', 2, PrimeCareTheme.colors.navyIndigo),
+              _buildStatusRow(
+                'Active & Updated',
+                12,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildStatusRow(
+                'Review Pending',
+                4,
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildStatusRow(
+                'New - Awaiting Drafting',
+                2,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -79,7 +91,10 @@ class CarePlansScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Care Plans Due for Review', style: PrimeCareTheme.typography.h2),
+              Text(
+                'Care Plans Due for Review',
+                style: PrimeCareTheme.typography.h2,
+              ),
               const SizedBox(height: 24),
               _buildCarePlanCard(
                 'Eleanor Rigby',
@@ -130,16 +145,18 @@ class CarePlansScreen extends ConsumerWidget {
               Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
@@ -152,13 +169,24 @@ class CarePlansScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(child: Text(name, style: PrimeCareTheme.typography.body)),
-          Text(usage, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+          Text(
+            usage,
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildCarePlanCard(String clientName, String primaryDiagnosis, String reviewNotes, String status, Color statusColor) {
+  Widget _buildCarePlanCard(
+    String clientName,
+    String primaryDiagnosis,
+    String reviewNotes,
+    String status,
+    Color statusColor,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
@@ -175,14 +203,20 @@ class CarePlansScreen extends ConsumerWidget {
             children: [
               Text(clientName, style: PrimeCareTheme.typography.h3),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
                   status,
-                  style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: statusColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -190,13 +224,27 @@ class CarePlansScreen extends ConsumerWidget {
           const SizedBox(height: 4),
           Row(
             children: [
-              Icon(LucideIcons.activity, size: 14, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.activity,
+                size: 14,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
               const SizedBox(width: 6),
-              Text(primaryDiagnosis, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                primaryDiagnosis,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          Text('Key Focus:', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            'Key Focus:',
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(reviewNotes, style: PrimeCareTheme.typography.body),
           const SizedBox(height: 16),
@@ -209,7 +257,7 @@ class CarePlansScreen extends ConsumerWidget {
               ),
               child: const Text('View Full Plan'),
             ),
-          )
+          ),
         ],
       ),
     );

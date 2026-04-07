@@ -12,7 +12,8 @@ class TrainingProgramsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Training Programs',
-      subtitle: 'Design, deploy, and monitor organizational training curriculum.',
+      subtitle:
+          'Design, deploy, and monitor organizational training curriculum.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search programs...'),
         const SizedBox(width: 16),
@@ -49,12 +50,8 @@ class TrainingProgramsScreen extends ConsumerWidget {
           color: PrimeCareTheme.colors.amberWarning,
         ),
       ],
-      sidebarContent: [
-        _buildProgramCategories(),
-      ],
-      mainContent: [
-        _buildProgramsGrid(),
-      ],
+      sidebarContent: [_buildProgramCategories()],
+      mainContent: [_buildProgramsGrid()],
     );
   }
 
@@ -66,7 +63,11 @@ class TrainingProgramsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.listTree, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.listTree,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Program Categories', style: PrimeCareTheme.typography.h3),
             ],
@@ -190,15 +191,28 @@ class TrainingProgramsScreen extends ConsumerWidget {
             ],
           ),
           const Spacer(),
-          Text(title, style: PrimeCareTheme.typography.h3, maxLines: 2, overflow: TextOverflow.ellipsis),
+          Text(
+            title,
+            style: PrimeCareTheme.typography.h3,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
           const SizedBox(height: 4),
           Text(category, style: PrimeCareTheme.typography.label),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('$enrolled Enrolled', style: PrimeCareTheme.typography.label),
-              Text('${(completion * 100).toInt()}% Done', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+              Text(
+                '$enrolled Enrolled',
+                style: PrimeCareTheme.typography.label,
+              ),
+              Text(
+                '${(completion * 100).toInt()}% Done',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),

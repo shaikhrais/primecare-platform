@@ -1,14 +1,19 @@
 import '../core/config/api_config.dart';
 import '../core/network/api_client.dart';
 import '../core/network/api_error.dart';
+
 enum ProviderRole { psw, rn, rmt, unknown }
 
 ProviderRole _parseRole(String? type) {
   switch (type?.toUpperCase()) {
-    case 'PSW': return ProviderRole.psw;
-    case 'RN': return ProviderRole.rn;
-    case 'RMT': return ProviderRole.rmt;
-    default: return ProviderRole.unknown;
+    case 'PSW':
+      return ProviderRole.psw;
+    case 'RN':
+      return ProviderRole.rn;
+    case 'RMT':
+      return ProviderRole.rmt;
+    default:
+      return ProviderRole.unknown;
   }
 }
 
@@ -60,11 +65,13 @@ class ProviderService {
       // Hits the newly structured API gateway scope
       final endpoint = ApiConfig.endpoints['providerDashboard']!;
       final response = await _apiClient.get(endpoint);
-      
+
       if (response.statusCode == 200) {
         return ProviderProfile.fromJson(response.data as Map<String, dynamic>);
       }
-      throw Exception('Failed to load active provider profile: ${response.statusCode}');
+      throw Exception(
+        'Failed to load active provider profile: ${response.statusCode}',
+      );
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));
     }
@@ -75,11 +82,14 @@ class ProviderService {
     try {
       final baseEndpoint = ApiConfig.endpoints['providerCheckin']!;
       final endpoint = baseEndpoint.replaceAll(':visitId', visitId);
-      await _apiClient.post(endpoint, body: {
-        'lat': lat,
-        'lng': lng,
-        'timestamp': DateTime.now().toIso8601String(),
-      });
+      await _apiClient.post(
+        endpoint,
+        body: {
+          'lat': lat,
+          'lng': lng,
+          'timestamp': DateTime.now().toIso8601String(),
+        },
+      );
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));
     }

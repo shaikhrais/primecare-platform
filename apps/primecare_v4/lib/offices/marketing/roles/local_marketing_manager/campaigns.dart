@@ -8,26 +8,24 @@ class LocalCampaignsScreen extends ConsumerStatefulWidget {
   const LocalCampaignsScreen({super.key});
 
   @override
-  ConsumerState<LocalCampaignsScreen> createState() => _LocalCampaignsScreenState();
+  ConsumerState<LocalCampaignsScreen> createState() =>
+      _LocalCampaignsScreenState();
 }
 
 class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildFilters(),
-            const SizedBox(height: 32),
-            _buildCampaignsGrid(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildFilters(),
+          const SizedBox(height: 32),
+          _buildCampaignsGrid(),
+        ],
       ),
     );
   }
@@ -108,10 +106,14 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? PrimeCareTheme.colors.navyIndigo : Colors.transparent,
+          color: isActive
+              ? PrimeCareTheme.colors.navyIndigo
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isActive ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.surfaceContainerHighest,
+            color: isActive
+                ? PrimeCareTheme.colors.navyIndigo
+                : PrimeCareTheme.colors.surfaceContainerHighest,
           ),
         ),
         child: Text(
@@ -193,7 +195,7 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
     }
 
     final budgetPct = budget > 0 ? (spend / budget).clamp(0.0, 1.0) : 0.0;
-    
+
     String formatNumber(int val) {
       if (val >= 1000) return '${(val / 1000).toStringAsFixed(1)}k';
       return val.toString();
@@ -208,7 +210,10 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -216,7 +221,14 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(width: 6, height: 6, decoration: BoxDecoration(color: statusColor, shape: BoxShape.circle)),
+                    Container(
+                      width: 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: statusColor,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       status,
@@ -229,7 +241,11 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
                   ],
                 ),
               ),
-              Icon(LucideIcons.moreHorizontal, size: 20, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.moreHorizontal,
+                size: 20,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -237,22 +253,42 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
             title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+            style: PrimeCareTheme.typography.h3.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
           ),
           const SizedBox(height: 8),
           Row(
             children: [
-              Icon(LucideIcons.radio, size: 14, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.radio,
+                size: 14,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
               const SizedBox(width: 6),
-              Text(channel, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                channel,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 4),
           Row(
             children: [
-              Icon(LucideIcons.calendar, size: 14, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.calendar,
+                size: 14,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
               const SizedBox(width: 6),
-              Text(dates, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                dates,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
           const Spacer(),
@@ -262,15 +298,37 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Est. Reach', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
-                  Text(formatNumber(reach), style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                  Text(
+                    'Est. Reach',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontSize: 11,
+                    ),
+                  ),
+                  Text(
+                    formatNumber(reach),
+                    style: PrimeCareTheme.typography.h3.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('Spend vs Budget', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
-                  Text('\$${spend.toStringAsFixed(0)} / \$${budget.toStringAsFixed(0)}', style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                  Text(
+                    'Spend vs Budget',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontSize: 11,
+                    ),
+                  ),
+                  Text(
+                    '\$${spend.toStringAsFixed(0)} / \$${budget.toStringAsFixed(0)}',
+                    style: PrimeCareTheme.typography.h3.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -280,7 +338,9 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
             value: budgetPct,
             backgroundColor: PrimeCareTheme.colors.surfaceContainerLow,
             valueColor: AlwaysStoppedAnimation<Color>(
-               budgetPct > 0.9 ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.navyIndigo,
+              budgetPct > 0.9
+                  ? PrimeCareTheme.colors.coralRed
+                  : PrimeCareTheme.colors.navyIndigo,
             ),
             minHeight: 6,
             borderRadius: BorderRadius.circular(3),
@@ -293,12 +353,16 @@ class _LocalCampaignsScreenState extends ConsumerState<LocalCampaignsScreen> {
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 foregroundColor: PrimeCareTheme.colors.navyIndigo,
-                side: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                side: BorderSide(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
               child: const Text('Manage Campaign'),
             ),
-          )
+          ),
         ],
       ),
     );

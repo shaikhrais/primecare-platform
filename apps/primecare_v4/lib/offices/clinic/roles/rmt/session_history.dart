@@ -14,7 +14,13 @@ class RmtSessionHistoryScreen extends ConsumerWidget {
       title: 'Session History',
       subtitle: 'Chronological record of clinic visits and treatment sessions.',
       kpiCards: [
-        KPICardData(title: 'Sessions This Week', value: '18', icon: LucideIcons.calendarDays, trend: 2.0, trendLabel: 'vs last week'),
+        KPICardData(
+          title: 'Sessions This Week',
+          value: '18',
+          icon: LucideIcons.calendarDays,
+          trend: 2.0,
+          trendLabel: 'vs last week',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -26,7 +32,11 @@ class RmtSessionHistoryScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _buildFilterRow('30 Min', 5, PrimeCareTheme.colors.emeraldTeal),
               _buildFilterRow('60 Min', 42, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('90 Min', 12, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                '90 Min',
+                12,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -37,25 +47,41 @@ class RmtSessionHistoryScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Sessions', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Recent Sessions', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.filter),
                     label: const Text('Filter History'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
+                      backgroundColor:
+                          PrimeCareTheme.colors.surfaceContainerHighest,
                       foregroundColor: PrimeCareTheme.colors.navyIndigo,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildSessionCard('Marie Curie', '60 Min Massage Therapy', 'May 14, 2024 • 14:00', PrimeCareTheme.colors.navyIndigo),
-               _buildSessionCard('Nikola Tesla', '90 Min Massage Therapy', 'May 14, 2024 • 10:00', PrimeCareTheme.colors.lavenderLustre),
-               _buildSessionCard('Thomas Edison', '30 Min Specific Area', 'May 13, 2024 • 16:30', PrimeCareTheme.colors.emeraldTeal),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildSessionCard(
+                'Marie Curie',
+                '60 Min Massage Therapy',
+                'May 14, 2024 • 14:00',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildSessionCard(
+                'Nikola Tesla',
+                '90 Min Massage Therapy',
+                'May 14, 2024 • 10:00',
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
+              _buildSessionCard(
+                'Thomas Edison',
+                '30 Min Specific Area',
+                'May 13, 2024 • 16:30',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -71,19 +97,33 @@ class RmtSessionHistoryScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildSessionCard(String clientName, String sessionType, String time, Color themeColor) {
-     return Container(
+  Widget _buildSessionCard(
+    String clientName,
+    String sessionType,
+    String time,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -94,17 +134,28 @@ class RmtSessionHistoryScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Text(clientName, style: PrimeCareTheme.typography.h3),
-                const SizedBox(height: 4),
-                Text(sessionType, style: PrimeCareTheme.typography.body.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-             ],
-           ),
-           Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 4),
+              Text(
+                sessionType,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: themeColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          Text(
+            time,
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

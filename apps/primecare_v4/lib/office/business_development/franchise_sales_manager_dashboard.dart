@@ -11,7 +11,10 @@ class FranchiseSalesManagerDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('FranchiseSalesManagerDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'FranchiseSalesManagerDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

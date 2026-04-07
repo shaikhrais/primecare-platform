@@ -9,45 +9,41 @@ class TerritoryReportsScreen extends ConsumerStatefulWidget {
   const TerritoryReportsScreen({super.key});
 
   @override
-  ConsumerState<TerritoryReportsScreen> createState() => _TerritoryReportsScreenState();
+  ConsumerState<TerritoryReportsScreen> createState() =>
+      _TerritoryReportsScreenState();
 }
 
-class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen> {
+class _TerritoryReportsScreenState
+    extends ConsumerState<TerritoryReportsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildHighLevelMetrics(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    children: [
-                      _buildQuotaAttainment(),
-                      const SizedBox(height: 32),
-                      _buildRegionalMapPlaceholder(),
-                    ],
-                  ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildHighLevelMetrics(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: [
+                    _buildQuotaAttainment(),
+                    const SizedBox(height: 32),
+                    _buildRegionalMapPlaceholder(),
+                  ],
                 ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 5,
-                  child: _buildRepPerformanceTable(),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              const SizedBox(width: 32),
+              Expanded(flex: 5, child: _buildRepPerformanceTable()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -136,9 +132,18 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
     );
   }
 
-  Widget _buildMetricCard({required String title, required String value, required String trend, required bool positiveTrend}) {
-    Color trendColor = positiveTrend ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
-    IconData trendIcon = positiveTrend ? LucideIcons.trendingUp : LucideIcons.trendingDown;
+  Widget _buildMetricCard({
+    required String title,
+    required String value,
+    required String trend,
+    required bool positiveTrend,
+  }) {
+    Color trendColor = positiveTrend
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
+    IconData trendIcon = positiveTrend
+        ? LucideIcons.trendingUp
+        : LucideIcons.trendingDown;
 
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
@@ -187,7 +192,9 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
             alignment: Alignment.centerLeft,
             child: Text(
               'YTD Quota Attainment',
-              style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+              style: PrimeCareTheme.typography.h3.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
             ),
           ),
           const SizedBox(height: 32),
@@ -202,7 +209,8 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
                   painter: _DonutChartPainter(
                     percentage: 0.924,
                     color: PrimeCareTheme.colors.emeraldTeal,
-                    backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
+                    backgroundColor:
+                        PrimeCareTheme.colors.surfaceContainerHighest,
                   ),
                 ),
               ),
@@ -211,11 +219,16 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
                 children: [
                   Text(
                     '92.4%',
-                    style: PrimeCareTheme.typography.heroTitle.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontSize: 36),
+                    style: PrimeCareTheme.typography.heroTitle.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      fontSize: 36,
+                    ),
                   ),
                   Text(
                     'of \$9.14M Target',
-                    style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                   ),
                 ],
               ),
@@ -227,19 +240,45 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
             children: [
               Column(
                 children: [
-                  Text('On Track', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                  Text('8 Reps', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+                  Text(
+                    'On Track',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
+                  Text(
+                    '8 Reps',
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
-              Container(width: 1, height: 24, color: PrimeCareTheme.colors.surfaceContainerHighest),
+              Container(
+                width: 1,
+                height: 24,
+                color: PrimeCareTheme.colors.surfaceContainerHighest,
+              ),
               Column(
                 children: [
-                  Text('At Risk', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                  Text('3 Reps', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.coralRed, fontWeight: FontWeight.bold)),
+                  Text(
+                    'At Risk',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
+                  Text(
+                    '3 Reps',
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.coralRed,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -256,9 +295,15 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
             children: [
               Text(
                 'Territory Heatmap',
-                style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
-              Icon(LucideIcons.mapPin, size: 20, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.mapPin,
+                size: 20,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 24),
@@ -272,10 +317,27 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(LucideIcons.map, size: 48, color: PrimeCareTheme.colors.slateGray.withValues(alpha: 0.5)),
+                  Icon(
+                    LucideIcons.map,
+                    size: 48,
+                    color: PrimeCareTheme.colors.slateGray.withValues(
+                      alpha: 0.5,
+                    ),
+                  ),
                   const SizedBox(height: 16),
-                  Text('Interactive Map Visualization', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                  Text('Regions scaled by revenue contribution', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
+                  Text(
+                    'Interactive Map Visualization',
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
+                  Text(
+                    'Regions scaled by revenue contribution',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontSize: 11,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -298,9 +360,15 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
               children: [
                 Text(
                   'Sales Representative Performance',
-                  style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                  style: PrimeCareTheme.typography.h3.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
                 ),
-                ClinicalGlassButton(onPressed: () {}, icon: LucideIcons.search, label: 'Search Reps'),
+                ClinicalGlassButton(
+                  onPressed: () {},
+                  icon: LucideIcons.search,
+                  label: 'Search Reps',
+                ),
               ],
             ),
           ),
@@ -309,10 +377,50 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
             color: PrimeCareTheme.colors.surfaceContainerLow,
             child: Row(
               children: [
-                Expanded(flex: 3, child: Text('REPRESENTATIVE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('QUOTA TARGET', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('CLOSED REVENUE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 3, child: Text('ATTAINMENT', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'REPRESENTATIVE',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'QUOTA TARGET',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'CLOSED REVENUE',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'ATTAINMENT',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -324,20 +432,59 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
 
   List<Widget> _buildRepRows() {
     final reps = [
-      {'name': 'Sarah Jenkins', 'target': '\$950k', 'closed': '\$1.05M', 'attainment': 110.5},
-      {'name': 'Michael Chang', 'target': '\$850k', 'closed': '\$820k', 'attainment': 96.4},
-      {'name': 'Aisha Patel', 'target': '\$1.1M', 'closed': '\$980k', 'attainment': 89.0},
-      {'name': 'David R.', 'target': '\$800k', 'closed': '\$600k', 'attainment': 75.0},
-      {'name': 'Elena O.', 'target': '\$750k', 'closed': '\$760k', 'attainment': 101.3},
-      {'name': 'Marcus L.', 'target': '\$900k', 'closed': '\$910k', 'attainment': 101.1},
-      {'name': 'Sofia M.', 'target': '\$850k', 'closed': '\$800k', 'attainment': 94.1},
+      {
+        'name': 'Sarah Jenkins',
+        'target': '\$950k',
+        'closed': '\$1.05M',
+        'attainment': 110.5,
+      },
+      {
+        'name': 'Michael Chang',
+        'target': '\$850k',
+        'closed': '\$820k',
+        'attainment': 96.4,
+      },
+      {
+        'name': 'Aisha Patel',
+        'target': '\$1.1M',
+        'closed': '\$980k',
+        'attainment': 89.0,
+      },
+      {
+        'name': 'David R.',
+        'target': '\$800k',
+        'closed': '\$600k',
+        'attainment': 75.0,
+      },
+      {
+        'name': 'Elena O.',
+        'target': '\$750k',
+        'closed': '\$760k',
+        'attainment': 101.3,
+      },
+      {
+        'name': 'Marcus L.',
+        'target': '\$900k',
+        'closed': '\$910k',
+        'attainment': 101.1,
+      },
+      {
+        'name': 'Sofia M.',
+        'target': '\$850k',
+        'closed': '\$800k',
+        'attainment': 94.1,
+      },
     ];
 
     return reps.asMap().entries.map((entry) {
       final rep = entry.value;
       final int index = entry.key;
       final double attainment = rep['attainment'] as double;
-      Color attainmentColor = attainment >= 100 ? PrimeCareTheme.colors.emeraldTeal : (attainment >= 85 ? Colors.amber.shade700 : PrimeCareTheme.colors.coralRed);
+      Color attainmentColor = attainment >= 100
+          ? PrimeCareTheme.colors.emeraldTeal
+          : (attainment >= 85
+                ? Colors.amber.shade700
+                : PrimeCareTheme.colors.coralRed);
 
       return Column(
         children: [
@@ -351,21 +498,44 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
                     children: [
                       CircleAvatar(
                         radius: 16,
-                        backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
-                        child: Text((rep['name'] as String)[0], style: TextStyle(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+                        backgroundColor:
+                            PrimeCareTheme.colors.surfaceContainerHighest,
+                        child: Text(
+                          (rep['name'] as String)[0],
+                          style: TextStyle(
+                            color: PrimeCareTheme.colors.navyIndigo,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 12),
-                      Text(rep['name'] as String, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                      Text(
+                        rep['name'] as String,
+                        style: PrimeCareTheme.typography.h4.copyWith(
+                          color: PrimeCareTheme.colors.navyIndigo,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(rep['target'] as String, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                  child: Text(
+                    rep['target'] as String,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(rep['closed'] as String, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    rep['closed'] as String,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 3,
@@ -373,9 +543,15 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
                     children: [
                       Expanded(
                         child: LinearProgressIndicator(
-                          value: (attainment / 150).clamp(0.0, 1.0), // Scale up to 150% max for visual
-                          backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
-                          valueColor: AlwaysStoppedAnimation<Color>(attainmentColor),
+                          value: (attainment / 150).clamp(
+                            0.0,
+                            1.0,
+                          ), // Scale up to 150% max for visual
+                          backgroundColor:
+                              PrimeCareTheme.colors.surfaceContainerHighest,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            attainmentColor,
+                          ),
                           minHeight: 8,
                           borderRadius: BorderRadius.circular(4),
                         ),
@@ -383,7 +559,13 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
                       const SizedBox(width: 16),
                       SizedBox(
                         width: 45,
-                        child: Text('${attainment.toStringAsFixed(1)}%', style: PrimeCareTheme.typography.label.copyWith(color: attainmentColor, fontWeight: FontWeight.bold)),
+                        child: Text(
+                          '${attainment.toStringAsFixed(1)}%',
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: attainmentColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -392,7 +574,12 @@ class _TerritoryReportsScreenState extends ConsumerState<TerritoryReportsScreen>
             ),
           ),
           if (index < reps.length - 1)
-            Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest, indent: 24, endIndent: 24),
+            Divider(
+              height: 1,
+              color: PrimeCareTheme.colors.surfaceContainerHighest,
+              indent: 24,
+              endIndent: 24,
+            ),
         ],
       );
     }).toList();
@@ -404,7 +591,11 @@ class _DonutChartPainter extends CustomPainter {
   final Color color;
   final Color backgroundColor;
 
-  _DonutChartPainter({required this.percentage, required this.color, required this.backgroundColor});
+  _DonutChartPainter({
+    required this.percentage,
+    required this.color,
+    required this.backgroundColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -440,6 +631,8 @@ class _DonutChartPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _DonutChartPainter oldDelegate) {
-    return oldDelegate.percentage != percentage || oldDelegate.color != color || oldDelegate.backgroundColor != backgroundColor;
+    return oldDelegate.percentage != percentage ||
+        oldDelegate.color != color ||
+        oldDelegate.backgroundColor != backgroundColor;
   }
 }

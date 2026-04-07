@@ -2,41 +2,57 @@ import 'dart:io';
 
 const Map<String, List<String>> structure = {
   'corporate': [
-    'founder_ceo', 'coo', 'cfo', 'cto', 'compliance_manager', 
-    'head_business_development', 'head_marketing', 'training_director'
+    'founder_ceo',
+    'coo',
+    'cfo',
+    'cto',
+    'compliance_manager',
+    'head_business_development',
+    'head_marketing',
+    'training_director',
   ],
   'business_development': [
-    'regional_manager_on', 'regional_manager_us', 'franchise_sales_manager',
-    'partnership_manager', 'territory_expansion_manager'
+    'regional_manager_on',
+    'regional_manager_us',
+    'franchise_sales_manager',
+    'partnership_manager',
+    'territory_expansion_manager',
   ],
   'franchise': [
-    'franchise_owner', 'operations_manager', 'scheduler_coordinator', 
-    'billing_admin', 'hr_hiring'
+    'franchise_owner',
+    'operations_manager',
+    'scheduler_coordinator',
+    'billing_admin',
+    'hr_hiring',
   ],
-  'clinical': [
-    'rn', 'rpn', 'rmt', 'psw'
-  ],
+  'clinical': ['rn', 'rpn', 'rmt', 'psw'],
   'support': [
-    'customer_support', 'intake_coordinator', 'quality_assurance', 
-    'training_coordinator'
+    'customer_support',
+    'intake_coordinator',
+    'quality_assurance',
+    'training_coordinator',
   ],
   'marketing': [
-    'local_marketing_manager', 'community_outreach', 'territory_sales_manager'
+    'local_marketing_manager',
+    'community_outreach',
+    'territory_sales_manager',
   ],
-  'client': [
-    'client', 'family_member'
-  ]
+  'client': ['client', 'family_member'],
 };
 
 String toPascalCase(String word) {
   if (word.isEmpty) return word;
-  return word.split('_').map((s) => s[0].toUpperCase() + s.substring(1)).join('');
+  return word
+      .split('_')
+      .map((s) => s[0].toUpperCase() + s.substring(1))
+      .join('');
 }
 
 String toCamelCase(String word) {
   if (word.isEmpty) return word;
   final parts = word.split('_');
-  return parts[0] + parts.skip(1).map((s) => s[0].toUpperCase() + s.substring(1)).join('');
+  return parts[0] +
+      parts.skip(1).map((s) => s[0].toUpperCase() + s.substring(1)).join('');
 }
 
 void main() async {
@@ -48,7 +64,7 @@ void main() async {
   // 1. Generate Layouts
   final layoutDir = Directory('lib/office/layouts');
   if (!await layoutDir.exists()) await layoutDir.create(recursive: true);
-  
+
   await File('lib/office/layouts/master_layout.dart').writeAsString('''
 import 'package:flutter/material.dart';
 import 'sidebar_layout.dart';
@@ -252,5 +268,7 @@ ${goRoutes.join('\n')}
 });
 ''');
 
-  stdout.writeln('Successfully generated the 36-role PrimeCare V4 architecture!');
+  stdout.writeln(
+    'Successfully generated the 36-role PrimeCare V4 architecture!',
+  );
 }

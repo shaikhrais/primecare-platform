@@ -8,26 +8,25 @@ class FranchiseInvoicesScreen extends ConsumerStatefulWidget {
   const FranchiseInvoicesScreen({super.key});
 
   @override
-  ConsumerState<FranchiseInvoicesScreen> createState() => _FranchiseInvoicesScreenState();
+  ConsumerState<FranchiseInvoicesScreen> createState() =>
+      _FranchiseInvoicesScreenState();
 }
 
-class _FranchiseInvoicesScreenState extends ConsumerState<FranchiseInvoicesScreen> {
+class _FranchiseInvoicesScreenState
+    extends ConsumerState<FranchiseInvoicesScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildKPIs(),
-            const SizedBox(height: 32),
-            _buildInvoicesTable(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildKPIs(),
+          const SizedBox(height: 32),
+          _buildInvoicesTable(),
+        ],
       ),
     );
   }
@@ -117,9 +116,18 @@ class _FranchiseInvoicesScreenState extends ConsumerState<FranchiseInvoicesScree
     );
   }
 
-  Widget _buildMetricCard({required String title, required String value, required String trend, required bool positiveTrend}) {
-    Color trendColor = positiveTrend ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
-    IconData trendIcon = positiveTrend ? LucideIcons.trendingUp : LucideIcons.trendingDown;
+  Widget _buildMetricCard({
+    required String title,
+    required String value,
+    required String trend,
+    required bool positiveTrend,
+  }) {
+    Color trendColor = positiveTrend
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
+    IconData trendIcon = positiveTrend
+        ? LucideIcons.trendingUp
+        : LucideIcons.trendingDown;
 
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
@@ -171,7 +179,9 @@ class _FranchiseInvoicesScreenState extends ConsumerState<FranchiseInvoicesScree
               children: [
                 Text(
                   'Recent Invoices',
-                  style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                  style: PrimeCareTheme.typography.h3.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
                 ),
                 Row(
                   children: [
@@ -180,19 +190,37 @@ class _FranchiseInvoicesScreenState extends ConsumerState<FranchiseInvoicesScree
                       decoration: BoxDecoration(
                         color: PrimeCareTheme.colors.surfaceContainerLow,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+                        border: Border.all(
+                          color: PrimeCareTheme.colors.surfaceContainerHighest,
+                        ),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       child: Row(
                         children: [
-                          Icon(LucideIcons.search, size: 18, color: PrimeCareTheme.colors.slateGray),
+                          Icon(
+                            LucideIcons.search,
+                            size: 18,
+                            color: PrimeCareTheme.colors.slateGray,
+                          ),
                           const SizedBox(width: 8),
-                          Text('Search invoices...', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                          Text(
+                            'Search invoices...',
+                            style: PrimeCareTheme.typography.body.copyWith(
+                              color: PrimeCareTheme.colors.slateGray,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     const SizedBox(width: 16),
-                    ClinicalGlassButton(onPressed: () {}, icon: LucideIcons.filter, label: 'Filter'),
+                    ClinicalGlassButton(
+                      onPressed: () {},
+                      icon: LucideIcons.filter,
+                      label: 'Filter',
+                    ),
                   ],
                 ),
               ],
@@ -203,12 +231,72 @@ class _FranchiseInvoicesScreenState extends ConsumerState<FranchiseInvoicesScree
             color: PrimeCareTheme.colors.surfaceContainerLow,
             child: Row(
               children: [
-                Expanded(flex: 2, child: Text('INVOICE ID', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 3, child: Text('RECIPIENT', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('DATE ISSUED', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('DUE DATE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('AMOUNT', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('STATUS', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'INVOICE ID',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'RECIPIENT',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'DATE ISSUED',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'DUE DATE',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'AMOUNT',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'STATUS',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 const SizedBox(width: 32), // Actions spacer
               ],
             ),
@@ -221,19 +309,68 @@ class _FranchiseInvoicesScreenState extends ConsumerState<FranchiseInvoicesScree
 
   List<Widget> _buildInvoiceRows() {
     final invoices = [
-      {'id': 'INV-2026-0045', 'recipient': 'Maplewood Senior Care', 'date': 'Oct 15, 2026', 'due': 'Nov 14, 2026', 'amount': '\$12,450.00', 'status': 'Pending'},
-      {'id': 'INV-2026-0044', 'recipient': 'Dr. Robert Chen Family Practice', 'date': 'Oct 12, 2026', 'due': 'Oct 26, 2026', 'amount': '\$1,850.00', 'status': 'Paid'},
-      {'id': 'INV-2026-0043', 'recipient': 'Elm Street Assisted Living', 'date': 'Oct 05, 2026', 'due': 'Nov 04, 2026', 'amount': '\$8,900.00', 'status': 'Pending'},
-      {'id': 'INV-2026-0042', 'recipient': 'Regional Health Authority', 'date': 'Sep 28, 2026', 'due': 'Oct 28, 2026', 'amount': '\$45,200.00', 'status': 'Paid'},
-      {'id': 'INV-2026-0041', 'recipient': 'Oasis Rehabilitation Center', 'date': 'Sep 15, 2026', 'due': 'Oct 15, 2026', 'amount': '\$6,420.00', 'status': 'Overdue'},
-      {'id': 'INV-2026-0040', 'recipient': 'Private Client: Smith Family', 'date': 'Sep 10, 2026', 'due': 'Sep 24, 2026', 'amount': '\$850.00', 'status': 'Cancelled'},
-      {'id': 'INV-2026-0039', 'recipient': 'Sunrise Medical Group', 'date': 'Sep 05, 2026', 'due': 'Oct 05, 2026', 'amount': '\$14,100.00', 'status': 'Paid'},
+      {
+        'id': 'INV-2026-0045',
+        'recipient': 'Maplewood Senior Care',
+        'date': 'Oct 15, 2026',
+        'due': 'Nov 14, 2026',
+        'amount': '\$12,450.00',
+        'status': 'Pending',
+      },
+      {
+        'id': 'INV-2026-0044',
+        'recipient': 'Dr. Robert Chen Family Practice',
+        'date': 'Oct 12, 2026',
+        'due': 'Oct 26, 2026',
+        'amount': '\$1,850.00',
+        'status': 'Paid',
+      },
+      {
+        'id': 'INV-2026-0043',
+        'recipient': 'Elm Street Assisted Living',
+        'date': 'Oct 05, 2026',
+        'due': 'Nov 04, 2026',
+        'amount': '\$8,900.00',
+        'status': 'Pending',
+      },
+      {
+        'id': 'INV-2026-0042',
+        'recipient': 'Regional Health Authority',
+        'date': 'Sep 28, 2026',
+        'due': 'Oct 28, 2026',
+        'amount': '\$45,200.00',
+        'status': 'Paid',
+      },
+      {
+        'id': 'INV-2026-0041',
+        'recipient': 'Oasis Rehabilitation Center',
+        'date': 'Sep 15, 2026',
+        'due': 'Oct 15, 2026',
+        'amount': '\$6,420.00',
+        'status': 'Overdue',
+      },
+      {
+        'id': 'INV-2026-0040',
+        'recipient': 'Private Client: Smith Family',
+        'date': 'Sep 10, 2026',
+        'due': 'Sep 24, 2026',
+        'amount': '\$850.00',
+        'status': 'Cancelled',
+      },
+      {
+        'id': 'INV-2026-0039',
+        'recipient': 'Sunrise Medical Group',
+        'date': 'Sep 05, 2026',
+        'due': 'Oct 05, 2026',
+        'amount': '\$14,100.00',
+        'status': 'Paid',
+      },
     ];
 
     return invoices.asMap().entries.map((entry) {
       final invoice = entry.value;
       final int index = entry.key;
-      
+
       Color statusColor;
       switch (invoice['status']) {
         case 'Paid':
@@ -258,28 +395,93 @@ class _FranchiseInvoicesScreenState extends ConsumerState<FranchiseInvoicesScree
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: Row(
               children: [
-                Expanded(flex: 2, child: Text(invoice['id'] as String, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo))),
-                Expanded(flex: 3, child: Text(invoice['recipient'] as String, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text(invoice['date'] as String, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray))),
-                Expanded(flex: 2, child: Text(invoice['due'] as String, style: PrimeCareTheme.typography.body.copyWith(color: invoice['status'] == 'Overdue' ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.slateGray, fontWeight: invoice['status'] == 'Overdue' ? FontWeight.bold : FontWeight.normal))),
-                Expanded(flex: 2, child: Text(invoice['amount'] as String, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo))),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    invoice['id'] as String,
+                    style: PrimeCareTheme.typography.h4.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    invoice['recipient'] as String,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    invoice['date'] as String,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    invoice['due'] as String,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: invoice['status'] == 'Overdue'
+                          ? PrimeCareTheme.colors.coralRed
+                          : PrimeCareTheme.colors.slateGray,
+                      fontWeight: invoice['status'] == 'Overdue'
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    invoice['amount'] as String,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
+                ),
                 Expanded(
                   flex: 2,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
-                      child: Text(invoice['status'] as String, style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: statusColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        invoice['status'] as String,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: statusColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                Icon(LucideIcons.moreHorizontal, size: 20, color: PrimeCareTheme.colors.slateGray),
+                Icon(
+                  LucideIcons.moreHorizontal,
+                  size: 20,
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
               ],
             ),
           ),
           if (index < invoices.length - 1)
-            Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
+            Divider(
+              height: 1,
+              color: PrimeCareTheme.colors.surfaceContainerHighest,
+            ),
         ],
       );
     }).toList();

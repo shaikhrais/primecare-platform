@@ -1,9 +1,11 @@
-﻿class StitchPharmacy00133ViewModel {
+class StitchPharmacy00133ViewModel {
   final String title;
   final String status;
-  final List<String> inventoryAlerts; final int prescriptionsPending;
-  
-  StitchPharmacy00133ViewModel({required this.title,
+  final List<String> inventoryAlerts;
+  final int prescriptionsPending;
+
+  StitchPharmacy00133ViewModel({
+    required this.title,
     required this.status,
     required this.inventoryAlerts,
     required this.prescriptionsPending,

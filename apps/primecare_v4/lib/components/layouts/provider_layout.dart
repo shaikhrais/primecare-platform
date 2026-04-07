@@ -6,7 +6,7 @@ import '../../services/auth_service.dart';
 
 class ProviderLayout extends ConsumerWidget {
   final Widget child;
-  
+
   const ProviderLayout({super.key, required this.child});
 
   @override
@@ -14,7 +14,7 @@ class ProviderLayout extends ConsumerWidget {
     // The Provider Layout strictly enforces The Luminous Clinician aesthetics.
     // We dynamically pull the auth role to inject into the Top Bar.
     final role = ref.watch(authProvider).role ?? '';
-    
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: ProviderTopBar(role: role),
@@ -33,9 +33,9 @@ class ProviderLayout extends ConsumerWidget {
       ),
       drawer: LayoutBuilder(
         builder: (context, constraints) {
-          return constraints.maxWidth < 900 
-            ? const Drawer(child: SidebarLayout()) 
-            : const SizedBox.shrink();
+          return constraints.maxWidth < 900
+              ? const Drawer(child: SidebarLayout())
+              : const SizedBox.shrink();
         },
       ),
     );

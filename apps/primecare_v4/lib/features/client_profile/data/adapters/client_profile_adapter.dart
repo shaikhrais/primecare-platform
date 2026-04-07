@@ -32,7 +32,7 @@ class ClientProfileMockProvider {
       'name': 'Jane Doe',
       'clientAge': 32,
       'status': 'Active Treatment',
-      'diagnoses': ['Hypertension', 'Asthma']
+      'diagnoses': ['Hypertension', 'Asthma'],
     });
   }
 }
@@ -69,10 +69,7 @@ class ClientProfileAdapter {
   final ClientProfileMockProvider mockProvider;
   final ClientProfileApiProvider apiProvider;
 
-  ClientProfileAdapter({
-    required this.mockProvider,
-    required this.apiProvider,
-  });
+  ClientProfileAdapter({required this.mockProvider, required this.apiProvider});
 
   Future<ClientProfileViewModel> getData(String profileId) async {
     if (FeatureFlags.useApiForClientProfile) {

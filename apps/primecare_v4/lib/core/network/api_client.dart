@@ -30,12 +30,10 @@ class ApiClient {
         },
       ),
     );
-    
-    _dio.interceptors.add(LogInterceptor(
-      requestBody: true,
-      responseBody: true,
-      error: true,
-    ));
+
+    _dio.interceptors.add(
+      LogInterceptor(requestBody: true, responseBody: true, error: true),
+    );
   }
 
   Future<Response> get(String path, {Map<String, dynamic>? query}) async {

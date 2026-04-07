@@ -12,9 +12,12 @@ class CredentialTrackingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Credential Tracking',
-      subtitle: 'Monitor staff certifications, licenses, and background checks compliances across facilities.',
+      subtitle:
+          'Monitor staff certifications, licenses, and background checks compliances across facilities.',
       headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search by staff name, ID, or credential type...'),
+        ClinicalSearchTextField(
+          hintText: 'Search by staff name, ID, or credential type...',
+        ),
         const SizedBox(width: 16),
         ClinicalGlassButton(
           onPressed: () {},
@@ -54,22 +57,26 @@ class CredentialTrackingScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildCredentialTypes(),
       ],
-      mainContent: [
-        _buildStaffCredentialList(),
-      ],
+      mainContent: [_buildStaffCredentialList()],
     );
   }
 
   Widget _buildActionRequiredPanel() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
-      border: Border.all(color: PrimeCareTheme.colors.coralRed.withOpacity(0.3)),
+      border: Border.all(
+        color: PrimeCareTheme.colors.coralRed.withOpacity(0.3),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(LucideIcons.alertCircle, color: PrimeCareTheme.colors.coralRed, size: 20),
+              Icon(
+                LucideIcons.alertCircle,
+                color: PrimeCareTheme.colors.coralRed,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Expired / Suspended', style: PrimeCareTheme.typography.h3),
             ],
@@ -88,14 +95,28 @@ class CredentialTrackingScreen extends ConsumerWidget {
   Widget _buildActionItem(String name, String detail) {
     return Row(
       children: [
-        Icon(LucideIcons.userX, size: 16, color: PrimeCareTheme.colors.coralRed),
+        Icon(
+          LucideIcons.userX,
+          size: 16,
+          color: PrimeCareTheme.colors.coralRed,
+        ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-              Text(detail, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                name,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                detail,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
         ),
@@ -111,7 +132,11 @@ class CredentialTrackingScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.files, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.files,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Monitored Types', style: PrimeCareTheme.typography.h3),
             ],
@@ -134,10 +159,13 @@ class CredentialTrackingScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(type, style: PrimeCareTheme.typography.body),
-        Text(count, style: PrimeCareTheme.typography.label.copyWith(
-          color: PrimeCareTheme.colors.slateGray,
-          fontWeight: FontWeight.bold,
-        )),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -152,7 +180,10 @@ class CredentialTrackingScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Upcoming Expirations', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Upcoming Expirations',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Send Reminders',
@@ -202,7 +233,9 @@ class CredentialTrackingScreen extends ConsumerWidget {
     required int daysLeft,
   }) {
     final isCritical = daysLeft <= 15;
-    final color = isCritical ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.amberWarning;
+    final color = isCritical
+        ? PrimeCareTheme.colors.coralRed
+        : PrimeCareTheme.colors.amberWarning;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -226,7 +259,10 @@ class CredentialTrackingScreen extends ConsumerWidget {
                     Text(name, style: PrimeCareTheme.typography.h3),
                     const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: PrimeCareTheme.colors.cloudGray,
                         borderRadius: BorderRadius.circular(8),
@@ -238,11 +274,19 @@ class CredentialTrackingScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.fileText, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.fileText,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(credential, style: PrimeCareTheme.typography.body),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.hash, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.hash,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(number, style: PrimeCareTheme.typography.label),
                   ],
@@ -251,27 +295,29 @@ class CredentialTrackingScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  'Expires in $daysLeft days',
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.bold,
-                  ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                'Expires in $daysLeft days',
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  expiryDate,
-                  style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                expiryDate,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'Verify Renewal',
-                  icon: LucideIcons.checkCircle,
-                ),
-             ],
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'Verify Renewal',
+                icon: LucideIcons.checkCircle,
+              ),
+            ],
           ),
         ],
       ),

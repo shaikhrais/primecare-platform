@@ -3,8 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// Centralized Integration Layer defining exact Backend routing addresses.
 class ApiConfig {
   /// Base API destination URL (e.g. gateway edge proxy)
-  static String get baseUrl => dotenv.env['API_URL'] ?? 'https://primecare-api-gateway.itpro-mohammed.workers.dev';
-  
+  static String get baseUrl =>
+      dotenv.env['API_URL'] ??
+      'https://primecare-api-gateway.itpro-mohammed.workers.dev';
+
   /// Global Semantic Versioning flag injected natively into the uri strings
   static const String version = 'v1';
 
@@ -41,15 +43,16 @@ class ApiConfig {
     'officeGlobalProfileScreen': '/v1/primecare/office/global_profile_screen',
     'officeGlobalSettingsScreen': '/v1/primecare/office/global_settings_screen',
     'officeMessagingHubScreen': '/v1/primecare/office/messaging_hub_screen',
-    'officeNotificationCenterScreen': '/v1/primecare/office/notification_center_screen',
+    'officeNotificationCenterScreen':
+        '/v1/primecare/office/notification_center_screen',
 
     'login': '/auth/login',
     'register': '/auth/register',
-    
+
     'providerDashboard': '/providers/profile/me',
     'providerMetrics': '/dashboard/metrics',
     'providerCheckin': '/visits/:visitId/checkin',
-    
+
     'intakeCases': '/intake/cases',
     'carePlansUpdate': '/care-plans/update',
     'trainingComplete': '/training/complete',

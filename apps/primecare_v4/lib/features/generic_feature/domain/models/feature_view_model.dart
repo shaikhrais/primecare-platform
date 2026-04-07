@@ -4,7 +4,8 @@ class FeatureViewModel {
   final String status;
   final String description;
   final String type;
-  final Map<String, dynamic> rawPayload; // Catch-all for specialized widgets until strictly typed
+  final Map<String, dynamic>
+  rawPayload; // Catch-all for specialized widgets until strictly typed
 
   FeatureViewModel({
     required this.id,

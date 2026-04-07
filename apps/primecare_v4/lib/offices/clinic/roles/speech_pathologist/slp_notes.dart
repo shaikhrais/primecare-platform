@@ -12,7 +12,8 @@ class SlpNotesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Speech-Language Pathology Notes',
-      subtitle: 'Document speech, language, swallowing, and cognitive-communication assessments.',
+      subtitle:
+          'Document speech, language, swallowing, and cognitive-communication assessments.',
       kpiCards: [
         KPICardData(
           title: 'Notes Today',
@@ -37,9 +38,17 @@ class SlpNotesScreen extends ConsumerWidget {
             children: [
               Text('Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Dysphagia', 4, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow(
+                'Dysphagia',
+                4,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
               _buildFilterRow('Aphasia', 2, PrimeCareTheme.colors.navyIndigo),
-               _buildFilterRow('Cognitive-Comm', 1, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Cognitive-Comm',
+                1,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -50,11 +59,11 @@ class SlpNotesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('Add Note'),
@@ -63,23 +72,23 @@ class SlpNotesScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildNoteCard(
-                 'James Wilson',
-                 'Dysphagia',
-                 'May 14, 2024 • 10:15',
-                 'Clinical Swallow Evaluation completed at bedside. Patient exhibited overt signs of aspiration (coughing, throat clearing) with thin liquids. Tolerated nectar-thick liquids without clinical signs. Diet recommendation: Pureed solids, Nectar-thick liquids. Initiated effortful swallow exercises.',
-                 PrimeCareTheme.colors.emeraldTeal
-               ),
-               _buildNoteCard(
-                 'Eleanor Rigby',
-                 'Aphasia',
-                 'May 14, 2024 • 13:45',
-                 'Session focused on expressive language recovery post-CVA. Patient demonstrated improved naming of familiar objects (8/10 accuracy) using phonemic cues. Continues to struggle with multi-step commands. Plan: continue semantic feature analysis therapy.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildNoteCard(
+                'James Wilson',
+                'Dysphagia',
+                'May 14, 2024 • 10:15',
+                'Clinical Swallow Evaluation completed at bedside. Patient exhibited overt signs of aspiration (coughing, throat clearing) with thin liquids. Tolerated nectar-thick liquids without clinical signs. Diet recommendation: Pureed solids, Nectar-thick liquids. Initiated effortful swallow exercises.',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildNoteCard(
+                'Eleanor Rigby',
+                'Aphasia',
+                'May 14, 2024 • 13:45',
+                'Session focused on expressive language recovery post-CVA. Patient demonstrated improved naming of familiar objects (8/10 accuracy) using phonemic cues. Continues to struggle with multi-step commands. Plan: continue semantic feature analysis therapy.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -95,26 +104,34 @@ class SlpNotesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
-     return Container(
+  Widget _buildNoteCard(
+    String clientName,
+    String category,
+    String time,
+    String note,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -125,25 +142,39 @@ class SlpNotesScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(note, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(note, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

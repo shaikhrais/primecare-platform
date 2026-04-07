@@ -67,7 +67,10 @@ class FranchisePipelineScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Active Franchise Candidates', style: PrimeCareTheme.typography.h2),
+              Text(
+                'Active Franchise Candidates',
+                style: PrimeCareTheme.typography.h2,
+              ),
               const SizedBox(height: 24),
               _buildCandidateRow(
                 'James Robertson',
@@ -142,14 +145,23 @@ class FranchisePipelineScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildCandidateRow(String name, String territory, String stage, String financials, String lastAction, IconData icon) {
+  Widget _buildCandidateRow(
+    String name,
+    String territory,
+    String stage,
+    String financials,
+    String lastAction,
+    IconData icon,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+        border: Border.all(
+          color: PrimeCareTheme.colors.surfaceContainerHighest,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,7 +171,9 @@ class FranchisePipelineScreen extends ConsumerWidget {
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
+                  backgroundColor: PrimeCareTheme.colors.navyIndigo.withOpacity(
+                    0.1,
+                  ),
                   child: Icon(icon, color: PrimeCareTheme.colors.navyIndigo),
                 ),
                 const SizedBox(width: 16),
@@ -168,7 +182,12 @@ class FranchisePipelineScreen extends ConsumerWidget {
                   children: [
                     Text(name, style: PrimeCareTheme.typography.h3),
                     const SizedBox(height: 4),
-                    Text(territory, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                    Text(
+                      territory,
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -179,9 +198,19 @@ class FranchisePipelineScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Stage', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Stage',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(stage, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600)),
+                Text(
+                  stage,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
           ),
@@ -190,7 +219,12 @@ class FranchisePipelineScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Financials', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Financials',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(financials, style: PrimeCareTheme.typography.body),
               ],
@@ -201,9 +235,19 @@ class FranchisePipelineScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('Last Action', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Last Action',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(lastAction, style: PrimeCareTheme.typography.label.copyWith(fontStyle: FontStyle.italic)),
+                Text(
+                  lastAction,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
               ],
             ),
           ),

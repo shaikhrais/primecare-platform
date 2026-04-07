@@ -16,14 +16,32 @@ class SidebarConfig {
   static final Map<String, List<SidebarItemData>> roleMenus = {
     'CEO': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
-      SidebarItemData(label: 'Enterprise Overview', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Franchise Overview', icon: Icons.business_center_outlined),
-      SidebarItemData(label: 'Region Performance', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Enterprise Overview',
+        icon: Icons.circle_outlined,
+      ),
+      SidebarItemData(
+        label: 'Franchise Overview',
+        icon: Icons.business_center_outlined,
+      ),
+      SidebarItemData(
+        label: 'Region Performance',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Revenue Summary', icon: Icons.attach_money),
       SidebarItemData(label: 'Strategic KPIs', icon: Icons.analytics_outlined),
-      SidebarItemData(label: 'Growth Pipeline', icon: Icons.business_center_outlined),
-      SidebarItemData(label: 'Leadership Reports', icon: Icons.analytics_outlined),
-      SidebarItemData(label: 'Alerts & Risks', icon: Icons.notifications_outlined),
+      SidebarItemData(
+        label: 'Growth Pipeline',
+        icon: Icons.business_center_outlined,
+      ),
+      SidebarItemData(
+        label: 'Leadership Reports',
+        icon: Icons.analytics_outlined,
+      ),
+      SidebarItemData(
+        label: 'Alerts & Risks',
+        icon: Icons.notifications_outlined,
+      ),
       SidebarItemData(label: 'Organization Map', icon: Icons.map_outlined),
       SidebarItemData(label: 'Approvals', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Messages', icon: Icons.chat_bubble_outline),
@@ -32,14 +50,23 @@ class SidebarConfig {
     ],
     'COO': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
-      SidebarItemData(label: 'Operations Overview', icon: Icons.circle_outlined),
+      SidebarItemData(
+        label: 'Operations Overview',
+        icon: Icons.circle_outlined,
+      ),
       SidebarItemData(label: 'Branch Operations', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Staffing Efficiency', icon: Icons.people_alt),
       SidebarItemData(label: 'Scheduling Health', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Service Delivery', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Issue Escalations', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Compliance View', icon: Icons.verified_user_outlined),
-      SidebarItemData(label: 'Workflow Performance', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Compliance View',
+        icon: Icons.verified_user_outlined,
+      ),
+      SidebarItemData(
+        label: 'Workflow Performance',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Branch Comparison', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
@@ -49,9 +76,15 @@ class SidebarConfig {
       SidebarItemData(label: 'Financial Overview', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Revenue', icon: Icons.attach_money),
       SidebarItemData(label: 'Expenses', icon: Icons.attach_money),
-      SidebarItemData(label: 'Franchise Financials', icon: Icons.business_center_outlined),
+      SidebarItemData(
+        label: 'Franchise Financials',
+        icon: Icons.business_center_outlined,
+      ),
       SidebarItemData(label: 'Payroll', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Accounts Receivable', icon: Icons.circle_outlined),
+      SidebarItemData(
+        label: 'Accounts Receivable',
+        icon: Icons.circle_outlined,
+      ),
       SidebarItemData(label: 'Accounts Payable', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Invoices', icon: Icons.attach_money),
       SidebarItemData(label: 'Profitability', icon: Icons.circle_outlined),
@@ -62,7 +95,10 @@ class SidebarConfig {
     'CTO': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'System Health', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Platform Usage', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Platform Usage',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Feature Adoption', icon: Icons.circle_outlined),
       SidebarItemData(label: 'API Monitoring', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Integrations', icon: Icons.circle_outlined),
@@ -76,26 +112,47 @@ class SidebarConfig {
     ],
     'Compliance Manager': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
-      SidebarItemData(label: 'Compliance Cases', icon: Icons.verified_user_outlined),
+      SidebarItemData(
+        label: 'Compliance Cases',
+        icon: Icons.verified_user_outlined,
+      ),
       SidebarItemData(label: 'Policies', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Audits', icon: Icons.verified_user_outlined),
       SidebarItemData(label: 'Incident Review', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Credential Tracking', icon: Icons.verified_user_outlined),
-      SidebarItemData(label: 'Document Expiry', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Credential Tracking',
+        icon: Icons.verified_user_outlined,
+      ),
+      SidebarItemData(
+        label: 'Document Expiry',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Risk Register', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Corrective Actions', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Training Compliance', icon: Icons.verified_user_outlined),
+      SidebarItemData(
+        label: 'Training Compliance',
+        icon: Icons.verified_user_outlined,
+      ),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
     ],
     'Head of Business Development': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
-      SidebarItemData(label: 'Lead Pipeline', icon: Icons.business_center_outlined),
-      SidebarItemData(label: 'Franchise Pipeline', icon: Icons.business_center_outlined),
+      SidebarItemData(
+        label: 'Lead Pipeline',
+        icon: Icons.business_center_outlined,
+      ),
+      SidebarItemData(
+        label: 'Franchise Pipeline',
+        icon: Icons.business_center_outlined,
+      ),
       SidebarItemData(label: 'Territory Map', icon: Icons.map_outlined),
       SidebarItemData(label: 'Partnerships', icon: Icons.handshake_outlined),
       SidebarItemData(label: 'Opportunities', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Sales Performance', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Sales Performance',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Expansion Forecast', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
@@ -104,20 +161,32 @@ class SidebarConfig {
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Campaigns', icon: Icons.campaign_outlined),
       SidebarItemData(label: 'Leads', icon: Icons.business_center_outlined),
-      SidebarItemData(label: 'Funnel Analytics', icon: Icons.analytics_outlined),
+      SidebarItemData(
+        label: 'Funnel Analytics',
+        icon: Icons.analytics_outlined,
+      ),
       SidebarItemData(label: 'Brand Assets', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Regional Campaigns', icon: Icons.map_outlined),
       SidebarItemData(label: 'Content Approval', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Performance Reports', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Performance Reports',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
     ],
     'Training Director': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Training Programs', icon: Icons.school_outlined),
       SidebarItemData(label: 'Staff Training Matrix', icon: Icons.people_alt),
-      SidebarItemData(label: 'Compliance Training', icon: Icons.verified_user_outlined),
+      SidebarItemData(
+        label: 'Compliance Training',
+        icon: Icons.verified_user_outlined,
+      ),
       SidebarItemData(label: 'Course Library', icon: Icons.school_outlined),
-      SidebarItemData(label: 'Assessments', icon: Icons.medical_services_outlined),
+      SidebarItemData(
+        label: 'Assessments',
+        icon: Icons.medical_services_outlined,
+      ),
       SidebarItemData(label: 'Certifications', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Trainer Assignments', icon: Icons.task_alt),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
@@ -126,12 +195,21 @@ class SidebarConfig {
     'Regional BDM': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Leads', icon: Icons.business_center_outlined),
-      SidebarItemData(label: 'Franchise Pipeline', icon: Icons.business_center_outlined),
+      SidebarItemData(
+        label: 'Franchise Pipeline',
+        icon: Icons.business_center_outlined,
+      ),
       SidebarItemData(label: 'Territory Growth', icon: Icons.map_outlined),
       SidebarItemData(label: 'Meetings', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Deal Tracker', icon: Icons.business_center_outlined),
+      SidebarItemData(
+        label: 'Deal Tracker',
+        icon: Icons.business_center_outlined,
+      ),
       SidebarItemData(label: 'Partners', icon: Icons.handshake_outlined),
-      SidebarItemData(label: 'Competitor Notes', icon: Icons.medical_services_outlined),
+      SidebarItemData(
+        label: 'Competitor Notes',
+        icon: Icons.medical_services_outlined,
+      ),
       SidebarItemData(label: 'Tasks', icon: Icons.task_alt),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
@@ -142,7 +220,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Prospects', icon: Icons.business_center_outlined),
       SidebarItemData(label: 'Discovery Calls', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Proposals', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Sales Pipeline', icon: Icons.business_center_outlined),
+      SidebarItemData(
+        label: 'Sales Pipeline',
+        icon: Icons.business_center_outlined,
+      ),
       SidebarItemData(label: 'Contracts', icon: Icons.description_outlined),
       SidebarItemData(label: 'Follow-ups', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
@@ -152,7 +233,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Partners', icon: Icons.handshake_outlined),
       SidebarItemData(label: 'Outreach', icon: Icons.handshake_outlined),
-      SidebarItemData(label: 'Active Deals', icon: Icons.business_center_outlined),
+      SidebarItemData(
+        label: 'Active Deals',
+        icon: Icons.business_center_outlined,
+      ),
       SidebarItemData(label: 'Proposals', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Documents', icon: Icons.description_outlined),
       SidebarItemData(label: 'Renewals', icon: Icons.circle_outlined),
@@ -174,7 +258,10 @@ class SidebarConfig {
     'Franchise Owner': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Branch Overview', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Financial Snapshot', icon: Icons.analytics_outlined),
+      SidebarItemData(
+        label: 'Financial Snapshot',
+        icon: Icons.analytics_outlined,
+      ),
       SidebarItemData(label: 'Staff', icon: Icons.people_alt),
       SidebarItemData(label: 'Appointments', icon: Icons.calendar_today),
       SidebarItemData(label: 'Clients', icon: Icons.personal_injury),
@@ -198,9 +285,15 @@ class SidebarConfig {
     ],
     'Scheduler / Coordinator': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
-      SidebarItemData(label: 'Appointment Calendar', icon: Icons.calendar_today),
+      SidebarItemData(
+        label: 'Appointment Calendar',
+        icon: Icons.calendar_today,
+      ),
       SidebarItemData(label: 'Shift Calendar', icon: Icons.calendar_today),
-      SidebarItemData(label: 'Provider Availability', icon: Icons.circle_outlined),
+      SidebarItemData(
+        label: 'Provider Availability',
+        icon: Icons.circle_outlined,
+      ),
       SidebarItemData(label: 'Booking Requests', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Open Shifts', icon: Icons.calendar_today),
       SidebarItemData(label: 'Assignments', icon: Icons.task_alt),
@@ -214,7 +307,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Payments', icon: Icons.attach_money),
       SidebarItemData(label: 'Claims', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Reconciliation', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Outstanding Balances', icon: Icons.circle_outlined),
+      SidebarItemData(
+        label: 'Outstanding Balances',
+        icon: Icons.circle_outlined,
+      ),
       SidebarItemData(label: 'Refunds', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Documents', icon: Icons.description_outlined),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
@@ -226,7 +322,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Interviews', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Offers', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Onboarding', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Staff Documents', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Staff Documents',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Credentials', icon: Icons.verified_user_outlined),
       SidebarItemData(label: 'Training Status', icon: Icons.school_outlined),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
@@ -236,11 +335,23 @@ class SidebarConfig {
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Today’s Schedule', icon: Icons.calendar_today),
       SidebarItemData(label: 'Assigned Clients', icon: Icons.personal_injury),
-      SidebarItemData(label: 'Nursing Notes', icon: Icons.medical_services_outlined),
-      SidebarItemData(label: 'Care Plans', icon: Icons.medical_services_outlined),
-      SidebarItemData(label: 'Medication Notes', icon: Icons.medical_services_outlined),
+      SidebarItemData(
+        label: 'Nursing Notes',
+        icon: Icons.medical_services_outlined,
+      ),
+      SidebarItemData(
+        label: 'Care Plans',
+        icon: Icons.medical_services_outlined,
+      ),
+      SidebarItemData(
+        label: 'Medication Notes',
+        icon: Icons.medical_services_outlined,
+      ),
       SidebarItemData(label: 'Vitals', icon: Icons.medical_services_outlined),
-      SidebarItemData(label: 'Incident Reports', icon: Icons.analytics_outlined),
+      SidebarItemData(
+        label: 'Incident Reports',
+        icon: Icons.analytics_outlined,
+      ),
       SidebarItemData(label: 'Progress Updates', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Client History', icon: Icons.personal_injury),
       SidebarItemData(label: 'Documents', icon: Icons.description_outlined),
@@ -250,21 +361,36 @@ class SidebarConfig {
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Today’s Schedule', icon: Icons.calendar_today),
       SidebarItemData(label: 'Assigned Clients', icon: Icons.personal_injury),
-      SidebarItemData(label: 'Nursing Notes', icon: Icons.medical_services_outlined),
+      SidebarItemData(
+        label: 'Nursing Notes',
+        icon: Icons.medical_services_outlined,
+      ),
       SidebarItemData(label: 'Care Updates', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Vitals', icon: Icons.medical_services_outlined),
       SidebarItemData(label: 'Medication Support', icon: Icons.help_outline),
       SidebarItemData(label: 'Client History', icon: Icons.personal_injury),
-      SidebarItemData(label: 'Incident Reports', icon: Icons.analytics_outlined),
+      SidebarItemData(
+        label: 'Incident Reports',
+        icon: Icons.analytics_outlined,
+      ),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
     ],
     'RMT': [
       SidebarItemData(label: 'Dashboard', icon: Icons.dashboard),
       SidebarItemData(label: 'Today’s Schedule', icon: Icons.calendar_today),
       SidebarItemData(label: 'Clients', icon: Icons.personal_injury),
-      SidebarItemData(label: 'Assessment', icon: Icons.medical_services_outlined),
-      SidebarItemData(label: 'SOAP Notes', icon: Icons.medical_services_outlined),
-      SidebarItemData(label: 'Treatment Plans', icon: Icons.medical_services_outlined),
+      SidebarItemData(
+        label: 'Assessment',
+        icon: Icons.medical_services_outlined,
+      ),
+      SidebarItemData(
+        label: 'SOAP Notes',
+        icon: Icons.medical_services_outlined,
+      ),
+      SidebarItemData(
+        label: 'Treatment Plans',
+        icon: Icons.medical_services_outlined,
+      ),
       SidebarItemData(label: 'Homecare', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Session History', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Body Chart', icon: Icons.circle_outlined),
@@ -282,7 +408,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Daily Logs', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Check In / Out', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Client Updates', icon: Icons.personal_injury),
-      SidebarItemData(label: 'Incident Reports', icon: Icons.analytics_outlined),
+      SidebarItemData(
+        label: 'Incident Reports',
+        icon: Icons.analytics_outlined,
+      ),
       SidebarItemData(label: 'Completed Visits', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Documents', icon: Icons.description_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
@@ -315,7 +444,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Complaints', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Corrective Actions', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Scorecards', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Compliance Checks', icon: Icons.verified_user_outlined),
+      SidebarItemData(
+        label: 'Compliance Checks',
+        icon: Icons.verified_user_outlined,
+      ),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
     ],
@@ -359,7 +491,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Pipeline', icon: Icons.business_center_outlined),
       SidebarItemData(label: 'Field Activity', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Conversions', icon: Icons.campaign_outlined),
-      SidebarItemData(label: 'Area Performance', icon: Icons.description_outlined),
+      SidebarItemData(
+        label: 'Area Performance',
+        icon: Icons.description_outlined,
+      ),
       SidebarItemData(label: 'Competitors', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Reports', icon: Icons.analytics_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
@@ -369,7 +504,10 @@ class SidebarConfig {
       SidebarItemData(label: 'Book Appointment', icon: Icons.circle_outlined),
       SidebarItemData(label: 'My Appointments', icon: Icons.calendar_today),
       SidebarItemData(label: 'Care Team', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Treatment History', icon: Icons.medical_services_outlined),
+      SidebarItemData(
+        label: 'Treatment History',
+        icon: Icons.medical_services_outlined,
+      ),
       SidebarItemData(label: 'Documents', icon: Icons.description_outlined),
       SidebarItemData(label: 'Payments', icon: Icons.attach_money),
       SidebarItemData(label: 'Messages', icon: Icons.chat_bubble_outline),
@@ -384,27 +522,31 @@ class SidebarConfig {
       SidebarItemData(label: 'Billing', icon: Icons.attach_money),
       SidebarItemData(label: 'Messages', icon: Icons.chat_bubble_outline),
       SidebarItemData(label: 'Emergency Contacts', icon: Icons.circle_outlined),
-      SidebarItemData(label: 'Notifications', icon: Icons.notifications_outlined),
+      SidebarItemData(
+        label: 'Notifications',
+        icon: Icons.notifications_outlined,
+      ),
       SidebarItemData(label: 'Profile', icon: Icons.circle_outlined),
       SidebarItemData(label: 'Settings', icon: Icons.settings_outlined),
     ],
   };
-  
+
   static List<SidebarItemData> getMenuForRole(String role) {
     if (role.isEmpty) return roleMenus['PSW'] ?? []; // Default fallback
-    
+
     // Exact mapping check
     for (String key in roleMenus.keys) {
       if (role.toLowerCase().contains(key.toLowerCase())) {
         return roleMenus[key]!;
       }
     }
-    
+
     // Fuzzy matching fallbacks based on tokens
     if (role.toLowerCase().contains('rn')) return roleMenus['RN']!;
     if (role.toLowerCase().contains('rmt')) return roleMenus['RMT']!;
-    if (role.toLowerCase().contains('physio')) return roleMenus['Physio'] ?? roleMenus['RMT']!;
-    
-    return roleMenus['PSW']!; 
+    if (role.toLowerCase().contains('physio'))
+      return roleMenus['Physio'] ?? roleMenus['RMT']!;
+
+    return roleMenus['PSW']!;
   }
 }

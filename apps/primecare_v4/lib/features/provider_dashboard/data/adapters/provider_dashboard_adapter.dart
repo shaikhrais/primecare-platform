@@ -42,7 +42,7 @@ class ProviderDashboardApiProvider {
     try {
       final response = await apiClient.get('/v1/providers/profile/me');
       final dto = ProviderDashboardDto.fromJson(response.data);
-      
+
       return ProviderDashboardMapper.fromApi(dto);
     } catch (error) {
       final message = ErrorMapper.mapApiErrorToUiMessage(error);

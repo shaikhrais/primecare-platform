@@ -9,39 +9,32 @@ class CeoEnterpriseOverviewScreen extends ConsumerStatefulWidget {
   const CeoEnterpriseOverviewScreen({super.key});
 
   @override
-  ConsumerState<CeoEnterpriseOverviewScreen> createState() => _CeoEnterpriseOverviewScreenState();
+  ConsumerState<CeoEnterpriseOverviewScreen> createState() =>
+      _CeoEnterpriseOverviewScreenState();
 }
 
-class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverviewScreen> {
+class _CeoEnterpriseOverviewScreenState
+    extends ConsumerState<CeoEnterpriseOverviewScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildKPIs(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildEnterprisePerformanceChart(),
-                ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 1,
-                  child: _buildExecutiveBriefing(),
-                ),
-              ],
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildKPIs(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 2, child: _buildEnterprisePerformanceChart()),
+              const SizedBox(width: 32),
+              Expanded(flex: 1, child: _buildExecutiveBriefing()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -56,7 +49,11 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
           children: [
             Row(
               children: [
-                Icon(LucideIcons.globe, color: PrimeCareTheme.colors.navyIndigo, size: 28),
+                Icon(
+                  LucideIcons.globe,
+                  color: PrimeCareTheme.colors.navyIndigo,
+                  size: 28,
+                ),
                 const SizedBox(width: 12),
                 Text(
                   'Enterprise Overview',
@@ -90,11 +87,11 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
       children: [
         Expanded(
           child: _buildMetricCard(
-             title: 'Global Revenue (YTD)',
-             value: '\$142.5M',
-             icon: LucideIcons.dollarSign,
-             trend: '+12.4% vs prev year',
-             isPositive: true,
+            title: 'Global Revenue (YTD)',
+            value: '\$142.5M',
+            icon: LucideIcons.dollarSign,
+            trend: '+12.4% vs prev year',
+            isPositive: true,
           ),
         ),
         const SizedBox(width: 24),
@@ -131,10 +128,18 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
     );
   }
 
-  Widget _buildMetricCard({required String title, required String value, required IconData icon, required String trend, bool isWarning = false, bool isPositive = false, bool isNeutral = false}) {
+  Widget _buildMetricCard({
+    required String title,
+    required String value,
+    required IconData icon,
+    required String trend,
+    bool isWarning = false,
+    bool isPositive = false,
+    bool isNeutral = false,
+  }) {
     Color trendColor = PrimeCareTheme.colors.slateGray;
     Color iconColor = PrimeCareTheme.colors.navyIndigo;
-    
+
     if (isWarning) {
       trendColor = Colors.amber.shade700;
       iconColor = Colors.amber.shade700;
@@ -153,13 +158,13 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(
-                 title,
-                 style: PrimeCareTheme.typography.label.copyWith(
-                   color: PrimeCareTheme.colors.slateGray,
-                 ),
-               ),
-               Icon(icon, color: iconColor, size: 20),
+              Text(
+                title,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
+              Icon(icon, color: iconColor, size: 20),
             ],
           ),
           const SizedBox(height: 16),
@@ -191,29 +196,47 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(
-                 'Global Revenue vs Target (YTD)',
-                 style: PrimeCareTheme.typography.h3.copyWith(
-                   color: PrimeCareTheme.colors.navyIndigo,
-                 ),
-               ),
-               Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: PrimeCareTheme.colors.surfaceContainerLow,
-                   borderRadius: BorderRadius.circular(20),
-                   border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
-                 ),
-                 child: Row(
-                   children: [
-                     Icon(LucideIcons.calendar, size: 14, color: PrimeCareTheme.colors.navyIndigo),
-                     const SizedBox(width: 4),
-                     Text('2026', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
-                     const SizedBox(width: 4),
-                     Icon(LucideIcons.chevronDown, size: 14, color: PrimeCareTheme.colors.navyIndigo),
-                   ],
-                 ),
-               )
+              Text(
+                'Global Revenue vs Target (YTD)',
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.surfaceContainerLow,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: PrimeCareTheme.colors.surfaceContainerHighest,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      LucideIcons.calendar,
+                      size: 14,
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '2026',
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: PrimeCareTheme.colors.navyIndigo,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      LucideIcons.chevronDown,
+                      size: 14,
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 32),
@@ -230,16 +253,33 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
                     sideTitles: SideTitles(
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
-                        const style = TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 12);
+                        const style = TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        );
                         Widget text;
                         switch (value.toInt()) {
-                          case 0: text = const Text('Q1', style: style); break;
-                          case 1: text = const Text('Q2', style: style); break;
-                          case 2: text = const Text('Q3', style: style); break;
-                          case 3: text = const Text('Q4 (Est)', style: style); break;
-                          default: text = const Text('', style: style); break;
+                          case 0:
+                            text = const Text('Q1', style: style);
+                            break;
+                          case 1:
+                            text = const Text('Q2', style: style);
+                            break;
+                          case 2:
+                            text = const Text('Q3', style: style);
+                            break;
+                          case 3:
+                            text = const Text('Q4 (Est)', style: style);
+                            break;
+                          default:
+                            text = const Text('', style: style);
+                            break;
                         }
-                        return Padding(padding: const EdgeInsets.only(top: 10.0), child: text);
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: text,
+                        );
                       },
                     ),
                   ),
@@ -248,22 +288,35 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
                         if (value == 0) return const SizedBox.shrink();
-                        return Text('\$${value.toInt()}M', style: const TextStyle(color: Colors.grey, fontSize: 12));
+                        return Text(
+                          '\$${value.toInt()}M',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
+                        );
                       },
                       reservedSize: 40,
                     ),
                   ),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
                 ),
                 gridData: FlGridData(
                   show: true,
                   drawVerticalLine: false,
                   horizontalInterval: 5,
-                  getDrawingHorizontalLine: (value) => FlLine(color: Colors.grey.withValues(alpha: 0.2), strokeWidth: 1),
+                  getDrawingHorizontalLine: (value) => FlLine(
+                    color: Colors.grey.withValues(alpha: 0.2),
+                    strokeWidth: 1,
+                  ),
                 ),
                 borderData: FlBorderData(show: false),
-                 barGroups: [
+                barGroups: [
                   _buildBarGroup(0, 12.5, 14.2),
                   _buildBarGroup(1, 14.0, 15.8),
                   _buildBarGroup(2, 15.5, 16.5),
@@ -276,29 +329,60 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Row(
-                 children: [
-                   Container(width: 12, height: 12, decoration: BoxDecoration(color: PrimeCareTheme.colors.navyIndigo, borderRadius: BorderRadius.circular(2))),
-                   const SizedBox(width: 8),
-                   Text('Actual Revenue', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                 ],
-               ),
-               const SizedBox(width: 24),
-               Row(
-                 children: [
-                   Container(width: 12, height: 12, decoration: BoxDecoration(color: PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(2))),
-                   const SizedBox(width: 8),
-                   Text('Target Revenue', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                 ],
-               ),
+              Row(
+                children: [
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Actual Revenue',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 24),
+              Row(
+                children: [
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.emeraldTeal.withValues(
+                        alpha: 0.5,
+                      ),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Target Revenue',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
+                ],
+              ),
             ],
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 
-   BarChartGroupData _buildBarGroup(int x, double target, double actual, {bool isEst = false}) {
+  BarChartGroupData _buildBarGroup(
+    int x,
+    double target,
+    double actual, {
+    bool isEst = false,
+  }) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -306,13 +390,21 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
           toY: target,
           color: PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.5),
           width: 20,
-          borderRadius: const BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(4),
+            topRight: Radius.circular(4),
+          ),
         ),
-         BarChartRodData(
+        BarChartRodData(
           toY: actual,
-          color: isEst ? PrimeCareTheme.colors.navyIndigo.withValues(alpha: 0.5) : PrimeCareTheme.colors.navyIndigo,
+          color: isEst
+              ? PrimeCareTheme.colors.navyIndigo.withValues(alpha: 0.5)
+              : PrimeCareTheme.colors.navyIndigo,
           width: 20,
-          borderRadius: const BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(4),
+            topRight: Radius.circular(4),
+          ),
         ),
       ],
       barsSpace: 4,
@@ -320,7 +412,7 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
   }
 
   Widget _buildExecutiveBriefing() {
-     return ClinicalGlassPanel(
+    return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,30 +420,64 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(
-                 'Executive Briefing',
-                 style: PrimeCareTheme.typography.h3.copyWith(
-                   color: PrimeCareTheme.colors.navyIndigo,
-                 ),
-               ),
-               Icon(LucideIcons.bell, color: PrimeCareTheme.colors.slateGray, size: 20),
+              Text(
+                'Executive Briefing',
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
+              Icon(
+                LucideIcons.bell,
+                color: PrimeCareTheme.colors.slateGray,
+                size: 20,
+              ),
             ],
           ),
           const SizedBox(height: 24),
-          _buildBriefingItem('Q3 Earnings Call Prep', 'Review final Q3 figures with CFO. Focus on the 12.4% YTD increase.', 'Today, 2:00 PM', LucideIcons.presentation, PrimeCareTheme.colors.navyIndigo),
+          _buildBriefingItem(
+            'Q3 Earnings Call Prep',
+            'Review final Q3 figures with CFO. Focus on the 12.4% YTD increase.',
+            'Today, 2:00 PM',
+            LucideIcons.presentation,
+            PrimeCareTheme.colors.navyIndigo,
+          ),
           const SizedBox(height: 16),
-          _buildBriefingItem('New Franchise Agreement', 'Texas Region Expansion MOU pending final approval.', 'Requires Action', LucideIcons.fileSignature, PrimeCareTheme.colors.emeraldTeal),
-           const SizedBox(height: 16),
-          _buildBriefingItem('Compliance Alert (UK)', 'New GDPR regulations impact data retention policies in UK branches.', 'High Priority', LucideIcons.alertTriangle, Colors.amber.shade700),
-           const SizedBox(height: 16),
-          _buildBriefingItem('Board Update', 'Monthly strategic KPI report due for board packet distribution.', 'Drafting', LucideIcons.clipboardList, PrimeCareTheme.colors.slateGray),
+          _buildBriefingItem(
+            'New Franchise Agreement',
+            'Texas Region Expansion MOU pending final approval.',
+            'Requires Action',
+            LucideIcons.fileSignature,
+            PrimeCareTheme.colors.emeraldTeal,
+          ),
+          const SizedBox(height: 16),
+          _buildBriefingItem(
+            'Compliance Alert (UK)',
+            'New GDPR regulations impact data retention policies in UK branches.',
+            'High Priority',
+            LucideIcons.alertTriangle,
+            Colors.amber.shade700,
+          ),
+          const SizedBox(height: 16),
+          _buildBriefingItem(
+            'Board Update',
+            'Monthly strategic KPI report due for board packet distribution.',
+            'Drafting',
+            LucideIcons.clipboardList,
+            PrimeCareTheme.colors.slateGray,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildBriefingItem(String title, String desc, String status, IconData icon, Color color) {
-     return Row(
+  Widget _buildBriefingItem(
+    String title,
+    String desc,
+    String status,
+    IconData icon,
+    Color color,
+  ) {
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -367,19 +493,36 @@ class _CeoEnterpriseOverviewScreenState extends ConsumerState<CeoEnterpriseOverv
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text(title, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontSize: 13)),
-                 ],
-               ),
-               const SizedBox(height: 4),
-               Text(desc, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
-               const SizedBox(height: 8),
-                Text(status, style: PrimeCareTheme.typography.label.copyWith(color: color, fontWeight: FontWeight.bold)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: PrimeCareTheme.typography.h4.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                desc,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                status,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

@@ -14,133 +14,217 @@ class HeadOfMarketingDashboard extends ConsumerWidget {
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-        data: (metrics) => CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Marketing Intelligence: Global ROI & Brand Health',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primary,
-                        fontFamily: 'Outfit',
-                      ),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+      data: (metrics) => CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Marketing Intelligence: Global ROI & Brand Health',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.primary,
+                      fontFamily: 'Outfit',
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Strategizing brand health, cross-regional campaign performance, and unified marketing ROI.',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: Colors.blueGrey,
-                        fontFamily: 'Inter',
-                      ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Strategizing brand health, cross-regional campaign performance, and unified marketing ROI.',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: Colors.blueGrey,
+                      fontFamily: 'Inter',
                     ),
-                    const SizedBox(height: 32),
+                  ),
+                  const SizedBox(height: 32),
 
-                    // CORPORATE MARKETING KPI ROW
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                        return Wrap(
-                          spacing: 16,
-                          runSpacing: 16,
-                          children: metrics.kpis.map((kpi) => _buildKpi(
-                            cardWidth, 
-                            kpi.title, 
-                            kpi.value, 
-                            _getIcon(kpi.title), 
-                            _getStatusColor(kpi.status), 
-                            kpi.subtitle
-                          )).toList(),
-                        );
-                      },
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // LEFT: Global Campaign Performance
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Unified Campaign Performance', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  children: [
-                                    _buildGlobalCampaign('V4 Platform Launch', 'Global Sync', '1.2M Impressions', Colors.teal),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildGlobalCampaign('Regional Recruitment Drive', 'Focus: Ontario', '4.2k Leads', Colors.indigo),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildGlobalCampaign('Brand Sentiment Recovery', 'PR Strategy', '+12% Recovery', Colors.orange),
-                                  ],
-                                ),
+                  // CORPORATE MARKETING KPI ROW
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final cardWidth = constraints.maxWidth > 1200
+                          ? (constraints.maxWidth - 48) / 4
+                          : (constraints.maxWidth > 600
+                                ? (constraints.maxWidth - 16) / 2
+                                : constraints.maxWidth);
+                      return Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: metrics.kpis
+                            .map(
+                              (kpi) => _buildKpi(
+                                cardWidth,
+                                kpi.title,
+                                kpi.value,
+                                _getIcon(kpi.title),
+                                _getStatusColor(kpi.status),
+                                kpi.subtitle,
                               ),
-                            ],
-                          ),
+                            )
+                            .toList(),
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // LEFT: Global Campaign Performance
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Unified Campaign Performance',
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Outfit',
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            GlassSurface(
+                              padding: const EdgeInsets.all(24),
+                              child: Column(
+                                children: [
+                                  _buildGlobalCampaign(
+                                    'V4 Platform Launch',
+                                    'Global Sync',
+                                    '1.2M Impressions',
+                                    Colors.teal,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 24,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildGlobalCampaign(
+                                    'Regional Recruitment Drive',
+                                    'Focus: Ontario',
+                                    '4.2k Leads',
+                                    Colors.indigo,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 24,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildGlobalCampaign(
+                                    'Brand Sentiment Recovery',
+                                    'PR Strategy',
+                                    '+12% Recovery',
+                                    Colors.orange,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
 
-                        const SizedBox(width: 24),
+                      const SizedBox(width: 24),
 
-                        // RIGHT: Brand Pulse
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Brand Sentiment Pulse', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  children: [
-                                    _buildSentimentGauge('Positive', '78%', Colors.teal),
-                                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                    _buildSentimentGauge('Neutral', '18%', Colors.blueGrey),
-                                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                    _buildSentimentGauge('Negative', '4%', Colors.red),
-                                  ],
-                                ),
+                      // RIGHT: Brand Pulse
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Brand Sentiment Pulse',
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Outfit',
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                            ),
+                            const SizedBox(height: 16),
+                            GlassSurface(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                children: [
+                                  _buildSentimentGauge(
+                                    'Positive',
+                                    '78%',
+                                    Colors.teal,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 16,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildSentimentGauge(
+                                    'Neutral',
+                                    '18%',
+                                    Colors.blueGrey,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 16,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildSentimentGauge(
+                                    'Negative',
+                                    '4%',
+                                    Colors.red,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
-      );
-  }
-
-  Widget _buildKpi(double width, String title, String value, IconData icon, Color color, [String? subtitle]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(title: title, value: value, subtitle: subtitle, icon: icon, iconColor: color),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildGlobalCampaign(String title, String region, String metric, Color color) {
+  Widget _buildKpi(
+    double width,
+    String title,
+    String value,
+    IconData icon,
+    Color color, [
+    String? subtitle,
+  ]) {
+    return SizedBox(
+      width: width,
+      child: KpiStatCard(
+        title: title,
+        value: value,
+        subtitle: subtitle,
+        icon: icon,
+        iconColor: color,
+      ),
+    );
+  }
+
+  Widget _buildGlobalCampaign(
+    String title,
+    String region,
+    String metric,
+    Color color,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-           Container(
+          Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Icon(Icons.public_outlined, color: color, size: 20),
           ),
           const SizedBox(width: 16),
@@ -148,19 +232,35 @@ class HeadOfMarketingDashboard extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text(region, style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  region,
+                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
+                ),
               ],
             ),
           ),
-          Text(metric, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 14)),
+          Text(
+            metric,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: color,
+              fontSize: 14,
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildSentimentGauge(String label, String value, Color color) {
-     return Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Column(
         children: [
@@ -168,7 +268,13 @@ class HeadOfMarketingDashboard extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(label, style: const TextStyle(fontSize: 14)),
-              Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -194,15 +300,20 @@ class HeadOfMarketingDashboard extends ConsumerWidget {
   Color _getStatusColor(String status) {
     switch (status) {
       case 'success':
-      case 'teal': return Colors.teal;
+      case 'teal':
+        return Colors.teal;
       case 'warning':
-      case 'orange': return Colors.orange;
+      case 'orange':
+        return Colors.orange;
       case 'danger':
-      case 'red': return Colors.red;
+      case 'red':
+        return Colors.red;
       case 'info':
       case 'indigo':
-      case 'blue': return Colors.indigo;
-      default: return Colors.blueGrey;
+      case 'blue':
+        return Colors.indigo;
+      default:
+        return Colors.blueGrey;
     }
   }
 }

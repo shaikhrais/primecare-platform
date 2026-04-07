@@ -12,9 +12,16 @@ class PswDailyLogsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Daily Care Logs',
-      subtitle: 'Comprehensive daily summaries of client care and observations.',
+      subtitle:
+          'Comprehensive daily summaries of client care and observations.',
       kpiCards: [
-        KPICardData(title: 'Logs Submitted', value: '4', icon: LucideIcons.fileSpreadsheet, trend: 1.0, trendLabel: 'today'),
+        KPICardData(
+          title: 'Logs Submitted',
+          value: '4',
+          icon: LucideIcons.fileSpreadsheet,
+          trend: 1.0,
+          trendLabel: 'today',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,9 +31,21 @@ class PswDailyLogsScreen extends ConsumerWidget {
             children: [
               Text('Log Types', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Routine Care', 3, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Progress Note', 1, PrimeCareTheme.colors.emeraldTeal),
-               _buildFilterRow('Refusal of Care', 0, PrimeCareTheme.colors.coralBlush),
+              _buildFilterRow(
+                'Routine Care',
+                3,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Progress Note',
+                1,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterRow(
+                'Refusal of Care',
+                0,
+                PrimeCareTheme.colors.coralBlush,
+              ),
             ],
           ),
         ),
@@ -37,11 +56,11 @@ class PswDailyLogsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Logs', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Recent Logs', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('Add Daily Log'),
@@ -50,23 +69,23 @@ class PswDailyLogsScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildLogCard(
-                 'Sonia Sotomayor',
-                 'Routine Care',
-                 'May 14, 2024 • 11:15',
-                 'Morning routine completed as per care plan. Client was cooperative and in good spirits. Ate 100% of breakfast. Assisted with shower and dressing.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
-               _buildLogCard(
-                 'Elena Kagan',
-                 'Progress Note',
-                 'May 13, 2024 • 14:30',
-                 'Client seems to be walking with a steadier gait today. Required less hands-on assist during transfer from chair to bed.',
-                 PrimeCareTheme.colors.emeraldTeal
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildLogCard(
+                'Sonia Sotomayor',
+                'Routine Care',
+                'May 14, 2024 • 11:15',
+                'Morning routine completed as per care plan. Client was cooperative and in good spirits. Ate 100% of breakfast. Assisted with shower and dressing.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildLogCard(
+                'Elena Kagan',
+                'Progress Note',
+                'May 13, 2024 • 14:30',
+                'Client seems to be walking with a steadier gait today. Required less hands-on assist during transfer from chair to bed.',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -82,19 +101,34 @@ class PswDailyLogsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildLogCard(String clientName, String category, String time, String notes, Color themeColor) {
-     return Container(
+  Widget _buildLogCard(
+    String clientName,
+    String category,
+    String time,
+    String notes,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -105,25 +139,39 @@ class PswDailyLogsScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(notes, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(notes, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

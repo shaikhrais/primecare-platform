@@ -12,7 +12,8 @@ class AssessmentsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Skill & Competency Assessments',
-      subtitle: 'Manage and review clinical, procedural, and compliance assessments across staff.',
+      subtitle:
+          'Manage and review clinical, procedural, and compliance assessments across staff.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search assessments or staff...'),
         const SizedBox(width: 16),
@@ -53,9 +54,7 @@ class AssessmentsScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildTopPerformers(),
       ],
-      mainContent: [
-        _buildRecentAssessments(),
-      ],
+      mainContent: [_buildRecentAssessments()],
     );
   }
 
@@ -67,7 +66,11 @@ class AssessmentsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.library, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.library,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Categories', style: PrimeCareTheme.typography.h3),
             ],
@@ -110,7 +113,11 @@ class AssessmentsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.award, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.award,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Top Performers', style: PrimeCareTheme.typography.h3),
             ],
@@ -131,10 +138,13 @@ class AssessmentsScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(name, style: PrimeCareTheme.typography.body),
-        Text(score, style: PrimeCareTheme.typography.label.copyWith(
-          color: PrimeCareTheme.colors.emeraldTeal,
-          fontWeight: FontWeight.bold,
-        )),
+        Text(
+          score,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.emeraldTeal,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -149,7 +159,10 @@ class AssessmentsScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Recent Assessment Submissions', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Recent Assessment Submissions',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Filter: Pending',
@@ -218,7 +231,15 @@ class AssessmentsScreen extends ConsumerWidget {
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(status == 'Passed' ? LucideIcons.checkCircle : (status == 'Failed' ? LucideIcons.xCircle : LucideIcons.clipboardSignature), color: statusColor, size: 20),
+            child: Icon(
+              status == 'Passed'
+                  ? LucideIcons.checkCircle
+                  : (status == 'Failed'
+                        ? LucideIcons.xCircle
+                        : LucideIcons.clipboardSignature),
+              color: statusColor,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -230,7 +251,10 @@ class AssessmentsScreen extends ConsumerWidget {
                     Text(staffName, style: PrimeCareTheme.typography.h3),
                     const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: PrimeCareTheme.colors.cloudGray,
                         borderRadius: BorderRadius.circular(8),
@@ -242,11 +266,19 @@ class AssessmentsScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.fileText, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.fileText,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(assessmentName, style: PrimeCareTheme.typography.body),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.clock, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.clock,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(date, style: PrimeCareTheme.typography.label),
                   ],
@@ -255,44 +287,49 @@ class AssessmentsScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  status == 'Requires Sign-off' ? score : 'Score: $score',
-                  style: PrimeCareTheme.typography.body.copyWith(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                status == 'Requires Sign-off' ? score : 'Score: $score',
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: status == 'Requires Sign-off'
+                      ? statusColor
+                      : PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  status,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: statusColor,
                     fontWeight: FontWeight.bold,
-                    color: status == 'Requires Sign-off' ? statusColor : PrimeCareTheme.colors.navyIndigo,
                   ),
                 ),
-                const SizedBox(height: 4),
-                Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: statusColor.withOpacity(0.1),
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Text(
-                   status,
-                   style: PrimeCareTheme.typography.label.copyWith(
-                     color: statusColor,
-                     fontWeight: FontWeight.bold,
-                   ),
-                 ),
+              ),
+              const SizedBox(height: 12),
+              if (status == 'Requires Sign-off')
+                ClinicalGlassButton(
+                  onPressed: () {},
+                  label: 'Review',
+                  icon: LucideIcons.edit2,
+                )
+              else
+                ClinicalGlassButton(
+                  onPressed: () {},
+                  label: 'View Result',
+                  icon: LucideIcons.eye,
                 ),
-                const SizedBox(height: 12),
-                if (status == 'Requires Sign-off')
-                   ClinicalGlassButton(
-                     onPressed: () {},
-                     label: 'Review',
-                     icon: LucideIcons.edit2,
-                   )
-                else
-                   ClinicalGlassButton(
-                     onPressed: () {},
-                     label: 'View Result',
-                     icon: LucideIcons.eye,
-                   ),
-             ],
+            ],
           ),
         ],
       ),

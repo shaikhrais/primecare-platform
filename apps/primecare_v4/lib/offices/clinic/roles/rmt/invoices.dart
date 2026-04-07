@@ -12,9 +12,16 @@ class RmtInvoicesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Billing & Invoices',
-      subtitle: 'Manage client billing records, receipts, and insurance claims.',
+      subtitle:
+          'Manage client billing records, receipts, and insurance claims.',
       kpiCards: [
-        KPICardData(title: 'Unpaid Invoices', value: '2', icon: LucideIcons.creditCard, trend: -1.0, trendLabel: 'vs last week'),
+        KPICardData(
+          title: 'Unpaid Invoices',
+          value: '2',
+          icon: LucideIcons.creditCard,
+          trend: -1.0,
+          trendLabel: 'vs last week',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -26,7 +33,11 @@ class RmtInvoicesScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _buildFilterRow('Paid', 120, PrimeCareTheme.colors.emeraldTeal),
               _buildFilterRow('Unpaid', 2, PrimeCareTheme.colors.coralBlush),
-              _buildFilterRow('Direct Billing', 45, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow(
+                'Direct Billing',
+                45,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -37,11 +48,14 @@ class RmtInvoicesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Transactions', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recent Transactions',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.receipt),
                     label: const Text('Generate Invoice'),
@@ -50,11 +64,23 @@ class RmtInvoicesScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-                _buildInvoiceCard('INV-1042', 'John Smith', '\$115.00', 'Paid', PrimeCareTheme.colors.emeraldTeal),
-                _buildInvoiceCard('INV-1041', 'Jane Doe', '\$90.00', 'Unpaid', PrimeCareTheme.colors.coralBlush),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildInvoiceCard(
+                'INV-1042',
+                'John Smith',
+                '\$115.00',
+                'Paid',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildInvoiceCard(
+                'INV-1041',
+                'Jane Doe',
+                '\$90.00',
+                'Unpaid',
+                PrimeCareTheme.colors.coralBlush,
+              ),
             ],
           ),
         ),
@@ -70,19 +96,34 @@ class RmtInvoicesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildInvoiceCard(String id, String clientName, String amount, String status, Color themeColor) {
-     return Container(
+  Widget _buildInvoiceCard(
+    String id,
+    String clientName,
+    String amount,
+    String status,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -93,32 +134,47 @@ class RmtInvoicesScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Row(
-                  children: [
-                    Text(id, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                     const SizedBox(width: 8),
-                     Text(clientName, style: PrimeCareTheme.typography.body),
-                  ]
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(id, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(clientName, style: PrimeCareTheme.typography.body),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                amount,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 4),
-                Text(amount, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold)),
-             ],
-           ),
-           Container(
-             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-             decoration: BoxDecoration(
-               color: themeColor.withOpacity(0.2),
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-           )
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

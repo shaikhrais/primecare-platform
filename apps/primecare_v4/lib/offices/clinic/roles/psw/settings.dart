@@ -36,27 +36,44 @@ class PswSettingsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Text('Notifications', style: PrimeCareTheme.typography.h2),
-               const SizedBox(height: 24),
-               _buildSwitchSetting('Schedule Changes', 'Get notified when your shift or visits change.', true),
-               _buildSwitchSetting('Care Plan Updates', 'Get notified when a client\'s care plan is updated by RN.', true),
-               _buildSwitchSetting('Broadcast Messages', 'Receive urgent agency-wide alerts.', true),
-               
-               const Divider(height: 48),
-               
-               Text('Offline Sync', style: PrimeCareTheme.typography.h2),
-               const SizedBox(height: 24),
-               _buildSwitchSetting('Auto-Download Care Plans', 'Download assigned client forms when on Wi-Fi for offline access.', true),
-               const SizedBox(height: 16),
-               ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(LucideIcons.refreshCw),
-                  label: const Text('Force Manual Sync Now'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
-                    foregroundColor: PrimeCareTheme.colors.navyIndigo,
-                  ),
+              Text('Notifications', style: PrimeCareTheme.typography.h2),
+              const SizedBox(height: 24),
+              _buildSwitchSetting(
+                'Schedule Changes',
+                'Get notified when your shift or visits change.',
+                true,
+              ),
+              _buildSwitchSetting(
+                'Care Plan Updates',
+                'Get notified when a client\'s care plan is updated by RN.',
+                true,
+              ),
+              _buildSwitchSetting(
+                'Broadcast Messages',
+                'Receive urgent agency-wide alerts.',
+                true,
+              ),
+
+              const Divider(height: 48),
+
+              Text('Offline Sync', style: PrimeCareTheme.typography.h2),
+              const SizedBox(height: 24),
+              _buildSwitchSetting(
+                'Auto-Download Care Plans',
+                'Download assigned client forms when on Wi-Fi for offline access.',
+                true,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(LucideIcons.refreshCw),
+                label: const Text('Force Manual Sync Now'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      PrimeCareTheme.colors.surfaceContainerHighest,
+                  foregroundColor: PrimeCareTheme.colors.navyIndigo,
                 ),
+              ),
             ],
           ),
         ),
@@ -78,28 +95,33 @@ class PswSettingsScreen extends ConsumerWidget {
   }
 
   Widget _buildSwitchSetting(String title, String description, bool value) {
-     return Padding(
-       padding: const EdgeInsets.only(bottom: 24.0),
-       child: Row(
-         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-         children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: PrimeCareTheme.typography.h3),
-                  const SizedBox(height: 4),
-                  Text(description, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: PrimeCareTheme.typography.h3),
+                const SizedBox(height: 4),
+                Text(
+                  description,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
+              ],
             ),
-            Switch(
-              value: value,
-              onChanged: (val) {},
-              activeColor: PrimeCareTheme.colors.emeraldTeal,
-            ),
-         ],
-       ),
-     );
+          ),
+          Switch(
+            value: value,
+            onChanged: (val) {},
+            activeColor: PrimeCareTheme.colors.emeraldTeal,
+          ),
+        ],
+      ),
+    );
   }
 }

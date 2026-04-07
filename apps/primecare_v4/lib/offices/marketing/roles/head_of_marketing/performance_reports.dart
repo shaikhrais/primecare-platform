@@ -8,33 +8,32 @@ class PerformanceReportsScreen extends ConsumerStatefulWidget {
   const PerformanceReportsScreen({super.key});
 
   @override
-  ConsumerState<PerformanceReportsScreen> createState() => _PerformanceReportsScreenState();
+  ConsumerState<PerformanceReportsScreen> createState() =>
+      _PerformanceReportsScreenState();
 }
 
-class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScreen> {
+class _PerformanceReportsScreenState
+    extends ConsumerState<PerformanceReportsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildHighLevelMetrics(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 1, child: _buildReportingSidebar()),
-                const SizedBox(width: 24),
-                Expanded(flex: 3, child: _buildDataTableView()),
-              ],
-            )
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildHighLevelMetrics(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 1, child: _buildReportingSidebar()),
+              const SizedBox(width: 24),
+              Expanded(flex: 3, child: _buildDataTableView()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -128,7 +127,13 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
     );
   }
 
-  Widget _buildMetricCard(String title, String value, String subtitle, IconData icon, Color actionColor) {
+  Widget _buildMetricCard(
+    String title,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color actionColor,
+  ) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -181,17 +186,36 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Report Configuration', style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+          Text(
+            'Report Configuration',
+            style: PrimeCareTheme.typography.h3.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
+          ),
           const SizedBox(height: 24),
-          _buildSidebarFilter('Date Range', 'Year to Date', LucideIcons.calendar),
+          _buildSidebarFilter(
+            'Date Range',
+            'Year to Date',
+            LucideIcons.calendar,
+          ),
           const SizedBox(height: 16),
-          _buildSidebarFilter('Attribution Model', 'Time Decay', LucideIcons.share2),
+          _buildSidebarFilter(
+            'Attribution Model',
+            'Time Decay',
+            LucideIcons.share2,
+          ),
           const SizedBox(height: 16),
           _buildSidebarFilter('Channel', 'All Channels', LucideIcons.globe),
           const SizedBox(height: 16),
           _buildSidebarFilter('Region', 'Global', LucideIcons.map),
           const SizedBox(height: 32),
-          Text('Saved Views', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: PrimeCareTheme.colors.navyIndigo)),
+          Text(
+            'Saved Views',
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
+          ),
           const SizedBox(height: 16),
           _buildSavedViewItem('Q3 Board Deck Data', isActive: true),
           _buildSavedViewItem('Paid Search Efficiency', isActive: false),
@@ -205,14 +229,21 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+        Text(
+          label,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+          ),
+        ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             color: PrimeCareTheme.colors.surfaceContainerLow,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+            border: Border.all(
+              color: PrimeCareTheme.colors.surfaceContainerHighest,
+            ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,10 +252,19 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
                 children: [
                   Icon(icon, size: 16, color: PrimeCareTheme.colors.navyIndigo),
                   const SizedBox(width: 8),
-                  Text(value, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                  Text(
+                    value,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
                 ],
               ),
-              Icon(LucideIcons.chevronDown, size: 16, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.chevronDown,
+                size: 16,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
         ),
@@ -237,12 +277,20 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         children: [
-          Icon(LucideIcons.bookmark, size: 16, color: isActive ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.slateGray),
+          Icon(
+            LucideIcons.bookmark,
+            size: 16,
+            color: isActive
+                ? PrimeCareTheme.colors.emeraldTeal
+                : PrimeCareTheme.colors.slateGray,
+          ),
           const SizedBox(width: 8),
           Text(
             name,
             style: PrimeCareTheme.typography.body.copyWith(
-              color: isActive ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.slateGray,
+              color: isActive
+                  ? PrimeCareTheme.colors.navyIndigo
+                  : PrimeCareTheme.colors.slateGray,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
             ),
           ),
@@ -262,7 +310,12 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Detailed Performance Breakdown', style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                Text(
+                  'Detailed Performance Breakdown',
+                  style: PrimeCareTheme.typography.h2.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
+                ),
                 ClinicalSearchTextField(hintText: 'Search dimensions...'),
               ],
             ),
@@ -275,17 +328,59 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildTableHeader(),
-                  _buildTableRow('Search - Non-Brand', 85000, 125000, 480, 145, 12.5),
-                  _buildTableRow('Search - Brand', 25000, 450000, 310, 80, 24.2),
-                  _buildTableRow('Facebook - Retargeting', 40000, 180000, 290, 137, 15.8),
-                  _buildTableRow('Facebook - Prospecting', 60000, 95000, 180, 333, 8.4),
+                  _buildTableRow(
+                    'Search - Non-Brand',
+                    85000,
+                    125000,
+                    480,
+                    145,
+                    12.5,
+                  ),
+                  _buildTableRow(
+                    'Search - Brand',
+                    25000,
+                    450000,
+                    310,
+                    80,
+                    24.2,
+                  ),
+                  _buildTableRow(
+                    'Facebook - Retargeting',
+                    40000,
+                    180000,
+                    290,
+                    137,
+                    15.8,
+                  ),
+                  _buildTableRow(
+                    'Facebook - Prospecting',
+                    60000,
+                    95000,
+                    180,
+                    333,
+                    8.4,
+                  ),
                   _buildTableRow('LinkedIn - B2B', 35000, 75000, 85, 411, 4.2),
-                  _buildTableRow('Local SEO / Maps', 15000, 320000, 610, 24, 28.5),
-                  _buildTableRow('Print Media - Direct', 55000, 80000, 75, 733, 2.1),
+                  _buildTableRow(
+                    'Local SEO / Maps',
+                    15000,
+                    320000,
+                    610,
+                    24,
+                    28.5,
+                  ),
+                  _buildTableRow(
+                    'Print Media - Direct',
+                    55000,
+                    80000,
+                    75,
+                    733,
+                    2.1,
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -297,24 +392,60 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerLow,
         border: Border(
-          bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5)),
-          top: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5)),
+          bottom: BorderSide(
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
+          ),
+          top: BorderSide(
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
+          ),
         ),
       ),
       child: Row(
         children: [
-          Expanded(flex: 3, child: Text('CAMPAIGN / SOURCE', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('SPEND', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('IMPRESSIONS', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('LEADS', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('CPA', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('CONV. RATE', style: PrimeCareTheme.typography.label)),
+          Expanded(
+            flex: 3,
+            child: Text(
+              'CAMPAIGN / SOURCE',
+              style: PrimeCareTheme.typography.label,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('SPEND', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('IMPRESSIONS', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('LEADS', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('CPA', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('CONV. RATE', style: PrimeCareTheme.typography.label),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildTableRow(String source, double spend, int impressions, int leads, double cpa, double cr) {
+  Widget _buildTableRow(
+    String source,
+    double spend,
+    int impressions,
+    int leads,
+    double cpa,
+    double cr,
+  ) {
     String formatCurrency(double val) {
       if (val >= 1000) return '\$${(val / 1000).toStringAsFixed(1)}k';
       return '\$${val.toStringAsFixed(0)}';
@@ -324,14 +455,22 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
       if (val >= 1000) return '${(val / 1000).toStringAsFixed(1)}k';
       return val.toString();
     }
-    
-    Color cpaColor = cpa > 200 ? PrimeCareTheme.colors.coralRed : (cpa < 100 ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.slateGray);
+
+    Color cpaColor = cpa > 200
+        ? PrimeCareTheme.colors.coralRed
+        : (cpa < 100
+              ? PrimeCareTheme.colors.emeraldTeal
+              : PrimeCareTheme.colors.slateGray);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.3)),
+          bottom: BorderSide(
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
+          ),
         ),
       ),
       child: Row(
@@ -350,21 +489,27 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
             flex: 2,
             child: Text(
               formatCurrency(spend),
-              style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray),
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ),
           ),
           Expanded(
             flex: 2,
             child: Text(
               formatNumber(impressions),
-              style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray),
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ),
           ),
           Expanded(
             flex: 2,
             child: Text(
               leads.toString(),
-              style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray),
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ),
           ),
           Expanded(
@@ -381,7 +526,9 @@ class _PerformanceReportsScreenState extends ConsumerState<PerformanceReportsScr
             flex: 2,
             child: Text(
               '${cr.toStringAsFixed(1)}%',
-              style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray),
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ),
           ),
         ],

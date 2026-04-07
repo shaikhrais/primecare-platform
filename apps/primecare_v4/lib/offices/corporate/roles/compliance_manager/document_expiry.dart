@@ -12,9 +12,12 @@ class DocumentExpiryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Facility & Corporate Document Expiry',
-      subtitle: 'Monitor corporate permits, facility licenses, and vendor insurance expiry dates.',
+      subtitle:
+          'Monitor corporate permits, facility licenses, and vendor insurance expiry dates.',
       headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search by document name or facility...'),
+        ClinicalSearchTextField(
+          hintText: 'Search by document name or facility...',
+        ),
         const SizedBox(width: 16),
         ClinicalGlassButton(
           onPressed: () {},
@@ -53,9 +56,7 @@ class DocumentExpiryScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildFacilityStatus(),
       ],
-      mainContent: [
-        _buildExpiringList(),
-      ],
+      mainContent: [_buildExpiringList()],
     );
   }
 
@@ -67,7 +68,11 @@ class DocumentExpiryScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.layers, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.layers,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Categories', style: PrimeCareTheme.typography.h3),
             ],
@@ -110,7 +115,11 @@ class DocumentExpiryScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.building, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.building,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Alerts by Facility', style: PrimeCareTheme.typography.h3),
             ],
@@ -152,7 +161,10 @@ class DocumentExpiryScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Upcoming Expirations (60 Days)', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Upcoming Expirations (60 Days)',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Export to Excel',
@@ -197,7 +209,9 @@ class DocumentExpiryScreen extends ConsumerWidget {
     required String expiryDate,
     required int daysLeft,
   }) {
-    final color = daysLeft <= 30 ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.amberWarning;
+    final color = daysLeft <= 30
+        ? PrimeCareTheme.colors.coralRed
+        : PrimeCareTheme.colors.amberWarning;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -221,11 +235,19 @@ class DocumentExpiryScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.building, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.building,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(facility, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.tag,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(category, style: PrimeCareTheme.typography.label),
                   ],
@@ -234,28 +256,28 @@ class DocumentExpiryScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  '$daysLeft Days Left',
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '$daysLeft Days Left',
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: color,
                 ),
-                Text(
-                  'Expires $expiryDate',
-                  style: PrimeCareTheme.typography.label.copyWith(
-                    color: PrimeCareTheme.colors.slateGray,
-                  ),
+              ),
+              Text(
+                'Expires $expiryDate',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'Update Document',
-                  icon: LucideIcons.upload,
-                ),
-             ],
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'Update Document',
+                icon: LucideIcons.upload,
+              ),
+            ],
           ),
         ],
       ),

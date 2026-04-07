@@ -16,20 +16,17 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildMetricCards(),
-            const SizedBox(height: 32),
-            _buildCampaignsList(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildMetricCards(),
+          const SizedBox(height: 32),
+          _buildCampaignsList(),
+        ],
       ),
     );
   }
@@ -123,7 +120,13 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
     );
   }
 
-  Widget _buildMetricCard(String title, String value, String subtitle, IconData icon, Color accentColor) {
+  Widget _buildMetricCard(
+    String title,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color accentColor,
+  ) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -244,21 +247,49 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
         color: PrimeCareTheme.colors.surfaceContainerLow,
         border: Border(
           bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
           ),
           top: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
           ),
         ),
       ),
       child: Row(
         children: [
-          Expanded(flex: 3, child: Text('CAMPAIGN NAME', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('STATUS', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('CHANNEL', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 3, child: Text('BUDGET SPENT / ALLOCATED', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('CONVERSIONS', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 1, child: Text('', style: PrimeCareTheme.typography.label)), // Actions
+          Expanded(
+            flex: 3,
+            child: Text(
+              'CAMPAIGN NAME',
+              style: PrimeCareTheme.typography.label,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('STATUS', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('CHANNEL', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(
+              'BUDGET SPENT / ALLOCATED',
+              style: PrimeCareTheme.typography.label,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('CONVERSIONS', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text('', style: PrimeCareTheme.typography.label),
+          ), // Actions
         ],
       ),
     );
@@ -284,7 +315,7 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
     }
 
     final budgetPct = allocated > 0 ? (spent / allocated).clamp(0.0, 1.0) : 0.0;
-    
+
     // Formatting currency simply for simulation
     String formatCurrency(double val) {
       if (val >= 1000) return '\$${(val / 1000).toStringAsFixed(0)}k';
@@ -296,7 +327,9 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.3),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
           ),
         ),
       ),
@@ -317,7 +350,10 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -337,7 +373,11 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
             flex: 2,
             child: Row(
               children: [
-                Icon(channelIcon, size: 16, color: PrimeCareTheme.colors.slateGray),
+                Icon(
+                  channelIcon,
+                  size: 16,
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   channel,
@@ -377,7 +417,9 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
                   value: budgetPct,
                   backgroundColor: PrimeCareTheme.colors.surfaceContainerLow,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    budgetPct > 0.9 ? PrimeCareTheme.colors.errorContainer : PrimeCareTheme.colors.navyIndigo,
+                    budgetPct > 0.9
+                        ? PrimeCareTheme.colors.errorContainer
+                        : PrimeCareTheme.colors.navyIndigo,
                   ),
                   minHeight: 6,
                   borderRadius: BorderRadius.circular(3),
@@ -415,7 +457,10 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
             child: Align(
               alignment: Alignment.centerRight,
               child: IconButton(
-                icon: Icon(LucideIcons.moreVertical, color: PrimeCareTheme.colors.slateGray),
+                icon: Icon(
+                  LucideIcons.moreVertical,
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
                 onPressed: () {},
                 splashRadius: 24,
               ),
@@ -426,4 +471,3 @@ class _CampaignsScreenState extends ConsumerState<CampaignsScreen> {
     );
   }
 }
-

@@ -8,38 +8,41 @@ class TerritoryCompetitorsScreen extends ConsumerStatefulWidget {
   const TerritoryCompetitorsScreen({super.key});
 
   @override
-  ConsumerState<TerritoryCompetitorsScreen> createState() => _TerritoryCompetitorsScreenState();
+  ConsumerState<TerritoryCompetitorsScreen> createState() =>
+      _TerritoryCompetitorsScreenState();
 }
 
-class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitorsScreen> {
+class _TerritoryCompetitorsScreenState
+    extends ConsumerState<TerritoryCompetitorsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildMarketOverview(),
-            const SizedBox(height: 32),
-            Text(
-              'Key Competitors',
-              style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildMarketOverview(),
+          const SizedBox(height: 32),
+          Text(
+            'Key Competitors',
+            style: PrimeCareTheme.typography.h2.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
             ),
-            const SizedBox(height: 24),
-            _buildCompetitorGrid(),
-            const SizedBox(height: 48),
-            Text(
-              'Pricing & Services Matrix',
-              style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+          ),
+          const SizedBox(height: 24),
+          _buildCompetitorGrid(),
+          const SizedBox(height: 48),
+          Text(
+            'Pricing & Services Matrix',
+            style: PrimeCareTheme.typography.h2.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
             ),
-            const SizedBox(height: 24),
-            _buildCompetitiveMatrix(),
-          ],
-        ),
+          ),
+          const SizedBox(height: 24),
+          _buildCompetitiveMatrix(),
+        ],
       ),
     );
   }
@@ -93,26 +96,72 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildMarketMetric(label: 'PrimeCare Market Share', value: '34.2%', subtext: '+1.5% YoY', isPositive: true),
-          Container(width: 1, height: 60, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildMarketMetric(label: 'Main Competitor Share', value: '28.5%', subtext: '-0.3% YoY', isPositive: true), // Competitor down is good
-          Container(width: 1, height: 60, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildMarketMetric(label: 'Avg Price vs Market', value: '-4.0%', subtext: 'Value Leader', isPositive: true),
+          _buildMarketMetric(
+            label: 'PrimeCare Market Share',
+            value: '34.2%',
+            subtext: '+1.5% YoY',
+            isPositive: true,
+          ),
+          Container(
+            width: 1,
+            height: 60,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildMarketMetric(
+            label: 'Main Competitor Share',
+            value: '28.5%',
+            subtext: '-0.3% YoY',
+            isPositive: true,
+          ), // Competitor down is good
+          Container(
+            width: 1,
+            height: 60,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildMarketMetric(
+            label: 'Avg Price vs Market',
+            value: '-4.0%',
+            subtext: 'Value Leader',
+            isPositive: true,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildMarketMetric({required String label, required String value, required String subtext, required bool isPositive}) {
-    Color subtextColor = isPositive ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
+  Widget _buildMarketMetric({
+    required String label,
+    required String value,
+    required String subtext,
+    required bool isPositive,
+  }) {
+    Color subtextColor = isPositive
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(label, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+        Text(
+          label,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+          ),
+        ),
         const SizedBox(height: 8),
-        Text(value, style: PrimeCareTheme.typography.heroTitle.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+        Text(
+          value,
+          style: PrimeCareTheme.typography.heroTitle.copyWith(
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(subtext, style: PrimeCareTheme.typography.label.copyWith(color: subtextColor, fontWeight: FontWeight.bold)),
+        Text(
+          subtext,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: subtextColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -176,7 +225,10 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: threatColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -190,21 +242,44 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
                   ),
                 ),
               ),
-              Icon(LucideIcons.moreHorizontal, size: 20, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.moreHorizontal,
+                size: 20,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          Text(name, style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo), maxLines: 2, overflow: TextOverflow.ellipsis),
+          Text(
+            name,
+            style: PrimeCareTheme.typography.h3.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
           const SizedBox(height: 4),
           Row(
             children: [
-              Icon(LucideIcons.pieChart, size: 14, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.pieChart,
+                size: 14,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
               const SizedBox(width: 8),
-              Text('Share: $marketShare', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                'Share: $marketShare',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
           const SizedBox(height: 16),
           Expanded(
             child: Row(
@@ -216,17 +291,40 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
                     children: [
                       Row(
                         children: [
-                          Icon(LucideIcons.trendingUp, size: 14, color: PrimeCareTheme.colors.emeraldTeal),
+                          Icon(
+                            LucideIcons.trendingUp,
+                            size: 14,
+                            color: PrimeCareTheme.colors.emeraldTeal,
+                          ),
                           const SizedBox(width: 4),
-                          Text('Strengths', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold)),
+                          Text(
+                            'Strengths',
+                            style: PrimeCareTheme.typography.label.copyWith(
+                              fontSize: 11,
+                              color: PrimeCareTheme.colors.slateGray,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      for (var s in strengths) Text('• $s', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontSize: 11), maxLines: 1, overflow: TextOverflow.ellipsis),
+                      for (var s in strengths)
+                        Text(
+                          '• $s',
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: PrimeCareTheme.colors.navyIndigo,
+                            fontSize: 11,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                     ],
                   ),
                 ),
-                Container(width: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
+                Container(
+                  width: 1,
+                  color: PrimeCareTheme.colors.surfaceContainerHighest,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -234,19 +332,39 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
                     children: [
                       Row(
                         children: [
-                          Icon(LucideIcons.trendingDown, size: 14, color: PrimeCareTheme.colors.coralRed),
+                          Icon(
+                            LucideIcons.trendingDown,
+                            size: 14,
+                            color: PrimeCareTheme.colors.coralRed,
+                          ),
                           const SizedBox(width: 4),
-                          Text('Weaknesses', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold)),
+                          Text(
+                            'Weaknesses',
+                            style: PrimeCareTheme.typography.label.copyWith(
+                              fontSize: 11,
+                              color: PrimeCareTheme.colors.slateGray,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      for (var w in weaknesses) Text('• $w', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontSize: 11), maxLines: 1, overflow: TextOverflow.ellipsis),
+                      for (var w in weaknesses)
+                        Text(
+                          '• $w',
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: PrimeCareTheme.colors.navyIndigo,
+                            fontSize: 11,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -258,13 +376,50 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
       child: Column(
         children: [
           _buildMatrixHeader(),
-          _buildMatrixRow(service: 'Standard Consult (Self-Pay)', primecare: '\$120', competitor1: '\$150', competitor2: '\$135', advantage: 'PrimeCare', isPrimecareWin: true),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildMatrixRow(service: 'Telehealth Availability', primecare: '24/7', competitor1: '8am - 8pm', competitor2: 'None', advantage: 'PrimeCare', isPrimecareWin: true),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildMatrixRow(service: 'Average Wait Time', primecare: '15 mins', competitor1: '45 mins', competitor2: '20 mins', advantage: 'PrimeCare', isPrimecareWin: true),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildMatrixRow(service: 'In-House Labs Output', primecare: '24 hrs', competitor1: '2 hrs (Point of Care)', competitor2: '48 hrs', advantage: 'HealthFirst', isPrimecareWin: false),
+          _buildMatrixRow(
+            service: 'Standard Consult (Self-Pay)',
+            primecare: '\$120',
+            competitor1: '\$150',
+            competitor2: '\$135',
+            advantage: 'PrimeCare',
+            isPrimecareWin: true,
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildMatrixRow(
+            service: 'Telehealth Availability',
+            primecare: '24/7',
+            competitor1: '8am - 8pm',
+            competitor2: 'None',
+            advantage: 'PrimeCare',
+            isPrimecareWin: true,
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildMatrixRow(
+            service: 'Average Wait Time',
+            primecare: '15 mins',
+            competitor1: '45 mins',
+            competitor2: '20 mins',
+            advantage: 'PrimeCare',
+            isPrimecareWin: true,
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildMatrixRow(
+            service: 'In-House Labs Output',
+            primecare: '24 hrs',
+            competitor1: '2 hrs (Point of Care)',
+            competitor2: '48 hrs',
+            advantage: 'HealthFirst',
+            isPrimecareWin: false,
+          ),
         ],
       ),
     );
@@ -275,15 +430,68 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerLow,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
       ),
       child: Row(
         children: [
-          Expanded(flex: 3, child: Text('CORE SERVICE METRIC', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-          Expanded(flex: 2, child: Text('PRIMECARE V4', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.emeraldTeal, fontWeight: FontWeight.bold))),
-          Expanded(flex: 2, child: Text('HEALTHFIRST (Main)', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-          Expanded(flex: 2, child: Text('APEX CLINICS', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-          Expanded(flex: 2, child: Text('ADVANTAGE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
+          Expanded(
+            flex: 3,
+            child: Text(
+              'CORE SERVICE METRIC',
+              style: PrimeCareTheme.typography.label.copyWith(
+                fontSize: 11,
+                color: PrimeCareTheme.colors.slateGray,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'PRIMECARE V4',
+              style: PrimeCareTheme.typography.label.copyWith(
+                fontSize: 11,
+                color: PrimeCareTheme.colors.emeraldTeal,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'HEALTHFIRST (Main)',
+              style: PrimeCareTheme.typography.label.copyWith(
+                fontSize: 11,
+                color: PrimeCareTheme.colors.slateGray,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'APEX CLINICS',
+              style: PrimeCareTheme.typography.label.copyWith(
+                fontSize: 11,
+                color: PrimeCareTheme.colors.slateGray,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'ADVANTAGE',
+              style: PrimeCareTheme.typography.label.copyWith(
+                fontSize: 11,
+                color: PrimeCareTheme.colors.slateGray,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -297,7 +505,9 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
     required String advantage,
     required bool isPrimecareWin,
   }) {
-    Color advantageColor = isPrimecareWin ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
+    Color advantageColor = isPrimecareWin
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -305,32 +515,59 @@ class _TerritoryCompetitorsScreenState extends ConsumerState<TerritoryCompetitor
         children: [
           Expanded(
             flex: 3,
-            child: Text(service, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+            child: Text(
+              service,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
           ),
           Expanded(
             flex: 2,
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.05),
-                border: Border.all(color: PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.3)),
+                color: PrimeCareTheme.colors.emeraldTeal.withValues(
+                  alpha: 0.05,
+                ),
+                border: Border.all(
+                  color: PrimeCareTheme.colors.emeraldTeal.withValues(
+                    alpha: 0.3,
+                  ),
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(primecare, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+              child: Text(
+                primecare,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           Expanded(
             flex: 2,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(competitor1, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              child: Text(
+                competitor1,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ),
           ),
           Expanded(
             flex: 2,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(competitor2, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              child: Text(
+                competitor2,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ),
           ),
           Expanded(

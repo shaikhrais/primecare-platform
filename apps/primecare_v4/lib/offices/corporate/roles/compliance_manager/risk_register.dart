@@ -12,9 +12,12 @@ class RiskRegisterScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Risk Register',
-      subtitle: 'Identify, assess, and monitor organizational and clinical risks.',
+      subtitle:
+          'Identify, assess, and monitor organizational and clinical risks.',
       headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search risks by ID, title, or category...'),
+        ClinicalSearchTextField(
+          hintText: 'Search risks by ID, title, or category...',
+        ),
         const SizedBox(width: 16),
         ClinicalGlassButton(
           onPressed: () {},
@@ -58,9 +61,7 @@ class RiskRegisterScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildRiskCategories(),
       ],
-      mainContent: [
-        _buildRiskList(),
-      ],
+      mainContent: [_buildRiskList()],
     );
   }
 
@@ -72,7 +73,11 @@ class RiskRegisterScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.grid, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.grid,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Heatmap Summary', style: PrimeCareTheme.typography.h3),
             ],
@@ -80,7 +85,11 @@ class RiskRegisterScreen extends ConsumerWidget {
           const SizedBox(height: 16),
           _buildHeatmapStat('Extreme (5x5)', 1, PrimeCareTheme.colors.coralRed),
           const SizedBox(height: 12),
-          _buildHeatmapStat('High', 3, PrimeCareTheme.colors.coralRed.withOpacity(0.7)),
+          _buildHeatmapStat(
+            'High',
+            3,
+            PrimeCareTheme.colors.coralRed.withOpacity(0.7),
+          ),
           const SizedBox(height: 12),
           _buildHeatmapStat('Medium', 12, PrimeCareTheme.colors.amberWarning),
           const SizedBox(height: 12),
@@ -103,7 +112,9 @@ class RiskRegisterScreen extends ConsumerWidget {
         ),
         Text(
           count.toString(),
-          style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold),
+          style: PrimeCareTheme.typography.body.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
@@ -117,7 +128,11 @@ class RiskRegisterScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.pieChart, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.pieChart,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('By Domain', style: PrimeCareTheme.typography.h3),
             ],
@@ -136,16 +151,19 @@ class RiskRegisterScreen extends ConsumerWidget {
   }
 
   Widget _buildCatRow(String name, String count) {
-     return Row(
-       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-       children: [
-         Text(name, style: PrimeCareTheme.typography.body),
-         Text(count, style: PrimeCareTheme.typography.label.copyWith(
-           color: PrimeCareTheme.colors.slateGray,
-           fontWeight: FontWeight.bold,
-         )),
-       ],
-     );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(name, style: PrimeCareTheme.typography.body),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildRiskList() {
@@ -158,7 +176,10 @@ class RiskRegisterScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Active Risks Directory', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Active Risks Directory',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Filter: High/Extreme',
@@ -207,7 +228,9 @@ class RiskRegisterScreen extends ConsumerWidget {
     required String rating,
     required String status,
   }) {
-    Color ratingColor = rating.contains('Extreme') ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.amberWarning;
+    Color ratingColor = rating.contains('Extreme')
+        ? PrimeCareTheme.colors.coralRed
+        : PrimeCareTheme.colors.amberWarning;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -219,7 +242,11 @@ class RiskRegisterScreen extends ConsumerWidget {
               color: ratingColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(LucideIcons.alertTriangle, color: ratingColor, size: 20),
+            child: Icon(
+              LucideIcons.alertTriangle,
+              color: ratingColor,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -228,10 +255,13 @@ class RiskRegisterScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text(id, style: PrimeCareTheme.typography.body.copyWith(
-                      color: PrimeCareTheme.colors.slateGray,
-                      fontWeight: FontWeight.bold,
-                    )),
+                    Text(
+                      id,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Text(title, style: PrimeCareTheme.typography.h3),
                   ],
@@ -239,42 +269,53 @@ class RiskRegisterScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.tag,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(domain, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.user, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.user,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('Owner: $owner', style: PrimeCareTheme.typography.label),
+                    Text(
+                      'Owner: $owner',
+                      style: PrimeCareTheme.typography.label,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  rating,
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: ratingColor,
-                  ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                rating,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: ratingColor,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  status,
-                  style: PrimeCareTheme.typography.label.copyWith(
-                    color: PrimeCareTheme.colors.slateGray,
-                  ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                status,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'Update Status',
-                  icon: LucideIcons.edit2,
-                ),
-             ],
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'Update Status',
+                icon: LucideIcons.edit2,
+              ),
+            ],
           ),
         ],
       ),

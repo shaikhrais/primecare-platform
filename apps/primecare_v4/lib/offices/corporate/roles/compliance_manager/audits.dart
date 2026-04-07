@@ -12,9 +12,12 @@ class AuditsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Audits & Inspections',
-      subtitle: 'Schedule and track internal and external compliance audits, inspections, and regulatory visits.',
+      subtitle:
+          'Schedule and track internal and external compliance audits, inspections, and regulatory visits.',
       headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search audits by facility or auditor...'),
+        ClinicalSearchTextField(
+          hintText: 'Search audits by facility or auditor...',
+        ),
         const SizedBox(width: 16),
         ClinicalGlassButton(
           onPressed: () {},
@@ -53,9 +56,7 @@ class AuditsScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildAuditorContacts(),
       ],
-      mainContent: [
-        _buildAuditSchedule(),
-      ],
+      mainContent: [_buildAuditSchedule()],
     );
   }
 
@@ -67,17 +68,36 @@ class AuditsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.listChecks, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.listChecks,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
-              Text('Audit Findings Status', style: PrimeCareTheme.typography.h3),
+              Text(
+                'Audit Findings Status',
+                style: PrimeCareTheme.typography.h3,
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          _buildFindingRow('Critical / Major', '2', PrimeCareTheme.colors.coralRed),
+          _buildFindingRow(
+            'Critical / Major',
+            '2',
+            PrimeCareTheme.colors.coralRed,
+          ),
           const SizedBox(height: 12),
-          _buildFindingRow('Moderate / Minor', '12', PrimeCareTheme.colors.amberWarning),
+          _buildFindingRow(
+            'Moderate / Minor',
+            '12',
+            PrimeCareTheme.colors.amberWarning,
+          ),
           const SizedBox(height: 12),
-          _buildFindingRow('Closed (YTD)', '85', PrimeCareTheme.colors.emeraldTeal),
+          _buildFindingRow(
+            'Closed (YTD)',
+            '85',
+            PrimeCareTheme.colors.emeraldTeal,
+          ),
         ],
       ),
     );
@@ -94,7 +114,12 @@ class AuditsScreen extends ConsumerWidget {
             Text(label, style: PrimeCareTheme.typography.body),
           ],
         ),
-        Text(count, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.body.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -107,17 +132,44 @@ class AuditsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.contact, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.contact,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
-              Text('Key External Auditors', style: PrimeCareTheme.typography.h3),
+              Text(
+                'Key External Auditors',
+                style: PrimeCareTheme.typography.h3,
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          Text('Ministry of Health Inspectorate', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-          Text('J. Doe (Region 4)', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+          Text(
+            'Ministry of Health Inspectorate',
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'J. Doe (Region 4)',
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ),
           const SizedBox(height: 12),
-          Text('KPMG Financial Auditors', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-          Text('Tax & Compliance Division', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+          Text(
+            'KPMG Financial Auditors',
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'Tax & Compliance Division',
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ),
         ],
       ),
     );
@@ -133,7 +185,10 @@ class AuditsScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Scheduled Audits & Inspections', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Scheduled Audits & Inspections',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Filter',
@@ -183,7 +238,9 @@ class AuditsScreen extends ConsumerWidget {
     required String status,
   }) {
     final inProgress = status == 'In Progress';
-    final statusColor = inProgress ? PrimeCareTheme.colors.amberWarning : PrimeCareTheme.colors.navyIndigo;
+    final statusColor = inProgress
+        ? PrimeCareTheme.colors.amberWarning
+        : PrimeCareTheme.colors.navyIndigo;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -196,7 +253,11 @@ class AuditsScreen extends ConsumerWidget {
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(inProgress ? LucideIcons.activity : LucideIcons.calendarCheck, color: statusColor, size: 20),
+            child: Icon(
+              inProgress ? LucideIcons.activity : LucideIcons.calendarCheck,
+              color: statusColor,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -205,10 +266,13 @@ class AuditsScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text(id, style: PrimeCareTheme.typography.body.copyWith(
-                      color: PrimeCareTheme.colors.slateGray,
-                      fontWeight: FontWeight.bold,
-                    )),
+                    Text(
+                      id,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Text(title, style: PrimeCareTheme.typography.h3),
                   ],
@@ -216,11 +280,19 @@ class AuditsScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.tag,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(type, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.building, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.building,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(facility, style: PrimeCareTheme.typography.label),
                   ],
@@ -229,36 +301,41 @@ class AuditsScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  date,
-                  style: PrimeCareTheme.typography.body.copyWith(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                date,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.cloudGray,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  status,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: inProgress
+                        ? PrimeCareTheme.colors.brownSolid
+                        : PrimeCareTheme.colors.navyIndigo,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 4),
-                Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: PrimeCareTheme.colors.cloudGray,
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Text(
-                   status,
-                   style: PrimeCareTheme.typography.label.copyWith(
-                     color: inProgress ? PrimeCareTheme.colors.brownSolid : PrimeCareTheme.colors.navyIndigo,
-                     fontWeight: FontWeight.bold,
-                   ),
-                 ),
-                ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'View Details',
-                  icon: LucideIcons.arrowRight,
-                ),
-             ],
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'View Details',
+                icon: LucideIcons.arrowRight,
+              ),
+            ],
           ),
         ],
       ),

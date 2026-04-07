@@ -14,20 +14,17 @@ class BrandAssetsScreen extends ConsumerStatefulWidget {
 class _BrandAssetsScreenState extends ConsumerState<BrandAssetsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildAssetFilters(),
-            const SizedBox(height: 32),
-            _buildAssetGrid(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildAssetFilters(),
+          const SizedBox(height: 32),
+          _buildAssetGrid(),
+        ],
       ),
     );
   }
@@ -96,7 +93,9 @@ class _BrandAssetsScreenState extends ConsumerState<BrandAssetsScreen> {
           ),
           SizedBox(
             width: 300,
-            child: ClinicalSearchTextField(hintText: 'Search assets by name or tag...'),
+            child: ClinicalSearchTextField(
+              hintText: 'Search assets by name or tag...',
+            ),
           ),
         ],
       ),
@@ -110,10 +109,14 @@ class _BrandAssetsScreenState extends ConsumerState<BrandAssetsScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? PrimeCareTheme.colors.navyIndigo : Colors.transparent,
+          color: isActive
+              ? PrimeCareTheme.colors.navyIndigo
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isActive ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.surfaceContainerHighest,
+            color: isActive
+                ? PrimeCareTheme.colors.navyIndigo
+                : PrimeCareTheme.colors.surfaceContainerHighest,
           ),
         ),
         child: Text(
@@ -224,13 +227,22 @@ class _BrandAssetsScreenState extends ConsumerState<BrandAssetsScreen> {
                 color: PrimeCareTheme.colors.surfaceContainerLow,
                 border: Border(
                   bottom: BorderSide(
-                    color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+                    color: PrimeCareTheme.colors.surfaceContainerHighest
+                        .withValues(alpha: 0.5),
                   ),
                 ),
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
               ),
               child: Center(
-                child: Icon(icon, size: 64, color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.8)),
+                child: Icon(
+                  icon,
+                  size: 64,
+                  color: PrimeCareTheme.colors.surfaceContainerHighest
+                      .withValues(alpha: 0.8),
+                ),
               ),
             ),
           ),
@@ -244,7 +256,10 @@ class _BrandAssetsScreenState extends ConsumerState<BrandAssetsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: statusColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
@@ -259,7 +274,10 @@ class _BrandAssetsScreenState extends ConsumerState<BrandAssetsScreen> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: PrimeCareTheme.colors.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(4),
@@ -303,7 +321,11 @@ class _BrandAssetsScreenState extends ConsumerState<BrandAssetsScreen> {
                         fontSize: 11,
                       ),
                     ),
-                    Icon(LucideIcons.download, size: 16, color: PrimeCareTheme.colors.secondary),
+                    Icon(
+                      LucideIcons.download,
+                      size: 16,
+                      color: PrimeCareTheme.colors.secondary,
+                    ),
                   ],
                 ),
               ],

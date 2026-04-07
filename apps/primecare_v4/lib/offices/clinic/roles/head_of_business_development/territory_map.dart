@@ -12,7 +12,8 @@ class TerritoryMapScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Territory Coverage',
-      subtitle: 'Geographical distribution of active franchises and corporate clinics.',
+      subtitle:
+          'Geographical distribution of active franchises and corporate clinics.',
       kpiCards: [
         KPICardData(
           title: 'Total Covered Regions',
@@ -51,10 +52,26 @@ class TerritoryMapScreen extends ConsumerWidget {
             children: [
               Text('Map Filters', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterToggle('Corporate Clinics', true, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterToggle('Franchise Locations', true, PrimeCareTheme.colors.emeraldTeal),
-              _buildFilterToggle('Target Territories', false, PrimeCareTheme.colors.coralRed),
-              _buildFilterToggle('Competitor Hotspots', false, PrimeCareTheme.colors.slateGray),
+              _buildFilterToggle(
+                'Corporate Clinics',
+                true,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterToggle(
+                'Franchise Locations',
+                true,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterToggle(
+                'Target Territories',
+                false,
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildFilterToggle(
+                'Competitor Hotspots',
+                false,
+                PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
         ),
@@ -82,7 +99,10 @@ class TerritoryMapScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Interactive Territory Map', style: PrimeCareTheme.typography.h2),
+                  Text(
+                    'Interactive Territory Map',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
                   Row(
                     children: [
                       IconButton(
@@ -103,10 +123,13 @@ class TerritoryMapScreen extends ConsumerWidget {
                 height: 400,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+                  color: PrimeCareTheme.colors.surfaceContainerHighest
+                      .withOpacity(0.3),
                   borderRadius: BorderRadius.circular(12),
                   image: const DecorationImage(
-                    image: NetworkImage('https://via.placeholder.com/800x400/e2e8f0/64748b?text=Geospatial+Map+Visualization'),
+                    image: NetworkImage(
+                      'https://via.placeholder.com/800x400/e2e8f0/64748b?text=Geospatial+Map+Visualization',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -127,9 +150,24 @@ class TerritoryMapScreen extends ConsumerWidget {
               const SizedBox(height: 32),
               Text('Territory Analytics', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildAnalyticsRow('GTA (Greater Toronto Area)', 'High Density', '92%', 'Saturated'),
-              _buildAnalyticsRow('Calgary Metropolitan', 'Medium Density', '45%', 'Growth Opportunity'),
-              _buildAnalyticsRow('Halifax Regional Municipality', 'Low Density', '15%', 'Prime Target'),
+              _buildAnalyticsRow(
+                'GTA (Greater Toronto Area)',
+                'High Density',
+                '92%',
+                'Saturated',
+              ),
+              _buildAnalyticsRow(
+                'Calgary Metropolitan',
+                'Medium Density',
+                '45%',
+                'Growth Opportunity',
+              ),
+              _buildAnalyticsRow(
+                'Halifax Regional Municipality',
+                'Low Density',
+                '15%',
+                'Prime Target',
+              ),
             ],
           ),
         ),
@@ -161,28 +199,67 @@ class TerritoryMapScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(region, style: PrimeCareTheme.typography.body),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildAnalyticsRow(String region, String density, String penetration, String recommendation) {
+  Widget _buildAnalyticsRow(
+    String region,
+    String density,
+    String penetration,
+    String recommendation,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.5))),
+        border: Border(
+          bottom: BorderSide(
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(
+              0.5,
+            ),
+          ),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(flex: 2, child: Text(region, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600))),
-          Expanded(flex: 1, child: Text(density, style: PrimeCareTheme.typography.body)),
-          Expanded(flex: 1, child: Text(penetration, style: PrimeCareTheme.typography.body)),
-          Expanded(flex: 1, child: Text(recommendation, style: PrimeCareTheme.typography.label.copyWith(
-            color: recommendation == 'Prime Target' ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.navyIndigo,
-            fontWeight: FontWeight.bold,
-          ), textAlign: TextAlign.right)),
+          Expanded(
+            flex: 2,
+            child: Text(
+              region,
+              style: PrimeCareTheme.typography.body.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(density, style: PrimeCareTheme.typography.body),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(penetration, style: PrimeCareTheme.typography.body),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              recommendation,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: recommendation == 'Prime Target'
+                    ? PrimeCareTheme.colors.coralRed
+                    : PrimeCareTheme.colors.navyIndigo,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
         ],
       ),
     );

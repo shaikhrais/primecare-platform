@@ -12,7 +12,8 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Staff Training Matrix',
-      subtitle: 'Comprehensive overview of staff training status and compliance.',
+      subtitle:
+          'Comprehensive overview of staff training status and compliance.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search staff or courses...'),
         const SizedBox(width: 16),
@@ -62,9 +63,7 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildDepartmentCompliance(),
       ],
-      mainContent: [
-        _buildMatrixTable(),
-      ],
+      mainContent: [_buildMatrixTable()],
     );
   }
 
@@ -76,7 +75,11 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.filter, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.filter,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Filters', style: PrimeCareTheme.typography.h3),
             ],
@@ -103,7 +106,11 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: PrimeCareTheme.typography.body),
-          Icon(LucideIcons.chevronDown, size: 16, color: PrimeCareTheme.colors.slateGray),
+          Icon(
+            LucideIcons.chevronDown,
+            size: 16,
+            color: PrimeCareTheme.colors.slateGray,
+          ),
         ],
       ),
     );
@@ -135,7 +142,12 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(name, style: PrimeCareTheme.typography.body),
-            Text('$score%', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              '$score%',
+              style: PrimeCareTheme.typography.label.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -143,7 +155,9 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
           value: score / 100,
           backgroundColor: PrimeCareTheme.colors.cloudGray,
           valueColor: AlwaysStoppedAnimation<Color>(
-            score >= 90 ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.amberWarning,
+            score >= 90
+                ? PrimeCareTheme.colors.emeraldTeal
+                : PrimeCareTheme.colors.amberWarning,
           ),
           minHeight: 6,
           borderRadius: BorderRadius.circular(4),
@@ -159,7 +173,10 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(24),
-            child: Text('Staff Matrix Records', style: PrimeCareTheme.typography.h2),
+            child: Text(
+              'Staff Matrix Records',
+              style: PrimeCareTheme.typography.h2,
+            ),
           ),
           const Divider(height: 1),
           SingleChildScrollView(
@@ -177,10 +194,34 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
                 DataColumn(label: Text('Actions')),
               ],
               rows: [
-                _buildDataRow('Sarah Jenkins', 'RN', 'Nursing', 'Compliant', PrimeCareTheme.colors.emeraldTeal),
-                _buildDataRow('Michael Chen', 'PSW', 'Care', 'Expiring Soon', PrimeCareTheme.colors.amberWarning),
-                _buildDataRow('Emily Thorne', 'Admin', 'HR', 'Non-Compliant', PrimeCareTheme.colors.coralRed),
-                _buildDataRow('David Kim', 'CNA', 'Care', 'Compliant', PrimeCareTheme.colors.emeraldTeal),
+                _buildDataRow(
+                  'Sarah Jenkins',
+                  'RN',
+                  'Nursing',
+                  'Compliant',
+                  PrimeCareTheme.colors.emeraldTeal,
+                ),
+                _buildDataRow(
+                  'Michael Chen',
+                  'PSW',
+                  'Care',
+                  'Expiring Soon',
+                  PrimeCareTheme.colors.amberWarning,
+                ),
+                _buildDataRow(
+                  'Emily Thorne',
+                  'Admin',
+                  'HR',
+                  'Non-Compliant',
+                  PrimeCareTheme.colors.coralRed,
+                ),
+                _buildDataRow(
+                  'David Kim',
+                  'CNA',
+                  'Care',
+                  'Compliant',
+                  PrimeCareTheme.colors.emeraldTeal,
+                ),
               ],
             ),
           ),
@@ -189,10 +230,18 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
     );
   }
 
-  DataRow _buildDataRow(String name, String role, String dept, String status, Color statusColor) {
+  DataRow _buildDataRow(
+    String name,
+    String role,
+    String dept,
+    String status,
+    Color statusColor,
+  ) {
     return DataRow(
       cells: [
-        DataCell(Text(name, style: const TextStyle(fontWeight: FontWeight.bold))),
+        DataCell(
+          Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        ),
         DataCell(Text(role)),
         DataCell(Text(dept)),
         DataCell(
@@ -204,7 +253,10 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
             ),
             child: Text(
               status,
-              style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: statusColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

@@ -14,8 +14,20 @@ class RmtTodaysScheduleScreen extends ConsumerWidget {
       title: 'Daily Schedule',
       subtitle: 'View and manage today\'s appointments and availability.',
       kpiCards: [
-        KPICardData(title: 'Total Appointments', value: '6', icon: LucideIcons.calendar, trend: 0.0, trendLabel: 'today'),
-        KPICardData(title: 'Completed', value: '2', icon: LucideIcons.checkCircle, trend: 0.0, trendLabel: 'so far'),
+        KPICardData(
+          title: 'Total Appointments',
+          value: '6',
+          icon: LucideIcons.calendar,
+          trend: 0.0,
+          trendLabel: 'today',
+        ),
+        KPICardData(
+          title: 'Completed',
+          value: '2',
+          icon: LucideIcons.checkCircle,
+          trend: 0.0,
+          trendLabel: 'so far',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -38,11 +50,11 @@ class RmtTodaysScheduleScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Schedule List', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Schedule List', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.calendarPlus),
                     label: const Text('Book Appointment'),
@@ -51,13 +63,41 @@ class RmtTodaysScheduleScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildScheduleItem('09:00 AM', '10:00 AM', 'Sarah Connor', '60 Min Initial Assessment', 'Completed', PrimeCareTheme.colors.slateGray),
-               _buildScheduleItem('10:15 AM', '11:15 AM', 'Tricia McMillan', '60 Min Massage Therapy', 'Completed', PrimeCareTheme.colors.slateGray),
-               _buildScheduleItem('11:30 AM', '12:30 PM', 'Isaac Newton', '60 Min Massage Therapy', 'Upcoming', PrimeCareTheme.colors.navyIndigo),
-               _buildScheduleItem('01:30 PM', '02:30 PM', 'Maria Garcia', '60 Min Massage Therapy', 'Upcoming', PrimeCareTheme.colors.navyIndigo),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildScheduleItem(
+                '09:00 AM',
+                '10:00 AM',
+                'Sarah Connor',
+                '60 Min Initial Assessment',
+                'Completed',
+                PrimeCareTheme.colors.slateGray,
+              ),
+              _buildScheduleItem(
+                '10:15 AM',
+                '11:15 AM',
+                'Tricia McMillan',
+                '60 Min Massage Therapy',
+                'Completed',
+                PrimeCareTheme.colors.slateGray,
+              ),
+              _buildScheduleItem(
+                '11:30 AM',
+                '12:30 PM',
+                'Isaac Newton',
+                '60 Min Massage Therapy',
+                'Upcoming',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildScheduleItem(
+                '01:30 PM',
+                '02:30 PM',
+                'Maria Garcia',
+                '60 Min Massage Therapy',
+                'Upcoming',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -73,59 +113,107 @@ class RmtTodaysScheduleScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildScheduleItem(String start, String end, String client, String type, String status, Color themeColor) {
-     return Container(
+  Widget _buildScheduleItem(
+    String start,
+    String end,
+    String client,
+    String type,
+    String status,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: status == 'Completed' ? PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.1) : PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+        color: status == 'Completed'
+            ? PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.1)
+            : PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
         border: Border(left: BorderSide(color: themeColor, width: 4)),
       ),
       child: Row(
         children: [
-           SizedBox(
-             width: 100,
-             child: Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 Text(start, style: PrimeCareTheme.typography.h3),
-                 Text(end, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-               ],
-             ),
-           ),
-           Container(width: 2, height: 40, color: PrimeCareTheme.colors.surfaceContainerHighest, margin: const EdgeInsets.symmetric(horizontal: 16)),
-           Expanded(
-             child: Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                  Text(client, style: PrimeCareTheme.typography.h3.copyWith(color: status == 'Completed' ? PrimeCareTheme.colors.slateGray : PrimeCareTheme.colors.textPrimary)),
-                  const SizedBox(height: 4),
-                  Text(type, style: PrimeCareTheme.typography.body.copyWith(color: status == 'Completed' ? PrimeCareTheme.colors.slateGray : PrimeCareTheme.colors.textPrimary)),
-               ],
-             ),
-           ),
-           Container(
-             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-             decoration: BoxDecoration(
-               color: themeColor.withOpacity(0.2),
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-           )
+          SizedBox(
+            width: 100,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(start, style: PrimeCareTheme.typography.h3),
+                Text(
+                  end,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 2,
+            height: 40,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  client,
+                  style: PrimeCareTheme.typography.h3.copyWith(
+                    color: status == 'Completed'
+                        ? PrimeCareTheme.colors.slateGray
+                        : PrimeCareTheme.colors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  type,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: status == 'Completed'
+                        ? PrimeCareTheme.colors.slateGray
+                        : PrimeCareTheme.colors.textPrimary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

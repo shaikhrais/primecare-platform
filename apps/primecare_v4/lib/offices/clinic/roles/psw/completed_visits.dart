@@ -14,7 +14,13 @@ class PswCompletedVisitsScreen extends ConsumerWidget {
       title: 'Completed Visits',
       subtitle: 'Review historical visit logs and verify submitted timesheets.',
       kpiCards: [
-        KPICardData(title: 'Visits This Month', value: '42', icon: LucideIcons.calendarCheck, trend: 5.0, trendLabel: 'vs last month'),
+        KPICardData(
+          title: 'Visits This Month',
+          value: '42',
+          icon: LucideIcons.calendarCheck,
+          trend: 5.0,
+          trendLabel: 'vs last month',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,8 +30,16 @@ class PswCompletedVisitsScreen extends ConsumerWidget {
             children: [
               Text('Payroll Status', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Approved', 30, PrimeCareTheme.colors.emeraldTeal),
-              _buildFilterRow('Pending Review', 12, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Approved',
+                30,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterRow(
+                'Pending Review',
+                12,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -36,25 +50,44 @@ class PswCompletedVisitsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Visit History', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Visit History', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.download),
                     label: const Text('Export Timesheet'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
+                      backgroundColor:
+                          PrimeCareTheme.colors.surfaceContainerHighest,
                       foregroundColor: PrimeCareTheme.colors.navyIndigo,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildVisitCard('Sonia Sotomayor', 'May 13, 2024', '09:00 AM - 11:00 AM', 'Approved', PrimeCareTheme.colors.emeraldTeal),
-               _buildVisitCard('Elena Kagan', 'May 13, 2024', '13:00 PM - 15:30 PM', 'Pending Review', PrimeCareTheme.colors.lavenderLustre),
-               _buildVisitCard('Sonia Sotomayor', 'May 12, 2024', '09:00 AM - 11:00 AM', 'Approved', PrimeCareTheme.colors.emeraldTeal),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildVisitCard(
+                'Sonia Sotomayor',
+                'May 13, 2024',
+                '09:00 AM - 11:00 AM',
+                'Approved',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildVisitCard(
+                'Elena Kagan',
+                'May 13, 2024',
+                '13:00 PM - 15:30 PM',
+                'Pending Review',
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
+              _buildVisitCard(
+                'Sonia Sotomayor',
+                'May 12, 2024',
+                '09:00 AM - 11:00 AM',
+                'Approved',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -70,19 +103,34 @@ class PswCompletedVisitsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildVisitCard(String clientName, String date, String timeRange, String status, Color themeColor) {
-     return Container(
+  Widget _buildVisitCard(
+    String clientName,
+    String date,
+    String timeRange,
+    String status,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -93,26 +141,37 @@ class PswCompletedVisitsScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-                const SizedBox(height: 4),
-                Text(clientName, style: PrimeCareTheme.typography.h3),
-                const SizedBox(height: 4),
-                Text(timeRange, style: PrimeCareTheme.typography.body),
-             ],
-           ),
-           Container(
-             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-             decoration: BoxDecoration(
-               color: themeColor.withOpacity(0.2),
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-           )
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                date,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 4),
+              Text(timeRange, style: PrimeCareTheme.typography.body),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

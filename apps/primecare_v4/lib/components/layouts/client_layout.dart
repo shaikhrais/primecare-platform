@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ClientLayout extends StatefulWidget {
   final Widget child;
-  
+
   const ClientLayout({super.key, required this.child});
 
   @override
@@ -34,9 +34,15 @@ class _ClientLayoutState extends State<ClientLayout> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Appointments'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Appointments',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Messages'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Profile',
+          ),
         ],
       ),
     );

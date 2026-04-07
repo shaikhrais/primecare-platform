@@ -15,9 +15,12 @@ class PswDashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Clinical Overview', style: Theme.of(context).textTheme.headlineSmall),
+            Text(
+              'Clinical Overview',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             const SizedBox(height: 32),
-            
+
             // Asymmetric Layout: Left Col (Large), Right Col (Stacked Smalls)
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,20 +37,30 @@ class PswDashboardScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Patient Adherence Score', style: Theme.of(context).textTheme.titleSmall),
-                        const SizedBox(height: 48), // spacing-12 separating title from content
-                        Text('94%', style: Theme.of(context).textTheme.displayLarge?.copyWith(color: AppTheme.primary)),
+                        Text(
+                          'Patient Adherence Score',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        const SizedBox(
+                          height: 48,
+                        ), // spacing-12 separating title from content
+                        Text(
+                          '94%',
+                          style: Theme.of(context).textTheme.displayLarge
+                              ?.copyWith(color: AppTheme.primary),
+                        ),
                         const SizedBox(height: 16),
                         const HealthIndicator(progress: 0.94),
                         const SizedBox(height: 16),
-                        const Text('Top tier clinical performance this week. Keep maintaining thorough visit summaries.'),
+                        const Text(
+                          'Top tier clinical performance this week. Keep maintaining thorough visit summaries.',
+                        ),
                       ],
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(width: 48), // Large breathing room
-                
                 // Two smaller vertical action cards
                 Expanded(
                   flex: 3,
@@ -63,11 +76,17 @@ class PswDashboardScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Pending Summaries', style: Theme.of(context).textTheme.titleSmall),
+                            Text(
+                              'Pending Summaries',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
                             const SizedBox(height: 16),
                             const Text('3 charts require signature.'),
                             const SizedBox(height: 32),
-                            GradientButton(text: 'Review Now', onPressed: () {}),
+                            GradientButton(
+                              text: 'Review Now',
+                              onPressed: () {},
+                            ),
                           ],
                         ),
                       ),
@@ -82,11 +101,18 @@ class PswDashboardScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Upcoming Visits', style: Theme.of(context).textTheme.titleSmall),
+                            Text(
+                              'Upcoming Visits',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
                             const SizedBox(height: 16),
                             const Text('Your next client is at 10:30 AM.'),
                             const SizedBox(height: 32),
-                            GradientButton(text: 'View Schedule', onPressed: () {}, isSecondary: true),
+                            GradientButton(
+                              text: 'View Schedule',
+                              onPressed: () {},
+                              isSecondary: true,
+                            ),
                           ],
                         ),
                       ),
@@ -101,4 +127,3 @@ class PswDashboardScreen extends StatelessWidget {
     );
   }
 }
-

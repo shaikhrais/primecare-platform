@@ -51,10 +51,30 @@ class LeadPipelineScreen extends ConsumerWidget {
             children: [
               Text('Pipeline Funnel', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFunnelStage('Inquiry', '150 Leads', 1.0, PrimeCareTheme.colors.navyIndigo),
-              _buildFunnelStage('Qualified', '75 Leads', 0.5, PrimeCareTheme.colors.emeraldTeal),
-              _buildFunnelStage('Negotiation', '25 Leads', 0.16, PrimeCareTheme.colors.coralRed),
-              _buildFunnelStage('Closed', '10 Leads', 0.06, PrimeCareTheme.colors.lavenderLustre),
+              _buildFunnelStage(
+                'Inquiry',
+                '150 Leads',
+                1.0,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFunnelStage(
+                'Qualified',
+                '75 Leads',
+                0.5,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFunnelStage(
+                'Negotiation',
+                '25 Leads',
+                0.16,
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildFunnelStage(
+                'Closed',
+                '10 Leads',
+                0.06,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -83,16 +103,54 @@ class LeadPipelineScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Active Lead Opportunities', style: PrimeCareTheme.typography.h2),
+                  Text(
+                    'Active Lead Opportunities',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
                   _buildFilterButton(),
                 ],
               ),
               const SizedBox(height: 24),
-              _buildLeadRow('Dr. Emily Chen', 'Toronto, ON', 'High', 'Qualified', '\$1.2M', 'Contacted 2 days ago'),
-              _buildLeadRow('Mark Johnson', 'Vancouver, BC', 'Medium', 'Inquiry', '\$800K', 'New Inquiry'),
-              _buildLeadRow('Sarah Peterson', 'Calgary, AB', 'High', 'Negotiation', '\$1.5M', 'Sending draft agreement'),
-              _buildLeadRow('Dr. Rajesh Patel', 'Mississauga, ON', 'Very High', 'Closed', '\$2.0M', 'Onboarding phase'),
-              _buildLeadRow('Prime Health Group', 'Ottawa, ON', 'Medium', 'Qualified', '\$3.5M', 'Reviewing financials'),
+              _buildLeadRow(
+                'Dr. Emily Chen',
+                'Toronto, ON',
+                'High',
+                'Qualified',
+                '\$1.2M',
+                'Contacted 2 days ago',
+              ),
+              _buildLeadRow(
+                'Mark Johnson',
+                'Vancouver, BC',
+                'Medium',
+                'Inquiry',
+                '\$800K',
+                'New Inquiry',
+              ),
+              _buildLeadRow(
+                'Sarah Peterson',
+                'Calgary, AB',
+                'High',
+                'Negotiation',
+                '\$1.5M',
+                'Sending draft agreement',
+              ),
+              _buildLeadRow(
+                'Dr. Rajesh Patel',
+                'Mississauga, ON',
+                'Very High',
+                'Closed',
+                '\$2.0M',
+                'Onboarding phase',
+              ),
+              _buildLeadRow(
+                'Prime Health Group',
+                'Ottawa, ON',
+                'Medium',
+                'Qualified',
+                '\$3.5M',
+                'Reviewing financials',
+              ),
             ],
           ),
         ),
@@ -100,7 +158,12 @@ class LeadPipelineScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildFunnelStage(String label, String count, double fill, Color color) {
+  Widget _buildFunnelStage(
+    String label,
+    String count,
+    double fill,
+    Color color,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
@@ -109,8 +172,18 @@ class LeadPipelineScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600)),
-              Text(count, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                label,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                count,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -142,7 +215,12 @@ class LeadPipelineScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(source, style: PrimeCareTheme.typography.body),
-          Text(percentage, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600)),
+          Text(
+            percentage,
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     );
@@ -157,22 +235,40 @@ class LeadPipelineScreen extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          Icon(LucideIcons.filter, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+          Icon(
+            LucideIcons.filter,
+            size: 16,
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
           const SizedBox(width: 8),
-          Text('Filter', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+          Text(
+            'Filter',
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildLeadRow(String name, String location, String priority, String stage, String value, String lastAction) {
+  Widget _buildLeadRow(
+    String name,
+    String location,
+    String priority,
+    String stage,
+    String value,
+    String lastAction,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+        border: Border.all(
+          color: PrimeCareTheme.colors.surfaceContainerHighest,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,9 +282,18 @@ class LeadPipelineScreen extends ConsumerWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(LucideIcons.mapPin, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.mapPin,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text(location, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                    Text(
+                      location,
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -199,9 +304,19 @@ class LeadPipelineScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Expected Value', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Expected Value',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(value, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600)),
+                Text(
+                  value,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
           ),
@@ -211,25 +326,33 @@ class LeadPipelineScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
-                    color: priority == 'High' || priority == 'Very High' 
-                        ? PrimeCareTheme.colors.coralRed.withOpacity(0.1) 
+                    color: priority == 'High' || priority == 'Very High'
+                        ? PrimeCareTheme.colors.coralRed.withOpacity(0.1)
                         : PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     priority,
                     style: PrimeCareTheme.typography.label.copyWith(
-                      color: priority == 'High' || priority == 'Very High' 
-                          ? PrimeCareTheme.colors.coralRed 
+                      color: priority == 'High' || priority == 'Very High'
+                          ? PrimeCareTheme.colors.coralRed
                           : PrimeCareTheme.colors.navyIndigo,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(lastAction, style: PrimeCareTheme.typography.label.copyWith(fontStyle: FontStyle.italic)),
+                Text(
+                  lastAction,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
               ],
             ),
           ),

@@ -58,21 +58,25 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Recent Trends',
-                        style: PrimeCareTheme.titleLarge,
-                      ),
+                      Text('Recent Trends', style: PrimeCareTheme.titleLarge),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: PrimeCareTheme.surfaceContainerHigh,
-                          borderRadius: BorderRadius.circular(PrimeCareTheme.radiusFull),
+                          borderRadius: BorderRadius.circular(
+                            PrimeCareTheme.radiusFull,
+                          ),
                         ),
                         child: Text(
                           'Last 24 Hours',
-                          style: PrimeCareTheme.labelSmall.copyWith(color: PrimeCareTheme.onSurfaceVariant),
+                          style: PrimeCareTheme.labelSmall.copyWith(
+                            color: PrimeCareTheme.onSurfaceVariant,
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: PrimeCareTheme.spacing5),
@@ -116,7 +120,7 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -135,51 +139,104 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                     const SizedBox(height: PrimeCareTheme.spacing2),
                     Text(
                       'Log current metrics for patient record',
-                      style: PrimeCareTheme.bodyMedium.copyWith(color: PrimeCareTheme.onSurfaceVariant),
+                      style: PrimeCareTheme.bodyMedium.copyWith(
+                        color: PrimeCareTheme.onSurfaceVariant,
+                      ),
                     ),
                     const SizedBox(height: PrimeCareTheme.spacing5),
-                    
+
                     Row(
                       children: [
-                        Expanded(child: _buildInputBox('Blood Pressure (Sys)', '120', _bpSysController, LucideIcons.arrowUpFromLine)),
+                        Expanded(
+                          child: _buildInputBox(
+                            'Blood Pressure (Sys)',
+                            '120',
+                            _bpSysController,
+                            LucideIcons.arrowUpFromLine,
+                          ),
+                        ),
                         const SizedBox(width: PrimeCareTheme.spacing3),
-                        Expanded(child: _buildInputBox('BP (Dia)', '80', _bpDiaController, LucideIcons.arrowDownToLine)),
+                        Expanded(
+                          child: _buildInputBox(
+                            'BP (Dia)',
+                            '80',
+                            _bpDiaController,
+                            LucideIcons.arrowDownToLine,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: PrimeCareTheme.spacing4),
-                    _buildInputBox('Heart Rate', 'bpm', _hrController, LucideIcons.activity),
+                    _buildInputBox(
+                      'Heart Rate',
+                      'bpm',
+                      _hrController,
+                      LucideIcons.activity,
+                    ),
                     const SizedBox(height: PrimeCareTheme.spacing4),
-                    _buildInputBox('Temperature', '°C', _tempController, LucideIcons.thermometer),
+                    _buildInputBox(
+                      'Temperature',
+                      '°C',
+                      _tempController,
+                      LucideIcons.thermometer,
+                    ),
                     const SizedBox(height: PrimeCareTheme.spacing4),
                     Row(
                       children: [
-                        Expanded(child: _buildInputBox('SpO2', '%', _o2Controller, LucideIcons.wind)),
+                        Expanded(
+                          child: _buildInputBox(
+                            'SpO2',
+                            '%',
+                            _o2Controller,
+                            LucideIcons.wind,
+                          ),
+                        ),
                         const SizedBox(width: PrimeCareTheme.spacing3),
-                        Expanded(child: _buildInputBox('Respiration', 'rpm', _respController, LucideIcons.lungs)),
+                        Expanded(
+                          child: _buildInputBox(
+                            'Respiration',
+                            'rpm',
+                            _respController,
+                            LucideIcons.lungs,
+                          ),
+                        ),
                       ],
                     ),
-                    
+
                     const SizedBox(height: PrimeCareTheme.spacing6),
                     SizedBox(
                       width: double.infinity,
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                            colors: [PrimeCareTheme.primary, PrimeCareTheme.primaryContainer],
+                            colors: [
+                              PrimeCareTheme.primary,
+                              PrimeCareTheme.primaryContainer,
+                            ],
                           ),
-                          borderRadius: BorderRadius.circular(PrimeCareTheme.radiusXl),
+                          borderRadius: BorderRadius.circular(
+                            PrimeCareTheme.radiusXl,
+                          ),
                         ),
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,
-                            padding: const EdgeInsets.symmetric(vertical: PrimeCareTheme.spacing4),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PrimeCareTheme.radiusXl)),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: PrimeCareTheme.spacing4,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                PrimeCareTheme.radiusXl,
+                              ),
+                            ),
                           ),
                           child: Text(
                             'Save to Patient Record',
-                            style: PrimeCareTheme.titleMedium.copyWith(color: PrimeCareTheme.onPrimary),
+                            style: PrimeCareTheme.titleMedium.copyWith(
+                              color: PrimeCareTheme.onPrimary,
+                            ),
                           ),
                         ),
                       ),
@@ -188,7 +245,7 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -212,7 +269,7 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
               color: PrimeCareTheme.error.withOpacity(0.08),
               blurRadius: 24,
               spreadRadius: 2,
-            )
+            ),
         ],
       ),
       child: Stack(
@@ -241,12 +298,16 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: isAlert ? PrimeCareTheme.errorContainer : PrimeCareTheme.primaryFixed,
+                    color: isAlert
+                        ? PrimeCareTheme.errorContainer
+                        : PrimeCareTheme.primaryFixed,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     icon,
-                    color: isAlert ? PrimeCareTheme.onErrorContainer : PrimeCareTheme.onPrimaryFixed,
+                    color: isAlert
+                        ? PrimeCareTheme.onErrorContainer
+                        : PrimeCareTheme.onPrimaryFixed,
                     size: 24,
                   ),
                 ),
@@ -255,7 +316,12 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+                      Text(
+                        title,
+                        style: PrimeCareTheme.titleSmall.copyWith(
+                          color: PrimeCareTheme.onSurfaceVariant,
+                        ),
+                      ),
                       const SizedBox(height: 2),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -263,35 +329,54 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                         children: [
                           Text(value, style: PrimeCareTheme.displaySmall),
                           const SizedBox(width: 4),
-                          Text(unit, style: PrimeCareTheme.bodyMedium.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+                          Text(
+                            unit,
+                            style: PrimeCareTheme.bodyMedium.copyWith(
+                              color: PrimeCareTheme.onSurfaceVariant,
+                            ),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
-                    color: isAlert ? PrimeCareTheme.errorContainer : PrimeCareTheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(PrimeCareTheme.radiusSm),
+                    color: isAlert
+                        ? PrimeCareTheme.errorContainer
+                        : PrimeCareTheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(
+                      PrimeCareTheme.radiusSm,
+                    ),
                   ),
                   child: Text(
                     status,
                     style: PrimeCareTheme.labelSmall.copyWith(
-                      color: isAlert ? PrimeCareTheme.onErrorContainer : PrimeCareTheme.onSurfaceVariant,
+                      color: isAlert
+                          ? PrimeCareTheme.onErrorContainer
+                          : PrimeCareTheme.onSurfaceVariant,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildInputBox(String label, String hint, TextEditingController controller, IconData icon) {
+  Widget _buildInputBox(
+    String label,
+    String hint,
+    TextEditingController controller,
+    IconData icon,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -307,9 +392,18 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
               style: PrimeCareTheme.bodyLarge,
               decoration: InputDecoration(
                 hintText: hint,
-                hintStyle: PrimeCareTheme.bodyLarge.copyWith(color: PrimeCareTheme.outlineVariant),
-                prefixIcon: Icon(icon, color: PrimeCareTheme.primaryFixedDim, size: 20),
-                contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                hintStyle: PrimeCareTheme.bodyLarge.copyWith(
+                  color: PrimeCareTheme.outlineVariant,
+                ),
+                prefixIcon: Icon(
+                  icon,
+                  color: PrimeCareTheme.primaryFixedDim,
+                  size: 20,
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 12,
+                ),
                 border: InputBorder.none,
               ),
             ),

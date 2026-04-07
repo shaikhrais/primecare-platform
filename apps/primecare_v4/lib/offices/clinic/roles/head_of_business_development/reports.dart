@@ -12,7 +12,8 @@ class ReportsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Business Development Reports',
-      subtitle: 'Analytics, pipeline summaries, and growth performance datasets.',
+      subtitle:
+          'Analytics, pipeline summaries, and growth performance datasets.',
       kpiCards: [
         KPICardData(
           title: 'Reports Generated YTD',
@@ -83,7 +84,10 @@ class ReportsScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Available Reports', style: PrimeCareTheme.typography.h2),
+                  Text(
+                    'Available Reports',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
                   ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus, size: 16),
@@ -136,7 +140,9 @@ class ReportsScreen extends ConsumerWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: isSelected ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05) : Colors.transparent,
+        color: isSelected
+            ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -146,11 +152,17 @@ class ReportsScreen extends ConsumerWidget {
             name,
             style: PrimeCareTheme.typography.body.copyWith(
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              color: isSelected ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.textPrimary,
+              color: isSelected
+                  ? PrimeCareTheme.colors.navyIndigo
+                  : PrimeCareTheme.colors.textPrimary,
             ),
           ),
           if (isSelected)
-            Icon(LucideIcons.chevronRight, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+            Icon(
+              LucideIcons.chevronRight,
+              size: 16,
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
         ],
       ),
     );
@@ -163,20 +175,34 @@ class ReportsScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(child: Text(title, style: PrimeCareTheme.typography.body)),
-          Text(schedule, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontStyle: FontStyle.italic)),
+          Text(
+            schedule,
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildReportCard(String title, String description, String formats, String timestamp, IconData icon) {
+  Widget _buildReportCard(
+    String title,
+    String description,
+    String formats,
+    String timestamp,
+    IconData icon,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+        border: Border.all(
+          color: PrimeCareTheme.colors.surfaceContainerHighest,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,25 +216,39 @@ class ReportsScreen extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
+                        color: PrimeCareTheme.colors.navyIndigo.withOpacity(
+                          0.1,
+                        ),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(icon, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+                      child: Icon(
+                        icon,
+                        color: PrimeCareTheme.colors.navyIndigo,
+                        size: 20,
+                      ),
                     ),
                     const SizedBox(width: 16),
-                    Expanded(child: Text(title, style: PrimeCareTheme.typography.h3)),
+                    Expanded(
+                      child: Text(title, style: PrimeCareTheme.typography.h3),
+                    ),
                   ],
                 ),
               ),
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(LucideIcons.download, color: PrimeCareTheme.colors.navyIndigo),
+                    icon: Icon(
+                      LucideIcons.download,
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
                     onPressed: () {},
                     tooltip: 'Download',
                   ),
                   IconButton(
-                    icon: Icon(LucideIcons.share2, color: PrimeCareTheme.colors.slateGray),
+                    icon: Icon(
+                      LucideIcons.share2,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     onPressed: () {},
                     tooltip: 'Share',
                   ),
@@ -217,23 +257,44 @@ class ReportsScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text(description, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+          Text(
+            description,
+            style: PrimeCareTheme.typography.body.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Icon(LucideIcons.fileArchive, size: 14, color: PrimeCareTheme.colors.slateGray),
+                  Icon(
+                    LucideIcons.fileArchive,
+                    size: 14,
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
                   const SizedBox(width: 6),
-                  Text('Formats: $formats', style: PrimeCareTheme.typography.label),
+                  Text(
+                    'Formats: $formats',
+                    style: PrimeCareTheme.typography.label,
+                  ),
                 ],
               ),
               Row(
                 children: [
-                  Icon(LucideIcons.clock, size: 14, color: PrimeCareTheme.colors.slateGray),
+                  Icon(
+                    LucideIcons.clock,
+                    size: 14,
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
                   const SizedBox(width: 6),
-                  Text(timestamp, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                  Text(
+                    timestamp,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
                 ],
               ),
             ],

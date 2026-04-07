@@ -12,7 +12,8 @@ class OpportunitiesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Growth Opportunities',
-      subtitle: 'Identify and track potential market expansions and acquisitions.',
+      subtitle:
+          'Identify and track potential market expansions and acquisitions.',
       kpiCards: [
         KPICardData(
           title: 'Total Potential Value',
@@ -80,7 +81,10 @@ class OpportunitiesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('High Priority Opportunities', style: PrimeCareTheme.typography.h2),
+              Text(
+                'High Priority Opportunities',
+                style: PrimeCareTheme.typography.h2,
+              ),
               const SizedBox(height: 24),
               _buildOpportunityCard(
                 'Oakbridge Clinic Acquisition',
@@ -128,7 +132,12 @@ class OpportunitiesScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(child: Text(type, style: PrimeCareTheme.typography.body)),
-          Text(percentage, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600)),
+          Text(
+            percentage,
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     );
@@ -157,7 +166,14 @@ class OpportunitiesScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildOpportunityCard(String title, String type, String value, String stage, String notes, Color color) {
+  Widget _buildOpportunityCard(
+    String title,
+    String type,
+    String value,
+    String stage,
+    String notes,
+    Color color,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
@@ -173,7 +189,12 @@ class OpportunitiesScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title, style: PrimeCareTheme.typography.h3),
-              Text(value, style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+              Text(
+                value,
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -187,17 +208,34 @@ class OpportunitiesScreen extends ConsumerWidget {
                 ),
                 child: Text(
                   type,
-                  style: PrimeCareTheme.typography.label.copyWith(color: color, fontWeight: FontWeight.bold),
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
-              Icon(LucideIcons.arrowRight, size: 14, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.arrowRight,
+                size: 14,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
               const SizedBox(width: 12),
-              Text(stage, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                stage,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          Text(notes, style: PrimeCareTheme.typography.body.copyWith(fontStyle: FontStyle.italic)),
+          Text(
+            notes,
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );

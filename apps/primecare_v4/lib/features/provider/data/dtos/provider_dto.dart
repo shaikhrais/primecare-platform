@@ -18,7 +18,7 @@ class ProviderDto {
     return ProviderDto(
       id: json['id'] ?? '',
       // Backend might use fullName, full_name, or provider_name depending on the endpoint payload!
-      fullName: json['fullName'] ?? json['full_name'], 
+      fullName: json['fullName'] ?? json['full_name'],
       providerName: json['provider_name'],
       nextVisit: json['next_visit'],
       specialty: json['specialty'],

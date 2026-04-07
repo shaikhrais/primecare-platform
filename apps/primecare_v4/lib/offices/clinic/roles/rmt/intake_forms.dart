@@ -14,7 +14,13 @@ class RmtIntakeFormsScreen extends ConsumerWidget {
       title: 'Health History Intake',
       subtitle: 'Review and manage client health history and consent forms.',
       kpiCards: [
-        KPICardData(title: 'Pending Review', value: '3', icon: LucideIcons.fileClock, trend: 1.0, trendLabel: 'needs attention'),
+        KPICardData(
+          title: 'Pending Review',
+          value: '3',
+          icon: LucideIcons.fileClock,
+          trend: 1.0,
+          trendLabel: 'needs attention',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,8 +30,16 @@ class RmtIntakeFormsScreen extends ConsumerWidget {
             children: [
               Text('Form Status', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Pending Review', 3, PrimeCareTheme.colors.coralBlush),
-              _buildFilterRow('Reviewed', 42, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow(
+                'Pending Review',
+                3,
+                PrimeCareTheme.colors.coralBlush,
+              ),
+              _buildFilterRow(
+                'Reviewed',
+                42,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
               _buildFilterRow('Incomplete', 1, PrimeCareTheme.colors.slateGray),
             ],
           ),
@@ -37,11 +51,14 @@ class RmtIntakeFormsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Submissions', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recent Submissions',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.send),
                     label: const Text('Send Digital Intake'),
@@ -50,11 +67,23 @@ class RmtIntakeFormsScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildFormCard('Emily Dickinson', 'Health History Update', 'Submitted: May 14, 2024', 'Status: Pending Review', PrimeCareTheme.colors.coralBlush),
-               _buildFormCard('Walt Whitman', 'Initial Intake & Consent', 'Submitted: May 12, 2024', 'Status: Reviewed', PrimeCareTheme.colors.emeraldTeal),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildFormCard(
+                'Emily Dickinson',
+                'Health History Update',
+                'Submitted: May 14, 2024',
+                'Status: Pending Review',
+                PrimeCareTheme.colors.coralBlush,
+              ),
+              _buildFormCard(
+                'Walt Whitman',
+                'Initial Intake & Consent',
+                'Submitted: May 12, 2024',
+                'Status: Reviewed',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -70,19 +99,34 @@ class RmtIntakeFormsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildFormCard(String clientName, String formType, String date, String status, Color themeColor) {
-     return Container(
+  Widget _buildFormCard(
+    String clientName,
+    String formType,
+    String date,
+    String status,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -93,32 +137,46 @@ class RmtIntakeFormsScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                     const SizedBox(width: 8),
-                     Text(formType, style: PrimeCareTheme.typography.body),
-                  ]
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(formType, style: PrimeCareTheme.typography.body),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                date,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                const SizedBox(height: 4),
-                Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           Container(
-             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-             decoration: BoxDecoration(
-               color: themeColor.withOpacity(0.2),
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-           )
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

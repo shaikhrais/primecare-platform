@@ -14,7 +14,13 @@ class PswAssignedClientsScreen extends ConsumerWidget {
       title: 'Assigned Clients',
       subtitle: 'View your regular clients and key care plan highlights.',
       kpiCards: [
-        KPICardData(title: 'Active Clients', value: '18', icon: LucideIcons.users, trend: 1.0, trendLabel: 'new this week'),
+        KPICardData(
+          title: 'Active Clients',
+          value: '18',
+          icon: LucideIcons.users,
+          trend: 1.0,
+          trendLabel: 'new this week',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,9 +30,21 @@ class PswAssignedClientsScreen extends ConsumerWidget {
             children: [
               Text('Care Needs', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('High Acuity', 3, PrimeCareTheme.colors.coralBlush),
-              _buildFilterRow('Moderate Care', 10, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Independent', 5, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow(
+                'High Acuity',
+                3,
+                PrimeCareTheme.colors.coralBlush,
+              ),
+              _buildFilterRow(
+                'Moderate Care',
+                10,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Independent',
+                5,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -37,24 +55,35 @@ class PswAssignedClientsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Client Roster', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Client Roster', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.search),
                     label: const Text('Search Clients'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
+                      backgroundColor:
+                          PrimeCareTheme.colors.surfaceContainerHighest,
                       foregroundColor: PrimeCareTheme.colors.navyIndigo,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildClientCard('Sonia Sotomayor', 'Moderate Care', 'Scheduled: Today, 1:00 PM', PrimeCareTheme.colors.navyIndigo),
-               _buildClientCard('Elena Kagan', 'High Acuity', 'Scheduled: Tomorrow, 9:00 AM', PrimeCareTheme.colors.coralBlush),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildClientCard(
+                'Sonia Sotomayor',
+                'Moderate Care',
+                'Scheduled: Today, 1:00 PM',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildClientCard(
+                'Elena Kagan',
+                'High Acuity',
+                'Scheduled: Tomorrow, 9:00 AM',
+                PrimeCareTheme.colors.coralBlush,
+              ),
             ],
           ),
         ),
@@ -70,19 +99,33 @@ class PswAssignedClientsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildClientCard(String clientName, String careLevel, String nextVisit, Color themeColor) {
-     return Container(
+  Widget _buildClientCard(
+    String clientName,
+    String careLevel,
+    String nextVisit,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -93,24 +136,35 @@ class PswAssignedClientsScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Text(clientName, style: PrimeCareTheme.typography.h3),
-                const SizedBox(height: 4),
-                Text(nextVisit, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           Container(
-             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-             decoration: BoxDecoration(
-               color: themeColor.withOpacity(0.2),
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: Text(careLevel, style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-           )
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 4),
+              Text(
+                nextVisit,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              careLevel,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

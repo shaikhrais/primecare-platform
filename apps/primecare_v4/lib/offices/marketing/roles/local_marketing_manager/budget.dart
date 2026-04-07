@@ -14,27 +14,24 @@ class LocalBudgetScreen extends ConsumerStatefulWidget {
 class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildMetricsRow(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: _buildRecentExpensesList()),
-                const SizedBox(width: 24),
-                Expanded(flex: 2, child: _buildCategoryBreakdown()),
-              ],
-            )
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildMetricsRow(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 3, child: _buildRecentExpensesList()),
+              const SizedBox(width: 24),
+              Expanded(flex: 2, child: _buildCategoryBreakdown()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -118,7 +115,13 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
     );
   }
 
-  Widget _buildMetricCard(String title, String value, String subtitle, IconData icon, Color actionColor) {
+  Widget _buildMetricCard(
+    String title,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color actionColor,
+  ) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -176,32 +179,95 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Recent Expenses', style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                Text(
+                  'Recent Expenses',
+                  style: PrimeCareTheme.typography.h3.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
+                ),
                 InkWell(
                   onTap: () {},
-                  child: Text('View All', style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.emeraldTeal, fontWeight: FontWeight.w600)),
-                )
+                  child: Text(
+                    'View All',
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.emeraldTeal,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          _buildExpenseRow('Facebook Ads (Aug)', 'Digital Advertising', '\$1,200.00', 'Approved', 'Aug 14, 2026'),
-          _buildExpenseRow('Local Print Mailers', 'Print Media', '\$850.00', 'Approved', 'Aug 05, 2026'),
-          _buildExpenseRow('Community Event Banner', 'Event Sponsorship', '\$300.00', 'Pending', 'Aug 02, 2026'),
-          _buildExpenseRow('Google Local Ads (Jul)', 'Digital Advertising', '\$950.00', 'Approved', 'Jul 31, 2026'),
-          _buildExpenseRow('Radio Spot - Q3 Promo', 'Broadcast', '\$1,500.00', 'Approved', 'Jul 15, 2026'),
-          _buildExpenseRow('Flyer Distribution', 'Print Media', '\$150.00', 'Pending', 'Jul 10, 2026'),
+          _buildExpenseRow(
+            'Facebook Ads (Aug)',
+            'Digital Advertising',
+            '\$1,200.00',
+            'Approved',
+            'Aug 14, 2026',
+          ),
+          _buildExpenseRow(
+            'Local Print Mailers',
+            'Print Media',
+            '\$850.00',
+            'Approved',
+            'Aug 05, 2026',
+          ),
+          _buildExpenseRow(
+            'Community Event Banner',
+            'Event Sponsorship',
+            '\$300.00',
+            'Pending',
+            'Aug 02, 2026',
+          ),
+          _buildExpenseRow(
+            'Google Local Ads (Jul)',
+            'Digital Advertising',
+            '\$950.00',
+            'Approved',
+            'Jul 31, 2026',
+          ),
+          _buildExpenseRow(
+            'Radio Spot - Q3 Promo',
+            'Broadcast',
+            '\$1,500.00',
+            'Approved',
+            'Jul 15, 2026',
+          ),
+          _buildExpenseRow(
+            'Flyer Distribution',
+            'Print Media',
+            '\$150.00',
+            'Pending',
+            'Jul 10, 2026',
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildExpenseRow(String title, String category, String amount, String status, String date) {
-    Color statusColor = status == 'Approved' ? PrimeCareTheme.colors.emeraldTeal : (status == 'Pending' ? Colors.amber.shade700 : PrimeCareTheme.colors.coralRed);
+  Widget _buildExpenseRow(
+    String title,
+    String category,
+    String amount,
+    String status,
+    String date,
+  ) {
+    Color statusColor = status == 'Approved'
+        ? PrimeCareTheme.colors.emeraldTeal
+        : (status == 'Pending'
+              ? Colors.amber.shade700
+              : PrimeCareTheme.colors.coralRed);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5))),
+        border: Border(
+          top: BorderSide(
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
+          ),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -213,23 +279,50 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
                 decoration: BoxDecoration(
                   color: PrimeCareTheme.colors.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+                  border: Border.all(
+                    color: PrimeCareTheme.colors.surfaceContainerHighest,
+                  ),
                 ),
-                child: Icon(LucideIcons.receipt, size: 20, color: PrimeCareTheme.colors.navyIndigo),
+                child: Icon(
+                  LucideIcons.receipt,
+                  size: 20,
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
               const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.w600)),
+                  Text(
+                    title,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      Text(category, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                      Text(
+                        category,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
+                      ),
                       const SizedBox(width: 8),
-                      Text('•', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.surfaceContainerHighest)),
+                      Text(
+                        '•',
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.surfaceContainerHighest,
+                        ),
+                      ),
                       const SizedBox(width: 8),
-                      Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                      Text(
+                        date,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -239,7 +332,10 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -275,7 +371,12 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Spend by Category', style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+          Text(
+            'Spend by Category',
+            style: PrimeCareTheme.typography.h3.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
+          ),
           const SizedBox(height: 32),
           // Donut Chart Mock
           Center(
@@ -289,7 +390,8 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
                     value: 0.8,
                     strokeWidth: 24,
                     color: PrimeCareTheme.colors.emeraldTeal,
-                    backgroundColor: PrimeCareTheme.colors.navyIndigo.withValues(alpha: 0.1),
+                    backgroundColor: PrimeCareTheme.colors.navyIndigo
+                        .withValues(alpha: 0.1),
                   ),
                 ),
                 SizedBox(
@@ -305,22 +407,48 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Total Spend', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                    Text(
+                      'Total Spend',
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('\$5,420', style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                    Text(
+                      '\$5,420',
+                      style: PrimeCareTheme.typography.h2.copyWith(
+                        color: PrimeCareTheme.colors.navyIndigo,
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           const SizedBox(height: 40),
-          _buildLegendItem('Digital Advertising', '\$3,100', PrimeCareTheme.colors.navyIndigo),
+          _buildLegendItem(
+            'Digital Advertising',
+            '\$3,100',
+            PrimeCareTheme.colors.navyIndigo,
+          ),
           const SizedBox(height: 16),
-          _buildLegendItem('Print Media', '\$1,000', PrimeCareTheme.colors.emeraldTeal),
+          _buildLegendItem(
+            'Print Media',
+            '\$1,000',
+            PrimeCareTheme.colors.emeraldTeal,
+          ),
           const SizedBox(height: 16),
-          _buildLegendItem('Event Sponsorship', '\$820', PrimeCareTheme.colors.slateGray),
+          _buildLegendItem(
+            'Event Sponsorship',
+            '\$820',
+            PrimeCareTheme.colors.slateGray,
+          ),
           const SizedBox(height: 16),
-          _buildLegendItem('Broadcast (Radio/TV)', '\$500', PrimeCareTheme.colors.secondary),
+          _buildLegendItem(
+            'Broadcast (Radio/TV)',
+            '\$500',
+            PrimeCareTheme.colors.secondary,
+          ),
         ],
       ),
     );
@@ -332,12 +460,27 @@ class _LocalBudgetScreenState extends ConsumerState<LocalBudgetScreen> {
       children: [
         Row(
           children: [
-            Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+            Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            ),
             const SizedBox(width: 12),
-            Text(category, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+            Text(
+              category,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+            ),
           ],
         ),
-        Text(amount, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+        Text(
+          amount,
+          style: PrimeCareTheme.typography.body.copyWith(
+            color: PrimeCareTheme.colors.navyIndigo,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }

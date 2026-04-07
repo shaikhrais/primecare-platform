@@ -8,7 +8,7 @@ import '../../services/auth_service.dart';
 class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String role;
   final bool isMobile;
-  
+
   const ProviderTopBar({super.key, required this.role, this.isMobile = false});
 
   @override
@@ -36,7 +36,11 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             // Left Section: Logo, Title, Badge
-            const Icon(Icons.health_and_safety, color: Color(0xFF006565), size: 28),
+            const Icon(
+              Icons.health_and_safety,
+              color: Color(0xFF006565),
+              size: 28,
+            ),
             if (!isMobile) ...[
               const SizedBox(width: 8),
               const Text(
@@ -45,14 +49,21 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF006565),
-                  borderRadius: BorderRadius.circular(50)
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 child: Text(
                   mappedRole.toUpperCase(),
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
                 ),
               ),
               const SizedBox(width: 32),
@@ -71,7 +82,9 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
                     prefixIcon: const Icon(Icons.search, size: 20),
                     contentPadding: const EdgeInsets.symmetric(vertical: 0),
                     filled: true,
-                    fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    fillColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide.none,
@@ -86,24 +99,27 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         // Right Section
         if (!isMobile) ...[
-          IconButton(key: const Key('data-status-id=shared-global-provider-action-1'), 
+          IconButton(
+            key: const Key('data-status-id=shared-global-provider-action-1'),
             icon: const Badge(child: Icon(Icons.notifications_outlined)),
             tooltip: 'Notifications',
             onPressed: () {},
           ),
-          IconButton(key: const Key('data-status-id=shared-global-provider-action-2'), 
+          IconButton(
+            key: const Key('data-status-id=shared-global-provider-action-2'),
             icon: const Badge(child: Icon(Icons.chat_bubble_outline)),
             tooltip: 'Messages',
             onPressed: () {},
           ),
-          
+
           // Quick Add Component
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: RoleQuickActionsMenu(role: mappedRole),
           ),
 
-          IconButton(key: const Key('data-status-id=shared-global-provider-action-3'), 
+          IconButton(
+            key: const Key('data-status-id=shared-global-provider-action-3'),
             icon: const Icon(Icons.help_outline),
             tooltip: 'Help / Policy',
             onPressed: () {},
@@ -126,35 +142,55 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
             PopupMenuItem(value: 'Schedule', child: Text('My Schedule')),
             PopupMenuItem(value: 'Settings', child: Text('Settings')),
             PopupMenuDivider(),
-            PopupMenuItem(value: 'Logout', child: Text('Logout', style: TextStyle(color: Colors.red))),
+            PopupMenuItem(
+              value: 'Logout',
+              child: Text('Logout', style: TextStyle(color: Colors.red)),
+            ),
           ],
         ),
         const SizedBox(width: 16),
       ],
 
       // Bottom Section: Extra quick jump chips
-      bottom: extraChips.isNotEmpty ? PreferredSize(
-        preferredSize: const Size.fromHeight(48),
-        child: Container(
-           height: 48,
-           alignment: Alignment.centerLeft,
-           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-           decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)))
-           ),
-           child: Row(
-             children: extraChips.map((chipText) => Padding(
-               padding: const EdgeInsets.only(right: 8.0),
-               child: ActionChip(
-                 label: Text(chipText, style: const TextStyle(fontSize: 12)),
-                 onPressed: () {
-                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Opening: $chipText')));
-                 },
-               ),
-             )).toList(),
-           ),
-        ),
-      ) : null,
+      bottom: extraChips.isNotEmpty
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(48),
+              child: Container(
+                height: 48,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: Theme.of(
+                        context,
+                      ).dividerColor.withValues(alpha: 0.2),
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: extraChips
+                      .map(
+                        (chipText) => Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: ActionChip(
+                            label: Text(
+                              chipText,
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Opening: $chipText')),
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            )
+          : null,
     );
   }
 
@@ -163,8 +199,11 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
     // Return standard height + chips row height if role has extra chips
     bool hasVal = false;
     final r = role.toLowerCase();
-    if (r.contains('rn') || r.contains('rmt') || r.contains('physio') || r.contains('chiro')) {
-        hasVal = true;
+    if (r.contains('rn') ||
+        r.contains('rmt') ||
+        r.contains('physio') ||
+        r.contains('chiro')) {
+      hasVal = true;
     }
     return Size.fromHeight(kToolbarHeight + (hasVal ? 48 : 0));
   }

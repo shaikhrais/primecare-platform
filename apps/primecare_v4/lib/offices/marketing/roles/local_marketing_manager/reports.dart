@@ -14,33 +14,24 @@ class LocalReportsScreen extends ConsumerStatefulWidget {
 class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildMetricsOverview(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildCpaTrendChart(),
-                ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 1,
-                  child: _buildChannelPerformance(),
-                ),
-              ],
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildMetricsOverview(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 2, child: _buildCpaTrendChart()),
+              const SizedBox(width: 32),
+              Expanded(flex: 1, child: _buildChannelPerformance()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -130,9 +121,18 @@ class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
     );
   }
 
-  Widget _buildMetricCard({required String title, required String value, required String trend, required bool positiveTrend}) {
-    Color trendColor = positiveTrend ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
-    IconData trendIcon = positiveTrend ? LucideIcons.trendingUp : LucideIcons.trendingDown;
+  Widget _buildMetricCard({
+    required String title,
+    required String value,
+    required String trend,
+    required bool positiveTrend,
+  }) {
+    Color trendColor = positiveTrend
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
+    IconData trendIcon = positiveTrend
+        ? LucideIcons.trendingUp
+        : LucideIcons.trendingDown;
 
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
@@ -148,7 +148,11 @@ class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
                   color: PrimeCareTheme.colors.slateGray,
                 ),
               ),
-              Icon(LucideIcons.barChart2, size: 16, color: PrimeCareTheme.colors.surfaceContainerHighest),
+              Icon(
+                LucideIcons.barChart2,
+                size: 16,
+                color: PrimeCareTheme.colors.surfaceContainerHighest,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -188,15 +192,29 @@ class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
             children: [
               Text(
                 'Cost Per Acquisition Trend',
-                style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
               Row(
                 children: [
-                  Container(width: 12, height: 12, decoration: BoxDecoration(color: PrimeCareTheme.colors.emeraldTeal, shape: BoxShape.circle)),
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.emeraldTeal,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                   const SizedBox(width: 8),
-                  Text('CPA (\$)', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                  Text(
+                    'CPA (\$)',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
           const SizedBox(height: 32),
@@ -206,8 +224,12 @@ class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
             width: double.infinity,
             decoration: BoxDecoration(
               border: Border(
-                left: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest),
-                bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest),
+                left: BorderSide(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest,
+                ),
+                bottom: BorderSide(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest,
+                ),
               ),
             ),
             child: Stack(
@@ -220,7 +242,8 @@ class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
                     right: 0,
                     child: Container(
                       height: 1,
-                      color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+                      color: PrimeCareTheme.colors.surfaceContainerHighest
+                          .withValues(alpha: 0.5),
                     ),
                   ),
                 // Data line (simulated)
@@ -236,8 +259,17 @@ class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
           // X-axis labels
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'].map((e) => Text(e, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray))).toList(),
-          )
+            children: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
+                .map(
+                  (e) => Text(
+                    e,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
         ],
       ),
     );
@@ -254,45 +286,95 @@ class _LocalReportsScreenState extends ConsumerState<LocalReportsScreen> {
             children: [
               Text(
                 'Top Channels',
-                style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
-              Icon(LucideIcons.listFilter, size: 20, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.listFilter,
+                size: 20,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 24),
-          _buildChannelRow(channel: 'Local SEO / Maps', patients: 25, cpa: '\$15.00', progress: 0.8),
+          _buildChannelRow(
+            channel: 'Local SEO / Maps',
+            patients: 25,
+            cpa: '\$15.00',
+            progress: 0.8,
+          ),
           const SizedBox(height: 20),
-          _buildChannelRow(channel: 'Community Events', patients: 18, cpa: '\$45.50', progress: 0.6),
+          _buildChannelRow(
+            channel: 'Community Events',
+            patients: 18,
+            cpa: '\$45.50',
+            progress: 0.6,
+          ),
           const SizedBox(height: 20),
-          _buildChannelRow(channel: 'Direct Mail', patients: 12, cpa: '\$85.00', progress: 0.4),
+          _buildChannelRow(
+            channel: 'Direct Mail',
+            patients: 12,
+            cpa: '\$85.00',
+            progress: 0.4,
+          ),
           const SizedBox(height: 20),
-          _buildChannelRow(channel: 'Facebook Ads', patients: 8, cpa: '\$120.00', progress: 0.25),
+          _buildChannelRow(
+            channel: 'Facebook Ads',
+            patients: 8,
+            cpa: '\$120.00',
+            progress: 0.25,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildChannelRow({required String channel, required int patients, required String cpa, required double progress}) {
+  Widget _buildChannelRow({
+    required String channel,
+    required int patients,
+    required String cpa,
+    required double progress,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(channel, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
-            Text('$patients patients', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+            Text(
+              channel,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
+            Text(
+              '$patients patients',
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8),
         LinearProgressIndicator(
           value: progress,
           backgroundColor: PrimeCareTheme.colors.surfaceContainerLow,
-          valueColor: AlwaysStoppedAnimation<Color>(PrimeCareTheme.colors.navyIndigo),
+          valueColor: AlwaysStoppedAnimation<Color>(
+            PrimeCareTheme.colors.navyIndigo,
+          ),
           minHeight: 6,
           borderRadius: BorderRadius.circular(3),
         ),
         const SizedBox(height: 8),
-        Text('CPA: $cpa', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
+        Text(
+          'CPA: $cpa',
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+            fontSize: 11,
+          ),
+        ),
       ],
     );
   }
@@ -330,9 +412,13 @@ class _CpaLinePainter extends CustomPainter {
     canvas.drawPath(path, paint);
 
     // Draw dots
-    final dotPaint = Paint()..color = color..style = PaintingStyle.fill;
-    final whitePaint = Paint()..color = Colors.white..style = PaintingStyle.fill;
-    
+    final dotPaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+    final whitePaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
     for (var point in points) {
       canvas.drawCircle(point, 6, dotPaint);
       canvas.drawCircle(point, 3, whitePaint);

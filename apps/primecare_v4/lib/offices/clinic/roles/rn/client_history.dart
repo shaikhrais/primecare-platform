@@ -12,7 +12,8 @@ class ClientHistoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Client History',
-      subtitle: 'Comprehensive longitudinal health records and clinical history.',
+      subtitle:
+          'Comprehensive longitudinal health records and clinical history.',
       kpiCards: [
         KPICardData(
           title: 'Total Records Viewed',
@@ -54,7 +55,10 @@ class ClientHistoryScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Timeline of Encounters', style: PrimeCareTheme.typography.h2),
+                  Text(
+                    'Timeline of Encounters',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
                   const SizedBox(),
                 ],
               ),
@@ -95,7 +99,9 @@ class ClientHistoryScreen extends ConsumerWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: isSelected ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05) : Colors.transparent,
+        color: isSelected
+            ? PrimeCareTheme.colors.navyIndigo.withOpacity(0.05)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -105,17 +111,30 @@ class ClientHistoryScreen extends ConsumerWidget {
             name,
             style: PrimeCareTheme.typography.body.copyWith(
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              color: isSelected ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.textPrimary,
+              color: isSelected
+                  ? PrimeCareTheme.colors.navyIndigo
+                  : PrimeCareTheme.colors.textPrimary,
             ),
           ),
           if (isSelected)
-            Icon(LucideIcons.chevronRight, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+            Icon(
+              LucideIcons.chevronRight,
+              size: 16,
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildTimelineEvent(String title, String subtitle, String date, String details, IconData icon, Color color) {
+  Widget _buildTimelineEvent(
+    String title,
+    String subtitle,
+    String date,
+    String details,
+    IconData icon,
+    Color color,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24.0),
       child: Row(
@@ -138,18 +157,32 @@ class ClientHistoryScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(title, style: PrimeCareTheme.typography.h3),
-                    Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold)),
+                    Text(
+                      date,
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(subtitle, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  subtitle,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+                    color: PrimeCareTheme.colors.surfaceContainerHighest
+                        .withOpacity(0.3),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+                    border: Border.all(
+                      color: PrimeCareTheme.colors.surfaceContainerHighest,
+                    ),
                   ),
                   child: Text(details, style: PrimeCareTheme.typography.body),
                 ),

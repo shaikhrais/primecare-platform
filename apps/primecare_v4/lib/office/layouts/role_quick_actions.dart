@@ -8,7 +8,8 @@ class RoleQuickActionsMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final specificActions = ProviderTopBarConfig.roleSpecificQuickActions[role] ?? [];
+    final specificActions =
+        ProviderTopBarConfig.roleSpecificQuickActions[role] ?? [];
 
     return PopupMenuButton<String>(
       icon: Row(
@@ -16,29 +17,21 @@ class RoleQuickActionsMenu extends StatelessWidget {
         children: const [
           Icon(Icons.add_circle, color: Colors.blueAccent),
           SizedBox(width: 4),
-          Text(
-            'Quick Add',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          Text('Quick Add', style: TextStyle(fontWeight: FontWeight.bold)),
           Icon(Icons.arrow_drop_down),
         ],
       ),
       onSelected: (value) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Triggered Action: $value')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Triggered Action: $value')));
       },
       itemBuilder: (BuildContext context) {
         final List<PopupMenuEntry<String>> menuItems = [];
 
         // Add Common Actions
         for (var action in ProviderTopBarConfig.commonQuickActions) {
-          menuItems.add(
-            PopupMenuItem(
-              value: action,
-              child: Text(action),
-            ),
-          );
+          menuItems.add(PopupMenuItem(value: action, child: Text(action)));
         }
 
         // Add Role Specific Actions if available
@@ -63,7 +56,10 @@ class RoleQuickActionsMenu extends StatelessWidget {
                 value: action,
                 child: Text(
                   action,
-                  style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.blueAccent),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blueAccent,
+                  ),
                 ),
               ),
             );

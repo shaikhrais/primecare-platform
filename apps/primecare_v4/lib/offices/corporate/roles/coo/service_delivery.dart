@@ -19,7 +19,7 @@ class ServiceDeliveryScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                   _buildKPIs(context),
+                  _buildKPIs(context),
                   const SizedBox(height: 24),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,11 +27,11 @@ class ServiceDeliveryScreen extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Column(
-                            children: [
-                                _buildServiceDeliveryTable(context),
-                                const SizedBox(height: 24),
-                                _buildCarePlanAdherence(context),
-                            ],
+                          children: [
+                            _buildServiceDeliveryTable(context),
+                            const SizedBox(height: 24),
+                            _buildCarePlanAdherence(context),
+                          ],
                         ),
                       ),
                       const SizedBox(width: 24),
@@ -66,31 +66,43 @@ class ServiceDeliveryScreen extends StatelessWidget {
             Text(
               'Service Delivery Quality',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               'Monitor care plan adherence, patient satisfaction, and service KPIs',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white70,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
             ),
           ],
         ),
         Row(
           children: [
-            _buildActionIconButton(context, LucideIcons.calendar, 'Select Period'),
+            _buildActionIconButton(
+              context,
+              LucideIcons.calendar,
+              'Select Period',
+            ),
             const SizedBox(width: 12),
-            _buildActionIconButton(context, LucideIcons.download, 'Export Data'),
+            _buildActionIconButton(
+              context,
+              LucideIcons.download,
+              'Export Data',
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildActionIconButton(BuildContext context, IconData icon, String tooltip) {
+  Widget _buildActionIconButton(
+    BuildContext context,
+    IconData icon,
+    String tooltip,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.1),
@@ -108,18 +120,61 @@ class ServiceDeliveryScreen extends StatelessWidget {
   Widget _buildKPIs(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: _buildKPIUnit(context, 'Avg Patient Sat.', '4.8/5.0', LucideIcons.star, '+0.1', PrimeCareTheme.emeraldTeal)),
+        Expanded(
+          child: _buildKPIUnit(
+            context,
+            'Avg Patient Sat.',
+            '4.8/5.0',
+            LucideIcons.star,
+            '+0.1',
+            PrimeCareTheme.emeraldTeal,
+          ),
+        ),
         const SizedBox(width: 16),
-        Expanded(child: _buildKPIUnit(context, 'Time to First Care', '4.2h', LucideIcons.clock, '-0.8h', PrimeCareTheme.emeraldTeal)),
+        Expanded(
+          child: _buildKPIUnit(
+            context,
+            'Time to First Care',
+            '4.2h',
+            LucideIcons.clock,
+            '-0.8h',
+            PrimeCareTheme.emeraldTeal,
+          ),
+        ),
         const SizedBox(width: 16),
-        Expanded(child: _buildKPIUnit(context, 'Care Plan Adherence', '95.2%', LucideIcons.fileCheck, '+2.1%', PrimeCareTheme.emeraldTeal)),
+        Expanded(
+          child: _buildKPIUnit(
+            context,
+            'Care Plan Adherence',
+            '95.2%',
+            LucideIcons.fileCheck,
+            '+2.1%',
+            PrimeCareTheme.emeraldTeal,
+          ),
+        ),
         const SizedBox(width: 16),
-        Expanded(child: _buildKPIUnit(context, 'Critical Alerts', '4', LucideIcons.siren, '-1', Colors.orange)),
+        Expanded(
+          child: _buildKPIUnit(
+            context,
+            'Critical Alerts',
+            '4',
+            LucideIcons.siren,
+            '-1',
+            Colors.orange,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildKPIUnit(BuildContext context, String title, String value, IconData icon, String trend, Color trendColor) {
+  Widget _buildKPIUnit(
+    BuildContext context,
+    String title,
+    String value,
+    IconData icon,
+    String trend,
+    Color trendColor,
+  ) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -159,17 +214,17 @@ class ServiceDeliveryScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
-                    children: [
-                        Text(
-                          trend,
-                          style: TextStyle(
-                            color: trendColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                    ],
-                )
+                  children: [
+                    Text(
+                      trend,
+                      style: TextStyle(
+                        color: trendColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -187,14 +242,14 @@ class ServiceDeliveryScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                Text(
+              Text(
                 'Branch Delivery Metrics',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-                ),
-                const Icon(LucideIcons.moreHorizontal, color: Colors.white70),
+              ),
+              const Icon(LucideIcons.moreHorizontal, color: Colors.white70),
             ],
           ),
           const SizedBox(height: 24),
@@ -213,10 +268,34 @@ class ServiceDeliveryScreen extends StatelessWidget {
                 DataColumn(label: Text('Adherence')),
               ],
               rows: [
-                _buildDataRow('Toronto Central', '4.9', '3.5h', '98%', PrimeCareTheme.emeraldTeal),
-                _buildDataRow('Vancouver West', '4.7', '4.5h', '92%', Colors.white),
-                _buildDataRow('Calgary North', '4.5', '5.2h', '88%', Colors.orange),
-                _buildDataRow('Montreal Hub', '4.8', '3.8h', '96%', PrimeCareTheme.emeraldTeal),
+                _buildDataRow(
+                  'Toronto Central',
+                  '4.9',
+                  '3.5h',
+                  '98%',
+                  PrimeCareTheme.emeraldTeal,
+                ),
+                _buildDataRow(
+                  'Vancouver West',
+                  '4.7',
+                  '4.5h',
+                  '92%',
+                  Colors.white,
+                ),
+                _buildDataRow(
+                  'Calgary North',
+                  '4.5',
+                  '5.2h',
+                  '88%',
+                  Colors.orange,
+                ),
+                _buildDataRow(
+                  'Montreal Hub',
+                  '4.8',
+                  '3.8h',
+                  '96%',
+                  PrimeCareTheme.emeraldTeal,
+                ),
               ],
             ),
           ),
@@ -225,199 +304,273 @@ class ServiceDeliveryScreen extends StatelessWidget {
     );
   }
 
-  DataRow _buildDataRow(String branch, String score, String time, String adherence, Color adherenceColor) {
+  DataRow _buildDataRow(
+    String branch,
+    String score,
+    String time,
+    String adherence,
+    Color adherenceColor,
+  ) {
     return DataRow(
       cells: [
-        DataCell(Text(branch, style: const TextStyle(fontWeight: FontWeight.w500))),
-        DataCell(Row(
+        DataCell(
+          Text(branch, style: const TextStyle(fontWeight: FontWeight.w500)),
+        ),
+        DataCell(
+          Row(
             children: [
-                const Icon(LucideIcons.star, color: Colors.amber, size: 14),
-                const SizedBox(width: 4),
-                Text(score),
-            ]
-        )),
+              const Icon(LucideIcons.star, color: Colors.amber, size: 14),
+              const SizedBox(width: 4),
+              Text(score),
+            ],
+          ),
+        ),
         DataCell(Text(time)),
         DataCell(
-             Text(
-                adherence,
-                style: TextStyle(color: adherenceColor, fontWeight: FontWeight.bold),
-             )
+          Text(
+            adherence,
+            style: TextStyle(
+              color: adherenceColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ],
     );
   }
 
   Widget _buildCriticalCareAlerts(BuildContext context) {
-      return ClinicalGlassPanel(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(LucideIcons.siren, color: Colors.redAccent, size: 24),
-                const SizedBox(width: 12),
-                Text(
-                  'Critical Care Alerts',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(LucideIcons.siren, color: Colors.redAccent, size: 24),
+              const SizedBox(width: 12),
+              Text(
+                'Critical Care Alerts',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          _buildAlertItem(
+            'Medication Missed (x3)',
+            'Patient #1092 • Calgary North',
+            'Immediate Follow-up required',
+            Colors.redAccent,
+          ),
+          const Divider(color: Colors.white12, height: 32),
+          _buildAlertItem(
+            'No-Show for Wound Care',
+            'Patient #4410 • Vancouver West',
+            'RN dispatched',
+            Colors.orange,
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white.withValues(alpha: 0.1),
+                foregroundColor: Colors.white,
+                elevation: 0,
+                side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: () {},
+              child: const Text('View All Incident Reports'),
             ),
-            const SizedBox(height: 24),
-            _buildAlertItem('Medication Missed (x3)', 'Patient #1092 • Calgary North', 'Immediate Follow-up required', Colors.redAccent),
-            const Divider(color: Colors.white12, height: 32),
-             _buildAlertItem('No-Show for Wound Care', 'Patient #4410 • Vancouver West', 'RN dispatched', Colors.orange),
-             const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white.withValues(alpha: 0.1),
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                ),
-                onPressed: () {},
-                child: const Text('View All Incident Reports'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAlertItem(
+    String title,
+    String desc,
+    String action,
+    Color color,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 8,
+              height: 8,
+              decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
-      );
+        const SizedBox(height: 6),
+        Text(desc, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+        const SizedBox(height: 6),
+        Text(
+          action,
+          style: TextStyle(
+            color: color,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
   }
 
-    Widget _buildAlertItem(String title, String desc, String action, Color color) {
-        return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildCarePlanAdherence(BuildContext context) {
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                 Row(
-                     children: [
-                         Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: color)),
-                         const SizedBox(width: 8),
-                         Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                     ]
-                 ),
-                 const SizedBox(height: 6),
-                 Text(desc, style: const TextStyle(color: Colors.white70, fontSize: 13)),
-                 const SizedBox(height: 6),
-                 Text(action, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold)),
+              Text(
+                'Care Plan Adherence Gap Analysis',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
-        );
-    }
-
-    Widget _buildCarePlanAdherence(BuildContext context) {
-      return ClinicalGlassPanel(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-             Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                    Text(
-                    'Care Plan Adherence Gap Analysis',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                    ),
-                    ),
-                ],
-            ),
-            const SizedBox(height: 24),
-            Row(
-                 children: [
-                     Expanded(child: _buildAdherenceBar('Medication', 0.98)),
-                      const SizedBox(width: 16),
-                     Expanded(child: _buildAdherenceBar('Therapy', 0.85)),
-                      const SizedBox(width: 16),
-                     Expanded(child: _buildAdherenceBar('ADL Support', 0.95)),
-                      const SizedBox(width: 16),
-                     Expanded(child: _buildAdherenceBar('Vitals Check', 0.99)),
-                 ]
-            )
-          ],
-        ),
-      );
+          ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(child: _buildAdherenceBar('Medication', 0.98)),
+              const SizedBox(width: 16),
+              Expanded(child: _buildAdherenceBar('Therapy', 0.85)),
+              const SizedBox(width: 16),
+              Expanded(child: _buildAdherenceBar('ADL Support', 0.95)),
+              const SizedBox(width: 16),
+              Expanded(child: _buildAdherenceBar('Vitals Check', 0.99)),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildAdherenceBar(String label, double value) {
-         Color barColor = value >= 0.95 ? PrimeCareTheme.emeraldTeal : Colors.orange;
-         return Column(
-             children: [
-                 SizedBox(
-                     height: 100,
-                     width: 40,
-                     child: Stack(
-                         alignment: Alignment.bottomCenter,
-                         children: [
-                             Container(
-                                 decoration: BoxDecoration(color: Colors.white12, borderRadius: BorderRadius.circular(4)),
-                             ),
-                             FractionallySizedBox(
-                                 heightFactor: value,
-                                 child: Container(
-                                     decoration: BoxDecoration(color: barColor, borderRadius: BorderRadius.circular(4)),
-                                 ),
-                             )
-                         ]
-                     )
-                 ),
-                 const SizedBox(height: 12),
-                 Text('${(value * 100).toInt()}%', style: TextStyle(color: barColor, fontWeight: FontWeight.bold, fontSize: 16)),
-                 const SizedBox(height: 4),
-                 Text(label, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white70, fontSize: 11)),
-             ]
-         );
-    }
-
-    Widget _buildClientSatisfaction(BuildContext context) {
-         return ClinicalGlassPanel(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                     Row(
-                        children: [
-                            Icon(LucideIcons.smilePlus, color: PrimeCareTheme.emeraldTeal, size: 24),
-                            const SizedBox(width: 12),
-                            Text(
-                            'Client Feedback Trends',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                            ),
-                            ),
-                        ],
-                    ),
-                    const SizedBox(height: 24),
-                    _buildFeedbackRow('Caregiver Punctuality', '4.9'),
-                    const SizedBox(height: 12),
-                    _buildFeedbackRow('Care Quality', '4.8'),
-                    const SizedBox(height: 12),
-                    _buildFeedbackRow('Communication', '4.5'),
-                ]
-            )
-        );
-    }
-
-    Widget _buildFeedbackRow(String label, String score) {
-        return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    Color barColor = value >= 0.95 ? PrimeCareTheme.emeraldTeal : Colors.orange;
+    return Column(
+      children: [
+        SizedBox(
+          height: 100,
+          width: 40,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-                Text(label, style: const TextStyle(color: Colors.white70)),
-                Row(
-                    children: [
-                         const Icon(LucideIcons.star, color: Colors.amber, size: 14),
-                         const SizedBox(width: 4),
-                         Text(score, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                    ]
-                )
-            ]
-        );
-    }
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white12,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+              FractionallySizedBox(
+                heightFactor: value,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: barColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          '${(value * 100).toInt()}%',
+          style: TextStyle(
+            color: barColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.white70, fontSize: 11),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildClientSatisfaction(BuildContext context) {
+    return ClinicalGlassPanel(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                LucideIcons.smilePlus,
+                color: PrimeCareTheme.emeraldTeal,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Client Feedback Trends',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          _buildFeedbackRow('Caregiver Punctuality', '4.9'),
+          const SizedBox(height: 12),
+          _buildFeedbackRow('Care Quality', '4.8'),
+          const SizedBox(height: 12),
+          _buildFeedbackRow('Communication', '4.5'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeedbackRow(String label, String score) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: const TextStyle(color: Colors.white70)),
+        Row(
+          children: [
+            const Icon(LucideIcons.star, color: Colors.amber, size: 14),
+            const SizedBox(width: 4),
+            Text(
+              score,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }

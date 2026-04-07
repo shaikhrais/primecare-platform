@@ -12,7 +12,8 @@ class SplashScreen extends ConsumerStatefulWidget {
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends ConsumerState<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _fadeAnimation;
   late final Animation<double> _scaleAnimation;
@@ -20,15 +21,22 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.5, curve: Curves.easeIn)),
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
+      ),
     );
-    
-    _scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-    );
+
+    _scaleAnimation = Tween<double>(
+      begin: 0.9,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
     _controller.forward();
 
@@ -38,7 +46,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
 
   void _checkAuthAndNavigate() {
     if (!mounted) return;
-    
+
     final authState = ref.read(authProvider);
     if (authState.isAuthenticated) {
       final role = authState.role ?? '';
@@ -80,10 +88,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                             color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 20,
                             spreadRadius: 5,
-                          )
-                        ]
+                          ),
+                        ],
                       ),
-                      child: const Icon(Icons.health_and_safety, size: 72, color: Colors.white),
+                      child: const Icon(
+                        Icons.health_and_safety,
+                        size: 72,
+                        color: Colors.white,
+                      ),
                     ),
                     const SizedBox(height: 32),
                     // Typography
@@ -114,7 +126,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                       width: 200,
                       child: LinearProgressIndicator(
                         backgroundColor: Colors.white.withValues(alpha: 0.2),
-                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          Colors.white,
+                        ),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
@@ -128,7 +142,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                         fontWeight: FontWeight.w800,
                         color: Colors.white.withValues(alpha: 0.5),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

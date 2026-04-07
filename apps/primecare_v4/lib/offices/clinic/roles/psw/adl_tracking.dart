@@ -12,9 +12,16 @@ class PswAdlTrackingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'ADL Tracking',
-      subtitle: 'Log Activities of Daily Living assistance provided to clients.',
+      subtitle:
+          'Log Activities of Daily Living assistance provided to clients.',
       kpiCards: [
-        KPICardData(title: 'Logs Today', value: '12', icon: LucideIcons.clipboardList, trend: 2.0, trendLabel: 'on track'),
+        KPICardData(
+          title: 'Logs Today',
+          value: '12',
+          icon: LucideIcons.clipboardList,
+          trend: 2.0,
+          trendLabel: 'on track',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,9 +31,17 @@ class PswAdlTrackingScreen extends ConsumerWidget {
             children: [
               Text('ADL Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Bathing/Hygiene', 5, PrimeCareTheme.colors.navyIndigo),
+              _buildFilterRow(
+                'Bathing/Hygiene',
+                5,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
               _buildFilterRow('Dressing', 4, PrimeCareTheme.colors.emeraldTeal),
-              _buildFilterRow('Feeding', 3, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Feeding',
+                3,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -37,11 +52,11 @@ class PswAdlTrackingScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Logs', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Recent Logs', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('New ADL Log'),
@@ -50,23 +65,23 @@ class PswAdlTrackingScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildAdlCard(
-                 'Ruth Bader Ginsburg',
-                 'Bathing/Hygiene',
-                 'May 14, 2024 • 09:30',
-                 'Assisted with morning shower. Client required mod-assist for lower body washing. Skin intact.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
-               _buildAdlCard(
-                 'Thurgood Marshall',
-                 'Feeding',
-                 'May 14, 2024 • 12:15',
-                 'Assisted with lunch setup. Client fed self independently after containers were opened. Consumed 80% of meal.',
-                 PrimeCareTheme.colors.lavenderLustre
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildAdlCard(
+                'Ruth Bader Ginsburg',
+                'Bathing/Hygiene',
+                'May 14, 2024 • 09:30',
+                'Assisted with morning shower. Client required mod-assist for lower body washing. Skin intact.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildAdlCard(
+                'Thurgood Marshall',
+                'Feeding',
+                'May 14, 2024 • 12:15',
+                'Assisted with lunch setup. Client fed self independently after containers were opened. Consumed 80% of meal.',
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -82,19 +97,34 @@ class PswAdlTrackingScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildAdlCard(String clientName, String category, String time, String notes, Color themeColor) {
-     return Container(
+  Widget _buildAdlCard(
+    String clientName,
+    String category,
+    String time,
+    String notes,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -105,25 +135,39 @@ class PswAdlTrackingScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(notes, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(notes, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

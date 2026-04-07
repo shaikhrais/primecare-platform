@@ -12,9 +12,12 @@ class ComplianceTrainingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Mandatory Compliance Training',
-      subtitle: 'Monitor staff engagement with regulatory, safety, and corporate compliance training modules.',
+      subtitle:
+          'Monitor staff engagement with regulatory, safety, and corporate compliance training modules.',
       headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search modules or staff tracking...'),
+        ClinicalSearchTextField(
+          hintText: 'Search modules or staff tracking...',
+        ),
         const SizedBox(width: 16),
         ClinicalGlassButton(
           onPressed: () {},
@@ -53,9 +56,7 @@ class ComplianceTrainingScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildTrainingPriorities(),
       ],
-      mainContent: [
-        _buildComplianceModuleList(),
-      ],
+      mainContent: [_buildComplianceModuleList()],
     );
   }
 
@@ -67,7 +68,11 @@ class ComplianceTrainingScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.barChart2, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.barChart2,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('By Department', style: PrimeCareTheme.typography.h3),
             ],
@@ -86,15 +91,22 @@ class ComplianceTrainingScreen extends ConsumerWidget {
   }
 
   Widget _buildDeptRow(String name, double percentage) {
-    Color color = percentage >= 95 ? PrimeCareTheme.colors.emeraldTeal : percentage >= 90 ? PrimeCareTheme.colors.amberWarning : PrimeCareTheme.colors.coralRed;
+    Color color = percentage >= 95
+        ? PrimeCareTheme.colors.emeraldTeal
+        : percentage >= 90
+        ? PrimeCareTheme.colors.amberWarning
+        : PrimeCareTheme.colors.coralRed;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(name, style: PrimeCareTheme.typography.body),
-        Text('$percentage%', style: PrimeCareTheme.typography.body.copyWith(
-          color: color,
-          fontWeight: FontWeight.bold,
-        )),
+        Text(
+          '$percentage%',
+          style: PrimeCareTheme.typography.body.copyWith(
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -102,23 +114,49 @@ class ComplianceTrainingScreen extends ConsumerWidget {
   Widget _buildTrainingPriorities() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
-      border: Border.all(color: PrimeCareTheme.colors.coralRed.withOpacity(0.3)),
+      border: Border.all(
+        color: PrimeCareTheme.colors.coralRed.withOpacity(0.3),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(LucideIcons.alertOctagon, color: PrimeCareTheme.colors.coralRed, size: 20),
+              Icon(
+                LucideIcons.alertOctagon,
+                color: PrimeCareTheme.colors.coralRed,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Requires Attention', style: PrimeCareTheme.typography.h3),
             ],
           ),
           const SizedBox(height: 16),
-          Text('Workplace Violence Prev.', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-          Text('82% (Target: 100%)', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.coralRed)),
+          Text(
+            'Workplace Violence Prev.',
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '82% (Target: 100%)',
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.coralRed,
+            ),
+          ),
           const SizedBox(height: 12),
-          Text('Cybersecurity Fundamentals', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-          Text('74% (Target: 100%)', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.coralRed)),
+          Text(
+            'Cybersecurity Fundamentals',
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '74% (Target: 100%)',
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.coralRed,
+            ),
+          ),
         ],
       ),
     );
@@ -134,7 +172,10 @@ class ComplianceTrainingScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Core Compliance Modules', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Core Compliance Modules',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Send Reminders',
@@ -180,7 +221,9 @@ class ComplianceTrainingScreen extends ConsumerWidget {
     required String status,
   }) {
     final isOnTrack = status == 'On Track';
-    final statusColor = isOnTrack ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
+    final statusColor = isOnTrack
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -193,7 +236,11 @@ class ComplianceTrainingScreen extends ConsumerWidget {
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(isOnTrack ? LucideIcons.checkSquare : LucideIcons.alertTriangle, color: statusColor, size: 20),
+            child: Icon(
+              isOnTrack ? LucideIcons.checkSquare : LucideIcons.alertTriangle,
+              color: statusColor,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -204,11 +251,19 @@ class ComplianceTrainingScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.users, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.users,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(audience, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.repeat, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.repeat,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(frequency, style: PrimeCareTheme.typography.label),
                   ],
@@ -217,30 +272,35 @@ class ComplianceTrainingScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  '$completionRate%',
-                  style: PrimeCareTheme.typography.h3.copyWith(
-                    color: statusColor,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '$completionRate%',
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: statusColor,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.cloudGray,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  status,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: isOnTrack
+                        ? PrimeCareTheme.colors.navyIndigo
+                        : PrimeCareTheme.colors.coralRed,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 4),
-                Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: PrimeCareTheme.colors.cloudGray,
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Text(
-                   status,
-                   style: PrimeCareTheme.typography.label.copyWith(
-                     color: isOnTrack ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.coralRed,
-                     fontWeight: FontWeight.bold,
-                   ),
-                 ),
-                ),
-             ],
+              ),
+            ],
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-﻿import '../dtos/stitch_pharmacy_00141_dto.dart';
+import '../dtos/stitch_pharmacy_00141_dto.dart';
 import '../../domain/models/stitch_pharmacy_00141_view_model.dart';
 
 class StitchPharmacy00141Mapper {

@@ -11,7 +11,8 @@ class PswDashboardScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('PSW Dashboard'),
         actions: [
-          IconButton(key: const Key('data-status-id=shared-global-psw-action-1'), 
+          IconButton(
+            key: const Key('data-status-id=shared-global-psw-action-1'),
             icon: const Icon(Icons.logout),
             onPressed: () {
               ref.read(authProvider.notifier).logout();
@@ -23,7 +24,11 @@ class PswDashboardScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.health_and_safety, size: 80, color: Color(0xFF03DAC6)),
+            const Icon(
+              Icons.health_and_safety,
+              size: 80,
+              color: Color(0xFF03DAC6),
+            ),
             const SizedBox(height: 24),
             Text(
               'Welcome, Personal Support Worker',

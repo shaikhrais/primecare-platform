@@ -9,16 +9,18 @@ class FeatureApiRepository {
 
   Future<List<FeatureDto>> getFeatures(String endpointKey) async {
     final path = ApiConfig.endpoints[endpointKey] ?? '/v1/office/$endpointKey';
-    
+
     final parts = path.split('/').where((p) => p.isNotEmpty).toList();
     final dataKey = parts.last.replaceAll('-', '_');
 
     final response = await apiClient.get(path);
     final json = response.data;
-    
+
     if (json is Map && json.containsKey(dataKey)) {
       final list = json[dataKey] as List<dynamic>;
-      return list.map((item) => FeatureDto.fromJson(item as Map<String, dynamic>)).toList();
+      return list
+          .map((item) => FeatureDto.fromJson(item as Map<String, dynamic>))
+          .toList();
     }
     return [];
   }
@@ -34,7 +36,7 @@ class FeatureMockRepository {
         'title': 'Local Mock Topology',
         'status': 'Offline Mock',
         'type': 'GRID',
-      }
+      },
     ];
   }
 }

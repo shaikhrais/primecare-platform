@@ -27,14 +27,28 @@ class PatientAppointmentsScreen extends ConsumerWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
-              padding: const EdgeInsets.symmetric(horizontal: PrimeCareTheme.spacing5, vertical: PrimeCareTheme.spacing3),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PrimeCareTheme.radiusXl)),
+              padding: const EdgeInsets.symmetric(
+                horizontal: PrimeCareTheme.spacing5,
+                vertical: PrimeCareTheme.spacing3,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(PrimeCareTheme.radiusXl),
+              ),
             ),
             child: Row(
               children: [
-                const Icon(LucideIcons.calendarPlus, color: PrimeCareTheme.onPrimary, size: 18),
+                const Icon(
+                  LucideIcons.calendarPlus,
+                  color: PrimeCareTheme.onPrimary,
+                  size: 18,
+                ),
                 const SizedBox(width: PrimeCareTheme.spacing2),
-                Text('Book New Visit', style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.onPrimary)),
+                Text(
+                  'Book New Visit',
+                  style: PrimeCareTheme.titleSmall.copyWith(
+                    color: PrimeCareTheme.onPrimary,
+                  ),
+                ),
               ],
             ),
           ),
@@ -81,26 +95,43 @@ class PatientAppointmentsScreen extends ConsumerWidget {
             child: ClinicalGlassPanel(
               padding: const EdgeInsets.all(PrimeCareTheme.spacing5),
               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                    Text('Past Visits', style: PrimeCareTheme.titleLarge),
-                    const SizedBox(height: PrimeCareTheme.spacing4),
-                    _buildPastAppointmentRow('Dr. Sarah Smith', 'Oct 5, 2026', 'Completed'),
-                    const SizedBox(height: PrimeCareTheme.spacing3),
-                    _buildPastAppointmentRow('Dr. Chen', 'Sep 22, 2026', 'Completed'),
-                    const SizedBox(height: PrimeCareTheme.spacing3),
-                    _buildPastAppointmentRow('Dietitian Ops', 'Sep 10, 2026', 'Cancelled'),
-                    const SizedBox(height: PrimeCareTheme.spacing5),
-                    Center(
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('View Full History', style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.primary)),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Past Visits', style: PrimeCareTheme.titleLarge),
+                  const SizedBox(height: PrimeCareTheme.spacing4),
+                  _buildPastAppointmentRow(
+                    'Dr. Sarah Smith',
+                    'Oct 5, 2026',
+                    'Completed',
+                  ),
+                  const SizedBox(height: PrimeCareTheme.spacing3),
+                  _buildPastAppointmentRow(
+                    'Dr. Chen',
+                    'Sep 22, 2026',
+                    'Completed',
+                  ),
+                  const SizedBox(height: PrimeCareTheme.spacing3),
+                  _buildPastAppointmentRow(
+                    'Dietitian Ops',
+                    'Sep 10, 2026',
+                    'Cancelled',
+                  ),
+                  const SizedBox(height: PrimeCareTheme.spacing5),
+                  Center(
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'View Full History',
+                        style: PrimeCareTheme.titleSmall.copyWith(
+                          color: PrimeCareTheme.primary,
+                        ),
                       ),
-                    )
-                 ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -124,7 +155,7 @@ class PatientAppointmentsScreen extends ConsumerWidget {
             blurRadius: 24,
             spreadRadius: 2,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Stack(
@@ -142,43 +173,86 @@ class PatientAppointmentsScreen extends ConsumerWidget {
                         CircleAvatar(
                           radius: 24,
                           backgroundColor: PrimeCareTheme.surfaceContainerHigh,
-                          child: const Icon(LucideIcons.user, color: PrimeCareTheme.primary, size: 28),
+                          child: const Icon(
+                            LucideIcons.user,
+                            color: PrimeCareTheme.primary,
+                            size: 28,
+                          ),
                         ),
                         const SizedBox(width: PrimeCareTheme.spacing3),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(providerName, style: PrimeCareTheme.titleMedium),
-                            Text(specialty, style: PrimeCareTheme.labelMedium.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+                            Text(
+                              providerName,
+                              style: PrimeCareTheme.titleMedium,
+                            ),
+                            Text(
+                              specialty,
+                              style: PrimeCareTheme.labelMedium.copyWith(
+                                color: PrimeCareTheme.onSurfaceVariant,
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
-                        color: type == 'Virtual' ? PrimeCareTheme.secondaryContainer : PrimeCareTheme.surfaceContainerHigh,
-                        borderRadius: BorderRadius.circular(PrimeCareTheme.radiusFull),
+                        color: type == 'Virtual'
+                            ? PrimeCareTheme.secondaryContainer
+                            : PrimeCareTheme.surfaceContainerHigh,
+                        borderRadius: BorderRadius.circular(
+                          PrimeCareTheme.radiusFull,
+                        ),
                       ),
                       child: Row(
                         children: [
-                          Icon(type == 'Virtual' ? LucideIcons.video : LucideIcons.mapPin, size: 14, color: type == 'Virtual' ? PrimeCareTheme.onSecondaryContainer : PrimeCareTheme.onSurfaceVariant),
+                          Icon(
+                            type == 'Virtual'
+                                ? LucideIcons.video
+                                : LucideIcons.mapPin,
+                            size: 14,
+                            color: type == 'Virtual'
+                                ? PrimeCareTheme.onSecondaryContainer
+                                : PrimeCareTheme.onSurfaceVariant,
+                          ),
                           const SizedBox(width: 4),
-                          Text(type, style: PrimeCareTheme.labelSmall.copyWith(color: type == 'Virtual' ? PrimeCareTheme.onSecondaryContainer : PrimeCareTheme.onSurfaceVariant, fontWeight: FontWeight.bold)),
+                          Text(
+                            type,
+                            style: PrimeCareTheme.labelSmall.copyWith(
+                              color: type == 'Virtual'
+                                  ? PrimeCareTheme.onSecondaryContainer
+                                  : PrimeCareTheme.onSurfaceVariant,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: PrimeCareTheme.spacing4),
                 Row(
                   children: [
                     Expanded(
-                      child: _buildTimeDetailBox(LucideIcons.calendar, 'Date', date),
+                      child: _buildTimeDetailBox(
+                        LucideIcons.calendar,
+                        'Date',
+                        date,
+                      ),
                     ),
                     const SizedBox(width: PrimeCareTheme.spacing3),
                     Expanded(
-                      child: _buildTimeDetailBox(LucideIcons.clock, 'Time', time),
+                      child: _buildTimeDetailBox(
+                        LucideIcons.clock,
+                        'Time',
+                        time,
+                      ),
                     ),
                   ],
                 ),
@@ -189,12 +263,24 @@ class PatientAppointmentsScreen extends ConsumerWidget {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: PrimeCareTheme.surfaceContainerHighest,
+                          backgroundColor:
+                              PrimeCareTheme.surfaceContainerHighest,
                           elevation: 0,
-                          padding: const EdgeInsets.symmetric(vertical: PrimeCareTheme.spacing3),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PrimeCareTheme.radiusLg)),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: PrimeCareTheme.spacing3,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              PrimeCareTheme.radiusLg,
+                            ),
+                          ),
                         ),
-                        child: Text('Reschedule', style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.primary)),
+                        child: Text(
+                          'Reschedule',
+                          style: PrimeCareTheme.titleSmall.copyWith(
+                            color: PrimeCareTheme.primary,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: PrimeCareTheme.spacing3),
@@ -202,15 +288,28 @@ class PatientAppointmentsScreen extends ConsumerWidget {
                       child: OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: PrimeCareTheme.error.withOpacity(0.3)),
-                          padding: const EdgeInsets.symmetric(vertical: PrimeCareTheme.spacing3),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PrimeCareTheme.radiusLg)),
+                          side: BorderSide(
+                            color: PrimeCareTheme.error.withOpacity(0.3),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: PrimeCareTheme.spacing3,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              PrimeCareTheme.radiusLg,
+                            ),
+                          ),
                         ),
-                        child: Text('Cancel', style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.error)),
+                        child: Text(
+                          'Cancel',
+                          style: PrimeCareTheme.titleSmall.copyWith(
+                            color: PrimeCareTheme.error,
+                          ),
+                        ),
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -233,10 +332,15 @@ class PatientAppointmentsScreen extends ConsumerWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: PrimeCareTheme.labelSmall.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+              Text(
+                label,
+                style: PrimeCareTheme.labelSmall.copyWith(
+                  color: PrimeCareTheme.onSurfaceVariant,
+                ),
+              ),
               Text(value, style: PrimeCareTheme.titleSmall),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -254,7 +358,11 @@ class PatientAppointmentsScreen extends ConsumerWidget {
           CircleAvatar(
             radius: 18,
             backgroundColor: PrimeCareTheme.surfaceContainerLow,
-            child: Icon(LucideIcons.user, size: 18, color: PrimeCareTheme.onSurfaceVariant),
+            child: Icon(
+              LucideIcons.user,
+              size: 18,
+              color: PrimeCareTheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(width: PrimeCareTheme.spacing3),
           Expanded(
@@ -262,7 +370,12 @@ class PatientAppointmentsScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(name, style: PrimeCareTheme.titleSmall),
-                Text(date, style: PrimeCareTheme.labelSmall.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+                Text(
+                  date,
+                  style: PrimeCareTheme.labelSmall.copyWith(
+                    color: PrimeCareTheme.onSurfaceVariant,
+                  ),
+                ),
               ],
             ),
           ),
@@ -270,9 +383,11 @@ class PatientAppointmentsScreen extends ConsumerWidget {
             status,
             style: PrimeCareTheme.labelSmall.copyWith(
               fontWeight: FontWeight.bold,
-              color: status == 'Completed' ? PrimeCareTheme.tertiary : PrimeCareTheme.error,
+              color: status == 'Completed'
+                  ? PrimeCareTheme.tertiary
+                  : PrimeCareTheme.error,
             ),
-          )
+          ),
         ],
       ),
     );

@@ -51,9 +51,24 @@ class SalesPerformanceScreen extends ConsumerWidget {
             children: [
               Text('Top Performers', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildRepRow('Sarah Jenkins', '125% to Quota', LucideIcons.medal, PrimeCareTheme.colors.navyIndigo),
-              _buildRepRow('Michael Chang', '110% to Quota', LucideIcons.star, PrimeCareTheme.colors.emeraldTeal),
-              _buildRepRow('David Ross', '105% to Quota', LucideIcons.star, PrimeCareTheme.colors.slateGray),
+              _buildRepRow(
+                'Sarah Jenkins',
+                '125% to Quota',
+                LucideIcons.medal,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildRepRow(
+                'Michael Chang',
+                '110% to Quota',
+                LucideIcons.star,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildRepRow(
+                'David Ross',
+                '105% to Quota',
+                LucideIcons.star,
+                PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
         ),
@@ -82,7 +97,10 @@ class SalesPerformanceScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Team Pipeline Activity', style: PrimeCareTheme.typography.h2),
+                  Text(
+                    'Team Pipeline Activity',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
                   _buildTimeframeSelector(),
                 ],
               ),
@@ -134,7 +152,12 @@ class SalesPerformanceScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildRepRow(String name, String performance, IconData icon, Color color) {
+  Widget _buildRepRow(
+    String name,
+    String performance,
+    IconData icon,
+    Color color,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -142,7 +165,13 @@ class SalesPerformanceScreen extends ConsumerWidget {
           Icon(icon, color: color, size: 20),
           const SizedBox(width: 12),
           Expanded(child: Text(name, style: PrimeCareTheme.typography.body)),
-          Text(performance, style: PrimeCareTheme.typography.label.copyWith(color: color, fontWeight: FontWeight.bold)),
+          Text(
+            performance,
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
@@ -155,7 +184,12 @@ class SalesPerformanceScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(child: Text(reason, style: PrimeCareTheme.typography.body)),
-          Text(percentage, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            percentage,
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
@@ -170,26 +204,54 @@ class SalesPerformanceScreen extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          Text('This Week', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+          Text(
+            'This Week',
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
+          ),
           const SizedBox(width: 8),
-          Icon(LucideIcons.chevronDown, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+          Icon(
+            LucideIcons.chevronDown,
+            size: 16,
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildActivityRow(String rep, String action, String deal, String value, String time, Color actionColor) {
+  Widget _buildActivityRow(
+    String rep,
+    String action,
+    String deal,
+    String value,
+    String time,
+    Color actionColor,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.5))),
+        border: Border(
+          bottom: BorderSide(
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(
+              0.5,
+            ),
+          ),
+        ),
       ),
       child: Row(
         children: [
           CircleAvatar(
             radius: 18,
             backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
-            child: Text(rep.substring(0, 1), style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+            child: Text(
+              rep.substring(0, 1),
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -199,30 +261,60 @@ class SalesPerformanceScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text(rep, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600)),
+                    Text(
+                      rep,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: actionColor.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(action, style: PrimeCareTheme.typography.label.copyWith(color: actionColor, fontSize: 10)),
+                      child: Text(
+                        action,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: actionColor,
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(deal, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  deal,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
             flex: 1,
-            child: Text(value, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.w600)),
+            child: Text(
+              value,
+              style: PrimeCareTheme.typography.body.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           Expanded(
             flex: 1,
-            child: Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray), textAlign: TextAlign.right),
+            child: Text(
+              time,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+              textAlign: TextAlign.right,
+            ),
           ),
         ],
       ),

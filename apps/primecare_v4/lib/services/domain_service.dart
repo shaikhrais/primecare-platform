@@ -8,7 +8,10 @@ class DomainService {
   // Intake Domain
   Future<Map<String, dynamic>> openCase(Map<String, dynamic> data) async {
     try {
-      final response = await _apiClient.post(ApiConfig.endpoints['intakeCases']!, body: data);
+      final response = await _apiClient.post(
+        ApiConfig.endpoints['intakeCases']!,
+        body: data,
+      );
       return response.data;
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));
@@ -18,7 +21,10 @@ class DomainService {
   // Care Plans Domain
   Future<Map<String, dynamic>> updateCarePlan(Map<String, dynamic> data) async {
     try {
-      final response = await _apiClient.post(ApiConfig.endpoints['carePlansUpdate']!, body: data);
+      final response = await _apiClient.post(
+        ApiConfig.endpoints['carePlansUpdate']!,
+        body: data,
+      );
       return response.data;
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));
@@ -26,9 +32,14 @@ class DomainService {
   }
 
   // Training Domain
-  Future<Map<String, dynamic>> completeTrainingCourse(Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> completeTrainingCourse(
+    Map<String, dynamic> data,
+  ) async {
     try {
-      final response = await _apiClient.post(ApiConfig.endpoints['trainingComplete']!, body: data);
+      final response = await _apiClient.post(
+        ApiConfig.endpoints['trainingComplete']!,
+        body: data,
+      );
       return response.data;
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));
@@ -38,7 +49,10 @@ class DomainService {
   // Support Domain
   Future<Map<String, dynamic>> escalateTicket(Map<String, dynamic> data) async {
     try {
-      final response = await _apiClient.post(ApiConfig.endpoints['supportEscalate']!, body: data);
+      final response = await _apiClient.post(
+        ApiConfig.endpoints['supportEscalate']!,
+        body: data,
+      );
       return response.data;
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));
@@ -46,9 +60,14 @@ class DomainService {
   }
 
   // Franchise Domain
-  Future<Map<String, dynamic>> updateTerritory(Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> updateTerritory(
+    Map<String, dynamic> data,
+  ) async {
     try {
-      final response = await _apiClient.post(ApiConfig.endpoints['franchiseTerritoryUpdate']!, body: data);
+      final response = await _apiClient.post(
+        ApiConfig.endpoints['franchiseTerritoryUpdate']!,
+        body: data,
+      );
       return response.data;
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));
@@ -58,7 +77,9 @@ class DomainService {
   // Reporting Domain (Fetch)
   Future<Map<String, dynamic>> getReportingSummary() async {
     try {
-      final response = await _apiClient.get(ApiConfig.endpoints['reportingSummary']!);
+      final response = await _apiClient.get(
+        ApiConfig.endpoints['reportingSummary']!,
+      );
       return response.data;
     } catch (e) {
       throw Exception(ApiErrorAdapter.mapApiError(e));

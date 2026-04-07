@@ -14,20 +14,17 @@ class LocalAssetsScreen extends ConsumerStatefulWidget {
 class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildFilters(),
-            const SizedBox(height: 32),
-            _buildAssetGallery(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildFilters(),
+          const SizedBox(height: 32),
+          _buildAssetGallery(),
+        ],
       ),
     );
   }
@@ -57,7 +54,9 @@ class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
         ),
         SizedBox(
           width: 300,
-          child: ClinicalSearchTextField(hintText: 'Search flyers, social posts...'),
+          child: ClinicalSearchTextField(
+            hintText: 'Search flyers, social posts...',
+          ),
         ),
       ],
     );
@@ -86,9 +85,11 @@ class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
             label: const Text('Download Selected'),
             style: OutlinedButton.styleFrom(
               foregroundColor: PrimeCareTheme.colors.navyIndigo,
-              side: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest),
+              side: BorderSide(
+                color: PrimeCareTheme.colors.surfaceContainerHighest,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -101,10 +102,14 @@ class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? PrimeCareTheme.colors.navyIndigo : Colors.transparent,
+          color: isActive
+              ? PrimeCareTheme.colors.navyIndigo
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isActive ? PrimeCareTheme.colors.navyIndigo : PrimeCareTheme.colors.surfaceContainerHighest,
+            color: isActive
+                ? PrimeCareTheme.colors.navyIndigo
+                : PrimeCareTheme.colors.surfaceContainerHighest,
           ),
         ),
         child: Text(
@@ -198,11 +203,23 @@ class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
             child: Container(
               decoration: BoxDecoration(
                 color: PrimeCareTheme.colors.surfaceContainerLow,
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-                border: Border(bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5))),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+                border: Border(
+                  bottom: BorderSide(
+                    color: PrimeCareTheme.colors.surfaceContainerHighest
+                        .withValues(alpha: 0.5),
+                  ),
+                ),
               ),
               child: Center(
-                child: Icon(icon, size: 48, color: PrimeCareTheme.colors.surfaceContainerHighest),
+                child: Icon(
+                  icon,
+                  size: 48,
+                  color: PrimeCareTheme.colors.surfaceContainerHighest,
+                ),
               ),
             ),
           ),
@@ -215,7 +232,10 @@ class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: statusColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
@@ -262,13 +282,25 @@ class _LocalAssetsScreenState extends ConsumerState<LocalAssetsScreen> {
                     Expanded(
                       child: ElevatedButton.icon(
                         onPressed: () {},
-                        icon: const Icon(LucideIcons.download, size: 14, color: Colors.white),
-                        label: Text('Download', style: PrimeCareTheme.typography.label.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                        icon: const Icon(
+                          LucideIcons.download,
+                          size: 14,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'Download',
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PrimeCareTheme.colors.navyIndigo,
                           elevation: 0,
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                     ),

@@ -3,8 +3,8 @@ class StitchMessaging00111Dto {
   final String type;
   final String title;
   final String status;
-  
-  StitchMessaging00111Dto.fromJson(Map<String, dynamic> json) 
+
+  StitchMessaging00111Dto.fromJson(Map<String, dynamic> json)
     : id = json['id'] ?? '',
       type = json['type'] ?? '',
       title = json['title'] ?? '',

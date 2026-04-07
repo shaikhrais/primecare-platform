@@ -14,133 +14,217 @@ class LocalMarketingDashboard extends ConsumerWidget {
     final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return metricsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-        data: (metrics) => CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Neighborhood Engagement: Hyper-Local Strategy',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primary,
-                        fontFamily: 'Outfit',
-                      ),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+      data: (metrics) => CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Neighborhood Engagement: Hyper-Local Strategy',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.primary,
+                      fontFamily: 'Outfit',
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Managing neighborhood-specific campaigns and tracking hyper-local referral sources.',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: Colors.blueGrey,
-                        fontFamily: 'Inter',
-                      ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Managing neighborhood-specific campaigns and tracking hyper-local referral sources.',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: Colors.blueGrey,
+                      fontFamily: 'Inter',
                     ),
-                    const SizedBox(height: 32),
+                  ),
+                  const SizedBox(height: 32),
 
-                    // LOCAL MARKETING KPI ROW
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                        return Wrap(
-                          spacing: 16,
-                          runSpacing: 16,
-                          children: metrics.kpis.map((kpi) => _buildKpi(
-                            cardWidth, 
-                            kpi.title, 
-                            kpi.value, 
-                            _getIcon(kpi.title), 
-                            _getStatusColor(kpi.status), 
-                            kpi.subtitle
-                          )).toList(),
-                        );
-                      },
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // LEFT: Campaign Roadmap
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Hyper-Local Campaign Roadmap', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  children: [
-                                    _buildCampaignRow('North End GP Referral Drive', 'GP-204 Targeted', 'ACTIVE', Colors.red),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildCampaignRow('Riverside Community Booth', 'Event: Local Square', 'UPCOMING', Colors.indigo),
-                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildCampaignRow('Westside Digital Door-knocking', 'Facebook Ads (Local)', 'PLANNING', Colors.teal),
-                                  ],
-                                ),
+                  // LOCAL MARKETING KPI ROW
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final cardWidth = constraints.maxWidth > 1200
+                          ? (constraints.maxWidth - 48) / 4
+                          : (constraints.maxWidth > 600
+                                ? (constraints.maxWidth - 16) / 2
+                                : constraints.maxWidth);
+                      return Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: metrics.kpis
+                            .map(
+                              (kpi) => _buildKpi(
+                                cardWidth,
+                                kpi.title,
+                                kpi.value,
+                                _getIcon(kpi.title),
+                                _getStatusColor(kpi.status),
+                                kpi.subtitle,
                               ),
-                            ],
-                          ),
+                            )
+                            .toList(),
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // LEFT: Campaign Roadmap
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hyper-Local Campaign Roadmap',
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Outfit',
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            GlassSurface(
+                              padding: const EdgeInsets.all(24),
+                              child: Column(
+                                children: [
+                                  _buildCampaignRow(
+                                    'North End GP Referral Drive',
+                                    'GP-204 Targeted',
+                                    'ACTIVE',
+                                    Colors.red,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 24,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildCampaignRow(
+                                    'Riverside Community Booth',
+                                    'Event: Local Square',
+                                    'UPCOMING',
+                                    Colors.indigo,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 24,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildCampaignRow(
+                                    'Westside Digital Door-knocking',
+                                    'Facebook Ads (Local)',
+                                    'PLANNING',
+                                    Colors.teal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
 
-                        const SizedBox(width: 24),
+                      const SizedBox(width: 24),
 
-                        // RIGHT: Referral Analysis
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Local Referral Sources', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                              const SizedBox(height: 16),
-                              GlassSurface(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  children: [
-                                    _buildReferralSource('Local GP Referrals', '45%', Colors.red),
-                                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                    _buildReferralSource('Community Events', '30%', Colors.indigo),
-                                    const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                    _buildReferralSource('Digital/Social', '25%', Colors.teal),
-                                  ],
-                                ),
+                      // RIGHT: Referral Analysis
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Local Referral Sources',
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Outfit',
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                            ),
+                            const SizedBox(height: 16),
+                            GlassSurface(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                children: [
+                                  _buildReferralSource(
+                                    'Local GP Referrals',
+                                    '45%',
+                                    Colors.red,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 16,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildReferralSource(
+                                    'Community Events',
+                                    '30%',
+                                    Colors.indigo,
+                                  ),
+                                  const Divider(
+                                    color: Colors.blueGrey,
+                                    height: 16,
+                                    thickness: 0.1,
+                                  ),
+                                  _buildReferralSource(
+                                    'Digital/Social',
+                                    '25%',
+                                    Colors.teal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
-      );
-  }
-
-  Widget _buildKpi(double width, String title, String value, IconData icon, Color color, [String? subtitle]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(title: title, value: value, subtitle: subtitle, icon: icon, iconColor: color),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildCampaignRow(String title, String target, String status, Color statusColor) {
+  Widget _buildKpi(
+    double width,
+    String title,
+    String value,
+    IconData icon,
+    Color color, [
+    String? subtitle,
+  ]) {
+    return SizedBox(
+      width: width,
+      child: KpiStatCard(
+        title: title,
+        value: value,
+        subtitle: subtitle,
+        icon: icon,
+        iconColor: color,
+      ),
+    );
+  }
+
+  Widget _buildCampaignRow(
+    String title,
+    String target,
+    String status,
+    Color statusColor,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-           Container(
+          Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+              color: statusColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Icon(Icons.campaign_outlined, color: statusColor, size: 20),
           ),
           const SizedBox(width: 16),
@@ -148,12 +232,28 @@ class LocalMarketingDashboard extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text(target, style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  target,
+                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
+                ),
               ],
             ),
           ),
-          Text(status, style: TextStyle(fontWeight: FontWeight.bold, color: statusColor, fontSize: 10)),
+          Text(
+            status,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: statusColor,
+              fontSize: 10,
+            ),
+          ),
         ],
       ),
     );
@@ -172,7 +272,10 @@ class LocalMarketingDashboard extends ConsumerWidget {
               Text(name, style: const TextStyle(fontSize: 14)),
             ],
           ),
-          Text(percentage, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Text(
+            percentage,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          ),
         ],
       ),
     );
@@ -189,15 +292,20 @@ class LocalMarketingDashboard extends ConsumerWidget {
   Color _getStatusColor(String status) {
     switch (status) {
       case 'success':
-      case 'teal': return Colors.teal;
+      case 'teal':
+        return Colors.teal;
       case 'warning':
-      case 'orange': return Colors.orange;
+      case 'orange':
+        return Colors.orange;
       case 'danger':
-      case 'red': return Colors.red;
+      case 'red':
+        return Colors.red;
       case 'info':
       case 'indigo':
-      case 'blue': return Colors.indigo;
-      default: return Colors.blueGrey;
+      case 'blue':
+        return Colors.indigo;
+      default:
+        return Colors.blueGrey;
     }
   }
 }

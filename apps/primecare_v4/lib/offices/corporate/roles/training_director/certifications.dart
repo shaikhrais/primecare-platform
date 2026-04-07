@@ -12,7 +12,8 @@ class CertificationsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Professional Certifications',
-      subtitle: 'Track in-house certification programs, external professional credits, and renewals.',
+      subtitle:
+          'Track in-house certification programs, external professional credits, and renewals.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search certifications or staff...'),
         const SizedBox(width: 16),
@@ -60,9 +61,7 @@ class CertificationsScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildExpiringCritical(),
       ],
-      mainContent: [
-        _buildStaffCertificationList(),
-      ],
+      mainContent: [_buildStaffCertificationList()],
     );
   }
 
@@ -74,9 +73,16 @@ class CertificationsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.pieChart, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.pieChart,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
-              Text('Top Certifications (Active)', style: PrimeCareTheme.typography.h3),
+              Text(
+                'Top Certifications (Active)',
+                style: PrimeCareTheme.typography.h3,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -97,10 +103,13 @@ class CertificationsScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(name, style: PrimeCareTheme.typography.body),
-        Text(count, style: PrimeCareTheme.typography.label.copyWith(
-          color: PrimeCareTheme.colors.slateGray,
-          fontWeight: FontWeight.bold,
-        )),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -108,19 +117,28 @@ class CertificationsScreen extends ConsumerWidget {
   Widget _buildExpiringCritical() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
-      border: Border.all(color: PrimeCareTheme.colors.coralRed.withOpacity(0.3)),
+      border: Border.all(
+        color: PrimeCareTheme.colors.coralRed.withOpacity(0.3),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(LucideIcons.alertTriangle, color: PrimeCareTheme.colors.coralRed, size: 20),
+              Icon(
+                LucideIcons.alertTriangle,
+                color: PrimeCareTheme.colors.coralRed,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Critical Expiries', style: PrimeCareTheme.typography.h3),
             ],
           ),
           const SizedBox(height: 16),
-          _buildCriticalItem('MD License - Dr. E. Rostova', 'Expired 2 days ago'),
+          _buildCriticalItem(
+            'MD License - Dr. E. Rostova',
+            'Expired 2 days ago',
+          ),
           const SizedBox(height: 12),
           _buildCriticalItem('ACLS - John Carmichael', 'Expires in 5 days'),
           const SizedBox(height: 12),
@@ -134,9 +152,19 @@ class CertificationsScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: PrimeCareTheme.typography.body.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(status, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.coralRed)),
+        Text(
+          status,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.coralRed,
+          ),
+        ),
       ],
     );
   }
@@ -151,7 +179,10 @@ class CertificationsScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Certification Tracking List', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Certification Tracking List',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Filter: Expiring Soon',
@@ -224,7 +255,13 @@ class CertificationsScreen extends ConsumerWidget {
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(status == 'Active' ? LucideIcons.checkCircle : LucideIcons.alertCircle, color: statusColor, size: 20),
+            child: Icon(
+              status == 'Active'
+                  ? LucideIcons.checkCircle
+                  : LucideIcons.alertCircle,
+              color: statusColor,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -239,11 +276,24 @@ class CertificationsScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.user, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.user,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('$staffName ($role)', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+                    Text(
+                      '$staffName ($role)',
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.building, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.building,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(provider, style: PrimeCareTheme.typography.label),
                   ],
@@ -252,27 +302,29 @@ class CertificationsScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  status,
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: statusColor,
-                  ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                status,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: statusColor,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  'Expires: $expiryDate',
-                  style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Expires: $expiryDate',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'View Certificate',
-                  icon: LucideIcons.fileImage,
-                ),
-             ],
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'View Certificate',
+                icon: LucideIcons.fileImage,
+              ),
+            ],
           ),
         ],
       ),

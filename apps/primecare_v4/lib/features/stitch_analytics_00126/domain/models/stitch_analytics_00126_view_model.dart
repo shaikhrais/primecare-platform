@@ -1,9 +1,11 @@
-﻿class StitchAnalytics00126ViewModel {
+class StitchAnalytics00126ViewModel {
   final String title;
   final String status;
-  final List<String> reportsAvailable; final String aiForecast;
-  
-  StitchAnalytics00126ViewModel({required this.title,
+  final List<String> reportsAvailable;
+  final String aiForecast;
+
+  StitchAnalytics00126ViewModel({
+    required this.title,
     required this.status,
     required this.reportsAvailable,
     required this.aiForecast,

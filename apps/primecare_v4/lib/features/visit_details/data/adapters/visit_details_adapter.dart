@@ -35,7 +35,7 @@ class VisitDetailsMockProvider {
       'date': '2026-04-04',
       'time': '10:00 AM',
       'summary': 'Annual Physical Exam',
-      'done': false
+      'done': false,
     });
   }
 }
@@ -53,7 +53,7 @@ class VisitDetailsApiProvider {
         scheduledDate: '2026-04-05',
         scheduledTime: response.data['time'] ?? '11:00 AM',
         notes: response.data['notes'] ?? 'Follow-up appointment.',
-        statusCompleted: true
+        statusCompleted: true,
       );
       return VisitDetailsMapper.fromApi(dto);
     } catch (error) {
@@ -74,10 +74,7 @@ class VisitDetailsAdapter {
   final VisitDetailsMockProvider mockProvider;
   final VisitDetailsApiProvider apiProvider;
 
-  VisitDetailsAdapter({
-    required this.mockProvider,
-    required this.apiProvider,
-  });
+  VisitDetailsAdapter({required this.mockProvider, required this.apiProvider});
 
   Future<VisitDetailsViewModel> getData(String visitId) async {
     if (FeatureFlags.useApiForVisitDetails) {

@@ -15,7 +15,9 @@ class StitchEngineRenderer extends StatelessWidget {
   });
 
   StitchLayoutMode _determineLayoutMode() {
-    if (featureId.contains('telemetry') || featureId.contains('monitor') || featureId.contains('vital')) {
+    if (featureId.contains('telemetry') ||
+        featureId.contains('monitor') ||
+        featureId.contains('vital')) {
       return StitchLayoutMode.telemetry;
     }
     if (featureId.contains('form') || featureId.contains('auth')) {
@@ -67,9 +69,16 @@ class StitchEngineRenderer extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.hub_outlined, size: 64, color: Colors.blueGrey.withValues(alpha: 0.5)),
+          Icon(
+            Icons.hub_outlined,
+            size: 64,
+            color: Colors.blueGrey.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 16),
-          const Text('No UI-bound Data Adapters available.', style: TextStyle(color: Colors.blueGrey, fontSize: 16)),
+          const Text(
+            'No UI-bound Data Adapters available.',
+            style: TextStyle(color: Colors.blueGrey, fontSize: 16),
+          ),
         ],
       ),
     );
@@ -86,22 +95,47 @@ class StitchEngineRenderer extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const Icon(Icons.monitor_heart, color: Colors.redAccent, size: 32),
+                const Icon(
+                  Icons.monitor_heart,
+                  color: Colors.redAccent,
+                  size: 32,
+                ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      Text('Stream Active - ${item.id}', style: const TextStyle(color: Colors.grey)),
+                      Text(
+                        item.title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        'Stream Active - ${item.id}',
+                        style: const TextStyle(color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(16)),
-                  child: const Text('LIVE', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-                )
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.red.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Text(
+                    'LIVE',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -117,17 +151,35 @@ class StitchEngineRenderer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text('Dynamic Data Entry', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const Text(
+              'Dynamic Data Entry',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 24),
-            TextFormField(decoration: const InputDecoration(labelText: 'Primary Input', border: OutlineInputBorder())),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Primary Input',
+                border: OutlineInputBorder(),
+              ),
+            ),
             const SizedBox(height: 16),
-            TextFormField(decoration: const InputDecoration(labelText: 'Secondary Details', border: OutlineInputBorder())),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Secondary Details',
+                border: OutlineInputBorder(),
+              ),
+            ),
             const SizedBox(height: 24),
-            ElevatedButton(key: const Key('data-status-id=shared-global-stitch-action-1'), 
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF006565), foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16)),
+            ElevatedButton(
+              key: const Key('data-status-id=shared-global-stitch-action-1'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF006565),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
               onPressed: () {},
               child: const Text('Submit Record'),
-            )
+            ),
           ],
         ),
       ),
@@ -144,17 +196,36 @@ class StitchEngineRenderer extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(color: Colors.teal.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-                child: const Icon(Icons.analytics, color: Colors.teal, size: 22),
+                decoration: BoxDecoration(
+                  color: Colors.teal.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.analytics,
+                  color: Colors.teal,
+                  size: 22,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item.title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+                    Text(
+                      item.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('ID: ${item.id}', style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
+                    Text(
+                      'ID: ${item.id}',
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 12,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -164,10 +235,20 @@ class StitchEngineRenderer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(item.status, style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
-              Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey.shade400),
+              Text(
+                item.status,
+                style: const TextStyle(
+                  color: Colors.teal,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+                color: Colors.grey.shade400,
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -185,28 +266,53 @@ class StitchEngineRenderer extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: Colors.teal.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
-                child: const Icon(Icons.auto_awesome_mosaic, color: Colors.teal, size: 26),
+                decoration: BoxDecoration(
+                  color: Colors.teal.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.auto_awesome_mosaic,
+                  color: Colors.teal,
+                  size: 26,
+                ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
                   item.status,
-                  style: const TextStyle(color: Colors.green, fontSize: 11, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    color: Colors.green,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              )
+              ),
             ],
           ),
           const Spacer(),
-          Text(item.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18, color: Colors.black87)),
+          Text(
+            item.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+              color: Colors.black87,
+            ),
+          ),
           const SizedBox(height: 8),
           Text(
             item.description,
-            style: TextStyle(color: Colors.grey.shade600, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              fontSize: 13,
+              height: 1.4,
+            ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -216,13 +322,21 @@ class StitchEngineRenderer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('REF: ${item.id}', style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w600)),
-              TextButton(key: const Key('data-status-id=shared-global-stitch-action-2'), 
+              Text(
+                'REF: ${item.id}',
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              TextButton(
+                key: const Key('data-status-id=shared-global-stitch-action-2'),
                 onPressed: () {},
                 child: const Text('View Payload'),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

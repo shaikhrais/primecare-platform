@@ -12,7 +12,8 @@ class RpnTreatmentNotesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Treatment Notes',
-      subtitle: 'Specific documentation for ongoing medical treatments and procedures.',
+      subtitle:
+          'Specific documentation for ongoing medical treatments and procedures.',
       kpiCards: [
         KPICardData(
           title: 'Treatments Logged',
@@ -29,10 +30,18 @@ class RpnTreatmentNotesScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Treatment Types', style: PrimeCareTheme.typography.h3),
-               const SizedBox(height: 16),
+              const SizedBox(height: 16),
               _buildFilterRow('Wound Care', 2, PrimeCareTheme.colors.coralRed),
-              _buildFilterRow('IV Therapy', 1, PrimeCareTheme.colors.navyIndigo),
-               _buildFilterRow('Respiratory Therapy', 1, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow(
+                'IV Therapy',
+                1,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Respiratory Therapy',
+                1,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -43,11 +52,14 @@ class RpnTreatmentNotesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Treatments', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recent Treatments',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('Log Treatment'),
@@ -56,23 +68,23 @@ class RpnTreatmentNotesScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildNoteCard(
-                 'Maria Garcia',
-                 'Wound Care',
-                 'May 14, 2024 • 14:00',
-                 'Dressing changed on sacral ulcer. Exudate is minimal and serous. Wound bed is 80% granulated tissue. Reapplied foam dressing as per protocol.',
-                 PrimeCareTheme.colors.coralRed
-               ),
-               _buildNoteCard(
-                 'John Smith',
-                 'IV Therapy',
-                 'May 14, 2024 • 10:30',
-                 'Started normal saline IV at 100mL/hr via right AC peripheral IV. Site is patent, no signs of infiltration or phlebitis.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildNoteCard(
+                'Maria Garcia',
+                'Wound Care',
+                'May 14, 2024 • 14:00',
+                'Dressing changed on sacral ulcer. Exudate is minimal and serous. Wound bed is 80% granulated tissue. Reapplied foam dressing as per protocol.',
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildNoteCard(
+                'John Smith',
+                'IV Therapy',
+                'May 14, 2024 • 10:30',
+                'Started normal saline IV at 100mL/hr via right AC peripheral IV. Site is patent, no signs of infiltration or phlebitis.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -88,26 +100,34 @@ class RpnTreatmentNotesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
-     return Container(
+  Widget _buildNoteCard(
+    String clientName,
+    String category,
+    String time,
+    String note,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -118,25 +138,39 @@ class RpnTreatmentNotesScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(note, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(note, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

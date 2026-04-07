@@ -26,16 +26,23 @@ class GlassSurface extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0), // The Glassmorphism Rule
+          filter: ImageFilter.blur(
+            sigmaX: 20.0,
+            sigmaY: 20.0,
+          ), // The Glassmorphism Rule
           child: Container(
             padding: padding,
             decoration: BoxDecoration(
-               color: AppTheme.surface.withValues(alpha: 0.85),
-               borderRadius: BorderRadius.circular(borderRadius),
-               border: hasGhostBorder ? Border.all(
-                  color: AppTheme.outlineVariant.withValues(alpha: 0.15), // Ghost Border fallback
-                  width: 1,
-               ) : null,
+              color: AppTheme.surface.withValues(alpha: 0.85),
+              borderRadius: BorderRadius.circular(borderRadius),
+              border: hasGhostBorder
+                  ? Border.all(
+                      color: AppTheme.outlineVariant.withValues(
+                        alpha: 0.15,
+                      ), // Ghost Border fallback
+                      width: 1,
+                    )
+                  : null,
             ),
             child: child,
           ),

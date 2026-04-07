@@ -11,7 +11,10 @@ class BillingAdminDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('BillingAdminDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'BillingAdminDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

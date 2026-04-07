@@ -12,9 +12,16 @@ class RmtSoapNotesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'SOAP Notes',
-      subtitle: 'Standardized Subjective, Objective, Assessment, and Plan documentation.',
+      subtitle:
+          'Standardized Subjective, Objective, Assessment, and Plan documentation.',
       kpiCards: [
-        KPICardData(title: 'Notes Added', value: '6', icon: LucideIcons.fileText, trend: 1.5, trendLabel: 'today'),
+        KPICardData(
+          title: 'Notes Added',
+          value: '6',
+          icon: LucideIcons.fileText,
+          trend: 1.5,
+          trendLabel: 'today',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -26,7 +33,11 @@ class RmtSoapNotesScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _buildFilterRow('Draft', 2, PrimeCareTheme.colors.lavenderLustre),
               _buildFilterRow('Signed', 128, PrimeCareTheme.colors.emeraldTeal),
-              _buildFilterRow('Requires Addendum', 0, PrimeCareTheme.colors.coralBlush),
+              _buildFilterRow(
+                'Requires Addendum',
+                0,
+                PrimeCareTheme.colors.coralBlush,
+              ),
             ],
           ),
         ),
@@ -37,11 +48,14 @@ class RmtSoapNotesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent SOAP Notes', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recent SOAP Notes',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.penTool),
                     label: const Text('New SOAP Note'),
@@ -50,11 +64,21 @@ class RmtSoapNotesScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildSoapCard('Rosalind Franklin', 'May 14, 2024 • 15:00', 'Signed', PrimeCareTheme.colors.emeraldTeal),
-               _buildSoapCard('Isaac Newton', 'May 14, 2024 • 11:30', 'Draft', PrimeCareTheme.colors.lavenderLustre),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildSoapCard(
+                'Rosalind Franklin',
+                'May 14, 2024 • 15:00',
+                'Signed',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildSoapCard(
+                'Isaac Newton',
+                'May 14, 2024 • 11:30',
+                'Draft',
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -70,19 +94,33 @@ class RmtSoapNotesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildSoapCard(String clientName, String time, String status, Color themeColor) {
-     return Container(
+  Widget _buildSoapCard(
+    String clientName,
+    String time,
+    String status,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -93,24 +131,35 @@ class RmtSoapNotesScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-                Text(clientName, style: PrimeCareTheme.typography.h3),
-                const SizedBox(height: 4),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           Container(
-             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-             decoration: BoxDecoration(
-               color: themeColor.withOpacity(0.2),
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: themeColor, fontWeight: FontWeight.bold)),
-           )
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(clientName, style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 4),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
-      )
-     );
+      ),
+    );
   }
 }

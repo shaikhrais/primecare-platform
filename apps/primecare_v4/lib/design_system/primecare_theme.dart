@@ -22,7 +22,7 @@ class _PrimeCareTypography {
     fontSize: 32,
     fontWeight: FontWeight.bold,
   );
-  
+
   final h2 = const TextStyle(
     fontFamily: 'Outfit',
     fontSize: 24,
@@ -35,13 +35,7 @@ class _PrimeCareTypography {
     fontWeight: FontWeight.w600,
   );
 
-  final body = const TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 14,
-  );
+  final body = const TextStyle(fontFamily: 'Inter', fontSize: 14);
 
-  final label = const TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 12,
-  );
+  final label = const TextStyle(fontFamily: 'Inter', fontSize: 12);
 }

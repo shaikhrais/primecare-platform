@@ -61,8 +61,12 @@ class DashboardMetrics {
 
   factory DashboardMetrics.fromJson(Map<String, dynamic> json) {
     return DashboardMetrics(
-      kpis: (json['kpis'] as List).map((i) => KpiMetric.fromJson(i as Map<String, dynamic>)).toList(),
-      recentActivity: (json['recentActivity'] as List).map((i) => DashboardActivity.fromJson(i as Map<String, dynamic>)).toList(),
+      kpis: (json['kpis'] as List)
+          .map((i) => KpiMetric.fromJson(i as Map<String, dynamic>))
+          .toList(),
+      recentActivity: (json['recentActivity'] as List)
+          .map((i) => DashboardActivity.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
   }
 }

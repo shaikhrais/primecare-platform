@@ -12,7 +12,8 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Trainer Assignments',
-      subtitle: 'Manage and monitor all active trainers, schedules, and feedback.',
+      subtitle:
+          'Manage and monitor all active trainers, schedules, and feedback.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search trainers, sessions...'),
         const SizedBox(width: 16),
@@ -49,12 +50,8 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
           color: PrimeCareTheme.colors.amberWarning,
         ),
       ],
-      sidebarContent: [
-        _buildTrainerProfiles(),
-      ],
-      mainContent: [
-        _buildScheduleTimeline(),
-      ],
+      sidebarContent: [_buildTrainerProfiles()],
+      mainContent: [_buildScheduleTimeline()],
     );
   }
 
@@ -66,7 +63,11 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.users, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.users,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Top Rated Trainers', style: PrimeCareTheme.typography.h3),
             ],
@@ -89,23 +90,43 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
         CircleAvatar(
           backgroundColor: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.2),
           radius: 20,
-          child: Text(name[0], style: TextStyle(color: PrimeCareTheme.colors.emeraldTeal, fontWeight: FontWeight.bold)),
+          child: Text(
+            name[0],
+            style: TextStyle(
+              color: PrimeCareTheme.colors.emeraldTeal,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+              Text(
+                name,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Text(specialty, style: PrimeCareTheme.typography.label),
             ],
           ),
         ),
         Row(
           children: [
-            Icon(LucideIcons.star, size: 14, color: PrimeCareTheme.colors.amberWarning),
+            Icon(
+              LucideIcons.star,
+              size: 14,
+              color: PrimeCareTheme.colors.amberWarning,
+            ),
             const SizedBox(width: 4),
-            Text(score, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              score,
+              style: PrimeCareTheme.typography.body.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ],
@@ -207,23 +228,41 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
                       children: [
                         Text(topic, style: PrimeCareTheme.typography.h3),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
-                            color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
+                            color: PrimeCareTheme.colors.navyIndigo.withOpacity(
+                              0.1,
+                            ),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Text('$enrolled Enrolled', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                          child: Text(
+                            '$enrolled Enrolled',
+                            style: PrimeCareTheme.typography.label.copyWith(
+                              color: PrimeCareTheme.colors.navyIndigo,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
                     Row(
                       children: [
-                        Icon(LucideIcons.user, size: 16, color: PrimeCareTheme.colors.slateGray),
+                        Icon(
+                          LucideIcons.user,
+                          size: 16,
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
                         const SizedBox(width: 6),
                         Text(trainer, style: PrimeCareTheme.typography.body),
                         const SizedBox(width: 20),
-                        Icon(LucideIcons.clock, size: 16, color: PrimeCareTheme.colors.slateGray),
+                        Icon(
+                          LucideIcons.clock,
+                          size: 16,
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
                         const SizedBox(width: 6),
                         Text(date, style: PrimeCareTheme.typography.body),
                       ],
@@ -231,7 +270,11 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        Icon(LucideIcons.mapPin, size: 16, color: PrimeCareTheme.colors.slateGray),
+                        Icon(
+                          LucideIcons.mapPin,
+                          size: 16,
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
                         const SizedBox(width: 6),
                         Text(location, style: PrimeCareTheme.typography.label),
                       ],

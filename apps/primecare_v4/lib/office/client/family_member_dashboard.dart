@@ -11,7 +11,10 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('FamilyMemberDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'FamilyMemberDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

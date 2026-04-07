@@ -1,6 +1,5 @@
-﻿
 class StitchPharmacy00149Adapter {
   Future<void> getData() async {
-     // Interacts with /v1/primecare/api/stitch-pharmacy-00149
+    // Interacts with /v1/primecare/api/stitch-pharmacy-00149
   }
 }

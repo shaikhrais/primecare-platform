@@ -11,10 +11,7 @@ class FeatureAdapter implements ScreenAdapter {
   final FeatureApiRepository apiRepository;
   final FeatureMockRepository mockRepository;
 
-  FeatureAdapter({
-    required this.apiRepository,
-    required this.mockRepository,
-  });
+  FeatureAdapter({required this.apiRepository, required this.mockRepository});
 
   @override
   Future<List<FeatureViewModel>> getData(String endpointKey) async {

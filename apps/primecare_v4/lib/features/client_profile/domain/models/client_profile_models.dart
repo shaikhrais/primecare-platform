@@ -35,7 +35,9 @@ class ClientProfileDto {
       patientName: json['patientName'] ?? json['full_name'] ?? '',
       age: json['age'] ?? 0,
       currentStatus: json['currentStatus'] ?? 'Unknown',
-      diagnosesList: json['diagnosesList'] != null ? List<String>.from(json['diagnosesList']) : null,
+      diagnosesList: json['diagnosesList'] != null
+          ? List<String>.from(json['diagnosesList'])
+          : null,
     );
   }
 }

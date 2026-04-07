@@ -3,8 +3,8 @@ class StitchPharmacy00133Dto {
   final String type;
   final String title;
   final String status;
-  
-  StitchPharmacy00133Dto.fromJson(Map<String, dynamic> json) 
+
+  StitchPharmacy00133Dto.fromJson(Map<String, dynamic> json)
     : id = json['id'] ?? '',
       type = json['type'] ?? '',
       title = json['title'] ?? '',

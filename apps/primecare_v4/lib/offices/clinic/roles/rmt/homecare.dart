@@ -12,9 +12,16 @@ class RmtHomecareScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Homecare Prescriptions',
-      subtitle: 'Exercises, stretching, and hydrotherapy instructions prescribed to clients.',
+      subtitle:
+          'Exercises, stretching, and hydrotherapy instructions prescribed to clients.',
       kpiCards: [
-        KPICardData(title: 'Active Rx', value: '28', icon: LucideIcons.home, trend: 2.0, trendLabel: 'this week'),
+        KPICardData(
+          title: 'Active Rx',
+          value: '28',
+          icon: LucideIcons.home,
+          trend: 2.0,
+          trendLabel: 'this week',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,9 +31,21 @@ class RmtHomecareScreen extends ConsumerWidget {
             children: [
               Text('Homecare Types', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Stretching', 15, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Strengthening', 8, PrimeCareTheme.colors.emeraldTeal),
-               _buildFilterRow('Hydrotherapy', 5, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Stretching',
+                15,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Strengthening',
+                8,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterRow(
+                'Hydrotherapy',
+                5,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -37,11 +56,14 @@ class RmtHomecareScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Prescriptions', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recent Prescriptions',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('New Homecare Plan'),
@@ -50,16 +72,16 @@ class RmtHomecareScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildNoteCard(
-                 'Mike Jones',
-                 'Stretching',
-                 'May 14, 2024',
-                 'Pec major/minor doorway stretches. Hold 30s x 3 sets. B/L upper trapezius stretches. Ensure shoulder depression during stretch. Daily.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildNoteCard(
+                'Mike Jones',
+                'Stretching',
+                'May 14, 2024',
+                'Pec major/minor doorway stretches. Hold 30s x 3 sets. B/L upper trapezius stretches. Ensure shoulder depression during stretch. Daily.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -75,19 +97,34 @@ class RmtHomecareScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
-     return Container(
+  Widget _buildNoteCard(
+    String clientName,
+    String category,
+    String time,
+    String note,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -98,25 +135,39 @@ class RmtHomecareScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(note, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(note, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

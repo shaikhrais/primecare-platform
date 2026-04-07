@@ -51,9 +51,21 @@ class AssignedClientsScreen extends ConsumerWidget {
             children: [
               Text('Acuity Breakdown', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildAcuityRow('High (Daily)', 4, PrimeCareTheme.colors.coralRed),
-              _buildAcuityRow('Medium (Weekly)', 8, PrimeCareTheme.colors.navyIndigo),
-              _buildAcuityRow('Low (Monthly)', 6, PrimeCareTheme.colors.emeraldTeal),
+              _buildAcuityRow(
+                'High (Daily)',
+                4,
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildAcuityRow(
+                'Medium (Weekly)',
+                8,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildAcuityRow(
+                'Low (Monthly)',
+                6,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -130,16 +142,18 @@ class AssignedClientsScreen extends ConsumerWidget {
               Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
@@ -154,17 +168,35 @@ class AssignedClientsScreen extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          Icon(LucideIcons.filter, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+          Icon(
+            LucideIcons.filter,
+            size: 16,
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
           const SizedBox(width: 8),
-          Text('Filter clients', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+          Text(
+            'Filter clients',
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildClientRow(String name, String age, String diagnosis, String acuity, String lastVisit, IconData icon) {
-    Color acuityColor = acuity == 'High' ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.navyIndigo;
-    
+  Widget _buildClientRow(
+    String name,
+    String age,
+    String diagnosis,
+    String acuity,
+    String lastVisit,
+    IconData icon,
+  ) {
+    Color acuityColor = acuity == 'High'
+        ? PrimeCareTheme.colors.coralRed
+        : PrimeCareTheme.colors.navyIndigo;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
@@ -181,7 +213,9 @@ class AssignedClientsScreen extends ConsumerWidget {
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
+                  backgroundColor: PrimeCareTheme.colors.navyIndigo.withOpacity(
+                    0.1,
+                  ),
                   child: Icon(icon, color: PrimeCareTheme.colors.navyIndigo),
                 ),
                 const SizedBox(width: 16),
@@ -190,7 +224,12 @@ class AssignedClientsScreen extends ConsumerWidget {
                   children: [
                     Text(name, style: PrimeCareTheme.typography.h3),
                     const SizedBox(height: 4),
-                    Text('$age • $diagnosis', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                    Text(
+                      '$age • $diagnosis',
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -201,17 +240,28 @@ class AssignedClientsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Acuity', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Acuity',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: acuityColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     acuity,
-                    style: PrimeCareTheme.typography.label.copyWith(color: acuityColor, fontWeight: FontWeight.bold),
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: acuityColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -222,9 +272,19 @@ class AssignedClientsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('Last Visit', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Last Visit',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(lastVisit, style: PrimeCareTheme.typography.label.copyWith(fontStyle: FontStyle.italic)),
+                Text(
+                  lastVisit,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
               ],
             ),
           ),

@@ -12,7 +12,8 @@ class CourseLibraryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Course & Content Library',
-      subtitle: 'Manage SCORM packages, clinical training videos, quizzes, and continuing education modules.',
+      subtitle:
+          'Manage SCORM packages, clinical training videos, quizzes, and continuing education modules.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search thousands of courses...'),
         const SizedBox(width: 16),
@@ -59,9 +60,7 @@ class CourseLibraryScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildMostPopular(),
       ],
-      mainContent: [
-        _buildCourseGrid(),
-      ],
+      mainContent: [_buildCourseGrid()],
     );
   }
 
@@ -73,7 +72,11 @@ class CourseLibraryScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.tags, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.tags,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Subject Categories', style: PrimeCareTheme.typography.h3),
             ],
@@ -94,20 +97,20 @@ class CourseLibraryScreen extends ConsumerWidget {
   }
 
   Widget _buildCatRow(String name, int count) {
-     return Row(
-       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-       children: [
-         Text(name, style: PrimeCareTheme.typography.body),
-         Container(
-           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-           decoration: BoxDecoration(
-             color: PrimeCareTheme.colors.cloudGray,
-             borderRadius: BorderRadius.circular(8),
-           ),
-           child: Text(count.toString(), style: PrimeCareTheme.typography.label),
-         ),
-       ],
-     );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(name, style: PrimeCareTheme.typography.body),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          decoration: BoxDecoration(
+            color: PrimeCareTheme.colors.cloudGray,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(count.toString(), style: PrimeCareTheme.typography.label),
+        ),
+      ],
+    );
   }
 
   Widget _buildMostPopular() {
@@ -118,7 +121,11 @@ class CourseLibraryScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.flame, color: PrimeCareTheme.colors.amberWarning, size: 20),
+              Icon(
+                LucideIcons.flame,
+                color: PrimeCareTheme.colors.amberWarning,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Most Popular', style: PrimeCareTheme.typography.h3),
             ],
@@ -135,19 +142,34 @@ class CourseLibraryScreen extends ConsumerWidget {
   }
 
   Widget _buildPopularRow(String name, String rating) {
-     return Row(
-       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-       children: [
-         Expanded(child: Text(name, style: PrimeCareTheme.typography.body, overflow: TextOverflow.ellipsis)),
-         Row(
-           children: [
-             Icon(LucideIcons.star, size: 14, color: PrimeCareTheme.colors.amberWarning),
-             const SizedBox(width: 4),
-             Text(rating, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
-           ],
-         ),
-       ],
-     );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            name,
+            style: PrimeCareTheme.typography.body,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Row(
+          children: [
+            Icon(
+              LucideIcons.star,
+              size: 14,
+              color: PrimeCareTheme.colors.amberWarning,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              rating,
+              style: PrimeCareTheme.typography.label.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _buildCourseGrid() {
@@ -220,7 +242,9 @@ class CourseLibraryScreen extends ConsumerWidget {
     required String status,
   }) {
     final isPublished = status == 'Published';
-    final statusColor = isPublished ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.slateGray;
+    final statusColor = isPublished
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.slateGray;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -233,7 +257,11 @@ class CourseLibraryScreen extends ConsumerWidget {
               color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(LucideIcons.playCircle, color: PrimeCareTheme.colors.navyIndigo, size: 24),
+            child: Icon(
+              LucideIcons.playCircle,
+              color: PrimeCareTheme.colors.navyIndigo,
+              size: 24,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -242,10 +270,13 @@ class CourseLibraryScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text(id, style: PrimeCareTheme.typography.body.copyWith(
-                      color: PrimeCareTheme.colors.slateGray,
-                      fontWeight: FontWeight.bold,
-                    )),
+                    Text(
+                      id,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Text(title, style: PrimeCareTheme.typography.h3),
                   ],
@@ -253,15 +284,27 @@ class CourseLibraryScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.tag,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(category, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.monitor, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.monitor,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(format, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.clock, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.clock,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(duration, style: PrimeCareTheme.typography.label),
                   ],
@@ -270,29 +313,32 @@ class CourseLibraryScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: statusColor.withOpacity(0.1),
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Text(
-                   status,
-                   style: PrimeCareTheme.typography.label.copyWith(
-                     color: statusColor,
-                     fontWeight: FontWeight.bold,
-                   ),
-                 ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'Manage Content',
-                  icon: LucideIcons.settings,
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-             ],
+                child: Text(
+                  status,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: statusColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'Manage Content',
+                icon: LucideIcons.settings,
+              ),
+            ],
           ),
         ],
       ),

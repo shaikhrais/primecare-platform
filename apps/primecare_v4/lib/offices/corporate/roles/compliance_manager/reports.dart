@@ -12,7 +12,8 @@ class ComplianceReportsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Compliance Reporting & Analytics',
-      subtitle: 'Generate and review periodic regulatory reports, board presentations, and internal compliance summaries.',
+      subtitle:
+          'Generate and review periodic regulatory reports, board presentations, and internal compliance summaries.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search generated reports...'),
         const SizedBox(width: 16),
@@ -53,9 +54,7 @@ class ComplianceReportsScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildScheduledReports(),
       ],
-      mainContent: [
-        _buildRecentReportsList(),
-      ],
+      mainContent: [_buildRecentReportsList()],
     );
   }
 
@@ -67,7 +66,11 @@ class ComplianceReportsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.folder, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.folder,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Report Categories', style: PrimeCareTheme.typography.h3),
             ],
@@ -103,13 +106,20 @@ class ComplianceReportsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.calendarClock, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.calendarClock,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Upcoming Scheduled', style: PrimeCareTheme.typography.h3),
             ],
           ),
           const SizedBox(height: 16),
-          _buildScheduledRow('Monthly Fall Incident Summary', 'Tomorrow, 08:00 AM'),
+          _buildScheduledRow(
+            'Monthly Fall Incident Summary',
+            'Tomorrow, 08:00 AM',
+          ),
           const SizedBox(height: 12),
           _buildScheduledRow('Q3 Staffing Compliance', 'Nov 01, 2026'),
           const SizedBox(height: 12),
@@ -123,8 +133,18 @@ class ComplianceReportsScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-        Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+        Text(
+          title,
+          style: PrimeCareTheme.typography.body.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          time,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+          ),
+        ),
       ],
     );
   }
@@ -190,7 +210,13 @@ class ComplianceReportsScreen extends ConsumerWidget {
               color: PrimeCareTheme.colors.navyIndigo.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(format.contains('PDF') ? LucideIcons.fileCode : LucideIcons.fileSpreadsheet, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+            child: Icon(
+              format.contains('PDF')
+                  ? LucideIcons.fileCode
+                  : LucideIcons.fileSpreadsheet,
+              color: PrimeCareTheme.colors.navyIndigo,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -201,11 +227,22 @@ class ComplianceReportsScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.calendar, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.calendar,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('Generated: $generatedDate', style: PrimeCareTheme.typography.label),
+                    Text(
+                      'Generated: $generatedDate',
+                      style: PrimeCareTheme.typography.label,
+                    ),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.tag,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(category, style: PrimeCareTheme.typography.label),
                   ],
@@ -214,29 +251,32 @@ class ComplianceReportsScreen extends ConsumerWidget {
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: PrimeCareTheme.colors.cloudGray,
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Text(
-                   format,
-                   style: PrimeCareTheme.typography.label.copyWith(
-                     color: PrimeCareTheme.colors.navyIndigo,
-                     fontWeight: FontWeight.bold,
-                   ),
-                 ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'Download',
-                  icon: LucideIcons.download,
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.cloudGray,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-             ],
+                child: Text(
+                  format,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'Download',
+                icon: LucideIcons.download,
+              ),
+            ],
           ),
         ],
       ),

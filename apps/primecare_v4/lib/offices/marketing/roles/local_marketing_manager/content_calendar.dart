@@ -8,37 +8,30 @@ class LocalContentCalendarScreen extends ConsumerStatefulWidget {
   const LocalContentCalendarScreen({super.key});
 
   @override
-  ConsumerState<LocalContentCalendarScreen> createState() => _LocalContentCalendarScreenState();
+  ConsumerState<LocalContentCalendarScreen> createState() =>
+      _LocalContentCalendarScreenState();
 }
 
-class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalendarScreen> {
+class _LocalContentCalendarScreenState
+    extends ConsumerState<LocalContentCalendarScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildCalendarView(),
-                ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 1,
-                  child: _buildUpcomingActionItems(),
-                ),
-              ],
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 2, child: _buildCalendarView()),
+              const SizedBox(width: 32),
+              Expanded(flex: 1, child: _buildUpcomingActionItems()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -97,41 +90,91 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
             children: [
               Text(
                 'October 2026',
-                style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h2.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(LucideIcons.chevronLeft, color: PrimeCareTheme.colors.slateGray),
+                    icon: Icon(
+                      LucideIcons.chevronLeft,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: Icon(LucideIcons.chevronRight, color: PrimeCareTheme.colors.slateGray),
+                    icon: Icon(
+                      LucideIcons.chevronRight,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     onPressed: () {},
                   ),
                 ],
-              )
+              ),
             ],
           ),
           const SizedBox(height: 24),
           // Simplified tabular calendar for display purposes
           Table(
-            border: TableBorder.all(color: PrimeCareTheme.colors.surfaceContainerHighest, width: 1, borderRadius: BorderRadius.circular(12)),
+            border: TableBorder.all(
+              color: PrimeCareTheme.colors.surfaceContainerHighest,
+              width: 1,
+              borderRadius: BorderRadius.circular(12),
+            ),
             children: [
               TableRow(
-                decoration: BoxDecoration(color: PrimeCareTheme.colors.surfaceContainerLow),
-                children: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => 
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Center(child: Text(d, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                  )
-                ).toList(),
+                decoration: BoxDecoration(
+                  color: PrimeCareTheme.colors.surfaceContainerLow,
+                ),
+                children: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    .map(
+                      (d) => Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Center(
+                          child: Text(
+                            d,
+                            style: PrimeCareTheme.typography.label.copyWith(
+                              color: PrimeCareTheme.colors.slateGray,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
-              _buildCalendarWeek(['28', '29', '30', '1', '2', '3', '4'], activeDays: {'1': ['Social Post'], '3': ['Email Blast']}),
-              _buildCalendarWeek(['5', '6', '7', '8', '9', '10', '11'], activeDays: {'7': ['Local Event', 'Social Promo']}),
-              _buildCalendarWeek(['12', '13', '14', '15', '16', '17', '18'], activeDays: {'14': ['Newsletter']}),
-              _buildCalendarWeek(['19', '20', '21', '22', '23', '24', '25'], activeDays: {'20': ['Webinar', 'Post']}),
-              _buildCalendarWeek(['26', '27', '28', '29', '30', '31', '1'], activeDays: {'31': ['Halloween Campaign']}),
+              _buildCalendarWeek(
+                ['28', '29', '30', '1', '2', '3', '4'],
+                activeDays: {
+                  '1': ['Social Post'],
+                  '3': ['Email Blast'],
+                },
+              ),
+              _buildCalendarWeek(
+                ['5', '6', '7', '8', '9', '10', '11'],
+                activeDays: {
+                  '7': ['Local Event', 'Social Promo'],
+                },
+              ),
+              _buildCalendarWeek(
+                ['12', '13', '14', '15', '16', '17', '18'],
+                activeDays: {
+                  '14': ['Newsletter'],
+                },
+              ),
+              _buildCalendarWeek(
+                ['19', '20', '21', '22', '23', '24', '25'],
+                activeDays: {
+                  '20': ['Webinar', 'Post'],
+                },
+              ),
+              _buildCalendarWeek(
+                ['26', '27', '28', '29', '30', '31', '1'],
+                activeDays: {
+                  '31': ['Halloween Campaign'],
+                },
+              ),
             ],
           ),
         ],
@@ -139,7 +182,10 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
     );
   }
 
-  TableRow _buildCalendarWeek(List<String> days, {required Map<String, List<String>> activeDays}) {
+  TableRow _buildCalendarWeek(
+    List<String> days, {
+    required Map<String, List<String>> activeDays,
+  }) {
     return TableRow(
       children: days.map((d) {
         final hasEvents = activeDays.containsKey(d);
@@ -158,19 +204,32 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
                 ),
               ),
               if (hasEvents)
-                ...events.map((e) => Container(
-                  margin: const EdgeInsets.only(top: 4),
-                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    e,
-                    style: TextStyle(fontSize: 10, color: PrimeCareTheme.colors.emeraldTeal, fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )).toList()
+                ...events
+                    .map(
+                      (e) => Container(
+                        margin: const EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: PrimeCareTheme.colors.emeraldTeal.withValues(
+                            alpha: 0.1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          e,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: PrimeCareTheme.colors.emeraldTeal,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    )
+                    .toList(),
             ],
           ),
         );
@@ -184,7 +243,9 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
       children: [
         Text(
           'Action Required',
-          style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+          style: PrimeCareTheme.typography.h3.copyWith(
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
         ),
         const SizedBox(height: 16),
         _buildActionItem(
@@ -211,7 +272,9 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
         const SizedBox(height: 32),
         Text(
           'Upcoming Scheduled',
-          style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+          style: PrimeCareTheme.typography.h3.copyWith(
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
         ),
         const SizedBox(height: 16),
         _buildActionItem(
@@ -240,10 +303,10 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
     bool isUrgent = false,
     bool isCompleted = false,
   }) {
-    Color accentColor = isCompleted 
-      ? PrimeCareTheme.colors.slateGray 
-      : isUrgent 
-        ? PrimeCareTheme.colors.coralRed 
+    Color accentColor = isCompleted
+        ? PrimeCareTheme.colors.slateGray
+        : isUrgent
+        ? PrimeCareTheme.colors.coralRed
         : PrimeCareTheme.colors.emeraldTeal;
 
     return ClinicalGlassPanel(
@@ -258,7 +321,11 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
               shape: BoxShape.circle,
             ),
             child: Icon(
-              isCompleted ? LucideIcons.checkCircle : isUrgent ? LucideIcons.alertCircle : LucideIcons.clock,
+              isCompleted
+                  ? LucideIcons.checkCircle
+                  : isUrgent
+                  ? LucideIcons.alertCircle
+                  : LucideIcons.clock,
               size: 20,
               color: accentColor,
             ),
@@ -274,7 +341,9 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
                     Text(
                       title,
                       style: PrimeCareTheme.typography.h4.copyWith(
-                        color: isCompleted ? PrimeCareTheme.colors.slateGray : PrimeCareTheme.colors.navyIndigo,
+                        color: isCompleted
+                            ? PrimeCareTheme.colors.slateGray
+                            : PrimeCareTheme.colors.navyIndigo,
                       ),
                     ),
                     Text(
@@ -310,7 +379,7 @@ class _LocalContentCalendarScreenState extends ConsumerState<LocalContentCalenda
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

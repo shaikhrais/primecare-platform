@@ -11,7 +11,10 @@ class PhysioDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('PhysioDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'PhysioDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

@@ -23,7 +23,13 @@ class ClinicalGlassPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: border ?? Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.5)),
+        border:
+            border ??
+            Border.all(
+              color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(
+                0.5,
+              ),
+            ),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF191C1E).withOpacity(0.04),
@@ -78,9 +84,7 @@ class ClinicalGlassButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: PrimeCareTheme.colors.emeraldTeal,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         elevation: 0,
       ),
@@ -88,17 +92,16 @@ class ClinicalGlassButton extends StatelessWidget {
       child: buttonContent,
     );
 
-    return isFullWidth ? SizedBox(width: double.infinity, child: button) : button;
+    return isFullWidth
+        ? SizedBox(width: double.infinity, child: button)
+        : button;
   }
 }
 
 class ClinicalSearchTextField extends StatelessWidget {
   final String hintText;
 
-  const ClinicalSearchTextField({
-    super.key,
-    required this.hintText,
-  });
+  const ClinicalSearchTextField({super.key, required this.hintText});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ class AppTheme {
   static const Color primary = Color(0xFF006565);
   static const Color primaryContainer = Color(0xFF008080);
   static const Color primaryFixed = Color(0xFF93F2F2);
-  
+
   static const Color secondary = Color(0xFF004D4D); // darker contrast
   static const Color secondaryContainer = Color(0xFFB5EDEC);
   static const Color onSecondaryContainer = Color(0xFF002222);
@@ -15,7 +15,7 @@ class AppTheme {
   static const Color surfaceContainerLow = Color(0xFFF0F4F4);
   static const Color surfaceContainerLowest = Color(0xFFFFFFFF);
   static const Color surfaceContainerHigh = Color(0xFFE4EAE9);
-  
+
   static const Color outlineVariant = Color(0xFFBDC9C8); // Ghost border
 
   // Ambient Shadow - BoxShadow: 0 8px 32px rgba(24, 28, 29, 0.06)
@@ -43,7 +43,7 @@ class AppTheme {
         outlineVariant: outlineVariant,
       ),
       scaffoldBackgroundColor: surfaceContainerLow, // Default bg
-      
+
       textTheme: TextTheme(
         // Power Scale (Manrope for Display/Headline)
         displayLarge: GoogleFonts.manrope(
@@ -72,10 +72,11 @@ class AppTheme {
           fontWeight: FontWeight.w600,
         ),
       ),
-      
+
       // Remove dense solid 1px borders everywhere
       dividerTheme: const DividerThemeData(
-        color: Colors.transparent, // "No-Line Rule" via global override or ghost borders
+        color: Colors
+            .transparent, // "No-Line Rule" via global override or ghost borders
         space: 1,
       ),
 

@@ -68,7 +68,10 @@ class PartnershipsScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Key Partner Accounts', style: PrimeCareTheme.typography.h2),
+                  Text(
+                    'Key Partner Accounts',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
                   ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus, size: 16),
@@ -133,24 +136,30 @@ class PartnershipsScreen extends ConsumerWidget {
               color: PrimeCareTheme.colors.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(
-              count,
-              style: PrimeCareTheme.typography.label,
-            ),
+            child: Text(count, style: PrimeCareTheme.typography.label),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildPartnerCard(String name, String type, String status, String revShare, String notes, IconData icon) {
+  Widget _buildPartnerCard(
+    String name,
+    String type,
+    String status,
+    String revShare,
+    String notes,
+    IconData icon,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+        border: Border.all(
+          color: PrimeCareTheme.colors.surfaceContainerHighest,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,7 +183,12 @@ class PartnershipsScreen extends ConsumerWidget {
                     children: [
                       Text(name, style: PrimeCareTheme.typography.h3),
                       const SizedBox(height: 4),
-                      Text(type, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                      Text(
+                        type,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -186,12 +200,22 @@ class PartnershipsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Status', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Status',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(status, style: PrimeCareTheme.typography.body.copyWith(
-                  color: status.contains('Active') ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed,
-                  fontWeight: FontWeight.w600,
-                )),
+                Text(
+                  status,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: status.contains('Active')
+                        ? PrimeCareTheme.colors.emeraldTeal
+                        : PrimeCareTheme.colors.coralRed,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
           ),
@@ -200,7 +224,12 @@ class PartnershipsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Rev. Share', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Rev. Share',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(revShare, style: PrimeCareTheme.typography.body),
               ],
@@ -211,9 +240,20 @@ class PartnershipsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('Latest Note', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  'Latest Note',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(notes, style: PrimeCareTheme.typography.label.copyWith(fontStyle: FontStyle.italic), textAlign: TextAlign.right),
+                Text(
+                  notes,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.right,
+                ),
               ],
             ),
           ),

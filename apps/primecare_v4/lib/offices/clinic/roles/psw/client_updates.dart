@@ -12,9 +12,16 @@ class PswClientUpdatesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Care Team Updates',
-      subtitle: 'Communicate changes in client condition to nurses and care coordinators.',
+      subtitle:
+          'Communicate changes in client condition to nurses and care coordinators.',
       kpiCards: [
-         KPICardData(title: 'Updates Sent', value: '3', icon: LucideIcons.messageSquare, trend: 1.0, trendLabel: 'today'),
+        KPICardData(
+          title: 'Updates Sent',
+          value: '3',
+          icon: LucideIcons.messageSquare,
+          trend: 1.0,
+          trendLabel: 'today',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -24,9 +31,21 @@ class PswClientUpdatesScreen extends ConsumerWidget {
             children: [
               Text('Topic Areas', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Condition Change', 2, PrimeCareTheme.colors.coralBlush),
-              _buildFilterRow('General Supply Need', 5, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Scheduling Note', 1, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Condition Change',
+                2,
+                PrimeCareTheme.colors.coralBlush,
+              ),
+              _buildFilterRow(
+                'General Supply Need',
+                5,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Scheduling Note',
+                1,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -37,11 +56,14 @@ class PswClientUpdatesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Communication Log', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Communication Log',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.send),
                     label: const Text('Send New Update'),
@@ -50,23 +72,23 @@ class PswClientUpdatesScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildUpdateCard(
-                 'Elena Kagan',
-                 'Condition Change',
-                 'May 14, 2024 • 11:30',
-                 'Client reported increasing dizziness when standing up this morning. Left a voicemail for RN.',
-                 PrimeCareTheme.colors.coralBlush
-               ),
-               _buildUpdateCard(
-                 'Sonia Sotomayor',
-                 'General Supply Need',
-                 'May 13, 2024 • 15:00',
-                 'Running low on adult briefs (size L). Please request more on next delivery.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildUpdateCard(
+                'Elena Kagan',
+                'Condition Change',
+                'May 14, 2024 • 11:30',
+                'Client reported increasing dizziness when standing up this morning. Left a voicemail for RN.',
+                PrimeCareTheme.colors.coralBlush,
+              ),
+              _buildUpdateCard(
+                'Sonia Sotomayor',
+                'General Supply Need',
+                'May 13, 2024 • 15:00',
+                'Running low on adult briefs (size L). Please request more on next delivery.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -82,19 +104,34 @@ class PswClientUpdatesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildUpdateCard(String clientName, String category, String time, String note, Color themeColor) {
-     return Container(
+  Widget _buildUpdateCard(
+    String clientName,
+    String category,
+    String time,
+    String note,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -105,25 +142,39 @@ class PswClientUpdatesScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(note, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(note, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

@@ -7,7 +7,7 @@ class ProviderMapper {
   static ProviderModel mapToModel(ProviderDto dto) {
     return ProviderModel(
       id: dto.id,
-      // Cascading logic to absorb unpredictable API nomenclature 
+      // Cascading logic to absorb unpredictable API nomenclature
       name: dto.fullName ?? dto.providerName ?? 'Unknown Provider',
       nextVisit: dto.nextVisit,
       specialty: dto.specialty ?? 'General Practice',

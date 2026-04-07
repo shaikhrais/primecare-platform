@@ -9,17 +9,20 @@ class PatientHealthRecordsScreen extends ConsumerStatefulWidget {
   const PatientHealthRecordsScreen({super.key});
 
   @override
-  ConsumerState<PatientHealthRecordsScreen> createState() => _PatientHealthRecordsScreenState();
+  ConsumerState<PatientHealthRecordsScreen> createState() =>
+      _PatientHealthRecordsScreenState();
 }
 
-class _PatientHealthRecordsScreenState extends ConsumerState<PatientHealthRecordsScreen> {
+class _PatientHealthRecordsScreenState
+    extends ConsumerState<PatientHealthRecordsScreen> {
   int _selectedTab = 0;
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'My Health Records',
-      subtitle: 'Secure access to your test results, prescriptions, and visit summaries',
+      subtitle:
+          'Secure access to your test results, prescriptions, and visit summaries',
       icon: LucideIcons.folderHeart,
       actions: [
         Container(
@@ -27,19 +30,31 @@ class _PatientHealthRecordsScreenState extends ConsumerState<PatientHealthRecord
             color: PrimeCareTheme.surfaceContainerLowest,
             borderRadius: BorderRadius.circular(PrimeCareTheme.radiusLg),
             boxShadow: [
-               BoxShadow(
-                 color: PrimeCareTheme.primary.withOpacity(0.05),
-                 blurRadius: 12,
-                 offset: const Offset(0, 4)
-               ),
-            ]
+              BoxShadow(
+                color: PrimeCareTheme.primary.withOpacity(0.05),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: TextButton.icon(
             onPressed: () {},
-            icon: const Icon(LucideIcons.downloadCloud, size: 18, color: PrimeCareTheme.primary),
-            label: Text('Download History', style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.primary)),
+            icon: const Icon(
+              LucideIcons.downloadCloud,
+              size: 18,
+              color: PrimeCareTheme.primary,
+            ),
+            label: Text(
+              'Download History',
+              style: PrimeCareTheme.titleSmall.copyWith(
+                color: PrimeCareTheme.primary,
+              ),
+            ),
             style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: PrimeCareTheme.spacing5, vertical: PrimeCareTheme.spacing3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: PrimeCareTheme.spacing5,
+                vertical: PrimeCareTheme.spacing3,
+              ),
             ),
           ),
         ),
@@ -56,20 +71,30 @@ class _PatientHealthRecordsScreenState extends ConsumerState<PatientHealthRecord
             ),
             child: Row(
               children: [
-                Expanded(child: _buildTabButton(0, 'Lab Results', LucideIcons.flaskConical)),
-                Expanded(child: _buildTabButton(1, 'Prescriptions', LucideIcons.pill)),
-                Expanded(child: _buildTabButton(2, 'Visit Summaries', LucideIcons.fileText)),
+                Expanded(
+                  child: _buildTabButton(
+                    0,
+                    'Lab Results',
+                    LucideIcons.flaskConical,
+                  ),
+                ),
+                Expanded(
+                  child: _buildTabButton(1, 'Prescriptions', LucideIcons.pill),
+                ),
+                Expanded(
+                  child: _buildTabButton(
+                    2,
+                    'Visit Summaries',
+                    LucideIcons.fileText,
+                  ),
+                ),
               ],
             ),
           ),
           const SizedBox(height: PrimeCareTheme.spacing6),
-          
+
           // Tab Content
-          Expanded(
-            child: SingleChildScrollView(
-              child: _buildTabContent(),
-            ),
-          )
+          Expanded(child: SingleChildScrollView(child: _buildTabContent())),
         ],
       ),
     );
@@ -83,15 +108,19 @@ class _PatientHealthRecordsScreenState extends ConsumerState<PatientHealthRecord
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(vertical: PrimeCareTheme.spacing3),
         decoration: BoxDecoration(
-          color: isSelected ? PrimeCareTheme.surfaceContainerLowest : Colors.transparent,
+          color: isSelected
+              ? PrimeCareTheme.surfaceContainerLowest
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(PrimeCareTheme.radiusLg),
-          boxShadow: isSelected ? [
-            BoxShadow(
-              color: PrimeCareTheme.primary.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            )
-          ] : [],
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: PrimeCareTheme.primary.withOpacity(0.05),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
+              : [],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -99,13 +128,17 @@ class _PatientHealthRecordsScreenState extends ConsumerState<PatientHealthRecord
             Icon(
               icon,
               size: 18,
-              color: isSelected ? PrimeCareTheme.primary : PrimeCareTheme.onSurfaceVariant,
+              color: isSelected
+                  ? PrimeCareTheme.primary
+                  : PrimeCareTheme.onSurfaceVariant,
             ),
             const SizedBox(width: PrimeCareTheme.spacing2),
             Text(
               title,
               style: PrimeCareTheme.titleSmall.copyWith(
-                color: isSelected ? PrimeCareTheme.onSurface : PrimeCareTheme.onSurfaceVariant,
+                color: isSelected
+                    ? PrimeCareTheme.onSurface
+                    : PrimeCareTheme.onSurfaceVariant,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -238,21 +271,37 @@ class _PatientHealthRecordsScreenState extends ConsumerState<PatientHealthRecord
               children: [
                 Text(title, style: PrimeCareTheme.titleMedium),
                 const SizedBox(height: PrimeCareTheme.spacing1),
-                Text(provider, style: PrimeCareTheme.bodyMedium.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+                Text(
+                  provider,
+                  style: PrimeCareTheme.bodyMedium.copyWith(
+                    color: PrimeCareTheme.onSurfaceVariant,
+                  ),
+                ),
                 const SizedBox(height: PrimeCareTheme.spacing2),
                 Row(
                   children: [
-                    Text(date, style: PrimeCareTheme.labelMedium.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+                    Text(
+                      date,
+                      style: PrimeCareTheme.labelMedium.copyWith(
+                        color: PrimeCareTheme.onSurfaceVariant,
+                      ),
+                    ),
                     const SizedBox(width: PrimeCareTheme.spacing3),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: statusColor.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         status,
-                        style: PrimeCareTheme.labelSmall.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+                        style: PrimeCareTheme.labelSmall.copyWith(
+                          color: statusColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -264,11 +313,21 @@ class _PatientHealthRecordsScreenState extends ConsumerState<PatientHealthRecord
             onPressed: () {},
             style: TextButton.styleFrom(
               backgroundColor: PrimeCareTheme.primaryContainer,
-              padding: const EdgeInsets.symmetric(horizontal: PrimeCareTheme.spacing4, vertical: PrimeCareTheme.spacing3),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PrimeCareTheme.radiusMd)),
+              padding: const EdgeInsets.symmetric(
+                horizontal: PrimeCareTheme.spacing4,
+                vertical: PrimeCareTheme.spacing3,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(PrimeCareTheme.radiusMd),
+              ),
             ),
-            child: Text(actionLabel, style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.primary)),
-          )
+            child: Text(
+              actionLabel,
+              style: PrimeCareTheme.titleSmall.copyWith(
+                color: PrimeCareTheme.primary,
+              ),
+            ),
+          ),
         ],
       ),
     );

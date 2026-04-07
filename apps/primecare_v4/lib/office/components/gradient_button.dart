@@ -16,7 +16,8 @@ class GradientButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isSecondary) {
-      return ElevatedButton(key: const Key('data-status-id=shared-global-gradient-action-1'), 
+      return ElevatedButton(
+        key: const Key('data-status-id=shared-global-gradient-action-1'),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppTheme.secondaryContainer,
           foregroundColor: AppTheme.onSecondaryContainer,
@@ -44,12 +45,13 @@ class GradientButton extends StatelessWidget {
             color: AppTheme.primary.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
-        child: InkWell(key: const Key('data-status-id=shared-global-gradient-action-2'), 
+        child: InkWell(
+          key: const Key('data-status-id=shared-global-gradient-action-2'),
           borderRadius: BorderRadius.circular(50),
           onTap: onPressed, // InkWell uses onTap, not onPressed
           child: Padding(

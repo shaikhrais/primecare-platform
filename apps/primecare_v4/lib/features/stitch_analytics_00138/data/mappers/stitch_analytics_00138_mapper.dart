@@ -1,4 +1,4 @@
-﻿import '../dtos/stitch_analytics_00138_dto.dart';
+import '../dtos/stitch_analytics_00138_dto.dart';
 import '../../domain/models/stitch_analytics_00138_view_model.dart';
 
 class StitchAnalytics00138Mapper {

@@ -11,7 +11,10 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('IntakeCoordinatorDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'IntakeCoordinatorDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

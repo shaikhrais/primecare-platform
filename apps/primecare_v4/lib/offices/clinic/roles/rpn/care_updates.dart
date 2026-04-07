@@ -12,7 +12,8 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Care Updates & Memos',
-      subtitle: 'Critical clinical changes, task revisions, and policy updates requiring your acknowledgment.',
+      subtitle:
+          'Critical clinical changes, task revisions, and policy updates requiring your acknowledgment.',
       kpiCards: [
         KPICardData(
           title: 'Action Required',
@@ -44,9 +45,21 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
             children: [
               Text('Update Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 24),
-              _buildCategoryFilter('Critical Updates', 1, PrimeCareTheme.colors.error),
-              _buildCategoryFilter('Task Revisions', 2, PrimeCareTheme.colors.primary),
-              _buildCategoryFilter('Policy Memos', 5, PrimeCareTheme.colors.secondary),
+              _buildCategoryFilter(
+                'Critical Updates',
+                1,
+                PrimeCareTheme.colors.error,
+              ),
+              _buildCategoryFilter(
+                'Task Revisions',
+                2,
+                PrimeCareTheme.colors.primary,
+              ),
+              _buildCategoryFilter(
+                'Policy Memos',
+                5,
+                PrimeCareTheme.colors.secondary,
+              ),
             ],
           ),
         ),
@@ -56,10 +69,15 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 16.0,
+              ),
               child: Text(
                 'Critical Care Plan Updates',
-                style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.error),
+                style: PrimeCareTheme.typography.h2.copyWith(
+                  color: PrimeCareTheme.colors.error,
+                ),
               ),
             ),
             _buildUpdateCard(
@@ -67,14 +85,18 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
               room: 'Room 201-B',
               time: '10:45 AM',
               title: 'Medication Order Change: Lisinopril',
-              content: 'Dr. Thorne has discontinued Lisinopril 10mg PO Daily. New order: Amlodipine 5mg PO Daily starting immediately. Please review new care plan details.',
+              content:
+                  'Dr. Thorne has discontinued Lisinopril 10mg PO Daily. New order: Amlodipine 5mg PO Daily starting immediately. Please review new care plan details.',
               severity: 'High Priority',
               themeColor: PrimeCareTheme.colors.error,
               isHighPriority: true,
             ),
             const SizedBox(height: 32),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 16.0,
+              ),
               child: Text(
                 'General Ward Memos & Revisions',
                 style: PrimeCareTheme.typography.h2,
@@ -85,7 +107,8 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
               room: 'Nursing Station',
               time: '09:00 AM',
               title: 'Updated Hand Hygiene Protocol',
-              content: 'Effective immediately, the mandatory hand hygiene audit protocol has been updated. Please review the attached memo for the new 5-step checklist.',
+              content:
+                  'Effective immediately, the mandatory hand hygiene audit protocol has been updated. Please review the attached memo for the new 5-step checklist.',
               severity: 'Routine',
               themeColor: PrimeCareTheme.colors.secondary,
               isHighPriority: false,
@@ -95,7 +118,8 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
               room: 'Room 312-A',
               time: 'Yesterday, 4:30 PM',
               title: 'Physiotherapy Schedule Revised',
-              content: 'PT department has moved Ms. McMillan\'s ambulation session from 10:00 AM to 2:00 PM to accommodate her post-op rest schedule. Please update daily routine accordingly.',
+              content:
+                  'PT department has moved Ms. McMillan\'s ambulation session from 10:00 AM to 2:00 PM to accommodate her post-op rest schedule. Please update daily routine accordingly.',
               severity: 'Notice',
               themeColor: PrimeCareTheme.colors.primary,
               isHighPriority: false,
@@ -114,7 +138,7 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
@@ -133,9 +157,12 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
               color: PrimeCareTheme.colors.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(
-              color: PrimeCareTheme.colors.onSurface,
-            )),
+            child: Text(
+              count.toString(),
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: PrimeCareTheme.colors.onSurface,
+              ),
+            ),
           ),
         ],
       ),
@@ -162,10 +189,7 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
                 gradient: RadialGradient(
                   center: Alignment.topLeft,
                   radius: 2.0,
-                  colors: [
-                    themeColor.withOpacity(0.15),
-                    Colors.transparent,
-                  ],
+                  colors: [themeColor.withOpacity(0.15), Colors.transparent],
                 ),
               ),
             ),
@@ -191,49 +215,79 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     Row(
-                       children: [
-                         Container(
-                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                           decoration: BoxDecoration(
-                             color: themeColor.withOpacity(0.1),
-                             borderRadius: BorderRadius.circular(16),
-                             border: Border.all(color: themeColor.withOpacity(0.3)),
-                           ),
-                           child: Row(
-                             children: [
-                               Icon(
-                                 isHighPriority ? LucideIcons.alertOctagon : LucideIcons.info,
-                                 size: 14,
-                                 color: themeColor,
-                               ),
-                               const SizedBox(width: 8),
-                               Text(
-                                 severity.toUpperCase(),
-                                 style: PrimeCareTheme.typography.label.copyWith(
-                                   color: themeColor,
-                                   fontWeight: FontWeight.bold,
-                                   letterSpacing: 0.5,
-                                 ),
-                               ),
-                             ],
-                           ),
-                         ),
-                         const SizedBox(width: 16),
-                         Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.outline)),
-                       ],
-                     ),
-                     Row(
-                       children: [
-                         Icon(LucideIcons.user, size: 16, color: PrimeCareTheme.colors.secondary),
-                         const SizedBox(width: 8),
-                         Text(patientName, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.secondary)),
-                         const SizedBox(width: 12),
-                         Icon(LucideIcons.mapPin, size: 16, color: PrimeCareTheme.colors.outline),
-                         const SizedBox(width: 8),
-                         Text(room, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.outline)),
-                       ],
-                     ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: themeColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: themeColor.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                isHighPriority
+                                    ? LucideIcons.alertOctagon
+                                    : LucideIcons.info,
+                                size: 14,
+                                color: themeColor,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                severity.toUpperCase(),
+                                style: PrimeCareTheme.typography.label.copyWith(
+                                  color: themeColor,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Text(
+                          time,
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: PrimeCareTheme.colors.outline,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          LucideIcons.user,
+                          size: 16,
+                          color: PrimeCareTheme.colors.secondary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          patientName,
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: PrimeCareTheme.colors.secondary,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Icon(
+                          LucideIcons.mapPin,
+                          size: 16,
+                          color: PrimeCareTheme.colors.outline,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          room,
+                          style: PrimeCareTheme.typography.label.copyWith(
+                            color: PrimeCareTheme.colors.outline,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -250,25 +304,39 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
                 Row(
                   children: [
                     Container(
-                      decoration: isHighPriority ? BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            themeColor,
-                            themeColor.withOpacity(0.7),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(24),
-                      ) : null,
+                      decoration: isHighPriority
+                          ? BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  themeColor,
+                                  themeColor.withOpacity(0.7),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(24),
+                            )
+                          : null,
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: isHighPriority ? Colors.transparent : Colors.transparent,
+                          backgroundColor: isHighPriority
+                              ? Colors.transparent
+                              : Colors.transparent,
                           shadowColor: Colors.transparent,
-                          foregroundColor: isHighPriority ? PrimeCareTheme.colors.onPrimary : PrimeCareTheme.colors.onSurface,
-                          side: isHighPriority ? BorderSide.none : BorderSide(color: PrimeCareTheme.colors.outlineVariant, width: 1),
-                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          foregroundColor: isHighPriority
+                              ? PrimeCareTheme.colors.onPrimary
+                              : PrimeCareTheme.colors.onSurface,
+                          side: isHighPriority
+                              ? BorderSide.none
+                              : BorderSide(
+                                  color: PrimeCareTheme.colors.outlineVariant,
+                                  width: 1,
+                                ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32,
+                            vertical: 16,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),
                           ),
@@ -277,7 +345,10 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
                           children: [
                             Icon(LucideIcons.checkCircle, size: 18),
                             const SizedBox(width: 8),
-                            const Text('Acknowledge Update', style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Acknowledge Update',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                       ),
@@ -285,15 +356,24 @@ class RpnCareUpdatesScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     TextButton.icon(
                       onPressed: () {},
-                      icon: Icon(LucideIcons.cornerUpRight, size: 18, color: PrimeCareTheme.colors.secondary),
-                      label: Text('Reply to Sender', style: TextStyle(color: PrimeCareTheme.colors.secondary)),
+                      icon: Icon(
+                        LucideIcons.cornerUpRight,
+                        size: 18,
+                        color: PrimeCareTheme.colors.secondary,
+                      ),
+                      label: Text(
+                        'Reply to Sender',
+                        style: TextStyle(
+                          color: PrimeCareTheme.colors.secondary,
+                        ),
+                      ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

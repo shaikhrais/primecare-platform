@@ -12,9 +12,12 @@ class PoliciesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Policy & Procedures Management',
-      subtitle: 'Author, distribute, and track staff acknowledgment of corporate policies and clinical procedures.',
+      subtitle:
+          'Author, distribute, and track staff acknowledgment of corporate policies and clinical procedures.',
       headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search policies by title or keyword...'),
+        ClinicalSearchTextField(
+          hintText: 'Search policies by title or keyword...',
+        ),
         const SizedBox(width: 16),
         ClinicalGlassButton(
           onPressed: () {},
@@ -53,9 +56,7 @@ class PoliciesScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildRecentRevisions(),
       ],
-      mainContent: [
-        _buildPolicyDirectory(),
-      ],
+      mainContent: [_buildPolicyDirectory()],
     );
   }
 
@@ -67,7 +68,11 @@ class PoliciesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.folders, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.folders,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Categories', style: PrimeCareTheme.typography.h3),
             ],
@@ -107,13 +112,19 @@ class PoliciesScreen extends ConsumerWidget {
   Widget _buildRecentRevisions() {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
-      border: Border.all(color: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.3)),
+      border: Border.all(
+        color: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.3),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(LucideIcons.history, color: PrimeCareTheme.colors.emeraldTeal, size: 20),
+              Icon(
+                LucideIcons.history,
+                color: PrimeCareTheme.colors.emeraldTeal,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Recent Approvals', style: PrimeCareTheme.typography.h3),
             ],
@@ -131,8 +142,18 @@ class PoliciesScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-        Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+        Text(
+          title,
+          style: PrimeCareTheme.typography.body.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          date,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+          ),
+        ),
       ],
     );
   }
@@ -196,8 +217,11 @@ class PoliciesScreen extends ConsumerWidget {
     required String lastUpdated,
     required double ackRate,
   }) {
-    final requiresAction = status.contains('Review') || status.contains('Pending');
-    final iconColor = requiresAction ? PrimeCareTheme.colors.amberWarning : PrimeCareTheme.colors.navyIndigo;
+    final requiresAction =
+        status.contains('Review') || status.contains('Pending');
+    final iconColor = requiresAction
+        ? PrimeCareTheme.colors.amberWarning
+        : PrimeCareTheme.colors.navyIndigo;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -219,10 +243,13 @@ class PoliciesScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text(policyID, style: PrimeCareTheme.typography.body.copyWith(
-                      color: PrimeCareTheme.colors.slateGray,
-                      fontWeight: FontWeight.bold,
-                    )),
+                    Text(
+                      policyID,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Text(title, style: PrimeCareTheme.typography.h3),
                   ],
@@ -230,50 +257,70 @@ class PoliciesScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.tag, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.tag,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(category, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.calendar, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.calendar,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('Updated: $lastUpdated', style: PrimeCareTheme.typography.label),
+                    Text(
+                      'Updated: $lastUpdated',
+                      style: PrimeCareTheme.typography.label,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Container(
-                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                 decoration: BoxDecoration(
-                   color: requiresAction ? PrimeCareTheme.colors.amberWarning.withOpacity(0.2) : PrimeCareTheme.colors.cloudGray,
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Text(
-                   status,
-                   style: PrimeCareTheme.typography.label.copyWith(
-                     color: requiresAction ? PrimeCareTheme.colors.brownSolid : PrimeCareTheme.colors.navyIndigo,
-                     fontWeight: FontWeight.bold,
-                   ),
-                 ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  '$ackRate% Acknowledged',
+                decoration: BoxDecoration(
+                  color: requiresAction
+                      ? PrimeCareTheme.colors.amberWarning.withOpacity(0.2)
+                      : PrimeCareTheme.colors.cloudGray,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  status,
                   style: PrimeCareTheme.typography.label.copyWith(
-                    color: ackRate < 90 ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.emeraldTeal,
+                    color: requiresAction
+                        ? PrimeCareTheme.colors.brownSolid
+                        : PrimeCareTheme.colors.navyIndigo,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: requiresAction ? 'Review/Action' : 'View Policy',
-                  icon: LucideIcons.arrowRight,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                '$ackRate% Acknowledged',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: ackRate < 90
+                      ? PrimeCareTheme.colors.coralRed
+                      : PrimeCareTheme.colors.emeraldTeal,
+                  fontWeight: FontWeight.bold,
                 ),
-             ],
+              ),
+              const SizedBox(height: 8),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: requiresAction ? 'Review/Action' : 'View Policy',
+                icon: LucideIcons.arrowRight,
+              ),
+            ],
           ),
         ],
       ),

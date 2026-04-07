@@ -8,43 +8,39 @@ class TerritoryFieldActivityScreen extends ConsumerStatefulWidget {
   const TerritoryFieldActivityScreen({super.key});
 
   @override
-  ConsumerState<TerritoryFieldActivityScreen> createState() => _TerritoryFieldActivityScreenState();
+  ConsumerState<TerritoryFieldActivityScreen> createState() =>
+      _TerritoryFieldActivityScreenState();
 }
 
-class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldActivityScreen> {
+class _TerritoryFieldActivityScreenState
+    extends ConsumerState<TerritoryFieldActivityScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      _buildMapPlaceholder(),
-                      const SizedBox(height: 32),
-                      _buildActivityFeed(),
-                    ],
-                  ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildMapPlaceholder(),
+                    const SizedBox(height: 32),
+                    _buildActivityFeed(),
+                  ],
                 ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 1,
-                  child: _buildTopPerformersList(),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              const SizedBox(width: 32),
+              Expanded(flex: 1, child: _buildTopPerformersList()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -102,10 +98,14 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
             height: 350,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.3),
+              color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+                alpha: 0.3,
+              ),
               borderRadius: BorderRadius.circular(24),
               image: const DecorationImage(
-                image: NetworkImage('https://maps.googleapis.com/maps/api/staticmap?center=40.7128,-74.0060&zoom=11&size=800x400&style=feature:all|element:labels.text.fill|color:0x333333&style=feature:water|element:geometry|color:0xdddddd&sensor=false'), // generic map placeholder styling pattern
+                image: NetworkImage(
+                  'https://maps.googleapis.com/maps/api/staticmap?center=40.7128,-74.0060&zoom=11&size=800x400&style=feature:all|element:labels.text.fill|color:0x333333&style=feature:water|element:geometry|color:0xdddddd&sensor=false',
+                ), // generic map placeholder styling pattern
                 fit: BoxFit.cover,
                 opacity: 0.4,
               ),
@@ -120,14 +120,28 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
                 color: Colors.white.withValues(alpha: 0.9),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
                 ],
               ),
               child: Row(
                 children: [
-                  Icon(LucideIcons.mapPin, size: 16, color: PrimeCareTheme.colors.emeraldTeal),
+                  Icon(
+                    LucideIcons.mapPin,
+                    size: 16,
+                    color: PrimeCareTheme.colors.emeraldTeal,
+                  ),
                   const SizedBox(width: 8),
-                  Text('Active Field Staff: 8', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+                  Text(
+                    'Active Field Staff: 8',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -142,8 +156,15 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
     );
   }
 
-  Widget _buildMapPin({required double top, required double left, required String label, required bool isActive}) {
-    Color pinColor = isActive ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.slateGray;
+  Widget _buildMapPin({
+    required double top,
+    required double left,
+    required String label,
+    required bool isActive,
+  }) {
+    Color pinColor = isActive
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.slateGray;
     return Positioned(
       top: top,
       left: left,
@@ -155,13 +176,24 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
               color: Colors.white,
               shape: BoxShape.circle,
               boxShadow: [
-                BoxShadow(color: pinColor.withValues(alpha: 0.3), blurRadius: 10, spreadRadius: 2),
+                BoxShadow(
+                  color: pinColor.withValues(alpha: 0.3),
+                  blurRadius: 10,
+                  spreadRadius: 2,
+                ),
               ],
             ),
             child: CircleAvatar(
               radius: 12,
               backgroundColor: pinColor,
-              child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+              child: Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 2),
@@ -177,7 +209,9 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
       children: [
         Text(
           'Live Activity Feed',
-          style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+          style: PrimeCareTheme.typography.h3.copyWith(
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
         ),
         const SizedBox(height: 16),
         ClinicalGlassPanel(
@@ -228,7 +262,9 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
 
   Widget _buildActivityTimelineSeparator() {
     return Padding(
-      padding: const EdgeInsets.only(left: 19), // align with center of time text/icon
+      padding: const EdgeInsets.only(
+        left: 19,
+      ), // align with center of time text/icon
       child: Container(
         height: 24,
         width: 2,
@@ -246,19 +282,31 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
     required bool isSuccess,
   }) {
     IconData typeIcon;
-    if (type == 'Meeting') typeIcon = LucideIcons.users;
-    else if (type == 'Drop-off') typeIcon = LucideIcons.package;
-    else if (type == 'Call') typeIcon = LucideIcons.phone;
-    else typeIcon = LucideIcons.flag;
+    if (type == 'Meeting')
+      typeIcon = LucideIcons.users;
+    else if (type == 'Drop-off')
+      typeIcon = LucideIcons.package;
+    else if (type == 'Call')
+      typeIcon = LucideIcons.phone;
+    else
+      typeIcon = LucideIcons.flag;
 
-    Color stateColor = isSuccess ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.slateGray;
+    Color stateColor = isSuccess
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.slateGray;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           width: 50,
-          child: Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold)),
+          child: Text(
+            time,
+            style: PrimeCareTheme.typography.label.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         const SizedBox(width: 16),
         Container(
@@ -276,16 +324,31 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
             children: [
               Row(
                 children: [
-                  Text(repName, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                  Text(
+                    repName,
+                    style: PrimeCareTheme.typography.h4.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text('•', style: TextStyle(color: Colors.grey)),
                   ),
-                  Text(action, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                  Text(
+                    action,
+                    style: PrimeCareTheme.typography.body.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 4),
-              Text('@ $target', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                '@ $target',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
             ],
           ),
         ),
@@ -304,39 +367,70 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
             children: [
               Text(
                 'Top Performers',
-                style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
               Icon(LucideIcons.award, size: 20, color: Colors.amber.shade700),
             ],
           ),
           const SizedBox(height: 24),
-          _buildPerformerRow(rank: 1, name: 'Sarah Jenkins', metrics: '45 meetings / 12 conv.', isTop: true),
+          _buildPerformerRow(
+            rank: 1,
+            name: 'Sarah Jenkins',
+            metrics: '45 meetings / 12 conv.',
+            isTop: true,
+          ),
           const SizedBox(height: 20),
-          _buildPerformerRow(rank: 2, name: 'Michael Chang', metrics: '38 meetings / 9 conv.', isTop: false),
+          _buildPerformerRow(
+            rank: 2,
+            name: 'Michael Chang',
+            metrics: '38 meetings / 9 conv.',
+            isTop: false,
+          ),
           const SizedBox(height: 20),
-          _buildPerformerRow(rank: 3, name: 'David Rossi', metrics: '35 meetings / 6 conv.', isTop: false),
+          _buildPerformerRow(
+            rank: 3,
+            name: 'David Rossi',
+            metrics: '35 meetings / 6 conv.',
+            isTop: false,
+          ),
           const SizedBox(height: 20),
-          _buildPerformerRow(rank: 4, name: 'Aisha Patel', metrics: '30 meetings / 5 conv.', isTop: false),
+          _buildPerformerRow(
+            rank: 4,
+            name: 'Aisha Patel',
+            metrics: '30 meetings / 5 conv.',
+            isTop: false,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildPerformerRow({required int rank, required String name, required String metrics, required bool isTop}) {
+  Widget _buildPerformerRow({
+    required int rank,
+    required String name,
+    required String metrics,
+    required bool isTop,
+  }) {
     return Row(
       children: [
         Container(
           width: 24,
           height: 24,
           decoration: BoxDecoration(
-            color: isTop ? Colors.amber.shade700.withValues(alpha: 0.1) : PrimeCareTheme.colors.surfaceContainerHighest,
+            color: isTop
+                ? Colors.amber.shade700.withValues(alpha: 0.1)
+                : PrimeCareTheme.colors.surfaceContainerHighest,
             shape: BoxShape.circle,
           ),
           child: Center(
             child: Text(
               rank.toString(),
               style: PrimeCareTheme.typography.label.copyWith(
-                color: isTop ? Colors.amber.shade700 : PrimeCareTheme.colors.slateGray,
+                color: isTop
+                    ? Colors.amber.shade700
+                    : PrimeCareTheme.colors.slateGray,
                 fontWeight: FontWeight.bold,
                 fontSize: 11,
               ),
@@ -348,14 +442,29 @@ class _TerritoryFieldActivityScreenState extends ConsumerState<TerritoryFieldAct
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+              Text(
+                name,
+                style: PrimeCareTheme.typography.h4.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(metrics, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
+              Text(
+                metrics,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                  fontSize: 11,
+                ),
+              ),
             ],
           ),
         ),
         IconButton(
-          icon: Icon(LucideIcons.chevronRight, size: 16, color: PrimeCareTheme.colors.slateGray),
+          icon: Icon(
+            LucideIcons.chevronRight,
+            size: 16,
+            color: PrimeCareTheme.colors.slateGray,
+          ),
           onPressed: () {},
         ),
       ],

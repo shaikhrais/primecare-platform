@@ -8,17 +8,15 @@ import 'core/theme/app_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  
+
   await dotenv.load(fileName: ".env");
-  
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
-      child: const ProviderScope(
-        child: PrimeCareApp(),
-      ),
+      child: const ProviderScope(child: PrimeCareApp()),
     ),
   );
 }

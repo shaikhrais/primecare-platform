@@ -18,7 +18,8 @@ class FeatureMapper {
       id: mock['id']?.toString() ?? 'MOCK-UNK',
       title: mock['title']?.toString() ?? 'Mock Record',
       status: mock['status']?.toString() ?? 'Draft',
-      description: mock['description']?.toString() ?? 'Generative Mock Content.',
+      description:
+          mock['description']?.toString() ?? 'Generative Mock Content.',
       type: mock['type']?.toString() ?? 'UNKNOWN',
       rawPayload: mock,
     );

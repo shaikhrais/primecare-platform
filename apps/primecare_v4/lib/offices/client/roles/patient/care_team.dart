@@ -40,15 +40,28 @@ class PatientCareTeamScreen extends ConsumerWidget {
                       color: PrimeCareTheme.error.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(LucideIcons.phoneCall, color: PrimeCareTheme.error),
+                    child: const Icon(
+                      LucideIcons.phoneCall,
+                      color: PrimeCareTheme.error,
+                    ),
                   ),
                   const SizedBox(width: PrimeCareTheme.spacing4),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Need immediate assistance?', style: PrimeCareTheme.titleMedium.copyWith(color: PrimeCareTheme.onErrorContainer)),
-                        Text('For emergencies, please call 911. For urgent, after-hours care, call our on-call line at 1-800-555-1234.', style: PrimeCareTheme.bodyMedium.copyWith(color: PrimeCareTheme.onErrorContainer)),
+                        Text(
+                          'Need immediate assistance?',
+                          style: PrimeCareTheme.titleMedium.copyWith(
+                            color: PrimeCareTheme.onErrorContainer,
+                          ),
+                        ),
+                        Text(
+                          'For emergencies, please call 911. For urgent, after-hours care, call our on-call line at 1-800-555-1234.',
+                          style: PrimeCareTheme.bodyMedium.copyWith(
+                            color: PrimeCareTheme.onErrorContainer,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -102,9 +115,17 @@ class PatientCareTeamScreen extends ConsumerWidget {
             // Specialists Section
             Text('Specialists & Referrals', style: PrimeCareTheme.titleLarge),
             const SizedBox(height: PrimeCareTheme.spacing4),
-            _buildSpecialistRow('Dr. Nora Adams', 'Cardiology', 'Last seen: Oct 2, 2026'),
+            _buildSpecialistRow(
+              'Dr. Nora Adams',
+              'Cardiology',
+              'Last seen: Oct 2, 2026',
+            ),
             const SizedBox(height: PrimeCareTheme.spacing3),
-            _buildSpecialistRow('Dr. Robert Klein', 'Dermatology', 'Last seen: Jul 15, 2026'),
+            _buildSpecialistRow(
+              'Dr. Robert Klein',
+              'Dermatology',
+              'Last seen: Jul 15, 2026',
+            ),
           ],
         ),
       ),
@@ -147,17 +168,27 @@ class PatientCareTeamScreen extends ConsumerWidget {
                       color: PrimeCareTheme.tertiary,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(LucideIcons.star, size: 12, color: PrimeCareTheme.onTertiary),
+                    child: const Icon(
+                      LucideIcons.star,
+                      size: 12,
+                      color: PrimeCareTheme.onTertiary,
+                    ),
                   ),
                 ),
             ],
           ),
           const SizedBox(height: PrimeCareTheme.spacing4),
-          Text(name, style: PrimeCareTheme.titleMedium, textAlign: TextAlign.center),
+          Text(
+            name,
+            style: PrimeCareTheme.titleMedium,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: PrimeCareTheme.spacing1),
           Text(
             role,
-            style: PrimeCareTheme.labelMedium.copyWith(color: PrimeCareTheme.onSurfaceVariant),
+            style: PrimeCareTheme.labelMedium.copyWith(
+              color: PrimeCareTheme.onSurfaceVariant,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: PrimeCareTheme.spacing5),
@@ -180,7 +211,9 @@ class PatientCareTeamScreen extends ConsumerWidget {
       tooltip: tooltip,
       style: IconButton.styleFrom(
         backgroundColor: PrimeCareTheme.primaryContainer,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PrimeCareTheme.radiusMd)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(PrimeCareTheme.radiusMd),
+        ),
       ),
     );
   }
@@ -196,15 +229,18 @@ class PatientCareTeamScreen extends ConsumerWidget {
             color: PrimeCareTheme.primary.withOpacity(0.02),
             blurRadius: 12,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Row(
         children: [
           const CircleAvatar(
-             radius: 20,
-             backgroundColor: PrimeCareTheme.surfaceContainerHigh,
-             child: Icon(LucideIcons.user, color: PrimeCareTheme.onSurfaceVariant),
+            radius: 20,
+            backgroundColor: PrimeCareTheme.surfaceContainerHigh,
+            child: Icon(
+              LucideIcons.user,
+              color: PrimeCareTheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(width: PrimeCareTheme.spacing4),
           Expanded(
@@ -212,14 +248,24 @@ class PatientCareTeamScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(name, style: PrimeCareTheme.titleMedium),
-                Text('$specialty • $lastSeen', style: PrimeCareTheme.labelSmall.copyWith(color: PrimeCareTheme.onSurfaceVariant)),
+                Text(
+                  '$specialty • $lastSeen',
+                  style: PrimeCareTheme.labelSmall.copyWith(
+                    color: PrimeCareTheme.onSurfaceVariant,
+                  ),
+                ),
               ],
             ),
           ),
           TextButton(
             onPressed: () {},
-            child: Text('Message', style: PrimeCareTheme.titleSmall.copyWith(color: PrimeCareTheme.primary)),
-          )
+            child: Text(
+              'Message',
+              style: PrimeCareTheme.titleSmall.copyWith(
+                color: PrimeCareTheme.primary,
+              ),
+            ),
+          ),
         ],
       ),
     );

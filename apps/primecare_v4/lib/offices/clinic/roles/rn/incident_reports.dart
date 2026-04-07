@@ -52,8 +52,16 @@ class IncidentReportsScreen extends ConsumerWidget {
               Text('Report Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
               _buildCategoryRow('Falls', 2, PrimeCareTheme.colors.coralRed),
-              _buildCategoryRow('Medication Errors', 1, PrimeCareTheme.colors.navyIndigo),
-              _buildCategoryRow('Equipment Failure', 0, PrimeCareTheme.colors.lavenderLustre),
+              _buildCategoryRow(
+                'Medication Errors',
+                1,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildCategoryRow(
+                'Equipment Failure',
+                0,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
               _buildCategoryRow('Other', 1, PrimeCareTheme.colors.slateGray),
             ],
           ),
@@ -120,32 +128,43 @@ class IncidentReportsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildIncidentCard(String id, String type, String abstractInfo, String status, String date, Color statusColor) {
+  Widget _buildIncidentCard(
+    String id,
+    String type,
+    String abstractInfo,
+    String status,
+    String date,
+    Color statusColor,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+        border: Border.all(
+          color: PrimeCareTheme.colors.surfaceContainerHighest,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,20 +176,34 @@ class IncidentReportsScreen extends ConsumerWidget {
                 children: [
                   Text(id, style: PrimeCareTheme.typography.h3),
                   const SizedBox(width: 8),
-                  Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
                   const SizedBox(width: 8),
-                  Text(type, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    type,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
-               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
                   status,
-                  style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: statusColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -181,16 +214,21 @@ class IncidentReportsScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Reported: $date', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+              Text(
+                'Reported: $date',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
+              ),
               TextButton(
-                 onPressed: () {},
+                onPressed: () {},
                 style: TextButton.styleFrom(
                   foregroundColor: PrimeCareTheme.colors.navyIndigo,
                 ),
                 child: const Text('View Details'),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

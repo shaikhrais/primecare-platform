@@ -11,7 +11,10 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('CommunityOutreachDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'CommunityOutreachDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

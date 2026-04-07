@@ -30,8 +30,8 @@ class RpnNotesScreen extends ConsumerWidget {
             children: [
               Text('Tags', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-               _buildTag('Follow-up', PrimeCareTheme.colors.coralRed),
-               _buildTag('Pharmacy', PrimeCareTheme.colors.navyIndigo),
+              _buildTag('Follow-up', PrimeCareTheme.colors.coralRed),
+              _buildTag('Pharmacy', PrimeCareTheme.colors.navyIndigo),
             ],
           ),
         ),
@@ -42,10 +42,16 @@ class RpnNotesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Text('Quick Notes', style: PrimeCareTheme.typography.h2),
-               const SizedBox(height: 24),
-               _buildNoteItem('Check with pharmacy regarding John\'s prescription refill status (Lisinopril).', 'Pharmacy'),
-               _buildNoteItem('Remember to chart Maria\'s dietary intake for lunch.', 'Follow-up'),
+              Text('Quick Notes', style: PrimeCareTheme.typography.h2),
+              const SizedBox(height: 24),
+              _buildNoteItem(
+                'Check with pharmacy regarding John\'s prescription refill status (Lisinopril).',
+                'Pharmacy',
+              ),
+              _buildNoteItem(
+                'Remember to chart Maria\'s dietary intake for lunch.',
+                'Follow-up',
+              ),
             ],
           ),
         ),
@@ -62,7 +68,13 @@ class RpnNotesScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: color),
       ),
-      child: Text(label, style: PrimeCareTheme.typography.label.copyWith(color: color, fontWeight: FontWeight.bold)),
+      child: Text(
+        label,
+        style: PrimeCareTheme.typography.label.copyWith(
+          color: color,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 
@@ -71,7 +83,9 @@ class RpnNotesScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        border: Border.all(color: PrimeCareTheme.colors.slateGray.withOpacity(0.2)),
+        border: Border.all(
+          color: PrimeCareTheme.colors.slateGray.withOpacity(0.2),
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -80,14 +94,24 @@ class RpnNotesScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tag, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
-               Icon(LucideIcons.moreHorizontal, size: 16, color: PrimeCareTheme.colors.slateGray),
+              Text(
+                tag,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Icon(
+                LucideIcons.moreHorizontal,
+                size: 16,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 8),
           Text(text, style: PrimeCareTheme.typography.body),
         ],
-      )
+      ),
     );
   }
 }

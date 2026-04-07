@@ -1,4 +1,4 @@
-﻿import '../dtos/stitch_scheduling_00132_dto.dart';
+import '../dtos/stitch_scheduling_00132_dto.dart';
 import '../../domain/models/stitch_scheduling_00132_view_model.dart';
 
 class StitchScheduling00132Mapper {

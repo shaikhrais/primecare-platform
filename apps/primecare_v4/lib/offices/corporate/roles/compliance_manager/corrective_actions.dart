@@ -12,9 +12,12 @@ class CorrectiveActionsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Corrective & Preventive Actions (CAPA)',
-      subtitle: 'Track and manage post-incident actions to prevent recurrence and ensure regulatory compliance.',
+      subtitle:
+          'Track and manage post-incident actions to prevent recurrence and ensure regulatory compliance.',
       headerTrailing: [
-        ClinicalSearchTextField(hintText: 'Search actions or linked incidents...'),
+        ClinicalSearchTextField(
+          hintText: 'Search actions or linked incidents...',
+        ),
         const SizedBox(width: 16),
         ClinicalGlassButton(
           onPressed: () {},
@@ -53,9 +56,7 @@ class CorrectiveActionsScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildActionOwners(),
       ],
-      mainContent: [
-        _buildCAPAList(),
-      ],
+      mainContent: [_buildCAPAList()],
     );
   }
 
@@ -67,7 +68,11 @@ class CorrectiveActionsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.barChart, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.barChart,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Status Summary', style: PrimeCareTheme.typography.h3),
             ],
@@ -75,11 +80,23 @@ class CorrectiveActionsScreen extends ConsumerWidget {
           const SizedBox(height: 16),
           _buildStatusRow('Overdue', '5', PrimeCareTheme.colors.coralRed),
           const SizedBox(height: 12),
-          _buildStatusRow('Pending Approval', '8', PrimeCareTheme.colors.amberWarning),
+          _buildStatusRow(
+            'Pending Approval',
+            '8',
+            PrimeCareTheme.colors.amberWarning,
+          ),
           const SizedBox(height: 12),
-          _buildStatusRow('In Progress', '14', PrimeCareTheme.colors.royalPurple),
+          _buildStatusRow(
+            'In Progress',
+            '14',
+            PrimeCareTheme.colors.royalPurple,
+          ),
           const SizedBox(height: 12),
-          _buildStatusRow('Awaiting Verification', '3', PrimeCareTheme.colors.slateGray),
+          _buildStatusRow(
+            'Awaiting Verification',
+            '3',
+            PrimeCareTheme.colors.slateGray,
+          ),
         ],
       ),
     );
@@ -91,12 +108,21 @@ class CorrectiveActionsScreen extends ConsumerWidget {
       children: [
         Row(
           children: [
-            Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+            Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            ),
             const SizedBox(width: 12),
             Text(label, style: PrimeCareTheme.typography.body),
           ],
         ),
-        Text(count, style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.body.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -109,7 +135,11 @@ class CorrectiveActionsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.users, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.users,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('Top Assignees', style: PrimeCareTheme.typography.h3),
             ],
@@ -130,9 +160,12 @@ class CorrectiveActionsScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(name, style: PrimeCareTheme.typography.body),
-        Text(count, style: PrimeCareTheme.typography.label.copyWith(
-          color: PrimeCareTheme.colors.slateGray,
-        )),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+          ),
+        ),
       ],
     );
   }
@@ -196,8 +229,11 @@ class CorrectiveActionsScreen extends ConsumerWidget {
     required String dueDate,
     required String status,
   }) {
-    Color statusColor = status == 'Overdue' ? PrimeCareTheme.colors.coralRed : 
-                        status == 'In Progress' ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.amberWarning;
+    Color statusColor = status == 'Overdue'
+        ? PrimeCareTheme.colors.coralRed
+        : status == 'In Progress'
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.amberWarning;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -209,7 +245,13 @@ class CorrectiveActionsScreen extends ConsumerWidget {
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(status == 'Overdue' ? LucideIcons.clockAlert : LucideIcons.checkSquare, color: statusColor, size: 20),
+            child: Icon(
+              status == 'Overdue'
+                  ? LucideIcons.clockAlert
+                  : LucideIcons.checkSquare,
+              color: statusColor,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -218,10 +260,13 @@ class CorrectiveActionsScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text(id, style: PrimeCareTheme.typography.body.copyWith(
-                      color: PrimeCareTheme.colors.navyIndigo,
-                      fontWeight: FontWeight.bold,
-                    )),
+                    Text(
+                      id,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        color: PrimeCareTheme.colors.navyIndigo,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Text(title, style: PrimeCareTheme.typography.h3),
                   ],
@@ -229,42 +274,56 @@ class CorrectiveActionsScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.link, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.link,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('Linked: $linkedIncident', style: PrimeCareTheme.typography.label),
+                    Text(
+                      'Linked: $linkedIncident',
+                      style: PrimeCareTheme.typography.label,
+                    ),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.user, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.user,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('Assignee: $assignee', style: PrimeCareTheme.typography.label),
+                    Text(
+                      'Assignee: $assignee',
+                      style: PrimeCareTheme.typography.label,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  status,
-                  style: PrimeCareTheme.typography.body.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: statusColor,
-                  ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                status,
+                style: PrimeCareTheme.typography.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: statusColor,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  'Due: $dueDate',
-                  style: PrimeCareTheme.typography.label.copyWith(
-                    color: PrimeCareTheme.colors.slateGray,
-                  ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Due: $dueDate',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'View Action',
-                  icon: LucideIcons.arrowRight,
-                ),
-             ],
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'View Action',
+                icon: LucideIcons.arrowRight,
+              ),
+            ],
           ),
         ],
       ),

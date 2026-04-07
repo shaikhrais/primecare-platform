@@ -8,51 +8,49 @@ class FranchiseClaimsScreen extends ConsumerStatefulWidget {
   const FranchiseClaimsScreen({super.key});
 
   @override
-  ConsumerState<FranchiseClaimsScreen> createState() => _FranchiseClaimsScreenState();
+  ConsumerState<FranchiseClaimsScreen> createState() =>
+      _FranchiseClaimsScreenState();
 }
 
 class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildKPIs(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      _buildRecentBatches(),
-                      const SizedBox(height: 32),
-                      _buildClaimsAging(),
-                    ],
-                  ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildKPIs(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildRecentBatches(),
+                    const SizedBox(height: 32),
+                    _buildClaimsAging(),
+                  ],
                 ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      _buildAdjudicationSummary(),
-                      const SizedBox(height: 32),
-                      _buildTopDenialReasons(),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 32),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    _buildAdjudicationSummary(),
+                    const SizedBox(height: 32),
+                    _buildTopDenialReasons(),
+                  ],
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -146,7 +144,13 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
     );
   }
 
-  Widget _buildKPIUnit({required String title, required String value, required IconData icon, required String subtitle, required Color color}) {
+  Widget _buildKPIUnit({
+    required String title,
+    required String value,
+    required IconData icon,
+    required String subtitle,
+    required Color color,
+  }) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -201,7 +205,13 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
                     color: PrimeCareTheme.colors.navyIndigo,
                   ),
                 ),
-                Text('View All', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.emeraldTeal, fontWeight: FontWeight.bold)),
+                Text(
+                  'View All',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.emeraldTeal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
@@ -210,42 +220,178 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
             color: PrimeCareTheme.colors.surfaceContainerLow,
             child: Row(
               children: [
-                Expanded(flex: 2, child: Text('BATCH ID', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 3, child: Text('SUBMITTED', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('TYPE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('VALUE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('STATUS', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'BATCH ID',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'SUBMITTED',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'TYPE',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'VALUE',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'STATUS',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          _buildBatchRow(id: 'CTL-84920', date: 'Today, 09:14 AM', type: 'Medicare', value: '\$24,500.00', status: 'Accepted', color: PrimeCareTheme.colors.emeraldTeal),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildBatchRow(id: 'CTL-84919', date: 'Yesterday, 14:22 PM', type: 'Private Ins', value: '\$12,420.50', status: 'Processing', color: PrimeCareTheme.colors.navyIndigo),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildBatchRow(id: 'CTL-84918', date: 'Oct 12, 08:00 AM', type: 'WSIB', value: '\$8,940.00', status: 'Partial Rejection', color: Colors.amber.shade700),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildBatchRow(id: 'CTL-84917', date: 'Oct 11, 16:45 PM', type: 'Medicare', value: '\$31,200.00', status: 'Paid', color: PrimeCareTheme.colors.emeraldTeal),
+          _buildBatchRow(
+            id: 'CTL-84920',
+            date: 'Today, 09:14 AM',
+            type: 'Medicare',
+            value: '\$24,500.00',
+            status: 'Accepted',
+            color: PrimeCareTheme.colors.emeraldTeal,
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildBatchRow(
+            id: 'CTL-84919',
+            date: 'Yesterday, 14:22 PM',
+            type: 'Private Ins',
+            value: '\$12,420.50',
+            status: 'Processing',
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildBatchRow(
+            id: 'CTL-84918',
+            date: 'Oct 12, 08:00 AM',
+            type: 'WSIB',
+            value: '\$8,940.00',
+            status: 'Partial Rejection',
+            color: Colors.amber.shade700,
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildBatchRow(
+            id: 'CTL-84917',
+            date: 'Oct 11, 16:45 PM',
+            type: 'Medicare',
+            value: '\$31,200.00',
+            status: 'Paid',
+            color: PrimeCareTheme.colors.emeraldTeal,
+          ),
           const SizedBox(height: 8),
         ],
       ),
     );
   }
 
-  Widget _buildBatchRow({required String id, required String date, required String type, required String value, required String status, required Color color}) {
+  Widget _buildBatchRow({
+    required String id,
+    required String date,
+    required String type,
+    required String value,
+    required String status,
+    required Color color,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
         children: [
-          Expanded(flex: 2, child: Text(id, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo))),
-          Expanded(flex: 3, child: Text(date, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray))),
-          Expanded(flex: 2, child: Text(type, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray))),
-          Expanded(flex: 2, child: Text(value, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo))),
+          Expanded(
+            flex: 2,
+            child: Text(
+              id,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(
+              date,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              type,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              value,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
+          ),
           Expanded(
             flex: 2,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
-              child: Text(status, style: PrimeCareTheme.typography.label.copyWith(color: color, fontSize: 11, fontWeight: FontWeight.bold)),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                status,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: color,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],
@@ -261,7 +407,11 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.barChart3, color: PrimeCareTheme.colors.navyIndigo, size: 24),
+              Icon(
+                LucideIcons.barChart3,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 24,
+              ),
               const SizedBox(width: 12),
               Text(
                 'AR Aging Summary',
@@ -272,27 +422,63 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
             ],
           ),
           const SizedBox(height: 24),
-          _buildAgingRow('0 - 30 Days', '\$124,500', 0.65, PrimeCareTheme.colors.emeraldTeal),
+          _buildAgingRow(
+            '0 - 30 Days',
+            '\$124,500',
+            0.65,
+            PrimeCareTheme.colors.emeraldTeal,
+          ),
           const SizedBox(height: 16),
-          _buildAgingRow('31 - 60 Days', '\$42,100', 0.22, PrimeCareTheme.colors.navyIndigo),
+          _buildAgingRow(
+            '31 - 60 Days',
+            '\$42,100',
+            0.22,
+            PrimeCareTheme.colors.navyIndigo,
+          ),
           const SizedBox(height: 16),
-          _buildAgingRow('61 - 90 Days', '\$18,400', 0.09, Colors.amber.shade700),
+          _buildAgingRow(
+            '61 - 90 Days',
+            '\$18,400',
+            0.09,
+            Colors.amber.shade700,
+          ),
           const SizedBox(height: 16),
-          _buildAgingRow('90+ Days', '\$6,420', 0.04, PrimeCareTheme.colors.coralRed),
+          _buildAgingRow(
+            '90+ Days',
+            '\$6,420',
+            0.04,
+            PrimeCareTheme.colors.coralRed,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildAgingRow(String bucket, String value, double percent, Color color) {
+  Widget _buildAgingRow(
+    String bucket,
+    String value,
+    double percent,
+    Color color,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(bucket, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
-            Text(value, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 13)),
+            Text(
+              bucket,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
+            Text(
+              value,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+                fontSize: 13,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -320,13 +506,25 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          _buildStatList('Pending Remittance', '124', PrimeCareTheme.colors.navyIndigo),
+          _buildStatList(
+            'Pending Remittance',
+            '124',
+            PrimeCareTheme.colors.navyIndigo,
+          ),
           const SizedBox(height: 16),
-          _buildStatList('Ready to Post', '42', PrimeCareTheme.colors.emeraldTeal),
+          _buildStatList(
+            'Ready to Post',
+            '42',
+            PrimeCareTheme.colors.emeraldTeal,
+          ),
           const SizedBox(height: 16),
           _buildStatList('Requires Review', '18', Colors.amber.shade700),
           const SizedBox(height: 16),
-          _buildStatList('Appeals Processing', '9', PrimeCareTheme.colors.coralRed),
+          _buildStatList(
+            'Appeals Processing',
+            '9',
+            PrimeCareTheme.colors.coralRed,
+          ),
         ],
       ),
     );
@@ -338,12 +536,27 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
       children: [
         Row(
           children: [
-            Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: color)),
+            Container(
+              width: 8,
+              height: 8,
+              decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+            ),
             const SizedBox(width: 12),
-            Text(title, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 13)),
+            Text(
+              title,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+                fontSize: 13,
+              ),
+            ),
           ],
         ),
-        Text(count, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+        Text(
+          count,
+          style: PrimeCareTheme.typography.h4.copyWith(
+            color: PrimeCareTheme.colors.navyIndigo,
+          ),
+        ),
       ],
     );
   }
@@ -356,7 +569,11 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.alertOctagon, color: Colors.amber.shade700, size: 24),
+              Icon(
+                LucideIcons.alertOctagon,
+                color: Colors.amber.shade700,
+                size: 24,
+              ),
               const SizedBox(width: 12),
               Text(
                 'Top Denial Reasons',
@@ -381,8 +598,19 @@ class _FranchiseClaimsScreenState extends ConsumerState<FranchiseClaimsScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(code, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 12)),
-        Text(rate, style: PrimeCareTheme.typography.h4.copyWith(color: Colors.amber.shade700)),
+        Text(
+          code,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+            fontSize: 12,
+          ),
+        ),
+        Text(
+          rate,
+          style: PrimeCareTheme.typography.h4.copyWith(
+            color: Colors.amber.shade700,
+          ),
+        ),
       ],
     );
   }

@@ -14,7 +14,13 @@ class PswIncidentReportsScreen extends ConsumerWidget {
       title: 'Incident Reports',
       subtitle: 'Report falls, behavioral incidents, or occupational hazards.',
       kpiCards: [
-        KPICardData(title: 'Reports Filed', value: '1', icon: LucideIcons.alertTriangle, trend: 0.0, trendLabel: 'this month'),
+        KPICardData(
+          title: 'Reports Filed',
+          value: '1',
+          icon: LucideIcons.alertTriangle,
+          trend: 0.0,
+          trendLabel: 'this month',
+        ),
       ],
       sidebarContent: [
         ClinicalGlassPanel(
@@ -26,7 +32,11 @@ class PswIncidentReportsScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _buildFilterRow('Critical', 0, PrimeCareTheme.colors.coralBlush),
               _buildFilterRow('Moderate', 0, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Minor/Near Miss', 1, PrimeCareTheme.colors.emeraldTeal),
+              _buildFilterRow(
+                'Minor/Near Miss',
+                1,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -37,11 +47,11 @@ class PswIncidentReportsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Report History', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Report History', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.alertOctagon),
                     label: const Text('File New Report'),
@@ -50,17 +60,17 @@ class PswIncidentReportsScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildReportCard(
-                 'IR-2024-081',
-                 'Near Miss - Slip',
-                 'Elena Kagan',
-                 'May 02, 2024 • 14:15',
-                 'Client almost slipped in bathroom due to wet floor near shower. Caught her balance on the grab bar. No fall occurred. Dried floor immediately.',
-                 PrimeCareTheme.colors.emeraldTeal
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildReportCard(
+                'IR-2024-081',
+                'Near Miss - Slip',
+                'Elena Kagan',
+                'May 02, 2024 • 14:15',
+                'Client almost slipped in bathroom due to wet floor near shower. Caught her balance on the grab bar. No fall occurred. Dried floor immediately.',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -76,19 +86,35 @@ class PswIncidentReportsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildReportCard(String id, String type, String clientName, String time, String description, Color themeColor) {
-     return Container(
+  Widget _buildReportCard(
+    String id,
+    String type,
+    String clientName,
+    String time,
+    String description,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -99,27 +125,46 @@ class PswIncidentReportsScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(id, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                     Text(type, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ]
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(id, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    type,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 8),
-           Text('Client: $clientName', style: PrimeCareTheme.typography.body.copyWith(fontWeight: FontWeight.bold)),
-           const SizedBox(height: 8),
-           Text(description, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Client: $clientName',
+            style: PrimeCareTheme.typography.body.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(description, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

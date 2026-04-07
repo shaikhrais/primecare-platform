@@ -20,7 +20,7 @@ class AuthLayout extends StatefulWidget {
 
 class _AuthLayoutState extends State<AuthLayout> {
   // null represents 'Native' - letting the real device constraints dictate.
-  double? _overriddenWidth; 
+  double? _overriddenWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _AuthLayoutState extends State<AuthLayout> {
           LayoutBuilder(
             builder: (context, constraints) {
               final effectiveWidth = _overriddenWidth ?? constraints.maxWidth;
-              
+
               final isMobile = effectiveWidth < 600;
               final isTablet = effectiveWidth >= 600 && effectiveWidth < 900;
 
@@ -40,11 +40,15 @@ class _AuthLayoutState extends State<AuthLayout> {
                 layoutOutput = SingleChildScrollView(
                   child: Column(
                     children: [
-                      _buildHeroSection(context, height: isMobile ? 240 : 300, isCompact: isMobile),
+                      _buildHeroSection(
+                        context,
+                        height: isMobile ? 240 : 300,
+                        isCompact: isMobile,
+                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: isMobile ? 24.0 : 64.0, 
-                          vertical: 32.0
+                          horizontal: isMobile ? 24.0 : 64.0,
+                          vertical: 32.0,
                         ),
                         child: Center(
                           child: ConstrainedBox(
@@ -68,7 +72,10 @@ class _AuthLayoutState extends State<AuthLayout> {
                       flex: 1,
                       child: Center(
                         child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 40,
+                            vertical: 40,
+                          ),
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 450),
                             child: widget.child,
@@ -85,10 +92,16 @@ class _AuthLayoutState extends State<AuthLayout> {
                 return Center(
                   child: Container(
                     width: _overriddenWidth,
-                    height: constraints.maxHeight, // Keep fullscreen height for prototype
+                    height: constraints
+                        .maxHeight, // Keep fullscreen height for prototype
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueGrey.shade100, width: 2),
-                      boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 20)],
+                      border: Border.all(
+                        color: Colors.blueGrey.shade100,
+                        width: 2,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black12, blurRadius: 20),
+                      ],
                     ),
                     child: ClipRRect(child: layoutOutput),
                   ),
@@ -98,7 +111,7 @@ class _AuthLayoutState extends State<AuthLayout> {
               return layoutOutput;
             },
           ),
-          
+
           // Debug / Layout Controllers Area
           Positioned(
             top: 16,
@@ -112,12 +125,19 @@ class _AuthLayoutState extends State<AuthLayout> {
                     color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: const [
-                      BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))
-                    ]
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: ToggleButtons(
                     borderRadius: BorderRadius.circular(20),
-                    constraints: const BoxConstraints(minHeight: 40, minWidth: 40),
+                    constraints: const BoxConstraints(
+                      minHeight: 40,
+                      minWidth: 40,
+                    ),
                     isSelected: [
                       _overriddenWidth == 390, // Mobile
                       _overriddenWidth == 800, // Tablet
@@ -131,9 +151,21 @@ class _AuthLayoutState extends State<AuthLayout> {
                       });
                     },
                     children: const [
-                      Icon(Icons.phone_iphone, size: 20, color: Color(0xFF006948)),
-                      Icon(Icons.tablet_mac, size: 20, color: Color(0xFF006948)),
-                      Icon(Icons.desktop_windows, size: 20, color: Color(0xFF006948)),
+                      Icon(
+                        Icons.phone_iphone,
+                        size: 20,
+                        color: Color(0xFF006948),
+                      ),
+                      Icon(
+                        Icons.tablet_mac,
+                        size: 20,
+                        color: Color(0xFF006948),
+                      ),
+                      Icon(
+                        Icons.desktop_windows,
+                        size: 20,
+                        color: Color(0xFF006948),
+                      ),
                     ],
                   ),
                 ),
@@ -144,20 +176,38 @@ class _AuthLayoutState extends State<AuthLayout> {
                     color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: const [
-                      BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))
-                    ]
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: PopupMenuButton<String>(
                     tooltip: 'Change Language',
                     offset: const Offset(0, 48),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: const [
-                          Icon(Icons.language, color: Color(0xFF006948), size: 20),
+                          Icon(
+                            Icons.language,
+                            color: Color(0xFF006948),
+                            size: 20,
+                          ),
                           SizedBox(width: 6),
-                          Text('EN', style: TextStyle(color: Color(0xFF006948), fontWeight: FontWeight.bold, fontFamily: 'Inter')),
+                          Text(
+                            'EN',
+                            style: TextStyle(
+                              color: Color(0xFF006948),
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -165,25 +215,26 @@ class _AuthLayoutState extends State<AuthLayout> {
                       if (result == 'EN') context.setLocale(const Locale('en'));
                       if (result == 'FR') context.setLocale(const Locale('fr'));
                       if (result == 'ES') context.setLocale(const Locale('es'));
-                      
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                         SnackBar(content: Text('Language changed to $result')),
+                        SnackBar(content: Text('Language changed to $result')),
                       );
                     },
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'EN',
-                        child: Text('English'),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'FR',
-                        child: Text('Français'),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'ES',
-                        child: Text('Español'),
-                      ),
-                    ],
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
+                          const PopupMenuItem<String>(
+                            value: 'EN',
+                            child: Text('English'),
+                          ),
+                          const PopupMenuItem<String>(
+                            value: 'FR',
+                            child: Text('Français'),
+                          ),
+                          const PopupMenuItem<String>(
+                            value: 'ES',
+                            child: Text('Español'),
+                          ),
+                        ],
                   ),
                 ),
               ],
@@ -194,7 +245,11 @@ class _AuthLayoutState extends State<AuthLayout> {
     );
   }
 
-  Widget _buildHeroSection(BuildContext context, {double? height, bool isCompact = false}) {
+  Widget _buildHeroSection(
+    BuildContext context, {
+    double? height,
+    bool isCompact = false,
+  }) {
     return Container(
       height: height ?? double.infinity,
       width: double.infinity,
@@ -231,7 +286,11 @@ class _AuthLayoutState extends State<AuthLayout> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.emergency, color: Colors.white, size: isCompact ? 24 : 32),
+                    Icon(
+                      Icons.emergency,
+                      color: Colors.white,
+                      size: isCompact ? 24 : 32,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'PrimeCare V4',
@@ -274,10 +333,11 @@ class _AuthLayoutState extends State<AuthLayout> {
                         Expanded(
                           child: Text(
                             'End-to-End Encrypted. Institutional Data Privacy Audited.',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.white,
-                              fontFamily: 'Inter',
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontFamily: 'Inter',
+                                ),
                           ),
                         ),
                       ],
@@ -312,7 +372,10 @@ class AuthInputDecoration {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFF006948), width: 2), // Focus Primary
+        borderSide: const BorderSide(
+          color: Color(0xFF006948),
+          width: 2,
+        ), // Focus Primary
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
     );

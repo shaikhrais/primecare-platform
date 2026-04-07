@@ -32,7 +32,7 @@ class BillingSummaryMockProvider {
       'due': 150.00,
       'paid': 50.00,
       'next': '2026-04-15',
-      'late': false
+      'late': false,
     });
   }
 }
@@ -49,7 +49,7 @@ class BillingSummaryApiProvider {
         balance: response.data['totalBilled'] ?? 200.00,
         paid: response.data['pending'] ?? 200.00,
         deadline: response.data['lastPaymentDate'] ?? '2026-04-01',
-        pastDue: true
+        pastDue: true,
       );
       return BillingSummaryMapper.fromApi(dto);
     } catch (error) {

@@ -16,10 +16,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Future<void> _resetPassword() async {
     setState(() => _isLoading = true);
-    
+
     // Simulate network delay for UI feel
     await Future.delayed(const Duration(seconds: 1));
-    
+
     if (!mounted) return;
     setState(() {
       _isLoading = false;
@@ -31,27 +31,41 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return AuthLayout(
       heroTitle: 'Account Recovery',
-      heroSubtitle: 'Follow the institutional safety protocols to regain access to your clinical dashboard.',
+      heroSubtitle:
+          'Follow the institutional safety protocols to regain access to your clinical dashboard.',
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
             'Reset Password',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, fontFamily: 'Outfit', color: Color(0xFF191C1E)),
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Outfit',
+              color: Color(0xFF191C1E),
+            ),
           ),
           const SizedBox(height: 16),
           Text(
-            _isSent 
+            _isSent
                 ? 'A recovery link has been sent to \${_emailController.text}. Please check your institutional email.'
                 : 'Enter your institutional email address and we will send you a secure link to reset your password.',
-            style: const TextStyle(fontSize: 16, color: Colors.blueGrey, fontFamily: 'Inter', height: 1.5),
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.blueGrey,
+              fontFamily: 'Inter',
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 32),
           if (!_isSent) ...[
             TextField(
               controller: _emailController,
-              decoration: AuthInputDecoration.get('Email Address', Icons.email_outlined),
+              decoration: AuthInputDecoration.get(
+                'Email Address',
+                Icons.email_outlined,
+              ),
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 32),
@@ -62,28 +76,46 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: ElevatedButton(key: const Key('data-status-id=shared-global-forgot-action-1'), 
+              child: ElevatedButton(
+                key: const Key('data-status-id=shared-global-forgot-action-1'),
                 onPressed: _isLoading ? null : _resetPassword,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                child: _isLoading 
-                    ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                    : const Text('Send Recovery Link', style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
+                child: _isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : const Text(
+                        'Send Recovery Link',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
               ),
             ),
           ],
-          
+
           if (_isSent) ...[
-             Container(
+            Container(
               decoration: BoxDecoration(
                 color: const Color(0xFF006948).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: ElevatedButton(key: const Key('data-status-id=shared-global-forgot-action-2'), 
+              child: ElevatedButton(
+                key: const Key('data-status-id=shared-global-forgot-action-2'),
                 onPressed: () => setState(() {
                   _isSent = false;
                   _emailController.clear();
@@ -92,10 +124,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  elevation: 0
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
                 ),
-                child: const Text('Send again', style: TextStyle(fontSize: 18, color: Color(0xFF006948), fontWeight: FontWeight.bold)),
+                child: const Text(
+                  'Send again',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF006948),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ],
@@ -103,8 +144,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           TextButton.icon(
             onPressed: () => context.go('/login'),
             icon: const Icon(Icons.arrow_back),
-            label: const Text('Back to Login', style: TextStyle(fontWeight: FontWeight.bold)),
-            style: TextButton.styleFrom(foregroundColor: const Color(0xFF006948)),
+            label: const Text(
+              'Back to Login',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            style: TextButton.styleFrom(
+              foregroundColor: const Color(0xFF006948),
+            ),
           ),
         ],
       ),

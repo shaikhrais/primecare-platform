@@ -8,39 +8,32 @@ class TerritoryConversionsScreen extends ConsumerStatefulWidget {
   const TerritoryConversionsScreen({super.key});
 
   @override
-  ConsumerState<TerritoryConversionsScreen> createState() => _TerritoryConversionsScreenState();
+  ConsumerState<TerritoryConversionsScreen> createState() =>
+      _TerritoryConversionsScreenState();
 }
 
-class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversionsScreen> {
+class _TerritoryConversionsScreenState
+    extends ConsumerState<TerritoryConversionsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildFunnelSection(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildTrendChart(),
-                ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 1,
-                  child: _buildClinicPerformance(),
-                ),
-              ],
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildFunnelSection(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 2, child: _buildTrendChart()),
+              const SizedBox(width: 32),
+              Expanded(flex: 1, child: _buildClinicPerformance()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -139,7 +132,13 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
     );
   }
 
-  Widget _buildFunnelStage({required String stageName, required String count, required String dropOff, required Color color, bool isFinal = false}) {
+  Widget _buildFunnelStage({
+    required String stageName,
+    required String count,
+    required String dropOff,
+    required Color color,
+    bool isFinal = false,
+  }) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -153,24 +152,35 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
             ),
             child: Text(
               stageName,
-              style: PrimeCareTheme.typography.label.copyWith(color: color, fontWeight: FontWeight.bold),
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: color,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(height: 24),
           Text(
             count,
-            style: PrimeCareTheme.typography.heroTitle.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+            style: PrimeCareTheme.typography.heroTitle.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
           ),
           const SizedBox(height: 8),
           if (!isFinal)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(LucideIcons.arrowDownRight, size: 14, color: PrimeCareTheme.colors.coralRed),
+                Icon(
+                  LucideIcons.arrowDownRight,
+                  size: 14,
+                  color: PrimeCareTheme.colors.coralRed,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   '$dropOff Drop-off',
-                  style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.coralRed),
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.coralRed,
+                  ),
                 ),
               ],
             )
@@ -178,11 +188,18 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(LucideIcons.checkCircle, size: 14, color: PrimeCareTheme.colors.emeraldTeal),
+                Icon(
+                  LucideIcons.checkCircle,
+                  size: 14,
+                  color: PrimeCareTheme.colors.emeraldTeal,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   '44.6% Overall Conv.',
-                  style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.emeraldTeal, fontWeight: FontWeight.bold),
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.emeraldTeal,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -202,26 +219,44 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
             children: [
               Text(
                 'Conversion Trend (Consult to Patient)',
-                style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
               Row(
                 children: [
-                  Container(width: 12, height: 12, decoration: BoxDecoration(color: PrimeCareTheme.colors.emeraldTeal, shape: BoxShape.circle)),
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.emeraldTeal,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                   const SizedBox(width: 8),
-                  Text('Conversion Rate', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                  Text(
+                    'Conversion Rate',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
           const SizedBox(height: 32),
           // Chart placeholder
-           Container(
+          Container(
             height: 300,
             width: double.infinity,
             decoration: BoxDecoration(
               border: Border(
-                left: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest),
-                bottom: BorderSide(color: PrimeCareTheme.colors.surfaceContainerHighest),
+                left: BorderSide(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest,
+                ),
+                bottom: BorderSide(
+                  color: PrimeCareTheme.colors.surfaceContainerHighest,
+                ),
               ),
             ),
             child: Stack(
@@ -234,13 +269,16 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
                     right: 0,
                     child: Container(
                       height: 1,
-                      color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+                      color: PrimeCareTheme.colors.surfaceContainerHighest
+                          .withValues(alpha: 0.5),
                     ),
                   ),
                 // Data line (simulated)
                 Positioned.fill(
                   child: CustomPaint(
-                    painter: _ConversionTrendPainter(PrimeCareTheme.colors.emeraldTeal),
+                    painter: _ConversionTrendPainter(
+                      PrimeCareTheme.colors.emeraldTeal,
+                    ),
                   ),
                 ),
               ],
@@ -250,8 +288,18 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
           // X-axis labels (weeks)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'].map((e) => Text(e, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray))).toList(),
-          )
+            children:
+                ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6']
+                    .map(
+                      (e) => Text(
+                        e,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
+                      ),
+                    )
+                    .toList(),
+          ),
         ],
       ),
     );
@@ -265,10 +313,16 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
         children: [
           Text(
             'Top Converting Clinics',
-            style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+            style: PrimeCareTheme.typography.h3.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
           ),
           const SizedBox(height: 24),
-          _buildClinicRow(name: 'Maplewood Clinic', rate: '68%', progress: 0.68),
+          _buildClinicRow(
+            name: 'Maplewood Clinic',
+            rate: '68%',
+            progress: 0.68,
+          ),
           const SizedBox(height: 20),
           _buildClinicRow(name: 'Cedar Point', rate: '61%', progress: 0.61),
           const SizedBox(height: 20),
@@ -276,28 +330,58 @@ class _TerritoryConversionsScreenState extends ConsumerState<TerritoryConversion
           const SizedBox(height: 32),
           Text(
             'Needs Improvement',
-            style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+            style: PrimeCareTheme.typography.h3.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
           ),
           const SizedBox(height: 24),
-          _buildClinicRow(name: 'Pine Valley', rate: '35%', progress: 0.35, isWarning: true),
+          _buildClinicRow(
+            name: 'Pine Valley',
+            rate: '35%',
+            progress: 0.35,
+            isWarning: true,
+          ),
           const SizedBox(height: 20),
-          _buildClinicRow(name: 'Westside Med', rate: '28%', progress: 0.28, isWarning: true),
+          _buildClinicRow(
+            name: 'Westside Med',
+            rate: '28%',
+            progress: 0.28,
+            isWarning: true,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildClinicRow({required String name, required String rate, required double progress, bool isWarning = false}) {
-    Color barColor = isWarning ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.emeraldTeal;
-    
+  Widget _buildClinicRow({
+    required String name,
+    required String rate,
+    required double progress,
+    bool isWarning = false,
+  }) {
+    Color barColor = isWarning
+        ? PrimeCareTheme.colors.coralRed
+        : PrimeCareTheme.colors.emeraldTeal;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(name, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
-            Text(rate, style: PrimeCareTheme.typography.label.copyWith(color: barColor, fontWeight: FontWeight.bold)),
+            Text(
+              name,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
+            Text(
+              rate,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: barColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -345,9 +429,13 @@ class _ConversionTrendPainter extends CustomPainter {
     canvas.drawPath(path, paint);
 
     // Draw dots
-    final dotPaint = Paint()..color = color..style = PaintingStyle.fill;
-    final whitePaint = Paint()..color = Colors.white..style = PaintingStyle.fill;
-    
+    final dotPaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+    final whitePaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
     for (var point in points) {
       canvas.drawCircle(point, 6, dotPaint);
       canvas.drawCircle(point, 3, whitePaint);

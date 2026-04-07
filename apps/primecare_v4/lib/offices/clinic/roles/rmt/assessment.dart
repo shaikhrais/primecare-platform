@@ -12,7 +12,8 @@ class RmtAssessmentScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Initial Assessments',
-      subtitle: 'Document comprehensive RMT assessments including postural, ROM, and special tests.',
+      subtitle:
+          'Document comprehensive RMT assessments including postural, ROM, and special tests.',
       kpiCards: [
         KPICardData(
           title: 'New Assessments',
@@ -31,8 +32,16 @@ class RmtAssessmentScreen extends ConsumerWidget {
               Text('Assessment Types', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
               _buildFilterRow('Postural', 4, PrimeCareTheme.colors.navyIndigo),
-              _buildFilterRow('Range of Motion', 6, PrimeCareTheme.colors.emeraldTeal),
-               _buildFilterRow('Orthopedic Tests', 3, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Range of Motion',
+                6,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterRow(
+                'Orthopedic Tests',
+                3,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -43,11 +52,14 @@ class RmtAssessmentScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Assessments', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recent Assessments',
+                    style: PrimeCareTheme.typography.h2,
+                  ),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('New Assessment'),
@@ -56,16 +68,16 @@ class RmtAssessmentScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildNoteCard(
-                 'Sarah Connor',
-                 'Initial Postural',
-                 'May 14, 2024 • 09:00',
-                 'Observed anterior pelvic tilt, protracted shoulder girdle (bilaterally, worse on right). Deep cervical flexors appear weak in relation to SCM and scalenes. Hyperlordosis in lumbar spine.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildNoteCard(
+                'Sarah Connor',
+                'Initial Postural',
+                'May 14, 2024 • 09:00',
+                'Observed anterior pelvic tilt, protracted shoulder girdle (bilaterally, worse on right). Deep cervical flexors appear weak in relation to SCM and scalenes. Hyperlordosis in lumbar spine.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -81,19 +93,34 @@ class RmtAssessmentScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
-     return Container(
+  Widget _buildNoteCard(
+    String clientName,
+    String category,
+    String time,
+    String note,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -104,25 +131,39 @@ class RmtAssessmentScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(note, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(note, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

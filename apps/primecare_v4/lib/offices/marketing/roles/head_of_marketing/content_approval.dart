@@ -8,24 +8,22 @@ class ContentApprovalScreen extends ConsumerStatefulWidget {
   const ContentApprovalScreen({super.key});
 
   @override
-  ConsumerState<ContentApprovalScreen> createState() => _ContentApprovalScreenState();
+  ConsumerState<ContentApprovalScreen> createState() =>
+      _ContentApprovalScreenState();
 }
 
 class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildKanbanBoard(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildKanbanBoard(),
+        ],
       ),
     );
   }
@@ -158,7 +156,11 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
       decoration: BoxDecoration(
         color: PrimeCareTheme.colors.surfaceContainerLow.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5)),
+        border: Border.all(
+          color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+            alpha: 0.5,
+          ),
+        ),
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -176,7 +178,10 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -188,14 +193,16 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          ...items.map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: item,
-              )),
+          ...items.map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: item,
+            ),
+          ),
         ],
       ),
     );
@@ -232,7 +239,11 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
                   ),
                 ),
               ),
-              Icon(LucideIcons.moreHorizontal, size: 16, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.moreHorizontal,
+                size: 16,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -255,7 +266,9 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: PrimeCareTheme.colors.navyIndigo.withValues(alpha: 0.1),
+                backgroundColor: PrimeCareTheme.colors.navyIndigo.withValues(
+                  alpha: 0.1,
+                ),
                 radius: 12,
                 child: Text(
                   author[0],
@@ -279,14 +292,22 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
           const SizedBox(height: 8),
           Row(
             children: [
-              Icon(LucideIcons.calendar, size: 12, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.calendar,
+                size: 12,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
               const SizedBox(width: 4),
               Text(
                 'Due: $deadline',
                 style: PrimeCareTheme.typography.label.copyWith(
-                  color: isActionable ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.slateGray,
+                  color: isActionable
+                      ? PrimeCareTheme.colors.coralRed
+                      : PrimeCareTheme.colors.slateGray,
                   fontSize: 11,
-                  fontWeight: isActionable ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: isActionable
+                      ? FontWeight.bold
+                      : FontWeight.normal,
                 ),
               ),
             ],
@@ -302,11 +323,22 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
                       foregroundColor: PrimeCareTheme.colors.coralRed,
-                      side: BorderSide(color: PrimeCareTheme.colors.coralRed.withValues(alpha: 0.5)),
+                      side: BorderSide(
+                        color: PrimeCareTheme.colors.coralRed.withValues(
+                          alpha: 0.5,
+                        ),
+                      ),
                       padding: const EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                    child: Text('Reject', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Reject',
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -318,14 +350,22 @@ class _ContentApprovalScreenState extends ConsumerState<ContentApprovalScreen> {
                       foregroundColor: Colors.white,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                    child: Text('Approve', style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: Colors.white)),
+                    child: Text(
+                      'Approve',
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],
-            )
-          ]
+            ),
+          ],
         ],
       ),
     );

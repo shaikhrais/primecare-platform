@@ -2,12 +2,18 @@ import 'dart:io';
 
 void main() {
   final officesDir = Directory('lib/offices');
-  final dartFiles = officesDir.listSync(recursive: true).whereType<File>().where((file) => file.path.endsWith('.dart')).toList();
+  final dartFiles = officesDir
+      .listSync(recursive: true)
+      .whereType<File>()
+      .where((file) => file.path.endsWith('.dart'))
+      .toList();
 
   int upgradedCount = 0;
 
   for (final file in dartFiles) {
-    if (file.path.contains('_layout') || file.path.contains('_sidebar') || file.path.contains('_topbar')) {
+    if (file.path.contains('_layout') ||
+        file.path.contains('_sidebar') ||
+        file.path.contains('_topbar')) {
       continue;
     }
 
@@ -17,24 +23,32 @@ void main() {
     // Identify stub pages (short files)
     if (lines.length < 65) {
       // Extract the class name
-      final classMatch = RegExp(r'class\s+([A-Za-z0-9_]+)\s+extends').firstMatch(content);
+      final classMatch = RegExp(
+        r'class\s+([A-Za-z0-9_]+)\s+extends',
+      ).firstMatch(content);
       if (classMatch == null) continue;
-      
+
       final className = classMatch.group(1)!;
 
       // Extract title from Text('Title') if possible
-      String title = className.replaceAll('View', '').replaceAll('Dashboard', '');
+      String title = className
+          .replaceAll('View', '')
+          .replaceAll('Dashboard', '');
       final textMatch = RegExp(r"Text\('([^']+)'").firstMatch(content);
-      if (textMatch != null && textMatch.group(1)! != 'Error loading metrics: \$err') {
+      if (textMatch != null &&
+          textMatch.group(1)! != 'Error loading metrics: \$err') {
         title = textMatch.group(1)!;
       } else {
         // Beautify class name
-        title = title.replaceAllMapped(RegExp(r'[A-Z]'), (match) => ' ${match.group(0)}').trim();
+        title = title
+            .replaceAllMapped(RegExp(r'[A-Z]'), (match) => ' ${match.group(0)}')
+            .trim();
       }
 
       stdout.writeln('Upgrading $className ($title) in ${file.path}');
 
-      final newContent = '''
+      final newContent =
+          '''
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
@@ -203,5 +217,7 @@ class $className extends ConsumerWidget {
     }
   }
 
-  stdout.writeln('\\nSuccessfully upgraded $upgradedCount stub pages to high fidelity Riverpod UI.');
+  stdout.writeln(
+    '\\nSuccessfully upgraded $upgradedCount stub pages to high fidelity Riverpod UI.',
+  );
 }

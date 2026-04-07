@@ -21,6 +21,13 @@ class CeoSidebar extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, IconData icon, String label) {
-    return ListTile(key: const Key('data-status-id=corporate-ceo-ceo-action-1'), leading: Icon(icon, color: AppTheme.primary), title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)), onTap: () => context.go('/dashboard/ceo/${label.toLowerCase().replaceAll(' ', '-')}'),);
+    return ListTile(
+      key: const Key('data-status-id=corporate-ceo-ceo-action-1'),
+      leading: Icon(icon, color: AppTheme.primary),
+      title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
+      onTap: () => context.go(
+        '/dashboard/ceo/${label.toLowerCase().replaceAll(' ', '-')}',
+      ),
+    );
   }
 }

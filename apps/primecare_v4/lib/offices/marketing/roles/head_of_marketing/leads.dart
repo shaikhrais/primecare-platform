@@ -16,20 +16,17 @@ class _LeadsScreenState extends ConsumerState<LeadsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildMetricCards(),
-            const SizedBox(height: 32),
-            _buildLeadsList(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildMetricCards(),
+          const SizedBox(height: 32),
+          _buildLeadsList(),
+        ],
       ),
     );
   }
@@ -123,7 +120,13 @@ class _LeadsScreenState extends ConsumerState<LeadsScreen> {
     );
   }
 
-  Widget _buildMetricCard(String title, String value, String subtitle, IconData icon, Color accentColor) {
+  Widget _buildMetricCard(
+    String title,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color accentColor,
+  ) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -232,21 +235,43 @@ class _LeadsScreenState extends ConsumerState<LeadsScreen> {
         color: PrimeCareTheme.colors.surfaceContainerLow,
         border: Border(
           bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
           ),
           top: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
           ),
         ),
       ),
       child: Row(
         children: [
-          Expanded(flex: 2, child: Text('LEAD ID', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 3, child: Text('NAME', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 3, child: Text('SERVICE', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('TYPE', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('SCORE', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 1, child: Text('', style: PrimeCareTheme.typography.label)), // Actions
+          Expanded(
+            flex: 2,
+            child: Text('LEAD ID', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text('NAME', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text('SERVICE', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('TYPE', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('SCORE', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text('', style: PrimeCareTheme.typography.label),
+          ), // Actions
         ],
       ),
     );
@@ -259,15 +284,23 @@ class _LeadsScreenState extends ConsumerState<LeadsScreen> {
     required String type,
     required int score,
   }) {
-    Color typeColor = type == 'SQL' ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.amberWarning;
-    Color scoreColor = score > 80 ? PrimeCareTheme.colors.emeraldTeal : (score > 50 ? PrimeCareTheme.colors.amberWarning : PrimeCareTheme.colors.coralRed);
+    Color typeColor = type == 'SQL'
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.amberWarning;
+    Color scoreColor = score > 80
+        ? PrimeCareTheme.colors.emeraldTeal
+        : (score > 50
+              ? PrimeCareTheme.colors.amberWarning
+              : PrimeCareTheme.colors.coralRed);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.3),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
           ),
         ),
       ),
@@ -277,7 +310,11 @@ class _LeadsScreenState extends ConsumerState<LeadsScreen> {
             flex: 2,
             child: Row(
               children: [
-                Icon(LucideIcons.userPlus, color: PrimeCareTheme.colors.slateGray, size: 16),
+                Icon(
+                  LucideIcons.userPlus,
+                  color: PrimeCareTheme.colors.slateGray,
+                  size: 16,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   id,
@@ -313,7 +350,10 @@ class _LeadsScreenState extends ConsumerState<LeadsScreen> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: typeColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -359,7 +399,10 @@ class _LeadsScreenState extends ConsumerState<LeadsScreen> {
             child: Align(
               alignment: Alignment.centerRight,
               child: IconButton(
-                icon: Icon(LucideIcons.moreVertical, color: PrimeCareTheme.colors.slateGray),
+                icon: Icon(
+                  LucideIcons.moreVertical,
+                  color: PrimeCareTheme.colors.slateGray,
+                ),
                 onPressed: () {},
                 splashRadius: 24,
               ),

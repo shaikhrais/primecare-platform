@@ -10,7 +10,7 @@ class ProviderRepository {
 
   ProviderRepository(this._apiClient);
 
-  /// Fetches the raw dashboard JSON from the API, converts it cleanly into a DTO, 
+  /// Fetches the raw dashboard JSON from the API, converts it cleanly into a DTO,
   /// and rigidly maps it into a stable UI Model, returning a pristine type-safe object.
   Future<ProviderModel> getDashboard() async {
     try {
@@ -19,10 +19,9 @@ class ProviderRepository {
 
       // JSON -> DTO
       final dto = ProviderDto.fromJson(response.data);
-      
+
       // DTO -> Model
       return ProviderMapper.mapToModel(dto);
-      
     } catch (e) {
       // Isolates low-level Dio Stack Traces from leaking into Flutter Widgets!
       throw Exception(ApiErrorAdapter.mapApiError(e));

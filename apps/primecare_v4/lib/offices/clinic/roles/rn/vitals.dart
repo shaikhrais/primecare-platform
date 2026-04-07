@@ -44,10 +44,22 @@ class VitalsScreen extends ConsumerWidget {
             children: [
               Text('Alerts Filter', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Critical (Action Req)', 1, PrimeCareTheme.colors.coralRed),
-               _buildFilterRow('Warning (Monitor)', 1, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Critical (Action Req)',
+                1,
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildFilterRow(
+                'Warning (Monitor)',
+                1,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
               _buildFilterRow('Normal', 43, PrimeCareTheme.colors.emeraldTeal),
-               _buildFilterRow('Missing Data', 0, PrimeCareTheme.colors.slateGray),
+              _buildFilterRow(
+                'Missing Data',
+                0,
+                PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
         ),
@@ -58,11 +70,11 @@ class VitalsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Active Alerts', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Active Alerts', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('Add Reading'),
@@ -71,36 +83,39 @@ class VitalsScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildVitalsCard(
-                 'Maria Garcia',
-                 'Blood Pressure (High)',
-                 '155 / 95 mmHg',
-                 '10 mins ago',
-                 'Re-check in 1 hour. Consider PRN medication if >160/100.',
-                 PrimeCareTheme.colors.coralRed
-               ),
-               _buildVitalsCard(
-                 'John Smith',
-                 'Blood Glucose (Low)',
-                 '3.8 mmol/L',
-                 '30 mins ago',
-                 'Provided 15g fast-acting carbohydrate.',
-                 PrimeCareTheme.colors.lavenderLustre
-               ),
-               const SizedBox(height: 32),
-               Text('Recent Normal Readings', style: PrimeCareTheme.typography.h3),
-               const SizedBox(height: 16),
-               _buildVitalsCard(
-                 'Eleanor Rigby',
-                 'Temperature',
-                 '36.8 °C',
-                 '1 hour ago',
-                 'Normal reading. Continuing scheduled observations.',
-                 PrimeCareTheme.colors.emeraldTeal
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildVitalsCard(
+                'Maria Garcia',
+                'Blood Pressure (High)',
+                '155 / 95 mmHg',
+                '10 mins ago',
+                'Re-check in 1 hour. Consider PRN medication if >160/100.',
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildVitalsCard(
+                'John Smith',
+                'Blood Glucose (Low)',
+                '3.8 mmol/L',
+                '30 mins ago',
+                'Provided 15g fast-acting carbohydrate.',
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Recent Normal Readings',
+                style: PrimeCareTheme.typography.h3,
+              ),
+              const SizedBox(height: 16),
+              _buildVitalsCard(
+                'Eleanor Rigby',
+                'Temperature',
+                '36.8 °C',
+                '1 hour ago',
+                'Normal reading. Continuing scheduled observations.',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -116,26 +131,35 @@ class VitalsScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildVitalsCard(String clientName, String metric, String value, String time, String notes, Color statusColor) {
-     return Container(
+  Widget _buildVitalsCard(
+    String clientName,
+    String metric,
+    String value,
+    String time,
+    String notes,
+    Color statusColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -146,37 +170,56 @@ class VitalsScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(metric, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: statusColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    metric,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: statusColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                 Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 12),
-           Row(
-             children: [
-               Text(value, style: PrimeCareTheme.typography.h1.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
-               const Spacer(),
-                OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(LucideIcons.lineChart, size: 16),
-                  label: const Text('Trend'),
-                )
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(notes, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Text(
+                value,
+                style: PrimeCareTheme.typography.h1.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
+              ),
+              const Spacer(),
+              OutlinedButton.icon(
+                onPressed: () {},
+                icon: const Icon(LucideIcons.lineChart, size: 16),
+                label: const Text('Trend'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(notes, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

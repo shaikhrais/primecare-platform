@@ -11,7 +11,10 @@ class TerritorySalesManagerDashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('TerritorySalesManagerDashboardScreen', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'TerritorySalesManagerDashboardScreen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],

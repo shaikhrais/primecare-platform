@@ -8,26 +8,25 @@ class TerritoryPipelineScreen extends ConsumerStatefulWidget {
   const TerritoryPipelineScreen({super.key});
 
   @override
-  ConsumerState<TerritoryPipelineScreen> createState() => _TerritoryPipelineScreenState();
+  ConsumerState<TerritoryPipelineScreen> createState() =>
+      _TerritoryPipelineScreenState();
 }
 
-class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScreen> {
+class _TerritoryPipelineScreenState
+    extends ConsumerState<TerritoryPipelineScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildPipelineMetrics(),
-            const SizedBox(height: 32),
-            _buildKanbanBoard(),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildPipelineMetrics(),
+          const SizedBox(height: 32),
+          _buildKanbanBoard(),
+        ],
       ),
     );
   }
@@ -117,9 +116,18 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
     );
   }
 
-  Widget _buildMetricCard({required String title, required String value, required String trend, required bool positiveTrend}) {
-    Color trendColor = positiveTrend ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
-    IconData trendIcon = positiveTrend ? LucideIcons.trendingUp : LucideIcons.trendingDown;
+  Widget _buildMetricCard({
+    required String title,
+    required String value,
+    required String trend,
+    required bool positiveTrend,
+  }) {
+    Color trendColor = positiveTrend
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
+    IconData trendIcon = positiveTrend
+        ? LucideIcons.trendingUp
+        : LucideIcons.trendingDown;
 
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
@@ -170,9 +178,24 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
               count: 12,
               value: '\$1.1M',
               cards: [
-                _buildKanbanCard(company: 'TechCorp Industries', value: '\$120k', rep: 'Sarah J.', daysInStage: 12),
-                _buildKanbanCard(company: 'Global Logistics Hub', value: '\$85k', rep: 'Mike C.', daysInStage: 4),
-                _buildKanbanCard(company: 'City Transit Auth', value: '\$250k', rep: 'Sarah J.', daysInStage: 1),
+                _buildKanbanCard(
+                  company: 'TechCorp Industries',
+                  value: '\$120k',
+                  rep: 'Sarah J.',
+                  daysInStage: 12,
+                ),
+                _buildKanbanCard(
+                  company: 'Global Logistics Hub',
+                  value: '\$85k',
+                  rep: 'Mike C.',
+                  daysInStage: 4,
+                ),
+                _buildKanbanCard(
+                  company: 'City Transit Auth',
+                  value: '\$250k',
+                  rep: 'Sarah J.',
+                  daysInStage: 1,
+                ),
               ],
             ),
           ),
@@ -183,8 +206,19 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
               count: 8,
               value: '\$850k',
               cards: [
-                _buildKanbanCard(company: 'Apex Manufacturing', value: '\$150k', rep: 'Aisha P.', daysInStage: 5),
-                _buildKanbanCard(company: 'Regional School District', value: '\$400k', rep: 'David R.', daysInStage: 14, isStalled: true),
+                _buildKanbanCard(
+                  company: 'Apex Manufacturing',
+                  value: '\$150k',
+                  rep: 'Aisha P.',
+                  daysInStage: 5,
+                ),
+                _buildKanbanCard(
+                  company: 'Regional School District',
+                  value: '\$400k',
+                  rep: 'David R.',
+                  daysInStage: 14,
+                  isStalled: true,
+                ),
               ],
             ),
           ),
@@ -195,8 +229,18 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
               count: 5,
               value: '\$1.45M',
               cards: [
-                _buildKanbanCard(company: 'Sunrise Tech Village', value: '\$800k', rep: 'Mike C.', daysInStage: 2),
-                _buildKanbanCard(company: 'Local Retail Assoc.', value: '\$650k', rep: 'Sarah J.', daysInStage: 8),
+                _buildKanbanCard(
+                  company: 'Sunrise Tech Village',
+                  value: '\$800k',
+                  rep: 'Mike C.',
+                  daysInStage: 2,
+                ),
+                _buildKanbanCard(
+                  company: 'Local Retail Assoc.',
+                  value: '\$650k',
+                  rep: 'Sarah J.',
+                  daysInStage: 8,
+                ),
               ],
             ),
           ),
@@ -208,8 +252,20 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
               value: '\$800k',
               isFinalStage: true,
               cards: [
-                _buildKanbanCard(company: 'Evergreen Construction', value: '\$450k', rep: 'Aisha P.', daysInStage: 0, isWon: true),
-                _buildKanbanCard(company: 'Central Media Group', value: '\$350k', rep: 'Sarah J.', daysInStage: 0, isWon: true),
+                _buildKanbanCard(
+                  company: 'Evergreen Construction',
+                  value: '\$450k',
+                  rep: 'Aisha P.',
+                  daysInStage: 0,
+                  isWon: true,
+                ),
+                _buildKanbanCard(
+                  company: 'Central Media Group',
+                  value: '\$350k',
+                  rep: 'Sarah J.',
+                  daysInStage: 0,
+                  isWon: true,
+                ),
               ],
             ),
           ),
@@ -225,7 +281,9 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
     required List<Widget> cards,
     bool isFinalStage = false,
   }) {
-    Color stageColor = isFinalStage ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.navyIndigo;
+    Color stageColor = isFinalStage
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.navyIndigo;
 
     return Container(
       decoration: BoxDecoration(
@@ -244,17 +302,25 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
                   children: [
                     Text(
                       title,
-                      style: PrimeCareTheme.typography.h3.copyWith(color: stageColor),
+                      style: PrimeCareTheme.typography.h3.copyWith(
+                        color: stageColor,
+                      ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: PrimeCareTheme.colors.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         count.toString(),
-                        style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold),
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -262,7 +328,9 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
                 const SizedBox(height: 8),
                 Text(
                   value,
-                  style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                  style: PrimeCareTheme.typography.h4.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
                 ),
               ],
             ),
@@ -278,7 +346,10 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
                     margin: const EdgeInsets.only(top: 8),
                     height: 80,
                     decoration: BoxDecoration(
-                      border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest, style: BorderStyle.none), // Dashed in a real app
+                      border: Border.all(
+                        color: PrimeCareTheme.colors.surfaceContainerHighest,
+                        style: BorderStyle.none,
+                      ), // Dashed in a real app
                       color: Colors.transparent,
                     ),
                   ),
@@ -307,7 +378,10 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.8),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: borderColor, width: isStalled || isWon ? 2 : 1.5),
+        border: Border.all(
+          color: borderColor,
+          width: isStalled || isWon ? 2 : 1.5,
+        ),
         boxShadow: [
           BoxShadow(
             color: PrimeCareTheme.colors.navyIndigo.withValues(alpha: 0.05),
@@ -327,10 +401,16 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
               Expanded(
                 child: Text(
                   company,
-                  style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                  style: PrimeCareTheme.typography.h4.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
                 ),
               ),
-              Icon(LucideIcons.moreHorizontal, size: 16, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.moreHorizontal,
+                size: 16,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -349,19 +429,47 @@ class _TerritoryPipelineScreenState extends ConsumerState<TerritoryPipelineScree
                 children: [
                   CircleAvatar(
                     radius: 10,
-                    backgroundColor: PrimeCareTheme.colors.surfaceContainerHighest,
-                    child: Text(rep[0], style: TextStyle(color: PrimeCareTheme.colors.navyIndigo, fontSize: 10, fontWeight: FontWeight.bold)),
+                    backgroundColor:
+                        PrimeCareTheme.colors.surfaceContainerHighest,
+                    child: Text(
+                      rep[0],
+                      style: TextStyle(
+                        color: PrimeCareTheme.colors.navyIndigo,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  Text(rep, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
+                  Text(
+                    rep,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontSize: 11,
+                    ),
+                  ),
                 ],
               ),
               if (!isWon)
                 Row(
                   children: [
-                    Icon(LucideIcons.clock, size: 12, color: isStalled ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.clock,
+                      size: 12,
+                      color: isStalled
+                          ? PrimeCareTheme.colors.coralRed
+                          : PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text('${daysInStage}d', style: PrimeCareTheme.typography.label.copyWith(color: isStalled ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.slateGray, fontSize: 11)),
+                    Text(
+                      '${daysInStage}d',
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: isStalled
+                            ? PrimeCareTheme.colors.coralRed
+                            : PrimeCareTheme.colors.slateGray,
+                        fontSize: 11,
+                      ),
+                    ),
                   ],
                 ),
             ],

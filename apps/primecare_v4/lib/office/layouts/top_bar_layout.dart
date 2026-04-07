@@ -12,10 +12,11 @@ class TopBarLayout extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         const Icon(Icons.notifications),
         const SizedBox(width: 16),
-        IconButton(key: const Key('data-status-id=shared-global-top-action-1'), 
+        IconButton(
+          key: const Key('data-status-id=shared-global-top-action-1'),
           icon: const Icon(Icons.logout),
           onPressed: () {
-             ref.read(authProvider.notifier).logout();
+            ref.read(authProvider.notifier).logout();
           },
         ),
         const SizedBox(width: 16),

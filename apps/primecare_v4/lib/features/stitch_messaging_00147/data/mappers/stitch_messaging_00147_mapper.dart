@@ -1,4 +1,4 @@
-﻿import '../dtos/stitch_messaging_00147_dto.dart';
+import '../dtos/stitch_messaging_00147_dto.dart';
 import '../../domain/models/stitch_messaging_00147_view_model.dart';
 
 class StitchMessaging00147Mapper {

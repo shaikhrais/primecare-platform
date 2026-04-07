@@ -7,9 +7,6 @@ class CtoLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MasterLayout(
-      shellType: AppShellType.provider,
-      child: child,
-    );
+    return MasterLayout(shellType: AppShellType.provider, child: child);
   }
 }

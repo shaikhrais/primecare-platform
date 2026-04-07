@@ -1,0 +1,9 @@
+- [x] 1. Generate `financial_overview.dart`
+- [x] 2. Generate `ceo_settings.dart`
+- [x] 3. Generate `compliance_tracking.dart`
+- [x] 4. Generate `operations_overview.dart`
+- [x] 5. Generate `ops_efficiency.dart`
+- [x] 6. Generate `system_architect.dart`
+- [x] 7. Generate `system_settings.dart`
+- [x] 8. Generate `franchise_pipeline.dart`
+- [x] Execute script to write all 8 files.

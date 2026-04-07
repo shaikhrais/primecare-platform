@@ -14,288 +14,522 @@ class AppRoutes {
   static const String cooDashboard = '/offices/corporate/roles/coo/dashboard';
   static const String cfoDashboard = '/offices/corporate/roles/cfo/dashboard';
   static const String ctoDashboard = '/offices/corporate/roles/cto/dashboard';
-  static const String complianceManagerDashboard = '/offices/corporate/roles/compliance_manager/dashboard';
-  static const String headOfBusDevDashboard = '/offices/corporate/roles/head_of_bus_dev/dashboard';
-  static const String headOfMarketingDashboard = '/offices/corporate/roles/head_of_marketing/dashboard';
-  static const String trainingDirectorDashboard = '/offices/corporate/roles/training_director/dashboard';
-  static const String regionalManagerOntarioDashboard = '/offices/business_development/roles/regional_manager_ontario/dashboard';
-  static const String regionalManagerUsaDashboard = '/offices/business_development/roles/regional_manager_usa/dashboard';
-  static const String franchiseSalesManagerDashboard = '/offices/business_development/roles/franchise_sales_manager/dashboard';
-  static const String partnershipManagerDashboard = '/offices/business_development/roles/partnership_manager/dashboard';
-  static const String territoryExpansionManagerDashboard = '/offices/business_development/roles/territory_expansion_manager/dashboard';
-  static const String franchiseOwnerDashboard = '/offices/franchise/roles/franchise_owner/dashboard';
-  static const String operationsManagerDashboard = '/offices/franchise/roles/operations_manager/dashboard';
-  static const String generalManagerDashboard = '/offices/business_development/roles/general_manager/dashboard';
-  static const String schedulerDashboard = '/offices/franchise/roles/scheduler/dashboard';
-  static const String billingAdminDashboard = '/offices/franchise/roles/billing_admin/dashboard';
-  static const String hrHiringDashboard = '/offices/franchise/roles/hr_hiring/dashboard';
+  static const String complianceManagerDashboard =
+      '/offices/corporate/roles/compliance_manager/dashboard';
+  static const String headOfBusDevDashboard =
+      '/offices/corporate/roles/head_of_bus_dev/dashboard';
+  static const String headOfMarketingDashboard =
+      '/offices/corporate/roles/head_of_marketing/dashboard';
+  static const String trainingDirectorDashboard =
+      '/offices/corporate/roles/training_director/dashboard';
+  static const String regionalManagerOntarioDashboard =
+      '/offices/business_development/roles/regional_manager_ontario/dashboard';
+  static const String regionalManagerUsaDashboard =
+      '/offices/business_development/roles/regional_manager_usa/dashboard';
+  static const String franchiseSalesManagerDashboard =
+      '/offices/business_development/roles/franchise_sales_manager/dashboard';
+  static const String partnershipManagerDashboard =
+      '/offices/business_development/roles/partnership_manager/dashboard';
+  static const String territoryExpansionManagerDashboard =
+      '/offices/business_development/roles/territory_expansion_manager/dashboard';
+  static const String franchiseOwnerDashboard =
+      '/offices/franchise/roles/franchise_owner/dashboard';
+  static const String operationsManagerDashboard =
+      '/offices/franchise/roles/operations_manager/dashboard';
+  static const String generalManagerDashboard =
+      '/offices/business_development/roles/general_manager/dashboard';
+  static const String schedulerDashboard =
+      '/offices/franchise/roles/scheduler/dashboard';
+  static const String billingAdminDashboard =
+      '/offices/franchise/roles/billing_admin/dashboard';
+  static const String hrHiringDashboard =
+      '/offices/franchise/roles/hr_hiring/dashboard';
   static const String rnDashboard = '/offices/clinic/roles/rn/dashboard';
   static const String rpnDashboard = '/offices/clinic/roles/rpn/dashboard';
   static const String rmtDashboard = '/offices/clinic/roles/rmt/dashboard';
   static const String pswDashboard = '/offices/clinic/roles/psw/dashboard';
-  static const String pswTodaysShifts = '/offices/clinic/roles/psw/todays-shifts';
-  static const String pswAssignedClients = '/offices/clinic/roles/psw/assigned-clients';
+  static const String pswTodaysShifts =
+      '/offices/clinic/roles/psw/todays-shifts';
+  static const String pswAssignedClients =
+      '/offices/clinic/roles/psw/assigned-clients';
   static const String pswCareTasks = '/offices/clinic/roles/psw/care-tasks';
   static const String pswAdlTracking = '/offices/clinic/roles/psw/adl-tracking';
   static const String pswDailyLogs = '/offices/clinic/roles/psw/daily-logs';
   static const String pswCheckInOut = '/offices/clinic/roles/psw/check-in-out';
-  static const String pswClientUpdates = '/offices/clinic/roles/psw/client-updates';
-  static const String pswIncidentReports = '/offices/clinic/roles/psw/incident-reports';
-  static const String pswCompletedVisits = '/offices/clinic/roles/psw/completed-visits';
+  static const String pswClientUpdates =
+      '/offices/clinic/roles/psw/client-updates';
+  static const String pswIncidentReports =
+      '/offices/clinic/roles/psw/incident-reports';
+  static const String pswCompletedVisits =
+      '/offices/clinic/roles/psw/completed-visits';
   static const String pswDocuments = '/offices/clinic/roles/psw/documents';
   static const String pswSettings = '/offices/clinic/roles/psw/settings';
-  
-  static const String physioDashboard = '/offices/clinic/roles/physio/dashboard';
+
+  static const String physioDashboard =
+      '/offices/clinic/roles/physio/dashboard';
   static const String chiroDashboard = '/offices/clinic/roles/chiro/dashboard';
-  static const String occupationalTherapistDashboard = '/offices/clinic/roles/occupational_therapist/dashboard';
-  static const String speechPathologistDashboard = '/offices/clinic/roles/speech_pathologist/dashboard';
+  static const String occupationalTherapistDashboard =
+      '/offices/clinic/roles/occupational_therapist/dashboard';
+  static const String speechPathologistDashboard =
+      '/offices/clinic/roles/speech_pathologist/dashboard';
 
-  static const String customerSupportDashboard = '/offices/support/roles/customer_support/dashboard';
-  static const String intakeCoordinatorDashboard = '/offices/support/roles/intake_coordinator/dashboard';
-  static const String qualityAssuranceDashboard = '/offices/support/roles/quality_assurance/dashboard';
-  static const String trainingCoordinatorDashboard = '/offices/support/roles/training_coordinator/dashboard';
+  static const String customerSupportDashboard =
+      '/offices/support/roles/customer_support/dashboard';
+  static const String intakeCoordinatorDashboard =
+      '/offices/support/roles/intake_coordinator/dashboard';
+  static const String qualityAssuranceDashboard =
+      '/offices/support/roles/quality_assurance/dashboard';
+  static const String trainingCoordinatorDashboard =
+      '/offices/support/roles/training_coordinator/dashboard';
 
-  static const String localMarketingManagerDashboard = '/offices/marketing/roles/local_marketing_manager/dashboard';
-  static const String communityOutreachDashboard = '/offices/marketing/roles/community_outreach/dashboard';
-  static const String territorySalesManagerDashboard = '/offices/marketing/roles/territory_sales_manager/dashboard';
+  static const String localMarketingManagerDashboard =
+      '/offices/marketing/roles/local_marketing_manager/dashboard';
+  static const String communityOutreachDashboard =
+      '/offices/marketing/roles/community_outreach/dashboard';
+  static const String territorySalesManagerDashboard =
+      '/offices/marketing/roles/territory_sales_manager/dashboard';
 
-  static const String clientDashboard = '/offices/client/roles/client/dashboard';
-  static const String familyMemberDashboard = '/offices/client/roles/family_member/dashboard';
+  static const String clientDashboard =
+      '/offices/client/roles/client/dashboard';
+  static const String familyMemberDashboard =
+      '/offices/client/roles/family_member/dashboard';
 
-  static const String scrumMasterDashboard = '/offices/system/roles/scrum_master/dashboard';
+  static const String scrumMasterDashboard =
+      '/offices/system/roles/scrum_master/dashboard';
   static const String guestDashboard = '/offices/system/roles/guest/dashboard';
-  static const String patientDashboard = '/offices/client/roles/client/dashboard';
+  static const String patientDashboard =
+      '/offices/client/roles/client/dashboard';
 
-  static const String ceoEnterpriseOverview = '/offices/corporate/roles/ceo/enterprise-overview';
-  static const String ceoFranchiseOverview = '/offices/corporate/roles/ceo/franchise-overview';
-  static const String ceoRegionPerformance = '/offices/corporate/roles/ceo/region-performance';
-  static const String ceoRevenueSummary = '/offices/corporate/roles/ceo/revenue-summary';
-  static const String ceoStrategicKpis = '/offices/corporate/roles/ceo/strategic-kpis';
-  static const String ceoGrowthPipeline = '/offices/corporate/roles/ceo/growth-pipeline';
-  static const String ceoLeadershipReports = '/offices/corporate/roles/ceo/leadership-reports';
-  static const String ceoAlertsAndRisks = '/offices/corporate/roles/ceo/alerts-and-risks';
-  static const String ceoOrganizationMap = '/offices/corporate/roles/ceo/organization-map';
+  static const String ceoEnterpriseOverview =
+      '/offices/corporate/roles/ceo/enterprise-overview';
+  static const String ceoFranchiseOverview =
+      '/offices/corporate/roles/ceo/franchise-overview';
+  static const String ceoRegionPerformance =
+      '/offices/corporate/roles/ceo/region-performance';
+  static const String ceoRevenueSummary =
+      '/offices/corporate/roles/ceo/revenue-summary';
+  static const String ceoStrategicKpis =
+      '/offices/corporate/roles/ceo/strategic-kpis';
+  static const String ceoGrowthPipeline =
+      '/offices/corporate/roles/ceo/growth-pipeline';
+  static const String ceoLeadershipReports =
+      '/offices/corporate/roles/ceo/leadership-reports';
+  static const String ceoAlertsAndRisks =
+      '/offices/corporate/roles/ceo/alerts-and-risks';
+  static const String ceoOrganizationMap =
+      '/offices/corporate/roles/ceo/organization-map';
   static const String ceoApprovals = '/offices/corporate/roles/ceo/approvals';
   static const String ceoReports = '/offices/corporate/roles/ceo/reports';
-  static const String cooOperationsOverview = '/offices/corporate/roles/coo/operations-overview';
-  static const String cooBranchOperations = '/offices/corporate/roles/coo/branch-operations';
-  static const String cooStaffingEfficiency = '/offices/corporate/roles/coo/staffing-efficiency';
-  static const String cooSchedulingHealth = '/offices/corporate/roles/coo/scheduling-health';
-  static const String cooServiceDelivery = '/offices/corporate/roles/coo/service-delivery';
-  static const String cooIssueEscalations = '/offices/corporate/roles/coo/issue-escalations';
-  static const String cooComplianceView = '/offices/corporate/roles/coo/compliance-view';
-  static const String cooWorkflowPerformance = '/offices/corporate/roles/coo/workflow-performance';
-  static const String cooBranchComparison = '/offices/corporate/roles/coo/branch-comparison';
+  static const String cooOperationsOverview =
+      '/offices/corporate/roles/coo/operations-overview';
+  static const String cooBranchOperations =
+      '/offices/corporate/roles/coo/branch-operations';
+  static const String cooStaffingEfficiency =
+      '/offices/corporate/roles/coo/staffing-efficiency';
+  static const String cooSchedulingHealth =
+      '/offices/corporate/roles/coo/scheduling-health';
+  static const String cooServiceDelivery =
+      '/offices/corporate/roles/coo/service-delivery';
+  static const String cooIssueEscalations =
+      '/offices/corporate/roles/coo/issue-escalations';
+  static const String cooComplianceView =
+      '/offices/corporate/roles/coo/compliance-view';
+  static const String cooWorkflowPerformance =
+      '/offices/corporate/roles/coo/workflow-performance';
+  static const String cooBranchComparison =
+      '/offices/corporate/roles/coo/branch-comparison';
   static const String cooReports = '/offices/corporate/roles/coo/reports';
-  static const String cfoFinancialOverview = '/offices/corporate/roles/cfo/financial-overview';
+  static const String cfoFinancialOverview =
+      '/offices/corporate/roles/cfo/financial-overview';
   static const String cfoRevenue = '/offices/corporate/roles/cfo/revenue';
   static const String cfoExpenses = '/offices/corporate/roles/cfo/expenses';
-  static const String cfoFranchiseFinancials = '/offices/corporate/roles/cfo/franchise-financials';
+  static const String cfoFranchiseFinancials =
+      '/offices/corporate/roles/cfo/franchise-financials';
   static const String cfoPayroll = '/offices/corporate/roles/cfo/payroll';
-  static const String cfoAccountsReceivable = '/offices/corporate/roles/cfo/accounts-receivable';
-  static const String cfoAccountsPayable = '/offices/corporate/roles/cfo/accounts-payable';
+  static const String cfoAccountsReceivable =
+      '/offices/corporate/roles/cfo/accounts-receivable';
+  static const String cfoAccountsPayable =
+      '/offices/corporate/roles/cfo/accounts-payable';
   static const String cfoInvoices = '/offices/corporate/roles/cfo/invoices';
-  static const String cfoProfitability = '/offices/corporate/roles/cfo/profitability';
-  static const String cfoTaxAndRemittance = '/offices/corporate/roles/cfo/tax-and-remittance';
+  static const String cfoProfitability =
+      '/offices/corporate/roles/cfo/profitability';
+  static const String cfoTaxAndRemittance =
+      '/offices/corporate/roles/cfo/tax-and-remittance';
   static const String cfoReports = '/offices/corporate/roles/cfo/reports';
-  static const String ctoSystemHealth = '/offices/corporate/roles/cto/system-health';
-  static const String ctoPlatformUsage = '/offices/corporate/roles/cto/platform-usage';
-  static const String ctoFeatureAdoption = '/offices/corporate/roles/cto/feature-adoption';
-  static const String ctoApiMonitoring = '/offices/corporate/roles/cto/api-monitoring';
-  static const String ctoIntegrations = '/offices/corporate/roles/cto/integrations';
+  static const String ctoSystemHealth =
+      '/offices/corporate/roles/cto/system-health';
+  static const String ctoPlatformUsage =
+      '/offices/corporate/roles/cto/platform-usage';
+  static const String ctoFeatureAdoption =
+      '/offices/corporate/roles/cto/feature-adoption';
+  static const String ctoApiMonitoring =
+      '/offices/corporate/roles/cto/api-monitoring';
+  static const String ctoIntegrations =
+      '/offices/corporate/roles/cto/integrations';
   static const String ctoAuditLogs = '/offices/corporate/roles/cto/audit-logs';
-  static const String ctoAccessControl = '/offices/corporate/roles/cto/access-control';
-  static const String ctoReleaseManagement = '/offices/corporate/roles/cto/release-management';
-  static const String ctoIssueTracking = '/offices/corporate/roles/cto/issue-tracking';
-  static const String ctoInfrastructure = '/offices/corporate/roles/cto/infrastructure';
+  static const String ctoAccessControl =
+      '/offices/corporate/roles/cto/access-control';
+  static const String ctoReleaseManagement =
+      '/offices/corporate/roles/cto/release-management';
+  static const String ctoIssueTracking =
+      '/offices/corporate/roles/cto/issue-tracking';
+  static const String ctoInfrastructure =
+      '/offices/corporate/roles/cto/infrastructure';
   static const String ctoReports = '/offices/corporate/roles/cto/reports';
-  static const String complianceManagerComplianceCases = '/offices/corporate/roles/compliance_manager/compliance-cases';
-  static const String complianceManagerPolicies = '/offices/corporate/roles/compliance_manager/policies';
-  static const String complianceManagerAudits = '/offices/corporate/roles/compliance_manager/audits';
-  static const String complianceManagerIncidentReview = '/offices/corporate/roles/compliance_manager/incident-review';
-  static const String complianceManagerCredentialTracking = '/offices/corporate/roles/compliance_manager/credential-tracking';
-  static const String complianceManagerDocumentExpiry = '/offices/corporate/roles/compliance_manager/document-expiry';
-  static const String complianceManagerRiskRegister = '/offices/corporate/roles/compliance_manager/risk-register';
-  static const String complianceManagerCorrectiveActions = '/offices/corporate/roles/compliance_manager/corrective-actions';
-  static const String complianceManagerTrainingCompliance = '/offices/corporate/roles/compliance_manager/training-compliance';
-  static const String complianceManagerReports = '/offices/corporate/roles/compliance_manager/reports';
-  static const String headOfBusinessDevelopmentLeadPipeline = '/offices/clinic/roles/head_of_business_development/lead-pipeline';
-  static const String headOfBusinessDevelopmentFranchisePipeline = '/offices/clinic/roles/head_of_business_development/franchise-pipeline';
-  static const String headOfBusinessDevelopmentTerritoryMap = '/offices/clinic/roles/head_of_business_development/territory-map';
-  static const String headOfBusinessDevelopmentPartnerships = '/offices/clinic/roles/head_of_business_development/partnerships';
-  static const String headOfBusinessDevelopmentOpportunities = '/offices/clinic/roles/head_of_business_development/opportunities';
-  static const String headOfBusinessDevelopmentSalesPerformance = '/offices/clinic/roles/head_of_business_development/sales-performance';
-  static const String headOfBusinessDevelopmentExpansionForecast = '/offices/clinic/roles/head_of_business_development/expansion-forecast';
-  static const String headOfBusinessDevelopmentReports = '/offices/clinic/roles/head_of_business_development/reports';
-  static const String headOfMarketingCampaigns = '/offices/marketing/roles/head_of_marketing/campaigns';
-  static const String headOfMarketingLeads = '/offices/marketing/roles/head_of_marketing/leads';
-  static const String headOfMarketingFunnelAnalytics = '/offices/marketing/roles/head_of_marketing/funnel-analytics';
-  static const String headOfMarketingBrandAssets = '/offices/marketing/roles/head_of_marketing/brand-assets';
-  static const String headOfMarketingRegionalCampaigns = '/offices/marketing/roles/head_of_marketing/regional-campaigns';
-  static const String headOfMarketingContentApproval = '/offices/marketing/roles/head_of_marketing/content-approval';
-  static const String headOfMarketingPerformanceReports = '/offices/marketing/roles/head_of_marketing/performance-reports';
-  static const String trainingDirectorTrainingPrograms = '/offices/corporate/roles/training_director/training-programs';
-  static const String trainingDirectorStaffTrainingMatrix = '/offices/corporate/roles/training_director/staff-training-matrix';
-  static const String trainingDirectorComplianceTraining = '/offices/corporate/roles/training_director/compliance-training';
-  static const String trainingDirectorCourseLibrary = '/offices/corporate/roles/training_director/course-library';
-  static const String trainingDirectorAssessments = '/offices/corporate/roles/training_director/assessments';
-  static const String trainingDirectorCertifications = '/offices/corporate/roles/training_director/certifications';
-  static const String trainingDirectorTrainerAssignments = '/offices/corporate/roles/training_director/trainer-assignments';
-  static const String trainingDirectorReports = '/offices/corporate/roles/training_director/reports';
-  static const String regionalBdmLeads = '/offices/business_development/roles/regional_bdm/leads';
-  static const String regionalBdmFranchisePipeline = '/offices/business_development/roles/regional_bdm/franchise-pipeline';
-  static const String regionalBdmTerritoryGrowth = '/offices/business_development/roles/regional_bdm/territory-growth';
-  static const String regionalBdmMeetings = '/offices/business_development/roles/regional_bdm/meetings';
-  static const String regionalBdmDealTracker = '/offices/business_development/roles/regional_bdm/deal-tracker';
-  static const String regionalBdmPartners = '/offices/business_development/roles/regional_bdm/partners';
-  static const String regionalBdmCompetitorNotes = '/offices/business_development/roles/regional_bdm/competitor-notes';
-  static const String regionalBdmTasks = '/offices/business_development/roles/regional_bdm/tasks';
-  static const String regionalBdmReports = '/offices/business_development/roles/regional_bdm/reports';
-  static const String franchiseSalesManagerLeads = '/offices/business_development/roles/franchise_sales_manager/leads';
-  static const String franchiseSalesManagerProspects = '/offices/business_development/roles/franchise_sales_manager/prospects';
-  static const String franchiseSalesManagerDiscoveryCalls = '/offices/business_development/roles/franchise_sales_manager/discovery-calls';
-  static const String franchiseSalesManagerProposals = '/offices/business_development/roles/franchise_sales_manager/proposals';
-  static const String franchiseSalesManagerSalesPipeline = '/offices/business_development/roles/franchise_sales_manager/sales-pipeline';
-  static const String franchiseSalesManagerContracts = '/offices/business_development/roles/franchise_sales_manager/contracts';
-  static const String franchiseSalesManagerFollowUps = '/offices/business_development/roles/franchise_sales_manager/follow-ups';
-  static const String franchiseSalesManagerReports = '/offices/business_development/roles/franchise_sales_manager/reports';
-  static const String partnershipManagerPartners = '/offices/business_development/roles/partnership_manager/partners';
-  static const String partnershipManagerOutreach = '/offices/business_development/roles/partnership_manager/outreach';
-  static const String partnershipManagerActiveDeals = '/offices/business_development/roles/partnership_manager/active-deals';
-  static const String partnershipManagerProposals = '/offices/business_development/roles/partnership_manager/proposals';
-  static const String partnershipManagerRenewals = '/offices/business_development/roles/partnership_manager/renewals';
-  static const String partnershipManagerReports = '/offices/business_development/roles/partnership_manager/reports';
-  static const String territoryExpansionManagerTerritoryMap = '/offices/business_development/roles/territory_expansion_manager/territory-map';
-  static const String territoryExpansionManagerMarketResearch = '/offices/business_development/roles/territory_expansion_manager/market-research';
-  static const String territoryExpansionManagerDemographics = '/offices/business_development/roles/territory_expansion_manager/demographics';
-  static const String territoryExpansionManagerOpenTerritories = '/offices/business_development/roles/territory_expansion_manager/open-territories';
-  static const String territoryExpansionManagerExpansionPlans = '/offices/business_development/roles/territory_expansion_manager/expansion-plans';
-  static const String territoryExpansionManagerSiteSelection = '/offices/business_development/roles/territory_expansion_manager/site-selection';
-  static const String territoryExpansionManagerForecast = '/offices/business_development/roles/territory_expansion_manager/forecast';
-  static const String territoryExpansionManagerReports = '/offices/business_development/roles/territory_expansion_manager/reports';
-  static const String franchiseOwnerBranchOverview = '/offices/franchise/roles/franchise_owner/branch-overview';
-  static const String franchiseOwnerFinancialSnapshot = '/offices/franchise/roles/franchise_owner/financial-snapshot';
-  static const String franchiseOwnerStaff = '/offices/franchise/roles/franchise_owner/staff';
-  static const String franchiseOwnerAppointments = '/offices/franchise/roles/franchise_owner/appointments';
-  static const String franchiseOwnerClients = '/offices/franchise/roles/franchise_owner/clients';
-  static const String franchiseOwnerCompliance = '/offices/franchise/roles/franchise_owner/compliance';
-  static const String franchiseOwnerReports = '/offices/franchise/roles/franchise_owner/reports';
-  static const String franchiseOwnerHiring = '/offices/franchise/roles/franchise_owner/hiring';
-  static const String operationsManagerDailyOperations = '/offices/franchise/roles/operations_manager/daily-operations';
-  static const String operationsManagerSchedule = '/offices/franchise/roles/operations_manager/schedule';
-  static const String operationsManagerShifts = '/offices/franchise/roles/operations_manager/shifts';
-  static const String operationsManagerIssues = '/offices/franchise/roles/operations_manager/issues';
-  static const String operationsManagerServiceQuality = '/offices/franchise/roles/operations_manager/service-quality';
-  static const String operationsManagerStaffCoordination = '/offices/franchise/roles/operations_manager/staff-coordination';
-  static const String operationsManagerAttendance = '/offices/franchise/roles/operations_manager/attendance';
-  static const String operationsManagerReports = '/offices/franchise/roles/operations_manager/reports';
-  static const String schedulerCoordinatorAppointmentCalendar = '/offices/franchise/roles/scheduler_coordinator/appointment-calendar';
-  static const String schedulerCoordinatorShiftCalendar = '/offices/franchise/roles/scheduler_coordinator/shift-calendar';
-  static const String schedulerCoordinatorProviderAvailability = '/offices/franchise/roles/scheduler_coordinator/provider-availability';
-  static const String schedulerCoordinatorBookingRequests = '/offices/franchise/roles/scheduler_coordinator/booking-requests';
-  static const String schedulerCoordinatorOpenShifts = '/offices/franchise/roles/scheduler_coordinator/open-shifts';
-  static const String schedulerCoordinatorAssignments = '/offices/franchise/roles/scheduler_coordinator/assignments';
-  static const String schedulerCoordinatorConflicts = '/offices/franchise/roles/scheduler_coordinator/conflicts';
-  static const String schedulerCoordinatorReports = '/offices/franchise/roles/scheduler_coordinator/reports';
+  static const String complianceManagerComplianceCases =
+      '/offices/corporate/roles/compliance_manager/compliance-cases';
+  static const String complianceManagerPolicies =
+      '/offices/corporate/roles/compliance_manager/policies';
+  static const String complianceManagerAudits =
+      '/offices/corporate/roles/compliance_manager/audits';
+  static const String complianceManagerIncidentReview =
+      '/offices/corporate/roles/compliance_manager/incident-review';
+  static const String complianceManagerCredentialTracking =
+      '/offices/corporate/roles/compliance_manager/credential-tracking';
+  static const String complianceManagerDocumentExpiry =
+      '/offices/corporate/roles/compliance_manager/document-expiry';
+  static const String complianceManagerRiskRegister =
+      '/offices/corporate/roles/compliance_manager/risk-register';
+  static const String complianceManagerCorrectiveActions =
+      '/offices/corporate/roles/compliance_manager/corrective-actions';
+  static const String complianceManagerTrainingCompliance =
+      '/offices/corporate/roles/compliance_manager/training-compliance';
+  static const String complianceManagerReports =
+      '/offices/corporate/roles/compliance_manager/reports';
+  static const String headOfBusinessDevelopmentLeadPipeline =
+      '/offices/clinic/roles/head_of_business_development/lead-pipeline';
+  static const String headOfBusinessDevelopmentFranchisePipeline =
+      '/offices/clinic/roles/head_of_business_development/franchise-pipeline';
+  static const String headOfBusinessDevelopmentTerritoryMap =
+      '/offices/clinic/roles/head_of_business_development/territory-map';
+  static const String headOfBusinessDevelopmentPartnerships =
+      '/offices/clinic/roles/head_of_business_development/partnerships';
+  static const String headOfBusinessDevelopmentOpportunities =
+      '/offices/clinic/roles/head_of_business_development/opportunities';
+  static const String headOfBusinessDevelopmentSalesPerformance =
+      '/offices/clinic/roles/head_of_business_development/sales-performance';
+  static const String headOfBusinessDevelopmentExpansionForecast =
+      '/offices/clinic/roles/head_of_business_development/expansion-forecast';
+  static const String headOfBusinessDevelopmentReports =
+      '/offices/clinic/roles/head_of_business_development/reports';
+  static const String headOfMarketingCampaigns =
+      '/offices/marketing/roles/head_of_marketing/campaigns';
+  static const String headOfMarketingLeads =
+      '/offices/marketing/roles/head_of_marketing/leads';
+  static const String headOfMarketingFunnelAnalytics =
+      '/offices/marketing/roles/head_of_marketing/funnel-analytics';
+  static const String headOfMarketingBrandAssets =
+      '/offices/marketing/roles/head_of_marketing/brand-assets';
+  static const String headOfMarketingRegionalCampaigns =
+      '/offices/marketing/roles/head_of_marketing/regional-campaigns';
+  static const String headOfMarketingContentApproval =
+      '/offices/marketing/roles/head_of_marketing/content-approval';
+  static const String headOfMarketingPerformanceReports =
+      '/offices/marketing/roles/head_of_marketing/performance-reports';
+  static const String trainingDirectorTrainingPrograms =
+      '/offices/corporate/roles/training_director/training-programs';
+  static const String trainingDirectorStaffTrainingMatrix =
+      '/offices/corporate/roles/training_director/staff-training-matrix';
+  static const String trainingDirectorComplianceTraining =
+      '/offices/corporate/roles/training_director/compliance-training';
+  static const String trainingDirectorCourseLibrary =
+      '/offices/corporate/roles/training_director/course-library';
+  static const String trainingDirectorAssessments =
+      '/offices/corporate/roles/training_director/assessments';
+  static const String trainingDirectorCertifications =
+      '/offices/corporate/roles/training_director/certifications';
+  static const String trainingDirectorTrainerAssignments =
+      '/offices/corporate/roles/training_director/trainer-assignments';
+  static const String trainingDirectorReports =
+      '/offices/corporate/roles/training_director/reports';
+  static const String regionalBdmLeads =
+      '/offices/business_development/roles/regional_bdm/leads';
+  static const String regionalBdmFranchisePipeline =
+      '/offices/business_development/roles/regional_bdm/franchise-pipeline';
+  static const String regionalBdmTerritoryGrowth =
+      '/offices/business_development/roles/regional_bdm/territory-growth';
+  static const String regionalBdmMeetings =
+      '/offices/business_development/roles/regional_bdm/meetings';
+  static const String regionalBdmDealTracker =
+      '/offices/business_development/roles/regional_bdm/deal-tracker';
+  static const String regionalBdmPartners =
+      '/offices/business_development/roles/regional_bdm/partners';
+  static const String regionalBdmCompetitorNotes =
+      '/offices/business_development/roles/regional_bdm/competitor-notes';
+  static const String regionalBdmTasks =
+      '/offices/business_development/roles/regional_bdm/tasks';
+  static const String regionalBdmReports =
+      '/offices/business_development/roles/regional_bdm/reports';
+  static const String franchiseSalesManagerLeads =
+      '/offices/business_development/roles/franchise_sales_manager/leads';
+  static const String franchiseSalesManagerProspects =
+      '/offices/business_development/roles/franchise_sales_manager/prospects';
+  static const String franchiseSalesManagerDiscoveryCalls =
+      '/offices/business_development/roles/franchise_sales_manager/discovery-calls';
+  static const String franchiseSalesManagerProposals =
+      '/offices/business_development/roles/franchise_sales_manager/proposals';
+  static const String franchiseSalesManagerSalesPipeline =
+      '/offices/business_development/roles/franchise_sales_manager/sales-pipeline';
+  static const String franchiseSalesManagerContracts =
+      '/offices/business_development/roles/franchise_sales_manager/contracts';
+  static const String franchiseSalesManagerFollowUps =
+      '/offices/business_development/roles/franchise_sales_manager/follow-ups';
+  static const String franchiseSalesManagerReports =
+      '/offices/business_development/roles/franchise_sales_manager/reports';
+  static const String partnershipManagerPartners =
+      '/offices/business_development/roles/partnership_manager/partners';
+  static const String partnershipManagerOutreach =
+      '/offices/business_development/roles/partnership_manager/outreach';
+  static const String partnershipManagerActiveDeals =
+      '/offices/business_development/roles/partnership_manager/active-deals';
+  static const String partnershipManagerProposals =
+      '/offices/business_development/roles/partnership_manager/proposals';
+  static const String partnershipManagerRenewals =
+      '/offices/business_development/roles/partnership_manager/renewals';
+  static const String partnershipManagerReports =
+      '/offices/business_development/roles/partnership_manager/reports';
+  static const String territoryExpansionManagerTerritoryMap =
+      '/offices/business_development/roles/territory_expansion_manager/territory-map';
+  static const String territoryExpansionManagerMarketResearch =
+      '/offices/business_development/roles/territory_expansion_manager/market-research';
+  static const String territoryExpansionManagerDemographics =
+      '/offices/business_development/roles/territory_expansion_manager/demographics';
+  static const String territoryExpansionManagerOpenTerritories =
+      '/offices/business_development/roles/territory_expansion_manager/open-territories';
+  static const String territoryExpansionManagerExpansionPlans =
+      '/offices/business_development/roles/territory_expansion_manager/expansion-plans';
+  static const String territoryExpansionManagerSiteSelection =
+      '/offices/business_development/roles/territory_expansion_manager/site-selection';
+  static const String territoryExpansionManagerForecast =
+      '/offices/business_development/roles/territory_expansion_manager/forecast';
+  static const String territoryExpansionManagerReports =
+      '/offices/business_development/roles/territory_expansion_manager/reports';
+  static const String franchiseOwnerBranchOverview =
+      '/offices/franchise/roles/franchise_owner/branch-overview';
+  static const String franchiseOwnerFinancialSnapshot =
+      '/offices/franchise/roles/franchise_owner/financial-snapshot';
+  static const String franchiseOwnerStaff =
+      '/offices/franchise/roles/franchise_owner/staff';
+  static const String franchiseOwnerAppointments =
+      '/offices/franchise/roles/franchise_owner/appointments';
+  static const String franchiseOwnerClients =
+      '/offices/franchise/roles/franchise_owner/clients';
+  static const String franchiseOwnerCompliance =
+      '/offices/franchise/roles/franchise_owner/compliance';
+  static const String franchiseOwnerReports =
+      '/offices/franchise/roles/franchise_owner/reports';
+  static const String franchiseOwnerHiring =
+      '/offices/franchise/roles/franchise_owner/hiring';
+  static const String operationsManagerDailyOperations =
+      '/offices/franchise/roles/operations_manager/daily-operations';
+  static const String operationsManagerSchedule =
+      '/offices/franchise/roles/operations_manager/schedule';
+  static const String operationsManagerShifts =
+      '/offices/franchise/roles/operations_manager/shifts';
+  static const String operationsManagerIssues =
+      '/offices/franchise/roles/operations_manager/issues';
+  static const String operationsManagerServiceQuality =
+      '/offices/franchise/roles/operations_manager/service-quality';
+  static const String operationsManagerStaffCoordination =
+      '/offices/franchise/roles/operations_manager/staff-coordination';
+  static const String operationsManagerAttendance =
+      '/offices/franchise/roles/operations_manager/attendance';
+  static const String operationsManagerReports =
+      '/offices/franchise/roles/operations_manager/reports';
+  static const String schedulerCoordinatorAppointmentCalendar =
+      '/offices/franchise/roles/scheduler_coordinator/appointment-calendar';
+  static const String schedulerCoordinatorShiftCalendar =
+      '/offices/franchise/roles/scheduler_coordinator/shift-calendar';
+  static const String schedulerCoordinatorProviderAvailability =
+      '/offices/franchise/roles/scheduler_coordinator/provider-availability';
+  static const String schedulerCoordinatorBookingRequests =
+      '/offices/franchise/roles/scheduler_coordinator/booking-requests';
+  static const String schedulerCoordinatorOpenShifts =
+      '/offices/franchise/roles/scheduler_coordinator/open-shifts';
+  static const String schedulerCoordinatorAssignments =
+      '/offices/franchise/roles/scheduler_coordinator/assignments';
+  static const String schedulerCoordinatorConflicts =
+      '/offices/franchise/roles/scheduler_coordinator/conflicts';
+  static const String schedulerCoordinatorReports =
+      '/offices/franchise/roles/scheduler_coordinator/reports';
   static const String adminInvoices = '/offices/franchise/roles/admin/invoices';
   static const String adminPayments = '/offices/franchise/roles/admin/payments';
   static const String adminClaims = '/offices/franchise/roles/admin/claims';
-  static const String adminReconciliation = '/offices/franchise/roles/admin/reconciliation';
-  static const String adminOutstandingBalances = '/offices/franchise/roles/admin/outstanding-balances';
+  static const String adminReconciliation =
+      '/offices/franchise/roles/admin/reconciliation';
+  static const String adminOutstandingBalances =
+      '/offices/franchise/roles/admin/outstanding-balances';
   static const String adminRefunds = '/offices/franchise/roles/admin/refunds';
   static const String adminReports = '/offices/franchise/roles/admin/reports';
-  static const String hrHiringApplicants = '/offices/franchise/roles/hr_hiring/applicants';
-  static const String hrHiringInterviews = '/offices/franchise/roles/hr_hiring/interviews';
-  static const String hrHiringOffers = '/offices/franchise/roles/hr_hiring/offers';
-  static const String hrHiringOnboarding = '/offices/franchise/roles/hr_hiring/onboarding';
-  static const String hrHiringStaffDocuments = '/offices/franchise/roles/hr_hiring/staff-documents';
-  static const String hrHiringCredentials = '/offices/franchise/roles/hr_hiring/credentials';
-  static const String hrHiringTrainingStatus = '/offices/franchise/roles/hr_hiring/training-status';
-  static const String hrHiringReports = '/offices/franchise/roles/hr_hiring/reports';
-  static const String rnTodaysSchedule = '/offices/clinic/roles/rn/todays-schedule';
-  static const String rnAssignedClients = '/offices/clinic/roles/rn/assigned-clients';
+  static const String hrHiringApplicants =
+      '/offices/franchise/roles/hr_hiring/applicants';
+  static const String hrHiringInterviews =
+      '/offices/franchise/roles/hr_hiring/interviews';
+  static const String hrHiringOffers =
+      '/offices/franchise/roles/hr_hiring/offers';
+  static const String hrHiringOnboarding =
+      '/offices/franchise/roles/hr_hiring/onboarding';
+  static const String hrHiringStaffDocuments =
+      '/offices/franchise/roles/hr_hiring/staff-documents';
+  static const String hrHiringCredentials =
+      '/offices/franchise/roles/hr_hiring/credentials';
+  static const String hrHiringTrainingStatus =
+      '/offices/franchise/roles/hr_hiring/training-status';
+  static const String hrHiringReports =
+      '/offices/franchise/roles/hr_hiring/reports';
+  static const String rnTodaysSchedule =
+      '/offices/clinic/roles/rn/todays-schedule';
+  static const String rnAssignedClients =
+      '/offices/clinic/roles/rn/assigned-clients';
   static const String rnNursingNotes = '/offices/clinic/roles/rn/nursing-notes';
   static const String rnCarePlans = '/offices/clinic/roles/rn/care-plans';
-  static const String rnMedicationNotes = '/offices/clinic/roles/rn/medication-notes';
+  static const String rnMedicationNotes =
+      '/offices/clinic/roles/rn/medication-notes';
   static const String rnVitals = '/offices/clinic/roles/rn/vitals';
-  static const String rnIncidentReports = '/offices/clinic/roles/rn/incident-reports';
-  static const String rnProgressUpdates = '/offices/clinic/roles/rn/progress-updates';
-  static const String rnClientHistory = '/offices/clinic/roles/rn/client-history';
-  static const String rpnTodaysSchedule = '/offices/clinic/roles/rpn/todays-schedule';
-  static const String rpnAssignedClients = '/offices/clinic/roles/rpn/assigned-clients';
-  static const String rpnNursingNotes = '/offices/clinic/roles/rpn/nursing-notes';
+  static const String rnIncidentReports =
+      '/offices/clinic/roles/rn/incident-reports';
+  static const String rnProgressUpdates =
+      '/offices/clinic/roles/rn/progress-updates';
+  static const String rnClientHistory =
+      '/offices/clinic/roles/rn/client-history';
+  static const String rpnTodaysSchedule =
+      '/offices/clinic/roles/rpn/todays-schedule';
+  static const String rpnAssignedClients =
+      '/offices/clinic/roles/rpn/assigned-clients';
+  static const String rpnNursingNotes =
+      '/offices/clinic/roles/rpn/nursing-notes';
   static const String rpnCareUpdates = '/offices/clinic/roles/rpn/care-updates';
   static const String rpnVitals = '/offices/clinic/roles/rpn/vitals';
-  static const String rpnMedicationSupport = '/offices/clinic/roles/rpn/medication-support';
-  static const String rpnClientHistory = '/offices/clinic/roles/rpn/client-history';
-  static const String rpnIncidentReports = '/offices/clinic/roles/rpn/incident-reports';
-  static const String rmtTodaysSchedule = '/offices/clinic/roles/rmt/todays-schedule';
+  static const String rpnMedicationSupport =
+      '/offices/clinic/roles/rpn/medication-support';
+  static const String rpnClientHistory =
+      '/offices/clinic/roles/rpn/client-history';
+  static const String rpnIncidentReports =
+      '/offices/clinic/roles/rpn/incident-reports';
+  static const String rmtTodaysSchedule =
+      '/offices/clinic/roles/rmt/todays-schedule';
   static const String rmtClients = '/offices/clinic/roles/rmt/clients';
   static const String rmtAssessment = '/offices/clinic/roles/rmt/assessment';
   static const String rmtSoapNotes = '/offices/clinic/roles/rmt/soap-notes';
-  static const String rmtTreatmentPlans = '/offices/clinic/roles/rmt/treatment-plans';
+  static const String rmtTreatmentPlans =
+      '/offices/clinic/roles/rmt/treatment-plans';
   static const String rmtHomecare = '/offices/clinic/roles/rmt/homecare';
-  static const String rmtSessionHistory = '/offices/clinic/roles/rmt/session-history';
+  static const String rmtSessionHistory =
+      '/offices/clinic/roles/rmt/session-history';
   static const String rmtBodyChart = '/offices/clinic/roles/rmt/body-chart';
   static const String rmtIntakeForms = '/offices/clinic/roles/rmt/intake-forms';
   static const String rmtInvoices = '/offices/clinic/roles/rmt/invoices';
-  static const String customerSupportTickets = '/offices/support/roles/customer_support/tickets';
-  static const String customerSupportEscalations = '/offices/support/roles/customer_support/escalations';
-  static const String customerSupportIssueCategories = '/offices/support/roles/customer_support/issue-categories';
-  static const String customerSupportTemplates = '/offices/support/roles/customer_support/templates';
-  static const String customerSupportReports = '/offices/support/roles/customer_support/reports';
-  static const String intakeCoordinatorNewIntakes = '/offices/support/roles/intake_coordinator/new-intakes';
-  static const String intakeCoordinatorIntakeForms = '/offices/support/roles/intake_coordinator/intake-forms';
-  static const String intakeCoordinatorEligibility = '/offices/support/roles/intake_coordinator/eligibility';
-  static const String intakeCoordinatorScheduling = '/offices/support/roles/intake_coordinator/scheduling';
-  static const String intakeCoordinatorClientAssignment = '/offices/support/roles/intake_coordinator/client-assignment';
-  static const String intakeCoordinatorReports = '/offices/support/roles/intake_coordinator/reports';
-  static const String qualityAssuranceAudits = '/offices/support/roles/quality_assurance/audits';
-  static const String qualityAssuranceReviews = '/offices/support/roles/quality_assurance/reviews';
-  static const String qualityAssuranceComplaints = '/offices/support/roles/quality_assurance/complaints';
-  static const String qualityAssuranceCorrectiveActions = '/offices/support/roles/quality_assurance/corrective-actions';
-  static const String qualityAssuranceScorecards = '/offices/support/roles/quality_assurance/scorecards';
-  static const String qualityAssuranceComplianceChecks = '/offices/support/roles/quality_assurance/compliance-checks';
-  static const String qualityAssuranceReports = '/offices/support/roles/quality_assurance/reports';
-  static const String trainingCoordinatorTrainingSchedule = '/offices/support/roles/training_coordinator/training-schedule';
-  static const String trainingCoordinatorCourses = '/offices/support/roles/training_coordinator/courses';
-  static const String trainingCoordinatorProgress = '/offices/support/roles/training_coordinator/progress';
-  static const String trainingCoordinatorWorkshops = '/offices/support/roles/training_coordinator/workshops';
-  static const String trainingCoordinatorAttendance = '/offices/support/roles/training_coordinator/attendance';
-  static const String trainingCoordinatorMaterials = '/offices/support/roles/training_coordinator/materials';
-  static const String trainingCoordinatorCertifications = '/offices/support/roles/training_coordinator/certifications';
-  static const String trainingCoordinatorReports = '/offices/support/roles/training_coordinator/reports';
-  static const String localMarketingManagerCampaigns = '/offices/marketing/roles/local_marketing_manager/campaigns';
-  static const String localMarketingManagerLeads = '/offices/marketing/roles/local_marketing_manager/leads';
-  static const String localMarketingManagerContentCalendar = '/offices/marketing/roles/local_marketing_manager/content-calendar';
-  static const String localMarketingManagerEvents = '/offices/marketing/roles/local_marketing_manager/events';
-  static const String localMarketingManagerBudget = '/offices/marketing/roles/local_marketing_manager/budget';
-  static const String localMarketingManagerReports = '/offices/marketing/roles/local_marketing_manager/reports';
-  static const String localMarketingManagerAssets = '/offices/marketing/roles/local_marketing_manager/assets';
-  static const String communityOutreachPrograms = '/offices/marketing/roles/community_outreach/programs';
-  static const String communityOutreachEvents = '/offices/marketing/roles/community_outreach/events';
-  static const String communityOutreachPartnerships = '/offices/marketing/roles/community_outreach/partnerships';
-  static const String communityOutreachVolunteers = '/offices/marketing/roles/community_outreach/volunteers';
-  static const String communityOutreachContacts = '/offices/marketing/roles/community_outreach/contacts';
-  static const String communityOutreachFollowUps = '/offices/marketing/roles/community_outreach/follow-ups';
-  static const String communityOutreachReports = '/offices/marketing/roles/community_outreach/reports';
-  static const String territorySalesManagerLeads = '/offices/marketing/roles/territory_sales_manager/leads';
-  static const String territorySalesManagerPipeline = '/offices/marketing/roles/territory_sales_manager/pipeline';
-  static const String territorySalesManagerFieldActivity = '/offices/marketing/roles/territory_sales_manager/field-activity';
-  static const String territorySalesManagerConversions = '/offices/marketing/roles/territory_sales_manager/conversions';
-  static const String territorySalesManagerAreaPerformance = '/offices/marketing/roles/territory_sales_manager/area-performance';
-  static const String territorySalesManagerCompetitors = '/offices/marketing/roles/territory_sales_manager/competitors';
-  static const String territorySalesManagerReports = '/offices/marketing/roles/territory_sales_manager/reports';
-  static const String clientBookAppointment = '/offices/client/roles/client/book-appointment';
-  static const String clientMyAppointments = '/offices/client/roles/client/my-appointments';
+  static const String customerSupportTickets =
+      '/offices/support/roles/customer_support/tickets';
+  static const String customerSupportEscalations =
+      '/offices/support/roles/customer_support/escalations';
+  static const String customerSupportIssueCategories =
+      '/offices/support/roles/customer_support/issue-categories';
+  static const String customerSupportTemplates =
+      '/offices/support/roles/customer_support/templates';
+  static const String customerSupportReports =
+      '/offices/support/roles/customer_support/reports';
+  static const String intakeCoordinatorNewIntakes =
+      '/offices/support/roles/intake_coordinator/new-intakes';
+  static const String intakeCoordinatorIntakeForms =
+      '/offices/support/roles/intake_coordinator/intake-forms';
+  static const String intakeCoordinatorEligibility =
+      '/offices/support/roles/intake_coordinator/eligibility';
+  static const String intakeCoordinatorScheduling =
+      '/offices/support/roles/intake_coordinator/scheduling';
+  static const String intakeCoordinatorClientAssignment =
+      '/offices/support/roles/intake_coordinator/client-assignment';
+  static const String intakeCoordinatorReports =
+      '/offices/support/roles/intake_coordinator/reports';
+  static const String qualityAssuranceAudits =
+      '/offices/support/roles/quality_assurance/audits';
+  static const String qualityAssuranceReviews =
+      '/offices/support/roles/quality_assurance/reviews';
+  static const String qualityAssuranceComplaints =
+      '/offices/support/roles/quality_assurance/complaints';
+  static const String qualityAssuranceCorrectiveActions =
+      '/offices/support/roles/quality_assurance/corrective-actions';
+  static const String qualityAssuranceScorecards =
+      '/offices/support/roles/quality_assurance/scorecards';
+  static const String qualityAssuranceComplianceChecks =
+      '/offices/support/roles/quality_assurance/compliance-checks';
+  static const String qualityAssuranceReports =
+      '/offices/support/roles/quality_assurance/reports';
+  static const String trainingCoordinatorTrainingSchedule =
+      '/offices/support/roles/training_coordinator/training-schedule';
+  static const String trainingCoordinatorCourses =
+      '/offices/support/roles/training_coordinator/courses';
+  static const String trainingCoordinatorProgress =
+      '/offices/support/roles/training_coordinator/progress';
+  static const String trainingCoordinatorWorkshops =
+      '/offices/support/roles/training_coordinator/workshops';
+  static const String trainingCoordinatorAttendance =
+      '/offices/support/roles/training_coordinator/attendance';
+  static const String trainingCoordinatorMaterials =
+      '/offices/support/roles/training_coordinator/materials';
+  static const String trainingCoordinatorCertifications =
+      '/offices/support/roles/training_coordinator/certifications';
+  static const String trainingCoordinatorReports =
+      '/offices/support/roles/training_coordinator/reports';
+  static const String localMarketingManagerCampaigns =
+      '/offices/marketing/roles/local_marketing_manager/campaigns';
+  static const String localMarketingManagerLeads =
+      '/offices/marketing/roles/local_marketing_manager/leads';
+  static const String localMarketingManagerContentCalendar =
+      '/offices/marketing/roles/local_marketing_manager/content-calendar';
+  static const String localMarketingManagerEvents =
+      '/offices/marketing/roles/local_marketing_manager/events';
+  static const String localMarketingManagerBudget =
+      '/offices/marketing/roles/local_marketing_manager/budget';
+  static const String localMarketingManagerReports =
+      '/offices/marketing/roles/local_marketing_manager/reports';
+  static const String localMarketingManagerAssets =
+      '/offices/marketing/roles/local_marketing_manager/assets';
+  static const String communityOutreachPrograms =
+      '/offices/marketing/roles/community_outreach/programs';
+  static const String communityOutreachEvents =
+      '/offices/marketing/roles/community_outreach/events';
+  static const String communityOutreachPartnerships =
+      '/offices/marketing/roles/community_outreach/partnerships';
+  static const String communityOutreachVolunteers =
+      '/offices/marketing/roles/community_outreach/volunteers';
+  static const String communityOutreachContacts =
+      '/offices/marketing/roles/community_outreach/contacts';
+  static const String communityOutreachFollowUps =
+      '/offices/marketing/roles/community_outreach/follow-ups';
+  static const String communityOutreachReports =
+      '/offices/marketing/roles/community_outreach/reports';
+  static const String territorySalesManagerLeads =
+      '/offices/marketing/roles/territory_sales_manager/leads';
+  static const String territorySalesManagerPipeline =
+      '/offices/marketing/roles/territory_sales_manager/pipeline';
+  static const String territorySalesManagerFieldActivity =
+      '/offices/marketing/roles/territory_sales_manager/field-activity';
+  static const String territorySalesManagerConversions =
+      '/offices/marketing/roles/territory_sales_manager/conversions';
+  static const String territorySalesManagerAreaPerformance =
+      '/offices/marketing/roles/territory_sales_manager/area-performance';
+  static const String territorySalesManagerCompetitors =
+      '/offices/marketing/roles/territory_sales_manager/competitors';
+  static const String territorySalesManagerReports =
+      '/offices/marketing/roles/territory_sales_manager/reports';
+  static const String clientBookAppointment =
+      '/offices/client/roles/client/book-appointment';
+  static const String clientMyAppointments =
+      '/offices/client/roles/client/my-appointments';
   static const String clientCareTeam = '/offices/client/roles/client/care-team';
-  static const String clientTreatmentHistory = '/offices/client/roles/client/treatment-history';
+  static const String clientTreatmentHistory =
+      '/offices/client/roles/client/treatment-history';
   static const String clientPayments = '/offices/client/roles/client/payments';
   static const String clientProfile = '/offices/client/roles/client/profile';
-  static const String familyMemberLovedOneSchedule = '/offices/client/roles/family_member/loved-one-schedule';
-  static const String familyMemberCareUpdates = '/offices/client/roles/family_member/care-updates';
-  static const String familyMemberBilling = '/offices/client/roles/family_member/billing';
-  static const String familyMemberEmergencyContacts = '/offices/client/roles/family_member/emergency-contacts';
-  static const String familyMemberProfile = '/offices/client/roles/family_member/profile';
-
+  static const String familyMemberLovedOneSchedule =
+      '/offices/client/roles/family_member/loved-one-schedule';
+  static const String familyMemberCareUpdates =
+      '/offices/client/roles/family_member/care-updates';
+  static const String familyMemberBilling =
+      '/offices/client/roles/family_member/billing';
+  static const String familyMemberEmergencyContacts =
+      '/offices/client/roles/family_member/emergency-contacts';
+  static const String familyMemberProfile =
+      '/offices/client/roles/family_member/profile';
 }

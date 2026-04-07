@@ -12,7 +12,8 @@ class OtNotesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Occupational Therapy Notes',
-      subtitle: 'Document ADL assessments, cognitive evaluations, and home safety recommendations.',
+      subtitle:
+          'Document ADL assessments, cognitive evaluations, and home safety recommendations.',
       kpiCards: [
         KPICardData(
           title: 'Notes Today',
@@ -37,9 +38,21 @@ class OtNotesScreen extends ConsumerWidget {
             children: [
               Text('Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('ADL Assessment', 3, PrimeCareTheme.colors.emeraldTeal),
-              _buildFilterRow('Cognitive Eval', 1, PrimeCareTheme.colors.navyIndigo),
-               _buildFilterRow('Home Safety', 0, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'ADL Assessment',
+                3,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterRow(
+                'Cognitive Eval',
+                1,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Home Safety',
+                0,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -50,11 +63,11 @@ class OtNotesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('Add Note'),
@@ -63,23 +76,23 @@ class OtNotesScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildNoteCard(
-                 'Maria Garcia',
-                 'ADL Assessment',
-                 'May 14, 2024 • 11:00',
-                 'Assessed patient\'s ability to perform lower body dressing independently. Patient required moderate verbal cues and SBA (Stand-By Assist) due to decreased hip flexion and balance confidence. Recommend use of a reacher and sock aid.',
-                 PrimeCareTheme.colors.emeraldTeal
-               ),
-               _buildNoteCard(
-                 'John Smith',
-                 'Cognitive Eval',
-                 'May 14, 2024 • 14:30',
-                 'Administered MoCA. Score: 24/30. Mild deficits noted in delayed recall and visuospatial domains. Patient exhibited adequate safety awareness during simulated kitchen task but required cueing for sequencing. Plan: focus on compensatory memory strategies.',
-                 PrimeCareTheme.colors.navyIndigo
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildNoteCard(
+                'Maria Garcia',
+                'ADL Assessment',
+                'May 14, 2024 • 11:00',
+                'Assessed patient\'s ability to perform lower body dressing independently. Patient required moderate verbal cues and SBA (Stand-By Assist) due to decreased hip flexion and balance confidence. Recommend use of a reacher and sock aid.',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildNoteCard(
+                'John Smith',
+                'Cognitive Eval',
+                'May 14, 2024 • 14:30',
+                'Administered MoCA. Score: 24/30. Mild deficits noted in delayed recall and visuospatial domains. Patient exhibited adequate safety awareness during simulated kitchen task but required cueing for sequencing. Plan: focus on compensatory memory strategies.',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
             ],
           ),
         ),
@@ -95,26 +108,34 @@ class OtNotesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
-     return Container(
+  Widget _buildNoteCard(
+    String clientName,
+    String category,
+    String time,
+    String note,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -125,25 +146,39 @@ class OtNotesScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(note, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(note, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

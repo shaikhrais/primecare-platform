@@ -44,9 +44,21 @@ class TodaysScheduleScreen extends ConsumerWidget {
             children: [
               Text('Schedule Overview', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildOverviewRow('Morning Block', '2 / 3 completed', PrimeCareTheme.colors.emeraldTeal),
-              _buildOverviewRow('Afternoon Block', '0 / 2 completed', PrimeCareTheme.colors.coralRed),
-               _buildOverviewRow('Evening Block', '0 / 1 completed', PrimeCareTheme.colors.slateGray),
+              _buildOverviewRow(
+                'Morning Block',
+                '2 / 3 completed',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildOverviewRow(
+                'Afternoon Block',
+                '0 / 2 completed',
+                PrimeCareTheme.colors.coralRed,
+              ),
+              _buildOverviewRow(
+                'Evening Block',
+                '0 / 1 completed',
+                PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
         ),
@@ -63,22 +75,22 @@ class TodaysScheduleScreen extends ConsumerWidget {
                 '11:00 AM - 12:00 PM',
                 'Eleanor Rigby',
                 'Wound dressing change (left hip), pain assessment, mobility check.',
-                 PrimeCareTheme.colors.navyIndigo,
-                 'In Progress'
+                PrimeCareTheme.colors.navyIndigo,
+                'In Progress',
               ),
               _buildVisitCard(
                 '1:00 PM - 2:00 PM',
                 'John Smith',
                 'Medication reconciliation, vital signs, diabetic foot check.',
-                 PrimeCareTheme.colors.coralRed,
-                 'Next Visit'
+                PrimeCareTheme.colors.coralRed,
+                'Next Visit',
               ),
               _buildVisitCard(
                 '3:00 PM - 4:00 PM',
                 'Maria Garcia',
                 'Routine assessment, blood pressure monitoring, education on new meds.',
-                 PrimeCareTheme.colors.slateGray,
-                 'Scheduled'
+                PrimeCareTheme.colors.slateGray,
+                'Scheduled',
               ),
               const SizedBox(height: 32),
               Text('Completed Visits', style: PrimeCareTheme.typography.h3),
@@ -87,8 +99,8 @@ class TodaysScheduleScreen extends ConsumerWidget {
                 '8:00 AM - 9:00 AM',
                 'William Davis',
                 'Morning vitals, insulin administration, breakfast assistance check.',
-                 PrimeCareTheme.colors.emeraldTeal,
-                 'Completed'
+                PrimeCareTheme.colors.emeraldTeal,
+                'Completed',
               ),
             ],
           ),
@@ -105,13 +117,10 @@ class TodaysScheduleScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
@@ -123,7 +132,13 @@ class TodaysScheduleScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildVisitCard(String time, String clientName, String reason, Color statusColor, String statusLabel) {
+  Widget _buildVisitCard(
+    String time,
+    String clientName,
+    String reason,
+    Color statusColor,
+    String statusLabel,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
@@ -135,49 +150,63 @@ class TodaysScheduleScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    statusLabel,
-                    style: PrimeCareTheme.typography.label.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Text(
+                  statusLabel,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: statusColor,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-             ],
-           ),
-           const SizedBox(height: 8),
-           Text(clientName, style: PrimeCareTheme.typography.h3),
-           const SizedBox(height: 8),
-           Text(reason, style: PrimeCareTheme.typography.body),
-           const SizedBox(height: 16),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.end,
-             children: [
-               TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(foregroundColor: PrimeCareTheme.colors.navyIndigo),
-                  child: const Text('View Client Profile'),
-               ),
-               const SizedBox(width: 8),
-               ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PrimeCareTheme.colors.navyIndigo,
-                    foregroundColor: Colors.white,
-                  ),
-                  child: const Text('Start Visit'),
-               )
-             ],
-           )
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(clientName, style: PrimeCareTheme.typography.h3),
+          const SizedBox(height: 8),
+          Text(reason, style: PrimeCareTheme.typography.body),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  foregroundColor: PrimeCareTheme.colors.navyIndigo,
+                ),
+                child: const Text('View Client Profile'),
+              ),
+              const SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: PrimeCareTheme.colors.navyIndigo,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Start Visit'),
+              ),
+            ],
+          ),
         ],
-      )
+      ),
     );
   }
 }

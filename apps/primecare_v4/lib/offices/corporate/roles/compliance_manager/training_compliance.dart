@@ -12,7 +12,8 @@ class TrainingComplianceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Training & Education Compliance',
-      subtitle: 'Monitor completion rates for mandatory staff onboarding, annual refreshers, and protocol updates.',
+      subtitle:
+          'Monitor completion rates for mandatory staff onboarding, annual refreshers, and protocol updates.',
       headerTrailing: [
         ClinicalSearchTextField(hintText: 'Search modules or staff...'),
         const SizedBox(width: 16),
@@ -53,9 +54,7 @@ class TrainingComplianceScreen extends ConsumerWidget {
         const SizedBox(height: 24),
         _buildCriticalModules(),
       ],
-      mainContent: [
-        _buildTrainingList(),
-      ],
+      mainContent: [_buildTrainingList()],
     );
   }
 
@@ -67,7 +66,11 @@ class TrainingComplianceScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.building, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.building,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text('By Department', style: PrimeCareTheme.typography.h3),
             ],
@@ -86,8 +89,11 @@ class TrainingComplianceScreen extends ConsumerWidget {
   }
 
   Widget _buildDeptRow(String dept, double percentage) {
-    final color = percentage >= 95 ? PrimeCareTheme.colors.emeraldTeal : 
-                  percentage >= 90 ? PrimeCareTheme.colors.amberWarning : PrimeCareTheme.colors.coralRed;
+    final color = percentage >= 95
+        ? PrimeCareTheme.colors.emeraldTeal
+        : percentage >= 90
+        ? PrimeCareTheme.colors.amberWarning
+        : PrimeCareTheme.colors.coralRed;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,9 +118,16 @@ class TrainingComplianceScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.bookOpen, color: PrimeCareTheme.colors.navyIndigo, size: 20),
+              Icon(
+                LucideIcons.bookOpen,
+                color: PrimeCareTheme.colors.navyIndigo,
+                size: 20,
+              ),
               const SizedBox(width: 8),
-              Text('Low Completion Modules', style: PrimeCareTheme.typography.h3),
+              Text(
+                'Low Completion Modules',
+                style: PrimeCareTheme.typography.h3,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -132,8 +145,19 @@ class TrainingComplianceScreen extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: Text(module, style: PrimeCareTheme.typography.label, overflow: TextOverflow.ellipsis)),
-        Text(rate, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.coralRed)),
+        Expanded(
+          child: Text(
+            module,
+            style: PrimeCareTheme.typography.label,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Text(
+          rate,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.coralRed,
+          ),
+        ),
       ],
     );
   }
@@ -148,7 +172,10 @@ class TrainingComplianceScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Mandatory Modules Tracking', style: PrimeCareTheme.typography.h2),
+                Text(
+                  'Mandatory Modules Tracking',
+                  style: PrimeCareTheme.typography.h2,
+                ),
                 ClinicalGlassButton(
                   onPressed: () {},
                   label: 'Send Mass Reminder',
@@ -194,7 +221,9 @@ class TrainingComplianceScreen extends ConsumerWidget {
     required int pendingCount,
   }) {
     final isOverdue = deadline.contains('Past Due');
-    final color = isOverdue ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.navyIndigo;
+    final color = isOverdue
+        ? PrimeCareTheme.colors.coralRed
+        : PrimeCareTheme.colors.navyIndigo;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -218,42 +247,63 @@ class TrainingComplianceScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(LucideIcons.users, size: 14, color: PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.users,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
                     Text(audience, style: PrimeCareTheme.typography.label),
                     const SizedBox(width: 16),
-                    Icon(LucideIcons.calendar, size: 14, color: isOverdue ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.slateGray),
+                    Icon(
+                      LucideIcons.calendar,
+                      size: 14,
+                      color: isOverdue
+                          ? PrimeCareTheme.colors.coralRed
+                          : PrimeCareTheme.colors.slateGray,
+                    ),
                     const SizedBox(width: 4),
-                    Text(deadline, style: PrimeCareTheme.typography.label.copyWith(
-                      color: isOverdue ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.slateGray,
-                      fontWeight: isOverdue ? FontWeight.bold : FontWeight.normal,
-                    )),
+                    Text(
+                      deadline,
+                      style: PrimeCareTheme.typography.label.copyWith(
+                        color: isOverdue
+                            ? PrimeCareTheme.colors.coralRed
+                            : PrimeCareTheme.colors.slateGray,
+                        fontWeight: isOverdue
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
-             children: [
-                Text(
-                  '$completionRate%',
-                  style: PrimeCareTheme.typography.h3.copyWith(
-                    color: completionRate < 80 ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.emeraldTeal,
-                  ),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '$completionRate%',
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: completionRate < 80
+                      ? PrimeCareTheme.colors.coralRed
+                      : PrimeCareTheme.colors.emeraldTeal,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  '$pendingCount Staff Pending',
-                  style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '$pendingCount Staff Pending',
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                const SizedBox(height: 12),
-                ClinicalGlassButton(
-                  onPressed: () {},
-                  label: 'View List',
-                  icon: LucideIcons.list,
-                ),
-             ],
+              ),
+              const SizedBox(height: 12),
+              ClinicalGlassButton(
+                onPressed: () {},
+                label: 'View List',
+                icon: LucideIcons.list,
+              ),
+            ],
           ),
         ],
       ),

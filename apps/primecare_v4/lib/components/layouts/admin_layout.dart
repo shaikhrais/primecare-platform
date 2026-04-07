@@ -4,37 +4,45 @@ import '../../routes/app_routes.dart';
 
 class AdminLayout extends StatelessWidget {
   final Widget child;
-  
+
   const AdminLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Console', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Admin Console',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
-          IconButton(key: const Key('data-status-id=shared-global-admin-action-1'), 
-            icon: const Icon(Icons.notifications), 
-            onPressed: () => context.go(AppRoutes.notificationCenter)
+          IconButton(
+            key: const Key('data-status-id=shared-global-admin-action-1'),
+            icon: const Icon(Icons.notifications),
+            onPressed: () => context.go(AppRoutes.notificationCenter),
           ),
-          IconButton(key: const Key('data-status-id=shared-global-admin-action-3'), 
-            icon: const Icon(Icons.account_circle), 
-            onPressed: () => context.go(AppRoutes.globalProfile)
+          IconButton(
+            key: const Key('data-status-id=shared-global-admin-action-3'),
+            icon: const Icon(Icons.account_circle),
+            onPressed: () => context.go(AppRoutes.globalProfile),
           ),
         ],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isMobile = constraints.maxWidth < 900;
-          
+
           final sidebar = Container(
             width: 250,
-            color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+            color: Theme.of(
+              context,
+            ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
             child: ListView(
               children: [
-                ListTile(key: const Key('data-status-id=shared-global-admin-action-5'), 
+                ListTile(
+                  key: const Key('data-status-id=shared-global-admin-action-5'),
                   leading: const Icon(Icons.dashboard),
                   title: const Text('Executive Dashboard'),
                   onTap: () {
@@ -42,7 +50,8 @@ class AdminLayout extends StatelessWidget {
                     if (isMobile) Navigator.pop(context);
                   },
                 ),
-                ListTile(key: const Key('data-status-id=shared-global-admin-action-7'), 
+                ListTile(
+                  key: const Key('data-status-id=shared-global-admin-action-7'),
                   leading: const Icon(Icons.analytics),
                   title: const Text('Global Reports'),
                   onTap: () {
@@ -50,7 +59,8 @@ class AdminLayout extends StatelessWidget {
                     if (isMobile) Navigator.pop(context);
                   },
                 ),
-                ListTile(key: const Key('data-status-id=shared-global-admin-action-9'), 
+                ListTile(
+                  key: const Key('data-status-id=shared-global-admin-action-9'),
                   leading: const Icon(Icons.settings),
                   title: const Text('System Settings'),
                   onTap: () {
@@ -65,7 +75,7 @@ class AdminLayout extends StatelessWidget {
           if (isMobile) {
             return child;
           }
-          
+
           return Row(
             children: [
               sidebar,
@@ -77,19 +87,29 @@ class AdminLayout extends StatelessWidget {
       drawer: LayoutBuilder(
         builder: (context, constraints) {
           final isMobile = constraints.maxWidth < 900;
-          
+
           if (!isMobile) return const SizedBox.shrink();
-          
+
           return Drawer(
             child: Container(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              color: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
               child: ListView(
                 children: [
                   DrawerHeader(
-                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-                    child: const Text('Admin Console', style: TextStyle(color: Colors.white, fontSize: 24)),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: const Text(
+                      'Admin Console',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
                   ),
-                  ListTile(key: const Key('data-status-id=shared-global-admin-action-11'), 
+                  ListTile(
+                    key: const Key(
+                      'data-status-id=shared-global-admin-action-11',
+                    ),
                     leading: const Icon(Icons.dashboard),
                     title: const Text('Executive Dashboard'),
                     onTap: () {
@@ -97,7 +117,10 @@ class AdminLayout extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  ListTile(key: const Key('data-status-id=shared-global-admin-action-13'), 
+                  ListTile(
+                    key: const Key(
+                      'data-status-id=shared-global-admin-action-13',
+                    ),
                     leading: const Icon(Icons.analytics),
                     title: const Text('Global Reports'),
                     onTap: () {
@@ -105,7 +128,10 @@ class AdminLayout extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  ListTile(key: const Key('data-status-id=shared-global-admin-action-15'), 
+                  ListTile(
+                    key: const Key(
+                      'data-status-id=shared-global-admin-action-15',
+                    ),
                     leading: const Icon(Icons.settings),
                     title: const Text('System Settings'),
                     onTap: () {

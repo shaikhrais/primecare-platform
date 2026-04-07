@@ -8,10 +8,17 @@ class CfoTopbar extends StatelessWidget {
     return Container(
       height: 64,
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)))),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
+        ),
+      ),
       child: const Row(
         children: [
-          Text('PRIMECARE CFO PORTAL', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2)),
+          Text(
+            'PRIMECARE CFO PORTAL',
+            style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2),
+          ),
           Spacer(),
           Icon(Icons.account_balance),
         ],

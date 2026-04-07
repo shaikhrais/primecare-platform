@@ -8,46 +8,41 @@ class TerritoryLeadsScreen extends ConsumerStatefulWidget {
   const TerritoryLeadsScreen({super.key});
 
   @override
-  ConsumerState<TerritoryLeadsScreen> createState() => _TerritoryLeadsScreenState();
+  ConsumerState<TerritoryLeadsScreen> createState() =>
+      _TerritoryLeadsScreenState();
 }
 
 class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildMetricsOverview(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildLeadVolumeTrend(),
-                      const SizedBox(height: 32),
-                      _buildLeadQualityMatrix(),
-                    ],
-                  ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildMetricsOverview(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildLeadVolumeTrend(),
+                    const SizedBox(height: 32),
+                    _buildLeadQualityMatrix(),
+                  ],
                 ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 3,
-                  child: _buildTopSources(),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              const SizedBox(width: 32),
+              Expanded(flex: 3, child: _buildTopSources()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -137,9 +132,18 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
     );
   }
 
-  Widget _buildMetricCard({required String title, required String value, required String trend, required bool positiveTrend}) {
-    Color trendColor = positiveTrend ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.coralRed;
-    IconData trendIcon = positiveTrend ? LucideIcons.trendingUp : LucideIcons.trendingDown;
+  Widget _buildMetricCard({
+    required String title,
+    required String value,
+    required String trend,
+    required bool positiveTrend,
+  }) {
+    Color trendColor = positiveTrend
+        ? PrimeCareTheme.colors.emeraldTeal
+        : PrimeCareTheme.colors.coralRed;
+    IconData trendIcon = positiveTrend
+        ? LucideIcons.trendingUp
+        : LucideIcons.trendingDown;
 
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
@@ -189,20 +193,48 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
             children: [
               Text(
                 'Lead Volume Trend',
-                style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
               // Legend
               Row(
                 children: [
-                  Container(width: 12, height: 12, decoration: BoxDecoration(color: PrimeCareTheme.colors.navyIndigo, shape: BoxShape.circle)),
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                   const SizedBox(width: 4),
-                  Text('Total Leads', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
+                  Text(
+                    'Total Leads',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontSize: 11,
+                    ),
+                  ),
                   const SizedBox(width: 16),
-                  Container(width: 12, height: 12, decoration: BoxDecoration(color: PrimeCareTheme.colors.emeraldTeal, shape: BoxShape.circle)),
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: PrimeCareTheme.colors.emeraldTeal,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                   const SizedBox(width: 4),
-                  Text('Qualified Leads', style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray, fontSize: 11)),
+                  Text(
+                    'Qualified Leads',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontSize: 11,
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
           const SizedBox(height: 32),
@@ -227,7 +259,11 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
     );
   }
 
-  Widget _buildStackedBar({required double total, required double qualified, required String label}) {
+  Widget _buildStackedBar({
+    required double total,
+    required double qualified,
+    required String label,
+  }) {
     // total and qualified are percentages 0.0 to 1.0 for height relative to 200px max
     final double maxHeight = 200.0;
     return Column(
@@ -242,7 +278,9 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
               height: maxHeight * total,
               decoration: BoxDecoration(
                 color: PrimeCareTheme.colors.navyIndigo.withValues(alpha: 0.8),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(4),
+                ),
               ),
             ),
             // Qualified Leads Bar (Foreground)
@@ -251,13 +289,20 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
               height: maxHeight * qualified,
               decoration: BoxDecoration(
                 color: PrimeCareTheme.colors.emeraldTeal,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(4),
+                ),
               ),
             ),
           ],
         ),
         const SizedBox(height: 12),
-        Text(label, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+        Text(
+          label,
+          style: PrimeCareTheme.typography.label.copyWith(
+            color: PrimeCareTheme.colors.slateGray,
+          ),
+        ),
       ],
     );
   }
@@ -273,42 +318,85 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
             children: [
               Text(
                 'Top Lead Sources',
-                style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                style: PrimeCareTheme.typography.h3.copyWith(
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
               ),
-              Icon(LucideIcons.listFilter, size: 20, color: PrimeCareTheme.colors.slateGray),
+              Icon(
+                LucideIcons.listFilter,
+                size: 20,
+                color: PrimeCareTheme.colors.slateGray,
+              ),
             ],
           ),
           const SizedBox(height: 24),
-          _buildSourceRow(name: 'Provider Referrals', count: 1250, percentage: 0.8),
+          _buildSourceRow(
+            name: 'Provider Referrals',
+            count: 1250,
+            percentage: 0.8,
+          ),
           const SizedBox(height: 20),
-          _buildSourceRow(name: 'Local Health Fairs', count: 980, percentage: 0.65),
+          _buildSourceRow(
+            name: 'Local Health Fairs',
+            count: 980,
+            percentage: 0.65,
+          ),
           const SizedBox(height: 20),
-          _buildSourceRow(name: 'Digital Search Ads', count: 850, percentage: 0.55),
+          _buildSourceRow(
+            name: 'Digital Search Ads',
+            count: 850,
+            percentage: 0.55,
+          ),
           const SizedBox(height: 20),
-          _buildSourceRow(name: 'Community Sponsorships', count: 620, percentage: 0.4),
+          _buildSourceRow(
+            name: 'Community Sponsorships',
+            count: 620,
+            percentage: 0.4,
+          ),
           const SizedBox(height: 20),
-          _buildSourceRow(name: 'Walk-ins / Direct', count: 585, percentage: 0.35),
+          _buildSourceRow(
+            name: 'Walk-ins / Direct',
+            count: 585,
+            percentage: 0.35,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildSourceRow({required String name, required int count, required double percentage}) {
+  Widget _buildSourceRow({
+    required String name,
+    required int count,
+    required double percentage,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(name, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
-            Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+            Text(
+              name,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
+            Text(
+              count.toString(),
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8),
         LinearProgressIndicator(
           value: percentage,
           backgroundColor: PrimeCareTheme.colors.surfaceContainerLow,
-          valueColor: AlwaysStoppedAnimation<Color>(PrimeCareTheme.colors.navyIndigo),
+          valueColor: AlwaysStoppedAnimation<Color>(
+            PrimeCareTheme.colors.navyIndigo,
+          ),
           minHeight: 6,
           borderRadius: BorderRadius.circular(3),
         ),
@@ -325,30 +413,103 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             decoration: BoxDecoration(
               color: PrimeCareTheme.colors.surfaceContainerLow,
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+              ),
             ),
             child: Row(
               children: [
-                Expanded(flex: 3, child: Text('LEAD SOURCE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('AVG SCORE (1-100)', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('CONVERSION RATE', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('LIFETIME VALUE (Est)', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray, fontWeight: FontWeight.bold))),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'LEAD SOURCE',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'AVG SCORE (1-100)',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'CONVERSION RATE',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'LIFETIME VALUE (Est)',
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontSize: 11,
+                      color: PrimeCareTheme.colors.slateGray,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          _buildQualityRow(source: 'Provider Referrals', score: '88', conv: '65.2%', ltv: '\$14,500'),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildQualityRow(source: 'Local Health Fairs', score: '62', conv: '22.4%', ltv: '\$5,200'),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
-          _buildQualityRow(source: 'Digital Search Ads', score: '71', conv: '38.1%', ltv: '\$8,900'),
+          _buildQualityRow(
+            source: 'Provider Referrals',
+            score: '88',
+            conv: '65.2%',
+            ltv: '\$14,500',
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildQualityRow(
+            source: 'Local Health Fairs',
+            score: '62',
+            conv: '22.4%',
+            ltv: '\$5,200',
+          ),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
+          _buildQualityRow(
+            source: 'Digital Search Ads',
+            score: '71',
+            conv: '38.1%',
+            ltv: '\$8,900',
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildQualityRow({required String source, required String score, required String conv, required String ltv}) {
+  Widget _buildQualityRow({
+    required String source,
+    required String score,
+    required String conv,
+    required String ltv,
+  }) {
     int scoreVal = int.tryParse(score) ?? 0;
-    Color scoreColor = scoreVal > 80 ? PrimeCareTheme.colors.emeraldTeal : (scoreVal > 60 ? Colors.amber.shade700 : PrimeCareTheme.colors.coralRed);
+    Color scoreColor = scoreVal > 80
+        ? PrimeCareTheme.colors.emeraldTeal
+        : (scoreVal > 60
+              ? Colors.amber.shade700
+              : PrimeCareTheme.colors.coralRed);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -356,25 +517,53 @@ class _TerritoryLeadsScreenState extends ConsumerState<TerritoryLeadsScreen> {
         children: [
           Expanded(
             flex: 3,
-            child: Text(source, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+            child: Text(
+              source,
+              style: PrimeCareTheme.typography.h4.copyWith(
+                color: PrimeCareTheme.colors.navyIndigo,
+              ),
+            ),
           ),
           Expanded(
             flex: 2,
             child: Row(
               children: [
-                Container(width: 8, height: 8, decoration: BoxDecoration(color: scoreColor, shape: BoxShape.circle)),
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: scoreColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
                 const SizedBox(width: 8),
-                Text(score, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+                Text(
+                  score,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
             flex: 2,
-            child: Text(conv, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+            child: Text(
+              conv,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+            ),
           ),
           Expanded(
             flex: 2,
-            child: Text(ltv, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
+            child: Text(
+              ltv,
+              style: PrimeCareTheme.typography.body.copyWith(
+                color: PrimeCareTheme.colors.slateGray,
+              ),
+            ),
           ),
         ],
       ),

@@ -12,7 +12,8 @@ class CounselingNotesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Social Work & Counseling Notes',
-      subtitle: 'Document psychosocial assessments, counseling sessions, and resource coordination.',
+      subtitle:
+          'Document psychosocial assessments, counseling sessions, and resource coordination.',
       kpiCards: [
         KPICardData(
           title: 'Sessions Today',
@@ -37,9 +38,21 @@ class CounselingNotesScreen extends ConsumerWidget {
             children: [
               Text('Categories', style: PrimeCareTheme.typography.h3),
               const SizedBox(height: 16),
-              _buildFilterRow('Therapy Session', 5, PrimeCareTheme.colors.emeraldTeal),
-              _buildFilterRow('Psychosocial Eval', 2, PrimeCareTheme.colors.navyIndigo),
-               _buildFilterRow('Discharge Planning', 4, PrimeCareTheme.colors.lavenderLustre),
+              _buildFilterRow(
+                'Therapy Session',
+                5,
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildFilterRow(
+                'Psychosocial Eval',
+                2,
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+              _buildFilterRow(
+                'Discharge Planning',
+                4,
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
             ],
           ),
         ),
@@ -50,11 +63,11 @@ class CounselingNotesScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Text('Recent Notes', style: PrimeCareTheme.typography.h2),
-                   ElevatedButton.icon(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Recent Notes', style: PrimeCareTheme.typography.h2),
+                  ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(LucideIcons.plus),
                     label: const Text('Add Note'),
@@ -63,23 +76,23 @@ class CounselingNotesScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
-                 ],
-               ),
-               const SizedBox(height: 24),
-               _buildNoteCard(
-                 'Robert Ford',
-                 'Discharge Planning',
-                 'May 14, 2024 • 09:30',
-                 'Met with patient and family regarding upcoming discharge. Confirmed home health nursing is arranged for wound care. Family expressed anxiety about managing medications; referred back to pharmacy for blister pack consultation. Ordered walker through vendor.',
-                 PrimeCareTheme.colors.lavenderLustre
-               ),
-               _buildNoteCard(
-                 'Emily Clark',
-                 'Therapy Session',
-                 'May 14, 2024 • 11:15',
-                 'Individual CBT session focusing on anxiety management related to recent diagnosis. Patient reported utilizing deep breathing exercises with moderate success. Discussed identifying cognitive distortions. Plan: continue weekly sessions.',
-                 PrimeCareTheme.colors.emeraldTeal
-               ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildNoteCard(
+                'Robert Ford',
+                'Discharge Planning',
+                'May 14, 2024 • 09:30',
+                'Met with patient and family regarding upcoming discharge. Confirmed home health nursing is arranged for wound care. Family expressed anxiety about managing medications; referred back to pharmacy for blister pack consultation. Ordered walker through vendor.',
+                PrimeCareTheme.colors.lavenderLustre,
+              ),
+              _buildNoteCard(
+                'Emily Clark',
+                'Therapy Session',
+                'May 14, 2024 • 11:15',
+                'Individual CBT session focusing on anxiety management related to recent diagnosis. Patient reported utilizing deep breathing exercises with moderate success. Discussed identifying cognitive distortions. Plan: continue weekly sessions.',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
             ],
           ),
         ),
@@ -95,26 +108,34 @@ class CounselingNotesScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-               Container(
+              Container(
                 width: 12,
                 height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(label, style: PrimeCareTheme.typography.body),
             ],
           ),
-          Text(count.toString(), style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            count.toString(),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNoteCard(String clientName, String category, String time, String note, Color themeColor) {
-     return Container(
+  Widget _buildNoteCard(
+    String clientName,
+    String category,
+    String time,
+    String note,
+    Color themeColor,
+  ) {
+    return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -125,25 +146,39 @@ class CounselingNotesScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Row(
-                  children: [
-                    Text(clientName, style: PrimeCareTheme.typography.h3),
-                    const SizedBox(width: 8),
-                    Text('•', style: TextStyle(color: PrimeCareTheme.colors.slateGray)),
-                    const SizedBox(width: 8),
-                    Text(category, style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: themeColor)),
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(clientName, style: PrimeCareTheme.typography.h3),
+                  const SizedBox(width: 8),
+                  Text(
+                    '•',
+                    style: TextStyle(color: PrimeCareTheme.colors.slateGray),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    category,
+                    style: PrimeCareTheme.typography.label.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                time,
+                style: PrimeCareTheme.typography.label.copyWith(
+                  color: PrimeCareTheme.colors.slateGray,
                 ),
-                Text(time, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
-             ],
-           ),
-           const SizedBox(height: 16),
-           Text(note, style: PrimeCareTheme.typography.body),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(note, style: PrimeCareTheme.typography.body),
         ],
-      )
-     );
+      ),
+    );
   }
 }

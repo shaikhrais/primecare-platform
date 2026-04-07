@@ -14,30 +14,31 @@ class LocalEventsScreen extends ConsumerStatefulWidget {
 class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 48),
-            Text(
-              'Upcoming Events',
-              style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 48),
+          Text(
+            'Upcoming Events',
+            style: PrimeCareTheme.typography.h2.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
             ),
-            const SizedBox(height: 24),
-            _buildUpcomingEventsCarousel(),
-            const SizedBox(height: 48),
-            Text(
-              'Past Events & ROI',
-              style: PrimeCareTheme.typography.h2.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+          ),
+          const SizedBox(height: 24),
+          _buildUpcomingEventsCarousel(),
+          const SizedBox(height: 48),
+          Text(
+            'Past Events & ROI',
+            style: PrimeCareTheme.typography.h2.copyWith(
+              color: PrimeCareTheme.colors.navyIndigo,
             ),
-            const SizedBox(height: 24),
-            _buildPastEventsList(),
-          ],
-        ),
+          ),
+          const SizedBox(height: 24),
+          _buildPastEventsList(),
+        ],
       ),
     );
   }
@@ -139,19 +140,21 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 6,
-              color: PrimeCareTheme.colors.emeraldTeal,
-            ),
+            Container(height: 6, color: PrimeCareTheme.colors.emeraldTeal),
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
-                      color: PrimeCareTheme.colors.navyIndigo.withValues(alpha: 0.1),
+                      color: PrimeCareTheme.colors.navyIndigo.withValues(
+                        alpha: 0.1,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -168,22 +171,42 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: PrimeCareTheme.typography.h3.copyWith(color: PrimeCareTheme.colors.navyIndigo),
+                    style: PrimeCareTheme.typography.h3.copyWith(
+                      color: PrimeCareTheme.colors.navyIndigo,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Icon(LucideIcons.calendar, size: 14, color: PrimeCareTheme.colors.slateGray),
+                      Icon(
+                        LucideIcons.calendar,
+                        size: 14,
+                        color: PrimeCareTheme.colors.slateGray,
+                      ),
                       const SizedBox(width: 8),
-                      Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                      Text(
+                        date,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Icon(LucideIcons.mapPin, size: 14, color: PrimeCareTheme.colors.slateGray),
+                      Icon(
+                        LucideIcons.mapPin,
+                        size: 14,
+                        color: PrimeCareTheme.colors.slateGray,
+                      ),
                       const SizedBox(width: 8),
-                      Text(location, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                      Text(
+                        location,
+                        style: PrimeCareTheme.typography.label.copyWith(
+                          color: PrimeCareTheme.colors.slateGray,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -193,15 +216,41 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Volunteers', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray)),
-                          Text(volunteersNeeded == 0 ? 'Not Required' : '$volunteersNeeded Needed', style: PrimeCareTheme.typography.h4.copyWith(color: volunteersNeeded > 0 ? PrimeCareTheme.colors.coralRed : PrimeCareTheme.colors.navyIndigo)),
+                          Text(
+                            'Volunteers',
+                            style: PrimeCareTheme.typography.label.copyWith(
+                              fontSize: 11,
+                              color: PrimeCareTheme.colors.slateGray,
+                            ),
+                          ),
+                          Text(
+                            volunteersNeeded == 0
+                                ? 'Not Required'
+                                : '$volunteersNeeded Needed',
+                            style: PrimeCareTheme.typography.h4.copyWith(
+                              color: volunteersNeeded > 0
+                                  ? PrimeCareTheme.colors.coralRed
+                                  : PrimeCareTheme.colors.navyIndigo,
+                            ),
+                          ),
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text('Budget', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray)),
-                          Text(budget, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                          Text(
+                            'Budget',
+                            style: PrimeCareTheme.typography.label.copyWith(
+                              fontSize: 11,
+                              color: PrimeCareTheme.colors.slateGray,
+                            ),
+                          ),
+                          Text(
+                            budget,
+                            style: PrimeCareTheme.typography.h4.copyWith(
+                              color: PrimeCareTheme.colors.navyIndigo,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -228,7 +277,10 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
             costPerLead: '\$11.11',
             roiStatus: 'Positive',
           ),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
           _buildPastEventRow(
             title: 'Chamber of Commerce Mixer',
             date: 'Jul 15, 2026',
@@ -237,7 +289,10 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
             costPerLead: '\$50.00',
             roiStatus: 'Neutral',
           ),
-          Divider(height: 1, color: PrimeCareTheme.colors.surfaceContainerHighest),
+          Divider(
+            height: 1,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+          ),
           _buildPastEventRow(
             title: 'Local Radio Health Segment Series',
             date: 'Jun 01 - Jun 30, 2026',
@@ -277,9 +332,19 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: PrimeCareTheme.typography.h4.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                Text(
+                  title,
+                  style: PrimeCareTheme.typography.h4.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(date, style: PrimeCareTheme.typography.label.copyWith(color: PrimeCareTheme.colors.slateGray)),
+                Text(
+                  date,
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
               ],
             ),
           ),
@@ -288,8 +353,19 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Reach/Attendance', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray)),
-                Text(attendance, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                Text(
+                  'Reach/Attendance',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    fontSize: 11,
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
+                Text(
+                  attendance,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
+                ),
               ],
             ),
           ),
@@ -298,8 +374,20 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Leads', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray)),
-                Text(leads.toString(), style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo, fontWeight: FontWeight.bold)),
+                Text(
+                  'Leads',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    fontSize: 11,
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
+                Text(
+                  leads.toString(),
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
@@ -308,8 +396,19 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Cost/Lead', style: PrimeCareTheme.typography.label.copyWith(fontSize: 11, color: PrimeCareTheme.colors.slateGray)),
-                Text(costPerLead, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.navyIndigo)),
+                Text(
+                  'Cost/Lead',
+                  style: PrimeCareTheme.typography.label.copyWith(
+                    fontSize: 11,
+                    color: PrimeCareTheme.colors.slateGray,
+                  ),
+                ),
+                Text(
+                  costPerLead,
+                  style: PrimeCareTheme.typography.body.copyWith(
+                    color: PrimeCareTheme.colors.navyIndigo,
+                  ),
+                ),
               ],
             ),
           ),
@@ -335,7 +434,10 @@ class _LocalEventsScreenState extends ConsumerState<LocalEventsScreen> {
           ),
           const SizedBox(width: 16),
           IconButton(
-            icon: Icon(LucideIcons.chevronRight, color: PrimeCareTheme.colors.slateGray),
+            icon: Icon(
+              LucideIcons.chevronRight,
+              color: PrimeCareTheme.colors.slateGray,
+            ),
             onPressed: () {},
           ),
         ],

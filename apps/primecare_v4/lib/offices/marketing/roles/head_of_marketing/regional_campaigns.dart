@@ -8,33 +8,32 @@ class RegionalCampaignsScreen extends ConsumerStatefulWidget {
   const RegionalCampaignsScreen({super.key});
 
   @override
-  ConsumerState<RegionalCampaignsScreen> createState() => _RegionalCampaignsScreenState();
+  ConsumerState<RegionalCampaignsScreen> createState() =>
+      _RegionalCampaignsScreenState();
 }
 
-class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScreen> {
+class _RegionalCampaignsScreenState
+    extends ConsumerState<RegionalCampaignsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildMetricCards(),
-            const SizedBox(height: 32),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: _buildRegionalPerformanceTable()),
-                const SizedBox(width: 24),
-                Expanded(flex: 2, child: _buildRegionalHeatmapPlaceholder()),
-              ],
-            )
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 32),
+          _buildMetricCards(),
+          const SizedBox(height: 32),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 3, child: _buildRegionalPerformanceTable()),
+              const SizedBox(width: 24),
+              Expanded(flex: 2, child: _buildRegionalHeatmapPlaceholder()),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -128,7 +127,13 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
     );
   }
 
-  Widget _buildMetricCard(String title, String value, String subtitle, IconData icon, Color accentColor) {
+  Widget _buildMetricCard(
+    String title,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color accentColor,
+  ) {
     return ClinicalGlassPanel(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -241,20 +246,45 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
         color: PrimeCareTheme.colors.surfaceContainerLow,
         border: Border(
           bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
           ),
           top: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
           ),
         ),
       ),
       child: Row(
         children: [
-          Expanded(flex: 3, child: Text('REGION / TERRITORY', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('LEADS', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 3, child: Text('SPEND VS BUDGET', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('ROI', style: PrimeCareTheme.typography.label)),
-          Expanded(flex: 2, child: Text('STATUS', style: PrimeCareTheme.typography.label)),
+          Expanded(
+            flex: 3,
+            child: Text(
+              'REGION / TERRITORY',
+              style: PrimeCareTheme.typography.label,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('LEADS', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(
+              'SPEND VS BUDGET',
+              style: PrimeCareTheme.typography.label,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('ROI', style: PrimeCareTheme.typography.label),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text('STATUS', style: PrimeCareTheme.typography.label),
+          ),
         ],
       ),
     );
@@ -289,7 +319,9 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 0.3),
+            color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
           ),
         ),
       ),
@@ -299,7 +331,11 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
             flex: 3,
             child: Row(
               children: [
-                Icon(LucideIcons.mapPin, size: 16, color: PrimeCareTheme.colors.navyIndigo),
+                Icon(
+                  LucideIcons.mapPin,
+                  size: 16,
+                  color: PrimeCareTheme.colors.navyIndigo,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   region,
@@ -343,7 +379,9 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
                   value: budgetPct,
                   backgroundColor: PrimeCareTheme.colors.surfaceContainerLow,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    budgetPct > 0.9 ? PrimeCareTheme.colors.errorContainer : PrimeCareTheme.colors.navyIndigo,
+                    budgetPct > 0.9
+                        ? PrimeCareTheme.colors.errorContainer
+                        : PrimeCareTheme.colors.navyIndigo,
                   ),
                   minHeight: 6,
                   borderRadius: BorderRadius.circular(3),
@@ -369,7 +407,10 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -406,7 +447,11 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
                   color: PrimeCareTheme.colors.navyIndigo,
                 ),
               ),
-              Icon(LucideIcons.globe, color: PrimeCareTheme.colors.slateGray, size: 20),
+              Icon(
+                LucideIcons.globe,
+                color: PrimeCareTheme.colors.slateGray,
+                size: 20,
+              ),
             ],
           ),
           const SizedBox(height: 24),
@@ -415,13 +460,21 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
             decoration: BoxDecoration(
               color: PrimeCareTheme.colors.surfaceContainerLow,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: PrimeCareTheme.colors.surfaceContainerHighest),
+              border: Border.all(
+                color: PrimeCareTheme.colors.surfaceContainerHighest,
+              ),
             ),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(LucideIcons.map, size: 48, color: PrimeCareTheme.colors.slateGray.withValues(alpha: 0.5)),
+                  Icon(
+                    LucideIcons.map,
+                    size: 48,
+                    color: PrimeCareTheme.colors.slateGray.withValues(
+                      alpha: 0.5,
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     'Interactive Map View',
@@ -436,7 +489,10 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
           const SizedBox(height: 24),
           Text(
             'Top Growth Markets',
-            style: PrimeCareTheme.typography.label.copyWith(fontWeight: FontWeight.bold, color: PrimeCareTheme.colors.navyIndigo),
+            style: PrimeCareTheme.typography.label.copyWith(
+              fontWeight: FontWeight.bold,
+              color: PrimeCareTheme.colors.navyIndigo,
+            ),
           ),
           const SizedBox(height: 16),
           _buildMarketRow('1. Texas, US', '+28%'),
@@ -453,8 +509,19 @@ class _RegionalCampaignsScreenState extends ConsumerState<RegionalCampaignsScree
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(market, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.slateGray)),
-          Text(growth, style: PrimeCareTheme.typography.body.copyWith(color: PrimeCareTheme.colors.emeraldTeal, fontWeight: FontWeight.bold)),
+          Text(
+            market,
+            style: PrimeCareTheme.typography.body.copyWith(
+              color: PrimeCareTheme.colors.slateGray,
+            ),
+          ),
+          Text(
+            growth,
+            style: PrimeCareTheme.typography.body.copyWith(
+              color: PrimeCareTheme.colors.emeraldTeal,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
