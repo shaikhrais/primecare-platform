@@ -1,360 +1,199 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/dashboard_providers.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
 class PswDashboard extends ConsumerWidget {
   const PswDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
-
-    return metricsAsync.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'PSW Daily Care Portal',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Coordinating daily living support and specialized home care cycles.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // PSW KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: metrics.kpis
-                            .map(
-                              (kpi) => _buildKpi(
-                                cardWidth,
-                                kpi.title,
-                                kpi.value,
-                                _getIcon(kpi.title),
-                                _getStatusColor(kpi.status),
-                                kpi.subtitle,
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final isDesktop = constraints.maxWidth > 800;
-
-                      final leftPane = Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Active Care Schedule',
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Outfit',
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          GlassSurface(
-                            padding: const EdgeInsets.all(24),
-                            child: Column(
-                              children: [
-                                _buildCareRow(
-                                  'Arthur Dent',
-                                  'Bathing & Grooming - West Wing',
-                                  'READY',
-                                  '14:30',
-                                  isNext: true,
-                                ),
-                                const Divider(
-                                  color: Colors.blueGrey,
-                                  height: 24,
-                                  thickness: 0.1,
-                                ),
-                                _buildCareRow(
-                                  'Sarah Jenkins',
-                                  'Meal Prep (Low Sodium) - East Wing',
-                                  'UPCOMING',
-                                  '16:00',
-                                ),
-                                const Divider(
-                                  color: Colors.blueGrey,
-                                  height: 24,
-                                  thickness: 0.1,
-                                ),
-                                _buildCareRow(
-                                  'Elena Rodriguez',
-                                  'Ambulation / Walking Support - South Wing',
-                                  'UPCOMING',
-                                  '18:00',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-
-                      final rightPane = Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Incident Reports (Recent)',
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Outfit',
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          GlassSurface(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              children: metrics.recentActivity
-                                  .map(
-                                    (log) => Column(
-                                      children: [
-                                        AuditLogTile(
-                                          title: log.title,
-                                          subtitle: log.subtitle,
-                                          timestamp: log.timestamp,
-                                          icon: _getActivityIcon(log.icon),
-                                          iconColor: _getStatusColor(log.color),
-                                        ),
-                                        const Divider(
-                                          color: Colors.blueGrey,
-                                          height: 16,
-                                          thickness: 0.1,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                        ],
-                      );
-
-                      if (isDesktop) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(flex: 2, child: leftPane),
-                            const SizedBox(width: 24),
-                            Expanded(flex: 1, child: rightPane),
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            leftPane,
-                            const SizedBox(height: 32),
-                            rightPane,
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                ],
+    return PageTemplate(
+      title: 'PSW Daily Care Portal',
+      subtitle: 'Coordinating daily living support and specialized home care cycles.',
+      kpiCards: [
+        KPICardData(
+          title: 'Upcoming Visits',
+          value: '4',
+          icon: LucideIcons.calendarClock,
+          trend: 0.0,
+          trendLabel: 'today',
+        ),
+        KPICardData(
+          title: 'Hours Logged',
+          value: '3.5',
+          icon: LucideIcons.timer,
+          trend: 0.0,
+          trendLabel: 'this shift',
+        ),
+        KPICardData(
+          title: 'Pending Logs',
+          value: '2',
+          icon: LucideIcons.fileText,
+          trend: 0.0,
+          trendLabel: 'action needed',
+        ),
+      ],
+      sidebarContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text('Quick Actions', style: PrimeCareTheme.typography.h3),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(LucideIcons.playCircle),
+                label: const Text('Clock In (Next Visit)'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: PrimeCareTheme.colors.emeraldTeal,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
               ),
-            ),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                onPressed: () {},
+                icon: const Icon(LucideIcons.map),
+                label: const Text('View Route Map'),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                onPressed: () {},
+                icon: const Icon(LucideIcons.alertTriangle),
+                label: const Text('Report Incident'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: PrimeCareTheme.colors.brickRed,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
+      mainContent: [
+        ClinicalGlassPanel(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Today\'s Schedule', style: PrimeCareTheme.typography.h2),
+              const SizedBox(height: 24),
+              _buildScheduleItem(
+                '09:00 AM - 11:00 AM',
+                'Morning Care & ADLs',
+                'Sonia Sotomayor • 123 Main St',
+                'Completed',
+                PrimeCareTheme.colors.slateGray,
+              ),
+              _buildScheduleItem(
+                '11:30 AM - 01:00 PM',
+                'Lunch Prep & Med Check',
+                'Thurgood Marshall • 456 Oak Ave',
+                'In Progress',
+                PrimeCareTheme.colors.emeraldTeal,
+              ),
+              _buildScheduleItem(
+                '02:00 PM - 05:00 PM',
+                'Afternoon Companionship',
+                'Elena Kagan • 789 Pine Ln',
+                'Upcoming',
+                PrimeCareTheme.colors.navyIndigo,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildKpi(
-    double width,
-    String title,
-    String value,
-    IconData icon,
-    Color color, [
-    String? subtitle,
-  ]) {
-    return SizedBox(
-      width: width,
-      child: KpiStatCard(
-        title: title,
-        value: value,
-        subtitle: subtitle,
-        icon: icon,
-        iconColor: color,
-      ),
-    );
-  }
-
-  Widget _buildCareRow(
-    String name,
-    String type,
+  Widget _buildScheduleItem(
+    String time,
+    String task,
+    String patientInfo,
     String status,
-    String time, {
-    bool isNext = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+    Color themeColor,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: status == 'Completed'
+            ? PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.1)
+            : PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: themeColor, width: 4)),
+      ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            backgroundColor: isNext
-                ? Colors.orange.withValues(alpha: 0.1)
-                : AppTheme.primary.withValues(alpha: 0.1),
+          SizedBox(
+            width: 120,
             child: Text(
-              name[0],
-              style: TextStyle(
-                color: isNext ? Colors.orange : AppTheme.primary,
-                fontWeight: FontWeight.bold,
-              ),
+              time,
+              style: PrimeCareTheme.typography.h3.copyWith(fontSize: 14),
             ),
           ),
-          const SizedBox(width: 16),
+          Container(
+            width: 2,
+            height: 48,
+            color: PrimeCareTheme.colors.surfaceContainerHighest,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                  task,
+                  style: PrimeCareTheme.typography.h3.copyWith(
+                    color: status == 'Completed'
+                        ? PrimeCareTheme.colors.slateGray
+                        : PrimeCareTheme.colors.textPrimary,
                   ),
                 ),
-                Text(
-                  type,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 13),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(
+                      LucideIcons.user,
+                      size: 14,
+                      color: PrimeCareTheme.colors.slateGray,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      patientInfo,
+                      style: PrimeCareTheme.typography.body.copyWith(
+                        color: PrimeCareTheme.colors.slateGray,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                time,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: PrimeCareTheme.typography.label.copyWith(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                status,
-                style: TextStyle(
-                  color: isNext ? Colors.orange : Colors.teal,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+            ),
           ),
-          if (isNext) ...[
-            const SizedBox(width: 16),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.primary,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: 0,
-              ),
-              child: const Text(
-                'Start Visit',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ] else ...[
-            const SizedBox(width: 16),
-            OutlinedButton(
-              onPressed: null,
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text(
-                'Upcoming',
-                style: TextStyle(fontFamily: 'Inter', color: Colors.blueGrey),
-              ),
-            ),
-          ],
         ],
       ),
     );
-  }
-
-  IconData _getIcon(String title) {
-    if (title.contains('ADL')) return Icons.task_alt;
-    if (title.contains('Shift')) return Icons.schedule;
-    if (title.contains('Alert')) return Icons.notification_important_outlined;
-    if (title.contains('Hours')) return Icons.history;
-    return Icons.insights;
-  }
-
-  IconData _getActivityIcon(String icon) {
-    switch (icon) {
-      case 'warning':
-        return Icons.warning;
-      case 'healing':
-        return Icons.healing;
-      case 'verified':
-        return Icons.verified;
-      default:
-        return Icons.history;
-    }
-  }
-
-  Color _getStatusColor(String status) {
-    switch (status) {
-      case 'success':
-      case 'teal':
-        return Colors.teal;
-      case 'warning':
-      case 'orange':
-        return Colors.orange;
-      case 'danger':
-      case 'red':
-        return Colors.red;
-      case 'info':
-      case 'indigo':
-      case 'blue':
-        return Colors.indigo;
-      default:
-        return Colors.blueGrey;
-    }
   }
 }
