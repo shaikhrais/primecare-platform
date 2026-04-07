@@ -2,8 +2,8 @@ import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../../../../theme/theme.dart';
-import '../../../../theme/clinical_glass_panel.dart';
+import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class ShiftsScreen extends StatelessWidget {

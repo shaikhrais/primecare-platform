@@ -27,7 +27,7 @@ class DocumentExpiryScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Expiring (<60 days)',
           value: '12',
           icon: LucideIcons.calendarMinus,
@@ -35,14 +35,14 @@ class DocumentExpiryScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.amberWarning,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Total Active Docs',
           value: '345',
           icon: LucideIcons.fileArchive,
           trend: '+12 this month',
           isUp: true,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Missing/Expired',
           value: '0',
           icon: LucideIcons.checkCircle,

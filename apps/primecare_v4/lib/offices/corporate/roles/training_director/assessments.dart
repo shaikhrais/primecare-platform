@@ -25,7 +25,7 @@ class AssessmentsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Pending Reviews',
           value: '42',
           icon: LucideIcons.clipboardSignature,
@@ -33,14 +33,14 @@ class AssessmentsScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.amberWarning,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Average Score',
           value: '88%',
           icon: LucideIcons.percent,
           trend: '+2% from last quarter',
           isUp: true,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Failure Rate',
           value: '4.5%',
           icon: LucideIcons.trendingDown,

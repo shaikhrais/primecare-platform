@@ -31,7 +31,7 @@ class IncidentReviewScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Critical Incidents',
           value: '3',
           icon: LucideIcons.alertOctagon,
@@ -39,14 +39,14 @@ class IncidentReviewScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.coralRed,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Under Review',
           value: '14',
           icon: LucideIcons.search,
           trend: '-2 from last week',
           isUp: true,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Resolved (30d)',
           value: '42',
           icon: LucideIcons.checkCircle,

@@ -6,6 +6,8 @@ class ClinicalGlassPanel extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final BoxBorder? border;
   final double? width;
+  final Widget? headerTrailing;
+  final String? title;
 
   const ClinicalGlassPanel({
     super.key,
@@ -13,6 +15,8 @@ class ClinicalGlassPanel extends StatelessWidget {
     this.padding = EdgeInsets.zero,
     this.border,
     this.width,
+    this.headerTrailing,
+    this.title,
   });
 
   @override
@@ -38,7 +42,30 @@ class ClinicalGlassPanel extends StatelessWidget {
           ),
         ],
       ),
-      child: child,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (title != null || headerTrailing != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (title != null)
+                    Text(
+                      title!,
+                      style: PrimeCareTheme.typography.h3,
+                    )
+                  else
+                    const SizedBox(),
+                  if (headerTrailing != null) headerTrailing!,
+                ],
+              ),
+            ),
+          child,
+        ],
+      ),
     );
   }
 }
@@ -49,6 +76,7 @@ class ClinicalGlassButton extends StatelessWidget {
   final String label;
   final bool isFullWidth;
   final bool isActive;
+  final bool isPrimary; // Backward compatibility
 
   const ClinicalGlassButton({
     super.key,
@@ -57,10 +85,15 @@ class ClinicalGlassButton extends StatelessWidget {
     required this.label,
     this.isFullWidth = false,
     this.isActive = true,
+    this.isPrimary = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    // If not active, or not primary, fade the colors slightly. 
+    // In original code, isActive = true & isPrimary = true meant fully colored button.
+    final effectiveActive = isActive && isPrimary;
+    
     Widget buttonContent = Text(
       label,
       style: const TextStyle(
@@ -84,8 +117,8 @@ class ClinicalGlassButton extends StatelessWidget {
 
     final button = ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: isActive ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.surfaceContainerHighest,
-        foregroundColor: isActive ? Colors.white : PrimeCareTheme.colors.slateGray,
+        backgroundColor: effectiveActive ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.surfaceContainerHighest,
+        foregroundColor: effectiveActive ? Colors.white : PrimeCareTheme.colors.slateGray,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         elevation: 0,

@@ -31,7 +31,7 @@ class ComplianceCasesScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Active Investigations',
           value: '7',
           icon: LucideIcons.search,
@@ -39,7 +39,7 @@ class ComplianceCasesScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.royalPurple,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'High Priority',
           value: '2',
           icon: LucideIcons.alertTriangle,
@@ -47,7 +47,7 @@ class ComplianceCasesScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.coralRed,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Closed (YTD)',
           value: '31',
           icon: LucideIcons.folderClosed,

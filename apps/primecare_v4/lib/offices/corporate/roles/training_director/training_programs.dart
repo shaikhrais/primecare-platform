@@ -25,7 +25,7 @@ class TrainingProgramsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Active Programs',
           value: '24',
           icon: LucideIcons.folderHeart,
@@ -33,7 +33,7 @@ class TrainingProgramsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.navyIndigo,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Total Enrolled',
           value: '450',
           icon: LucideIcons.users,
@@ -41,7 +41,7 @@ class TrainingProgramsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.emeraldTeal,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Avg Completion Rate',
           value: '88%',
           icon: LucideIcons.checkSquare,

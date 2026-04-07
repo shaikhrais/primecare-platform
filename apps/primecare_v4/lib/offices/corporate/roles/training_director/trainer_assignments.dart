@@ -25,7 +25,7 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Active Trainers',
           value: '12',
           icon: LucideIcons.users,
@@ -33,7 +33,7 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.navyIndigo,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Upcoming Sessions',
           value: '28',
           icon: LucideIcons.calendar,
@@ -41,7 +41,7 @@ class TrainerAssignmentsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.emeraldTeal,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Feedback Avg Score',
           value: '4.8/5.0',
           icon: LucideIcons.star,

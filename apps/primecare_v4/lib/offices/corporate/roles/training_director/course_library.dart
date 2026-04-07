@@ -31,7 +31,7 @@ class CourseLibraryScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Total Courses',
           value: '420',
           icon: LucideIcons.library,
@@ -39,14 +39,14 @@ class CourseLibraryScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.navyIndigo,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Active Enrollments',
           value: '2,405',
           icon: LucideIcons.users,
           trend: 'Highest in Clinical Skills',
           isUp: true,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Avg Course Rating',
           value: '4.7/5',
           icon: LucideIcons.star,

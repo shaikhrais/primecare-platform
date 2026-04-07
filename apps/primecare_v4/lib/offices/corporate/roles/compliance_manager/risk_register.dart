@@ -33,7 +33,7 @@ class RiskRegisterScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Extreme / High Risks',
           value: '4',
           icon: LucideIcons.flame,
@@ -41,14 +41,14 @@ class RiskRegisterScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.coralRed,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Total Active Risks',
           value: '38',
           icon: LucideIcons.shieldAlert,
           trend: 'Active tracking',
           isUp: false,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Mitigation Rate',
           value: '82%',
           icon: LucideIcons.activity,

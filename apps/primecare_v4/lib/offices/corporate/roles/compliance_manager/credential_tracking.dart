@@ -27,7 +27,7 @@ class CredentialTrackingScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Expiring (<30 days)',
           value: '28',
           icon: LucideIcons.calendarX,
@@ -35,7 +35,7 @@ class CredentialTrackingScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.amberWarning,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Expired Credentials',
           value: '3',
           icon: LucideIcons.xOctagon,
@@ -43,7 +43,7 @@ class CredentialTrackingScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.coralRed,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Total Compliance',
           value: '98.5%',
           icon: LucideIcons.shieldCheck,

@@ -27,7 +27,7 @@ class AuditsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Upcoming Audits',
           value: '4',
           icon: LucideIcons.calendarSearch,
@@ -35,14 +35,14 @@ class AuditsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.royalPurple,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Open Findings',
           value: '14',
           icon: LucideIcons.listTodo,
           trend: '-2 findings resolved',
           isUp: true,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'MOH Inspections',
           value: '1',
           icon: LucideIcons.building,

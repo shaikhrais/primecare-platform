@@ -27,7 +27,7 @@ class PoliciesScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Pending Acknowledgment',
           value: '184',
           icon: LucideIcons.users,
@@ -35,7 +35,7 @@ class PoliciesScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.amberWarning,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Due for Review',
           value: '6',
           icon: LucideIcons.calendarClock,
@@ -43,7 +43,7 @@ class PoliciesScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.coralRed,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Total Active Policies',
           value: '420',
           icon: LucideIcons.library,

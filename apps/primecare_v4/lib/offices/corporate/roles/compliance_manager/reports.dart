@@ -25,14 +25,14 @@ class ComplianceReportsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Generated (Mtd)',
           value: '42',
           icon: LucideIcons.fileOutput,
           trend: '+12% from last month',
           isUp: true,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Ministry Submissions',
           value: '2',
           icon: LucideIcons.landmark,
@@ -40,7 +40,7 @@ class ComplianceReportsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.navyIndigo,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Automated Reports',
           value: '85%',
           icon: LucideIcons.cpu,

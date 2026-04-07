@@ -27,7 +27,7 @@ class CorrectiveActionsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Overdue Actions',
           value: '5',
           icon: LucideIcons.alertTriangle,
@@ -35,14 +35,14 @@ class CorrectiveActionsScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.coralRed,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'In Progress',
           value: '22',
           icon: LucideIcons.activity,
           trend: 'On schedule',
           isUp: true,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Closed (YTD)',
           value: '148',
           icon: LucideIcons.checkCheck,

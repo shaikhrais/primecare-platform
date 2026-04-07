@@ -23,7 +23,7 @@ class TrainingReportsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Total Training Hours',
           value: '12,450',
           icon: LucideIcons.clock,
@@ -31,7 +31,7 @@ class TrainingReportsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.navyIndigo,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Avg Completion Time',
           value: '4.2 Days',
           icon: LucideIcons.timer,
@@ -39,7 +39,7 @@ class TrainingReportsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.emeraldTeal,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Cost per Trainee',
           value: '\$145',
           icon: LucideIcons.dollarSign,

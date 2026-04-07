@@ -25,7 +25,7 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Overall Compliance',
           value: '94%',
           icon: LucideIcons.checkCircle,
@@ -33,7 +33,7 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.emeraldTeal,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Pending Certs',
           value: '18',
           icon: LucideIcons.clock,
@@ -41,7 +41,7 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.amberWarning,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Upcoming Renewals',
           value: '42',
           icon: LucideIcons.calendar,
@@ -49,7 +49,7 @@ class StaffTrainingMatrixScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.navyIndigo,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Overdue',
           value: '5',
           icon: LucideIcons.alertTriangle,

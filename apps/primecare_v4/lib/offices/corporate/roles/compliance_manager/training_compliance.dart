@@ -24,7 +24,7 @@ class TrainingComplianceScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Organization Overall',
           value: '91.4%',
           icon: LucideIcons.award,
@@ -32,7 +32,7 @@ class TrainingComplianceScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.amberWarning,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Overdue Staff',
           value: '42',
           icon: LucideIcons.userX,
@@ -40,7 +40,7 @@ class TrainingComplianceScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.coralRed,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Modules Completed',
           value: '1,240',
           icon: LucideIcons.checkSquare,

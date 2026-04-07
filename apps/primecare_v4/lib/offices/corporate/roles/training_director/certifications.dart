@@ -31,7 +31,7 @@ class CertificationsScreen extends ConsumerWidget {
         ),
       ],
       kpiCards: [
-        MetricCardData(
+        KPICardData(
           title: 'Active Certifications',
           value: '4,210',
           icon: LucideIcons.award,
@@ -39,7 +39,7 @@ class CertificationsScreen extends ConsumerWidget {
           isUp: true,
           color: PrimeCareTheme.colors.navyIndigo,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Expiring in 60 Days',
           value: '185',
           icon: LucideIcons.calendarMinus,
@@ -47,7 +47,7 @@ class CertificationsScreen extends ConsumerWidget {
           isUp: false,
           color: PrimeCareTheme.colors.amberWarning,
         ),
-        MetricCardData(
+        KPICardData(
           title: 'Expired / Lapsed',
           value: '12',
           icon: LucideIcons.xCircle,

@@ -5,7 +5,7 @@ class KPICardData {
   final String title;
   final String value;
   final IconData? icon;
-  final double? trend;
+  final dynamic trend;
   final String? trendLabel;
 
   const KPICardData({
@@ -24,6 +24,8 @@ class PageTemplate extends StatelessWidget {
   final List<Widget>? actions;
   final Widget? body;
   
+  final Widget? headerTrailing;
+  
   // Alternative content properties for custom code pages
   final List<KPICardData>? kpiCards;
   final List<Widget>? mainContent;
@@ -36,6 +38,7 @@ class PageTemplate extends StatelessWidget {
     this.body,
     this.icon,
     this.actions,
+    this.headerTrailing,
     this.kpiCards,
     this.mainContent,
     this.sidebarContent,
@@ -109,6 +112,18 @@ class PageTemplate extends StatelessWidget {
     );
   }
   
+  
+  double _parseTrend(dynamic trend) {
+    if (trend == null) return 0.0;
+    if (trend is double) return trend;
+    if (trend is int) return trend.toDouble();
+    if (trend is String) {
+      final str = trend.replaceAll('%', '').replaceAll('+', '').trim();
+      return double.tryParse(str) ?? 0.0;
+    }
+    return 0.0;
+  }
+
   Widget _buildAlternativeBody(BuildContext context) {
     if (kpiCards == null && mainContent == null && sidebarContent == null) {
       return const SizedBox.shrink();
@@ -205,14 +220,14 @@ class PageTemplate extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          data.trend! > 0 ? Icons.arrow_upward : Icons.arrow_downward,
+                          (_parseTrend(data.trend) > 0) ? Icons.arrow_upward : Icons.arrow_downward,
                           size: 14,
-                          color: data.trend! > 0 ? PrimeCareTheme.secondary : PrimeCareTheme.error,
+                          color: (_parseTrend(data.trend) > 0) ? PrimeCareTheme.secondary : PrimeCareTheme.error,
                         ),
                         Text(
                           '${data.trend!.abs()}%',
                           style: PrimeCareTheme.labelMedium.copyWith(
-                            color: data.trend! > 0 ? PrimeCareTheme.secondary : PrimeCareTheme.error,
+                            color: (_parseTrend(data.trend) > 0) ? PrimeCareTheme.secondary : PrimeCareTheme.error,
                           ),
                         ),
                       ],
