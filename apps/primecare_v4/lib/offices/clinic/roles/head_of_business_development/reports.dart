@@ -126,7 +126,7 @@ class ReportsScreen extends ConsumerWidget {
                 'Analysis of indirect revenue and referral volume generated through strategic partners.',
                 'Excel, CSV',
                 'Generated Oct 1',
-                LucideIcons.handshake,
+                Icons.handshake,
               ),
             ],
           ),

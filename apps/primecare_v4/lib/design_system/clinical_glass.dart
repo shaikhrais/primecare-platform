@@ -48,6 +48,7 @@ class ClinicalGlassButton extends StatelessWidget {
   final IconData? icon;
   final String label;
   final bool isFullWidth;
+  final bool isActive;
 
   const ClinicalGlassButton({
     super.key,
@@ -55,6 +56,7 @@ class ClinicalGlassButton extends StatelessWidget {
     this.icon,
     required this.label,
     this.isFullWidth = false,
+    this.isActive = true,
   });
 
   @override
@@ -82,8 +84,8 @@ class ClinicalGlassButton extends StatelessWidget {
 
     final button = ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: PrimeCareTheme.colors.emeraldTeal,
-        foregroundColor: Colors.white,
+        backgroundColor: isActive ? PrimeCareTheme.colors.emeraldTeal : PrimeCareTheme.colors.surfaceContainerHighest,
+        foregroundColor: isActive ? Colors.white : PrimeCareTheme.colors.slateGray,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         elevation: 0,

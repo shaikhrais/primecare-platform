@@ -58,7 +58,7 @@ class _CommunityPartnershipsScreenState
             Row(
               children: [
                 Icon(
-                  LucideIcons.handshake,
+                  Icons.handshake,
                   color: PrimeCareTheme.colors.navyIndigo,
                   size: 28,
                 ),

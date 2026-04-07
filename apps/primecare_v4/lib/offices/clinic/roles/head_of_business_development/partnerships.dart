@@ -17,7 +17,7 @@ class PartnershipsScreen extends ConsumerWidget {
         KPICardData(
           title: 'Active Partnerships',
           value: '28',
-          icon: LucideIcons.handshake,
+          icon: Icons.handshake,
           trend: 12.0,
           trendLabel: 'increase YTD',
         ),

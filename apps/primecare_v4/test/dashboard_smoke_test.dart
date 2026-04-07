@@ -452,7 +452,7 @@ void main() {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: franchise_owner_dash.OwnerDashboard()),
+            home: Scaffold(body: franchise_owner_dash.OwnerDashboardScreen()),
           ),
         ),
       );
@@ -896,7 +896,7 @@ void main() {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: patient_dash.ClientDashboard()),
+            home: Scaffold(body: patient_dash.ClientDashboardScreen()),
           ),
         ),
       );
@@ -917,7 +917,7 @@ void main() {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: family_member_dash.FamilyDashboard()),
+            home: Scaffold(body: family_member_dash.FamilyDashboardScreen()),
           ),
         ),
       );

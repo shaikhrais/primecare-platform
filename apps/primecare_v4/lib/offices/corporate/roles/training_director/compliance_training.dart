@@ -38,7 +38,7 @@ class ComplianceTrainingScreen extends ConsumerWidget {
         MetricCardData(
           title: 'Modules Past Due',
           value: '18',
-          icon: LucideIcons.clockAlert,
+          icon: LucideIcons.clock,
           trend: 'Across 12 staff members',
           isUp: false,
           color: PrimeCareTheme.colors.coralRed,

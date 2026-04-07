@@ -1104,7 +1104,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.franchiseOwnerDashboard,
             builder: (context, state) =>
-                const franchise_owner_dash.OwnerDashboard(),
+                const franchise_owner_dash.OwnerDashboardScreen(),
           ),
           GoRoute(
             path: AppRoutes.operationsManagerDashboard,
@@ -1176,106 +1176,106 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.pswTodaysShifts,
             builder: (context, state) =>
-                const psw_todays_shifts.TodaysShiftsScreen(),
+                const psw_todays_shifts.PswTodaysShiftsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswAssignedClients,
             builder: (context, state) =>
-                const psw_assigned_clients.AssignedClientsScreen(),
+                const psw_assigned_clients.PswAssignedClientsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswCareTasks,
-            builder: (context, state) => const psw_care_tasks.CareTasksScreen(),
+            builder: (context, state) => const psw_care_tasks.PswCareTasksScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswAdlTracking,
             builder: (context, state) =>
-                const psw_adl_tracking.AdlTrackingScreen(),
+                const psw_adl_tracking.PswAdlTrackingScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswDailyLogs,
-            builder: (context, state) => const psw_daily_logs.DailyLogsScreen(),
+            builder: (context, state) => const psw_daily_logs.PswDailyLogsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswCheckInOut,
             builder: (context, state) =>
-                const psw_check_in_out.CheckInOutScreen(),
+                const psw_check_in_out.PswCheckInOutScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswClientUpdates,
             builder: (context, state) =>
-                const psw_client_updates.ClientUpdatesScreen(),
+                const psw_client_updates.PswClientUpdatesScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswIncidentReports,
             builder: (context, state) =>
-                const psw_incident_reports.IncidentReportsScreen(),
+                const psw_incident_reports.PswIncidentReportsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswCompletedVisits,
             builder: (context, state) =>
-                const psw_completed_visits.CompletedVisitsScreen(),
+                const psw_completed_visits.PswCompletedVisitsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswDocuments,
-            builder: (context, state) => const psw_documents.DocumentsScreen(),
+            builder: (context, state) => const psw_documents.PswDocumentsScreen(),
           ),
           GoRoute(
             path: AppRoutes.pswSettings,
-            builder: (context, state) => const psw_settings.SettingsScreen(),
+            builder: (context, state) => const psw_settings.PswSettingsScreen(),
             GoRoute(
               path: AppRoutes.ceoEnterpriseOverview,
               builder: (context, state) =>
-                  const ceo_enterprise_overview.EnterpriseOverviewScreen(),
+                  const ceo_enterprise_overview.CeoEnterpriseOverviewScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoFranchiseOverview,
               builder: (context, state) =>
-                  const ceo_franchise_overview.FranchiseOverviewScreen(),
+                  const ceo_franchise_overview.CeoFranchiseOverviewScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoRegionPerformance,
               builder: (context, state) =>
-                  const ceo_region_performance.RegionPerformanceScreen(),
+                  const ceo_region_performance.CeoRegionPerformanceScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoRevenueSummary,
               builder: (context, state) =>
-                  const ceo_revenue_summary.RevenueSummaryScreen(),
+                  const ceo_revenue_summary.CeoRevenueSummaryScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoStrategicKpis,
               builder: (context, state) =>
-                  const ceo_strategic_kpis.StrategicKpisScreen(),
+                  const ceo_strategic_kpis.CeoStrategicKpisScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoGrowthPipeline,
               builder: (context, state) =>
-                  const ceo_growth_pipeline.GrowthPipelineScreen(),
+                  const ceo_growth_pipeline.CeoGrowthPipelineScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoLeadershipReports,
               builder: (context, state) =>
-                  const ceo_leadership_reports.LeadershipReportsScreen(),
+                  const ceo_leadership_reports.CeoLeadershipReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoAlertsAndRisks,
               builder: (context, state) =>
-                  const ceo_alerts_and_risks.AlertsAndRisksScreen(),
+                  const ceo_alerts_and_risks.CeoAlertsAndRisksScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoOrganizationMap,
               builder: (context, state) =>
-                  const ceo_organization_map.OrganizationMapScreen(),
+                  const ceo_organization_map.CeoOrganizationMapScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoApprovals,
               builder: (context, state) =>
-                  const ceo_approvals.ApprovalsScreen(),
+                  const ceo_approvals.CeoApprovalsScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoReports,
-              builder: (context, state) => const ceo_reports.ReportsScreen(),
+              builder: (context, state) => const ceo_reports.CeoReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.cooOperationsOverview,
@@ -1329,52 +1329,52 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.cfoFinancialOverview,
               builder: (context, state) =>
-                  const cfo_financial_overview.FinancialOverviewScreen(),
+                  const cfo_financial_overview.CfoFinancialOverviewScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoRevenue,
-              builder: (context, state) => const cfo_revenue.RevenueScreen(),
+              builder: (context, state) => const cfo_revenue.CfoRevenueScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoExpenses,
-              builder: (context, state) => const cfo_expenses.ExpensesScreen(),
+              builder: (context, state) => const cfo_expenses.CfoExpensesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoFranchiseFinancials,
               builder: (context, state) =>
-                  const cfo_franchise_financials.FranchiseFinancialsScreen(),
+                  const cfo_franchise_financials.CfoFranchiseFinancialsScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoPayroll,
-              builder: (context, state) => const cfo_payroll.PayrollScreen(),
+              builder: (context, state) => const cfo_payroll.CfoPayrollScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoAccountsReceivable,
               builder: (context, state) =>
-                  const cfo_accounts_receivable.AccountsReceivableScreen(),
+                  const cfo_accounts_receivable.CfoAccountsReceivableScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoAccountsPayable,
               builder: (context, state) =>
-                  const cfo_accounts_payable.AccountsPayableScreen(),
+                  const cfo_accounts_payable.CfoAccountsPayableScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoInvoices,
-              builder: (context, state) => const cfo_invoices.InvoicesScreen(),
+              builder: (context, state) => const cfo_invoices.CfoInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoProfitability,
               builder: (context, state) =>
-                  const cfo_profitability.ProfitabilityScreen(),
+                  const cfo_profitability.CfoProfitabilityScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoTaxAndRemittance,
               builder: (context, state) =>
-                  const cfo_tax_and_remittance.TaxAndRemittanceScreen(),
+                  const cfo_tax_and_remittance.CfoTaxAndRemittanceScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoReports,
-              builder: (context, state) => const cfo_reports.ReportsScreen(),
+              builder: (context, state) => const cfo_reports.CfoReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.ctoSystemHealth,
@@ -1478,7 +1478,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.complianceManagerReports,
               builder: (context, state) =>
-                  const compliance_manager_reports.ReportsScreen(),
+                  const compliance_manager_reports.ComplianceReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.headOfBusinessDevelopmentLeadPipeline,
@@ -1593,7 +1593,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.trainingDirectorReports,
               builder: (context, state) =>
-                  const training_director_reports.ReportsScreen(),
+                  const training_director_reports.TrainingReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.regionalBdmLeads,
@@ -1873,34 +1873,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.adminInvoices,
               builder: (context, state) =>
-                  const admin_invoices.InvoicesScreen(),
+                  const admin_invoices.FranchiseInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminPayments,
               builder: (context, state) =>
-                  const admin_payments.PaymentsScreen(),
+                  const admin_payments.FranchisePaymentsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminClaims,
-              builder: (context, state) => const admin_claims.ClaimsScreen(),
+              builder: (context, state) => const admin_claims.FranchiseClaimsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReconciliation,
               builder: (context, state) =>
-                  const admin_reconciliation.ReconciliationScreen(),
+                  const admin_reconciliation.FranchiseReconciliationScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminOutstandingBalances,
               builder: (context, state) =>
-                  const admin_outstanding_balances.OutstandingBalancesScreen(),
+                  const admin_outstanding_balances.FranchiseOutstandingBalancesScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminRefunds,
-              builder: (context, state) => const admin_refunds.RefundsScreen(),
+              builder: (context, state) => const admin_refunds.FranchiseRefundsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReports,
-              builder: (context, state) => const admin_reports.ReportsScreen(),
+              builder: (context, state) => const admin_reports.FranchiseReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.hrHiringApplicants,
@@ -1965,7 +1965,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.rnMedicationNotes,
               builder: (context, state) =>
-                  const rn_medication_notes.MedicationNotesScreen(),
+                  const rn_medication_notes.MedicationAdministrationScreen(),
             ),
             GoRoute(
               path: AppRoutes.rnVitals,
@@ -1989,93 +1989,93 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.rpnTodaysSchedule,
               builder: (context, state) =>
-                  const rpn_todays_schedule.TodaysScheduleScreen(),
+                  const rpn_todays_schedule.RpnTodaysScheduleScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnAssignedClients,
               builder: (context, state) =>
-                  const rpn_assigned_clients.AssignedClientsScreen(),
+                  const rpn_assigned_clients.RpnAssignedClientsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnNursingNotes,
               builder: (context, state) =>
-                  const rpn_nursing_notes.NursingNotesScreen(),
+                  const rpn_nursing_notes.RpnnursingNotesScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnCareUpdates,
               builder: (context, state) =>
-                  const rpn_care_updates.CareUpdatesScreen(),
+                  const rpn_care_updates.RpnCareUpdatesScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnVitals,
-              builder: (context, state) => const rpn_vitals.VitalsScreen(),
+              builder: (context, state) => const rpn_vitals.RpnVitalsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnMedicationSupport,
               builder: (context, state) =>
-                  const rpn_medication_support.MedicationSupportScreen(),
+                  const rpn_medication_support.RpnMedicationSupportScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnClientHistory,
               builder: (context, state) =>
-                  const rpn_client_history.ClientHistoryScreen(),
+                  const rpn_client_history.RpnClientHistoryScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnIncidentReports,
               builder: (context, state) =>
-                  const rpn_incident_reports.IncidentReportsScreen(),
+                  const rpn_incident_reports.RpnIncidentReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtTodaysSchedule,
               builder: (context, state) =>
-                  const rmt_todays_schedule.TodaysScheduleScreen(),
+                  const rmt_todays_schedule.RmtTodaysScheduleScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtClients,
-              builder: (context, state) => const rmt_clients.ClientsScreen(),
+              builder: (context, state) => const rmt_clients.RmtClientsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtAssessment,
               builder: (context, state) =>
-                  const rmt_assessment.AssessmentScreen(),
+                  const rmt_assessment.RmtAssessmentScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtSoapNotes,
               builder: (context, state) =>
-                  const rmt_soap_notes.SoapNotesScreen(),
+                  const rmt_soap_notes.RmtSoapNotesScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtTreatmentPlans,
               builder: (context, state) =>
-                  const rmt_treatment_plans.TreatmentPlansScreen(),
+                  const rmt_treatment_plans.RmtTreatmentPlansScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtHomecare,
-              builder: (context, state) => const rmt_homecare.HomecareScreen(),
+              builder: (context, state) => const rmt_homecare.RmtHomecareScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtSessionHistory,
               builder: (context, state) =>
-                  const rmt_session_history.SessionHistoryScreen(),
+                  const rmt_session_history.RmtSessionHistoryScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtBodyChart,
               builder: (context, state) =>
-                  const rmt_body_chart.BodyChartScreen(),
+                  const rmt_body_chart.RmtBodyChartScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtIntakeForms,
               builder: (context, state) =>
-                  const rmt_intake_forms.IntakeFormsScreen(),
+                  const rmt_intake_forms.RmtIntakeFormsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtInvoices,
-              builder: (context, state) => const rmt_invoices.InvoicesScreen(),
+              builder: (context, state) => const rmt_invoices.RmtInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.customerSupportTickets,
               builder: (context, state) =>
-                  const customer_support_tickets.TicketsScreen(),
+                  const customer_support_tickets.TicketsView(),
             ),
             GoRoute(
               path: AppRoutes.customerSupportEscalations,
@@ -2205,37 +2205,37 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.localMarketingManagerCampaigns,
               builder: (context, state) =>
-                  const local_marketing_manager_campaigns.CampaignsScreen(),
+                  const local_marketing_manager_campaigns.LocalCampaignsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerLeads,
               builder: (context, state) =>
-                  const local_marketing_manager_leads.LeadsScreen(),
+                  const local_marketing_manager_leads.LocalLeadsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerContentCalendar,
               builder: (context, state) =>
-                  const local_marketing_manager_content_calendar.ContentCalendarScreen(),
+                  const local_marketing_manager_content_calendar.LocalContentCalendarScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerEvents,
               builder: (context, state) =>
-                  const local_marketing_manager_events.EventsScreen(),
+                  const local_marketing_manager_events.LocalEventsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerBudget,
               builder: (context, state) =>
-                  const local_marketing_manager_budget.BudgetScreen(),
+                  const local_marketing_manager_budget.LocalBudgetScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerReports,
               builder: (context, state) =>
-                  const local_marketing_manager_reports.ReportsScreen(),
+                  const local_marketing_manager_reports.LocalReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerAssets,
               builder: (context, state) =>
-                  const local_marketing_manager_assets.AssetsScreen(),
+                  const local_marketing_manager_assets.LocalAssetsScreen(),
             ),
             GoRoute(
               path: AppRoutes.communityOutreachPrograms,
@@ -2275,42 +2275,42 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.territorySalesManagerLeads,
               builder: (context, state) =>
-                  const territory_sales_manager_leads.LeadsScreen(),
+                  const territory_sales_manager_leads.TerritoryLeadsScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerPipeline,
               builder: (context, state) =>
-                  const territory_sales_manager_pipeline.PipelineScreen(),
+                  const territory_sales_manager_pipeline.TerritoryPipelineScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerFieldActivity,
               builder: (context, state) =>
-                  const territory_sales_manager_field_activity.FieldActivityScreen(),
+                  const territory_sales_manager_field_activity.TerritoryFieldActivityScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerConversions,
               builder: (context, state) =>
-                  const territory_sales_manager_conversions.ConversionsScreen(),
+                  const territory_sales_manager_conversions.TerritoryConversionsScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerAreaPerformance,
               builder: (context, state) =>
-                  const territory_sales_manager_area_performance.AreaPerformanceScreen(),
+                  const territory_sales_manager_area_performance.TerritoryAreaPerformanceScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerCompetitors,
               builder: (context, state) =>
-                  const territory_sales_manager_competitors.CompetitorsScreen(),
+                  const territory_sales_manager_competitors.TerritoryCompetitorsScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerReports,
               builder: (context, state) =>
-                  const territory_sales_manager_reports.ReportsScreen(),
+                  const territory_sales_manager_reports.TerritoryReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.clientBookAppointment,
               builder: (context, state) =>
-                  const client_book_appointment.BookAppointmentScreen(),
+                  const client_book_appointment.BookAppointmentView(),
             ),
             GoRoute(
               path: AppRoutes.clientMyAppointments,
@@ -2320,7 +2320,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.clientCareTeam,
               builder: (context, state) =>
-                  const client_care_team.CareTeamScreen(),
+                  const client_care_team.CareTeamView(),
             ),
             GoRoute(
               path: AppRoutes.clientTreatmentHistory,
@@ -2330,7 +2330,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.clientPayments,
               builder: (context, state) =>
-                  const client_payments.PaymentsScreen(),
+                  const client_payments.ClientPaymentsScreen(),
             ),
             GoRoute(
               path: AppRoutes.clientProfile,
@@ -2344,7 +2344,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.familyMemberCareUpdates,
               builder: (context, state) =>
-                  const family_member_care_updates.CareUpdatesScreen(),
+                  const family_member_care_updates.CareUpdatesView(),
             ),
             GoRoute(
               path: AppRoutes.familyMemberBilling,
@@ -2364,56 +2364,56 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.ceoEnterpriseOverview,
               builder: (context, state) =>
-                  const ceo_enterprise_overview.EnterpriseOverviewScreen(),
+                  const ceo_enterprise_overview.CeoEnterpriseOverviewScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoFranchiseOverview,
               builder: (context, state) =>
-                  const ceo_franchise_overview.FranchiseOverviewScreen(),
+                  const ceo_franchise_overview.CeoFranchiseOverviewScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoRegionPerformance,
               builder: (context, state) =>
-                  const ceo_region_performance.RegionPerformanceScreen(),
+                  const ceo_region_performance.CeoRegionPerformanceScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoRevenueSummary,
               builder: (context, state) =>
-                  const ceo_revenue_summary.RevenueSummaryScreen(),
+                  const ceo_revenue_summary.CeoRevenueSummaryScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoStrategicKpis,
               builder: (context, state) =>
-                  const ceo_strategic_kpis.StrategicKpisScreen(),
+                  const ceo_strategic_kpis.CeoStrategicKpisScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoGrowthPipeline,
               builder: (context, state) =>
-                  const ceo_growth_pipeline.GrowthPipelineScreen(),
+                  const ceo_growth_pipeline.CeoGrowthPipelineScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoLeadershipReports,
               builder: (context, state) =>
-                  const ceo_leadership_reports.LeadershipReportsScreen(),
+                  const ceo_leadership_reports.CeoLeadershipReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoAlertsAndRisks,
               builder: (context, state) =>
-                  const ceo_alerts_and_risks.AlertsAndRisksScreen(),
+                  const ceo_alerts_and_risks.CeoAlertsAndRisksScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoOrganizationMap,
               builder: (context, state) =>
-                  const ceo_organization_map.OrganizationMapScreen(),
+                  const ceo_organization_map.CeoOrganizationMapScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoApprovals,
               builder: (context, state) =>
-                  const ceo_approvals.ApprovalsScreen(),
+                  const ceo_approvals.CeoApprovalsScreen(),
             ),
             GoRoute(
               path: AppRoutes.ceoReports,
-              builder: (context, state) => const ceo_reports.ReportsScreen(),
+              builder: (context, state) => const ceo_reports.CeoReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.cooOperationsOverview,
@@ -2467,52 +2467,52 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.cfoFinancialOverview,
               builder: (context, state) =>
-                  const cfo_financial_overview.FinancialOverviewScreen(),
+                  const cfo_financial_overview.CfoFinancialOverviewScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoRevenue,
-              builder: (context, state) => const cfo_revenue.RevenueScreen(),
+              builder: (context, state) => const cfo_revenue.CfoRevenueScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoExpenses,
-              builder: (context, state) => const cfo_expenses.ExpensesScreen(),
+              builder: (context, state) => const cfo_expenses.CfoExpensesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoFranchiseFinancials,
               builder: (context, state) =>
-                  const cfo_franchise_financials.FranchiseFinancialsScreen(),
+                  const cfo_franchise_financials.CfoFranchiseFinancialsScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoPayroll,
-              builder: (context, state) => const cfo_payroll.PayrollScreen(),
+              builder: (context, state) => const cfo_payroll.CfoPayrollScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoAccountsReceivable,
               builder: (context, state) =>
-                  const cfo_accounts_receivable.AccountsReceivableScreen(),
+                  const cfo_accounts_receivable.CfoAccountsReceivableScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoAccountsPayable,
               builder: (context, state) =>
-                  const cfo_accounts_payable.AccountsPayableScreen(),
+                  const cfo_accounts_payable.CfoAccountsPayableScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoInvoices,
-              builder: (context, state) => const cfo_invoices.InvoicesScreen(),
+              builder: (context, state) => const cfo_invoices.CfoInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoProfitability,
               builder: (context, state) =>
-                  const cfo_profitability.ProfitabilityScreen(),
+                  const cfo_profitability.CfoProfitabilityScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoTaxAndRemittance,
               builder: (context, state) =>
-                  const cfo_tax_and_remittance.TaxAndRemittanceScreen(),
+                  const cfo_tax_and_remittance.CfoTaxAndRemittanceScreen(),
             ),
             GoRoute(
               path: AppRoutes.cfoReports,
-              builder: (context, state) => const cfo_reports.ReportsScreen(),
+              builder: (context, state) => const cfo_reports.CfoReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.ctoSystemHealth,
@@ -2616,7 +2616,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.complianceManagerReports,
               builder: (context, state) =>
-                  const compliance_manager_reports.ReportsScreen(),
+                  const compliance_manager_reports.ComplianceReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.headOfBusinessDevelopmentLeadPipeline,
@@ -2731,7 +2731,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.trainingDirectorReports,
               builder: (context, state) =>
-                  const training_director_reports.ReportsScreen(),
+                  const training_director_reports.TrainingReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.regionalBdmLeads,
@@ -3011,34 +3011,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.adminInvoices,
               builder: (context, state) =>
-                  const admin_invoices.InvoicesScreen(),
+                  const admin_invoices.FranchiseInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminPayments,
               builder: (context, state) =>
-                  const admin_payments.PaymentsScreen(),
+                  const admin_payments.FranchisePaymentsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminClaims,
-              builder: (context, state) => const admin_claims.ClaimsScreen(),
+              builder: (context, state) => const admin_claims.FranchiseClaimsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReconciliation,
               builder: (context, state) =>
-                  const admin_reconciliation.ReconciliationScreen(),
+                  const admin_reconciliation.FranchiseReconciliationScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminOutstandingBalances,
               builder: (context, state) =>
-                  const admin_outstanding_balances.OutstandingBalancesScreen(),
+                  const admin_outstanding_balances.FranchiseOutstandingBalancesScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminRefunds,
-              builder: (context, state) => const admin_refunds.RefundsScreen(),
+              builder: (context, state) => const admin_refunds.FranchiseRefundsScreen(),
             ),
             GoRoute(
               path: AppRoutes.adminReports,
-              builder: (context, state) => const admin_reports.ReportsScreen(),
+              builder: (context, state) => const admin_reports.FranchiseReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.hrHiringApplicants,
@@ -3103,7 +3103,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.rnMedicationNotes,
               builder: (context, state) =>
-                  const rn_medication_notes.MedicationNotesScreen(),
+                  const rn_medication_notes.MedicationAdministrationScreen(),
             ),
             GoRoute(
               path: AppRoutes.rnVitals,
@@ -3127,93 +3127,93 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.rpnTodaysSchedule,
               builder: (context, state) =>
-                  const rpn_todays_schedule.TodaysScheduleScreen(),
+                  const rpn_todays_schedule.RpnTodaysScheduleScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnAssignedClients,
               builder: (context, state) =>
-                  const rpn_assigned_clients.AssignedClientsScreen(),
+                  const rpn_assigned_clients.RpnAssignedClientsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnNursingNotes,
               builder: (context, state) =>
-                  const rpn_nursing_notes.NursingNotesScreen(),
+                  const rpn_nursing_notes.RpnnursingNotesScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnCareUpdates,
               builder: (context, state) =>
-                  const rpn_care_updates.CareUpdatesScreen(),
+                  const rpn_care_updates.RpnCareUpdatesScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnVitals,
-              builder: (context, state) => const rpn_vitals.VitalsScreen(),
+              builder: (context, state) => const rpn_vitals.RpnVitalsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnMedicationSupport,
               builder: (context, state) =>
-                  const rpn_medication_support.MedicationSupportScreen(),
+                  const rpn_medication_support.RpnMedicationSupportScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnClientHistory,
               builder: (context, state) =>
-                  const rpn_client_history.ClientHistoryScreen(),
+                  const rpn_client_history.RpnClientHistoryScreen(),
             ),
             GoRoute(
               path: AppRoutes.rpnIncidentReports,
               builder: (context, state) =>
-                  const rpn_incident_reports.IncidentReportsScreen(),
+                  const rpn_incident_reports.RpnIncidentReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtTodaysSchedule,
               builder: (context, state) =>
-                  const rmt_todays_schedule.TodaysScheduleScreen(),
+                  const rmt_todays_schedule.RmtTodaysScheduleScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtClients,
-              builder: (context, state) => const rmt_clients.ClientsScreen(),
+              builder: (context, state) => const rmt_clients.RmtClientsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtAssessment,
               builder: (context, state) =>
-                  const rmt_assessment.AssessmentScreen(),
+                  const rmt_assessment.RmtAssessmentScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtSoapNotes,
               builder: (context, state) =>
-                  const rmt_soap_notes.SoapNotesScreen(),
+                  const rmt_soap_notes.RmtSoapNotesScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtTreatmentPlans,
               builder: (context, state) =>
-                  const rmt_treatment_plans.TreatmentPlansScreen(),
+                  const rmt_treatment_plans.RmtTreatmentPlansScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtHomecare,
-              builder: (context, state) => const rmt_homecare.HomecareScreen(),
+              builder: (context, state) => const rmt_homecare.RmtHomecareScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtSessionHistory,
               builder: (context, state) =>
-                  const rmt_session_history.SessionHistoryScreen(),
+                  const rmt_session_history.RmtSessionHistoryScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtBodyChart,
               builder: (context, state) =>
-                  const rmt_body_chart.BodyChartScreen(),
+                  const rmt_body_chart.RmtBodyChartScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtIntakeForms,
               builder: (context, state) =>
-                  const rmt_intake_forms.IntakeFormsScreen(),
+                  const rmt_intake_forms.RmtIntakeFormsScreen(),
             ),
             GoRoute(
               path: AppRoutes.rmtInvoices,
-              builder: (context, state) => const rmt_invoices.InvoicesScreen(),
+              builder: (context, state) => const rmt_invoices.RmtInvoicesScreen(),
             ),
             GoRoute(
               path: AppRoutes.customerSupportTickets,
               builder: (context, state) =>
-                  const customer_support_tickets.TicketsScreen(),
+                  const customer_support_tickets.TicketsView(),
             ),
             GoRoute(
               path: AppRoutes.customerSupportEscalations,
@@ -3343,37 +3343,37 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.localMarketingManagerCampaigns,
               builder: (context, state) =>
-                  const local_marketing_manager_campaigns.CampaignsScreen(),
+                  const local_marketing_manager_campaigns.LocalCampaignsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerLeads,
               builder: (context, state) =>
-                  const local_marketing_manager_leads.LeadsScreen(),
+                  const local_marketing_manager_leads.LocalLeadsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerContentCalendar,
               builder: (context, state) =>
-                  const local_marketing_manager_content_calendar.ContentCalendarScreen(),
+                  const local_marketing_manager_content_calendar.LocalContentCalendarScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerEvents,
               builder: (context, state) =>
-                  const local_marketing_manager_events.EventsScreen(),
+                  const local_marketing_manager_events.LocalEventsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerBudget,
               builder: (context, state) =>
-                  const local_marketing_manager_budget.BudgetScreen(),
+                  const local_marketing_manager_budget.LocalBudgetScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerReports,
               builder: (context, state) =>
-                  const local_marketing_manager_reports.ReportsScreen(),
+                  const local_marketing_manager_reports.LocalReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.localMarketingManagerAssets,
               builder: (context, state) =>
-                  const local_marketing_manager_assets.AssetsScreen(),
+                  const local_marketing_manager_assets.LocalAssetsScreen(),
             ),
             GoRoute(
               path: AppRoutes.communityOutreachPrograms,
@@ -3413,42 +3413,42 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.territorySalesManagerLeads,
               builder: (context, state) =>
-                  const territory_sales_manager_leads.LeadsScreen(),
+                  const territory_sales_manager_leads.TerritoryLeadsScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerPipeline,
               builder: (context, state) =>
-                  const territory_sales_manager_pipeline.PipelineScreen(),
+                  const territory_sales_manager_pipeline.TerritoryPipelineScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerFieldActivity,
               builder: (context, state) =>
-                  const territory_sales_manager_field_activity.FieldActivityScreen(),
+                  const territory_sales_manager_field_activity.TerritoryFieldActivityScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerConversions,
               builder: (context, state) =>
-                  const territory_sales_manager_conversions.ConversionsScreen(),
+                  const territory_sales_manager_conversions.TerritoryConversionsScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerAreaPerformance,
               builder: (context, state) =>
-                  const territory_sales_manager_area_performance.AreaPerformanceScreen(),
+                  const territory_sales_manager_area_performance.TerritoryAreaPerformanceScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerCompetitors,
               builder: (context, state) =>
-                  const territory_sales_manager_competitors.CompetitorsScreen(),
+                  const territory_sales_manager_competitors.TerritoryCompetitorsScreen(),
             ),
             GoRoute(
               path: AppRoutes.territorySalesManagerReports,
               builder: (context, state) =>
-                  const territory_sales_manager_reports.ReportsScreen(),
+                  const territory_sales_manager_reports.TerritoryReportsScreen(),
             ),
             GoRoute(
               path: AppRoutes.clientBookAppointment,
               builder: (context, state) =>
-                  const client_book_appointment.BookAppointmentScreen(),
+                  const client_book_appointment.BookAppointmentView(),
             ),
             GoRoute(
               path: AppRoutes.clientMyAppointments,
@@ -3458,7 +3458,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.clientCareTeam,
               builder: (context, state) =>
-                  const client_care_team.CareTeamScreen(),
+                  const client_care_team.CareTeamView(),
             ),
             GoRoute(
               path: AppRoutes.clientTreatmentHistory,
@@ -3468,7 +3468,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.clientPayments,
               builder: (context, state) =>
-                  const client_payments.PaymentsScreen(),
+                  const client_payments.ClientPaymentsScreen(),
             ),
             GoRoute(
               path: AppRoutes.clientProfile,
@@ -3482,7 +3482,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: AppRoutes.familyMemberCareUpdates,
               builder: (context, state) =>
-                  const family_member_care_updates.CareUpdatesScreen(),
+                  const family_member_care_updates.CareUpdatesView(),
             ),
             GoRoute(
               path: AppRoutes.familyMemberBilling,
@@ -3549,12 +3549,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: AppRoutes.patientDashboard,
-            builder: (context, state) => const patient_dash.ClientDashboard(),
+            builder: (context, state) => const patient_dash.ClientDashboardScreen(),
           ),
           GoRoute(
             path: AppRoutes.familyMemberDashboard,
             builder: (context, state) =>
-                const family_member_dash.FamilyDashboard(),
+                const family_member_dash.FamilyDashboardScreen(),
           ),
         ],
       ),
