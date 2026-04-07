@@ -120,11 +120,7 @@ class ClientPaymentsScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: PrimeCareTheme.spacing4),
-                      Divider(
-                        color: PrimeCareTheme.surfaceContainerHighest
-                            .withOpacity(0.5),
-                        height: 1,
-                      ),
+                      const SizedBox(height: PrimeCareTheme.spacing4),
                       const SizedBox(height: PrimeCareTheme.spacing4),
                       _buildSummaryRow('Due Oct 15', '\$200.00', false),
                       const SizedBox(height: PrimeCareTheme.spacing2),

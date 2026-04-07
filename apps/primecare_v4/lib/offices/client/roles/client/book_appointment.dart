@@ -151,11 +151,7 @@ class BookAppointmentView extends ConsumerWidget {
                                                 item['status'] ?? 'Active',
                                                 Colors.teal,
                                               ),
-                                              const Divider(
-                                                color: Colors.blueGrey,
-                                                height: 24,
-                                                thickness: 0.1,
-                                              ),
+                                              const SizedBox(height: 24),
                                             ],
                                           );
                                         }).toList(),
@@ -193,11 +189,7 @@ class BookAppointmentView extends ConsumerWidget {
                                     icon: Icons.history,
                                     iconColor: Colors.teal,
                                   ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 16,
-                                    thickness: 0.1,
-                                  ),
+                                  const SizedBox(height: 16),
                                   AuditLogTile(
                                     title: 'Audit Warning',
                                     subtitle: 'Item requires review.',

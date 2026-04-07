@@ -114,11 +114,7 @@ class ClientDashboardScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(
                           PrimeCareTheme.radiusLg,
                         ),
-                        border: Border.all(
-                          color: PrimeCareTheme.surfaceContainerLowest
-                              .withOpacity(0.3),
-                          width: 1,
-                        ),
+                      ),
                       ),
                       child: Row(
                         children: [

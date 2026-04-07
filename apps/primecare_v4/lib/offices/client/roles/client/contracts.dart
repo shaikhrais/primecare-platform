@@ -290,11 +290,7 @@ class ClientContractsScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: PrimeCareTheme.spacing5),
-            Divider(
-              color: PrimeCareTheme.surfaceContainerHighest.withOpacity(0.5),
-            ),
-            const SizedBox(height: PrimeCareTheme.spacing5),
+            const SizedBox(height: PrimeCareTheme.spacing6),
             Row(
               children: [
                 Expanded(
