@@ -118,7 +118,7 @@ class PswSettingsScreen extends ConsumerWidget {
           Switch(
             value: value,
             onChanged: (val) {},
-            activeColor: PrimeCareTheme.colors.emeraldTeal,
+            activeThumbColor: PrimeCareTheme.colors.emeraldTeal,
           ),
         ],
       ),

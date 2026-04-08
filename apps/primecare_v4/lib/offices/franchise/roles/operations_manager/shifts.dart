@@ -156,7 +156,7 @@ class ShiftsScreen extends ConsumerWidget {
                     'Active Staff in Field',
                     style: PrimeCareTheme.typography.h3,
                   ),
-                  const Icon(LucideIcons.moreHorizontal, color: Colors.white70),
+                  Icon(LucideIcons.moreHorizontal, color: Colors.white70),
                 ],
               ),
               const SizedBox(height: 24),
@@ -262,7 +262,7 @@ class ShiftsScreen extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     LucideIcons.activitySquare,
                     color: Colors.blue,
                     size: 24,
@@ -334,7 +334,7 @@ class ShiftsScreen extends ConsumerWidget {
         DataCell(
           TextButton.icon(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               LucideIcons.messageSquare,
               size: 14,
               color: Colors.white70,

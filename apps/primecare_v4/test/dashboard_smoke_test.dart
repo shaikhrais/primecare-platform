@@ -90,113 +90,113 @@ void main() {
     testWidgets('Mock Smoke Test', (WidgetTester tester) async {
       expect(true, isTrue);
     });
-    testWidgets('guest_dash.GuestDashboard renders without exceptions', (
+    testWidgets('guest_dash.GuestDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: guest_dash.GuestDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: guest_dash.GuestDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(guest_dash.GuestDashboard), findsOneWidget);
+      expect(find.byType(guest_dash.GuestDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('ceo_dash.CeoAnalyticsDashboard renders without exceptions', (
+    testWidgets('ceo_dash.CeoAnalyticsDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: ceo_dash.CeoAnalyticsDashboard()),
+            home: Scaffold(body: ceo_dash.CeoAnalyticsDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(ceo_dash.CeoAnalyticsDashboard), findsOneWidget);
+      expect(find.byType(ceo_dash.CeoAnalyticsDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('coo_dash.CooDashboard renders without exceptions', (
+    testWidgets('coo_dash.CooDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: coo_dash.CooDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: coo_dash.CooDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(coo_dash.CooDashboard), findsOneWidget);
+      expect(find.byType(coo_dash.CooDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('cfo_dash.CfoDashboard renders without exceptions', (
+    testWidgets('cfo_dash.CfoDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: cfo_dash.CfoDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: cfo_dash.CfoDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(cfo_dash.CfoDashboard), findsOneWidget);
+      expect(find.byType(cfo_dash.CfoDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('cto_dash.CtoDashboard renders without exceptions', (
+    testWidgets('cto_dash.CtoDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: cto_dash.CtoDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: cto_dash.CtoDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(cto_dash.CtoDashboard), findsOneWidget);
+      expect(find.byType(cto_dash.CtoDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
     testWidgets(
-      'compliance_manager_dash.ComplianceDashboard renders without exceptions',
+      'compliance_manager_dash.ComplianceDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: compliance_manager_dash.ComplianceDashboard(),
+                body: compliance_manager_dash.ComplianceDashboardScreen(),
               ),
             ),
           ),
@@ -205,7 +205,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(compliance_manager_dash.ComplianceDashboard),
+          find.byType(compliance_manager_dash.ComplianceDashboardScreen),
           findsOneWidget,
         );
 
@@ -214,37 +214,37 @@ void main() {
       },
     );
 
-    testWidgets('head_of_bus_dev_dash.BusDevDashboard renders without exceptions', (
+    testWidgets('head_of_bus_dev_dash.BusDevDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: head_of_bus_dev_dash.BusDevDashboard()),
+            home: Scaffold(body: head_of_bus_dev_dash.BusDevDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(head_of_bus_dev_dash.BusDevDashboard), findsOneWidget);
+      expect(find.byType(head_of_bus_dev_dash.BusDevDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
     testWidgets(
-      'head_of_marketing_dash.HeadOfMarketingDashboard renders without exceptions',
+      'head_of_marketing_dash.HeadOfMarketingDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: head_of_marketing_dash.HeadOfMarketingDashboard(),
+                body: head_of_marketing_dash.HeadOfMarketingDashboardScreen(),
               ),
             ),
           ),
@@ -253,7 +253,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(head_of_marketing_dash.HeadOfMarketingDashboard),
+          find.byType(head_of_marketing_dash.HeadOfMarketingDashboardScreen),
           findsOneWidget,
         );
 
@@ -263,15 +263,15 @@ void main() {
     );
 
     testWidgets(
-      'training_director_dash.TrainingAdminDashboard renders without exceptions',
+      'training_director_dash.TrainingAdminDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: training_director_dash.TrainingAdminDashboard(),
+                body: training_director_dash.TrainingAdminDashboardScreen(),
               ),
             ),
           ),
@@ -280,7 +280,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(training_director_dash.TrainingAdminDashboard),
+          find.byType(training_director_dash.TrainingAdminDashboardScreen),
           findsOneWidget,
         );
 
@@ -290,15 +290,15 @@ void main() {
     );
 
     testWidgets(
-      'regional_manager_ontario_dash.RegionDashboard renders without exceptions',
+      'regional_manager_ontario_dash.RegionDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: regional_manager_ontario_dash.RegionDashboard(),
+                body: regional_manager_ontario_dash.RegionDashboardScreen(),
               ),
             ),
           ),
@@ -307,7 +307,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(regional_manager_ontario_dash.RegionDashboard),
+          find.byType(regional_manager_ontario_dash.RegionDashboardScreen),
           findsOneWidget,
         );
 
@@ -317,14 +317,14 @@ void main() {
     );
 
     testWidgets(
-      'regional_manager_usa_dash.RegionDashboard renders without exceptions',
+      'regional_manager_usa_dash.RegionDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
-              home: Scaffold(body: regional_manager_usa_dash.RegionDashboard()),
+              home: Scaffold(body: regional_manager_usa_dash.RegionDashboardScreen()),
             ),
           ),
         );
@@ -332,7 +332,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(regional_manager_usa_dash.RegionDashboard),
+          find.byType(regional_manager_usa_dash.RegionDashboardScreen),
           findsOneWidget,
         );
 
@@ -342,15 +342,15 @@ void main() {
     );
 
     testWidgets(
-      'franchise_sales_manager_dash.FranchiseSalesDashboard renders without exceptions',
+      'franchise_sales_manager_dash.FranchiseSalesDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: franchise_sales_manager_dash.FranchiseSalesDashboard(),
+                body: franchise_sales_manager_dash.FranchiseSalesDashboardScreen(),
               ),
             ),
           ),
@@ -359,7 +359,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(franchise_sales_manager_dash.FranchiseSalesDashboard),
+          find.byType(franchise_sales_manager_dash.FranchiseSalesDashboardScreen),
           findsOneWidget,
         );
 
@@ -368,36 +368,36 @@ void main() {
       },
     );
 
-    testWidgets('general_manager_dash.OpsDashboard renders without exceptions', (
+    testWidgets('general_manager_dash.OpsDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: general_manager_dash.OpsDashboard()),
+            home: Scaffold(body: general_manager_dash.OpsDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(general_manager_dash.OpsDashboard), findsOneWidget);
+      expect(find.byType(general_manager_dash.OpsDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
     testWidgets(
-      'partnership_manager_dash.PartnerDashboard renders without exceptions',
+      'partnership_manager_dash.PartnerDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
-              home: Scaffold(body: partnership_manager_dash.PartnerDashboard()),
+              home: Scaffold(body: partnership_manager_dash.PartnerDashboardScreen()),
             ),
           ),
         );
@@ -405,7 +405,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(partnership_manager_dash.PartnerDashboard),
+          find.byType(partnership_manager_dash.PartnerDashboardScreen),
           findsOneWidget,
         );
 
@@ -415,16 +415,16 @@ void main() {
     );
 
     testWidgets(
-      'territory_expansion_manager_dash.ExpansionAnalyticsDashboard renders without exceptions',
+      'territory_expansion_manager_dash.ExpansionAnalyticsDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
                 body:
-                    territory_expansion_manager_dash.ExpansionAnalyticsDashboard(),
+                    territory_expansion_manager_dash.ExpansionAnalyticsDashboardScreen(),
               ),
             ),
           ),
@@ -434,7 +434,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 500));
         expect(
           find.byType(
-            territory_expansion_manager_dash.ExpansionAnalyticsDashboard,
+            territory_expansion_manager_dash.ExpansionAnalyticsDashboardScreen,
           ),
           findsOneWidget,
         );
@@ -444,13 +444,13 @@ void main() {
       },
     );
 
-    testWidgets('franchise_owner_dash.OwnerDashboard renders without exceptions', (
+    testWidgets('franchise_owner_dash.OwnerDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
             home: Scaffold(body: franchise_owner_dash.OwnerDashboardScreen()),
           ),
@@ -459,22 +459,22 @@ void main() {
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(franchise_owner_dash.OwnerDashboard), findsOneWidget);
+      expect(find.byType(franchise_owner_dash.OwnerDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
     testWidgets(
-      'operations_manager_dash.OpsManagerDashboard renders without exceptions',
+      'operations_manager_dash.OpsManagerDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: operations_manager_dash.OpsManagerDashboard(),
+                body: operations_manager_dash.OpsManagerDashboardScreen(),
               ),
             ),
           ),
@@ -483,7 +483,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(operations_manager_dash.OpsManagerDashboard),
+          find.byType(operations_manager_dash.OpsManagerDashboardScreen),
           findsOneWidget,
         );
 
@@ -492,79 +492,79 @@ void main() {
       },
     );
 
-    testWidgets('scheduler_dash.SchedulingDashboard renders without exceptions', (
+    testWidgets('scheduler_dash.SchedulingDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: scheduler_dash.SchedulingDashboard()),
+            home: Scaffold(body: scheduler_dash.SchedulingDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(scheduler_dash.SchedulingDashboard), findsOneWidget);
+      expect(find.byType(scheduler_dash.SchedulingDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('billing_admin_dash.BillingDashboard renders without exceptions', (
+    testWidgets('billing_admin_dash.BillingDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: billing_admin_dash.BillingDashboard()),
+            home: Scaffold(body: billing_admin_dash.BillingDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(billing_admin_dash.BillingDashboard), findsOneWidget);
+      expect(find.byType(billing_admin_dash.BillingDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('hr_hiring_dash.HrDashboard renders without exceptions', (
+    testWidgets('hr_hiring_dash.HrDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: hr_hiring_dash.HrDashboard()),
+            home: Scaffold(body: hr_hiring_dash.HrDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(hr_hiring_dash.HrDashboard), findsOneWidget);
+      expect(find.byType(hr_hiring_dash.HrDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
     testWidgets(
-      'local_marketing_manager_dash.LocalMarketingDashboard renders without exceptions',
+      'local_marketing_manager_dash.LocalMarketingDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: local_marketing_manager_dash.LocalMarketingDashboard(),
+                body: local_marketing_manager_dash.LocalMarketingDashboardScreen(),
               ),
             ),
           ),
@@ -573,7 +573,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(local_marketing_manager_dash.LocalMarketingDashboard),
+          find.byType(local_marketing_manager_dash.LocalMarketingDashboardScreen),
           findsOneWidget,
         );
 
@@ -583,15 +583,15 @@ void main() {
     );
 
     testWidgets(
-      'community_outreach_dash.CommunityOutreachDashboard renders without exceptions',
+      'community_outreach_dash.CommunityOutreachDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: community_outreach_dash.CommunityOutreachDashboard(),
+                body: community_outreach_dash.CommunityOutreachDashboardScreen(),
               ),
             ),
           ),
@@ -600,7 +600,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(community_outreach_dash.CommunityOutreachDashboard),
+          find.byType(community_outreach_dash.CommunityOutreachDashboardScreen),
           findsOneWidget,
         );
 
@@ -610,15 +610,15 @@ void main() {
     );
 
     testWidgets(
-      'territory_sales_manager_dash.TerritorySalesDashboard renders without exceptions',
+      'territory_sales_manager_dash.TerritorySalesDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: territory_sales_manager_dash.TerritorySalesDashboard(),
+                body: territory_sales_manager_dash.TerritorySalesDashboardScreen(),
               ),
             ),
           ),
@@ -627,7 +627,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(territory_sales_manager_dash.TerritorySalesDashboard),
+          find.byType(territory_sales_manager_dash.TerritorySalesDashboardScreen),
           findsOneWidget,
         );
 
@@ -636,91 +636,91 @@ void main() {
       },
     );
 
-    testWidgets('rn_dash.RnDashboard renders without exceptions', (
+    testWidgets('rn_dash.RnDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: rn_dash.RnDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: rn_dash.RnDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(rn_dash.RnDashboard), findsOneWidget);
+      expect(find.byType(rn_dash.RnDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('rpn_dash.RpnDashboard renders without exceptions', (
+    testWidgets('rpn_dash.RpnDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: rpn_dash.RpnDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: rpn_dash.RpnDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(rpn_dash.RpnDashboard), findsOneWidget);
+      expect(find.byType(rpn_dash.RpnDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('rmt_dash.RmtDashboard renders without exceptions', (
+    testWidgets('rmt_dash.RmtDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: rmt_dash.RmtDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: rmt_dash.RmtDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(rmt_dash.RmtDashboard), findsOneWidget);
+      expect(find.byType(rmt_dash.RmtDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('psw_dash.PswDashboard renders without exceptions', (
+    testWidgets('psw_dash.PswDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: psw_dash.PswDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: psw_dash.PswDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(psw_dash.PswDashboard), findsOneWidget);
+      expect(find.byType(psw_dash.PswDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
     testWidgets(
-      'customer_support_dash.SupportDashboard renders without exceptions',
+      'customer_support_dash.SupportDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
-              home: Scaffold(body: customer_support_dash.SupportDashboard()),
+              home: Scaffold(body: customer_support_dash.SupportDashboardScreen()),
             ),
           ),
         );
@@ -728,7 +728,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(customer_support_dash.SupportDashboard),
+          find.byType(customer_support_dash.SupportDashboardScreen),
           findsOneWidget,
         );
 
@@ -738,14 +738,14 @@ void main() {
     );
 
     testWidgets(
-      'intake_coordinator_dash.IntakeDashboard renders without exceptions',
+      'intake_coordinator_dash.IntakeDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
-              home: Scaffold(body: intake_coordinator_dash.IntakeDashboard()),
+              home: Scaffold(body: intake_coordinator_dash.IntakeDashboardScreen()),
             ),
           ),
         );
@@ -753,7 +753,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(intake_coordinator_dash.IntakeDashboard),
+          find.byType(intake_coordinator_dash.IntakeDashboardScreen),
           findsOneWidget,
         );
 
@@ -762,37 +762,37 @@ void main() {
       },
     );
 
-    testWidgets('quality_assurance_dash.QaDashboard renders without exceptions', (
+    testWidgets('quality_assurance_dash.QaDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: quality_assurance_dash.QaDashboard()),
+            home: Scaffold(body: quality_assurance_dash.QaDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(quality_assurance_dash.QaDashboard), findsOneWidget);
+      expect(find.byType(quality_assurance_dash.QaDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
     testWidgets(
-      'training_coordinator_dash.TrainingCoordinatorDashboard renders without exceptions',
+      'training_coordinator_dash.TrainingCoordinatorDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
               home: Scaffold(
-                body: training_coordinator_dash.TrainingCoordinatorDashboard(),
+                body: training_coordinator_dash.TrainingCoordinatorDashboardScreen(),
               ),
             ),
           ),
@@ -801,7 +801,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(training_coordinator_dash.TrainingCoordinatorDashboard),
+          find.byType(training_coordinator_dash.TrainingCoordinatorDashboardScreen),
           findsOneWidget,
         );
 
@@ -810,91 +810,91 @@ void main() {
       },
     );
 
-    testWidgets('physio_dash.PhysioDashboard renders without exceptions', (
+    testWidgets('physio_dash.PhysioDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: Scaffold(body: physio_dash.PhysioDashboard()),
+            home: Scaffold(body: physio_dash.PhysioDashboardScreen()),
           ),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(physio_dash.PhysioDashboard), findsOneWidget);
+      expect(find.byType(physio_dash.PhysioDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('chiro_dash.ChiroDashboard renders without exceptions', (
+    testWidgets('chiro_dash.ChiroDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: chiro_dash.ChiroDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: chiro_dash.ChiroDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(chiro_dash.ChiroDashboard), findsOneWidget);
+      expect(find.byType(chiro_dash.ChiroDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('ot_dash.OtDashboard renders without exceptions', (
+    testWidgets('ot_dash.OtDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: ot_dash.OtDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: ot_dash.OtDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(ot_dash.OtDashboard), findsOneWidget);
+      expect(find.byType(ot_dash.OtDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('slp_dash.SlpDashboard renders without exceptions', (
+    testWidgets('slp_dash.SlpDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: slp_dash.SlpDashboard())),
+        ProviderScope(
+          child: MaterialApp(home: Scaffold(body: slp_dash.SlpDashboardScreen())),
         ),
       );
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(slp_dash.SlpDashboard), findsOneWidget);
+      expect(find.byType(slp_dash.SlpDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('patient_dash.ClientDashboard renders without exceptions', (
+    testWidgets('patient_dash.ClientDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
             home: Scaffold(body: patient_dash.ClientDashboardScreen()),
           ),
@@ -903,19 +903,19 @@ void main() {
       // Just pump a single frame (and a small duration) to allow for initial layout/rendering
       // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(patient_dash.ClientDashboard), findsOneWidget);
+      expect(find.byType(patient_dash.ClientDashboardScreen), findsOneWidget);
 
       // reset size
       addTearDown(() => tester.view.resetPhysicalSize());
     });
 
-    testWidgets('family_member_dash.FamilyDashboard renders without exceptions', (
+    testWidgets('family_member_dash.FamilyDashboardScreen renders without exceptions', (
       WidgetTester tester,
     ) async {
       tester.view.physicalSize = const Size(1920, 1080);
       tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
             home: Scaffold(body: family_member_dash.FamilyDashboardScreen()),
           ),
@@ -934,14 +934,14 @@ void main() {
     });
 
     testWidgets(
-      'scrum_master_dash.ScrumMasterDashboard renders without exceptions',
+      'scrum_master_dash.ScrumMasterDashboardScreen renders without exceptions',
       (WidgetTester tester) async {
         tester.view.physicalSize = const Size(1920, 1080);
         tester.view.devicePixelRatio = 1.0;
         await tester.pumpWidget(
-          const ProviderScope(
+          ProviderScope(
             child: MaterialApp(
-              home: Scaffold(body: scrum_master_dash.ScrumMasterDashboard()),
+              home: Scaffold(body: scrum_master_dash.ScrumMasterDashboardScreen()),
             ),
           ),
         );
@@ -949,7 +949,7 @@ void main() {
         // avoiding pumpAndSettle() due to potential infinite animations or loading spinners.
         await tester.pump(const Duration(milliseconds: 500));
         expect(
-          find.byType(scrum_master_dash.ScrumMasterDashboard),
+          find.byType(scrum_master_dash.ScrumMasterDashboardScreen),
           findsOneWidget,
         );
 

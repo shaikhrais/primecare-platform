@@ -274,7 +274,7 @@ class LocalLeadsScreen extends ConsumerWidget {
             ),
             Row(
               children: [
-                const Icon(
+                Icon(
                   LucideIcons.flame,
                   size: 14,
                   color: PrimeCareTheme.colors.emeraldTeal,
