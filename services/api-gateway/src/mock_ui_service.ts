@@ -7,6 +7,22 @@ import { Context } from 'hono';
 export async function handleMockUIEndpoint(c: Context) {
   const path = new URL(c.req.url).pathname;
   console.log(`[MockUIService] Intercepting endpoint: ${path}`);
+  
+  if (path === '/dashboard/metrics' || path === '/v1/dashboard/metrics') {
+    return c.json({
+      kpis: [
+        { title: 'Activity Level', value: 'High', status: 'Active' },
+        { title: 'Pending Items', value: '12', status: 'Pending' },
+        { title: 'System Sync', value: 'Active', status: 'Active' },
+        { title: 'Alerts', value: '0', status: 'Active' }
+      ],
+      recentActivity: [
+        { title: 'Update Triggered', subtitle: 'Automated policy sync.', timestamp: '1 Hr Ago', icon: 'history', color: 'teal' },
+        { title: 'Audit Warning', subtitle: 'Item requires review.', timestamp: '3 Hrs Ago', icon: 'warning', color: 'orange' }
+      ]
+    });
+  }
+
   const prisma = c.get('prisma');
 
   if (prisma) {

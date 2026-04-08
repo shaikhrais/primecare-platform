@@ -68,6 +68,9 @@ app.all('/v1/*', async (c) => {
   // Currently, all v1 routes map strictly to the MockUIService to satisfy flutter hydrated boards.
   return handleMockUIEndpoint(c);
 });
+app.all('/dashboard/*', async (c) => {
+  return handleMockUIEndpoint(c);
+});
 
 // ----------------------------------------------------
 // Swagger Hub: OpenAPI Federated Aggregator
