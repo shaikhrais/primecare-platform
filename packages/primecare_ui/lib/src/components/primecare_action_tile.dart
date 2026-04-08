@@ -32,15 +32,15 @@ class _PrimeCareActionTileState extends State<PrimeCareActionTile> {
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,
           decoration: BoxDecoration(
-            color: _isHovering ? widget.iconColor.withOpacity(0.03) : Colors.white,
+            color: _isHovering ? widget.iconColor.withValues(alpha: 0.03) : Colors.white,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: _isHovering ? widget.iconColor.withOpacity(0.4) : Colors.grey.withOpacity(0.12),
+              color: _isHovering ? widget.iconColor.withValues(alpha: 0.4) : Colors.grey.withValues(alpha: 0.12),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
-                color: _isHovering ? widget.iconColor.withOpacity(0.15) : Colors.black.withOpacity(0.04),
+                color: _isHovering ? widget.iconColor.withValues(alpha: 0.15) : Colors.black.withValues(alpha: 0.04),
                 blurRadius: _isHovering ? 16 : 8,
                 offset: Offset(0, _isHovering ? 8 : 4),
               )
@@ -53,7 +53,7 @@ class _PrimeCareActionTileState extends State<PrimeCareActionTile> {
                 duration: const Duration(milliseconds: 200),
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: _isHovering ? widget.iconColor.withOpacity(0.15) : widget.iconColor.withOpacity(0.08),
+                  color: _isHovering ? widget.iconColor.withValues(alpha: 0.15) : widget.iconColor.withValues(alpha: 0.08),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(widget.icon, color: widget.iconColor, size: _isHovering ? 32 : 28),

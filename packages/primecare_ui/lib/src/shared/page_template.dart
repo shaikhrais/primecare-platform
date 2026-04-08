@@ -222,7 +222,7 @@ class PageTemplate extends StatelessWidget {
         color: PrimeCareTheme.surface,
         borderRadius: BorderRadius.circular(PrimeCareTheme.radiusLg),
         border: Border.all(
-          color: PrimeCareTheme.outlineVariant.withOpacity(0.5),
+          color: PrimeCareTheme.outlineVariant.withValues(alpha: 0.5),
         ),
       ),
       child: Column(

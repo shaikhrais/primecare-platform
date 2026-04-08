@@ -131,7 +131,7 @@ class _PrimeCareDynamicFormBuilderState
               labelStyle: GoogleFonts.inter(
                 color: Theme.of(
                   context,
-                ).textTheme.bodyMedium?.color?.withOpacity(0.6),
+                ).textTheme.bodyMedium?.color?.withValues(alpha: 0.6),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Theme.of(context).dividerColor),
@@ -199,7 +199,7 @@ class _PrimeCareDynamicFormBuilderState
             decoration: InputDecoration(
               labelText: label,
               labelStyle: GoogleFonts.inter(
-                color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6),
+                color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Theme.of(context).dividerColor),
@@ -234,7 +234,7 @@ class _PrimeCareDynamicFormBuilderState
             decoration: InputDecoration(
               labelText: '$label (Search ${fieldSchema['lookupTable'] ?? "Records"})',
               labelStyle: GoogleFonts.inter(
-                color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6),
+                color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Theme.of(context).dividerColor),
@@ -269,7 +269,7 @@ class _PrimeCareDynamicFormBuilderState
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               labelText: label,
-              labelStyle: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6)),
+              labelStyle: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6)),
               enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor), borderRadius: BorderRadius.circular(12)),
               focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary), borderRadius: BorderRadius.circular(12)),
               filled: true,

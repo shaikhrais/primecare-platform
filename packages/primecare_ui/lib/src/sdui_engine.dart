@@ -14,10 +14,10 @@ class PrimeCareSduiEngine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _renderNode(schema) ?? const SizedBox.shrink();
+    return _renderNode(context, schema) ?? const SizedBox.shrink();
   }
 
-  Widget? _renderNode(Map<String, dynamic>? node) {
+  Widget? _renderNode(BuildContext context, Map<String, dynamic>? node) {
     if (node == null || !node.containsKey('type')) return null;
 
     final type = node['type'] as String;
@@ -29,7 +29,7 @@ class PrimeCareSduiEngine extends StatelessWidget {
             node['crossAxisAlignment'],
           ),
           mainAxisAlignment: _parseMainAxisAlignment(node['mainAxisAlignment']),
-          children: _parseChildren(node['children']),
+          children: _parseChildren(context, node['children']),
         );
       case 'Row':
         return Row(
@@ -37,7 +37,7 @@ class PrimeCareSduiEngine extends StatelessWidget {
             node['crossAxisAlignment'],
           ),
           mainAxisAlignment: _parseMainAxisAlignment(node['mainAxisAlignment']),
-          children: _parseChildren(node['children']),
+          children: _parseChildren(context, node['children']),
         );
       case 'Text':
         return Text(node['text']?.toString() ?? '', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
@@ -51,7 +51,7 @@ class PrimeCareSduiEngine extends StatelessWidget {
         );
       case 'PrimeCareCard':
         {
-          final childWidget = _renderNode(node['child']);
+          final childWidget = _renderNode(context, node['child']);
           return PrimeCareCard(
             backgroundColor: _parseColor(node['backgroundColor']),
             padding:
@@ -90,12 +90,12 @@ class PrimeCareSduiEngine extends StatelessWidget {
         );
       case 'Expanded':
         {
-          final childWidget = _renderNode(node['child']);
+          final childWidget = _renderNode(context, node['child']);
           return childWidget != null ? Expanded(child: childWidget) : null;
         }
       case 'Padding':
         {
-          final childWidget = _renderNode(node['child']);
+          final childWidget = _renderNode(context, node['child']);
           return childWidget != null
               ? Padding(
                   padding: _parseEdgeInsets(node['padding']) ?? EdgeInsets.zero,
@@ -111,10 +111,10 @@ class PrimeCareSduiEngine extends StatelessWidget {
     }
   }
 
-  List<Widget> _parseChildren(dynamic childrenNode) {
+  List<Widget> _parseChildren(BuildContext context, dynamic childrenNode) {
     if (childrenNode is! List) return [];
     return childrenNode
-        .map((c) => _renderNode(c as Map<String, dynamic>))
+        .map((c) => _renderNode(context, c as Map<String, dynamic>))
         .where((w) => w != null)
         .cast<Widget>()
         .toList();

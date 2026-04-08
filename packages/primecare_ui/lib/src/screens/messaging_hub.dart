@@ -1,12 +1,13 @@
+import 'package:primecare_ui/src/components/audit_log_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/dynamic_page_providers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
+import 'package:primecare_ui/src/design_system/clinical_glass.dart';
+import 'package:primecare_ui/src/components/primecare_stat_card.dart';
+import 'package:primecare_ui/src/components/primecare_action_tile.dart';
 import 'package:primecare_core/theme/app_theme.dart';
-import 'package:primecare_core/providers/dashboard_providers.dart';
+import 'package:primecare_core/dashboard_providers.dart';
 
 class MessagingHubScreen extends ConsumerWidget {
   const MessagingHubScreen({super.key});
@@ -59,7 +60,7 @@ class MessagingHubScreen extends ConsumerWidget {
                         children: [
                           SizedBox(
                             width: cardWidth,
-                            child: KpiStatCard(
+                            child: PrimeCareStatCard(
                               title: 'Activity Level',
                               value: 'High',
                               icon: Icons.show_chart,
@@ -68,7 +69,7 @@ class MessagingHubScreen extends ConsumerWidget {
                           ),
                           SizedBox(
                             width: cardWidth,
-                            child: KpiStatCard(
+                            child: PrimeCareStatCard(
                               title: 'Pending Items',
                               value: '12',
                               icon: Icons.pending_actions,
@@ -77,7 +78,7 @@ class MessagingHubScreen extends ConsumerWidget {
                           ),
                           SizedBox(
                             width: cardWidth,
-                            child: KpiStatCard(
+                            child: PrimeCareStatCard(
                               title: 'System Sync',
                               value: 'Active',
                               icon: Icons.sync,
@@ -86,7 +87,7 @@ class MessagingHubScreen extends ConsumerWidget {
                           ),
                           SizedBox(
                             width: cardWidth,
-                            child: KpiStatCard(
+                            child: PrimeCareStatCard(
                               title: 'Alerts',
                               value: '0',
                               icon: Icons.notification_important,
@@ -117,7 +118,7 @@ class MessagingHubScreen extends ConsumerWidget {
                               ),
                             ),
                             const SizedBox(height: 16),
-                            GlassSurface(
+                            ClinicalGlass(
                               padding: const EdgeInsets.all(24),
                               child: Consumer(
                                 builder: (context, ref, child) {
@@ -183,7 +184,7 @@ class MessagingHubScreen extends ConsumerWidget {
                               ),
                             ),
                             const SizedBox(height: 16),
-                            GlassSurface(
+                            ClinicalGlass(
                               padding: const EdgeInsets.all(16),
                               child: Column(
                                 children: [

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/src/shared/page_template.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_core/providers/dashboard_providers.dart';
+import 'package:primecare_core/dashboard_providers.dart';
 
 class ScrumMasterDashboard extends ConsumerWidget {
   const ScrumMasterDashboard({super.key});
@@ -95,7 +95,7 @@ class _SystemAuditLogSection extends ConsumerWidget {
                 ClinicalGlassPanel(
                   padding: const EdgeInsets.all(16),
                   child: Column(
-                    children: metrics.recentActivity
+                    children: (metrics.recentActivity ?? [])
                         .map(
                           (log) => _buildLogEntry(
                             log.timestamp,

@@ -42,14 +42,14 @@ class PrimeCareBarChart extends StatelessWidget {
                     width: 32,
                     height: value,
                     decoration: BoxDecoration(
-                      color: barColor.withOpacity(0.85),
+                      color: barColor.withValues(alpha: 0.85),
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(6),
                         topRight: Radius.circular(6),
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: barColor.withOpacity(0.3),
+                          color: barColor.withValues(alpha: 0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),

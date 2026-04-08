@@ -35,7 +35,7 @@ class AuthSplitLayout extends StatelessWidget {
                       image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
-                        const Color(0xFF0F172A).withOpacity(0.6),
+                        const Color(0xFF0F172A).withValues(alpha: 0.6),
                         BlendMode.srcOver,
                       ),
                     ),
@@ -48,7 +48,7 @@ class AuthSplitLayout extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          const Color(0xFF0F172A).withOpacity(0.9),
+                          const Color(0xFF0F172A).withValues(alpha: 0.9),
                         ],
                       ),
                     ),
@@ -106,7 +106,7 @@ class AuthSplitLayout extends StatelessWidget {
               image: NetworkImage(imageUrl),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
-                const Color(0xFF0F172A).withOpacity(0.85),
+                const Color(0xFF0F172A).withValues(alpha: 0.85),
                 BlendMode.srcOver,
               ),
             ),
@@ -123,9 +123,9 @@ class AuthSplitLayout extends StatelessWidget {
                     constraints: const BoxConstraints(maxWidth: 480),
                     padding: const EdgeInsets.all(40),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.08),
+                      color: Colors.white.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: Colors.white.withOpacity(0.2)),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

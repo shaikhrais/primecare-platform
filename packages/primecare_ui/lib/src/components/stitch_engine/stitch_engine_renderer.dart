@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
-import '../../office/components/glass_surface.dart';
-import '../../features/generic_feature/domain/models/feature_view_model.dart';
+import 'package:primecare_ui/src/design_system/clinical_glass.dart';
+class FeatureViewModel {
+  final String id;
+  final String title;
+  final String description;
+  final String status;
+  
+  FeatureViewModel({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.status,
+  });
+}
 
 enum StitchLayoutMode { grid, list, telemetry, form, unknown }
 
@@ -91,7 +103,7 @@ class StitchEngineRenderer extends StatelessWidget {
         final item = items[index];
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
-          child: GlassSurface(
+          child: ClinicalGlass(
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
@@ -146,7 +158,7 @@ class StitchEngineRenderer extends StatelessWidget {
 
   Widget _buildFormLayout(bool isMobile) {
     return SingleChildScrollView(
-      child: GlassSurface(
+      child: ClinicalGlass(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -187,7 +199,7 @@ class StitchEngineRenderer extends StatelessWidget {
   }
 
   Widget _buildListCard(FeatureViewModel item) {
-    return GlassSurface(
+    return ClinicalGlass(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +267,7 @@ class StitchEngineRenderer extends StatelessWidget {
   }
 
   Widget _buildGridCard(FeatureViewModel item) {
-    return GlassSurface(
+    return ClinicalGlass(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

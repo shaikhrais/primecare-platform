@@ -33,15 +33,15 @@ class PrimeCareCard extends StatelessWidget {
     final decoration = BoxDecoration(
       color: backgroundColor ?? t.surfaceElevated,
       borderRadius: BorderRadius.circular(20), // Premium smooth curve
-      border: muted ? null : Border.all(color: Colors.grey.withOpacity(0.15), width: 1.0),
+      border: muted ? null : Border.all(color: Colors.grey.withValues(alpha: 0.15), width: 1.0),
       boxShadow: muted ? [] : [
         BoxShadow(
-          color: Colors.black.withOpacity(0.04), // Soft diffused SaaS shadow
+          color: Colors.black.withValues(alpha: 0.04), // Soft diffused SaaS shadow
           blurRadius: 24,
           offset: const Offset(0, 10),
         ),
         BoxShadow(
-          color: Colors.black.withOpacity(0.02),
+          color: Colors.black.withValues(alpha: 0.02),
           blurRadius: 8,
           offset: const Offset(0, 4),
         ),

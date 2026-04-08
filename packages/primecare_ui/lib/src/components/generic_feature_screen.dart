@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/providers/adapter_providers.dart';
+import 'package:primecare_core/adapter_providers.dart';
 import 'stitch_engine/stitch_engine_renderer.dart';
 
 class GenericFeatureScreen extends ConsumerWidget {

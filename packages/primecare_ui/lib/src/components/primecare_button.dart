@@ -100,11 +100,11 @@ class _PrimeCareButtonState extends State<PrimeCareButton> with SingleTickerProv
             )
           : null,
       color: resolveIsPrimary ? null : (_isHovering ? Colors.indigo.shade50 : Colors.white),
-      border: resolveIsPrimary ? null : Border.all(color: Colors.indigo.withOpacity(0.3), width: 1.5),
+      border: resolveIsPrimary ? null : Border.all(color: Colors.indigo.withValues(alpha: 0.3), width: 1.5),
       boxShadow: resolveIsPrimary
           ? [
               BoxShadow(
-                color: Theme.of(context).colorScheme.secondary.withOpacity(_isHovering ? 0.6 : 0.3),
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: _isHovering ? 0.6 : 0.3),
                 blurRadius: _isHovering ? 16 : 8,
                 offset: const Offset(0, 4),
               )

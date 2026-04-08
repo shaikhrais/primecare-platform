@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:primecare_core/services/auth_service.dart';
+import 'package:primecare_core/auth_service.dart';
 import 'auth_layout.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {

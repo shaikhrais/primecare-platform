@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../office/components/glass_surface.dart';
+import 'package:primecare_ui/src/design_system/clinical_glass.dart';
 
 class AuthLayout extends StatefulWidget {
   final Widget child;
@@ -324,7 +324,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  GlassSurface(
+                  ClinicalGlass(
                     padding: const EdgeInsets.all(24),
                     child: Row(
                       children: [

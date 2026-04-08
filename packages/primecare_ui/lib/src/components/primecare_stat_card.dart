@@ -8,6 +8,7 @@ class PrimeCareStatCard extends StatelessWidget {
   final double? delta;
   final String? deltaSuffix;
   final IconData? icon;
+  final Color? iconColor;
 
   const PrimeCareStatCard({
     super.key,
@@ -16,7 +17,9 @@ class PrimeCareStatCard extends StatelessWidget {
     this.delta,
     this.deltaSuffix,
     this.icon,
+    this.iconColor,
   });
+
 
   @override
   Widget build(BuildContext context) {

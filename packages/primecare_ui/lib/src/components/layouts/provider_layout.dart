@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../office/layouts/provider_top_bar.dart';
-import '../../office/layouts/sidebar_layout.dart';
-import 'package:primecare_core/services/auth_service.dart';
+import 'package:primecare_ui/src/components/global_top_bar.dart';
+import 'package:primecare_ui/src/components/universal_role_sidebar.dart';
+import 'package:primecare_core/auth_service.dart';
 
 class ProviderLayout extends ConsumerWidget {
   final Widget child;
@@ -15,28 +15,18 @@ class ProviderLayout extends ConsumerWidget {
     // We dynamically pull the auth role to inject into the Top Bar.
     final role = ref.watch(authProvider).role ?? '';
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: ProviderTopBar(role: role),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth < 900) {
-            return child;
-          }
-          return Row(
-            children: [
-              const SidebarLayout(), // The Luminous Glassmorphic Sidebar
-              Expanded(child: child),
-            ],
-          );
-        },
-      ),
-      drawer: LayoutBuilder(
-        builder: (context, constraints) {
-          return constraints.maxWidth < 900
-              ? const Drawer(child: SidebarLayout())
-              : const SizedBox.shrink();
-        },
+    return UniversalRoleSidebar(
+      currentPath: '/',
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: GlobalTopBar(
+          title: 'Provider',
+          activeRole: role,
+          onLogout: () {
+            ref.read(authProvider.notifier).logout();
+          },
+        ),
+        body: child,
       ),
     );
   }

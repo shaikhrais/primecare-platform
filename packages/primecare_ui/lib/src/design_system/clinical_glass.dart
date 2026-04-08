@@ -33,13 +33,13 @@ class ClinicalGlassPanel extends StatelessWidget {
         border:
             border ??
             Border.all(
-              color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(
+              color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 
                 0.5,
               ),
             ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF191C1E).withOpacity(0.04),
+            color: const Color(0xFF191C1E).withValues(alpha: 0.04),
             blurRadius: 24,
             offset: const Offset(0, 8),
           ),
@@ -156,7 +156,7 @@ class ClinicalSearchTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(
             fontFamily: 'Inter',
-            color: PrimeCareTheme.colors.slateGray.withOpacity(0.5),
+            color: PrimeCareTheme.colors.slateGray.withValues(alpha: 0.5),
           ),
           border: InputBorder.none,
           icon: Icon(Icons.search, color: PrimeCareTheme.colors.slateGray),

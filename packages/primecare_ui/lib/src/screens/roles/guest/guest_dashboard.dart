@@ -2,7 +2,7 @@ import 'package:primecare_ui/src/design_system/clinical_glass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/src/shared/page_template.dart';
-import 'package:primecare_core/providers/dashboard_providers.dart';
+import 'package:primecare_core/dashboard_providers.dart';
 
 class GuestDashboard extends ConsumerWidget {
   const GuestDashboard({super.key});
