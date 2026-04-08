@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:primecare_v4/providers/dynamic_page_providers.dart';
-import '../../../../office/components/page_template.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 import '../../../../office/components/clinical_glass_panel.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';

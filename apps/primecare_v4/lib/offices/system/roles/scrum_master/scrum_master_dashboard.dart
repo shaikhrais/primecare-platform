@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../office/components/page_template.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../providers/dashboard_providers.dart';
 

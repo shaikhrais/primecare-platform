@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../office/components/page_template.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
 
 class PswDocumentsScreen extends StatelessWidget {
   const PswDocumentsScreen({super.key});

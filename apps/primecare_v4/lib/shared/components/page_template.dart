@@ -21,7 +21,17 @@ class KPICardData {
   });
 }
 
-typedef KPIConfig = KPICardData;
+class KPIConfig extends KPICardData {
+  const KPIConfig({
+    required String label,
+    required super.value,
+    super.icon,
+    super.trend,
+    super.trendLabel,
+    super.isUp,
+    super.color,
+  }) : super(title: label);
+}
 
 class PageTemplate extends StatelessWidget {
   final String title;
