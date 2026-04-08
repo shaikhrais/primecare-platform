@@ -9,20 +9,41 @@ class CfoFranchiseFinancialsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Franchise Financials',
-      subtitle: 'Tracking royalty revenue, technology fees, and franchise audits.',
+      subtitle:
+          'Tracking royalty revenue, technology fees, and franchise audits.',
       kpiCards: const [
-        KPIConfig(label: 'Total Royalties', value: '\$2.4M', trend: 'MTD', color: Colors.blue),
-        KPIConfig(label: 'Tech Fee Yield', value: '\$450k', trend: 'Stable', color: Colors.green),
-        KPIConfig(label: 'Outstanding Dues', value: '\$112k', trend: 'High', color: Colors.orange),
+        KPIConfig(
+          label: 'Total Royalties',
+          value: '\$2.4M',
+          trend: 'MTD',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Tech Fee Yield',
+          value: '\$450k',
+          trend: 'Stable',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Outstanding Dues',
+          value: '\$112k',
+          trend: 'High',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Franchise Yield Table', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Franchise Yield Table',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Cross-tabulation of revenues collected vs projected across all franchise operators...'),
+              const Text(
+                'Cross-tabulation of revenues collected vs projected across all franchise operators...',
+              ),
             ],
           ),
         ),

@@ -9,20 +9,41 @@ class OntarioRegionDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Ontario Region Dashboard',
-      subtitle: 'High-level view of provincial growth, new client acquisition, and target pacing specific to Ontario.',
+      subtitle:
+          'High-level view of provincial growth, new client acquisition, and target pacing specific to Ontario.',
       kpiCards: const [
-        KPIConfig(label: 'Q3 Pacing', value: '108%', trend: 'Ahead', color: Colors.green),
-        KPIConfig(label: 'New Clinics', value: '18', trend: 'This Month', color: Colors.blue),
-        KPIConfig(label: 'At Risk', value: '3', trend: 'Churn Watch', color: Colors.orange),
+        KPIConfig(
+          label: 'Q3 Pacing',
+          value: '108%',
+          trend: 'Ahead',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'New Clinics',
+          value: '18',
+          trend: 'This Month',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'At Risk',
+          value: '3',
+          trend: 'Churn Watch',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Provincial Performance', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Provincial Performance',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Detailed analytics breaking down sales targets across the GTA, Ottawa, and surrounding areas...'),
+              const Text(
+                'Detailed analytics breaking down sales targets across the GTA, Ottawa, and surrounding areas...',
+              ),
             ],
           ),
         ),

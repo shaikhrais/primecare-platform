@@ -84,7 +84,7 @@ class RegionalCampaignsScreen extends ConsumerWidget {
                     ),
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           LucideIcons.mapPin,
                           color: PrimeCareTheme.colors.emeraldTeal,
                           size: 16,
@@ -153,7 +153,7 @@ class RegionalCampaignsScreen extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                   Icon(
+                  Icon(
                     LucideIcons.barChart2,
                     color: PrimeCareTheme.colors.emeraldTeal,
                     size: 24,
@@ -173,12 +173,7 @@ class RegionalCampaignsScreen extends ConsumerWidget {
                 PrimeCareTheme.colors.emeraldTeal,
               ),
               const Divider(color: Colors.white12, height: 24),
-              _buildRegionRow(
-                'EMEA',
-                '\$315k Spend',
-                '18%',
-                Colors.blue,
-              ),
+              _buildRegionRow('EMEA', '\$315k Spend', '18%', Colors.blue),
               const Divider(color: Colors.white12, height: 24),
               _buildRegionRow(
                 'APAC',
@@ -217,11 +212,7 @@ class RegionalCampaignsScreen extends ConsumerWidget {
                 color: color.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                LucideIcons.mapPin,
-                size: 16,
-                color: color,
-              ),
+              child: Icon(LucideIcons.mapPin, size: 16, color: color),
             ),
             const SizedBox(width: 12),
             Column(
@@ -246,9 +237,7 @@ class RegionalCampaignsScreen extends ConsumerWidget {
         ),
         Text(
           conversionRate,
-          style: PrimeCareTheme.typography.h3.copyWith(
-            color: color,
-          ),
+          style: PrimeCareTheme.typography.h3.copyWith(color: color),
         ),
       ],
     );

@@ -9,20 +9,41 @@ class PartnershipProposalsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'B2B Proposals',
-      subtitle: 'Track drafted B2B service agreements and revenue share documents.',
+      subtitle:
+          'Track drafted B2B service agreements and revenue share documents.',
       kpiCards: const [
-        KPIConfig(label: 'Drafted', value: '41', trend: 'In Queue', color: Colors.blue),
-        KPIConfig(label: 'Avg Rev Share', value: '14%', trend: 'Margin', color: Colors.green),
-        KPIConfig(label: 'Legal Review', value: '4', trend: 'Pending', color: Colors.orange),
+        KPIConfig(
+          label: 'Drafted',
+          value: '41',
+          trend: 'In Queue',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Avg Rev Share',
+          value: '14%',
+          trend: 'Margin',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Legal Review',
+          value: '4',
+          trend: 'Pending',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Contract Generation', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Contract Generation',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Live feed of partnership documents entering legal compliance verification...'),
+              const Text(
+                'Live feed of partnership documents entering legal compliance verification...',
+              ),
             ],
           ),
         ),

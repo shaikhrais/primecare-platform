@@ -9,20 +9,41 @@ class RegionalOntarioDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Ontario Operations Metrics',
-      subtitle: 'Provides deep-dive operational metrics and compliance tracking specific to Ontario health regulations (OHIP).',
+      subtitle:
+          'Provides deep-dive operational metrics and compliance tracking specific to Ontario health regulations (OHIP).',
       kpiCards: const [
-        KPIConfig(label: 'OHIP Disputes', value: '42', trend: 'Resolved', color: Colors.blue),
-        KPIConfig(label: 'MOH Audits', value: '1', trend: 'Pending', color: Colors.orange),
-        KPIConfig(label: 'Compliance', value: '99%', trend: 'Score', color: Colors.green),
+        KPIConfig(
+          label: 'OHIP Disputes',
+          value: '42',
+          trend: 'Resolved',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'MOH Audits',
+          value: '1',
+          trend: 'Pending',
+          color: Colors.orange,
+        ),
+        KPIConfig(
+          label: 'Compliance',
+          value: '99%',
+          trend: 'Score',
+          color: Colors.green,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Regulatory Compliance', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Regulatory Compliance',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Tracker for provincial billing number registrations and OHIP submission timelines...'),
+              const Text(
+                'Tracker for provincial billing number registrations and OHIP submission timelines...',
+              ),
             ],
           ),
         ),

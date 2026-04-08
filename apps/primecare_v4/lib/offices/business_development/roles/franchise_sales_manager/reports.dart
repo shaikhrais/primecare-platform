@@ -11,18 +11,38 @@ class FranchiseReportsScreen extends StatelessWidget {
       title: 'Sales Reports',
       subtitle: 'Generate board-ready analytics on franchise expansion ROI.',
       kpiCards: const [
-        KPIConfig(label: 'Generated L30', value: '12', trend: 'Reports', color: Colors.blue),
-        KPIConfig(label: 'Data Sync', value: 'Live', trend: 'Database', color: Colors.green),
-        KPIConfig(label: 'Sharing', value: '24', trend: 'Exec Views', color: Colors.orange),
+        KPIConfig(
+          label: 'Generated L30',
+          value: '12',
+          trend: 'Reports',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Data Sync',
+          value: 'Live',
+          trend: 'Database',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Sharing',
+          value: '24',
+          trend: 'Exec Views',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Board Packages', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Board Packages',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Automated collation of sales performance, marketing attribution, and signed territory values into presentation formats...'),
+              const Text(
+                'Automated collation of sales performance, marketing attribution, and signed territory values into presentation formats...',
+              ),
             ],
           ),
         ),

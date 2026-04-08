@@ -83,7 +83,7 @@ class ShiftsScreen extends ConsumerWidget {
                     ),
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           LucideIcons.satellite,
                           color: PrimeCareTheme.colors.emeraldTeal,
                           size: 16,
@@ -214,8 +214,8 @@ class ShiftsScreen extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    LucideIcons.route,
+                  Icon(
+                    LucideIcons.mapPin,
                     color: PrimeCareTheme.colors.emeraldTeal,
                     size: 24,
                   ),

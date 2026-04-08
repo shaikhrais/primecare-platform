@@ -8,7 +8,8 @@ class PswDocumentsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const PageTemplate(
       title: 'Care Documents',
-      subtitle: 'Access client care plans, agency policies, and specific instructions.',
+      subtitle:
+          'Access client care plans, agency policies, and specific instructions.',
       kpis: [],
       children: [],
     );

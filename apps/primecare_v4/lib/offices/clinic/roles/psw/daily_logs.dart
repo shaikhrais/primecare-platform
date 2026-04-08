@@ -8,7 +8,8 @@ class PswDailyLogsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const PageTemplate(
       title: 'Daily Care Logs',
-      subtitle: 'Comprehensive daily summaries of client care and observations.',
+      subtitle:
+          'Comprehensive daily summaries of client care and observations.',
       kpis: [],
       children: [],
     );

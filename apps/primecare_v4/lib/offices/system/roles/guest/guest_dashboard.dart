@@ -1,3 +1,4 @@
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_v4/shared/components/page_template.dart';
@@ -10,8 +11,8 @@ class GuestDashboard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Welcome to PrimeCare V4',
-      subtitle: 'Institutional Clinical Excellence. Scalable. Precise. Reliable.',
-      metricsProvider: dashboardMetricsProvider,
+      subtitle:
+          'Institutional Clinical Excellence. Scalable. Precise. Reliable.',
       sections: const [
         _ClinicalEcosystemSection(),
         _InstitutionalInquirySection(),
@@ -65,7 +66,12 @@ class _ClinicalEcosystemSection extends StatelessWidget {
     );
   }
 
-  Widget _buildServiceRow(String title, String subtitle, IconData icon, Color color) {
+  Widget _buildServiceRow(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color color,
+  ) {
     return Row(
       children: [
         Container(
@@ -83,7 +89,11 @@ class _ClinicalEcosystemSection extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 subtitle,
@@ -119,7 +129,10 @@ class _InstitutionalInquirySection extends StatelessWidget {
           const SizedBox(height: 16),
           const Text(
             'Contact our Intake Hub',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.blueGrey,
+            ),
           ),
           const SizedBox(height: 16),
           _buildInputField('Your Institutional Name'),
@@ -130,15 +143,22 @@ class _InstitutionalInquirySection extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Inquiry Submitted Successfully!')),
+                const SnackBar(
+                  content: Text('Inquiry Submitted Successfully!'),
+                ),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.tealAccent.withValues(alpha: 0.1),
                 foregroundColor: Colors.tealAccent,
                 padding: const EdgeInsets.all(16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-              child: const Text('SUBMIT INQUIRY', style: TextStyle(fontWeight: FontWeight.bold)),
+              child: const Text(
+                'SUBMIT INQUIRY',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
@@ -153,7 +173,10 @@ class _InstitutionalInquirySection extends StatelessWidget {
         color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(label, style: const TextStyle(color: Colors.blueGrey, fontSize: 14)),
+      child: Text(
+        label,
+        style: const TextStyle(color: Colors.blueGrey, fontSize: 14),
+      ),
     );
   }
 }

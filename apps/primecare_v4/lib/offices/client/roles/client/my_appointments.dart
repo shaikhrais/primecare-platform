@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
@@ -95,21 +96,24 @@ class MyAppointmentsScreen extends StatelessWidget {
                         child: Text(
                           'Reschedule',
                           style: TextStyle(
-                              color: PrimeCareTheme.onSurfaceVariant),
+                            color: PrimeCareTheme.onSurfaceVariant,
+                          ),
                         ),
                       ),
                       const SizedBox(width: PrimeCareTheme.spacing3),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: PrimeCareTheme.primary.withOpacity(0.1),
+                          backgroundColor: PrimeCareTheme.primary.withOpacity(
+                            0.1,
+                          ),
                           foregroundColor: PrimeCareTheme.primary,
                           elevation: 0,
                         ),
                         child: const Text('View Details'),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

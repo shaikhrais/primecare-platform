@@ -197,7 +197,7 @@ class _RpnVitalsScreenState extends ConsumerState<RpnVitalsScreen> {
                             'Respiration',
                             'rpm',
                             _respController,
-                            LucideIcons.lungs,
+                            LucideIcons.wind,
                           ),
                         ),
                       ],

@@ -11,18 +11,38 @@ class ComplianceIncidentReviewScreen extends StatelessWidget {
       title: 'Incident Review',
       subtitle: 'Triage, log, and assign investigators to safety occurrences.',
       kpiCards: const [
-        KPIConfig(label: 'Reported Today', value: '4', trend: '+1 vs avg', color: Colors.orange),
-        KPIConfig(label: 'Unassigned', value: '2', trend: 'Needs Triage', color: Colors.red),
-        KPIConfig(label: 'Closed This Week', value: '18', trend: 'On Track', color: Colors.green),
+        KPIConfig(
+          label: 'Reported Today',
+          value: '4',
+          trend: '+1 vs avg',
+          color: Colors.orange,
+        ),
+        KPIConfig(
+          label: 'Unassigned',
+          value: '2',
+          trend: 'Needs Triage',
+          color: Colors.red,
+        ),
+        KPIConfig(
+          label: 'Closed This Week',
+          value: '18',
+          trend: 'On Track',
+          color: Colors.green,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Intake Queue', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Intake Queue',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Unified queue for reviewing newly submitted incident reports from all regional facilities...'),
+              const Text(
+                'Unified queue for reviewing newly submitted incident reports from all regional facilities...',
+              ),
             ],
           ),
         ),

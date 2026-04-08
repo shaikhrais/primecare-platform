@@ -115,7 +115,6 @@ class ClientDashboardScreen extends ConsumerWidget {
                           PrimeCareTheme.radiusLg,
                         ),
                       ),
-                      ),
                       child: Row(
                         children: [
                           Container(

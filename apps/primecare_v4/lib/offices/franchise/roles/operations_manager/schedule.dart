@@ -92,7 +92,7 @@ class ScheduleScreen extends StatelessWidget {
             const SizedBox(width: 12),
             _buildActionIconButton(
               context,
-              LucideIcons.settingsSliders,
+              LucideIcons.settings,
               'Optimization Rules',
             ),
           ],

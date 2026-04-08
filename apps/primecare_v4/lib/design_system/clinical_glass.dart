@@ -1,5 +1,8 @@
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:flutter/material.dart';
 import 'primecare_theme.dart';
+
+typedef ClinicalGlass = ClinicalGlassPanel;
 
 class ClinicalGlassPanel extends StatelessWidget {
   final Widget child;

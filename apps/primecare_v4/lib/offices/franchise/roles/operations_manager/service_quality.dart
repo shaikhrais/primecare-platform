@@ -124,7 +124,7 @@ class ServiceQualityScreen extends StatelessWidget {
             context,
             'Avg CSAT Score',
             '4.8/5',
-            LucideIcons.heartCore,
+            LucideIcons.heart,
             '+0.2 YoY',
             PrimeCareTheme.emeraldTeal,
           ),

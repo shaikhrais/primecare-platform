@@ -9,20 +9,41 @@ class CeoOrganizationMapScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Organization Map',
-      subtitle: 'Hierarchical tree of thousands of employees, grouped by office, role, and geography.',
+      subtitle:
+          'Hierarchical tree of thousands of employees, grouped by office, role, and geography.',
       kpiCards: const [
-        KPIConfig(label: 'Total Personnel', value: '8,421', trend: '+115', color: Colors.blue),
-        KPIConfig(label: 'Management Ratio', value: '1:14', trend: 'Efficient', color: Colors.green),
-        KPIConfig(label: 'Open Reqs', value: '342', trend: '+12', color: Colors.orange),
+        KPIConfig(
+          label: 'Total Personnel',
+          value: '8,421',
+          trend: '+115',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Management Ratio',
+          value: '1:14',
+          trend: 'Efficient',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Open Reqs',
+          value: '342',
+          trend: '+12',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Interactive Org Chart', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Interactive Org Chart',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Deeply nested, searchable visual tree connecting the boardroom to individual remote clinical workers...'),
+              const Text(
+                'Deeply nested, searchable visual tree connecting the boardroom to individual remote clinical workers...',
+              ),
             ],
           ),
         ),

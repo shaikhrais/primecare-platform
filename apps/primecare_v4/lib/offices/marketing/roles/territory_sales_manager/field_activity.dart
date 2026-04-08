@@ -12,7 +12,8 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Field Activity',
-      subtitle: 'Live tracking of local marketing managers and sales reps in the field.',
+      subtitle:
+          'Live tracking of local marketing managers and sales reps in the field.',
       headerTrailing: Row(
         children: [
           ClinicalGlassButton(
@@ -77,9 +78,8 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
                     height: 350,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
-                        alpha: 0.3,
-                      ),
+                      color: PrimeCareTheme.colors.surfaceContainerHighest
+                          .withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(24),
                       image: const DecorationImage(
                         image: NetworkImage(
@@ -94,7 +94,10 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
                     top: 24,
                     left: 24,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.9),
                         borderRadius: BorderRadius.circular(20),
@@ -125,9 +128,24 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  _buildMapPin(top: 100, left: 200, label: 'MJ', isActive: true),
-                  _buildMapPin(top: 150, left: 350, label: 'SL', isActive: true),
-                  _buildMapPin(top: 250, left: 180, label: 'RK', isActive: false),
+                  _buildMapPin(
+                    top: 100,
+                    left: 200,
+                    label: 'MJ',
+                    isActive: true,
+                  ),
+                  _buildMapPin(
+                    top: 150,
+                    left: 350,
+                    label: 'SL',
+                    isActive: true,
+                  ),
+                  _buildMapPin(
+                    top: 250,
+                    left: 180,
+                    label: 'RK',
+                    isActive: false,
+                  ),
                   _buildMapPin(top: 80, left: 450, label: 'JD', isActive: true),
                 ],
               ),
@@ -200,7 +218,11 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
                       color: PrimeCareTheme.colors.navyIndigo,
                     ),
                   ),
-                  Icon(LucideIcons.award, size: 20, color: Colors.amber.shade700),
+                  Icon(
+                    LucideIcons.award,
+                    size: 20,
+                    color: Colors.amber.shade700,
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
@@ -287,9 +309,7 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
 
   Widget _buildActivityTimelineSeparator() {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 19,
-      ),
+      padding: const EdgeInsets.only(left: 19),
       child: Container(
         height: 24,
         width: 2,
@@ -307,10 +327,14 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
     required bool isSuccess,
   }) {
     IconData typeIcon;
-    if (type == 'Meeting') typeIcon = LucideIcons.users;
-    else if (type == 'Drop-off') typeIcon = LucideIcons.package;
-    else if (type == 'Call') typeIcon = LucideIcons.phone;
-    else typeIcon = LucideIcons.flag;
+    if (type == 'Meeting')
+      typeIcon = LucideIcons.users;
+    else if (type == 'Drop-off')
+      typeIcon = LucideIcons.package;
+    else if (type == 'Call')
+      typeIcon = LucideIcons.phone;
+    else
+      typeIcon = LucideIcons.flag;
 
     Color stateColor = isSuccess
         ? PrimeCareTheme.colors.emeraldTeal
@@ -396,7 +420,7 @@ class TerritoryFieldActivityScreen extends ConsumerWidget {
           ),
           child: Center(
             child: Text(
-               rank.toString(),
+              rank.toString(),
               style: PrimeCareTheme.typography.label.copyWith(
                 color: isTop
                     ? Colors.amber.shade700

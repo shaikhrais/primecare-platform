@@ -9,20 +9,41 @@ class PartnerPortalDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Partner Portal View',
-      subtitle: 'Provide a portal interface for partners to view their own referral metrics and payout history.',
+      subtitle:
+          'Provide a portal interface for partners to view their own referral metrics and payout history.',
       kpiCards: const [
-        KPIConfig(label: 'Active Logins', value: '4.2k', trend: 'L30 Days', color: Colors.blue),
-        KPIConfig(label: 'Payouts', value: '\$142k', trend: 'Disbursed', color: Colors.green),
-        KPIConfig(label: 'Support Tix', value: '12', trend: 'Open', color: Colors.orange),
+        KPIConfig(
+          label: 'Active Logins',
+          value: '4.2k',
+          trend: 'L30 Days',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Payouts',
+          value: '\$142k',
+          trend: 'Disbursed',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Support Tix',
+          value: '12',
+          trend: 'Open',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('External Portal Metrics', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'External Portal Metrics',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Admin overview of how often external partners engage with their dedicated dashboards...'),
+              const Text(
+                'Admin overview of how often external partners engage with their dedicated dashboards...',
+              ),
             ],
           ),
         ),

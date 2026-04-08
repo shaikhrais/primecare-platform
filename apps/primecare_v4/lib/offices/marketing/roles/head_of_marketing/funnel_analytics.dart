@@ -12,7 +12,8 @@ class FunnelAnalyticsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Funnel Analytics Dashboard',
-      subtitle: 'Comprehensive breakdown of the patient acquisition funnel over the last 30 days.',
+      subtitle:
+          'Comprehensive breakdown of the patient acquisition funnel over the last 30 days.',
       headerTrailing: Row(
         children: [
           ClinicalGlassButton(
@@ -173,7 +174,11 @@ class FunnelAnalyticsScreen extends ConsumerWidget {
                 PrimeCareTheme.colors.emeraldTeal.withValues(alpha: 0.6),
               ),
               const SizedBox(height: 24),
-              _buildChannelRow('Referrals', 10, PrimeCareTheme.colors.slateGray),
+              _buildChannelRow(
+                'Referrals',
+                10,
+                PrimeCareTheme.colors.slateGray,
+              ),
 
               const SizedBox(height: 32),
               Text(

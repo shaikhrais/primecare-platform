@@ -9,20 +9,41 @@ class TerritoryOutreachScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Municipal Outreach',
-      subtitle: 'Log interactions with local government zoning boards and land developers.',
+      subtitle:
+          'Log interactions with local government zoning boards and land developers.',
       kpiCards: const [
-        KPIConfig(label: 'Zoning Apps', value: '14', trend: 'Pending', color: Colors.orange),
-        KPIConfig(label: 'Approved', value: '38', trend: 'YTD', color: Colors.green),
-        KPIConfig(label: 'Meetings', value: '24', trend: 'Next 30 Days', color: Colors.blue),
+        KPIConfig(
+          label: 'Zoning Apps',
+          value: '14',
+          trend: 'Pending',
+          color: Colors.orange,
+        ),
+        KPIConfig(
+          label: 'Approved',
+          value: '38',
+          trend: 'YTD',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Meetings',
+          value: '24',
+          trend: 'Next 30 Days',
+          color: Colors.blue,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Government & Real Estate Relations', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Government & Real Estate Relations',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('CRM tailored for tracking bureaucratic lobbying and commercial real estate negotiations...'),
+              const Text(
+                'CRM tailored for tracking bureaucratic lobbying and commercial real estate negotiations...',
+              ),
             ],
           ),
         ),

@@ -11,18 +11,38 @@ class TrainerAssignmentsScreen extends StatelessWidget {
       title: 'Trainer Assignments',
       subtitle: 'Map senior educators to specific facility training rollouts.',
       kpiCards: const [
-        KPIConfig(label: 'Active Trainers', value: '142', trend: 'Deployed', color: Colors.blue),
-        KPIConfig(label: 'Utilization', value: '84%', trend: 'Optimal', color: Colors.green),
-        KPIConfig(label: 'Benched', value: '12', trend: 'Available', color: Colors.orange),
+        KPIConfig(
+          label: 'Active Trainers',
+          value: '142',
+          trend: 'Deployed',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Utilization',
+          value: '84%',
+          trend: 'Optimal',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Benched',
+          value: '12',
+          trend: 'Available',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Deployment Schedule', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Deployment Schedule',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Gantt-style calendar visualizing which educators are currently embedded at which physical facilities...'),
+              const Text(
+                'Gantt-style calendar visualizing which educators are currently embedded at which physical facilities...',
+              ),
             ],
           ),
         ),

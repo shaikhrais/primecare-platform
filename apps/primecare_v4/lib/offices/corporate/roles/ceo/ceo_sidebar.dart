@@ -21,7 +21,6 @@ class CeoSidebar extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, IconData icon, String label) {
-<<<<<<< HEAD
     return ListTile(
       key: const Key('data-status-id=corporate-ceo-ceo-action-1'),
       leading: Icon(icon, color: AppTheme.primary),
@@ -30,8 +29,5 @@ class CeoSidebar extends StatelessWidget {
         '/dashboard/ceo/${label.toLowerCase().replaceAll(' ', '-')}',
       ),
     );
-=======
-    return ListTile(key: const Key('data-status-id=corporate-ceo-ceo-action-1'), leading: Icon(icon, color: AppTheme.primary), title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)), onTap: () => context.go('/dashboard/ceo/${label.toLowerCase().replaceAll(' ', '-')}'),);
->>>>>>> 5ab5f2f0 (feat: Connect API Gateway to Prisma DB and migrate Sidebar to GoRouter)
   }
 }

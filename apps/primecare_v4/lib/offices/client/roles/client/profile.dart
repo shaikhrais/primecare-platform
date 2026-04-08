@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
@@ -72,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: PrimeCareTheme.spacing6),
-                  
+
                   // Contact Details
                   Row(
                     children: [
@@ -92,34 +93,20 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: PrimeCareTheme.spacing6),
-                  
+
                   // Emergency Contacts
-                  Text(
-                    'Emergency Contact',
-                    style: PrimeCareTheme.titleMedium,
-                  ),
+                  Text('Emergency Contact', style: PrimeCareTheme.titleMedium),
                   const SizedBox(height: PrimeCareTheme.spacing4),
                   Row(
                     children: [
+                      Expanded(child: _buildInfoField('Name', 'Margaret M.')),
+                      const SizedBox(width: PrimeCareTheme.spacing4),
                       Expanded(
-                        child: _buildInfoField(
-                          'Name',
-                          'Margaret M.',
-                        ),
+                        child: _buildInfoField('Relationship', 'Daughter'),
                       ),
                       const SizedBox(width: PrimeCareTheme.spacing4),
                       Expanded(
-                        child: _buildInfoField(
-                          'Relationship',
-                          'Daughter',
-                        ),
-                      ),
-                      const SizedBox(width: PrimeCareTheme.spacing4),
-                      Expanded(
-                        child: _buildInfoField(
-                          'Phone',
-                          '(555) 987-6543',
-                        ),
+                        child: _buildInfoField('Phone', '(555) 987-6543'),
                       ),
                     ],
                   ),
@@ -153,10 +140,7 @@ class ProfileScreen extends StatelessWidget {
             color: PrimeCareTheme.surfaceContainerLowest.withOpacity(0.5),
             borderRadius: BorderRadius.circular(PrimeCareTheme.radiusMd),
           ),
-          child: Text(
-            value,
-            style: PrimeCareTheme.bodyLarge,
-          ),
+          child: Text(value, style: PrimeCareTheme.bodyLarge),
         ),
       ],
     );

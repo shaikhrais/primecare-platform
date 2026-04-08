@@ -12,7 +12,8 @@ class LocalCampaignsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Regional Campaigns Heatmap',
-      subtitle: 'Orchestrating neighborhood campaigns, clinic lead generation, and local brand presence.',
+      subtitle:
+          'Orchestrating neighborhood campaigns, clinic lead generation, and local brand presence.',
       headerTrailing: Row(
         children: [
           ClinicalGlassButton(
@@ -105,7 +106,8 @@ class LocalCampaignsScreen extends ConsumerWidget {
                 height: 400,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: PrimeCareTheme.colors.surfaceContainerHighest.withOpacity(0.3),
+                  color: PrimeCareTheme.colors.surfaceContainerHighest
+                      .withOpacity(0.3),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(24),
                     bottomRight: Radius.circular(24),
@@ -128,7 +130,9 @@ class LocalCampaignsScreen extends ConsumerWidget {
                       Icon(
                         LucideIcons.globe,
                         size: 48,
-                        color: PrimeCareTheme.colors.emeraldTeal.withOpacity(0.8),
+                        color: PrimeCareTheme.colors.emeraldTeal.withOpacity(
+                          0.8,
+                        ),
                       ),
                       const SizedBox(height: 16),
                       Text(
@@ -223,8 +227,10 @@ class LocalCampaignsScreen extends ConsumerWidget {
     String performance, {
     bool isPaused = false,
   }) {
-    Color iconColor = isPaused ? PrimeCareTheme.colors.slateGray : PrimeCareTheme.colors.emeraldTeal;
-    
+    Color iconColor = isPaused
+        ? PrimeCareTheme.colors.slateGray
+        : PrimeCareTheme.colors.emeraldTeal;
+
     return Row(
       children: [
         Container(
@@ -233,11 +239,7 @@ class LocalCampaignsScreen extends ConsumerWidget {
             color: iconColor.withOpacity(0.1),
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            LucideIcons.store,
-            color: iconColor,
-            size: 20,
-          ),
+          child: Icon(LucideIcons.store, color: iconColor, size: 20),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -300,7 +302,9 @@ class LocalCampaignsScreen extends ConsumerWidget {
     required String target,
     required bool isSuccess,
   }) {
-    Color stateColor = isSuccess ? PrimeCareTheme.colors.emeraldTeal : Colors.amber.shade700;
+    Color stateColor = isSuccess
+        ? PrimeCareTheme.colors.emeraldTeal
+        : Colors.amber.shade700;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

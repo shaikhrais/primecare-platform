@@ -4,7 +4,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:primecare_v4/providers/dynamic_page_providers.dart';
 import 'package:primecare_v4/shared/components/page_template.dart';
-import '../../../../office/components/clinical_glass_panel.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../providers/dashboard_providers.dart';
@@ -19,12 +19,13 @@ class CeoSettingsView extends ConsumerWidget {
 
     return PageTemplate(
       title: 'Executive System Preferences',
-      subtitle: 'Overview and analytical breakdown for Executive System Preferences.',
-      headerIcon: LucideIcons.settings,
+      subtitle:
+          'Overview and analytical breakdown for Executive System Preferences.',
+      iconData: LucideIcons.settings,
       actions: [
         FilledButton.icon(
           onPressed: () {},
-          icon: const Icon(LucideIcons.save, size: 16),
+          iconData: const Icon(LucideIcons.save, size: 16),
           label: const Text('Save Changes'),
           style: FilledButton.styleFrom(
             backgroundColor: PrimeCareTheme.emeraldTeal,
@@ -44,8 +45,8 @@ class CeoSettingsView extends ConsumerWidget {
                 final cardWidth = constraints.maxWidth > 1200
                     ? (constraints.maxWidth - 48) / 4
                     : (constraints.maxWidth > 600
-                        ? (constraints.maxWidth - 16) / 2
-                        : constraints.maxWidth);
+                          ? (constraints.maxWidth - 16) / 2
+                          : constraints.maxWidth);
                 return Wrap(
                   spacing: 16,
                   runSpacing: 16,
@@ -55,7 +56,7 @@ class CeoSettingsView extends ConsumerWidget {
                       child: KpiStatCard(
                         title: 'Activity Level',
                         value: 'High',
-                        icon: LucideIcons.activity,
+                        iconData: LucideIcons.activity,
                         iconColor: PrimeCareTheme.emeraldTeal,
                       ),
                     ),
@@ -64,7 +65,7 @@ class CeoSettingsView extends ConsumerWidget {
                       child: KpiStatCard(
                         title: 'Pending Items',
                         value: '12',
-                        icon: LucideIcons.clock,
+                        iconData: LucideIcons.clock,
                         iconColor: Colors.orange,
                       ),
                     ),
@@ -73,7 +74,7 @@ class CeoSettingsView extends ConsumerWidget {
                       child: KpiStatCard(
                         title: 'System Sync',
                         value: 'Active',
-                        icon: LucideIcons.refreshCw,
+                        iconData: LucideIcons.refreshCw,
                         iconColor: PrimeCareTheme.navyIndigo,
                       ),
                     ),
@@ -82,7 +83,7 @@ class CeoSettingsView extends ConsumerWidget {
                       child: KpiStatCard(
                         title: 'Alerts',
                         value: '0',
-                        icon: LucideIcons.alertCircle,
+                        iconData: LucideIcons.alertCircle,
                         iconColor: Colors.red,
                       ),
                     ),
@@ -101,31 +102,29 @@ class CeoSettingsView extends ConsumerWidget {
                   flex: 2,
                   child: ClinicalGlassPanel(
                     title: 'Executive System Preferences Ledger',
-                    icon: LucideIcons.sliders,
+                    iconData: LucideIcons.sliders,
                     child: Consumer(
                       builder: (context, ref, child) {
                         final dataAsync = ref.watch(
-                          dynamicPageProvider(
-                            'officeCeoSettingsView',
-                          ),
+                          dynamicPageProvider('officeCeoSettingsView'),
                         );
                         return dataAsync.when(
-                          loading: () => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                          loading: () =>
+                              const Center(child: CircularProgressIndicator()),
                           error: (e, st) => Text('Error: $e'),
                           data: (items) {
                             if (items.isEmpty) {
                               return Text(
                                 'No records found.',
                                 style: TextStyle(
-                                  color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.6),
+                                  color: PrimeCareTheme.navyIndigo.withValues(
+                                    alpha: 0.6,
+                                  ),
                                 ),
                               );
                             }
                             return Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: items.map((item) {
                                 return Column(
                                   children: [
@@ -136,7 +135,8 @@ class CeoSettingsView extends ConsumerWidget {
                                       PrimeCareTheme.emeraldTeal,
                                     ),
                                     Divider(
-                                      color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.1),
+                                      color: PrimeCareTheme.navyIndigo
+                                          .withValues(alpha: 0.1),
                                       height: 24,
                                     ),
                                   ],
@@ -154,25 +154,27 @@ class CeoSettingsView extends ConsumerWidget {
                   flex: 1,
                   child: ClinicalGlassPanel(
                     title: 'Change Log',
-                    icon: LucideIcons.history,
+                    iconData: LucideIcons.history,
                     child: Column(
                       children: [
                         AuditLogTile(
                           title: 'Update Triggered',
                           subtitle: 'Automated policy sync.',
                           timestamp: '1 Hr Ago',
-                          icon: LucideIcons.history,
+                          iconData: LucideIcons.history,
                           iconColor: PrimeCareTheme.emeraldTeal,
                         ),
                         Divider(
-                          color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.1),
+                          color: PrimeCareTheme.navyIndigo.withValues(
+                            alpha: 0.1,
+                          ),
                           height: 16,
                         ),
                         AuditLogTile(
                           title: 'Audit Warning',
                           subtitle: 'Item requires review.',
                           timestamp: '3 Hrs Ago',
-                          icon: LucideIcons.alertTriangle,
+                          iconData: LucideIcons.alertTriangle,
                           iconColor: Colors.orange,
                         ),
                       ],
@@ -220,8 +222,8 @@ class CeoSettingsView extends ConsumerWidget {
                 Text(
                   subtitle,
                   style: TextStyle(
-                    color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.6), 
-                    fontSize: 12
+                    color: PrimeCareTheme.navyIndigo.withValues(alpha: 0.6),
+                    fontSize: 12,
                   ),
                 ),
               ],

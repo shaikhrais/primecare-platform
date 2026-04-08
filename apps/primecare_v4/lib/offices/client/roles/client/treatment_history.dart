@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_v4/design_system/primecare_theme.dart';
 import 'package:primecare_v4/design_system/clinical_glass.dart';
@@ -92,7 +93,9 @@ class TreatmentHistoryScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(PrimeCareTheme.spacing4),
                     decoration: BoxDecoration(
                       color: PrimeCareTheme.surfaceContainerLowest,
-                      borderRadius: BorderRadius.circular(PrimeCareTheme.radiusMd),
+                      borderRadius: BorderRadius.circular(
+                        PrimeCareTheme.radiusMd,
+                      ),
                     ),
                     child: Text(
                       'Patient reports reduced pain in lower back after morning routine. Recommended continuation of current exercise plan with addition of core strengthening. Follow up in 4 weeks.',

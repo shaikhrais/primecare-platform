@@ -11,18 +11,38 @@ class CeoStrategicKpisScreen extends StatelessWidget {
       title: 'Strategic KPIs',
       subtitle: 'Dashboard tracking 5-year longitudinal goals and ESG scores.',
       kpiCards: const [
-        KPIConfig(label: 'Net Zero Target', value: '34%', trend: 'On Track', color: Colors.green),
-        KPIConfig(label: 'Societal Impact', value: 'A+', trend: 'Stable', color: Colors.purple),
-        KPIConfig(label: 'Digital Transformation', value: '82%', trend: 'Ahead', color: Colors.blue),
+        KPIConfig(
+          label: 'Net Zero Target',
+          value: '34%',
+          trend: 'On Track',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Societal Impact',
+          value: 'A+',
+          trend: 'Stable',
+          color: Colors.purple,
+        ),
+        KPIConfig(
+          label: 'Digital Transformation',
+          value: '82%',
+          trend: 'Ahead',
+          color: Colors.blue,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Long Term Objectives', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Long Term Objectives',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Progress tracking for massive paradigm-shifting goals...'),
+              const Text(
+                'Progress tracking for massive paradigm-shifting goals...',
+              ),
             ],
           ),
         ),

@@ -46,7 +46,10 @@ class PageTemplate extends StatelessWidget {
   final List<KPICardData>? kpiCards;
   final List<Widget>? mainContent;
   final List<Widget>? sidebarContent;
-  final List<Widget>? sections; // Added to map to mainContent for Stitch MCP UI components
+  final List<Widget>?
+  sections; // Added to map to mainContent for Stitch MCP UI components
+  final List<KPICardData>? kpis; // Alias for kpiCards
+  final List<Widget>? children; // Alias for mainContent
 
   const PageTemplate({
     super.key,
@@ -60,6 +63,8 @@ class PageTemplate extends StatelessWidget {
     this.mainContent,
     this.sidebarContent,
     this.sections,
+    this.kpis,
+    this.children,
   });
 
   @override
@@ -155,11 +160,14 @@ class PageTemplate extends StatelessWidget {
   }
 
   Widget _buildAlternativeBody(BuildContext context) {
-    if (kpiCards == null && mainContent == null && sidebarContent == null && sections == null) {
+    final effectiveKpis = kpiCards ?? kpis;
+    final effectiveContent = mainContent ?? sections ?? children;
+
+    if (effectiveKpis == null &&
+        effectiveContent == null &&
+        sidebarContent == null) {
       return const SizedBox.shrink();
     }
-
-    final contentToRender = mainContent ?? sections;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +177,7 @@ class PageTemplate extends StatelessWidget {
           flex: 3,
           child: ListView(
             children: [
-              if (kpiCards != null && kpiCards!.isNotEmpty) ...[
+              if (effectiveKpis != null && effectiveKpis.isNotEmpty) ...[
                 LayoutBuilder(
                   builder: (context, constraints) {
                     final int crossAxisCount = constraints.maxWidth < 600
@@ -184,16 +192,16 @@ class PageTemplate extends StatelessWidget {
                         mainAxisSpacing: PrimeCareTheme.spacing4,
                         childAspectRatio: 2.0,
                       ),
-                      itemCount: kpiCards!.length,
+                      itemCount: effectiveKpis.length,
                       itemBuilder: (context, index) {
-                        return _buildKpiCard(kpiCards![index]);
+                        return _buildKpiCard(effectiveKpis[index]);
                       },
                     );
                   },
                 ),
                 const SizedBox(height: PrimeCareTheme.spacing5),
               ],
-              if (contentToRender != null) ...contentToRender,
+              if (effectiveContent != null) ...effectiveContent,
             ],
           ),
         ),

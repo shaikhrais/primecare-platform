@@ -11,9 +11,24 @@ class BDMLeadsScreen extends StatelessWidget {
       title: 'Lead Management',
       subtitle: 'View and organize raw leads generated from campaigns.',
       kpiCards: const [
-        KPIConfig(label: 'New Leads', value: '412', trend: 'This Week', color: Colors.blue),
-        KPIConfig(label: 'Conversion', value: '8.4%', trend: 'To MQL', color: Colors.green),
-        KPIConfig(label: 'Stale Leads', value: '1,041', trend: 'L90 Days', color: Colors.orange),
+        KPIConfig(
+          label: 'New Leads',
+          value: '412',
+          trend: 'This Week',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Conversion',
+          value: '8.4%',
+          trend: 'To MQL',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Stale Leads',
+          value: '1,041',
+          trend: 'L90 Days',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
@@ -22,7 +37,9 @@ class BDMLeadsScreen extends StatelessWidget {
             children: [
               Text('Lead Inbox', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Triaging center for all raw prospect contact information gathered across channels...'),
+              const Text(
+                'Triaging center for all raw prospect contact information gathered across channels...',
+              ),
             ],
           ),
         ),

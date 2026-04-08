@@ -11,18 +11,38 @@ class CourseLibraryScreen extends StatelessWidget {
       title: 'Course Library',
       subtitle: 'Track uploaded SCORM modules and curriculum updates.',
       kpiCards: const [
-        KPIConfig(label: 'Total Courses', value: '412', trend: 'Global Cat', color: Colors.blue),
-        KPIConfig(label: 'New L30D', value: '14', trend: 'Added', color: Colors.green),
-        KPIConfig(label: 'Outdated', value: '7', trend: 'Refactor Req', color: Colors.orange),
+        KPIConfig(
+          label: 'Total Courses',
+          value: '412',
+          trend: 'Global Cat',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'New L30D',
+          value: '14',
+          trend: 'Added',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Outdated',
+          value: '7',
+          trend: 'Refactor Req',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Module Inventory', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Module Inventory',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Grid view of all internal educational assets, sortable by compliance tag, difficulty, and expiration date...'),
+              const Text(
+                'Grid view of all internal educational assets, sortable by compliance tag, difficulty, and expiration date...',
+              ),
             ],
           ),
         ),

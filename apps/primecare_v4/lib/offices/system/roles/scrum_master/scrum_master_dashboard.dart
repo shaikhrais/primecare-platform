@@ -1,3 +1,4 @@
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_v4/shared/components/page_template.dart';
@@ -12,13 +13,8 @@ class ScrumMasterDashboard extends ConsumerWidget {
     return PageTemplate(
       title: 'Operations Terminal',
       subtitle: 'Technical audit and real-time backend orchestration.',
-      metricsProvider: dashboardMetricsProvider,
-      sections: const [
-        _SystemAuditLogSection(),
-      ],
-      actions: [
-        _buildPulseIndicator('SYSTEM_HEALTH: NOMINAL'),
-      ],
+      sections: const [_SystemAuditLogSection()],
+      actions: [_buildPulseIndicator('SYSTEM_HEALTH: NOMINAL')],
     );
   }
 
@@ -66,23 +62,49 @@ class _SystemAuditLogSection extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('36-Role Data Sync Matrix', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                const Text(
+                  '36-Role Data Sync Matrix',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const SizedBox(height: 16),
                 ClinicalGlassPanel(
                   padding: const EdgeInsets.all(20),
                   child: Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: List.generate(36, (index) => _buildStatusDot(index)),
+                    children: List.generate(
+                      36,
+                      (index) => _buildStatusDot(index),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 32),
-                const Text('System Audit Log', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                const Text(
+                  'System Audit Log',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const SizedBox(height: 16),
                 ClinicalGlassPanel(
                   padding: const EdgeInsets.all(16),
                   child: Column(
-                    children: metrics.recentActivity.map((log) => _buildLogEntry(log.timestamp, log.title, log.subtitle, _getStatusColor(log.color))).toList(),
+                    children: metrics.recentActivity
+                        .map(
+                          (log) => _buildLogEntry(
+                            log.timestamp,
+                            log.title,
+                            log.subtitle,
+                            _getStatusColor(log.color),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ],
@@ -94,16 +116,36 @@ class _SystemAuditLogSection extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Dead Letter Queue (DLQ)', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                const Text(
+                  'Dead Letter Queue (DLQ)',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const SizedBox(height: 16),
                 ClinicalGlassPanel(
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      const Icon(Icons.dangerous, color: Colors.redAccent, size: 48),
+                      const Icon(
+                        Icons.dangerous,
+                        color: Colors.redAccent,
+                        size: 48,
+                      ),
                       const SizedBox(height: 16),
-                      const Text('34 Orphaned Payloads', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                      const Text('Waiting in queue [worker-dlq-01]', style: TextStyle(color: Colors.blueGrey, fontSize: 12)),
+                      const Text(
+                        '34 Orphaned Payloads',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Text(
+                        'Waiting in queue [worker-dlq-01]',
+                        style: TextStyle(color: Colors.blueGrey, fontSize: 12),
+                      ),
                       const SizedBox(height: 24),
                       SizedBox(
                         width: double.infinity,
@@ -112,7 +154,9 @@ class _SystemAuditLogSection extends ConsumerWidget {
                           icon: const Icon(Icons.flash_on),
                           label: const Text('Flush Dead Letter Queue'),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.tealAccent.withValues(alpha: 0.1),
+                            backgroundColor: Colors.tealAccent.withValues(
+                              alpha: 0.1,
+                            ),
                             foregroundColor: Colors.tealAccent,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                           ),
@@ -122,7 +166,14 @@ class _SystemAuditLogSection extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
-                const Text('110 Master Archetypes UI Index', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                const Text(
+                  '110 Master Archetypes UI Index',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const SizedBox(height: 16),
                 ClinicalGlassPanel(
                   padding: const EdgeInsets.all(20),
@@ -132,7 +183,10 @@ class _SystemAuditLogSection extends ConsumerWidget {
                       child: Wrap(
                         spacing: 8,
                         runSpacing: 8,
-                        children: List.generate(110, (index) => _buildFeatureDot(context, index + 1)),
+                        children: List.generate(
+                          110,
+                          (index) => _buildFeatureDot(context, index + 1),
+                        ),
                       ),
                     ),
                   ),
@@ -154,7 +208,14 @@ class _SystemAuditLogSection extends ConsumerWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: Center(
-        child: Text('R${index + 1}', style: const TextStyle(color: Colors.tealAccent, fontSize: 9, fontWeight: FontWeight.bold)),
+        child: Text(
+          'R${index + 1}',
+          style: const TextStyle(
+            color: Colors.tealAccent,
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
@@ -170,13 +231,25 @@ class _SystemAuditLogSection extends ConsumerWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text('F$index', style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+          child: Text(
+            'F$index',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildLogEntry(String ts, String type, String details, Color statusColor) {
+  Widget _buildLogEntry(
+    String ts,
+    String type,
+    String details,
+    Color statusColor,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
@@ -184,13 +257,30 @@ class _SystemAuditLogSection extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Text('[$ts]', style: const TextStyle(color: Colors.blueGrey, fontSize: 11, fontFamily: 'monospace')),
+              Text(
+                '[$ts]',
+                style: const TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                ),
+              ),
               const SizedBox(width: 8),
-              Text(type, style: TextStyle(color: statusColor, fontSize: 11, fontWeight: FontWeight.bold)),
+              Text(
+                type,
+                style: TextStyle(
+                  color: statusColor,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 4),
-          Text(details, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+          Text(
+            details,
+            style: const TextStyle(color: Colors.white70, fontSize: 13),
+          ),
         ],
       ),
     );

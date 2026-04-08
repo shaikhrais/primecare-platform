@@ -9,20 +9,41 @@ class RegionalBdmTasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Daily Field Action Items',
-      subtitle: 'Track daily follow-ups, contract reviews, and scheduled field visits.',
+      subtitle:
+          'Track daily follow-ups, contract reviews, and scheduled field visits.',
       kpiCards: const [
-        KPIConfig(label: 'Due Today', value: '12', trend: 'High Priority', color: Colors.orange),
-        KPIConfig(label: 'Completed', value: '8', trend: 'Good Pace', color: Colors.green),
-        KPIConfig(label: 'Overdue', value: '0', trend: 'Clear', color: Colors.blue),
+        KPIConfig(
+          label: 'Due Today',
+          value: '12',
+          trend: 'High Priority',
+          color: Colors.orange,
+        ),
+        KPIConfig(
+          label: 'Completed',
+          value: '8',
+          trend: 'Good Pace',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Overdue',
+          value: '0',
+          trend: 'Clear',
+          color: Colors.blue,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Task Kanban Board', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Task Kanban Board',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Interactive lists: To Do, In Progress, Blocked, Done...'),
+              const Text(
+                'Interactive lists: To Do, In Progress, Blocked, Done...',
+              ),
             ],
           ),
         ),

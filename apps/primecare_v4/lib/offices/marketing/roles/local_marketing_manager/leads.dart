@@ -12,7 +12,8 @@ class LocalLeadsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'Lead Generation Dashboard',
-      subtitle: 'Monitor incoming leads, acquisition cost, and conversion performance from local campaigns.',
+      subtitle:
+          'Monitor incoming leads, acquisition cost, and conversion performance from local campaigns.',
       headerTrailing: Row(
         children: [
           ClinicalGlassButton(
@@ -79,7 +80,10 @@ class LocalLeadsScreen extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      _buildLegend(PrimeCareTheme.colors.emeraldTeal, 'Organic'),
+                      _buildLegend(
+                        PrimeCareTheme.colors.emeraldTeal,
+                        'Organic',
+                      ),
                       const SizedBox(width: 16),
                       _buildLegend(PrimeCareTheme.colors.navyIndigo, 'Paid'),
                       const SizedBox(width: 16),
@@ -122,12 +126,15 @@ class LocalLeadsScreen extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     LucideIcons.star,
                     color: PrimeCareTheme.colors.emeraldTeal,
                   ),
                   const SizedBox(width: 12),
-                  Text('Recent High-Value', style: PrimeCareTheme.typography.h3),
+                  Text(
+                    'Recent High-Value',
+                    style: PrimeCareTheme.typography.h3,
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
@@ -138,19 +145,9 @@ class LocalLeadsScreen extends ConsumerWidget {
                 94,
               ),
               const Divider(color: Colors.white12, height: 24),
-              _buildHighValueLead(
-                'Saki Tanaka',
-                'Tanaka Clinics',
-                '\$85k',
-                91,
-              ),
+              _buildHighValueLead('Saki Tanaka', 'Tanaka Clinics', '\$85k', 91),
               const Divider(color: Colors.white12, height: 24),
-              _buildHighValueLead(
-                'Julian Vogel',
-                'Vogel & Co',
-                '\$62k',
-                88,
-              ),
+              _buildHighValueLead('Julian Vogel', 'Vogel & Co', '\$62k', 88),
             ],
           ),
         ),
@@ -180,7 +177,12 @@ class LocalLeadsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildStackedBar(String label, double organic, double paid, double referral) {
+  Widget _buildStackedBar(
+    String label,
+    double organic,
+    double paid,
+    double referral,
+  ) {
     final maxTotal = 400.0; // Arbitrary max for scaling
     final total = organic + paid + referral;
     final scale = 350 / maxTotal;
@@ -190,9 +192,7 @@ class LocalLeadsScreen extends ConsumerWidget {
       children: [
         Container(
           width: 32,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
           clipBehavior: Clip.hardEdge,
           child: Column(
             children: [

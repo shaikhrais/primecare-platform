@@ -11,18 +11,38 @@ class TerritoryReportsScreen extends StatelessWidget {
       title: 'Expansion Reports',
       subtitle: 'Generate PDF boardroom expansion reports for stakeholders.',
       kpiCards: const [
-        KPIConfig(label: 'Generated', value: '14', trend: 'This Quarter', color: Colors.blue),
-        KPIConfig(label: 'Avg Read', value: '82%', trend: 'Engagement', color: Colors.green),
-        KPIConfig(label: 'Pending', value: '2', trend: 'Review', color: Colors.orange),
+        KPIConfig(
+          label: 'Generated',
+          value: '14',
+          trend: 'This Quarter',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Avg Read',
+          value: '82%',
+          trend: 'Engagement',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Pending',
+          value: '2',
+          trend: 'Review',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Stakeholder Presentations', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Stakeholder Presentations',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Repository of compiled market feasibility decks securely formatted for C-suite distribution...'),
+              const Text(
+                'Repository of compiled market feasibility decks securely formatted for C-suite distribution...',
+              ),
             ],
           ),
         ),

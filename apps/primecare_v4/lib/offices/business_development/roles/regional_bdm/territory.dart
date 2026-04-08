@@ -9,20 +9,41 @@ class BDMTerritoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Territory Mapping',
-      subtitle: 'Geographic mapping of covered accounts and white-space analysis.',
+      subtitle:
+          'Geographic mapping of covered accounts and white-space analysis.',
       kpiCards: const [
-        KPIConfig(label: 'Total Zip Codes', value: '142', trend: 'Covered', color: Colors.blue),
-        KPIConfig(label: 'Penetration', value: '38%', trend: 'Expanding', color: Colors.green),
-        KPIConfig(label: 'Target Areas', value: '4', trend: 'High Priority', color: Colors.orange),
+        KPIConfig(
+          label: 'Total Zip Codes',
+          value: '142',
+          trend: 'Covered',
+          color: Colors.blue,
+        ),
+        KPIConfig(
+          label: 'Penetration',
+          value: '38%',
+          trend: 'Expanding',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Target Areas',
+          value: '4',
+          trend: 'High Priority',
+          color: Colors.orange,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Geospatial Analytics', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Geospatial Analytics',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('Map overlay displaying density of current clients against addressable market capacity...'),
+              const Text(
+                'Map overlay displaying density of current clients against addressable market capacity...',
+              ),
             ],
           ),
         ),

@@ -11,18 +11,38 @@ class BDMProposalsScreen extends StatelessWidget {
       title: 'Commercial Proposals',
       subtitle: 'Draft and send commercial proposals and track views.',
       kpiCards: const [
-        KPIConfig(label: 'Out for Sig', value: '8', trend: 'Pending', color: Colors.orange),
-        KPIConfig(label: 'Signed', value: '42', trend: 'YTD', color: Colors.green),
-        KPIConfig(label: 'Avg Value', value: '\$48k', trend: 'TCV', color: Colors.blue),
+        KPIConfig(
+          label: 'Out for Sig',
+          value: '8',
+          trend: 'Pending',
+          color: Colors.orange,
+        ),
+        KPIConfig(
+          label: 'Signed',
+          value: '42',
+          trend: 'YTD',
+          color: Colors.green,
+        ),
+        KPIConfig(
+          label: 'Avg Value',
+          value: '\$48k',
+          trend: 'TCV',
+          color: Colors.blue,
+        ),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Contract Generation Engine', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Contract Generation Engine',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              const Text('PDF staging area for MSA/SOW generation driven by dynamic CPQ algorithms...'),
+              const Text(
+                'PDF staging area for MSA/SOW generation driven by dynamic CPQ algorithms...',
+              ),
             ],
           ),
         ),

@@ -12,7 +12,8 @@ class PswDashboard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'PSW Daily Care Portal',
-      subtitle: 'Coordinating daily living support and specialized home care cycles.',
+      subtitle:
+          'Coordinating daily living support and specialized home care cycles.',
       kpiCards: [
         KPICardData(
           title: 'Upcoming Visits',

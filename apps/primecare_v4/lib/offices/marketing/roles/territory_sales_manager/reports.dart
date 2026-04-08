@@ -82,6 +82,7 @@ class _TerritoryReportsScreenState
             ClinicalGlassButton(
               onPressed: () {},
               icon: LucideIcons.printer,
+              label: 'Print',
               isActive: true,
             ),
           ],

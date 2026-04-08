@@ -8,7 +8,8 @@ class PswClientUpdatesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const PageTemplate(
       title: 'Care Team Updates',
-      subtitle: 'Communicate changes in client condition to nurses and care coordinators.',
+      subtitle:
+          'Communicate changes in client condition to nurses and care coordinators.',
       kpis: [],
       children: [],
     );

@@ -143,6 +143,8 @@ class PrimeCareTheme {
 class _PrimeCareColors {
   Color get navyIndigo => PrimeCareTheme.navyIndigo;
   Color get emeraldTeal => PrimeCareTheme.emeraldTeal;
+  Color get tealEmerald =>
+      PrimeCareTheme.emeraldTeal; // Alias for Stitch generated screens
   Color get slateGray => PrimeCareTheme.slateGray;
   Color get surfaceContainerHighest => PrimeCareTheme.surfaceContainerHighest;
   Color get surfaceContainerHigh => PrimeCareTheme.surfaceContainerHigh;
@@ -156,6 +158,9 @@ class _PrimeCareColors {
   Color get coralBlush => PrimeCareTheme.coralBlush;
   Color get royalPurple => PrimeCareTheme.royalPurple;
   Color get brownSolid => PrimeCareTheme.brownSolid;
+  Color get brickRed => PrimeCareTheme.coralRed; // Alias
+  Color get primaryFixed => PrimeCareTheme.navyIndigo; // Alias
+  Color get surfaceBright => Colors.white; // Alias
 
   Color get primary => PrimeCareTheme.primary;
   Color get secondary => PrimeCareTheme.secondary;
@@ -185,4 +190,5 @@ class _PrimeCareTypography {
   TextStyle get displayLarge => PrimeCareTheme.displayLarge;
   TextStyle get displayMedium => PrimeCareTheme.displayMedium;
   TextStyle get headlineSmall => PrimeCareTheme.headlineSmall;
+  TextStyle get base => PrimeCareTheme.bodyMedium; // Alias
 }
