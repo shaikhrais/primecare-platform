@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DailyProgressRing extends StatelessWidget {
   final double progress;
-  const DailyProgressRing({Key? key, required this.progress}) : super(key: key);
+  const DailyProgressRing({super.key, required this.progress});
 
   @override
   Widget build(BuildContext context) {

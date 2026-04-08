@@ -3,7 +3,7 @@ import 'prime_avatar.dart';
 
 class GreetingHeaderWidget extends StatelessWidget {
   final String name;
-  const GreetingHeaderWidget({Key? key, required this.name}) : super(key: key);
+  const GreetingHeaderWidget({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {

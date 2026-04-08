@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'prime_avatar.dart';
 
 class TeamMemberAvatarPile extends StatelessWidget {
-  const TeamMemberAvatarPile({Key? key}) : super(key: key);
+  const TeamMemberAvatarPile({super.key});
 
   @override
   Widget build(BuildContext context) {

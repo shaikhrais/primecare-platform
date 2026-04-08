@@ -44,34 +44,19 @@ class AppRoutes {
       '/offices/franchise/roles/billing_admin/dashboard';
   static const String hrHiringDashboard =
       '/offices/franchise/roles/hr_hiring/dashboard';
-  static const String rnDashboard = '/offices/clinic/roles/rn/dashboard';
-  static const String rpnDashboard = '/offices/clinic/roles/rpn/dashboard';
-  static const String rmtDashboard = '/offices/clinic/roles/rmt/dashboard';
-  static const String pswDashboard = '/offices/clinic/roles/psw/dashboard';
-  static const String pswTodaysShifts =
-      '/offices/clinic/roles/psw/todays-shifts';
-  static const String pswAssignedClients =
-      '/offices/clinic/roles/psw/assigned-clients';
-  static const String pswCareTasks = '/offices/clinic/roles/psw/care-tasks';
-  static const String pswAdlTracking = '/offices/clinic/roles/psw/adl-tracking';
-  static const String pswDailyLogs = '/offices/clinic/roles/psw/daily-logs';
-  static const String pswCheckInOut = '/offices/clinic/roles/psw/check-in-out';
-  static const String pswClientUpdates =
-      '/offices/clinic/roles/psw/client-updates';
-  static const String pswIncidentReports =
-      '/offices/clinic/roles/psw/incident-reports';
-  static const String pswCompletedVisits =
-      '/offices/clinic/roles/psw/completed-visits';
-  static const String pswDocuments = '/offices/clinic/roles/psw/documents';
-  static const String pswSettings = '/offices/clinic/roles/psw/settings';
-
-  static const String physioDashboard =
-      '/offices/clinic/roles/physio/dashboard';
-  static const String chiroDashboard = '/offices/clinic/roles/chiro/dashboard';
-  static const String occupationalTherapistDashboard =
-      '/offices/clinic/roles/occupational_therapist/dashboard';
-  static const String speechPathologistDashboard =
-      '/offices/clinic/roles/speech_pathologist/dashboard';
+  // --- Clinic App Unified Routes ---
+  static const String clinicMasterShell = '/clinic/master-shell';
+  static const String clinicDashboard = '/clinic/dashboard';
+  static const String clinicClientProfile = '/clinic/client-profile';
+  static const String clinicCarePlan = '/clinic/care-plan';
+  static const String clinicHistoryLogs = '/clinic/history-logs';
+  static const String clinicProfileSettings = '/clinic/profile-settings';
+  static const String clinicMessaging = '/clinic/messaging';
+  static const String clinicIncidentReport = '/clinic/incident-report';
+  static const String clinicCheckInOut = '/clinic/check-in-out';
+  static const String clinicDailyNotes = '/clinic/daily-notes';
+  static const String clinicShiftDetails = '/clinic/shift-details';
+  static const String clinicMyShifts = '/clinic/my-shifts';
 
   static const String customerSupportDashboard =
       '/offices/support/roles/customer_support/dashboard';
@@ -196,22 +181,7 @@ class AppRoutes {
       '/offices/corporate/roles/compliance_manager/training-compliance';
   static const String complianceManagerReports =
       '/offices/corporate/roles/compliance_manager/reports';
-  static const String headOfBusinessDevelopmentLeadPipeline =
-      '/offices/clinic/roles/head_of_business_development/lead-pipeline';
-  static const String headOfBusinessDevelopmentFranchisePipeline =
-      '/offices/clinic/roles/head_of_business_development/franchise-pipeline';
-  static const String headOfBusinessDevelopmentTerritoryMap =
-      '/offices/clinic/roles/head_of_business_development/territory-map';
-  static const String headOfBusinessDevelopmentPartnerships =
-      '/offices/clinic/roles/head_of_business_development/partnerships';
-  static const String headOfBusinessDevelopmentOpportunities =
-      '/offices/clinic/roles/head_of_business_development/opportunities';
-  static const String headOfBusinessDevelopmentSalesPerformance =
-      '/offices/clinic/roles/head_of_business_development/sales-performance';
-  static const String headOfBusinessDevelopmentExpansionForecast =
-      '/offices/clinic/roles/head_of_business_development/expansion-forecast';
-  static const String headOfBusinessDevelopmentReports =
-      '/offices/clinic/roles/head_of_business_development/reports';
+
   static const String headOfMarketingCampaigns =
       '/offices/marketing/roles/head_of_marketing/campaigns';
   static const String headOfMarketingLeads =
@@ -377,48 +347,7 @@ class AppRoutes {
       '/offices/franchise/roles/hr_hiring/training-status';
   static const String hrHiringReports =
       '/offices/franchise/roles/hr_hiring/reports';
-  static const String rnTodaysSchedule =
-      '/offices/clinic/roles/rn/todays-schedule';
-  static const String rnAssignedClients =
-      '/offices/clinic/roles/rn/assigned-clients';
-  static const String rnNursingNotes = '/offices/clinic/roles/rn/nursing-notes';
-  static const String rnCarePlans = '/offices/clinic/roles/rn/care-plans';
-  static const String rnMedicationNotes =
-      '/offices/clinic/roles/rn/medication-notes';
-  static const String rnVitals = '/offices/clinic/roles/rn/vitals';
-  static const String rnIncidentReports =
-      '/offices/clinic/roles/rn/incident-reports';
-  static const String rnProgressUpdates =
-      '/offices/clinic/roles/rn/progress-updates';
-  static const String rnClientHistory =
-      '/offices/clinic/roles/rn/client-history';
-  static const String rpnTodaysSchedule =
-      '/offices/clinic/roles/rpn/todays-schedule';
-  static const String rpnAssignedClients =
-      '/offices/clinic/roles/rpn/assigned-clients';
-  static const String rpnNursingNotes =
-      '/offices/clinic/roles/rpn/nursing-notes';
-  static const String rpnCareUpdates = '/offices/clinic/roles/rpn/care-updates';
-  static const String rpnVitals = '/offices/clinic/roles/rpn/vitals';
-  static const String rpnMedicationSupport =
-      '/offices/clinic/roles/rpn/medication-support';
-  static const String rpnClientHistory =
-      '/offices/clinic/roles/rpn/client-history';
-  static const String rpnIncidentReports =
-      '/offices/clinic/roles/rpn/incident-reports';
-  static const String rmtTodaysSchedule =
-      '/offices/clinic/roles/rmt/todays-schedule';
-  static const String rmtClients = '/offices/clinic/roles/rmt/clients';
-  static const String rmtAssessment = '/offices/clinic/roles/rmt/assessment';
-  static const String rmtSoapNotes = '/offices/clinic/roles/rmt/soap-notes';
-  static const String rmtTreatmentPlans =
-      '/offices/clinic/roles/rmt/treatment-plans';
-  static const String rmtHomecare = '/offices/clinic/roles/rmt/homecare';
-  static const String rmtSessionHistory =
-      '/offices/clinic/roles/rmt/session-history';
-  static const String rmtBodyChart = '/offices/clinic/roles/rmt/body-chart';
-  static const String rmtIntakeForms = '/offices/clinic/roles/rmt/intake-forms';
-  static const String rmtInvoices = '/offices/clinic/roles/rmt/invoices';
+
   static const String customerSupportTickets =
       '/offices/support/roles/customer_support/tickets';
   static const String customerSupportEscalations =

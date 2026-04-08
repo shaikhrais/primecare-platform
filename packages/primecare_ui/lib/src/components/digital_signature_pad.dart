@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DigitalSignaturePad extends StatelessWidget {
-  const DigitalSignaturePad({Key? key}) : super(key: key);
+  const DigitalSignaturePad({super.key});
 
   @override
   Widget build(BuildContext context) {

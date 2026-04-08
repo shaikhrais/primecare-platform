@@ -68,7 +68,7 @@ class PageTemplate extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(height: 16),
-                if (child != null) child!,
+                ?child,
                 if (children != null) ...children!,
               ],
             ),

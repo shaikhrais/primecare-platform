@@ -19,7 +19,7 @@ export 'src/components/primecare_progress_bar.dart';
 export 'src/components/primecare_primitives.dart';
 
 export 'src/components/auth_split_layout.dart';
-
+export 'src/screens/login_screen.dart';
 // Layout Components
 export 'src/components/layout/prime_responsive_grid.dart';
 

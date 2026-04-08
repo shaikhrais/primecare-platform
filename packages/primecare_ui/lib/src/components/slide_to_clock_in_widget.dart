@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SlideToClockInWidget extends StatelessWidget {
-  const SlideToClockInWidget({Key? key}) : super(key: key);
+  const SlideToClockInWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,10 +7,10 @@ class MacroFinancialSummaryCard extends StatelessWidget {
   final double targetRevenue;
 
   const MacroFinancialSummaryCard({
-    Key? key,
+    super.key,
     this.currentRevenue = 24500.0,
     this.targetRevenue = 25000.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

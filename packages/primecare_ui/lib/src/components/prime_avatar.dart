@@ -6,11 +6,11 @@ class PrimeAvatar extends StatelessWidget {
   final bool isOnline;
 
   const PrimeAvatar({
-    Key? key,
+    super.key,
     required this.fallbackInitials,
     this.radius = 24.0,
     this.isOnline = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

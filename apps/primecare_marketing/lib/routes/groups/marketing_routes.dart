@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import '../app_routes.dart';
+import 'package:primecare_core/routes/app_routes.dart';
 import 'package:primecare_ui/src/components/generic_feature_screen.dart';
 
 import '../../offices/marketing/roles/head_of_marketing/marketing_director_dashboard.dart'

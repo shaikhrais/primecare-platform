@@ -5,10 +5,10 @@ class PatientAcuityCard extends StatelessWidget {
   final String name;
   final int acuityLevel; // 1: green, 2: yellow, 3: red
   const PatientAcuityCard({
-    Key? key,
+    super.key,
     required this.name,
     required this.acuityLevel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

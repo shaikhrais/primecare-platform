@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:convert';
 import 'primecare_data_table.dart';
 
 class _MockApiClient {
@@ -167,7 +165,7 @@ class _PrimeCareDynamicFormBuilderState
               ),
             ),
             value: _formData[key!] ?? false,
-            activeColor: Theme.of(context).colorScheme.secondary,
+            activeThumbColor: Theme.of(context).colorScheme.secondary,
             onChanged: (val) => setState(() => _formData[key] = val),
           ),
         );
@@ -187,7 +185,7 @@ class _PrimeCareDynamicFormBuilderState
             ),
             value: _formData[key!] ?? false,
             activeColor: Theme.of(context).colorScheme.secondary,
-            onChanged: (val) => setState(() => _formData[key!] = val),
+            onChanged: (val) => setState(() => _formData[key] = val),
             controlAffinity: ListTileControlAffinity.leading,
           ),
         );
@@ -254,7 +252,7 @@ class _PrimeCareDynamicFormBuilderState
             style: TextStyle(
               color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
-            value: const ['id-1', 'id-2', 'id-3'].contains(_formData[key]) ? _formData[key] : null,
+            initialValue: const ['id-1', 'id-2', 'id-3'].contains(_formData[key]) ? _formData[key] : null,
             items: const [
               DropdownMenuItem(value: 'id-1', child: Text('External Record A')),
               DropdownMenuItem(value: 'id-2', child: Text('External Record B')),
@@ -279,7 +277,7 @@ class _PrimeCareDynamicFormBuilderState
             ),
             dropdownColor: Theme.of(context).cardColor,
             style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
-            value: options.contains(_formData[key]) ? _formData[key] : null,
+            initialValue: options.contains(_formData[key]) ? _formData[key] : null,
             items: options.map((opt) => DropdownMenuItem<String>(value: opt.toString(), child: Text(opt.toString()))).toList(),
             onChanged: (val) => setState(() => _formData[key!] = val),
           ),
@@ -292,15 +290,17 @@ class _PrimeCareDynamicFormBuilderState
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading)
+    if (_isLoading) {
       return Center(
         child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary),
       );
-    if (_schema == null)
+    }
+    if (_schema == null) {
       return Center(
         child: Text('SDUI Engine Failure', overflow: TextOverflow.ellipsis, maxLines: 1, style: GoogleFonts.firaCode(color: Colors.red),
         ),
       );
+    }
 
     List<dynamic> fields = _schema!['fields'] ?? [];
 

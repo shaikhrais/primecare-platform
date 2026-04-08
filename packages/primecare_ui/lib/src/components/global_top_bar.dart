@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
@@ -17,7 +16,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold)),
       actions: [
-        if (languageToggleWidget != null) languageToggleWidget!,
+        ?languageToggleWidget,
         IconButton(
           icon: const Icon(Icons.assignment_ind_outlined),
           tooltip: 'Role SOP & Objectives Checklist',
@@ -149,9 +148,9 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               value: 'logout',
               child: Row(
                 children: [
-                  const Icon(Icons.logout, color: Colors.red),
-                  const SizedBox(width: 12),
-                  const Text('Sign Out', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                  Icon(Icons.logout, color: Colors.red),
+                  SizedBox(width: 12),
+                  Text('Sign Out', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),

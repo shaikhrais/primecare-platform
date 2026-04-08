@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TaskChecklistNode extends StatefulWidget {
   final String label;
-  const TaskChecklistNode({Key? key, required this.label}) : super(key: key);
+  const TaskChecklistNode({super.key, required this.label});
   @override
   _TaskChecklistNodeState createState() => _TaskChecklistNodeState();
 }

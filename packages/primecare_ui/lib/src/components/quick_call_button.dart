@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class QuickCallButton extends StatelessWidget {
-  const QuickCallButton({Key? key}) : super(key: key);
+  const QuickCallButton({super.key});
 
   @override
   Widget build(BuildContext context) {

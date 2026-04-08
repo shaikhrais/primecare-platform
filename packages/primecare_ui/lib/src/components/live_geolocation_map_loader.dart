@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LiveGeolocationMapLoader extends StatelessWidget {
-  const LiveGeolocationMapLoader({Key? key}) : super(key: key);
+  const LiveGeolocationMapLoader({super.key});
 
   @override
   Widget build(BuildContext context) {

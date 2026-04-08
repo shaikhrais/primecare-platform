@@ -26,7 +26,7 @@ class DesktopPaneWrapper extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: const [
                         BoxShadow(
-                          color: const Color(0x0A000000),
+                          color: Color(0x0A000000),
                           blurRadius: 24,
                           offset: Offset(0, 8),
                         ),

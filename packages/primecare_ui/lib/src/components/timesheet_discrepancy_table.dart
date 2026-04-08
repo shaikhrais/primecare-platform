@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TimesheetDiscrepancyTable extends StatelessWidget {
-  const TimesheetDiscrepancyTable({Key? key}) : super(key: key);
+  const TimesheetDiscrepancyTable({super.key});
 
   @override
   Widget build(BuildContext context) {

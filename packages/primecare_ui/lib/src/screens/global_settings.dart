@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/providers/dynamic_page_providers.dart';
+import 'package:primecare_core/dynamic_page_providers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
@@ -132,13 +132,14 @@ class GlobalSettingsScreen extends ConsumerWidget {
                                     ),
                                     error: (e, st) => Text('Error: $e'),
                                     data: (items) {
-                                      if (items.isEmpty)
+                                      if (items.isEmpty) {
                                         return const Text(
                                           'No records found.',
                                           style: TextStyle(
                                             color: Colors.blueGrey,
                                           ),
                                         );
+                                      }
                                       return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

@@ -8,12 +8,12 @@ class CaregiverProfileCard extends StatelessWidget {
   final String specialty;
 
   const CaregiverProfileCard({
-    Key? key,
+    super.key,
     this.name = 'Sarah Jenkins',
     this.role = 'Primary PSW',
     this.rating = 4.9,
     this.specialty = 'Dementia Specialist',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

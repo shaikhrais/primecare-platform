@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchFilterTabBar extends StatelessWidget {
-  const SearchFilterTabBar({Key? key}) : super(key: key);
+  const SearchFilterTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {

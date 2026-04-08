@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class UrgentAlertBanner extends StatelessWidget {
   final String message;
-  const UrgentAlertBanner({Key? key, required this.message}) : super(key: key);
+  const UrgentAlertBanner({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

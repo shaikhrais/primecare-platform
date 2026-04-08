@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ComplianceExpiryGauge extends StatelessWidget {
   final Map<String, dynamic>? metrics;
 
-  const ComplianceExpiryGauge({Key? key, this.metrics}) : super(key: key);
+  const ComplianceExpiryGauge({super.key, this.metrics});
 
   @override
   Widget build(BuildContext context) {

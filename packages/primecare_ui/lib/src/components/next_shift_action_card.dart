@@ -9,12 +9,12 @@ class NextShiftActionCard extends StatelessWidget {
   final Color badgeColor;
 
   const NextShiftActionCard({
-    Key? key,
+    super.key,
     this.patientName = 'Eleanor Rigby',
     this.address = '123 Penny Lane, Liverpool',
     this.timeText = 'in 45 mins',
     this.badgeColor = Colors.orange,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

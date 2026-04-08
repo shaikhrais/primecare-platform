@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ServerLoadGraph extends StatelessWidget {
-  const ServerLoadGraph({Key? key}) : super(key: key);
+  const ServerLoadGraph({super.key});
 
   @override
   Widget build(BuildContext context) {

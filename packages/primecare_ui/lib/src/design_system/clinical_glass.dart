@@ -1,4 +1,4 @@
-import 'package:primecare_v4/design_system/clinical_glass.dart';
+import 'package:primecare_ui/src/design_system/clinical_glass.dart';
 import 'package:flutter/material.dart';
 import 'primecare_theme.dart';
 
@@ -59,7 +59,7 @@ class ClinicalGlassPanel extends StatelessWidget {
                     Text(title!, style: PrimeCareTheme.typography.h3)
                   else
                     const SizedBox(),
-                  if (headerTrailing != null) headerTrailing!,
+                  ?headerTrailing,
                 ],
               ),
             ),

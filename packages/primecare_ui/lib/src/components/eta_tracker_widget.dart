@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'prime_card.dart';
 
 class EtaTrackerWidget extends StatelessWidget {
-  const EtaTrackerWidget({Key? key}) : super(key: key);
+  const EtaTrackerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

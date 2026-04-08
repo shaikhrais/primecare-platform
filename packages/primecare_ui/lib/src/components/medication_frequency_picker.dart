@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MedicationFrequencyPicker extends StatelessWidget {
-  const MedicationFrequencyPicker({Key? key}) : super(key: key);
+  const MedicationFrequencyPicker({super.key});
 
   @override
   Widget build(BuildContext context) {

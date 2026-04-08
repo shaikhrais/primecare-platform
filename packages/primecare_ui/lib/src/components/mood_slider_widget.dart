@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MoodSliderWidget extends StatefulWidget {
-  const MoodSliderWidget({Key? key}) : super(key: key);
+  const MoodSliderWidget({super.key});
   @override
   _MoodSliderWidgetState createState() => _MoodSliderWidgetState();
 }

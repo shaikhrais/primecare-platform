@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PulseRadialGauge extends StatelessWidget {
-  const PulseRadialGauge({Key? key}) : super(key: key);
+  const PulseRadialGauge({super.key});
 
   @override
   Widget build(BuildContext context) {

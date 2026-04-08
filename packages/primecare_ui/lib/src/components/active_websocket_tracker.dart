@@ -7,11 +7,11 @@ class ActiveWebSocketTracker extends StatelessWidget {
   final double systemScore;
 
   const ActiveWebSocketTracker({
-    Key? key,
+    super.key,
     this.activeConnections = 142,
     this.pendingJobQueue = 12,
     this.systemScore = 98.5,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

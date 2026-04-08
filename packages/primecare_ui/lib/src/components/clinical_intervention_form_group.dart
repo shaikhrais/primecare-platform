@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ClinicalInterventionFormGroup extends StatelessWidget {
-  const ClinicalInterventionFormGroup({Key? key}) : super(key: key);
+  const ClinicalInterventionFormGroup({super.key});
 
   @override
   Widget build(BuildContext context) {

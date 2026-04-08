@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LiveDispatchMap extends StatelessWidget {
-  const LiveDispatchMap({Key? key}) : super(key: key);
+  const LiveDispatchMap({super.key});
 
   @override
   Widget build(BuildContext context) {

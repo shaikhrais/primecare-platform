@@ -6,11 +6,11 @@ class PrimeCard extends StatelessWidget {
   final bool isFlat;
 
   const PrimeCard({
-    Key? key,
+    super.key,
     required this.child,
     this.padding,
     this.isFlat = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

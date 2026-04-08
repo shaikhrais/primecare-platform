@@ -4,8 +4,7 @@ class PrimeStatusBadge extends StatelessWidget {
   final String text;
   final Color color;
 
-  const PrimeStatusBadge({Key? key, required this.text, required this.color})
-    : super(key: key);
+  const PrimeStatusBadge({super.key, required this.text, required this.color});
 
   @override
   Widget build(BuildContext context) {

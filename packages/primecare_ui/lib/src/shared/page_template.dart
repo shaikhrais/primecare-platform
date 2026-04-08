@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_v4/design_system/primecare_theme.dart';
+import 'package:primecare_ui/src/design_system/primecare_theme.dart';
 
 class KPICardData {
   final String title;

@@ -7,12 +7,12 @@ class PrimeButton extends StatelessWidget {
   final bool isOutline;
 
   const PrimeButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.onPressed,
     this.isDanger = false,
     this.isOutline = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

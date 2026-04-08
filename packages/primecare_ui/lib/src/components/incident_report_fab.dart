@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IncidentReportFab extends StatelessWidget {
-  const IncidentReportFab({Key? key}) : super(key: key);
+  const IncidentReportFab({super.key});
 
   @override
   Widget build(BuildContext context) {

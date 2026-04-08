@@ -219,7 +219,6 @@ class PrimeCareTheme {
   // ============== ENTERPRISE DARK THEME ==============
   static ThemeData get darkTheme {
     return ThemeData.dark().copyWith(
-      useMaterial3: true,
       scaffoldBackgroundColor: PrimeCareColors.radarDark,
       primaryColor: PrimeCareColors.skyBlue,
       colorScheme: const ColorScheme.dark(

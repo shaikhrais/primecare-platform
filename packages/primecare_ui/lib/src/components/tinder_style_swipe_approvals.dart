@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'prime_card.dart';
 
 class TinderStyleSwipeApprovals extends StatelessWidget {
-  const TinderStyleSwipeApprovals({Key? key}) : super(key: key);
+  const TinderStyleSwipeApprovals({super.key});
 
   @override
   Widget build(BuildContext context) {

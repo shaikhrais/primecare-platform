@@ -20,6 +20,7 @@ dependencies:
   fl_chart: 0.68.0
   primecare_core:
     path: ../../packages/primecare_core
+  intl: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

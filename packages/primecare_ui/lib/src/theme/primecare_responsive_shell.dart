@@ -3,7 +3,6 @@ import 'colors.dart';
 import 'theme_tokens.dart';
 import 'theme_extension.dart';
 
-import 'package:go_router/go_router.dart';
 
 class ResponsiveNavigationData {
   final String label;

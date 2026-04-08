@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class KanbanWaitlistBoard extends StatelessWidget {
-  const KanbanWaitlistBoard({Key? key}) : super(key: key);
+  const KanbanWaitlistBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 120,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

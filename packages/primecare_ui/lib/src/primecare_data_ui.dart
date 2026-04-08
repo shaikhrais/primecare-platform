@@ -139,7 +139,7 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: DropdownButtonFormField<String>(
-                  value: _dropdownValues[field['key']],
+                  initialValue: _dropdownValues[field['key']],
                   decoration: InputDecoration(
                     labelText: field['label'],
                     filled: true,
