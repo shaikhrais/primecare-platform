@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../components/page_template.dart';
-import '../../../../components/clinical_glass.dart';
+import 'package:primecare_v4/shared/components/page_template.dart';
+import 'package:primecare_v4/design_system/clinical_glass.dart';
 
 class CeoReportsScreen extends StatelessWidget {
   const CeoReportsScreen({super.key});

@@ -21,6 +21,8 @@ class KPICardData {
   });
 }
 
+typedef KPIConfig = KPICardData;
+
 class PageTemplate extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -34,6 +36,7 @@ class PageTemplate extends StatelessWidget {
   final List<KPICardData>? kpiCards;
   final List<Widget>? mainContent;
   final List<Widget>? sidebarContent;
+  final List<Widget>? sections; // Added to map to mainContent for Stitch MCP UI components
 
   const PageTemplate({
     super.key,
@@ -46,6 +49,7 @@ class PageTemplate extends StatelessWidget {
     this.kpiCards,
     this.mainContent,
     this.sidebarContent,
+    this.sections,
   });
 
   @override
@@ -141,9 +145,11 @@ class PageTemplate extends StatelessWidget {
   }
 
   Widget _buildAlternativeBody(BuildContext context) {
-    if (kpiCards == null && mainContent == null && sidebarContent == null) {
+    if (kpiCards == null && mainContent == null && sidebarContent == null && sections == null) {
       return const SizedBox.shrink();
     }
+
+    final contentToRender = mainContent ?? sections;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,7 +183,7 @@ class PageTemplate extends StatelessWidget {
                 ),
                 const SizedBox(height: PrimeCareTheme.spacing5),
               ],
-              if (mainContent != null) ...mainContent!,
+              if (contentToRender != null) ...contentToRender,
             ],
           ),
         ),
