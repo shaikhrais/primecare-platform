@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class PartnersMatrixScreen extends StatelessWidget {
-  const PartnersMatrixScreen({super.key});
+class PartnershipPartnersScreen extends StatelessWidget {
+  const PartnershipPartnersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Partner Strategy Matrix',
-      subtitle: 'Matrix mapping strategic partners to their core value propositions.',
+      title: 'Partner Directory',
+      subtitle: 'View detailed performance scorecards for each hospital partner.',
       kpiCards: const [
-        KPIConfig(label: 'Strategic Tech Partners', value: '8', trend: 'Stable', color: Colors.blue),
-        KPIConfig(label: 'Referral Partners', value: '18', trend: '+2', color: Colors.green),
-        KPIConfig(label: 'Service Providers', value: '30', trend: 'Watch', color: Colors.orange),
+        KPIConfig(label: 'Total Partners', value: '412', trend: 'Global Database', color: Colors.blue),
+        KPIConfig(label: 'Avg Health', value: '88/100', trend: 'Strong', color: Colors.green),
+        KPIConfig(label: 'Inactive', value: '14', trend: 'L90 Days', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Partnership Grid', style: Theme.of(context).textTheme.titleLarge),
+              Text('Partner Scorecards', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Grid layout grouping partners by category (Tech, Referral, Service, Supply Chain)...'),
+              const Text('Interactive grid linking directly to individual partner health pages...'),
             ],
           ),
         ),

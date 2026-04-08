@@ -8,31 +8,21 @@ class FranchiseProposalsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Active Proposals',
-      subtitle: 'Manage commercial proposals and track negotiation stages.',
+      title: 'Financial Proposals',
+      subtitle: 'Track drafted franchise disclosure documents and financial proposals sent to leads.',
       kpiCards: const [
-        KPIConfig(label: 'Active Proposals', value: '22', trend: '+4', color: Colors.blue),
-        KPIConfig(label: 'Est. Closing Value', value: '\$2.4M', trend: '+15%', color: Colors.green),
-        KPIConfig(label: 'In Legal Review', value: '3', trend: 'Steady', color: Colors.orange),
+        KPIConfig(label: 'Sent L30', value: '42', trend: 'Sent to Leads', color: Colors.blue),
+        KPIConfig(label: 'View Rate', value: '81%', trend: 'Engagement', color: Colors.green),
+        KPIConfig(label: 'Expiring', value: '5', trend: '< 7d to expiry', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Proposal Pipeline', style: Theme.of(context).textTheme.titleLarge),
+              Text('Document Tracking', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('List of proposals by stage: Draft, Sent, Negotiating, Won, Lost...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Document Status', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('Tracking signatures and outstanding paperwork...'),
+              const Text('Live status page monitoring prospect interactions with the FDD and customized financial models...'),
             ],
           ),
         ),

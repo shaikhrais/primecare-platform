@@ -8,31 +8,21 @@ class FranchiseContractsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Franchise Contracts',
-      subtitle: 'Manage active franchise contracts, pending renewals, and compliance.',
+      title: 'Contracts Dashboard',
+      subtitle: 'Track franchise agreements, NDAs, and deal execution progression.',
       kpiCards: const [
-        KPIConfig(label: 'Active Contracts', value: '45', trend: '+2', color: Colors.blue),
-        KPIConfig(label: 'Pending Renewals', value: '8', trend: 'Soon', color: Colors.orange),
-        KPIConfig(label: 'Compliance Alerts', value: '1', trend: 'Urgent', color: Colors.red),
+        KPIConfig(label: 'Active Contracts', value: '14', trend: 'In Review', color: Colors.blue),
+        KPIConfig(label: 'Pending NDAs', value: '8', trend: 'Awaiting Sig', color: Colors.orange),
+        KPIConfig(label: 'Signed L30 Days', value: '3', trend: 'Executed', color: Colors.green),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Active & Pending Contracts', style: Theme.of(context).textTheme.titleLarge),
+              Text('Contract Execution Track', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Detailed list of contracts with expiration dates and renewal status...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Legal & Compliance Status', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('Outstanding compliance requirements for franchise partners...'),
+              const Text('Unified contract ledger tracking e-signatures and milestone compliance...'),
             ],
           ),
         ),

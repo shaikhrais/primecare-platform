@@ -2,37 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class OpsDashboardScreen extends StatelessWidget {
-  const OpsDashboardScreen({super.key});
+class GeneralManagerOpsDashboardScreen extends StatelessWidget {
+  const GeneralManagerOpsDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'General Manager Operations Dashboard',
-      subtitle: 'Overview of business development operations and partnerships.',
+      title: 'BizDev Operations Dashboard',
+      subtitle: 'Track overarching growth goals, operational bottlenecks, and territory mapping.',
       kpiCards: const [
-        KPIConfig(label: 'Total Partnerships', value: '42', trend: '+15%', color: Colors.blue),
-        KPIConfig(label: 'Active Deals', value: '18', trend: '+5%', color: Colors.green),
-        KPIConfig(label: 'Expansion Rate', value: '12%', trend: '+2%', color: Colors.purple),
+        KPIConfig(label: 'Global MRR Add', value: '\$1.2M', trend: 'L30 Days', color: Colors.green),
+        KPIConfig(label: 'Avg Launch Time', value: '142 Days', trend: '-14 Days', color: Colors.blue),
+        KPIConfig(label: 'Bottlenecks', value: '3', trend: 'Requires Attention', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Recent Operations', style: Theme.of(context).textTheme.titleLarge),
+              Text('Growth Operations Overview', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Internal task tracking and operational health...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Deal Pipeline Overview', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('High-level view of current business development pipeline...'),
+              const Text('Macro-level visibility into all global expansion regions, highlighting onboarding blockers...'),
             ],
           ),
         ),

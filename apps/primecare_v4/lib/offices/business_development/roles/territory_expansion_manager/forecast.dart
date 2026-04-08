@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
-import '../../../../components/generic_feature_screen.dart';
+import '../../../../components/page_template.dart';
+import '../../../../components/clinical_glass.dart';
 
-class ForecastScreen extends StatelessWidget {
-  const ForecastScreen({super.key});
+class TerritoryForecastScreen extends StatelessWidget {
+  const TerritoryForecastScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const GenericFeatureScreen(featureId: 'ForecastScreen');
+    return PageTemplate(
+      title: 'Revenue Forecasting',
+      subtitle: 'Projected revenue forecasts mapping physical real estate capacity increases.',
+      kpiCards: const [
+        KPIConfig(label: 'Capacity Add', value: '+4,200', trend: 'Patients/mo', color: Colors.blue),
+        KPIConfig(label: 'Revenue Lift', value: '\$14M', trend: 'Annual', color: Colors.green),
+        KPIConfig(label: 'Margin', value: '28%', trend: 'EBITDA', color: Colors.orange),
+      ],
+      sections: [
+        ClinicalGlass(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Forecast Modeling', style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 16),
+              const Text('Algorithmic modeling of future cash flows heavily reliant on the success rate of current expansions...'),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

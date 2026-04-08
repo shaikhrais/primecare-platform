@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
-import '../../../../components/generic_feature_screen.dart';
+import '../../../../components/page_template.dart';
+import '../../../../components/clinical_glass.dart';
 
-class ExpansionPlansScreen extends StatelessWidget {
-  const ExpansionPlansScreen({super.key});
+class TerritoryExpansionPlansScreen extends StatelessWidget {
+  const TerritoryExpansionPlansScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const GenericFeatureScreen(featureId: 'ExpansionPlansScreen');
+    return PageTemplate(
+      title: 'Master Plans & Blueprints',
+      subtitle: 'Detailed master plans and construction blueprints for approved sites.',
+      kpiCards: const [
+        KPIConfig(label: 'Blueprints', value: '42', trend: 'Approved', color: Colors.blue),
+        KPIConfig(label: 'Vendor Bids', value: '8', trend: 'Pending', color: Colors.orange),
+        KPIConfig(label: 'Permits', value: '100%', trend: 'Cleared', color: Colors.green),
+      ],
+      sections: [
+        ClinicalGlass(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Document Repository', style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 16),
+              const Text('Secure staging for architectural CAD files, city bylaws, and compliance documentation...'),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

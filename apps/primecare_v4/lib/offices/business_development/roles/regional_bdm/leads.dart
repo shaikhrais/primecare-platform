@@ -2,37 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class RegionalBdmLeadsScreen extends StatelessWidget {
-  const RegionalBdmLeadsScreen({super.key});
+class BDMLeadsScreen extends StatelessWidget {
+  const BDMLeadsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Inbound & Outbound Leads',
-      subtitle: 'Track leads, health scoring, and regional distribution.',
+      title: 'Lead Management',
+      subtitle: 'View and organize raw leads generated from campaigns.',
       kpiCards: const [
-        KPIConfig(label: 'Total Leads (YTD)', value: '840', trend: '+15%', color: Colors.blue),
-        KPIConfig(label: 'High Quality', value: '25%', trend: '+2%', color: Colors.green),
-        KPIConfig(label: 'Contact Rate', value: '64%', trend: 'Improving', color: Colors.purple),
+        KPIConfig(label: 'New Leads', value: '412', trend: 'This Week', color: Colors.blue),
+        KPIConfig(label: 'Conversion', value: '8.4%', trend: 'To MQL', color: Colors.green),
+        KPIConfig(label: 'Stale Leads', value: '1,041', trend: 'L90 Days', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Lead Distribution Map', style: Theme.of(context).textTheme.titleLarge),
+              Text('Lead Inbox', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Geographical heatmap of where leads are originating in the territory...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Lead Scoring Matrix', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('Detailed list prioritizing leads based on engagement and fit score...'),
+              const Text('Triaging center for all raw prospect contact information gathered across channels...'),
             ],
           ),
         ),

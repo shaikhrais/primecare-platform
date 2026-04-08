@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class NewClinicsScreen extends StatelessWidget {
-  const NewClinicsScreen({super.key});
+class TerritoryNewClinicsScreen extends StatelessWidget {
+  const TerritoryNewClinicsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'New Clinics',
-      subtitle: 'Tracking the onboarding progress of recently launched clinic branches.',
+      title: 'New Clinic Launches',
+      subtitle: 'Track the initial 30-day performance of recently launched clinics.',
       kpiCards: const [
-        KPIConfig(label: 'Clinics Opened (YTD)', value: '6', trend: '+2', color: Colors.blue),
-        KPIConfig(label: 'Avg Launch Time', value: '110 Days', trend: '-5 Days', color: Colors.green),
-        KPIConfig(label: 'Pre-registered Patients', value: '450', trend: '+15%', color: Colors.purple),
+        KPIConfig(label: 'New Openings', value: '8', trend: 'L30 Days', color: Colors.blue),
+        KPIConfig(label: 'Patient Volume', value: '1,420', trend: 'Actual vs Est', color: Colors.green),
+        KPIConfig(label: 'Hiring Gaps', value: '4', trend: 'Priority', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Onboarding Checklists', style: Theme.of(context).textTheme.titleLarge),
+              Text('Launch Post-Mortem', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Status of IT provisioning, staff hiring, and marketing campaigns for upcoming branches...'),
+              const Text('Tracker measuring grand opening marketing ROI and day-1 clinical operational stability...'),
             ],
           ),
         ),

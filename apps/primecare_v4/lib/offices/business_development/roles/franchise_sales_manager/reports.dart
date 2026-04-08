@@ -8,31 +8,21 @@ class FranchiseReportsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Sales & Growth Analytics',
-      subtitle: 'Analytics and projections for franchise sales.',
+      title: 'Sales Reports',
+      subtitle: 'Generate board-ready analytics on franchise expansion ROI.',
       kpiCards: const [
-        KPIConfig(label: 'Quarterly Growth', value: '14%', trend: '+2%', color: Colors.green),
-        KPIConfig(label: 'Lead Conversion', value: '8.2%', trend: '+0.5%', color: Colors.blue),
-        KPIConfig(label: 'Projected Revenue', value: '\$12.5M', trend: '+18%', color: Colors.purple),
+        KPIConfig(label: 'Generated L30', value: '12', trend: 'Reports', color: Colors.blue),
+        KPIConfig(label: 'Data Sync', value: 'Live', trend: 'Database', color: Colors.green),
+        KPIConfig(label: 'Sharing', value: '24', trend: 'Exec Views', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Franchise Growth Over Time', style: Theme.of(context).textTheme.titleLarge),
+              Text('Board Packages', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Line chart of acquired franchises and revenue tracking...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Conversion Funnel', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('Funnel chart showing the drop-off from Lead to Closed Won...'),
+              const Text('Automated collation of sales performance, marketing attribution, and signed territory values into presentation formats...'),
             ],
           ),
         ),

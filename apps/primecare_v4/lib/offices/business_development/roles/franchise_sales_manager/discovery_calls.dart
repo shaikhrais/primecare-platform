@@ -9,30 +9,20 @@ class FranchiseDiscoveryCallsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: 'Discovery Calls',
-      subtitle: 'Schedule and manage upcoming prospect calls.',
+      subtitle: 'Track scheduled introductory meetings with potential franchisees and key talking points.',
       kpiCards: const [
-        KPIConfig(label: 'Scheduled Calls', value: '12', trend: 'This Week', color: Colors.blue),
-        KPIConfig(label: 'Conversion Rate', value: '25%', trend: '+4%', color: Colors.green),
-        KPIConfig(label: 'Missed Calls', value: '2', trend: '-1', color: Colors.orange),
+        KPIConfig(label: 'Calls Today', value: '4', trend: 'Scheduled', color: Colors.blue),
+        KPIConfig(label: 'Conversion', value: '38%', trend: 'To Stage 2', color: Colors.green),
+        KPIConfig(label: 'No-Shows', value: '12%', trend: 'L30 Days', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Upcoming Calls', style: Theme.of(context).textTheme.titleLarge),
+              Text('Upcoming Consultations', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Timeline view of today\'s calls with prospect profiles...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Call Scripts & Hints', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('Embedded scripts tailored to the current prospect\'s industry...'),
+              const Text('Interactive schedule detailing booked discovery meetings and prospect background...'),
             ],
           ),
         ),

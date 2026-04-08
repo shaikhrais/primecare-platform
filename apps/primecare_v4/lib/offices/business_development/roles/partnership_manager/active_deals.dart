@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class PartnerActiveDealsScreen extends StatelessWidget {
-  const PartnerActiveDealsScreen({super.key});
+class PartnershipActiveDealsScreen extends StatelessWidget {
+  const PartnershipActiveDealsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Active Partnership Deals',
-      subtitle: 'Pipeline of B2B partnership opportunities and deal stages.',
+      title: 'Active Deal Negotiations',
+      subtitle: 'Track B2B partnership negotiations and hospital syndications currently in progress.',
       kpiCards: const [
-        KPIConfig(label: 'Total Deal Value', value: '\$1.2M', trend: '+5%', color: Colors.blue),
-        KPIConfig(label: 'Deals in Negotiation', value: '8', trend: 'Active', color: Colors.orange),
-        KPIConfig(label: 'Avg Closing Time', value: '45d', trend: '-2d', color: Colors.green),
+        KPIConfig(label: 'Live Negotiations', value: '24', trend: 'Active', color: Colors.blue),
+        KPIConfig(label: 'Deal Value', value: '\$8.4M', trend: 'Projected', color: Colors.green),
+        KPIConfig(label: 'Stalled Deals', value: '4', trend: 'Legal Review', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Partnership Pipeline', style: Theme.of(context).textTheme.titleLarge),
+              Text('Deal Desk', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Kanban view mapping prospects from initial pitch to signed agreement...'),
+              const Text('Interactive deal tracker highlighting current stage, legal review status, and expected close dates...'),
             ],
           ),
         ),

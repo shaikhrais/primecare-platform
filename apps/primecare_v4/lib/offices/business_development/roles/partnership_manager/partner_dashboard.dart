@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class PartnerKpiDashboardScreen extends StatelessWidget {
-  const PartnerKpiDashboardScreen({super.key});
+class PartnerPortalDashboardScreen extends StatelessWidget {
+  const PartnerPortalDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Partner Network KPI Board',
-      subtitle: 'Key partner performance metrics and health scores.',
+      title: 'Partner Portal View',
+      subtitle: 'Provide a portal interface for partners to view their own referral metrics and payout history.',
       kpiCards: const [
-        KPIConfig(label: 'Network Health Score', value: '92/100', trend: '+2', color: Colors.green),
-        KPIConfig(label: 'At Risk Partners', value: '3', trend: 'Review', color: Colors.red),
-        KPIConfig(label: 'Top Performers', value: '14', trend: 'Steady', color: Colors.purple),
+        KPIConfig(label: 'Active Logins', value: '4.2k', trend: 'L30 Days', color: Colors.blue),
+        KPIConfig(label: 'Payouts', value: '\$142k', trend: 'Disbursed', color: Colors.green),
+        KPIConfig(label: 'Support Tix', value: '12', trend: 'Open', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Performance Distribution', style: Theme.of(context).textTheme.titleLarge),
+              Text('External Portal Metrics', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Chart showing the distribution of partners across engagement tiers...'),
+              const Text('Admin overview of how often external partners engage with their dedicated dashboards...'),
             ],
           ),
         ),

@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class RegionalBdmPartnersScreen extends StatelessWidget {
-  const RegionalBdmPartnersScreen({super.key});
+class BDMPartnersScreen extends StatelessWidget {
+  const BDMPartnersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Territory Partners',
-      subtitle: 'Active partnerships, revenue generation, and tier scoring in this region.',
+      title: 'Regional Partnerships',
+      subtitle: 'Manage regional integration partnerships and key strategic alliances.',
       kpiCards: const [
-        KPIConfig(label: 'Total Partners', value: '34', trend: '+2', color: Colors.blue),
-        KPIConfig(label: 'Partner Revenue', value: '\$450k', trend: '+15%', color: Colors.green),
-        KPIConfig(label: 'Avg Health Score', value: '88/100', trend: 'Solid', color: Colors.purple),
+        KPIConfig(label: 'Active Alliances', value: '14', trend: 'Validated', color: Colors.blue),
+        KPIConfig(label: 'Referral ROI', value: '8.4%', trend: 'Value', color: Colors.green),
+        KPIConfig(label: 'Pending', value: '2', trend: 'Contract', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Partner Directory', style: Theme.of(context).textTheme.titleLarge),
+              Text('Alliance Roster', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Detailed list showing Partner Name, Tier, YTD Revenue, and Status...'),
+              const Text('Interactive roster mapping tech vendors and regional clinical groups offering synergies...'),
             ],
           ),
         ),

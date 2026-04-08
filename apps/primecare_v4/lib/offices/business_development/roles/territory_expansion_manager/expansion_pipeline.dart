@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class ExpansionPipelineScreen extends StatelessWidget {
-  const ExpansionPipelineScreen({super.key});
+class TerritoryExpansionPipelineScreen extends StatelessWidget {
+  const TerritoryExpansionPipelineScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Expansion Pipeline',
-      subtitle: 'Funnel of potential new territories from scouting to lease signing.',
+      title: 'Rollout Pipeline',
+      subtitle: 'Visual funnel showing the journey from initial market identification to ribbon cutting.',
       kpiCards: const [
-        KPIConfig(label: 'Locations Scouted', value: '82', trend: '+12', color: Colors.blue),
-        KPIConfig(label: 'LOIs Signed', value: '15', trend: '+4', color: Colors.green),
-        KPIConfig(label: 'Dropped Deals', value: '6', trend: 'Stable', color: Colors.red),
+        KPIConfig(label: 'Market ID', value: '84', trend: 'Phase 1', color: Colors.blue),
+        KPIConfig(label: 'Architectural', value: '12', trend: 'Phase 3', color: Colors.orange),
+        KPIConfig(label: 'Go-Live', value: '4', trend: 'Ribbon Cut', color: Colors.green),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Deal Flow Board', style: Theme.of(context).textTheme.titleLarge),
+              Text('Pipeline Funnel', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Kanban view of properties moving from initial identification to successful launch...'),
+              const Text('Interactive kanban tracking physical sites from initial zoning inquiry to final health inspection...'),
             ],
           ),
         ),

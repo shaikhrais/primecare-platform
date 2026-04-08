@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class SalesPipelineScreen extends StatelessWidget {
-  const SalesPipelineScreen({super.key});
+class FranchiseSalesPipelineScreen extends StatelessWidget {
+  const FranchiseSalesPipelineScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Sales Pipeline Funnel',
-      subtitle: 'Visualizing active sales, gaps in territories, and closed deals.',
+      title: 'Sales Pipeline',
+      subtitle: 'Track franchise leads moving through the sales funnel stages.',
       kpiCards: const [
-        KPIConfig(label: 'Total Pipeline Value', value: '\$8.5M', trend: 'Growing', color: Colors.blue),
-        KPIConfig(label: 'Territory Gaps', value: '3', trend: 'Review Required', color: Colors.orange),
-        KPIConfig(label: 'Closed Deals (YTD)', value: '14', trend: '+2', color: Colors.green),
+        KPIConfig(label: 'Total Leads', value: '412', trend: 'Active', color: Colors.blue),
+        KPIConfig(label: 'Discovery', value: '84', trend: 'Stage 1', color: Colors.orange),
+        KPIConfig(label: 'Closing', value: '14', trend: 'Stage 4', color: Colors.green),
       ],
       sections: [
         ClinicalGlass(
@@ -22,17 +22,7 @@ class SalesPipelineScreen extends StatelessWidget {
             children: [
               Text('Funnel Overview', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Visual funnel showing transition from Lead formulation to Closed Won...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Territory Gap Analysis', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('Highlighting regions with high demand but low franchise coverage...'),
+              const Text('Visual funnel showing transition from initial outreach to contract execution...'),
             ],
           ),
         ),

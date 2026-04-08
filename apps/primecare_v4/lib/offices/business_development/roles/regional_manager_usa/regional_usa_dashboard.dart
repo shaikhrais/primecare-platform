@@ -2,37 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class RegionalUsaDashboardScreen extends StatelessWidget {
-  const RegionalUsaDashboardScreen({super.key});
+class RegionalUSADashboardScreen extends StatelessWidget {
+  const RegionalUSADashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Regional Manager USA Dashboard',
-      subtitle: 'Performance snapshot and expansion planning for the US region.',
+      title: 'USA Operations Metrics',
+      subtitle: 'Provides deep-dive operational metrics and compliance tracking specific to US health regulations (HIPAA/Medicare).',
       kpiCards: const [
-        KPIConfig(label: 'Total Partners', value: '124', trend: '+20%', color: Colors.blue),
-        KPIConfig(label: 'State Expansion Progress', value: '8/50', trend: '+2', color: Colors.green),
-        KPIConfig(label: 'US Revenue', value: '\$8.1M', trend: '+15%', color: Colors.purple),
+        KPIConfig(label: 'Medicare Rejections', value: '14', trend: 'Resolving', color: Colors.blue),
+        KPIConfig(label: 'HIPAA Audits', value: '2', trend: 'Pending', color: Colors.orange),
+        KPIConfig(label: 'Compliance', value: '98%', trend: 'Score', color: Colors.green),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Performance by State', style: Theme.of(context).textTheme.titleLarge),
+              Text('Regulatory Compliance', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Breakdown of metrics by state...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Cross-Border Compliance Alerts', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('Regulatory compliance notifications and reminders...'),
+              const Text('Tracker for state-by-state billing enrollments and HIPAA security certifications...'),
             ],
           ),
         ),

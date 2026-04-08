@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class PartnerProposalsScreen extends StatelessWidget {
-  const PartnerProposalsScreen({super.key});
+class PartnershipProposalsScreen extends StatelessWidget {
+  const PartnershipProposalsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Commercial Proposals',
-      subtitle: 'Tracking outgoing partnership proposals and negotiation redlines.',
+      title: 'B2B Proposals',
+      subtitle: 'Track drafted B2B service agreements and revenue share documents.',
       kpiCards: const [
-        KPIConfig(label: 'Proposals Out', value: '12', trend: '+3', color: Colors.blue),
-        KPIConfig(label: 'In Redlining', value: '4', trend: 'Urgent', color: Colors.orange),
-        KPIConfig(label: 'Pending Signature', value: '2', trend: 'Active', color: Colors.green),
+        KPIConfig(label: 'Drafted', value: '41', trend: 'In Queue', color: Colors.blue),
+        KPIConfig(label: 'Avg Rev Share', value: '14%', trend: 'Margin', color: Colors.green),
+        KPIConfig(label: 'Legal Review', value: '4', trend: 'Pending', color: Colors.orange),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Active Deal Proposals', style: Theme.of(context).textTheme.titleLarge),
+              Text('Contract Generation', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Detailed list of proposals tracking value, sent date, and current hold-up...'),
+              const Text('Live feed of partnership documents entering legal compliance verification...'),
             ],
           ),
         ),

@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import '../../../../components/page_template.dart';
 import '../../../../components/clinical_glass.dart';
 
-class ExpansionOutreachScreen extends StatelessWidget {
-  const ExpansionOutreachScreen({super.key});
+class TerritoryOutreachScreen extends StatelessWidget {
+  const TerritoryOutreachScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Expansion Outreach',
-      subtitle: 'Tracking communication with local stakeholders, real estate agents, and government health officials.',
+      title: 'Municipal Outreach',
+      subtitle: 'Log interactions with local government zoning boards and land developers.',
       kpiCards: const [
-        KPIConfig(label: 'Stakeholders Contacted', value: '142', trend: '+12', color: Colors.blue),
-        KPIConfig(label: 'Meetings Scheduled', value: '38', trend: 'Active', color: Colors.purple),
-        KPIConfig(label: 'Positive Feedback', value: '75%', trend: '+5%', color: Colors.green),
+        KPIConfig(label: 'Zoning Apps', value: '14', trend: 'Pending', color: Colors.orange),
+        KPIConfig(label: 'Approved', value: '38', trend: 'YTD', color: Colors.green),
+        KPIConfig(label: 'Meetings', value: '24', trend: 'Next 30 Days', color: Colors.blue),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Communication Log', style: Theme.of(context).textTheme.titleLarge),
+              Text('Government & Real Estate Relations', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Chronological list of emails, calls, and meetings with local expansion partners...'),
+              const Text('CRM tailored for tracking bureaucratic lobbying and commercial real estate negotiations...'),
             ],
           ),
         ),

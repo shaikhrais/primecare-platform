@@ -8,31 +8,21 @@ class FranchiseFollowUpsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Prospect Follow Ups',
-      subtitle: 'Tracker for prospect engagement and next actions.',
+      title: 'Follow-Ups',
+      subtitle: 'Track post-meeting tasks, email sequences, and re-engagement campaigns.',
       kpiCards: const [
-        KPIConfig(label: 'Pending Follow Ups', value: '28', trend: 'High', color: Colors.orange),
-        KPIConfig(label: 'Avg Response Time', value: '4hrs', trend: '-30m', color: Colors.green),
-        KPIConfig(label: 'Engagement Score', value: '78/100', trend: '+5', color: Colors.blue),
+        KPIConfig(label: 'Due Today', value: '24', trend: 'Tasks', color: Colors.orange),
+        KPIConfig(label: 'Sequence Reply', value: '41%', trend: 'Engagement', color: Colors.blue),
+        KPIConfig(label: 'Completed', value: '100%', trend: 'L7 Days', color: Colors.green),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Engagement Timeline', style: Theme.of(context).textTheme.titleLarge),
+              Text('Task Re-engagement Board', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Chronological history of communications and touchpoints...'),
-            ],
-          ),
-        ),
-        ClinicalGlass(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Next Action Items', style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              const Text('List of due actions to progress the prospect...'),
+              const Text('Actionable list of warm leads requiring post-discovery collateral or phone follow-up...'),
             ],
           ),
         ),

@@ -8,21 +8,21 @@ class PartnerManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      title: 'Partner Directory',
-      subtitle: 'Complete list of active partners and integration statuses.',
+      title: 'Partner Administration',
+      subtitle: 'Handle administrative tasks like onboarding new clinics, updating contracts, and SLA monitoring.',
       kpiCards: const [
-        KPIConfig(label: 'Total Active Partners', value: '56', trend: '+4', color: Colors.blue),
-        KPIConfig(label: 'Tier 1 Partners', value: '12', trend: 'Exclusive', color: Colors.purple),
-        KPIConfig(label: 'Pending Integrations', value: '5', trend: 'In Progress', color: Colors.orange),
+        KPIConfig(label: 'Onboarding', value: '14', trend: 'In Progress', color: Colors.blue),
+        KPIConfig(label: 'SLA Breaches', value: '2', trend: 'Review Req', color: Colors.red),
+        KPIConfig(label: 'Completed', value: '38', trend: 'YTD', color: Colors.green),
       ],
       sections: [
         ClinicalGlass(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Partner Directory', style: Theme.of(context).textTheme.titleLarge),
+              Text('Onboarding Tasks', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              const Text('Searchable list showing Partner Name, Region, Tier, and Contract Status...'),
+              const Text('Automated task checklists aligned to launching newly signed syndication partners...'),
             ],
           ),
         ),
