@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../routes/app_routes.dart';
+import 'package:primecare_core/routes/app_routes.dart';
 
 class AdminLayout extends StatelessWidget {
   final Widget child;

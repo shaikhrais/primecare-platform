@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../office/layouts/provider_top_bar.dart';
 import '../../office/layouts/sidebar_layout.dart';
-import '../../services/auth_service.dart';
+import 'package:primecare_core/services/auth_service.dart';
 
 class ProviderLayout extends ConsumerWidget {
   final Widget child;
