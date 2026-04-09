@@ -7,7 +7,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/',
     routes: [
-      ...business_developmentRoutes,
+      ...businessDevelopmentRoutes,
     ],
   );
 });

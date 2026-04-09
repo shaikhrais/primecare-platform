@@ -7,7 +7,7 @@ final List<RouteBase> clinicRoutes = [
   // --- Dashboards by Role ---
   GoRoute(
     path: AppRoutes.ceoDashboard,
-    builder: (context, state) => const DynamicRoleDashboardScreen(),
+    builder: (context, state) => const CeoDashboardScreenStitch(),
   ),
   GoRoute(
     path: AppRoutes.headOfBusDevDashboard,
@@ -15,11 +15,11 @@ final List<RouteBase> clinicRoutes = [
   ),
   GoRoute(
     path: AppRoutes.franchiseOwnerDashboard,
-    builder: (context, state) => const DynamicRoleDashboardScreen(),
+    builder: (context, state) => const FranchiseOwnerDashboardScreenStitch(),
   ),
   GoRoute(
     path: AppRoutes.billingAdminDashboard,
-    builder: (context, state) => const DynamicRoleDashboardScreen(),
+    builder: (context, state) => const BillingAdminDashboardScreenStitch(),
   ),
   GoRoute(
     path: AppRoutes.customerSupportDashboard,
@@ -31,7 +31,7 @@ final List<RouteBase> clinicRoutes = [
   ),
   GoRoute(
     path: AppRoutes.complianceManagerDashboard,
-    builder: (context, state) => const DynamicRoleDashboardScreen(),
+    builder: (context, state) => const ComplianceManagerDashboardScreenStitch(),
   ),
 
   // --- Sub-Screens ---

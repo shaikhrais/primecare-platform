@@ -152,7 +152,7 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                               color: AppTheme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.home_health_service, color: AppTheme.primary, size: 24),
+                            child: const Icon(Icons.medical_services, color: AppTheme.primary, size: 24),
                           ),
                           const SizedBox(width: 14),
                           const Expanded(

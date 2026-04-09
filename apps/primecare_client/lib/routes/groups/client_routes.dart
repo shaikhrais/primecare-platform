@@ -1,89 +1,73 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_core/routes/app_routes.dart';
 import 'package:primecare_ui/src/components/generic_feature_screen.dart';
 
-import '../../offices/client/roles/client/client_dashboard.dart'
-    as patient_dash;
-import '../../offices/client/roles/client/book_appointment.dart'
-    as client_book_appointment;
-import '../../offices/client/roles/client/my_appointments.dart'
-    as client_my_appointments;
-import '../../offices/client/roles/client/care_team.dart' as client_care_team;
-import '../../offices/client/roles/client/treatment_history.dart'
-    as client_treatment_history;
-import '../../offices/client/roles/client/payments.dart' as client_payments;
-import '../../offices/client/roles/client/profile.dart' as client_profile;
-import '../../offices/client/roles/family_member/loved_one_schedule.dart'
-    as family_member_loved_one_schedule;
-import '../../offices/client/roles/family_member/care_updates.dart'
-    as family_member_care_updates;
-import '../../offices/client/roles/family_member/billing.dart'
-    as family_member_billing;
-import '../../offices/client/roles/family_member/emergency_contacts.dart'
-    as family_member_emergency_contacts;
-import '../../offices/client/roles/family_member/profile.dart'
-    as family_member_profile;
-import '../../offices/client/roles/family_member/family_dashboard.dart'
-    as family_member_dash;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 final List<RouteBase> clientRoutes = [
   GoRoute(
     path: AppRoutes.clientBookAppointment,
-    builder: (context, state) =>
-        const client_book_appointment.BookAppointmentView(),
+    builder: (context, state) => const ClientBookAppointmentScreen(),
   ),
   GoRoute(
     path: AppRoutes.clientMyAppointments,
-    builder: (context, state) =>
-        const client_my_appointments.MyAppointmentsScreen(),
+    builder: (context, state) => const ClientMyAppointmentsScreen(),
   ),
   GoRoute(
     path: AppRoutes.clientCareTeam,
-    builder: (context, state) => const client_care_team.CareTeamView(),
+    builder: (context, state) => const ClientCareTeamScreen(),
   ),
   GoRoute(
     path: AppRoutes.clientTreatmentHistory,
-    builder: (context, state) =>
-        const client_treatment_history.TreatmentHistoryScreen(),
+    builder: (context, state) => const ClientTreatmentHistoryScreen(),
   ),
   GoRoute(
     path: AppRoutes.clientPayments,
-    builder: (context, state) => const client_payments.ClientPaymentsScreen(),
+    builder: (context, state) => const ClientPaymentsScreenStitch(),
   ),
   GoRoute(
     path: AppRoutes.clientProfile,
-    builder: (context, state) => const client_profile.ProfileScreen(),
+    builder: (context, state) => const ClientProfileScreenStitch(),
   ),
   GoRoute(
     path: AppRoutes.familyMemberLovedOneSchedule,
-    builder: (context, state) =>
-        const family_member_loved_one_schedule.LovedOneScheduleScreen(),
+    builder: (context, state) => const FamilyMemberLovedOneScheduleScreen(),
   ),
   GoRoute(
     path: AppRoutes.familyMemberCareUpdates,
-    builder: (context, state) =>
-        const family_member_care_updates.CareUpdatesView(),
+    builder: (context, state) => const FamilyMemberCareUpdatesScreen(),
   ),
   GoRoute(
     path: AppRoutes.familyMemberBilling,
-    builder: (context, state) => const family_member_billing.BillingScreen(),
+    builder: (context, state) => const FamilyMemberBillingScreen(),
   ),
   GoRoute(
     path: AppRoutes.familyMemberEmergencyContacts,
-    builder: (context, state) =>
-        const family_member_emergency_contacts.EmergencyContactsScreen(),
+    builder: (context, state) => const FamilyMemberEmergencyContactsScreen(),
   ),
   GoRoute(
     path: AppRoutes.familyMemberProfile,
-    builder: (context, state) => const family_member_profile.ProfileScreen(),
+    builder: (context, state) => const FamilyMemberProfileScreen(),
   ),
   GoRoute(
     path: AppRoutes.patientDashboard,
-    builder: (context, state) => const patient_dash.ClientDashboardScreen(),
+    builder: (context, state) => const PatientDashboard(),
   ),
   GoRoute(
     path: AppRoutes.familyMemberDashboard,
-    builder: (context, state) =>
-        const family_member_dash.FamilyDashboardScreen(),
+    builder: (context, state) => const FamilyMemberDashboard(),
   ),
 ];
