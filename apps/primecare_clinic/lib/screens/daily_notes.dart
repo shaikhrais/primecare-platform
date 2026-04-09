@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_ui/primecare_ui.dart';
 
 class DailyNotesScreen extends ConsumerWidget {
   const DailyNotesScreen({super.key});

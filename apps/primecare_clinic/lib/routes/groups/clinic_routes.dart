@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_core/routes/app_routes.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/routes/app_routes.dart';
+import 'package:flutter_ui/primecare_ui.dart';
 
 final List<RouteBase> clinicRoutes = [
   // --- Dashboards by Role ---
