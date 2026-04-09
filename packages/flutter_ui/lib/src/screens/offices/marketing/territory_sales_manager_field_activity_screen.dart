@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/routes/app_routes.dart'; 
+import 'package:flutter_core/flutter_core.dart'; 
 import 'package:flutter_core/dashboard_service.dart';
 import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
@@ -12,7 +12,7 @@ class TerritorySalesManagerFieldActivityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.territorySalesManagerFieldActivity));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(MarketingRoutes.territorySalesManagerFieldActivity));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class TerritorySalesManagerFieldActivityScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for AppRoutes.territorySalesManagerFieldActivity: \n$error',
+                        'Failed to load live metrics for MarketingRoutes.territorySalesManagerFieldActivity: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -111,3 +111,4 @@ class TerritorySalesManagerFieldActivityScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
+

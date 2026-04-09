@@ -9,7 +9,7 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Subscribe to live data using the specific route metric.
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.headOfMarketingDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.headOfMarketingDashboard));
 
     return ProviderLayout(
       child: metricsAsyncValue.when(

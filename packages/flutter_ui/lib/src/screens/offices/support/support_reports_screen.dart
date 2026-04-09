@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/routes/app_routes.dart'; 
+import 'package:flutter_core/flutter_core.dart'; 
 import 'package:flutter_core/dashboard_service.dart';
 import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
@@ -12,7 +12,7 @@ class SupportReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.supportReportsScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.supportReportsScreen));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class SupportReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for AppRoutes.supportReportsScreen: \n$error',
+                        'Failed to load live metrics for CommonRoutes.supportReportsScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -111,3 +111,4 @@ class SupportReportsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
+

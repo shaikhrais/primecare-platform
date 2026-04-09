@@ -1,6 +1,6 @@
 import 'package:flutter_ui/flutter_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/routes/app_routes.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_ui/src/components/generic_feature_screen.dart';
 
 
@@ -36,111 +36,112 @@ import 'package:flutter_ui/src/components/generic_feature_screen.dart';
 
 final List<RouteBase> supportRoutes = [
   GoRoute(
-    path: AppRoutes.customerSupportTickets,
+    path: SupportRoutes.customerSupportTickets,
     builder: (context, state) => const CustomerSupportTicketsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.customerSupportEscalations,
+    path: SupportRoutes.customerSupportEscalations,
     builder: (context, state) => const CustomerSupportEscalationsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.customerSupportIssueCategories,
+    path: SupportRoutes.customerSupportIssueCategories,
     builder: (context, state) => const CustomerSupportIssueCategoriesScreen(),
   ),
   GoRoute(
-    path: AppRoutes.customerSupportTemplates,
+    path: SupportRoutes.customerSupportTemplates,
     builder: (context, state) => const CustomerSupportTemplatesScreen(),
   ),
   GoRoute(
-    path: AppRoutes.customerSupportReports,
+    path: SupportRoutes.customerSupportReports,
     builder: (context, state) => const CustomerSupportReportsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.intakeCoordinatorNewIntakes,
+    path: SupportRoutes.intakeCoordinatorNewIntakes,
     builder: (context, state) => const IntakeCoordinatorNewIntakesScreen(),
   ),
   GoRoute(
-    path: AppRoutes.intakeCoordinatorIntakeForms,
+    path: SupportRoutes.intakeCoordinatorIntakeForms,
     builder: (context, state) => const IntakeCoordinatorIntakeFormsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.intakeCoordinatorEligibility,
+    path: SupportRoutes.intakeCoordinatorEligibility,
     builder: (context, state) => const IntakeCoordinatorEligibilityScreen(),
   ),
   GoRoute(
-    path: AppRoutes.intakeCoordinatorScheduling,
+    path: SupportRoutes.intakeCoordinatorScheduling,
     builder: (context, state) => const IntakeCoordinatorSchedulingScreen(),
   ),
   GoRoute(
-    path: AppRoutes.intakeCoordinatorClientAssignment,
+    path: SupportRoutes.intakeCoordinatorClientAssignment,
     builder: (context, state) => const IntakeCoordinatorClientAssignmentScreen(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceAudits,
+    path: SupportRoutes.qualityAssuranceAudits,
     builder: (context, state) => const QualityAssuranceAuditsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceReviews,
+    path: SupportRoutes.qualityAssuranceReviews,
     builder: (context, state) => const QualityAssuranceReviewsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceComplaints,
+    path: SupportRoutes.qualityAssuranceComplaints,
     builder: (context, state) => const QualityAssuranceComplaintsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceCorrectiveActions,
+    path: SupportRoutes.qualityAssuranceCorrectiveActions,
     builder: (context, state) => const QualityAssuranceCorrectiveActionsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceScorecards,
+    path: SupportRoutes.qualityAssuranceScorecards,
     builder: (context, state) => const QualityAssuranceScorecardsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceComplianceChecks,
+    path: SupportRoutes.qualityAssuranceComplianceChecks,
     builder: (context, state) => const QualityAssuranceComplianceChecksScreen(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceReports,
+    path: SupportRoutes.qualityAssuranceReports,
     builder: (context, state) => const QualityAssuranceReportsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.trainingCoordinatorTrainingSchedule,
+    path: SupportRoutes.trainingCoordinatorTrainingSchedule,
     builder: (context, state) => const TrainingCoordinatorTrainingScheduleScreen(),
   ),
   GoRoute(
-    path: AppRoutes.trainingCoordinatorCourses,
+    path: SupportRoutes.trainingCoordinatorCourses,
     builder: (context, state) => const TrainingCoordinatorCoursesScreen(),
   ),
   GoRoute(
-    path: AppRoutes.trainingCoordinatorProgress,
+    path: SupportRoutes.trainingCoordinatorProgress,
     builder: (context, state) => const TrainingCoordinatorProgressScreen(),
   ),
   GoRoute(
-    path: AppRoutes.trainingCoordinatorWorkshops,
+    path: SupportRoutes.trainingCoordinatorWorkshops,
     builder: (context, state) => const TrainingCoordinatorWorkshopsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.trainingCoordinatorAttendance,
+    path: SupportRoutes.trainingCoordinatorAttendance,
     builder: (context, state) => const TrainingCoordinatorAttendanceScreen(),
   ),
   GoRoute(
-    path: AppRoutes.trainingCoordinatorMaterials,
+    path: SupportRoutes.trainingCoordinatorMaterials,
     builder: (context, state) => const TrainingCoordinatorMaterialsScreen(),
   ),
   GoRoute(
-    path: AppRoutes.customerSupportDashboard,
+    path: SupportRoutes.customerSupportDashboard,
     builder: (context, state) => const CustomerSupportDashboard(),
   ),
   GoRoute(
-    path: AppRoutes.intakeCoordinatorDashboard,
+    path: SupportRoutes.intakeCoordinatorDashboard,
     builder: (context, state) => const IntakeCoordinatorDashboard(),
   ),
   GoRoute(
-    path: AppRoutes.qualityAssuranceDashboard,
+    path: SupportRoutes.qualityAssuranceDashboard,
     builder: (context, state) => const QualityAssuranceDashboard(),
   ),
   GoRoute(
-    path: AppRoutes.trainingCoordinatorDashboard,
+    path: SupportRoutes.trainingCoordinatorDashboard,
     builder: (context, state) => const TrainingCoordinatorDashboardScreenStitch(),
   ),
 ];
+

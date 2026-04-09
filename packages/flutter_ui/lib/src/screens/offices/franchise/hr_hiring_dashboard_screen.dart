@@ -9,7 +9,7 @@ class HrHiringDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Subscribe to live data using the specific route metric.
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.hrHiringDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.hrHiringDashboard));
 
     return ProviderLayout(
       child: metricsAsyncValue.when(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/routes/app_routes.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_core/dashboard_service.dart';
 import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
@@ -12,7 +12,7 @@ class FamilyMemberCareUpdatesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.familyMemberCareUpdates));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(ClientRoutes.familyMemberCareUpdates));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class FamilyMemberCareUpdatesScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for AppRoutes.familyMemberCareUpdates: \n$error',
+                        'Failed to load live metrics for ClientRoutes.familyMemberCareUpdates: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -239,3 +239,4 @@ class FamilyMemberCareUpdatesScreen extends ConsumerWidget {
     );
   }
 }
+

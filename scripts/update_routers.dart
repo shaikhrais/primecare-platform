@@ -7,7 +7,7 @@ void main() async {
   final Map<String, String> appRouteToStitchClass = {};
   
   // Parse AppRoutes -> Stitch Class
-  // Format: - [ ] BDV-601 : `AppRoutes.regionalManagerOntarioDashboard` -> **`RegionalManagerOntarioDashboardScreenStitch`**
+  // Format: - [ ] BDV-601 : `BusinessDevelopmentRoutes.regionalManagerOntarioDashboard` -> **`RegionalManagerOntarioDashboardScreenStitch`**
   final exp1 = RegExp(r'- \[ \] [A-Z]{3}-\d{3} : `AppRoutes\.([^`]+)` -> \*\*`([^`]+)`\*\*');
   for (var match in exp1.allMatches(pendingContent)) {
     appRouteToStitchClass['AppRoutes.' + match.group(1)!] = match.group(2)!;

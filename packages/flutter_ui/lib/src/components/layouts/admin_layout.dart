@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/routes/app_routes.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class AdminLayout extends StatelessWidget {
   final Widget child;
@@ -21,12 +21,12 @@ class AdminLayout extends StatelessWidget {
           IconButton(
             key: const Key('data-status-id=shared-global-admin-action-1'),
             icon: const Icon(Icons.notifications),
-            onPressed: () => context.go(AppRoutes.notificationCenter),
+            onPressed: () => context.go(CommonRoutes.notificationCenter),
           ),
           IconButton(
             key: const Key('data-status-id=shared-global-admin-action-3'),
             icon: const Icon(Icons.account_circle),
-            onPressed: () => context.go(AppRoutes.globalProfile),
+            onPressed: () => context.go(CommonRoutes.globalProfile),
           ),
         ],
       ),
@@ -46,7 +46,7 @@ class AdminLayout extends StatelessWidget {
                   leading: const Icon(Icons.dashboard),
                   title: const Text('Executive Dashboard'),
                   onTap: () {
-                    context.go(AppRoutes.ceoDashboard);
+                    context.go(CorporateRoutes.ceoDashboard);
                     if (isMobile) Navigator.pop(context);
                   },
                 ),
@@ -55,7 +55,7 @@ class AdminLayout extends StatelessWidget {
                   leading: const Icon(Icons.analytics),
                   title: const Text('Global Reports'),
                   onTap: () {
-                    context.go(AppRoutes.complianceManagerDashboard);
+                    context.go(CorporateRoutes.complianceManagerDashboard);
                     if (isMobile) Navigator.pop(context);
                   },
                 ),
@@ -64,7 +64,7 @@ class AdminLayout extends StatelessWidget {
                   leading: const Icon(Icons.settings),
                   title: const Text('System Settings'),
                   onTap: () {
-                    context.go(AppRoutes.globalSettings);
+                    context.go(CommonRoutes.globalSettings);
                     if (isMobile) Navigator.pop(context);
                   },
                 ),
@@ -113,7 +113,7 @@ class AdminLayout extends StatelessWidget {
                     leading: const Icon(Icons.dashboard),
                     title: const Text('Executive Dashboard'),
                     onTap: () {
-                      context.go(AppRoutes.ceoDashboard);
+                      context.go(CorporateRoutes.ceoDashboard);
                       Navigator.pop(context);
                     },
                   ),
@@ -124,7 +124,7 @@ class AdminLayout extends StatelessWidget {
                     leading: const Icon(Icons.analytics),
                     title: const Text('Global Reports'),
                     onTap: () {
-                      context.go(AppRoutes.complianceManagerDashboard);
+                      context.go(CorporateRoutes.complianceManagerDashboard);
                       Navigator.pop(context);
                     },
                   ),
@@ -135,7 +135,7 @@ class AdminLayout extends StatelessWidget {
                     leading: const Icon(Icons.settings),
                     title: const Text('System Settings'),
                     onTap: () {
-                      context.go(AppRoutes.globalSettings);
+                      context.go(CommonRoutes.globalSettings);
                       Navigator.pop(context);
                     },
                   ),
@@ -148,3 +148,4 @@ class AdminLayout extends StatelessWidget {
     );
   }
 }
+

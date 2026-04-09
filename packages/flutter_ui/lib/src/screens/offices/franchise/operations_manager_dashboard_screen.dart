@@ -9,7 +9,7 @@ class OperationsManagerDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Subscribe to live data using the specific route metric.
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.operationsManagerDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.operationsManagerDashboard));
 
     return ProviderLayout(
       child: metricsAsyncValue.when(

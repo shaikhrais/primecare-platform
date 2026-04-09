@@ -15,7 +15,7 @@ class DocumentVaultScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider(AppRoutes.documentVault));
+    final metricsAsync = ref.watch(dashboardMetricsProvider(CommonRoutes.documentVault));
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),

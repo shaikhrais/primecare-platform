@@ -34,91 +34,91 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   static String getDashboardRouteForRole(String role) {
-    if (role.isEmpty) return AppRoutes.clinicDashboard;
+    if (role.isEmpty) return CommonRoutes.clinicDashboard;
 
     final r = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
 
     // Corporate Leadership
     if (r.contains('ceo') || r.contains('founder'))
-      return AppRoutes.ceoDashboard;
-    if (r.contains('coo')) return AppRoutes.cooDashboard;
+      return CorporateRoutes.ceoDashboard;
+    if (r.contains('coo')) return CorporateRoutes.cooDashboard;
     if (r.contains('cfo') || r.contains('finance'))
-      return AppRoutes.cfoDashboard;
-    if (r.contains('cto') || r.contains('tech')) return AppRoutes.ctoDashboard;
+      return CorporateRoutes.cfoDashboard;
+    if (r.contains('cto') || r.contains('tech')) return CorporateRoutes.ctoDashboard;
     if (r.contains('compliance_manager'))
-      return AppRoutes.complianceManagerDashboard;
+      return CorporateRoutes.complianceManagerDashboard;
     if (r.contains('head_of_bus_dev') || r.contains('growth'))
-      return AppRoutes.headOfBusDevDashboard;
+      return CorporateRoutes.headOfBusDevDashboard;
     if (r.contains('head_of_marketing'))
-      return AppRoutes.headOfMarketingDashboard;
+      return CorporateRoutes.headOfMarketingDashboard;
     if (r.contains('training_director'))
-      return AppRoutes.trainingDirectorDashboard;
+      return CorporateRoutes.trainingDirectorDashboard;
 
     // Business Development
-    if (r.contains('ontario')) return AppRoutes.regionalManagerOntarioDashboard;
-    if (r.contains('usa')) return AppRoutes.regionalManagerUsaDashboard;
+    if (r.contains('ontario')) return BusinessDevelopmentRoutes.regionalManagerOntarioDashboard;
+    if (r.contains('usa')) return BusinessDevelopmentRoutes.regionalManagerUsaDashboard;
     if (r.contains('franchise_sales'))
-      return AppRoutes.franchiseSalesManagerDashboard;
-    if (r.contains('partnership')) return AppRoutes.partnershipManagerDashboard;
+      return BusinessDevelopmentRoutes.franchiseSalesManagerDashboard;
+    if (r.contains('partnership')) return BusinessDevelopmentRoutes.partnershipManagerDashboard;
     if (r.contains('expansion'))
-      return AppRoutes.territoryExpansionManagerDashboard;
+      return BusinessDevelopmentRoutes.territoryExpansionManagerDashboard;
     if (r.contains('general_manager') || r.contains('gm'))
-      return AppRoutes.generalManagerDashboard;
+      return BusinessDevelopmentRoutes.generalManagerDashboard;
 
     // Franchise Tier
     if (r.contains('owner') || r.contains('franchisee'))
-      return AppRoutes.franchiseOwnerDashboard;
+      return FranchiseRoutes.franchiseOwnerDashboard;
     if (r.contains('operations_manager'))
-      return AppRoutes.operationsManagerDashboard;
+      return FranchiseRoutes.operationsManagerDashboard;
     if (r.contains('scheduler') || r.contains('coordinator'))
-      return AppRoutes.schedulerDashboard;
+      return FranchiseRoutes.schedulerDashboard;
     if (r.contains('billing') || r.contains('admin'))
-      return AppRoutes.billingAdminDashboard;
+      return FranchiseRoutes.billingAdminDashboard;
     if (r.contains('hr') || r.contains('hiring'))
-      return AppRoutes.hrHiringDashboard;
+      return FranchiseRoutes.hrHiringDashboard;
 
     // Clinical Execution
     if (r == 'rn' || r.contains('registered_nurse'))
-      return AppRoutes.clinicDashboard;
-    if (r == 'rpn') return AppRoutes.clinicDashboard;
-    if (r == 'rmt') return AppRoutes.clinicDashboard;
-    if (r == 'psw') return AppRoutes.clinicDashboard;
+      return CommonRoutes.clinicDashboard;
+    if (r == 'rpn') return CommonRoutes.clinicDashboard;
+    if (r == 'rmt') return CommonRoutes.clinicDashboard;
+    if (r == 'psw') return CommonRoutes.clinicDashboard;
 
     // Allied Health (Clinical Specialties)
     if (r == 'physio' || r.contains('physiotherapist'))
-      return AppRoutes.clinicDashboard;
+      return CommonRoutes.clinicDashboard;
     if (r == 'chiro' || r.contains('chiropractor'))
-      return AppRoutes.clinicDashboard;
+      return CommonRoutes.clinicDashboard;
     if (r == 'ot' || r.contains('occupational'))
-      return AppRoutes.clinicDashboard;
+      return CommonRoutes.clinicDashboard;
     if (r == 'slp' || r.contains('speech'))
-      return AppRoutes.clinicDashboard;
+      return CommonRoutes.clinicDashboard;
 
     // Support & Intake
     if (r.contains('customer_support') || r.contains('support'))
-      return AppRoutes.customerSupportDashboard;
-    if (r.contains('intake')) return AppRoutes.intakeCoordinatorDashboard;
+      return SupportRoutes.customerSupportDashboard;
+    if (r.contains('intake')) return SupportRoutes.intakeCoordinatorDashboard;
     if (r.contains('quality') || r.contains('qa'))
-      return AppRoutes.qualityAssuranceDashboard;
+      return SupportRoutes.qualityAssuranceDashboard;
     if (r.contains('training_coordinator'))
-      return AppRoutes.trainingCoordinatorDashboard;
+      return SupportRoutes.trainingCoordinatorDashboard;
 
     // Marketing & Growth
     if (r.contains('local_marketing'))
-      return AppRoutes.localMarketingManagerDashboard;
-    if (r.contains('outreach')) return AppRoutes.communityOutreachDashboard;
+      return MarketingRoutes.localMarketingManagerDashboard;
+    if (r.contains('outreach')) return MarketingRoutes.communityOutreachDashboard;
     if (r.contains('territory_sales'))
-      return AppRoutes.territorySalesManagerDashboard;
+      return MarketingRoutes.territorySalesManagerDashboard;
 
     // Client Side
-    if (r == 'client') return AppRoutes.clientDashboard;
-    if (r.contains('family')) return AppRoutes.familyMemberDashboard;
+    if (r == 'client') return ClientRoutes.clientDashboard;
+    if (r.contains('family')) return ClientRoutes.familyMemberDashboard;
 
     // Technical / System
     if (r.contains('scrum') || r.contains('master'))
-      return AppRoutes.scrumMasterDashboard;
+      return CommonRoutes.scrumMasterDashboard;
 
-    return AppRoutes.clinicDashboard; // Fallback security
+    return CommonRoutes.clinicDashboard; // Fallback security
   }
 
   Future<void> _loadStoredAuth() async {

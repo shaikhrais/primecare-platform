@@ -15,7 +15,7 @@ class NotificationCenterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider(AppRoutes.notificationCenter));
+    final metricsAsync = ref.watch(dashboardMetricsProvider(CommonRoutes.notificationCenter));
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),

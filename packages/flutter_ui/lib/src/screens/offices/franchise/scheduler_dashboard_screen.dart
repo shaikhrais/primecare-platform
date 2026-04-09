@@ -9,7 +9,7 @@ class SchedulerDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Subscribe to live data using the specific route metric.
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.schedulerDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.schedulerDashboard));
 
     return ProviderLayout(
       child: metricsAsyncValue.when(

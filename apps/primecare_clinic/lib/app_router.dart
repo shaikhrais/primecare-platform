@@ -1,4 +1,4 @@
-import 'package:flutter_core/routes/app_routes.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_core/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,13 +9,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
 
   return GoRouter(
-    initialLocation: AppRoutes.login,
+    initialLocation: CommonRoutes.login,
     refreshListenable: authListenable,
     redirect: (context, state) {
-      final isLoggingIn = state.uri.toString() == AppRoutes.login;
+      final isLoggingIn = state.uri.toString() == CommonRoutes.login;
       
       if (!authState.isAuthenticated) {
-        return isLoggingIn ? null : AppRoutes.login;
+        return isLoggingIn ? null : CommonRoutes.login;
       }
 
       if (isLoggingIn || state.uri.toString() == '/') {
@@ -27,10 +27,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       GoRoute(
-        path: AppRoutes.login,
+        path: CommonRoutes.login,
         builder: (context, state) => const LoginScreen(),
       ),
       ...clinicRoutes,
     ],
   );
 });
+

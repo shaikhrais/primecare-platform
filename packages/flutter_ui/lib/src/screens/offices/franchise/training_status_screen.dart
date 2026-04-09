@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/routes/app_routes.dart'; 
+import 'package:flutter_core/flutter_core.dart'; 
 import 'package:flutter_core/dashboard_service.dart';
 import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
@@ -12,7 +12,7 @@ class TrainingStatusScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.hrHiringTrainingStatus));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.hrHiringTrainingStatus));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class TrainingStatusScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for AppRoutes.hrHiringTrainingStatus: \n$error',
+                        'Failed to load live metrics for FranchiseRoutes.hrHiringTrainingStatus: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -111,3 +111,4 @@ class TrainingStatusScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
+

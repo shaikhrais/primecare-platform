@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/routes/app_routes.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class KpiConfig {
   final String title;
@@ -83,7 +83,7 @@ class DashboardConfig {
 class ScreenRegistry {
   // We represent the registry as JSON structures so it can easily be backed by an API/Edge Worker later.
   static final Map<String, Map<String, dynamic>> _registryJson = {
-    AppRoutes.ceoDashboard: {
+    CorporateRoutes.ceoDashboard: {
       'title': 'Global Platform Overview',
       'subtitle': 'Real-time metrics across all PrimeCare franchise locations and clinical nodes.',
       'kpis': [
@@ -93,7 +93,7 @@ class ScreenRegistry {
         {'title': 'Critical Alerts', 'value': '3', 'deltaSuffix': '-2 since yesterday', 'icon': 'shieldAlert', 'iconColor': 'orange'},
       ],
     },
-    AppRoutes.headOfBusDevDashboard: {
+    CorporateRoutes.headOfBusDevDashboard: {
       'title': 'Growth & Acquisition',
       'subtitle': 'Metrics for franchise conversions and territory penetration.',
       'kpis': [
@@ -103,7 +103,7 @@ class ScreenRegistry {
         {'title': 'Win Rate', 'value': '24%', 'deltaSuffix': '+2% this quarter', 'icon': 'userCheck', 'iconColor': 'green'},
       ],
     },
-    AppRoutes.franchiseOwnerDashboard: {
+    FranchiseRoutes.franchiseOwnerDashboard: {
       'title': 'Location Headquarters',
       'subtitle': 'Central operational hub for managing franchise performance.',
       'kpis': [
@@ -113,7 +113,7 @@ class ScreenRegistry {
         {'title': 'Utilization', 'value': '88%', 'deltaSuffix': 'Optimal range', 'icon': 'barChart2', 'iconColor': 'teal'},
       ]
     },
-    AppRoutes.billingAdminDashboard: {
+    FranchiseRoutes.billingAdminDashboard: {
       'title': 'Billing Administration',
       'subtitle': 'Manage invoices, claims, and reconciliation.',
       'kpis': [
@@ -121,7 +121,7 @@ class ScreenRegistry {
         {'title': 'A/R', 'value': '\$42k', 'deltaSuffix': 'Net 30', 'icon': 'dollarSign', 'iconColor': 'red'},
       ]
     },
-    AppRoutes.customerSupportDashboard: {
+    SupportRoutes.customerSupportDashboard: {
       'title': 'Support & QA Diagnostics',
       'subtitle': 'Manage tickets, escalations, and system uptime.',
       'kpis': [
@@ -130,7 +130,7 @@ class ScreenRegistry {
         {'title': 'Escalations', 'value': '2', 'deltaSuffix': 'Require Action', 'icon': 'shieldAlert', 'iconColor': 'red'},
       ]
     },
-    AppRoutes.clinicDashboard: {
+    CommonRoutes.clinicDashboard: {
       'title': 'Clinical Floor Operations',
       'subtitle': 'Track active shifts and priority care alerts.',
       'kpis': [
@@ -139,7 +139,7 @@ class ScreenRegistry {
         {'title': 'Incident Reports', 'value': '0', 'deltaSuffix': 'Last 24hrs', 'icon': 'shieldAlert', 'iconColor': 'green'},
       ]
     },
-    AppRoutes.complianceManagerDashboard: {
+    CorporateRoutes.complianceManagerDashboard: {
       'title': 'Compliance Governance',
       'subtitle': 'Track regulatory metrics, policy training, and audit status.',
       'kpis': [
@@ -167,3 +167,4 @@ class ScreenRegistry {
     );
   }
 }
+

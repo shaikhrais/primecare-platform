@@ -9,7 +9,7 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Subscribe to live data using the specific route metric.
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(AppRoutes.billingAdminDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.billingAdminDashboard));
 
     return ProviderLayout(
       child: metricsAsyncValue.when(

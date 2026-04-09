@@ -15,7 +15,7 @@ class GlobalProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider(AppRoutes.globalProfile));
+    final metricsAsync = ref.watch(dashboardMetricsProvider(CommonRoutes.globalProfile));
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
