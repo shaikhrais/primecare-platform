@@ -1,6 +1,7 @@
 // Auto-generated screens for office: common
 
 export '../src/screens/common/document_vault.dart';
+export '../src/screens/common/dynamic_role_dashboard_screen.dart';
 export '../src/screens/common/global_profile.dart';
 export '../src/screens/common/global_settings.dart';
 export '../src/screens/common/history_logs.dart';
