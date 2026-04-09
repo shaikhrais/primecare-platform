@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui/primecare_ui.dart';
+import 'package:flutter_ui/flutter_ui.dart';
 
 class PrimeWeeklyRosterCard extends StatelessWidget {
   final List<Widget> rosterNodes;

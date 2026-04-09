@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/primecare_core.dart';
-import 'package:flutter_ui/primecare_ui.dart';
+import 'package:flutter_ui/flutter_ui.dart';
 
 class BillingAdminDashboardScreen extends ConsumerWidget {
   const BillingAdminDashboardScreen({super.key});
