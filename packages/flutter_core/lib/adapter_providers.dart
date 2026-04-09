@@ -36,7 +36,6 @@ class FeatureAdapter {
   Future<List<FeatureViewModel>> getData(String endpointKey) async => [];
 }
 
-final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
 
 final providerDashboardAdapterProvider = Provider<ProviderDashboardAdapter>((ref) => const ProviderDashboardAdapter());
 final clientProfileAdapterProvider = Provider<ClientProfileAdapter>((ref) => const ClientProfileAdapter());
