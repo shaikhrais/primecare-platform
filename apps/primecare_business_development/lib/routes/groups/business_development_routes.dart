@@ -1,4 +1,4 @@
-import 'package:flutter_ui/primecare_ui.dart';
+import 'package:flutter_ui/flutter_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/routes/app_routes.dart';
 import 'package:flutter_ui/src/components/generic_feature_screen.dart';

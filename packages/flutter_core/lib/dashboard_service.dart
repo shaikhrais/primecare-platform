@@ -3,6 +3,7 @@ import 'network/api_client.dart';
 
 class KpiMetric {
   final String title;
+  String get label => title;
   final String value;
   final String? subtitle;
   final String? trend;

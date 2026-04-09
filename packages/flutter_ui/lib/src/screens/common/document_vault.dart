@@ -7,6 +7,7 @@ import 'package:flutter_ui/src/design_system/clinical_glass.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 import 'package:flutter_core/theme/app_theme.dart';
 import 'package:flutter_core/dashboard_providers.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class DocumentVaultScreen extends ConsumerWidget {
   const DocumentVaultScreen({super.key});
@@ -14,7 +15,7 @@ class DocumentVaultScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider);
+    final metricsAsync = ref.watch(dashboardMetricsProvider(AppRoutes.documentVault));
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
