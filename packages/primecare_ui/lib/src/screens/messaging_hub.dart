@@ -5,7 +5,6 @@ import 'package:primecare_core/dynamic_page_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/src/design_system/clinical_glass.dart';
 import 'package:primecare_ui/src/components/primecare_stat_card.dart';
-import 'package:primecare_ui/src/components/primecare_action_tile.dart';
 import 'package:primecare_core/theme/app_theme.dart';
 import 'package:primecare_core/dashboard_providers.dart';
 
@@ -61,7 +60,8 @@ class MessagingHubScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                              title: 'Activity Level',
+                  title: 'Component Title',
+
                               value: 'High',
                               icon: Icons.show_chart,
                               iconColor: Colors.teal,
@@ -70,7 +70,8 @@ class MessagingHubScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                              title: 'Pending Items',
+                  title: 'Component Title',
+
                               value: '12',
                               icon: Icons.pending_actions,
                               iconColor: Colors.orange,
@@ -79,7 +80,8 @@ class MessagingHubScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                              title: 'System Sync',
+                  title: 'Component Title',
+
                               value: 'Active',
                               icon: Icons.sync,
                               iconColor: Colors.indigo,
@@ -88,7 +90,8 @@ class MessagingHubScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                              title: 'Alerts',
+                  title: 'Component Title',
+
                               value: '0',
                               icon: Icons.notification_important,
                               iconColor: Colors.red,
@@ -189,7 +192,8 @@ class MessagingHubScreen extends ConsumerWidget {
                               child: Column(
                                 children: [
                                   AuditLogTile(
-                                    title: 'Update Triggered',
+                  title: 'Component Title',
+
                                     subtitle: 'Automated policy sync.',
                                     timestamp: '1 Hr Ago',
                                     icon: Icons.history,
@@ -201,7 +205,8 @@ class MessagingHubScreen extends ConsumerWidget {
                                     thickness: 0.1,
                                   ),
                                   AuditLogTile(
-                                    title: 'Audit Warning',
+                  title: 'Component Title',
+
                                     subtitle: 'Item requires review.',
                                     timestamp: '3 Hrs Ago',
                                     icon: Icons.warning,

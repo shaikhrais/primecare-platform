@@ -83,3 +83,11 @@ export 'src/components/universal_role_sidebar.dart';
 export 'src/components/page_template.dart';
 export 'src/components/care_plan_sheet.dart';
 export 'src/components/audit_log_tile.dart';
+
+// Role Dashboards
+export 'src/screens/common/dynamic_role_dashboard.dart';
+
+// Sub-Screens
+export 'src/screens/common/history_logs.dart';
+export 'src/screens/common/profile_settings.dart';
+export 'src/screens/common/messaging.dart';

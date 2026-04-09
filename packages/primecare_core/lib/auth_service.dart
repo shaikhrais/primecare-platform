@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/api_providers.dart';
-import '../routes/app_routes.dart';
-import '../core/config/api_config.dart';
+import 'api_providers.dart';
+import 'routes/app_routes.dart';
+import 'config/api_config.dart';
 
 class AuthState {
   final bool isAuthenticated;
@@ -34,7 +34,7 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   static String getDashboardRouteForRole(String role) {
-    if (role.isEmpty) return AppRoutes.pswDashboard;
+    if (role.isEmpty) return AppRoutes.clinicDashboard;
 
     final r = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
 
@@ -79,20 +79,20 @@ class AuthNotifier extends Notifier<AuthState> {
 
     // Clinical Execution
     if (r == 'rn' || r.contains('registered_nurse'))
-      return AppRoutes.rnDashboard;
-    if (r == 'rpn') return AppRoutes.rpnDashboard;
-    if (r == 'rmt') return AppRoutes.rmtDashboard;
-    if (r == 'psw') return AppRoutes.pswDashboard;
+      return AppRoutes.clinicDashboard;
+    if (r == 'rpn') return AppRoutes.clinicDashboard;
+    if (r == 'rmt') return AppRoutes.clinicDashboard;
+    if (r == 'psw') return AppRoutes.clinicDashboard;
 
     // Allied Health (Clinical Specialties)
     if (r == 'physio' || r.contains('physiotherapist'))
-      return AppRoutes.physioDashboard;
+      return AppRoutes.clinicDashboard;
     if (r == 'chiro' || r.contains('chiropractor'))
-      return AppRoutes.chiroDashboard;
+      return AppRoutes.clinicDashboard;
     if (r == 'ot' || r.contains('occupational'))
-      return AppRoutes.occupationalTherapistDashboard;
+      return AppRoutes.clinicDashboard;
     if (r == 'slp' || r.contains('speech'))
-      return AppRoutes.speechPathologistDashboard;
+      return AppRoutes.clinicDashboard;
 
     // Support & Intake
     if (r.contains('customer_support') || r.contains('support'))
@@ -118,7 +118,7 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('scrum') || r.contains('master'))
       return AppRoutes.scrumMasterDashboard;
 
-    return AppRoutes.pswDashboard; // Fallback security
+    return AppRoutes.clinicDashboard; // Fallback security
   }
 
   Future<void> _loadStoredAuth() async {

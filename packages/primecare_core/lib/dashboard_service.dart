@@ -1,5 +1,5 @@
-import '../core/config/api_config.dart';
-import '../core/network/api_client.dart';
+import 'config/api_config.dart';
+import 'network/api_client.dart';
 
 class KpiMetric {
   final String title;
@@ -76,16 +76,17 @@ class DashboardService {
 
   DashboardService(this._apiClient);
 
-  Future<DashboardMetrics> getMetrics() async {
+  Future<DashboardMetrics> getMetrics(String route) async {
     try {
       final endpoint = ApiConfig.endpoints['providerMetrics']!;
-      final response = await _apiClient.get(endpoint);
+      // Attach the route parameter to hit real, dynamic endpoint targets
+      final response = await _apiClient.get('$endpoint?route=$route');
       if (response.statusCode == 200) {
         return DashboardMetrics.fromJson(response.data as Map<String, dynamic>);
       }
       throw Exception('Failed to load metrics: ${response.statusCode}');
     } catch (e) {
-      throw Exception('Failed to fetch dashboard metrics: $e');
+      throw Exception('Failed to fetch dashboard metrics for route $route: $e');
     }
   }
 }
