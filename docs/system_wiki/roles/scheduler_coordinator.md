@@ -7,9 +7,14 @@ Assigning caregivers, managing shift overlaps and conflicts.
 
 ## Accessible Screens & Tasks
 
-| Screen Target Component | Allowed Tasks |
-| :--- | :--- |
-| `<Role Specific Dashboard Screen>` | View macroscopic operational metrics. |
-| `<Workflow Screen 1>` | Perform targeted operational mutations. |
-
-> **Note**: This page is linked to the active tracking matrix. Future development tasks will hydrate the exact screens and granular tasks list.
+| Screen ID | Verified Component | Implementation Status | Core Operation / Task |
+| :--- | :--- | :--- | :--- |
+| **FRA-803** | `SchedulerDashboard` | ✅ Implemented | High-velocity overview of unfilled shifts, incoming bookings, and bottlenecks. |
+| **FRA-822** | `SchedulerCoordinatorAppointmentCalendarScreen` | ✅ Implemented | Visual calendar interface for mapping clinical capacities per day/week. |
+| **FRA-823** | `SchedulerCoordinatorShiftCalendarScreen` | ✅ Implemented | View and distribute blocks of generic shifts to specific geographic zones. |
+| **FRA-824** | `SchedulerCoordinatorProviderAvailabilityScreen` | ✅ Implemented | Analyze Nurse and PSW blackout dates, vacation requests, and max capacities. |
+| **FRA-825** | `SchedulerCoordinatorBookingRequestsScreen` | ✅ Implemented | Triage incoming booking requests originating from the Client portal. |
+| **FRA-826** | `SchedulerCoordinatorOpenShiftsScreen` | ✅ Implemented | Broadcast unassigned shifts individually or en masse to eligible staff. |
+| **FRA-827** | `SchedulerCoordinatorAssignmentsScreen` | ✅ Implemented | Finalize mapping of a specific clinical staff member to a patient ticket. |
+| **FRA-828** | `SchedulerCoordinatorConflictsScreen` | ✅ Implemented | Auto-detect and resolve double-bookings or overtime threshold violations. |
+| **COR-768** | `SchedulerCoordinatorReportsScreen` | ✅ Implemented | Generate analytics detailing fulfillment rates and scheduling velocity. |
