@@ -13,24 +13,45 @@ class SchedulerDashboardScreen extends ConsumerWidget {
 
     return ProviderLayout(
       child: metricsAsyncValue.when(
-        data: (metrics) => DashboardView(
-          header: DashboardHeader(
-            title: 'SchedulerDashboardScreen',
-            subtitle: 'Real-time metrics and alerts',
-          ),
+        data: (metrics) => PageTemplate(
+          title: 'SchedulerDashboardScreen',
+          subtitle: 'Real-time metrics and alerts',
           kpiCards: metrics.kpis.map((kpi) => 
-            PlatformKpiCard(
-              title: kpi.label,
-              value: kpi.value,
-              trend: kpi.trend,
+            Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(kpi.label, style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.grey.shade600)),
+                    const SizedBox(height: 8),
+                    Text(kpi.value, style: Theme.of(context).textTheme.headlineMedium),
+                    if (kpi.trend != null) ...[
+                      const SizedBox(height: 8),
+                      Text(kpi.trend!, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.blueGrey)),
+                    ]
+                  ],
+                ),
+              ),
             )
           ).toList(),
-          recentActivity: metrics.recentActivity.map((log) => 
-            ActivityLogItem(
-              title: log.title,
-              timestamp: log.timestamp.toString(),
-            )
-          ).toList(),
+          children: [
+            if (metrics.recentActivity.isNotEmpty) ...[
+              Text('Recent Activity', style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 16),
+              ...metrics.recentActivity.map((log) => 
+                ListTile(
+                  title: Text(log.title),
+                  subtitle: Text(log.timestamp.toString()),
+                )
+              ).toList(),
+            ]
+          ],
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error: $err')),

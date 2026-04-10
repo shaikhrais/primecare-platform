@@ -3,7 +3,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'api_providers.dart';
-import 'routes/app_routes.dart';
+import 'routes/groups/admin_routes.dart';
+import 'routes/groups/business_development_routes.dart';
+import 'routes/groups/client_routes.dart';
+import 'routes/groups/clinical_routes.dart';
+import 'routes/groups/corporate_routes.dart';
+import 'routes/groups/franchise_routes.dart';
+import 'routes/groups/marketing_routes.dart';
+import 'routes/groups/support_routes.dart';
+import 'routes/groups/common_routes.dart';
 import 'config/api_config.dart';
 
 class AuthState {

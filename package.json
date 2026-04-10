@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "dev:api": "npm run dev --workspace=@primecare/worker-api",
-    "dev:admin": "npm run dev --workspace=@primecare/web-admin",
     "dev:web": "npm run dev --workspace=prime-care-web-marketing",
     "api:spec": "node scripts/export-openapi.mjs",
     "api:types": "npx openapi-typescript packages/contracts/openapi.json -o packages/contracts/generated/api.d.ts",
