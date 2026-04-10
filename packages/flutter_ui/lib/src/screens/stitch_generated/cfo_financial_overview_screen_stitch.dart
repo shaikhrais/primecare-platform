@@ -5,7 +5,6 @@ import 'package:flutter_core/dashboard_service.dart';
 import 'package:flutter_core/dashboard_providers.dart';
 // Use local imports if they are in same package, or core if they are exported there. We assume primecare_ui components.
 import 'package:flutter_ui/flutter_ui.dart';
-import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 
 class CfoFinancialOverviewScreenStitch extends ConsumerWidget {
   const CfoFinancialOverviewScreenStitch({super.key});

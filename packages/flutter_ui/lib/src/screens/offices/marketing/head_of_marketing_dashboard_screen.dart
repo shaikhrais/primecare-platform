@@ -9,14 +9,14 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Subscribe to live data using the specific route metric.
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.headOfMarketingDashboard));
+    final viewModelAsyncValue = ref.watch(headOfMarketingDashboardAdapterProvider);
 
     return ProviderLayout(
-      child: metricsAsyncValue.when(
-        data: (metrics) => PageTemplate(
+      child: viewModelAsyncValue.when(
+        data: (viewModel) => PageTemplate(
           title: 'HeadOfMarketingDashboardScreen',
           subtitle: 'Real-time metrics and alerts',
-          kpiCards: metrics.kpis.map((kpi) => 
+          kpiCards: viewModel.kpis.map((kpi) => 
             Card(
               elevation: 0,
               shape: RoundedRectangleBorder(
@@ -41,15 +41,15 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
             )
           ).toList(),
           children: [
-            if (metrics.recentActivity.isNotEmpty) ...[
+            if (viewModel.recentActivity.isNotEmpty) ...[
               Text('Recent Activity', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
-              ...metrics.recentActivity.map((log) => 
+              ...viewModel.recentActivity.map((log) => 
                 ListTile(
                   title: Text(log.title),
                   subtitle: Text(log.timestamp.toString()),
                 )
-              ).toList(),
+              ),
             ]
           ],
         ),

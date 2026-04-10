@@ -1,9 +1,9 @@
 import os
 import re
 
-app_routes_path = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\packages\flutter_core\lib\routes\app_routes.dart"
-groups_dir = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\packages\flutter_core\lib\routes\groups"
-flutter_core_path = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\packages\flutter_core\lib\flutter_core.dart"
+app_routes_path = r".\packages\flutter_core\lib\routes\app_routes.dart"
+groups_dir = r".\packages\flutter_core\lib\routes\groups"
+flutter_core_path = r".\packages\flutter_core\lib\flutter_core.dart"
 
 with open(app_routes_path, 'r', encoding='utf-8') as f:
     text = f.read()
@@ -79,7 +79,7 @@ with open(flutter_core_path, 'w', encoding='utf-8') as f:
     f.write(fc_content)
 
 # Replace in all dart files
-repo_path = r"C:\Users\Admin2\Documents\GitHub\primecare-platform"
+repo_path = r"."
 count_replacements = 0
 
 for root, _, files in os.walk(repo_path):

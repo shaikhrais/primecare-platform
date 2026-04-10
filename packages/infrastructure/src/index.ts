@@ -1,6 +1,7 @@
 export * from './audit-chain';
 export * from './constants/route_metadata';
 export * from './cors-wrapper';
+export * from './api/saas/promo_code';
 export * from './errors';
 export * from './governance';
 export * from './i18n';

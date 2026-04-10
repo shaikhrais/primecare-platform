@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'network/api_client.dart';
 
 class FeatureViewModel {
   final String id;
@@ -41,6 +40,14 @@ final providerDashboardAdapterProvider = Provider<ProviderDashboardAdapter>((ref
 final clientProfileAdapterProvider = Provider<ClientProfileAdapter>((ref) => const ClientProfileAdapter());
 final visitDetailsAdapterProvider = Provider<VisitDetailsAdapter>((ref) => const VisitDetailsAdapter());
 final billingSummaryAdapterProvider = Provider<BillingSummaryAdapter>((ref) => const BillingSummaryAdapter());
+
+class SubscriptionUpgradeAdapter {
+  const SubscriptionUpgradeAdapter();
+  // Any UI-specific mappings for the promo code screen would go here.
+}
+
+final subscriptionUpgradeAdapterProvider = Provider<SubscriptionUpgradeAdapter>((ref) => const SubscriptionUpgradeAdapter());
+
 
 final adapterFeatureDataProvider =
     FutureProvider.family<List<FeatureViewModel>, String>((

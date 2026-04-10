@@ -1,12 +1,9 @@
 import 'package:flutter_ui/src/components/audit_log_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_core/dynamic_page_providers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_ui/src/design_system/clinical_glass.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
-import 'package:flutter_core/theme/app_theme.dart';
-import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_core/flutter_core.dart';
 
 class DocumentVaultScreen extends ConsumerWidget {

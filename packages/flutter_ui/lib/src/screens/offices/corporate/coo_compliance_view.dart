@@ -49,7 +49,7 @@ class CooComplianceView extends ConsumerWidget {
                   title: Text(log.title),
                   subtitle: Text(log.timestamp.toString()),
                 )
-              ).toList(),
+              ),
             ]
           ],
         ),

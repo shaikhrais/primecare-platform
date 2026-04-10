@@ -5,5 +5,6 @@ class ScreenDataRegistry {
     'visitDetails': 'visitDetailsAdapter',
     'billingSummary': 'billingSummaryAdapter',
     'genericFeature': 'featureAdapter',
+    'subscriptionUpgrade': 'subscriptionUpgradeAdapter',
   };
 }

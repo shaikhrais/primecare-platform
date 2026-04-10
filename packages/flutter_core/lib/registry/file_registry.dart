@@ -1,3 +1,4 @@
+// ignore_for_file: constant_identifier_names
 class PrimeCareFileRegistry {
   static const String glb101_SplashScreen = 'packages/primecare_ui/lib/src/screens/splash_screen.dart';
   static const String glb102_LoginScreen = 'packages/primecare_ui/lib/src/screens/login_screen.dart';

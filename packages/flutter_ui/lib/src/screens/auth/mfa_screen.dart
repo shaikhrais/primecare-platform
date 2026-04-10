@@ -12,9 +12,9 @@ class MFAScreen extends StatelessWidget {
           width: 400,
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.05),
+            color: Colors.white.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -27,7 +27,7 @@ class MFAScreen extends StatelessWidget {
               Text(
                 'Please enter the 6-digit code sent to your device.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                style: TextStyle(color: Colors.white.withValues(alpha: 0.7)),
               ),
               const SizedBox(height: 24),
               TextField(

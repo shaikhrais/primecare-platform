@@ -289,5 +289,7 @@ export const API_VARS: Record<string, string> = {
     "API_V1_COORDINATOR_FLEET_POSITIONS": "/v1/coordinator/fleet/positions",
     "API_V1_COORDINATOR_SHIFT_SWAP_REQUESTS": "/v1/coordinator/shift-swap/requests",
     "API_V1_COORDINATOR_SOS_ACTIVE": "/v1/coordinator/sos/active",
+    "API_V1_SAAS_PROMO_CODE_VALIDATE": "/v1/saas/promo/validate",
+    "API_V1_SAAS_PROMO_CODE_APPLY": "/v1/saas/promo/apply",
     "API_V1_COORDINATOR_WAITLIST": "/v1/coordinator/waitlist"
 };

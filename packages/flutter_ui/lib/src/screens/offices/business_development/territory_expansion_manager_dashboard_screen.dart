@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart'; 
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 
@@ -12,7 +10,7 @@ class TerritoryExpansionManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(BusinessDevelopmentRoutes.territoryExpansionManagerDashboard));
+    final viewModelAsyncValue = ref.watch(territoryExpansionManagerDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -34,7 +32,7 @@ class TerritoryExpansionManagerDashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             
-            metricsAsyncValue.when(
+            viewModelAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
                   padding: EdgeInsets.all(64.0),
@@ -61,7 +59,7 @@ class TerritoryExpansionManagerDashboardScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

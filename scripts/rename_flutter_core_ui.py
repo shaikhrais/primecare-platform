@@ -1,7 +1,7 @@
 import os
 import glob
 
-workspace = r"C:\Users\Admin2\Documents\GitHub\primecare-platform"
+workspace = r"."
 
 # Update pubspec.yaml in apps/
 app_pubspecs = glob.glob(os.path.join(workspace, "apps", "*", "pubspec.yaml"))

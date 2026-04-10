@@ -1,6 +1,6 @@
 import os
 
-workspace = r"C:\Users\Admin2\Documents\GitHub\primecare-platform"
+workspace = r"."
 target_string = "prime-care-shared"
 replacement_string = "@primecare/domain"
 

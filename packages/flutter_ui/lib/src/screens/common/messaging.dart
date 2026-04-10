@@ -14,7 +14,7 @@ class MessagingScreen extends StatelessWidget {
       child: Center(
         child: Text(
           'Secure Messaging Center Pending Data Hydration',
-          style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 24),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 24),
         ),
       ),
     );

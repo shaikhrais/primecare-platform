@@ -1,5 +1,4 @@
 import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_core/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_ui/flutter_ui.dart';

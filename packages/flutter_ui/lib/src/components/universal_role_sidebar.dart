@@ -1,3 +1,5 @@
+// ignore_for_file: dead_code, dead_null_aware_expression
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -65,7 +67,7 @@ class UniversalRoleSidebar extends StatelessWidget {
                     destinations: items.map((item) {
                       return NavigationRailDestination(
                         icon: item.icon,
-                        selectedIcon: item.activeIcon ?? item.icon,
+                        selectedIcon: item.activeIcon ,
                         label: Text(item.label ?? ''),
                       );
                     }).toList(),

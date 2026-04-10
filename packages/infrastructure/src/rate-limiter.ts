@@ -55,7 +55,8 @@ function resolveProfile(path: string, method: string): RateLimitProfile {
         path.includes('/invoice') ||
         path.includes('/webhook') ||
         path.includes('/security') ||
-        path.includes('/cors-settings')
+        path.includes('/cors-settings') ||
+        path.includes('/promo')
     )) return 'STRICT';
 
     return 'DEFAULT';

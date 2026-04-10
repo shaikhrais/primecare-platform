@@ -10,6 +10,7 @@ export '../src/screens/common/messaging_hub.dart';
 export '../src/screens/common/notification_center.dart';
 export '../src/screens/common/profile_settings.dart';
 export '../src/screens/common/splash_screen.dart';
+export '../src/screens/common/subscription_upgrade_screen.dart';
 export '../src/screens/offices/common/clinic_care_plan_screen.dart';
 export '../src/screens/offices/common/clinic_check_in_out_screen.dart';
 export '../src/screens/offices/common/clinic_client_profile_screen.dart';

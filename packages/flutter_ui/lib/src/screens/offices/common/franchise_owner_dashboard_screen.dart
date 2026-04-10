@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart'; // Ensure correct import
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 
@@ -12,7 +10,7 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.franchiseOwnerDashboard));
+    final viewModelAsyncValue = ref.watch(franchiseOwnerAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -34,7 +32,7 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             
-            metricsAsyncValue.when(
+            viewModelAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
                   padding: EdgeInsets.all(64.0),
@@ -61,7 +59,7 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -74,11 +72,11 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
                       childAspectRatio: 1.5,
                       children: liveData.kpis.map((kpi) {
                         return PrimeCareStatCard(
-                          title: kpi.title,
+                          title: kpi.label,
                           value: kpi.value,
                           deltaSuffix: kpi.trend,
-                          icon: _inferIcon(kpi.title),
-                          iconColor: _inferColor(kpi.status),
+                          icon: _inferIcon(kpi.label),
+                          iconColor: _inferColor(kpi.trend ?? 'operational'),
                         );
                       }).toList(),
                     ),
@@ -137,15 +135,11 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
                                                 activity.title,
                                                 style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                                               ),
-                                              Text(
-                                                activity.subtitle,
-                                                style: const TextStyle(color: Colors.white54, fontSize: 13),
-                                              ),
                                             ],
                                           ),
                                         ),
                                         Text(
-                                          activity.timestamp,
+                                          activity.timestamp.toString().split('.')[0],
                                           style: const TextStyle(color: Colors.white38, fontSize: 12),
                                         ),
                                       ],

@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart'; // Ensure correct import
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_ui/src/screens/common/subscription_upgrade_screen.dart';
 
 class BillingAdminDashboardScreen extends ConsumerWidget {
   const BillingAdminDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.billingAdminDashboard));
+    final viewModelAsyncValue = ref.watch(billingAdminDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -34,7 +33,7 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             
-            metricsAsyncValue.when(
+            viewModelAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
                   padding: EdgeInsets.all(64.0),
@@ -61,7 +60,7 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -182,6 +181,33 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                                 _buildStatusRow(LucideIcons.database, 'Data Lake', 'Operational', Colors.greenAccent),
                                 const SizedBox(height: 16),
                                 _buildStatusRow(LucideIcons.shieldCheck, 'Live Sync', 'Active', Colors.blueAccent),
+                                const SizedBox(height: 32),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => const SubscriptionUpgradeScreen(),
+                                        ),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.tealAccent.withAlpha(25),
+                                      foregroundColor: Colors.tealAccent,
+                                      side: BorderSide(color: Colors.tealAccent.withAlpha(76)),
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    icon: const Icon(LucideIcons.arrowUpCircle),
+                                    label: const Text(
+                                      'Upgrade Subscription',
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),

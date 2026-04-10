@@ -14,7 +14,7 @@ class ProfileSettingsScreen extends StatelessWidget {
       child: Center(
         child: Text(
           'Profile & Settings Interface Pending Data Hydration',
-          style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 24),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 24),
         ),
       ),
     );
