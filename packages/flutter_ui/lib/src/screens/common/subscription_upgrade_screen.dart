@@ -27,7 +27,6 @@ class _SubscriptionUpgradeScreenState extends ConsumerState<SubscriptionUpgradeS
 
     try {
       final apiClient = ref.read(apiClientProvider);
-      final authState = ref.read(authProvider);
       
       final response = await apiClient.post(
         '/saas/promo/apply', 
