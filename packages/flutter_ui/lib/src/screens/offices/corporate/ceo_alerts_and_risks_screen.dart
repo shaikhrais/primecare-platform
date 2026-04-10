@@ -10,7 +10,7 @@ class CeoAlertsAndRisksScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.ceoAlertsAndRisks));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('ceoAlertsAndRisks'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CeoAlertsAndRisksScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.ceoAlertsAndRisks: \n$error',
+                        'Failed to load live metrics for ceoAlertsAndRisks: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CeoAlertsAndRisksScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

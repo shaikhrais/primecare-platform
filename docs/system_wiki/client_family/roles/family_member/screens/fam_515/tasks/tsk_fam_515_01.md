@@ -7,7 +7,7 @@ Update proxy account details and manage notification preferences (SMS/Email).
 
 ## Verification Status
 - [ ] **Unverified**
-- [ ] **Verified in Component**
+- [x] **Verified in Component**
 - [ ] **Missing Implementation**
 
 ### Code Verification Notes

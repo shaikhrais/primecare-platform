@@ -10,7 +10,7 @@ class FranchiseReconciliationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.adminReconciliation));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('adminReconciliation'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class FranchiseReconciliationScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.adminReconciliation: \n$error',
+                        'Failed to load live metrics for adminReconciliation: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class FranchiseReconciliationScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

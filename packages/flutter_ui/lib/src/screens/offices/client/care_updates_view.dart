@@ -10,7 +10,7 @@ class CareUpdatesView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.careUpdatesView));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('careUpdatesView'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CareUpdatesView extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.careUpdatesView: \n$error',
+                        'Failed to load live metrics for careUpdatesView: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CareUpdatesView extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

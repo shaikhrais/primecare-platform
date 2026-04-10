@@ -7,7 +7,7 @@ Submit mandated daily clinical observations and ADL (Activities of Daily Living)
 
 ## Verification Status
 - [ ] **Unverified**
-- [ ] **Verified in Component**
+- [x] **Verified in Component**
 - [ ] **Missing Implementation**
 
 ### Code Verification Notes

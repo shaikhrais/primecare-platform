@@ -10,7 +10,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.cfoTaxAndRemittance));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('cfoTaxAndRemittance'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.cfoTaxAndRemittance: \n$error',
+                        'Failed to load live metrics for cfoTaxAndRemittance: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

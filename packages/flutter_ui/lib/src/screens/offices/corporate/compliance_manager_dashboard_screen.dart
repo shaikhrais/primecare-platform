@@ -10,7 +10,7 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModelAsyncValue = ref.watch(complianceManagerDashboardAdapterProvider);
+    final metricsAsyncValue = ref.watch(complianceManagerDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -32,7 +32,7 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             
-            viewModelAsyncValue.when(
+            metricsAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
                   padding: EdgeInsets.all(64.0),
@@ -52,14 +52,14 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.complianceManagerDashboard: \n$error',
+                        'Failed to load live metrics for Compliance Manager: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (liveData) {
+              data: (ComplianceManagerDashboardViewModel liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -80,6 +80,49 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
                         );
                       }).toList(),
                     ),
+                    if (liveData.recentActivity.isNotEmpty) ...[
+                      const SizedBox(height: 32),
+                      Text(
+                        'Recent Activity',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                      ),
+                      const SizedBox(height: 16),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: liveData.recentActivity.length,
+                        separatorBuilder: (context, index) => const Divider(color: Colors.white24),
+                        itemBuilder: (context, index) {
+                          final activity = liveData.recentActivity[index];
+                          return ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.tealAccent.withAlpha(25),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(LucideIcons.activity, color: Colors.tealAccent, size: 20),
+                            ),
+                            title: Text(
+                              activity.title,
+                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                            ),
+                            subtitle: Text(
+                              activity.subtitle,
+                              style: TextStyle(color: Colors.white.withAlpha(178)),
+                            ),
+                            trailing: Text(
+                              activity.timestamp,
+                              style: TextStyle(color: Colors.white.withAlpha(128), fontSize: 12),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ],
                 );
               },
@@ -92,12 +135,9 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
 
   IconData _inferIcon(String title) {
     final t = title.toLowerCase();
-    if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice')) return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule')) return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical')) return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn')) return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline')) return LucideIcons.checkSquare;
+    if (t.contains('incident') || t.contains('policy') || t.contains('violation')) return LucideIcons.shieldAlert;
+    if (t.contains('audit') || t.contains('pass')) return LucideIcons.checkSquare;
+    if (t.contains('renewal')) return LucideIcons.refreshCcw;
     return LucideIcons.activity;
   }
 
@@ -109,4 +149,3 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

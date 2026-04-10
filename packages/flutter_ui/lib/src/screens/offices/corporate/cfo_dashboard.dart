@@ -10,7 +10,7 @@ class CfoDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.cfoDashboard));
+    final metricsAsyncValue = ref.watch(cfoDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,14 +52,14 @@ class CfoDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.cfoDashboard: \n$error',
+                        'Failed to load live metrics for cfoDashboard: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (CfoDashboardViewModel liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -109,4 +109,3 @@ class CfoDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

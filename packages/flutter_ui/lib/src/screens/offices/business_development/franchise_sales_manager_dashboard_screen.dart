@@ -10,7 +10,7 @@ class FranchiseSalesManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModelAsyncValue = ref.watch(franchiseSalesManagerDashboardAdapterProvider);
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('franchiseSalesManagerDashboard'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -32,7 +32,7 @@ class FranchiseSalesManagerDashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             
-            viewModelAsyncValue.when(
+            metricsAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
                   padding: EdgeInsets.all(64.0),
@@ -52,14 +52,14 @@ class FranchiseSalesManagerDashboardScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for BusinessDevelopmentRoutes.franchiseSalesManagerDashboard: \n$error',
+                        'Failed to load live metrics for franchiseSalesManagerDashboard: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (liveData) {
+              data: (DashboardMetrics liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -109,4 +109,3 @@ class FranchiseSalesManagerDashboardScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

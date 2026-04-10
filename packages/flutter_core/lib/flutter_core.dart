@@ -86,3 +86,11 @@ export 'features/local_marketing_manager_dashboard/data/adapters/local_marketing
 export 'features/local_marketing_manager_dashboard/domain/models/local_marketing_manager_dashboard_view_model.dart';
 export 'features/territory_sales_manager_dashboard/data/adapters/territory_sales_manager_dashboard_adapter.dart';
 export 'features/territory_sales_manager_dashboard/domain/models/territory_sales_manager_dashboard_view_model.dart';
+export 'features/qa_dashboard/data/adapters/qa_dashboard_adapter.dart';
+export 'features/qa_dashboard/domain/models/qa_dashboard_view_model.dart';
+export 'features/intake_dashboard/data/adapters/intake_dashboard_adapter.dart';
+export 'features/intake_dashboard/domain/models/intake_dashboard_view_model.dart';
+export 'features/support_dashboard/data/adapters/support_dashboard_adapter.dart';
+export 'features/support_dashboard/domain/models/support_dashboard_view_model.dart';
+export 'features/training_coordinator_dashboard/data/adapters/training_coordinator_dashboard_adapter.dart';
+export 'features/training_coordinator_dashboard/domain/models/training_coordinator_dashboard_view_model.dart';

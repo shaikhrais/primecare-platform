@@ -10,7 +10,7 @@ class CooIssueEscalationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.cooIssueEscalations));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('cooIssueEscalations'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CooIssueEscalationsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.cooIssueEscalations: \n$error',
+                        'Failed to load live metrics for cooIssueEscalations: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CooIssueEscalationsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

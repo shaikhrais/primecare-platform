@@ -10,7 +10,7 @@ class VolunteersScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(MarketingRoutes.communityOutreachVolunteers));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('communityOutreachVolunteers'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class VolunteersScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for MarketingRoutes.communityOutreachVolunteers: \n$error',
+                        'Failed to load live metrics for communityOutreachVolunteers: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class VolunteersScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

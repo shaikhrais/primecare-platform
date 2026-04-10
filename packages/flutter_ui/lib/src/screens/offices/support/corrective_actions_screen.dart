@@ -10,7 +10,7 @@ class CorrectiveActionsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.correctiveActionsScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('correctiveActionsScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CorrectiveActionsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.correctiveActionsScreen: \n$error',
+                        'Failed to load live metrics for correctiveActionsScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CorrectiveActionsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

@@ -10,7 +10,7 @@ class FranchiseRefundsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.adminRefunds));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('adminRefunds'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class FranchiseRefundsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.adminRefunds: \n$error',
+                        'Failed to load live metrics for adminRefunds: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class FranchiseRefundsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

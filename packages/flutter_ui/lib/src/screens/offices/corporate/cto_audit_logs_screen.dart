@@ -10,7 +10,7 @@ class CtoAuditLogsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.ctoAuditLogs));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('ctoAuditLogs'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CtoAuditLogsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.ctoAuditLogs: \n$error',
+                        'Failed to load live metrics for ctoAuditLogs: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CtoAuditLogsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

@@ -10,7 +10,7 @@ class CooDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.cooDashboard));
+    final metricsAsyncValue = ref.watch(cooDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,14 +52,14 @@ class CooDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.cooDashboard: \n$error',
+                        'Failed to load live metrics for cooDashboard: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -109,4 +109,3 @@ class CooDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

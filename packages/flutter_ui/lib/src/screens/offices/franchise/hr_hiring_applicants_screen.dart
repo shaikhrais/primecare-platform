@@ -10,7 +10,7 @@ class HrHiringApplicantsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.hrHiringApplicants));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('hrHiringApplicants'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class HrHiringApplicantsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.hrHiringApplicants: \n$error',
+                        'Failed to load live metrics for hrHiringApplicants: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class HrHiringApplicantsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

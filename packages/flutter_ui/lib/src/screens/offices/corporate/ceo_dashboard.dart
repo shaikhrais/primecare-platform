@@ -10,7 +10,7 @@ class CeoDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.ceoDashboard));
+    final metricsAsyncValue = ref.watch(ceoDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,14 +52,14 @@ class CeoDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.ceoDashboard: \n$error',
+                        'Failed to load live metrics for ceoDashboard: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (CeoDashboardViewModel liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -109,4 +109,3 @@ class CeoDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

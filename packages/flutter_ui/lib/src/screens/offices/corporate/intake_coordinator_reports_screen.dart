@@ -10,7 +10,7 @@ class IntakeCoordinatorReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(SupportRoutes.intakeCoordinatorReports));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('intakeCoordinatorReports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class IntakeCoordinatorReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for SupportRoutes.intakeCoordinatorReports: \n$error',
+                        'Failed to load live metrics for intakeCoordinatorReports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class IntakeCoordinatorReportsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

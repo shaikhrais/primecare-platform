@@ -10,7 +10,7 @@ class CooOperationsOverviewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.cooOperationsOverview));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('cooOperationsOverview'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CooOperationsOverviewScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.cooOperationsOverview: \n$error',
+                        'Failed to load live metrics for cooOperationsOverview: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CooOperationsOverviewScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

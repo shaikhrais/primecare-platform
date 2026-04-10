@@ -10,7 +10,7 @@ class RegionalManagerUsaDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(BusinessDevelopmentRoutes.regionalManagerUsaDashboard));
+    final metricsAsyncValue = ref.watch(regionalManagerUsaDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,14 +52,14 @@ class RegionalManagerUsaDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for BusinessDevelopmentRoutes.regionalManagerUsaDashboard: \n$error',
+                        'Failed to load live metrics for regionalManagerUsaDashboardAdapter: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (RegionalManagerUsaDashboardViewModel liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -109,4 +109,3 @@ class RegionalManagerUsaDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

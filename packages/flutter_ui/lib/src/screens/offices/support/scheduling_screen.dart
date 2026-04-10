@@ -10,7 +10,7 @@ class SchedulingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.schedulingScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('schedulingScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class SchedulingScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.schedulingScreen: \n$error',
+                        'Failed to load live metrics for schedulingScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class SchedulingScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

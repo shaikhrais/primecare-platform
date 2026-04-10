@@ -10,7 +10,7 @@ class EligibilityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.eligibilityScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('eligibilityScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class EligibilityScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.eligibilityScreen: \n$error',
+                        'Failed to load live metrics for eligibilityScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class EligibilityScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

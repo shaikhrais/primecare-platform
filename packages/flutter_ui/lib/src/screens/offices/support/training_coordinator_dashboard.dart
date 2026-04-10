@@ -10,7 +10,7 @@ class TrainingCoordinatorDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(SupportRoutes.trainingCoordinatorDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('trainingCoordinatorDashboard'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class TrainingCoordinatorDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for SupportRoutes.trainingCoordinatorDashboard: \n$error',
+                        'Failed to load live metrics for trainingCoordinatorDashboard: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class TrainingCoordinatorDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

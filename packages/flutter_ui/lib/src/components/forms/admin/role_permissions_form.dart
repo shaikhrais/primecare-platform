@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import '../base_form.dart';
+
+class RolePermissionsForm extends StatefulWidget {
+  final Function(Map<String, dynamic>) onSubmit;
+  final bool isLoading;
+
+  const RolePermissionsForm({
+    super.key,
+    required this.onSubmit,
+    this.isLoading = false,
+  });
+
+  @override
+  State<RolePermissionsForm> createState() => _RolePermissionsFormState();
+}
+
+class _RolePermissionsFormState extends State<RolePermissionsForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  void _submit() {
+    widget.onSubmit({});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseForm(
+      formKey: _formKey,
+      title: 'Role Permissions',
+      subtitle: 'Modify access control permissions for a role.',
+      onSubmit: _submit,
+      isLoading: widget.isLoading,
+      children: [
+        const Text('Form fields go here...'),
+      ],
+    );
+  }
+}

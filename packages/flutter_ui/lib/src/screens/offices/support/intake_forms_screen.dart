@@ -10,7 +10,7 @@ class IntakeFormsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.intakeFormsScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('intakeFormsScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class IntakeFormsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.intakeFormsScreen: \n$error',
+                        'Failed to load live metrics for intakeFormsScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class IntakeFormsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

@@ -10,7 +10,7 @@ class BrandAssetsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(MarketingRoutes.headOfMarketingBrandAssets));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('headOfMarketingBrandAssets'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class BrandAssetsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for MarketingRoutes.headOfMarketingBrandAssets: \n$error',
+                        'Failed to load live metrics for headOfMarketingBrandAssets: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class BrandAssetsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

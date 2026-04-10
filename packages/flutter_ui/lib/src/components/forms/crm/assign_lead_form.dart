@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import '../base_form.dart';
+
+class AssignLeadForm extends StatefulWidget {
+  final Function(Map<String, dynamic>) onSubmit;
+  final bool isLoading;
+
+  const AssignLeadForm({
+    super.key,
+    required this.onSubmit,
+    this.isLoading = false,
+  });
+
+  @override
+  State<AssignLeadForm> createState() => _AssignLeadFormState();
+}
+
+class _AssignLeadFormState extends State<AssignLeadForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  void _submit() {
+    widget.onSubmit({});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseForm(
+      formKey: _formKey,
+      title: 'Assign Lead',
+      subtitle: 'Assign a lead to a sales representative.',
+      onSubmit: _submit,
+      isLoading: widget.isLoading,
+      children: [
+        const Text('Form fields go here...'),
+      ],
+    );
+  }
+}

@@ -10,7 +10,7 @@ class OpenShiftsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.schedulerCoordinatorOpenShifts));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('schedulerCoordinatorOpenShifts'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class OpenShiftsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.schedulerCoordinatorOpenShifts: \n$error',
+                        'Failed to load live metrics for schedulerCoordinatorOpenShifts: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class OpenShiftsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

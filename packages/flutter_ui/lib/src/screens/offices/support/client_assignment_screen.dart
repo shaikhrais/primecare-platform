@@ -10,7 +10,7 @@ class ClientAssignmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.clientAssignmentScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('clientAssignmentScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class ClientAssignmentScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.clientAssignmentScreen: \n$error',
+                        'Failed to load live metrics for clientAssignmentScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class ClientAssignmentScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

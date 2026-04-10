@@ -7,7 +7,7 @@ Self-service portal to request new shifts or adjust existing care schedules.
 
 ## Verification Status
 - [ ] **Unverified**
-- [ ] **Verified in Component**
+- [x] **Verified in Component**
 - [ ] **Missing Implementation**
 
 ### Code Verification Notes

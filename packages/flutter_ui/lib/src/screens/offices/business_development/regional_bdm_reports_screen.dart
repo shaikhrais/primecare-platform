@@ -10,7 +10,7 @@ class RegionalBdmReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(BusinessDevelopmentRoutes.regionalBdmReports));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('regionalBdmReports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class RegionalBdmReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for BusinessDevelopmentRoutes.regionalBdmReports: \n$error',
+                        'Failed to load live metrics for regionalBdmReports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class RegionalBdmReportsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

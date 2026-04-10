@@ -10,7 +10,7 @@ class FranchiseSalesManagerFollowUpsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(BusinessDevelopmentRoutes.franchiseSalesManagerFollowUps));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('franchiseSalesManagerFollowUps'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class FranchiseSalesManagerFollowUpsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for BusinessDevelopmentRoutes.franchiseSalesManagerFollowUps: \n$error',
+                        'Failed to load live metrics for franchiseSalesManagerFollowUps: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class FranchiseSalesManagerFollowUpsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

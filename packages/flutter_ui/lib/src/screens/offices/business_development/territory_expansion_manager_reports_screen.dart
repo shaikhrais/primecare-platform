@@ -10,7 +10,7 @@ class TerritoryExpansionManagerReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(BusinessDevelopmentRoutes.territoryExpansionManagerReports));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('territoryExpansionManagerReports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class TerritoryExpansionManagerReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for BusinessDevelopmentRoutes.territoryExpansionManagerReports: \n$error',
+                        'Failed to load live metrics for territoryExpansionManagerReports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class TerritoryExpansionManagerReportsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

@@ -10,7 +10,7 @@ class TreatmentHistoryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.treatmentHistoryScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('treatmentHistoryScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class TreatmentHistoryScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.treatmentHistoryScreen: \n$error',
+                        'Failed to load live metrics for treatmentHistoryScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class TreatmentHistoryScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

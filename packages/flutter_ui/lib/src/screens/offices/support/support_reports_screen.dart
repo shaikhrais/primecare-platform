@@ -10,7 +10,7 @@ class SupportReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.supportReportsScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('supportReportsScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class SupportReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.supportReportsScreen: \n$error',
+                        'Failed to load live metrics for supportReportsScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class SupportReportsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

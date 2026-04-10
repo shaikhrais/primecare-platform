@@ -10,7 +10,7 @@ class CtoReleaseManagementScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.ctoReleaseManagement));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('ctoReleaseManagement'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class CtoReleaseManagementScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.ctoReleaseManagement: \n$error',
+                        'Failed to load live metrics for ctoReleaseManagement: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class CtoReleaseManagementScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

@@ -1,9 +1,16 @@
 class ComplianceManagerDashboardDto {
   final List<dynamic> rawKpis;
+  final List<dynamic> rawRecentActivity;
 
-  ComplianceManagerDashboardDto({required this.rawKpis});
+  const ComplianceManagerDashboardDto({
+    required this.rawKpis,
+    this.rawRecentActivity = const [],
+  });
 
   factory ComplianceManagerDashboardDto.fromJson(Map<String, dynamic> json) {
-    return ComplianceManagerDashboardDto(rawKpis: json['kpis'] ?? []);
+    return ComplianceManagerDashboardDto(
+      rawKpis: json['kpis'] ?? [],
+      rawRecentActivity: json['recentActivity'] ?? [],
+    );
   }
 }

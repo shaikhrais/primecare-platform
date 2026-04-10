@@ -10,7 +10,7 @@ class OperationsManagerServiceQualityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.operationsManagerServiceQuality));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('operationsManagerServiceQuality'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class OperationsManagerServiceQualityScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.operationsManagerServiceQuality: \n$error',
+                        'Failed to load live metrics for operationsManagerServiceQuality: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class OperationsManagerServiceQualityScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

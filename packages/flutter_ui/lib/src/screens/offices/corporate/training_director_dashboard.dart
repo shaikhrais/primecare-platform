@@ -10,7 +10,7 @@ class TrainingDirectorDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.trainingDirectorDashboard));
+    final metricsAsyncValue = ref.watch(trainingDirectorDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,14 +52,14 @@ class TrainingDirectorDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.trainingDirectorDashboard: \n$error',
+                        'Failed to load live metrics for Training Director: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (TrainingDirectorDashboardViewModel liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -92,12 +92,10 @@ class TrainingDirectorDashboard extends ConsumerWidget {
 
   IconData _inferIcon(String title) {
     final t = title.toLowerCase();
-    if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice')) return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule')) return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical')) return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn')) return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline')) return LucideIcons.checkSquare;
+    if (t.contains('trainee')) return LucideIcons.users;
+    if (t.contains('course') || t.contains('completion')) return LucideIcons.bookOpen;
+    if (t.contains('score')) return LucideIcons.award;
+    if (t.contains('overdue')) return LucideIcons.alertCircle;
     return LucideIcons.activity;
   }
 
@@ -109,4 +107,3 @@ class TrainingDirectorDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

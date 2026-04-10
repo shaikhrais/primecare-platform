@@ -10,7 +10,7 @@ class ProgressScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.progressScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('progressScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class ProgressScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.progressScreen: \n$error',
+                        'Failed to load live metrics for progressScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class ProgressScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

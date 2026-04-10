@@ -10,7 +10,7 @@ class ComplianceReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.complianceManagerReports));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('complianceManagerReports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class ComplianceReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.complianceManagerReports: \n$error',
+                        'Failed to load live metrics for complianceManagerReports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class ComplianceReportsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

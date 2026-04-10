@@ -10,7 +10,7 @@ class SchedulingDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.schedulerDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('schedulerDashboard'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class SchedulingDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.schedulerDashboard: \n$error',
+                        'Failed to load live metrics for schedulerDashboard: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class SchedulingDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

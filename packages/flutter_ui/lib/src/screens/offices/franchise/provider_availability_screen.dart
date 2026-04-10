@@ -10,7 +10,7 @@ class ProviderAvailabilityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.schedulerCoordinatorProviderAvailability));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('schedulerCoordinatorProviderAvailability'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class ProviderAvailabilityScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.schedulerCoordinatorProviderAvailability: \n$error',
+                        'Failed to load live metrics for schedulerCoordinatorProviderAvailability: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class ProviderAvailabilityScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

@@ -1,9 +1,21 @@
 class RegionalManagerUsaDashboardViewModel {
-  final List<dynamic> kpis;
-  final List<dynamic> recentActivity;
+  final List<RegionalUsaKpi> kpis;
 
   const RegionalManagerUsaDashboardViewModel({
-    this.kpis = const [],
-    this.recentActivity = const [],
+    required this.kpis,
+  });
+}
+
+class RegionalUsaKpi {
+  final String title;
+  final String value;
+  final String trend;
+  final String status;
+
+  const RegionalUsaKpi({
+    required this.title,
+    required this.value,
+    required this.trend,
+    required this.status,
   });
 }

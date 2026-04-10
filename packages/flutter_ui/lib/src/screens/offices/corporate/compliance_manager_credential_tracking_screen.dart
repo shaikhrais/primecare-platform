@@ -10,7 +10,7 @@ class ComplianceManagerCredentialTrackingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CorporateRoutes.complianceManagerCredentialTracking));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('complianceManagerCredentialTracking'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class ComplianceManagerCredentialTrackingScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CorporateRoutes.complianceManagerCredentialTracking: \n$error',
+                        'Failed to load live metrics for complianceManagerCredentialTracking: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class ComplianceManagerCredentialTrackingScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

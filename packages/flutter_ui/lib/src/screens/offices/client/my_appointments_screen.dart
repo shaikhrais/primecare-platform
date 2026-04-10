@@ -10,7 +10,7 @@ class MyAppointmentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.myAppointmentsScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('myAppointmentsScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class MyAppointmentsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.myAppointmentsScreen: \n$error',
+                        'Failed to load live metrics for myAppointmentsScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class MyAppointmentsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

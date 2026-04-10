@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart'; 
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 
-class TrainingCoordinatorReportsScreen extends ConsumerWidget {
-  const TrainingCoordinatorReportsScreen({super.key});
+class TrainingCoordinatorDashboardScreen extends ConsumerWidget {
+  const TrainingCoordinatorDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(SupportRoutes.trainingCoordinatorReports));
+    final metricsAsyncValue = ref.watch(trainingCoordinatorDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -19,7 +19,7 @@ class TrainingCoordinatorReportsScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Training Coordinator Reports',
+              'Training Coordinator Dashboard',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -52,14 +52,14 @@ class TrainingCoordinatorReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for SupportRoutes.trainingCoordinatorReports: \n$error',
+                        'Failed to load live metrics for Training Coordinator: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
+              data: (TrainingCoordinatorDashboardViewModel liveData) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -92,12 +92,10 @@ class TrainingCoordinatorReportsScreen extends ConsumerWidget {
 
   IconData _inferIcon(String title) {
     final t = title.toLowerCase();
-    if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice')) return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule')) return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical')) return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn')) return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline')) return LucideIcons.checkSquare;
+    if (t.contains('user') || t.contains('client')) return LucideIcons.users;
+    if (t.contains('report')) return LucideIcons.fileText;
+    if (t.contains('score')) return LucideIcons.award;
+    if (t.contains('alert') || t.contains('pending')) return LucideIcons.alertCircle;
     return LucideIcons.activity;
   }
 
@@ -109,4 +107,3 @@ class TrainingCoordinatorReportsScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

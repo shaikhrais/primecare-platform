@@ -10,7 +10,7 @@ class BillingAdminDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(FranchiseRoutes.billingAdminDashboard));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('billingAdminDashboard'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class BillingAdminDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for FranchiseRoutes.billingAdminDashboard: \n$error',
+                        'Failed to load live metrics for billingAdminDashboard: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class BillingAdminDashboard extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-

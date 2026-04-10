@@ -7,7 +7,7 @@ View assigned primary and backup caregivers, including their clinical profiles.
 
 ## Verification Status
 - [ ] **Unverified**
-- [ ] **Verified in Component**
+- [x] **Verified in Component**
 - [ ] **Missing Implementation**
 
 ### Code Verification Notes

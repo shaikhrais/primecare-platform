@@ -10,7 +10,7 @@ class FamilyBillingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider(CommonRoutes.familyBillingScreen));
+    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('familyBillingScreen'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class FamilyBillingScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.familyBillingScreen: \n$error',
+                        'Failed to load live metrics for familyBillingScreen: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -109,4 +109,3 @@ class FamilyBillingScreen extends ConsumerWidget {
     return Colors.tealAccent;
   }
 }
-
