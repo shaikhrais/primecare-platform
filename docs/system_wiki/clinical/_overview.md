@@ -12,3 +12,11 @@
 - **Authority Level:** Level 2 (Active)
 - **Primary Responsibility:** Advanced clinical care provisioning.
 
+### [Registered Practical Nurse (RPN)](roles/rpn/_role_metrics.md)
+- **Authority Level:** Level 2 (Active)
+- **Primary Responsibility:** Practical nursing care, care plan adherence, and medication administration.
+
+### [Registered Massage Therapist (RMT)](roles/rmt/_role_metrics.md)
+- **Authority Level:** Level 2 (Active)
+- **Primary Responsibility:** Rehabilitative therapy and mobility tracking.
+

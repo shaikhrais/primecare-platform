@@ -16,7 +16,11 @@
 - **Authority Level:** Level 3 (Medium)
 - **Primary Responsibility:** Managing institutional affiliations and external referral active deals.
 
-### [Regional BDM](roles/regional_bdm/_role_metrics.md)
+### [Regional BDM (Ontario)](roles/regional_bdm_ontario/_role_metrics.md)
 - **Authority Level:** Level 3 (Medium)
 - **Primary Responsibility:** Sourcing B2B leads, completing strategic cross-business outreach.
+
+### [Regional BDM (USA)](roles/regional_bdm_usa/_role_metrics.md)
+- **Authority Level:** Level 3 (Medium)
+- **Primary Responsibility:** Sourcing US-based strategic partnerships and franchise sales.
 

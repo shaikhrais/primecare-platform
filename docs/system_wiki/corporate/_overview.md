@@ -24,6 +24,10 @@
 - **Authority Level:** Level 4 (High)
 - **Primary Responsibility:** Auditing global incidents, policy enforcement, and credential expirations.
 
+### [Head of Business Development](roles/head_of_business_development/_role_metrics.md)
+- **Authority Level:** Level 4 (High)
+- **Primary Responsibility:** Expanding franchise territory, high-level business strategy, pipeline performance.
+
 ### [Training Director](roles/training_director/_role_metrics.md)
 - **Authority Level:** Level 4 (High)
 - **Primary Responsibility:** Defining universal training matrix and global staff curriculum.
