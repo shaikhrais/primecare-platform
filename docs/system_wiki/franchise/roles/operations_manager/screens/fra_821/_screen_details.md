@@ -1,0 +1,7 @@
+# Screen: FRA-821
+**Component Name:** `OperationsManagerReportsScreen`  
+**Implementation Status:** 🔄 Discovery (Pending Migration)  
+**Associated Roles:** [Operations Manager](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-FRA-821-01](tasks/tsk_fra_821_01.md): Extract specialized efficiency reports summarizing local output.

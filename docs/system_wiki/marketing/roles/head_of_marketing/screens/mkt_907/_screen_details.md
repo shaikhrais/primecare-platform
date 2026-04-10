@@ -1,0 +1,7 @@
+# Screen: MKT-907
+**Component Name:** `HeadOfMarketingFunnelAnalyticsScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Head of Marketing](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-MKT-907-01](tasks/tsk_mkt_907_01.md): Analyze drop-off rates at each stage of the B2B and B2C sales funnels.

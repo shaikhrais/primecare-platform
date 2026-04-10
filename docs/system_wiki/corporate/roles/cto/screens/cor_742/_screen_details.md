@@ -1,0 +1,7 @@
+# Screen: COR-742
+**Component Name:** `CtoApiMonitoringScreen`  
+**Implementation Status:** ✅ Implemented  
+**Associated Roles:** [CTO](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-COR-742-01](tasks/tsk_cor_742_01.md): Monitor endpoint rate limiting, RPS, and 5XX anomaly spikes.

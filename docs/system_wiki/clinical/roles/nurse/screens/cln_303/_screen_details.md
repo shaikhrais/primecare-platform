@@ -1,0 +1,8 @@
+# Screen: CLN-303
+**Component Name:** `ClinicClientProfileScreenStitch`  
+**Implementation Status:** ⏳ Stitch Pend  
+**Associated Roles:** [Personal Support Worker (PSW)](../../_role_metrics.md), [Registered Nurse](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-CLN-303-01](tasks/tsk_cln_303_01.md): Access detailed patient history, emergency contacts, and active medications.
+- [TSK-CLN-303-01](tasks/tsk_cln_303_01.md): Review specific client behavioral notes, access codes, and family contacts.

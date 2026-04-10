@@ -1,0 +1,7 @@
+# Screen: BDV-615
+**Component Name:** `RegionalBdmReportsScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Regional BDM](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-BDV-615-01](tasks/tsk_bdv_615_01.md): Create aggregated regional revenue and footprint reports for the CEO/COO.

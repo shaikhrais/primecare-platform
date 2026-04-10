@@ -1,0 +1,7 @@
+# Screen: MKT-901
+**Component Name:** `HeadOfMarketingDashboard`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Head of Marketing](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-MKT-901-01](tasks/tsk_mkt_901_01.md): Real-time global view of marketing ROI, acquisition cost, and brand reach.

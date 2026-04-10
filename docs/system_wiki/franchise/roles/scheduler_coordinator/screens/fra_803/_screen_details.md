@@ -1,0 +1,7 @@
+# Screen: FRA-803
+**Component Name:** `SchedulerDashboard`  
+**Implementation Status:** ✅ Implemented  
+**Associated Roles:** [Scheduler Coordinator](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-FRA-803-01](tasks/tsk_fra_803_01.md): High-velocity overview of unfilled shifts, incoming bookings, and bottlenecks.

@@ -1,0 +1,7 @@
+# Screen: COR-747
+**Component Name:** `CtoIssueTrackingScreen`  
+**Implementation Status:** ✅ Implemented  
+**Associated Roles:** [CTO](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-COR-747-01](tasks/tsk_cor_747_01.md): Triage and escalate Sev-1 technical incidents.

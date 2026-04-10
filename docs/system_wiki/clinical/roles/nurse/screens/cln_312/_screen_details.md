@@ -1,0 +1,8 @@
+# Screen: CLN-312
+**Component Name:** `MessagingScreenStitch`  
+**Implementation Status:** ✅ Foundation  
+**Associated Roles:** [Personal Support Worker (PSW)](../../_role_metrics.md), [Registered Nurse](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-CLN-312-01](tasks/tsk_cln_312_01.md): Secure, HIPAA-compliant chat with Franchise Operations and Care Coordinators.
+- [TSK-CLN-312-01](tasks/tsk_cln_312_01.md): Communicate directly with the Scheduler or Nursing Lead regarding shift constraints.
