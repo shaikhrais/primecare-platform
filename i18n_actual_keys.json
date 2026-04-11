@@ -1,0 +1,284 @@
+{
+  "GENERATE_REPORT": "TBD: GENERATE_REPORT",
+  "TAX_HUB_SUBTITLE": "TBD: TAX_HUB_SUBTITLE",
+  "TAX_HUB_TITLE": "TBD: TAX_HUB_TITLE",
+  "admin": {
+    "admin": {
+      "dashboard": {
+        "subtitle": "TBD: admin.admin.dashboard.subtitle",
+        "title": "TBD: admin.admin.dashboard.title"
+      }
+    }
+  },
+  "auth": {
+    "account_recovery": "TBD: auth.account_recovery",
+    "already_have_account": "TBD: auth.already_have_account",
+    "authentication_failed": "TBD: auth.authentication_failed",
+    "back_to_login": "TBD: auth.back_to_login",
+    "create_account": "TBD: auth.create_account",
+    "curator_subtitle": "TBD: auth.curator_subtitle",
+    "email": "TBD: auth.email",
+    "encryption_active": "TBD: auth.encryption_active",
+    "enter_credentials_to_continue": "TBD: auth.enter_credentials_to_continue",
+    "enter_institutional_email": "TBD: auth.enter_institutional_email",
+    "first_name": "TBD: auth.first_name",
+    "forgot_password": "TBD: auth.forgot_password",
+    "hydrating_registries": "TBD: auth.hydrating_registries",
+    "join_clinical_atelier": "TBD: auth.join_clinical_atelier",
+    "language_system": "TBD: auth.language_system",
+    "last_name": "TBD: auth.last_name",
+    "login": "TBD: auth.login",
+    "login_instructions": "TBD: auth.login_instructions",
+    "password": "TBD: auth.password",
+    "provision_workspace": "TBD: auth.provision_workspace",
+    "recovery_link_sent": "TBD: auth.recovery_link_sent",
+    "recovery_subtitle": "TBD: auth.recovery_subtitle",
+    "register": "TBD: auth.register",
+    "reset_password": "TBD: auth.reset_password",
+    "role": "TBD: auth.role",
+    "security_notice_short": "TBD: auth.security_notice_short",
+    "send_again": "TBD: auth.send_again",
+    "send_recovery_link": "TBD: auth.send_recovery_link",
+    "sign_in": "TBD: auth.sign_in",
+    "subtitle": "TBD: auth.subtitle",
+    "title_curator": "TBD: auth.title_curator",
+    "welcome_back": "TBD: auth.welcome_back",
+    "zero_trust_platform": "TBD: auth.zero_trust_platform"
+  },
+  "business_development": {
+    "franchiseSalesManager": {
+      "dashboard": {
+        "subtitle": "TBD: business_development.franchiseSalesManager.dashboard.subtitle",
+        "title": "TBD: business_development.franchiseSalesManager.dashboard.title"
+      }
+    },
+    "generalManager": {
+      "dashboard": {
+        "subtitle": "TBD: business_development.generalManager.dashboard.subtitle",
+        "title": "TBD: business_development.generalManager.dashboard.title"
+      }
+    },
+    "partnershipManager": {
+      "dashboard": {
+        "subtitle": "TBD: business_development.partnershipManager.dashboard.subtitle",
+        "title": "TBD: business_development.partnershipManager.dashboard.title"
+      }
+    },
+    "regionalManagerOntario": {
+      "dashboard": {
+        "subtitle": "TBD: business_development.regionalManagerOntario.dashboard.subtitle",
+        "title": "TBD: business_development.regionalManagerOntario.dashboard.title"
+      }
+    },
+    "regionalManagerUsa": {
+      "dashboard": {
+        "subtitle": "TBD: business_development.regionalManagerUsa.dashboard.subtitle",
+        "title": "TBD: business_development.regionalManagerUsa.dashboard.title"
+      }
+    },
+    "territoryExpansionManager": {
+      "dashboard": {
+        "subtitle": "TBD: business_development.territoryExpansionManager.dashboard.subtitle",
+        "title": "TBD: business_development.territoryExpansionManager.dashboard.title"
+      }
+    }
+  },
+  "client": {
+    "familyMember": {
+      "dashboard": {
+        "subtitle": "TBD: client.familyMember.dashboard.subtitle",
+        "title": "TBD: client.familyMember.dashboard.title"
+      }
+    },
+    "patient": {
+      "dashboard": {
+        "subtitle": "TBD: client.patient.dashboard.subtitle",
+        "title": "TBD: client.patient.dashboard.title"
+      }
+    }
+  },
+  "clinical": {
+    "psw": {
+      "dashboard": {
+        "subtitle": "TBD: clinical.psw.dashboard.subtitle",
+        "title": "TBD: clinical.psw.dashboard.title"
+      }
+    }
+  },
+  "corporate": {
+    "ceo": {
+      "dashboard": {
+        "subtitle": "TBD: corporate.ceo.dashboard.subtitle",
+        "title": "TBD: corporate.ceo.dashboard.title"
+      }
+    },
+    "cfo": {
+      "dashboard": {
+        "subtitle": "TBD: corporate.cfo.dashboard.subtitle",
+        "title": "TBD: corporate.cfo.dashboard.title"
+      }
+    },
+    "complianceManager": {
+      "dashboard": {
+        "subtitle": "TBD: corporate.complianceManager.dashboard.subtitle",
+        "title": "TBD: corporate.complianceManager.dashboard.title"
+      }
+    },
+    "coo": {
+      "dashboard": {
+        "subtitle": "TBD: corporate.coo.dashboard.subtitle",
+        "title": "TBD: corporate.coo.dashboard.title"
+      }
+    },
+    "cto": {
+      "dashboard": {
+        "subtitle": "TBD: corporate.cto.dashboard.subtitle",
+        "title": "TBD: corporate.cto.dashboard.title"
+      }
+    },
+    "trainingDirector": {
+      "dashboard": {
+        "subtitle": "TBD: corporate.trainingDirector.dashboard.subtitle",
+        "title": "TBD: corporate.trainingDirector.dashboard.title"
+      }
+    }
+  },
+  "franchise": {
+    "billing": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.billing.dashboard.subtitle",
+        "title": "TBD: franchise.billing.dashboard.title"
+      }
+    },
+    "billingAdmin": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.billingAdmin.dashboard.subtitle",
+        "title": "TBD: franchise.billingAdmin.dashboard.title"
+      }
+    },
+    "franchiseOwner": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.franchiseOwner.dashboard.subtitle",
+        "title": "TBD: franchise.franchiseOwner.dashboard.title"
+      }
+    },
+    "hr": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.hr.dashboard.subtitle",
+        "title": "TBD: franchise.hr.dashboard.title"
+      }
+    },
+    "hrHiring": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.hrHiring.dashboard.subtitle",
+        "title": "TBD: franchise.hrHiring.dashboard.title"
+      }
+    },
+    "operationsManager": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.operationsManager.dashboard.subtitle",
+        "title": "TBD: franchise.operationsManager.dashboard.title"
+      }
+    },
+    "opsManager": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.opsManager.dashboard.subtitle",
+        "title": "TBD: franchise.opsManager.dashboard.title"
+      }
+    },
+    "scheduler": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.scheduler.dashboard.subtitle",
+        "title": "TBD: franchise.scheduler.dashboard.title"
+      }
+    },
+    "scheduling": {
+      "dashboard": {
+        "subtitle": "TBD: franchise.scheduling.dashboard.subtitle",
+        "title": "TBD: franchise.scheduling.dashboard.title"
+      }
+    }
+  },
+  "marketing": {
+    "communityOutreach": {
+      "dashboard": {
+        "subtitle": "TBD: marketing.communityOutreach.dashboard.subtitle",
+        "title": "TBD: marketing.communityOutreach.dashboard.title"
+      }
+    },
+    "headOfMarketing": {
+      "dashboard": {
+        "subtitle": "TBD: marketing.headOfMarketing.dashboard.subtitle",
+        "title": "TBD: marketing.headOfMarketing.dashboard.title"
+      }
+    },
+    "localMarketing": {
+      "dashboard": {
+        "subtitle": "TBD: marketing.localMarketing.dashboard.subtitle",
+        "title": "TBD: marketing.localMarketing.dashboard.title"
+      }
+    },
+    "localMarketingManager": {
+      "dashboard": {
+        "subtitle": "TBD: marketing.localMarketingManager.dashboard.subtitle",
+        "title": "TBD: marketing.localMarketingManager.dashboard.title"
+      }
+    },
+    "territorySales": {
+      "dashboard": {
+        "subtitle": "TBD: marketing.territorySales.dashboard.subtitle",
+        "title": "TBD: marketing.territorySales.dashboard.title"
+      }
+    },
+    "territorySalesManager": {
+      "dashboard": {
+        "subtitle": "TBD: marketing.territorySalesManager.dashboard.subtitle",
+        "title": "TBD: marketing.territorySalesManager.dashboard.title"
+      }
+    }
+  },
+  "support": {
+    "customerSupport": {
+      "dashboard": {
+        "subtitle": "TBD: support.customerSupport.dashboard.subtitle",
+        "title": "TBD: support.customerSupport.dashboard.title"
+      }
+    },
+    "intake": {
+      "dashboard": {
+        "subtitle": "TBD: support.intake.dashboard.subtitle",
+        "title": "TBD: support.intake.dashboard.title"
+      }
+    },
+    "intakeCoordinator": {
+      "dashboard": {
+        "subtitle": "TBD: support.intakeCoordinator.dashboard.subtitle",
+        "title": "TBD: support.intakeCoordinator.dashboard.title"
+      }
+    },
+    "qa": {
+      "dashboard": {
+        "subtitle": "TBD: support.qa.dashboard.subtitle",
+        "title": "TBD: support.qa.dashboard.title"
+      }
+    },
+    "qualityAssurance": {
+      "dashboard": {
+        "subtitle": "TBD: support.qualityAssurance.dashboard.subtitle",
+        "title": "TBD: support.qualityAssurance.dashboard.title"
+      }
+    },
+    "support": {
+      "dashboard": {
+        "subtitle": "TBD: support.support.dashboard.subtitle",
+        "title": "TBD: support.support.dashboard.title"
+      }
+    },
+    "trainingCoordinator": {
+      "dashboard": {
+        "subtitle": "TBD: support.trainingCoordinator.dashboard.subtitle",
+        "title": "TBD: support.trainingCoordinator.dashboard.title"
+      }
+    }
+  }
+}

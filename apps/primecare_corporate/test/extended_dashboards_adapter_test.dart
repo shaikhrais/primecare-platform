@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/src/screens/offices/admin/admin_dashboard.dart';
 import 'package:flutter_ui/src/screens/offices/business_development/franchise_sales_manager_dashboard.dart';
 import 'package:flutter_ui/src/screens/offices/business_development/general_manager_dashboard.dart';
@@ -43,6 +44,7 @@ import '../integration_test/page_objects/master_dashboard_page.dart';
 void main() {
   setUpAll(() {
     DataSourceConfig.currentMode = DataSourceType.mock;
+    EasyLocalization.logger.enableBuildModes = [];
   });
 
   group('Extended E2E Dashboard Adapter Hydration Validation', () {

@@ -1,0 +1,2782 @@
+{
+  "auth\\forgot_password": {
+    "title": "TBD: Title for auth\\forgot_password",
+    "subtitle": "TBD: Subtitle for auth\\forgot_password"
+  },
+  "auth\\forgot_password_screen": {
+    "title": "TBD: Title for auth\\forgot_password_screen",
+    "subtitle": "TBD: Subtitle for auth\\forgot_password_screen"
+  },
+  "auth\\login_screen": {
+    "title": "TBD: Title for auth\\login_screen",
+    "subtitle": "TBD: Subtitle for auth\\login_screen"
+  },
+  "auth\\mfa_screen": {
+    "title": "TBD: Title for auth\\mfa_screen",
+    "subtitle": "TBD: Subtitle for auth\\mfa_screen"
+  },
+  "auth\\reset_password": {
+    "title": "TBD: Title for auth\\reset_password",
+    "subtitle": "TBD: Subtitle for auth\\reset_password"
+  },
+  "auth\\signup_screen": {
+    "title": "TBD: Title for auth\\signup_screen",
+    "subtitle": "TBD: Subtitle for auth\\signup_screen"
+  },
+  "common\\document_vault": {
+    "title": "TBD: Title for common\\document_vault",
+    "subtitle": "TBD: Subtitle for common\\document_vault"
+  },
+  "common\\dynamic_role_dashboard_screen": {
+    "title": "TBD: Title for common\\dynamic_role_dashboard_screen",
+    "subtitle": "TBD: Subtitle for common\\dynamic_role_dashboard_screen"
+  },
+  "common\\global_profile": {
+    "title": "TBD: Title for common\\global_profile",
+    "subtitle": "TBD: Subtitle for common\\global_profile"
+  },
+  "common\\global_settings": {
+    "title": "TBD: Title for common\\global_settings",
+    "subtitle": "TBD: Subtitle for common\\global_settings"
+  },
+  "common\\history_logs": {
+    "title": "TBD: Title for common\\history_logs",
+    "subtitle": "TBD: Subtitle for common\\history_logs"
+  },
+  "common\\messaging": {
+    "title": "TBD: Title for common\\messaging",
+    "subtitle": "TBD: Subtitle for common\\messaging"
+  },
+  "common\\messaging_hub": {
+    "title": "TBD: Title for common\\messaging_hub",
+    "subtitle": "TBD: Subtitle for common\\messaging_hub"
+  },
+  "common\\notification_center": {
+    "title": "TBD: Title for common\\notification_center",
+    "subtitle": "TBD: Subtitle for common\\notification_center"
+  },
+  "common\\profile_settings": {
+    "title": "TBD: Title for common\\profile_settings",
+    "subtitle": "TBD: Subtitle for common\\profile_settings"
+  },
+  "common\\splash_screen": {
+    "title": "TBD: Title for common\\splash_screen",
+    "subtitle": "TBD: Subtitle for common\\splash_screen"
+  },
+  "common\\subscription_upgrade_screen": {
+    "title": "TBD: Title for common\\subscription_upgrade_screen",
+    "subtitle": "TBD: Subtitle for common\\subscription_upgrade_screen"
+  },
+  "common\\document_vault\\document_vault_screen": {
+    "title": "TBD: Title for common\\document_vault\\document_vault_screen",
+    "subtitle": "TBD: Subtitle for common\\document_vault\\document_vault_screen"
+  },
+  "common\\global_profile\\global_profile_screen": {
+    "title": "TBD: Title for common\\global_profile\\global_profile_screen",
+    "subtitle": "TBD: Subtitle for common\\global_profile\\global_profile_screen"
+  },
+  "common\\global_settings\\global_settings_screen": {
+    "title": "TBD: Title for common\\global_settings\\global_settings_screen",
+    "subtitle": "TBD: Subtitle for common\\global_settings\\global_settings_screen"
+  },
+  "common\\messaging_hub\\messaging_hub_screen": {
+    "title": "TBD: Title for common\\messaging_hub\\messaging_hub_screen",
+    "subtitle": "TBD: Subtitle for common\\messaging_hub\\messaging_hub_screen"
+  },
+  "common\\notification_center\\notification_center_screen": {
+    "title": "TBD: Title for common\\notification_center\\notification_center_screen",
+    "subtitle": "TBD: Subtitle for common\\notification_center\\notification_center_screen"
+  },
+  "offices\\admin\\admin_dashboard": {
+    "title": "TBD: Title for offices\\admin\\admin_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\admin\\admin_dashboard"
+  },
+  "offices\\business_development\\deal_tracker_screen": {
+    "title": "TBD: Title for offices\\business_development\\deal_tracker_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\deal_tracker_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_contracts_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_contracts_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_contracts_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_dashboard": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_dashboard"
+  },
+  "offices\\business_development\\franchise_sales_manager_discovery_calls_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_discovery_calls_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_discovery_calls_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_follow_ups_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_follow_ups_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_follow_ups_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_leads_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_leads_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_leads_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_proposals_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_proposals_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_proposals_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_prospects_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_prospects_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_prospects_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_reports_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_reports_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_sales_pipeline_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_sales_pipeline_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_sales_pipeline_screen"
+  },
+  "offices\\business_development\\general_manager_dashboard": {
+    "title": "TBD: Title for offices\\business_development\\general_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\general_manager_dashboard"
+  },
+  "offices\\business_development\\partnership_manager_active_deals_screen": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_active_deals_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_active_deals_screen"
+  },
+  "offices\\business_development\\partnership_manager_dashboard": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_dashboard"
+  },
+  "offices\\business_development\\partnership_manager_outreach_screen": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_outreach_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_outreach_screen"
+  },
+  "offices\\business_development\\partnership_manager_partners_screen": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_partners_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_partners_screen"
+  },
+  "offices\\business_development\\partnership_manager_proposals_screen": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_proposals_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_proposals_screen"
+  },
+  "offices\\business_development\\partnership_manager_renewals_screen": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_renewals_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_renewals_screen"
+  },
+  "offices\\business_development\\partnership_manager_reports_screen": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_reports_screen"
+  },
+  "offices\\business_development\\regional_bdm_competitor_notes_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_competitor_notes_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_competitor_notes_screen"
+  },
+  "offices\\business_development\\regional_bdm_deal_tracker_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_deal_tracker_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_deal_tracker_screen"
+  },
+  "offices\\business_development\\regional_bdm_franchise_pipeline_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_franchise_pipeline_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_franchise_pipeline_screen"
+  },
+  "offices\\business_development\\regional_bdm_leads_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_leads_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_leads_screen"
+  },
+  "offices\\business_development\\regional_bdm_meetings_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_meetings_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_meetings_screen"
+  },
+  "offices\\business_development\\regional_bdm_partners_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_partners_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_partners_screen"
+  },
+  "offices\\business_development\\regional_bdm_reports_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_reports_screen"
+  },
+  "offices\\business_development\\regional_bdm_tasks_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_tasks_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_tasks_screen"
+  },
+  "offices\\business_development\\regional_bdm_territory_growth_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_bdm_territory_growth_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_bdm_territory_growth_screen"
+  },
+  "offices\\business_development\\regional_manager_ontario_dashboard": {
+    "title": "TBD: Title for offices\\business_development\\regional_manager_ontario_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_manager_ontario_dashboard"
+  },
+  "offices\\business_development\\regional_manager_usa_dashboard": {
+    "title": "TBD: Title for offices\\business_development\\regional_manager_usa_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_manager_usa_dashboard"
+  },
+  "offices\\business_development\\territory_expansion_manager_dashboard": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_dashboard"
+  },
+  "offices\\business_development\\territory_expansion_manager_demographics_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_demographics_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_demographics_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_expansion_plans_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_expansion_plans_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_expansion_plans_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_forecast_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_forecast_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_forecast_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_market_research_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_market_research_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_market_research_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_open_territories_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_open_territories_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_open_territories_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_reports_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_reports_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_site_selection_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_site_selection_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_site_selection_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_territory_map_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_territory_map_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_territory_map_screen"
+  },
+  "offices\\business_development\\territory_map_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_map_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_map_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_dashboard\\franchise_sales_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_dashboard\\franchise_sales_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_dashboard\\franchise_sales_manager_dashboard_screen"
+  },
+  "offices\\business_development\\franchise_sales_manager_dashboard\\sections\\franchise_sales_manager_kpi_section": {
+    "title": "TBD: Title for offices\\business_development\\franchise_sales_manager_dashboard\\sections\\franchise_sales_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\franchise_sales_manager_dashboard\\sections\\franchise_sales_manager_kpi_section"
+  },
+  "offices\\business_development\\general_manager_dashboard\\general_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\business_development\\general_manager_dashboard\\general_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\general_manager_dashboard\\general_manager_dashboard_screen"
+  },
+  "offices\\business_development\\general_manager_dashboard\\sections\\general_manager_kpi_section": {
+    "title": "TBD: Title for offices\\business_development\\general_manager_dashboard\\sections\\general_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\general_manager_dashboard\\sections\\general_manager_kpi_section"
+  },
+  "offices\\business_development\\partnership_manager_dashboard\\partnership_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_dashboard\\partnership_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_dashboard\\partnership_manager_dashboard_screen"
+  },
+  "offices\\business_development\\partnership_manager_dashboard\\sections\\partnership_manager_kpi_section": {
+    "title": "TBD: Title for offices\\business_development\\partnership_manager_dashboard\\sections\\partnership_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\partnership_manager_dashboard\\sections\\partnership_manager_kpi_section"
+  },
+  "offices\\business_development\\regional_manager_ontario_dashboard\\regional_manager_ontario_dashboard_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_manager_ontario_dashboard\\regional_manager_ontario_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_manager_ontario_dashboard\\regional_manager_ontario_dashboard_screen"
+  },
+  "offices\\business_development\\regional_manager_ontario_dashboard\\sections\\regional_manager_ontario_kpi_section": {
+    "title": "TBD: Title for offices\\business_development\\regional_manager_ontario_dashboard\\sections\\regional_manager_ontario_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_manager_ontario_dashboard\\sections\\regional_manager_ontario_kpi_section"
+  },
+  "offices\\business_development\\regional_manager_usa_dashboard\\regional_manager_usa_dashboard_screen": {
+    "title": "TBD: Title for offices\\business_development\\regional_manager_usa_dashboard\\regional_manager_usa_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_manager_usa_dashboard\\regional_manager_usa_dashboard_screen"
+  },
+  "offices\\business_development\\regional_manager_usa_dashboard\\sections\\regional_manager_usa_kpi_section": {
+    "title": "TBD: Title for offices\\business_development\\regional_manager_usa_dashboard\\sections\\regional_manager_usa_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\regional_manager_usa_dashboard\\sections\\regional_manager_usa_kpi_section"
+  },
+  "offices\\business_development\\territory_expansion_manager_dashboard\\territory_expansion_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_dashboard\\territory_expansion_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_dashboard\\territory_expansion_manager_dashboard_screen"
+  },
+  "offices\\business_development\\territory_expansion_manager_dashboard\\sections\\territory_expansion_manager_kpi_section": {
+    "title": "TBD: Title for offices\\business_development\\territory_expansion_manager_dashboard\\sections\\territory_expansion_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\business_development\\territory_expansion_manager_dashboard\\sections\\territory_expansion_manager_kpi_section"
+  },
+  "offices\\client\\book_appointment_view": {
+    "title": "TBD: Title for offices\\client\\book_appointment_view",
+    "subtitle": "TBD: Subtitle for offices\\client\\book_appointment_view"
+  },
+  "offices\\client\\care_team_view": {
+    "title": "TBD: Title for offices\\client\\care_team_view",
+    "subtitle": "TBD: Subtitle for offices\\client\\care_team_view"
+  },
+  "offices\\client\\care_updates_view": {
+    "title": "TBD: Title for offices\\client\\care_updates_view",
+    "subtitle": "TBD: Subtitle for offices\\client\\care_updates_view"
+  },
+  "offices\\client\\client_book_appointment_screen": {
+    "title": "TBD: Title for offices\\client\\client_book_appointment_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_book_appointment_screen"
+  },
+  "offices\\client\\client_care_team_screen": {
+    "title": "TBD: Title for offices\\client\\client_care_team_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_care_team_screen"
+  },
+  "offices\\client\\client_my_appointments_screen": {
+    "title": "TBD: Title for offices\\client\\client_my_appointments_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_my_appointments_screen"
+  },
+  "offices\\client\\client_payments_screen": {
+    "title": "TBD: Title for offices\\client\\client_payments_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_payments_screen"
+  },
+  "offices\\client\\client_profile_screen": {
+    "title": "TBD: Title for offices\\client\\client_profile_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_profile_screen"
+  },
+  "offices\\client\\client_treatment_history_screen": {
+    "title": "TBD: Title for offices\\client\\client_treatment_history_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_treatment_history_screen"
+  },
+  "offices\\client\\emergency_contacts_screen": {
+    "title": "TBD: Title for offices\\client\\emergency_contacts_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\emergency_contacts_screen"
+  },
+  "offices\\client\\family_billing_screen": {
+    "title": "TBD: Title for offices\\client\\family_billing_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_billing_screen"
+  },
+  "offices\\client\\family_member_billing_screen": {
+    "title": "TBD: Title for offices\\client\\family_member_billing_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_member_billing_screen"
+  },
+  "offices\\client\\family_member_care_updates_screen": {
+    "title": "TBD: Title for offices\\client\\family_member_care_updates_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_member_care_updates_screen"
+  },
+  "offices\\client\\family_member_dashboard": {
+    "title": "TBD: Title for offices\\client\\family_member_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_member_dashboard"
+  },
+  "offices\\client\\family_member_emergency_contacts_screen": {
+    "title": "TBD: Title for offices\\client\\family_member_emergency_contacts_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_member_emergency_contacts_screen"
+  },
+  "offices\\client\\family_member_loved_one_schedule_screen": {
+    "title": "TBD: Title for offices\\client\\family_member_loved_one_schedule_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_member_loved_one_schedule_screen"
+  },
+  "offices\\client\\family_member_profile_screen": {
+    "title": "TBD: Title for offices\\client\\family_member_profile_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_member_profile_screen"
+  },
+  "offices\\client\\family_profile_screen": {
+    "title": "TBD: Title for offices\\client\\family_profile_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_profile_screen"
+  },
+  "offices\\client\\loved_one_schedule_screen": {
+    "title": "TBD: Title for offices\\client\\loved_one_schedule_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\loved_one_schedule_screen"
+  },
+  "offices\\client\\my_appointments_screen": {
+    "title": "TBD: Title for offices\\client\\my_appointments_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\my_appointments_screen"
+  },
+  "offices\\client\\patient_dashboard": {
+    "title": "TBD: Title for offices\\client\\patient_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\client\\patient_dashboard"
+  },
+  "offices\\client\\treatment_history_screen": {
+    "title": "TBD: Title for offices\\client\\treatment_history_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\treatment_history_screen"
+  },
+  "offices\\client\\client_dashboard\\client_dashboard_screen": {
+    "title": "TBD: Title for offices\\client\\client_dashboard\\client_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_dashboard\\client_dashboard_screen"
+  },
+  "offices\\client\\client_dashboard\\sections\\client_kpi_section": {
+    "title": "TBD: Title for offices\\client\\client_dashboard\\sections\\client_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\client\\client_dashboard\\sections\\client_kpi_section"
+  },
+  "offices\\client\\family_dashboard\\family_dashboard_screen": {
+    "title": "TBD: Title for offices\\client\\family_dashboard\\family_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_dashboard\\family_dashboard_screen"
+  },
+  "offices\\client\\family_dashboard\\sections\\family_kpi_section": {
+    "title": "TBD: Title for offices\\client\\family_dashboard\\sections\\family_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\client\\family_dashboard\\sections\\family_kpi_section"
+  },
+  "offices\\clinical\\psw_dashboard": {
+    "title": "TBD: Title for offices\\clinical\\psw_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\clinical\\psw_dashboard"
+  },
+  "offices\\common\\clinic_care_plan_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_care_plan_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_care_plan_screen"
+  },
+  "offices\\common\\clinic_check_in_out_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_check_in_out_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_check_in_out_screen"
+  },
+  "offices\\common\\clinic_client_profile_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_client_profile_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_client_profile_screen"
+  },
+  "offices\\common\\clinic_daily_notes_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_daily_notes_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_daily_notes_screen"
+  },
+  "offices\\common\\clinic_incident_report_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_incident_report_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_incident_report_screen"
+  },
+  "offices\\common\\clinic_my_shifts_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_my_shifts_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_my_shifts_screen"
+  },
+  "offices\\common\\clinic_shift_details_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_shift_details_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_shift_details_screen"
+  },
+  "offices\\common\\billing_admin_dashboard\\billing_admin_dashboard_screen": {
+    "title": "TBD: Title for offices\\common\\billing_admin_dashboard\\billing_admin_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\billing_admin_dashboard\\billing_admin_dashboard_screen"
+  },
+  "offices\\common\\billing_admin_dashboard\\sections\\billing_admin_kpi_section": {
+    "title": "TBD: Title for offices\\common\\billing_admin_dashboard\\sections\\billing_admin_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\common\\billing_admin_dashboard\\sections\\billing_admin_kpi_section"
+  },
+  "offices\\common\\ceo_dashboard\\ceo_dashboard_screen": {
+    "title": "TBD: Title for offices\\common\\ceo_dashboard\\ceo_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\ceo_dashboard\\ceo_dashboard_screen"
+  },
+  "offices\\common\\ceo_dashboard\\sections\\ceo_kpi_section": {
+    "title": "TBD: Title for offices\\common\\ceo_dashboard\\sections\\ceo_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\common\\ceo_dashboard\\sections\\ceo_kpi_section"
+  },
+  "offices\\common\\clinic_dashboard\\clinic_dashboard_screen": {
+    "title": "TBD: Title for offices\\common\\clinic_dashboard\\clinic_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_dashboard\\clinic_dashboard_screen"
+  },
+  "offices\\common\\clinic_dashboard\\sections\\clinic_kpi_section": {
+    "title": "TBD: Title for offices\\common\\clinic_dashboard\\sections\\clinic_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\common\\clinic_dashboard\\sections\\clinic_kpi_section"
+  },
+  "offices\\common\\compliance_manager_dashboard\\compliance_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\common\\compliance_manager_dashboard\\compliance_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\compliance_manager_dashboard\\compliance_manager_dashboard_screen"
+  },
+  "offices\\common\\compliance_manager_dashboard\\sections\\compliance_manager_kpi_section": {
+    "title": "TBD: Title for offices\\common\\compliance_manager_dashboard\\sections\\compliance_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\common\\compliance_manager_dashboard\\sections\\compliance_manager_kpi_section"
+  },
+  "offices\\common\\customer_support_dashboard\\customer_support_dashboard_screen": {
+    "title": "TBD: Title for offices\\common\\customer_support_dashboard\\customer_support_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\customer_support_dashboard\\customer_support_dashboard_screen"
+  },
+  "offices\\common\\customer_support_dashboard\\sections\\customer_support_kpi_section": {
+    "title": "TBD: Title for offices\\common\\customer_support_dashboard\\sections\\customer_support_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\common\\customer_support_dashboard\\sections\\customer_support_kpi_section"
+  },
+  "offices\\common\\franchise_owner_dashboard\\franchise_owner_dashboard_screen": {
+    "title": "TBD: Title for offices\\common\\franchise_owner_dashboard\\franchise_owner_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\franchise_owner_dashboard\\franchise_owner_dashboard_screen"
+  },
+  "offices\\common\\franchise_owner_dashboard\\sections\\franchise_owner_kpi_section": {
+    "title": "TBD: Title for offices\\common\\franchise_owner_dashboard\\sections\\franchise_owner_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\common\\franchise_owner_dashboard\\sections\\franchise_owner_kpi_section"
+  },
+  "offices\\common\\head_of_bus_dev_dashboard\\head_of_bus_dev_dashboard_screen": {
+    "title": "TBD: Title for offices\\common\\head_of_bus_dev_dashboard\\head_of_bus_dev_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\common\\head_of_bus_dev_dashboard\\head_of_bus_dev_dashboard_screen"
+  },
+  "offices\\common\\head_of_bus_dev_dashboard\\sections\\head_of_bus_dev_kpi_section": {
+    "title": "TBD: Title for offices\\common\\head_of_bus_dev_dashboard\\sections\\head_of_bus_dev_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\common\\head_of_bus_dev_dashboard\\sections\\head_of_bus_dev_kpi_section"
+  },
+  "offices\\corporate\\ceo_alerts_and_risks_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_alerts_and_risks_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_alerts_and_risks_screen"
+  },
+  "offices\\corporate\\ceo_approvals_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_approvals_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_approvals_screen"
+  },
+  "offices\\corporate\\ceo_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\ceo_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_dashboard"
+  },
+  "offices\\corporate\\ceo_enterprise_overview_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_enterprise_overview_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_enterprise_overview_screen"
+  },
+  "offices\\corporate\\ceo_franchise_overview_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_franchise_overview_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_franchise_overview_screen"
+  },
+  "offices\\corporate\\ceo_growth_pipeline_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_growth_pipeline_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_growth_pipeline_screen"
+  },
+  "offices\\corporate\\ceo_leadership_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_leadership_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_leadership_reports_screen"
+  },
+  "offices\\corporate\\ceo_organization_map_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_organization_map_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_organization_map_screen"
+  },
+  "offices\\corporate\\ceo_region_performance_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_region_performance_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_region_performance_screen"
+  },
+  "offices\\corporate\\ceo_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_reports_screen"
+  },
+  "offices\\corporate\\ceo_revenue_summary_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_revenue_summary_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_revenue_summary_screen"
+  },
+  "offices\\corporate\\ceo_strategic_kpis_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_strategic_kpis_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_strategic_kpis_screen"
+  },
+  "offices\\corporate\\cfo_accounts_payable_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_accounts_payable_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_accounts_payable_screen"
+  },
+  "offices\\corporate\\cfo_accounts_receivable_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_accounts_receivable_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_accounts_receivable_screen"
+  },
+  "offices\\corporate\\cfo_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\cfo_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_dashboard"
+  },
+  "offices\\corporate\\cfo_expenses_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_expenses_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_expenses_screen"
+  },
+  "offices\\corporate\\cfo_financial_overview_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_financial_overview_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_financial_overview_screen"
+  },
+  "offices\\corporate\\cfo_franchise_financials_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_franchise_financials_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_franchise_financials_screen"
+  },
+  "offices\\corporate\\cfo_invoices_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_invoices_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_invoices_screen"
+  },
+  "offices\\corporate\\cfo_payroll_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_payroll_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_payroll_screen"
+  },
+  "offices\\corporate\\cfo_profitability_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_profitability_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_profitability_screen"
+  },
+  "offices\\corporate\\cfo_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_reports_screen"
+  },
+  "offices\\corporate\\cfo_revenue_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_revenue_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_revenue_screen"
+  },
+  "offices\\corporate\\cfo_tax_and_remittance_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_tax_and_remittance_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_tax_and_remittance_screen"
+  },
+  "offices\\corporate\\compliance_cases_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_cases_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_cases_screen"
+  },
+  "offices\\corporate\\compliance_manager_audits_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_audits_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_audits_screen"
+  },
+  "offices\\corporate\\compliance_manager_compliance_cases_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_compliance_cases_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_compliance_cases_screen"
+  },
+  "offices\\corporate\\compliance_manager_corrective_actions_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_corrective_actions_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_corrective_actions_screen"
+  },
+  "offices\\corporate\\compliance_manager_credential_tracking_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_credential_tracking_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_credential_tracking_screen"
+  },
+  "offices\\corporate\\compliance_manager_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_dashboard"
+  },
+  "offices\\corporate\\compliance_manager_document_expiry_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_document_expiry_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_document_expiry_screen"
+  },
+  "offices\\corporate\\compliance_manager_incident_review_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_incident_review_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_incident_review_screen"
+  },
+  "offices\\corporate\\compliance_manager_policies_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_policies_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_policies_screen"
+  },
+  "offices\\corporate\\compliance_manager_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_reports_screen"
+  },
+  "offices\\corporate\\compliance_manager_risk_register_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_risk_register_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_risk_register_screen"
+  },
+  "offices\\corporate\\compliance_manager_training_compliance_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_training_compliance_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_training_compliance_screen"
+  },
+  "offices\\corporate\\compliance_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_reports_screen"
+  },
+  "offices\\corporate\\compliance_training_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_training_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_training_screen"
+  },
+  "offices\\corporate\\coo_branch_comparison_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_branch_comparison_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_branch_comparison_screen"
+  },
+  "offices\\corporate\\coo_branch_operations_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_branch_operations_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_branch_operations_screen"
+  },
+  "offices\\corporate\\coo_compliance_view": {
+    "title": "TBD: Title for offices\\corporate\\coo_compliance_view",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_compliance_view"
+  },
+  "offices\\corporate\\coo_compliance_view_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_compliance_view_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_compliance_view_screen"
+  },
+  "offices\\corporate\\coo_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\coo_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_dashboard"
+  },
+  "offices\\corporate\\coo_issue_escalations_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_issue_escalations_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_issue_escalations_screen"
+  },
+  "offices\\corporate\\coo_operations_overview_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_operations_overview_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_operations_overview_screen"
+  },
+  "offices\\corporate\\coo_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_reports_screen"
+  },
+  "offices\\corporate\\coo_scheduling_health_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_scheduling_health_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_scheduling_health_screen"
+  },
+  "offices\\corporate\\coo_service_delivery_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_service_delivery_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_service_delivery_screen"
+  },
+  "offices\\corporate\\coo_staffing_efficiency_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_staffing_efficiency_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_staffing_efficiency_screen"
+  },
+  "offices\\corporate\\coo_workflow_performance_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_workflow_performance_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_workflow_performance_screen"
+  },
+  "offices\\corporate\\course_library_screen": {
+    "title": "TBD: Title for offices\\corporate\\course_library_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\course_library_screen"
+  },
+  "offices\\corporate\\cto_access_control_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_access_control_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_access_control_screen"
+  },
+  "offices\\corporate\\cto_api_monitoring_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_api_monitoring_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_api_monitoring_screen"
+  },
+  "offices\\corporate\\cto_audit_logs_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_audit_logs_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_audit_logs_screen"
+  },
+  "offices\\corporate\\cto_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\cto_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_dashboard"
+  },
+  "offices\\corporate\\cto_feature_adoption_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_feature_adoption_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_feature_adoption_screen"
+  },
+  "offices\\corporate\\cto_infrastructure_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_infrastructure_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_infrastructure_screen"
+  },
+  "offices\\corporate\\cto_integrations_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_integrations_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_integrations_screen"
+  },
+  "offices\\corporate\\cto_issue_tracking_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_issue_tracking_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_issue_tracking_screen"
+  },
+  "offices\\corporate\\cto_platform_usage_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_platform_usage_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_platform_usage_screen"
+  },
+  "offices\\corporate\\cto_release_management_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_release_management_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_release_management_screen"
+  },
+  "offices\\corporate\\cto_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_reports_screen"
+  },
+  "offices\\corporate\\cto_system_health_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_system_health_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_system_health_screen"
+  },
+  "offices\\corporate\\guest_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\guest_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\guest_dashboard"
+  },
+  "offices\\corporate\\intake_coordinator_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\intake_coordinator_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\intake_coordinator_reports_screen"
+  },
+  "offices\\corporate\\intake_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\intake_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\intake_dashboard"
+  },
+  "offices\\corporate\\patient_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\patient_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\patient_dashboard"
+  },
+  "offices\\corporate\\qa_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\qa_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\qa_dashboard"
+  },
+  "offices\\corporate\\scheduler_coordinator_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\scheduler_coordinator_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\scheduler_coordinator_reports_screen"
+  },
+  "offices\\corporate\\scrum_master_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\scrum_master_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\scrum_master_dashboard"
+  },
+  "offices\\corporate\\staff_training_matrix_screen": {
+    "title": "TBD: Title for offices\\corporate\\staff_training_matrix_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\staff_training_matrix_screen"
+  },
+  "offices\\corporate\\support_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\support_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\support_dashboard"
+  },
+  "offices\\corporate\\trainer_assignments_screen": {
+    "title": "TBD: Title for offices\\corporate\\trainer_assignments_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\trainer_assignments_screen"
+  },
+  "offices\\corporate\\training_coordinator_certifications_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_coordinator_certifications_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_coordinator_certifications_screen"
+  },
+  "offices\\corporate\\training_coordinator_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\training_coordinator_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_coordinator_dashboard"
+  },
+  "offices\\corporate\\training_coordinator_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_coordinator_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_coordinator_reports_screen"
+  },
+  "offices\\corporate\\training_director_assessments_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_assessments_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_assessments_screen"
+  },
+  "offices\\corporate\\training_director_certifications_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_certifications_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_certifications_screen"
+  },
+  "offices\\corporate\\training_director_compliance_training_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_compliance_training_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_compliance_training_screen"
+  },
+  "offices\\corporate\\training_director_course_library_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_course_library_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_course_library_screen"
+  },
+  "offices\\corporate\\training_director_dashboard": {
+    "title": "TBD: Title for offices\\corporate\\training_director_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_dashboard"
+  },
+  "offices\\corporate\\training_director_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_reports_screen"
+  },
+  "offices\\corporate\\training_director_staff_training_matrix_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_staff_training_matrix_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_staff_training_matrix_screen"
+  },
+  "offices\\corporate\\training_director_trainer_assignments_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_trainer_assignments_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_trainer_assignments_screen"
+  },
+  "offices\\corporate\\training_director_training_programs_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_training_programs_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_training_programs_screen"
+  },
+  "offices\\corporate\\training_programs_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_programs_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_programs_screen"
+  },
+  "offices\\corporate\\training_reports_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_reports_screen"
+  },
+  "offices\\corporate\\ceo_dashboard\\ceo_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\ceo_dashboard\\ceo_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_dashboard\\ceo_dashboard_screen"
+  },
+  "offices\\corporate\\ceo_dashboard\\sections\\ceo_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\ceo_dashboard\\sections\\ceo_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\ceo_dashboard\\sections\\ceo_kpi_section"
+  },
+  "offices\\corporate\\cfo_dashboard\\cfo_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\cfo_dashboard\\cfo_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_dashboard\\cfo_dashboard_screen"
+  },
+  "offices\\corporate\\cfo_dashboard\\sections\\cfo_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\cfo_dashboard\\sections\\cfo_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cfo_dashboard\\sections\\cfo_kpi_section"
+  },
+  "offices\\corporate\\compliance_manager_dashboard\\compliance_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_dashboard\\compliance_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_dashboard\\compliance_manager_dashboard_screen"
+  },
+  "offices\\corporate\\compliance_manager_dashboard\\sections\\compliance_manager_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\compliance_manager_dashboard\\sections\\compliance_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\compliance_manager_dashboard\\sections\\compliance_manager_kpi_section"
+  },
+  "offices\\corporate\\coo_dashboard\\coo_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\coo_dashboard\\coo_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_dashboard\\coo_dashboard_screen"
+  },
+  "offices\\corporate\\coo_dashboard\\sections\\coo_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\coo_dashboard\\sections\\coo_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\coo_dashboard\\sections\\coo_kpi_section"
+  },
+  "offices\\corporate\\cto_dashboard\\cto_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\cto_dashboard\\cto_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_dashboard\\cto_dashboard_screen"
+  },
+  "offices\\corporate\\cto_dashboard\\sections\\cto_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\cto_dashboard\\sections\\cto_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\cto_dashboard\\sections\\cto_kpi_section"
+  },
+  "offices\\corporate\\guest_dashboard\\guest_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\guest_dashboard\\guest_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\guest_dashboard\\guest_dashboard_screen"
+  },
+  "offices\\corporate\\guest_dashboard\\sections\\guest_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\guest_dashboard\\sections\\guest_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\guest_dashboard\\sections\\guest_kpi_section"
+  },
+  "offices\\corporate\\intake_dashboard\\intake_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\intake_dashboard\\intake_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\intake_dashboard\\intake_dashboard_screen"
+  },
+  "offices\\corporate\\intake_dashboard\\sections\\intake_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\intake_dashboard\\sections\\intake_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\intake_dashboard\\sections\\intake_kpi_section"
+  },
+  "offices\\corporate\\patient_dashboard\\patient_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\patient_dashboard\\patient_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\patient_dashboard\\patient_dashboard_screen"
+  },
+  "offices\\corporate\\patient_dashboard\\sections\\patient_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\patient_dashboard\\sections\\patient_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\patient_dashboard\\sections\\patient_kpi_section"
+  },
+  "offices\\corporate\\qa_dashboard\\qa_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\qa_dashboard\\qa_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\qa_dashboard\\qa_dashboard_screen"
+  },
+  "offices\\corporate\\qa_dashboard\\sections\\qa_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\qa_dashboard\\sections\\qa_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\qa_dashboard\\sections\\qa_kpi_section"
+  },
+  "offices\\corporate\\scrum_master_dashboard\\scrum_master_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\scrum_master_dashboard\\scrum_master_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\scrum_master_dashboard\\scrum_master_dashboard_screen"
+  },
+  "offices\\corporate\\scrum_master_dashboard\\sections\\scrum_master_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\scrum_master_dashboard\\sections\\scrum_master_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\scrum_master_dashboard\\sections\\scrum_master_kpi_section"
+  },
+  "offices\\corporate\\support_dashboard\\support_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\support_dashboard\\support_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\support_dashboard\\support_dashboard_screen"
+  },
+  "offices\\corporate\\support_dashboard\\sections\\support_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\support_dashboard\\sections\\support_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\support_dashboard\\sections\\support_kpi_section"
+  },
+  "offices\\corporate\\training_coordinator_dashboard\\training_coordinator_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_coordinator_dashboard\\training_coordinator_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_coordinator_dashboard\\training_coordinator_dashboard_screen"
+  },
+  "offices\\corporate\\training_coordinator_dashboard\\sections\\training_coordinator_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\training_coordinator_dashboard\\sections\\training_coordinator_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_coordinator_dashboard\\sections\\training_coordinator_kpi_section"
+  },
+  "offices\\corporate\\training_director_dashboard\\training_director_dashboard_screen": {
+    "title": "TBD: Title for offices\\corporate\\training_director_dashboard\\training_director_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_dashboard\\training_director_dashboard_screen"
+  },
+  "offices\\corporate\\training_director_dashboard\\sections\\training_director_kpi_section": {
+    "title": "TBD: Title for offices\\corporate\\training_director_dashboard\\sections\\training_director_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\corporate\\training_director_dashboard\\sections\\training_director_kpi_section"
+  },
+  "offices\\franchise\\admin_claims_screen": {
+    "title": "TBD: Title for offices\\franchise\\admin_claims_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\admin_claims_screen"
+  },
+  "offices\\franchise\\admin_invoices_screen": {
+    "title": "TBD: Title for offices\\franchise\\admin_invoices_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\admin_invoices_screen"
+  },
+  "offices\\franchise\\admin_outstanding_balances_screen": {
+    "title": "TBD: Title for offices\\franchise\\admin_outstanding_balances_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\admin_outstanding_balances_screen"
+  },
+  "offices\\franchise\\admin_payments_screen": {
+    "title": "TBD: Title for offices\\franchise\\admin_payments_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\admin_payments_screen"
+  },
+  "offices\\franchise\\admin_reconciliation_screen": {
+    "title": "TBD: Title for offices\\franchise\\admin_reconciliation_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\admin_reconciliation_screen"
+  },
+  "offices\\franchise\\admin_refunds_screen": {
+    "title": "TBD: Title for offices\\franchise\\admin_refunds_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\admin_refunds_screen"
+  },
+  "offices\\franchise\\admin_reports_screen": {
+    "title": "TBD: Title for offices\\franchise\\admin_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\admin_reports_screen"
+  },
+  "offices\\franchise\\applicants_screen": {
+    "title": "TBD: Title for offices\\franchise\\applicants_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\applicants_screen"
+  },
+  "offices\\franchise\\appointments_screen": {
+    "title": "TBD: Title for offices\\franchise\\appointments_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\appointments_screen"
+  },
+  "offices\\franchise\\appointment_calendar_screen": {
+    "title": "TBD: Title for offices\\franchise\\appointment_calendar_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\appointment_calendar_screen"
+  },
+  "offices\\franchise\\assignments_screen": {
+    "title": "TBD: Title for offices\\franchise\\assignments_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\assignments_screen"
+  },
+  "offices\\franchise\\billing_admin_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\billing_admin_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\billing_admin_dashboard"
+  },
+  "offices\\franchise\\billing_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\billing_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\billing_dashboard"
+  },
+  "offices\\franchise\\booking_requests_screen": {
+    "title": "TBD: Title for offices\\franchise\\booking_requests_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\booking_requests_screen"
+  },
+  "offices\\franchise\\branch_overview_screen": {
+    "title": "TBD: Title for offices\\franchise\\branch_overview_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\branch_overview_screen"
+  },
+  "offices\\franchise\\clients_screen": {
+    "title": "TBD: Title for offices\\franchise\\clients_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\clients_screen"
+  },
+  "offices\\franchise\\community_outreach_reports_screen": {
+    "title": "TBD: Title for offices\\franchise\\community_outreach_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\community_outreach_reports_screen"
+  },
+  "offices\\franchise\\compliance_screen": {
+    "title": "TBD: Title for offices\\franchise\\compliance_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\compliance_screen"
+  },
+  "offices\\franchise\\conflicts_screen": {
+    "title": "TBD: Title for offices\\franchise\\conflicts_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\conflicts_screen"
+  },
+  "offices\\franchise\\credentials_screen": {
+    "title": "TBD: Title for offices\\franchise\\credentials_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\credentials_screen"
+  },
+  "offices\\franchise\\daily_operations_screen": {
+    "title": "TBD: Title for offices\\franchise\\daily_operations_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\daily_operations_screen"
+  },
+  "offices\\franchise\\financial_snapshot_screen": {
+    "title": "TBD: Title for offices\\franchise\\financial_snapshot_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\financial_snapshot_screen"
+  },
+  "offices\\franchise\\franchise_claims_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_claims_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_claims_screen"
+  },
+  "offices\\franchise\\franchise_invoices_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_invoices_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_invoices_screen"
+  },
+  "offices\\franchise\\franchise_outstanding_balances_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_outstanding_balances_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_outstanding_balances_screen"
+  },
+  "offices\\franchise\\franchise_owner_appointments_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_appointments_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_appointments_screen"
+  },
+  "offices\\franchise\\franchise_owner_branch_overview_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_branch_overview_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_branch_overview_screen"
+  },
+  "offices\\franchise\\franchise_owner_clients_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_clients_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_clients_screen"
+  },
+  "offices\\franchise\\franchise_owner_compliance_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_compliance_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_compliance_screen"
+  },
+  "offices\\franchise\\franchise_owner_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_dashboard"
+  },
+  "offices\\franchise\\franchise_owner_financial_snapshot_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_financial_snapshot_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_financial_snapshot_screen"
+  },
+  "offices\\franchise\\franchise_owner_hiring_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_hiring_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_hiring_screen"
+  },
+  "offices\\franchise\\franchise_owner_reports_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_reports_screen"
+  },
+  "offices\\franchise\\franchise_owner_staff_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_staff_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_staff_screen"
+  },
+  "offices\\franchise\\franchise_payments_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_payments_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_payments_screen"
+  },
+  "offices\\franchise\\franchise_reconciliation_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_reconciliation_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_reconciliation_screen"
+  },
+  "offices\\franchise\\franchise_refunds_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_refunds_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_refunds_screen"
+  },
+  "offices\\franchise\\franchise_reports_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_reports_screen"
+  },
+  "offices\\franchise\\hiring_screen": {
+    "title": "TBD: Title for offices\\franchise\\hiring_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hiring_screen"
+  },
+  "offices\\franchise\\hr_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\hr_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_dashboard"
+  },
+  "offices\\franchise\\hr_hiring_applicants_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_applicants_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_applicants_screen"
+  },
+  "offices\\franchise\\hr_hiring_credentials_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_credentials_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_credentials_screen"
+  },
+  "offices\\franchise\\hr_hiring_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_dashboard"
+  },
+  "offices\\franchise\\hr_hiring_interviews_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_interviews_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_interviews_screen"
+  },
+  "offices\\franchise\\hr_hiring_offers_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_offers_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_offers_screen"
+  },
+  "offices\\franchise\\hr_hiring_onboarding_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_onboarding_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_onboarding_screen"
+  },
+  "offices\\franchise\\hr_hiring_reports_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_reports_screen"
+  },
+  "offices\\franchise\\hr_hiring_staff_documents_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_staff_documents_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_staff_documents_screen"
+  },
+  "offices\\franchise\\hr_hiring_training_status_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_training_status_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_training_status_screen"
+  },
+  "offices\\franchise\\interviews_screen": {
+    "title": "TBD: Title for offices\\franchise\\interviews_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\interviews_screen"
+  },
+  "offices\\franchise\\issues_screen": {
+    "title": "TBD: Title for offices\\franchise\\issues_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\issues_screen"
+  },
+  "offices\\franchise\\offers_screen": {
+    "title": "TBD: Title for offices\\franchise\\offers_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\offers_screen"
+  },
+  "offices\\franchise\\onboarding_screen": {
+    "title": "TBD: Title for offices\\franchise\\onboarding_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\onboarding_screen"
+  },
+  "offices\\franchise\\open_shifts_screen": {
+    "title": "TBD: Title for offices\\franchise\\open_shifts_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\open_shifts_screen"
+  },
+  "offices\\franchise\\operations_manager_attendance_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_attendance_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_attendance_screen"
+  },
+  "offices\\franchise\\operations_manager_daily_operations_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_daily_operations_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_daily_operations_screen"
+  },
+  "offices\\franchise\\operations_manager_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_dashboard"
+  },
+  "offices\\franchise\\operations_manager_issues_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_issues_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_issues_screen"
+  },
+  "offices\\franchise\\operations_manager_reports_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_reports_screen"
+  },
+  "offices\\franchise\\operations_manager_schedule_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_schedule_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_schedule_screen"
+  },
+  "offices\\franchise\\operations_manager_service_quality_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_service_quality_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_service_quality_screen"
+  },
+  "offices\\franchise\\operations_manager_shifts_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_shifts_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_shifts_screen"
+  },
+  "offices\\franchise\\operations_manager_staff_coordination_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_staff_coordination_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_staff_coordination_screen"
+  },
+  "offices\\franchise\\ops_manager_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\ops_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\ops_manager_dashboard"
+  },
+  "offices\\franchise\\provider_availability_screen": {
+    "title": "TBD: Title for offices\\franchise\\provider_availability_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\provider_availability_screen"
+  },
+  "offices\\franchise\\scheduler_coordinator_appointment_calendar_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_coordinator_appointment_calendar_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_coordinator_appointment_calendar_screen"
+  },
+  "offices\\franchise\\scheduler_coordinator_assignments_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_coordinator_assignments_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_coordinator_assignments_screen"
+  },
+  "offices\\franchise\\scheduler_coordinator_booking_requests_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_coordinator_booking_requests_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_coordinator_booking_requests_screen"
+  },
+  "offices\\franchise\\scheduler_coordinator_conflicts_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_coordinator_conflicts_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_coordinator_conflicts_screen"
+  },
+  "offices\\franchise\\scheduler_coordinator_open_shifts_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_coordinator_open_shifts_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_coordinator_open_shifts_screen"
+  },
+  "offices\\franchise\\scheduler_coordinator_provider_availability_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_coordinator_provider_availability_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_coordinator_provider_availability_screen"
+  },
+  "offices\\franchise\\scheduler_coordinator_shift_calendar_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_coordinator_shift_calendar_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_coordinator_shift_calendar_screen"
+  },
+  "offices\\franchise\\scheduler_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_dashboard"
+  },
+  "offices\\franchise\\schedule_screen": {
+    "title": "TBD: Title for offices\\franchise\\schedule_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\schedule_screen"
+  },
+  "offices\\franchise\\scheduling_dashboard": {
+    "title": "TBD: Title for offices\\franchise\\scheduling_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduling_dashboard"
+  },
+  "offices\\franchise\\service_quality_screen": {
+    "title": "TBD: Title for offices\\franchise\\service_quality_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\service_quality_screen"
+  },
+  "offices\\franchise\\shifts_screen": {
+    "title": "TBD: Title for offices\\franchise\\shifts_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\shifts_screen"
+  },
+  "offices\\franchise\\shift_calendar_screen": {
+    "title": "TBD: Title for offices\\franchise\\shift_calendar_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\shift_calendar_screen"
+  },
+  "offices\\franchise\\staff_coordination_screen": {
+    "title": "TBD: Title for offices\\franchise\\staff_coordination_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\staff_coordination_screen"
+  },
+  "offices\\franchise\\staff_documents_screen": {
+    "title": "TBD: Title for offices\\franchise\\staff_documents_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\staff_documents_screen"
+  },
+  "offices\\franchise\\staff_screen": {
+    "title": "TBD: Title for offices\\franchise\\staff_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\staff_screen"
+  },
+  "offices\\franchise\\training_status_screen": {
+    "title": "TBD: Title for offices\\franchise\\training_status_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\training_status_screen"
+  },
+  "offices\\franchise\\billing_admin_dashboard\\billing_admin_dashboard_screen": {
+    "title": "TBD: Title for offices\\franchise\\billing_admin_dashboard\\billing_admin_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\billing_admin_dashboard\\billing_admin_dashboard_screen"
+  },
+  "offices\\franchise\\billing_admin_dashboard\\sections\\billing_admin_kpi_section": {
+    "title": "TBD: Title for offices\\franchise\\billing_admin_dashboard\\sections\\billing_admin_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\billing_admin_dashboard\\sections\\billing_admin_kpi_section"
+  },
+  "offices\\franchise\\franchise_owner_dashboard\\franchise_owner_dashboard_screen": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_dashboard\\franchise_owner_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_dashboard\\franchise_owner_dashboard_screen"
+  },
+  "offices\\franchise\\franchise_owner_dashboard\\sections\\franchise_owner_kpi_section": {
+    "title": "TBD: Title for offices\\franchise\\franchise_owner_dashboard\\sections\\franchise_owner_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\franchise_owner_dashboard\\sections\\franchise_owner_kpi_section"
+  },
+  "offices\\franchise\\hr_hiring_dashboard\\hr_hiring_dashboard_screen": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_dashboard\\hr_hiring_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_dashboard\\hr_hiring_dashboard_screen"
+  },
+  "offices\\franchise\\hr_hiring_dashboard\\sections\\hr_hiring_kpi_section": {
+    "title": "TBD: Title for offices\\franchise\\hr_hiring_dashboard\\sections\\hr_hiring_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\hr_hiring_dashboard\\sections\\hr_hiring_kpi_section"
+  },
+  "offices\\franchise\\operations_manager_dashboard\\operations_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_dashboard\\operations_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_dashboard\\operations_manager_dashboard_screen"
+  },
+  "offices\\franchise\\operations_manager_dashboard\\sections\\operations_manager_kpi_section": {
+    "title": "TBD: Title for offices\\franchise\\operations_manager_dashboard\\sections\\operations_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\operations_manager_dashboard\\sections\\operations_manager_kpi_section"
+  },
+  "offices\\franchise\\owner_dashboard\\owner_dashboard_screen": {
+    "title": "TBD: Title for offices\\franchise\\owner_dashboard\\owner_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\owner_dashboard\\owner_dashboard_screen"
+  },
+  "offices\\franchise\\owner_dashboard\\sections\\owner_kpi_section": {
+    "title": "TBD: Title for offices\\franchise\\owner_dashboard\\sections\\owner_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\owner_dashboard\\sections\\owner_kpi_section"
+  },
+  "offices\\franchise\\scheduler_dashboard\\scheduler_dashboard_screen": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_dashboard\\scheduler_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_dashboard\\scheduler_dashboard_screen"
+  },
+  "offices\\franchise\\scheduler_dashboard\\sections\\scheduler_kpi_section": {
+    "title": "TBD: Title for offices\\franchise\\scheduler_dashboard\\sections\\scheduler_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\franchise\\scheduler_dashboard\\sections\\scheduler_kpi_section"
+  },
+  "offices\\marketing\\brand_assets_screen": {
+    "title": "TBD: Title for offices\\marketing\\brand_assets_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\brand_assets_screen"
+  },
+  "offices\\marketing\\campaigns_screen": {
+    "title": "TBD: Title for offices\\marketing\\campaigns_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\campaigns_screen"
+  },
+  "offices\\marketing\\community_outreach_contacts_screen": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_contacts_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_contacts_screen"
+  },
+  "offices\\marketing\\community_outreach_dashboard": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_dashboard"
+  },
+  "offices\\marketing\\community_outreach_events_screen": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_events_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_events_screen"
+  },
+  "offices\\marketing\\community_outreach_follow_ups_screen": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_follow_ups_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_follow_ups_screen"
+  },
+  "offices\\marketing\\community_outreach_partnerships_screen": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_partnerships_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_partnerships_screen"
+  },
+  "offices\\marketing\\community_outreach_programs_screen": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_programs_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_programs_screen"
+  },
+  "offices\\marketing\\community_outreach_volunteers_screen": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_volunteers_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_volunteers_screen"
+  },
+  "offices\\marketing\\contacts_screen": {
+    "title": "TBD: Title for offices\\marketing\\contacts_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\contacts_screen"
+  },
+  "offices\\marketing\\content_approval_screen": {
+    "title": "TBD: Title for offices\\marketing\\content_approval_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\content_approval_screen"
+  },
+  "offices\\marketing\\events_screen": {
+    "title": "TBD: Title for offices\\marketing\\events_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\events_screen"
+  },
+  "offices\\marketing\\funnel_analytics_screen": {
+    "title": "TBD: Title for offices\\marketing\\funnel_analytics_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\funnel_analytics_screen"
+  },
+  "offices\\marketing\\head_of_marketing_brand_assets_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_brand_assets_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_brand_assets_screen"
+  },
+  "offices\\marketing\\head_of_marketing_campaigns_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_campaigns_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_campaigns_screen"
+  },
+  "offices\\marketing\\head_of_marketing_content_approval_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_content_approval_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_content_approval_screen"
+  },
+  "offices\\marketing\\head_of_marketing_dashboard": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_dashboard"
+  },
+  "offices\\marketing\\head_of_marketing_funnel_analytics_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_funnel_analytics_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_funnel_analytics_screen"
+  },
+  "offices\\marketing\\head_of_marketing_leads_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_leads_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_leads_screen"
+  },
+  "offices\\marketing\\head_of_marketing_performance_reports_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_performance_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_performance_reports_screen"
+  },
+  "offices\\marketing\\head_of_marketing_regional_campaigns_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_regional_campaigns_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_regional_campaigns_screen"
+  },
+  "offices\\marketing\\local_assets_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_assets_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_assets_screen"
+  },
+  "offices\\marketing\\local_budget_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_budget_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_budget_screen"
+  },
+  "offices\\marketing\\local_campaigns_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_campaigns_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_campaigns_screen"
+  },
+  "offices\\marketing\\local_content_calendar_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_content_calendar_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_content_calendar_screen"
+  },
+  "offices\\marketing\\local_events_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_events_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_events_screen"
+  },
+  "offices\\marketing\\local_leads_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_leads_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_leads_screen"
+  },
+  "offices\\marketing\\local_marketing_dashboard": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_dashboard"
+  },
+  "offices\\marketing\\local_marketing_manager_assets_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_assets_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_assets_screen"
+  },
+  "offices\\marketing\\local_marketing_manager_budget_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_budget_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_budget_screen"
+  },
+  "offices\\marketing\\local_marketing_manager_campaigns_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_campaigns_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_campaigns_screen"
+  },
+  "offices\\marketing\\local_marketing_manager_content_calendar_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_content_calendar_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_content_calendar_screen"
+  },
+  "offices\\marketing\\local_marketing_manager_dashboard": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_dashboard"
+  },
+  "offices\\marketing\\local_marketing_manager_events_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_events_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_events_screen"
+  },
+  "offices\\marketing\\local_marketing_manager_leads_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_leads_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_leads_screen"
+  },
+  "offices\\marketing\\local_marketing_manager_reports_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_reports_screen"
+  },
+  "offices\\marketing\\local_reports_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_reports_screen"
+  },
+  "offices\\marketing\\partnerships_screen": {
+    "title": "TBD: Title for offices\\marketing\\partnerships_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\partnerships_screen"
+  },
+  "offices\\marketing\\performance_reports_screen": {
+    "title": "TBD: Title for offices\\marketing\\performance_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\performance_reports_screen"
+  },
+  "offices\\marketing\\programs_screen": {
+    "title": "TBD: Title for offices\\marketing\\programs_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\programs_screen"
+  },
+  "offices\\marketing\\regional_campaigns_screen": {
+    "title": "TBD: Title for offices\\marketing\\regional_campaigns_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\regional_campaigns_screen"
+  },
+  "offices\\marketing\\territory_area_performance_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_area_performance_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_area_performance_screen"
+  },
+  "offices\\marketing\\territory_competitors_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_competitors_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_competitors_screen"
+  },
+  "offices\\marketing\\territory_conversions_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_conversions_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_conversions_screen"
+  },
+  "offices\\marketing\\territory_field_activity_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_field_activity_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_field_activity_screen"
+  },
+  "offices\\marketing\\territory_leads_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_leads_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_leads_screen"
+  },
+  "offices\\marketing\\territory_pipeline_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_pipeline_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_pipeline_screen"
+  },
+  "offices\\marketing\\territory_reports_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_reports_screen"
+  },
+  "offices\\marketing\\territory_sales_dashboard": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_dashboard"
+  },
+  "offices\\marketing\\territory_sales_manager_area_performance_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_area_performance_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_area_performance_screen"
+  },
+  "offices\\marketing\\territory_sales_manager_competitors_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_competitors_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_competitors_screen"
+  },
+  "offices\\marketing\\territory_sales_manager_conversions_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_conversions_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_conversions_screen"
+  },
+  "offices\\marketing\\territory_sales_manager_dashboard": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_dashboard"
+  },
+  "offices\\marketing\\territory_sales_manager_field_activity_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_field_activity_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_field_activity_screen"
+  },
+  "offices\\marketing\\territory_sales_manager_leads_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_leads_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_leads_screen"
+  },
+  "offices\\marketing\\territory_sales_manager_pipeline_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_pipeline_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_pipeline_screen"
+  },
+  "offices\\marketing\\territory_sales_manager_reports_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_reports_screen"
+  },
+  "offices\\marketing\\volunteers_screen": {
+    "title": "TBD: Title for offices\\marketing\\volunteers_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\volunteers_screen"
+  },
+  "offices\\marketing\\community_outreach_dashboard\\community_outreach_dashboard_screen": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_dashboard\\community_outreach_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_dashboard\\community_outreach_dashboard_screen"
+  },
+  "offices\\marketing\\community_outreach_dashboard\\sections\\community_outreach_kpi_section": {
+    "title": "TBD: Title for offices\\marketing\\community_outreach_dashboard\\sections\\community_outreach_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\community_outreach_dashboard\\sections\\community_outreach_kpi_section"
+  },
+  "offices\\marketing\\head_of_marketing_dashboard\\head_of_marketing_dashboard_screen": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_dashboard\\head_of_marketing_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_dashboard\\head_of_marketing_dashboard_screen"
+  },
+  "offices\\marketing\\head_of_marketing_dashboard\\sections\\head_of_marketing_kpi_section": {
+    "title": "TBD: Title for offices\\marketing\\head_of_marketing_dashboard\\sections\\head_of_marketing_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\head_of_marketing_dashboard\\sections\\head_of_marketing_kpi_section"
+  },
+  "offices\\marketing\\local_marketing_manager_dashboard\\local_marketing_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_dashboard\\local_marketing_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_dashboard\\local_marketing_manager_dashboard_screen"
+  },
+  "offices\\marketing\\local_marketing_manager_dashboard\\sections\\local_marketing_manager_kpi_section": {
+    "title": "TBD: Title for offices\\marketing\\local_marketing_manager_dashboard\\sections\\local_marketing_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\local_marketing_manager_dashboard\\sections\\local_marketing_manager_kpi_section"
+  },
+  "offices\\marketing\\territory_sales_manager_dashboard\\territory_sales_manager_dashboard_screen": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_dashboard\\territory_sales_manager_dashboard_screen",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_dashboard\\territory_sales_manager_dashboard_screen"
+  },
+  "offices\\marketing\\territory_sales_manager_dashboard\\sections\\territory_sales_manager_kpi_section": {
+    "title": "TBD: Title for offices\\marketing\\territory_sales_manager_dashboard\\sections\\territory_sales_manager_kpi_section",
+    "subtitle": "TBD: Subtitle for offices\\marketing\\territory_sales_manager_dashboard\\sections\\territory_sales_manager_kpi_section"
+  },
+  "offices\\support\\attendance_screen": {
+    "title": "TBD: Title for offices\\support\\attendance_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\attendance_screen"
+  },
+  "offices\\support\\audits_screen": {
+    "title": "TBD: Title for offices\\support\\audits_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\audits_screen"
+  },
+  "offices\\support\\certifications_screen": {
+    "title": "TBD: Title for offices\\support\\certifications_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\certifications_screen"
+  },
+  "offices\\support\\client_assignment_screen": {
+    "title": "TBD: Title for offices\\support\\client_assignment_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\client_assignment_screen"
+  },
+  "offices\\support\\complaints_screen": {
+    "title": "TBD: Title for offices\\support\\complaints_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\complaints_screen"
+  },
+  "offices\\support\\compliance_checks_screen": {
+    "title": "TBD: Title for offices\\support\\compliance_checks_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\compliance_checks_screen"
+  },
+  "offices\\support\\corrective_actions_screen": {
+    "title": "TBD: Title for offices\\support\\corrective_actions_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\corrective_actions_screen"
+  },
+  "offices\\support\\courses_screen": {
+    "title": "TBD: Title for offices\\support\\courses_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\courses_screen"
+  },
+  "offices\\support\\customer_support_dashboard": {
+    "title": "TBD: Title for offices\\support\\customer_support_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\support\\customer_support_dashboard"
+  },
+  "offices\\support\\customer_support_escalations_screen": {
+    "title": "TBD: Title for offices\\support\\customer_support_escalations_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\customer_support_escalations_screen"
+  },
+  "offices\\support\\customer_support_issue_categories_screen": {
+    "title": "TBD: Title for offices\\support\\customer_support_issue_categories_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\customer_support_issue_categories_screen"
+  },
+  "offices\\support\\customer_support_reports_screen": {
+    "title": "TBD: Title for offices\\support\\customer_support_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\customer_support_reports_screen"
+  },
+  "offices\\support\\customer_support_templates_screen": {
+    "title": "TBD: Title for offices\\support\\customer_support_templates_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\customer_support_templates_screen"
+  },
+  "offices\\support\\customer_support_tickets_screen": {
+    "title": "TBD: Title for offices\\support\\customer_support_tickets_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\customer_support_tickets_screen"
+  },
+  "offices\\support\\eligibility_screen": {
+    "title": "TBD: Title for offices\\support\\eligibility_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\eligibility_screen"
+  },
+  "offices\\support\\escalations_screen": {
+    "title": "TBD: Title for offices\\support\\escalations_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\escalations_screen"
+  },
+  "offices\\support\\intake_coordinator_client_assignment_screen": {
+    "title": "TBD: Title for offices\\support\\intake_coordinator_client_assignment_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_coordinator_client_assignment_screen"
+  },
+  "offices\\support\\intake_coordinator_dashboard": {
+    "title": "TBD: Title for offices\\support\\intake_coordinator_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_coordinator_dashboard"
+  },
+  "offices\\support\\intake_coordinator_eligibility_screen": {
+    "title": "TBD: Title for offices\\support\\intake_coordinator_eligibility_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_coordinator_eligibility_screen"
+  },
+  "offices\\support\\intake_coordinator_intake_forms_screen": {
+    "title": "TBD: Title for offices\\support\\intake_coordinator_intake_forms_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_coordinator_intake_forms_screen"
+  },
+  "offices\\support\\intake_coordinator_new_intakes_screen": {
+    "title": "TBD: Title for offices\\support\\intake_coordinator_new_intakes_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_coordinator_new_intakes_screen"
+  },
+  "offices\\support\\intake_coordinator_scheduling_screen": {
+    "title": "TBD: Title for offices\\support\\intake_coordinator_scheduling_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_coordinator_scheduling_screen"
+  },
+  "offices\\support\\intake_dashboard": {
+    "title": "TBD: Title for offices\\support\\intake_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_dashboard"
+  },
+  "offices\\support\\intake_forms_screen": {
+    "title": "TBD: Title for offices\\support\\intake_forms_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\intake_forms_screen"
+  },
+  "offices\\support\\issue_categories_screen": {
+    "title": "TBD: Title for offices\\support\\issue_categories_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\issue_categories_screen"
+  },
+  "offices\\support\\materials_screen": {
+    "title": "TBD: Title for offices\\support\\materials_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\materials_screen"
+  },
+  "offices\\support\\new_intakes_screen": {
+    "title": "TBD: Title for offices\\support\\new_intakes_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\new_intakes_screen"
+  },
+  "offices\\support\\progress_screen": {
+    "title": "TBD: Title for offices\\support\\progress_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\progress_screen"
+  },
+  "offices\\support\\qa_dashboard": {
+    "title": "TBD: Title for offices\\support\\qa_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\support\\qa_dashboard"
+  },
+  "offices\\support\\quality_assurance_audits_screen": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_audits_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_audits_screen"
+  },
+  "offices\\support\\quality_assurance_complaints_screen": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_complaints_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_complaints_screen"
+  },
+  "offices\\support\\quality_assurance_compliance_checks_screen": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_compliance_checks_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_compliance_checks_screen"
+  },
+  "offices\\support\\quality_assurance_corrective_actions_screen": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_corrective_actions_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_corrective_actions_screen"
+  },
+  "offices\\support\\quality_assurance_dashboard": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_dashboard"
+  },
+  "offices\\support\\quality_assurance_reports_screen": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_reports_screen"
+  },
+  "offices\\support\\quality_assurance_reviews_screen": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_reviews_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_reviews_screen"
+  },
+  "offices\\support\\quality_assurance_scorecards_screen": {
+    "title": "TBD: Title for offices\\support\\quality_assurance_scorecards_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\quality_assurance_scorecards_screen"
+  },
+  "offices\\support\\reviews_screen": {
+    "title": "TBD: Title for offices\\support\\reviews_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\reviews_screen"
+  },
+  "offices\\support\\scheduling_screen": {
+    "title": "TBD: Title for offices\\support\\scheduling_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\scheduling_screen"
+  },
+  "offices\\support\\scorecards_screen": {
+    "title": "TBD: Title for offices\\support\\scorecards_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\scorecards_screen"
+  },
+  "offices\\support\\support_dashboard": {
+    "title": "TBD: Title for offices\\support\\support_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\support\\support_dashboard"
+  },
+  "offices\\support\\support_reports_screen": {
+    "title": "TBD: Title for offices\\support\\support_reports_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\support_reports_screen"
+  },
+  "offices\\support\\templates_screen": {
+    "title": "TBD: Title for offices\\support\\templates_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\templates_screen"
+  },
+  "offices\\support\\tickets_view": {
+    "title": "TBD: Title for offices\\support\\tickets_view",
+    "subtitle": "TBD: Subtitle for offices\\support\\tickets_view"
+  },
+  "offices\\support\\training_coordinator_attendance_screen": {
+    "title": "TBD: Title for offices\\support\\training_coordinator_attendance_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_coordinator_attendance_screen"
+  },
+  "offices\\support\\training_coordinator_courses_screen": {
+    "title": "TBD: Title for offices\\support\\training_coordinator_courses_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_coordinator_courses_screen"
+  },
+  "offices\\support\\training_coordinator_dashboard": {
+    "title": "TBD: Title for offices\\support\\training_coordinator_dashboard",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_coordinator_dashboard"
+  },
+  "offices\\support\\training_coordinator_materials_screen": {
+    "title": "TBD: Title for offices\\support\\training_coordinator_materials_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_coordinator_materials_screen"
+  },
+  "offices\\support\\training_coordinator_progress_screen": {
+    "title": "TBD: Title for offices\\support\\training_coordinator_progress_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_coordinator_progress_screen"
+  },
+  "offices\\support\\training_coordinator_training_schedule_screen": {
+    "title": "TBD: Title for offices\\support\\training_coordinator_training_schedule_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_coordinator_training_schedule_screen"
+  },
+  "offices\\support\\training_coordinator_workshops_screen": {
+    "title": "TBD: Title for offices\\support\\training_coordinator_workshops_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_coordinator_workshops_screen"
+  },
+  "offices\\support\\training_schedule_screen": {
+    "title": "TBD: Title for offices\\support\\training_schedule_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\training_schedule_screen"
+  },
+  "offices\\support\\workshops_screen": {
+    "title": "TBD: Title for offices\\support\\workshops_screen",
+    "subtitle": "TBD: Subtitle for offices\\support\\workshops_screen"
+  },
+  "stitch_generated\\admin_claims_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_claims_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_claims_screen_stitch"
+  },
+  "stitch_generated\\admin_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_dashboard_screen_stitch"
+  },
+  "stitch_generated\\admin_invoices_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_invoices_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_invoices_screen_stitch"
+  },
+  "stitch_generated\\admin_outstanding_balances_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_outstanding_balances_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_outstanding_balances_screen_stitch"
+  },
+  "stitch_generated\\admin_payments_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_payments_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_payments_screen_stitch"
+  },
+  "stitch_generated\\admin_reconciliation_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_reconciliation_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_reconciliation_screen_stitch"
+  },
+  "stitch_generated\\admin_refunds_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_refunds_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_refunds_screen_stitch"
+  },
+  "stitch_generated\\admin_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\admin_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\admin_reports_screen_stitch"
+  },
+  "stitch_generated\\attendance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\attendance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\attendance_screen_stitch"
+  },
+  "stitch_generated\\audits_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\audits_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\audits_screen_stitch"
+  },
+  "stitch_generated\\billing_admin_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\billing_admin_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\billing_admin_dashboard_screen_stitch"
+  },
+  "stitch_generated\\book_appointment_view_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\book_appointment_view_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\book_appointment_view_screen_stitch"
+  },
+  "stitch_generated\\care_team_view_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\care_team_view_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\care_team_view_screen_stitch"
+  },
+  "stitch_generated\\care_updates_view_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\care_updates_view_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\care_updates_view_screen_stitch"
+  },
+  "stitch_generated\\ceo_alerts_and_risks_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_alerts_and_risks_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_alerts_and_risks_screen_stitch"
+  },
+  "stitch_generated\\ceo_approvals_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_approvals_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_approvals_screen_stitch"
+  },
+  "stitch_generated\\ceo_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_dashboard_screen_stitch"
+  },
+  "stitch_generated\\ceo_enterprise_overview_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_enterprise_overview_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_enterprise_overview_screen_stitch"
+  },
+  "stitch_generated\\ceo_franchise_overview_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_franchise_overview_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_franchise_overview_screen_stitch"
+  },
+  "stitch_generated\\ceo_growth_pipeline_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_growth_pipeline_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_growth_pipeline_screen_stitch"
+  },
+  "stitch_generated\\ceo_leadership_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_leadership_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_leadership_reports_screen_stitch"
+  },
+  "stitch_generated\\ceo_organization_map_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_organization_map_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_organization_map_screen_stitch"
+  },
+  "stitch_generated\\ceo_region_performance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_region_performance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_region_performance_screen_stitch"
+  },
+  "stitch_generated\\ceo_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_reports_screen_stitch"
+  },
+  "stitch_generated\\ceo_revenue_summary_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_revenue_summary_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_revenue_summary_screen_stitch"
+  },
+  "stitch_generated\\ceo_strategic_kpis_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\ceo_strategic_kpis_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\ceo_strategic_kpis_screen_stitch"
+  },
+  "stitch_generated\\certifications_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\certifications_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\certifications_screen_stitch"
+  },
+  "stitch_generated\\cfo_accounts_payable_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_accounts_payable_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_accounts_payable_screen_stitch"
+  },
+  "stitch_generated\\cfo_accounts_receivable_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_accounts_receivable_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_accounts_receivable_screen_stitch"
+  },
+  "stitch_generated\\cfo_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_dashboard_screen_stitch"
+  },
+  "stitch_generated\\cfo_expenses_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_expenses_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_expenses_screen_stitch"
+  },
+  "stitch_generated\\cfo_financial_overview_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_financial_overview_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_financial_overview_screen_stitch"
+  },
+  "stitch_generated\\cfo_franchise_financials_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_franchise_financials_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_franchise_financials_screen_stitch"
+  },
+  "stitch_generated\\cfo_invoices_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_invoices_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_invoices_screen_stitch"
+  },
+  "stitch_generated\\cfo_payroll_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_payroll_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_payroll_screen_stitch"
+  },
+  "stitch_generated\\cfo_profitability_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_profitability_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_profitability_screen_stitch"
+  },
+  "stitch_generated\\cfo_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_reports_screen_stitch"
+  },
+  "stitch_generated\\cfo_revenue_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_revenue_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_revenue_screen_stitch"
+  },
+  "stitch_generated\\cfo_tax_and_remittance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cfo_tax_and_remittance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cfo_tax_and_remittance_screen_stitch"
+  },
+  "stitch_generated\\client_assignment_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\client_assignment_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\client_assignment_screen_stitch"
+  },
+  "stitch_generated\\client_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\client_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\client_dashboard_screen_stitch"
+  },
+  "stitch_generated\\client_payments_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\client_payments_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\client_payments_screen_stitch"
+  },
+  "stitch_generated\\client_profile_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\client_profile_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\client_profile_screen_stitch"
+  },
+  "stitch_generated\\clinic_care_plan_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_care_plan_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_care_plan_screen_stitch"
+  },
+  "stitch_generated\\clinic_check_in_out_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_check_in_out_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_check_in_out_screen_stitch"
+  },
+  "stitch_generated\\clinic_client_profile_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_client_profile_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_client_profile_screen_stitch"
+  },
+  "stitch_generated\\clinic_daily_notes_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_daily_notes_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_daily_notes_screen_stitch"
+  },
+  "stitch_generated\\clinic_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_dashboard_screen_stitch"
+  },
+  "stitch_generated\\clinic_incident_report_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_incident_report_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_incident_report_screen_stitch"
+  },
+  "stitch_generated\\clinic_my_shifts_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_my_shifts_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_my_shifts_screen_stitch"
+  },
+  "stitch_generated\\clinic_shift_details_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\clinic_shift_details_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\clinic_shift_details_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_contacts_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_contacts_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_contacts_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_dashboard_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_events_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_events_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_events_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_follow_ups_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_follow_ups_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_follow_ups_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_partnerships_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_partnerships_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_partnerships_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_programs_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_programs_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_programs_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_reports_screen_stitch"
+  },
+  "stitch_generated\\community_outreach_volunteers_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\community_outreach_volunteers_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\community_outreach_volunteers_screen_stitch"
+  },
+  "stitch_generated\\complaints_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\complaints_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\complaints_screen_stitch"
+  },
+  "stitch_generated\\compliance_checks_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_checks_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_checks_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_audits_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_audits_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_audits_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_compliance_cases_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_compliance_cases_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_compliance_cases_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_corrective_actions_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_corrective_actions_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_corrective_actions_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_credential_tracking_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_credential_tracking_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_credential_tracking_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_document_expiry_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_document_expiry_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_document_expiry_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_incident_review_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_incident_review_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_incident_review_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_policies_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_policies_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_policies_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_reports_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_risk_register_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_risk_register_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_risk_register_screen_stitch"
+  },
+  "stitch_generated\\compliance_manager_training_compliance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\compliance_manager_training_compliance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\compliance_manager_training_compliance_screen_stitch"
+  },
+  "stitch_generated\\coo_branch_comparison_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_branch_comparison_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_branch_comparison_screen_stitch"
+  },
+  "stitch_generated\\coo_branch_operations_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_branch_operations_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_branch_operations_screen_stitch"
+  },
+  "stitch_generated\\coo_compliance_view_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_compliance_view_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_compliance_view_screen_stitch"
+  },
+  "stitch_generated\\coo_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_dashboard_screen_stitch"
+  },
+  "stitch_generated\\coo_issue_escalations_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_issue_escalations_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_issue_escalations_screen_stitch"
+  },
+  "stitch_generated\\coo_operations_overview_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_operations_overview_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_operations_overview_screen_stitch"
+  },
+  "stitch_generated\\coo_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_reports_screen_stitch"
+  },
+  "stitch_generated\\coo_scheduling_health_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_scheduling_health_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_scheduling_health_screen_stitch"
+  },
+  "stitch_generated\\coo_service_delivery_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_service_delivery_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_service_delivery_screen_stitch"
+  },
+  "stitch_generated\\coo_staffing_efficiency_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_staffing_efficiency_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_staffing_efficiency_screen_stitch"
+  },
+  "stitch_generated\\coo_workflow_performance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\coo_workflow_performance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\coo_workflow_performance_screen_stitch"
+  },
+  "stitch_generated\\corrective_actions_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\corrective_actions_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\corrective_actions_screen_stitch"
+  },
+  "stitch_generated\\courses_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\courses_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\courses_screen_stitch"
+  },
+  "stitch_generated\\cto_access_control_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_access_control_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_access_control_screen_stitch"
+  },
+  "stitch_generated\\cto_api_monitoring_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_api_monitoring_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_api_monitoring_screen_stitch"
+  },
+  "stitch_generated\\cto_audit_logs_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_audit_logs_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_audit_logs_screen_stitch"
+  },
+  "stitch_generated\\cto_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_dashboard_screen_stitch"
+  },
+  "stitch_generated\\cto_feature_adoption_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_feature_adoption_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_feature_adoption_screen_stitch"
+  },
+  "stitch_generated\\cto_infrastructure_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_infrastructure_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_infrastructure_screen_stitch"
+  },
+  "stitch_generated\\cto_integrations_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_integrations_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_integrations_screen_stitch"
+  },
+  "stitch_generated\\cto_issue_tracking_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_issue_tracking_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_issue_tracking_screen_stitch"
+  },
+  "stitch_generated\\cto_platform_usage_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_platform_usage_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_platform_usage_screen_stitch"
+  },
+  "stitch_generated\\cto_release_management_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_release_management_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_release_management_screen_stitch"
+  },
+  "stitch_generated\\cto_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_reports_screen_stitch"
+  },
+  "stitch_generated\\cto_system_health_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\cto_system_health_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\cto_system_health_screen_stitch"
+  },
+  "stitch_generated\\customer_support_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\customer_support_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\customer_support_dashboard_screen_stitch"
+  },
+  "stitch_generated\\document_vault_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\document_vault_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\document_vault_screen_stitch"
+  },
+  "stitch_generated\\eligibility_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\eligibility_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\eligibility_screen_stitch"
+  },
+  "stitch_generated\\emergency_contacts_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\emergency_contacts_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\emergency_contacts_screen_stitch"
+  },
+  "stitch_generated\\escalations_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\escalations_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\escalations_screen_stitch"
+  },
+  "stitch_generated\\family_billing_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\family_billing_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\family_billing_screen_stitch"
+  },
+  "stitch_generated\\family_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\family_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\family_dashboard_screen_stitch"
+  },
+  "stitch_generated\\family_profile_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\family_profile_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\family_profile_screen_stitch"
+  },
+  "stitch_generated\\forgot_password_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\forgot_password_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\forgot_password_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_appointments_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_appointments_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_appointments_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_branch_overview_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_branch_overview_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_branch_overview_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_clients_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_clients_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_clients_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_compliance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_compliance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_compliance_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_dashboard_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_financial_snapshot_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_financial_snapshot_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_financial_snapshot_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_hiring_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_hiring_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_hiring_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_reports_screen_stitch"
+  },
+  "stitch_generated\\franchise_owner_staff_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_owner_staff_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_owner_staff_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_contracts_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_contracts_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_contracts_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_discovery_calls_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_discovery_calls_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_discovery_calls_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_follow_ups_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_follow_ups_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_follow_ups_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_leads_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_leads_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_leads_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_proposals_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_proposals_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_proposals_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_prospects_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_prospects_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_prospects_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_reports_screen_stitch"
+  },
+  "stitch_generated\\franchise_sales_manager_sales_pipeline_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\franchise_sales_manager_sales_pipeline_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\franchise_sales_manager_sales_pipeline_screen_stitch"
+  },
+  "stitch_generated\\general_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\general_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\general_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\global_profile_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\global_profile_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\global_profile_screen_stitch"
+  },
+  "stitch_generated\\global_settings_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\global_settings_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\global_settings_screen_stitch"
+  },
+  "stitch_generated\\head_of_bus_dev_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_bus_dev_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_bus_dev_dashboard_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_brand_assets_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_brand_assets_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_brand_assets_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_campaigns_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_campaigns_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_campaigns_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_content_approval_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_content_approval_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_content_approval_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_dashboard_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_funnel_analytics_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_funnel_analytics_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_funnel_analytics_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_leads_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_leads_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_leads_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_performance_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_performance_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_performance_reports_screen_stitch"
+  },
+  "stitch_generated\\head_of_marketing_regional_campaigns_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\head_of_marketing_regional_campaigns_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\head_of_marketing_regional_campaigns_screen_stitch"
+  },
+  "stitch_generated\\history_logs_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\history_logs_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\history_logs_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_applicants_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_applicants_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_applicants_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_credentials_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_credentials_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_credentials_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_dashboard_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_interviews_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_interviews_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_interviews_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_offers_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_offers_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_offers_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_onboarding_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_onboarding_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_onboarding_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_reports_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_staff_documents_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_staff_documents_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_staff_documents_screen_stitch"
+  },
+  "stitch_generated\\hr_hiring_training_status_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\hr_hiring_training_status_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\hr_hiring_training_status_screen_stitch"
+  },
+  "stitch_generated\\intake_coordinator_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\intake_coordinator_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\intake_coordinator_reports_screen_stitch"
+  },
+  "stitch_generated\\intake_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\intake_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\intake_dashboard_screen_stitch"
+  },
+  "stitch_generated\\intake_forms_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\intake_forms_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\intake_forms_screen_stitch"
+  },
+  "stitch_generated\\issue_categories_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\issue_categories_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\issue_categories_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_assets_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_assets_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_assets_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_budget_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_budget_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_budget_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_campaigns_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_campaigns_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_campaigns_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_content_calendar_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_content_calendar_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_content_calendar_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_events_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_events_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_events_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_leads_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_leads_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_leads_screen_stitch"
+  },
+  "stitch_generated\\local_marketing_manager_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\local_marketing_manager_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\local_marketing_manager_reports_screen_stitch"
+  },
+  "stitch_generated\\login_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\login_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\login_screen_stitch"
+  },
+  "stitch_generated\\loved_one_schedule_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\loved_one_schedule_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\loved_one_schedule_screen_stitch"
+  },
+  "stitch_generated\\materials_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\materials_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\materials_screen_stitch"
+  },
+  "stitch_generated\\messaging_hub_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\messaging_hub_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\messaging_hub_screen_stitch"
+  },
+  "stitch_generated\\messaging_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\messaging_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\messaging_screen_stitch"
+  },
+  "stitch_generated\\my_appointments_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\my_appointments_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\my_appointments_screen_stitch"
+  },
+  "stitch_generated\\new_intakes_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\new_intakes_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\new_intakes_screen_stitch"
+  },
+  "stitch_generated\\notification_center_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\notification_center_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\notification_center_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_attendance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_attendance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_attendance_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_daily_operations_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_daily_operations_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_daily_operations_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_issues_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_issues_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_issues_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_reports_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_schedule_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_schedule_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_schedule_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_service_quality_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_service_quality_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_service_quality_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_shifts_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_shifts_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_shifts_screen_stitch"
+  },
+  "stitch_generated\\operations_manager_staff_coordination_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\operations_manager_staff_coordination_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\operations_manager_staff_coordination_screen_stitch"
+  },
+  "stitch_generated\\partnership_manager_active_deals_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\partnership_manager_active_deals_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\partnership_manager_active_deals_screen_stitch"
+  },
+  "stitch_generated\\partnership_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\partnership_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\partnership_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\partnership_manager_outreach_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\partnership_manager_outreach_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\partnership_manager_outreach_screen_stitch"
+  },
+  "stitch_generated\\partnership_manager_partners_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\partnership_manager_partners_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\partnership_manager_partners_screen_stitch"
+  },
+  "stitch_generated\\partnership_manager_proposals_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\partnership_manager_proposals_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\partnership_manager_proposals_screen_stitch"
+  },
+  "stitch_generated\\partnership_manager_renewals_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\partnership_manager_renewals_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\partnership_manager_renewals_screen_stitch"
+  },
+  "stitch_generated\\partnership_manager_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\partnership_manager_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\partnership_manager_reports_screen_stitch"
+  },
+  "stitch_generated\\profile_settings_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\profile_settings_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\profile_settings_screen_stitch"
+  },
+  "stitch_generated\\progress_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\progress_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\progress_screen_stitch"
+  },
+  "stitch_generated\\psw_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\psw_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\psw_dashboard_screen_stitch"
+  },
+  "stitch_generated\\qa_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\qa_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\qa_dashboard_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_competitor_notes_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_competitor_notes_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_competitor_notes_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_deal_tracker_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_deal_tracker_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_deal_tracker_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_franchise_pipeline_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_franchise_pipeline_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_franchise_pipeline_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_leads_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_leads_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_leads_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_meetings_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_meetings_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_meetings_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_partners_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_partners_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_partners_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_reports_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_tasks_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_tasks_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_tasks_screen_stitch"
+  },
+  "stitch_generated\\regional_bdm_territory_growth_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_bdm_territory_growth_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_bdm_territory_growth_screen_stitch"
+  },
+  "stitch_generated\\regional_manager_ontario_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_manager_ontario_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_manager_ontario_dashboard_screen_stitch"
+  },
+  "stitch_generated\\regional_manager_usa_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\regional_manager_usa_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\regional_manager_usa_dashboard_screen_stitch"
+  },
+  "stitch_generated\\reviews_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\reviews_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\reviews_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_appointment_calendar_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_appointment_calendar_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_appointment_calendar_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_assignments_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_assignments_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_assignments_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_booking_requests_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_booking_requests_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_booking_requests_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_conflicts_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_conflicts_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_conflicts_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_open_shifts_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_open_shifts_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_open_shifts_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_provider_availability_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_provider_availability_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_provider_availability_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_reports_screen_stitch"
+  },
+  "stitch_generated\\scheduler_coordinator_shift_calendar_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_coordinator_shift_calendar_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_coordinator_shift_calendar_screen_stitch"
+  },
+  "stitch_generated\\scheduler_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduler_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduler_dashboard_screen_stitch"
+  },
+  "stitch_generated\\scheduling_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scheduling_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scheduling_screen_stitch"
+  },
+  "stitch_generated\\scorecards_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\scorecards_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\scorecards_screen_stitch"
+  },
+  "stitch_generated\\signup_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\signup_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\signup_screen_stitch"
+  },
+  "stitch_generated\\splash_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\splash_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\splash_screen_stitch"
+  },
+  "stitch_generated\\support_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\support_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\support_dashboard_screen_stitch"
+  },
+  "stitch_generated\\support_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\support_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\support_reports_screen_stitch"
+  },
+  "stitch_generated\\templates_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\templates_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\templates_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_demographics_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_demographics_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_demographics_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_expansion_plans_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_expansion_plans_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_expansion_plans_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_forecast_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_forecast_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_forecast_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_market_research_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_market_research_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_market_research_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_open_territories_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_open_territories_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_open_territories_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_reports_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_site_selection_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_site_selection_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_site_selection_screen_stitch"
+  },
+  "stitch_generated\\territory_expansion_manager_territory_map_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_expansion_manager_territory_map_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_expansion_manager_territory_map_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_area_performance_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_area_performance_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_area_performance_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_competitors_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_competitors_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_competitors_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_conversions_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_conversions_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_conversions_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_dashboard_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_field_activity_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_field_activity_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_field_activity_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_leads_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_leads_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_leads_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_pipeline_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_pipeline_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_pipeline_screen_stitch"
+  },
+  "stitch_generated\\territory_sales_manager_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\territory_sales_manager_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\territory_sales_manager_reports_screen_stitch"
+  },
+  "stitch_generated\\tickets_view_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\tickets_view_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\tickets_view_screen_stitch"
+  },
+  "stitch_generated\\training_coordinator_certifications_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_coordinator_certifications_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_coordinator_certifications_screen_stitch"
+  },
+  "stitch_generated\\training_coordinator_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_coordinator_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_coordinator_dashboard_screen_stitch"
+  },
+  "stitch_generated\\training_coordinator_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_coordinator_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_coordinator_reports_screen_stitch"
+  },
+  "stitch_generated\\training_director_assessments_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_assessments_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_assessments_screen_stitch"
+  },
+  "stitch_generated\\training_director_certifications_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_certifications_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_certifications_screen_stitch"
+  },
+  "stitch_generated\\training_director_compliance_training_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_compliance_training_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_compliance_training_screen_stitch"
+  },
+  "stitch_generated\\training_director_course_library_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_course_library_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_course_library_screen_stitch"
+  },
+  "stitch_generated\\training_director_dashboard_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_dashboard_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_dashboard_screen_stitch"
+  },
+  "stitch_generated\\training_director_reports_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_reports_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_reports_screen_stitch"
+  },
+  "stitch_generated\\training_director_staff_training_matrix_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_staff_training_matrix_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_staff_training_matrix_screen_stitch"
+  },
+  "stitch_generated\\training_director_trainer_assignments_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_trainer_assignments_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_trainer_assignments_screen_stitch"
+  },
+  "stitch_generated\\training_director_training_programs_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_director_training_programs_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_director_training_programs_screen_stitch"
+  },
+  "stitch_generated\\training_schedule_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\training_schedule_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\training_schedule_screen_stitch"
+  },
+  "stitch_generated\\treatment_history_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\treatment_history_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\treatment_history_screen_stitch"
+  },
+  "stitch_generated\\workshops_screen_stitch": {
+    "title": "TBD: Title for stitch_generated\\workshops_screen_stitch",
+    "subtitle": "TBD: Subtitle for stitch_generated\\workshops_screen_stitch"
+  }
+}
