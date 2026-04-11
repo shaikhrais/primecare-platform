@@ -78,5 +78,4 @@ class RegionalBdmReportsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

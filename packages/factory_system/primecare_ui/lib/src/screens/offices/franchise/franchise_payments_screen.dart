@@ -78,5 +78,4 @@ class FranchisePaymentsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

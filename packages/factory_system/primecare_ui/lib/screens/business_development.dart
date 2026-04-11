@@ -1,6 +1,5 @@
 // Auto-generated screens for office: business_development
 
-export '../src/screens/offices/business_development/deal_tracker_screen.dart';
 export '../src/screens/offices/business_development/franchise_sales_manager_contracts_screen.dart';
 export '../src/screens/offices/business_development/franchise_sales_manager_dashboard.dart';
 export '../src/screens/offices/business_development/franchise_sales_manager_dashboard/franchise_sales_manager_dashboard_screen.dart';
@@ -11,8 +10,10 @@ export '../src/screens/offices/business_development/franchise_sales_manager_prop
 export '../src/screens/offices/business_development/franchise_sales_manager_prospects_screen.dart';
 export '../src/screens/offices/business_development/franchise_sales_manager_reports_screen.dart';
 export '../src/screens/offices/business_development/franchise_sales_manager_sales_pipeline_screen.dart';
+
 export '../src/screens/offices/business_development/general_manager_dashboard.dart';
 export '../src/screens/offices/business_development/general_manager_dashboard/general_manager_dashboard_screen.dart';
+
 export '../src/screens/offices/business_development/partnership_manager_active_deals_screen.dart';
 export '../src/screens/offices/business_development/partnership_manager_dashboard.dart';
 export '../src/screens/offices/business_development/partnership_manager_dashboard/partnership_manager_dashboard_screen.dart';
@@ -21,6 +22,7 @@ export '../src/screens/offices/business_development/partnership_manager_partners
 export '../src/screens/offices/business_development/partnership_manager_proposals_screen.dart';
 export '../src/screens/offices/business_development/partnership_manager_renewals_screen.dart';
 export '../src/screens/offices/business_development/partnership_manager_reports_screen.dart';
+
 export '../src/screens/offices/business_development/regional_bdm_competitor_notes_screen.dart';
 export '../src/screens/offices/business_development/regional_bdm_deal_tracker_screen.dart';
 export '../src/screens/offices/business_development/regional_bdm_franchise_pipeline_screen.dart';
@@ -30,10 +32,12 @@ export '../src/screens/offices/business_development/regional_bdm_partners_screen
 export '../src/screens/offices/business_development/regional_bdm_reports_screen.dart';
 export '../src/screens/offices/business_development/regional_bdm_tasks_screen.dart';
 export '../src/screens/offices/business_development/regional_bdm_territory_growth_screen.dart';
+
 export '../src/screens/offices/business_development/regional_manager_ontario_dashboard.dart';
 export '../src/screens/offices/business_development/regional_manager_ontario_dashboard/regional_manager_ontario_dashboard_screen.dart';
 export '../src/screens/offices/business_development/regional_manager_usa_dashboard.dart';
 export '../src/screens/offices/business_development/regional_manager_usa_dashboard/regional_manager_usa_dashboard_screen.dart';
+
 export '../src/screens/offices/business_development/territory_expansion_manager_dashboard.dart';
 export '../src/screens/offices/business_development/territory_expansion_manager_dashboard/territory_expansion_manager_dashboard_screen.dart';
 export '../src/screens/offices/business_development/territory_expansion_manager_demographics_screen.dart';
@@ -44,4 +48,3 @@ export '../src/screens/offices/business_development/territory_expansion_manager_
 export '../src/screens/offices/business_development/territory_expansion_manager_reports_screen.dart';
 export '../src/screens/offices/business_development/territory_expansion_manager_site_selection_screen.dart';
 export '../src/screens/offices/business_development/territory_expansion_manager_territory_map_screen.dart';
-export '../src/screens/offices/business_development/territory_map_screen.dart';

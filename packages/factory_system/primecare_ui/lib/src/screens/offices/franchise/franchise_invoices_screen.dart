@@ -78,5 +78,4 @@ class FranchiseInvoicesScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

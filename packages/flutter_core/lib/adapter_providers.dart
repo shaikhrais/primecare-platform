@@ -68,6 +68,14 @@ import 'features/training_coordinator_dashboard/data/adapters/training_coordinat
 import 'features/training_coordinator_dashboard/domain/models/training_coordinator_dashboard_view_model.dart';
 import 'features/training_director_dashboard/data/adapters/training_director_dashboard_adapter.dart';
 import 'features/training_director_dashboard/domain/models/training_director_dashboard_view_model.dart';
+import 'features/franchise_refunds_dashboard/data/adapters/franchise_refunds_dashboard_adapter.dart';
+import 'features/franchise_refunds_dashboard/domain/models/franchise_refunds_dashboard_view_model.dart';
+import 'features/franchise_reports_dashboard/data/adapters/franchise_reports_dashboard_adapter.dart';
+import 'features/franchise_reports_dashboard/domain/models/franchise_reports_dashboard_view_model.dart';
+import 'features/admin_reconciliation_dashboard/data/adapters/admin_reconciliation_dashboard_adapter.dart';
+import 'features/admin_reconciliation_dashboard/domain/models/admin_reconciliation_dashboard_view_model.dart';
+import 'features/franchise_reconciliation_dashboard/data/adapters/franchise_reconciliation_dashboard_adapter.dart';
+import 'features/franchise_reconciliation_dashboard/domain/models/franchise_reconciliation_dashboard_view_model.dart';
 
 class FeatureViewModel {
   final String id;
@@ -600,3 +608,77 @@ final trainingDirectorDashboardDataProvider =
       final adapter = ref.watch(trainingDirectorDashboardAdapterProvider);
       return adapter.getData(endpointKey);
     });
+
+final franchiseRefundsDashboardAdapterProvider =
+    Provider<FranchiseRefundsDashboardAdapter>((ref) {
+      final apiClient = ref.watch(apiClientProvider);
+      return FranchiseRefundsDashboardAdapter(apiClient);
+    });
+
+final franchiseRefundsDashboardDataProvider =
+    FutureProvider.family<FranchiseRefundsDashboardViewModel, String>((
+      ref,
+      endpointKey,
+    ) async {
+      final adapter = ref.watch(franchiseRefundsDashboardAdapterProvider);
+      return adapter.getData(endpointKey);
+    });
+
+final franchiseReportsDashboardAdapterProvider =
+    Provider<FranchiseReportsDashboardAdapter>((ref) {
+      final apiClient = ref.watch(apiClientProvider);
+      return FranchiseReportsDashboardAdapter(apiClient);
+    });
+
+final franchiseReportsDashboardDataProvider =
+    FutureProvider.family<FranchiseReportsDashboardViewModel, String>((
+      ref,
+      endpointKey,
+    ) async {
+      final adapter = ref.watch(franchiseReportsDashboardAdapterProvider);
+      return adapter.getData(endpointKey);
+    });
+
+final adminReportsDataProvider = franchiseReportsDashboardDataProvider;
+
+final adminReconciliationDashboardAdapterProvider =
+    Provider<AdminReconciliationDashboardAdapter>((ref) {
+      final apiClient = ref.watch(apiClientProvider);
+      return AdminReconciliationDashboardAdapter(apiClient);
+    });
+
+final adminReconciliationDashboardDataProvider =
+    FutureProvider.family<AdminReconciliationDashboardViewModel, String>((
+      ref,
+      endpointKey,
+    ) async {
+      final adapter = ref.watch(adminReconciliationDashboardAdapterProvider);
+      return adapter.getData(endpointKey);
+    });
+
+final adminReconciliationDataProvider = adminReconciliationDashboardDataProvider;
+
+final franchiseReconciliationDashboardAdapterProvider =
+    Provider<FranchiseReconciliationDashboardAdapter>((ref) {
+      final apiClient = ref.watch(apiClientProvider);
+      return FranchiseReconciliationDashboardAdapter(apiClient);
+    });
+
+final franchiseReconciliationDashboardDataProvider =
+    FutureProvider.family<FranchiseReconciliationDashboardViewModel, String>((
+      ref,
+      endpointKey,
+    ) async {
+      final adapter = ref.watch(franchiseReconciliationDashboardAdapterProvider);
+      return adapter.getData(endpointKey);
+    });
+
+final franchiseReconciliationDataProvider =
+    franchiseReconciliationDashboardDataProvider;
+
+final headOfMarketingCampaignsDataProvider = headOfMarketingDashboardDataProvider;
+final headOfMarketingLeadsDataProvider = headOfMarketingDashboardDataProvider;
+final headOfMarketingFunnelAnalyticsDataProvider =
+    headOfMarketingDashboardDataProvider;
+final headOfMarketingPerformanceReportsDataProvider =
+    headOfMarketingDashboardDataProvider;

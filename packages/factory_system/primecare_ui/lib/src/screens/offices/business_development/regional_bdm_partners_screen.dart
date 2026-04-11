@@ -78,5 +78,4 @@ class RegionalBdmPartnersScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -1,28 +1,8 @@
 // Auto-generated screens for office: franchise
 
-export '../src/screens/offices/franchise/admin_claims_screen.dart';
-export '../src/screens/offices/franchise/admin_invoices_screen.dart';
-export '../src/screens/offices/franchise/admin_outstanding_balances_screen.dart';
-export '../src/screens/offices/franchise/admin_payments_screen.dart';
-export '../src/screens/offices/franchise/admin_reconciliation_screen.dart';
-export '../src/screens/offices/franchise/admin_refunds_screen.dart';
-export '../src/screens/offices/franchise/admin_reports_screen.dart';
-export '../src/screens/offices/franchise/applicants_screen.dart';
-export '../src/screens/offices/franchise/appointments_screen.dart';
-export '../src/screens/offices/franchise/appointment_calendar_screen.dart';
-export '../src/screens/offices/franchise/assignments_screen.dart';
 export '../src/screens/offices/franchise/billing_admin_dashboard.dart';
 export '../src/screens/offices/franchise/billing_admin_dashboard/billing_admin_dashboard_screen.dart';
-export '../src/screens/offices/franchise/billing_dashboard.dart';
-export '../src/screens/offices/franchise/booking_requests_screen.dart';
-export '../src/screens/offices/franchise/branch_overview_screen.dart';
-export '../src/screens/offices/franchise/clients_screen.dart';
-export '../src/screens/offices/franchise/community_outreach_reports_screen.dart';
-export '../src/screens/offices/franchise/compliance_screen.dart';
-export '../src/screens/offices/franchise/conflicts_screen.dart';
-export '../src/screens/offices/franchise/credentials_screen.dart';
-export '../src/screens/offices/franchise/daily_operations_screen.dart';
-export '../src/screens/offices/franchise/financial_snapshot_screen.dart';
+
 export '../src/screens/offices/franchise/franchise_claims_screen.dart';
 export '../src/screens/offices/franchise/franchise_invoices_screen.dart';
 export '../src/screens/offices/franchise/franchise_outstanding_balances_screen.dart';
@@ -40,8 +20,7 @@ export '../src/screens/offices/franchise/franchise_payments_screen.dart';
 export '../src/screens/offices/franchise/franchise_reconciliation_screen.dart';
 export '../src/screens/offices/franchise/franchise_refunds_screen.dart';
 export '../src/screens/offices/franchise/franchise_reports_screen.dart';
-export '../src/screens/offices/franchise/hiring_screen.dart';
-export '../src/screens/offices/franchise/hr_dashboard.dart';
+
 export '../src/screens/offices/franchise/hr_hiring_applicants_screen.dart';
 export '../src/screens/offices/franchise/hr_hiring_credentials_screen.dart';
 export '../src/screens/offices/franchise/hr_hiring_dashboard.dart';
@@ -52,11 +31,7 @@ export '../src/screens/offices/franchise/hr_hiring_onboarding_screen.dart';
 export '../src/screens/offices/franchise/hr_hiring_reports_screen.dart';
 export '../src/screens/offices/franchise/hr_hiring_staff_documents_screen.dart';
 export '../src/screens/offices/franchise/hr_hiring_training_status_screen.dart';
-export '../src/screens/offices/franchise/interviews_screen.dart';
-export '../src/screens/offices/franchise/issues_screen.dart';
-export '../src/screens/offices/franchise/offers_screen.dart';
-export '../src/screens/offices/franchise/onboarding_screen.dart';
-export '../src/screens/offices/franchise/open_shifts_screen.dart';
+
 export '../src/screens/offices/franchise/operations_manager_attendance_screen.dart';
 export '../src/screens/offices/franchise/operations_manager_daily_operations_screen.dart';
 export '../src/screens/offices/franchise/operations_manager_dashboard.dart';
@@ -67,9 +42,7 @@ export '../src/screens/offices/franchise/operations_manager_schedule_screen.dart
 export '../src/screens/offices/franchise/operations_manager_service_quality_screen.dart';
 export '../src/screens/offices/franchise/operations_manager_shifts_screen.dart';
 export '../src/screens/offices/franchise/operations_manager_staff_coordination_screen.dart';
-export '../src/screens/offices/franchise/ops_manager_dashboard.dart';
-export '../src/screens/offices/franchise/owner_dashboard/owner_dashboard_screen.dart';
-export '../src/screens/offices/franchise/provider_availability_screen.dart';
+
 export '../src/screens/offices/franchise/scheduler_coordinator_appointment_calendar_screen.dart';
 export '../src/screens/offices/franchise/scheduler_coordinator_assignments_screen.dart';
 export '../src/screens/offices/franchise/scheduler_coordinator_booking_requests_screen.dart';
@@ -79,12 +52,3 @@ export '../src/screens/offices/franchise/scheduler_coordinator_provider_availabi
 export '../src/screens/offices/franchise/scheduler_coordinator_shift_calendar_screen.dart';
 export '../src/screens/offices/franchise/scheduler_dashboard.dart';
 export '../src/screens/offices/franchise/scheduler_dashboard/scheduler_dashboard_screen.dart';
-export '../src/screens/offices/franchise/schedule_screen.dart';
-export '../src/screens/offices/franchise/scheduling_dashboard.dart';
-export '../src/screens/offices/franchise/service_quality_screen.dart';
-export '../src/screens/offices/franchise/shifts_screen.dart';
-export '../src/screens/offices/franchise/shift_calendar_screen.dart';
-export '../src/screens/offices/franchise/staff_coordination_screen.dart';
-export '../src/screens/offices/franchise/staff_documents_screen.dart';
-export '../src/screens/offices/franchise/staff_screen.dart';
-export '../src/screens/offices/franchise/training_status_screen.dart';

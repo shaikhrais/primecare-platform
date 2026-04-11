@@ -66,88 +66,167 @@ class _SubscriptionUpgradeScreenState
   @override
   Widget build(BuildContext context) {
     return ProviderLayout(
-      child: PageTemplate(
-        title: 'Subscription & Upgrades',
-        subtitle: 'Manage your SaaS billing and promo codes.',
-        kpiCards: [
-          // Simulated Current Status
-          Card(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-              borderRadius: BorderRadius.circular(12),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Subscription & Upgrades',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+            const SizedBox(height: 8),
+            Text(
+              'Manage your SaaS billing and promo codes.',
+              style: TextStyle(
+                color: Colors.white.withAlpha(178),
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 32),
+            
+            // Current Status Card
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(15),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.white.withAlpha(30)),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Current Tier",
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Colors.grey.shade600,
+                    style: TextStyle(
+                      color: Colors.white.withAlpha(150),
+                      fontSize: 14,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    _isSuccess ? "Premium" : "Free",
-                    style: Theme.of(context).textTheme.headlineMedium,
+                  Row(
+                    children: [
+                      Text(
+                        _isSuccess ? "PREMIUM" : "FREE PLAN",
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              color: _isSuccess ? Colors.tealAccent : Colors.white,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2,
+                            ),
+                      ),
+                      if (_isSuccess) ...[
+                        const SizedBox(width: 12),
+                        const Icon(Icons.verified, color: Colors.tealAccent, size: 20),
+                      ],
+                    ],
                   ),
                 ],
               ),
             ),
-          ),
-        ],
-        bodySections: [
-          Text(
-            'Apply Promo Code',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _promoController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Promo Code',
-                    border: OutlineInputBorder(),
+            
+            const SizedBox(height: 48),
+            
+            Text(
+              'Promo Code',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
                   ),
-                  onSubmitted: (_) => _applyPromoCode(),
-                ),
-              ),
-              const SizedBox(width: 16),
-              ElevatedButton(
-                onPressed: _isApplying ? null : _applyPromoCode,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _promoController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white.withAlpha(10),
+                      hintText: 'Enter code (e.g. LIFETIME50)',
+                      hintStyle: TextStyle(color: Colors.white.withAlpha(100)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: Colors.white.withAlpha(30)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: Colors.white.withAlpha(30)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.tealAccent),
+                      ),
+                    ),
+                    onSubmitted: (_) => _applyPromoCode(),
                   ),
                 ),
-                child: _isApplying
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('Apply'),
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: _isApplying ? null : _applyPromoCode,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.tealAccent,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 20,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: _isApplying
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                          ),
+                        )
+                      : const Text(
+                          'Apply',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                ),
+              ],
+            ),
+            if (_applyMessage != null) ...[
+              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: (_isSuccess ? Colors.tealAccent : Colors.redAccent).withAlpha(20),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: (_isSuccess ? Colors.tealAccent : Colors.redAccent).withAlpha(50),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      _isSuccess ? Icons.check_circle : Icons.error_outline,
+                      color: _isSuccess ? Colors.tealAccent : Colors.redAccent,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        _applyMessage!,
+                        style: TextStyle(
+                          color: _isSuccess ? Colors.tealAccent : Colors.redAccent,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
-          ),
-          if (_applyMessage != null) ...[
-            const SizedBox(height: 16),
-            Text(
-              _applyMessage!,
-              style: TextStyle(
-                color: _isSuccess ? Colors.green : Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ],
-        ],
+        ),
       ),
     );
   }

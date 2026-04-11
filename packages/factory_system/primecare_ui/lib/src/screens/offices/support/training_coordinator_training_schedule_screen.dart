@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
-import 'package:primecare_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_core/flutter_core.dart' hide trainingCoordinatorDashboardAdapterProvider;
+import 'package:primecare_adapters/primecare_adapters.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class TrainingCoordinatorTrainingScheduleScreen extends ConsumerWidget {
@@ -11,11 +10,7 @@ class TrainingCoordinatorTrainingScheduleScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider(
-        SupportRoutes.trainingCoordinatorTrainingSchedule,
-      ),
-    );
+    final metricsAsyncValue = ref.watch(trainingCoordinatorDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -63,7 +58,7 @@ class TrainingCoordinatorTrainingScheduleScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for SupportRoutes.trainingCoordinatorTrainingSchedule: \n$error',
+                        'Failed to load live metrics: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),

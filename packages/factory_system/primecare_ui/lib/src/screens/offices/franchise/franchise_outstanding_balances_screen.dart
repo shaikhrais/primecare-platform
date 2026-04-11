@@ -78,5 +78,4 @@ class FranchiseOutstandingBalancesScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
-import 'package:primecare_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_core/flutter_core.dart' hide clientDashboardAdapterProvider;
+import 'package:primecare_adapters/primecare_adapters.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class FamilyMemberCareUpdatesScreen extends ConsumerWidget {
@@ -11,9 +10,7 @@ class FamilyMemberCareUpdatesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider(ClientRoutes.familyMemberCareUpdates),
-    );
+    final metricsAsyncValue = ref.watch(clientDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -61,14 +58,14 @@ class FamilyMemberCareUpdatesScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for ClientRoutes.familyMemberCareUpdates: \n$error',
+                        'Failed to load live metrics: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (FamilyDashboardViewModel liveData) {
+              data: (ClientDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,

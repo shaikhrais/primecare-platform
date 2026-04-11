@@ -78,5 +78,4 @@ class RegionalBdmMeetingsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

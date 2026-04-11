@@ -63,6 +63,10 @@ export 'features/qa_dashboard/domain/models/qa_dashboard_view_model.dart';
 export 'features/intake_dashboard/domain/models/intake_dashboard_view_model.dart';
 export 'features/support_dashboard/domain/models/support_dashboard_view_model.dart';
 export 'features/training_coordinator_dashboard/domain/models/training_coordinator_dashboard_view_model.dart';
+export 'features/franchise_refunds_dashboard/domain/models/franchise_refunds_dashboard_view_model.dart';
+export 'features/franchise_reports_dashboard/domain/models/franchise_reports_dashboard_view_model.dart';
+export 'features/admin_reconciliation_dashboard/domain/models/admin_reconciliation_dashboard_view_model.dart';
+export 'features/franchise_reconciliation_dashboard/domain/models/franchise_reconciliation_dashboard_view_model.dart';
 
 // Office: system
 export 'features/guest_dashboard/domain/models/guest_dashboard_view_model.dart';

@@ -78,5 +78,4 @@ class FranchiseReconciliationScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

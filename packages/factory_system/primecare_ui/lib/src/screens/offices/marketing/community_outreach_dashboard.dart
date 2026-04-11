@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
-import 'package:primecare_ui/src/components/primecare_stat_card.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CommunityOutreachDashboard extends ConsumerWidget {
@@ -12,7 +10,7 @@ class CommunityOutreachDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(communityOutreachDashboardDataProvider('community_outreach'));
+    final metricsAsyncValue = ref.watch(communityOutreachDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -21,7 +19,7 @@ class CommunityOutreachDashboard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'marketing.communityOutreach.dashboard.title'.tr(),
+              'Community Outreach Dashboard'.tr(),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
@@ -53,14 +51,11 @@ class CommunityOutreachDashboard extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      LucideIcons.alertTriangle,
-                      color: Colors.redAccent,
-                    ),
+                    const Icon(LucideIcons.alertTriangle, color: Colors.redAccent),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for community_outreach: \n$error',
+                        'Failed to load metrics: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),

@@ -5,302 +5,302 @@ import 'package:flutter_core/flutter_core.dart';
 final List<RouteBase> corporateRoutes = [
   GoRoute(
     path: CorporateRoutes.ceoDashboard,
-    builder: (context, state) => const CeoDashboardScreenStitch(),
+    builder: (context, state) => const CeoDashboardScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooDashboard,
-    builder: (context, state) => const CooDashboardScreenStitch(),
+    builder: (context, state) => const CooDashboardScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoDashboard,
-    builder: (context, state) => const CfoDashboardScreenStitch(),
+    builder: (context, state) => const CfoDashboardScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoDashboard,
-    builder: (context, state) => const CtoDashboardScreenStitch(),
+    builder: (context, state) => const CtoDashboardScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerDashboard,
-    builder: (context, state) => const ComplianceManagerDashboardScreenStitch(),
+    builder: (context, state) => const ComplianceManagerDashboardScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorDashboard,
-    builder: (context, state) => const TrainingDirectorDashboardScreenStitch(),
+    builder: (context, state) => const TrainingDirectorDashboardScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoEnterpriseOverview,
-    builder: (context, state) => const CeoEnterpriseOverviewScreenStitch(),
+    builder: (context, state) => const CeoEnterpriseOverviewScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoFranchiseOverview,
-    builder: (context, state) => const CeoFranchiseOverviewScreenStitch(),
+    builder: (context, state) => const CeoFranchiseOverviewScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoRegionPerformance,
-    builder: (context, state) => const CeoRegionPerformanceScreenStitch(),
+    builder: (context, state) => const CeoRegionPerformanceScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoRevenueSummary,
-    builder: (context, state) => const CeoRevenueSummaryScreenStitch(),
+    builder: (context, state) => const CeoRevenueSummaryScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoStrategicKpis,
-    builder: (context, state) => const CeoStrategicKpisScreenStitch(),
+    builder: (context, state) => const CeoStrategicKpisScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoGrowthPipeline,
-    builder: (context, state) => const CeoGrowthPipelineScreenStitch(),
+    builder: (context, state) => const CeoGrowthPipelineScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoLeadershipReports,
-    builder: (context, state) => const CeoLeadershipReportsScreenStitch(),
+    builder: (context, state) => const CeoLeadershipReportsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoAlertsAndRisks,
-    builder: (context, state) => const CeoAlertsAndRisksScreenStitch(),
+    builder: (context, state) => const CeoAlertsAndRisksScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoOrganizationMap,
-    builder: (context, state) => const CeoOrganizationMapScreenStitch(),
+    builder: (context, state) => const CeoOrganizationMapScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoApprovals,
-    builder: (context, state) => const CeoApprovalsScreenStitch(),
+    builder: (context, state) => const CeoApprovalsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ceoReports,
-    builder: (context, state) => const CeoReportsScreenStitch(),
+    builder: (context, state) => const CeoReportsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooOperationsOverview,
-    builder: (context, state) => const CooOperationsOverviewScreenStitch(),
+    builder: (context, state) => const CooOperationsOverviewScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooBranchOperations,
-    builder: (context, state) => const CooBranchOperationsScreenStitch(),
+    builder: (context, state) => const CooBranchOperationsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooStaffingEfficiency,
-    builder: (context, state) => const CooStaffingEfficiencyScreenStitch(),
+    builder: (context, state) => const CooStaffingEfficiencyScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooSchedulingHealth,
-    builder: (context, state) => const CooSchedulingHealthScreenStitch(),
+    builder: (context, state) => const CooSchedulingHealthScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooServiceDelivery,
-    builder: (context, state) => const CooServiceDeliveryScreenStitch(),
+    builder: (context, state) => const CooServiceDeliveryScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooIssueEscalations,
-    builder: (context, state) => const CooIssueEscalationsScreenStitch(),
+    builder: (context, state) => const CooIssueEscalationsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooComplianceView,
-    builder: (context, state) => const CooComplianceViewScreenStitch(),
+    builder: (context, state) => const CooComplianceViewScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooWorkflowPerformance,
-    builder: (context, state) => const CooWorkflowPerformanceScreenStitch(),
+    builder: (context, state) => const CooWorkflowPerformanceScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooBranchComparison,
-    builder: (context, state) => const CooBranchComparisonScreenStitch(),
+    builder: (context, state) => const CooBranchComparisonScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cooReports,
-    builder: (context, state) => const CooReportsScreenStitch(),
+    builder: (context, state) => const CooReportsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoFinancialOverview,
-    builder: (context, state) => const CfoFinancialOverviewScreenStitch(),
+    builder: (context, state) => const CfoFinancialOverviewScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoRevenue,
-    builder: (context, state) => const CfoRevenueScreenStitch(),
+    builder: (context, state) => const CfoRevenueScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoExpenses,
-    builder: (context, state) => const CfoExpensesScreenStitch(),
+    builder: (context, state) => const CfoExpensesScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoFranchiseFinancials,
-    builder: (context, state) => const CfoFranchiseFinancialsScreenStitch(),
+    builder: (context, state) => const CfoFranchiseFinancialsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoPayroll,
-    builder: (context, state) => const CfoPayrollScreenStitch(),
+    builder: (context, state) => const CfoPayrollScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoAccountsReceivable,
-    builder: (context, state) => const CfoAccountsReceivableScreenStitch(),
+    builder: (context, state) => const CfoAccountsReceivableScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoAccountsPayable,
-    builder: (context, state) => const CfoAccountsPayableScreenStitch(),
+    builder: (context, state) => const CfoAccountsPayableScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoInvoices,
-    builder: (context, state) => const CfoInvoicesScreenStitch(),
+    builder: (context, state) => const CfoInvoicesScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoProfitability,
-    builder: (context, state) => const CfoProfitabilityScreenStitch(),
+    builder: (context, state) => const CfoProfitabilityScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoTaxAndRemittance,
-    builder: (context, state) => const CfoTaxAndRemittanceScreenStitch(),
+    builder: (context, state) => const CfoTaxAndRemittanceScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.cfoReports,
-    builder: (context, state) => const CfoReportsScreenStitch(),
+    builder: (context, state) => const CfoReportsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoSystemHealth,
-    builder: (context, state) => const CtoSystemHealthScreenStitch(),
+    builder: (context, state) => const CtoSystemHealthScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoPlatformUsage,
-    builder: (context, state) => const CtoPlatformUsageScreenStitch(),
+    builder: (context, state) => const CtoPlatformUsageScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoFeatureAdoption,
-    builder: (context, state) => const CtoFeatureAdoptionScreenStitch(),
+    builder: (context, state) => const CtoFeatureAdoptionScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoApiMonitoring,
-    builder: (context, state) => const CtoApiMonitoringScreenStitch(),
+    builder: (context, state) => const CtoApiMonitoringScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoIntegrations,
-    builder: (context, state) => const CtoIntegrationsScreenStitch(),
+    builder: (context, state) => const CtoIntegrationsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoAuditLogs,
-    builder: (context, state) => const CtoAuditLogsScreenStitch(),
+    builder: (context, state) => const CtoAuditLogsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoAccessControl,
-    builder: (context, state) => const CtoAccessControlScreenStitch(),
+    builder: (context, state) => const CtoAccessControlScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoReleaseManagement,
-    builder: (context, state) => const CtoReleaseManagementScreenStitch(),
+    builder: (context, state) => const CtoReleaseManagementScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoIssueTracking,
-    builder: (context, state) => const CtoIssueTrackingScreenStitch(),
+    builder: (context, state) => const CtoIssueTrackingScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoInfrastructure,
-    builder: (context, state) => const CtoInfrastructureScreenStitch(),
+    builder: (context, state) => const CtoInfrastructureScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.ctoReports,
-    builder: (context, state) => const CtoReportsScreenStitch(),
+    builder: (context, state) => const CtoReportsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerComplianceCases,
     builder: (context, state) =>
-        const ComplianceManagerComplianceCasesScreenStitch(),
+        const ComplianceManagerComplianceCasesScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerPolicies,
-    builder: (context, state) => const ComplianceManagerPoliciesScreenStitch(),
+    builder: (context, state) => const ComplianceManagerPoliciesScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerAudits,
-    builder: (context, state) => const ComplianceManagerAuditsScreenStitch(),
+    builder: (context, state) => const ComplianceManagerAuditsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerIncidentReview,
     builder: (context, state) =>
-        const ComplianceManagerIncidentReviewScreenStitch(),
+        const ComplianceManagerIncidentReviewScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerCredentialTracking,
     builder: (context, state) =>
-        const ComplianceManagerCredentialTrackingScreenStitch(),
+        const ComplianceManagerCredentialTrackingScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerDocumentExpiry,
     builder: (context, state) =>
-        const ComplianceManagerDocumentExpiryScreenStitch(),
+        const ComplianceManagerDocumentExpiryScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerRiskRegister,
     builder: (context, state) =>
-        const ComplianceManagerRiskRegisterScreenStitch(),
+        const ComplianceManagerRiskRegisterScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerCorrectiveActions,
     builder: (context, state) =>
-        const ComplianceManagerCorrectiveActionsScreenStitch(),
+        const ComplianceManagerCorrectiveActionsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerTrainingCompliance,
     builder: (context, state) =>
-        const ComplianceManagerTrainingComplianceScreenStitch(),
+        const ComplianceManagerTrainingComplianceScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerReports,
-    builder: (context, state) => const ComplianceManagerReportsScreenStitch(),
+    builder: (context, state) => const ComplianceManagerReportsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorTrainingPrograms,
     builder: (context, state) =>
-        const TrainingDirectorTrainingProgramsScreenStitch(),
+        const TrainingDirectorTrainingProgramsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorStaffTrainingMatrix,
     builder: (context, state) =>
-        const TrainingDirectorStaffTrainingMatrixScreenStitch(),
+        const TrainingDirectorStaffTrainingMatrixScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorComplianceTraining,
     builder: (context, state) =>
-        const TrainingDirectorComplianceTrainingScreenStitch(),
+        const TrainingDirectorComplianceTrainingScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorCourseLibrary,
     builder: (context, state) =>
-        const TrainingDirectorCourseLibraryScreenStitch(),
+        const TrainingDirectorCourseLibraryScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorAssessments,
     builder: (context, state) =>
-        const TrainingDirectorAssessmentsScreenStitch(),
+        const TrainingDirectorAssessmentsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorCertifications,
     builder: (context, state) =>
-        const TrainingDirectorCertificationsScreenStitch(),
+        const TrainingDirectorCertificationsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorTrainerAssignments,
     builder: (context, state) =>
-        const TrainingDirectorTrainerAssignmentsScreenStitch(),
+        const TrainingDirectorTrainerAssignmentsScreen(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorReports,
-    builder: (context, state) => const TrainingDirectorReportsScreenStitch(),
+    builder: (context, state) => const TrainingDirectorReportsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorReports,
     builder: (context, state) =>
-        const SchedulerCoordinatorReportsScreenStitch(),
+        const SchedulerCoordinatorReportsScreen(),
   ),
   GoRoute(
     path: SupportRoutes.intakeCoordinatorReports,
-    builder: (context, state) => const IntakeCoordinatorReportsScreenStitch(),
+    builder: (context, state) => const IntakeCoordinatorReportsScreen(),
   ),
   GoRoute(
     path: SupportRoutes.trainingCoordinatorCertifications,
     builder: (context, state) =>
-        const TrainingCoordinatorCertificationsScreenStitch(),
+        const TrainingCoordinatorCertificationsScreen(),
   ),
   GoRoute(
     path: SupportRoutes.trainingCoordinatorReports,
-    builder: (context, state) => const TrainingCoordinatorReportsScreenStitch(),
+    builder: (context, state) => const TrainingCoordinatorReportsScreen(),
   ),
 ];

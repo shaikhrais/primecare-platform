@@ -21,11 +21,11 @@ final List<RouteBase> clientRoutes = [
   ),
   GoRoute(
     path: ClientRoutes.clientPayments,
-    builder: (context, state) => const ClientPaymentsScreenStitch(),
+    builder: (context, state) => const ClientPaymentsScreen(),
   ),
   GoRoute(
     path: ClientRoutes.clientProfile,
-    builder: (context, state) => const ClientProfileScreenStitch(),
+    builder: (context, state) => const ClientProfileScreen(),
   ),
   GoRoute(
     path: ClientRoutes.familyMemberLovedOneSchedule,

@@ -78,5 +78,4 @@ class RegionalBdmTasksScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

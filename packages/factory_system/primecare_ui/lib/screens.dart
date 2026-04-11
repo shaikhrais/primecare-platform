@@ -10,4 +10,3 @@ export 'screens/corporate.dart';
 export 'screens/franchise.dart';
 export 'screens/marketing.dart';
 export 'screens/support.dart';
-export 'screens/stitch_generated.dart';

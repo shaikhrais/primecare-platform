@@ -78,5 +78,4 @@ class FranchiseClaimsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

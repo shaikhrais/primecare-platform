@@ -113,6 +113,6 @@ final List<RouteBase> supportRoutes = [
   GoRoute(
     path: SupportRoutes.trainingCoordinatorDashboard,
     builder: (context, state) =>
-        const TrainingCoordinatorDashboardScreenStitch(),
+        const TrainingCoordinatorDashboardScreen(),
   ),
 ];

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart'; // Ensure correct import
-import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
-import 'package:primecare_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_core/flutter_core.dart' hide ctoDashboardAdapterProvider;
+import 'package:primecare_adapters/primecare_adapters.dart'; // Ensure correct import
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ClinicDailyNotesScreen extends ConsumerWidget {
@@ -11,9 +10,7 @@ class ClinicDailyNotesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider(CommonRoutes.clinicDailyNotes),
-    );
+    final metricsAsyncValue = ref.watch(ctoDashboardAdapterProvider);
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -61,14 +58,14 @@ class ClinicDailyNotesScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for CommonRoutes.clinicDailyNotes: \n$error',
+                        'Failed to load live metrics: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (ClinicDashboardViewModel liveData) {
+              data: (CtoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,

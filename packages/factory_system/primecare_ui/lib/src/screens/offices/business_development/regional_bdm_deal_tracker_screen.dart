@@ -78,5 +78,4 @@ class RegionalBdmDealTrackerScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

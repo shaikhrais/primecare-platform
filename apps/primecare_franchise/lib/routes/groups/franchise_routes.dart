@@ -5,191 +5,191 @@ import 'package:flutter_core/flutter_core.dart';
 final List<RouteBase> franchiseRoutes = [
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerDashboard,
-    builder: (context, state) => const FranchiseOwnerDashboardScreenStitch(),
+    builder: (context, state) => const FranchiseOwnerDashboardScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerDashboard,
-    builder: (context, state) => const OperationsManagerDashboardScreenStitch(),
+    builder: (context, state) => const OpsManagerDashboard(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerDashboard,
-    builder: (context, state) => const SchedulerDashboardScreenStitch(),
+    builder: (context, state) => const SchedulingDashboard(),
   ),
   GoRoute(
     path: FranchiseRoutes.billingAdminDashboard,
-    builder: (context, state) => const BillingAdminDashboardScreenStitch(),
+    builder: (context, state) => const BillingDashboard(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringDashboard,
-    builder: (context, state) => const HrHiringDashboardScreenStitch(),
+    builder: (context, state) => const HrDashboard(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerBranchOverview,
     builder: (context, state) =>
-        const FranchiseOwnerBranchOverviewScreenStitch(),
+        const FranchiseOwnerBranchOverviewScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerFinancialSnapshot,
     builder: (context, state) =>
-        const FranchiseOwnerFinancialSnapshotScreenStitch(),
+        const FranchiseOwnerFinancialSnapshotScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerStaff,
-    builder: (context, state) => const FranchiseOwnerStaffScreenStitch(),
+    builder: (context, state) => const FranchiseOwnerStaffScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerAppointments,
-    builder: (context, state) => const FranchiseOwnerAppointmentsScreenStitch(),
+    builder: (context, state) => const FranchiseOwnerAppointmentsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerClients,
-    builder: (context, state) => const FranchiseOwnerClientsScreenStitch(),
+    builder: (context, state) => const FranchiseOwnerClientsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerCompliance,
-    builder: (context, state) => const FranchiseOwnerComplianceScreenStitch(),
+    builder: (context, state) => const FranchiseOwnerComplianceScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerReports,
-    builder: (context, state) => const FranchiseOwnerReportsScreenStitch(),
+    builder: (context, state) => const FranchiseOwnerReportsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerHiring,
-    builder: (context, state) => const FranchiseOwnerHiringScreenStitch(),
+    builder: (context, state) => const FranchiseOwnerHiringScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerDailyOperations,
     builder: (context, state) =>
-        const OperationsManagerDailyOperationsScreenStitch(),
+        const OperationsManagerDailyOperationsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerSchedule,
-    builder: (context, state) => const OperationsManagerScheduleScreenStitch(),
+    builder: (context, state) => const OperationsManagerScheduleScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerShifts,
-    builder: (context, state) => const OperationsManagerShiftsScreenStitch(),
+    builder: (context, state) => const OperationsManagerShiftsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerIssues,
-    builder: (context, state) => const OperationsManagerIssuesScreenStitch(),
+    builder: (context, state) => const OperationsManagerIssuesScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerServiceQuality,
     builder: (context, state) =>
-        const OperationsManagerServiceQualityScreenStitch(),
+        const OperationsManagerServiceQualityScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerStaffCoordination,
     builder: (context, state) =>
-        const OperationsManagerStaffCoordinationScreenStitch(),
+        const OperationsManagerStaffCoordinationScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerAttendance,
     builder: (context, state) =>
-        const OperationsManagerAttendanceScreenStitch(),
+        const OperationsManagerAttendanceScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerReports,
-    builder: (context, state) => const OperationsManagerReportsScreenStitch(),
+    builder: (context, state) => const OperationsManagerReportsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorAppointmentCalendar,
     builder: (context, state) =>
-        const SchedulerCoordinatorAppointmentCalendarScreenStitch(),
+        const SchedulerCoordinatorAppointmentCalendarScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorShiftCalendar,
     builder: (context, state) =>
-        const SchedulerCoordinatorShiftCalendarScreenStitch(),
+        const SchedulerCoordinatorShiftCalendarScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorProviderAvailability,
     builder: (context, state) =>
-        const SchedulerCoordinatorProviderAvailabilityScreenStitch(),
+        const SchedulerCoordinatorProviderAvailabilityScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorBookingRequests,
     builder: (context, state) =>
-        const SchedulerCoordinatorBookingRequestsScreenStitch(),
+        const SchedulerCoordinatorBookingRequestsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorOpenShifts,
     builder: (context, state) =>
-        const SchedulerCoordinatorOpenShiftsScreenStitch(),
+        const SchedulerCoordinatorOpenShiftsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorAssignments,
     builder: (context, state) =>
-        const SchedulerCoordinatorAssignmentsScreenStitch(),
+        const SchedulerCoordinatorAssignmentsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorConflicts,
     builder: (context, state) =>
-        const SchedulerCoordinatorConflictsScreenStitch(),
+        const SchedulerCoordinatorConflictsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminInvoices,
-    builder: (context, state) => const AdminInvoicesScreenStitch(),
+    builder: (context, state) => const AdminInvoicesScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminPayments,
-    builder: (context, state) => const AdminPaymentsScreenStitch(),
+    builder: (context, state) => const AdminPaymentsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminClaims,
-    builder: (context, state) => const AdminClaimsScreenStitch(),
+    builder: (context, state) => const AdminClaimsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminReconciliation,
-    builder: (context, state) => const AdminReconciliationScreenStitch(),
+    builder: (context, state) => const AdminReconciliationScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminOutstandingBalances,
-    builder: (context, state) => const AdminOutstandingBalancesScreenStitch(),
+    builder: (context, state) => const AdminOutstandingBalancesScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminRefunds,
-    builder: (context, state) => const AdminRefundsScreenStitch(),
+    builder: (context, state) => const AdminRefundsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminReports,
-    builder: (context, state) => const AdminReportsScreenStitch(),
+    builder: (context, state) => const AdminReportsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringApplicants,
-    builder: (context, state) => const HrHiringApplicantsScreenStitch(),
+    builder: (context, state) => const HrHiringApplicantsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringInterviews,
-    builder: (context, state) => const HrHiringInterviewsScreenStitch(),
+    builder: (context, state) => const HrHiringInterviewsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringOffers,
-    builder: (context, state) => const HrHiringOffersScreenStitch(),
+    builder: (context, state) => const HrHiringOffersScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringOnboarding,
-    builder: (context, state) => const HrHiringOnboardingScreenStitch(),
+    builder: (context, state) => const HrHiringOnboardingScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringStaffDocuments,
-    builder: (context, state) => const HrHiringStaffDocumentsScreenStitch(),
+    builder: (context, state) => const HrHiringStaffDocumentsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringCredentials,
-    builder: (context, state) => const HrHiringCredentialsScreenStitch(),
+    builder: (context, state) => const HrHiringCredentialsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringTrainingStatus,
-    builder: (context, state) => const HrHiringTrainingStatusScreenStitch(),
+    builder: (context, state) => const HrHiringTrainingStatusScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringReports,
-    builder: (context, state) => const HrHiringReportsScreenStitch(),
+    builder: (context, state) => const HrHiringReportsScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachReports,
-    builder: (context, state) => const CommunityOutreachReportsScreenStitch(),
+    builder: (context, state) => const CommunityOutreachReportsScreen(),
   ),
 ];

@@ -78,5 +78,4 @@ class RegionalBdmTerritoryGrowthScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

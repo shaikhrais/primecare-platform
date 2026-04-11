@@ -78,5 +78,4 @@ class RegionalBdmCompetitorNotesScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

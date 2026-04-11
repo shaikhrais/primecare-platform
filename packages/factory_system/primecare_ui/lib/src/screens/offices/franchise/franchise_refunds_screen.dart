@@ -78,5 +78,4 @@ class FranchiseRefundsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

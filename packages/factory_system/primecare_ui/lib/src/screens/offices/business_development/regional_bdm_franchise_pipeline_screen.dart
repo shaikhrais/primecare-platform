@@ -78,5 +78,4 @@ class RegionalBdmFranchisePipelineScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}
