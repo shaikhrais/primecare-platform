@@ -101,10 +101,13 @@ class PageTemplate extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: PrimeCareTheme.headlineMedium),
+                    Text(title,
+                        key: const Key('page_title'),
+                        style: PrimeCareTheme.headlineMedium),
                     const SizedBox(height: PrimeCareTheme.spacing1),
                     Text(
                       subtitle,
+                      key: const Key('page_subtitle'),
                       style: PrimeCareTheme.bodyMedium.copyWith(
                         color: PrimeCareTheme.onSurfaceVariant,
                       ),
@@ -184,6 +187,7 @@ class PageTemplate extends StatelessWidget {
                         ? 1
                         : (constraints.maxWidth < 900 ? 2 : 4);
                     return GridView.builder(
+                      key: const Key('kpi_grid'),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

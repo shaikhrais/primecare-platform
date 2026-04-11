@@ -1,10 +1,9 @@
-import 'package:flutter_ui/src/components/audit_log_tile.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_ui/src/design_system/clinical_glass.dart';
-import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_ui/src/shared/page_template.dart';
+import 'package:flutter_ui/src/design_system/clinical_glass.dart';
+import 'package:flutter_ui/src/components/audit_log_tile.dart';
 
 class MessagingHubScreen extends ConsumerWidget {
   const MessagingHubScreen({super.key});
@@ -19,210 +18,144 @@ class MessagingHubScreen extends ConsumerWidget {
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(child: Text('Error: $err')),
-      data: (metrics) => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Secure Messaging Hub',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
+      data: (metrics) => PageTemplate(
+        title: 'Secure Messaging Hub',
+        subtitle: 'Overview and analytical breakdown for Secure Messaging Hub.',
+        icon: Icons.message,
+        kpis: const [
+          KPICardData(
+            title: 'Component Title',
+            value: 'High',
+            icon: Icons.show_chart,
+            color: Colors.teal,
+          ),
+          KPICardData(
+            title: 'Component Title',
+            value: '12',
+            icon: Icons.pending_actions,
+            color: Colors.orange,
+          ),
+          KPICardData(
+            title: 'Component Title',
+            value: 'Active',
+            icon: Icons.sync,
+            color: Colors.indigo,
+          ),
+          KPICardData(
+            title: 'Component Title',
+            value: '0',
+            icon: Icons.notification_important,
+            color: Colors.red,
+          ),
+        ],
+        mainContent: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Secure Messaging Hub Ledger',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Outfit',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Overview and analytical breakdown for Secure Messaging Hub.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
+                    const SizedBox(height: 16),
+                    ClinicalGlass(
+                      padding: const EdgeInsets.all(24),
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final dataAsync = ref.watch(
+                            dynamicPageProvider('officeMessagingHubScreen'),
+                          );
+                          return dataAsync.when(
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            error: (e, st) => Text('Error: $e'),
+                            data: (items) {
+                              if (items.isEmpty) {
+                                return const Text(
+                                  'No records found.',
+                                  style: TextStyle(color: Colors.blueGrey),
+                                );
+                              }
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: items.map((item) {
+                                  return Column(
+                                    children: [
+                                      _buildLedgerRow(
+                                        Icons.api,
+                                        item['title'] ?? 'Record',
+                                        item['status'] ?? 'Active',
+                                        Colors.teal,
+                                      ),
+                                      const Divider(
+                                        color: Colors.blueGrey,
+                                        height: 24,
+                                        thickness: 0.1,
+                                      ),
+                                    ],
+                                  );
+                                }).toList(),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // TOP KPI METRICS
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200
-                          ? (constraints.maxWidth - 48) / 4
-                          : (constraints.maxWidth > 600
-                                ? (constraints.maxWidth - 16) / 2
-                                : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
+                  ],
+                ),
+              ),
+              const SizedBox(width: 24),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Change Log',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Outfit',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ClinicalGlass(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
                         children: [
-                          SizedBox(
-                            width: cardWidth,
-                            child: PrimeCareStatCard(
-                              title: 'Component Title',
-
-                              value: 'High',
-                              icon: Icons.show_chart,
-                              iconColor: Colors.teal,
-                            ),
+                          const AuditLogTile(
+                            title: 'Component Title',
+                            subtitle: 'Automated policy sync.',
+                            timestamp: '1 Hr Ago',
+                            icon: Icons.history,
+                            iconColor: Colors.teal,
                           ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: PrimeCareStatCard(
-                              title: 'Component Title',
-
-                              value: '12',
-                              icon: Icons.pending_actions,
-                              iconColor: Colors.orange,
-                            ),
+                          const Divider(
+                            color: Colors.blueGrey,
+                            height: 16,
+                            thickness: 0.1,
                           ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: PrimeCareStatCard(
-                              title: 'Component Title',
-
-                              value: 'Active',
-                              icon: Icons.sync,
-                              iconColor: Colors.indigo,
-                            ),
-                          ),
-                          SizedBox(
-                            width: cardWidth,
-                            child: PrimeCareStatCard(
-                              title: 'Component Title',
-
-                              value: '0',
-                              icon: Icons.notification_important,
-                              iconColor: Colors.red,
-                            ),
+                          const AuditLogTile(
+                            title: 'Component Title',
+                            subtitle: 'Item requires review.',
+                            timestamp: '3 Hrs Ago',
+                            icon: Icons.warning,
+                            iconColor: Colors.orange,
                           ),
                         ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  // LISTINGS / LEDGER
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Secure Messaging Hub Ledger',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            ClinicalGlass(
-                              padding: const EdgeInsets.all(24),
-                              child: Consumer(
-                                builder: (context, ref, child) {
-                                  final dataAsync = ref.watch(
-                                    dynamicPageProvider(
-                                      'officeMessagingHubScreen',
-                                    ),
-                                  );
-                                  return dataAsync.when(
-                                    loading: () => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    error: (e, st) => Text('Error: $e'),
-                                    data: (items) {
-                                      if (items.isEmpty) {
-                                        return const Text(
-                                          'No records found.',
-                                          style: TextStyle(
-                                            color: Colors.blueGrey,
-                                          ),
-                                        );
-                                      }
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: items.map((item) {
-                                          return Column(
-                                            children: [
-                                              _buildLedgerRow(
-                                                Icons.api,
-                                                item['title'] ?? 'Record',
-                                                item['status'] ?? 'Active',
-                                                Colors.teal,
-                                              ),
-                                              const Divider(
-                                                color: Colors.blueGrey,
-                                                height: 24,
-                                                thickness: 0.1,
-                                              ),
-                                            ],
-                                          );
-                                        }).toList(),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Change Log',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            ClinicalGlass(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(
-                                    title: 'Component Title',
-
-                                    subtitle: 'Automated policy sync.',
-                                    timestamp: '1 Hr Ago',
-                                    icon: Icons.history,
-                                    iconColor: Colors.teal,
-                                  ),
-                                  const Divider(
-                                    color: Colors.blueGrey,
-                                    height: 16,
-                                    thickness: 0.1,
-                                  ),
-                                  AuditLogTile(
-                                    title: 'Component Title',
-
-                                    subtitle: 'Item requires review.',
-                                    timestamp: '3 Hrs Ago',
-                                    icon: Icons.warning,
-                                    iconColor: Colors.orange,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
@@ -267,7 +200,7 @@ class MessagingHubScreen extends ConsumerWidget {
             ),
           ),
           ElevatedButton(
-            key: const Key('data-status-id=shared-global-messaging-action-1'),
+            key: const Key('data-status-id=shared-global-document-action-1'),
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: statusColor.withValues(alpha: 0.1),
