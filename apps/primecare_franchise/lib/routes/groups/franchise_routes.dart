@@ -9,19 +9,19 @@ final List<RouteBase> franchiseRoutes = [
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerDashboard,
-    builder: (context, state) => const OpsManagerDashboard(),
+    builder: (context, state) => const OperationsManagerDashboardScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerDashboard,
-    builder: (context, state) => const SchedulingDashboard(),
+    builder: (context, state) => const SchedulerDashboardScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.billingAdminDashboard,
-    builder: (context, state) => const BillingDashboard(),
+    builder: (context, state) => const BillingAdminDashboardScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringDashboard,
-    builder: (context, state) => const HrDashboard(),
+    builder: (context, state) => const HrHiringDashboardScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerBranchOverview,
@@ -130,31 +130,31 @@ final List<RouteBase> franchiseRoutes = [
   ),
   GoRoute(
     path: FranchiseRoutes.adminInvoices,
-    builder: (context, state) => const AdminInvoicesScreen(),
+    builder: (context, state) => const FranchiseInvoicesScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminPayments,
-    builder: (context, state) => const AdminPaymentsScreen(),
+    builder: (context, state) => const FranchisePaymentsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminClaims,
-    builder: (context, state) => const AdminClaimsScreen(),
+    builder: (context, state) => const FranchiseClaimsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminReconciliation,
-    builder: (context, state) => const AdminReconciliationScreen(),
+    builder: (context, state) => const FranchiseReconciliationScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminOutstandingBalances,
-    builder: (context, state) => const AdminOutstandingBalancesScreen(),
+    builder: (context, state) => const FranchiseOutstandingBalancesScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminRefunds,
-    builder: (context, state) => const AdminRefundsScreen(),
+    builder: (context, state) => const FranchiseRefundsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminReports,
-    builder: (context, state) => const AdminReportsScreen(),
+    builder: (context, state) => const FranchiseReportsScreen(),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringApplicants,
@@ -190,6 +190,6 @@ final List<RouteBase> franchiseRoutes = [
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachReports,
-    builder: (context, state) => const CommunityOutreachReportsScreen(),
+    builder: (context, state) => const CommunityOutreachDashboard(),
   ),
 ];

@@ -11,7 +11,7 @@ class FranchiseReconciliationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(adminReconciliationDataProvider('all'));
+    final metricsAsyncValue = ref.watch(franchiseReconciliationDataProvider('all'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

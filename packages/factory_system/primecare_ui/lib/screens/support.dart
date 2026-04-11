@@ -23,7 +23,6 @@ export '../src/screens/offices/support/quality_assurance_reports_screen.dart';
 export '../src/screens/offices/support/quality_assurance_reviews_screen.dart';
 export '../src/screens/offices/support/quality_assurance_scorecards_screen.dart';
 
-export '../src/screens/offices/support/tickets_view.dart';
 export '../src/screens/offices/support/training_coordinator_attendance_screen.dart';
 export '../src/screens/offices/support/training_coordinator_courses_screen.dart';
 export '../src/screens/offices/support/training_coordinator_dashboard.dart';

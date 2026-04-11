@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'api_providers.dart';
+import 'dashboard_providers.dart';
 import 'features/billing_admin_dashboard/data/adapters/billing_admin_dashboard_adapter.dart';
 import 'features/billing_admin_dashboard/domain/models/billing_admin_dashboard_view_model.dart';
 import 'features/ceo_dashboard/data/adapters/ceo_dashboard_adapter.dart';
@@ -682,3 +683,46 @@ final headOfMarketingFunnelAnalyticsDataProvider =
     headOfMarketingDashboardDataProvider;
 final headOfMarketingPerformanceReportsDataProvider =
     headOfMarketingDashboardDataProvider;
+
+// Legacy and Placeholder Aliases for Stitched Screens
+final genericDashboardProvider = dashboardMetricsProvider;
+
+// Admin Office
+final AdminDashboardScreenDataProvider = dashboardMetricsProvider;
+final adminDashboardDataProvider = dashboardMetricsProvider;
+final adminInvoicesDataProvider = dashboardMetricsProvider;
+
+// Marketing Office (Regional BDM)
+final regionalBdmSalesDataProvider = FutureProvider.family<RegionalBdmSalesDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmSalesDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final regionalBdmDealTrackerDataProvider = FutureProvider.family<RegionalBdmDealTrackerDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmDealTrackerDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final regionalBdmCompetitorNotesDataProvider = FutureProvider.family<RegionalBdmCompetitorNotesDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmCompetitorNotesDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final regionalBdmRecruitmentDataProvider = FutureProvider.family<RegionalBdmRecruitmentDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmRecruitmentDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final regionalBdmActivityDataProvider = FutureProvider.family<RegionalBdmDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+// Finance Office
+final financeDirectorCashFlowDataProvider = dashboardMetricsProvider;
+final financeDirectorTaxRemittanceDataProvider = dashboardMetricsProvider;
+
+// Inventory
+final inventoryManagerDashboardDataProvider = dashboardMetricsProvider;
+final inventoryManagerSupplyChainDataProvider = dashboardMetricsProvider;
+
