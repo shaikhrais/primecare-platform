@@ -1,0 +1,10 @@
+{
+  "corporate": {
+    "ceo": {
+      "dashboard": {
+        "title": "Ceo Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

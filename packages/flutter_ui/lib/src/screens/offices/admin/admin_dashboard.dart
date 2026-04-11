@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/auth_service.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dashboard_providers.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/flutter_ui.dart';
-import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 
 class AdminDashboardScreen extends ConsumerWidget {
   const AdminDashboardScreen({super.key});

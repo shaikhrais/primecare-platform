@@ -7,11 +7,11 @@ class OperationsManagerKpiSection {
   static List<Widget> buildCards(OperationsManagerDashboardViewModel liveData) {
     return liveData.kpis.map((kpi) {
       return PrimeCareStatCard(
-        title: kpi.title,
-        value: kpi.value,
-        deltaSuffix: kpi.trend,
-        icon: _inferIcon(kpi.title),
-        iconColor: _inferColor(kpi.status),
+        title: kpi.title ?? '',
+        value: kpi.value ?? '',
+        deltaSuffix: kpi.trend ?? '',
+        icon: _inferIcon(kpi.title ?? ''),
+        iconColor: _inferColor(kpi.status ?? ''),
       );
     }).toList();
   }

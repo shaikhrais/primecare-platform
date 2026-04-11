@@ -36,7 +36,7 @@ class BillingAdminDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return BillingAdminDashboardMapper.fromMock({});
+        return BillingAdminDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

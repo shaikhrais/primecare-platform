@@ -5,12 +5,15 @@ class PartnershipManagerDashboardMapper {
   static PartnershipManagerDashboardViewModel fromApi(
     PartnershipManagerDashboardDto dto,
   ) {
-    return PartnershipManagerDashboardViewModel(kpis: dto.rawKpis);
+    return PartnershipManagerDashboardViewModel(kpis: dto.rawKpis.map((k) => PartnershipManagerDashboardKpi(
+        title: k['name']?.toString() ?? '',
+        value: k['val']?.toString() ?? '0',
+        trend: k['trend']?.toString(),
+        status: k['status']?.toString() ?? 'Active',
+      )).toList());
   }
 
-  static PartnershipManagerDashboardViewModel fromMock(
-    Map<String, dynamic> mock,
-  ) {
-    return const PartnershipManagerDashboardViewModel();
+  static PartnershipManagerDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
+    return PartnershipManagerDashboardViewModel(isOfflineFallback: isErrorFallback);
   }
 }

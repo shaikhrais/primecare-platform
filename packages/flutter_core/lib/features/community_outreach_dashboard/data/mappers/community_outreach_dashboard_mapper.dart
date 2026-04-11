@@ -5,12 +5,15 @@ class CommunityOutreachDashboardMapper {
   static CommunityOutreachDashboardViewModel fromApi(
     CommunityOutreachDashboardDto dto,
   ) {
-    return CommunityOutreachDashboardViewModel(kpis: dto.rawKpis);
+    return CommunityOutreachDashboardViewModel(kpis: dto.rawKpis.map((k) => CommunityOutreachDashboardKpi(
+        title: k['name']?.toString() ?? '',
+        value: k['val']?.toString() ?? '0',
+        trend: k['trend']?.toString(),
+        status: k['status']?.toString() ?? 'Active',
+      )).toList());
   }
 
-  static CommunityOutreachDashboardViewModel fromMock(
-    Map<String, dynamic> mock,
-  ) {
-    return const CommunityOutreachDashboardViewModel();
+  static CommunityOutreachDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
+    return CommunityOutreachDashboardViewModel(isOfflineFallback: isErrorFallback);
   }
 }

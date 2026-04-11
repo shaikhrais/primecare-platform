@@ -36,7 +36,7 @@ class CooDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return CooDashboardMapper.fromMock({});
+        return CooDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

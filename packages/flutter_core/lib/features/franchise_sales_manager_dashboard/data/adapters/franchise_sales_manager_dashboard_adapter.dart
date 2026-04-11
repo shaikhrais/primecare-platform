@@ -38,7 +38,7 @@ class FranchiseSalesManagerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return FranchiseSalesManagerDashboardMapper.fromMock({});
+        return FranchiseSalesManagerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

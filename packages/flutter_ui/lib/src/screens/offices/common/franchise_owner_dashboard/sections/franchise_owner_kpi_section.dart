@@ -7,10 +7,10 @@ class FranchiseOwnerKpiSection {
   static List<Widget> buildCards(FranchiseOwnerViewModel liveData) {
     return liveData.kpis.map((kpi) {
       return PrimeCareStatCard(
-        title: kpi.label,
+        title: kpi.title,
         value: kpi.value,
         deltaSuffix: kpi.trend ?? '',
-        icon: _inferIcon(kpi.label),
+        icon: _inferIcon(kpi.title),
         iconColor: _inferColor('unknown'),
       );
     }).toList();

@@ -93,11 +93,11 @@ class FranchiseSalesManagerSalesPipelineScreenStitch extends ConsumerWidget {
           childAspectRatio: 1.5,
           children: liveData.kpis.map((kpi) {
             return PrimeCareStatCard(
-              title: kpi.title,
-              value: kpi.value,
-              deltaSuffix: kpi.trend,
-              icon: _inferIcon(kpi.title),
-              iconColor: _inferColor(kpi.status),
+              title: kpi.title ?? '',
+              value: kpi.value ?? '',
+              deltaSuffix: kpi.trend ?? '',
+              icon: _inferIcon(kpi.title ?? ''),
+              iconColor: _inferColor(kpi.status ?? ''),
             );
           }).toList(),
         ),
@@ -156,14 +156,14 @@ class FranchiseSalesManagerSalesPipelineScreenStitch extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    activity.title,
+                                    activity.title ?? '',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   Text(
-                                    activity.subtitle,
+                                    activity.subtitle ?? '',
                                     style: const TextStyle(
                                       color: Colors.white54,
                                       fontSize: 13,
@@ -173,7 +173,7 @@ class FranchiseSalesManagerSalesPipelineScreenStitch extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              activity.timestamp,
+                              activity.timestamp ?? '',
                               style: const TextStyle(
                                 color: Colors.white38,
                                 fontSize: 12,

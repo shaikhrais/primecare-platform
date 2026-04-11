@@ -5,6 +5,7 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_ui/src/components/fallback_state_wrapper.dart';
 
 class CeoDashboard extends ConsumerWidget {
   const CeoDashboard({super.key});
@@ -67,7 +68,9 @@ class CeoDashboard extends ConsumerWidget {
                 ),
               ),
               data: (CeoDashboardViewModel liveData) {
-                return Column(
+                return FallbackStateWrapper(
+                  isOfflineFallback: liveData.isOfflineFallback,
+                  child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GridView.count(
@@ -84,8 +87,9 @@ class CeoDashboard extends ConsumerWidget {
                           deltaSuffix: kpi.trend,
                           icon: _inferIcon(kpi.title),
                           iconColor: _inferColor(kpi.status),
-                        );
-                      }).toList(),
+                        ),
+                );
+              }).toList(),
                     ),
                   ],
                 );

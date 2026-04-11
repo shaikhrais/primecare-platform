@@ -36,7 +36,7 @@ class CfoDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return CfoDashboardMapper.fromMock({});
+        return CfoDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/flutter_core.dart' hide operationsManagerDashboardAdapterProvider;
+import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:flutter_core/features/operations_manager_dashboard/domain/models/operations_manager_dashboard_view_model.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_ui/src/components/fallback_state_wrapper.dart';
 
 class OperationsManagerDashboard extends ConsumerWidget {
   const OperationsManagerDashboard({super.key});
@@ -12,7 +16,7 @@ class OperationsManagerDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('operationsManagerDashboard'),
+      operationsManagerDashboardAdapterProvider,
     );
 
     return ProviderLayout(
@@ -68,8 +72,10 @@ class OperationsManagerDashboard extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
-                return Column(
+              data: (OperationsManagerDashboardViewModel liveData) {
+                return FallbackStateWrapper(
+                  isOfflineFallback: liveData.isOfflineFallback,
+                  child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GridView.count(
@@ -81,13 +87,14 @@ class OperationsManagerDashboard extends ConsumerWidget {
                       childAspectRatio: 1.5,
                       children: liveData.kpis.map((kpi) {
                         return PrimeCareStatCard(
-                          title: kpi.title,
-                          value: kpi.value,
-                          deltaSuffix: kpi.trend,
-                          icon: _inferIcon(kpi.title),
-                          iconColor: _inferColor(kpi.status),
-                        );
-                      }).toList(),
+                          title: kpi.title ?? '',
+                          value: kpi.value ?? '',
+                          deltaSuffix: kpi.trend ?? '',
+                          icon: _inferIcon(kpi.title ?? ''),
+                          iconColor: _inferColor(kpi.status ?? ''),
+                        ),
+                );
+              }).toList(),
                     ),
                   ],
                 );

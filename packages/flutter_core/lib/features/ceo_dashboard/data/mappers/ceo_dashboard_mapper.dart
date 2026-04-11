@@ -40,8 +40,9 @@ class CeoDashboardMapper {
     );
   }
 
-  static CeoDashboardViewModel fromMock(Map<String, dynamic> mock) {
+  static CeoDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
     return CeoDashboardViewModel(
+      isOfflineFallback: isErrorFallback,
       kpis:
           (mock['kpis'] as List<dynamic>?)?.map((k) {
             return CeoKpi(

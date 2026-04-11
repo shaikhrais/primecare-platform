@@ -36,7 +36,7 @@ class HrHiringDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return HrHiringDashboardMapper.fromMock({});
+        return HrHiringDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

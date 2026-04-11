@@ -1,0 +1,18 @@
+{
+  "business_development": {
+    "regional_manager_ontario_dashboard": {
+      "title": "Regional Manager Ontario Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "regional_manager_ontario_dashboard_screen": {
+        "title": "Regional Manager Ontario Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "regional_manager_ontario_kpi_section": {
+          "title": "Regional Manager Ontario Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

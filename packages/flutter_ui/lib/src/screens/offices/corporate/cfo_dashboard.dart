@@ -5,6 +5,7 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_ui/src/components/fallback_state_wrapper.dart';
 import '../../../widgets/primecare_line_chart.dart';
 import '../../../widgets/primecare_pie_chart.dart';
 import '../../../widgets/primecare_gauge_chart.dart';
@@ -70,7 +71,9 @@ class CfoDashboard extends ConsumerWidget {
                 ),
               ),
               data: (CfoDashboardViewModel liveData) {
-                return Column(
+                return FallbackStateWrapper(
+                  isOfflineFallback: liveData.isOfflineFallback,
+                  child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GridView.count(
@@ -87,8 +90,9 @@ class CfoDashboard extends ConsumerWidget {
                           deltaSuffix: kpi.trend,
                           icon: _inferIcon(kpi.title),
                           iconColor: _inferColor(kpi.status),
-                        );
-                      }).toList(),
+                        ),
+                );
+              }).toList(),
                     ),
                     const SizedBox(height: 32),
                     Row(

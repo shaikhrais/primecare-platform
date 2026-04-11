@@ -1,4 +1,7 @@
-class CooDashboardViewModel {
+import '../../../../config/offline_fallback_state.dart';
+class CooDashboardViewModel implements OfflineFallbackState {
+  @override
+  final bool isOfflineFallback;
   final List<dynamic> recentActivity;
   final List<CooKpi> kpis;
   final List<CooFunnelStep> funnelSteps;
@@ -6,6 +9,7 @@ class CooDashboardViewModel {
   final double complianceTargetValue;
 
   const CooDashboardViewModel({
+    this.isOfflineFallback = false,
     this.kpis = const [],
     this.funnelSteps = const [],
     this.ganttTasks = const [],
@@ -44,4 +48,19 @@ class CooKpi {
     required this.trend,
     required this.status,
   });
+}
+
+class CooDashboardKpi {
+  final String? title;
+  final String? value;
+  final String? trend;
+  final String? status;
+  const CooDashboardKpi({this.title, this.value, this.trend, this.status});
+}
+
+class CooDashboardActivity {
+  final String? title;
+  final String? subtitle;
+  final String? timestamp;
+  const CooDashboardActivity({this.title, this.subtitle, this.timestamp});
 }

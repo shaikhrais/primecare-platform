@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:flutter_core/features/franchise_owner_dashboard/domain/models/franchise_owner_view_model.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_ui/src/components/fallback_state_wrapper.dart';
 
 class FranchiseOwnerDashboard extends ConsumerWidget {
   const FranchiseOwnerDashboard({super.key});
@@ -12,7 +16,7 @@ class FranchiseOwnerDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('franchiseOwnerDashboard'),
+      franchiseOwnerAdapterProvider,
     );
 
     return ProviderLayout(
@@ -68,8 +72,10 @@ class FranchiseOwnerDashboard extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
-                return Column(
+              data: (FranchiseOwnerViewModel liveData) {
+                return FallbackStateWrapper(
+                  isOfflineFallback: liveData.isOfflineFallback,
+                  child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GridView.count(
@@ -86,8 +92,9 @@ class FranchiseOwnerDashboard extends ConsumerWidget {
                           deltaSuffix: kpi.trend,
                           icon: _inferIcon(kpi.title),
                           iconColor: _inferColor(kpi.status),
-                        );
-                      }).toList(),
+                        ),
+                );
+              }).toList(),
                     ),
                   ],
                 );

@@ -38,7 +38,7 @@ class PartnershipManagerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return PartnershipManagerDashboardMapper.fromMock({});
+        return PartnershipManagerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/flutter_core.dart' hide billingAdminDashboardAdapterProvider;
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 
 class HrHiringKpiSection {
   static List<Widget> buildCards(HrHiringDashboardViewModel liveData) {
     return liveData.kpis.map((kpi) {
       return PrimeCareStatCard(
-        title: kpi.title,
-        value: kpi.value,
-        deltaSuffix: kpi.trend,
-        icon: _inferIcon(kpi.title),
-        iconColor: _inferColor(kpi.status),
+        title: kpi.title ?? '',
+        value: kpi.value ?? '',
+        deltaSuffix: kpi.trend ?? '',
+        icon: _inferIcon(kpi.title ?? ''),
+        iconColor: _inferColor(kpi.status ?? ''),
       );
     }).toList();
   }

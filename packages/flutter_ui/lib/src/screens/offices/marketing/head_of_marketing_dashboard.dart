@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_core/adapter_providers.dart';
-import 'package:flutter_core/features/head_of_marketing_dashboard/domain/models/head_of_marketing_dashboard_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';

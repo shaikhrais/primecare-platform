@@ -36,7 +36,7 @@ class GeneralManagerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return GeneralManagerDashboardMapper.fromMock({});
+        return GeneralManagerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

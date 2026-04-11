@@ -36,7 +36,7 @@ class SchedulerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return SchedulerDashboardMapper.fromMock({});
+        return SchedulerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

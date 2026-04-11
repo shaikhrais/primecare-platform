@@ -327,3 +327,5 @@ export 'src/screens/common/global_profile/global_profile_screen.dart';
 export 'src/screens/common/document_vault/document_vault_screen.dart';
 export 'src/screens/common/messaging_hub/messaging_hub_screen.dart';
 export 'src/screens/common/notification_center/notification_center_screen.dart';
+export 'src/assembly/component_factory.dart';
+export 'src/assembly/layout_assembly_engine.dart';

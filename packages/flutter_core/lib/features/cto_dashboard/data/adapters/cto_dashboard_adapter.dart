@@ -36,7 +36,7 @@ class CtoDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return CtoDashboardMapper.fromMock({});
+        return CtoDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

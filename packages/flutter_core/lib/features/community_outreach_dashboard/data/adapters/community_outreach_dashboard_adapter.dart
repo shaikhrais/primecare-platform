@@ -38,7 +38,7 @@ class CommunityOutreachDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return CommunityOutreachDashboardMapper.fromMock({});
+        return CommunityOutreachDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

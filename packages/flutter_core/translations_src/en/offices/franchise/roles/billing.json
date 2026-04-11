@@ -1,0 +1,10 @@
+{
+  "franchise": {
+    "billing": {
+      "dashboard": {
+        "title": "Billing Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

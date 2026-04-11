@@ -36,7 +36,7 @@ class HeadOfBusDevDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return HeadOfBusDevDashboardMapper.fromMock({});
+        return HeadOfBusDevDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

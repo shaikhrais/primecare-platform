@@ -36,7 +36,7 @@ class ClinicDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return ClinicDashboardMapper.fromMock({});
+        return ClinicDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

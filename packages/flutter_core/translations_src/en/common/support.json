@@ -1,0 +1,258 @@
+{
+  "support": {
+    "attendance_screen": {
+      "title": "Attendance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "audits_screen": {
+      "title": "Audits Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "certifications_screen": {
+      "title": "Certifications Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_assignment_screen": {
+      "title": "Client Assignment Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "complaints_screen": {
+      "title": "Complaints Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "compliance_checks_screen": {
+      "title": "Compliance Checks Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "corrective_actions_screen": {
+      "title": "Corrective Actions Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "courses_screen": {
+      "title": "Courses Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_dashboard": {
+      "title": "Customer Support Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_escalations_screen": {
+      "title": "Customer Support Escalations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_issue_categories_screen": {
+      "title": "Customer Support Issue Categories Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_reports_screen": {
+      "title": "Customer Support Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_templates_screen": {
+      "title": "Customer Support Templates Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_tickets_screen": {
+      "title": "Customer Support Tickets Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "eligibility_screen": {
+      "title": "Eligibility Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "escalations_screen": {
+      "title": "Escalations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_client_assignment_screen": {
+      "title": "Intake Coordinator Client Assignment Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_dashboard": {
+      "title": "Intake Coordinator Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_eligibility_screen": {
+      "title": "Intake Coordinator Eligibility Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_intake_forms_screen": {
+      "title": "Intake Coordinator Intake Forms Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_new_intakes_screen": {
+      "title": "Intake Coordinator New Intakes Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_scheduling_screen": {
+      "title": "Intake Coordinator Scheduling Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_dashboard": {
+      "title": "Intake Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_forms_screen": {
+      "title": "Intake Forms Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "issue_categories_screen": {
+      "title": "Issue Categories Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "materials_screen": {
+      "title": "Materials Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "new_intakes_screen": {
+      "title": "New Intakes Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "progress_screen": {
+      "title": "Progress Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "qa_dashboard": {
+      "title": "Qa Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_audits_screen": {
+      "title": "Quality Assurance Audits Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_complaints_screen": {
+      "title": "Quality Assurance Complaints Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_compliance_checks_screen": {
+      "title": "Quality Assurance Compliance Checks Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_corrective_actions_screen": {
+      "title": "Quality Assurance Corrective Actions Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_dashboard": {
+      "title": "Quality Assurance Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_reports_screen": {
+      "title": "Quality Assurance Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_reviews_screen": {
+      "title": "Quality Assurance Reviews Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_scorecards_screen": {
+      "title": "Quality Assurance Scorecards Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "reviews_screen": {
+      "title": "Reviews Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "scheduling_screen": {
+      "title": "Scheduling Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "scorecards_screen": {
+      "title": "Scorecards Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "support_dashboard": {
+      "title": "Support Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "support_reports_screen": {
+      "title": "Support Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "templates_screen": {
+      "title": "Templates Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "tickets_view": {
+      "title": "Tickets View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_attendance_screen": {
+      "title": "Training Coordinator Attendance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_courses_screen": {
+      "title": "Training Coordinator Courses Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_dashboard": {
+      "title": "Training Coordinator Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_materials_screen": {
+      "title": "Training Coordinator Materials Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_progress_screen": {
+      "title": "Training Coordinator Progress Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_training_schedule_screen": {
+      "title": "Training Coordinator Training Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_workshops_screen": {
+      "title": "Training Coordinator Workshops Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_schedule_screen": {
+      "title": "Training Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "workshops_screen": {
+      "title": "Workshops Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customerSupport": {
+      "dashboard": {
+        "title": "Customersupport Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "intake": {
+      "dashboard": {
+        "title": "Intake Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "intakeCoordinator": {
+      "dashboard": {
+        "title": "Intake Coordinator Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "qa": {
+      "dashboard": {
+        "title": "Qa Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "qualityAssurance": {
+      "dashboard": {
+        "title": "Qualityassurance Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "support": {
+      "dashboard": {
+        "title": "Support Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "trainingCoordinator": {
+      "dashboard": {
+        "title": "Training Coordinator Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

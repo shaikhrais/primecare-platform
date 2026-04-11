@@ -5,10 +5,15 @@ class GeneralManagerDashboardMapper {
   static GeneralManagerDashboardViewModel fromApi(
     GeneralManagerDashboardDto dto,
   ) {
-    return GeneralManagerDashboardViewModel(kpis: dto.rawKpis);
+    return GeneralManagerDashboardViewModel(kpis: dto.rawKpis.map((k) => GeneralManagerDashboardKpi(
+        title: k['name']?.toString() ?? '',
+        value: k['val']?.toString() ?? '0',
+        trend: k['trend']?.toString(),
+        status: k['status']?.toString() ?? 'Active',
+      )).toList());
   }
 
-  static GeneralManagerDashboardViewModel fromMock(Map<String, dynamic> mock) {
-    return const GeneralManagerDashboardViewModel();
+  static GeneralManagerDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
+    return GeneralManagerDashboardViewModel(isOfflineFallback: isErrorFallback);
   }
 }

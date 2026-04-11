@@ -5,10 +5,15 @@ class CustomerSupportDashboardMapper {
   static CustomerSupportDashboardViewModel fromApi(
     CustomerSupportDashboardDto dto,
   ) {
-    return CustomerSupportDashboardViewModel(kpis: dto.rawKpis);
+    return CustomerSupportDashboardViewModel(kpis: dto.rawKpis.map((k) => CustomerSupportDashboardKpi(
+        title: k['name']?.toString() ?? '',
+        value: k['val']?.toString() ?? '0',
+        trend: k['trend']?.toString(),
+        status: k['status']?.toString() ?? 'Active',
+      )).toList());
   }
 
-  static CustomerSupportDashboardViewModel fromMock(Map<String, dynamic> mock) {
-    return const CustomerSupportDashboardViewModel();
+  static CustomerSupportDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
+    return CustomerSupportDashboardViewModel(isOfflineFallback: isErrorFallback);
   }
 }

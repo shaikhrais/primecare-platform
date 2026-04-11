@@ -1,0 +1,18 @@
+{
+  "corporate": {
+    "intake_dashboard": {
+      "title": "Intake Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "intake_dashboard_screen": {
+        "title": "Intake Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "intake_kpi_section": {
+          "title": "Intake Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

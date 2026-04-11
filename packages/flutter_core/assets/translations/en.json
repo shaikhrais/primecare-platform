@@ -13,30 +13,526 @@
     "encryption_active": "End-to-End Encryption Enabled",
     "enter_credentials_to_continue": "Please enter your credentials to continue.",
     "authentication_failed": "Authentication failed. Please verify your credentials.",
-    "account_recovery": "TBD: auth.account_recovery",
-    "already_have_account": "TBD: auth.already_have_account",
-    "back_to_login": "TBD: auth.back_to_login",
-    "create_account": "TBD: auth.create_account",
-    "enter_institutional_email": "TBD: auth.enter_institutional_email",
-    "first_name": "TBD: auth.first_name",
-    "hydrating_registries": "TBD: auth.hydrating_registries",
-    "join_clinical_atelier": "TBD: auth.join_clinical_atelier",
-    "last_name": "TBD: auth.last_name",
-    "login": "TBD: auth.login",
-    "provision_workspace": "TBD: auth.provision_workspace",
-    "recovery_link_sent": "TBD: auth.recovery_link_sent",
-    "recovery_subtitle": "TBD: auth.recovery_subtitle",
-    "register": "TBD: auth.register",
-    "reset_password": "TBD: auth.reset_password",
-    "role": "TBD: auth.role",
-    "send_again": "TBD: auth.send_again",
-    "send_recovery_link": "TBD: auth.send_recovery_link",
-    "subtitle": "TBD: auth.subtitle",
-    "zero_trust_platform": "TBD: auth.zero_trust_platform"
+    "account_recovery": "Account Recovery",
+    "already_have_account": "Already Have Account",
+    "back_to_login": "Back To Login",
+    "create_account": "Create Account",
+    "enter_institutional_email": "Enter Institutional Email",
+    "first_name": "First Name",
+    "hydrating_registries": "Hydrating Registries",
+    "join_clinical_atelier": "Join Clinical Atelier",
+    "last_name": "Last Name",
+    "login": "Login",
+    "provision_workspace": "Provision Workspace",
+    "recovery_link_sent": "Recovery Link Sent",
+    "recovery_subtitle": "Recovery Subtitle",
+    "register": "Register",
+    "reset_password": "Reset Password",
+    "role": "Role",
+    "send_again": "Send Again",
+    "send_recovery_link": "Send Recovery Link",
+    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "zero_trust_platform": "Zero Trust Platform"
+  },
+  "client": {
+    "familyMember": {
+      "dashboard": {
+        "title": "Familymember Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "patient": {
+      "dashboard": {
+        "title": "Patient Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "book_appointment_view": {
+      "title": "Book Appointment View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "care_team_view": {
+      "title": "Care Team View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "care_updates_view": {
+      "title": "Care Updates View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_book_appointment_screen": {
+      "title": "Client Book Appointment Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_care_team_screen": {
+      "title": "Client Care Team Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_my_appointments_screen": {
+      "title": "Client My Appointments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_payments_screen": {
+      "title": "Client Payments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_profile_screen": {
+      "title": "Client Profile Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_treatment_history_screen": {
+      "title": "Client Treatment History Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "emergency_contacts_screen": {
+      "title": "Emergency Contacts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_billing_screen": {
+      "title": "Family Billing Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_billing_screen": {
+      "title": "Family Member Billing Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_care_updates_screen": {
+      "title": "Family Member Care Updates Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_dashboard": {
+      "title": "Family Member Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_emergency_contacts_screen": {
+      "title": "Family Member Emergency Contacts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_loved_one_schedule_screen": {
+      "title": "Family Member Loved One Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_profile_screen": {
+      "title": "Family Member Profile Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_profile_screen": {
+      "title": "Family Profile Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "loved_one_schedule_screen": {
+      "title": "Loved One Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "my_appointments_screen": {
+      "title": "My Appointments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "patient_dashboard": {
+      "title": "Patient Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "treatment_history_screen": {
+      "title": "Treatment History Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_dashboard": {
+      "client_dashboard_screen": {
+        "title": "Client Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "client_kpi_section": {
+          "title": "Client Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "family_dashboard": {
+      "family_dashboard_screen": {
+        "title": "Family Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "family_kpi_section": {
+          "title": "Family Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  },
+  "common": {
+    "clinic_care_plan_screen": {
+      "title": "Clinic Care Plan Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "clinic_check_in_out_screen": {
+      "title": "Clinic Check In Out Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "clinic_client_profile_screen": {
+      "title": "Clinic Client Profile Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "clinic_daily_notes_screen": {
+      "title": "Clinic Daily Notes Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "clinic_incident_report_screen": {
+      "title": "Clinic Incident Report Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "clinic_my_shifts_screen": {
+      "title": "Clinic My Shifts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "clinic_shift_details_screen": {
+      "title": "Clinic Shift Details Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "billing_admin_dashboard": {
+      "billing_admin_dashboard_screen": {
+        "title": "Billing Admin Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "billing_admin_kpi_section": {
+          "title": "Billing Admin Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "ceo_dashboard": {
+      "ceo_dashboard_screen": {
+        "title": "Ceo Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "ceo_kpi_section": {
+          "title": "Ceo Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "clinic_dashboard": {
+      "clinic_dashboard_screen": {
+        "title": "Clinic Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "clinic_kpi_section": {
+          "title": "Clinic Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "compliance_manager_dashboard": {
+      "compliance_manager_dashboard_screen": {
+        "title": "Compliance Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "compliance_manager_kpi_section": {
+          "title": "Compliance Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "customer_support_dashboard": {
+      "customer_support_dashboard_screen": {
+        "title": "Customer Support Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "customer_support_kpi_section": {
+          "title": "Customer Support Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "franchise_owner_dashboard": {
+      "franchise_owner_dashboard_screen": {
+        "title": "Franchise Owner Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "franchise_owner_kpi_section": {
+          "title": "Franchise Owner Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "head_of_bus_dev_dashboard": {
+      "head_of_bus_dev_dashboard_screen": {
+        "title": "Head Of Bus Dev Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "head_of_bus_dev_kpi_section": {
+          "title": "Head Of Bus Dev Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
   },
   "TAX_HUB_TITLE": "Tax Remittance Hub",
   "TAX_HUB_SUBTITLE": "Sovereign financial clarity and compliance verification.",
   "GENERATE_REPORT": "Generate Report",
+  "support": {
+    "attendance_screen": {
+      "title": "Attendance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "audits_screen": {
+      "title": "Audits Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "certifications_screen": {
+      "title": "Certifications Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_assignment_screen": {
+      "title": "Client Assignment Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "complaints_screen": {
+      "title": "Complaints Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "compliance_checks_screen": {
+      "title": "Compliance Checks Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "corrective_actions_screen": {
+      "title": "Corrective Actions Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "courses_screen": {
+      "title": "Courses Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_dashboard": {
+      "title": "Customer Support Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_escalations_screen": {
+      "title": "Customer Support Escalations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_issue_categories_screen": {
+      "title": "Customer Support Issue Categories Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_reports_screen": {
+      "title": "Customer Support Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_templates_screen": {
+      "title": "Customer Support Templates Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customer_support_tickets_screen": {
+      "title": "Customer Support Tickets Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "eligibility_screen": {
+      "title": "Eligibility Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "escalations_screen": {
+      "title": "Escalations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_client_assignment_screen": {
+      "title": "Intake Coordinator Client Assignment Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_dashboard": {
+      "title": "Intake Coordinator Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_eligibility_screen": {
+      "title": "Intake Coordinator Eligibility Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_intake_forms_screen": {
+      "title": "Intake Coordinator Intake Forms Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_new_intakes_screen": {
+      "title": "Intake Coordinator New Intakes Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_coordinator_scheduling_screen": {
+      "title": "Intake Coordinator Scheduling Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_dashboard": {
+      "title": "Intake Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "intake_forms_screen": {
+      "title": "Intake Forms Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "issue_categories_screen": {
+      "title": "Issue Categories Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "materials_screen": {
+      "title": "Materials Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "new_intakes_screen": {
+      "title": "New Intakes Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "progress_screen": {
+      "title": "Progress Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "qa_dashboard": {
+      "title": "Qa Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_audits_screen": {
+      "title": "Quality Assurance Audits Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_complaints_screen": {
+      "title": "Quality Assurance Complaints Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_compliance_checks_screen": {
+      "title": "Quality Assurance Compliance Checks Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_corrective_actions_screen": {
+      "title": "Quality Assurance Corrective Actions Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_dashboard": {
+      "title": "Quality Assurance Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_reports_screen": {
+      "title": "Quality Assurance Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_reviews_screen": {
+      "title": "Quality Assurance Reviews Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "quality_assurance_scorecards_screen": {
+      "title": "Quality Assurance Scorecards Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "reviews_screen": {
+      "title": "Reviews Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "scheduling_screen": {
+      "title": "Scheduling Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "scorecards_screen": {
+      "title": "Scorecards Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "support_dashboard": {
+      "title": "Support Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "support_reports_screen": {
+      "title": "Support Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "templates_screen": {
+      "title": "Templates Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "tickets_view": {
+      "title": "Tickets View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_attendance_screen": {
+      "title": "Training Coordinator Attendance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_courses_screen": {
+      "title": "Training Coordinator Courses Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_dashboard": {
+      "title": "Training Coordinator Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_materials_screen": {
+      "title": "Training Coordinator Materials Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_progress_screen": {
+      "title": "Training Coordinator Progress Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_training_schedule_screen": {
+      "title": "Training Coordinator Training Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_coordinator_workshops_screen": {
+      "title": "Training Coordinator Workshops Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "training_schedule_screen": {
+      "title": "Training Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "workshops_screen": {
+      "title": "Workshops Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "customerSupport": {
+      "dashboard": {
+        "title": "Customersupport Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "intake": {
+      "dashboard": {
+        "title": "Intake Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "intakeCoordinator": {
+      "dashboard": {
+        "title": "Intake Coordinator Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "qa": {
+      "dashboard": {
+        "title": "Qa Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "qualityAssurance": {
+      "dashboard": {
+        "title": "Qualityassurance Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "support": {
+      "dashboard": {
+        "title": "Support Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "trainingCoordinator": {
+      "dashboard": {
+        "title": "Training Coordinator Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  },
   "admin": {
     "admin": {
       "dashboard": {
@@ -45,8 +541,8 @@
       }
     },
     "admin_dashboard": {
-      "title": "TBD: admin.admin_dashboard.title",
-      "subtitle": "TBD: admin.admin_dashboard.subtitle"
+      "title": "Admin Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     }
   },
   "business_development": {
@@ -87,346 +583,220 @@
       }
     },
     "deal_tracker_screen": {
-      "title": "TBD: business_development.deal_tracker_screen.title",
-      "subtitle": "TBD: business_development.deal_tracker_screen.subtitle"
+      "title": "Deal Tracker Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_contracts_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_contracts_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_contracts_screen.subtitle"
+      "title": "Franchise Sales Manager Contracts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_dashboard": {
-      "title": "TBD: business_development.franchise_sales_manager_dashboard.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_dashboard.subtitle",
+      "title": "Franchise Sales Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "franchise_sales_manager_dashboard_screen": {
-        "title": "TBD: business_development.franchise_sales_manager_dashboard.franchise_sales_manager_dashboard_screen.title",
-        "subtitle": "TBD: business_development.franchise_sales_manager_dashboard.franchise_sales_manager_dashboard_screen.subtitle"
+        "title": "Franchise Sales Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "franchise_sales_manager_kpi_section": {
-          "title": "TBD: business_development.franchise_sales_manager_dashboard.sections.franchise_sales_manager_kpi_section.title",
-          "subtitle": "TBD: business_development.franchise_sales_manager_dashboard.sections.franchise_sales_manager_kpi_section.subtitle"
+          "title": "Franchise Sales Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "franchise_sales_manager_discovery_calls_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_discovery_calls_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_discovery_calls_screen.subtitle"
+      "title": "Franchise Sales Manager Discovery Calls Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_follow_ups_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_follow_ups_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_follow_ups_screen.subtitle"
+      "title": "Franchise Sales Manager Follow Ups Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_leads_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_leads_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_leads_screen.subtitle"
+      "title": "Franchise Sales Manager Leads Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_proposals_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_proposals_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_proposals_screen.subtitle"
+      "title": "Franchise Sales Manager Proposals Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_prospects_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_prospects_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_prospects_screen.subtitle"
+      "title": "Franchise Sales Manager Prospects Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_reports_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_reports_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_reports_screen.subtitle"
+      "title": "Franchise Sales Manager Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_sales_manager_sales_pipeline_screen": {
-      "title": "TBD: business_development.franchise_sales_manager_sales_pipeline_screen.title",
-      "subtitle": "TBD: business_development.franchise_sales_manager_sales_pipeline_screen.subtitle"
+      "title": "Franchise Sales Manager Sales Pipeline Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "general_manager_dashboard": {
-      "title": "TBD: business_development.general_manager_dashboard.title",
-      "subtitle": "TBD: business_development.general_manager_dashboard.subtitle",
+      "title": "General Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "general_manager_dashboard_screen": {
-        "title": "TBD: business_development.general_manager_dashboard.general_manager_dashboard_screen.title",
-        "subtitle": "TBD: business_development.general_manager_dashboard.general_manager_dashboard_screen.subtitle"
+        "title": "General Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "general_manager_kpi_section": {
-          "title": "TBD: business_development.general_manager_dashboard.sections.general_manager_kpi_section.title",
-          "subtitle": "TBD: business_development.general_manager_dashboard.sections.general_manager_kpi_section.subtitle"
+          "title": "General Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "partnership_manager_active_deals_screen": {
-      "title": "TBD: business_development.partnership_manager_active_deals_screen.title",
-      "subtitle": "TBD: business_development.partnership_manager_active_deals_screen.subtitle"
+      "title": "Partnership Manager Active Deals Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "partnership_manager_dashboard": {
-      "title": "TBD: business_development.partnership_manager_dashboard.title",
-      "subtitle": "TBD: business_development.partnership_manager_dashboard.subtitle",
+      "title": "Partnership Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "partnership_manager_dashboard_screen": {
-        "title": "TBD: business_development.partnership_manager_dashboard.partnership_manager_dashboard_screen.title",
-        "subtitle": "TBD: business_development.partnership_manager_dashboard.partnership_manager_dashboard_screen.subtitle"
+        "title": "Partnership Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "partnership_manager_kpi_section": {
-          "title": "TBD: business_development.partnership_manager_dashboard.sections.partnership_manager_kpi_section.title",
-          "subtitle": "TBD: business_development.partnership_manager_dashboard.sections.partnership_manager_kpi_section.subtitle"
+          "title": "Partnership Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "partnership_manager_outreach_screen": {
-      "title": "TBD: business_development.partnership_manager_outreach_screen.title",
-      "subtitle": "TBD: business_development.partnership_manager_outreach_screen.subtitle"
+      "title": "Partnership Manager Outreach Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "partnership_manager_partners_screen": {
-      "title": "TBD: business_development.partnership_manager_partners_screen.title",
-      "subtitle": "TBD: business_development.partnership_manager_partners_screen.subtitle"
+      "title": "Partnership Manager Partners Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "partnership_manager_proposals_screen": {
-      "title": "TBD: business_development.partnership_manager_proposals_screen.title",
-      "subtitle": "TBD: business_development.partnership_manager_proposals_screen.subtitle"
+      "title": "Partnership Manager Proposals Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "partnership_manager_renewals_screen": {
-      "title": "TBD: business_development.partnership_manager_renewals_screen.title",
-      "subtitle": "TBD: business_development.partnership_manager_renewals_screen.subtitle"
+      "title": "Partnership Manager Renewals Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "partnership_manager_reports_screen": {
-      "title": "TBD: business_development.partnership_manager_reports_screen.title",
-      "subtitle": "TBD: business_development.partnership_manager_reports_screen.subtitle"
+      "title": "Partnership Manager Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_competitor_notes_screen": {
-      "title": "TBD: business_development.regional_bdm_competitor_notes_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_competitor_notes_screen.subtitle"
+      "title": "Regional Bdm Competitor Notes Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_deal_tracker_screen": {
-      "title": "TBD: business_development.regional_bdm_deal_tracker_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_deal_tracker_screen.subtitle"
+      "title": "Regional Bdm Deal Tracker Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_franchise_pipeline_screen": {
-      "title": "TBD: business_development.regional_bdm_franchise_pipeline_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_franchise_pipeline_screen.subtitle"
+      "title": "Regional Bdm Franchise Pipeline Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_leads_screen": {
-      "title": "TBD: business_development.regional_bdm_leads_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_leads_screen.subtitle"
+      "title": "Regional Bdm Leads Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_meetings_screen": {
-      "title": "TBD: business_development.regional_bdm_meetings_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_meetings_screen.subtitle"
+      "title": "Regional Bdm Meetings Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_partners_screen": {
-      "title": "TBD: business_development.regional_bdm_partners_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_partners_screen.subtitle"
+      "title": "Regional Bdm Partners Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_reports_screen": {
-      "title": "TBD: business_development.regional_bdm_reports_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_reports_screen.subtitle"
+      "title": "Regional Bdm Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_tasks_screen": {
-      "title": "TBD: business_development.regional_bdm_tasks_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_tasks_screen.subtitle"
+      "title": "Regional Bdm Tasks Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_bdm_territory_growth_screen": {
-      "title": "TBD: business_development.regional_bdm_territory_growth_screen.title",
-      "subtitle": "TBD: business_development.regional_bdm_territory_growth_screen.subtitle"
+      "title": "Regional Bdm Territory Growth Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_manager_ontario_dashboard": {
-      "title": "TBD: business_development.regional_manager_ontario_dashboard.title",
-      "subtitle": "TBD: business_development.regional_manager_ontario_dashboard.subtitle",
+      "title": "Regional Manager Ontario Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "regional_manager_ontario_dashboard_screen": {
-        "title": "TBD: business_development.regional_manager_ontario_dashboard.regional_manager_ontario_dashboard_screen.title",
-        "subtitle": "TBD: business_development.regional_manager_ontario_dashboard.regional_manager_ontario_dashboard_screen.subtitle"
+        "title": "Regional Manager Ontario Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "regional_manager_ontario_kpi_section": {
-          "title": "TBD: business_development.regional_manager_ontario_dashboard.sections.regional_manager_ontario_kpi_section.title",
-          "subtitle": "TBD: business_development.regional_manager_ontario_dashboard.sections.regional_manager_ontario_kpi_section.subtitle"
+          "title": "Regional Manager Ontario Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "regional_manager_usa_dashboard": {
-      "title": "TBD: business_development.regional_manager_usa_dashboard.title",
-      "subtitle": "TBD: business_development.regional_manager_usa_dashboard.subtitle",
+      "title": "Regional Manager Usa Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "regional_manager_usa_dashboard_screen": {
-        "title": "TBD: business_development.regional_manager_usa_dashboard.regional_manager_usa_dashboard_screen.title",
-        "subtitle": "TBD: business_development.regional_manager_usa_dashboard.regional_manager_usa_dashboard_screen.subtitle"
+        "title": "Regional Manager Usa Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "regional_manager_usa_kpi_section": {
-          "title": "TBD: business_development.regional_manager_usa_dashboard.sections.regional_manager_usa_kpi_section.title",
-          "subtitle": "TBD: business_development.regional_manager_usa_dashboard.sections.regional_manager_usa_kpi_section.subtitle"
+          "title": "Regional Manager Usa Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "territory_expansion_manager_dashboard": {
-      "title": "TBD: business_development.territory_expansion_manager_dashboard.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_dashboard.subtitle",
+      "title": "Territory Expansion Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "territory_expansion_manager_dashboard_screen": {
-        "title": "TBD: business_development.territory_expansion_manager_dashboard.territory_expansion_manager_dashboard_screen.title",
-        "subtitle": "TBD: business_development.territory_expansion_manager_dashboard.territory_expansion_manager_dashboard_screen.subtitle"
+        "title": "Territory Expansion Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "territory_expansion_manager_kpi_section": {
-          "title": "TBD: business_development.territory_expansion_manager_dashboard.sections.territory_expansion_manager_kpi_section.title",
-          "subtitle": "TBD: business_development.territory_expansion_manager_dashboard.sections.territory_expansion_manager_kpi_section.subtitle"
+          "title": "Territory Expansion Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "territory_expansion_manager_demographics_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_demographics_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_demographics_screen.subtitle"
+      "title": "Territory Expansion Manager Demographics Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_expansion_manager_expansion_plans_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_expansion_plans_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_expansion_plans_screen.subtitle"
+      "title": "Territory Expansion Manager Expansion Plans Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_expansion_manager_forecast_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_forecast_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_forecast_screen.subtitle"
+      "title": "Territory Expansion Manager Forecast Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_expansion_manager_market_research_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_market_research_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_market_research_screen.subtitle"
+      "title": "Territory Expansion Manager Market Research Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_expansion_manager_open_territories_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_open_territories_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_open_territories_screen.subtitle"
+      "title": "Territory Expansion Manager Open Territories Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_expansion_manager_reports_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_reports_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_reports_screen.subtitle"
+      "title": "Territory Expansion Manager Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_expansion_manager_site_selection_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_site_selection_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_site_selection_screen.subtitle"
+      "title": "Territory Expansion Manager Site Selection Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_expansion_manager_territory_map_screen": {
-      "title": "TBD: business_development.territory_expansion_manager_territory_map_screen.title",
-      "subtitle": "TBD: business_development.territory_expansion_manager_territory_map_screen.subtitle"
+      "title": "Territory Expansion Manager Territory Map Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_map_screen": {
-      "title": "TBD: business_development.territory_map_screen.title",
-      "subtitle": "TBD: business_development.territory_map_screen.subtitle"
-    }
-  },
-  "client": {
-    "familyMember": {
-      "dashboard": {
-        "title": "Familymember Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "patient": {
-      "dashboard": {
-        "title": "Patient Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "book_appointment_view": {
-      "title": "TBD: client.book_appointment_view.title",
-      "subtitle": "TBD: client.book_appointment_view.subtitle"
-    },
-    "care_team_view": {
-      "title": "TBD: client.care_team_view.title",
-      "subtitle": "TBD: client.care_team_view.subtitle"
-    },
-    "care_updates_view": {
-      "title": "TBD: client.care_updates_view.title",
-      "subtitle": "TBD: client.care_updates_view.subtitle"
-    },
-    "client_book_appointment_screen": {
-      "title": "TBD: client.client_book_appointment_screen.title",
-      "subtitle": "TBD: client.client_book_appointment_screen.subtitle"
-    },
-    "client_care_team_screen": {
-      "title": "TBD: client.client_care_team_screen.title",
-      "subtitle": "TBD: client.client_care_team_screen.subtitle"
-    },
-    "client_my_appointments_screen": {
-      "title": "TBD: client.client_my_appointments_screen.title",
-      "subtitle": "TBD: client.client_my_appointments_screen.subtitle"
-    },
-    "client_payments_screen": {
-      "title": "TBD: client.client_payments_screen.title",
-      "subtitle": "TBD: client.client_payments_screen.subtitle"
-    },
-    "client_profile_screen": {
-      "title": "TBD: client.client_profile_screen.title",
-      "subtitle": "TBD: client.client_profile_screen.subtitle"
-    },
-    "client_treatment_history_screen": {
-      "title": "TBD: client.client_treatment_history_screen.title",
-      "subtitle": "TBD: client.client_treatment_history_screen.subtitle"
-    },
-    "emergency_contacts_screen": {
-      "title": "TBD: client.emergency_contacts_screen.title",
-      "subtitle": "TBD: client.emergency_contacts_screen.subtitle"
-    },
-    "family_billing_screen": {
-      "title": "TBD: client.family_billing_screen.title",
-      "subtitle": "TBD: client.family_billing_screen.subtitle"
-    },
-    "family_member_billing_screen": {
-      "title": "TBD: client.family_member_billing_screen.title",
-      "subtitle": "TBD: client.family_member_billing_screen.subtitle"
-    },
-    "family_member_care_updates_screen": {
-      "title": "TBD: client.family_member_care_updates_screen.title",
-      "subtitle": "TBD: client.family_member_care_updates_screen.subtitle"
-    },
-    "family_member_dashboard": {
-      "title": "TBD: client.family_member_dashboard.title",
-      "subtitle": "TBD: client.family_member_dashboard.subtitle"
-    },
-    "family_member_emergency_contacts_screen": {
-      "title": "TBD: client.family_member_emergency_contacts_screen.title",
-      "subtitle": "TBD: client.family_member_emergency_contacts_screen.subtitle"
-    },
-    "family_member_loved_one_schedule_screen": {
-      "title": "TBD: client.family_member_loved_one_schedule_screen.title",
-      "subtitle": "TBD: client.family_member_loved_one_schedule_screen.subtitle"
-    },
-    "family_member_profile_screen": {
-      "title": "TBD: client.family_member_profile_screen.title",
-      "subtitle": "TBD: client.family_member_profile_screen.subtitle"
-    },
-    "family_profile_screen": {
-      "title": "TBD: client.family_profile_screen.title",
-      "subtitle": "TBD: client.family_profile_screen.subtitle"
-    },
-    "loved_one_schedule_screen": {
-      "title": "TBD: client.loved_one_schedule_screen.title",
-      "subtitle": "TBD: client.loved_one_schedule_screen.subtitle"
-    },
-    "my_appointments_screen": {
-      "title": "TBD: client.my_appointments_screen.title",
-      "subtitle": "TBD: client.my_appointments_screen.subtitle"
-    },
-    "patient_dashboard": {
-      "title": "TBD: client.patient_dashboard.title",
-      "subtitle": "TBD: client.patient_dashboard.subtitle"
-    },
-    "treatment_history_screen": {
-      "title": "TBD: client.treatment_history_screen.title",
-      "subtitle": "TBD: client.treatment_history_screen.subtitle"
-    },
-    "client_dashboard": {
-      "client_dashboard_screen": {
-        "title": "TBD: client.client_dashboard.client_dashboard_screen.title",
-        "subtitle": "TBD: client.client_dashboard.client_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "client_kpi_section": {
-          "title": "TBD: client.client_dashboard.sections.client_kpi_section.title",
-          "subtitle": "TBD: client.client_dashboard.sections.client_kpi_section.subtitle"
-        }
-      }
-    },
-    "family_dashboard": {
-      "family_dashboard_screen": {
-        "title": "TBD: client.family_dashboard.family_dashboard_screen.title",
-        "subtitle": "TBD: client.family_dashboard.family_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "family_kpi_section": {
-          "title": "TBD: client.family_dashboard.sections.family_kpi_section.title",
-          "subtitle": "TBD: client.family_dashboard.sections.family_kpi_section.subtitle"
-        }
-      }
+      "title": "Territory Map Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     }
   },
   "clinical": {
@@ -437,8 +807,8 @@
       }
     },
     "psw_dashboard": {
-      "title": "TBD: clinical.psw_dashboard.title",
-      "subtitle": "TBD: clinical.psw_dashboard.subtitle"
+      "title": "Psw Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     }
   },
   "corporate": {
@@ -466,6 +836,10 @@
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
+    "coo_compliance_view": {
+      "title": "Coo Compliance View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
     "cto": {
       "dashboard": {
         "title": "Cto Dashboard",
@@ -479,482 +853,478 @@
       }
     },
     "ceo_alerts_and_risks_screen": {
-      "title": "TBD: corporate.ceo_alerts_and_risks_screen.title",
-      "subtitle": "TBD: corporate.ceo_alerts_and_risks_screen.subtitle"
+      "title": "Ceo Alerts And Risks Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_approvals_screen": {
-      "title": "TBD: corporate.ceo_approvals_screen.title",
-      "subtitle": "TBD: corporate.ceo_approvals_screen.subtitle"
+      "title": "Ceo Approvals Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_dashboard": {
-      "title": "TBD: corporate.ceo_dashboard.title",
-      "subtitle": "TBD: corporate.ceo_dashboard.subtitle",
+      "title": "Ceo Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "ceo_dashboard_screen": {
-        "title": "TBD: corporate.ceo_dashboard.ceo_dashboard_screen.title",
-        "subtitle": "TBD: corporate.ceo_dashboard.ceo_dashboard_screen.subtitle"
+        "title": "Ceo Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "ceo_kpi_section": {
-          "title": "TBD: corporate.ceo_dashboard.sections.ceo_kpi_section.title",
-          "subtitle": "TBD: corporate.ceo_dashboard.sections.ceo_kpi_section.subtitle"
+          "title": "Ceo Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "ceo_enterprise_overview_screen": {
-      "title": "TBD: corporate.ceo_enterprise_overview_screen.title",
-      "subtitle": "TBD: corporate.ceo_enterprise_overview_screen.subtitle"
+      "title": "Ceo Enterprise Overview Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_franchise_overview_screen": {
-      "title": "TBD: corporate.ceo_franchise_overview_screen.title",
-      "subtitle": "TBD: corporate.ceo_franchise_overview_screen.subtitle"
+      "title": "Ceo Franchise Overview Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_growth_pipeline_screen": {
-      "title": "TBD: corporate.ceo_growth_pipeline_screen.title",
-      "subtitle": "TBD: corporate.ceo_growth_pipeline_screen.subtitle"
+      "title": "Ceo Growth Pipeline Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_leadership_reports_screen": {
-      "title": "TBD: corporate.ceo_leadership_reports_screen.title",
-      "subtitle": "TBD: corporate.ceo_leadership_reports_screen.subtitle"
+      "title": "Ceo Leadership Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_organization_map_screen": {
-      "title": "TBD: corporate.ceo_organization_map_screen.title",
-      "subtitle": "TBD: corporate.ceo_organization_map_screen.subtitle"
+      "title": "Ceo Organization Map Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_region_performance_screen": {
-      "title": "TBD: corporate.ceo_region_performance_screen.title",
-      "subtitle": "TBD: corporate.ceo_region_performance_screen.subtitle"
+      "title": "Ceo Region Performance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_reports_screen": {
-      "title": "TBD: corporate.ceo_reports_screen.title",
-      "subtitle": "TBD: corporate.ceo_reports_screen.subtitle"
+      "title": "Ceo Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_revenue_summary_screen": {
-      "title": "TBD: corporate.ceo_revenue_summary_screen.title",
-      "subtitle": "TBD: corporate.ceo_revenue_summary_screen.subtitle"
+      "title": "Ceo Revenue Summary Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ceo_strategic_kpis_screen": {
-      "title": "TBD: corporate.ceo_strategic_kpis_screen.title",
-      "subtitle": "TBD: corporate.ceo_strategic_kpis_screen.subtitle"
+      "title": "Ceo Strategic Kpis Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_accounts_payable_screen": {
-      "title": "TBD: corporate.cfo_accounts_payable_screen.title",
-      "subtitle": "TBD: corporate.cfo_accounts_payable_screen.subtitle"
+      "title": "Cfo Accounts Payable Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_accounts_receivable_screen": {
-      "title": "TBD: corporate.cfo_accounts_receivable_screen.title",
-      "subtitle": "TBD: corporate.cfo_accounts_receivable_screen.subtitle"
+      "title": "Cfo Accounts Receivable Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_dashboard": {
-      "title": "TBD: corporate.cfo_dashboard.title",
-      "subtitle": "TBD: corporate.cfo_dashboard.subtitle",
+      "title": "Cfo Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "cfo_dashboard_screen": {
-        "title": "TBD: corporate.cfo_dashboard.cfo_dashboard_screen.title",
-        "subtitle": "TBD: corporate.cfo_dashboard.cfo_dashboard_screen.subtitle"
+        "title": "Cfo Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "cfo_kpi_section": {
-          "title": "TBD: corporate.cfo_dashboard.sections.cfo_kpi_section.title",
-          "subtitle": "TBD: corporate.cfo_dashboard.sections.cfo_kpi_section.subtitle"
+          "title": "Cfo Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "cfo_expenses_screen": {
-      "title": "TBD: corporate.cfo_expenses_screen.title",
-      "subtitle": "TBD: corporate.cfo_expenses_screen.subtitle"
+      "title": "Cfo Expenses Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_financial_overview_screen": {
-      "title": "TBD: corporate.cfo_financial_overview_screen.title",
-      "subtitle": "TBD: corporate.cfo_financial_overview_screen.subtitle"
+      "title": "Cfo Financial Overview Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_franchise_financials_screen": {
-      "title": "TBD: corporate.cfo_franchise_financials_screen.title",
-      "subtitle": "TBD: corporate.cfo_franchise_financials_screen.subtitle"
+      "title": "Cfo Franchise Financials Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_invoices_screen": {
-      "title": "TBD: corporate.cfo_invoices_screen.title",
-      "subtitle": "TBD: corporate.cfo_invoices_screen.subtitle"
+      "title": "Cfo Invoices Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_payroll_screen": {
-      "title": "TBD: corporate.cfo_payroll_screen.title",
-      "subtitle": "TBD: corporate.cfo_payroll_screen.subtitle"
+      "title": "Cfo Payroll Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_profitability_screen": {
-      "title": "TBD: corporate.cfo_profitability_screen.title",
-      "subtitle": "TBD: corporate.cfo_profitability_screen.subtitle"
+      "title": "Cfo Profitability Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_reports_screen": {
-      "title": "TBD: corporate.cfo_reports_screen.title",
-      "subtitle": "TBD: corporate.cfo_reports_screen.subtitle"
+      "title": "Cfo Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_revenue_screen": {
-      "title": "TBD: corporate.cfo_revenue_screen.title",
-      "subtitle": "TBD: corporate.cfo_revenue_screen.subtitle"
+      "title": "Cfo Revenue Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cfo_tax_and_remittance_screen": {
-      "title": "TBD: corporate.cfo_tax_and_remittance_screen.title",
-      "subtitle": "TBD: corporate.cfo_tax_and_remittance_screen.subtitle"
+      "title": "Cfo Tax And Remittance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_cases_screen": {
-      "title": "TBD: corporate.compliance_cases_screen.title",
-      "subtitle": "TBD: corporate.compliance_cases_screen.subtitle"
+      "title": "Compliance Cases Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_audits_screen": {
-      "title": "TBD: corporate.compliance_manager_audits_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_audits_screen.subtitle"
+      "title": "Compliance Manager Audits Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_compliance_cases_screen": {
-      "title": "TBD: corporate.compliance_manager_compliance_cases_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_compliance_cases_screen.subtitle"
+      "title": "Compliance Manager Compliance Cases Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_corrective_actions_screen": {
-      "title": "TBD: corporate.compliance_manager_corrective_actions_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_corrective_actions_screen.subtitle"
+      "title": "Compliance Manager Corrective Actions Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_credential_tracking_screen": {
-      "title": "TBD: corporate.compliance_manager_credential_tracking_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_credential_tracking_screen.subtitle"
+      "title": "Compliance Manager Credential Tracking Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_dashboard": {
-      "title": "TBD: corporate.compliance_manager_dashboard.title",
-      "subtitle": "TBD: corporate.compliance_manager_dashboard.subtitle",
+      "title": "Compliance Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "compliance_manager_dashboard_screen": {
-        "title": "TBD: corporate.compliance_manager_dashboard.compliance_manager_dashboard_screen.title",
-        "subtitle": "TBD: corporate.compliance_manager_dashboard.compliance_manager_dashboard_screen.subtitle"
+        "title": "Compliance Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "compliance_manager_kpi_section": {
-          "title": "TBD: corporate.compliance_manager_dashboard.sections.compliance_manager_kpi_section.title",
-          "subtitle": "TBD: corporate.compliance_manager_dashboard.sections.compliance_manager_kpi_section.subtitle"
+          "title": "Compliance Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "compliance_manager_document_expiry_screen": {
-      "title": "TBD: corporate.compliance_manager_document_expiry_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_document_expiry_screen.subtitle"
+      "title": "Compliance Manager Document Expiry Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_incident_review_screen": {
-      "title": "TBD: corporate.compliance_manager_incident_review_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_incident_review_screen.subtitle"
+      "title": "Compliance Manager Incident Review Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_policies_screen": {
-      "title": "TBD: corporate.compliance_manager_policies_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_policies_screen.subtitle"
+      "title": "Compliance Manager Policies Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_reports_screen": {
-      "title": "TBD: corporate.compliance_manager_reports_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_reports_screen.subtitle"
+      "title": "Compliance Manager Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_risk_register_screen": {
-      "title": "TBD: corporate.compliance_manager_risk_register_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_risk_register_screen.subtitle"
+      "title": "Compliance Manager Risk Register Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_manager_training_compliance_screen": {
-      "title": "TBD: corporate.compliance_manager_training_compliance_screen.title",
-      "subtitle": "TBD: corporate.compliance_manager_training_compliance_screen.subtitle"
+      "title": "Compliance Manager Training Compliance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_reports_screen": {
-      "title": "TBD: corporate.compliance_reports_screen.title",
-      "subtitle": "TBD: corporate.compliance_reports_screen.subtitle"
+      "title": "Compliance Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_training_screen": {
-      "title": "TBD: corporate.compliance_training_screen.title",
-      "subtitle": "TBD: corporate.compliance_training_screen.subtitle"
+      "title": "Compliance Training Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_branch_comparison_screen": {
-      "title": "TBD: corporate.coo_branch_comparison_screen.title",
-      "subtitle": "TBD: corporate.coo_branch_comparison_screen.subtitle"
+      "title": "Coo Branch Comparison Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_branch_operations_screen": {
-      "title": "TBD: corporate.coo_branch_operations_screen.title",
-      "subtitle": "TBD: corporate.coo_branch_operations_screen.subtitle"
-    },
-    "coo_compliance_view": {
-      "title": "TBD: corporate.coo_compliance_view.title",
-      "subtitle": "TBD: corporate.coo_compliance_view.subtitle"
+      "title": "Coo Branch Operations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_compliance_view_screen": {
-      "title": "TBD: corporate.coo_compliance_view_screen.title",
-      "subtitle": "TBD: corporate.coo_compliance_view_screen.subtitle"
+      "title": "Coo Compliance View Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_dashboard": {
-      "title": "TBD: corporate.coo_dashboard.title",
-      "subtitle": "TBD: corporate.coo_dashboard.subtitle",
+      "title": "Coo Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "coo_dashboard_screen": {
-        "title": "TBD: corporate.coo_dashboard.coo_dashboard_screen.title",
-        "subtitle": "TBD: corporate.coo_dashboard.coo_dashboard_screen.subtitle"
+        "title": "Coo Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "coo_kpi_section": {
-          "title": "TBD: corporate.coo_dashboard.sections.coo_kpi_section.title",
-          "subtitle": "TBD: corporate.coo_dashboard.sections.coo_kpi_section.subtitle"
+          "title": "Coo Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "coo_issue_escalations_screen": {
-      "title": "TBD: corporate.coo_issue_escalations_screen.title",
-      "subtitle": "TBD: corporate.coo_issue_escalations_screen.subtitle"
+      "title": "Coo Issue Escalations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_operations_overview_screen": {
-      "title": "TBD: corporate.coo_operations_overview_screen.title",
-      "subtitle": "TBD: corporate.coo_operations_overview_screen.subtitle"
+      "title": "Coo Operations Overview Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_reports_screen": {
-      "title": "TBD: corporate.coo_reports_screen.title",
-      "subtitle": "TBD: corporate.coo_reports_screen.subtitle"
+      "title": "Coo Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_scheduling_health_screen": {
-      "title": "TBD: corporate.coo_scheduling_health_screen.title",
-      "subtitle": "TBD: corporate.coo_scheduling_health_screen.subtitle"
+      "title": "Coo Scheduling Health Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_service_delivery_screen": {
-      "title": "TBD: corporate.coo_service_delivery_screen.title",
-      "subtitle": "TBD: corporate.coo_service_delivery_screen.subtitle"
+      "title": "Coo Service Delivery Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_staffing_efficiency_screen": {
-      "title": "TBD: corporate.coo_staffing_efficiency_screen.title",
-      "subtitle": "TBD: corporate.coo_staffing_efficiency_screen.subtitle"
+      "title": "Coo Staffing Efficiency Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "coo_workflow_performance_screen": {
-      "title": "TBD: corporate.coo_workflow_performance_screen.title",
-      "subtitle": "TBD: corporate.coo_workflow_performance_screen.subtitle"
+      "title": "Coo Workflow Performance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "course_library_screen": {
-      "title": "TBD: corporate.course_library_screen.title",
-      "subtitle": "TBD: corporate.course_library_screen.subtitle"
+      "title": "Course Library Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_access_control_screen": {
-      "title": "TBD: corporate.cto_access_control_screen.title",
-      "subtitle": "TBD: corporate.cto_access_control_screen.subtitle"
+      "title": "Cto Access Control Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_api_monitoring_screen": {
-      "title": "TBD: corporate.cto_api_monitoring_screen.title",
-      "subtitle": "TBD: corporate.cto_api_monitoring_screen.subtitle"
+      "title": "Cto Api Monitoring Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_audit_logs_screen": {
-      "title": "TBD: corporate.cto_audit_logs_screen.title",
-      "subtitle": "TBD: corporate.cto_audit_logs_screen.subtitle"
+      "title": "Cto Audit Logs Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_dashboard": {
-      "title": "TBD: corporate.cto_dashboard.title",
-      "subtitle": "TBD: corporate.cto_dashboard.subtitle",
+      "title": "Cto Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "cto_dashboard_screen": {
-        "title": "TBD: corporate.cto_dashboard.cto_dashboard_screen.title",
-        "subtitle": "TBD: corporate.cto_dashboard.cto_dashboard_screen.subtitle"
+        "title": "Cto Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "cto_kpi_section": {
-          "title": "TBD: corporate.cto_dashboard.sections.cto_kpi_section.title",
-          "subtitle": "TBD: corporate.cto_dashboard.sections.cto_kpi_section.subtitle"
+          "title": "Cto Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "cto_feature_adoption_screen": {
-      "title": "TBD: corporate.cto_feature_adoption_screen.title",
-      "subtitle": "TBD: corporate.cto_feature_adoption_screen.subtitle"
+      "title": "Cto Feature Adoption Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_infrastructure_screen": {
-      "title": "TBD: corporate.cto_infrastructure_screen.title",
-      "subtitle": "TBD: corporate.cto_infrastructure_screen.subtitle"
+      "title": "Cto Infrastructure Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_integrations_screen": {
-      "title": "TBD: corporate.cto_integrations_screen.title",
-      "subtitle": "TBD: corporate.cto_integrations_screen.subtitle"
+      "title": "Cto Integrations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_issue_tracking_screen": {
-      "title": "TBD: corporate.cto_issue_tracking_screen.title",
-      "subtitle": "TBD: corporate.cto_issue_tracking_screen.subtitle"
+      "title": "Cto Issue Tracking Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_platform_usage_screen": {
-      "title": "TBD: corporate.cto_platform_usage_screen.title",
-      "subtitle": "TBD: corporate.cto_platform_usage_screen.subtitle"
+      "title": "Cto Platform Usage Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_release_management_screen": {
-      "title": "TBD: corporate.cto_release_management_screen.title",
-      "subtitle": "TBD: corporate.cto_release_management_screen.subtitle"
+      "title": "Cto Release Management Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_reports_screen": {
-      "title": "TBD: corporate.cto_reports_screen.title",
-      "subtitle": "TBD: corporate.cto_reports_screen.subtitle"
+      "title": "Cto Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "cto_system_health_screen": {
-      "title": "TBD: corporate.cto_system_health_screen.title",
-      "subtitle": "TBD: corporate.cto_system_health_screen.subtitle"
+      "title": "Cto System Health Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "guest_dashboard": {
-      "title": "TBD: corporate.guest_dashboard.title",
-      "subtitle": "TBD: corporate.guest_dashboard.subtitle",
+      "title": "Guest Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "guest_dashboard_screen": {
-        "title": "TBD: corporate.guest_dashboard.guest_dashboard_screen.title",
-        "subtitle": "TBD: corporate.guest_dashboard.guest_dashboard_screen.subtitle"
+        "title": "Guest Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "guest_kpi_section": {
-          "title": "TBD: corporate.guest_dashboard.sections.guest_kpi_section.title",
-          "subtitle": "TBD: corporate.guest_dashboard.sections.guest_kpi_section.subtitle"
+          "title": "Guest Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "intake_coordinator_reports_screen": {
-      "title": "TBD: corporate.intake_coordinator_reports_screen.title",
-      "subtitle": "TBD: corporate.intake_coordinator_reports_screen.subtitle"
+      "title": "Intake Coordinator Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "intake_dashboard": {
-      "title": "TBD: corporate.intake_dashboard.title",
-      "subtitle": "TBD: corporate.intake_dashboard.subtitle",
+      "title": "Intake Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "intake_dashboard_screen": {
-        "title": "TBD: corporate.intake_dashboard.intake_dashboard_screen.title",
-        "subtitle": "TBD: corporate.intake_dashboard.intake_dashboard_screen.subtitle"
+        "title": "Intake Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "intake_kpi_section": {
-          "title": "TBD: corporate.intake_dashboard.sections.intake_kpi_section.title",
-          "subtitle": "TBD: corporate.intake_dashboard.sections.intake_kpi_section.subtitle"
+          "title": "Intake Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "patient_dashboard": {
-      "title": "TBD: corporate.patient_dashboard.title",
-      "subtitle": "TBD: corporate.patient_dashboard.subtitle",
+      "title": "Patient Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "patient_dashboard_screen": {
-        "title": "TBD: corporate.patient_dashboard.patient_dashboard_screen.title",
-        "subtitle": "TBD: corporate.patient_dashboard.patient_dashboard_screen.subtitle"
+        "title": "Patient Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "patient_kpi_section": {
-          "title": "TBD: corporate.patient_dashboard.sections.patient_kpi_section.title",
-          "subtitle": "TBD: corporate.patient_dashboard.sections.patient_kpi_section.subtitle"
+          "title": "Patient Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "qa_dashboard": {
-      "title": "TBD: corporate.qa_dashboard.title",
-      "subtitle": "TBD: corporate.qa_dashboard.subtitle",
+      "title": "Qa Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "qa_dashboard_screen": {
-        "title": "TBD: corporate.qa_dashboard.qa_dashboard_screen.title",
-        "subtitle": "TBD: corporate.qa_dashboard.qa_dashboard_screen.subtitle"
+        "title": "Qa Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "qa_kpi_section": {
-          "title": "TBD: corporate.qa_dashboard.sections.qa_kpi_section.title",
-          "subtitle": "TBD: corporate.qa_dashboard.sections.qa_kpi_section.subtitle"
+          "title": "Qa Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "scheduler_coordinator_reports_screen": {
-      "title": "TBD: corporate.scheduler_coordinator_reports_screen.title",
-      "subtitle": "TBD: corporate.scheduler_coordinator_reports_screen.subtitle"
+      "title": "Scheduler Coordinator Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scrum_master_dashboard": {
-      "title": "TBD: corporate.scrum_master_dashboard.title",
-      "subtitle": "TBD: corporate.scrum_master_dashboard.subtitle",
+      "title": "Scrum Master Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "scrum_master_dashboard_screen": {
-        "title": "TBD: corporate.scrum_master_dashboard.scrum_master_dashboard_screen.title",
-        "subtitle": "TBD: corporate.scrum_master_dashboard.scrum_master_dashboard_screen.subtitle"
+        "title": "Scrum Master Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "scrum_master_kpi_section": {
-          "title": "TBD: corporate.scrum_master_dashboard.sections.scrum_master_kpi_section.title",
-          "subtitle": "TBD: corporate.scrum_master_dashboard.sections.scrum_master_kpi_section.subtitle"
+          "title": "Scrum Master Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "staff_training_matrix_screen": {
-      "title": "TBD: corporate.staff_training_matrix_screen.title",
-      "subtitle": "TBD: corporate.staff_training_matrix_screen.subtitle"
+      "title": "Staff Training Matrix Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "support_dashboard": {
-      "title": "TBD: corporate.support_dashboard.title",
-      "subtitle": "TBD: corporate.support_dashboard.subtitle",
+      "title": "Support Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "support_dashboard_screen": {
-        "title": "TBD: corporate.support_dashboard.support_dashboard_screen.title",
-        "subtitle": "TBD: corporate.support_dashboard.support_dashboard_screen.subtitle"
+        "title": "Support Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "support_kpi_section": {
-          "title": "TBD: corporate.support_dashboard.sections.support_kpi_section.title",
-          "subtitle": "TBD: corporate.support_dashboard.sections.support_kpi_section.subtitle"
+          "title": "Support Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "trainer_assignments_screen": {
-      "title": "TBD: corporate.trainer_assignments_screen.title",
-      "subtitle": "TBD: corporate.trainer_assignments_screen.subtitle"
+      "title": "Trainer Assignments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_coordinator_certifications_screen": {
-      "title": "TBD: corporate.training_coordinator_certifications_screen.title",
-      "subtitle": "TBD: corporate.training_coordinator_certifications_screen.subtitle"
+      "title": "Training Coordinator Certifications Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_coordinator_dashboard": {
-      "title": "TBD: corporate.training_coordinator_dashboard.title",
-      "subtitle": "TBD: corporate.training_coordinator_dashboard.subtitle",
+      "title": "Training Coordinator Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "training_coordinator_dashboard_screen": {
-        "title": "TBD: corporate.training_coordinator_dashboard.training_coordinator_dashboard_screen.title",
-        "subtitle": "TBD: corporate.training_coordinator_dashboard.training_coordinator_dashboard_screen.subtitle"
+        "title": "Training Coordinator Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "training_coordinator_kpi_section": {
-          "title": "TBD: corporate.training_coordinator_dashboard.sections.training_coordinator_kpi_section.title",
-          "subtitle": "TBD: corporate.training_coordinator_dashboard.sections.training_coordinator_kpi_section.subtitle"
+          "title": "Training Coordinator Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "training_coordinator_reports_screen": {
-      "title": "TBD: corporate.training_coordinator_reports_screen.title",
-      "subtitle": "TBD: corporate.training_coordinator_reports_screen.subtitle"
+      "title": "Training Coordinator Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_assessments_screen": {
-      "title": "TBD: corporate.training_director_assessments_screen.title",
-      "subtitle": "TBD: corporate.training_director_assessments_screen.subtitle"
+      "title": "Training Director Assessments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_certifications_screen": {
-      "title": "TBD: corporate.training_director_certifications_screen.title",
-      "subtitle": "TBD: corporate.training_director_certifications_screen.subtitle"
+      "title": "Training Director Certifications Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_compliance_training_screen": {
-      "title": "TBD: corporate.training_director_compliance_training_screen.title",
-      "subtitle": "TBD: corporate.training_director_compliance_training_screen.subtitle"
+      "title": "Training Director Compliance Training Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_course_library_screen": {
-      "title": "TBD: corporate.training_director_course_library_screen.title",
-      "subtitle": "TBD: corporate.training_director_course_library_screen.subtitle"
+      "title": "Training Director Course Library Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_dashboard": {
-      "title": "TBD: corporate.training_director_dashboard.title",
-      "subtitle": "TBD: corporate.training_director_dashboard.subtitle",
+      "title": "Training Director Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "training_director_dashboard_screen": {
-        "title": "TBD: corporate.training_director_dashboard.training_director_dashboard_screen.title",
-        "subtitle": "TBD: corporate.training_director_dashboard.training_director_dashboard_screen.subtitle"
+        "title": "Training Director Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "training_director_kpi_section": {
-          "title": "TBD: corporate.training_director_dashboard.sections.training_director_kpi_section.title",
-          "subtitle": "TBD: corporate.training_director_dashboard.sections.training_director_kpi_section.subtitle"
+          "title": "Training Director Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "training_director_reports_screen": {
-      "title": "TBD: corporate.training_director_reports_screen.title",
-      "subtitle": "TBD: corporate.training_director_reports_screen.subtitle"
+      "title": "Training Director Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_staff_training_matrix_screen": {
-      "title": "TBD: corporate.training_director_staff_training_matrix_screen.title",
-      "subtitle": "TBD: corporate.training_director_staff_training_matrix_screen.subtitle"
+      "title": "Training Director Staff Training Matrix Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_trainer_assignments_screen": {
-      "title": "TBD: corporate.training_director_trainer_assignments_screen.title",
-      "subtitle": "TBD: corporate.training_director_trainer_assignments_screen.subtitle"
+      "title": "Training Director Trainer Assignments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_director_training_programs_screen": {
-      "title": "TBD: corporate.training_director_training_programs_screen.title",
-      "subtitle": "TBD: corporate.training_director_training_programs_screen.subtitle"
+      "title": "Training Director Training Programs Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_programs_screen": {
-      "title": "TBD: corporate.training_programs_screen.title",
-      "subtitle": "TBD: corporate.training_programs_screen.subtitle"
+      "title": "Training Programs Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_reports_screen": {
-      "title": "TBD: corporate.training_reports_screen.title",
-      "subtitle": "TBD: corporate.training_reports_screen.subtitle"
+      "title": "Training Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     }
   },
   "franchise": {
@@ -1013,394 +1383,394 @@
       }
     },
     "admin_claims_screen": {
-      "title": "TBD: franchise.admin_claims_screen.title",
-      "subtitle": "TBD: franchise.admin_claims_screen.subtitle"
+      "title": "Admin Claims Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "admin_invoices_screen": {
-      "title": "TBD: franchise.admin_invoices_screen.title",
-      "subtitle": "TBD: franchise.admin_invoices_screen.subtitle"
+      "title": "Admin Invoices Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "admin_outstanding_balances_screen": {
-      "title": "TBD: franchise.admin_outstanding_balances_screen.title",
-      "subtitle": "TBD: franchise.admin_outstanding_balances_screen.subtitle"
+      "title": "Admin Outstanding Balances Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "admin_payments_screen": {
-      "title": "TBD: franchise.admin_payments_screen.title",
-      "subtitle": "TBD: franchise.admin_payments_screen.subtitle"
+      "title": "Admin Payments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "admin_reconciliation_screen": {
-      "title": "TBD: franchise.admin_reconciliation_screen.title",
-      "subtitle": "TBD: franchise.admin_reconciliation_screen.subtitle"
+      "title": "Admin Reconciliation Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "admin_refunds_screen": {
-      "title": "TBD: franchise.admin_refunds_screen.title",
-      "subtitle": "TBD: franchise.admin_refunds_screen.subtitle"
+      "title": "Admin Refunds Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "admin_reports_screen": {
-      "title": "TBD: franchise.admin_reports_screen.title",
-      "subtitle": "TBD: franchise.admin_reports_screen.subtitle"
+      "title": "Admin Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "applicants_screen": {
-      "title": "TBD: franchise.applicants_screen.title",
-      "subtitle": "TBD: franchise.applicants_screen.subtitle"
+      "title": "Applicants Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "appointments_screen": {
-      "title": "TBD: franchise.appointments_screen.title",
-      "subtitle": "TBD: franchise.appointments_screen.subtitle"
+      "title": "Appointments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "appointment_calendar_screen": {
-      "title": "TBD: franchise.appointment_calendar_screen.title",
-      "subtitle": "TBD: franchise.appointment_calendar_screen.subtitle"
+      "title": "Appointment Calendar Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "assignments_screen": {
-      "title": "TBD: franchise.assignments_screen.title",
-      "subtitle": "TBD: franchise.assignments_screen.subtitle"
+      "title": "Assignments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "billing_admin_dashboard": {
-      "title": "TBD: franchise.billing_admin_dashboard.title",
-      "subtitle": "TBD: franchise.billing_admin_dashboard.subtitle",
+      "title": "Billing Admin Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "billing_admin_dashboard_screen": {
-        "title": "TBD: franchise.billing_admin_dashboard.billing_admin_dashboard_screen.title",
-        "subtitle": "TBD: franchise.billing_admin_dashboard.billing_admin_dashboard_screen.subtitle"
+        "title": "Billing Admin Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "billing_admin_kpi_section": {
-          "title": "TBD: franchise.billing_admin_dashboard.sections.billing_admin_kpi_section.title",
-          "subtitle": "TBD: franchise.billing_admin_dashboard.sections.billing_admin_kpi_section.subtitle"
+          "title": "Billing Admin Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "billing_dashboard": {
-      "title": "TBD: franchise.billing_dashboard.title",
-      "subtitle": "TBD: franchise.billing_dashboard.subtitle"
+      "title": "Billing Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "booking_requests_screen": {
-      "title": "TBD: franchise.booking_requests_screen.title",
-      "subtitle": "TBD: franchise.booking_requests_screen.subtitle"
+      "title": "Booking Requests Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "branch_overview_screen": {
-      "title": "TBD: franchise.branch_overview_screen.title",
-      "subtitle": "TBD: franchise.branch_overview_screen.subtitle"
+      "title": "Branch Overview Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "clients_screen": {
-      "title": "TBD: franchise.clients_screen.title",
-      "subtitle": "TBD: franchise.clients_screen.subtitle"
+      "title": "Clients Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "community_outreach_reports_screen": {
-      "title": "TBD: franchise.community_outreach_reports_screen.title",
-      "subtitle": "TBD: franchise.community_outreach_reports_screen.subtitle"
+      "title": "Community Outreach Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "compliance_screen": {
-      "title": "TBD: franchise.compliance_screen.title",
-      "subtitle": "TBD: franchise.compliance_screen.subtitle"
+      "title": "Compliance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "conflicts_screen": {
-      "title": "TBD: franchise.conflicts_screen.title",
-      "subtitle": "TBD: franchise.conflicts_screen.subtitle"
+      "title": "Conflicts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "credentials_screen": {
-      "title": "TBD: franchise.credentials_screen.title",
-      "subtitle": "TBD: franchise.credentials_screen.subtitle"
+      "title": "Credentials Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "daily_operations_screen": {
-      "title": "TBD: franchise.daily_operations_screen.title",
-      "subtitle": "TBD: franchise.daily_operations_screen.subtitle"
+      "title": "Daily Operations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "financial_snapshot_screen": {
-      "title": "TBD: franchise.financial_snapshot_screen.title",
-      "subtitle": "TBD: franchise.financial_snapshot_screen.subtitle"
+      "title": "Financial Snapshot Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_claims_screen": {
-      "title": "TBD: franchise.franchise_claims_screen.title",
-      "subtitle": "TBD: franchise.franchise_claims_screen.subtitle"
+      "title": "Franchise Claims Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_invoices_screen": {
-      "title": "TBD: franchise.franchise_invoices_screen.title",
-      "subtitle": "TBD: franchise.franchise_invoices_screen.subtitle"
+      "title": "Franchise Invoices Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_outstanding_balances_screen": {
-      "title": "TBD: franchise.franchise_outstanding_balances_screen.title",
-      "subtitle": "TBD: franchise.franchise_outstanding_balances_screen.subtitle"
+      "title": "Franchise Outstanding Balances Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_appointments_screen": {
-      "title": "TBD: franchise.franchise_owner_appointments_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_appointments_screen.subtitle"
+      "title": "Franchise Owner Appointments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_branch_overview_screen": {
-      "title": "TBD: franchise.franchise_owner_branch_overview_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_branch_overview_screen.subtitle"
+      "title": "Franchise Owner Branch Overview Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_clients_screen": {
-      "title": "TBD: franchise.franchise_owner_clients_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_clients_screen.subtitle"
+      "title": "Franchise Owner Clients Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_compliance_screen": {
-      "title": "TBD: franchise.franchise_owner_compliance_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_compliance_screen.subtitle"
+      "title": "Franchise Owner Compliance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_dashboard": {
-      "title": "TBD: franchise.franchise_owner_dashboard.title",
-      "subtitle": "TBD: franchise.franchise_owner_dashboard.subtitle",
+      "title": "Franchise Owner Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "franchise_owner_dashboard_screen": {
-        "title": "TBD: franchise.franchise_owner_dashboard.franchise_owner_dashboard_screen.title",
-        "subtitle": "TBD: franchise.franchise_owner_dashboard.franchise_owner_dashboard_screen.subtitle"
+        "title": "Franchise Owner Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "franchise_owner_kpi_section": {
-          "title": "TBD: franchise.franchise_owner_dashboard.sections.franchise_owner_kpi_section.title",
-          "subtitle": "TBD: franchise.franchise_owner_dashboard.sections.franchise_owner_kpi_section.subtitle"
+          "title": "Franchise Owner Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "franchise_owner_financial_snapshot_screen": {
-      "title": "TBD: franchise.franchise_owner_financial_snapshot_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_financial_snapshot_screen.subtitle"
+      "title": "Franchise Owner Financial Snapshot Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_hiring_screen": {
-      "title": "TBD: franchise.franchise_owner_hiring_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_hiring_screen.subtitle"
+      "title": "Franchise Owner Hiring Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_reports_screen": {
-      "title": "TBD: franchise.franchise_owner_reports_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_reports_screen.subtitle"
+      "title": "Franchise Owner Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_owner_staff_screen": {
-      "title": "TBD: franchise.franchise_owner_staff_screen.title",
-      "subtitle": "TBD: franchise.franchise_owner_staff_screen.subtitle"
+      "title": "Franchise Owner Staff Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_payments_screen": {
-      "title": "TBD: franchise.franchise_payments_screen.title",
-      "subtitle": "TBD: franchise.franchise_payments_screen.subtitle"
+      "title": "Franchise Payments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_reconciliation_screen": {
-      "title": "TBD: franchise.franchise_reconciliation_screen.title",
-      "subtitle": "TBD: franchise.franchise_reconciliation_screen.subtitle"
+      "title": "Franchise Reconciliation Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_refunds_screen": {
-      "title": "TBD: franchise.franchise_refunds_screen.title",
-      "subtitle": "TBD: franchise.franchise_refunds_screen.subtitle"
+      "title": "Franchise Refunds Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "franchise_reports_screen": {
-      "title": "TBD: franchise.franchise_reports_screen.title",
-      "subtitle": "TBD: franchise.franchise_reports_screen.subtitle"
+      "title": "Franchise Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hiring_screen": {
-      "title": "TBD: franchise.hiring_screen.title",
-      "subtitle": "TBD: franchise.hiring_screen.subtitle"
+      "title": "Hiring Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_dashboard": {
-      "title": "TBD: franchise.hr_dashboard.title",
-      "subtitle": "TBD: franchise.hr_dashboard.subtitle"
+      "title": "Hr Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_applicants_screen": {
-      "title": "TBD: franchise.hr_hiring_applicants_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_applicants_screen.subtitle"
+      "title": "Hr Hiring Applicants Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_credentials_screen": {
-      "title": "TBD: franchise.hr_hiring_credentials_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_credentials_screen.subtitle"
+      "title": "Hr Hiring Credentials Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_dashboard": {
-      "title": "TBD: franchise.hr_hiring_dashboard.title",
-      "subtitle": "TBD: franchise.hr_hiring_dashboard.subtitle",
+      "title": "Hr Hiring Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "hr_hiring_dashboard_screen": {
-        "title": "TBD: franchise.hr_hiring_dashboard.hr_hiring_dashboard_screen.title",
-        "subtitle": "TBD: franchise.hr_hiring_dashboard.hr_hiring_dashboard_screen.subtitle"
+        "title": "Hr Hiring Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "hr_hiring_kpi_section": {
-          "title": "TBD: franchise.hr_hiring_dashboard.sections.hr_hiring_kpi_section.title",
-          "subtitle": "TBD: franchise.hr_hiring_dashboard.sections.hr_hiring_kpi_section.subtitle"
+          "title": "Hr Hiring Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "hr_hiring_interviews_screen": {
-      "title": "TBD: franchise.hr_hiring_interviews_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_interviews_screen.subtitle"
+      "title": "Hr Hiring Interviews Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_offers_screen": {
-      "title": "TBD: franchise.hr_hiring_offers_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_offers_screen.subtitle"
+      "title": "Hr Hiring Offers Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_onboarding_screen": {
-      "title": "TBD: franchise.hr_hiring_onboarding_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_onboarding_screen.subtitle"
+      "title": "Hr Hiring Onboarding Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_reports_screen": {
-      "title": "TBD: franchise.hr_hiring_reports_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_reports_screen.subtitle"
+      "title": "Hr Hiring Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_staff_documents_screen": {
-      "title": "TBD: franchise.hr_hiring_staff_documents_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_staff_documents_screen.subtitle"
+      "title": "Hr Hiring Staff Documents Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "hr_hiring_training_status_screen": {
-      "title": "TBD: franchise.hr_hiring_training_status_screen.title",
-      "subtitle": "TBD: franchise.hr_hiring_training_status_screen.subtitle"
+      "title": "Hr Hiring Training Status Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "interviews_screen": {
-      "title": "TBD: franchise.interviews_screen.title",
-      "subtitle": "TBD: franchise.interviews_screen.subtitle"
+      "title": "Interviews Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "issues_screen": {
-      "title": "TBD: franchise.issues_screen.title",
-      "subtitle": "TBD: franchise.issues_screen.subtitle"
+      "title": "Issues Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "offers_screen": {
-      "title": "TBD: franchise.offers_screen.title",
-      "subtitle": "TBD: franchise.offers_screen.subtitle"
+      "title": "Offers Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "onboarding_screen": {
-      "title": "TBD: franchise.onboarding_screen.title",
-      "subtitle": "TBD: franchise.onboarding_screen.subtitle"
+      "title": "Onboarding Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "open_shifts_screen": {
-      "title": "TBD: franchise.open_shifts_screen.title",
-      "subtitle": "TBD: franchise.open_shifts_screen.subtitle"
+      "title": "Open Shifts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_attendance_screen": {
-      "title": "TBD: franchise.operations_manager_attendance_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_attendance_screen.subtitle"
+      "title": "Operations Manager Attendance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_daily_operations_screen": {
-      "title": "TBD: franchise.operations_manager_daily_operations_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_daily_operations_screen.subtitle"
+      "title": "Operations Manager Daily Operations Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_dashboard": {
-      "title": "TBD: franchise.operations_manager_dashboard.title",
-      "subtitle": "TBD: franchise.operations_manager_dashboard.subtitle",
+      "title": "Operations Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "operations_manager_dashboard_screen": {
-        "title": "TBD: franchise.operations_manager_dashboard.operations_manager_dashboard_screen.title",
-        "subtitle": "TBD: franchise.operations_manager_dashboard.operations_manager_dashboard_screen.subtitle"
+        "title": "Operations Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "operations_manager_kpi_section": {
-          "title": "TBD: franchise.operations_manager_dashboard.sections.operations_manager_kpi_section.title",
-          "subtitle": "TBD: franchise.operations_manager_dashboard.sections.operations_manager_kpi_section.subtitle"
+          "title": "Operations Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "operations_manager_issues_screen": {
-      "title": "TBD: franchise.operations_manager_issues_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_issues_screen.subtitle"
+      "title": "Operations Manager Issues Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_reports_screen": {
-      "title": "TBD: franchise.operations_manager_reports_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_reports_screen.subtitle"
+      "title": "Operations Manager Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_schedule_screen": {
-      "title": "TBD: franchise.operations_manager_schedule_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_schedule_screen.subtitle"
+      "title": "Operations Manager Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_service_quality_screen": {
-      "title": "TBD: franchise.operations_manager_service_quality_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_service_quality_screen.subtitle"
+      "title": "Operations Manager Service Quality Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_shifts_screen": {
-      "title": "TBD: franchise.operations_manager_shifts_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_shifts_screen.subtitle"
+      "title": "Operations Manager Shifts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "operations_manager_staff_coordination_screen": {
-      "title": "TBD: franchise.operations_manager_staff_coordination_screen.title",
-      "subtitle": "TBD: franchise.operations_manager_staff_coordination_screen.subtitle"
+      "title": "Operations Manager Staff Coordination Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "ops_manager_dashboard": {
-      "title": "TBD: franchise.ops_manager_dashboard.title",
-      "subtitle": "TBD: franchise.ops_manager_dashboard.subtitle"
+      "title": "Ops Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "owner_dashboard": {
+      "owner_dashboard_screen": {
+        "title": "Owner Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "owner_kpi_section": {
+          "title": "Owner Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
     },
     "provider_availability_screen": {
-      "title": "TBD: franchise.provider_availability_screen.title",
-      "subtitle": "TBD: franchise.provider_availability_screen.subtitle"
+      "title": "Provider Availability Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_coordinator_appointment_calendar_screen": {
-      "title": "TBD: franchise.scheduler_coordinator_appointment_calendar_screen.title",
-      "subtitle": "TBD: franchise.scheduler_coordinator_appointment_calendar_screen.subtitle"
+      "title": "Scheduler Coordinator Appointment Calendar Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_coordinator_assignments_screen": {
-      "title": "TBD: franchise.scheduler_coordinator_assignments_screen.title",
-      "subtitle": "TBD: franchise.scheduler_coordinator_assignments_screen.subtitle"
+      "title": "Scheduler Coordinator Assignments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_coordinator_booking_requests_screen": {
-      "title": "TBD: franchise.scheduler_coordinator_booking_requests_screen.title",
-      "subtitle": "TBD: franchise.scheduler_coordinator_booking_requests_screen.subtitle"
+      "title": "Scheduler Coordinator Booking Requests Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_coordinator_conflicts_screen": {
-      "title": "TBD: franchise.scheduler_coordinator_conflicts_screen.title",
-      "subtitle": "TBD: franchise.scheduler_coordinator_conflicts_screen.subtitle"
+      "title": "Scheduler Coordinator Conflicts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_coordinator_open_shifts_screen": {
-      "title": "TBD: franchise.scheduler_coordinator_open_shifts_screen.title",
-      "subtitle": "TBD: franchise.scheduler_coordinator_open_shifts_screen.subtitle"
+      "title": "Scheduler Coordinator Open Shifts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_coordinator_provider_availability_screen": {
-      "title": "TBD: franchise.scheduler_coordinator_provider_availability_screen.title",
-      "subtitle": "TBD: franchise.scheduler_coordinator_provider_availability_screen.subtitle"
+      "title": "Scheduler Coordinator Provider Availability Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_coordinator_shift_calendar_screen": {
-      "title": "TBD: franchise.scheduler_coordinator_shift_calendar_screen.title",
-      "subtitle": "TBD: franchise.scheduler_coordinator_shift_calendar_screen.subtitle"
+      "title": "Scheduler Coordinator Shift Calendar Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduler_dashboard": {
-      "title": "TBD: franchise.scheduler_dashboard.title",
-      "subtitle": "TBD: franchise.scheduler_dashboard.subtitle",
+      "title": "Scheduler Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "scheduler_dashboard_screen": {
-        "title": "TBD: franchise.scheduler_dashboard.scheduler_dashboard_screen.title",
-        "subtitle": "TBD: franchise.scheduler_dashboard.scheduler_dashboard_screen.subtitle"
+        "title": "Scheduler Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "scheduler_kpi_section": {
-          "title": "TBD: franchise.scheduler_dashboard.sections.scheduler_kpi_section.title",
-          "subtitle": "TBD: franchise.scheduler_dashboard.sections.scheduler_kpi_section.subtitle"
+          "title": "Scheduler Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "schedule_screen": {
-      "title": "TBD: franchise.schedule_screen.title",
-      "subtitle": "TBD: franchise.schedule_screen.subtitle"
+      "title": "Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "scheduling_dashboard": {
-      "title": "TBD: franchise.scheduling_dashboard.title",
-      "subtitle": "TBD: franchise.scheduling_dashboard.subtitle"
+      "title": "Scheduling Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "service_quality_screen": {
-      "title": "TBD: franchise.service_quality_screen.title",
-      "subtitle": "TBD: franchise.service_quality_screen.subtitle"
+      "title": "Service Quality Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "shifts_screen": {
-      "title": "TBD: franchise.shifts_screen.title",
-      "subtitle": "TBD: franchise.shifts_screen.subtitle"
+      "title": "Shifts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "shift_calendar_screen": {
-      "title": "TBD: franchise.shift_calendar_screen.title",
-      "subtitle": "TBD: franchise.shift_calendar_screen.subtitle"
+      "title": "Shift Calendar Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "staff_coordination_screen": {
-      "title": "TBD: franchise.staff_coordination_screen.title",
-      "subtitle": "TBD: franchise.staff_coordination_screen.subtitle"
+      "title": "Staff Coordination Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "staff_documents_screen": {
-      "title": "TBD: franchise.staff_documents_screen.title",
-      "subtitle": "TBD: franchise.staff_documents_screen.subtitle"
+      "title": "Staff Documents Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "staff_screen": {
-      "title": "TBD: franchise.staff_screen.title",
-      "subtitle": "TBD: franchise.staff_screen.subtitle"
+      "title": "Staff Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "training_status_screen": {
-      "title": "TBD: franchise.training_status_screen.title",
-      "subtitle": "TBD: franchise.training_status_screen.subtitle"
-    },
-    "owner_dashboard": {
-      "owner_dashboard_screen": {
-        "title": "TBD: franchise.owner_dashboard.owner_dashboard_screen.title",
-        "subtitle": "TBD: franchise.owner_dashboard.owner_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "owner_kpi_section": {
-          "title": "TBD: franchise.owner_dashboard.sections.owner_kpi_section.title",
-          "subtitle": "TBD: franchise.owner_dashboard.sections.owner_kpi_section.subtitle"
-        }
-      }
+      "title": "Training Status Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     }
   },
   "marketing": {
@@ -1441,646 +1811,276 @@
       }
     },
     "brand_assets_screen": {
-      "title": "TBD: marketing.brand_assets_screen.title",
-      "subtitle": "TBD: marketing.brand_assets_screen.subtitle"
+      "title": "Brand Assets Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "campaigns_screen": {
-      "title": "TBD: marketing.campaigns_screen.title",
-      "subtitle": "TBD: marketing.campaigns_screen.subtitle"
+      "title": "Campaigns Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "community_outreach_contacts_screen": {
-      "title": "TBD: marketing.community_outreach_contacts_screen.title",
-      "subtitle": "TBD: marketing.community_outreach_contacts_screen.subtitle"
+      "title": "Community Outreach Contacts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "community_outreach_dashboard": {
-      "title": "TBD: marketing.community_outreach_dashboard.title",
-      "subtitle": "TBD: marketing.community_outreach_dashboard.subtitle",
+      "title": "Community Outreach Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "community_outreach_dashboard_screen": {
-        "title": "TBD: marketing.community_outreach_dashboard.community_outreach_dashboard_screen.title",
-        "subtitle": "TBD: marketing.community_outreach_dashboard.community_outreach_dashboard_screen.subtitle"
+        "title": "Community Outreach Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "community_outreach_kpi_section": {
-          "title": "TBD: marketing.community_outreach_dashboard.sections.community_outreach_kpi_section.title",
-          "subtitle": "TBD: marketing.community_outreach_dashboard.sections.community_outreach_kpi_section.subtitle"
+          "title": "Community Outreach Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "community_outreach_events_screen": {
-      "title": "TBD: marketing.community_outreach_events_screen.title",
-      "subtitle": "TBD: marketing.community_outreach_events_screen.subtitle"
+      "title": "Community Outreach Events Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "community_outreach_follow_ups_screen": {
-      "title": "TBD: marketing.community_outreach_follow_ups_screen.title",
-      "subtitle": "TBD: marketing.community_outreach_follow_ups_screen.subtitle"
+      "title": "Community Outreach Follow Ups Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "community_outreach_partnerships_screen": {
-      "title": "TBD: marketing.community_outreach_partnerships_screen.title",
-      "subtitle": "TBD: marketing.community_outreach_partnerships_screen.subtitle"
+      "title": "Community Outreach Partnerships Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "community_outreach_programs_screen": {
-      "title": "TBD: marketing.community_outreach_programs_screen.title",
-      "subtitle": "TBD: marketing.community_outreach_programs_screen.subtitle"
+      "title": "Community Outreach Programs Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "community_outreach_volunteers_screen": {
-      "title": "TBD: marketing.community_outreach_volunteers_screen.title",
-      "subtitle": "TBD: marketing.community_outreach_volunteers_screen.subtitle"
+      "title": "Community Outreach Volunteers Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "contacts_screen": {
-      "title": "TBD: marketing.contacts_screen.title",
-      "subtitle": "TBD: marketing.contacts_screen.subtitle"
+      "title": "Contacts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "content_approval_screen": {
-      "title": "TBD: marketing.content_approval_screen.title",
-      "subtitle": "TBD: marketing.content_approval_screen.subtitle"
+      "title": "Content Approval Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "events_screen": {
-      "title": "TBD: marketing.events_screen.title",
-      "subtitle": "TBD: marketing.events_screen.subtitle"
+      "title": "Events Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "funnel_analytics_screen": {
-      "title": "TBD: marketing.funnel_analytics_screen.title",
-      "subtitle": "TBD: marketing.funnel_analytics_screen.subtitle"
+      "title": "Funnel Analytics Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "head_of_marketing_brand_assets_screen": {
-      "title": "TBD: marketing.head_of_marketing_brand_assets_screen.title",
-      "subtitle": "TBD: marketing.head_of_marketing_brand_assets_screen.subtitle"
+      "title": "Head Of Marketing Brand Assets Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "head_of_marketing_campaigns_screen": {
-      "title": "TBD: marketing.head_of_marketing_campaigns_screen.title",
-      "subtitle": "TBD: marketing.head_of_marketing_campaigns_screen.subtitle"
+      "title": "Head Of Marketing Campaigns Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "head_of_marketing_content_approval_screen": {
-      "title": "TBD: marketing.head_of_marketing_content_approval_screen.title",
-      "subtitle": "TBD: marketing.head_of_marketing_content_approval_screen.subtitle"
+      "title": "Head Of Marketing Content Approval Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "head_of_marketing_dashboard": {
-      "title": "TBD: marketing.head_of_marketing_dashboard.title",
-      "subtitle": "TBD: marketing.head_of_marketing_dashboard.subtitle",
+      "title": "Head Of Marketing Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "head_of_marketing_dashboard_screen": {
-        "title": "TBD: marketing.head_of_marketing_dashboard.head_of_marketing_dashboard_screen.title",
-        "subtitle": "TBD: marketing.head_of_marketing_dashboard.head_of_marketing_dashboard_screen.subtitle"
+        "title": "Head Of Marketing Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "head_of_marketing_kpi_section": {
-          "title": "TBD: marketing.head_of_marketing_dashboard.sections.head_of_marketing_kpi_section.title",
-          "subtitle": "TBD: marketing.head_of_marketing_dashboard.sections.head_of_marketing_kpi_section.subtitle"
+          "title": "Head Of Marketing Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "head_of_marketing_funnel_analytics_screen": {
-      "title": "TBD: marketing.head_of_marketing_funnel_analytics_screen.title",
-      "subtitle": "TBD: marketing.head_of_marketing_funnel_analytics_screen.subtitle"
+      "title": "Head Of Marketing Funnel Analytics Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "head_of_marketing_leads_screen": {
-      "title": "TBD: marketing.head_of_marketing_leads_screen.title",
-      "subtitle": "TBD: marketing.head_of_marketing_leads_screen.subtitle"
+      "title": "Head Of Marketing Leads Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "head_of_marketing_performance_reports_screen": {
-      "title": "TBD: marketing.head_of_marketing_performance_reports_screen.title",
-      "subtitle": "TBD: marketing.head_of_marketing_performance_reports_screen.subtitle"
+      "title": "Head Of Marketing Performance Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "head_of_marketing_regional_campaigns_screen": {
-      "title": "TBD: marketing.head_of_marketing_regional_campaigns_screen.title",
-      "subtitle": "TBD: marketing.head_of_marketing_regional_campaigns_screen.subtitle"
+      "title": "Head Of Marketing Regional Campaigns Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_assets_screen": {
-      "title": "TBD: marketing.local_assets_screen.title",
-      "subtitle": "TBD: marketing.local_assets_screen.subtitle"
+      "title": "Local Assets Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_budget_screen": {
-      "title": "TBD: marketing.local_budget_screen.title",
-      "subtitle": "TBD: marketing.local_budget_screen.subtitle"
+      "title": "Local Budget Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_campaigns_screen": {
-      "title": "TBD: marketing.local_campaigns_screen.title",
-      "subtitle": "TBD: marketing.local_campaigns_screen.subtitle"
+      "title": "Local Campaigns Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_content_calendar_screen": {
-      "title": "TBD: marketing.local_content_calendar_screen.title",
-      "subtitle": "TBD: marketing.local_content_calendar_screen.subtitle"
+      "title": "Local Content Calendar Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_events_screen": {
-      "title": "TBD: marketing.local_events_screen.title",
-      "subtitle": "TBD: marketing.local_events_screen.subtitle"
+      "title": "Local Events Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_leads_screen": {
-      "title": "TBD: marketing.local_leads_screen.title",
-      "subtitle": "TBD: marketing.local_leads_screen.subtitle"
+      "title": "Local Leads Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_dashboard": {
-      "title": "TBD: marketing.local_marketing_dashboard.title",
-      "subtitle": "TBD: marketing.local_marketing_dashboard.subtitle"
+      "title": "Local Marketing Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_manager_assets_screen": {
-      "title": "TBD: marketing.local_marketing_manager_assets_screen.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_assets_screen.subtitle"
+      "title": "Local Marketing Manager Assets Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_manager_budget_screen": {
-      "title": "TBD: marketing.local_marketing_manager_budget_screen.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_budget_screen.subtitle"
+      "title": "Local Marketing Manager Budget Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_manager_campaigns_screen": {
-      "title": "TBD: marketing.local_marketing_manager_campaigns_screen.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_campaigns_screen.subtitle"
+      "title": "Local Marketing Manager Campaigns Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_manager_content_calendar_screen": {
-      "title": "TBD: marketing.local_marketing_manager_content_calendar_screen.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_content_calendar_screen.subtitle"
+      "title": "Local Marketing Manager Content Calendar Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_manager_dashboard": {
-      "title": "TBD: marketing.local_marketing_manager_dashboard.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_dashboard.subtitle",
+      "title": "Local Marketing Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "local_marketing_manager_dashboard_screen": {
-        "title": "TBD: marketing.local_marketing_manager_dashboard.local_marketing_manager_dashboard_screen.title",
-        "subtitle": "TBD: marketing.local_marketing_manager_dashboard.local_marketing_manager_dashboard_screen.subtitle"
+        "title": "Local Marketing Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "local_marketing_manager_kpi_section": {
-          "title": "TBD: marketing.local_marketing_manager_dashboard.sections.local_marketing_manager_kpi_section.title",
-          "subtitle": "TBD: marketing.local_marketing_manager_dashboard.sections.local_marketing_manager_kpi_section.subtitle"
+          "title": "Local Marketing Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "local_marketing_manager_events_screen": {
-      "title": "TBD: marketing.local_marketing_manager_events_screen.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_events_screen.subtitle"
+      "title": "Local Marketing Manager Events Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_manager_leads_screen": {
-      "title": "TBD: marketing.local_marketing_manager_leads_screen.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_leads_screen.subtitle"
+      "title": "Local Marketing Manager Leads Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_marketing_manager_reports_screen": {
-      "title": "TBD: marketing.local_marketing_manager_reports_screen.title",
-      "subtitle": "TBD: marketing.local_marketing_manager_reports_screen.subtitle"
+      "title": "Local Marketing Manager Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "local_reports_screen": {
-      "title": "TBD: marketing.local_reports_screen.title",
-      "subtitle": "TBD: marketing.local_reports_screen.subtitle"
+      "title": "Local Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "partnerships_screen": {
-      "title": "TBD: marketing.partnerships_screen.title",
-      "subtitle": "TBD: marketing.partnerships_screen.subtitle"
+      "title": "Partnerships Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "performance_reports_screen": {
-      "title": "TBD: marketing.performance_reports_screen.title",
-      "subtitle": "TBD: marketing.performance_reports_screen.subtitle"
+      "title": "Performance Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "programs_screen": {
-      "title": "TBD: marketing.programs_screen.title",
-      "subtitle": "TBD: marketing.programs_screen.subtitle"
+      "title": "Programs Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "regional_campaigns_screen": {
-      "title": "TBD: marketing.regional_campaigns_screen.title",
-      "subtitle": "TBD: marketing.regional_campaigns_screen.subtitle"
+      "title": "Regional Campaigns Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_area_performance_screen": {
-      "title": "TBD: marketing.territory_area_performance_screen.title",
-      "subtitle": "TBD: marketing.territory_area_performance_screen.subtitle"
+      "title": "Territory Area Performance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_competitors_screen": {
-      "title": "TBD: marketing.territory_competitors_screen.title",
-      "subtitle": "TBD: marketing.territory_competitors_screen.subtitle"
+      "title": "Territory Competitors Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_conversions_screen": {
-      "title": "TBD: marketing.territory_conversions_screen.title",
-      "subtitle": "TBD: marketing.territory_conversions_screen.subtitle"
+      "title": "Territory Conversions Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_field_activity_screen": {
-      "title": "TBD: marketing.territory_field_activity_screen.title",
-      "subtitle": "TBD: marketing.territory_field_activity_screen.subtitle"
+      "title": "Territory Field Activity Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_leads_screen": {
-      "title": "TBD: marketing.territory_leads_screen.title",
-      "subtitle": "TBD: marketing.territory_leads_screen.subtitle"
+      "title": "Territory Leads Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_pipeline_screen": {
-      "title": "TBD: marketing.territory_pipeline_screen.title",
-      "subtitle": "TBD: marketing.territory_pipeline_screen.subtitle"
+      "title": "Territory Pipeline Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_reports_screen": {
-      "title": "TBD: marketing.territory_reports_screen.title",
-      "subtitle": "TBD: marketing.territory_reports_screen.subtitle"
+      "title": "Territory Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_dashboard": {
-      "title": "TBD: marketing.territory_sales_dashboard.title",
-      "subtitle": "TBD: marketing.territory_sales_dashboard.subtitle"
+      "title": "Territory Sales Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_manager_area_performance_screen": {
-      "title": "TBD: marketing.territory_sales_manager_area_performance_screen.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_area_performance_screen.subtitle"
+      "title": "Territory Sales Manager Area Performance Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_manager_competitors_screen": {
-      "title": "TBD: marketing.territory_sales_manager_competitors_screen.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_competitors_screen.subtitle"
+      "title": "Territory Sales Manager Competitors Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_manager_conversions_screen": {
-      "title": "TBD: marketing.territory_sales_manager_conversions_screen.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_conversions_screen.subtitle"
+      "title": "Territory Sales Manager Conversions Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_manager_dashboard": {
-      "title": "TBD: marketing.territory_sales_manager_dashboard.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_dashboard.subtitle",
+      "title": "Territory Sales Manager Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
       "territory_sales_manager_dashboard_screen": {
-        "title": "TBD: marketing.territory_sales_manager_dashboard.territory_sales_manager_dashboard_screen.title",
-        "subtitle": "TBD: marketing.territory_sales_manager_dashboard.territory_sales_manager_dashboard_screen.subtitle"
+        "title": "Territory Sales Manager Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       },
       "sections": {
         "territory_sales_manager_kpi_section": {
-          "title": "TBD: marketing.territory_sales_manager_dashboard.sections.territory_sales_manager_kpi_section.title",
-          "subtitle": "TBD: marketing.territory_sales_manager_dashboard.sections.territory_sales_manager_kpi_section.subtitle"
+          "title": "Territory Sales Manager Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
         }
       }
     },
     "territory_sales_manager_field_activity_screen": {
-      "title": "TBD: marketing.territory_sales_manager_field_activity_screen.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_field_activity_screen.subtitle"
+      "title": "Territory Sales Manager Field Activity Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_manager_leads_screen": {
-      "title": "TBD: marketing.territory_sales_manager_leads_screen.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_leads_screen.subtitle"
+      "title": "Territory Sales Manager Leads Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_manager_pipeline_screen": {
-      "title": "TBD: marketing.territory_sales_manager_pipeline_screen.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_pipeline_screen.subtitle"
+      "title": "Territory Sales Manager Pipeline Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "territory_sales_manager_reports_screen": {
-      "title": "TBD: marketing.territory_sales_manager_reports_screen.title",
-      "subtitle": "TBD: marketing.territory_sales_manager_reports_screen.subtitle"
+      "title": "Territory Sales Manager Reports Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     },
     "volunteers_screen": {
-      "title": "TBD: marketing.volunteers_screen.title",
-      "subtitle": "TBD: marketing.volunteers_screen.subtitle"
-    }
-  },
-  "common": {
-    "clinic_care_plan_screen": {
-      "title": "TBD: common.clinic_care_plan_screen.title",
-      "subtitle": "TBD: common.clinic_care_plan_screen.subtitle"
-    },
-    "clinic_check_in_out_screen": {
-      "title": "TBD: common.clinic_check_in_out_screen.title",
-      "subtitle": "TBD: common.clinic_check_in_out_screen.subtitle"
-    },
-    "clinic_client_profile_screen": {
-      "title": "TBD: common.clinic_client_profile_screen.title",
-      "subtitle": "TBD: common.clinic_client_profile_screen.subtitle"
-    },
-    "clinic_daily_notes_screen": {
-      "title": "TBD: common.clinic_daily_notes_screen.title",
-      "subtitle": "TBD: common.clinic_daily_notes_screen.subtitle"
-    },
-    "clinic_incident_report_screen": {
-      "title": "TBD: common.clinic_incident_report_screen.title",
-      "subtitle": "TBD: common.clinic_incident_report_screen.subtitle"
-    },
-    "clinic_my_shifts_screen": {
-      "title": "TBD: common.clinic_my_shifts_screen.title",
-      "subtitle": "TBD: common.clinic_my_shifts_screen.subtitle"
-    },
-    "clinic_shift_details_screen": {
-      "title": "TBD: common.clinic_shift_details_screen.title",
-      "subtitle": "TBD: common.clinic_shift_details_screen.subtitle"
-    },
-    "billing_admin_dashboard": {
-      "billing_admin_dashboard_screen": {
-        "title": "TBD: common.billing_admin_dashboard.billing_admin_dashboard_screen.title",
-        "subtitle": "TBD: common.billing_admin_dashboard.billing_admin_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "billing_admin_kpi_section": {
-          "title": "TBD: common.billing_admin_dashboard.sections.billing_admin_kpi_section.title",
-          "subtitle": "TBD: common.billing_admin_dashboard.sections.billing_admin_kpi_section.subtitle"
-        }
-      }
-    },
-    "ceo_dashboard": {
-      "ceo_dashboard_screen": {
-        "title": "TBD: common.ceo_dashboard.ceo_dashboard_screen.title",
-        "subtitle": "TBD: common.ceo_dashboard.ceo_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "ceo_kpi_section": {
-          "title": "TBD: common.ceo_dashboard.sections.ceo_kpi_section.title",
-          "subtitle": "TBD: common.ceo_dashboard.sections.ceo_kpi_section.subtitle"
-        }
-      }
-    },
-    "clinic_dashboard": {
-      "clinic_dashboard_screen": {
-        "title": "TBD: common.clinic_dashboard.clinic_dashboard_screen.title",
-        "subtitle": "TBD: common.clinic_dashboard.clinic_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "clinic_kpi_section": {
-          "title": "TBD: common.clinic_dashboard.sections.clinic_kpi_section.title",
-          "subtitle": "TBD: common.clinic_dashboard.sections.clinic_kpi_section.subtitle"
-        }
-      }
-    },
-    "compliance_manager_dashboard": {
-      "compliance_manager_dashboard_screen": {
-        "title": "TBD: common.compliance_manager_dashboard.compliance_manager_dashboard_screen.title",
-        "subtitle": "TBD: common.compliance_manager_dashboard.compliance_manager_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "compliance_manager_kpi_section": {
-          "title": "TBD: common.compliance_manager_dashboard.sections.compliance_manager_kpi_section.title",
-          "subtitle": "TBD: common.compliance_manager_dashboard.sections.compliance_manager_kpi_section.subtitle"
-        }
-      }
-    },
-    "customer_support_dashboard": {
-      "customer_support_dashboard_screen": {
-        "title": "TBD: common.customer_support_dashboard.customer_support_dashboard_screen.title",
-        "subtitle": "TBD: common.customer_support_dashboard.customer_support_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "customer_support_kpi_section": {
-          "title": "TBD: common.customer_support_dashboard.sections.customer_support_kpi_section.title",
-          "subtitle": "TBD: common.customer_support_dashboard.sections.customer_support_kpi_section.subtitle"
-        }
-      }
-    },
-    "franchise_owner_dashboard": {
-      "franchise_owner_dashboard_screen": {
-        "title": "TBD: common.franchise_owner_dashboard.franchise_owner_dashboard_screen.title",
-        "subtitle": "TBD: common.franchise_owner_dashboard.franchise_owner_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "franchise_owner_kpi_section": {
-          "title": "TBD: common.franchise_owner_dashboard.sections.franchise_owner_kpi_section.title",
-          "subtitle": "TBD: common.franchise_owner_dashboard.sections.franchise_owner_kpi_section.subtitle"
-        }
-      }
-    },
-    "head_of_bus_dev_dashboard": {
-      "head_of_bus_dev_dashboard_screen": {
-        "title": "TBD: common.head_of_bus_dev_dashboard.head_of_bus_dev_dashboard_screen.title",
-        "subtitle": "TBD: common.head_of_bus_dev_dashboard.head_of_bus_dev_dashboard_screen.subtitle"
-      },
-      "sections": {
-        "head_of_bus_dev_kpi_section": {
-          "title": "TBD: common.head_of_bus_dev_dashboard.sections.head_of_bus_dev_kpi_section.title",
-          "subtitle": "TBD: common.head_of_bus_dev_dashboard.sections.head_of_bus_dev_kpi_section.subtitle"
-        }
-      }
-    }
-  },
-  "support": {
-    "attendance_screen": {
-      "title": "TBD: support.attendance_screen.title",
-      "subtitle": "TBD: support.attendance_screen.subtitle"
-    },
-    "audits_screen": {
-      "title": "TBD: support.audits_screen.title",
-      "subtitle": "TBD: support.audits_screen.subtitle"
-    },
-    "certifications_screen": {
-      "title": "TBD: support.certifications_screen.title",
-      "subtitle": "TBD: support.certifications_screen.subtitle"
-    },
-    "client_assignment_screen": {
-      "title": "TBD: support.client_assignment_screen.title",
-      "subtitle": "TBD: support.client_assignment_screen.subtitle"
-    },
-    "complaints_screen": {
-      "title": "TBD: support.complaints_screen.title",
-      "subtitle": "TBD: support.complaints_screen.subtitle"
-    },
-    "compliance_checks_screen": {
-      "title": "TBD: support.compliance_checks_screen.title",
-      "subtitle": "TBD: support.compliance_checks_screen.subtitle"
-    },
-    "corrective_actions_screen": {
-      "title": "TBD: support.corrective_actions_screen.title",
-      "subtitle": "TBD: support.corrective_actions_screen.subtitle"
-    },
-    "courses_screen": {
-      "title": "TBD: support.courses_screen.title",
-      "subtitle": "TBD: support.courses_screen.subtitle"
-    },
-    "customer_support_dashboard": {
-      "title": "TBD: support.customer_support_dashboard.title",
-      "subtitle": "TBD: support.customer_support_dashboard.subtitle"
-    },
-    "customer_support_escalations_screen": {
-      "title": "TBD: support.customer_support_escalations_screen.title",
-      "subtitle": "TBD: support.customer_support_escalations_screen.subtitle"
-    },
-    "customer_support_issue_categories_screen": {
-      "title": "TBD: support.customer_support_issue_categories_screen.title",
-      "subtitle": "TBD: support.customer_support_issue_categories_screen.subtitle"
-    },
-    "customer_support_reports_screen": {
-      "title": "TBD: support.customer_support_reports_screen.title",
-      "subtitle": "TBD: support.customer_support_reports_screen.subtitle"
-    },
-    "customer_support_templates_screen": {
-      "title": "TBD: support.customer_support_templates_screen.title",
-      "subtitle": "TBD: support.customer_support_templates_screen.subtitle"
-    },
-    "customer_support_tickets_screen": {
-      "title": "TBD: support.customer_support_tickets_screen.title",
-      "subtitle": "TBD: support.customer_support_tickets_screen.subtitle"
-    },
-    "eligibility_screen": {
-      "title": "TBD: support.eligibility_screen.title",
-      "subtitle": "TBD: support.eligibility_screen.subtitle"
-    },
-    "escalations_screen": {
-      "title": "TBD: support.escalations_screen.title",
-      "subtitle": "TBD: support.escalations_screen.subtitle"
-    },
-    "intake_coordinator_client_assignment_screen": {
-      "title": "TBD: support.intake_coordinator_client_assignment_screen.title",
-      "subtitle": "TBD: support.intake_coordinator_client_assignment_screen.subtitle"
-    },
-    "intake_coordinator_dashboard": {
-      "title": "TBD: support.intake_coordinator_dashboard.title",
-      "subtitle": "TBD: support.intake_coordinator_dashboard.subtitle"
-    },
-    "intake_coordinator_eligibility_screen": {
-      "title": "TBD: support.intake_coordinator_eligibility_screen.title",
-      "subtitle": "TBD: support.intake_coordinator_eligibility_screen.subtitle"
-    },
-    "intake_coordinator_intake_forms_screen": {
-      "title": "TBD: support.intake_coordinator_intake_forms_screen.title",
-      "subtitle": "TBD: support.intake_coordinator_intake_forms_screen.subtitle"
-    },
-    "intake_coordinator_new_intakes_screen": {
-      "title": "TBD: support.intake_coordinator_new_intakes_screen.title",
-      "subtitle": "TBD: support.intake_coordinator_new_intakes_screen.subtitle"
-    },
-    "intake_coordinator_scheduling_screen": {
-      "title": "TBD: support.intake_coordinator_scheduling_screen.title",
-      "subtitle": "TBD: support.intake_coordinator_scheduling_screen.subtitle"
-    },
-    "intake_dashboard": {
-      "title": "TBD: support.intake_dashboard.title",
-      "subtitle": "TBD: support.intake_dashboard.subtitle"
-    },
-    "intake_forms_screen": {
-      "title": "TBD: support.intake_forms_screen.title",
-      "subtitle": "TBD: support.intake_forms_screen.subtitle"
-    },
-    "issue_categories_screen": {
-      "title": "TBD: support.issue_categories_screen.title",
-      "subtitle": "TBD: support.issue_categories_screen.subtitle"
-    },
-    "materials_screen": {
-      "title": "TBD: support.materials_screen.title",
-      "subtitle": "TBD: support.materials_screen.subtitle"
-    },
-    "new_intakes_screen": {
-      "title": "TBD: support.new_intakes_screen.title",
-      "subtitle": "TBD: support.new_intakes_screen.subtitle"
-    },
-    "progress_screen": {
-      "title": "TBD: support.progress_screen.title",
-      "subtitle": "TBD: support.progress_screen.subtitle"
-    },
-    "qa_dashboard": {
-      "title": "TBD: support.qa_dashboard.title",
-      "subtitle": "TBD: support.qa_dashboard.subtitle"
-    },
-    "quality_assurance_audits_screen": {
-      "title": "TBD: support.quality_assurance_audits_screen.title",
-      "subtitle": "TBD: support.quality_assurance_audits_screen.subtitle"
-    },
-    "quality_assurance_complaints_screen": {
-      "title": "TBD: support.quality_assurance_complaints_screen.title",
-      "subtitle": "TBD: support.quality_assurance_complaints_screen.subtitle"
-    },
-    "quality_assurance_compliance_checks_screen": {
-      "title": "TBD: support.quality_assurance_compliance_checks_screen.title",
-      "subtitle": "TBD: support.quality_assurance_compliance_checks_screen.subtitle"
-    },
-    "quality_assurance_corrective_actions_screen": {
-      "title": "TBD: support.quality_assurance_corrective_actions_screen.title",
-      "subtitle": "TBD: support.quality_assurance_corrective_actions_screen.subtitle"
-    },
-    "quality_assurance_dashboard": {
-      "title": "TBD: support.quality_assurance_dashboard.title",
-      "subtitle": "TBD: support.quality_assurance_dashboard.subtitle"
-    },
-    "quality_assurance_reports_screen": {
-      "title": "TBD: support.quality_assurance_reports_screen.title",
-      "subtitle": "TBD: support.quality_assurance_reports_screen.subtitle"
-    },
-    "quality_assurance_reviews_screen": {
-      "title": "TBD: support.quality_assurance_reviews_screen.title",
-      "subtitle": "TBD: support.quality_assurance_reviews_screen.subtitle"
-    },
-    "quality_assurance_scorecards_screen": {
-      "title": "TBD: support.quality_assurance_scorecards_screen.title",
-      "subtitle": "TBD: support.quality_assurance_scorecards_screen.subtitle"
-    },
-    "reviews_screen": {
-      "title": "TBD: support.reviews_screen.title",
-      "subtitle": "TBD: support.reviews_screen.subtitle"
-    },
-    "scheduling_screen": {
-      "title": "TBD: support.scheduling_screen.title",
-      "subtitle": "TBD: support.scheduling_screen.subtitle"
-    },
-    "scorecards_screen": {
-      "title": "TBD: support.scorecards_screen.title",
-      "subtitle": "TBD: support.scorecards_screen.subtitle"
-    },
-    "support_dashboard": {
-      "title": "TBD: support.support_dashboard.title",
-      "subtitle": "TBD: support.support_dashboard.subtitle"
-    },
-    "support_reports_screen": {
-      "title": "TBD: support.support_reports_screen.title",
-      "subtitle": "TBD: support.support_reports_screen.subtitle"
-    },
-    "templates_screen": {
-      "title": "TBD: support.templates_screen.title",
-      "subtitle": "TBD: support.templates_screen.subtitle"
-    },
-    "tickets_view": {
-      "title": "TBD: support.tickets_view.title",
-      "subtitle": "TBD: support.tickets_view.subtitle"
-    },
-    "training_coordinator_attendance_screen": {
-      "title": "TBD: support.training_coordinator_attendance_screen.title",
-      "subtitle": "TBD: support.training_coordinator_attendance_screen.subtitle"
-    },
-    "training_coordinator_courses_screen": {
-      "title": "TBD: support.training_coordinator_courses_screen.title",
-      "subtitle": "TBD: support.training_coordinator_courses_screen.subtitle"
-    },
-    "training_coordinator_dashboard": {
-      "title": "TBD: support.training_coordinator_dashboard.title",
-      "subtitle": "TBD: support.training_coordinator_dashboard.subtitle"
-    },
-    "training_coordinator_materials_screen": {
-      "title": "TBD: support.training_coordinator_materials_screen.title",
-      "subtitle": "TBD: support.training_coordinator_materials_screen.subtitle"
-    },
-    "training_coordinator_progress_screen": {
-      "title": "TBD: support.training_coordinator_progress_screen.title",
-      "subtitle": "TBD: support.training_coordinator_progress_screen.subtitle"
-    },
-    "training_coordinator_training_schedule_screen": {
-      "title": "TBD: support.training_coordinator_training_schedule_screen.title",
-      "subtitle": "TBD: support.training_coordinator_training_schedule_screen.subtitle"
-    },
-    "training_coordinator_workshops_screen": {
-      "title": "TBD: support.training_coordinator_workshops_screen.title",
-      "subtitle": "TBD: support.training_coordinator_workshops_screen.subtitle"
-    },
-    "training_schedule_screen": {
-      "title": "TBD: support.training_schedule_screen.title",
-      "subtitle": "TBD: support.training_schedule_screen.subtitle"
-    },
-    "workshops_screen": {
-      "title": "TBD: support.workshops_screen.title",
-      "subtitle": "TBD: support.workshops_screen.subtitle"
-    },
-    "customerSupport": {
-      "dashboard": {
-        "title": "Customersupport Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "intake": {
-      "dashboard": {
-        "title": "Intake Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "intakeCoordinator": {
-      "dashboard": {
-        "title": "Intake Coordinator Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "qa": {
-      "dashboard": {
-        "title": "Qa Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "qualityAssurance": {
-      "dashboard": {
-        "title": "Qualityassurance Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "support": {
-      "dashboard": {
-        "title": "Support Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
-    },
-    "trainingCoordinator": {
-      "dashboard": {
-        "title": "Training Coordinator Dashboard",
-        "subtitle": "Real-time overview fetched natively via API."
-      }
+      "title": "Volunteers Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
     }
   }
 }

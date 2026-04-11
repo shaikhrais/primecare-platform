@@ -36,7 +36,7 @@ class FamilyDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return FamilyDashboardMapper.fromMock({});
+        return FamilyDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

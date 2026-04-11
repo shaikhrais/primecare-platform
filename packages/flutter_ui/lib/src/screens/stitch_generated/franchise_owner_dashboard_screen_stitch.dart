@@ -96,10 +96,10 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
           childAspectRatio: 1.5,
           children: liveData.kpis.map((kpi) {
             return PrimeCareStatCard(
-              title: kpi.label,
-              value: kpi.value,
-              deltaSuffix: kpi.trend,
-              icon: _inferIcon(kpi.label),
+              title: kpi.title ?? '',
+              value: kpi.value ?? '',
+              deltaSuffix: kpi.trend ?? '',
+              icon: _inferIcon(kpi.title ?? ''),
               iconColor: _inferColor('operational'),
             );
           }).toList(),
@@ -159,7 +159,7 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    activity.title,
+                                    activity.title ?? '',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
@@ -176,7 +176,7 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              activity.timestamp.toString(),
+                              activity.timestamp ?? ''.toString(),
                               style: const TextStyle(
                                 color: Colors.white38,
                                 fontSize: 12,

@@ -1,0 +1,18 @@
+{
+  "corporate": {
+    "training_director_dashboard": {
+      "title": "Training Director Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "training_director_dashboard_screen": {
+        "title": "Training Director Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "training_director_kpi_section": {
+          "title": "Training Director Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

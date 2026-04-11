@@ -1,0 +1,10 @@
+{
+  "marketing": {
+    "territorySalesManager": {
+      "dashboard": {
+        "title": "Territorysales Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

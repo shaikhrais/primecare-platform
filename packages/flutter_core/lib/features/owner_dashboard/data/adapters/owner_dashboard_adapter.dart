@@ -36,7 +36,7 @@ class OwnerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return OwnerDashboardMapper.fromMock({});
+        return OwnerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

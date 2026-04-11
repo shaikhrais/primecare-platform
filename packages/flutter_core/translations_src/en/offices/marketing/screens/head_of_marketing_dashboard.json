@@ -1,0 +1,18 @@
+{
+  "marketing": {
+    "head_of_marketing_dashboard": {
+      "title": "Head Of Marketing Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "head_of_marketing_dashboard_screen": {
+        "title": "Head Of Marketing Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "head_of_marketing_kpi_section": {
+          "title": "Head Of Marketing Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

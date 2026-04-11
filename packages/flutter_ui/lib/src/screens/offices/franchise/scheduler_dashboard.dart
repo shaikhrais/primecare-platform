@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/flutter_core.dart' hide schedulerDashboardAdapterProvider;
+import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:flutter_core/features/scheduler_dashboard/domain/models/scheduler_dashboard_view_model.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import 'package:flutter_ui/src/components/fallback_state_wrapper.dart';
 
 class SchedulerDashboard extends ConsumerWidget {
   const SchedulerDashboard({super.key});
@@ -12,7 +16,7 @@ class SchedulerDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('schedulerDashboard'),
+      schedulerDashboardAdapterProvider,
     );
 
     return ProviderLayout(
@@ -22,7 +26,7 @@ class SchedulerDashboard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'franchise.scheduler.dashboard.title'.tr(),
+              'franchise.scheduler.dashboard.title ?? '''.tr(),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
@@ -30,7 +34,7 @@ class SchedulerDashboard extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'franchise.scheduler.dashboard.subtitle'.tr(),
+              'franchise.scheduler.dashboard.subtitle ?? '''.tr(),
               style: TextStyle(
                 color: Colors.white.withAlpha(178),
                 fontSize: 16,
@@ -68,8 +72,10 @@ class SchedulerDashboard extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
-                return Column(
+              data: (SchedulerDashboardViewModel liveData) {
+                return FallbackStateWrapper(
+                  isOfflineFallback: liveData.isOfflineFallback,
+                  child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GridView.count(
@@ -81,13 +87,14 @@ class SchedulerDashboard extends ConsumerWidget {
                       childAspectRatio: 1.5,
                       children: liveData.kpis.map((kpi) {
                         return PrimeCareStatCard(
-                          title: kpi.title,
-                          value: kpi.value,
-                          deltaSuffix: kpi.trend,
-                          icon: _inferIcon(kpi.title),
-                          iconColor: _inferColor(kpi.status),
-                        );
-                      }).toList(),
+                          title: kpi.title ?? '',
+                          value: kpi.value ?? '',
+                          deltaSuffix: kpi.trend ?? '',
+                          icon: _inferIcon(kpi.title ?? ''),
+                          iconColor: _inferColor(kpi.status ?? ''),
+                        ),
+                );
+              }).toList(),
                     ),
                   ],
                 );

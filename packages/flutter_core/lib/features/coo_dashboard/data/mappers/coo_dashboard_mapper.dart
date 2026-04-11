@@ -36,8 +36,9 @@ class CooDashboardMapper {
     );
   }
 
-  static CooDashboardViewModel fromMock(Map<String, dynamic> mock) {
+  static CooDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
     return CooDashboardViewModel(
+      isOfflineFallback: isErrorFallback,
       kpis:
           (mock['kpis'] as List<dynamic>?)?.map((k) {
             return CooKpi(

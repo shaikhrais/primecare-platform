@@ -1,0 +1,10 @@
+{
+  "franchise": {
+    "opsManager": {
+      "dashboard": {
+        "title": "Ops Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

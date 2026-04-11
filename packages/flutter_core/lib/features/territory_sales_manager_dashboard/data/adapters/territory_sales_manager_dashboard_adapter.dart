@@ -38,7 +38,7 @@ class TerritorySalesManagerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return TerritorySalesManagerDashboardMapper.fromMock({});
+        return TerritorySalesManagerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

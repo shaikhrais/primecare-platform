@@ -1,0 +1,10 @@
+{
+  "business_development": {
+    "territoryExpansionManager": {
+      "dashboard": {
+        "title": "Territoryexpansion Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

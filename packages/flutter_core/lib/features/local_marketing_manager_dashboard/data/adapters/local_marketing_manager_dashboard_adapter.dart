@@ -38,7 +38,7 @@ class LocalMarketingManagerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return LocalMarketingManagerDashboardMapper.fromMock({});
+        return LocalMarketingManagerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

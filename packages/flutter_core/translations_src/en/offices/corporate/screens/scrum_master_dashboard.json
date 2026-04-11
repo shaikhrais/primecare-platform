@@ -1,0 +1,18 @@
+{
+  "corporate": {
+    "scrum_master_dashboard": {
+      "title": "Scrum Master Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "scrum_master_dashboard_screen": {
+        "title": "Scrum Master Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "scrum_master_kpi_section": {
+          "title": "Scrum Master Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

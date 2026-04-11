@@ -7,9 +7,10 @@ class FranchiseOwnerMapper {
       kpis: dto.rawKpis
           .map(
             (k) => FranchiseKpi(
-              label: k['name'] ?? '',
+              title: k['name'] ?? '',
               value: k['val']?.toString() ?? '0',
               trend: k['trend'],
+              status: k['status'] ?? 'Active',
             ),
           )
           .toList(),
@@ -24,12 +25,13 @@ class FranchiseOwnerMapper {
     );
   }
 
-  static FranchiseOwnerViewModel fromMock(Map<String, dynamic> mock) {
+  static FranchiseOwnerViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
     return FranchiseOwnerViewModel(
+      isOfflineFallback: isErrorFallback,
       kpis: const [
-        FranchiseKpi(label: 'Total Revenue', value: '\$142,000', trend: '+5%'),
-        FranchiseKpi(label: 'Active Caregivers', value: '45', trend: 'Stable'),
-        FranchiseKpi(label: 'Client Satisfaction', value: '98%', trend: '+1%'),
+        FranchiseKpi(title: 'Total Revenue', value: '\$142,000', trend: '+5%', status: 'Active'),
+        FranchiseKpi(title: 'Active Caregivers', value: '45', trend: 'Stable', status: 'Active'),
+        FranchiseKpi(title: 'Client Satisfaction', value: '98%', trend: '+1%', status: 'Active'),
       ],
       recentActivity: [
         FranchiseActivityLog(

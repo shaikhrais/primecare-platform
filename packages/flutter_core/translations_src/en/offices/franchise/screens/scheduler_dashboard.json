@@ -1,0 +1,18 @@
+{
+  "franchise": {
+    "scheduler_dashboard": {
+      "title": "Scheduler Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "scheduler_dashboard_screen": {
+        "title": "Scheduler Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "scheduler_kpi_section": {
+          "title": "Scheduler Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

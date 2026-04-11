@@ -40,8 +40,9 @@ class CfoDashboardMapper {
     );
   }
 
-  static CfoDashboardViewModel fromMock(Map<String, dynamic> mock) {
+  static CfoDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
     return CfoDashboardViewModel(
+      isOfflineFallback: isErrorFallback,
       kpis:
           (mock['kpis'] as List<dynamic>?)?.map((k) {
             return CfoKpi(

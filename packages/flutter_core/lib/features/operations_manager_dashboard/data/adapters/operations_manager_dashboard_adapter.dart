@@ -38,7 +38,7 @@ class OperationsManagerDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return OperationsManagerDashboardMapper.fromMock({});
+        return OperationsManagerDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

@@ -36,7 +36,7 @@ class CeoDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return CeoDashboardMapper.fromMock({});
+        return CeoDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }

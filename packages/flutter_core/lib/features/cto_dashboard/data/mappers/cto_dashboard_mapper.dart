@@ -33,8 +33,9 @@ class CtoDashboardMapper {
     );
   }
 
-  static CtoDashboardViewModel fromMock(Map<String, dynamic> mock) {
+  static CtoDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
     return CtoDashboardViewModel(
+      isOfflineFallback: isErrorFallback,
       kpis:
           (mock['kpis'] as List<dynamic>?)?.map((k) {
             return CtoKpi(

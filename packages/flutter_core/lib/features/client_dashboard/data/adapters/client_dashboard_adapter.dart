@@ -36,7 +36,7 @@ class ClientDashboardAdapter {
     } catch (e) {
       if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
           DataSourceConfig.currentMode == DataSourceType.mock) {
-        return ClientDashboardMapper.fromMock({});
+        return ClientDashboardMapper.fromMock({}, isErrorFallback: true);
       }
       rethrow;
     }
