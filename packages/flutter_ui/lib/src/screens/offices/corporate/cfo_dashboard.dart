@@ -118,7 +118,11 @@ class CfoDashboard extends ConsumerWidget {
                               PrimeCareGaugeChart(
                                 title: 'EBITDA Target',
                                 subtitle: 'QTD performance vs goal',
-                                value: liveData.ebitdaTargetMax > 0 ? (liveData.ebitdaTargetValue / liveData.ebitdaTargetMax) * 100.0 : 0,
+                                value: liveData.ebitdaTargetMax > 0
+                                    ? (liveData.ebitdaTargetValue /
+                                              liveData.ebitdaTargetMax) *
+                                          100.0
+                                    : 0,
                                 height: 200,
                                 activeColor: Colors.greenAccent,
                               ),
@@ -128,7 +132,6 @@ class CfoDashboard extends ConsumerWidget {
                       ],
                     ),
                   ],
-
                 );
               },
             ),
@@ -139,8 +142,10 @@ class CfoDashboard extends ConsumerWidget {
   }
 
   List<PrimeCarePieChartData> _buildPieData(CfoDashboardViewModel liveData) {
-    if (liveData.expenseData.isEmpty || liveData.expenseLabels.length != liveData.expenseData.length) return [];
-    
+    if (liveData.expenseData.isEmpty ||
+        liveData.expenseLabels.length != liveData.expenseData.length)
+      return [];
+
     final colors = [
       Colors.blueAccent,
       Colors.indigoAccent,
@@ -149,13 +154,13 @@ class CfoDashboard extends ConsumerWidget {
       Colors.deepPurpleAccent,
       Colors.lightBlueAccent,
     ];
-    
+
     return List.generate(liveData.expenseData.length, (index) {
-       return PrimeCarePieChartData(
-         label: liveData.expenseLabels[index],
-         value: liveData.expenseData[index],
-         color: colors[index % colors.length],
-       );
+      return PrimeCarePieChartData(
+        label: liveData.expenseLabels[index],
+        value: liveData.expenseData[index],
+        color: colors[index % colors.length],
+      );
     });
   }
 

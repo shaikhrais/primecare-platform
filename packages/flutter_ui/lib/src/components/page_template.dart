@@ -26,7 +26,7 @@ class PageTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title, key: const Key('page_title')),
         actions: actionButton != null ? [actionButton!] : null,
       ),
       body: Center(
@@ -40,6 +40,7 @@ class PageTemplate extends StatelessWidget {
                 if (subtitle != null)
                   Text(
                     subtitle!,
+                    key: const Key('page_subtitle'),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -66,6 +67,7 @@ class PageTemplate extends StatelessWidget {
                           crossAxisCount;
 
                       return Wrap(
+                        key: const Key('kpi_grid'),
                         spacing: spacing,
                         runSpacing: spacing,
                         children: kpiCards!

@@ -1,9 +1,9 @@
+import 'package:flutter_ui/src/components/page_template.dart';
+import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
-import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 
 class PartnershipManagerDashboardScreen extends ConsumerWidget {
   const PartnershipManagerDashboardScreen({super.key});
@@ -14,87 +14,52 @@ class PartnershipManagerDashboardScreen extends ConsumerWidget {
       dashboardMetricsProvider('partnershipManagerDashboard'),
     );
 
-    return ProviderLayout(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Partnership Manager Dashboard',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
+    return PageTemplate(
+      title: 'Partnership Manager Dashboard',
+      subtitle: 'Real-time overview fetched natively via API.',
+      kpiCards: metricsAsyncValue.when(
+        loading: () => [
+          const Center(
+            child: CircularProgressIndicator(color: Colors.tealAccent),
+          ),
+        ],
+        error: (error, stackTrace) => [
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.redAccent.withAlpha(25),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.redAccent.withAlpha(76)),
             ),
-            const SizedBox(height: 8),
-            Text(
-              'Real-time overview fetched natively via API.',
-              style: TextStyle(
-                color: Colors.white.withAlpha(178),
-                fontSize: 16,
-              ),
+            child: Row(
+              children: [
+                const Icon(LucideIcons.alertTriangle, color: Colors.redAccent),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Text(
+                    'Failed to load live metrics: \n$error',
+                    style: const TextStyle(color: Colors.redAccent),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 32),
-
-            metricsAsyncValue.when(
-              loading: () => const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(64.0),
-                  child: CircularProgressIndicator(color: Colors.tealAccent),
-                ),
-              ),
-              error: (error, stackTrace) => Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.redAccent.withAlpha(25),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.redAccent.withAlpha(76)),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      LucideIcons.alertTriangle,
-                      color: Colors.redAccent,
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Text(
-                        'Failed to load live metrics for partnershipManagerDashboard: \n$error',
-                        style: const TextStyle(color: Colors.redAccent),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              data: (DashboardMetrics liveData) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GridView.count(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 24,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      childAspectRatio: 1.5,
-                      children: liveData.kpis.map((kpi) {
-                        return PrimeCareStatCard(
-                          title: kpi.title,
-                          value: kpi.value,
-                          deltaSuffix: kpi.trend,
-                          icon: _inferIcon(kpi.title),
-                          iconColor: _inferColor(kpi.status),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ],
-        ),
+          ),
+        ],
+        data: (DashboardMetrics liveData) {
+          return liveData.kpis.map((kpi) {
+            return PrimeCareStatCard(
+              title: kpi.title,
+              value: kpi.value,
+              deltaSuffix: kpi.trend,
+              icon: _inferIcon(kpi.title),
+              iconColor: _inferColor(kpi.status),
+            );
+          }).toList();
+        },
       ),
+      bodySections: const [
+        // Advanced components (Charts, Maps, Grids) go here based on role
+      ],
     );
   }
 

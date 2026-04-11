@@ -120,7 +120,8 @@ class CooDashboard extends ConsumerWidget {
                           child: PrimeCareGanttChart(
                             title: 'Operations Schedule',
                             tasks: _buildGantt(liveData),
-                            height: 554, // Matches the combined height of the left column charts
+                            height:
+                                554, // Matches the combined height of the left column charts
                           ),
                         ),
                       ],
