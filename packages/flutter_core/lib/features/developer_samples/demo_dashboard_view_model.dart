@@ -1,38 +1,52 @@
-import 'package:flutter_core/flutter_core.dart';
+import '../../../../dashboard_service.dart';
+import '../../../../config/offline_fallback_state.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 
-class DemoDashboardViewModel {
-  final List<UIComponentBlueprint> blueprints;
+class DemoDashboardViewModel implements OfflineFallbackState {
+  @override
   final bool isOfflineFallback;
+  final List<KpiMetric> kpis;
+  final List<DashboardActivity> recentActivity;
+  final List<UIComponentBlueprint> blueprints;
 
-  DemoDashboardViewModel({
-    required this.blueprints,
+  const DemoDashboardViewModel({
     this.isOfflineFallback = false,
+    this.kpis = const [],
+    this.recentActivity = const [],
+    this.blueprints = const [],
   });
 
-  /// Factory constructor that follows our Zero-Code standards.
-  /// 1. Accept domain data (or primitives).
-  /// 2. Orchestrate the visual layout via Blueprints.
-  factory DemoDashboardViewModel.assemble({required String userName, required int taskCount}) {
+  factory DemoDashboardViewModel.assemble({required bool isOffline}) {
     return DemoDashboardViewModel(
+      isOfflineFallback: isOffline,
       blueprints: [
-        // KPI Grid - Resolution aware (4k = 10 cols, Mobile = 1 col)
-        StatGridBlueprint(
-          dataPayload: [
-            UniversalKpi(title: 'Active Tasks', value: '$taskCount', status: 'operational'),
-            UniversalKpi(title: 'Welcome', value: userName, status: 'positive'),
-            UniversalKpi(title: 'System Health', value: '100%', status: 'active'),
-            UniversalKpi(title: 'Uptime', value: '99.9%', status: 'operational'),
-          ],
-        ),
-        
-        // Activity Feed
-        ActivityFeedBlueprint(
-          dataPayload: [
-            {'title': 'System started', 'timestamp': 'Just now'},
-            {'title': 'User logged in', 'timestamp': '2 mins ago'},
-          ],
-        ),
+        const StatGridBlueprint(dataPayload: []),
+        const ActivityFeedBlueprint(dataPayload: []),
       ],
     );
+  }
+
+  factory DemoDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    return DemoDashboardViewModel(
+      isOfflineFallback: false,
+      kpis: metrics.kpis,
+      recentActivity: metrics.recentActivity,
+      blueprints: _generateBlueprints(metrics),
+    );
+  }
+
+  static List<UIComponentBlueprint> _generateBlueprints(DashboardMetrics metrics) {
+    return [
+      StatGridBlueprint(
+        dataPayload: metrics.kpis.map((k) => UniversalKpi(
+          title: k.title,
+          value: k.value,
+          trend: double.tryParse(k.trend ?? '0') ?? 0.0,
+          status: UniversalKpi.mapStatus(k.status),
+        )).toList(),
+      ),
+      if (metrics.recentActivity.isNotEmpty)
+        ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
+    ];
   }
 }

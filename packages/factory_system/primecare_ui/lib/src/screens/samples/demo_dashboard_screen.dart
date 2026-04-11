@@ -1,3 +1,4 @@
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -17,6 +18,6 @@ class DemoDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => PageTemplate.orchestrate(
         title: 'Developer Demo Dashboard',
         subtitle: 'A living example of Zero-Code orchestration.',
-        provider: demoDashboardProvider,
+        provider: demoDashboardDataProvider,
       );
 }

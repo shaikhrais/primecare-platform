@@ -1,3 +1,1 @@
-// Auto-generated screens for office: clinical
-
-export '../src/screens/offices/clinical/psw_dashboard.dart';
+// Deprecated: Orchestrated screens are now exported via lib/screens.dart

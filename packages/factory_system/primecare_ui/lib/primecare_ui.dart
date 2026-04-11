@@ -21,9 +21,13 @@ export 'src/screens/common/document_vault.dart';
 export 'src/screens/common/messaging_hub.dart';
 export 'src/screens/common/notification_center.dart';
 
-// Global Components
-export 'src/screens/common/global_settings/global_settings_screen.dart';
-export 'src/screens/common/global_profile/global_profile_screen.dart';
-export 'src/screens/common/document_vault/document_vault_screen.dart';
-export 'src/screens/common/messaging_hub/messaging_hub_screen.dart';
-export 'src/screens/common/notification_center/notification_center_screen.dart';
+// Global Shared Components (Common Logic)
+export 'src/screens/common/dynamic_role_dashboard_screen.dart';
+export 'src/screens/common/history_logs.dart';
+export 'src/screens/common/messaging.dart';
+export 'src/screens/common/profile_settings.dart';
+export 'src/screens/common/splash_screen.dart';
+export 'src/screens/common/subscription_upgrade_screen.dart';
+ 
+// Developer Samples (Reference Implementations)
+export 'src/screens/samples/demo_dashboard_screen.dart';

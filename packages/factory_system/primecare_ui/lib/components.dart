@@ -11,7 +11,7 @@ export 'src/components/desktop_pane_wrapper.dart';
 export 'src/components/digital_signature_pad.dart';
 export 'src/components/drag_assign_widget.dart';
 export 'src/components/eta_tracker_widget.dart';
-export 'src/components/generic_feature_screen.dart';
+// Removed non-existent export
 export 'src/components/global_top_bar.dart';
 export 'src/components/greeting_header_widget.dart';
 export 'src/components/incident_report_fab.dart';

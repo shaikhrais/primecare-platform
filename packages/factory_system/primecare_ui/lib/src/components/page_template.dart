@@ -32,7 +32,7 @@ class PageTemplate extends ConsumerWidget {
   /// Automatically handles the provider state and injects the AssemblyLine.
   static Widget orchestrate<T>({
     required String title,
-    required AutoDisposeStreamProvider<T> provider,
+    required dynamic provider,
     String? subtitle,
     IconData? icon,
   }) {
@@ -99,7 +99,7 @@ class _OrchestratedPage<T> extends ConsumerWidget {
   final String title;
   final String? subtitle;
   final IconData? icon;
-  final AutoDisposeStreamProvider<T> provider;
+  final dynamic provider;
 
   const _OrchestratedPage({
     required this.title,

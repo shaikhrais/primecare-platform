@@ -1,13 +1,18 @@
+import '../../../../dashboard_service.dart';
 import '../../../../config/offline_fallback_state.dart';
 import '../../../../src/factory_floor/ui_blueprint.dart';
 
 class OwnerDashboardViewModel implements OfflineFallbackState {
   @override
   final bool isOfflineFallback;
+  final List<KpiMetric> kpis;
+  final List<DashboardActivity> recentActivity;
   final List<UIComponentBlueprint> blueprints;
 
   const OwnerDashboardViewModel({
     this.isOfflineFallback = false,
+    this.kpis = const [],
+    this.recentActivity = const [],
     this.blueprints = const [],
   });
 
@@ -15,10 +20,33 @@ class OwnerDashboardViewModel implements OfflineFallbackState {
     return OwnerDashboardViewModel(
       isOfflineFallback: isOffline,
       blueprints: [
-        // Standard Zero-Code Orchestration Layout
-        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
-        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+        const StatGridBlueprint(dataPayload: []),
+        const ActivityFeedBlueprint(dataPayload: []),
       ],
     );
+  }
+
+  factory OwnerDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    return OwnerDashboardViewModel(
+      isOfflineFallback: false,
+      kpis: metrics.kpis,
+      recentActivity: metrics.recentActivity,
+      blueprints: _generateBlueprints(metrics),
+    );
+  }
+
+  static List<UIComponentBlueprint> _generateBlueprints(DashboardMetrics metrics) {
+    return [
+      StatGridBlueprint(
+        dataPayload: metrics.kpis.map((k) => UniversalKpi(
+          title: k.title,
+          value: k.value,
+          trend: double.tryParse(k.trend ?? '0') ?? 0.0,
+          status: UniversalKpi.mapStatus(k.status),
+        )).toList(),
+      ),
+      if (metrics.recentActivity.isNotEmpty)
+        ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
+    ];
   }
 }

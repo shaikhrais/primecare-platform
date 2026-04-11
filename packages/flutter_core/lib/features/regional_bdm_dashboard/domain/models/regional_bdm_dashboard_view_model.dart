@@ -5,147 +5,208 @@ import '../../../../src/factory_floor/ui_blueprint.dart';
 class RegionalBdmDashboardViewModel implements OfflineFallbackState {
   @override
   final bool isOfflineFallback;
-  final List<UIComponentBlueprint> blueprints;
-  
   final List<KpiMetric> kpis;
   final List<DashboardActivity> recentActivity;
-  final List<dynamic> alerts;
+  final List<UIComponentBlueprint> blueprints;
 
-  RegionalBdmDashboardViewModel({
-    required this.kpis,
-    this.recentActivity = const [],
-    this.alerts = const [],
+  const RegionalBdmDashboardViewModel({
     this.isOfflineFallback = false,
+    this.kpis = const [],
+    this.recentActivity = const [],
     this.blueprints = const [],
   });
-
-  factory RegionalBdmDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
-    return RegionalBdmDashboardViewModel(
-      kpis: metrics.kpis,
-      recentActivity: metrics.recentActivity,
-      blueprints: [], // Placeholder for now
-    );
-  }
-}
-
-// Subtypes to satisfy specific screen expectations if needed
-class RegionalBdmSalesDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmSalesDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmSalesDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmSalesDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmDealTrackerDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmDealTrackerDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmDealTrackerDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmDealTrackerDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmCompetitorNotesDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmCompetitorNotesDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmCompetitorNotesDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmCompetitorNotesDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmRecruitmentDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmRecruitmentDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmRecruitmentDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmRecruitmentDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmPartnersDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmPartnersDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmPartnersDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmPartnersDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmReportsDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmReportsDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmReportsDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmReportsDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmTasksDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmTasksDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmTasksDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmTasksDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmTerritoryGrowthDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmTerritoryGrowthDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmTerritoryGrowthDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmTerritoryGrowthDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmFranchisePipelineDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmFranchisePipelineDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmFranchisePipelineDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmFranchisePipelineDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmLeadsDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmLeadsDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmLeadsDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmLeadsDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
-}
-
-class RegionalBdmMeetingsDashboardViewModel extends RegionalBdmDashboardViewModel {
-  RegionalBdmMeetingsDashboardViewModel({required super.kpis, super.recentActivity, super.alerts, super.isOfflineFallback, super.blueprints});
-  factory RegionalBdmMeetingsDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) =>
-      RegionalBdmMeetingsDashboardViewModel(
-        kpis: metrics.kpis,
-        recentActivity: metrics.recentActivity,
-        blueprints: [],
-      );
 
   factory RegionalBdmDashboardViewModel.assemble({required bool isOffline}) {
     return RegionalBdmDashboardViewModel(
       isOfflineFallback: isOffline,
       blueprints: [
-        // Standard Zero-Code Orchestration Layout
-        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
-        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+        const StatGridBlueprint(dataPayload: []),
+        const ActivityFeedBlueprint(dataPayload: []),
       ],
+    );
+  }
+
+  factory RegionalBdmDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    return RegionalBdmDashboardViewModel(
+      isOfflineFallback: false,
+      kpis: metrics.kpis,
+      recentActivity: metrics.recentActivity,
+      blueprints: _generateBlueprints(metrics),
+    );
+  }
+
+  static List<UIComponentBlueprint> _generateBlueprints(DashboardMetrics metrics) {
+    return [
+      StatGridBlueprint(
+        dataPayload: metrics.kpis.map((k) => UniversalKpi(
+          title: k.title,
+          value: k.value,
+          trend: double.tryParse(k.trend ?? '0') ?? 0.0,
+          status: UniversalKpi.mapStatus(k.status),
+        )).toList(),
+      ),
+      if (metrics.recentActivity.isNotEmpty)
+        ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
+    ];
+  }
+}
+
+
+class RegionalBdmTasksDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmTasksDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmTasksDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmTasksDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+}
+
+
+class RegionalBdmTerritoryGrowthDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmTerritoryGrowthDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmTerritoryGrowthDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmTerritoryGrowthDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+}
+
+
+class RegionalBdmSalesDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmSalesDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmSalesDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmSalesDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+}
+
+
+class RegionalBdmReportsDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmReportsDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmReportsDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmReportsDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+}
+
+
+class RegionalBdmRecruitmentDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmRecruitmentDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmRecruitmentDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmRecruitmentDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+}
+
+
+class RegionalBdmPartnersDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmPartnersDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmPartnersDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmPartnersDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+}
+
+
+class RegionalBdmDealTrackerDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmDealTrackerDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmDealTrackerDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmDealTrackerDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+}
+
+
+class RegionalBdmCompetitorNotesDashboardViewModel extends RegionalBdmDashboardViewModel {
+  const RegionalBdmCompetitorNotesDashboardViewModel({
+    super.isOfflineFallback = false,
+    super.kpis = const [],
+    super.recentActivity = const [],
+    super.blueprints = const [],
+  });
+
+  factory RegionalBdmCompetitorNotesDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    final base = RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
+    return RegionalBdmCompetitorNotesDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
     );
   }
 }

@@ -1,20 +1,6 @@
 import 'ui_blueprint.dart';
 
-/// Universal mock objects for the fallback engine
-class UniversalKpi {
-  final String title;
-  final String value;
-  final String? trend;
-  final String status;
-
-  const UniversalKpi({
-    required this.title,
-    required this.value,
-    this.trend,
-    required this.status,
-  });
-}
-
+/// Universal activity logs for the fallback engine
 class UniversalActivityLog {
   final String title;
   final DateTime timestamp;
@@ -22,6 +8,7 @@ class UniversalActivityLog {
   const UniversalActivityLog({required this.title, required this.timestamp});
 }
 
+/// Universal data rows for the fallback engine
 class UniversalDataRow {
   final String title;
   final String description;
@@ -36,10 +23,10 @@ class DataFallbackEngine {
   static StatGridBlueprint createFallbackStatGrid(String title) {
     return StatGridBlueprint(
       dataPayload: const [
-        UniversalKpi(title: 'Revenue (Offline)', value: '\$0', trend: '-', status: 'Warning'),
-        UniversalKpi(title: 'Active Clients', value: '-', trend: '-', status: 'Warning'),
-        UniversalKpi(title: 'Pending Tasks', value: 'Offline', trend: '-', status: 'Warning'),
-        UniversalKpi(title: 'System Status', value: 'Degraded', trend: '-', status: 'Critical'),
+        UniversalKpi(title: 'Revenue (Offline)', value: r'$0', trend: 0.0, status: KpiStatus.warning),
+        UniversalKpi(title: 'Active Clients', value: '-', trend: 0.0, status: KpiStatus.warning),
+        UniversalKpi(title: 'Pending Tasks', value: 'Offline', trend: 0.0, status: KpiStatus.warning),
+        UniversalKpi(title: 'System Status', value: 'Degraded', trend: 0.0, status: KpiStatus.critical),
       ],
     );
   }

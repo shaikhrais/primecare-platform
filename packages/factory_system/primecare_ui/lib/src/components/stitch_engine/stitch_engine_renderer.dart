@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/design_system/clinical_glass.dart';
-import 'package:flutter_core/adapter_providers.dart';
 
 enum StitchLayoutMode { grid, list, telemetry, form, unknown }
+
+class FeatureViewModel {
+  final String id;
+  final String title;
+  final String description;
+  final String status;
+
+  const FeatureViewModel({
+    required this.id,
+    required this.title,
+    this.description = '',
+    this.status = 'Development',
+  });
+}
 
 class StitchEngineRenderer extends StatelessWidget {
   final String featureId;

@@ -1,5 +1,6 @@
 import 'config/api_config.dart';
 import 'network/api_client.dart';
+export 'src/factory_floor/ui_blueprint.dart';
 
 class KpiMetric {
   final String title;

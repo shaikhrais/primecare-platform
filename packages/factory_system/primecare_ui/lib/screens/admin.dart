@@ -1,3 +1,1 @@
-// Auto-generated screens for office: admin
-
-export '../src/screens/offices/admin/admin_dashboard.dart';
+// Deprecated: Orchestrated screens are now exported via lib/screens.dart

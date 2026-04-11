@@ -16,8 +16,6 @@ class FallbackStateWrapper extends StatelessWidget {
       return child;
     }
 
-    final theme = Theme.of(context);
-
     return Banner(
       message: 'MOCK DATA',
       location: BannerLocation.topStart,
@@ -31,7 +29,7 @@ class FallbackStateWrapper extends StatelessWidget {
       child: ColorFiltered(
         // Slightly tint the entire screen to indicate it's not live
         colorFilter: ColorFilter.mode(
-          Colors.amber.withOpacity(0.05),
+          Colors.amber.withValues(alpha: 0.05),
           BlendMode.srcOver,
         ),
         child: child,
