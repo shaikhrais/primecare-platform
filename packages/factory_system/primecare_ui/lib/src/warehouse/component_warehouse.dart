@@ -3,6 +3,7 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../components/primecare_stat_card.dart';
+import '../components/layout/prime_responsive_grid.dart';
 
 /// A function signature for building a specific component from a blueprint payload.
 typedef ComponentBuilder = Widget Function(BuildContext context, dynamic dataPayload);
@@ -39,13 +40,7 @@ class ComponentWarehouse {
     // Expected a list of KPI objects
     final kpis = dataPayload as List<dynamic>; 
     
-    return GridView.count(
-      crossAxisCount: 4,
-      crossAxisSpacing: 24,
-      mainAxisSpacing: 24,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 1.5,
+    return PrimeResponsiveGrid(
       children: kpis.map((kpi) {
         final title = kpi.title as String;
         final value = kpi.value as String;

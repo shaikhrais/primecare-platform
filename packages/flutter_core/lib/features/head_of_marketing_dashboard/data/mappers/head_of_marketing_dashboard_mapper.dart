@@ -7,12 +7,20 @@ class HeadOfMarketingDashboardMapper {
   static HeadOfMarketingDashboardViewModel fromApi(
     HeadOfMarketingDashboardDto dto,
   ) {
-    return HeadOfMarketingDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: dto.rawKpis.map((k) => UniversalKpi(
+    final kpis = dto.rawKpis.map((k) => KpiMetric(
         title: k['name']?.toString() ?? '',
         value: k['val']?.toString() ?? '0',
         trend: k['trend']?.toString(),
         status: k['status']?.toString() ?? 'Active',
-      )).toList())]);
+      )).toList();
+
+    return HeadOfMarketingDashboardViewModel(
+      kpis: kpis,
+      blueprints: HeadOfMarketingDashboardViewModel.generateBlueprints(DashboardMetrics(
+        kpis: kpis,
+        recentActivity: [], // Placeholder if DTO doesn't have it
+      )),
+    );
   }
 
   static HeadOfMarketingDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {

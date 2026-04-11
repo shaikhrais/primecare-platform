@@ -26,25 +26,35 @@ class PrimeResponsiveGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        int crossAxisCount = desktopCrossAxisCount;
+        int crossAxisCount;
         double extent = desktopMainAxisExtent;
+        final width = constraints.maxWidth;
 
-        if (constraints.maxWidth < 600) {
-          crossAxisCount = 1;
-          extent = mobileMainAxisExtent;
-        } else if (constraints.maxWidth < 1100) {
-          crossAxisCount = 2;
+        if (width >= 3400) {
+          crossAxisCount = 10; // 4K (3840px)
+        } else if (width >= 2400) {
+          crossAxisCount = 8;  // 3K (2560px)
+        } else if (width >= 1900) {
+          crossAxisCount = 6;  // 2K (2048px)
+        } else if (width >= 1200) {
+          crossAxisCount = 4;  // 1K / Desktop (1280px)
+        } else if (width >= 768) {
+          crossAxisCount = 2;  // Tablet
           extent = tabletMainAxisExtent;
+        } else {
+          crossAxisCount = 1;  // Mobile
+          extent = mobileMainAxisExtent;
         }
 
         return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: crossAxisSpacing,
             mainAxisSpacing: mainAxisSpacing,
-            mainAxisExtent: extent, // Fixed height for rigid aesthetic control
+            mainAxisExtent: extent,
           ),
           itemCount: children.length,
           itemBuilder: (context, index) => children[index],

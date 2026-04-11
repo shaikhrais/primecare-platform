@@ -73,6 +73,7 @@ import 'features/franchise_refunds_dashboard/data/adapters/franchise_refunds_das
 import 'features/franchise_refunds_dashboard/domain/models/franchise_refunds_dashboard_view_model.dart';
 import 'features/franchise_reports_dashboard/data/adapters/franchise_reports_dashboard_adapter.dart';
 import 'features/franchise_reports_dashboard/domain/models/franchise_reports_dashboard_view_model.dart';
+import 'features/admin_dashboard/domain/models/admin_dashboard_view_model.dart';
 import 'features/admin_reconciliation_dashboard/data/adapters/admin_reconciliation_dashboard_adapter.dart';
 import 'features/admin_reconciliation_dashboard/domain/models/admin_reconciliation_dashboard_view_model.dart';
 import 'features/franchise_reconciliation_dashboard/data/adapters/franchise_reconciliation_dashboard_adapter.dart';
@@ -684,13 +685,26 @@ final headOfMarketingFunnelAnalyticsDataProvider =
 final headOfMarketingPerformanceReportsDataProvider =
     headOfMarketingDashboardDataProvider;
 
+final regionalBdmFranchisePipelineDataProvider = regionalBdmSalesDataProvider;
+final regionalBdmLeadsDataProvider = regionalBdmSalesDataProvider;
+final regionalBdmMeetingsDataProvider = regionalBdmSalesDataProvider;
+
+// Clinical Office
+final PswDashboardScreenDataProvider = FutureProvider.family<ClinicDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return ClinicDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
 // Legacy and Placeholder Aliases for Stitched Screens
 final genericDashboardProvider = dashboardMetricsProvider;
 
 // Admin Office
-final AdminDashboardScreenDataProvider = dashboardMetricsProvider;
-final adminDashboardDataProvider = dashboardMetricsProvider;
-final adminInvoicesDataProvider = dashboardMetricsProvider;
+final AdminDashboardScreenDataProvider = FutureProvider.family<AdminDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return AdminDashboardViewModel.fromDashboardMetrics(metrics);
+});
+final adminDashboardDataProvider = AdminDashboardScreenDataProvider;
+final adminInvoicesDataProvider = AdminDashboardScreenDataProvider;
 
 // Marketing Office (Regional BDM)
 final regionalBdmSalesDataProvider = FutureProvider.family<RegionalBdmSalesDashboardViewModel, String>((ref, id) async {
@@ -713,6 +727,26 @@ final regionalBdmRecruitmentDataProvider = FutureProvider.family<RegionalBdmRecr
   return RegionalBdmRecruitmentDashboardViewModel.fromDashboardMetrics(metrics);
 });
 
+final regionalBdmPartnersDataProvider = FutureProvider.family<RegionalBdmPartnersDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmPartnersDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final regionalBdmReportsDataProvider = FutureProvider.family<RegionalBdmReportsDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmReportsDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final regionalBdmTasksDataProvider = FutureProvider.family<RegionalBdmTasksDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmTasksDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final regionalBdmTerritoryGrowthDataProvider = FutureProvider.family<RegionalBdmTerritoryGrowthDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return RegionalBdmTerritoryGrowthDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
 final regionalBdmActivityDataProvider = FutureProvider.family<RegionalBdmDashboardViewModel, String>((ref, id) async {
   final metrics = await ref.watch(dashboardMetricsProvider(id).future);
   return RegionalBdmDashboardViewModel.fromDashboardMetrics(metrics);
@@ -722,7 +756,39 @@ final regionalBdmActivityDataProvider = FutureProvider.family<RegionalBdmDashboa
 final financeDirectorCashFlowDataProvider = dashboardMetricsProvider;
 final financeDirectorTaxRemittanceDataProvider = dashboardMetricsProvider;
 
+// Franchise (Financials)
+final franchiseClaimsDataProvider = FutureProvider.family<FranchiseClaimsDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return FranchiseClaimsDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final franchiseInvoicesDataProvider = FutureProvider.family<FranchiseInvoicesDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return FranchiseInvoicesDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final franchiseOutstandingBalancesDataProvider = FutureProvider.family<FranchiseOutstandingBalancesDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return FranchiseOutstandingBalancesDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final franchisePaymentsDataProvider = FutureProvider.family<FranchisePaymentsDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return FranchisePaymentsDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final franchiseRefundsDataProvider = FutureProvider.family<FranchiseRefundsDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return FranchiseRefundsDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
+final franchiseReportsDataProvider = FutureProvider.family<FranchiseReportsDashboardViewModel, String>((ref, id) async {
+  final metrics = await ref.watch(dashboardMetricsProvider(id).future);
+  return FranchiseReportsDashboardViewModel.fromDashboardMetrics(metrics);
+});
+
 // Inventory
 final inventoryManagerDashboardDataProvider = dashboardMetricsProvider;
 final inventoryManagerSupplyChainDataProvider = dashboardMetricsProvider;
+
 
