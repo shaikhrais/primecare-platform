@@ -11,7 +11,7 @@ class TrainingDirectorReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(trainingDirectorReportsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(trainingDirectorDashboardDataProvider('training_director_reports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class TrainingDirectorReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for trainingDirectorReports: \n$error',
+                        'Failed to load live metrics for training_director_reports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (TrainingDirectorReportsDashboardViewModel liveData) {
+              data: (TrainingDirectorDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class TrainingDirectorReportsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

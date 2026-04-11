@@ -81,5 +81,4 @@ class CustomerSupportDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

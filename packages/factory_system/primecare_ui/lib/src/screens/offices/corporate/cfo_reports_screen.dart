@@ -11,7 +11,7 @@ class CfoReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cfoReportsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cfoDashboardDataProvider('cfo_reports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CfoReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cfoReports: \n$error',
+                        'Failed to load live metrics for cfo_reports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CfoReportsDashboardViewModel liveData) {
+              data: (CfoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CfoReportsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

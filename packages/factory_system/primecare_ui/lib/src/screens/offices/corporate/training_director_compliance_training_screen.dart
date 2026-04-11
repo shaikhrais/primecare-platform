@@ -11,7 +11,7 @@ class TrainingDirectorComplianceTrainingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(trainingDirectorComplianceTrainingDataProvider('all'));
+    final metricsAsyncValue = ref.watch(trainingDirectorDashboardDataProvider('training_director_compliance_training'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class TrainingDirectorComplianceTrainingScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for trainingDirectorComplianceTraining: \n$error',
+                        'Failed to load live metrics for training_director_compliance_training: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (TrainingDirectorComplianceTrainingDashboardViewModel liveData) {
+              data: (TrainingDirectorDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class TrainingDirectorComplianceTrainingScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

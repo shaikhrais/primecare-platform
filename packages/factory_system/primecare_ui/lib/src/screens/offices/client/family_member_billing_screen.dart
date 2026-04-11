@@ -68,7 +68,7 @@ class FamilyMemberBillingScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (FamilyMemberBillingDashboardViewModel liveData) {
+              data: (FamilyDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class FamilyMemberBillingScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

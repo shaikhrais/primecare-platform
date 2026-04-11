@@ -68,7 +68,7 @@ class IntakeCoordinatorClientAssignmentScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (IntakeCoordinatorClientAssignmentDashboardViewModel liveData) {
+              data: (IntakeDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class IntakeCoordinatorClientAssignmentScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

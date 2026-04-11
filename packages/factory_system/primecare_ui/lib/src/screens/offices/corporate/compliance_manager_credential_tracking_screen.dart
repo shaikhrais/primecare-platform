@@ -11,7 +11,7 @@ class ComplianceManagerCredentialTrackingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(complianceManagerCredentialTrackingDataProvider('all'));
+    final metricsAsyncValue = ref.watch(complianceManagerDashboardDataProvider('compliance_manager_credential_tracking'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class ComplianceManagerCredentialTrackingScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for complianceManagerCredentialTracking: \n$error',
+                        'Failed to load live metrics for compliance_manager_credential_tracking: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (ComplianceManagerCredentialTrackingDashboardViewModel liveData) {
+              data: (ComplianceManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class ComplianceManagerCredentialTrackingScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -11,7 +11,7 @@ class CommunityOutreachPartnershipsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(communityOutreachPartnershipsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(communityOutreachDashboardDataProvider('community_outreach_partnerships'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CommunityOutreachPartnershipsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for communityOutreachPartnerships: \n$error',
+                        'Failed to load live metrics for community_outreach_partnerships: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CommunityOutreachPartnershipsDashboardViewModel liveData) {
+              data: (CommunityOutreachDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CommunityOutreachPartnershipsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

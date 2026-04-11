@@ -12,7 +12,7 @@ class PartnershipManagerDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(partnershipManagerDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(partnershipManagerDashboardDataProvider('partnership_manager'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class PartnershipManagerDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for partnershipManagerDashboard: \n$error',
+                        'Failed to load live metrics for partnership_manager: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -79,5 +79,4 @@ class PartnershipManagerDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -11,7 +11,7 @@ class ComplianceManagerCorrectiveActionsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(complianceManagerCorrectiveActionsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(complianceManagerDashboardDataProvider('compliance_manager_corrective_actions'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class ComplianceManagerCorrectiveActionsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for complianceManagerCorrectiveActions: \n$error',
+                        'Failed to load live metrics for compliance_manager_corrective_actions: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (ComplianceManagerCorrectiveActionsDashboardViewModel liveData) {
+              data: (ComplianceManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class ComplianceManagerCorrectiveActionsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

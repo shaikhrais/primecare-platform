@@ -11,7 +11,7 @@ class SchedulerCoordinatorBookingRequestsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(schedulerCoordinatorBookingRequestsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(schedulerDashboardDataProvider('scheduler_coordinator_booking_requests'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class SchedulerCoordinatorBookingRequestsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for schedulerCoordinatorBookingRequests: \n$error',
+                        'Failed to load live metrics for scheduler_coordinator_booking_requests: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (SchedulerCoordinatorBookingRequestsDashboardViewModel liveData) {
+              data: (SchedulerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class SchedulerCoordinatorBookingRequestsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

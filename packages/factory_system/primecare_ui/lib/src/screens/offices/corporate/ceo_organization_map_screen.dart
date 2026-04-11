@@ -11,7 +11,7 @@ class CeoOrganizationMapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ceoOrganizationMapDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ceoDashboardDataProvider('ceo_organization_map'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CeoOrganizationMapScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for ceoOrganizationMap: \n$error',
+                        'Failed to load live metrics for ceo_organization_map: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CeoOrganizationMapDashboardViewModel liveData) {
+              data: (CeoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CeoOrganizationMapScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

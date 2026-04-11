@@ -69,7 +69,7 @@ class FamilyMemberDashboard extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (FamilyMemberDashboardViewModel liveData) {
+              data: (FamilyDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -81,5 +81,4 @@ class FamilyMemberDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -11,7 +11,7 @@ class ComplianceManagerDocumentExpiryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(complianceManagerDocumentExpiryDataProvider('all'));
+    final metricsAsyncValue = ref.watch(complianceManagerDashboardDataProvider('compliance_manager_document_expiry'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class ComplianceManagerDocumentExpiryScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for complianceManagerDocumentExpiry: \n$error',
+                        'Failed to load live metrics for compliance_manager_document_expiry: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (ComplianceManagerDocumentExpiryDashboardViewModel liveData) {
+              data: (ComplianceManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class ComplianceManagerDocumentExpiryScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

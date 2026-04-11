@@ -11,7 +11,7 @@ class ClientsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(franchiseOwnerClientsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(clientDashboardDataProvider('clients'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class ClientsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for franchiseOwnerClients: \n$error',
+                        'Failed to load live metrics for clients: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (ClientsDashboardViewModel liveData) {
+              data: (ClientDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class ClientsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

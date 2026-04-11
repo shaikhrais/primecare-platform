@@ -11,7 +11,7 @@ class SupportReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(supportReportsScreenDataProvider('all'));
+    final metricsAsyncValue = ref.watch(supportDashboardDataProvider('support_reports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class SupportReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for supportReportsScreen: \n$error',
+                        'Failed to load live metrics for support_reports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (SupportReportsDashboardViewModel liveData) {
+              data: (SupportDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class SupportReportsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -11,7 +11,7 @@ class ComplianceManagerDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(complianceManagerDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(complianceManagerDashboardDataProvider('compliance_manager'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

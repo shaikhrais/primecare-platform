@@ -11,7 +11,7 @@ class CtoAccessControlScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ctoAccessControlDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ctoDashboardDataProvider('cto_access_control'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CtoAccessControlScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for ctoAccessControl: \n$error',
+                        'Failed to load live metrics for cto_access_control: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CtoAccessControlDashboardViewModel liveData) {
+              data: (CtoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CtoAccessControlScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

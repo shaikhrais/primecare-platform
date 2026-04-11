@@ -81,5 +81,4 @@ class PatientDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

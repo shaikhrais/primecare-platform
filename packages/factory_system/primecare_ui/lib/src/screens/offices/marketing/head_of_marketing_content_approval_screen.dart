@@ -11,7 +11,7 @@ class HeadOfMarketingContentApprovalScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(headOfMarketingContentApprovalDataProvider('all'));
+    final metricsAsyncValue = ref.watch(headOfMarketingDashboardDataProvider('head_of_marketing_content_approval'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class HeadOfMarketingContentApprovalScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for headOfMarketingContentApproval: \n$error',
+                        'Failed to load live metrics for head_of_marketing_content_approval: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (HeadOfMarketingContentApprovalDashboardViewModel liveData) {
+              data: (HeadOfMarketingDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class HeadOfMarketingContentApprovalScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

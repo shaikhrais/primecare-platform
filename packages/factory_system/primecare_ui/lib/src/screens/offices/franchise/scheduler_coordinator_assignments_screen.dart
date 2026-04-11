@@ -11,7 +11,7 @@ class SchedulerCoordinatorAssignmentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(schedulerCoordinatorAssignmentsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(schedulerDashboardDataProvider('scheduler_coordinator_assignments'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class SchedulerCoordinatorAssignmentsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for schedulerCoordinatorAssignments: \n$error',
+                        'Failed to load live metrics for scheduler_coordinator_assignments: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (SchedulerCoordinatorAssignmentsDashboardViewModel liveData) {
+              data: (SchedulerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class SchedulerCoordinatorAssignmentsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

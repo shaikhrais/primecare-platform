@@ -11,7 +11,7 @@ class TerritoryExpansionManagerForecastScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(territoryExpansionManagerForecastDataProvider('all'));
+    final metricsAsyncValue = ref.watch(territoryExpansionManagerDashboardDataProvider('territory_expansion_manager_forecast'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class TerritoryExpansionManagerForecastScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for territoryExpansionManagerForecast: \n$error',
+                        'Failed to load live metrics for territory_expansion_manager_forecast: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (TerritoryExpansionManagerForecastDashboardViewModel liveData) {
+              data: (TerritoryExpansionManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class TerritoryExpansionManagerForecastScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -11,7 +11,7 @@ class CtoDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ctoDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ctoDashboardDataProvider('cto'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

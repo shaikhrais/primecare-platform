@@ -11,7 +11,7 @@ class RegionalManagerOntarioDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(regionalManagerOntarioDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(regionalManagerOntarioDashboardDataProvider('regional_manager_ontario'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

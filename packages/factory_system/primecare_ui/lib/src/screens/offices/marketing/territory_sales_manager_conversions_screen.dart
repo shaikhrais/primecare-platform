@@ -11,7 +11,7 @@ class TerritorySalesManagerConversionsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(territorySalesManagerConversionsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(territorySalesManagerDashboardDataProvider('territory_sales_manager_conversions'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class TerritorySalesManagerConversionsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for territorySalesManagerConversions: \n$error',
+                        'Failed to load live metrics for territory_sales_manager_conversions: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (TerritorySalesManagerConversionsDashboardViewModel liveData) {
+              data: (TerritorySalesManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class TerritorySalesManagerConversionsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

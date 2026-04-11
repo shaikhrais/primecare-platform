@@ -11,7 +11,7 @@ class HrHiringApplicantsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(hrHiringApplicantsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(hrHiringDashboardDataProvider('hr_hiring_applicants'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class HrHiringApplicantsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for hrHiringApplicants: \n$error',
+                        'Failed to load live metrics for hr_hiring_applicants: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (HrHiringApplicantsDashboardViewModel liveData) {
+              data: (HrHiringDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class HrHiringApplicantsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

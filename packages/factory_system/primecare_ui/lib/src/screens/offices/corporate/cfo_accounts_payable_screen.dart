@@ -11,7 +11,7 @@ class CfoAccountsPayableScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cfoAccountsPayableDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cfoDashboardDataProvider('cfo_accounts_payable'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CfoAccountsPayableScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cfoAccountsPayable: \n$error',
+                        'Failed to load live metrics for cfo_accounts_payable: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CfoAccountsPayableDashboardViewModel liveData) {
+              data: (CfoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CfoAccountsPayableScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

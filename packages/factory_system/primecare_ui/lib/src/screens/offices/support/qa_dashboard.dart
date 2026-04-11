@@ -12,7 +12,7 @@ class QaDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(qaDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(qaDashboardDataProvider('qa'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class QaDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for qaDashboard: \n$error',
+                        'Failed to load live metrics for qa: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -79,5 +79,4 @@ class QaDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

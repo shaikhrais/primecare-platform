@@ -12,7 +12,7 @@ class LocalMarketingManagerDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(localMarketingManagerDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(localMarketingManagerDashboardDataProvider('local_marketing_manager'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class LocalMarketingManagerDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for localMarketingManagerDashboard: \n$error',
+                        'Failed to load live metrics for local_marketing_manager: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -79,5 +79,4 @@ class LocalMarketingManagerDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

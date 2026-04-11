@@ -11,7 +11,7 @@ class HrHiringDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(hrHiringDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(hrHiringDashboardDataProvider('hr_hiring'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

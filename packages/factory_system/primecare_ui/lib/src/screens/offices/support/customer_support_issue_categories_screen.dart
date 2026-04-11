@@ -68,7 +68,7 @@ class CustomerSupportIssueCategoriesScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (CustomerSupportIssueCategoriesDashboardViewModel liveData) {
+              data: (CustomerSupportDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class CustomerSupportIssueCategoriesScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

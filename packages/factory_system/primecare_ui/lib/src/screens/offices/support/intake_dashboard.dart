@@ -12,7 +12,7 @@ class IntakeDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(intakeDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(intakeDashboardDataProvider('intake'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class IntakeDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for intakeDashboard: \n$error',
+                        'Failed to load live metrics for intake: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -79,5 +79,4 @@ class IntakeDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

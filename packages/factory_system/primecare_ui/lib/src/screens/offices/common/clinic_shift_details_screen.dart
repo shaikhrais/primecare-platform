@@ -68,7 +68,7 @@ class ClinicShiftDetailsScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (ClinicShiftDetailsDashboardViewModel liveData) {
+              data: (ClinicDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class ClinicShiftDetailsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

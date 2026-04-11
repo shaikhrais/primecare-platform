@@ -11,7 +11,7 @@ class CooWorkflowPerformanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cooWorkflowPerformanceDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('coo_workflow_performance'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CooWorkflowPerformanceScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cooWorkflowPerformance: \n$error',
+                        'Failed to load live metrics for coo_workflow_performance: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CooWorkflowPerformanceDashboardViewModel liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CooWorkflowPerformanceScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

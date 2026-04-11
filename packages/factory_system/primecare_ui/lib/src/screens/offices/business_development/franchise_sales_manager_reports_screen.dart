@@ -11,7 +11,7 @@ class FranchiseSalesManagerReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(franchiseSalesManagerReportsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(franchiseSalesManagerDashboardDataProvider('franchise_sales_manager_reports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class FranchiseSalesManagerReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for franchiseSalesManagerReports: \n$error',
+                        'Failed to load live metrics for franchise_sales_manager_reports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (FranchiseSalesManagerReportsDashboardViewModel liveData) {
+              data: (FranchiseSalesManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class FranchiseSalesManagerReportsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

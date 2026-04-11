@@ -11,7 +11,7 @@ class SchedulerDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(schedulerDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(schedulerDashboardDataProvider('scheduler'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

@@ -11,7 +11,7 @@ class CeoDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ceoDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ceoDashboardDataProvider('ceo'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

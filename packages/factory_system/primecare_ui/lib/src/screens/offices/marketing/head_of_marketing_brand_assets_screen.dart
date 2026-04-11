@@ -11,7 +11,7 @@ class HeadOfMarketingBrandAssetsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(headOfMarketingBrandAssetsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(headOfMarketingDashboardDataProvider('head_of_marketing_brand_assets'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class HeadOfMarketingBrandAssetsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for headOfMarketingBrandAssets: \n$error',
+                        'Failed to load live metrics for head_of_marketing_brand_assets: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (HeadOfMarketingBrandAssetsDashboardViewModel liveData) {
+              data: (HeadOfMarketingDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class HeadOfMarketingBrandAssetsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

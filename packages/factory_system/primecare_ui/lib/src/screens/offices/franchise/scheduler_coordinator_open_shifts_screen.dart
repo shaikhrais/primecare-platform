@@ -11,7 +11,7 @@ class SchedulerCoordinatorOpenShiftsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(schedulerCoordinatorOpenShiftsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(schedulerDashboardDataProvider('scheduler_coordinator_open_shifts'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class SchedulerCoordinatorOpenShiftsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for schedulerCoordinatorOpenShifts: \n$error',
+                        'Failed to load live metrics for scheduler_coordinator_open_shifts: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (SchedulerCoordinatorOpenShiftsDashboardViewModel liveData) {
+              data: (SchedulerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class SchedulerCoordinatorOpenShiftsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

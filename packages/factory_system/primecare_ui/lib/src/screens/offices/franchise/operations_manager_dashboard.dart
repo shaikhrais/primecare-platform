@@ -11,7 +11,7 @@ class OperationsManagerDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(operationsManagerDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(operationsManagerDashboardDataProvider('operations_manager'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

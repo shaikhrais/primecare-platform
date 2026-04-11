@@ -11,7 +11,7 @@ class ClientPaymentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(clientPaymentsScreenDataProvider('all'));
+    final metricsAsyncValue = ref.watch(clientDashboardDataProvider('client_payments'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class ClientPaymentsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for clientPaymentsScreen: \n$error',
+                        'Failed to load live metrics for client_payments: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (ClientPaymentsDashboardViewModel liveData) {
+              data: (ClientDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class ClientPaymentsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

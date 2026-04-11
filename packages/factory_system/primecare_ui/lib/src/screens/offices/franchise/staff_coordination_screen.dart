@@ -11,7 +11,7 @@ class StaffCoordinationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(operationsManagerStaffCoordinationDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('staff_coordination'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class StaffCoordinationScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for operationsManagerStaffCoordination: \n$error',
+                        'Failed to load live metrics for staff_coordination: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (StaffCoordinationDashboardViewModel liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class StaffCoordinationScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

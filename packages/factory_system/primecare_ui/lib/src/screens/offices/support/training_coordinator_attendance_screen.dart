@@ -68,7 +68,7 @@ class TrainingCoordinatorAttendanceScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (TrainingCoordinatorAttendanceDashboardViewModel liveData) {
+              data: (TrainingCoordinatorDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class TrainingCoordinatorAttendanceScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

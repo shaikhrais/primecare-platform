@@ -11,7 +11,7 @@ class OperationsManagerDailyOperationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(operationsManagerDailyOperationsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(operationsManagerDashboardDataProvider('operations_manager_daily_operations'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class OperationsManagerDailyOperationsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for operationsManagerDailyOperations: \n$error',
+                        'Failed to load live metrics for operations_manager_daily_operations: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (OperationsManagerDailyOperationsDashboardViewModel liveData) {
+              data: (OperationsManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class OperationsManagerDailyOperationsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

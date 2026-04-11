@@ -11,7 +11,7 @@ class BillingAdminDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(billingAdminDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(billingAdminDashboardDataProvider('billing_admin'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

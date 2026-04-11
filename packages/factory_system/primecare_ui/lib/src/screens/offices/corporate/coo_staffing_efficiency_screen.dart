@@ -11,7 +11,7 @@ class CooStaffingEfficiencyScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cooStaffingEfficiencyDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('coo_staffing_efficiency'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CooStaffingEfficiencyScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cooStaffingEfficiency: \n$error',
+                        'Failed to load live metrics for coo_staffing_efficiency: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CooStaffingEfficiencyDashboardViewModel liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CooStaffingEfficiencyScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

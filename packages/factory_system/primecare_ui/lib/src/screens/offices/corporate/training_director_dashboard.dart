@@ -11,7 +11,7 @@ class TrainingDirectorDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(trainingDirectorDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(trainingDirectorDashboardDataProvider('training_director'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

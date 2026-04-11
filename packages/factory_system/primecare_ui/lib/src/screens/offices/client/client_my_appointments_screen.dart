@@ -68,7 +68,7 @@ class ClientMyAppointmentsScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (ClientMyAppointmentsDashboardViewModel liveData) {
+              data: (ClientDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class ClientMyAppointmentsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

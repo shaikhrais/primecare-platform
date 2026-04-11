@@ -11,7 +11,7 @@ class CooOperationsOverviewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cooOperationsOverviewDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('coo_operations_overview'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CooOperationsOverviewScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cooOperationsOverview: \n$error',
+                        'Failed to load live metrics for coo_operations_overview: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CooOperationsOverviewDashboardViewModel liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CooOperationsOverviewScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

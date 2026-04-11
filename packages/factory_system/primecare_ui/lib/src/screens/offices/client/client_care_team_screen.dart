@@ -68,7 +68,7 @@ class ClientCareTeamScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (ClientCareTeamDashboardViewModel liveData) {
+              data: (ClientDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class ClientCareTeamScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

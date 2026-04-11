@@ -11,7 +11,7 @@ class CooSchedulingHealthScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cooSchedulingHealthDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('coo_scheduling_health'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CooSchedulingHealthScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cooSchedulingHealth: \n$error',
+                        'Failed to load live metrics for coo_scheduling_health: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CooSchedulingHealthDashboardViewModel liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CooSchedulingHealthScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

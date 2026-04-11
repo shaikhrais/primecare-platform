@@ -11,7 +11,7 @@ class FranchiseOwnerAppointmentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(franchiseOwnerAppointmentsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(franchiseOwnerDashboardDataProvider('franchise_owner_appointments'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class FranchiseOwnerAppointmentsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for franchiseOwnerAppointments: \n$error',
+                        'Failed to load live metrics for franchise_owner_appointments: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (FranchiseOwnerAppointmentsDashboardViewModel liveData) {
+              data: (FranchiseOwnerViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class FranchiseOwnerAppointmentsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

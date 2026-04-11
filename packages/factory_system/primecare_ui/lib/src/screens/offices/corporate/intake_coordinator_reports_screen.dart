@@ -11,7 +11,7 @@ class IntakeCoordinatorReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(intakeCoordinatorReportsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(intakeDashboardDataProvider('intake_coordinator_reports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class IntakeCoordinatorReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for intakeCoordinatorReports: \n$error',
+                        'Failed to load live metrics for intake_coordinator_reports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (IntakeCoordinatorReportsDashboardViewModel liveData) {
+              data: (IntakeDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class IntakeCoordinatorReportsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

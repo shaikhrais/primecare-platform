@@ -68,7 +68,7 @@ class ClientTreatmentHistoryScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (ClientTreatmentHistoryDashboardViewModel liveData) {
+              data: (ClientDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class ClientTreatmentHistoryScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

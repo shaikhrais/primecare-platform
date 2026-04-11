@@ -11,7 +11,7 @@ class OperationsManagerAttendanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(operationsManagerAttendanceDataProvider('all'));
+    final metricsAsyncValue = ref.watch(operationsManagerDashboardDataProvider('operations_manager_attendance'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class OperationsManagerAttendanceScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for operationsManagerAttendance: \n$error',
+                        'Failed to load live metrics for operations_manager_attendance: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (OperationsManagerAttendanceDashboardViewModel liveData) {
+              data: (OperationsManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class OperationsManagerAttendanceScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

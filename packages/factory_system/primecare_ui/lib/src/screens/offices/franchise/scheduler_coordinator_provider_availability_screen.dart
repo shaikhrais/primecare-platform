@@ -11,7 +11,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(schedulerCoordinatorProviderAvailabilityDataProvider('all'));
+    final metricsAsyncValue = ref.watch(schedulerDashboardDataProvider('scheduler_coordinator_provider_availability'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for schedulerCoordinatorProviderAvailability: \n$error',
+                        'Failed to load live metrics for scheduler_coordinator_provider_availability: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (SchedulerCoordinatorProviderAvailabilityDashboardViewModel liveData) {
+              data: (SchedulerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

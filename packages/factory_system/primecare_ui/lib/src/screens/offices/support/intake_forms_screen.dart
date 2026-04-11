@@ -11,7 +11,7 @@ class IntakeFormsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(intakeFormsScreenDataProvider('all'));
+    final metricsAsyncValue = ref.watch(intakeDashboardDataProvider('intake_forms'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class IntakeFormsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for intakeFormsScreen: \n$error',
+                        'Failed to load live metrics for intake_forms: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (IntakeFormsDashboardViewModel liveData) {
+              data: (IntakeDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class IntakeFormsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

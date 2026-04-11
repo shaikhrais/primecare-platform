@@ -11,7 +11,7 @@ class CeoGrowthPipelineScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ceoGrowthPipelineDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ceoDashboardDataProvider('ceo_growth_pipeline'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CeoGrowthPipelineScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for ceoGrowthPipeline: \n$error',
+                        'Failed to load live metrics for ceo_growth_pipeline: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CeoGrowthPipelineDashboardViewModel liveData) {
+              data: (CeoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CeoGrowthPipelineScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

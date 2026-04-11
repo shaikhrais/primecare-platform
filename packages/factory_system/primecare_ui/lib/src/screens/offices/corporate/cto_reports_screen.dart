@@ -11,7 +11,7 @@ class CtoReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ctoReportsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ctoDashboardDataProvider('cto_reports'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CtoReportsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for ctoReports: \n$error',
+                        'Failed to load live metrics for cto_reports: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CtoReportsDashboardViewModel liveData) {
+              data: (CtoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CtoReportsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -26,7 +26,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cfoTaxAndRemittanceDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cfoDashboardDataProvider('cfo_tax_and_remittance'));
 
     return ProviderLayout(
       child: Container(
@@ -46,7 +46,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
                   ),
                 ),
                 error: (error, stackTrace) => _buildErrorState(error.toString()),
-                data: (CfoTaxAndRemittanceDashboardViewModel liveData) {
+                data: (CfoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,

@@ -11,7 +11,7 @@ class ClientAssignmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(clientAssignmentScreenDataProvider('all'));
+    final metricsAsyncValue = ref.watch(clientDashboardDataProvider('client_assignment'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class ClientAssignmentScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for clientAssignmentScreen: \n$error',
+                        'Failed to load live metrics for client_assignment: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (ClientAssignmentDashboardViewModel liveData) {
+              data: (ClientDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class ClientAssignmentScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

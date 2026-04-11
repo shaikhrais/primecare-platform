@@ -11,7 +11,7 @@ class CooComplianceViewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cooComplianceViewDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('coo_compliance_view'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CooComplianceViewScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cooComplianceView: \n$error',
+                        'Failed to load live metrics for coo_compliance_view: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CooComplianceViewDashboardViewModel liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CooComplianceViewScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

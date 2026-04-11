@@ -68,7 +68,7 @@ class IntakeCoordinatorEligibilityScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (IntakeCoordinatorEligibilityDashboardViewModel liveData) {
+              data: (IntakeDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class IntakeCoordinatorEligibilityScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

@@ -11,7 +11,7 @@ class CooBranchComparisonScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cooBranchComparisonDataProvider('all'));
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('coo_branch_comparison'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CooBranchComparisonScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for cooBranchComparison: \n$error',
+                        'Failed to load live metrics for coo_branch_comparison: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CooBranchComparisonDashboardViewModel liveData) {
+              data: (CooDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CooBranchComparisonScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

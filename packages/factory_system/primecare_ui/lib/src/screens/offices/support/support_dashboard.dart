@@ -12,7 +12,7 @@ class SupportDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(supportDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(supportDashboardDataProvider('support'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class SupportDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for supportDashboard: \n$error',
+                        'Failed to load live metrics for support: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -79,5 +79,4 @@ class SupportDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

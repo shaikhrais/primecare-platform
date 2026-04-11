@@ -12,7 +12,7 @@ class GeneralManagerDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(generalManagerDashboardDataProvider('all'));
+    final metricsAsyncValue = ref.watch(generalManagerDashboardDataProvider('general_manager'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class GeneralManagerDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for generalManagerDashboard: \n$error',
+                        'Failed to load live metrics for general_manager: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
@@ -79,5 +79,4 @@ class GeneralManagerDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

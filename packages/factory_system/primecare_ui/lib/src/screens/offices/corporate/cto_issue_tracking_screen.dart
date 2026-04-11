@@ -11,7 +11,7 @@ class CtoIssueTrackingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ctoIssueTrackingDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ctoDashboardDataProvider('cto_issue_tracking'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CtoIssueTrackingScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for ctoIssueTracking: \n$error',
+                        'Failed to load live metrics for cto_issue_tracking: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CtoIssueTrackingDashboardViewModel liveData) {
+              data: (CtoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CtoIssueTrackingScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

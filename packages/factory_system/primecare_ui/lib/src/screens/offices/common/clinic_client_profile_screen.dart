@@ -68,7 +68,7 @@ class ClinicClientProfileScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (ClinicClientProfileDashboardViewModel liveData) {
+              data: (ClinicDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class ClinicClientProfileScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

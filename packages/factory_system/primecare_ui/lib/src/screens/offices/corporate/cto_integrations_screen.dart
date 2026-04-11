@@ -11,7 +11,7 @@ class CtoIntegrationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(ctoIntegrationsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(ctoDashboardDataProvider('cto_integrations'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class CtoIntegrationsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for ctoIntegrations: \n$error',
+                        'Failed to load live metrics for cto_integrations: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (CtoIntegrationsDashboardViewModel liveData) {
+              data: (CtoDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class CtoIntegrationsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

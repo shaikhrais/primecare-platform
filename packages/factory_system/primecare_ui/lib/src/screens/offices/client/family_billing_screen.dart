@@ -11,7 +11,7 @@ class FamilyBillingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(familyBillingScreenDataProvider('all'));
+    final metricsAsyncValue = ref.watch(familyDashboardDataProvider('family_billing'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class FamilyBillingScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for familyBillingScreen: \n$error',
+                        'Failed to load live metrics for family_billing: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (FamilyBillingDashboardViewModel liveData) {
+              data: (FamilyDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class FamilyBillingScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

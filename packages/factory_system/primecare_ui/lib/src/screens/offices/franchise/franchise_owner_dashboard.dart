@@ -63,7 +63,7 @@ class FranchiseOwnerDashboard extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for franchiseOwnerDashboard: \n$error',
+                        'Failed to load live metrics for franchise_owner: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),

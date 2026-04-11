@@ -11,7 +11,7 @@ class LocalMarketingManagerContentCalendarScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(localMarketingManagerContentCalendarDataProvider('all'));
+    final metricsAsyncValue = ref.watch(localMarketingManagerDashboardDataProvider('local_marketing_manager_content_calendar'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class LocalMarketingManagerContentCalendarScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for localMarketingManagerContentCalendar: \n$error',
+                        'Failed to load live metrics for local_marketing_manager_content_calendar: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (LocalMarketingManagerContentCalendarDashboardViewModel liveData) {
+              data: (LocalMarketingManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class LocalMarketingManagerContentCalendarScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

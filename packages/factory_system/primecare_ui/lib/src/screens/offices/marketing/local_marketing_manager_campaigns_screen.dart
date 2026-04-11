@@ -11,7 +11,7 @@ class LocalMarketingManagerCampaignsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(localMarketingManagerCampaignsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(localMarketingManagerDashboardDataProvider('local_marketing_manager_campaigns'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class LocalMarketingManagerCampaignsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for localMarketingManagerCampaigns: \n$error',
+                        'Failed to load live metrics for local_marketing_manager_campaigns: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (LocalMarketingManagerCampaignsDashboardViewModel liveData) {
+              data: (LocalMarketingManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class LocalMarketingManagerCampaignsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

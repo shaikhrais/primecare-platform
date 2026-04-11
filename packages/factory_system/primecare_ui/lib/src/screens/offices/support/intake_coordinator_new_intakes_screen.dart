@@ -68,7 +68,7 @@ class IntakeCoordinatorNewIntakesScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (IntakeCoordinatorNewIntakesDashboardViewModel liveData) {
+              data: (IntakeDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -80,5 +80,4 @@ class IntakeCoordinatorNewIntakesScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

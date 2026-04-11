@@ -11,7 +11,7 @@ class TerritorySalesManagerCompetitorsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(territorySalesManagerCompetitorsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(territorySalesManagerDashboardDataProvider('territory_sales_manager_competitors'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class TerritorySalesManagerCompetitorsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for territorySalesManagerCompetitors: \n$error',
+                        'Failed to load live metrics for territory_sales_manager_competitors: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (TerritorySalesManagerCompetitorsDashboardViewModel liveData) {
+              data: (TerritorySalesManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class TerritorySalesManagerCompetitorsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}

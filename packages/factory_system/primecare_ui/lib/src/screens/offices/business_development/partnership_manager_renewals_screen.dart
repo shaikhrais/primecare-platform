@@ -11,7 +11,7 @@ class PartnershipManagerRenewalsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(partnershipManagerRenewalsDataProvider('all'));
+    final metricsAsyncValue = ref.watch(partnershipManagerDashboardDataProvider('partnership_manager_renewals'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -59,14 +59,14 @@ class PartnershipManagerRenewalsScreen extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        'Failed to load live metrics for partnershipManagerRenewals: \n$error',
+                        'Failed to load live metrics for partnership_manager_renewals: \n$error',
                         style: const TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   ],
                 ),
               ),
-              data: (PartnershipManagerRenewalsDashboardViewModel liveData) {
+              data: (PartnershipManagerDashboardViewModel liveData) {
                 return AssemblyLine(
                   blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
@@ -78,5 +78,4 @@ class PartnershipManagerRenewalsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  
+}
