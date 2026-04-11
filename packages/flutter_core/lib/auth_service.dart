@@ -64,8 +64,9 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('cfo') || r.contains('finance')) {
       return CorporateRoutes.cfoDashboard;
     }
-    if (r.contains('cto') || r.contains('tech'))
+    if (r.contains('cto') || r.contains('tech')) {
       return CorporateRoutes.ctoDashboard;
+    }
     if (r.contains('compliance_manager')) {
       return CorporateRoutes.complianceManagerDashboard;
     }
@@ -80,15 +81,18 @@ class AuthNotifier extends Notifier<AuthState> {
     }
 
     // Business Development
-    if (r.contains('ontario'))
+    if (r.contains('ontario')) {
       return BusinessDevelopmentRoutes.regionalManagerOntarioDashboard;
-    if (r.contains('usa'))
+    }
+    if (r.contains('usa')) {
       return BusinessDevelopmentRoutes.regionalManagerUsaDashboard;
+    }
     if (r.contains('franchise_sales')) {
       return BusinessDevelopmentRoutes.franchiseSalesManagerDashboard;
     }
-    if (r.contains('partnership'))
+    if (r.contains('partnership')) {
       return BusinessDevelopmentRoutes.partnershipManagerDashboard;
+    }
     if (r.contains('expansion')) {
       return BusinessDevelopmentRoutes.territoryExpansionManagerDashboard;
     }
@@ -151,8 +155,9 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('local_marketing')) {
       return MarketingRoutes.localMarketingManagerDashboard;
     }
-    if (r.contains('outreach'))
+    if (r.contains('outreach')) {
       return MarketingRoutes.communityOutreachDashboard;
+    }
     if (r.contains('territory_sales')) {
       return MarketingRoutes.territorySalesManagerDashboard;
     }

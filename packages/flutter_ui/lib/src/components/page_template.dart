@@ -6,7 +6,7 @@ class PageTemplate extends StatelessWidget {
   final IconData? icon;
   final List<Color>? headerGradientColors;
   final List<Widget>? kpiCards;
-  final List<Widget>? children;
+  final List<Widget>? bodySections;
   final Widget? child;
   final Widget? actionButton;
 
@@ -17,7 +17,7 @@ class PageTemplate extends StatelessWidget {
     this.icon,
     this.headerGradientColors,
     this.kpiCards,
-    this.children,
+    this.bodySections,
     this.child,
     this.actionButton,
   });
@@ -79,7 +79,7 @@ class PageTemplate extends StatelessWidget {
                 ],
                 const SizedBox(height: 16),
                 ?child,
-                if (children != null) ...children!,
+                ...?bodySections,
               ],
             ),
           ),

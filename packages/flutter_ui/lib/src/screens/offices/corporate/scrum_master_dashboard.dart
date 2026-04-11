@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'scrum_master_dashboard_screen.dart';
+import 'scrum_master_dashboard/scrum_master_dashboard_screen.dart';
 
 class ScrumMasterDashboard extends StatelessWidget {
   const ScrumMasterDashboard({super.key});

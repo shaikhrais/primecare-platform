@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'qa_dashboard_screen.dart';
+import 'qa_dashboard/qa_dashboard_screen.dart';
 
 class QaDashboard extends StatelessWidget {
   const QaDashboard({super.key});

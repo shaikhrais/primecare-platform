@@ -4,7 +4,7 @@ export '../src/screens/offices/marketing/brand_assets_screen.dart';
 export '../src/screens/offices/marketing/campaigns_screen.dart';
 export '../src/screens/offices/marketing/community_outreach_contacts_screen.dart';
 export '../src/screens/offices/marketing/community_outreach_dashboard.dart';
-export '../src/screens/offices/marketing/community_outreach_dashboard_screen.dart';
+export '../src/screens/offices/marketing/community_outreach_dashboard/community_outreach_dashboard_screen.dart';
 export '../src/screens/offices/marketing/community_outreach_events_screen.dart';
 export '../src/screens/offices/marketing/community_outreach_follow_ups_screen.dart';
 export '../src/screens/offices/marketing/community_outreach_partnerships_screen.dart';
@@ -18,7 +18,7 @@ export '../src/screens/offices/marketing/head_of_marketing_brand_assets_screen.d
 export '../src/screens/offices/marketing/head_of_marketing_campaigns_screen.dart';
 export '../src/screens/offices/marketing/head_of_marketing_content_approval_screen.dart';
 export '../src/screens/offices/marketing/head_of_marketing_dashboard.dart';
-export '../src/screens/offices/marketing/head_of_marketing_dashboard_screen.dart';
+export '../src/screens/offices/marketing/head_of_marketing_dashboard/head_of_marketing_dashboard_screen.dart';
 export '../src/screens/offices/marketing/head_of_marketing_funnel_analytics_screen.dart';
 export '../src/screens/offices/marketing/head_of_marketing_leads_screen.dart';
 export '../src/screens/offices/marketing/head_of_marketing_performance_reports_screen.dart';
@@ -35,7 +35,7 @@ export '../src/screens/offices/marketing/local_marketing_manager_budget_screen.d
 export '../src/screens/offices/marketing/local_marketing_manager_campaigns_screen.dart';
 export '../src/screens/offices/marketing/local_marketing_manager_content_calendar_screen.dart';
 export '../src/screens/offices/marketing/local_marketing_manager_dashboard.dart';
-export '../src/screens/offices/marketing/local_marketing_manager_dashboard_screen.dart';
+export '../src/screens/offices/marketing/local_marketing_manager_dashboard/local_marketing_manager_dashboard_screen.dart';
 export '../src/screens/offices/marketing/local_marketing_manager_events_screen.dart';
 export '../src/screens/offices/marketing/local_marketing_manager_leads_screen.dart';
 export '../src/screens/offices/marketing/local_marketing_manager_reports_screen.dart';
@@ -56,7 +56,7 @@ export '../src/screens/offices/marketing/territory_sales_manager_area_performanc
 export '../src/screens/offices/marketing/territory_sales_manager_competitors_screen.dart';
 export '../src/screens/offices/marketing/territory_sales_manager_conversions_screen.dart';
 export '../src/screens/offices/marketing/territory_sales_manager_dashboard.dart';
-export '../src/screens/offices/marketing/territory_sales_manager_dashboard_screen.dart';
+export '../src/screens/offices/marketing/territory_sales_manager_dashboard/territory_sales_manager_dashboard_screen.dart';
 export '../src/screens/offices/marketing/territory_sales_manager_field_activity_screen.dart';
 export '../src/screens/offices/marketing/territory_sales_manager_leads_screen.dart';
 export '../src/screens/offices/marketing/territory_sales_manager_pipeline_screen.dart';

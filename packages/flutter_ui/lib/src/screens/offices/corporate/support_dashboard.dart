@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'support_dashboard_screen.dart';
+import 'support_dashboard/support_dashboard_screen.dart';
 
 class SupportDashboard extends StatelessWidget {
   const SupportDashboard({super.key});

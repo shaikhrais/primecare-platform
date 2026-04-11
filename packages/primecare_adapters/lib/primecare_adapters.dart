@@ -1,6 +1,6 @@
 /// PrimeCare Adapters Package
 /// Core layer handling role-based, decoupled data bindings across 7 operational offices.
-library primecare_adapters;
+library;
 
 // -------------------------------------------------------------
 // HYDRATED UI DATA BOUND ADAPTERS

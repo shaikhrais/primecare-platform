@@ -10,7 +10,7 @@ class MyShiftsScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'My Shifts',
       subtitle: 'Manage your assigned shifts.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

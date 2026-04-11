@@ -10,7 +10,7 @@ class ClientProfileScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Client Profile',
       subtitle: 'View and manage client details.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

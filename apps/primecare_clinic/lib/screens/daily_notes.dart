@@ -10,7 +10,7 @@ class DailyNotesScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Daily Notes',
       subtitle: 'Document daily observations.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

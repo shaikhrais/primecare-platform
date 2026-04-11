@@ -10,7 +10,7 @@ class CheckInOutScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Check-In / Out',
       subtitle: 'Log time and attendance.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

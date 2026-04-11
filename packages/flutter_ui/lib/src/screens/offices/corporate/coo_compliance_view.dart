@@ -57,7 +57,7 @@ class CooComplianceView extends ConsumerWidget {
                 ),
               )
               .toList(),
-          children: [
+          bodySections: [
             if (metrics.recentActivity.isNotEmpty) ...[
               Text(
                 'Recent Activity',

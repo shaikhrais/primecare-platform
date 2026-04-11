@@ -10,7 +10,7 @@ class DashboardScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Dashboard',
       subtitle: 'Clinic overview and key metrics.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

@@ -10,7 +10,7 @@ class IncidentReportScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Incident Report',
       subtitle: 'File reports for any incidents.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

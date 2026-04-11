@@ -10,7 +10,7 @@ class ProfileSettingsScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Profile & Settings',
       subtitle: 'Manage user preferences.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

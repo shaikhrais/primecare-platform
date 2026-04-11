@@ -10,7 +10,7 @@ class ShiftDetailsScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Shift Details',
       subtitle: 'View upcoming and active shifts.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

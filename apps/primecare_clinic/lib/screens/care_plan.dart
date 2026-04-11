@@ -10,7 +10,7 @@ class CarePlanScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Care Plan',
       subtitle: 'Review and update client care plans.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

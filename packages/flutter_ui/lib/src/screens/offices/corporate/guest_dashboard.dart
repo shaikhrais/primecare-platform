@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'guest_dashboard_screen.dart';
+import 'guest_dashboard/guest_dashboard_screen.dart';
 
 class GuestDashboard extends StatelessWidget {
   const GuestDashboard({super.key});

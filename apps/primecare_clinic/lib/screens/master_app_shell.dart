@@ -10,7 +10,7 @@ class MasterAppShellScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Master App Shell',
       subtitle: 'Global navigation context.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

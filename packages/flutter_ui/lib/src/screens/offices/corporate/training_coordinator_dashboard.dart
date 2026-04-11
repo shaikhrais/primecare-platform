@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'training_coordinator_dashboard_screen.dart';
+import 'training_coordinator_dashboard/training_coordinator_dashboard_screen.dart';
 
 class TrainingCoordinatorDashboard extends StatelessWidget {
   const TrainingCoordinatorDashboard({super.key});

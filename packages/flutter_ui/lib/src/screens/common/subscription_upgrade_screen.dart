@@ -100,7 +100,7 @@ class _SubscriptionUpgradeScreenState
             ),
           ),
         ],
-        children: [
+        bodySections: [
           Text(
             'Apply Promo Code',
             style: Theme.of(context).textTheme.titleLarge,

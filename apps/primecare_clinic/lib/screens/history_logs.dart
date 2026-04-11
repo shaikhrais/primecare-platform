@@ -10,7 +10,7 @@ class HistoryLogsScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'History & Logs',
       subtitle: 'Audit logs and past interactions.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

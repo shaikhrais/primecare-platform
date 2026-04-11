@@ -10,7 +10,7 @@ class MessagingScreen extends ConsumerWidget {
     return PageTemplate(
       title: 'Messaging',
       subtitle: 'Secure communications.',
-      children: [
+      bodySections: [
         PrimeCard(
           padding: const EdgeInsets.all(24),
           child: Center(

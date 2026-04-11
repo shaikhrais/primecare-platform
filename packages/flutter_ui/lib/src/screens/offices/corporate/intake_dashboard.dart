@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'intake_dashboard_screen.dart';
+import 'intake_dashboard/intake_dashboard_screen.dart';
 
 class IntakeDashboard extends StatelessWidget {
   const IntakeDashboard({super.key});
