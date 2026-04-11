@@ -5,146 +5,126 @@ import 'package:flutter_core/flutter_core.dart';
 final List<RouteBase> marketingRoutes = [
   GoRoute(
     path: CorporateRoutes.headOfMarketingDashboard,
-    builder: (context, state) => const HeadOfMarketingDashboard(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerDashboard,
-    builder: (context, state) =>
-        const LocalMarketingDashboard(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachDashboard,
-    builder: (context, state) => const CommunityOutreachDashboard(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerDashboard,
-    builder: (context, state) =>
-        const TerritorySalesDashboard(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.headOfMarketingCampaigns,
-    builder: (context, state) => const HeadOfMarketingCampaignsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.headOfMarketingLeads,
-    builder: (context, state) => const HeadOfMarketingLeadsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.headOfMarketingFunnelAnalytics,
-    builder: (context, state) =>
-        const HeadOfMarketingFunnelAnalyticsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.headOfMarketingBrandAssets,
-    builder: (context, state) => const HeadOfMarketingBrandAssetsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.headOfMarketingRegionalCampaigns,
-    builder: (context, state) =>
-        const HeadOfMarketingRegionalCampaignsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.headOfMarketingContentApproval,
-    builder: (context, state) =>
-        const HeadOfMarketingContentApprovalScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.headOfMarketingPerformanceReports,
-    builder: (context, state) =>
-        const HeadOfMarketingPerformanceReportsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerCampaigns,
-    builder: (context, state) =>
-        const LocalMarketingManagerCampaignsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerLeads,
-    builder: (context, state) => const LocalMarketingManagerLeadsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerContentCalendar,
-    builder: (context, state) =>
-        const LocalMarketingManagerContentCalendarScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerEvents,
-    builder: (context, state) =>
-        const LocalMarketingManagerEventsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerBudget,
-    builder: (context, state) =>
-        const LocalMarketingManagerBudgetScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerReports,
-    builder: (context, state) =>
-        const LocalMarketingManagerReportsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.localMarketingManagerAssets,
-    builder: (context, state) =>
-        const LocalMarketingManagerAssetsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachPrograms,
-    builder: (context, state) => const CommunityOutreachProgramsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachEvents,
-    builder: (context, state) => const CommunityOutreachEventsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachPartnerships,
-    builder: (context, state) =>
-        const CommunityOutreachPartnershipsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachVolunteers,
-    builder: (context, state) =>
-        const CommunityOutreachVolunteersScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachContacts,
-    builder: (context, state) => const CommunityOutreachContactsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.communityOutreachFollowUps,
-    builder: (context, state) => const CommunityOutreachFollowUpsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerLeads,
-    builder: (context, state) => const TerritorySalesManagerLeadsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerPipeline,
-    builder: (context, state) =>
-        const TerritorySalesManagerPipelineScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerFieldActivity,
-    builder: (context, state) =>
-        const TerritorySalesManagerFieldActivityScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerConversions,
-    builder: (context, state) =>
-        const TerritorySalesManagerConversionsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerAreaPerformance,
-    builder: (context, state) =>
-        const TerritorySalesManagerAreaPerformanceScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerCompetitors,
-    builder: (context, state) =>
-        const TerritorySalesManagerCompetitorsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: MarketingRoutes.territorySalesManagerReports,
-    builder: (context, state) =>
-        const TerritorySalesManagerReportsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
 ];

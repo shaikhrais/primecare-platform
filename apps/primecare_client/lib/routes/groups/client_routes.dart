@@ -5,54 +5,54 @@ import 'package:flutter_core/flutter_core.dart';
 final List<RouteBase> clientRoutes = [
   GoRoute(
     path: ClientRoutes.clientBookAppointment,
-    builder: (context, state) => const ClientBookAppointmentScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.clientMyAppointments,
-    builder: (context, state) => const ClientMyAppointmentsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.clientCareTeam,
-    builder: (context, state) => const ClientCareTeamScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.clientTreatmentHistory,
-    builder: (context, state) => const ClientTreatmentHistoryScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.clientPayments,
-    builder: (context, state) => const ClientPaymentsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.clientProfile,
-    builder: (context, state) => const ClientProfileScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.familyMemberLovedOneSchedule,
-    builder: (context, state) => const FamilyMemberLovedOneScheduleScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.familyMemberCareUpdates,
-    builder: (context, state) => const FamilyMemberCareUpdatesScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.familyMemberBilling,
-    builder: (context, state) => const FamilyMemberBillingScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.familyMemberEmergencyContacts,
-    builder: (context, state) => const FamilyMemberEmergencyContactsScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.familyMemberProfile,
-    builder: (context, state) => const FamilyMemberProfileScreen(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.patientDashboard,
-    builder: (context, state) => const PatientDashboard(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
   GoRoute(
     path: ClientRoutes.familyMemberDashboard,
-    builder: (context, state) => const FamilyMemberDashboard(),
+    builder: (context, state) => const DemoDashboardScreen(),
   ),
 ];

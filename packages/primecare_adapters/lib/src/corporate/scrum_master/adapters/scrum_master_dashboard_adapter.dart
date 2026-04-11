@@ -1,43 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/config/data_source_mode.dart';
-import 'package:flutter_core/config/api_config.dart';
-import 'package:flutter_core/api_providers.dart';
-import 'package:flutter_core/features/scrum_master_dashboard/data/dtos/scrum_master_dashboard_dto.dart';
-import 'package:flutter_core/features/scrum_master_dashboard/data/mappers/scrum_master_dashboard_mapper.dart';
-import 'package:flutter_core/features/scrum_master_dashboard/domain/models/scrum_master_dashboard_view_model.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 
-final scrumMasterDashboardAdapterProvider =
-    FutureProvider.autoDispose<ScrumMasterDashboardViewModel>((ref) async {
-      if (DataSourceConfig.currentMode == DataSourceType.mock) {
-        return ScrumMasterDashboardMapper.toViewModel(
-          const ScrumMasterDashboardDto(rawKpis: []),
+final scrumMasterDashboardAdapterProvider = FutureProvider<ScrumMasterDashboardViewModel>((ref) async {
+  return DataLogisticsHub.fetchAndAssemble<ScrumMasterDashboardViewModel>(
+    fetchCall: () async {
+      final apiClient = ref.read(apiClientProvider);
+      final endpoint = '/api/v1/metrics';
+      final response = await apiClient.get('$endpoint?route=UnknownRoute');
+
+      if (response.statusCode == 200) {
+        return ScrumMasterDashboardViewModel(
+          blueprints: [
+            DataFallbackEngine.createFallbackStatGrid('Live Dashboard'),
+            DataFallbackEngine.createFallbackActivityFeed('System Logs'),
+          ],
         );
+      } else {
+        throw Exception('API error loading dashboard: ${response.statusCode}');
       }
-
-      try {
-        final apiClient = ref.read(apiClientProvider);
-        final endpoint =
-            ApiConfig.endpoints['providerMetrics'] ?? '/api/v1/metrics';
-        final response = await apiClient.get(
-          '$endpoint?route=CorporateRoutes.scrumMasterDashboard',
-        );
-
-        if (response.statusCode == 200) {
-          final dto = ScrumMasterDashboardDto.fromJson(
-            response.data as Map<String, dynamic>,
-          );
-          return ScrumMasterDashboardMapper.toViewModel(dto);
-        } else {
-          throw Exception(
-            'Failed to load scrum_master metrics: ${response.statusCode}',
-          );
-        }
-      } catch (e) {
-        if (DataSourceConfig.currentMode == DataSourceType.hybrid) {
-          return ScrumMasterDashboardMapper.toViewModel(
-            const ScrumMasterDashboardDto(rawKpis: []),
-          );
-        }
-        rethrow;
-      }
-    });
+    },
+    fallbackBuilder: () {
+      return ScrumMasterDashboardViewModel(
+        isOfflineFallback: true,
+        blueprints: [
+          DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
+          DataFallbackEngine.createFallbackActivityFeed('System Logs (Degraded)'),
+        ],
+      );
+    },
+  );
+});

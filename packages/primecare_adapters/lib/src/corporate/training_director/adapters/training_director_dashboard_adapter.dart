@@ -1,43 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/config/data_source_mode.dart';
-import 'package:flutter_core/config/api_config.dart';
-import 'package:flutter_core/api_providers.dart';
-import 'package:flutter_core/features/training_director_dashboard/data/dtos/training_director_dashboard_dto.dart';
-import 'package:flutter_core/features/training_director_dashboard/data/mappers/training_director_dashboard_mapper.dart';
-import 'package:flutter_core/features/training_director_dashboard/domain/models/training_director_dashboard_view_model.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 
-final trainingDirectorDashboardAdapterProvider =
-    FutureProvider.autoDispose<TrainingDirectorDashboardViewModel>((ref) async {
-      if (DataSourceConfig.currentMode == DataSourceType.mock) {
-        return TrainingDirectorDashboardMapper.toViewModel(
-          const TrainingDirectorDashboardDto(rawKpis: []),
+final trainingDirectorDashboardAdapterProvider = FutureProvider<TrainingDirectorDashboardViewModel>((ref) async {
+  return DataLogisticsHub.fetchAndAssemble<TrainingDirectorDashboardViewModel>(
+    fetchCall: () async {
+      final apiClient = ref.read(apiClientProvider);
+      final endpoint = '/api/v1/metrics';
+      final response = await apiClient.get('$endpoint?route=UnknownRoute');
+
+      if (response.statusCode == 200) {
+        return TrainingDirectorDashboardViewModel(
+          blueprints: [
+            DataFallbackEngine.createFallbackStatGrid('Live Dashboard'),
+            DataFallbackEngine.createFallbackActivityFeed('System Logs'),
+          ],
         );
+      } else {
+        throw Exception('API error loading dashboard: ${response.statusCode}');
       }
-
-      try {
-        final apiClient = ref.read(apiClientProvider);
-        final endpoint =
-            ApiConfig.endpoints['providerMetrics'] ?? '/api/v1/metrics';
-        final response = await apiClient.get(
-          '$endpoint?route=CorporateRoutes.trainingDirectorDashboard',
-        );
-
-        if (response.statusCode == 200) {
-          final dto = TrainingDirectorDashboardDto.fromJson(
-            response.data as Map<String, dynamic>,
-          );
-          return TrainingDirectorDashboardMapper.toViewModel(dto);
-        } else {
-          throw Exception(
-            'Failed to load training director metrics: ${response.statusCode}',
-          );
-        }
-      } catch (e) {
-        if (DataSourceConfig.currentMode == DataSourceType.hybrid) {
-          return TrainingDirectorDashboardMapper.toViewModel(
-            const TrainingDirectorDashboardDto(rawKpis: []),
-          );
-        }
-        rethrow;
-      }
-    });
+    },
+    fallbackBuilder: () {
+      return TrainingDirectorDashboardViewModel(
+        isOfflineFallback: true,
+        blueprints: [
+          DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
+          DataFallbackEngine.createFallbackActivityFeed('System Logs (Degraded)'),
+        ],
+      );
+    },
+  );
+});

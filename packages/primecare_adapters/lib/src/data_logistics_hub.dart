@@ -14,7 +14,7 @@ class DataLogisticsHub {
         onError(e, st);
       } else {
         // Core telemetry logic could be injected here internally without UI components caring.
-        print('[DataLogisticsHub] API Failure Caught: \$e. Emitting Fallback Blueprints.');
+        // print('[DataLogisticsHub] API Failure Caught: \$e. Emitting Fallback Blueprints.');
       }
       return fallbackBuilder();
     }
