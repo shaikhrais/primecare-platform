@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/auth_service.dart';
-
+import 'package:flutter_core/flutter_core.dart';
+import 'package:easy_localization/easy_localization.dart';
 class AdminDashboardScreen extends ConsumerWidget {
   const AdminDashboardScreen({super.key});
 
@@ -9,7 +10,7 @@ class AdminDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Administrator Dashboard'),
+        title: Text('admin.admin.dashboard.title'.tr()),
         backgroundColor: Colors.deepPurple,
         actions: [
           IconButton(
@@ -32,7 +33,7 @@ class AdminDashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'Welcome, Platform Administrator',
+              'admin.admin.dashboard.subtitle'.tr(),
               style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),

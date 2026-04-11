@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/auth_service.dart';
-
+import 'package:flutter_core/flutter_core.dart';
+import 'package:easy_localization/easy_localization.dart';
 class PswDashboardScreen extends ConsumerWidget {
   const PswDashboardScreen({super.key});
 
@@ -9,7 +10,7 @@ class PswDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PSW Dashboard'),
+        title: Text('clinical.psw.dashboard.title'.tr()),
         actions: [
           IconButton(
             key: const Key('data-status-id=shared-global-psw-action-1'),
@@ -31,7 +32,7 @@ class PswDashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'Welcome, Personal Support Worker',
+              'clinical.psw.dashboard.subtitle'.tr(),
               style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),

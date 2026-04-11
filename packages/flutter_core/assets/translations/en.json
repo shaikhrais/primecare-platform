@@ -1,0 +1,261 @@
+{
+  "auth": {
+    "title_curator": "Welcome to PrimeCare",
+    "curator_subtitle": "Enterprise Access portal",
+    "welcome_back": "Welcome Back",
+    "login_instructions": "Sign in to your account",
+    "email": "Email Address",
+    "password": "Password",
+    "forgot_password": "Forgot Password?",
+    "sign_in": "Sign In",
+    "language_system": "Language",
+    "security_notice_short": "Secure Access",
+    "encryption_active": "End-to-End Encryption Enabled",
+    "enter_credentials_to_continue": "Please enter your credentials to continue.",
+    "authentication_failed": "Authentication failed. Please verify your credentials."
+  },
+  "corporate": {
+    "ceo": {
+      "dashboard": {
+        "title": "CEO Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "cto": {
+      "dashboard": {
+        "title": "CTO Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "cfo": {
+      "dashboard": {
+        "title": "CFO Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "complianceManager": {
+      "dashboard": {
+        "title": "Compliance Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "coo": {
+      "dashboard": {
+        "title": "Coo Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "trainingDirector": {
+      "dashboard": {
+        "title": "Training Director Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  },
+  "business_development": {
+    "franchiseSalesManager": {
+      "dashboard": {
+        "title": "Franchise Sales Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "generalManager": {
+      "dashboard": {
+        "title": "General Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "partnershipManager": {
+      "dashboard": {
+        "title": "Partnership Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "regionalManagerOntario": {
+      "dashboard": {
+        "title": "Regional Manager Ontario Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "regionalManagerUsa": {
+      "dashboard": {
+        "title": "Regional Manager Usa Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "territoryExpansionManager": {
+      "dashboard": {
+        "title": "Territory Expansion Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  },
+  "client": {
+    "familyMember": {
+      "dashboard": {
+        "title": "FamilyMemberDashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "patient": {
+      "dashboard": {
+        "title": "PatientDashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  },
+  "franchise": {
+    "billingAdmin": {
+      "dashboard": {
+        "title": "Billing Admin Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "billing": {
+      "dashboard": {
+        "title": "Billing Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "franchiseOwner": {
+      "dashboard": {
+        "title": "Franchise Owner Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "hr": {
+      "dashboard": {
+        "title": "Hr Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "hrHiring": {
+      "dashboard": {
+        "title": "Hr Hiring Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "operationsManager": {
+      "dashboard": {
+        "title": "Operations Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "opsManager": {
+      "dashboard": {
+        "title": "Ops Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "scheduler": {
+      "dashboard": {
+        "title": "Scheduler Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "scheduling": {
+      "dashboard": {
+        "title": "Scheduling Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  },
+  "marketing": {
+    "communityOutreach": {
+      "dashboard": {
+        "title": "Community Outreach Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "headOfMarketing": {
+      "dashboard": {
+        "title": "Head Of Marketing Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "localMarketing": {
+      "dashboard": {
+        "title": "Local Marketing Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "localMarketingManager": {
+      "dashboard": {
+        "title": "Local Marketing Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "territorySales": {
+      "dashboard": {
+        "title": "Territory Sales Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "territorySalesManager": {
+      "dashboard": {
+        "title": "Territory Sales Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  },
+  "support": {
+    "customerSupport": {
+      "dashboard": {
+        "title": "CustomerSupportDashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "intakeCoordinator": {
+      "dashboard": {
+        "title": "IntakeCoordinatorDashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "intake": {
+      "dashboard": {
+        "title": "Intake Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "qa": {
+      "dashboard": {
+        "title": "Qa Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "qualityAssurance": {
+      "dashboard": {
+        "title": "QualityAssuranceDashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "support": {
+      "dashboard": {
+        "title": "Support Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "trainingCoordinator": {
+      "dashboard": {
+        "title": "Training Coordinator Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  },
+  "admin": {
+    "admin": {
+      "dashboard": {
+        "title": "Administrator Dashboard",
+        "subtitle": "Welcome, Platform Administrator"
+      }
+    }
+  },
+  "clinical": {
+    "psw": {
+      "dashboard": {
+        "title": "PSW Dashboard",
+        "subtitle": "Welcome, Personal Support Worker"
+      }
+    }
+  }
+}

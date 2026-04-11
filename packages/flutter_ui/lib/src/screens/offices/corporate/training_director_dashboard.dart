@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
@@ -22,7 +23,7 @@ class TrainingDirectorDashboard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Training Director Dashboard',
+              'corporate.trainingDirector.dashboard.title'.tr(),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
@@ -30,7 +31,7 @@ class TrainingDirectorDashboard extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Real-time overview fetched natively via API.',
+              'corporate.trainingDirector.dashboard.subtitle'.tr(),
               style: TextStyle(
                 color: Colors.white.withAlpha(178),
                 fontSize: 16,

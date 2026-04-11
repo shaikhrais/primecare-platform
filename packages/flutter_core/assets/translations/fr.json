@@ -1,0 +1,261 @@
+{
+  "auth": {
+    "title_curator": "Bienvenue chez PrimeCare",
+    "curator_subtitle": "Portail d'Accès Entreprise",
+    "welcome_back": "Ravi de vous revoir",
+    "login_instructions": "Connectez-vous à votre compte",
+    "email": "Adresse Courriel",
+    "password": "Mot de passe",
+    "forgot_password": "Mot de passe oublié ?",
+    "sign_in": "Se connecter",
+    "language_system": "Langue",
+    "security_notice_short": "Accès Sécurisé",
+    "encryption_active": "Chiffrement de bout en bout activé",
+    "enter_credentials_to_continue": "Veuillez entrer vos identifiants pour continuer.",
+    "authentication_failed": "Échec de l'authentification. Veuillez vérifier vos identifiants."
+  },
+  "corporate": {
+    "ceo": {
+      "dashboard": {
+        "title": "Tableau de Bord PDG",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "cto": {
+      "dashboard": {
+        "title": "Tableau de Bord DSI",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "cfo": {
+      "dashboard": {
+        "title": "Tableau de Bord DAF",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "complianceManager": {
+      "dashboard": {
+        "title": "Compliance Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "coo": {
+      "dashboard": {
+        "title": "Coo Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "trainingDirector": {
+      "dashboard": {
+        "title": "Training Director Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    }
+  },
+  "business_development": {
+    "franchiseSalesManager": {
+      "dashboard": {
+        "title": "Franchise Sales Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "generalManager": {
+      "dashboard": {
+        "title": "General Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "partnershipManager": {
+      "dashboard": {
+        "title": "Partnership Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "regionalManagerOntario": {
+      "dashboard": {
+        "title": "Regional Manager Ontario Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "regionalManagerUsa": {
+      "dashboard": {
+        "title": "Regional Manager Usa Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "territoryExpansionManager": {
+      "dashboard": {
+        "title": "Territory Expansion Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    }
+  },
+  "client": {
+    "familyMember": {
+      "dashboard": {
+        "title": "FamilyMemberTableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "patient": {
+      "dashboard": {
+        "title": "PatientTableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    }
+  },
+  "franchise": {
+    "billingAdmin": {
+      "dashboard": {
+        "title": "Billing Admin Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "billing": {
+      "dashboard": {
+        "title": "Billing Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "franchiseOwner": {
+      "dashboard": {
+        "title": "Franchise Owner Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "hr": {
+      "dashboard": {
+        "title": "Hr Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "hrHiring": {
+      "dashboard": {
+        "title": "Hr Hiring Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "operationsManager": {
+      "dashboard": {
+        "title": "Operations Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "opsManager": {
+      "dashboard": {
+        "title": "Ops Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "scheduler": {
+      "dashboard": {
+        "title": "Scheduler Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "scheduling": {
+      "dashboard": {
+        "title": "Scheduling Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    }
+  },
+  "marketing": {
+    "communityOutreach": {
+      "dashboard": {
+        "title": "Community Outreach Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "headOfMarketing": {
+      "dashboard": {
+        "title": "Head Of Marketing Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "localMarketing": {
+      "dashboard": {
+        "title": "Local Marketing Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "localMarketingManager": {
+      "dashboard": {
+        "title": "Local Marketing Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "territorySales": {
+      "dashboard": {
+        "title": "Territory Sales Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "territorySalesManager": {
+      "dashboard": {
+        "title": "Territory Sales Manager Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    }
+  },
+  "support": {
+    "customerSupport": {
+      "dashboard": {
+        "title": "CustomerSupportTableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "intakeCoordinator": {
+      "dashboard": {
+        "title": "IntakeCoordinatorTableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "intake": {
+      "dashboard": {
+        "title": "Intake Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "qa": {
+      "dashboard": {
+        "title": "Qa Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "qualityAssurance": {
+      "dashboard": {
+        "title": "QualityAssuranceTableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "support": {
+      "dashboard": {
+        "title": "Support Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    },
+    "trainingCoordinator": {
+      "dashboard": {
+        "title": "Training Coordinator Tableau de Bord",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      }
+    }
+  },
+  "admin": {
+    "admin": {
+      "dashboard": {
+        "title": "Tableau de Bord Administrateur",
+        "subtitle": "Bienvenue, Administrateur de la Plateforme"
+      }
+    }
+  },
+  "clinical": {
+    "psw": {
+      "dashboard": {
+        "title": "Tableau de Bord PSW",
+        "subtitle": "Bienvenue, Préposé aux Bénéficiaires"
+      }
+    }
+  }
+}

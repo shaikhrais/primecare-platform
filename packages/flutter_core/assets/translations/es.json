@@ -1,0 +1,261 @@
+{
+  "auth": {
+    "title_curator": "Bienvenido a PrimeCare",
+    "curator_subtitle": "Portal de Acceso Empresarial",
+    "welcome_back": "Bienvenido de nuevo",
+    "login_instructions": "Inicie sesión en su cuenta",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "forgot_password": "¿Olvidó su contraseña?",
+    "sign_in": "Iniciar Sesión",
+    "language_system": "Idioma",
+    "security_notice_short": "Acceso Seguro",
+    "encryption_active": "Cifrado de extremo a extremo activado",
+    "enter_credentials_to_continue": "Por favor, introduzca sus credenciales para continuar.",
+    "authentication_failed": "Error de autenticación. Por favor verifique sus credenciales."
+  },
+  "corporate": {
+    "ceo": {
+      "dashboard": {
+        "title": "Panel del CEO",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "cto": {
+      "dashboard": {
+        "title": "Panel del CTO",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "cfo": {
+      "dashboard": {
+        "title": "Panel del CFO",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "complianceManager": {
+      "dashboard": {
+        "title": "Compliance Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "coo": {
+      "dashboard": {
+        "title": "Coo Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "trainingDirector": {
+      "dashboard": {
+        "title": "Training Director Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    }
+  },
+  "business_development": {
+    "franchiseSalesManager": {
+      "dashboard": {
+        "title": "Franchise Sales Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "generalManager": {
+      "dashboard": {
+        "title": "General Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "partnershipManager": {
+      "dashboard": {
+        "title": "Partnership Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "regionalManagerOntario": {
+      "dashboard": {
+        "title": "Regional Manager Ontario Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "regionalManagerUsa": {
+      "dashboard": {
+        "title": "Regional Manager Usa Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "territoryExpansionManager": {
+      "dashboard": {
+        "title": "Territory Expansion Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    }
+  },
+  "client": {
+    "familyMember": {
+      "dashboard": {
+        "title": "FamilyMemberPanel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "patient": {
+      "dashboard": {
+        "title": "PatientPanel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    }
+  },
+  "franchise": {
+    "billingAdmin": {
+      "dashboard": {
+        "title": "Billing Admin Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "billing": {
+      "dashboard": {
+        "title": "Billing Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "franchiseOwner": {
+      "dashboard": {
+        "title": "Franchise Owner Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "hr": {
+      "dashboard": {
+        "title": "Hr Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "hrHiring": {
+      "dashboard": {
+        "title": "Hr Hiring Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "operationsManager": {
+      "dashboard": {
+        "title": "Operations Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "opsManager": {
+      "dashboard": {
+        "title": "Ops Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "scheduler": {
+      "dashboard": {
+        "title": "Scheduler Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "scheduling": {
+      "dashboard": {
+        "title": "Scheduling Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    }
+  },
+  "marketing": {
+    "communityOutreach": {
+      "dashboard": {
+        "title": "Community Outreach Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "headOfMarketing": {
+      "dashboard": {
+        "title": "Head Of Marketing Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "localMarketing": {
+      "dashboard": {
+        "title": "Local Marketing Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "localMarketingManager": {
+      "dashboard": {
+        "title": "Local Marketing Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "territorySales": {
+      "dashboard": {
+        "title": "Territory Sales Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "territorySalesManager": {
+      "dashboard": {
+        "title": "Territory Sales Manager Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    }
+  },
+  "support": {
+    "customerSupport": {
+      "dashboard": {
+        "title": "CustomerSupportPanel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "intakeCoordinator": {
+      "dashboard": {
+        "title": "IntakeCoordinatorPanel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "intake": {
+      "dashboard": {
+        "title": "Intake Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "qa": {
+      "dashboard": {
+        "title": "Qa Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "qualityAssurance": {
+      "dashboard": {
+        "title": "QualityAssurancePanel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "support": {
+      "dashboard": {
+        "title": "Support Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    },
+    "trainingCoordinator": {
+      "dashboard": {
+        "title": "Training Coordinator Panel",
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+      }
+    }
+  },
+  "admin": {
+    "admin": {
+      "dashboard": {
+        "title": "Panel de Administrador",
+        "subtitle": "Bienvenido, Administrador de la Plataforma"
+      }
+    }
+  },
+  "clinical": {
+    "psw": {
+      "dashboard": {
+        "title": "Panel de PSW",
+        "subtitle": "Bienvenido, Trabajador de Apoyo Personal"
+      }
+    }
+  }
+}
