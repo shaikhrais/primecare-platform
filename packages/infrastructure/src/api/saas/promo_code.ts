@@ -1,4 +1,4 @@
-import { OpenAPIHono, z } from '@hono/zod-openapi';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
 
 type AppType = OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>;
@@ -12,15 +12,51 @@ export const ApplyPromoCodeSchema = z.object({
     code: z.string().min(1).max(50),
 });
 
+const ValidatePromoRoute = createRoute({
+    method: 'post',
+    path: '/v1/saas/promo/validate',
+    summary: 'Validate Promo Code',
+    request: {
+        body: {
+            content: {
+                'application/json': { schema: ValidatePromoCodeSchema }
+            }
+        }
+    },
+    responses: {
+        200: { description: 'Validation success' },
+        400: { description: 'Invalid promo code' },
+        403: { description: 'Forbidden' },
+        404: { description: 'Promo code not found' },
+        500: { description: 'Internal server error' }
+    }
+});
+
+const ApplyPromoRoute = createRoute({
+    method: 'post',
+    path: '/v1/saas/promo/apply',
+    summary: 'Apply Promo Code',
+    request: {
+        body: {
+            content: {
+                'application/json': { schema: ApplyPromoCodeSchema }
+            }
+        }
+    },
+    responses: {
+        200: { description: 'Promo code applied' },
+        400: { description: 'Invalid promo code' },
+        403: { description: 'Forbidden' },
+        500: { description: 'Internal server error' }
+    }
+});
+
+
 export function registerSaaSPromoRoutes(app: AppType) {
     // Validate Promo Code
-    app.post('/v1/saas/promo/validate', async (c) => {
+    app.openapi(ValidatePromoRoute, async (c) => {
         try {
-            const body = await c.req.json() as any;
-            const parsed = ValidatePromoCodeSchema.safeParse(body);
-            if (!parsed.success) {
-                return c.json({ error: 'Validation failed', details: parsed.error.flatten() }, 400);
-            }
+            const parsed = c.req.valid('json');
 
             const prisma = c.get('prisma');
             if (!prisma) {
@@ -34,11 +70,12 @@ export function registerSaaSPromoRoutes(app: AppType) {
                 return c.json({ error: 'Tenant context required' }, 403);
             }
 
-            const { code } = parsed.data;
+            const { code } = parsed;
 
-            // Find valid promo code
+            // Find valid promo code scoped to tenant architecture
+            // Promo codes can be global or tenant scoped. Assuming global codes apply.
             const promo = await prisma.promoCode.findUnique({
-                where: { code },
+                where: { code }, // Promo codes are universally unique per their design
             });
 
             if (!promo) {
@@ -71,14 +108,10 @@ export function registerSaaSPromoRoutes(app: AppType) {
     });
 
     // Apply Promo Code
-    app.post('/v1/saas/promo/apply', async (c) => {
+    app.openapi(ApplyPromoRoute, async (c) => {
         try {
-            const body = await c.req.json() as any;
-            const parsed = ApplyPromoCodeSchema.safeParse(body);
-            if (!parsed.success) {
-                return c.json({ error: 'Validation failed', details: parsed.error.flatten() }, 400);
-            }
-
+            const parsed = c.req.valid('json');
+            
             const prisma = c.get('prisma');
             if (!prisma) {
                 return c.json({ error: 'Database unavailable' }, 500);
@@ -90,7 +123,7 @@ export function registerSaaSPromoRoutes(app: AppType) {
                 return c.json({ error: 'Tenant context required' }, 403);
             }
 
-            const { code } = parsed.data;
+            const { code } = parsed;
 
             return await prisma.$transaction(async (tx: any) => {
                 // Find and lock code conceptually
@@ -102,13 +135,13 @@ export function registerSaaSPromoRoutes(app: AppType) {
                     throw new Error('Promo code is invalid, expired, or fully used');
                 }
 
-                // Verify tenant
+                // Verify tenant (Tenant isolation)
                 const tenant = await tx.tenant.findUnique({ where: { id: tenantId } });
                 if (!tenant) {
                     throw new Error('Tenant not found');
                 }
 
-                // Create the upgrade record
+                // Create the upgrade record with strictly scoped tenant
                 const upgrade = await tx.subscriptionUpgrade.create({
                     data: {
                         tenantId: tenant.id,
@@ -129,7 +162,7 @@ export function registerSaaSPromoRoutes(app: AppType) {
                     throw new Error('Concurrency limit violation: Promo code usage limit reached');
                 }
 
-                // Update tenant tier
+                // Update tenant tier scoped securely to the tenantId
                 await tx.tenant.update({
                     where: { id: tenant.id },
                     data: { subscriptionTier: promo.targetTier || 'PREMIUM' }
@@ -144,7 +177,8 @@ export function registerSaaSPromoRoutes(app: AppType) {
 
         } catch (e: any) {
             console.error('[SaaS.Promo] Apply Error:', e.message);
-            return c.json({ success: false, error: e.message || 'Internal server error' }, 500);
+            // DO NOT LEAK FULL ERROR
+            return c.json({ success: false, error: 'Failed to apply promo code' }, 500);
         }
     });
 }

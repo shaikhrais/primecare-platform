@@ -69,7 +69,7 @@ export function registerErrorHandler(app: AppType) {
             return c.json({ success: false, error: 'Resource Not Found' }, 404);
         }
 
-        return c.json({ status: 'error', message: err?.message || 'Internal Server Error', stackDump: typeof err?.stack === 'string' ? err?.stack.substring(0, 500) : 'none', path: c.req.path }, 500);
+        return c.json({ status: 'error', message: 'Internal Server Error', path: c.req.path }, 500);
     });
 }
 
