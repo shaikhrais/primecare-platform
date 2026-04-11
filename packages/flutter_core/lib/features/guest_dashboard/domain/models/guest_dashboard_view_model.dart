@@ -1,7 +1,8 @@
 class GuestDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<GuestKpi> kpis;
 
-  const GuestDashboardViewModel({this.kpis = const []});
+  const GuestDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class GuestKpi {

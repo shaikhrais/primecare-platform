@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dashboard_providers.dart';
+import 'package:flutter_core/adapter_providers.dart';
+import 'package:flutter_core/features/community_outreach_dashboard/domain/models/community_outreach_dashboard_view_model.dart';
 // Use local imports if they are in same package, or core if they are exported there. We assume primecare_ui components.
 import 'package:flutter_ui/flutter_ui.dart';
 
@@ -12,7 +12,9 @@ class CommunityOutreachDashboardScreenStitch extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('CommunityOutreachDashboardScreenStitch'),
+      communityOutreachDashboardDataProvider(
+        'CommunityOutreachDashboardScreenStitch',
+      ),
     );
 
     return ProviderLayout(
@@ -46,7 +48,7 @@ class CommunityOutreachDashboardScreenStitch extends ConsumerWidget {
                 ),
               ),
               error: (error, _) => _buildErrorState(error.toString()),
-              data: (DashboardMetrics liveData) =>
+              data: (CommunityOutreachDashboardViewModel liveData) =>
                   _buildDataState(context, liveData),
             ),
           ],
@@ -78,7 +80,10 @@ class CommunityOutreachDashboardScreenStitch extends ConsumerWidget {
     );
   }
 
-  Widget _buildDataState(BuildContext context, DashboardMetrics liveData) {
+  Widget _buildDataState(
+    BuildContext context,
+    CommunityOutreachDashboardViewModel liveData,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -1,4 +1,5 @@
 class CfoDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<CfoKpi> kpis;
   final List<double> revenueData;
   final List<String> revenueLabels;
@@ -15,7 +16,7 @@ class CfoDashboardViewModel {
     this.expenseLabels = const [],
     this.ebitdaTargetValue = 0,
     this.ebitdaTargetMax = 0,
-  });
+   this.recentActivity = const [],});
 }
 
 class CfoKpi {

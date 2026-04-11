@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_core/auth_service.dart';
 import 'auth_layout.dart';
@@ -56,29 +58,26 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      heroTitle: 'Join the Clinical Atelier',
-      heroSubtitle:
-          'Provision your new workspace and connect your practice to the PrimeCare network seamlessly.',
+      heroTitle: 'auth.join_clinical_atelier'.tr(),
+      heroSubtitle: 'auth.provision_workspace'.tr(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             'auth.create_account'.tr(),
-            style: const TextStyle(
-              fontSize: 32,
+            style: GoogleFonts.outfit(
+              fontSize: 36,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Outfit',
-              color: Color(0xFF191C1E),
+              color: const Color(0xFF0F172A),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             'auth.subtitle'.tr(),
-            style: const TextStyle(
+            style: GoogleFonts.inter(
               fontSize: 16,
-              color: Colors.blueGrey,
-              fontFamily: 'Inter',
+              color: const Color(0xFF64748B),
             ),
           ),
           const SizedBox(height: 32),
@@ -89,7 +88,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   controller: _firstNameController,
                   decoration: AuthInputDecoration.get(
                     'auth.first_name'.tr(),
-                    Icons.person_outline,
+                    LucideIcons.user,
                   ),
                 ),
               ),
@@ -99,7 +98,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   controller: _lastNameController,
                   decoration: AuthInputDecoration.get(
                     'auth.last_name'.tr(),
-                    Icons.person_outline,
+                    LucideIcons.user,
                   ),
                 ),
               ),
@@ -110,7 +109,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             controller: _emailController,
             decoration: AuthInputDecoration.get(
               'auth.email'.tr(),
-              Icons.email_outlined,
+              LucideIcons.mail,
             ),
             keyboardType: TextInputType.emailAddress,
           ),
@@ -119,7 +118,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             initialValue: _selectedRole,
             decoration: AuthInputDecoration.get(
               'auth.role'.tr(),
-              Icons.work_outline,
+              LucideIcons.briefcase,
             ),
             items: _roles.map((role) {
               return DropdownMenuItem(
@@ -136,25 +135,21 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             controller: _passwordController,
             decoration: AuthInputDecoration.get(
               'auth.password'.tr(),
-              Icons.lock_outline,
+              LucideIcons.lock,
             ),
             obscureText: true,
           ),
           const SizedBox(height: 40),
-          Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF006948), Color(0xFF00855D)],
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
+          SizedBox(
+            width: double.infinity,
+            height: 56,
             child: ElevatedButton(
               key: const Key('data-status-id=shared-global-signup-action-2'),
               onPressed: _isLoading ? null : _signup,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                backgroundColor: const Color(0xFF0F172A),
+                foregroundColor: Colors.white,
+                elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -170,10 +165,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     )
                   : Text(
                       'auth.register'.tr(),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
             ),
@@ -184,17 +178,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             children: [
               Text(
                 'auth.already_have_account'.tr(),
-                style: const TextStyle(color: Colors.blueGrey),
+                style: GoogleFonts.inter(color: const Color(0xFF64748B)),
               ),
               TextButton(
                 key: const Key('data-status-id=shared-global-signup-action-3'),
                 onPressed: () => context.go('/login'),
                 style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF006948),
+                  foregroundColor: const Color(0xFF38BDF8),
                 ),
                 child: Text(
                   'auth.login'.tr(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: GoogleFonts.inter(fontWeight: FontWeight.w600),
                 ),
               ),
             ],

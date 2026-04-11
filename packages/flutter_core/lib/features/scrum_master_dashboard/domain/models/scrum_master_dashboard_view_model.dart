@@ -1,7 +1,8 @@
 class ScrumMasterDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<ScrumMasterKpi> kpis;
 
-  const ScrumMasterDashboardViewModel({this.kpis = const []});
+  const ScrumMasterDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class ScrumMasterKpi {

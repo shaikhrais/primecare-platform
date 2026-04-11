@@ -20,7 +20,8 @@ class NotificationCenterScreen extends ConsumerWidget {
       error: (err, stack) => Center(child: Text('Error: $err')),
       data: (metrics) => PageTemplate(
         title: 'Platform Notification Center',
-        subtitle: 'Overview and analytical breakdown for Platform Notification Center.',
+        subtitle:
+            'Overview and analytical breakdown for Platform Notification Center.',
         icon: Icons.notifications,
         kpis: const [
           KPICardData(
@@ -70,7 +71,9 @@ class NotificationCenterScreen extends ConsumerWidget {
                       child: Consumer(
                         builder: (context, ref, child) {
                           final dataAsync = ref.watch(
-                            dynamicPageProvider('officeNotificationCenterScreen'),
+                            dynamicPageProvider(
+                              'officeNotificationCenterScreen',
+                            ),
                           );
                           return dataAsync.when(
                             loading: () => const Center(

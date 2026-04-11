@@ -1,7 +1,8 @@
 class CtoDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<CtoKpi> kpis;
 
-  const CtoDashboardViewModel({this.kpis = const []});
+  const CtoDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class CtoKpi {

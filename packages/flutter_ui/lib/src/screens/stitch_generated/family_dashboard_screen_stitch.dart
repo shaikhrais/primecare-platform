@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dashboard_providers.dart';
+import 'package:flutter_core/adapter_providers.dart';
+import 'package:flutter_core/features/family_dashboard/domain/models/family_dashboard_view_model.dart';
 // Use local imports if they are in same package, or core if they are exported there. We assume primecare_ui components.
 import 'package:flutter_ui/flutter_ui.dart';
 
@@ -12,7 +12,7 @@ class FamilyDashboardScreenStitch extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('FamilyDashboardScreenStitch'),
+      familyDashboardDataProvider('FamilyDashboardScreenStitch'),
     );
 
     return ProviderLayout(
@@ -46,7 +46,7 @@ class FamilyDashboardScreenStitch extends ConsumerWidget {
                 ),
               ),
               error: (error, _) => _buildErrorState(error.toString()),
-              data: (DashboardMetrics liveData) =>
+              data: (FamilyDashboardViewModel liveData) =>
                   _buildDataState(context, liveData),
             ),
           ],
@@ -78,7 +78,10 @@ class FamilyDashboardScreenStitch extends ConsumerWidget {
     );
   }
 
-  Widget _buildDataState(BuildContext context, DashboardMetrics liveData) {
+  Widget _buildDataState(
+    BuildContext context,
+    FamilyDashboardViewModel liveData,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

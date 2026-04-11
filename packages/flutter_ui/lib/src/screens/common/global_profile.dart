@@ -20,7 +20,8 @@ class GlobalProfileScreen extends ConsumerWidget {
       error: (err, stack) => Center(child: Text('Error: $err')),
       data: (metrics) => PageTemplate(
         title: 'User Institutional Profile',
-        subtitle: 'Overview and analytical breakdown for User Institutional Profile.',
+        subtitle:
+            'Overview and analytical breakdown for User Institutional Profile.',
         icon: Icons.person,
         kpis: const [
           KPICardData(

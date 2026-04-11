@@ -1,7 +1,8 @@
 class PatientDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<PatientKpi> kpis;
 
-  const PatientDashboardViewModel({this.kpis = const []});
+  const PatientDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class PatientKpi {

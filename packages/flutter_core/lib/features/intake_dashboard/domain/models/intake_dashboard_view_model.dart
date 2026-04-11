@@ -1,7 +1,8 @@
 class IntakeDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<IntakeKpi> kpis;
 
-  const IntakeDashboardViewModel({this.kpis = const []});
+  const IntakeDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class IntakeKpi {

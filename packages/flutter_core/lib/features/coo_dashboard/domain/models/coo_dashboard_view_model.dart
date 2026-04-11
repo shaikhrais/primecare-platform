@@ -1,4 +1,5 @@
 class CooDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<CooKpi> kpis;
   final List<CooFunnelStep> funnelSteps;
   final List<CooGanttTask> ganttTasks;
@@ -9,7 +10,7 @@ class CooDashboardViewModel {
     this.funnelSteps = const [],
     this.ganttTasks = const [],
     this.complianceTargetValue = 0,
-  });
+   this.recentActivity = const [],});
 }
 
 class CooFunnelStep {

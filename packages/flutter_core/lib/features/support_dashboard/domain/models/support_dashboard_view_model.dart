@@ -1,7 +1,8 @@
 class SupportDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<SupportKpi> kpis;
 
-  const SupportDashboardViewModel({this.kpis = const []});
+  const SupportDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class SupportKpi {

@@ -101,9 +101,11 @@ class PageTemplate extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title,
-                        key: const Key('page_title'),
-                        style: PrimeCareTheme.headlineMedium),
+                    Text(
+                      title,
+                      key: const Key('page_title'),
+                      style: PrimeCareTheme.headlineMedium,
+                    ),
                     const SizedBox(height: PrimeCareTheme.spacing1),
                     Text(
                       subtitle,

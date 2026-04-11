@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_ui/src/design_system/clinical_glass.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class AuthLayout extends StatefulWidget {
   final Widget child;
@@ -25,7 +26,7 @@ class _AuthLayoutState extends State<AuthLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF1F5F9), // Slate 100
       body: Stack(
         children: [
           LayoutBuilder(
@@ -65,11 +66,11 @@ class _AuthLayoutState extends State<AuthLayout> {
                 layoutOutput = Row(
                   children: [
                     Expanded(
-                      flex: 1,
+                      flex: 5,
                       child: _buildHeroSection(context, isCompact: false),
                     ),
                     Expanded(
-                      flex: 1,
+                      flex: 4,
                       child: Center(
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.symmetric(
@@ -193,16 +194,16 @@ class _AuthLayoutState extends State<AuthLayout> {
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Icon(
+                        children: [
+                          const Icon(
                             Icons.language,
                             color: Color(0xFF006948),
                             size: 20,
                           ),
-                          SizedBox(width: 6),
+                          const SizedBox(width: 6),
                           Text(
-                            'EN',
-                            style: TextStyle(
+                            'auth.language_system'.tr(),
+                            style: const TextStyle(
                               color: Color(0xFF006948),
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Inter',
@@ -220,24 +221,21 @@ class _AuthLayoutState extends State<AuthLayout> {
                         SnackBar(content: Text('Language changed to $result')),
                       );
                     },
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'EN',
-                        child: Text('English'),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'FR',
-                        child: Text(
-                          'FranÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ais',
-                        ),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'ES',
-                        child: Text(
-                          'EspaÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ol',
-                        ),
-                      ),
-                    ],
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
+                          const PopupMenuItem<String>(
+                            value: 'EN',
+                            child: Text('English'),
+                          ),
+                          const PopupMenuItem<String>(
+                            value: 'FR',
+                            child: Text('Français'),
+                          ),
+                          const PopupMenuItem<String>(
+                            value: 'ES',
+                            child: Text('Español'),
+                          ),
+                        ],
                   ),
                 ),
               ],
@@ -258,99 +256,96 @@ class _AuthLayoutState extends State<AuthLayout> {
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF006948), // Emerald Teal
-            Color(0xFF002366), // Navy Indigo
-          ],
+          colors: [Color(0xFF0F172A), Color(0xFF1E293B)], // Slate 900 to 800
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: Stack(
+      padding: EdgeInsets.all(isCompact ? 32.0 : 64.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Ambient blur circles can be added here if needed
-          Positioned(
-            top: -100,
-            right: -100,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white.withValues(alpha: 0.05),
+          Row(
+            children: [
+              Icon(
+                LucideIcons.shieldCheck,
+                color: const Color(0xFF38BDF8),
+                size: isCompact ? 32 : 48,
               ),
+              const SizedBox(width: 16),
+              Text(
+                'PrimeCare',
+                style: GoogleFonts.outfit(
+                  fontSize: isCompact ? 24 : 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          Text(
+            widget.heroTitle,
+            style: GoogleFonts.outfit(
+              fontSize: isCompact ? 36 : 64,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              height: 1.1,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(isCompact ? 24.0 : 48.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.emergency,
-                      color: Colors.white,
-                      size: isCompact ? 24 : 32,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      'PrimeCare V4',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.5,
-                        fontSize: isCompact ? 18 : 22,
-                        fontFamily: 'Outfit',
-                      ),
-                    ),
-                  ],
+          const SizedBox(height: 24),
+          Text(
+            widget.heroSubtitle,
+            style: GoogleFonts.inter(
+              fontSize: isCompact ? 16 : 20,
+              color: Colors.white70,
+              height: 1.5,
+            ),
+          ),
+          const Spacer(),
+          if (!isCompact)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: const Color(0xFF38BDF8).withValues(alpha: 0.2),
                 ),
-                const Spacer(),
-                Text(
-                  widget.heroTitle,
-                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: isCompact ? 24 : null,
-                    fontFamily: 'Outfit',
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    LucideIcons.lock,
+                    color: Color(0xFF38BDF8),
+                    size: 16,
                   ),
-                ),
-                if (!isCompact) ...[
-                  const SizedBox(height: 16),
-                  Text(
-                    widget.heroSubtitle,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  ClinicalGlass(
-                    padding: const EdgeInsets.all(24),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.verified_user, color: Colors.white),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Text(
-                            'End-to-End Encrypted. Institutional Data Privacy Audited.',
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(
-                                  color: Colors.white,
-                                  fontFamily: 'Inter',
-                                ),
-                          ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'auth.security_notice_short'.tr(),
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
                         ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        'auth.encryption_active'.tr(),
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-                const SizedBox(height: 16),
-              ],
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -358,27 +353,33 @@ class _AuthLayoutState extends State<AuthLayout> {
 }
 
 class AuthInputDecoration {
-  static InputDecoration get(String label, IconData icon) {
+  static InputDecoration get(String label, IconData icon, {String? hintText}) {
     return InputDecoration(
       labelText: label,
-      labelStyle: const TextStyle(color: Colors.blueGrey, fontFamily: 'Inter'),
-      prefixIcon: Icon(icon, color: Colors.blueGrey),
+      hintText: hintText,
+      labelStyle: const TextStyle(
+        color: Color(0xFF64748B),
+        fontFamily: 'Inter',
+      ), // Slate 500
+      prefixIcon: Icon(icon, color: const Color(0xFF94A3B8)), // Slate 400
       filled: true,
-      fillColor: const Color(0xFFF2F4F6), // surface-container-low
+      fillColor: Colors.white,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+        borderSide: const BorderSide(
+          color: Color(0xFFCBD5E1), // Slate 300
+        ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+        borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(
-          color: Color(0xFF006948),
+          color: Color(0xFF38BDF8), // Sky Blue
           width: 2,
-        ), // Focus Primary
+        ),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
     );

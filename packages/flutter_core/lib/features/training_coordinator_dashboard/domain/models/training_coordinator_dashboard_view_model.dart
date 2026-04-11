@@ -1,7 +1,8 @@
 class TrainingCoordinatorDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<TrainingCoordinatorKpi> kpis;
 
-  const TrainingCoordinatorDashboardViewModel({this.kpis = const []});
+  const TrainingCoordinatorDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class TrainingCoordinatorKpi {

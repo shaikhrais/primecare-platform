@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_core/flutter_core.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -64,7 +67,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF006565), // Deep Clinical Teal
+      backgroundColor: const Color(0xFF0F172A), // Slate 900
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
@@ -80,28 +83,32 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     Container(
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.15),
+                        color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
                         shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFF38BDF8).withValues(alpha: 0.2),
+                        ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
+                            color: const Color(
+                              0xFF38BDF8,
+                            ).withValues(alpha: 0.1),
                             blurRadius: 20,
                             spreadRadius: 5,
                           ),
                         ],
                       ),
                       child: const Icon(
-                        Icons.health_and_safety,
+                        LucideIcons.shieldCheck,
                         size: 72,
-                        color: Colors.white,
+                        color: Color(0xFF38BDF8),
                       ),
                     ),
                     const SizedBox(height: 32),
                     // Typography
-                    const Text(
+                    Text(
                       'PRIMECARE',
-                      style: TextStyle(
-                        fontFamily: 'Outfit',
+                      style: GoogleFonts.outfit(
                         fontSize: 36,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 8.0,
@@ -110,9 +117,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'V4 ZERO-TRUST PLATFORM',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
+                      'auth.zero_trust_platform'.tr(),
+                      style: GoogleFonts.inter(
                         fontSize: 12,
                         letterSpacing: 4.0,
                         fontWeight: FontWeight.w600,
@@ -124,18 +130,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        backgroundColor: Colors.white.withValues(alpha: 0.2),
+                        backgroundColor: const Color(0xFF1E293B),
                         valueColor: const AlwaysStoppedAnimation<Color>(
-                          Colors.white,
+                          Color(0xFF38BDF8),
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'HYDRATING REGISTRIES...',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
+                      'auth.hydrating_registries'.tr(),
+                      style: GoogleFonts.inter(
                         fontSize: 10,
                         letterSpacing: 2.0,
                         fontWeight: FontWeight.w800,

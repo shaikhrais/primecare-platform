@@ -14,7 +14,7 @@ class CooDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(cooDashboardAdapterProvider);
+    final metricsAsyncValue = ref.watch(cooDashboardDataProvider('main'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

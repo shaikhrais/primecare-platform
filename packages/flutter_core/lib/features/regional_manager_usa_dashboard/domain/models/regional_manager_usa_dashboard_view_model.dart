@@ -1,7 +1,8 @@
 class RegionalManagerUsaDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<RegionalUsaKpi> kpis;
 
-  const RegionalManagerUsaDashboardViewModel({required this.kpis});
+  const RegionalManagerUsaDashboardViewModel({required this.kpis, this.recentActivity = const []});
 }
 
 class RegionalUsaKpi {

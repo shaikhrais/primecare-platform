@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dashboard_providers.dart';
+import 'package:flutter_core/adapter_providers.dart';
+import 'package:flutter_core/features/franchise_owner_dashboard/domain/models/franchise_owner_view_model.dart';
 // Use local imports if they are in same package, or core if they are exported there. We assume primecare_ui components.
 import 'package:flutter_ui/flutter_ui.dart';
 
@@ -12,7 +12,9 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('FranchiseOwnerDashboardScreenStitch'),
+      franchiseOwnerDashboardDataProvider(
+        'FranchiseOwnerDashboardScreenStitch',
+      ),
     );
 
     return ProviderLayout(
@@ -46,7 +48,7 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
                 ),
               ),
               error: (error, _) => _buildErrorState(error.toString()),
-              data: (DashboardMetrics liveData) =>
+              data: (FranchiseOwnerViewModel liveData) =>
                   _buildDataState(context, liveData),
             ),
           ],
@@ -78,7 +80,10 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
     );
   }
 
-  Widget _buildDataState(BuildContext context, DashboardMetrics liveData) {
+  Widget _buildDataState(
+    BuildContext context,
+    FranchiseOwnerViewModel liveData,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -91,11 +96,11 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
           childAspectRatio: 1.5,
           children: liveData.kpis.map((kpi) {
             return PrimeCareStatCard(
-              title: kpi.title,
+              title: kpi.label,
               value: kpi.value,
               deltaSuffix: kpi.trend,
-              icon: _inferIcon(kpi.title),
-              iconColor: _inferColor(kpi.status),
+              icon: _inferIcon(kpi.label),
+              iconColor: _inferColor('operational'),
             );
           }).toList(),
         ),
@@ -161,7 +166,7 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
                                     ),
                                   ),
                                   Text(
-                                    activity.subtitle,
+                                    '', // subtitle missing
                                     style: const TextStyle(
                                       color: Colors.white54,
                                       fontSize: 13,
@@ -171,7 +176,7 @@ class FranchiseOwnerDashboardScreenStitch extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              activity.timestamp,
+                              activity.timestamp.toString(),
                               style: const TextStyle(
                                 color: Colors.white38,
                                 fontSize: 12,

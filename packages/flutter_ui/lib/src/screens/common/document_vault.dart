@@ -20,7 +20,8 @@ class DocumentVaultScreen extends ConsumerWidget {
       error: (err, stack) => Center(child: Text('Error: $err')),
       data: (metrics) => PageTemplate(
         title: 'Secure Institutional Vault',
-        subtitle: 'Overview and analytical breakdown for Secure Institutional Vault.',
+        subtitle:
+            'Overview and analytical breakdown for Secure Institutional Vault.',
         icon: Icons.security,
         kpis: const [
           KPICardData(

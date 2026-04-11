@@ -1,7 +1,8 @@
 class QaDashboardViewModel {
+  final List<dynamic> recentActivity;
   final List<QaKpi> kpis;
 
-  const QaDashboardViewModel({this.kpis = const []});
+  const QaDashboardViewModel({this.kpis = const [], this.recentActivity = const []});
 }
 
 class QaKpi {
