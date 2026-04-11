@@ -17,7 +17,7 @@ dependencies:
   dio: ^5.9.2
   easy_localization: ^3.0.8
   lucide_icons: ^0.257.0
-  fl_chart: 0.68.0
+  fl_chart: ^0.68.0
   flutter_core:
     path: ../flutter_core
   intl: any

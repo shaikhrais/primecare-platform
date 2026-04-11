@@ -30,77 +30,43 @@ export 'routes/groups/support_routes.dart';
 export 'routes/groups/common_routes.dart';
 export 'theme/app_theme.dart';
 
-export 'features/franchise_owner_dashboard/data/adapters/franchise_owner_adapter.dart';
 export 'features/franchise_owner_dashboard/domain/models/franchise_owner_view_model.dart';
 
 // Auto-scaled adapters
-export 'features/franchise_sales_manager_dashboard/data/adapters/franchise_sales_manager_dashboard_adapter.dart';
 export 'features/franchise_sales_manager_dashboard/domain/models/franchise_sales_manager_dashboard_view_model.dart';
-export 'features/general_manager_dashboard/data/adapters/general_manager_dashboard_adapter.dart';
 export 'features/general_manager_dashboard/domain/models/general_manager_dashboard_view_model.dart';
-export 'features/partnership_manager_dashboard/data/adapters/partnership_manager_dashboard_adapter.dart';
 export 'features/partnership_manager_dashboard/domain/models/partnership_manager_dashboard_view_model.dart';
-export 'features/regional_manager_ontario_dashboard/data/adapters/regional_manager_ontario_dashboard_adapter.dart';
 export 'features/regional_manager_ontario_dashboard/domain/models/regional_manager_ontario_dashboard_view_model.dart';
-export 'features/regional_manager_usa_dashboard/data/adapters/regional_manager_usa_dashboard_adapter.dart';
 export 'features/regional_manager_usa_dashboard/domain/models/regional_manager_usa_dashboard_view_model.dart';
-export 'features/territory_expansion_manager_dashboard/data/adapters/territory_expansion_manager_dashboard_adapter.dart';
 export 'features/territory_expansion_manager_dashboard/domain/models/territory_expansion_manager_dashboard_view_model.dart';
-export 'features/client_dashboard/data/adapters/client_dashboard_adapter.dart';
 export 'features/client_dashboard/domain/models/client_dashboard_view_model.dart';
-export 'features/family_dashboard/data/adapters/family_dashboard_adapter.dart';
 export 'features/family_dashboard/domain/models/family_dashboard_view_model.dart';
-export 'features/billing_admin_dashboard/data/adapters/billing_admin_dashboard_adapter.dart';
 export 'features/billing_admin_dashboard/domain/models/billing_admin_dashboard_view_model.dart';
-export 'features/ceo_dashboard/data/adapters/ceo_dashboard_adapter.dart';
 export 'features/ceo_dashboard/domain/models/ceo_dashboard_view_model.dart';
-export 'features/clinic_dashboard/data/adapters/clinic_dashboard_adapter.dart';
 export 'features/clinic_dashboard/domain/models/clinic_dashboard_view_model.dart';
-export 'features/compliance_manager_dashboard/data/adapters/compliance_manager_dashboard_adapter.dart';
 export 'features/compliance_manager_dashboard/domain/models/compliance_manager_dashboard_view_model.dart';
-export 'features/customer_support_dashboard/data/adapters/customer_support_dashboard_adapter.dart';
 export 'features/customer_support_dashboard/domain/models/customer_support_dashboard_view_model.dart';
-export 'features/head_of_bus_dev_dashboard/data/adapters/head_of_bus_dev_dashboard_adapter.dart';
 export 'features/head_of_bus_dev_dashboard/domain/models/head_of_bus_dev_dashboard_view_model.dart';
-export 'features/cfo_dashboard/data/adapters/cfo_dashboard_adapter.dart';
 export 'features/cfo_dashboard/domain/models/cfo_dashboard_view_model.dart';
-export 'features/coo_dashboard/data/adapters/coo_dashboard_adapter.dart';
 export 'features/coo_dashboard/domain/models/coo_dashboard_view_model.dart';
-export 'features/cto_dashboard/data/adapters/cto_dashboard_adapter.dart';
 export 'features/cto_dashboard/domain/models/cto_dashboard_view_model.dart';
-export 'features/training_director_dashboard/data/adapters/training_director_dashboard_adapter.dart';
 export 'features/training_director_dashboard/domain/models/training_director_dashboard_view_model.dart';
-export 'features/hr_hiring_dashboard/data/adapters/hr_hiring_dashboard_adapter.dart';
 export 'features/hr_hiring_dashboard/domain/models/hr_hiring_dashboard_view_model.dart';
-export 'features/operations_manager_dashboard/data/adapters/operations_manager_dashboard_adapter.dart';
 export 'features/operations_manager_dashboard/domain/models/operations_manager_dashboard_view_model.dart';
-export 'features/owner_dashboard/data/adapters/owner_dashboard_adapter.dart';
 export 'features/owner_dashboard/domain/models/owner_dashboard_view_model.dart';
-export 'features/scheduler_dashboard/data/adapters/scheduler_dashboard_adapter.dart';
 export 'features/scheduler_dashboard/domain/models/scheduler_dashboard_view_model.dart';
-export 'features/community_outreach_dashboard/data/adapters/community_outreach_dashboard_adapter.dart';
 export 'features/community_outreach_dashboard/domain/models/community_outreach_dashboard_view_model.dart';
-export 'features/head_of_marketing_dashboard/data/adapters/head_of_marketing_dashboard_adapter.dart';
 export 'features/head_of_marketing_dashboard/domain/models/head_of_marketing_dashboard_view_model.dart';
-export 'features/local_marketing_manager_dashboard/data/adapters/local_marketing_manager_dashboard_adapter.dart';
 export 'features/local_marketing_manager_dashboard/domain/models/local_marketing_manager_dashboard_view_model.dart';
-export 'features/territory_sales_manager_dashboard/data/adapters/territory_sales_manager_dashboard_adapter.dart';
 export 'features/territory_sales_manager_dashboard/domain/models/territory_sales_manager_dashboard_view_model.dart';
-export 'features/qa_dashboard/data/adapters/qa_dashboard_adapter.dart';
 export 'features/qa_dashboard/domain/models/qa_dashboard_view_model.dart';
-export 'features/intake_dashboard/data/adapters/intake_dashboard_adapter.dart';
 export 'features/intake_dashboard/domain/models/intake_dashboard_view_model.dart';
-export 'features/support_dashboard/data/adapters/support_dashboard_adapter.dart';
 export 'features/support_dashboard/domain/models/support_dashboard_view_model.dart';
-export 'features/training_coordinator_dashboard/data/adapters/training_coordinator_dashboard_adapter.dart';
 export 'features/training_coordinator_dashboard/domain/models/training_coordinator_dashboard_view_model.dart';
 
 // Office: system
-export 'features/guest_dashboard/data/adapters/guest_dashboard_adapter.dart';
 export 'features/guest_dashboard/domain/models/guest_dashboard_view_model.dart';
-export 'features/scrum_master_dashboard/data/adapters/scrum_master_dashboard_adapter.dart';
 export 'features/scrum_master_dashboard/domain/models/scrum_master_dashboard_view_model.dart';
 
 // Office: patient
-export 'features/patient_dashboard/data/adapters/patient_dashboard_adapter.dart';
 export 'features/patient_dashboard/domain/models/patient_dashboard_view_model.dart';

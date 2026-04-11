@@ -4,6 +4,9 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import '../../../widgets/primecare_line_chart.dart';
+import '../../../widgets/primecare_pie_chart.dart';
+import '../../../widgets/primecare_gauge_chart.dart';
 
 class CfoDashboard extends ConsumerWidget {
   const CfoDashboard({super.key});
@@ -86,7 +89,45 @@ class CfoDashboard extends ConsumerWidget {
                         );
                       }).toList(),
                     ),
+                    const SizedBox(height: 32),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: PrimeCareLineChart(
+                            title: 'Historical Revenue (\$M)',
+                            data: liveData.revenueData,
+                            labels: liveData.revenueLabels,
+                            height: 300,
+                            lineColor: Colors.blueAccent,
+                          ),
+                        ),
+                        const SizedBox(width: 24),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              PrimeCarePieChart(
+                                title: 'Expense Breakdown',
+                                data: _buildPieData(liveData),
+                                height: 200,
+                              ),
+                              const SizedBox(height: 24),
+                              PrimeCareGaugeChart(
+                                title: 'EBITDA Target',
+                                subtitle: 'QTD performance vs goal',
+                                value: liveData.ebitdaTargetMax > 0 ? (liveData.ebitdaTargetValue / liveData.ebitdaTargetMax) * 100.0 : 0,
+                                height: 200,
+                                activeColor: Colors.greenAccent,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
+
                 );
               },
             ),
@@ -94,6 +135,27 @@ class CfoDashboard extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  List<PrimeCarePieChartData> _buildPieData(CfoDashboardViewModel liveData) {
+    if (liveData.expenseData.isEmpty || liveData.expenseLabels.length != liveData.expenseData.length) return [];
+    
+    final colors = [
+      Colors.blueAccent,
+      Colors.indigoAccent,
+      Colors.tealAccent,
+      Colors.cyanAccent,
+      Colors.deepPurpleAccent,
+      Colors.lightBlueAccent,
+    ];
+    
+    return List.generate(liveData.expenseData.length, (index) {
+       return PrimeCarePieChartData(
+         label: liveData.expenseLabels[index],
+         value: liveData.expenseData[index],
+         color: colors[index % colors.length],
+       );
+    });
   }
 
   IconData _inferIcon(String title) {

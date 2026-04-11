@@ -1,0 +1,19 @@
+name: primecare_adapters
+description: "A standalone package dedicated to centralized UI data binding logic and adapters for the PrimeCare platform."
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.11.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+  flutter_core:
+    path: ../flutter_core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

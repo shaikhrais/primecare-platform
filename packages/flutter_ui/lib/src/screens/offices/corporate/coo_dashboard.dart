@@ -4,6 +4,9 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
+import '../../../widgets/primecare_funnel_chart.dart';
+import '../../../widgets/primecare_gantt_chart.dart';
+import '../../../widgets/primecare_gauge_chart.dart';
 
 class CooDashboard extends ConsumerWidget {
   const CooDashboard({super.key});
@@ -86,6 +89,41 @@ class CooDashboard extends ConsumerWidget {
                         );
                       }).toList(),
                     ),
+                    const SizedBox(height: 32),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              PrimeCareGaugeChart(
+                                title: 'Compliance Target',
+                                subtitle: 'Operational baseline',
+                                value: liveData.complianceTargetValue,
+                                activeColor: Colors.tealAccent,
+                                height: 180,
+                              ),
+                              const SizedBox(height: 24),
+                              PrimeCareFunnelChart(
+                                title: 'Shift Fulfillment Pipeline',
+                                steps: _buildFunnel(liveData),
+                                height: 350,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 24),
+                        Expanded(
+                          flex: 2,
+                          child: PrimeCareGanttChart(
+                            title: 'Operations Schedule',
+                            tasks: _buildGantt(liveData),
+                            height: 554, // Matches the combined height of the left column charts
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 );
               },
@@ -94,6 +132,37 @@ class CooDashboard extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  List<PrimeCareFunnelStep> _buildFunnel(CooDashboardViewModel liveData) {
+    if (liveData.funnelSteps.isEmpty) return [];
+    final colors = [
+      Colors.teal,
+      Colors.tealAccent,
+      Colors.cyan,
+      Colors.cyanAccent,
+    ];
+    return List.generate(liveData.funnelSteps.length, (idx) {
+      final step = liveData.funnelSteps[idx];
+      return PrimeCareFunnelStep(
+        label: step.label,
+        count: step.count,
+        color: colors[idx % colors.length],
+      );
+    });
+  }
+
+  List<PrimeCareGanttTask> _buildGantt(CooDashboardViewModel liveData) {
+    if (liveData.ganttTasks.isEmpty) return [];
+    return liveData.ganttTasks.map((t) {
+      return PrimeCareGanttTask(
+        id: t.id,
+        name: t.name,
+        startTime: t.startTime,
+        endTime: t.endTime,
+        color: Colors.blueGrey,
+      );
+    }).toList();
   }
 
   IconData _inferIcon(String title) {
