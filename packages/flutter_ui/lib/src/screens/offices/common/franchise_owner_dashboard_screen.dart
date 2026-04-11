@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart'; // Ensure correct import
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart'; // Ensure correct import
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 

@@ -20,6 +20,8 @@ dependencies:
   fl_chart: 0.68.0
   flutter_core:
     path: ../../packages/flutter_core
+  primecare_adapters:
+    path: ../../packages/primecare_adapters
   flutter_ui:
     path: ../../packages/flutter_ui
 dev_dependencies:
