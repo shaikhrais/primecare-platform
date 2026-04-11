@@ -1,28 +1,13 @@
 import '../../../../config/offline_fallback_state.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
+
 class CustomerSupportDashboardViewModel implements OfflineFallbackState {
   @override
   final bool isOfflineFallback;
-  final List<CustomerSupportDashboardKpi> kpis;
-  final List<CustomerSupportDashboardActivity> recentActivity;
+  final List<UIComponentBlueprint> blueprints;
 
   const CustomerSupportDashboardViewModel({
     this.isOfflineFallback = false,
-    this.kpis = const [],
-    this.recentActivity = const [],
+    this.blueprints = const [],
   });
-}
-
-class CustomerSupportDashboardKpi {
-  final String? title;
-  final String? value;
-  final String? trend;
-  final String? status;
-  const CustomerSupportDashboardKpi({this.title, this.value, this.trend, this.status});
-}
-
-class CustomerSupportDashboardActivity {
-  final String? title;
-  final String? subtitle;
-  final String? timestamp;
-  const CustomerSupportDashboardActivity({this.title, this.subtitle, this.timestamp});
 }

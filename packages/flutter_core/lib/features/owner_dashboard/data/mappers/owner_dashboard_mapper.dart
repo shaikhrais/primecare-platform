@@ -1,17 +1,40 @@
 import '../../domain/models/owner_dashboard_view_model.dart';
 import '../dtos/owner_dashboard_dto.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 
 class OwnerDashboardMapper {
   static OwnerDashboardViewModel fromApi(OwnerDashboardDto dto) {
-    return OwnerDashboardViewModel(kpis: dto.rawKpis.map((k) => OwnerDashboardKpi(
-        title: k['name']?.toString() ?? '',
-        value: k['val']?.toString() ?? '0',
-        trend: k['trend']?.toString(),
-        status: k['status']?.toString() ?? 'Active',
-      )).toList());
+    return OwnerDashboardViewModel(
+      blueprints: [
+        StatGridBlueprint(
+          id: 'stats_primary',
+          title: 'KPI Summary',
+          dataPayload: [],
+        ),
+        ActivityFeedBlueprint(
+          id: 'activity_primary',
+          title: 'Recent Activity',
+          dataPayload: [],
+        ),
+      ],
+    );
   }
 
   static OwnerDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
-    return OwnerDashboardViewModel(isOfflineFallback: isErrorFallback);
+    return OwnerDashboardViewModel(
+      isOfflineFallback: isErrorFallback,
+      blueprints: [
+        StatGridBlueprint(
+          id: 'stats_primary',
+          title: 'KPI Summary',
+          dataPayload: [],
+        ),
+        ActivityFeedBlueprint(
+          id: 'activity_primary',
+          title: 'Recent Activity',
+          dataPayload: [],
+        ),
+      ],
+    );
   }
 }

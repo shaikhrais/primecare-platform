@@ -1,17 +1,40 @@
 import '../../domain/models/billing_admin_dashboard_view_model.dart';
 import '../dtos/billing_admin_dashboard_dto.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 
 class BillingAdminDashboardMapper {
   static BillingAdminDashboardViewModel fromApi(BillingAdminDashboardDto dto) {
-    return BillingAdminDashboardViewModel(kpis: dto.rawKpis.map((k) => BillingAdminDashboardKpi(
-        title: k['name']?.toString() ?? '',
-        value: k['val']?.toString() ?? '0',
-        trend: k['trend']?.toString(),
-        status: k['status']?.toString() ?? 'Active',
-      )).toList());
+    return BillingAdminDashboardViewModel(
+      blueprints: [
+        StatGridBlueprint(
+          id: 'stats_primary',
+          title: 'KPI Summary',
+          dataPayload: [],
+        ),
+        ActivityFeedBlueprint(
+          id: 'activity_primary',
+          title: 'Recent Activity',
+          dataPayload: [],
+        ),
+      ],
+    );
   }
 
   static BillingAdminDashboardViewModel fromMock(Map<String, dynamic> mock, {bool isErrorFallback = false}) {
-    return BillingAdminDashboardViewModel(isOfflineFallback: isErrorFallback);
+    return BillingAdminDashboardViewModel(
+      isOfflineFallback: isErrorFallback,
+      blueprints: [
+        StatGridBlueprint(
+          id: 'stats_primary',
+          title: 'KPI Summary',
+          dataPayload: [],
+        ),
+        ActivityFeedBlueprint(
+          id: 'activity_primary',
+          title: 'Recent Activity',
+          dataPayload: [],
+        ),
+      ],
+    );
   }
 }

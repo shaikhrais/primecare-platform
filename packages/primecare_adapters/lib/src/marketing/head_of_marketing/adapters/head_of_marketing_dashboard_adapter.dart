@@ -1,8 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/features/head_of_marketing_dashboard/domain/models/head_of_marketing_dashboard_view_model.dart';
-import 'package:flutter_core/features/head_of_marketing_dashboard/data/mappers/head_of_marketing_dashboard_mapper.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 
-final headOfMarketingDashboardAdapterProvider =
-    FutureProvider<HeadOfMarketingDashboardViewModel>((ref) async {
-      return HeadOfMarketingDashboardMapper.fromMock({});
-    });
+final headOfMarketingDashboardAdapterProvider = FutureProvider<HeadOfMarketingDashboardViewModel>((ref) async {
+  return DataLogisticsHub.fetchAndAssemble<HeadOfMarketingDashboardViewModel>(
+    fetchCall: () async {
+      final apiClient = ref.read(apiClientProvider);
+      final endpoint = '/api/v1/metrics';
+      final response = await apiClient.get('$endpoint?route=UnknownRoute');
+
+      if (response.statusCode == 200) {
+        return HeadOfMarketingDashboardViewModel(
+          blueprints: [
+            DataFallbackEngine.createFallbackStatGrid('Live Dashboard'),
+            DataFallbackEngine.createFallbackActivityFeed('System Logs'),
+          ],
+        );
+      } else {
+        throw Exception('API error loading dashboard: ${response.statusCode}');
+      }
+    },
+    fallbackBuilder: () {
+      return HeadOfMarketingDashboardViewModel(
+        isOfflineFallback: true,
+        blueprints: [
+          DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
+          DataFallbackEngine.createFallbackActivityFeed('System Logs (Degraded)'),
+        ],
+      );
+    },
+  );
+});

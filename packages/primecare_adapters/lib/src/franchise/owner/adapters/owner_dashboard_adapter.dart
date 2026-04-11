@@ -1,9 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/features/owner_dashboard/domain/models/owner_dashboard_view_model.dart';
-import 'package:flutter_core/features/owner_dashboard/data/mappers/owner_dashboard_mapper.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 
-final ownerDashboardAdapterProvider = FutureProvider<OwnerDashboardViewModel>((
-  ref,
-) async {
-  return OwnerDashboardMapper.fromMock({});
+final ownerDashboardAdapterProvider = FutureProvider<OwnerDashboardViewModel>((ref) async {
+  return DataLogisticsHub.fetchAndAssemble<OwnerDashboardViewModel>(
+    fetchCall: () async {
+      final apiClient = ref.read(apiClientProvider);
+      final endpoint = '/api/v1/metrics';
+      final response = await apiClient.get('$endpoint?route=UnknownRoute');
+
+      if (response.statusCode == 200) {
+        return OwnerDashboardViewModel(
+          blueprints: [
+            DataFallbackEngine.createFallbackStatGrid('Live Dashboard'),
+            DataFallbackEngine.createFallbackActivityFeed('System Logs'),
+          ],
+        );
+      } else {
+        throw Exception('API error loading dashboard: ${response.statusCode}');
+      }
+    },
+    fallbackBuilder: () {
+      return OwnerDashboardViewModel(
+        isOfflineFallback: true,
+        blueprints: [
+          DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
+          DataFallbackEngine.createFallbackActivityFeed('System Logs (Degraded)'),
+        ],
+      );
+    },
+  );
 });

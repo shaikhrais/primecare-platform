@@ -1,39 +1,13 @@
 import '../../../../config/offline_fallback_state.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
+
 class QaDashboardViewModel implements OfflineFallbackState {
   @override
   final bool isOfflineFallback;
-  final List<dynamic> recentActivity;
-  final List<QaKpi> kpis;
+  final List<UIComponentBlueprint> blueprints;
 
   const QaDashboardViewModel({
-    this.isOfflineFallback = false,this.kpis = const [], this.recentActivity = const []});
-}
-
-class QaKpi {
-  final String title;
-  final String value;
-  final String trend;
-  final String status;
-
-  const QaKpi({
-    required this.title,
-    required this.value,
-    required this.trend,
-    required this.status,
+    this.isOfflineFallback = false,
+    this.blueprints = const [],
   });
-}
-
-class QaDashboardKpi {
-  final String? title;
-  final String? value;
-  final String? trend;
-  final String? status;
-  const QaDashboardKpi({this.title, this.value, this.trend, this.status});
-}
-
-class QaDashboardActivity {
-  final String? title;
-  final String? subtitle;
-  final String? timestamp;
-  const QaDashboardActivity({this.title, this.subtitle, this.timestamp});
 }

@@ -1,66 +1,13 @@
 import '../../../../config/offline_fallback_state.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
+
 class CooDashboardViewModel implements OfflineFallbackState {
   @override
   final bool isOfflineFallback;
-  final List<dynamic> recentActivity;
-  final List<CooKpi> kpis;
-  final List<CooFunnelStep> funnelSteps;
-  final List<CooGanttTask> ganttTasks;
-  final double complianceTargetValue;
+  final List<UIComponentBlueprint> blueprints;
 
   const CooDashboardViewModel({
     this.isOfflineFallback = false,
-    this.kpis = const [],
-    this.funnelSteps = const [],
-    this.ganttTasks = const [],
-    this.complianceTargetValue = 0,
-   this.recentActivity = const [],});
-}
-
-class CooFunnelStep {
-  final String label;
-  final int count;
-  const CooFunnelStep({required this.label, required this.count});
-}
-
-class CooGanttTask {
-  final String id;
-  final String name;
-  final DateTime startTime;
-  final DateTime endTime;
-  const CooGanttTask({
-    required this.id,
-    required this.name,
-    required this.startTime,
-    required this.endTime,
+    this.blueprints = const [],
   });
-}
-
-class CooKpi {
-  final String title;
-  final String value;
-  final String trend;
-  final String status;
-
-  const CooKpi({
-    required this.title,
-    required this.value,
-    required this.trend,
-    required this.status,
-  });
-}
-
-class CooDashboardKpi {
-  final String? title;
-  final String? value;
-  final String? trend;
-  final String? status;
-  const CooDashboardKpi({this.title, this.value, this.trend, this.status});
-}
-
-class CooDashboardActivity {
-  final String? title;
-  final String? subtitle;
-  final String? timestamp;
-  const CooDashboardActivity({this.title, this.subtitle, this.timestamp});
 }
