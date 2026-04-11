@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'component_registry.dart';
+import '../warehouse/component_warehouse.dart';
 
 class ComponentFabricator {
   /// Dynamically assembles an empty PrimeCare UI component based on the Blueprint type
