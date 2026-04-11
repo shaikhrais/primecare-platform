@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 
@@ -12,7 +11,7 @@ class RegionalManagerOntarioDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metricsAsyncValue = ref.watch(
-      regionalManagerOntarioDashboardAdapterProvider,
+      regionalManagerOntarioDashboardDataProvider('main'),
     );
 
     return ProviderLayout(
