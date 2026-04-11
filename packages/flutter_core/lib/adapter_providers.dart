@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/common/domain/models/common_feature_view_model.dart';
 import 'features/developer_samples/demo_dashboard_view_model.dart';
-import 'api_providers.dart';
 
 import 'dashboard_providers.dart';
 import 'features/billing_admin_dashboard/domain/models/billing_admin_dashboard_view_model.dart';

@@ -81,7 +81,7 @@ class PageTemplate extends ConsumerWidget {
                 ),
                 const SizedBox(height: 48),
               ],
-              if (child != null) child!,
+              ?child,
               if (bodySections != null) ...bodySections!,
               if (footer != null) ...[
                 const SizedBox(height: 64),

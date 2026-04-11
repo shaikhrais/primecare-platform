@@ -1,6 +1,5 @@
 import '../../../../dashboard_service.dart';
 import '../../../../config/offline_fallback_state.dart';
-import '../../../../src/factory_floor/ui_blueprint.dart';
 
 class FamilyDashboardViewModel implements OfflineFallbackState {
   @override
