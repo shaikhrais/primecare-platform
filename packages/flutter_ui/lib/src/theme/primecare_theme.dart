@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 import 'theme_tokens.dart';
-import 'theme_extension.dart';
+import 'design_system.dart';
 
 class PrimeCareTheme {
   // --- The Enterprise Semantic Medical Palette ---
@@ -54,7 +54,7 @@ class PrimeCareTheme {
         surface: PrimeCareColors.white,
         error: PrimeCareColors.rose,
       ),
-      extensions: const [PrimeCareThemeExtension.light],
+
       textTheme: _buildTextTheme(
         PrimeCareColors.radarDark,
         PrimeCareColors.slate500,
@@ -227,7 +227,7 @@ class PrimeCareTheme {
         surface: PrimeCareColors.slate800,
         error: PrimeCareColors.rose,
       ),
-      extensions: const [PrimeCareThemeExtension.dark],
+
       textTheme: _buildTextTheme(
         PrimeCareColors.white,
         PrimeCareColors.slate400,

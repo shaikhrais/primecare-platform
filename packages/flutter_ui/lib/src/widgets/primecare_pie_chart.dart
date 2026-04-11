@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCarePieChartData {
   final String label;
@@ -39,16 +39,13 @@ class _PrimeCarePieChartState extends State<PrimeCarePieChart> {
   @override
   Widget build(BuildContext context) {
     if (widget.data.isEmpty) return const SizedBox();
-
-    final t = context.pTheme;
-
     return Container(
       height: widget.height,
       padding: const EdgeInsets.all(PrimeCareSpacing.md),
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

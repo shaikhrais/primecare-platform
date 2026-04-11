@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareSchedulerEvent {
   final String id;
@@ -50,14 +50,13 @@ class PrimeCareScheduler extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
     final totalHours = endHour - startHour;
 
     return Container(
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: SingleChildScrollView(
         child: SizedBox(
@@ -82,13 +81,13 @@ class PrimeCareScheduler extends StatelessWidget {
                           child: Text(
                             '${(startHour + i).toString().padLeft(2, '0')}:00',
                             textAlign: TextAlign.right,
-                            style: TextStyle(color: t.textMuted, fontSize: 12),
+                            style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 12),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Divider(
-                          color: t.borderSubtle,
+                          color: PrimeCareDesignSystem.borderSubtle,
                           height: 1,
                           thickness: 1,
                         ),
@@ -121,7 +120,7 @@ class PrimeCareScheduler extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: event.isCompleted
-                              ? t.successSurface
+                              ? PrimeCareDesignSystem.successSurface
                               : const Color(
                                   0xFFE0F2FE,
                                 ), // Hardcoded subtle blue logic layer

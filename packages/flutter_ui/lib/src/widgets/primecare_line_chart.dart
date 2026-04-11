@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareLineChart extends StatelessWidget {
   final List<double> data;
@@ -22,8 +22,6 @@ class PrimeCareLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (data.isEmpty) return const SizedBox();
-
-    final t = context.pTheme;
     final primaryColor = lineColor ?? Theme.of(context).primaryColor;
 
     List<FlSpot> spots = [];
@@ -38,9 +36,9 @@ class PrimeCareLineChart extends StatelessWidget {
       height: height,
       padding: const EdgeInsets.all(PrimeCareSpacing.sm),
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +59,7 @@ class PrimeCareLineChart extends StatelessWidget {
                   show: true,
                   drawVerticalLine: false,
                   getDrawingHorizontalLine: (value) {
-                    return FlLine(color: t.borderSubtle, strokeWidth: 1);
+                    return FlLine(color: PrimeCareDesignSystem.borderSubtle, strokeWidth: 1);
                   },
                 ),
                 titlesData: FlTitlesData(
@@ -85,7 +83,7 @@ class PrimeCareLineChart extends StatelessWidget {
                             child: Text(
                               labels[value.toInt()],
                               style: TextStyle(
-                                color: t.textMuted,
+                                color: PrimeCareDesignSystem.textMuted,
                                 fontSize: 10,
                               ),
                             ),
@@ -102,7 +100,7 @@ class PrimeCareLineChart extends StatelessWidget {
                       getTitlesWidget: (value, meta) {
                         return Text(
                           value.toInt().toString(),
-                          style: TextStyle(color: t.textMuted, fontSize: 10),
+                          style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 10),
                         );
                       },
                     ),

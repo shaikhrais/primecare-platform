@@ -1,14 +1,14 @@
 import '../../../../config/offline_fallback_state.dart';
+import '../../../../src/assembly/ui_component_blueprint.dart';
+
 class FranchiseOwnerViewModel implements OfflineFallbackState {
   @override
   final bool isOfflineFallback;
-  final List<FranchiseKpi> kpis;
-  final List<FranchiseActivityLog> recentActivity;
+  final List<UIComponentBlueprint> blueprints;
 
   const FranchiseOwnerViewModel({
     this.isOfflineFallback = false,
-    this.kpis = const [],
-    this.recentActivity = const [],
+    this.blueprints = const [],
   });
 }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareGanttTask {
   final String id;
@@ -33,8 +33,6 @@ class PrimeCareGanttChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (tasks.isEmpty) return const SizedBox();
-
-    final t = context.pTheme;
     final primary = Theme.of(context).primaryColor;
 
     // Determine min start and max end to scale timeline
@@ -53,9 +51,9 @@ class PrimeCareGanttChart extends StatelessWidget {
       height: height,
       padding: const EdgeInsets.all(PrimeCareSpacing.md),
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -97,7 +95,7 @@ class PrimeCareGanttChart extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: t.borderSubtle.withValues(alpha: 0.5),
+                                color: PrimeCareDesignSystem.borderSubtle.withValues(alpha: 0.5),
                               ),
                             ),
                           ),
@@ -142,18 +140,18 @@ class PrimeCareGanttChart extends StatelessWidget {
           Container(
             height: 24,
             decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: t.borderSubtle)),
+              border: Border(top: BorderSide(color: PrimeCareDesignSystem.borderSubtle)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   '${minDate.month}/${minDate.day}',
-                  style: TextStyle(fontSize: 10, color: t.textMuted),
+                  style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted),
                 ),
                 Text(
                   '${maxDate.month}/${maxDate.day}',
-                  style: TextStyle(fontSize: 10, color: t.textMuted),
+                  style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted),
                 ),
               ],
             ),

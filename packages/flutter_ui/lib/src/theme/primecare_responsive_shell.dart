@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'theme_tokens.dart';
-import 'theme_extension.dart';
+import 'design_system.dart';
 
 class ResponsiveNavigationData {
   final String label;
@@ -42,7 +42,7 @@ class ResponsiveShell extends StatelessWidget {
         if (constraints.maxWidth >= 1024) {
           // ENTERPRISE DESKTOP (macOS, Windows, Web HD)
           return Scaffold(
-            backgroundColor: context.pTheme.surfaceElevated,
+            backgroundColor: PrimeCareDesignSystem.surfaceElevated,
             body: Stack(
               children: [
                 Row(
@@ -70,7 +70,7 @@ class ResponsiveShell extends StatelessWidget {
         } else if (constraints.maxWidth >= 600) {
           // ENTERPRISE TABLET (iPadOS, Android Tab, Foldables)
           return Scaffold(
-            backgroundColor: context.pTheme.surfaceElevated,
+            backgroundColor: PrimeCareDesignSystem.surfaceElevated,
             body: Stack(
               children: [
                 Row(
@@ -130,7 +130,6 @@ class _DesktopSidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
     final primaryIcon = activeIconColor ?? PrimeCareColors.skyBlue;
     final primaryIndicator =
         activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
@@ -138,7 +137,7 @@ class _DesktopSidebar extends StatelessWidget {
     return Container(
       width: 260,
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.35),
@@ -205,7 +204,7 @@ class _DesktopSidebar extends StatelessWidget {
                         children: [
                           Icon(
                             isSelected ? d.selectedIcon : d.icon,
-                            color: isSelected ? primaryIcon : t.textMuted,
+                            color: isSelected ? primaryIcon : PrimeCareDesignSystem.textMuted,
                           ),
                           const SizedBox(width: PrimeCareSpacing.md),
                           Text(
@@ -213,7 +212,7 @@ class _DesktopSidebar extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
-                              color: isSelected ? primaryIcon : t.textMuted,
+                              color: isSelected ? primaryIcon : PrimeCareDesignSystem.textMuted,
                               fontWeight: isSelected
                                   ? FontWeight.bold
                                   : FontWeight.w500,
@@ -250,14 +249,13 @@ class _TabletNavRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
     final primaryIcon = activeIconColor ?? PrimeCareColors.skyBlue;
     final primaryIndicator =
         activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
 
     return Container(
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.35),
@@ -273,14 +271,14 @@ class _TabletNavRail extends StatelessWidget {
         backgroundColor: Colors.transparent,
         indicatorColor: primaryIndicator,
         selectedIconTheme: IconThemeData(color: primaryIcon),
-        unselectedIconTheme: IconThemeData(color: t.textMuted),
+        unselectedIconTheme: IconThemeData(color: PrimeCareDesignSystem.textMuted),
         selectedLabelTextStyle: TextStyle(
           color: primaryIcon,
           fontWeight: FontWeight.bold,
           fontSize: 13,
         ),
         unselectedLabelTextStyle: TextStyle(
-          color: t.textMuted,
+          color: PrimeCareDesignSystem.textMuted,
           fontWeight: FontWeight.normal,
           fontSize: 12,
         ),
@@ -317,7 +315,6 @@ class _MobileBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
     final primaryIcon = activeIconColor ?? PrimeCareColors.skyBlue;
     final primaryIndicator =
         activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
@@ -325,12 +322,12 @@ class _MobileBottomBar extends StatelessWidget {
     return NavigationBar(
       selectedIndex: currentIndex,
       onDestinationSelected: onNavigate,
-      backgroundColor: t.surfaceElevated,
+      backgroundColor: PrimeCareDesignSystem.surfaceElevated,
       indicatorColor: primaryIndicator,
       destinations: destinations
           .map(
             (d) => NavigationDestination(
-              icon: Icon(d.icon, color: t.textMuted),
+              icon: Icon(d.icon, color: PrimeCareDesignSystem.textMuted),
               selectedIcon: Icon(d.selectedIcon, color: primaryIcon),
               label: d.label,
             ),

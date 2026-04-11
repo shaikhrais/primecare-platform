@@ -6,9 +6,7 @@ import 'package:primecare_adapters/primecare_adapters.dart';
 import 'package:flutter_core/features/franchise_owner_dashboard/domain/models/franchise_owner_view_model.dart';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
-import 'package:flutter_ui/src/components/primecare_stat_card.dart';
-import 'package:flutter_ui/src/components/fallback_state_wrapper.dart';
+import 'package:flutter_ui/flutter_ui.dart'; // Imports the assembly engine
 
 class FranchiseOwnerDashboard extends ConsumerWidget {
   const FranchiseOwnerDashboard({super.key});
@@ -73,30 +71,10 @@ class FranchiseOwnerDashboard extends ConsumerWidget {
                 ),
               ),
               data: (FranchiseOwnerViewModel liveData) {
-                return FallbackStateWrapper(
+                // Delegate all rendering to the new Assembly Engine!
+                return LayoutAssemblyEngine(
+                  blueprints: liveData.blueprints,
                   isOfflineFallback: liveData.isOfflineFallback,
-                  child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GridView.count(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 24,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      childAspectRatio: 1.5,
-                      children: liveData.kpis.map((kpi) {
-                        return PrimeCareStatCard(
-                          title: kpi.title,
-                          value: kpi.value,
-                          deltaSuffix: kpi.trend,
-                          icon: _inferIcon(kpi.title),
-                          iconColor: _inferColor(kpi.status),
-                        ),
-                );
-              }).toList(),
-                    ),
-                  ],
                 );
               },
             ),
@@ -105,30 +83,5 @@ class FranchiseOwnerDashboard extends ConsumerWidget {
       ),
     );
   }
-
-  IconData _inferIcon(String title) {
-    final t = title.toLowerCase();
-    if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice'))
-      return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule'))
-      return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical'))
-      return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn'))
-      return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline'))
-      return LucideIcons.checkSquare;
-    return LucideIcons.activity;
-  }
-
-  Color _inferColor(String status) {
-    final s = status.toLowerCase();
-    if (s == 'operational' || s == 'positive' || s == 'up')
-      return Colors.greenAccent;
-    if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative')
-      return Colors.redAccent;
-    return Colors.tealAccent;
-  }
 }
+

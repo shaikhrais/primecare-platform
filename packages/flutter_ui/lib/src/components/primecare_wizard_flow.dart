@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 import 'primecare_card.dart';
 import 'primecare_button.dart';
 
@@ -40,8 +40,6 @@ class PrimeCareWizardFlow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
-
     return ListView(
       padding: const EdgeInsets.all(PrimeCareSpacing.xl),
       children: [
@@ -54,7 +52,7 @@ class PrimeCareWizardFlow extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(
-            color: t.textMuted,
+            color: PrimeCareDesignSystem.textMuted,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
           ),
@@ -116,7 +114,7 @@ class PrimeCareWizardFlow extends StatelessWidget {
                         step.description,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(color: t.textMuted, height: 1.4),
+                        style: TextStyle(color: PrimeCareDesignSystem.textMuted, height: 1.4),
                       ),
                     ],
                   ),

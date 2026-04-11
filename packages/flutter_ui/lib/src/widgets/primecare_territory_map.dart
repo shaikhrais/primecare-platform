@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareTerritoryCoordinate {
   final double latitude;
@@ -60,15 +60,13 @@ class PrimeCareTerritoryMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
-
     return Container(
       height: height,
       padding: const EdgeInsets.all(PrimeCareSpacing.md),
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +85,7 @@ class PrimeCareTerritoryMap extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFFF1F5F9), // Slate 100 for map bg
                 borderRadius: PrimeCareRadii.boardSm,
-                border: Border.all(color: t.borderSubtle),
+                border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
               ),
               child: Stack(
                 children: [
@@ -99,13 +97,13 @@ class PrimeCareTerritoryMap extends StatelessWidget {
                         Icon(
                           Icons.map_outlined,
                           size: 48,
-                          color: t.textMuted.withValues(alpha: 0.5),
+                          color: PrimeCareDesignSystem.textMuted.withValues(alpha: 0.5),
                         ),
                         const SizedBox(height: PrimeCareSpacing.sm),
                         Text(
                           'Territory Map Rendering Engine\nZones: ${zones.length} | Markers: ${markers.length}',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: t.textMuted, fontSize: 12),
+                          style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 12),
                         ),
                       ],
                     ),

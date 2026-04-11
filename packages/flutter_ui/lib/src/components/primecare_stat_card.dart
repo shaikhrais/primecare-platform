@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareStatCard extends StatelessWidget {
   final String title;
@@ -22,15 +22,14 @@ class PrimeCareStatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
     final isPositive = (delta ?? 0) >= 0;
 
     return Container(
       padding: PrimeCareSpacing.edgeAllLg,
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle, width: 1),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle, width: 1),
         boxShadow: const [PrimeCareShadows.soft],
       ),
       child: Column(
@@ -44,11 +43,11 @@ class PrimeCareStatCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: t.textMuted,
+                  color: PrimeCareDesignSystem.textMuted,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              if (icon != null) Icon(icon, color: t.textMuted, size: 20),
+              if (icon != null) Icon(icon, color: PrimeCareDesignSystem.textMuted, size: 20),
             ],
           ),
           const SizedBox(height: PrimeCareSpacing.md),
@@ -68,7 +67,7 @@ class PrimeCareStatCard extends StatelessWidget {
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: isPositive ? t.successSurface : t.dangerSurface,
+                    color: isPositive ? PrimeCareDesignSystem.successSurface : PrimeCareDesignSystem.dangerSurface,
                     borderRadius: PrimeCareRadii.boardSm,
                   ),
                   child: Row(
@@ -104,7 +103,7 @@ class PrimeCareStatCard extends StatelessWidget {
                     deltaSuffix!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(fontSize: 12, color: t.textMuted),
+                    style: TextStyle(fontSize: 12, color: PrimeCareDesignSystem.textMuted),
                   ),
                 ],
               ],

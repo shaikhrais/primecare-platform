@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareDataTable<T> extends StatelessWidget {
   final List<String> columns;
@@ -16,25 +16,23 @@ class PrimeCareDataTable<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
-
     return Container(
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       // Scroll constraints explicitly matching DataTables wide architecture natively
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
           headingRowColor: WidgetStateProperty.all(
-            t.borderSubtle.withValues(alpha: 0.3),
+            PrimeCareDesignSystem.borderSubtle.withValues(alpha: 0.3),
           ),
           dividerThickness: 1,
           columnSpacing: PrimeCareSpacing.xl,
           headingTextStyle: TextStyle(
-            color: t.textMuted,
+            color: PrimeCareDesignSystem.textMuted,
             fontWeight: FontWeight.bold,
             fontSize: 12,
             letterSpacing: 0.5,

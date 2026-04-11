@@ -23,7 +23,10 @@ class LayoutAssemblyEngine extends StatelessWidget {
         children: blueprints.expand((blueprint) {
           // Add spacing between assembled components
           return [
-            ComponentFactory.assemble(blueprint),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ComponentFactory.assemble(context, blueprint),
+            ),
             const SizedBox(height: 40),
           ];
         }).toList(),

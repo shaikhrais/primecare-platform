@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareCard extends StatelessWidget {
   final Widget child;
@@ -28,10 +28,8 @@ class PrimeCareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
-
     final decoration = BoxDecoration(
-      color: backgroundColor ?? t.surfaceElevated,
+      color: backgroundColor ?? PrimeCareDesignSystem.surfaceElevated,
       borderRadius: BorderRadius.circular(20), // Premium smooth curve
       border: muted
           ? null

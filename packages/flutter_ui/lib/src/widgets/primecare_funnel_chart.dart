@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareFunnelStep {
   final String label;
@@ -29,17 +29,15 @@ class PrimeCareFunnelChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (steps.isEmpty) return const SizedBox();
-
-    final t = context.pTheme;
     final maxCount = steps.first.count; // Assuming funnel is sorted desc
 
     return Container(
       height: height,
       padding: const EdgeInsets.all(PrimeCareSpacing.md),
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

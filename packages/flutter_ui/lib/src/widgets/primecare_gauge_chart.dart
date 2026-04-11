@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareGaugeChart extends StatelessWidget {
   final double value; // 0 to 100
@@ -21,7 +21,6 @@ class PrimeCareGaugeChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
     final primary = activeColor ?? Theme.of(context).primaryColor;
     final clampedValue = value.clamp(0.0, 100.0);
 
@@ -29,9 +28,9 @@ class PrimeCareGaugeChart extends StatelessWidget {
       height: height,
       padding: const EdgeInsets.all(PrimeCareSpacing.md),
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +61,7 @@ class PrimeCareGaugeChart extends StatelessWidget {
                         radius: 20,
                       ),
                       PieChartSectionData(
-                        color: t.borderSubtle,
+                        color: PrimeCareDesignSystem.borderSubtle,
                         value: 100.0 - clampedValue,
                         title: '',
                         radius: 20,
@@ -95,7 +94,7 @@ class PrimeCareGaugeChart extends StatelessWidget {
                       if (subtitle.isNotEmpty)
                         Text(
                           subtitle,
-                          style: TextStyle(color: t.textMuted, fontSize: 12),
+                          style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 12),
                         ),
                     ],
                   ),

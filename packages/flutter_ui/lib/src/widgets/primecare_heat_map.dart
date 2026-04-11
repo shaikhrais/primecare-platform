@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/theme_tokens.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 class PrimeCareHeatMap extends StatelessWidget {
   final Map<DateTime, int> dataset;
@@ -16,15 +16,14 @@ class PrimeCareHeatMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.pTheme;
     final primary = Theme.of(context).primaryColor;
 
     return Container(
       padding: const EdgeInsets.all(PrimeCareSpacing.md),
       decoration: BoxDecoration(
-        color: t.surfaceElevated,
+        color: PrimeCareDesignSystem.surfaceElevated,
         borderRadius: PrimeCareRadii.boardLg,
-        border: Border.all(color: t.borderSubtle),
+        border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +72,7 @@ class PrimeCareHeatMap extends StatelessWidget {
 
                     Color blockColor;
                     if (value == 0) {
-                      blockColor = t.borderSubtle.withValues(alpha: 0.3);
+                      blockColor = PrimeCareDesignSystem.borderSubtle.withValues(alpha: 0.3);
                     } else if (value == 1) {
                       blockColor = primary.withValues(alpha: 0.3);
                     } else if (value == 2) {
@@ -101,12 +100,12 @@ class PrimeCareHeatMap extends StatelessWidget {
           const SizedBox(height: PrimeCareSpacing.sm),
           Row(
             children: [
-              Text('Less', style: TextStyle(fontSize: 10, color: t.textMuted)),
+              Text('Less', style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted)),
               const SizedBox(width: 4),
               Container(
                 width: 10,
                 height: 10,
-                color: t.borderSubtle.withValues(alpha: 0.3),
+                color: PrimeCareDesignSystem.borderSubtle.withValues(alpha: 0.3),
               ),
               const SizedBox(width: 2),
               Container(
@@ -129,7 +128,7 @@ class PrimeCareHeatMap extends StatelessWidget {
               const SizedBox(width: 2),
               Container(width: 10, height: 10, color: primary),
               const SizedBox(width: 4),
-              Text('More', style: TextStyle(fontSize: 10, color: t.textMuted)),
+              Text('More', style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted)),
             ],
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/theme_extension.dart';
+import '../theme/design_system.dart';
 
 /// The Universal Application Shell.
 /// Prevents local layout deviations by strictly enforcing SafeArea and Dark Mode surface boundaries
@@ -27,7 +27,7 @@ class PrimeCareScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor ?? context.pTheme.surfaceElevated,
+      backgroundColor: backgroundColor ?? PrimeCareDesignSystem.surfaceElevated,
       appBar: appBar,
       body: safeArea ? SafeArea(child: body) : body,
       bottomNavigationBar: bottomNavigationBar,
