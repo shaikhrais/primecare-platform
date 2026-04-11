@@ -48,21 +48,27 @@ class PrimeCareHeatMap extends StatelessWidget {
                     // We need a baseline date, let's assume it's one year ago starting today
                     final now = DateTime.now();
                     final startDate = now.subtract(const Duration(days: 365));
-                    
+
                     final daysOffset = (weekIndex * 7) + dayIndex;
                     final cellDate = startDate.add(Duration(days: daysOffset));
-                    
+
                     // strip time from cellDate for matching
-                    final cellDateKey = DateTime(cellDate.year, cellDate.month, cellDate.day);
-                    
+                    final cellDateKey = DateTime(
+                      cellDate.year,
+                      cellDate.month,
+                      cellDate.day,
+                    );
+
                     // see if we have a value
                     int value = 0;
                     for (var entry in dataset.entries) {
-                       final dt = entry.key;
-                       if (dt.year == cellDateKey.year && dt.month == cellDateKey.month && dt.day == cellDateKey.day) {
-                          value = entry.value;
-                          break;
-                       }
+                      final dt = entry.key;
+                      if (dt.year == cellDateKey.year &&
+                          dt.month == cellDateKey.month &&
+                          dt.day == cellDateKey.day) {
+                        value = entry.value;
+                        break;
+                      }
                     }
 
                     Color blockColor;

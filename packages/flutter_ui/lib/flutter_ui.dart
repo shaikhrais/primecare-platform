@@ -322,10 +322,8 @@ export 'src/screens/offices/marketing/territory_sales_manager_competitors_screen
 export 'src/screens/offices/marketing/territory_sales_manager_reports_screen.dart';
 
 // Global Components
-export 'src/screens/global_settings.dart';
-export 'src/screens/global_profile.dart';
-export 'src/screens/document_vault.dart';
-export 'src/screens/messaging_hub.dart';
-export 'src/screens/notification_center.dart';
-export 'src/screens/admin_dashboard.dart';
-export 'src/screens/psw_dashboard.dart';
+export 'src/screens/common/global_settings/global_settings_screen.dart';
+export 'src/screens/common/global_profile/global_profile_screen.dart';
+export 'src/screens/common/document_vault/document_vault_screen.dart';
+export 'src/screens/common/messaging_hub/messaging_hub_screen.dart';
+export 'src/screens/common/notification_center/notification_center_screen.dart';

@@ -54,4 +54,3 @@ export 'src/marketing/community_outreach/adapters/community_outreach_dashboard_a
 export 'src/marketing/head_of_marketing/adapters/head_of_marketing_dashboard_adapter.dart';
 export 'src/marketing/local_marketing_manager/adapters/local_marketing_manager_dashboard_adapter.dart';
 export 'src/marketing/territory_sales_manager/adapters/territory_sales_manager_dashboard_adapter.dart';
-

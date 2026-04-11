@@ -72,7 +72,7 @@ class LiveDispatchMap extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Mock projection of markers
             if (markers.isNotEmpty)
               ...markers.asMap().entries.map((entry) {
@@ -86,16 +86,22 @@ class LiveDispatchMap extends StatelessWidget {
                     children: [
                       Icon(marker.icon, color: marker.color, size: 32),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.black87,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
                           marker.label,
-                          style: const TextStyle(color: Colors.white, fontSize: 8),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 );
@@ -124,7 +130,11 @@ class LiveDispatchMap extends StatelessWidget {
                     const SizedBox(width: 6),
                     Text(
                       'LIVE DISPATCH | ${markers.length} UNITS',
-                      style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),

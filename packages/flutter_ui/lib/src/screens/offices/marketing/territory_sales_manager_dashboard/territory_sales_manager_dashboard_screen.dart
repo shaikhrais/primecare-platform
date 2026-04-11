@@ -11,14 +11,18 @@ class TerritorySalesManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(territorySalesManagerDashboardAdapterProvider);
+    final metricsAsyncValue = ref.watch(
+      territorySalesManagerDashboardAdapterProvider,
+    );
 
     return PageTemplate(
       title: 'Territory Sales Manager Dashboard',
       subtitle: 'Real-time overview fetched natively via API.',
       kpiCards: metricsAsyncValue.when(
         loading: () => [
-          const Center(child: CircularProgressIndicator(color: Colors.tealAccent)),
+          const Center(
+            child: CircularProgressIndicator(color: Colors.tealAccent),
+          ),
         ],
         error: (error, stackTrace) => [
           Container(
@@ -33,13 +37,17 @@ class TerritorySalesManagerDashboardScreen extends ConsumerWidget {
                 const Icon(LucideIcons.alertTriangle, color: Colors.redAccent),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: Text('Failed to load live metrics: \n$error', style: const TextStyle(color: Colors.redAccent)),
+                  child: Text(
+                    'Failed to load live metrics: \n$error',
+                    style: const TextStyle(color: Colors.redAccent),
+                  ),
                 ),
               ],
             ),
           ),
         ],
-        data: (liveData) => TerritorySalesManagerKpiSection.buildCards(liveData),
+        data: (liveData) =>
+            TerritorySalesManagerKpiSection.buildCards(liveData),
       ),
       bodySections: const [
         // Advanced components (Charts, Maps, Grids) go here based on role

@@ -3,7 +3,7 @@ class CfoDashboardDto {
   final double cashFlow;
   final double operatingMargin;
   final double accountsReceivable;
-  
+
   final List<double>? revenueData;
   final List<String>? revenueLabels;
   final List<double>? expenseData;
@@ -28,10 +28,18 @@ class CfoDashboardDto {
       cashFlow: (json['cashFlow'] ?? 0).toDouble(),
       operatingMargin: (json['operatingMargin'] ?? 0).toDouble(),
       accountsReceivable: (json['accountsReceivable'] ?? 0).toDouble(),
-      revenueData: (json['revenueData'] as List<dynamic>?)?.map((e) => (e as num).toDouble()).toList(),
-      revenueLabels: (json['revenueLabels'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
-      expenseData: (json['expenseData'] as List<dynamic>?)?.map((e) => (e as num).toDouble()).toList(),
-      expenseLabels: (json['expenseLabels'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
+      revenueData: (json['revenueData'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList(),
+      revenueLabels: (json['revenueLabels'] as List<dynamic>?)
+          ?.map((e) => e.toString())
+          .toList(),
+      expenseData: (json['expenseData'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList(),
+      expenseLabels: (json['expenseLabels'] as List<dynamic>?)
+          ?.map((e) => e.toString())
+          .toList(),
       ebitdaTargetMax: (json['ebitdaTargetMax'] as num?)?.toDouble(),
     );
   }

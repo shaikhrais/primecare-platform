@@ -94,6 +94,6 @@ CooDashboardViewModel _fetchMock() {
         'startTime': now.subtract(const Duration(hours: 1)).toIso8601String(),
         'endTime': now.add(const Duration(hours: 2)).toIso8601String(),
       },
-    ]
+    ],
   });
 }

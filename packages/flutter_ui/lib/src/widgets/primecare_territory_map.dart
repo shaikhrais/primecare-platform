@@ -50,8 +50,8 @@ class PrimeCareTerritoryMap extends StatelessWidget {
   final PrimeCareTerritoryCoordinate? center;
 
   const PrimeCareTerritoryMap({
-    super.key, 
-    this.height = 300, 
+    super.key,
+    this.height = 300,
     this.title = '',
     this.zones = const [],
     this.markers = const [],
@@ -76,7 +76,9 @@ class PrimeCareTerritoryMap extends StatelessWidget {
           if (title.isNotEmpty) ...[
             Text(
               title,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: PrimeCareSpacing.md),
           ],
@@ -108,7 +110,7 @@ class PrimeCareTerritoryMap extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
+
                   // Mock projection of markers
                   if (markers.isNotEmpty)
                     ...markers.asMap().entries.map((entry) {
@@ -122,16 +124,22 @@ class PrimeCareTerritoryMap extends StatelessWidget {
                             Icon(marker.icon, color: marker.color, size: 24),
                             if (marker.label != null)
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                  vertical: 2,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.black54,
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                                 child: Text(
                                   marker.label!,
-                                  style: const TextStyle(color: Colors.white, fontSize: 8),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 8,
+                                  ),
                                 ),
-                              )
+                              ),
                           ],
                         ),
                       );

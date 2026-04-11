@@ -61,9 +61,7 @@ class TinderStyleSwipeApprovals<T> extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20),
               child: const Icon(Icons.close, color: Colors.white, size: 40),
             ),
-            child: PrimeCard(
-              child: itemBuilder(context, item),
-            ),
+            child: PrimeCard(child: itemBuilder(context, item)),
           ),
         );
       },

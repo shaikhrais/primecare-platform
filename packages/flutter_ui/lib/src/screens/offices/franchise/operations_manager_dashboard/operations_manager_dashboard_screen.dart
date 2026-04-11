@@ -11,14 +11,18 @@ class OperationsManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(operationsManagerDashboardAdapterProvider);
+    final metricsAsyncValue = ref.watch(
+      operationsManagerDashboardAdapterProvider,
+    );
 
     return PageTemplate(
       title: 'Operations Manager Dashboard',
       subtitle: 'Real-time overview fetched natively via API.',
       kpiCards: metricsAsyncValue.when(
         loading: () => [
-          const Center(child: CircularProgressIndicator(color: Colors.tealAccent)),
+          const Center(
+            child: CircularProgressIndicator(color: Colors.tealAccent),
+          ),
         ],
         error: (error, stackTrace) => [
           Container(
@@ -33,7 +37,10 @@ class OperationsManagerDashboardScreen extends ConsumerWidget {
                 const Icon(LucideIcons.alertTriangle, color: Colors.redAccent),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: Text('Failed to load live metrics: \n$error', style: const TextStyle(color: Colors.redAccent)),
+                  child: Text(
+                    'Failed to load live metrics: \n$error',
+                    style: const TextStyle(color: Colors.redAccent),
+                  ),
                 ),
               ],
             ),

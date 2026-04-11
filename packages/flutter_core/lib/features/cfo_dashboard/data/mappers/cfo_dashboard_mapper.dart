@@ -35,7 +35,8 @@ class CfoDashboardMapper {
       expenseData: dto.expenseData ?? [],
       expenseLabels: dto.expenseLabels ?? [],
       ebitdaTargetValue: dto.ebitda,
-      ebitdaTargetMax: dto.ebitdaTargetMax ?? (dto.ebitda > 0 ? dto.ebitda * 1.5 : 100),
+      ebitdaTargetMax:
+          dto.ebitdaTargetMax ?? (dto.ebitda > 0 ? dto.ebitda * 1.5 : 100),
     );
   }
 
@@ -51,10 +52,26 @@ class CfoDashboardMapper {
             );
           }).toList() ??
           [],
-      revenueData: (mock['revenueData'] as List<dynamic>?)?.map((e) => (e as num).toDouble()).toList() ?? [],
-      revenueLabels: (mock['revenueLabels'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
-      expenseData: (mock['expenseData'] as List<dynamic>?)?.map((e) => (e as num).toDouble()).toList() ?? [],
-      expenseLabels: (mock['expenseLabels'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
+      revenueData:
+          (mock['revenueData'] as List<dynamic>?)
+              ?.map((e) => (e as num).toDouble())
+              .toList() ??
+          [],
+      revenueLabels:
+          (mock['revenueLabels'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      expenseData:
+          (mock['expenseData'] as List<dynamic>?)
+              ?.map((e) => (e as num).toDouble())
+              .toList() ??
+          [],
+      expenseLabels:
+          (mock['expenseLabels'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
       ebitdaTargetValue: (mock['ebitdaTargetValue'] as num?)?.toDouble() ?? 0,
       ebitdaTargetMax: (mock['ebitdaTargetMax'] as num?)?.toDouble() ?? 100,
     );

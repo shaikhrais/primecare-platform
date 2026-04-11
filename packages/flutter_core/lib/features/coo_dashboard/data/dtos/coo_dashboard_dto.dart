@@ -22,8 +22,12 @@ class CooDashboardDto {
       fulfillmentRate: (json['fulfillmentRate'] ?? 0).toDouble(),
       complianceScore: (json['complianceScore'] ?? 0).toDouble(),
       criticalIncidents: json['criticalIncidents'] ?? 0,
-      funnelSteps: (json['funnelSteps'] as List<dynamic>?)?.map((e) => e as Map<String, dynamic>).toList(),
-      ganttTasks: (json['ganttTasks'] as List<dynamic>?)?.map((e) => e as Map<String, dynamic>).toList(),
+      funnelSteps: (json['funnelSteps'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
+      ganttTasks: (json['ganttTasks'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
     );
   }
 }

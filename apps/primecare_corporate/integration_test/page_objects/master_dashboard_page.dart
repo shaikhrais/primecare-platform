@@ -9,7 +9,7 @@ class MasterDashboardPageObject {
   // Core Template Elements
   Finder get pageTitle => find.byKey(const Key('page_title'));
   Finder get pageSubtitle => find.byKey(const Key('page_subtitle'));
-  
+
   // High-Level KPIs
   Finder get kpiGrid => find.byKey(const Key('kpi_grid'));
   Finder kpiCard(String title) => find.widgetWithText(Card, title);
@@ -17,11 +17,15 @@ class MasterDashboardPageObject {
 
   // Advanced Sections
   Finder get dataTableWidget => find.byKey(const Key('data_table_widget'));
-  Finder get advancedChartWidget => find.byKey(const Key('advanced_chart_widget'));
+  Finder get advancedChartWidget =>
+      find.byKey(const Key('advanced_chart_widget'));
   Finder get kanbanBoardWidget => find.byKey(const Key('kanban_board_widget'));
-  Finder get geospatialMapWidget => find.byKey(const Key('geospatial_map_widget'));
-  Finder get interactiveCalendarWidget => find.byKey(const Key('interactive_calendar_widget'));
-  Finder get standardListWidget => find.byKey(const Key('standard_list_widget'));
+  Finder get geospatialMapWidget =>
+      find.byKey(const Key('geospatial_map_widget'));
+  Finder get interactiveCalendarWidget =>
+      find.byKey(const Key('interactive_calendar_widget'));
+  Finder get standardListWidget =>
+      find.byKey(const Key('standard_list_widget'));
   Finder get splitPanelWidget => find.byKey(const Key('split_panel_widget'));
 
   // Shared Actions
@@ -43,8 +47,9 @@ class MasterDashboardPageObject {
   Future<void> verifyKpiGenerated(String kpiTitle, String expectedValue) async {
     expect(kpiCard(kpiTitle), findsOneWidget);
     expect(
-        find.descendant(of: kpiCard(kpiTitle), matching: kpiValue(expectedValue)),
-        findsOneWidget);
+      find.descendant(of: kpiCard(kpiTitle), matching: kpiValue(expectedValue)),
+      findsOneWidget,
+    );
   }
 
   Future<void> verifySectionExists(Finder sectionFinder) async {

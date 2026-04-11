@@ -48,7 +48,8 @@ class CooDashboardMapper {
             );
           }).toList() ??
           [],
-      complianceTargetValue: (mock['complianceTargetValue'] as num?)?.toDouble() ?? 0,
+      complianceTargetValue:
+          (mock['complianceTargetValue'] as num?)?.toDouble() ?? 0,
       funnelSteps: _mapFunnel(mock['funnelSteps'] as List<dynamic>?),
       ganttTasks: _mapGantt(mock['ganttTasks'] as List<dynamic>?),
     );
@@ -72,10 +73,14 @@ class CooDashboardMapper {
       return CooGanttTask(
         id: map['id']?.toString() ?? '',
         name: map['name']?.toString() ?? '',
-        startTime: DateTime.parse(map['startTime']?.toString() ?? DateTime.now().toIso8601String()),
-        endTime: DateTime.parse(map['endTime']?.toString() ?? DateTime.now().add(const Duration(hours: 1)).toIso8601String()),
+        startTime: DateTime.parse(
+          map['startTime']?.toString() ?? DateTime.now().toIso8601String(),
+        ),
+        endTime: DateTime.parse(
+          map['endTime']?.toString() ??
+              DateTime.now().add(const Duration(hours: 1)).toIso8601String(),
+        ),
       );
     }).toList();
   }
 }
-

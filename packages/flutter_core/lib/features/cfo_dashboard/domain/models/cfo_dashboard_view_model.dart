@@ -17,6 +17,7 @@ class CfoDashboardViewModel {
     this.ebitdaTargetMax = 0,
   });
 }
+
 class CfoKpi {
   final String title;
   final String value;

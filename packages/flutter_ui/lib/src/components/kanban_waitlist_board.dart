@@ -32,7 +32,8 @@ class PrimeCareKanbanColumn {
 
 class KanbanWaitlistBoard extends StatelessWidget {
   final List<PrimeCareKanbanColumn> columns;
-  final void Function(String cardId, String oldColumnId, String newColumnId)? onCardMoved;
+  final void Function(String cardId, String oldColumnId, String newColumnId)?
+  onCardMoved;
 
   const KanbanWaitlistBoard({
     super.key,
@@ -61,9 +62,15 @@ class KanbanWaitlistBoard extends StatelessWidget {
                 width: 140,
                 margin: const EdgeInsets.only(right: 12),
                 decoration: BoxDecoration(
-                  color: candidateData.isNotEmpty ? column.backgroundColor.withAlpha(150) : column.backgroundColor,
+                  color: candidateData.isNotEmpty
+                      ? column.backgroundColor.withAlpha(150)
+                      : column.backgroundColor,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: candidateData.isNotEmpty ? column.textColor : column.borderColor),
+                  border: Border.all(
+                    color: candidateData.isNotEmpty
+                        ? column.textColor
+                        : column.borderColor,
+                  ),
                 ),
                 padding: const EdgeInsets.all(12),
                 child: Column(

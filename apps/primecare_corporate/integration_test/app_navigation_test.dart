@@ -9,8 +9,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('E2E Dashboard Validation', () {
-    testWidgets('Verify CeoDashboardScreenStitch hydrations via Page Object',
-        (tester) async {
+    testWidgets('Verify CeoDashboardScreenStitch hydrations via Page Object', (
+      tester,
+    ) async {
       // 1. Launch the app
       app.main();
       await tester.pumpAndSettle();
@@ -22,13 +23,13 @@ void main() {
 
       // We wait for initial routing to finish
       await dashboard.waitForHydration();
-      
+
       // We expect the CEO dashboard to be the initial route based on standard setup
       // Note: If router behavior differs, we can use router.go() programmatically
       // For now, let's verify if the structure loaded.
       // This will fail if Keys are not added to PageTemplate!
       // But adding Keys is the next step of the pipeline.
-      
+
       // Temporary check to ensure the test bootstraps correctly
       expect(find.byType(MaterialApp), findsOneWidget);
     });
