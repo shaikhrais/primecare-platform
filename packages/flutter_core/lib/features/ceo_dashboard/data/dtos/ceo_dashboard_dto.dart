@@ -3,7 +3,8 @@ class CeoDashboardDto {
   final int totalFacilities;
   final int activeStaff;
   final int criticalAlerts;
-  final List<dynamic> rawActivities; // Can map to a strictly typed DTO sub-class if needed
+  final List<dynamic>
+  rawActivities; // Can map to a strictly typed DTO sub-class if needed
 
   CeoDashboardDto({
     required this.ytdRevenue,

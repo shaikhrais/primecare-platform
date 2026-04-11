@@ -14,11 +14,16 @@ class OfflineBanner extends StatelessWidget {
         children: const [
           Icon(Icons.wifi_off_rounded, color: Colors.white, size: 16),
           SizedBox(width: 8),
-          Text('OFFLINE - Checkouts & Inputs queued locally', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+          Text(
+            'OFFLINE - Checkouts & Inputs queued locally',
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 12,
-              letterSpacing: 0.5,),
+              letterSpacing: 0.5,
+            ),
           ),
         ],
       ),

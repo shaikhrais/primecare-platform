@@ -42,21 +42,25 @@ class CeoDashboardMapper {
 
   static CeoDashboardViewModel fromMock(Map<String, dynamic> mock) {
     return CeoDashboardViewModel(
-      kpis: (mock['kpis'] as List<dynamic>?)?.map((k) {
-        return CeoKpi(
-          title: k['title']?.toString() ?? '',
-          value: k['value']?.toString() ?? '',
-          trend: k['trend']?.toString() ?? '',
-          status: k['status']?.toString() ?? 'operational',
-        );
-      }).toList() ?? [],
-      recentActivity: (mock['recentActivity'] as List<dynamic>?)?.map((a) {
-        return CeoActivity(
-            title: a['title']?.toString() ?? '',
-            subtitle: a['subtitle']?.toString() ?? '',
-            timestamp: a['timestamp']?.toString() ?? '',
-        );
-      }).toList() ?? [],
+      kpis:
+          (mock['kpis'] as List<dynamic>?)?.map((k) {
+            return CeoKpi(
+              title: k['title']?.toString() ?? '',
+              value: k['value']?.toString() ?? '',
+              trend: k['trend']?.toString() ?? '',
+              status: k['status']?.toString() ?? 'operational',
+            );
+          }).toList() ??
+          [],
+      recentActivity:
+          (mock['recentActivity'] as List<dynamic>?)?.map((a) {
+            return CeoActivity(
+              title: a['title']?.toString() ?? '',
+              subtitle: a['subtitle']?.toString() ?? '',
+              timestamp: a['timestamp']?.toString() ?? '',
+            );
+          }).toList() ??
+          [],
     );
   }
 }

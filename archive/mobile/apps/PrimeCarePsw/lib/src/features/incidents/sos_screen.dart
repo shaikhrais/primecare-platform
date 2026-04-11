@@ -18,12 +18,42 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
   String _selectedType = 'fall';
 
   final _incidentTypes = [
-    {'key': 'fall', 'label': 'Fall / Injury', 'icon': Icons.personal_injury, 'color': AppTheme.error},
-    {'key': 'medical', 'label': 'Medical Emergency', 'icon': Icons.emergency, 'color': const Color(0xFFDC2626)},
-    {'key': 'behavioral', 'label': 'Behavioral Crisis', 'icon': Icons.psychology_alt, 'color': AppTheme.warning},
-    {'key': 'safety', 'label': 'Safety Concern', 'icon': Icons.shield_outlined, 'color': AppTheme.info},
-    {'key': 'equipment', 'label': 'Equipment Failure', 'icon': Icons.build_circle_outlined, 'color': const Color(0xFF7C3AED)},
-    {'key': 'other', 'label': 'Other', 'icon': Icons.report_problem_outlined, 'color': const Color(0xFF6B7280)},
+    {
+      'key': 'fall',
+      'label': 'Fall / Injury',
+      'icon': Icons.personal_injury,
+      'color': AppTheme.error
+    },
+    {
+      'key': 'medical',
+      'label': 'Medical Emergency',
+      'icon': Icons.emergency,
+      'color': const Color(0xFFDC2626)
+    },
+    {
+      'key': 'behavioral',
+      'label': 'Behavioral Crisis',
+      'icon': Icons.psychology_alt,
+      'color': AppTheme.warning
+    },
+    {
+      'key': 'safety',
+      'label': 'Safety Concern',
+      'icon': Icons.shield_outlined,
+      'color': AppTheme.info
+    },
+    {
+      'key': 'equipment',
+      'label': 'Equipment Failure',
+      'icon': Icons.build_circle_outlined,
+      'color': const Color(0xFF7C3AED)
+    },
+    {
+      'key': 'other',
+      'label': 'Other',
+      'icon': Icons.report_problem_outlined,
+      'color': const Color(0xFF6B7280)
+    },
   ];
 
   final _descriptionController = TextEditingController();
@@ -37,19 +67,24 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
   Future<void> _handleSOS() async {
     if (_descriptionController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please describe what happened'), backgroundColor: AppTheme.warning),
+        const SnackBar(
+            content: Text('Please describe what happened'),
+            backgroundColor: AppTheme.warning),
       );
       return;
     }
 
-    setState(() { _isSending = true; });
+    setState(() {
+      _isSending = true;
+    });
     HapticFeedback.heavyImpact();
 
     try {
       Position? pos;
       try {
         pos = await Geolocator.getCurrentPosition(
-          locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
+          locationSettings:
+              const LocationSettings(accuracy: LocationAccuracy.high),
         );
       } catch (_) {}
 
@@ -62,14 +97,21 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
         longitude: pos?.longitude,
       );
 
-      setState(() { _sent = true; });
+      setState(() {
+        _sent = true;
+      });
       HapticFeedback.heavyImpact();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to send report. Please call 911 if emergency.'), backgroundColor: AppTheme.error),
+        const SnackBar(
+            content:
+                Text('Failed to send report. Please call 911 if emergency.'),
+            backgroundColor: AppTheme.error),
       );
     } finally {
-      setState(() { _isSending = false; });
+      setState(() {
+        _isSending = false;
+      });
     }
   }
 
@@ -93,10 +135,14 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [AppTheme.error.withValues(alpha: 0.1), AppTheme.error.withValues(alpha: 0.02)],
+                    colors: [
+                      AppTheme.error.withValues(alpha: 0.1),
+                      AppTheme.error.withValues(alpha: 0.02)
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: AppTheme.error.withValues(alpha: 0.2)),
+                  border:
+                      Border.all(color: AppTheme.error.withValues(alpha: 0.2)),
                 ),
                 child: const Row(
                   children: [
@@ -107,9 +153,13 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('If this is a life-threatening emergency',
-                            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 14)),
                           Text('Call 911 immediately',
-                            style: TextStyle(color: AppTheme.error, fontWeight: FontWeight.w800, fontSize: 16)),
+                              style: TextStyle(
+                                  color: AppTheme.error,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16)),
                         ],
                       ),
                     ),
@@ -120,7 +170,10 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
 
               // Incident type selector
               Text('What happened?',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 10,
@@ -131,15 +184,19 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                     label: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(t['icon'] as IconData, size: 16,
-                          color: isSelected ? Colors.white : t['color'] as Color),
+                        Icon(t['icon'] as IconData,
+                            size: 16,
+                            color: isSelected
+                                ? Colors.white
+                                : t['color'] as Color),
                         const SizedBox(width: 6),
                         Text(t['label'] as String),
                       ],
                     ),
                     selected: isSelected,
                     selectedColor: (t['color'] as Color),
-                    onSelected: (_) => setState(() => _selectedType = t['key'] as String),
+                    onSelected: (_) =>
+                        setState(() => _selectedType = t['key'] as String),
                     labelStyle: TextStyle(
                       color: isSelected ? Colors.white : null,
                       fontWeight: FontWeight.w600,
@@ -152,13 +209,17 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
 
               // Description
               Text('Description',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 8),
               TextField(
                 controller: _descriptionController,
                 maxLines: 5,
                 decoration: const InputDecoration(
-                  hintText: 'Describe what happened, who is involved, and any injuries...',
+                  hintText:
+                      'Describe what happened, who is involved, and any injuries...',
                 ),
               ),
               const SizedBox(height: 32),
@@ -169,10 +230,16 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _isSending ? null : _handleSOS,
                   icon: _isSending
-                      ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      ? const SizedBox(
+                          width: 22,
+                          height: 22,
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2, color: Colors.white))
                       : const Icon(Icons.send),
-                  label: const Text('SUBMIT REPORT', style: TextStyle(letterSpacing: 1)),
-                  style: ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
+                  label: const Text('SUBMIT REPORT',
+                      style: TextStyle(letterSpacing: 1)),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
                 ),
               ),
             ],
@@ -192,16 +259,21 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 80, height: 80,
+                  width: 80,
+                  height: 80,
                   decoration: BoxDecoration(
                     color: AppTheme.success.withValues(alpha: 0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.check_circle, color: AppTheme.success, size: 48),
+                  child: const Icon(Icons.check_circle,
+                      color: AppTheme.success, size: 48),
                 ),
                 const SizedBox(height: 24),
                 Text('Report Submitted',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800)),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.w800)),
                 const SizedBox(height: 8),
                 const Text(
                   'Your incident report has been sent to the management team. They will follow up shortly.',
@@ -210,7 +282,10 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                 ),
                 const SizedBox(height: 32),
                 OutlinedButton.icon(
-                  onPressed: () => setState(() { _sent = false; _descriptionController.clear(); }),
+                  onPressed: () => setState(() {
+                    _sent = false;
+                    _descriptionController.clear();
+                  }),
                   icon: const Icon(Icons.add),
                   label: const Text('Report Another Incident'),
                 ),

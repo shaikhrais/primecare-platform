@@ -1,9 +1,7 @@
 class TrainingDirectorDashboardViewModel {
   final List<TrainingKpi> kpis;
 
-  const TrainingDirectorDashboardViewModel({
-    required this.kpis,
-  });
+  const TrainingDirectorDashboardViewModel({required this.kpis});
 }
 
 class TrainingKpi {

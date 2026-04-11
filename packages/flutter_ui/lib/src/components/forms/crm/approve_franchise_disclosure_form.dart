@@ -12,10 +12,12 @@ class ApproveFranchiseDisclosureForm extends StatefulWidget {
   });
 
   @override
-  State<ApproveFranchiseDisclosureForm> createState() => _ApproveFranchiseDisclosureFormState();
+  State<ApproveFranchiseDisclosureForm> createState() =>
+      _ApproveFranchiseDisclosureFormState();
 }
 
-class _ApproveFranchiseDisclosureFormState extends State<ApproveFranchiseDisclosureForm> {
+class _ApproveFranchiseDisclosureFormState
+    extends State<ApproveFranchiseDisclosureForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

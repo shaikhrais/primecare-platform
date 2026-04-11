@@ -12,7 +12,8 @@ class LogClinicalIncidentForm extends StatefulWidget {
   });
 
   @override
-  State<LogClinicalIncidentForm> createState() => _LogClinicalIncidentFormState();
+  State<LogClinicalIncidentForm> createState() =>
+      _LogClinicalIncidentFormState();
 }
 
 class _LogClinicalIncidentFormState extends State<LogClinicalIncidentForm> {

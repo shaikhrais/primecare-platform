@@ -30,9 +30,7 @@ class _DailyVitalsCardFormState extends State<DailyVitalsCardForm> {
       subtitle: 'Log patient daily vitals.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

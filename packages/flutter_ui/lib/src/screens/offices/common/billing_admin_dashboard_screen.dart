@@ -22,17 +22,20 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
             Text(
               'Billing Admin',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               'Real-time overview fetched natively via API.',
-              style: TextStyle(color: Colors.white.withAlpha(178), fontSize: 16),
+              style: TextStyle(
+                color: Colors.white.withAlpha(178),
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 32),
-            
+
             viewModelAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
@@ -49,7 +52,10 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(LucideIcons.alertTriangle, color: Colors.redAccent),
+                    const Icon(
+                      LucideIcons.alertTriangle,
+                      color: Colors.redAccent,
+                    ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
@@ -82,7 +88,7 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                       }).toList(),
                     ),
                     const SizedBox(height: 40),
-            
+
                     // Recent Activities
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,14 +100,17 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                             decoration: BoxDecoration(
                               color: Colors.white.withAlpha(12),
                               borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: Colors.white.withAlpha(25)),
+                              border: Border.all(
+                                color: Colors.white.withAlpha(25),
+                              ),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Live Operations Feed',
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  style: Theme.of(context).textTheme.titleLarge
+                                      ?.copyWith(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -116,7 +125,9 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                                   ),
                                 ...liveData.recentActivity.map((activity) {
                                   return Padding(
-                                    padding: const EdgeInsets.only(bottom: 16.0),
+                                    padding: const EdgeInsets.only(
+                                      bottom: 16.0,
+                                    ),
                                     child: Row(
                                       children: [
                                         Container(
@@ -125,27 +136,41 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                                             color: Colors.white.withAlpha(12),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Icon(LucideIcons.activity, color: Colors.tealAccent, size: 20),
+                                          child: Icon(
+                                            LucideIcons.activity,
+                                            color: Colors.tealAccent,
+                                            size: 20,
+                                          ),
                                         ),
                                         const SizedBox(width: 16),
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 activity.title,
-                                                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                               Text(
                                                 activity.subtitle,
-                                                style: const TextStyle(color: Colors.white54, fontSize: 13),
+                                                style: const TextStyle(
+                                                  color: Colors.white54,
+                                                  fontSize: 13,
+                                                ),
                                               ),
                                             ],
                                           ),
                                         ),
                                         Text(
                                           activity.timestamp,
-                                          style: const TextStyle(color: Colors.white38, fontSize: 12),
+                                          style: const TextStyle(
+                                            color: Colors.white38,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -163,24 +188,42 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                             decoration: BoxDecoration(
                               color: Colors.tealAccent.withAlpha(25),
                               borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: Colors.tealAccent.withAlpha(76)),
+                              border: Border.all(
+                                color: Colors.tealAccent.withAlpha(76),
+                              ),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'System Status',
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  style: Theme.of(context).textTheme.titleLarge
+                                      ?.copyWith(
                                         color: Colors.tealAccent,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
                                 const SizedBox(height: 24),
-                                _buildStatusRow(LucideIcons.server, 'Core API URL', 'Connected', Colors.greenAccent),
+                                _buildStatusRow(
+                                  LucideIcons.server,
+                                  'Core API URL',
+                                  'Connected',
+                                  Colors.greenAccent,
+                                ),
                                 const SizedBox(height: 16),
-                                _buildStatusRow(LucideIcons.database, 'Data Lake', 'Operational', Colors.greenAccent),
+                                _buildStatusRow(
+                                  LucideIcons.database,
+                                  'Data Lake',
+                                  'Operational',
+                                  Colors.greenAccent,
+                                ),
                                 const SizedBox(height: 16),
-                                _buildStatusRow(LucideIcons.shieldCheck, 'Live Sync', 'Active', Colors.blueAccent),
+                                _buildStatusRow(
+                                  LucideIcons.shieldCheck,
+                                  'Live Sync',
+                                  'Active',
+                                  Colors.blueAccent,
+                                ),
                                 const SizedBox(height: 32),
                                 SizedBox(
                                   width: double.infinity,
@@ -188,15 +231,21 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                                     onPressed: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (_) => const SubscriptionUpgradeScreen(),
+                                          builder: (_) =>
+                                              const SubscriptionUpgradeScreen(),
                                         ),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.tealAccent.withAlpha(25),
+                                      backgroundColor: Colors.tealAccent
+                                          .withAlpha(25),
                                       foregroundColor: Colors.tealAccent,
-                                      side: BorderSide(color: Colors.tealAccent.withAlpha(76)),
-                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      side: BorderSide(
+                                        color: Colors.tealAccent.withAlpha(76),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
@@ -204,7 +253,10 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                                     icon: const Icon(LucideIcons.arrowUpCircle),
                                     label: const Text(
                                       'Upgrade Subscription',
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -213,7 +265,7 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 );
               },
@@ -227,23 +279,35 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
   IconData _inferIcon(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice')) return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule')) return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical')) return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn')) return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline')) return LucideIcons.checkSquare;
+    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice'))
+      return LucideIcons.dollarSign;
+    if (t.contains('appointment') || t.contains('schedule'))
+      return LucideIcons.calendar;
+    if (t.contains('alert') || t.contains('critical'))
+      return LucideIcons.alertCircle;
+    if (t.contains('staff') || t.contains('provider') || t.contains('rpn'))
+      return LucideIcons.stethoscope;
+    if (t.contains('task') || t.contains('pipeline'))
+      return LucideIcons.checkSquare;
     return LucideIcons.activity;
   }
 
   Color _inferColor(String status) {
     final s = status.toLowerCase();
-    if (s == 'operational' || s == 'positive' || s == 'up') return Colors.greenAccent;
+    if (s == 'operational' || s == 'positive' || s == 'up')
+      return Colors.greenAccent;
     if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative') return Colors.redAccent;
+    if (s == 'critical' || s == 'down' || s == 'negative')
+      return Colors.redAccent;
     return Colors.tealAccent;
   }
 
-  Widget _buildStatusRow(IconData icon, String label, String status, Color color) {
+  Widget _buildStatusRow(
+    IconData icon,
+    String label,
+    String status,
+    Color color,
+  ) {
     return Row(
       children: [
         Icon(icon, color: color, size: 20),
@@ -258,11 +322,14 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
           ),
           child: Text(
             status,
-            style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],
     );
   }
 }
-

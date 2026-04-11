@@ -30,7 +30,8 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        setState(() => _error = 'Location services are disabled. Enable GPS to check in.');
+        setState(() =>
+            _error = 'Location services are disabled. Enable GPS to check in.');
         return null;
       }
 
@@ -38,18 +39,21 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          setState(() => _error = 'Location permission denied. GPS is required for EVV compliance.');
+          setState(() => _error =
+              'Location permission denied. GPS is required for EVV compliance.');
           return null;
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        setState(() => _error = 'Location permanently denied. Please enable in system settings.');
+        setState(() => _error =
+            'Location permanently denied. Please enable in system settings.');
         return null;
       }
 
       return await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
+        locationSettings:
+            const LocationSettings(accuracy: LocationAccuracy.high),
       );
     } catch (e) {
       setState(() => _error = 'Could not get location: $e');
@@ -58,7 +62,10 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
   }
 
   Future<void> _handleCheckIn() async {
-    setState(() { _isLoading = true; _error = null; });
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
     HapticFeedback.mediumImpact();
 
     final pos = await _getCurrentLocation();
@@ -87,7 +94,10 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
   }
 
   Future<void> _handleCheckOut() async {
-    setState(() { _isLoading = true; _error = null; });
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
     HapticFeedback.mediumImpact();
 
     final pos = await _getCurrentLocation();
@@ -152,17 +162,23 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                               color: AppTheme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.medical_services, color: AppTheme.primary, size: 24),
+                            child: const Icon(Icons.medical_services,
+                                color: AppTheme.primary, size: 24),
                           ),
                           const SizedBox(width: 14),
                           const Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Visit', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
+                                Text('Visit',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 18)),
                                 SizedBox(height: 2),
                                 Text('Personal Care Assistance',
-                                  style: TextStyle(fontSize: 13, color: Color(0xFF6B7280))),
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: Color(0xFF6B7280))),
                               ],
                             ),
                           ),
@@ -171,9 +187,14 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                       const SizedBox(height: 16),
                       const Divider(),
                       const SizedBox(height: 12),
-                      _infoRow('Status', _isCheckedIn ? '🟢 Checked In' : '⏳ Awaiting Check-in'),
+                      _infoRow(
+                          'Status',
+                          _isCheckedIn
+                              ? '🟢 Checked In'
+                              : '⏳ Awaiting Check-in'),
                       if (_currentPosition != null)
-                        _infoRow('Location', '${_currentPosition!.latitude.toStringAsFixed(4)}, ${_currentPosition!.longitude.toStringAsFixed(4)}'),
+                        _infoRow('Location',
+                            '${_currentPosition!.latitude.toStringAsFixed(4)}, ${_currentPosition!.longitude.toStringAsFixed(4)}'),
                     ],
                   ),
                 ),
@@ -188,20 +209,29 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                   decoration: BoxDecoration(
                     color: AppTheme.error.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppTheme.error.withValues(alpha: 0.3)),
+                    border: Border.all(
+                        color: AppTheme.error.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.warning_amber, color: AppTheme.error, size: 20),
+                      const Icon(Icons.warning_amber,
+                          color: AppTheme.error, size: 20),
                       const SizedBox(width: 10),
-                      Expanded(child: Text(_error!, style: const TextStyle(color: AppTheme.error, fontSize: 13))),
+                      Expanded(
+                          child: Text(_error!,
+                              style: const TextStyle(
+                                  color: AppTheme.error, fontSize: 13))),
                     ],
                   ),
                 ),
 
               // Visit notes (shown after check-in)
               if (_isCheckedIn) ...[
-                Text('Visit Notes', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                Text('Visit Notes',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 TextField(
                   controller: _notesController,
@@ -219,14 +249,24 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
               SizedBox(
                 height: 56,
                 child: ElevatedButton.icon(
-                  onPressed: _isLoading ? null : (_isCheckedIn ? _handleCheckOut : _handleCheckIn),
+                  onPressed: _isLoading
+                      ? null
+                      : (_isCheckedIn ? _handleCheckOut : _handleCheckIn),
                   icon: _isLoading
-                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2, color: Colors.white))
                       : Icon(_isCheckedIn ? Icons.logout : Icons.login),
                   label: Text(_isCheckedIn ? 'CHECK OUT' : 'CHECK IN'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _isCheckedIn ? AppTheme.warning : AppTheme.primary,
-                    textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1),
+                    backgroundColor:
+                        _isCheckedIn ? AppTheme.warning : AppTheme.primary,
+                    textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1),
                   ),
                 ),
               ),
@@ -243,8 +283,11 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Color(0xFF6B7280), fontSize: 13)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+          Text(label,
+              style: const TextStyle(color: Color(0xFF6B7280), fontSize: 13)),
+          Text(value,
+              style:
+                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
         ],
       ),
     );

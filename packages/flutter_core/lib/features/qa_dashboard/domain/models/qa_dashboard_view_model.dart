@@ -1,9 +1,7 @@
 class QaDashboardViewModel {
   final List<QaKpi> kpis;
 
-  const QaDashboardViewModel({
-    this.kpis = const [],
-  });
+  const QaDashboardViewModel({this.kpis = const []});
 }
 
 class QaKpi {

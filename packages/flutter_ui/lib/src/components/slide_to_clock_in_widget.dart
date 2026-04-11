@@ -14,7 +14,11 @@ class SlideToClockInWidget extends StatelessWidget {
       child: Stack(
         children: [
           Center(
-            child: Text('SWIPE TO CLOCK IN', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+            child: Text(
+              'SWIPE TO CLOCK IN',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.2,

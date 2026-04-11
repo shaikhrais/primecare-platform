@@ -2,20 +2,6 @@ import 'package:flutter_ui/flutter_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/flutter_core.dart';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 final List<RouteBase> clientRoutes = [
   GoRoute(
     path: ClientRoutes.clientBookAppointment,
@@ -70,4 +56,3 @@ final List<RouteBase> clientRoutes = [
     builder: (context, state) => const FamilyMemberDashboard(),
   ),
 ];
-

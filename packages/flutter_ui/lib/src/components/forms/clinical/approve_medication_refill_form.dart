@@ -12,10 +12,12 @@ class ApproveMedicationRefillForm extends StatefulWidget {
   });
 
   @override
-  State<ApproveMedicationRefillForm> createState() => _ApproveMedicationRefillFormState();
+  State<ApproveMedicationRefillForm> createState() =>
+      _ApproveMedicationRefillFormState();
 }
 
-class _ApproveMedicationRefillFormState extends State<ApproveMedicationRefillForm> {
+class _ApproveMedicationRefillFormState
+    extends State<ApproveMedicationRefillForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

@@ -22,7 +22,11 @@ class ActiveWebSocketTracker extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('WSS Pool Activity', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              const Text(
+                'WSS Pool Activity',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               Container(
                 width: 12,
@@ -35,11 +39,23 @@ class ActiveWebSocketTracker extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          _buildStatRow('Active Endpoints', activeConnections.toString(), Theme.of(context).primaryColor),
+          _buildStatRow(
+            'Active Endpoints',
+            activeConnections.toString(),
+            Theme.of(context).primaryColor,
+          ),
           const SizedBox(height: 8),
-          _buildStatRow('Job Queue (Pending)', pendingJobQueue.toString(), Colors.orange),
+          _buildStatRow(
+            'Job Queue (Pending)',
+            pendingJobQueue.toString(),
+            Colors.orange,
+          ),
           const SizedBox(height: 8),
-          _buildStatRow('Model Health Score', '${systemScore.toStringAsFixed(1)}/100', Colors.purple),
+          _buildStatRow(
+            'Model Health Score',
+            '${systemScore.toStringAsFixed(1)}/100',
+            Colors.purple,
+          ),
         ],
       ),
     );
@@ -49,8 +65,22 @@ class ActiveWebSocketTracker extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.black87)),
-        Text(val, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 16)),
+        Text(
+          label,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: const TextStyle(color: Colors.black87),
+        ),
+        Text(
+          val,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontSize: 16,
+          ),
+        ),
       ],
     );
   }

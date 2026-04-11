@@ -18,7 +18,12 @@ class PrimeCareTaskRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: Colors.indigo),
-      title: Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.w600)),
+      title: Text(
+        title,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        style: const TextStyle(fontWeight: FontWeight.w600),
+      ),
       trailing: Icon(Icons.circle, size: 12, color: statusColor),
       onTap: onTap,
     );

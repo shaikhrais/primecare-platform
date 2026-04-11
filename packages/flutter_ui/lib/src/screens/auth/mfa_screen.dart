@@ -21,7 +21,9 @@ class MFAScreen extends StatelessWidget {
             children: [
               Text(
                 'Two-Factor Authentication',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineSmall?.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 8),
               Text(
@@ -38,9 +40,15 @@ class MFAScreen extends StatelessWidget {
                   counterText: "",
                   hintText: '000000',
                   hintStyle: TextStyle(color: Colors.white30, letterSpacing: 8),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
-                style: const TextStyle(color: Colors.white, fontSize: 24, letterSpacing: 8),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  letterSpacing: 8,
+                ),
               ),
               const SizedBox(height: 32),
               ElevatedButton(

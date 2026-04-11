@@ -49,10 +49,15 @@ class PrimeCareWizardFlow extends StatelessWidget {
           headerWidget!,
           SizedBox(height: PrimeCareSpacing.xl),
         ],
-        Text(subtitle.toUpperCase(), overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+        Text(
+          subtitle.toUpperCase(),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: TextStyle(
             color: t.textMuted,
             fontWeight: FontWeight.w900,
-            letterSpacing: 2,),
+            letterSpacing: 2,
+          ),
         ),
         const SizedBox(height: PrimeCareSpacing.xl),
 
@@ -66,7 +71,11 @@ class PrimeCareWizardFlow extends StatelessWidget {
               children: [
                 PrimeCareCard(
                   padding: const EdgeInsets.all(PrimeCareSpacing.md),
-                  child: Text('$index', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+                  child: Text(
+                    '$index',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -89,7 +98,11 @@ class PrimeCareWizardFlow extends StatelessWidget {
                             const SizedBox(width: PrimeCareSpacing.sm),
                           ],
                           Expanded(
-                            child: Text(step.title, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+                            child: Text(
+                              step.title,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16,
@@ -99,7 +112,11 @@ class PrimeCareWizardFlow extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: PrimeCareSpacing.sm),
-                      Text(step.description, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: t.textMuted, height: 1.4),
+                      Text(
+                        step.description,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(color: t.textMuted, height: 1.4),
                       ),
                     ],
                   ),
@@ -119,9 +136,14 @@ class PrimeCareWizardFlow extends StatelessWidget {
         PrimeCareButton(
           type: PrimeCareButtonType.primary,
           onPressed: onAction,
-          child: Text(actionLabel, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(
+          child: Text(
+            actionLabel,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
-              letterSpacing: 1,),
+              letterSpacing: 1,
+            ),
           ),
         ),
       ],

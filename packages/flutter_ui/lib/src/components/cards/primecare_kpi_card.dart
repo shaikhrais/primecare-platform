@@ -28,7 +28,7 @@ class PrimeCareKpiCard extends StatelessWidget {
               color: Colors.black.withValues(alpha: 0.02),
               blurRadius: 8,
               offset: const Offset(0, 4),
-            )
+            ),
           ],
         ),
         child: Row(
@@ -42,7 +42,11 @@ class PrimeCareKpiCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.bold, fontSize: 13),
+                    style: const TextStyle(
+                      color: Color(0xFF1E3A8A),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),
@@ -53,7 +57,11 @@ class PrimeCareKpiCard extends StatelessWidget {
                     children: [
                       Text(
                         value,
-                        style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Color(0xFF1E3A8A)),
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xFF1E3A8A),
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                       if (subtitle.isNotEmpty)
@@ -61,7 +69,11 @@ class PrimeCareKpiCard extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 6.0),
                           child: Text(
                             subtitle,
-                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF1E3A8A)),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF1E3A8A),
+                            ),
                           ),
                         ),
                     ],

@@ -18,11 +18,12 @@ class AuthState {
     bool? isAuthenticated,
     Map<String, dynamic>? user,
     bool? isLoading,
-  }) => AuthState(
-    isAuthenticated: isAuthenticated ?? this.isAuthenticated,
-    user: user ?? this.user,
-    isLoading: isLoading ?? this.isLoading,
-  );
+  }) =>
+      AuthState(
+        isAuthenticated: isAuthenticated ?? this.isAuthenticated,
+        user: user ?? this.user,
+        isLoading: isLoading ?? this.isLoading,
+      );
 
   String get email => user?['email'] ?? '';
   String get fullName => user?['profile']?['fullName'] ?? email;

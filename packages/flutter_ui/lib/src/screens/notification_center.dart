@@ -9,8 +9,14 @@ class NotificationCenter extends StatelessWidget {
       appBar: AppBar(title: const Text('Notification Center')),
       body: ListView(
         children: const [
-          ListTile(leading: Icon(Icons.notifications), title: Text('System Update Completed')),
-          ListTile(leading: Icon(Icons.notifications), title: Text('New Patient Registered')),
+          ListTile(
+            leading: Icon(Icons.notifications),
+            title: Text('System Update Completed'),
+          ),
+          ListTile(
+            leading: Icon(Icons.notifications),
+            title: Text('New Patient Registered'),
+          ),
         ],
       ),
     );

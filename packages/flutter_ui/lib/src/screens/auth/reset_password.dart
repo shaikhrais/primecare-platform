@@ -21,7 +21,9 @@ class ResetPasswordScreen extends StatelessWidget {
             children: [
               Text(
                 'Set New Password',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineSmall?.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 24),
               TextField(
@@ -29,7 +31,9 @@ class ResetPasswordScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'New Password',
                   prefixIcon: const Icon(Icons.lock, color: Colors.white54),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
@@ -38,8 +42,13 @@ class ResetPasswordScreen extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
-                  prefixIcon: const Icon(Icons.lock_outline, color: Colors.white54),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  prefixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: Colors.white54,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),

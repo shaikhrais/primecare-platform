@@ -12,10 +12,12 @@ class AuditSecurityComplianceForm extends StatefulWidget {
   });
 
   @override
-  State<AuditSecurityComplianceForm> createState() => _AuditSecurityComplianceFormState();
+  State<AuditSecurityComplianceForm> createState() =>
+      _AuditSecurityComplianceFormState();
 }
 
-class _AuditSecurityComplianceFormState extends State<AuditSecurityComplianceForm> {
+class _AuditSecurityComplianceFormState
+    extends State<AuditSecurityComplianceForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

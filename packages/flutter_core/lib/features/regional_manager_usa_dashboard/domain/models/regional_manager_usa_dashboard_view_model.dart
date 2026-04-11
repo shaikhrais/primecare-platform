@@ -1,9 +1,7 @@
 class RegionalManagerUsaDashboardViewModel {
   final List<RegionalUsaKpi> kpis;
 
-  const RegionalManagerUsaDashboardViewModel({
-    required this.kpis,
-  });
+  const RegionalManagerUsaDashboardViewModel({required this.kpis});
 }
 
 class RegionalUsaKpi {

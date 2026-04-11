@@ -12,7 +12,8 @@ class LogInventorySpoilageForm extends StatefulWidget {
   });
 
   @override
-  State<LogInventorySpoilageForm> createState() => _LogInventorySpoilageFormState();
+  State<LogInventorySpoilageForm> createState() =>
+      _LogInventorySpoilageFormState();
 }
 
 class _LogInventorySpoilageFormState extends State<LogInventorySpoilageForm> {

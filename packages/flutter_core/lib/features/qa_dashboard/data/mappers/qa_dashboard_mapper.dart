@@ -21,10 +21,30 @@ class QaDashboardMapper {
 
   static List<QaKpi> _mockKpis() {
     return [
-      const QaKpi(title: 'Active Metrics', value: '120', trend: '+5%', status: 'Operational'),
-      const QaKpi(title: 'Efficiency', value: '98%', trend: '+2%', status: 'Operational'),
-      const QaKpi(title: 'Reports pending', value: '5', trend: '-2', status: 'Warning'),
-      const QaKpi(title: 'System Health', value: '100%', trend: 'Stable', status: 'Operational'),
+      const QaKpi(
+        title: 'Active Metrics',
+        value: '120',
+        trend: '+5%',
+        status: 'Operational',
+      ),
+      const QaKpi(
+        title: 'Efficiency',
+        value: '98%',
+        trend: '+2%',
+        status: 'Operational',
+      ),
+      const QaKpi(
+        title: 'Reports pending',
+        value: '5',
+        trend: '-2',
+        status: 'Warning',
+      ),
+      const QaKpi(
+        title: 'System Health',
+        value: '100%',
+        trend: 'Stable',
+        status: 'Operational',
+      ),
     ];
   }
 }

@@ -12,7 +12,8 @@ class ApproveSystemAccessForm extends StatefulWidget {
   });
 
   @override
-  State<ApproveSystemAccessForm> createState() => _ApproveSystemAccessFormState();
+  State<ApproveSystemAccessForm> createState() =>
+      _ApproveSystemAccessFormState();
 }
 
 class _ApproveSystemAccessFormState extends State<ApproveSystemAccessForm> {

@@ -12,7 +12,8 @@ class SubmitHealthcareClaimForm extends StatefulWidget {
   });
 
   @override
-  State<SubmitHealthcareClaimForm> createState() => _SubmitHealthcareClaimFormState();
+  State<SubmitHealthcareClaimForm> createState() =>
+      _SubmitHealthcareClaimFormState();
 }
 
 class _SubmitHealthcareClaimFormState extends State<SubmitHealthcareClaimForm> {

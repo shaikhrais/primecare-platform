@@ -12,7 +12,8 @@ class NurtureLocalizedLeadForm extends StatefulWidget {
   });
 
   @override
-  State<NurtureLocalizedLeadForm> createState() => _NurtureLocalizedLeadFormState();
+  State<NurtureLocalizedLeadForm> createState() =>
+      _NurtureLocalizedLeadFormState();
 }
 
 class _NurtureLocalizedLeadFormState extends State<NurtureLocalizedLeadForm> {

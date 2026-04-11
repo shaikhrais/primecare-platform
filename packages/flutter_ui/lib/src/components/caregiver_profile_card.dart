@@ -24,7 +24,11 @@ class CaregiverProfileCard extends StatelessWidget {
           CircleAvatar(
             radius: 30,
             backgroundColor: Theme.of(context).primaryColorLight,
-            child: Icon(Icons.person, size: 36, color: Theme.of(context).primaryColorLight),
+            child: Icon(
+              Icons.person,
+              size: 36,
+              color: Theme.of(context).primaryColorLight,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -33,7 +37,10 @@ class CaregiverProfileCard extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   role,
@@ -52,19 +59,22 @@ class CaregiverProfileCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         specialty,
-                        style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 12,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.message, color: Theme.of(context).primaryColor),
-          )
+          ),
         ],
       ),
     );

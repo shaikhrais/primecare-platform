@@ -30,7 +30,16 @@ class PrimeWorkflowQueueCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo,
+          ),
+        ),
         const SizedBox(height: 12),
         PrimeCareCard(
           padding: EdgeInsets.zero,

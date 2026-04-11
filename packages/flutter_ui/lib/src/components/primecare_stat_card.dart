@@ -20,7 +20,6 @@ class PrimeCareStatCard extends StatelessWidget {
     this.iconColor,
   });
 
-
   @override
   Widget build(BuildContext context) {
     final t = context.pTheme;
@@ -40,7 +39,11 @@ class PrimeCareStatCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: t.textMuted,
                   fontWeight: FontWeight.w600,
                 ),
@@ -49,7 +52,12 @@ class PrimeCareStatCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: PrimeCareSpacing.md),
-          Text(value, overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.headlineMedium),
+          Text(
+            value,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
           if (delta != null) ...[
             const SizedBox(height: PrimeCareSpacing.sm),
             Row(
@@ -75,7 +83,11 @@ class PrimeCareStatCard extends StatelessWidget {
                             : const Color(0xFFE11D48),
                       ),
                       const SizedBox(width: 2),
-                      Text('${delta!.abs().toStringAsFixed(1)}%', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+                      Text(
+                        '${delta!.abs().toStringAsFixed(1)}%',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: isPositive
@@ -88,7 +100,11 @@ class PrimeCareStatCard extends StatelessWidget {
                 ),
                 if (deltaSuffix != null) ...[
                   const SizedBox(width: PrimeCareSpacing.xs),
-                  Text(deltaSuffix!, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 12, color: t.textMuted),
+                  Text(
+                    deltaSuffix!,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(fontSize: 12, color: t.textMuted),
                   ),
                 ],
               ],

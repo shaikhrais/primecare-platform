@@ -22,9 +22,17 @@ class EtaTrackerWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Fatima is arriving soon', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                Text(
+                  'Fatima is arriving soon',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                Text('ETA: 14 Mins • 2.1 miles away', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.grey),
+                Text(
+                  'ETA: 14 Mins • 2.1 miles away',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(color: Colors.grey),
                 ),
               ],
             ),

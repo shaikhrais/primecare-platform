@@ -12,10 +12,12 @@ class LogFranchiseeVettingCallForm extends StatefulWidget {
   });
 
   @override
-  State<LogFranchiseeVettingCallForm> createState() => _LogFranchiseeVettingCallFormState();
+  State<LogFranchiseeVettingCallForm> createState() =>
+      _LogFranchiseeVettingCallFormState();
 }
 
-class _LogFranchiseeVettingCallFormState extends State<LogFranchiseeVettingCallForm> {
+class _LogFranchiseeVettingCallFormState
+    extends State<LogFranchiseeVettingCallForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

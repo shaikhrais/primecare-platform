@@ -12,10 +12,12 @@ class AuditPayrollDiscrepancyForm extends StatefulWidget {
   });
 
   @override
-  State<AuditPayrollDiscrepancyForm> createState() => _AuditPayrollDiscrepancyFormState();
+  State<AuditPayrollDiscrepancyForm> createState() =>
+      _AuditPayrollDiscrepancyFormState();
 }
 
-class _AuditPayrollDiscrepancyFormState extends State<AuditPayrollDiscrepancyForm> {
+class _AuditPayrollDiscrepancyFormState
+    extends State<AuditPayrollDiscrepancyForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

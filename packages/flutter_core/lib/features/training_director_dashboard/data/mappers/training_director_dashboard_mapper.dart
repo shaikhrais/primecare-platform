@@ -2,7 +2,9 @@ import '../../domain/models/training_director_dashboard_view_model.dart';
 import '../dtos/training_director_dashboard_dto.dart';
 
 class TrainingDirectorDashboardMapper {
-  static TrainingDirectorDashboardViewModel toViewModel(TrainingDirectorDashboardDto dto) {
+  static TrainingDirectorDashboardViewModel toViewModel(
+    TrainingDirectorDashboardDto dto,
+  ) {
     if (dto.rawKpis.isEmpty) {
       return TrainingDirectorDashboardViewModel(kpis: _mockKpis());
     }
@@ -21,10 +23,30 @@ class TrainingDirectorDashboardMapper {
 
   static List<TrainingKpi> _mockKpis() {
     return [
-      const TrainingKpi(title: 'Active Trainees', value: '450', trend: '+15%', status: 'Operational'),
-      const TrainingKpi(title: 'Course Completion Rate', value: '85%', trend: '+5%', status: 'Operational'),
-      const TrainingKpi(title: 'Average Score', value: '92%', trend: '+2%', status: 'Operational'),
-      const TrainingKpi(title: 'Overdue Training', value: '18', trend: '-10%', status: 'Warning'),
+      const TrainingKpi(
+        title: 'Active Trainees',
+        value: '450',
+        trend: '+15%',
+        status: 'Operational',
+      ),
+      const TrainingKpi(
+        title: 'Course Completion Rate',
+        value: '85%',
+        trend: '+5%',
+        status: 'Operational',
+      ),
+      const TrainingKpi(
+        title: 'Average Score',
+        value: '92%',
+        trend: '+2%',
+        status: 'Operational',
+      ),
+      const TrainingKpi(
+        title: 'Overdue Training',
+        value: '18',
+        trend: '-10%',
+        status: 'Warning',
+      ),
     ];
   }
 }

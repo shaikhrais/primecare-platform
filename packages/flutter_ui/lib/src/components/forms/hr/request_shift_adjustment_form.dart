@@ -12,10 +12,12 @@ class RequestShiftAdjustmentForm extends StatefulWidget {
   });
 
   @override
-  State<RequestShiftAdjustmentForm> createState() => _RequestShiftAdjustmentFormState();
+  State<RequestShiftAdjustmentForm> createState() =>
+      _RequestShiftAdjustmentFormState();
 }
 
-class _RequestShiftAdjustmentFormState extends State<RequestShiftAdjustmentForm> {
+class _RequestShiftAdjustmentFormState
+    extends State<RequestShiftAdjustmentForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

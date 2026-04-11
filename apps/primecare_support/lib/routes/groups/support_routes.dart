@@ -2,37 +2,6 @@ import 'package:flutter_ui/flutter_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/flutter_core.dart';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 final List<RouteBase> supportRoutes = [
   GoRoute(
     path: SupportRoutes.customerSupportTickets,
@@ -72,7 +41,8 @@ final List<RouteBase> supportRoutes = [
   ),
   GoRoute(
     path: SupportRoutes.intakeCoordinatorClientAssignment,
-    builder: (context, state) => const IntakeCoordinatorClientAssignmentScreen(),
+    builder: (context, state) =>
+        const IntakeCoordinatorClientAssignmentScreen(),
   ),
   GoRoute(
     path: SupportRoutes.qualityAssuranceAudits,
@@ -88,7 +58,8 @@ final List<RouteBase> supportRoutes = [
   ),
   GoRoute(
     path: SupportRoutes.qualityAssuranceCorrectiveActions,
-    builder: (context, state) => const QualityAssuranceCorrectiveActionsScreen(),
+    builder: (context, state) =>
+        const QualityAssuranceCorrectiveActionsScreen(),
   ),
   GoRoute(
     path: SupportRoutes.qualityAssuranceScorecards,
@@ -104,7 +75,8 @@ final List<RouteBase> supportRoutes = [
   ),
   GoRoute(
     path: SupportRoutes.trainingCoordinatorTrainingSchedule,
-    builder: (context, state) => const TrainingCoordinatorTrainingScheduleScreen(),
+    builder: (context, state) =>
+        const TrainingCoordinatorTrainingScheduleScreen(),
   ),
   GoRoute(
     path: SupportRoutes.trainingCoordinatorCourses,
@@ -140,7 +112,7 @@ final List<RouteBase> supportRoutes = [
   ),
   GoRoute(
     path: SupportRoutes.trainingCoordinatorDashboard,
-    builder: (context, state) => const TrainingCoordinatorDashboardScreenStitch(),
+    builder: (context, state) =>
+        const TrainingCoordinatorDashboardScreenStitch(),
   ),
 ];
-

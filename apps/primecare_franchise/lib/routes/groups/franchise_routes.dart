@@ -2,51 +2,6 @@ import 'package:flutter_ui/flutter_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/flutter_core.dart';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 final List<RouteBase> franchiseRoutes = [
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerDashboard,
@@ -70,11 +25,13 @@ final List<RouteBase> franchiseRoutes = [
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerBranchOverview,
-    builder: (context, state) => const FranchiseOwnerBranchOverviewScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseOwnerBranchOverviewScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerFinancialSnapshot,
-    builder: (context, state) => const FranchiseOwnerFinancialSnapshotScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseOwnerFinancialSnapshotScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.franchiseOwnerStaff,
@@ -102,7 +59,8 @@ final List<RouteBase> franchiseRoutes = [
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerDailyOperations,
-    builder: (context, state) => const OperationsManagerDailyOperationsScreenStitch(),
+    builder: (context, state) =>
+        const OperationsManagerDailyOperationsScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerSchedule,
@@ -118,15 +76,18 @@ final List<RouteBase> franchiseRoutes = [
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerServiceQuality,
-    builder: (context, state) => const OperationsManagerServiceQualityScreenStitch(),
+    builder: (context, state) =>
+        const OperationsManagerServiceQualityScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerStaffCoordination,
-    builder: (context, state) => const OperationsManagerStaffCoordinationScreenStitch(),
+    builder: (context, state) =>
+        const OperationsManagerStaffCoordinationScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerAttendance,
-    builder: (context, state) => const OperationsManagerAttendanceScreenStitch(),
+    builder: (context, state) =>
+        const OperationsManagerAttendanceScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerReports,
@@ -134,31 +95,38 @@ final List<RouteBase> franchiseRoutes = [
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorAppointmentCalendar,
-    builder: (context, state) => const SchedulerCoordinatorAppointmentCalendarScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorAppointmentCalendarScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorShiftCalendar,
-    builder: (context, state) => const SchedulerCoordinatorShiftCalendarScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorShiftCalendarScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorProviderAvailability,
-    builder: (context, state) => const SchedulerCoordinatorProviderAvailabilityScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorProviderAvailabilityScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorBookingRequests,
-    builder: (context, state) => const SchedulerCoordinatorBookingRequestsScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorBookingRequestsScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorOpenShifts,
-    builder: (context, state) => const SchedulerCoordinatorOpenShiftsScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorOpenShiftsScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorAssignments,
-    builder: (context, state) => const SchedulerCoordinatorAssignmentsScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorAssignmentsScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorConflicts,
-    builder: (context, state) => const SchedulerCoordinatorConflictsScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorConflictsScreenStitch(),
   ),
   GoRoute(
     path: FranchiseRoutes.adminInvoices,
@@ -225,4 +193,3 @@ final List<RouteBase> franchiseRoutes = [
     builder: (context, state) => const CommunityOutreachReportsScreenStitch(),
   ),
 ];
-

@@ -21,7 +21,8 @@ class PrimeCareText extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Text(data, 
+  Widget build(BuildContext context) => Text(
+    data,
     style: style,
     textAlign: textAlign,
     overflow: overflow ?? TextOverflow.ellipsis,

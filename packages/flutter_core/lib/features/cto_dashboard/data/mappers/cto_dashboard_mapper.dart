@@ -35,14 +35,16 @@ class CtoDashboardMapper {
 
   static CtoDashboardViewModel fromMock(Map<String, dynamic> mock) {
     return CtoDashboardViewModel(
-      kpis: (mock['kpis'] as List<dynamic>?)?.map((k) {
-        return CtoKpi(
-          title: k['title']?.toString() ?? '',
-          value: k['value']?.toString() ?? '',
-          trend: k['trend']?.toString() ?? '',
-          status: k['status']?.toString() ?? 'operational',
-        );
-      }).toList() ?? [],
+      kpis:
+          (mock['kpis'] as List<dynamic>?)?.map((k) {
+            return CtoKpi(
+              title: k['title']?.toString() ?? '',
+              value: k['value']?.toString() ?? '',
+              trend: k['trend']?.toString() ?? '',
+              status: k['status']?.toString() ?? 'operational',
+            );
+          }).toList() ??
+          [],
     );
   }
 }

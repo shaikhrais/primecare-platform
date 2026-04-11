@@ -52,8 +52,10 @@ class AppTheme {
           foregroundColor: Colors.white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          textStyle:
+              GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -61,8 +63,10 @@ class AppTheme {
           foregroundColor: primary,
           side: const BorderSide(color: Color(0xFFD1D5DB)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          textStyle:
+              GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -80,7 +84,8 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: primary, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         hintStyle: GoogleFonts.inter(color: const Color(0xFF9CA3AF)),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -129,8 +134,10 @@ class AppTheme {
           foregroundColor: Colors.white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          textStyle:
+              GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -138,8 +145,10 @@ class AppTheme {
           foregroundColor: accent,
           side: const BorderSide(color: Color(0xFF475569)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          textStyle:
+              GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -157,7 +166,8 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: accent, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         hintStyle: GoogleFonts.inter(color: const Color(0xFF64748B)),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(

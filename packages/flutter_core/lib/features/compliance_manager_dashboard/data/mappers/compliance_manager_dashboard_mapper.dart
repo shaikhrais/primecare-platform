@@ -2,7 +2,9 @@ import '../../domain/models/compliance_manager_dashboard_view_model.dart';
 import '../dtos/compliance_manager_dashboard_dto.dart';
 
 class ComplianceManagerDashboardMapper {
-  static ComplianceManagerDashboardViewModel toViewModel(ComplianceManagerDashboardDto dto) {
+  static ComplianceManagerDashboardViewModel toViewModel(
+    ComplianceManagerDashboardDto dto,
+  ) {
     if (dto.rawKpis.isEmpty && dto.rawRecentActivity.isEmpty) {
       return ComplianceManagerDashboardViewModel(
         kpis: _mockKpis(),
@@ -29,16 +31,38 @@ class ComplianceManagerDashboardMapper {
 
     return ComplianceManagerDashboardViewModel(
       kpis: kpis.isNotEmpty ? kpis : _mockKpis(),
-      recentActivity: recentActivity.isNotEmpty ? recentActivity : _mockRecentActivity(),
+      recentActivity: recentActivity.isNotEmpty
+          ? recentActivity
+          : _mockRecentActivity(),
     );
   }
 
   static List<ComplianceKpi> _mockKpis() {
     return [
-      const ComplianceKpi(title: 'Open Incidents', value: '12', trend: '-2%', status: 'Warning'),
-      const ComplianceKpi(title: 'Audit Pass Rate', value: '98%', trend: '+1%', status: 'Operational'),
-      const ComplianceKpi(title: 'Policy Violations', value: '3', trend: '-1', status: 'Warning'),
-      const ComplianceKpi(title: 'Upcoming Renewals', value: '45', trend: 'N/A', status: 'Operational'),
+      const ComplianceKpi(
+        title: 'Open Incidents',
+        value: '12',
+        trend: '-2%',
+        status: 'Warning',
+      ),
+      const ComplianceKpi(
+        title: 'Audit Pass Rate',
+        value: '98%',
+        trend: '+1%',
+        status: 'Operational',
+      ),
+      const ComplianceKpi(
+        title: 'Policy Violations',
+        value: '3',
+        trend: '-1',
+        status: 'Warning',
+      ),
+      const ComplianceKpi(
+        title: 'Upcoming Renewals',
+        value: '45',
+        trend: 'N/A',
+        status: 'Operational',
+      ),
     ];
   }
 

@@ -12,10 +12,12 @@ class ReviewOnboardingStatusForm extends StatefulWidget {
   });
 
   @override
-  State<ReviewOnboardingStatusForm> createState() => _ReviewOnboardingStatusFormState();
+  State<ReviewOnboardingStatusForm> createState() =>
+      _ReviewOnboardingStatusFormState();
 }
 
-class _ReviewOnboardingStatusFormState extends State<ReviewOnboardingStatusForm> {
+class _ReviewOnboardingStatusFormState
+    extends State<ReviewOnboardingStatusForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

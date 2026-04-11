@@ -13,9 +13,6 @@ class PrimeCareClinicApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
-    return MaterialApp.router(
-      title: 'PrimeCare Clinic',
-      routerConfig: router,
-    );
+    return MaterialApp.router(title: 'PrimeCare Clinic', routerConfig: router);
   }
 }

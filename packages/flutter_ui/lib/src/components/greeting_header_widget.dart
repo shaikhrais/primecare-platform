@@ -17,10 +17,15 @@ class GreetingHeaderWidget extends StatelessWidget {
               'Good Morning,',
               style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
             ),
-            Text(name, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(
+            Text(
+              name,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,),
+                color: Colors.black87,
+              ),
             ),
           ],
         ),

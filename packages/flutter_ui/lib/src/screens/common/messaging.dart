@@ -7,14 +7,13 @@ class MessagingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderLayout(
-
-
-
-
       child: Center(
         child: Text(
           'Secure Messaging Center Pending Data Hydration',
-          style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 24),
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.7),
+            fontSize: 24,
+          ),
         ),
       ),
     );

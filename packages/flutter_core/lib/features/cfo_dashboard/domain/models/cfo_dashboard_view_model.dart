@@ -1,9 +1,7 @@
 class CfoDashboardViewModel {
   final List<CfoKpi> kpis;
 
-  const CfoDashboardViewModel({
-    this.kpis = const [],
-  });
+  const CfoDashboardViewModel({this.kpis = const []});
 }
 
 class CfoKpi {

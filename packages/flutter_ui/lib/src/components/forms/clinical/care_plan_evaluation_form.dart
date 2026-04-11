@@ -30,9 +30,7 @@ class _CarePlanEvaluationFormState extends State<CarePlanEvaluationForm> {
       subtitle: 'Evaluate and modify the care plan.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

@@ -73,6 +73,5 @@ final List<RouteBase> clinicRoutes = [
   GoRoute(
     path: CommonRoutes.clinicMyShifts,
     builder: (context, state) => const DynamicRoleDashboardScreen(),
-  )
+  ),
 ];
-

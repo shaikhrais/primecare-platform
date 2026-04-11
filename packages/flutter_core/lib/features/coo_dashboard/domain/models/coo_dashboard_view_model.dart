@@ -1,9 +1,7 @@
 class CooDashboardViewModel {
   final List<CooKpi> kpis;
 
-  const CooDashboardViewModel({
-    this.kpis = const [],
-  });
+  const CooDashboardViewModel({this.kpis = const []});
 }
 
 class CooKpi {

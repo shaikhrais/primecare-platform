@@ -12,7 +12,8 @@ class SubmitMarketingBudgetForm extends StatefulWidget {
   });
 
   @override
-  State<SubmitMarketingBudgetForm> createState() => _SubmitMarketingBudgetFormState();
+  State<SubmitMarketingBudgetForm> createState() =>
+      _SubmitMarketingBudgetFormState();
 }
 
 class _SubmitMarketingBudgetFormState extends State<SubmitMarketingBudgetForm> {

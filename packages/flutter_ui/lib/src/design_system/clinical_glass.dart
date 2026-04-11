@@ -32,8 +32,8 @@ class ClinicalGlassPanel extends StatelessWidget {
         border:
             border ??
             Border.all(
-              color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(alpha: 
-                0.5,
+              color: PrimeCareTheme.colors.surfaceContainerHighest.withValues(
+                alpha: 0.5,
               ),
             ),
         boxShadow: [

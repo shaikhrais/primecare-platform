@@ -7,10 +7,12 @@ class SubscriptionUpgradeScreen extends ConsumerStatefulWidget {
   const SubscriptionUpgradeScreen({super.key});
 
   @override
-  ConsumerState<SubscriptionUpgradeScreen> createState() => _SubscriptionUpgradeScreenState();
+  ConsumerState<SubscriptionUpgradeScreen> createState() =>
+      _SubscriptionUpgradeScreenState();
 }
 
-class _SubscriptionUpgradeScreenState extends ConsumerState<SubscriptionUpgradeScreen> {
+class _SubscriptionUpgradeScreenState
+    extends ConsumerState<SubscriptionUpgradeScreen> {
   final TextEditingController _promoController = TextEditingController();
   bool _isApplying = false;
   String? _applyMessage;
@@ -27,20 +29,19 @@ class _SubscriptionUpgradeScreenState extends ConsumerState<SubscriptionUpgradeS
 
     try {
       final apiClient = ref.read(apiClientProvider);
-      
+
       final response = await apiClient.post(
-        '/saas/promo/apply', 
-        body: {
-          'code': code.toUpperCase(),
-        }
+        '/saas/promo/apply',
+        body: {'code': code.toUpperCase()},
       );
 
       setState(() {
         _isApplying = false;
-        
+
         if (response.statusCode == 200 && response.data['success'] == true) {
           _isSuccess = true;
-          _applyMessage = response.data['message'] ?? 'Subscription successfully upgraded!';
+          _applyMessage =
+              response.data['message'] ?? 'Subscription successfully upgraded!';
         } else {
           _isSuccess = false;
           _applyMessage = response.data['error'] ?? 'API rejected the code.';
@@ -73,7 +74,9 @@ class _SubscriptionUpgradeScreenState extends ConsumerState<SubscriptionUpgradeS
           Card(
             elevation: 0,
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Padding(
@@ -81,16 +84,27 @@ class _SubscriptionUpgradeScreenState extends ConsumerState<SubscriptionUpgradeS
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Current Tier", style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.grey.shade600)),
+                  Text(
+                    "Current Tier",
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
                   const SizedBox(height: 8),
-                  Text(_isSuccess ? "Premium" : "Free", style: Theme.of(context).textTheme.headlineMedium),
+                  Text(
+                    _isSuccess ? "Premium" : "Free",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
         children: [
-          Text('Apply Promo Code', style: Theme.of(context).textTheme.titleLarge),
+          Text(
+            'Apply Promo Code',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -108,10 +122,17 @@ class _SubscriptionUpgradeScreenState extends ConsumerState<SubscriptionUpgradeS
               ElevatedButton(
                 onPressed: _isApplying ? null : _applyPromoCode,
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
                 ),
-                child: _isApplying 
-                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                child: _isApplying
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
                     : const Text('Apply'),
               ),
             ],
@@ -125,7 +146,7 @@ class _SubscriptionUpgradeScreenState extends ConsumerState<SubscriptionUpgradeS
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ]
+          ],
         ],
       ),
     );

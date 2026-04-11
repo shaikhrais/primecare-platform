@@ -11,13 +11,19 @@ class ClinicalInterventionFormGroup extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Intervention Notes', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold),
+            const Text(
+              'Intervention Notes',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             TextField(
               maxLines: 4,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 hintText: 'Enter structured clinical notes...',
               ),
             ),

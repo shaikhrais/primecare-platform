@@ -21,17 +21,20 @@ class QaDashboardScreen extends ConsumerWidget {
             Text(
               'Qa Dashboard',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               'Real-time overview fetched natively via API.',
-              style: TextStyle(color: Colors.white.withAlpha(178), fontSize: 16),
+              style: TextStyle(
+                color: Colors.white.withAlpha(178),
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 32),
-            
+
             metricsAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
@@ -48,7 +51,10 @@ class QaDashboardScreen extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(LucideIcons.alertTriangle, color: Colors.redAccent),
+                    const Icon(
+                      LucideIcons.alertTriangle,
+                      color: Colors.redAccent,
+                    ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
@@ -95,15 +101,18 @@ class QaDashboardScreen extends ConsumerWidget {
     if (t.contains('user') || t.contains('client')) return LucideIcons.users;
     if (t.contains('report')) return LucideIcons.fileText;
     if (t.contains('score')) return LucideIcons.award;
-    if (t.contains('alert') || t.contains('pending')) return LucideIcons.alertCircle;
+    if (t.contains('alert') || t.contains('pending'))
+      return LucideIcons.alertCircle;
     return LucideIcons.activity;
   }
 
   Color _inferColor(String status) {
     final s = status.toLowerCase();
-    if (s == 'operational' || s == 'positive' || s == 'up') return Colors.greenAccent;
+    if (s == 'operational' || s == 'positive' || s == 'up')
+      return Colors.greenAccent;
     if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative') return Colors.redAccent;
+    if (s == 'critical' || s == 'down' || s == 'negative')
+      return Colors.redAccent;
     return Colors.tealAccent;
   }
 }

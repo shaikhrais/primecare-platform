@@ -17,7 +17,11 @@ class LiveDispatchMap extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(4),
               color: Colors.black54,
-              child: const Text('LIVE MAP', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.white, fontSize: 10),
+              child: const Text(
+                'LIVE MAP',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(color: Colors.white, fontSize: 10),
               ),
             ),
           ),

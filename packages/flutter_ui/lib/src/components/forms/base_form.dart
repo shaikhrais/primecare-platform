@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// A standardized form wrapper that provides consistent padding, 
+/// A standardized form wrapper that provides consistent padding,
 /// validation state handling, and normalized submit/cancel buttons.
 class BaseForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -33,10 +33,20 @@ class BaseForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(title, style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           if (subtitle != null) ...[
             const SizedBox(height: 4),
-            Text(subtitle!, style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            Text(
+              subtitle!,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
           ],
           const SizedBox(height: 24),
           ...children,
@@ -58,12 +68,16 @@ class BaseForm extends StatelessWidget {
                           onSubmit();
                         }
                       },
-                child: isLoading 
-                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                child: isLoading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
                     : Text(submitText),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

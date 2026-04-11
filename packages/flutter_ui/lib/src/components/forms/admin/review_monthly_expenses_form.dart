@@ -12,7 +12,8 @@ class ReviewMonthlyExpensesForm extends StatefulWidget {
   });
 
   @override
-  State<ReviewMonthlyExpensesForm> createState() => _ReviewMonthlyExpensesFormState();
+  State<ReviewMonthlyExpensesForm> createState() =>
+      _ReviewMonthlyExpensesFormState();
 }
 
 class _ReviewMonthlyExpensesFormState extends State<ReviewMonthlyExpensesForm> {

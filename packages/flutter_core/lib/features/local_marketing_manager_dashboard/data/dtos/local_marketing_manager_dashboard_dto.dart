@@ -3,7 +3,9 @@ class LocalMarketingManagerDashboardDto {
 
   LocalMarketingManagerDashboardDto({required this.rawKpis});
 
-  factory LocalMarketingManagerDashboardDto.fromJson(Map<String, dynamic> json) {
+  factory LocalMarketingManagerDashboardDto.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return LocalMarketingManagerDashboardDto(rawKpis: json['kpis'] ?? []);
   }
 }

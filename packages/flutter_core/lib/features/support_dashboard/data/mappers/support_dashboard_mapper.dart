@@ -21,10 +21,30 @@ class SupportDashboardMapper {
 
   static List<SupportKpi> _mockKpis() {
     return [
-      const SupportKpi(title: 'Active Metrics', value: '120', trend: '+5%', status: 'Operational'),
-      const SupportKpi(title: 'Efficiency', value: '98%', trend: '+2%', status: 'Operational'),
-      const SupportKpi(title: 'Reports pending', value: '5', trend: '-2', status: 'Warning'),
-      const SupportKpi(title: 'System Health', value: '100%', trend: 'Stable', status: 'Operational'),
+      const SupportKpi(
+        title: 'Active Metrics',
+        value: '120',
+        trend: '+5%',
+        status: 'Operational',
+      ),
+      const SupportKpi(
+        title: 'Efficiency',
+        value: '98%',
+        trend: '+2%',
+        status: 'Operational',
+      ),
+      const SupportKpi(
+        title: 'Reports pending',
+        value: '5',
+        trend: '-2',
+        status: 'Warning',
+      ),
+      const SupportKpi(
+        title: 'System Health',
+        value: '100%',
+        trend: 'Stable',
+        status: 'Operational',
+      ),
     ];
   }
 }

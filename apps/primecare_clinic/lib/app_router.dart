@@ -12,7 +12,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     refreshListenable: authListenable,
     redirect: (context, state) {
       final isLoggingIn = state.uri.toString() == CommonRoutes.login;
-      
+
       if (!authState.isAuthenticated) {
         return isLoggingIn ? null : CommonRoutes.login;
       }
@@ -33,4 +33,3 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
-

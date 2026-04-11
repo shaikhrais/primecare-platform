@@ -1,9 +1,7 @@
 class CtoDashboardViewModel {
   final List<CtoKpi> kpis;
 
-  const CtoDashboardViewModel({
-    this.kpis = const [],
-  });
+  const CtoDashboardViewModel({this.kpis = const []});
 }
 
 class CtoKpi {

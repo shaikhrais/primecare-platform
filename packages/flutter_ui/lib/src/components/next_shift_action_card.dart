@@ -25,15 +25,27 @@ class NextShiftActionCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Next Shift', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              const Text(
+                'Next Shift',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               PrimeStatusBadge(text: timeText, color: badgeColor),
             ],
           ),
           const SizedBox(height: 12),
-          Text(patientName, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          Text(
+            patientName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
-          Text(address, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.grey),
+          Text(
+            address,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: const TextStyle(color: Colors.grey),
           ),
         ],
       ),

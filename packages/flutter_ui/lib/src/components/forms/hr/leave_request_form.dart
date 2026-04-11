@@ -30,9 +30,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
       subtitle: 'Submit an employee leave request.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

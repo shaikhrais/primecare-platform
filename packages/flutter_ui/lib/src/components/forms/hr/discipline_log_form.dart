@@ -30,9 +30,7 @@ class _DisciplineLogFormState extends State<DisciplineLogForm> {
       subtitle: 'Record a disciplinary action or warning.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

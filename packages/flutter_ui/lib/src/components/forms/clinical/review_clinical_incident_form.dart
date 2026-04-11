@@ -12,10 +12,12 @@ class ReviewClinicalIncidentForm extends StatefulWidget {
   });
 
   @override
-  State<ReviewClinicalIncidentForm> createState() => _ReviewClinicalIncidentFormState();
+  State<ReviewClinicalIncidentForm> createState() =>
+      _ReviewClinicalIncidentFormState();
 }
 
-class _ReviewClinicalIncidentFormState extends State<ReviewClinicalIncidentForm> {
+class _ReviewClinicalIncidentFormState
+    extends State<ReviewClinicalIncidentForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

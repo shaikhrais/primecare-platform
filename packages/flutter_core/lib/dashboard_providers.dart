@@ -8,7 +8,8 @@ final dashboardServiceProvider = Provider<DashboardService>((ref) {
 });
 
 // Using a family provider to support fetching distinct metrics per route/role
-final dashboardMetricsProvider = FutureProvider.family<DashboardMetrics, String>((ref, route) async {
-  final service = ref.watch(dashboardServiceProvider);
-  return await service.getMetrics(route);
-});
+final dashboardMetricsProvider =
+    FutureProvider.family<DashboardMetrics, String>((ref, route) async {
+      final service = ref.watch(dashboardServiceProvider);
+      return await service.getMetrics(route);
+    });

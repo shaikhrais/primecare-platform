@@ -12,10 +12,12 @@ class ScheduleFacilityMaintenanceForm extends StatefulWidget {
   });
 
   @override
-  State<ScheduleFacilityMaintenanceForm> createState() => _ScheduleFacilityMaintenanceFormState();
+  State<ScheduleFacilityMaintenanceForm> createState() =>
+      _ScheduleFacilityMaintenanceFormState();
 }
 
-class _ScheduleFacilityMaintenanceFormState extends State<ScheduleFacilityMaintenanceForm> {
+class _ScheduleFacilityMaintenanceFormState
+    extends State<ScheduleFacilityMaintenanceForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

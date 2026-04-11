@@ -12,7 +12,8 @@ class AssignTrainingModuleForm extends StatefulWidget {
   });
 
   @override
-  State<AssignTrainingModuleForm> createState() => _AssignTrainingModuleFormState();
+  State<AssignTrainingModuleForm> createState() =>
+      _AssignTrainingModuleFormState();
 }
 
 class _AssignTrainingModuleFormState extends State<AssignTrainingModuleForm> {

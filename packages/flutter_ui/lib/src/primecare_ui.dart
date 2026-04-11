@@ -41,7 +41,11 @@ class PrimeCareSectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title.toUpperCase(), overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+    return Text(
+      title.toUpperCase(),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
+      style: TextStyle(
         color: Theme.of(context).colorScheme.primary,
         fontWeight: FontWeight.w900,
         fontSize: 12,
@@ -67,11 +71,16 @@ class PrimeCareBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: color.withAlpha(50)),
       ),
-      child: Text(text.toUpperCase(), overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+      child: Text(
+        text.toUpperCase(),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        style: TextStyle(
           color: color,
           fontSize: 11,
           fontWeight: FontWeight.bold,
-          letterSpacing: 1,),
+          letterSpacing: 1,
+        ),
       ),
     );
   }

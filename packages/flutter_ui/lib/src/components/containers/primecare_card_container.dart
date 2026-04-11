@@ -4,11 +4,7 @@ class PrimeCareCardContainer extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
 
-  const PrimeCareCardContainer({
-    super.key,
-    required this.child,
-    this.padding,
-  });
+  const PrimeCareCardContainer({super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +18,7 @@ class PrimeCareCardContainer extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 4,
             offset: const Offset(0, 2),
-          )
+          ),
         ],
       ),
       child: padding != null ? Padding(padding: padding!, child: child) : child,

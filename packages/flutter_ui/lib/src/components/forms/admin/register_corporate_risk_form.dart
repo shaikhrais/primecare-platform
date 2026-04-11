@@ -12,7 +12,8 @@ class RegisterCorporateRiskForm extends StatefulWidget {
   });
 
   @override
-  State<RegisterCorporateRiskForm> createState() => _RegisterCorporateRiskFormState();
+  State<RegisterCorporateRiskForm> createState() =>
+      _RegisterCorporateRiskFormState();
 }
 
 class _RegisterCorporateRiskFormState extends State<RegisterCorporateRiskForm> {

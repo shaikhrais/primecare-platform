@@ -21,14 +21,18 @@ class ForgotPasswordScreen extends StatelessWidget {
             children: [
               Text(
                 'Forgot Password',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineSmall?.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 24),
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Email Address',
                   prefixIcon: const Icon(Icons.email, color: Colors.white54),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),

@@ -12,7 +12,8 @@ class ScheduleClinicalAuditForm extends StatefulWidget {
   });
 
   @override
-  State<ScheduleClinicalAuditForm> createState() => _ScheduleClinicalAuditFormState();
+  State<ScheduleClinicalAuditForm> createState() =>
+      _ScheduleClinicalAuditFormState();
 }
 
 class _ScheduleClinicalAuditFormState extends State<ScheduleClinicalAuditForm> {

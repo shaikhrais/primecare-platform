@@ -20,12 +20,30 @@ class AppTheme {
         ),
       ),
       textTheme: const TextTheme(
-        displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A), letterSpacing: -1.0),
-        headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Colors.black87, letterSpacing: -0.5),
-        titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black87),
+        displayLarge: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF1E3A8A),
+          letterSpacing: -1.0,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+          color: Colors.black87,
+          letterSpacing: -0.5,
+        ),
+        titleLarge: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
+        ),
         bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
         bodyMedium: TextStyle(fontSize: 14, color: Colors.black87),
-        labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+        labelLarge: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -40,9 +58,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: Colors.white,
       ),
-      extensions: const [
-        PrimeCareThemeExtension.light,
-      ],
+      extensions: const [PrimeCareThemeExtension.light],
     );
   }
 }

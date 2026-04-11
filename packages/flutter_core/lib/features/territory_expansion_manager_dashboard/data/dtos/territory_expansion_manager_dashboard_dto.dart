@@ -3,7 +3,9 @@ class TerritoryExpansionManagerDashboardDto {
 
   TerritoryExpansionManagerDashboardDto({required this.rawKpis});
 
-  factory TerritoryExpansionManagerDashboardDto.fromJson(Map<String, dynamic> json) {
+  factory TerritoryExpansionManagerDashboardDto.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return TerritoryExpansionManagerDashboardDto(rawKpis: json['kpis'] ?? []);
   }
 }

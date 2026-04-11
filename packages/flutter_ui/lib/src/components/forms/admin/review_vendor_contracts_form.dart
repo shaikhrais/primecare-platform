@@ -12,7 +12,8 @@ class ReviewVendorContractsForm extends StatefulWidget {
   });
 
   @override
-  State<ReviewVendorContractsForm> createState() => _ReviewVendorContractsFormState();
+  State<ReviewVendorContractsForm> createState() =>
+      _ReviewVendorContractsFormState();
 }
 
 class _ReviewVendorContractsFormState extends State<ReviewVendorContractsForm> {

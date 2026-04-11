@@ -1,9 +1,7 @@
 class RegionalManagerOntarioDashboardViewModel {
   final List<RegionalOntarioKpi> kpis;
 
-  const RegionalManagerOntarioDashboardViewModel({
-    required this.kpis,
-  });
+  const RegionalManagerOntarioDashboardViewModel({required this.kpis});
 }
 
 class RegionalOntarioKpi {

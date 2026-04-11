@@ -21,10 +21,30 @@ class IntakeDashboardMapper {
 
   static List<IntakeKpi> _mockKpis() {
     return [
-      const IntakeKpi(title: 'Active Metrics', value: '120', trend: '+5%', status: 'Operational'),
-      const IntakeKpi(title: 'Efficiency', value: '98%', trend: '+2%', status: 'Operational'),
-      const IntakeKpi(title: 'Reports pending', value: '5', trend: '-2', status: 'Warning'),
-      const IntakeKpi(title: 'System Health', value: '100%', trend: 'Stable', status: 'Operational'),
+      const IntakeKpi(
+        title: 'Active Metrics',
+        value: '120',
+        trend: '+5%',
+        status: 'Operational',
+      ),
+      const IntakeKpi(
+        title: 'Efficiency',
+        value: '98%',
+        trend: '+2%',
+        status: 'Operational',
+      ),
+      const IntakeKpi(
+        title: 'Reports pending',
+        value: '5',
+        trend: '-2',
+        status: 'Warning',
+      ),
+      const IntakeKpi(
+        title: 'System Health',
+        value: '100%',
+        trend: 'Stable',
+        status: 'Operational',
+      ),
     ];
   }
 }

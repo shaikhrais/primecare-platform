@@ -5,7 +5,7 @@ class FeatureViewModel {
   final String title;
   final String description;
   final String status;
-  
+
   FeatureViewModel({
     required this.id,
     required this.title,
@@ -35,19 +35,27 @@ class FeatureAdapter {
   Future<List<FeatureViewModel>> getData(String endpointKey) async => [];
 }
 
-
-final providerDashboardAdapterProvider = Provider<ProviderDashboardAdapter>((ref) => const ProviderDashboardAdapter());
-final clientProfileAdapterProvider = Provider<ClientProfileAdapter>((ref) => const ClientProfileAdapter());
-final visitDetailsAdapterProvider = Provider<VisitDetailsAdapter>((ref) => const VisitDetailsAdapter());
-final billingSummaryAdapterProvider = Provider<BillingSummaryAdapter>((ref) => const BillingSummaryAdapter());
+final providerDashboardAdapterProvider = Provider<ProviderDashboardAdapter>(
+  (ref) => const ProviderDashboardAdapter(),
+);
+final clientProfileAdapterProvider = Provider<ClientProfileAdapter>(
+  (ref) => const ClientProfileAdapter(),
+);
+final visitDetailsAdapterProvider = Provider<VisitDetailsAdapter>(
+  (ref) => const VisitDetailsAdapter(),
+);
+final billingSummaryAdapterProvider = Provider<BillingSummaryAdapter>(
+  (ref) => const BillingSummaryAdapter(),
+);
 
 class SubscriptionUpgradeAdapter {
   const SubscriptionUpgradeAdapter();
   // Any UI-specific mappings for the promo code screen would go here.
 }
 
-final subscriptionUpgradeAdapterProvider = Provider<SubscriptionUpgradeAdapter>((ref) => const SubscriptionUpgradeAdapter());
-
+final subscriptionUpgradeAdapterProvider = Provider<SubscriptionUpgradeAdapter>(
+  (ref) => const SubscriptionUpgradeAdapter(),
+);
 
 final adapterFeatureDataProvider =
     FutureProvider.family<List<FeatureViewModel>, String>((
@@ -56,4 +64,3 @@ final adapterFeatureDataProvider =
     ) async {
       return [];
     });
-

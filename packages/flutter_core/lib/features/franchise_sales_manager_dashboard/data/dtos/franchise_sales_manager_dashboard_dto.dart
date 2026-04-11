@@ -3,7 +3,9 @@ class FranchiseSalesManagerDashboardDto {
 
   FranchiseSalesManagerDashboardDto({required this.rawKpis});
 
-  factory FranchiseSalesManagerDashboardDto.fromJson(Map<String, dynamic> json) {
+  factory FranchiseSalesManagerDashboardDto.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return FranchiseSalesManagerDashboardDto(rawKpis: json['kpis'] ?? []);
   }
 }

@@ -21,10 +21,14 @@ class HomeShell extends StatelessWidget {
         selectedIndex: _currentIndex(context),
         onDestinationSelected: (index) {
           switch (index) {
-            case 0: context.go('/');
-            case 1: context.go('/'); // Messages — placeholder
-            case 2: context.go('/sos');
-            case 3: context.go('/profile');
+            case 0:
+              context.go('/');
+            case 1:
+              context.go('/'); // Messages — placeholder
+            case 2:
+              context.go('/sos');
+            case 3:
+              context.go('/profile');
           }
         },
         destinations: const [

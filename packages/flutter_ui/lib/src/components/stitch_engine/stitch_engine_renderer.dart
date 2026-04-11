@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/src/design_system/clinical_glass.dart';
 import 'package:flutter_core/adapter_providers.dart';
+
 enum StitchLayoutMode { grid, list, telemetry, form, unknown }
 
 class StitchEngineRenderer extends StatelessWidget {

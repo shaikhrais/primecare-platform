@@ -9,10 +9,7 @@ class LoginScreen extends ConsumerStatefulWidget {
   /// Defines a fallback route if the dynamic role-based route is not determined.
   final String fallbackRoute;
 
-  const LoginScreen({
-    super.key,
-    this.fallbackRoute = '/',
-  });
+  const LoginScreen({super.key, this.fallbackRoute = '/'});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -41,10 +38,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     setState(() => _isLoading = true);
 
-    final success = await ref.read(authProvider.notifier).login(
-          _emailController.text.trim(),
-          _passwordController.text,
-        );
+    final success = await ref
+        .read(authProvider.notifier)
+        .login(_emailController.text.trim(), _passwordController.text);
 
     if (mounted) {
       if (success) {
@@ -55,7 +51,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       } else {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Authentication failed. Please check your credentials.')),
+          const SnackBar(
+            content: Text(
+              'Authentication failed. Please check your credentials.',
+            ),
+          ),
         );
       }
     }
@@ -77,7 +77,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF0F172A), Color(0xFF1E293B)], // Slate 900 to 800
+                    colors: [
+                      Color(0xFF0F172A),
+                      Color(0xFF1E293B),
+                    ], // Slate 900 to 800
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -88,7 +91,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     Row(
                       children: [
-                        const Icon(LucideIcons.shieldCheck, color: Color(0xFF38BDF8), size: 48),
+                        const Icon(
+                          LucideIcons.shieldCheck,
+                          color: Color(0xFF38BDF8),
+                          size: 48,
+                        ),
                         const SizedBox(width: 16),
                         Text(
                           'PrimeCare',
@@ -121,16 +128,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     const Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.2)),
+                        border: Border.all(
+                          color: const Color(0xFF38BDF8).withValues(alpha: 0.2),
+                        ),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(LucideIcons.lock, color: Color(0xFF38BDF8), size: 16),
+                          const Icon(
+                            LucideIcons.lock,
+                            color: Color(0xFF38BDF8),
+                            size: 16,
+                          ),
                           const SizedBox(width: 12),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,10 +167,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -176,7 +192,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     if (!isDesktop) ...[
                       Row(
                         children: [
-                          const Icon(LucideIcons.shieldCheck, color: Color(0xFF0F172A), size: 36),
+                          const Icon(
+                            LucideIcons.shieldCheck,
+                            color: Color(0xFF0F172A),
+                            size: 36,
+                          ),
                           const SizedBox(width: 12),
                           Text(
                             'PrimeCare',
@@ -224,18 +244,28 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'name@primecare.com',
-                        prefixIcon: const Icon(LucideIcons.mail, color: Color(0xFF94A3B8)),
+                        prefixIcon: const Icon(
+                          LucideIcons.mail,
+                          color: Color(0xFF94A3B8),
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF38BDF8), width: 2),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF38BDF8),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -263,7 +293,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               color: const Color(0xFF38BDF8),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                     TextField(
@@ -272,11 +302,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢',
-                        prefixIcon: const Icon(LucideIcons.lock, color: Color(0xFF94A3B8)),
+                        hintText:
+                            'ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢',
+                        prefixIcon: const Icon(
+                          LucideIcons.lock,
+                          color: Color(0xFF94A3B8),
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? LucideIcons.eye : LucideIcons.eyeOff,
+                            _obscurePassword
+                                ? LucideIcons.eye
+                                : LucideIcons.eyeOff,
                             color: const Color(0xFF94A3B8),
                           ),
                           onPressed: () {
@@ -287,15 +323,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFF38BDF8), width: 2),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF38BDF8),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -345,7 +388,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(LucideIcons.info, color: Color(0xFF64748B), size: 20),
+                          const Icon(
+                            LucideIcons.info,
+                            color: Color(0xFF64748B),
+                            size: 20,
+                          ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
@@ -356,7 +403,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 height: 1.5,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -364,7 +411,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

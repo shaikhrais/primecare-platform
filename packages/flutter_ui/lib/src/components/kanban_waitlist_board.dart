@@ -22,13 +22,22 @@ class KanbanWaitlistBoard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('UNSTAFFED', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+              Text(
+                'UNSTAFFED',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(
                   color: Colors.orange.shade800,
                   fontSize: 10,
-                  fontWeight: FontWeight.bold,),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const Spacer(),
-              const Text('High Acuity Shift', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+              const Text(
+                'High Acuity Shift',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
               ),
             ],
           ),

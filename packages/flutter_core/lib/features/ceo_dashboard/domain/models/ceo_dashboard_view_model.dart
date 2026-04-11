@@ -26,7 +26,7 @@ class CeoActivity {
   final String title;
   final String subtitle;
   final String timestamp;
-  
+
   const CeoActivity({
     required this.title,
     required this.subtitle,

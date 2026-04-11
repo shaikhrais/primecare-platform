@@ -12,7 +12,8 @@ class LogEmployeeGrievanceForm extends StatefulWidget {
   });
 
   @override
-  State<LogEmployeeGrievanceForm> createState() => _LogEmployeeGrievanceFormState();
+  State<LogEmployeeGrievanceForm> createState() =>
+      _LogEmployeeGrievanceFormState();
 }
 
 class _LogEmployeeGrievanceFormState extends State<LogEmployeeGrievanceForm> {

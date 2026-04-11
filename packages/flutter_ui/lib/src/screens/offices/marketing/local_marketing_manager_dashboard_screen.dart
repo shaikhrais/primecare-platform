@@ -9,48 +9,68 @@ class LocalMarketingManagerDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Subscribe to live data using the specific route metric.
-    final viewModelAsyncValue = ref.watch(localMarketingManagerDashboardAdapterProvider);
+    final viewModelAsyncValue = ref.watch(
+      localMarketingManagerDashboardAdapterProvider,
+    );
 
     return ProviderLayout(
       child: viewModelAsyncValue.when(
         data: (viewModel) => PageTemplate(
           title: 'LocalMarketingManagerDashboardScreen',
           subtitle: 'Real-time metrics and alerts',
-          kpiCards: viewModel.kpis.map((kpi) => 
-            Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(kpi.label, style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.grey.shade600)),
-                    const SizedBox(height: 8),
-                    Text(kpi.value, style: Theme.of(context).textTheme.headlineMedium),
-                    if (kpi.trend != null) ...[
-                      const SizedBox(height: 8),
-                      Text(kpi.trend!, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.blueGrey)),
-                    ]
-                  ],
+          kpiCards: viewModel.kpis
+              .map(
+                (kpi) => Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          kpi.label,
+                          style: Theme.of(context).textTheme.titleSmall
+                              ?.copyWith(color: Colors.grey.shade600),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          kpi.value,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        if (kpi.trend != null) ...[
+                          const SizedBox(height: 8),
+                          Text(
+                            kpi.trend!,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(color: Colors.blueGrey),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            )
-          ).toList(),
+              )
+              .toList(),
           children: [
             if (viewModel.recentActivity.isNotEmpty) ...[
-              Text('Recent Activity', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Recent Activity',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
-              ...viewModel.recentActivity.map((log) => 
-                ListTile(
+              ...viewModel.recentActivity.map(
+                (log) => ListTile(
                   title: Text(log.title),
                   subtitle: Text(log.timestamp.toString()),
-                )
+                ),
               ),
-            ]
+            ],
           ],
         ),
         loading: () => const Center(child: CircularProgressIndicator()),

@@ -12,7 +12,8 @@ class ReviewPeerPerformanceForm extends StatefulWidget {
   });
 
   @override
-  State<ReviewPeerPerformanceForm> createState() => _ReviewPeerPerformanceFormState();
+  State<ReviewPeerPerformanceForm> createState() =>
+      _ReviewPeerPerformanceFormState();
 }
 
 class _ReviewPeerPerformanceFormState extends State<ReviewPeerPerformanceForm> {

@@ -12,7 +12,8 @@ class NewEmployeeOnboardingForm extends StatefulWidget {
   });
 
   @override
-  State<NewEmployeeOnboardingForm> createState() => _NewEmployeeOnboardingFormState();
+  State<NewEmployeeOnboardingForm> createState() =>
+      _NewEmployeeOnboardingFormState();
 }
 
 class _NewEmployeeOnboardingFormState extends State<NewEmployeeOnboardingForm> {

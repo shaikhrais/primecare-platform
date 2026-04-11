@@ -94,3 +94,13 @@ export 'features/support_dashboard/data/adapters/support_dashboard_adapter.dart'
 export 'features/support_dashboard/domain/models/support_dashboard_view_model.dart';
 export 'features/training_coordinator_dashboard/data/adapters/training_coordinator_dashboard_adapter.dart';
 export 'features/training_coordinator_dashboard/domain/models/training_coordinator_dashboard_view_model.dart';
+
+// Office: system
+export 'features/guest_dashboard/data/adapters/guest_dashboard_adapter.dart';
+export 'features/guest_dashboard/domain/models/guest_dashboard_view_model.dart';
+export 'features/scrum_master_dashboard/data/adapters/scrum_master_dashboard_adapter.dart';
+export 'features/scrum_master_dashboard/domain/models/scrum_master_dashboard_view_model.dart';
+
+// Office: patient
+export 'features/patient_dashboard/data/adapters/patient_dashboard_adapter.dart';
+export 'features/patient_dashboard/domain/models/patient_dashboard_view_model.dart';

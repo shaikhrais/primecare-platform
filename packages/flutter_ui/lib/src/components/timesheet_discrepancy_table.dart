@@ -15,13 +15,27 @@ class TimesheetDiscrepancyTable extends StatelessWidget {
         DataRow(
           cells: [
             DataCell(Text('J. Doe')),
-            DataCell(Text('+45 mins', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.red))),
+            DataCell(
+              Text(
+                '+45 mins',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
           ],
         ),
         DataRow(
           cells: [
             DataCell(Text('A. Smith')),
-            DataCell(Text('-15 mins', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.orange))),
+            DataCell(
+              Text(
+                '-15 mins',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(color: Colors.orange),
+              ),
+            ),
           ],
         ),
       ],

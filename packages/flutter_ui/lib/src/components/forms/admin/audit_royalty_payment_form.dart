@@ -12,7 +12,8 @@ class AuditRoyaltyPaymentForm extends StatefulWidget {
   });
 
   @override
-  State<AuditRoyaltyPaymentForm> createState() => _AuditRoyaltyPaymentFormState();
+  State<AuditRoyaltyPaymentForm> createState() =>
+      _AuditRoyaltyPaymentFormState();
 }
 
 class _AuditRoyaltyPaymentFormState extends State<AuditRoyaltyPaymentForm> {

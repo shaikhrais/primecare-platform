@@ -35,14 +35,16 @@ class CfoDashboardMapper {
 
   static CfoDashboardViewModel fromMock(Map<String, dynamic> mock) {
     return CfoDashboardViewModel(
-      kpis: (mock['kpis'] as List<dynamic>?)?.map((k) {
-        return CfoKpi(
-          title: k['title']?.toString() ?? '',
-          value: k['value']?.toString() ?? '',
-          trend: k['trend']?.toString() ?? '',
-          status: k['status']?.toString() ?? 'operational',
-        );
-      }).toList() ?? [],
+      kpis:
+          (mock['kpis'] as List<dynamic>?)?.map((k) {
+            return CfoKpi(
+              title: k['title']?.toString() ?? '',
+              value: k['value']?.toString() ?? '',
+              trend: k['trend']?.toString() ?? '',
+              status: k['status']?.toString() ?? 'operational',
+            );
+          }).toList() ??
+          [],
     );
   }
 }

@@ -220,21 +220,24 @@ class _AuthLayoutState extends State<AuthLayout> {
                         SnackBar(content: Text('Language changed to $result')),
                       );
                     },
-                    itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<String>>[
-                          const PopupMenuItem<String>(
-                            value: 'EN',
-                            child: Text('English'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'FR',
-                            child: Text('FranÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ais'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'ES',
-                            child: Text('EspaÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ol'),
-                          ),
-                        ],
+                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        value: 'EN',
+                        child: Text('English'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'FR',
+                        child: Text(
+                          'FranÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ais',
+                        ),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'ES',
+                        child: Text(
+                          'EspaÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ol',
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

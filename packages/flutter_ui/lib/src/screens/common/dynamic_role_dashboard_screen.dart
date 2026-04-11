@@ -6,9 +6,7 @@ class DynamicRoleDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text('Dynamic Role Dashboard Placeholder'),
-      ),
+      body: Center(child: Text('Dynamic Role Dashboard Placeholder')),
     );
   }
 }

@@ -12,7 +12,8 @@ class ApproveLeaveRequestForm extends StatefulWidget {
   });
 
   @override
-  State<ApproveLeaveRequestForm> createState() => _ApproveLeaveRequestFormState();
+  State<ApproveLeaveRequestForm> createState() =>
+      _ApproveLeaveRequestFormState();
 }
 
 class _ApproveLeaveRequestFormState extends State<ApproveLeaveRequestForm> {

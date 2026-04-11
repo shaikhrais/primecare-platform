@@ -20,7 +20,11 @@ class DigitalSignaturePad extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
-            child: Text('Draw Signature Here', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.grey.shade400),
+            child: Text(
+              'Draw Signature Here',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(color: Colors.grey.shade400),
             ),
           ),
         ),

@@ -12,7 +12,8 @@ class AuditGlobalEducationForm extends StatefulWidget {
   });
 
   @override
-  State<AuditGlobalEducationForm> createState() => _AuditGlobalEducationFormState();
+  State<AuditGlobalEducationForm> createState() =>
+      _AuditGlobalEducationFormState();
 }
 
 class _AuditGlobalEducationFormState extends State<AuditGlobalEducationForm> {

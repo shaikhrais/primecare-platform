@@ -19,7 +19,11 @@ class PrimeAvatar extends StatelessWidget {
         CircleAvatar(
           radius: radius,
           backgroundColor: Theme.of(context).primaryColorLight,
-          child: Text(fallbackInitials, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+          child: Text(
+            fallbackInitials,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: TextStyle(
               color: Theme.of(context).primaryColorLight,
               fontWeight: FontWeight.bold,
             ),

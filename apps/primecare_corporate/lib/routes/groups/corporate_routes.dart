@@ -2,75 +2,6 @@ import 'package:flutter_ui/flutter_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/flutter_core.dart';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 final List<RouteBase> corporateRoutes = [
   GoRoute(
     path: CorporateRoutes.ceoDashboard,
@@ -270,7 +201,8 @@ final List<RouteBase> corporateRoutes = [
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerComplianceCases,
-    builder: (context, state) => const ComplianceManagerComplianceCasesScreenStitch(),
+    builder: (context, state) =>
+        const ComplianceManagerComplianceCasesScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerPolicies,
@@ -282,27 +214,33 @@ final List<RouteBase> corporateRoutes = [
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerIncidentReview,
-    builder: (context, state) => const ComplianceManagerIncidentReviewScreenStitch(),
+    builder: (context, state) =>
+        const ComplianceManagerIncidentReviewScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerCredentialTracking,
-    builder: (context, state) => const ComplianceManagerCredentialTrackingScreenStitch(),
+    builder: (context, state) =>
+        const ComplianceManagerCredentialTrackingScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerDocumentExpiry,
-    builder: (context, state) => const ComplianceManagerDocumentExpiryScreenStitch(),
+    builder: (context, state) =>
+        const ComplianceManagerDocumentExpiryScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerRiskRegister,
-    builder: (context, state) => const ComplianceManagerRiskRegisterScreenStitch(),
+    builder: (context, state) =>
+        const ComplianceManagerRiskRegisterScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerCorrectiveActions,
-    builder: (context, state) => const ComplianceManagerCorrectiveActionsScreenStitch(),
+    builder: (context, state) =>
+        const ComplianceManagerCorrectiveActionsScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerTrainingCompliance,
-    builder: (context, state) => const ComplianceManagerTrainingComplianceScreenStitch(),
+    builder: (context, state) =>
+        const ComplianceManagerTrainingComplianceScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.complianceManagerReports,
@@ -310,31 +248,38 @@ final List<RouteBase> corporateRoutes = [
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorTrainingPrograms,
-    builder: (context, state) => const TrainingDirectorTrainingProgramsScreenStitch(),
+    builder: (context, state) =>
+        const TrainingDirectorTrainingProgramsScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorStaffTrainingMatrix,
-    builder: (context, state) => const TrainingDirectorStaffTrainingMatrixScreenStitch(),
+    builder: (context, state) =>
+        const TrainingDirectorStaffTrainingMatrixScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorComplianceTraining,
-    builder: (context, state) => const TrainingDirectorComplianceTrainingScreenStitch(),
+    builder: (context, state) =>
+        const TrainingDirectorComplianceTrainingScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorCourseLibrary,
-    builder: (context, state) => const TrainingDirectorCourseLibraryScreenStitch(),
+    builder: (context, state) =>
+        const TrainingDirectorCourseLibraryScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorAssessments,
-    builder: (context, state) => const TrainingDirectorAssessmentsScreenStitch(),
+    builder: (context, state) =>
+        const TrainingDirectorAssessmentsScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorCertifications,
-    builder: (context, state) => const TrainingDirectorCertificationsScreenStitch(),
+    builder: (context, state) =>
+        const TrainingDirectorCertificationsScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorTrainerAssignments,
-    builder: (context, state) => const TrainingDirectorTrainerAssignmentsScreenStitch(),
+    builder: (context, state) =>
+        const TrainingDirectorTrainerAssignmentsScreenStitch(),
   ),
   GoRoute(
     path: CorporateRoutes.trainingDirectorReports,
@@ -342,7 +287,8 @@ final List<RouteBase> corporateRoutes = [
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerCoordinatorReports,
-    builder: (context, state) => const SchedulerCoordinatorReportsScreenStitch(),
+    builder: (context, state) =>
+        const SchedulerCoordinatorReportsScreenStitch(),
   ),
   GoRoute(
     path: SupportRoutes.intakeCoordinatorReports,
@@ -350,11 +296,11 @@ final List<RouteBase> corporateRoutes = [
   ),
   GoRoute(
     path: SupportRoutes.trainingCoordinatorCertifications,
-    builder: (context, state) => const TrainingCoordinatorCertificationsScreenStitch(),
+    builder: (context, state) =>
+        const TrainingCoordinatorCertificationsScreenStitch(),
   ),
   GoRoute(
     path: SupportRoutes.trainingCoordinatorReports,
     builder: (context, state) => const TrainingCoordinatorReportsScreenStitch(),
   ),
 ];
-

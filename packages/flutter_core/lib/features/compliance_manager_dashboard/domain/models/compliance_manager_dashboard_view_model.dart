@@ -26,7 +26,7 @@ class ComplianceActivity {
   final String title;
   final String subtitle;
   final String timestamp;
-  
+
   const ComplianceActivity({
     required this.title,
     required this.subtitle,

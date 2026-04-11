@@ -1,48 +1,87 @@
 class FranchiseRoutes {
   const FranchiseRoutes._();
 
-  static const String franchiseOwnerDashboard = '/offices/franchise/roles/franchise_owner/dashboard';
-  static const String operationsManagerDashboard = '/offices/franchise/roles/operations_manager/dashboard';
-  static const String schedulerDashboard = '/offices/franchise/roles/scheduler/dashboard';
-  static const String billingAdminDashboard = '/offices/franchise/roles/billing_admin/dashboard';
-  static const String hrHiringDashboard = '/offices/franchise/roles/hr_hiring/dashboard';
-  static const String franchiseOwnerBranchOverview = '/offices/franchise/roles/franchise_owner/branch-overview';
-  static const String franchiseOwnerFinancialSnapshot = '/offices/franchise/roles/franchise_owner/financial-snapshot';
-  static const String franchiseOwnerStaff = '/offices/franchise/roles/franchise_owner/staff';
-  static const String franchiseOwnerAppointments = '/offices/franchise/roles/franchise_owner/appointments';
-  static const String franchiseOwnerClients = '/offices/franchise/roles/franchise_owner/clients';
-  static const String franchiseOwnerCompliance = '/offices/franchise/roles/franchise_owner/compliance';
-  static const String franchiseOwnerReports = '/offices/franchise/roles/franchise_owner/reports';
-  static const String franchiseOwnerHiring = '/offices/franchise/roles/franchise_owner/hiring';
-  static const String operationsManagerDailyOperations = '/offices/franchise/roles/operations_manager/daily-operations';
-  static const String operationsManagerSchedule = '/offices/franchise/roles/operations_manager/schedule';
-  static const String operationsManagerShifts = '/offices/franchise/roles/operations_manager/shifts';
-  static const String operationsManagerIssues = '/offices/franchise/roles/operations_manager/issues';
-  static const String operationsManagerServiceQuality = '/offices/franchise/roles/operations_manager/service-quality';
-  static const String operationsManagerStaffCoordination = '/offices/franchise/roles/operations_manager/staff-coordination';
-  static const String operationsManagerAttendance = '/offices/franchise/roles/operations_manager/attendance';
-  static const String operationsManagerReports = '/offices/franchise/roles/operations_manager/reports';
-  static const String schedulerCoordinatorAppointmentCalendar = '/offices/franchise/roles/scheduler_coordinator/appointment-calendar';
-  static const String schedulerCoordinatorShiftCalendar = '/offices/franchise/roles/scheduler_coordinator/shift-calendar';
-  static const String schedulerCoordinatorProviderAvailability = '/offices/franchise/roles/scheduler_coordinator/provider-availability';
-  static const String schedulerCoordinatorBookingRequests = '/offices/franchise/roles/scheduler_coordinator/booking-requests';
-  static const String schedulerCoordinatorOpenShifts = '/offices/franchise/roles/scheduler_coordinator/open-shifts';
-  static const String schedulerCoordinatorAssignments = '/offices/franchise/roles/scheduler_coordinator/assignments';
-  static const String schedulerCoordinatorConflicts = '/offices/franchise/roles/scheduler_coordinator/conflicts';
-  static const String schedulerCoordinatorReports = '/offices/franchise/roles/scheduler_coordinator/reports';
+  static const String franchiseOwnerDashboard =
+      '/offices/franchise/roles/franchise_owner/dashboard';
+  static const String operationsManagerDashboard =
+      '/offices/franchise/roles/operations_manager/dashboard';
+  static const String schedulerDashboard =
+      '/offices/franchise/roles/scheduler/dashboard';
+  static const String billingAdminDashboard =
+      '/offices/franchise/roles/billing_admin/dashboard';
+  static const String hrHiringDashboard =
+      '/offices/franchise/roles/hr_hiring/dashboard';
+  static const String franchiseOwnerBranchOverview =
+      '/offices/franchise/roles/franchise_owner/branch-overview';
+  static const String franchiseOwnerFinancialSnapshot =
+      '/offices/franchise/roles/franchise_owner/financial-snapshot';
+  static const String franchiseOwnerStaff =
+      '/offices/franchise/roles/franchise_owner/staff';
+  static const String franchiseOwnerAppointments =
+      '/offices/franchise/roles/franchise_owner/appointments';
+  static const String franchiseOwnerClients =
+      '/offices/franchise/roles/franchise_owner/clients';
+  static const String franchiseOwnerCompliance =
+      '/offices/franchise/roles/franchise_owner/compliance';
+  static const String franchiseOwnerReports =
+      '/offices/franchise/roles/franchise_owner/reports';
+  static const String franchiseOwnerHiring =
+      '/offices/franchise/roles/franchise_owner/hiring';
+  static const String operationsManagerDailyOperations =
+      '/offices/franchise/roles/operations_manager/daily-operations';
+  static const String operationsManagerSchedule =
+      '/offices/franchise/roles/operations_manager/schedule';
+  static const String operationsManagerShifts =
+      '/offices/franchise/roles/operations_manager/shifts';
+  static const String operationsManagerIssues =
+      '/offices/franchise/roles/operations_manager/issues';
+  static const String operationsManagerServiceQuality =
+      '/offices/franchise/roles/operations_manager/service-quality';
+  static const String operationsManagerStaffCoordination =
+      '/offices/franchise/roles/operations_manager/staff-coordination';
+  static const String operationsManagerAttendance =
+      '/offices/franchise/roles/operations_manager/attendance';
+  static const String operationsManagerReports =
+      '/offices/franchise/roles/operations_manager/reports';
+  static const String schedulerCoordinatorAppointmentCalendar =
+      '/offices/franchise/roles/scheduler_coordinator/appointment-calendar';
+  static const String schedulerCoordinatorShiftCalendar =
+      '/offices/franchise/roles/scheduler_coordinator/shift-calendar';
+  static const String schedulerCoordinatorProviderAvailability =
+      '/offices/franchise/roles/scheduler_coordinator/provider-availability';
+  static const String schedulerCoordinatorBookingRequests =
+      '/offices/franchise/roles/scheduler_coordinator/booking-requests';
+  static const String schedulerCoordinatorOpenShifts =
+      '/offices/franchise/roles/scheduler_coordinator/open-shifts';
+  static const String schedulerCoordinatorAssignments =
+      '/offices/franchise/roles/scheduler_coordinator/assignments';
+  static const String schedulerCoordinatorConflicts =
+      '/offices/franchise/roles/scheduler_coordinator/conflicts';
+  static const String schedulerCoordinatorReports =
+      '/offices/franchise/roles/scheduler_coordinator/reports';
   static const String adminInvoices = '/offices/franchise/roles/admin/invoices';
   static const String adminPayments = '/offices/franchise/roles/admin/payments';
   static const String adminClaims = '/offices/franchise/roles/admin/claims';
-  static const String adminReconciliation = '/offices/franchise/roles/admin/reconciliation';
-  static const String adminOutstandingBalances = '/offices/franchise/roles/admin/outstanding-balances';
+  static const String adminReconciliation =
+      '/offices/franchise/roles/admin/reconciliation';
+  static const String adminOutstandingBalances =
+      '/offices/franchise/roles/admin/outstanding-balances';
   static const String adminRefunds = '/offices/franchise/roles/admin/refunds';
   static const String adminReports = '/offices/franchise/roles/admin/reports';
-  static const String hrHiringApplicants = '/offices/franchise/roles/hr_hiring/applicants';
-  static const String hrHiringInterviews = '/offices/franchise/roles/hr_hiring/interviews';
-  static const String hrHiringOffers = '/offices/franchise/roles/hr_hiring/offers';
-  static const String hrHiringOnboarding = '/offices/franchise/roles/hr_hiring/onboarding';
-  static const String hrHiringStaffDocuments = '/offices/franchise/roles/hr_hiring/staff-documents';
-  static const String hrHiringCredentials = '/offices/franchise/roles/hr_hiring/credentials';
-  static const String hrHiringTrainingStatus = '/offices/franchise/roles/hr_hiring/training-status';
-  static const String hrHiringReports = '/offices/franchise/roles/hr_hiring/reports';
+  static const String hrHiringApplicants =
+      '/offices/franchise/roles/hr_hiring/applicants';
+  static const String hrHiringInterviews =
+      '/offices/franchise/roles/hr_hiring/interviews';
+  static const String hrHiringOffers =
+      '/offices/franchise/roles/hr_hiring/offers';
+  static const String hrHiringOnboarding =
+      '/offices/franchise/roles/hr_hiring/onboarding';
+  static const String hrHiringStaffDocuments =
+      '/offices/franchise/roles/hr_hiring/staff-documents';
+  static const String hrHiringCredentials =
+      '/offices/franchise/roles/hr_hiring/credentials';
+  static const String hrHiringTrainingStatus =
+      '/offices/franchise/roles/hr_hiring/training-status';
+  static const String hrHiringReports =
+      '/offices/franchise/roles/hr_hiring/reports';
 }

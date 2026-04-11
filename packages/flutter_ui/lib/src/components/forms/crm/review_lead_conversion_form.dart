@@ -12,7 +12,8 @@ class ReviewLeadConversionForm extends StatefulWidget {
   });
 
   @override
-  State<ReviewLeadConversionForm> createState() => _ReviewLeadConversionFormState();
+  State<ReviewLeadConversionForm> createState() =>
+      _ReviewLeadConversionFormState();
 }
 
 class _ReviewLeadConversionFormState extends State<ReviewLeadConversionForm> {

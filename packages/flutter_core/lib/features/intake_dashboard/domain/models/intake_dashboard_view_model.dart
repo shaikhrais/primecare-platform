@@ -1,9 +1,7 @@
 class IntakeDashboardViewModel {
   final List<IntakeKpi> kpis;
 
-  const IntakeDashboardViewModel({
-    this.kpis = const [],
-  });
+  const IntakeDashboardViewModel({this.kpis = const []});
 }
 
 class IntakeKpi {

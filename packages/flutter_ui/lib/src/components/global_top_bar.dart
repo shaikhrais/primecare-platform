@@ -9,12 +9,23 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String activeRole;
   final Widget? languageToggleWidget;
 
-  const GlobalTopBar({super.key, required this.title, required this.onLogout, this.activeRole = 'psw_granular', this.languageToggleWidget});
+  const GlobalTopBar({
+    super.key,
+    required this.title,
+    required this.onLogout,
+    this.activeRole = 'psw_granular',
+    this.languageToggleWidget,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
-      title: Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold)),
+      title: Text(
+        title,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
       actions: [
         ?languageToggleWidget,
         IconButton(
@@ -30,16 +41,24 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.account_circle, size: 28),
           tooltip: 'Account Options',
           offset: const Offset(0, 40),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           onSelected: (value) {
             if (value == 'profile') {
               showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   title: const Row(
                     children: [
-                      Icon(Icons.account_circle, size: 36, color: Colors.indigo),
+                      Icon(
+                        Icons.account_circle,
+                        size: 36,
+                        color: Colors.indigo,
+                      ),
                       SizedBox(width: 12),
                       Text('Edit My Profile'),
                     ],
@@ -51,7 +70,11 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                         const CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.indigo,
-                          child: Icon(Icons.person, size: 40, color: Colors.white),
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.white,
+                          ),
                         ),
                         const SizedBox(height: 24),
                         TextFormField(
@@ -93,7 +116,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                       onPressed: () {
                         Navigator.pop(ctx);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Profile updated successfully!'), backgroundColor: Colors.green),
+                          const SnackBar(
+                            content: Text('Profile updated successfully!'),
+                            backgroundColor: Colors.green,
+                          ),
                         );
                       },
                       text: 'Save Changes',
@@ -105,7 +131,9 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   title: const Row(
                     children: [
                       Icon(Icons.warning_amber_rounded, color: Colors.red),
@@ -113,7 +141,9 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                       Text('Confirm Sign Out'),
                     ],
                   ),
-                  content: const Text('Are you sure you want to terminate your current session? You will need to re-authenticate.'),
+                  content: const Text(
+                    'Are you sure you want to terminate your current session? You will need to re-authenticate.',
+                  ),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(ctx),
@@ -150,7 +180,15 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                 children: [
                   Icon(Icons.logout, color: Colors.red),
                   SizedBox(width: 12),
-                  Text('Sign Out', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                  Text(
+                    'Sign Out',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),

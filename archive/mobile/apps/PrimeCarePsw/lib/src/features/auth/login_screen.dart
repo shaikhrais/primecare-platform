@@ -26,7 +26,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Future<void> _handleLogin() async {
-    setState(() { _isLoading = true; _error = null; });
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
 
     try {
       final api = ref.read(apiClientProvider);
@@ -36,9 +39,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       );
       await ref.read(authStateProvider.notifier).loginSuccess(response);
     } catch (e) {
-      setState(() { _error = 'Invalid email or password. Please try again.'; });
+      setState(() {
+        _error = 'Invalid email or password. Please try again.';
+      });
     } finally {
-      setState(() { _isLoading = false; });
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -58,7 +65,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   // Logo
                   Container(
-                    width: 80, height: 80,
+                    width: 80,
+                    height: 80,
                     decoration: BoxDecoration(
                       color: AppTheme.primary,
                       borderRadius: BorderRadius.circular(20),
@@ -70,22 +78,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ],
                     ),
-                    child: const Icon(Icons.health_and_safety, color: Colors.white, size: 40),
+                    child: const Icon(Icons.health_and_safety,
+                        color: Colors.white, size: 40),
                   ),
                   const SizedBox(height: 24),
                   Text(
                     'PrimeCare',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.w900,
-                      color: AppTheme.primary,
-                    ),
+                          fontWeight: FontWeight.w900,
+                          color: AppTheme.primary,
+                        ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Personal Support Worker',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF6B7280),
-                    ),
+                          color: isDark
+                              ? const Color(0xFF94A3B8)
+                              : const Color(0xFF6B7280),
+                        ),
                   ),
                   const SizedBox(height: 48),
 
@@ -111,8 +122,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       labelText: 'Password',
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
-                        icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
-                        onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                        icon: Icon(_obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        onPressed: () => setState(
+                            () => _obscurePassword = !_obscurePassword),
                       ),
                     ),
                   ),
@@ -129,9 +143,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.error_outline, color: AppTheme.error, size: 18),
+                          const Icon(Icons.error_outline,
+                              color: AppTheme.error, size: 18),
                           const SizedBox(width: 8),
-                          Expanded(child: Text(_error!, style: const TextStyle(color: AppTheme.error, fontSize: 13))),
+                          Expanded(
+                              child: Text(_error!,
+                                  style: const TextStyle(
+                                      color: AppTheme.error, fontSize: 13))),
                         ],
                       ),
                     ),
@@ -144,7 +162,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: _isLoading ? null : _handleLogin,
                       child: _isLoading
-                          ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                          ? const SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                  strokeWidth: 2, color: Colors.white))
                           : const Text('Sign In'),
                     ),
                   ),

@@ -12,7 +12,8 @@ class SubmitExitInterviewForm extends StatefulWidget {
   });
 
   @override
-  State<SubmitExitInterviewForm> createState() => _SubmitExitInterviewFormState();
+  State<SubmitExitInterviewForm> createState() =>
+      _SubmitExitInterviewFormState();
 }
 
 class _SubmitExitInterviewFormState extends State<SubmitExitInterviewForm> {

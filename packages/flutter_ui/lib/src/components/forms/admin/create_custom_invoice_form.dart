@@ -12,7 +12,8 @@ class CreateCustomInvoiceForm extends StatefulWidget {
   });
 
   @override
-  State<CreateCustomInvoiceForm> createState() => _CreateCustomInvoiceFormState();
+  State<CreateCustomInvoiceForm> createState() =>
+      _CreateCustomInvoiceFormState();
 }
 
 class _CreateCustomInvoiceFormState extends State<CreateCustomInvoiceForm> {

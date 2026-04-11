@@ -11,7 +11,9 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('AdminInvoicesScreenStitch'));
+    final metricsAsyncValue = ref.watch(
+      dashboardMetricsProvider('AdminInvoicesScreenStitch'),
+    );
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -22,17 +24,20 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
             Text(
               'AdminInvoicesScreen',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               'Stitch-generated Physical Screen.',
-              style: TextStyle(color: Colors.white.withAlpha(178), fontSize: 16),
+              style: TextStyle(
+                color: Colors.white.withAlpha(178),
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 32),
-            
+
             metricsAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
@@ -41,7 +46,8 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
                 ),
               ),
               error: (error, _) => _buildErrorState(error.toString()),
-              data: (DashboardMetrics liveData) => _buildDataState(context, liveData),
+              data: (DashboardMetrics liveData) =>
+                  _buildDataState(context, liveData),
             ),
           ],
         ),
@@ -113,9 +119,9 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
                     Text(
                       'Live Operations Feed',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 24),
                     if (liveData.recentActivity.isEmpty)
@@ -136,7 +142,11 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
                                 color: Colors.white.withAlpha(12),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(LucideIcons.activity, color: Colors.tealAccent, size: 20),
+                              child: const Icon(
+                                LucideIcons.activity,
+                                color: Colors.tealAccent,
+                                size: 20,
+                              ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
@@ -145,18 +155,27 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
                                 children: [
                                   Text(
                                     activity.title,
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   Text(
                                     activity.subtitle,
-                                    style: const TextStyle(color: Colors.white54, fontSize: 13),
+                                    style: const TextStyle(
+                                      color: Colors.white54,
+                                      fontSize: 13,
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                             Text(
                               activity.timestamp,
-                              style: const TextStyle(color: Colors.white38, fontSize: 12),
+                              style: const TextStyle(
+                                color: Colors.white38,
+                                fontSize: 12,
+                              ),
                             ),
                           ],
                         ),
@@ -182,22 +201,37 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
                     Text(
                       'System Status',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Colors.tealAccent,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        color: Colors.tealAccent,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 24),
-                    _buildStatusRow(LucideIcons.server, 'Core API URL', 'Connected', Colors.greenAccent),
+                    _buildStatusRow(
+                      LucideIcons.server,
+                      'Core API URL',
+                      'Connected',
+                      Colors.greenAccent,
+                    ),
                     const SizedBox(height: 16),
-                    _buildStatusRow(LucideIcons.database, 'Data Lake', 'Operational', Colors.greenAccent),
+                    _buildStatusRow(
+                      LucideIcons.database,
+                      'Data Lake',
+                      'Operational',
+                      Colors.greenAccent,
+                    ),
                     const SizedBox(height: 16),
-                    _buildStatusRow(LucideIcons.shieldCheck, 'Live Sync', 'Active', Colors.blueAccent),
+                    _buildStatusRow(
+                      LucideIcons.shieldCheck,
+                      'Live Sync',
+                      'Active',
+                      Colors.blueAccent,
+                    ),
                   ],
                 ),
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -205,23 +239,35 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
   IconData _inferIcon(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice')) return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule')) return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical')) return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn')) return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline')) return LucideIcons.checkSquare;
+    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice'))
+      return LucideIcons.dollarSign;
+    if (t.contains('appointment') || t.contains('schedule'))
+      return LucideIcons.calendar;
+    if (t.contains('alert') || t.contains('critical'))
+      return LucideIcons.alertCircle;
+    if (t.contains('staff') || t.contains('provider') || t.contains('rpn'))
+      return LucideIcons.stethoscope;
+    if (t.contains('task') || t.contains('pipeline'))
+      return LucideIcons.checkSquare;
     return LucideIcons.activity;
   }
 
   Color _inferColor(String status) {
     final s = status.toLowerCase();
-    if (s == 'operational' || s == 'positive' || s == 'up') return Colors.greenAccent;
+    if (s == 'operational' || s == 'positive' || s == 'up')
+      return Colors.greenAccent;
     if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative') return Colors.redAccent;
+    if (s == 'critical' || s == 'down' || s == 'negative')
+      return Colors.redAccent;
     return Colors.tealAccent;
   }
 
-  Widget _buildStatusRow(IconData icon, String label, String status, Color color) {
+  Widget _buildStatusRow(
+    IconData icon,
+    String label,
+    String status,
+    Color color,
+  ) {
     return Row(
       children: [
         Icon(icon, color: color, size: 20),
@@ -236,7 +282,11 @@ class AdminInvoicesScreenStitch extends ConsumerWidget {
           ),
           child: Text(
             status,
-            style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],

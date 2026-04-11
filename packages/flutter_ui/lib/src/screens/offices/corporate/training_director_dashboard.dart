@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/flutter_core.dart'; 
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_ui/src/components/layouts/provider_layout.dart';
 import 'package:flutter_ui/src/components/primecare_stat_card.dart';
 
@@ -10,7 +10,9 @@ class TrainingDirectorDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(trainingDirectorDashboardAdapterProvider);
+    final metricsAsyncValue = ref.watch(
+      trainingDirectorDashboardAdapterProvider,
+    );
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -21,17 +23,20 @@ class TrainingDirectorDashboard extends ConsumerWidget {
             Text(
               'Training Director Dashboard',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               'Real-time overview fetched natively via API.',
-              style: TextStyle(color: Colors.white.withAlpha(178), fontSize: 16),
+              style: TextStyle(
+                color: Colors.white.withAlpha(178),
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 32),
-            
+
             metricsAsyncValue.when(
               loading: () => const Center(
                 child: Padding(
@@ -48,7 +53,10 @@ class TrainingDirectorDashboard extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(LucideIcons.alertTriangle, color: Colors.redAccent),
+                    const Icon(
+                      LucideIcons.alertTriangle,
+                      color: Colors.redAccent,
+                    ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
@@ -93,7 +101,8 @@ class TrainingDirectorDashboard extends ConsumerWidget {
   IconData _inferIcon(String title) {
     final t = title.toLowerCase();
     if (t.contains('trainee')) return LucideIcons.users;
-    if (t.contains('course') || t.contains('completion')) return LucideIcons.bookOpen;
+    if (t.contains('course') || t.contains('completion'))
+      return LucideIcons.bookOpen;
     if (t.contains('score')) return LucideIcons.award;
     if (t.contains('overdue')) return LucideIcons.alertCircle;
     return LucideIcons.activity;
@@ -101,9 +110,11 @@ class TrainingDirectorDashboard extends ConsumerWidget {
 
   Color _inferColor(String status) {
     final s = status.toLowerCase();
-    if (s == 'operational' || s == 'positive' || s == 'up') return Colors.greenAccent;
+    if (s == 'operational' || s == 'positive' || s == 'up')
+      return Colors.greenAccent;
     if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative') return Colors.redAccent;
+    if (s == 'critical' || s == 'down' || s == 'negative')
+      return Colors.redAccent;
     return Colors.tealAccent;
   }
 }

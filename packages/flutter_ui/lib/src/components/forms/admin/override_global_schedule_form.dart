@@ -12,10 +12,12 @@ class OverrideGlobalScheduleForm extends StatefulWidget {
   });
 
   @override
-  State<OverrideGlobalScheduleForm> createState() => _OverrideGlobalScheduleFormState();
+  State<OverrideGlobalScheduleForm> createState() =>
+      _OverrideGlobalScheduleFormState();
 }
 
-class _OverrideGlobalScheduleFormState extends State<OverrideGlobalScheduleForm> {
+class _OverrideGlobalScheduleFormState
+    extends State<OverrideGlobalScheduleForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

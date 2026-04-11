@@ -29,29 +29,47 @@ class KpiConfig {
 
   static IconData _getIconData(String? name) {
     switch (name) {
-      case 'users': return LucideIcons.users;
-      case 'stethoscope': return LucideIcons.stethoscope;
-      case 'dollarSign': return LucideIcons.dollarSign;
-      case 'shieldAlert': return LucideIcons.shieldAlert;
-      case 'briefcase': return LucideIcons.briefcase;
-      case 'barChart2': return LucideIcons.barChart2;
-      case 'heart': return LucideIcons.heartPulse;
-      case 'clipboardList': return LucideIcons.clipboardList;
-      case 'userCheck': return LucideIcons.userCheck;
-      case 'clock': return LucideIcons.clock;
-      default: return LucideIcons.barChart;
+      case 'users':
+        return LucideIcons.users;
+      case 'stethoscope':
+        return LucideIcons.stethoscope;
+      case 'dollarSign':
+        return LucideIcons.dollarSign;
+      case 'shieldAlert':
+        return LucideIcons.shieldAlert;
+      case 'briefcase':
+        return LucideIcons.briefcase;
+      case 'barChart2':
+        return LucideIcons.barChart2;
+      case 'heart':
+        return LucideIcons.heartPulse;
+      case 'clipboardList':
+        return LucideIcons.clipboardList;
+      case 'userCheck':
+        return LucideIcons.userCheck;
+      case 'clock':
+        return LucideIcons.clock;
+      default:
+        return LucideIcons.barChart;
     }
   }
 
   static Color _getColor(String? name) {
     switch (name) {
-      case 'blue': return Colors.blueAccent;
-      case 'teal': return Colors.tealAccent;
-      case 'green': return Colors.greenAccent;
-      case 'orange': return Colors.orangeAccent;
-      case 'purple': return Colors.purpleAccent;
-      case 'red': return Colors.redAccent;
-      default: return Colors.blueGrey;
+      case 'blue':
+        return Colors.blueAccent;
+      case 'teal':
+        return Colors.tealAccent;
+      case 'green':
+        return Colors.greenAccent;
+      case 'orange':
+        return Colors.orangeAccent;
+      case 'purple':
+        return Colors.purpleAccent;
+      case 'red':
+        return Colors.redAccent;
+      default:
+        return Colors.blueGrey;
     }
   }
 }
@@ -70,8 +88,10 @@ class DashboardConfig {
   factory DashboardConfig.fromJson(Map<String, dynamic> json) {
     return DashboardConfig(
       title: json['title'] as String? ?? 'Dashboard',
-      subtitle: json['subtitle'] as String? ?? 'Overview metrics and operations.',
-      kpis: (json['kpis'] as List<dynamic>?)
+      subtitle:
+          json['subtitle'] as String? ?? 'Overview metrics and operations.',
+      kpis:
+          (json['kpis'] as List<dynamic>?)
               ?.map((kpi) => KpiConfig.fromJson(kpi as Map<String, dynamic>))
               .toList() ??
           [],
@@ -85,68 +105,209 @@ class ScreenRegistry {
   static final Map<String, Map<String, dynamic>> _registryJson = {
     CorporateRoutes.ceoDashboard: {
       'title': 'Global Platform Overview',
-      'subtitle': 'Real-time metrics across all PrimeCare franchise locations and clinical nodes.',
+      'subtitle':
+          'Real-time metrics across all PrimeCare franchise locations and clinical nodes.',
       'kpis': [
-        {'title': 'Active Patients', 'value': '14,239', 'deltaSuffix': '+12% this month', 'icon': 'users', 'iconColor': 'blue'},
-        {'title': 'Providers', 'value': '1,842', 'deltaSuffix': '+5% this month', 'icon': 'stethoscope', 'iconColor': 'teal'},
-        {'title': 'Gross Revenue', 'value': '\$4.2M', 'deltaSuffix': '+18% this quarter', 'icon': 'dollarSign', 'iconColor': 'green'},
-        {'title': 'Critical Alerts', 'value': '3', 'deltaSuffix': '-2 since yesterday', 'icon': 'shieldAlert', 'iconColor': 'orange'},
+        {
+          'title': 'Active Patients',
+          'value': '14,239',
+          'deltaSuffix': '+12% this month',
+          'icon': 'users',
+          'iconColor': 'blue',
+        },
+        {
+          'title': 'Providers',
+          'value': '1,842',
+          'deltaSuffix': '+5% this month',
+          'icon': 'stethoscope',
+          'iconColor': 'teal',
+        },
+        {
+          'title': 'Gross Revenue',
+          'value': '\$4.2M',
+          'deltaSuffix': '+18% this quarter',
+          'icon': 'dollarSign',
+          'iconColor': 'green',
+        },
+        {
+          'title': 'Critical Alerts',
+          'value': '3',
+          'deltaSuffix': '-2 since yesterday',
+          'icon': 'shieldAlert',
+          'iconColor': 'orange',
+        },
       ],
     },
     CorporateRoutes.headOfBusDevDashboard: {
       'title': 'Growth & Acquisition',
-      'subtitle': 'Metrics for franchise conversions and territory penetration.',
+      'subtitle':
+          'Metrics for franchise conversions and territory penetration.',
       'kpis': [
-        {'title': 'Franchises', 'value': '48', 'deltaSuffix': '+3 this month', 'icon': 'briefcase', 'iconColor': 'blue'},
-        {'title': 'Pipeline Value', 'value': '\$1.1M', 'deltaSuffix': '+15% MoM', 'icon': 'barChart2', 'iconColor': 'purple'},
-        {'title': 'Active Leads', 'value': '1,204', 'deltaSuffix': '+24% this week', 'icon': 'users', 'iconColor': 'teal'},
-        {'title': 'Win Rate', 'value': '24%', 'deltaSuffix': '+2% this quarter', 'icon': 'userCheck', 'iconColor': 'green'},
+        {
+          'title': 'Franchises',
+          'value': '48',
+          'deltaSuffix': '+3 this month',
+          'icon': 'briefcase',
+          'iconColor': 'blue',
+        },
+        {
+          'title': 'Pipeline Value',
+          'value': '\$1.1M',
+          'deltaSuffix': '+15% MoM',
+          'icon': 'barChart2',
+          'iconColor': 'purple',
+        },
+        {
+          'title': 'Active Leads',
+          'value': '1,204',
+          'deltaSuffix': '+24% this week',
+          'icon': 'users',
+          'iconColor': 'teal',
+        },
+        {
+          'title': 'Win Rate',
+          'value': '24%',
+          'deltaSuffix': '+2% this quarter',
+          'icon': 'userCheck',
+          'iconColor': 'green',
+        },
       ],
     },
     FranchiseRoutes.franchiseOwnerDashboard: {
       'title': 'Location Headquarters',
       'subtitle': 'Central operational hub for managing franchise performance.',
       'kpis': [
-        {'title': 'Clients', 'value': '842', 'deltaSuffix': '+12 new this week', 'icon': 'users', 'iconColor': 'blue'},
-        {'title': 'Staff', 'value': '45', 'deltaSuffix': '2 open roles', 'icon': 'briefcase', 'iconColor': 'purple'},
-        {'title': 'Monthly Rev.', 'value': '\$124k', 'deltaSuffix': '+5% MoM', 'icon': 'dollarSign', 'iconColor': 'green'},
-        {'title': 'Utilization', 'value': '88%', 'deltaSuffix': 'Optimal range', 'icon': 'barChart2', 'iconColor': 'teal'},
-      ]
+        {
+          'title': 'Clients',
+          'value': '842',
+          'deltaSuffix': '+12 new this week',
+          'icon': 'users',
+          'iconColor': 'blue',
+        },
+        {
+          'title': 'Staff',
+          'value': '45',
+          'deltaSuffix': '2 open roles',
+          'icon': 'briefcase',
+          'iconColor': 'purple',
+        },
+        {
+          'title': 'Monthly Rev.',
+          'value': '\$124k',
+          'deltaSuffix': '+5% MoM',
+          'icon': 'dollarSign',
+          'iconColor': 'green',
+        },
+        {
+          'title': 'Utilization',
+          'value': '88%',
+          'deltaSuffix': 'Optimal range',
+          'icon': 'barChart2',
+          'iconColor': 'teal',
+        },
+      ],
     },
     FranchiseRoutes.billingAdminDashboard: {
       'title': 'Billing Administration',
       'subtitle': 'Manage invoices, claims, and reconciliation.',
       'kpis': [
-        {'title': 'Pending Claims', 'value': '156', 'deltaSuffix': '-12% this week', 'icon': 'clipboardList', 'iconColor': 'orange'},
-        {'title': 'A/R', 'value': '\$42k', 'deltaSuffix': 'Net 30', 'icon': 'dollarSign', 'iconColor': 'red'},
-      ]
+        {
+          'title': 'Pending Claims',
+          'value': '156',
+          'deltaSuffix': '-12% this week',
+          'icon': 'clipboardList',
+          'iconColor': 'orange',
+        },
+        {
+          'title': 'A/R',
+          'value': '\$42k',
+          'deltaSuffix': 'Net 30',
+          'icon': 'dollarSign',
+          'iconColor': 'red',
+        },
+      ],
     },
     SupportRoutes.customerSupportDashboard: {
       'title': 'Support & QA Diagnostics',
       'subtitle': 'Manage tickets, escalations, and system uptime.',
       'kpis': [
-        {'title': 'Open Tickets', 'value': '23', 'deltaSuffix': '-5 since yesterday', 'icon': 'clipboardList', 'iconColor': 'blue'},
-        {'title': 'Avg Resolution', 'value': '1.2h', 'deltaSuffix': '-15m this week', 'icon': 'clock', 'iconColor': 'green'},
-        {'title': 'Escalations', 'value': '2', 'deltaSuffix': 'Require Action', 'icon': 'shieldAlert', 'iconColor': 'red'},
-      ]
+        {
+          'title': 'Open Tickets',
+          'value': '23',
+          'deltaSuffix': '-5 since yesterday',
+          'icon': 'clipboardList',
+          'iconColor': 'blue',
+        },
+        {
+          'title': 'Avg Resolution',
+          'value': '1.2h',
+          'deltaSuffix': '-15m this week',
+          'icon': 'clock',
+          'iconColor': 'green',
+        },
+        {
+          'title': 'Escalations',
+          'value': '2',
+          'deltaSuffix': 'Require Action',
+          'icon': 'shieldAlert',
+          'iconColor': 'red',
+        },
+      ],
     },
     CommonRoutes.clinicDashboard: {
       'title': 'Clinical Floor Operations',
       'subtitle': 'Track active shifts and priority care alerts.',
       'kpis': [
-        {'title': 'Active Shifts', 'value': '112', 'deltaSuffix': 'All locations', 'icon': 'clock', 'iconColor': 'teal'},
-        {'title': 'Care Plans Due', 'value': '8', 'deltaSuffix': 'Within 48hrs', 'icon': 'clipboardList', 'iconColor': 'orange'},
-        {'title': 'Incident Reports', 'value': '0', 'deltaSuffix': 'Last 24hrs', 'icon': 'shieldAlert', 'iconColor': 'green'},
-      ]
+        {
+          'title': 'Active Shifts',
+          'value': '112',
+          'deltaSuffix': 'All locations',
+          'icon': 'clock',
+          'iconColor': 'teal',
+        },
+        {
+          'title': 'Care Plans Due',
+          'value': '8',
+          'deltaSuffix': 'Within 48hrs',
+          'icon': 'clipboardList',
+          'iconColor': 'orange',
+        },
+        {
+          'title': 'Incident Reports',
+          'value': '0',
+          'deltaSuffix': 'Last 24hrs',
+          'icon': 'shieldAlert',
+          'iconColor': 'green',
+        },
+      ],
     },
     CorporateRoutes.complianceManagerDashboard: {
       'title': 'Compliance Governance',
-      'subtitle': 'Track regulatory metrics, policy training, and audit status.',
+      'subtitle':
+          'Track regulatory metrics, policy training, and audit status.',
       'kpis': [
-        {'title': 'Audits Pending', 'value': '4', 'deltaSuffix': 'Due this month', 'icon': 'shieldAlert', 'iconColor': 'orange'},
-        {'title': 'Training Compl.', 'value': '92%', 'deltaSuffix': '+4% increase', 'icon': 'userCheck', 'iconColor': 'green'},
-        {'title': 'Policy Updates', 'value': '12', 'deltaSuffix': 'Need review', 'icon': 'clipboardList', 'iconColor': 'purple'},
-      ]
+        {
+          'title': 'Audits Pending',
+          'value': '4',
+          'deltaSuffix': 'Due this month',
+          'icon': 'shieldAlert',
+          'iconColor': 'orange',
+        },
+        {
+          'title': 'Training Compl.',
+          'value': '92%',
+          'deltaSuffix': '+4% increase',
+          'icon': 'userCheck',
+          'iconColor': 'green',
+        },
+        {
+          'title': 'Policy Updates',
+          'value': '12',
+          'deltaSuffix': 'Need review',
+          'icon': 'clipboardList',
+          'iconColor': 'purple',
+        },
+      ],
     },
   };
 
@@ -156,15 +317,21 @@ class ScreenRegistry {
     if (_registryJson.containsKey(route)) {
       return DashboardConfig.fromJson(_registryJson[route]!);
     }
-    
+
     // Fallback default dynamic screen
     return DashboardConfig(
       title: 'Dynamic Dashboard Space',
-      subtitle: 'This workspace is actively configured by the PrimeCare Central Registry.',
+      subtitle:
+          'This workspace is actively configured by the PrimeCare Central Registry.',
       kpis: [
-        const KpiConfig(title: 'Active Metrics', value: 'Optimal', deltaSuffix: 'System Normal', icon: LucideIcons.activity, iconColor: Colors.blueAccent),
+        const KpiConfig(
+          title: 'Active Metrics',
+          value: 'Optimal',
+          deltaSuffix: 'System Normal',
+          icon: LucideIcons.activity,
+          iconColor: Colors.blueAccent,
+        ),
       ],
     );
   }
 }
-

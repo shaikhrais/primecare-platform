@@ -14,11 +14,16 @@ class PrimeStatusBadge extends StatelessWidget {
         color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(text.toUpperCase(), overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+      child: Text(
+        text.toUpperCase(),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        style: TextStyle(
           color: color,
           fontSize: 10,
           fontWeight: FontWeight.bold,
-          letterSpacing: 0.5,),
+          letterSpacing: 0.5,
+        ),
       ),
     );
   }

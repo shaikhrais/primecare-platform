@@ -19,9 +19,14 @@ class LiveGeolocationMapLoader extends StatelessWidget {
           children: [
             Icon(Icons.location_on, color: Colors.green.shade600, size: 32),
             const SizedBox(height: 8),
-            Text('0.2 miles from client', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+            Text(
+              '0.2 miles from client',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
                 color: Colors.green.shade800,
-                fontWeight: FontWeight.bold,),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),

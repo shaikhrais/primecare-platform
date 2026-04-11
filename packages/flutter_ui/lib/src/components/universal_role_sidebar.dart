@@ -17,18 +17,30 @@ class UniversalRoleSidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     // A completely generic enterprise sidebar spanning the 36-role domain organically.
     // Detaches entirely from legacy primecare_mobile static configurations cleanly conceptually safely.
-    
+
     final activeColor = Colors.teal;
     final items = [
-      const BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
-      const BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: 'Inbox'),
-      const BottomNavigationBarItem(icon: Icon(Icons.assessment_outlined), label: 'Reports'),
-      const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurations'),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.dashboard),
+        label: 'Dashboard',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.chat_bubble_outline),
+        label: 'Inbox',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.assessment_outlined),
+        label: 'Reports',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.settings),
+        label: 'Configurations',
+      ),
     ];
     final paths = ['/', '/inbox', '/reports', '/configurations'];
 
     int currentIndex = 0;
-    
+
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
@@ -61,13 +73,20 @@ class UniversalRoleSidebar extends StatelessWidget {
                       if (index < paths.length) context.go(paths[index]);
                     },
                     selectedIconTheme: IconThemeData(color: activeColor),
-                    selectedLabelTextStyle: TextStyle(color: activeColor, fontWeight: FontWeight.bold),
-                    unselectedIconTheme: IconThemeData(color: Theme.of(context).disabledColor),
-                    unselectedLabelTextStyle: TextStyle(color: Theme.of(context).disabledColor),
+                    selectedLabelTextStyle: TextStyle(
+                      color: activeColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    unselectedIconTheme: IconThemeData(
+                      color: Theme.of(context).disabledColor,
+                    ),
+                    unselectedLabelTextStyle: TextStyle(
+                      color: Theme.of(context).disabledColor,
+                    ),
                     destinations: items.map((item) {
                       return NavigationRailDestination(
                         icon: item.icon,
-                        selectedIcon: item.activeIcon ,
+                        selectedIcon: item.activeIcon,
                         label: Text(item.label ?? ''),
                       );
                     }).toList(),

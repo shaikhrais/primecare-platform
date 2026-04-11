@@ -12,10 +12,12 @@ class ApproveExpenseReimbursementForm extends StatefulWidget {
   });
 
   @override
-  State<ApproveExpenseReimbursementForm> createState() => _ApproveExpenseReimbursementFormState();
+  State<ApproveExpenseReimbursementForm> createState() =>
+      _ApproveExpenseReimbursementFormState();
 }
 
-class _ApproveExpenseReimbursementFormState extends State<ApproveExpenseReimbursementForm> {
+class _ApproveExpenseReimbursementFormState
+    extends State<ApproveExpenseReimbursementForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

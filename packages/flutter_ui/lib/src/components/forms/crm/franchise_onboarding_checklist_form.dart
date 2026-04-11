@@ -12,10 +12,12 @@ class FranchiseOnboardingChecklistForm extends StatefulWidget {
   });
 
   @override
-  State<FranchiseOnboardingChecklistForm> createState() => _FranchiseOnboardingChecklistFormState();
+  State<FranchiseOnboardingChecklistForm> createState() =>
+      _FranchiseOnboardingChecklistFormState();
 }
 
-class _FranchiseOnboardingChecklistFormState extends State<FranchiseOnboardingChecklistForm> {
+class _FranchiseOnboardingChecklistFormState
+    extends State<FranchiseOnboardingChecklistForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {
@@ -30,9 +32,7 @@ class _FranchiseOnboardingChecklistFormState extends State<FranchiseOnboardingCh
       subtitle: 'Complete franchise onboarding steps.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

@@ -28,7 +28,7 @@ class PrimeResponsiveGrid extends StatelessWidget {
       builder: (context, constraints) {
         int crossAxisCount = desktopCrossAxisCount;
         double extent = desktopMainAxisExtent;
-        
+
         if (constraints.maxWidth < 600) {
           crossAxisCount = 1;
           extent = mobileMainAxisExtent;

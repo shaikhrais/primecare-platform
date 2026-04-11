@@ -69,7 +69,9 @@ class ApiClient {
   // ── Schedule ──
   Future<List<dynamic>> getTodaySchedule() async {
     final response = await _dio.get('/v1/psw/schedule/today');
-    return response.data is List ? response.data : (response.data['shifts'] ?? []);
+    return response.data is List
+        ? response.data
+        : (response.data['shifts'] ?? []);
   }
 
   Future<Map<String, dynamic>> getVisitDetails(String visitId) async {
@@ -83,7 +85,8 @@ class ApiClient {
     required double latitude,
     required double longitude,
   }) async {
-    final response = await _dio.post('/v1/psw/schedule/visits/$visitId/check-in', data: {
+    final response =
+        await _dio.post('/v1/psw/schedule/visits/$visitId/check-in', data: {
       'latitude': latitude,
       'longitude': longitude,
       'timestamp': DateTime.now().toIso8601String(),
@@ -97,7 +100,8 @@ class ApiClient {
     required double longitude,
     String? notes,
   }) async {
-    final response = await _dio.post('/v1/psw/schedule/visits/$visitId/check-out', data: {
+    final response =
+        await _dio.post('/v1/psw/schedule/visits/$visitId/check-out', data: {
       'latitude': latitude,
       'longitude': longitude,
       'timestamp': DateTime.now().toIso8601String(),

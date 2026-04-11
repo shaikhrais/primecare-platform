@@ -18,9 +18,19 @@ class AuthState {
   final String? role;
   final String? tenantId;
 
-  AuthState({this.isAuthenticated = false, this.token, this.role, this.tenantId});
+  AuthState({
+    this.isAuthenticated = false,
+    this.token,
+    this.role,
+    this.tenantId,
+  });
 
-  AuthState copyWith({bool? isAuthenticated, String? token, String? role, String? tenantId}) {
+  AuthState copyWith({
+    bool? isAuthenticated,
+    String? token,
+    String? role,
+    String? tenantId,
+  }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
       token: token ?? this.token,
@@ -54,7 +64,8 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('cfo') || r.contains('finance')) {
       return CorporateRoutes.cfoDashboard;
     }
-    if (r.contains('cto') || r.contains('tech')) return CorporateRoutes.ctoDashboard;
+    if (r.contains('cto') || r.contains('tech'))
+      return CorporateRoutes.ctoDashboard;
     if (r.contains('compliance_manager')) {
       return CorporateRoutes.complianceManagerDashboard;
     }
@@ -69,12 +80,15 @@ class AuthNotifier extends Notifier<AuthState> {
     }
 
     // Business Development
-    if (r.contains('ontario')) return BusinessDevelopmentRoutes.regionalManagerOntarioDashboard;
-    if (r.contains('usa')) return BusinessDevelopmentRoutes.regionalManagerUsaDashboard;
+    if (r.contains('ontario'))
+      return BusinessDevelopmentRoutes.regionalManagerOntarioDashboard;
+    if (r.contains('usa'))
+      return BusinessDevelopmentRoutes.regionalManagerUsaDashboard;
     if (r.contains('franchise_sales')) {
       return BusinessDevelopmentRoutes.franchiseSalesManagerDashboard;
     }
-    if (r.contains('partnership')) return BusinessDevelopmentRoutes.partnershipManagerDashboard;
+    if (r.contains('partnership'))
+      return BusinessDevelopmentRoutes.partnershipManagerDashboard;
     if (r.contains('expansion')) {
       return BusinessDevelopmentRoutes.territoryExpansionManagerDashboard;
     }
@@ -137,7 +151,8 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('local_marketing')) {
       return MarketingRoutes.localMarketingManagerDashboard;
     }
-    if (r.contains('outreach')) return MarketingRoutes.communityOutreachDashboard;
+    if (r.contains('outreach'))
+      return MarketingRoutes.communityOutreachDashboard;
     if (r.contains('territory_sales')) {
       return MarketingRoutes.territorySalesManagerDashboard;
     }
@@ -160,7 +175,12 @@ class AuthNotifier extends Notifier<AuthState> {
     final role = prefs.getString('auth_role');
     final tenantId = prefs.getString('auth_tenant_id');
     if (token != null && role != null) {
-      state = state.copyWith(isAuthenticated: true, token: token, role: role, tenantId: tenantId);
+      state = state.copyWith(
+        isAuthenticated: true,
+        token: token,
+        role: role,
+        tenantId: tenantId,
+      );
       authListenable.value = true;
     }
   }
@@ -190,16 +210,22 @@ class AuthNotifier extends Notifier<AuthState> {
         }
 
         final prefs = await SharedPreferences.getInstance();
-        
-        final tenantId = data['tenantId'] ?? 
-            (data['user'] != null ? data['user']['tenantId'] : null) ?? 
+
+        final tenantId =
+            data['tenantId'] ??
+            (data['user'] != null ? data['user']['tenantId'] : null) ??
             '00000000-0000-0000-0000-000000000000';
 
         await prefs.setString('auth_token', token);
         await prefs.setString('auth_role', role);
         await prefs.setString('auth_tenant_id', tenantId);
 
-        state = state.copyWith(isAuthenticated: true, token: token, role: role, tenantId: tenantId);
+        state = state.copyWith(
+          isAuthenticated: true,
+          token: token,
+          role: role,
+          tenantId: tenantId,
+        );
         authListenable.value = true;
         return true;
       } else {

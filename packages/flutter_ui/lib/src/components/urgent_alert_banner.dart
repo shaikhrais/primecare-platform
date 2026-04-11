@@ -19,9 +19,14 @@ class UrgentAlertBanner extends StatelessWidget {
           Icon(Icons.warning_amber_rounded, color: Colors.red.shade700),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(message, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+            child: Text(
+              message,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
                 color: Colors.red.shade900,
-                fontWeight: FontWeight.w500,),
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ],

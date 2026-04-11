@@ -12,7 +12,8 @@ class CreateCannedResponseForm extends StatefulWidget {
   });
 
   @override
-  State<CreateCannedResponseForm> createState() => _CreateCannedResponseFormState();
+  State<CreateCannedResponseForm> createState() =>
+      _CreateCannedResponseFormState();
 }
 
 class _CreateCannedResponseFormState extends State<CreateCannedResponseForm> {
@@ -30,9 +31,7 @@ class _CreateCannedResponseFormState extends State<CreateCannedResponseForm> {
       subtitle: 'Add a new standardized support response.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

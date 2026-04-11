@@ -26,10 +26,12 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('api_token') ?? '';
-      
+
       final res = await http.get(
-        Uri.parse('https://primecare-api.itpro-mohammed.workers.dev/v1/psw/care-plan/${widget.patientId}'),
-        headers: { 'Authorization': 'Bearer $token' },
+        Uri.parse(
+          'https://primecare-api.itpro-mohammed.workers.dev/v1/psw/care-plan/${widget.patientId}',
+        ),
+        headers: {'Authorization': 'Bearer $token'},
       );
 
       if (mounted) {
@@ -64,33 +66,76 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.8,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Active Care Plan', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.indigo)),
-              IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(context)),
+              const Text(
+                'Active Care Plan',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.indigo,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
             ],
           ),
           const Divider(),
           if (_isLoading)
             const Expanded(child: Center(child: CircularProgressIndicator()))
           else if (_error != null)
-            Expanded(child: Center(child: Text(_error!, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.red, fontSize: 16))))
+            Expanded(
+              child: Center(
+                child: Text(
+                  _error!,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                ),
+              ),
+            )
           else if (_carePlan != null)
             Expanded(
               child: ListView(
                 children: [
-                  _buildSection('Patient', _carePlan!['client']?['fullName'] ?? 'Unknown'),
-                  _buildSection('Authored By (RN)', _carePlan!['author']?['fullName'] ?? 'System Generated'),
-                  _buildSection('Last Reviewed', _carePlan!['reviewDate'] != null ? _carePlan!['reviewDate'].toString().substring(0,10) : 'Never'),
+                  _buildSection(
+                    'Patient',
+                    _carePlan!['client']?['fullName'] ?? 'Unknown',
+                  ),
+                  _buildSection(
+                    'Authored By (RN)',
+                    _carePlan!['author']?['fullName'] ?? 'System Generated',
+                  ),
+                  _buildSection(
+                    'Last Reviewed',
+                    _carePlan!['reviewDate'] != null
+                        ? _carePlan!['reviewDate'].toString().substring(0, 10)
+                        : 'Never',
+                  ),
                   const SizedBox(height: 16),
-                  _buildCard('Primary Diagnoses', _carePlan!['diagnoses'] ?? 'None documented'),
-                  _buildCard('Clinical Goals', _carePlan!['clinicalGoals'] ?? 'No specific goals'),
-                  _buildCard('Required Interventions', _carePlan!['interventions'] ?? 'Standard ADL care'),
+                  _buildCard(
+                    'Primary Diagnoses',
+                    _carePlan!['diagnoses'] ?? 'None documented',
+                  ),
+                  _buildCard(
+                    'Clinical Goals',
+                    _carePlan!['clinicalGoals'] ?? 'No specific goals',
+                  ),
+                  _buildCard(
+                    'Required Interventions',
+                    _carePlan!['interventions'] ?? 'Standard ADL care',
+                  ),
                 ],
               ),
             ),
@@ -105,8 +150,21 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-          Text(value, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.w500)),
+          Text(
+            title,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+            ),
+          ),
+          Text(
+            value,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
         ],
       ),
     );
@@ -122,9 +180,22 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.indigo.shade900)),
+            Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.indigo.shade900,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text(content, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 15)),
+            Text(
+              content,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: const TextStyle(fontSize: 15),
+            ),
           ],
         ),
       ),

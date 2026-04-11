@@ -30,9 +30,7 @@ class _AssignLeadFormState extends State<AssignLeadForm> {
       subtitle: 'Assign a lead to a sales representative.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

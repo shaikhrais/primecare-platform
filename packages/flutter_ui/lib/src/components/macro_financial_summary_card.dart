@@ -25,7 +25,15 @@ class MacroFinancialSummaryCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Period Revenue', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w600)),
+              const Text(
+                'Period Revenue',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               Icon(
                 isPositive ? Icons.trending_up : Icons.trending_down,
                 color: isPositive ? Colors.green : Colors.red,
@@ -33,7 +41,11 @@ class MacroFinancialSummaryCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Text(currencyFormatter.format(currentRevenue), overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          Text(
+            currencyFormatter.format(currentRevenue),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           LinearProgressIndicator(
@@ -42,7 +54,11 @@ class MacroFinancialSummaryCard extends StatelessWidget {
             color: isPositive ? Colors.green : Theme.of(context).primaryColor,
           ),
           const SizedBox(height: 8),
-          Text('Target: ${currencyFormatter.format(targetRevenue)}', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.grey, fontSize: 12),
+          Text(
+            'Target: ${currencyFormatter.format(targetRevenue)}',
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: const TextStyle(color: Colors.grey, fontSize: 12),
           ),
         ],
       ),

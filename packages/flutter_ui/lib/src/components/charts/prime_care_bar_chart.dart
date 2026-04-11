@@ -5,9 +5,9 @@ class PrimeCareBarChart extends StatelessWidget {
   final Color barColor;
 
   const PrimeCareBarChart({
-    super.key, 
-    required this.data, 
-    required this.barColor
+    super.key,
+    required this.data,
+    required this.barColor,
   });
 
   @override
@@ -15,7 +15,9 @@ class PrimeCareBarChart extends StatelessWidget {
     return Container(
       height: 150,
       color: barColor.withAlpha(25),
-      child: Center(child: Text('Chart Placeholder: ${data.length} data points')),
+      child: Center(
+        child: Text('Chart Placeholder: ${data.length} data points'),
+      ),
     );
   }
 }

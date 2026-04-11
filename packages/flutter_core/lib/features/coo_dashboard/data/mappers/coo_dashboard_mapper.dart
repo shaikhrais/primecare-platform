@@ -35,14 +35,16 @@ class CooDashboardMapper {
 
   static CooDashboardViewModel fromMock(Map<String, dynamic> mock) {
     return CooDashboardViewModel(
-      kpis: (mock['kpis'] as List<dynamic>?)?.map((k) {
-        return CooKpi(
-          title: k['title']?.toString() ?? '',
-          value: k['value']?.toString() ?? '',
-          trend: k['trend']?.toString() ?? '',
-          status: k['status']?.toString() ?? 'operational',
-        );
-      }).toList() ?? [],
+      kpis:
+          (mock['kpis'] as List<dynamic>?)?.map((k) {
+            return CooKpi(
+              title: k['title']?.toString() ?? '',
+              value: k['value']?.toString() ?? '',
+              trend: k['trend']?.toString() ?? '',
+              status: k['status']?.toString() ?? 'operational',
+            );
+          }).toList() ??
+          [],
     );
   }
 }

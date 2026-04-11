@@ -12,10 +12,12 @@ class ReviewFleetMaintenanceForm extends StatefulWidget {
   });
 
   @override
-  State<ReviewFleetMaintenanceForm> createState() => _ReviewFleetMaintenanceFormState();
+  State<ReviewFleetMaintenanceForm> createState() =>
+      _ReviewFleetMaintenanceFormState();
 }
 
-class _ReviewFleetMaintenanceFormState extends State<ReviewFleetMaintenanceForm> {
+class _ReviewFleetMaintenanceFormState
+    extends State<ReviewFleetMaintenanceForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {

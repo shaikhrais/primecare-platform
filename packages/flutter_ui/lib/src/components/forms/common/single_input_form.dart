@@ -61,7 +61,9 @@ class _SingleInputFormState extends State<SingleInputForm> {
             labelText: widget.inputLabel,
             border: const OutlineInputBorder(),
           ),
-          keyboardType: widget.isNumeric ? TextInputType.number : TextInputType.text,
+          keyboardType: widget.isNumeric
+              ? TextInputType.number
+              : TextInputType.text,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter a value';

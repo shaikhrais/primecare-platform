@@ -12,7 +12,8 @@ class CreateRevenueReportForm extends StatefulWidget {
   });
 
   @override
-  State<CreateRevenueReportForm> createState() => _CreateRevenueReportFormState();
+  State<CreateRevenueReportForm> createState() =>
+      _CreateRevenueReportFormState();
 }
 
 class _CreateRevenueReportFormState extends State<CreateRevenueReportForm> {

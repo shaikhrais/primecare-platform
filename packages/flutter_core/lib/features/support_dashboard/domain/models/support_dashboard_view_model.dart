@@ -1,9 +1,7 @@
 class SupportDashboardViewModel {
   final List<SupportKpi> kpis;
 
-  const SupportDashboardViewModel({
-    this.kpis = const [],
-  });
+  const SupportDashboardViewModel({this.kpis = const []});
 }
 
 class SupportKpi {

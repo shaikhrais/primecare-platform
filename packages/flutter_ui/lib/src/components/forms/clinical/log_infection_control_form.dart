@@ -12,7 +12,8 @@ class LogInfectionControlForm extends StatefulWidget {
   });
 
   @override
-  State<LogInfectionControlForm> createState() => _LogInfectionControlFormState();
+  State<LogInfectionControlForm> createState() =>
+      _LogInfectionControlFormState();
 }
 
 class _LogInfectionControlFormState extends State<LogInfectionControlForm> {

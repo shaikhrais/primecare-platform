@@ -22,15 +22,19 @@ class CommonRoutes {
   static const String clinicDailyNotes = '/clinic/daily-notes';
   static const String clinicShiftDetails = '/clinic/shift-details';
   static const String clinicMyShifts = '/clinic/my-shifts';
-  static const String scrumMasterDashboard = '/offices/system/roles/scrum_master/dashboard';
+  static const String scrumMasterDashboard =
+      '/offices/system/roles/scrum_master/dashboard';
   static const String guestDashboard = '/offices/system/roles/guest/dashboard';
   static const String attendanceScreen = '/dynamic/attendanceScreen';
   static const String auditsScreen = '/dynamic/auditsScreen';
   static const String certificationsScreen = '/dynamic/certificationsScreen';
-  static const String clientAssignmentScreen = '/dynamic/clientAssignmentScreen';
+  static const String clientAssignmentScreen =
+      '/dynamic/clientAssignmentScreen';
   static const String complaintsScreen = '/dynamic/complaintsScreen';
-  static const String complianceChecksScreen = '/dynamic/complianceChecksScreen';
-  static const String correctiveActionsScreen = '/dynamic/correctiveActionsScreen';
+  static const String complianceChecksScreen =
+      '/dynamic/complianceChecksScreen';
+  static const String correctiveActionsScreen =
+      '/dynamic/correctiveActionsScreen';
   static const String coursesScreen = '/dynamic/coursesScreen';
   static const String eligibilityScreen = '/dynamic/eligibilityScreen';
   static const String escalationsScreen = '/dynamic/escalationsScreen';
@@ -48,7 +52,8 @@ class CommonRoutes {
   static const String supportReportsScreen = '/dynamic/supportReportsScreen';
   static const String templatesScreen = '/dynamic/templatesScreen';
   static const String ticketsView = '/dynamic/ticketsView';
-  static const String trainingScheduleScreen = '/dynamic/trainingScheduleScreen';
+  static const String trainingScheduleScreen =
+      '/dynamic/trainingScheduleScreen';
   static const String workshopsScreen = '/dynamic/workshopsScreen';
   static const String bookAppointmentView = '/dynamic/bookAppointmentView';
   static const String careTeamView = '/dynamic/careTeamView';
@@ -56,11 +61,14 @@ class CommonRoutes {
   static const String clientDashboardScreen = '/dynamic/clientDashboardScreen';
   static const String clientPaymentsScreen = '/dynamic/clientPaymentsScreen';
   static const String clientProfileScreen = '/dynamic/clientProfileScreen';
-  static const String emergencyContactsScreen = '/dynamic/emergencyContactsScreen';
+  static const String emergencyContactsScreen =
+      '/dynamic/emergencyContactsScreen';
   static const String familyBillingScreen = '/dynamic/familyBillingScreen';
   static const String familyDashboardScreen = '/dynamic/familyDashboardScreen';
   static const String familyProfileScreen = '/dynamic/familyProfileScreen';
-  static const String lovedOneScheduleScreen = '/dynamic/lovedOneScheduleScreen';
+  static const String lovedOneScheduleScreen =
+      '/dynamic/lovedOneScheduleScreen';
   static const String myAppointmentsScreen = '/dynamic/myAppointmentsScreen';
-  static const String treatmentHistoryScreen = '/dynamic/treatmentHistoryScreen';
+  static const String treatmentHistoryScreen =
+      '/dynamic/treatmentHistoryScreen';
 }

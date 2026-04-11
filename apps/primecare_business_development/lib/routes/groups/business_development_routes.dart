@@ -2,56 +2,21 @@ import 'package:flutter_ui/flutter_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/flutter_core.dart';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 final List<RouteBase> businessDevelopmentRoutes = [
   GoRoute(
     path: BusinessDevelopmentRoutes.regionalManagerOntarioDashboard,
-    builder: (context, state) => const RegionalManagerOntarioDashboardScreenStitch(),
+    builder: (context, state) =>
+        const RegionalManagerOntarioDashboardScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.regionalManagerUsaDashboard,
-    builder: (context, state) => const RegionalManagerUsaDashboardScreenStitch(),
+    builder: (context, state) =>
+        const RegionalManagerUsaDashboardScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerDashboard,
-    builder: (context, state) => const FranchiseSalesManagerDashboardScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerDashboardScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.generalManagerDashboard,
@@ -59,11 +24,13 @@ final List<RouteBase> businessDevelopmentRoutes = [
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.partnershipManagerDashboard,
-    builder: (context, state) => const PartnershipManagerDashboardScreenStitch(),
+    builder: (context, state) =>
+        const PartnershipManagerDashboardScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerDashboard,
-    builder: (context, state) => const TerritoryExpansionManagerDashboardScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerDashboardScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.regionalBdmLeads,
@@ -71,7 +38,8 @@ final List<RouteBase> businessDevelopmentRoutes = [
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.regionalBdmFranchisePipeline,
-    builder: (context, state) => const RegionalBdmFranchisePipelineScreenStitch(),
+    builder: (context, state) =>
+        const RegionalBdmFranchisePipelineScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.regionalBdmTerritoryGrowth,
@@ -107,31 +75,38 @@ final List<RouteBase> businessDevelopmentRoutes = [
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerProspects,
-    builder: (context, state) => const FranchiseSalesManagerProspectsScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerProspectsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerDiscoveryCalls,
-    builder: (context, state) => const FranchiseSalesManagerDiscoveryCallsScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerDiscoveryCallsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerProposals,
-    builder: (context, state) => const FranchiseSalesManagerProposalsScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerProposalsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerSalesPipeline,
-    builder: (context, state) => const FranchiseSalesManagerSalesPipelineScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerSalesPipelineScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerContracts,
-    builder: (context, state) => const FranchiseSalesManagerContractsScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerContractsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerFollowUps,
-    builder: (context, state) => const FranchiseSalesManagerFollowUpsScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerFollowUpsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.franchiseSalesManagerReports,
-    builder: (context, state) => const FranchiseSalesManagerReportsScreenStitch(),
+    builder: (context, state) =>
+        const FranchiseSalesManagerReportsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.partnershipManagerPartners,
@@ -143,11 +118,13 @@ final List<RouteBase> businessDevelopmentRoutes = [
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.partnershipManagerActiveDeals,
-    builder: (context, state) => const PartnershipManagerActiveDealsScreenStitch(),
+    builder: (context, state) =>
+        const PartnershipManagerActiveDealsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.partnershipManagerProposals,
-    builder: (context, state) => const PartnershipManagerProposalsScreenStitch(),
+    builder: (context, state) =>
+        const PartnershipManagerProposalsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.partnershipManagerRenewals,
@@ -159,35 +136,42 @@ final List<RouteBase> businessDevelopmentRoutes = [
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerTerritoryMap,
-    builder: (context, state) => const TerritoryExpansionManagerTerritoryMapScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerTerritoryMapScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerMarketResearch,
-    builder: (context, state) => const TerritoryExpansionManagerMarketResearchScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerMarketResearchScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerDemographics,
-    builder: (context, state) => const TerritoryExpansionManagerDemographicsScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerDemographicsScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerOpenTerritories,
-    builder: (context, state) => const TerritoryExpansionManagerOpenTerritoriesScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerOpenTerritoriesScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerExpansionPlans,
-    builder: (context, state) => const TerritoryExpansionManagerExpansionPlansScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerExpansionPlansScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerSiteSelection,
-    builder: (context, state) => const TerritoryExpansionManagerSiteSelectionScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerSiteSelectionScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerForecast,
-    builder: (context, state) => const TerritoryExpansionManagerForecastScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerForecastScreenStitch(),
   ),
   GoRoute(
     path: BusinessDevelopmentRoutes.territoryExpansionManagerReports,
-    builder: (context, state) => const TerritoryExpansionManagerReportsScreenStitch(),
+    builder: (context, state) =>
+        const TerritoryExpansionManagerReportsScreenStitch(),
   ),
 ];
-

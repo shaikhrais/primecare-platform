@@ -15,7 +15,10 @@ class GlobalProfile extends StatelessWidget {
             CircleAvatar(radius: 40, child: Icon(Icons.person, size: 40)),
             SizedBox(height: 16),
             Text('Name: John Doe', style: TextStyle(fontSize: 18)),
-            Text('Role: Administrator', style: TextStyle(fontSize: 16, color: Colors.grey)),
+            Text(
+              'Role: Administrator',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
           ],
         ),
       ),

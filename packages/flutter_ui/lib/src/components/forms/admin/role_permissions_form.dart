@@ -30,9 +30,7 @@ class _RolePermissionsFormState extends State<RolePermissionsForm> {
       subtitle: 'Modify access control permissions for a role.',
       onSubmit: _submit,
       isLoading: widget.isLoading,
-      children: [
-        const Text('Form fields go here...'),
-      ],
+      children: [const Text('Form fields go here...')],
     );
   }
 }

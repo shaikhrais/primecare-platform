@@ -12,7 +12,9 @@ class GlobalSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final metricsAsync = ref.watch(dashboardMetricsProvider(CommonRoutes.globalSettings));
+    final metricsAsync = ref.watch(
+      dashboardMetricsProvider(CommonRoutes.globalSettings),
+    );
 
     return metricsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -58,7 +60,7 @@ class GlobalSettingsScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                  title: 'Component Title',
+                              title: 'Component Title',
 
                               value: 'High',
                               icon: Icons.show_chart,
@@ -68,7 +70,7 @@ class GlobalSettingsScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                  title: 'Component Title',
+                              title: 'Component Title',
 
                               value: '12',
                               icon: Icons.pending_actions,
@@ -78,7 +80,7 @@ class GlobalSettingsScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                  title: 'Component Title',
+                              title: 'Component Title',
 
                               value: 'Active',
                               icon: Icons.sync,
@@ -88,7 +90,7 @@ class GlobalSettingsScreen extends ConsumerWidget {
                           SizedBox(
                             width: cardWidth,
                             child: PrimeCareStatCard(
-                  title: 'Component Title',
+                              title: 'Component Title',
 
                               value: '0',
                               icon: Icons.notification_important,
@@ -190,7 +192,7 @@ class GlobalSettingsScreen extends ConsumerWidget {
                               child: Column(
                                 children: [
                                   AuditLogTile(
-                  title: 'Component Title',
+                                    title: 'Component Title',
 
                                     subtitle: 'Automated policy sync.',
                                     timestamp: '1 Hr Ago',
@@ -203,7 +205,7 @@ class GlobalSettingsScreen extends ConsumerWidget {
                                     thickness: 0.1,
                                   ),
                                   AuditLogTile(
-                  title: 'Component Title',
+                                    title: 'Component Title',
 
                                     subtitle: 'Item requires review.',
                                     timestamp: '3 Hrs Ago',
