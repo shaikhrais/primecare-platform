@@ -37,6 +37,10 @@ def merge_i18n_for_locale(locale):
             # Remove .json from the last part
             parts[-1] = parts[-1].replace('.json', '')
             
+            # If the top level directory is 'offices', omit it from the JSON key structure 
+            if parts and parts[0] == 'offices':
+                parts = parts[1:]
+                
             # If the file is "_common", we merge its contents directly into the parent's level
             if parts[-1] == "_common":
                 # The parent level is parts[:-1]
