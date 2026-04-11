@@ -236,13 +236,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_ui:
-    dependency: "direct main"
-    description:
-      path: "../../packages/flutter_ui"
-      relative: true
-    source: path
-    version: "1.0.0+1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -553,6 +546,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  primecare_ui:
+    dependency: "direct main"
+    description:
+      path: "../../packages/factory_system/primecare_ui"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   process:
     dependency: transitive
     description:

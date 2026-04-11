@@ -18,8 +18,8 @@ dependencies:
   easy_localization: ^3.0.8
   lucide_icons: ^0.257.0
   fl_chart: 0.68.0
-  flutter_ui:
-    path: ../flutter_ui
+  primecare_ui:
+    path: ../factory_system/primecare_ui
 dev_dependencies:
   flutter_test:
     sdk: flutter

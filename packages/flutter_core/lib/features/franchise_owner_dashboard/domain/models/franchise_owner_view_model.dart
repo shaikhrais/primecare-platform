@@ -1,5 +1,5 @@
 import '../../../../config/offline_fallback_state.dart';
-import '../../../../src/assembly/ui_component_blueprint.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 
 class FranchiseOwnerViewModel implements OfflineFallbackState {
   @override

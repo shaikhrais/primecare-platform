@@ -22,8 +22,8 @@ dependencies:
     path: ../../packages/flutter_core
   primecare_adapters:
     path: ../../packages/primecare_adapters
-  flutter_ui:
-    path: ../../packages/flutter_ui
+  primecare_ui:
+    path: ../../packages/factory_system/primecare_ui
 dev_dependencies:
   integration_test:
     sdk: flutter

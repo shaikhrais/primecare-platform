@@ -1,0 +1,461 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+// --- Clinical Atelier Aesthetic Tokens ---
+const Color _bg = Color(0xFF0B1326);
+const Color _surfaceLow = Color(0xFF131B2E);
+const Color _surfaceHigh = Color(0xFF222A3D);
+const Color _surfaceVariant = Color(0xFF2D3449);
+const Color _primary = Color(0xFFBCC2FF);
+const Color _primaryContainer = Color(0xFF142283);
+const Color _secondary = Color(0xFF70D8C8);
+const Color _secondaryContainer = Color(0xFF32A192);
+const Color _onSurface = Color(0xFFDAE2FD);
+const Color _onSurfaceVariant = Color(0xFFC6C5D4);
+const Color _outlineVariant = Color(0xFF454652);
+const Color _error = Color(0xFFFFB4AB);
+
+class CfoTaxAndRemittanceScreen extends ConsumerWidget {
+  const CfoTaxAndRemittanceScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final metricsAsyncValue = ref.watch(
+      dashboardMetricsProvider('cfoTaxAndRemittance'),
+    );
+
+    return ProviderLayout(
+      child: Container(
+        color: _bg,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 48.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(),
+              const SizedBox(height: 48),
+              metricsAsyncValue.when(
+                loading: () => const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(64.0),
+                    child: CircularProgressIndicator(color: _secondary),
+                  ),
+                ),
+                error: (error, stackTrace) => _buildErrorState(error.toString()),
+                data: (DashboardMetrics liveData) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildComplianceStatus(liveData),
+                      const SizedBox(height: 32),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 10,
+                            child: _buildHSTCalculationHero(liveData),
+                          ),
+                          const SizedBox(width: 32),
+                          Expanded(
+                            flex: 6,
+                            child: _buildDeadlinesPanel(),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 48),
+                      _buildLedgerSummary(),
+                      const SizedBox(height: 48),
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'TAX_HUB_TITLE'.tr(),
+              style: const TextStyle(
+                fontFamily: 'Manrope',
+                fontSize: 42,
+                fontWeight: FontWeight.w700,
+                color: _onSurface,
+                letterSpacing: -1.0,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'TAX_HUB_SUBTITLE'.tr(),
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 16,
+                color: _onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+        _buildGradientCTA(),
+      ],
+    );
+  }
+
+  Widget _buildGradientCTA() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        gradient: const RadialGradient(
+          colors: [_primary, _primaryContainer],
+          center: Alignment.topLeft,
+          radius: 3.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: _primaryContainer.withAlpha(100),
+            blurRadius: 20,
+            spreadRadius: -2,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(LucideIcons.fileText, color: Color(0xFF000C62), size: 18),
+                const SizedBox(width: 8),
+                Text(
+                  'GENERATE_REPORT'.tr(),
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF000C62),
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildComplianceStatus(DashboardMetrics liveData) {
+    return Row(
+      children: [
+        _buildActionChip('Filing Status: Active', true),
+        const SizedBox(width: 16),
+        _buildActionChip('Audit Risk: Low', true),
+        const SizedBox(width: 16),
+        if (liveData.kpis.any((k) => k.status.toLowerCase() == 'critical'))
+          _buildActionChip('Attention Required', false),
+      ],
+    );
+  }
+
+  Widget _buildActionChip(String label, bool isPositive) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: isPositive ? _secondaryContainer : const Color(0xFF93000A),
+        borderRadius: BorderRadius.circular(32),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            isPositive ? LucideIcons.checkCircle2 : LucideIcons.alertTriangle,
+            size: 16,
+            color: isPositive ? const Color(0xFF00302A) : const Color(0xFFFFDAD6),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: isPositive ? const Color(0xFF00302A) : const Color(0xFFFFDAD6),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHSTCalculationHero(DashboardMetrics liveData) {
+    final revenueKpi = liveData.kpis.firstWhere(
+      (kpi) => kpi.title.toLowerCase().contains('revenue'),
+      orElse: () => KpiMetric(title: 'Gross Revenue', value: '\$1,240,000', trend: '+5%', status: 'Positive'),
+    );
+
+    return _GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'HST / GST Liability Estimation',
+            style: TextStyle(
+              fontFamily: 'Manrope',
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              color: _onSurface,
+            ),
+          ),
+          const SizedBox(height: 32),
+          Row(
+            children: [
+              Expanded(
+                child: _buildMetricBlock('Gross Taxable Revenue', revenueKpi.value, _primary),
+              ),
+              Expanded(
+                child: _buildMetricBlock('Input Tax Credits (ITC)', '\$42,150.00', _secondary),
+              ),
+              Expanded(
+                child: _buildMetricBlock('Net Payable Liability', '\$119,050.00', _error),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDeadlinesPanel() {
+    return _GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Upcoming Deadlines',
+            style: TextStyle(
+              fontFamily: 'Manrope',
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: _onSurface,
+            ),
+          ),
+          const SizedBox(height: 24),
+          _buildTimelineEvent('Q3 HST/GST Return', 'Due in 12 days', true),
+          _buildTimelineEvent('Corporate Income Tax Installment', 'Due in 28 days', false),
+          _buildTimelineEvent('Employer Health Tax (EHT)', 'Due in 45 days', false),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTimelineEvent(String title, String subtitle, bool isUrgent) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 4, right: 16),
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isUrgent ? _error : _secondary,
+              boxShadow: [
+                BoxShadow(
+                  color: (isUrgent ? _error : _secondary).withAlpha(100),
+                  blurRadius: 8,
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: _onSurface,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 13,
+                    color: isUrgent ? _error : _onSurfaceVariant,
+                    fontWeight: isUrgent ? FontWeight.w500 : FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLedgerSummary() {
+    return _GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Double-Entry Ledger Summary',
+            style: TextStyle(
+              fontFamily: 'Manrope',
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: _onSurface,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Table(
+            columnWidths: const {
+              0: FlexColumnWidth(2),
+              1: FlexColumnWidth(1),
+              2: FlexColumnWidth(1),
+              3: FlexColumnWidth(1),
+            },
+            children: [
+              _buildTableRow(['Account', 'Debits', 'Credits', 'Balance'], isHeader: true),
+              _buildTableRow(['Clinical Supplies (Taxable)', '\$85,000.00', '\$0.00', '\$85,000.00']),
+              _buildTableRow(['Practitioner Payouts (Zero-Rated)', '\$420,000.00', '\$0.00', '\$420,000.00']),
+              _buildTableRow(['HST Collected (Liability)', '\$0.00', '\$161,200.00', '\$161,200.00']),
+              _buildTableRow(['HST Paid (ITC)', '\$42,150.00', '\$0.00', '\$42,150.00']),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  TableRow _buildTableRow(List<String> cells, {bool isHeader = false}) {
+    return TableRow(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: isHeader ? _onSurface.withAlpha(50) : Colors.transparent,
+            width: 1,
+          ),
+        ),
+      ),
+      children: cells.map((cell) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: Text(
+            cell,
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: isHeader ? 12 : 14,
+              fontWeight: isHeader ? FontWeight.w600 : FontWeight.w400,
+              color: isHeader ? _onSurfaceVariant : _onSurface,
+              letterSpacing: isHeader ? 0.5 : 0,
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildMetricBlock(String label, String value, Color accentColor) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'Manrope',
+            fontSize: 32,
+            fontWeight: FontWeight.w700,
+            color: accentColor,
+            letterSpacing: -0.5,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildErrorState(String error) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFF93000A).withAlpha(50),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          const Icon(LucideIcons.alertTriangle, color: _error),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              'Failed to load live metrics: \n$error',
+              style: const TextStyle(color: _error, fontFamily: 'Inter'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GlassCard extends StatelessWidget {
+  final Widget child;
+
+  const _GlassCard({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: _surfaceVariant.withAlpha(153), // 60% opacity
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: _outlineVariant.withAlpha(38), // 15% Ghost Border
+              width: 1.5,
+            ),
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+}

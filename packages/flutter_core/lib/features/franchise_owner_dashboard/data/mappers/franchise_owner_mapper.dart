@@ -1,6 +1,6 @@
 import '../../domain/models/franchise_owner_view_model.dart';
 import '../dtos/franchise_owner_dto.dart';
-import '../../../../src/assembly/ui_component_blueprint.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 
 class FranchiseOwnerMapper {
   static FranchiseOwnerViewModel fromApi(FranchiseOwnerDto dto) {

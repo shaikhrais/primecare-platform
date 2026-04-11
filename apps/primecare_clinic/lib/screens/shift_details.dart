@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_ui/flutter_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class ShiftDetailsScreen extends ConsumerWidget {
   const ShiftDetailsScreen({super.key});

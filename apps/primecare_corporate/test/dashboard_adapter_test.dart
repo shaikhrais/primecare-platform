@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_ui/src/screens/offices/corporate/ceo_dashboard.dart';
-import 'package:flutter_ui/src/screens/offices/corporate/cto_dashboard.dart';
-import 'package:flutter_ui/src/screens/offices/corporate/cfo_dashboard.dart';
+import 'package:primecare_ui/src/screens/offices/corporate/ceo_dashboard.dart';
+import 'package:primecare_ui/src/screens/offices/corporate/cto_dashboard.dart';
+import 'package:primecare_ui/src/screens/offices/corporate/cfo_dashboard.dart';
 
 import '../integration_test/page_objects/master_dashboard_page.dart';
 

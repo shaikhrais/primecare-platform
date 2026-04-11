@@ -3,6 +3,11 @@
 library;
 
 // -------------------------------------------------------------
+// DATA LOGISTICS HUB & FALLBACK ENGINE
+// -------------------------------------------------------------
+export 'src/data_logistics_hub.dart';
+
+// -------------------------------------------------------------
 // HYDRATED UI DATA BOUND ADAPTERS
 // Automatically segmented by Office/Department Architecture
 // -------------------------------------------------------------

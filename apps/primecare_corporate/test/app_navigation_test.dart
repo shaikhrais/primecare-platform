@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_ui/src/screens/common/global_profile.dart';
-import 'package:flutter_ui/src/screens/common/global_settings.dart';
-import 'package:flutter_ui/src/screens/common/document_vault.dart';
-import 'package:flutter_ui/src/screens/common/messaging_hub.dart';
-import 'package:flutter_ui/src/screens/common/notification_center.dart';
+import 'package:primecare_ui/src/screens/common/global_profile.dart';
+import 'package:primecare_ui/src/screens/common/global_settings.dart';
+import 'package:primecare_ui/src/screens/common/document_vault.dart';
+import 'package:primecare_ui/src/screens/common/messaging_hub.dart';
+import 'package:primecare_ui/src/screens/common/notification_center.dart';
 // Important Core Imports for Mocking
 import 'package:flutter_core/dashboard_providers.dart';
 import 'package:flutter_core/dashboard_service.dart';

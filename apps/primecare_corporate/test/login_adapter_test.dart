@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_ui/flutter_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   testWidgets('Check if Login screen renders and has input fields', (tester) async {

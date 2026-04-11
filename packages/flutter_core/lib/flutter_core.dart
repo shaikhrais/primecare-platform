@@ -70,4 +70,5 @@ export 'features/scrum_master_dashboard/domain/models/scrum_master_dashboard_vie
 
 // Office: patient
 export 'features/patient_dashboard/domain/models/patient_dashboard_view_model.dart';
-export 'src/assembly/ui_component_blueprint.dart';
+export 'src/factory_floor/ui_blueprint.dart';
+export 'src/factory_floor/data_fallback_engine.dart';
