@@ -6,15 +6,9 @@ class CfoDashboardMapper {
   static CfoDashboardViewModel fromApi(CfoDashboardDto dto) {
     return CfoDashboardViewModel(
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );
@@ -24,15 +18,9 @@ class CfoDashboardMapper {
     return CfoDashboardViewModel(
       isOfflineFallback: isErrorFallback,
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );

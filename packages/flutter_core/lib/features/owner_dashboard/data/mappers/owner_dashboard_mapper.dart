@@ -6,15 +6,9 @@ class OwnerDashboardMapper {
   static OwnerDashboardViewModel fromApi(OwnerDashboardDto dto) {
     return OwnerDashboardViewModel(
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );
@@ -24,15 +18,9 @@ class OwnerDashboardMapper {
     return OwnerDashboardViewModel(
       isOfflineFallback: isErrorFallback,
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );

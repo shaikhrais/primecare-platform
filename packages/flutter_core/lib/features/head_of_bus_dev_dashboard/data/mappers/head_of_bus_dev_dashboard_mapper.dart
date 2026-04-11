@@ -6,15 +6,9 @@ class HeadOfBusDevDashboardMapper {
   static HeadOfBusDevDashboardViewModel fromApi(HeadOfBusDevDashboardDto dto) {
     return HeadOfBusDevDashboardViewModel(
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );
@@ -24,15 +18,9 @@ class HeadOfBusDevDashboardMapper {
     return HeadOfBusDevDashboardViewModel(
       isOfflineFallback: isErrorFallback,
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );

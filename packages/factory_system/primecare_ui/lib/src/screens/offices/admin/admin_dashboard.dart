@@ -10,9 +10,7 @@ class AdminDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('AdminDashboardScreen'),
-    );
+    final metricsAsyncValue = ref.watch(AdminDashboardScreenDataProvider('all'));
 
     return Scaffold(
       appBar: AppBar(

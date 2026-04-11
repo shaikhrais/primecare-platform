@@ -10,9 +10,7 @@ class HeadOfMarketingFunnelAnalyticsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('headOfMarketingFunnelAnalytics'),
-    );
+    final metricsAsyncValue = ref.watch(headOfMarketingFunnelAnalyticsDataProvider('all'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

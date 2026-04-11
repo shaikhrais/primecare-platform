@@ -35,8 +35,6 @@ class DataFallbackEngine {
   /// Generates a fallback stat grid blueprint indicating missing/offline data.
   static StatGridBlueprint createFallbackStatGrid(String title) {
     return StatGridBlueprint(
-      id: 'fallback_stats',
-      title: title,
       dataPayload: const [
         UniversalKpi(title: 'Revenue (Offline)', value: '\$0', trend: '-', status: 'Warning'),
         UniversalKpi(title: 'Active Clients', value: '-', trend: '-', status: 'Warning'),
@@ -49,8 +47,6 @@ class DataFallbackEngine {
   /// Generates a fallback activity feed blueprint indicating missing/offline data.
   static ActivityFeedBlueprint createFallbackActivityFeed(String title) {
     return ActivityFeedBlueprint(
-      id: 'fallback_activity',
-      title: title,
       dataPayload: [
         UniversalActivityLog(
           title: 'System operating in degraded mode.',
@@ -63,8 +59,6 @@ class DataFallbackEngine {
   /// Generates a fallback data table
   static DataTableBlueprint createFallbackDataTable(String title) {
     return DataTableBlueprint(
-      id: 'fallback_table',
-      title: title,
       dataPayload: const [
         UniversalDataRow(
           title: 'Connection Offline',

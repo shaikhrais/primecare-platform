@@ -10,9 +10,7 @@ class HeadOfMarketingCampaignsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('headOfMarketingCampaigns'),
-    );
+    final metricsAsyncValue = ref.watch(headOfMarketingCampaignsDataProvider('all'));
 
     return ProviderLayout(
       child: SingleChildScrollView(

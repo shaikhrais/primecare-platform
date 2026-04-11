@@ -1,3 +1,5 @@
+import '../../../../src/factory_floor/data_fallback_engine.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 import '../../domain/models/scrum_master_dashboard_view_model.dart';
 import '../dtos/scrum_master_dashboard_dto.dart';
 
@@ -6,11 +8,11 @@ class ScrumMasterDashboardMapper {
     ScrumMasterDashboardDto dto,
   ) {
     if (dto.rawKpis.isEmpty) {
-      return ScrumMasterDashboardViewModel(kpis: _mockKpis());
+      return ScrumMasterDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: _mockKpis())]);
     }
 
     final kpis = dto.rawKpis.map((kpiMap) {
-      return ScrumMasterKpi(
+      return UniversalKpi(
         title: kpiMap['title']?.toString() ?? 'Metric',
         value: kpiMap['value']?.toString() ?? '0',
         trend: kpiMap['trend']?.toString() ?? '0%',
@@ -18,30 +20,30 @@ class ScrumMasterDashboardMapper {
       );
     }).toList();
 
-    return ScrumMasterDashboardViewModel(kpis: kpis);
+    return ScrumMasterDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: kpis)]);
   }
 
-  static List<ScrumMasterKpi> _mockKpis() {
+  static List<UniversalKpi> _mockKpis() {
     return [
-      const ScrumMasterKpi(
+      const UniversalKpi(
         title: 'Active Metrics',
         value: '120',
         trend: '+5%',
         status: 'Operational',
       ),
-      const ScrumMasterKpi(
+      const UniversalKpi(
         title: 'Efficiency',
         value: '98%',
         trend: '+2%',
         status: 'Operational',
       ),
-      const ScrumMasterKpi(
+      const UniversalKpi(
         title: 'Reports pending',
         value: '5',
         trend: '-2',
         status: 'Warning',
       ),
-      const ScrumMasterKpi(
+      const UniversalKpi(
         title: 'System Health',
         value: '100%',
         trend: 'Stable',

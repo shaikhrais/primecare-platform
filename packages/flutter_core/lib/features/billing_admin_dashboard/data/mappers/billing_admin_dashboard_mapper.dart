@@ -6,15 +6,9 @@ class BillingAdminDashboardMapper {
   static BillingAdminDashboardViewModel fromApi(BillingAdminDashboardDto dto) {
     return BillingAdminDashboardViewModel(
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );
@@ -24,15 +18,9 @@ class BillingAdminDashboardMapper {
     return BillingAdminDashboardViewModel(
       isOfflineFallback: isErrorFallback,
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );

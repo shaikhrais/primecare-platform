@@ -6,15 +6,9 @@ class CooDashboardMapper {
   static CooDashboardViewModel fromApi(CooDashboardDto dto) {
     return CooDashboardViewModel(
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );
@@ -24,15 +18,9 @@ class CooDashboardMapper {
     return CooDashboardViewModel(
       isOfflineFallback: isErrorFallback,
       blueprints: [
-        StatGridBlueprint(
-          id: 'stats_primary',
-          title: 'KPI Summary',
-          dataPayload: [],
+        StatGridBlueprint(dataPayload: [],
         ),
-        ActivityFeedBlueprint(
-          id: 'activity_primary',
-          title: 'Recent Activity',
-          dataPayload: [],
+        ActivityFeedBlueprint(dataPayload: [],
         ),
       ],
     );

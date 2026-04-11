@@ -1,14 +1,16 @@
+import '../../../../src/factory_floor/data_fallback_engine.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 import '../../domain/models/intake_dashboard_view_model.dart';
 import '../dtos/intake_dashboard_dto.dart';
 
 class IntakeDashboardMapper {
   static IntakeDashboardViewModel toViewModel(IntakeDashboardDto dto) {
     if (dto.rawKpis.isEmpty) {
-      return IntakeDashboardViewModel(kpis: _mockKpis());
+      return IntakeDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: _mockKpis())]);
     }
 
     final kpis = dto.rawKpis.map((kpiMap) {
-      return IntakeKpi(
+      return UniversalKpi(
         title: kpiMap['title']?.toString() ?? 'Metric',
         value: kpiMap['value']?.toString() ?? '0',
         trend: kpiMap['trend']?.toString() ?? '0%',
@@ -16,30 +18,30 @@ class IntakeDashboardMapper {
       );
     }).toList();
 
-    return IntakeDashboardViewModel(kpis: kpis);
+    return IntakeDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: kpis)]);
   }
 
-  static List<IntakeKpi> _mockKpis() {
+  static List<UniversalKpi> _mockKpis() {
     return [
-      const IntakeKpi(
+      const UniversalKpi(
         title: 'Active Metrics',
         value: '120',
         trend: '+5%',
         status: 'Operational',
       ),
-      const IntakeKpi(
+      const UniversalKpi(
         title: 'Efficiency',
         value: '98%',
         trend: '+2%',
         status: 'Operational',
       ),
-      const IntakeKpi(
+      const UniversalKpi(
         title: 'Reports pending',
         value: '5',
         trend: '-2',
         status: 'Warning',
       ),
-      const IntakeKpi(
+      const UniversalKpi(
         title: 'System Health',
         value: '100%',
         trend: 'Stable',

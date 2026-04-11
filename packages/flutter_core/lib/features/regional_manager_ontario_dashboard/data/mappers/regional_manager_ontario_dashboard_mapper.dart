@@ -1,3 +1,5 @@
+import '../../../../src/factory_floor/data_fallback_engine.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 import '../../domain/models/regional_manager_ontario_dashboard_view_model.dart';
 import '../dtos/regional_manager_ontario_dashboard_dto.dart';
 
@@ -6,11 +8,11 @@ class RegionalManagerOntarioDashboardMapper {
     RegionalManagerOntarioDashboardDto dto,
   ) {
     if (dto.rawKpis.isEmpty) {
-      return RegionalManagerOntarioDashboardViewModel(kpis: _mockKpis());
+      return RegionalManagerOntarioDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: _mockKpis())]);
     }
 
     final kpis = dto.rawKpis.map((kpiMap) {
-      return RegionalOntarioKpi(
+      return UniversalKpi(
         title: kpiMap['title']?.toString() ?? 'Metric',
         value: kpiMap['value']?.toString() ?? '0',
         trend: kpiMap['trend']?.toString() ?? '0%',
@@ -18,30 +20,30 @@ class RegionalManagerOntarioDashboardMapper {
       );
     }).toList();
 
-    return RegionalManagerOntarioDashboardViewModel(kpis: kpis);
+    return RegionalManagerOntarioDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: kpis)]);
   }
 
-  static List<RegionalOntarioKpi> _mockKpis() {
+  static List<UniversalKpi> _mockKpis() {
     return [
-      const RegionalOntarioKpi(
+      const UniversalKpi(
         title: 'Ontario Revenue (Q1)',
         value: '\$12.5M',
         trend: '+4%',
         status: 'Operational',
       ),
-      const RegionalOntarioKpi(
+      const UniversalKpi(
         title: 'Active Facilities (ON)',
         value: '68',
         trend: '+2',
         status: 'Operational',
       ),
-      const RegionalOntarioKpi(
+      const UniversalKpi(
         title: 'Regional Staff (ON)',
         value: '1,450',
         trend: '-1%',
         status: 'Warning',
       ),
-      const RegionalOntarioKpi(
+      const UniversalKpi(
         title: 'Open Cases (ON)',
         value: '315',
         trend: '-5%',

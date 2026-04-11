@@ -10,9 +10,7 @@ class PswDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('PswDashboardScreen'),
-    );
+    final metricsAsyncValue = ref.watch(PswDashboardScreenDataProvider('all'));
 
     return Scaffold(
       appBar: AppBar(

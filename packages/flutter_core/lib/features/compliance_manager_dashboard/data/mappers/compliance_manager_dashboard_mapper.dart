@@ -1,3 +1,5 @@
+import '../../../../src/factory_floor/data_fallback_engine.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 import '../../domain/models/compliance_manager_dashboard_view_model.dart';
 import '../dtos/compliance_manager_dashboard_dto.dart';
 
@@ -5,15 +7,10 @@ class ComplianceManagerDashboardMapper {
   static ComplianceManagerDashboardViewModel toViewModel(
     ComplianceManagerDashboardDto dto,
   ) {
-    if (dto.rawKpis.isEmpty && dto.rawRecentActivity.isEmpty) {
-      return ComplianceManagerDashboardViewModel(
-        kpis: _mockKpis(),
-        recentActivity: _mockRecentActivity(),
-      );
-    }
+    if (dto.rawKpis.isEmpty) return ComplianceManagerDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: _mockKpis())]);
 
     final kpis = dto.rawKpis.map((kpiMap) {
-      return ComplianceKpi(
+      return UniversalKpi(
         title: kpiMap['title']?.toString() ?? 'Metric',
         value: kpiMap['value']?.toString() ?? '0',
         trend: kpiMap['trend']?.toString() ?? '0%',
@@ -21,67 +18,38 @@ class ComplianceManagerDashboardMapper {
       );
     }).toList();
 
-    final recentActivity = dto.rawRecentActivity.map((activityMap) {
-      return ComplianceActivity(
-        title: activityMap['title']?.toString() ?? 'Activity',
-        subtitle: activityMap['subtitle']?.toString() ?? 'Description',
-        timestamp: activityMap['timestamp']?.toString() ?? 'Just now',
-      );
-    }).toList();
-
     return ComplianceManagerDashboardViewModel(
-      kpis: kpis.isNotEmpty ? kpis : _mockKpis(),
-      recentActivity: recentActivity.isNotEmpty
-          ? recentActivity
-          : _mockRecentActivity(),
+      blueprints: [
+        StatGridBlueprint(dataPayload: kpis.isNotEmpty ? kpis : _mockKpis()),
+      ]
     );
   }
 
-  static List<ComplianceKpi> _mockKpis() {
+  static List<UniversalKpi> _mockKpis() {
     return [
-      const ComplianceKpi(
+      const UniversalKpi(
         title: 'Open Incidents',
         value: '12',
         trend: '-2%',
         status: 'Warning',
       ),
-      const ComplianceKpi(
+      const UniversalKpi(
         title: 'Audit Pass Rate',
         value: '98%',
         trend: '+1%',
         status: 'Operational',
       ),
-      const ComplianceKpi(
+      const UniversalKpi(
         title: 'Policy Violations',
         value: '3',
         trend: '-1',
         status: 'Warning',
       ),
-      const ComplianceKpi(
+      const UniversalKpi(
         title: 'Upcoming Renewals',
         value: '45',
         trend: 'N/A',
         status: 'Operational',
-      ),
-    ];
-  }
-
-  static List<ComplianceActivity> _mockRecentActivity() {
-    return [
-      const ComplianceActivity(
-        title: 'Policy Update Required',
-        subtitle: 'HR Handbook needs revision for Q3',
-        timestamp: '2 hours ago',
-      ),
-      const ComplianceActivity(
-        title: 'Audit Passed',
-        subtitle: 'Branch 4 passed health & safety audit',
-        timestamp: '5 hours ago',
-      ),
-      const ComplianceActivity(
-        title: 'Incident Reported',
-        subtitle: 'Minor slip and fall at Branch 12',
-        timestamp: '1 day ago',
       ),
     ];
   }

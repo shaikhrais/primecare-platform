@@ -1,3 +1,5 @@
+import '../../../../src/factory_floor/data_fallback_engine.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 import '../../domain/models/training_coordinator_dashboard_view_model.dart';
 import '../dtos/training_coordinator_dashboard_dto.dart';
 
@@ -6,11 +8,11 @@ class TrainingCoordinatorDashboardMapper {
     TrainingCoordinatorDashboardDto dto,
   ) {
     if (dto.rawKpis.isEmpty) {
-      return TrainingCoordinatorDashboardViewModel(kpis: _mockKpis());
+      return TrainingCoordinatorDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: _mockKpis())]);
     }
 
     final kpis = dto.rawKpis.map((kpiMap) {
-      return TrainingCoordinatorKpi(
+      return UniversalKpi(
         title: kpiMap['title']?.toString() ?? 'Metric',
         value: kpiMap['value']?.toString() ?? '0',
         trend: kpiMap['trend']?.toString() ?? '0%',
@@ -18,30 +20,30 @@ class TrainingCoordinatorDashboardMapper {
       );
     }).toList();
 
-    return TrainingCoordinatorDashboardViewModel(kpis: kpis);
+    return TrainingCoordinatorDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: kpis)]);
   }
 
-  static List<TrainingCoordinatorKpi> _mockKpis() {
+  static List<UniversalKpi> _mockKpis() {
     return [
-      const TrainingCoordinatorKpi(
+      const UniversalKpi(
         title: 'Active Metrics',
         value: '120',
         trend: '+5%',
         status: 'Operational',
       ),
-      const TrainingCoordinatorKpi(
+      const UniversalKpi(
         title: 'Efficiency',
         value: '98%',
         trend: '+2%',
         status: 'Operational',
       ),
-      const TrainingCoordinatorKpi(
+      const UniversalKpi(
         title: 'Reports pending',
         value: '5',
         trend: '-2',
         status: 'Warning',
       ),
-      const TrainingCoordinatorKpi(
+      const UniversalKpi(
         title: 'System Health',
         value: '100%',
         trend: 'Stable',

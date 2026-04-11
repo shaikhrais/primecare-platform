@@ -1,14 +1,16 @@
+import '../../../../src/factory_floor/data_fallback_engine.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
 import '../../domain/models/qa_dashboard_view_model.dart';
 import '../dtos/qa_dashboard_dto.dart';
 
 class QaDashboardMapper {
   static QaDashboardViewModel toViewModel(QaDashboardDto dto) {
     if (dto.rawKpis.isEmpty) {
-      return QaDashboardViewModel(kpis: _mockKpis());
+      return QaDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: _mockKpis())]);
     }
 
     final kpis = dto.rawKpis.map((kpiMap) {
-      return QaKpi(
+      return UniversalKpi(
         title: kpiMap['title']?.toString() ?? 'Metric',
         value: kpiMap['value']?.toString() ?? '0',
         trend: kpiMap['trend']?.toString() ?? '0%',
@@ -16,30 +18,30 @@ class QaDashboardMapper {
       );
     }).toList();
 
-    return QaDashboardViewModel(kpis: kpis);
+    return QaDashboardViewModel(blueprints: [StatGridBlueprint(dataPayload: kpis)]);
   }
 
-  static List<QaKpi> _mockKpis() {
+  static List<UniversalKpi> _mockKpis() {
     return [
-      const QaKpi(
+      const UniversalKpi(
         title: 'Active Metrics',
         value: '120',
         trend: '+5%',
         status: 'Operational',
       ),
-      const QaKpi(
+      const UniversalKpi(
         title: 'Efficiency',
         value: '98%',
         trend: '+2%',
         status: 'Operational',
       ),
-      const QaKpi(
+      const UniversalKpi(
         title: 'Reports pending',
         value: '5',
         trend: '-2',
         status: 'Warning',
       ),
-      const QaKpi(
+      const UniversalKpi(
         title: 'System Health',
         value: '100%',
         trend: 'Stable',

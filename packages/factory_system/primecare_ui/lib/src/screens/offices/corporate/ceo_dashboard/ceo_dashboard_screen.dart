@@ -11,9 +11,7 @@ class CeoDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('ceoDashboard'),
-    );
+    final metricsAsyncValue = ref.watch(ceoDashboardDataProvider('all'));
 
     return PageTemplate(
       title: 'Ceo Dashboard',

@@ -5,6 +5,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 // --- Clinical Atelier Aesthetic Tokens ---
 const Color _bg = Color(0xFF0B1326);
@@ -25,9 +26,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(
-      dashboardMetricsProvider('cfoTaxAndRemittance'),
-    );
+    final metricsAsyncValue = ref.watch(cfoTaxAndRemittanceDataProvider('all'));
 
     return ProviderLayout(
       child: Container(
@@ -47,32 +46,12 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
                   ),
                 ),
                 error: (error, stackTrace) => _buildErrorState(error.toString()),
-                data: (DashboardMetrics liveData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildComplianceStatus(liveData),
-                      const SizedBox(height: 32),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 10,
-                            child: _buildHSTCalculationHero(liveData),
-                          ),
-                          const SizedBox(width: 32),
-                          Expanded(
-                            flex: 6,
-                            child: _buildDeadlinesPanel(),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 48),
-                      _buildLedgerSummary(),
-                      const SizedBox(height: 48),
-                    ],
-                  );
-                },
+                data: (CfoTaxAndRemittanceDashboardViewModel liveData) {
+                return AssemblyLine(
+                  blueprints: liveData.blueprints,
+                  isOfflineFallback: liveData.isOfflineFallback,
+                );
+              },
               ),
             ],
           ),

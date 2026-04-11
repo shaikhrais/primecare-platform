@@ -4,13 +4,14 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
 import 'package:primecare_ui/src/components/primecare_stat_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class CfoReportsScreen extends ConsumerWidget {
   const CfoReportsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metricsAsyncValue = ref.watch(dashboardMetricsProvider('cfoReports'));
+    final metricsAsyncValue = ref.watch(cfoReportsDataProvider('all'));
 
     return ProviderLayout(
       child: SingleChildScrollView(
@@ -65,28 +66,10 @@ class CfoReportsScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (DashboardMetrics liveData) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GridView.count(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 24,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      childAspectRatio: 1.5,
-                      children: liveData.kpis.map((kpi) {
-                        return PrimeCareStatCard(
-                          title: kpi.title,
-                          value: kpi.value,
-                          deltaSuffix: kpi.trend,
-                          icon: _inferIcon(kpi.title),
-                          iconColor: _inferColor(kpi.status),
-                        );
-                      }).toList(),
-                    ),
-                  ],
+              data: (CfoReportsDashboardViewModel liveData) {
+                return AssemblyLine(
+                  blueprints: liveData.blueprints,
+                  isOfflineFallback: liveData.isOfflineFallback,
                 );
               },
             ),
@@ -96,29 +79,4 @@ class CfoReportsScreen extends ConsumerWidget {
     );
   }
 
-  IconData _inferIcon(String title) {
-    final t = title.toLowerCase();
-    if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice'))
-      return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule'))
-      return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical'))
-      return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn'))
-      return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline'))
-      return LucideIcons.checkSquare;
-    return LucideIcons.activity;
-  }
-
-  Color _inferColor(String status) {
-    final s = status.toLowerCase();
-    if (s == 'operational' || s == 'positive' || s == 'up')
-      return Colors.greenAccent;
-    if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative')
-      return Colors.redAccent;
-    return Colors.tealAccent;
-  }
-}
+  
