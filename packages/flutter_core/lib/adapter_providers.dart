@@ -1,5 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'features/developer_samples/demo_dashboard_view_model.dart';
 import 'api_providers.dart';
+
+/// --- DEVELOPER SAMPLES ---
+final demoDashboardProvider = StreamProvider.autoDispose((ref) {
+  return Stream.periodic(const Duration(seconds: 10), (i) {
+    return DemoDashboardViewModel.assemble(
+      userName: 'Developer',
+      taskCount: 12 + i,
+    );
+  });
+});
 import 'dashboard_providers.dart';
 import 'features/billing_admin_dashboard/data/adapters/billing_admin_dashboard_adapter.dart';
 import 'features/billing_admin_dashboard/domain/models/billing_admin_dashboard_view_model.dart';
