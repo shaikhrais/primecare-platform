@@ -90,7 +90,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'TAX_HUB_TITLE'.tr(fallback: 'Tax Remittance Hub'),
+              'TAX_HUB_TITLE'.tr(),
               style: const TextStyle(
                 fontFamily: 'Manrope',
                 fontSize: 42,
@@ -101,7 +101,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'TAX_HUB_SUBTITLE'.tr(fallback: 'Sovereign financial clarity and compliance verification.'),
+              'TAX_HUB_SUBTITLE'.tr(),
               style: const TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
@@ -146,7 +146,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
                 const Icon(LucideIcons.fileText, color: Color(0xFF000C62), size: 18),
                 const SizedBox(width: 8),
                 Text(
-                  'GENERATE_REPORT'.tr(fallback: 'Generate Report'),
+                  'GENERATE_REPORT'.tr(),
                   style: const TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
@@ -208,7 +208,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
   Widget _buildHSTCalculationHero(DashboardMetrics liveData) {
     final revenueKpi = liveData.kpis.firstWhere(
       (kpi) => kpi.title.toLowerCase().contains('revenue'),
-      orElse: () => DashboardKpi(title: 'Gross Revenue', value: '\$1,240,000', trend: '+5%', status: 'Positive'),
+      orElse: () => KpiMetric(title: 'Gross Revenue', value: '\$1,240,000', trend: '+5%', status: 'Positive'),
     );
 
     return _GlassCard(

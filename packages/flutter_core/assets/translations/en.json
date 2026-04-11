@@ -17,19 +17,19 @@
   "corporate": {
     "ceo": {
       "dashboard": {
-        "title": "CEO Dashboard",
+        "title": "Ceo Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "cto": {
       "dashboard": {
-        "title": "CTO Dashboard",
+        "title": "Cto Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "cfo": {
       "dashboard": {
-        "title": "CFO Dashboard",
+        "title": "Cfo Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
@@ -55,7 +55,7 @@
   "business_development": {
     "franchiseSalesManager": {
       "dashboard": {
-        "title": "Franchise Sales Manager Dashboard",
+        "title": "Franchisesales Manager Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
@@ -73,19 +73,19 @@
     },
     "regionalManagerOntario": {
       "dashboard": {
-        "title": "Regional Manager Ontario Dashboard",
+        "title": "Regional Managerontario Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "regionalManagerUsa": {
       "dashboard": {
-        "title": "Regional Manager Usa Dashboard",
+        "title": "Regional Managerusa Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "territoryExpansionManager": {
       "dashboard": {
-        "title": "Territory Expansion Manager Dashboard",
+        "title": "Territoryexpansion Manager Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     }
@@ -93,13 +93,13 @@
   "client": {
     "familyMember": {
       "dashboard": {
-        "title": "FamilyMemberDashboard",
+        "title": "Familymember Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "patient": {
       "dashboard": {
-        "title": "PatientDashboard",
+        "title": "Patient Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     }
@@ -107,7 +107,7 @@
   "franchise": {
     "billingAdmin": {
       "dashboard": {
-        "title": "Billing Admin Dashboard",
+        "title": "Billingadmin Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
@@ -119,7 +119,7 @@
     },
     "franchiseOwner": {
       "dashboard": {
-        "title": "Franchise Owner Dashboard",
+        "title": "Franchiseowner Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
@@ -131,7 +131,7 @@
     },
     "hrHiring": {
       "dashboard": {
-        "title": "Hr Hiring Dashboard",
+        "title": "Hrhiring Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
@@ -163,37 +163,37 @@
   "marketing": {
     "communityOutreach": {
       "dashboard": {
-        "title": "Community Outreach Dashboard",
+        "title": "Communityoutreach Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "headOfMarketing": {
       "dashboard": {
-        "title": "Head Of Marketing Dashboard",
+        "title": "Headofmarketing Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "localMarketing": {
       "dashboard": {
-        "title": "Local Marketing Dashboard",
+        "title": "Localmarketing Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "localMarketingManager": {
       "dashboard": {
-        "title": "Local Marketing Manager Dashboard",
+        "title": "Localmarketing Manager Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "territorySales": {
       "dashboard": {
-        "title": "Territory Sales Dashboard",
+        "title": "Territorysales Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "territorySalesManager": {
       "dashboard": {
-        "title": "Territory Sales Manager Dashboard",
+        "title": "Territorysales Manager Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     }
@@ -201,13 +201,13 @@
   "support": {
     "customerSupport": {
       "dashboard": {
-        "title": "CustomerSupportDashboard",
+        "title": "Customersupport Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
     "intakeCoordinator": {
       "dashboard": {
-        "title": "IntakeCoordinatorDashboard",
+        "title": "Intake Coordinator Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
@@ -225,7 +225,7 @@
     },
     "qualityAssurance": {
       "dashboard": {
-        "title": "QualityAssuranceDashboard",
+        "title": "Qualityassurance Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
     },
@@ -245,17 +245,20 @@
   "admin": {
     "admin": {
       "dashboard": {
-        "title": "Administrator Dashboard",
-        "subtitle": "Welcome, Platform Administrator"
+        "title": "Admin Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
       }
     }
   },
   "clinical": {
     "psw": {
       "dashboard": {
-        "title": "PSW Dashboard",
-        "subtitle": "Welcome, Personal Support Worker"
+        "title": "Psw Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
       }
     }
-  }
+  },
+  "TAX_HUB_TITLE": "Tax Remittance Hub",
+  "TAX_HUB_SUBTITLE": "Sovereign financial clarity and compliance verification.",
+  "GENERATE_REPORT": "Generate Report"
 }
