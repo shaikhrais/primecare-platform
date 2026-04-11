@@ -10,4 +10,15 @@ class ScrumMasterDashboardViewModel implements OfflineFallbackState {
     this.isOfflineFallback = false,
     this.blueprints = const [],
   });
+
+  factory ScrumMasterDashboardViewModel.assemble({required bool isOffline}) {
+    return ScrumMasterDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

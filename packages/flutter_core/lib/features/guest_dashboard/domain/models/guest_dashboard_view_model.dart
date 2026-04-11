@@ -10,4 +10,15 @@ class GuestDashboardViewModel implements OfflineFallbackState {
     this.isOfflineFallback = false,
     this.blueprints = const [],
   });
+
+  factory GuestDashboardViewModel.assemble({required bool isOffline}) {
+    return GuestDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

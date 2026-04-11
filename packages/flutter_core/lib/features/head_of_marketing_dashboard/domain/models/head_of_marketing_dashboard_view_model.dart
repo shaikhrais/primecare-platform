@@ -31,4 +31,15 @@ class HeadOfMarketingDashboardViewModel implements OfflineFallbackState {
         ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
     ];
   }
+
+  factory HeadOfMarketingDashboardViewModel.assemble({required bool isOffline}) {
+    return HeadOfMarketingDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

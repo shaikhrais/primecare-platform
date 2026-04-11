@@ -137,4 +137,15 @@ class RegionalBdmMeetingsDashboardViewModel extends RegionalBdmDashboardViewMode
         recentActivity: metrics.recentActivity,
         blueprints: [],
       );
+
+  factory RegionalBdmDashboardViewModel.assemble({required bool isOffline}) {
+    return RegionalBdmDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

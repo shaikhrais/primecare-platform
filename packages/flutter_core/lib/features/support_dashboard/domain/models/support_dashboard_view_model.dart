@@ -10,4 +10,15 @@ class SupportDashboardViewModel implements OfflineFallbackState {
     this.isOfflineFallback = false,
     this.blueprints = const [],
   });
+
+  factory SupportDashboardViewModel.assemble({required bool isOffline}) {
+    return SupportDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

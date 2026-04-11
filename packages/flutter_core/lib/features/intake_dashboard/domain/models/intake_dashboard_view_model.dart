@@ -10,4 +10,15 @@ class IntakeDashboardViewModel implements OfflineFallbackState {
     this.isOfflineFallback = false,
     this.blueprints = const [],
   });
+
+  factory IntakeDashboardViewModel.assemble({required bool isOffline}) {
+    return IntakeDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

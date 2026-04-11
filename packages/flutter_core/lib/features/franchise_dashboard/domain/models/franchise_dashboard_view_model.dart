@@ -101,4 +101,15 @@ class FranchiseReportsDashboardViewModel extends FranchiseDashboardViewModel {
         recentActivity: metrics.recentActivity,
         blueprints: FranchiseDashboardViewModel._generateBlueprints(metrics),
       );
+
+  factory FranchiseDashboardViewModel.assemble({required bool isOffline}) {
+    return FranchiseDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

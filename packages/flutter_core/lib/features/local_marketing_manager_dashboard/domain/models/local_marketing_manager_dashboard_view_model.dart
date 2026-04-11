@@ -10,4 +10,15 @@ class LocalMarketingManagerDashboardViewModel implements OfflineFallbackState {
     this.isOfflineFallback = false,
     this.blueprints = const [],
   });
+
+  factory LocalMarketingManagerDashboardViewModel.assemble({required bool isOffline}) {
+    return LocalMarketingManagerDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

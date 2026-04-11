@@ -39,4 +39,15 @@ class AdminDashboardViewModel implements OfflineFallbackState {
         ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
     ];
   }
+
+  factory AdminDashboardViewModel.assemble({required bool isOffline}) {
+    return AdminDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

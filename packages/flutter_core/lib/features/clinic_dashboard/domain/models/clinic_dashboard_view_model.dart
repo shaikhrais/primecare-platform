@@ -39,4 +39,15 @@ class ClinicDashboardViewModel implements OfflineFallbackState {
         ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
     ];
   }
+
+  factory ClinicDashboardViewModel.assemble({required bool isOffline}) {
+    return ClinicDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

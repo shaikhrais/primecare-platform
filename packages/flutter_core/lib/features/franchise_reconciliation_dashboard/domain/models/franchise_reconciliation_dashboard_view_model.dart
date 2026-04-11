@@ -10,4 +10,15 @@ class FranchiseReconciliationDashboardViewModel implements OfflineFallbackState 
     this.isOfflineFallback = false,
     this.blueprints = const [],
   });
+
+  factory FranchiseReconciliationDashboardViewModel.assemble({required bool isOffline}) {
+    return FranchiseReconciliationDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

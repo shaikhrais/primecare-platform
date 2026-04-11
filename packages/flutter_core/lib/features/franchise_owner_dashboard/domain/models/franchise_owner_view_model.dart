@@ -39,4 +39,15 @@ class FranchiseOwnerActivity {
   final String? subtitle;
   final String? timestamp;
   const FranchiseOwnerActivity({this.title, this.subtitle, this.timestamp});
+
+  factory FranchiseOwnerViewModel.assemble({required bool isOffline}) {
+    return FranchiseOwnerViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }

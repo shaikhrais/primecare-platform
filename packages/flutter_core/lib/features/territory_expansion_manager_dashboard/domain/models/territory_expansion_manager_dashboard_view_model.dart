@@ -10,4 +10,15 @@ class TerritoryExpansionManagerDashboardViewModel implements OfflineFallbackStat
     this.isOfflineFallback = false,
     this.blueprints = const [],
   });
+
+  factory TerritoryExpansionManagerDashboardViewModel.assemble({required bool isOffline}) {
+    return TerritoryExpansionManagerDashboardViewModel(
+      isOfflineFallback: isOffline,
+      blueprints: [
+        // Standard Zero-Code Orchestration Layout
+        StatGridBlueprint(dataPayload: []), // Dynamic KPIs
+        ActivityFeedBlueprint(dataPayload: []), // Live Stream
+      ],
+    );
+  }
 }
