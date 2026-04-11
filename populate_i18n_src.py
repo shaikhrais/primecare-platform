@@ -7,14 +7,12 @@ def title_case(s):
     return re.sub(r'[A-Za-z]+', lambda match: match.group(0).capitalize(), s.replace('_', ' '))
 
 def main():
-    ui_dir = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\packages\flutter_ui\lib\src\screens"
-    src_base = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\packages\flutter_core\assets\translations_src\en"
+    ui_dir = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\packages\flutter_ui\lib\src\screens\offices"
+    src_base = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\packages\flutter_core\assets\translations_src\en\offices"
 
     count_created = 0
 
     for root, dirs, files in os.walk(ui_dir):
-        # We only want to generate json structures for actual screens, ignoring components maybe?
-        # Actually, let's just do it for every Dart file. That guarantees full coverage.
         for file in files:
             if file.endswith('.dart'):
                 file_path = os.path.join(root, file)
@@ -26,9 +24,6 @@ def main():
                 # If it's a part/freezed file or starts with underscore, skip
                 if file.endswith('.g.dart') or file.endswith('.freezed.dart') or file.startswith('_'):
                     continue
-                
-                # Exclude specific folders if they shouldn't have i18n blocks
-                # We will just mirror everything.
                 
                 json_rel_path = rel_path.replace('.dart', '.json')
                 dest_json_path = os.path.join(src_base, json_rel_path)

@@ -43,6 +43,10 @@
         "title": "Admin Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
+    },
+    "admin_dashboard": {
+      "title": "TBD: admin.admin_dashboard.title",
+      "subtitle": "TBD: admin.admin_dashboard.subtitle"
     }
   },
   "business_development": {
@@ -81,6 +85,222 @@
         "title": "Territoryexpansion Manager Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
+    },
+    "deal_tracker_screen": {
+      "title": "TBD: business_development.deal_tracker_screen.title",
+      "subtitle": "TBD: business_development.deal_tracker_screen.subtitle"
+    },
+    "franchise_sales_manager_contracts_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_contracts_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_contracts_screen.subtitle"
+    },
+    "franchise_sales_manager_dashboard": {
+      "title": "TBD: business_development.franchise_sales_manager_dashboard.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_dashboard.subtitle",
+      "franchise_sales_manager_dashboard_screen": {
+        "title": "TBD: business_development.franchise_sales_manager_dashboard.franchise_sales_manager_dashboard_screen.title",
+        "subtitle": "TBD: business_development.franchise_sales_manager_dashboard.franchise_sales_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "franchise_sales_manager_kpi_section": {
+          "title": "TBD: business_development.franchise_sales_manager_dashboard.sections.franchise_sales_manager_kpi_section.title",
+          "subtitle": "TBD: business_development.franchise_sales_manager_dashboard.sections.franchise_sales_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "franchise_sales_manager_discovery_calls_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_discovery_calls_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_discovery_calls_screen.subtitle"
+    },
+    "franchise_sales_manager_follow_ups_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_follow_ups_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_follow_ups_screen.subtitle"
+    },
+    "franchise_sales_manager_leads_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_leads_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_leads_screen.subtitle"
+    },
+    "franchise_sales_manager_proposals_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_proposals_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_proposals_screen.subtitle"
+    },
+    "franchise_sales_manager_prospects_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_prospects_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_prospects_screen.subtitle"
+    },
+    "franchise_sales_manager_reports_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_reports_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_reports_screen.subtitle"
+    },
+    "franchise_sales_manager_sales_pipeline_screen": {
+      "title": "TBD: business_development.franchise_sales_manager_sales_pipeline_screen.title",
+      "subtitle": "TBD: business_development.franchise_sales_manager_sales_pipeline_screen.subtitle"
+    },
+    "general_manager_dashboard": {
+      "title": "TBD: business_development.general_manager_dashboard.title",
+      "subtitle": "TBD: business_development.general_manager_dashboard.subtitle",
+      "general_manager_dashboard_screen": {
+        "title": "TBD: business_development.general_manager_dashboard.general_manager_dashboard_screen.title",
+        "subtitle": "TBD: business_development.general_manager_dashboard.general_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "general_manager_kpi_section": {
+          "title": "TBD: business_development.general_manager_dashboard.sections.general_manager_kpi_section.title",
+          "subtitle": "TBD: business_development.general_manager_dashboard.sections.general_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "partnership_manager_active_deals_screen": {
+      "title": "TBD: business_development.partnership_manager_active_deals_screen.title",
+      "subtitle": "TBD: business_development.partnership_manager_active_deals_screen.subtitle"
+    },
+    "partnership_manager_dashboard": {
+      "title": "TBD: business_development.partnership_manager_dashboard.title",
+      "subtitle": "TBD: business_development.partnership_manager_dashboard.subtitle",
+      "partnership_manager_dashboard_screen": {
+        "title": "TBD: business_development.partnership_manager_dashboard.partnership_manager_dashboard_screen.title",
+        "subtitle": "TBD: business_development.partnership_manager_dashboard.partnership_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "partnership_manager_kpi_section": {
+          "title": "TBD: business_development.partnership_manager_dashboard.sections.partnership_manager_kpi_section.title",
+          "subtitle": "TBD: business_development.partnership_manager_dashboard.sections.partnership_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "partnership_manager_outreach_screen": {
+      "title": "TBD: business_development.partnership_manager_outreach_screen.title",
+      "subtitle": "TBD: business_development.partnership_manager_outreach_screen.subtitle"
+    },
+    "partnership_manager_partners_screen": {
+      "title": "TBD: business_development.partnership_manager_partners_screen.title",
+      "subtitle": "TBD: business_development.partnership_manager_partners_screen.subtitle"
+    },
+    "partnership_manager_proposals_screen": {
+      "title": "TBD: business_development.partnership_manager_proposals_screen.title",
+      "subtitle": "TBD: business_development.partnership_manager_proposals_screen.subtitle"
+    },
+    "partnership_manager_renewals_screen": {
+      "title": "TBD: business_development.partnership_manager_renewals_screen.title",
+      "subtitle": "TBD: business_development.partnership_manager_renewals_screen.subtitle"
+    },
+    "partnership_manager_reports_screen": {
+      "title": "TBD: business_development.partnership_manager_reports_screen.title",
+      "subtitle": "TBD: business_development.partnership_manager_reports_screen.subtitle"
+    },
+    "regional_bdm_competitor_notes_screen": {
+      "title": "TBD: business_development.regional_bdm_competitor_notes_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_competitor_notes_screen.subtitle"
+    },
+    "regional_bdm_deal_tracker_screen": {
+      "title": "TBD: business_development.regional_bdm_deal_tracker_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_deal_tracker_screen.subtitle"
+    },
+    "regional_bdm_franchise_pipeline_screen": {
+      "title": "TBD: business_development.regional_bdm_franchise_pipeline_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_franchise_pipeline_screen.subtitle"
+    },
+    "regional_bdm_leads_screen": {
+      "title": "TBD: business_development.regional_bdm_leads_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_leads_screen.subtitle"
+    },
+    "regional_bdm_meetings_screen": {
+      "title": "TBD: business_development.regional_bdm_meetings_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_meetings_screen.subtitle"
+    },
+    "regional_bdm_partners_screen": {
+      "title": "TBD: business_development.regional_bdm_partners_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_partners_screen.subtitle"
+    },
+    "regional_bdm_reports_screen": {
+      "title": "TBD: business_development.regional_bdm_reports_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_reports_screen.subtitle"
+    },
+    "regional_bdm_tasks_screen": {
+      "title": "TBD: business_development.regional_bdm_tasks_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_tasks_screen.subtitle"
+    },
+    "regional_bdm_territory_growth_screen": {
+      "title": "TBD: business_development.regional_bdm_territory_growth_screen.title",
+      "subtitle": "TBD: business_development.regional_bdm_territory_growth_screen.subtitle"
+    },
+    "regional_manager_ontario_dashboard": {
+      "title": "TBD: business_development.regional_manager_ontario_dashboard.title",
+      "subtitle": "TBD: business_development.regional_manager_ontario_dashboard.subtitle",
+      "regional_manager_ontario_dashboard_screen": {
+        "title": "TBD: business_development.regional_manager_ontario_dashboard.regional_manager_ontario_dashboard_screen.title",
+        "subtitle": "TBD: business_development.regional_manager_ontario_dashboard.regional_manager_ontario_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "regional_manager_ontario_kpi_section": {
+          "title": "TBD: business_development.regional_manager_ontario_dashboard.sections.regional_manager_ontario_kpi_section.title",
+          "subtitle": "TBD: business_development.regional_manager_ontario_dashboard.sections.regional_manager_ontario_kpi_section.subtitle"
+        }
+      }
+    },
+    "regional_manager_usa_dashboard": {
+      "title": "TBD: business_development.regional_manager_usa_dashboard.title",
+      "subtitle": "TBD: business_development.regional_manager_usa_dashboard.subtitle",
+      "regional_manager_usa_dashboard_screen": {
+        "title": "TBD: business_development.regional_manager_usa_dashboard.regional_manager_usa_dashboard_screen.title",
+        "subtitle": "TBD: business_development.regional_manager_usa_dashboard.regional_manager_usa_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "regional_manager_usa_kpi_section": {
+          "title": "TBD: business_development.regional_manager_usa_dashboard.sections.regional_manager_usa_kpi_section.title",
+          "subtitle": "TBD: business_development.regional_manager_usa_dashboard.sections.regional_manager_usa_kpi_section.subtitle"
+        }
+      }
+    },
+    "territory_expansion_manager_dashboard": {
+      "title": "TBD: business_development.territory_expansion_manager_dashboard.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_dashboard.subtitle",
+      "territory_expansion_manager_dashboard_screen": {
+        "title": "TBD: business_development.territory_expansion_manager_dashboard.territory_expansion_manager_dashboard_screen.title",
+        "subtitle": "TBD: business_development.territory_expansion_manager_dashboard.territory_expansion_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "territory_expansion_manager_kpi_section": {
+          "title": "TBD: business_development.territory_expansion_manager_dashboard.sections.territory_expansion_manager_kpi_section.title",
+          "subtitle": "TBD: business_development.territory_expansion_manager_dashboard.sections.territory_expansion_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "territory_expansion_manager_demographics_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_demographics_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_demographics_screen.subtitle"
+    },
+    "territory_expansion_manager_expansion_plans_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_expansion_plans_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_expansion_plans_screen.subtitle"
+    },
+    "territory_expansion_manager_forecast_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_forecast_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_forecast_screen.subtitle"
+    },
+    "territory_expansion_manager_market_research_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_market_research_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_market_research_screen.subtitle"
+    },
+    "territory_expansion_manager_open_territories_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_open_territories_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_open_territories_screen.subtitle"
+    },
+    "territory_expansion_manager_reports_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_reports_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_reports_screen.subtitle"
+    },
+    "territory_expansion_manager_site_selection_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_site_selection_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_site_selection_screen.subtitle"
+    },
+    "territory_expansion_manager_territory_map_screen": {
+      "title": "TBD: business_development.territory_expansion_manager_territory_map_screen.title",
+      "subtitle": "TBD: business_development.territory_expansion_manager_territory_map_screen.subtitle"
+    },
+    "territory_map_screen": {
+      "title": "TBD: business_development.territory_map_screen.title",
+      "subtitle": "TBD: business_development.territory_map_screen.subtitle"
     }
   },
   "client": {
@@ -95,6 +315,118 @@
         "title": "Patient Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
+    },
+    "book_appointment_view": {
+      "title": "TBD: client.book_appointment_view.title",
+      "subtitle": "TBD: client.book_appointment_view.subtitle"
+    },
+    "care_team_view": {
+      "title": "TBD: client.care_team_view.title",
+      "subtitle": "TBD: client.care_team_view.subtitle"
+    },
+    "care_updates_view": {
+      "title": "TBD: client.care_updates_view.title",
+      "subtitle": "TBD: client.care_updates_view.subtitle"
+    },
+    "client_book_appointment_screen": {
+      "title": "TBD: client.client_book_appointment_screen.title",
+      "subtitle": "TBD: client.client_book_appointment_screen.subtitle"
+    },
+    "client_care_team_screen": {
+      "title": "TBD: client.client_care_team_screen.title",
+      "subtitle": "TBD: client.client_care_team_screen.subtitle"
+    },
+    "client_my_appointments_screen": {
+      "title": "TBD: client.client_my_appointments_screen.title",
+      "subtitle": "TBD: client.client_my_appointments_screen.subtitle"
+    },
+    "client_payments_screen": {
+      "title": "TBD: client.client_payments_screen.title",
+      "subtitle": "TBD: client.client_payments_screen.subtitle"
+    },
+    "client_profile_screen": {
+      "title": "TBD: client.client_profile_screen.title",
+      "subtitle": "TBD: client.client_profile_screen.subtitle"
+    },
+    "client_treatment_history_screen": {
+      "title": "TBD: client.client_treatment_history_screen.title",
+      "subtitle": "TBD: client.client_treatment_history_screen.subtitle"
+    },
+    "emergency_contacts_screen": {
+      "title": "TBD: client.emergency_contacts_screen.title",
+      "subtitle": "TBD: client.emergency_contacts_screen.subtitle"
+    },
+    "family_billing_screen": {
+      "title": "TBD: client.family_billing_screen.title",
+      "subtitle": "TBD: client.family_billing_screen.subtitle"
+    },
+    "family_member_billing_screen": {
+      "title": "TBD: client.family_member_billing_screen.title",
+      "subtitle": "TBD: client.family_member_billing_screen.subtitle"
+    },
+    "family_member_care_updates_screen": {
+      "title": "TBD: client.family_member_care_updates_screen.title",
+      "subtitle": "TBD: client.family_member_care_updates_screen.subtitle"
+    },
+    "family_member_dashboard": {
+      "title": "TBD: client.family_member_dashboard.title",
+      "subtitle": "TBD: client.family_member_dashboard.subtitle"
+    },
+    "family_member_emergency_contacts_screen": {
+      "title": "TBD: client.family_member_emergency_contacts_screen.title",
+      "subtitle": "TBD: client.family_member_emergency_contacts_screen.subtitle"
+    },
+    "family_member_loved_one_schedule_screen": {
+      "title": "TBD: client.family_member_loved_one_schedule_screen.title",
+      "subtitle": "TBD: client.family_member_loved_one_schedule_screen.subtitle"
+    },
+    "family_member_profile_screen": {
+      "title": "TBD: client.family_member_profile_screen.title",
+      "subtitle": "TBD: client.family_member_profile_screen.subtitle"
+    },
+    "family_profile_screen": {
+      "title": "TBD: client.family_profile_screen.title",
+      "subtitle": "TBD: client.family_profile_screen.subtitle"
+    },
+    "loved_one_schedule_screen": {
+      "title": "TBD: client.loved_one_schedule_screen.title",
+      "subtitle": "TBD: client.loved_one_schedule_screen.subtitle"
+    },
+    "my_appointments_screen": {
+      "title": "TBD: client.my_appointments_screen.title",
+      "subtitle": "TBD: client.my_appointments_screen.subtitle"
+    },
+    "patient_dashboard": {
+      "title": "TBD: client.patient_dashboard.title",
+      "subtitle": "TBD: client.patient_dashboard.subtitle"
+    },
+    "treatment_history_screen": {
+      "title": "TBD: client.treatment_history_screen.title",
+      "subtitle": "TBD: client.treatment_history_screen.subtitle"
+    },
+    "client_dashboard": {
+      "client_dashboard_screen": {
+        "title": "TBD: client.client_dashboard.client_dashboard_screen.title",
+        "subtitle": "TBD: client.client_dashboard.client_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "client_kpi_section": {
+          "title": "TBD: client.client_dashboard.sections.client_kpi_section.title",
+          "subtitle": "TBD: client.client_dashboard.sections.client_kpi_section.subtitle"
+        }
+      }
+    },
+    "family_dashboard": {
+      "family_dashboard_screen": {
+        "title": "TBD: client.family_dashboard.family_dashboard_screen.title",
+        "subtitle": "TBD: client.family_dashboard.family_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "family_kpi_section": {
+          "title": "TBD: client.family_dashboard.sections.family_kpi_section.title",
+          "subtitle": "TBD: client.family_dashboard.sections.family_kpi_section.subtitle"
+        }
+      }
     }
   },
   "clinical": {
@@ -103,6 +435,10 @@
         "title": "Psw Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
+    },
+    "psw_dashboard": {
+      "title": "TBD: clinical.psw_dashboard.title",
+      "subtitle": "TBD: clinical.psw_dashboard.subtitle"
     }
   },
   "corporate": {
@@ -141,6 +477,484 @@
         "title": "Training Director Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
+    },
+    "ceo_alerts_and_risks_screen": {
+      "title": "TBD: corporate.ceo_alerts_and_risks_screen.title",
+      "subtitle": "TBD: corporate.ceo_alerts_and_risks_screen.subtitle"
+    },
+    "ceo_approvals_screen": {
+      "title": "TBD: corporate.ceo_approvals_screen.title",
+      "subtitle": "TBD: corporate.ceo_approvals_screen.subtitle"
+    },
+    "ceo_dashboard": {
+      "title": "TBD: corporate.ceo_dashboard.title",
+      "subtitle": "TBD: corporate.ceo_dashboard.subtitle",
+      "ceo_dashboard_screen": {
+        "title": "TBD: corporate.ceo_dashboard.ceo_dashboard_screen.title",
+        "subtitle": "TBD: corporate.ceo_dashboard.ceo_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "ceo_kpi_section": {
+          "title": "TBD: corporate.ceo_dashboard.sections.ceo_kpi_section.title",
+          "subtitle": "TBD: corporate.ceo_dashboard.sections.ceo_kpi_section.subtitle"
+        }
+      }
+    },
+    "ceo_enterprise_overview_screen": {
+      "title": "TBD: corporate.ceo_enterprise_overview_screen.title",
+      "subtitle": "TBD: corporate.ceo_enterprise_overview_screen.subtitle"
+    },
+    "ceo_franchise_overview_screen": {
+      "title": "TBD: corporate.ceo_franchise_overview_screen.title",
+      "subtitle": "TBD: corporate.ceo_franchise_overview_screen.subtitle"
+    },
+    "ceo_growth_pipeline_screen": {
+      "title": "TBD: corporate.ceo_growth_pipeline_screen.title",
+      "subtitle": "TBD: corporate.ceo_growth_pipeline_screen.subtitle"
+    },
+    "ceo_leadership_reports_screen": {
+      "title": "TBD: corporate.ceo_leadership_reports_screen.title",
+      "subtitle": "TBD: corporate.ceo_leadership_reports_screen.subtitle"
+    },
+    "ceo_organization_map_screen": {
+      "title": "TBD: corporate.ceo_organization_map_screen.title",
+      "subtitle": "TBD: corporate.ceo_organization_map_screen.subtitle"
+    },
+    "ceo_region_performance_screen": {
+      "title": "TBD: corporate.ceo_region_performance_screen.title",
+      "subtitle": "TBD: corporate.ceo_region_performance_screen.subtitle"
+    },
+    "ceo_reports_screen": {
+      "title": "TBD: corporate.ceo_reports_screen.title",
+      "subtitle": "TBD: corporate.ceo_reports_screen.subtitle"
+    },
+    "ceo_revenue_summary_screen": {
+      "title": "TBD: corporate.ceo_revenue_summary_screen.title",
+      "subtitle": "TBD: corporate.ceo_revenue_summary_screen.subtitle"
+    },
+    "ceo_strategic_kpis_screen": {
+      "title": "TBD: corporate.ceo_strategic_kpis_screen.title",
+      "subtitle": "TBD: corporate.ceo_strategic_kpis_screen.subtitle"
+    },
+    "cfo_accounts_payable_screen": {
+      "title": "TBD: corporate.cfo_accounts_payable_screen.title",
+      "subtitle": "TBD: corporate.cfo_accounts_payable_screen.subtitle"
+    },
+    "cfo_accounts_receivable_screen": {
+      "title": "TBD: corporate.cfo_accounts_receivable_screen.title",
+      "subtitle": "TBD: corporate.cfo_accounts_receivable_screen.subtitle"
+    },
+    "cfo_dashboard": {
+      "title": "TBD: corporate.cfo_dashboard.title",
+      "subtitle": "TBD: corporate.cfo_dashboard.subtitle",
+      "cfo_dashboard_screen": {
+        "title": "TBD: corporate.cfo_dashboard.cfo_dashboard_screen.title",
+        "subtitle": "TBD: corporate.cfo_dashboard.cfo_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "cfo_kpi_section": {
+          "title": "TBD: corporate.cfo_dashboard.sections.cfo_kpi_section.title",
+          "subtitle": "TBD: corporate.cfo_dashboard.sections.cfo_kpi_section.subtitle"
+        }
+      }
+    },
+    "cfo_expenses_screen": {
+      "title": "TBD: corporate.cfo_expenses_screen.title",
+      "subtitle": "TBD: corporate.cfo_expenses_screen.subtitle"
+    },
+    "cfo_financial_overview_screen": {
+      "title": "TBD: corporate.cfo_financial_overview_screen.title",
+      "subtitle": "TBD: corporate.cfo_financial_overview_screen.subtitle"
+    },
+    "cfo_franchise_financials_screen": {
+      "title": "TBD: corporate.cfo_franchise_financials_screen.title",
+      "subtitle": "TBD: corporate.cfo_franchise_financials_screen.subtitle"
+    },
+    "cfo_invoices_screen": {
+      "title": "TBD: corporate.cfo_invoices_screen.title",
+      "subtitle": "TBD: corporate.cfo_invoices_screen.subtitle"
+    },
+    "cfo_payroll_screen": {
+      "title": "TBD: corporate.cfo_payroll_screen.title",
+      "subtitle": "TBD: corporate.cfo_payroll_screen.subtitle"
+    },
+    "cfo_profitability_screen": {
+      "title": "TBD: corporate.cfo_profitability_screen.title",
+      "subtitle": "TBD: corporate.cfo_profitability_screen.subtitle"
+    },
+    "cfo_reports_screen": {
+      "title": "TBD: corporate.cfo_reports_screen.title",
+      "subtitle": "TBD: corporate.cfo_reports_screen.subtitle"
+    },
+    "cfo_revenue_screen": {
+      "title": "TBD: corporate.cfo_revenue_screen.title",
+      "subtitle": "TBD: corporate.cfo_revenue_screen.subtitle"
+    },
+    "cfo_tax_and_remittance_screen": {
+      "title": "TBD: corporate.cfo_tax_and_remittance_screen.title",
+      "subtitle": "TBD: corporate.cfo_tax_and_remittance_screen.subtitle"
+    },
+    "compliance_cases_screen": {
+      "title": "TBD: corporate.compliance_cases_screen.title",
+      "subtitle": "TBD: corporate.compliance_cases_screen.subtitle"
+    },
+    "compliance_manager_audits_screen": {
+      "title": "TBD: corporate.compliance_manager_audits_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_audits_screen.subtitle"
+    },
+    "compliance_manager_compliance_cases_screen": {
+      "title": "TBD: corporate.compliance_manager_compliance_cases_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_compliance_cases_screen.subtitle"
+    },
+    "compliance_manager_corrective_actions_screen": {
+      "title": "TBD: corporate.compliance_manager_corrective_actions_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_corrective_actions_screen.subtitle"
+    },
+    "compliance_manager_credential_tracking_screen": {
+      "title": "TBD: corporate.compliance_manager_credential_tracking_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_credential_tracking_screen.subtitle"
+    },
+    "compliance_manager_dashboard": {
+      "title": "TBD: corporate.compliance_manager_dashboard.title",
+      "subtitle": "TBD: corporate.compliance_manager_dashboard.subtitle",
+      "compliance_manager_dashboard_screen": {
+        "title": "TBD: corporate.compliance_manager_dashboard.compliance_manager_dashboard_screen.title",
+        "subtitle": "TBD: corporate.compliance_manager_dashboard.compliance_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "compliance_manager_kpi_section": {
+          "title": "TBD: corporate.compliance_manager_dashboard.sections.compliance_manager_kpi_section.title",
+          "subtitle": "TBD: corporate.compliance_manager_dashboard.sections.compliance_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "compliance_manager_document_expiry_screen": {
+      "title": "TBD: corporate.compliance_manager_document_expiry_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_document_expiry_screen.subtitle"
+    },
+    "compliance_manager_incident_review_screen": {
+      "title": "TBD: corporate.compliance_manager_incident_review_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_incident_review_screen.subtitle"
+    },
+    "compliance_manager_policies_screen": {
+      "title": "TBD: corporate.compliance_manager_policies_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_policies_screen.subtitle"
+    },
+    "compliance_manager_reports_screen": {
+      "title": "TBD: corporate.compliance_manager_reports_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_reports_screen.subtitle"
+    },
+    "compliance_manager_risk_register_screen": {
+      "title": "TBD: corporate.compliance_manager_risk_register_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_risk_register_screen.subtitle"
+    },
+    "compliance_manager_training_compliance_screen": {
+      "title": "TBD: corporate.compliance_manager_training_compliance_screen.title",
+      "subtitle": "TBD: corporate.compliance_manager_training_compliance_screen.subtitle"
+    },
+    "compliance_reports_screen": {
+      "title": "TBD: corporate.compliance_reports_screen.title",
+      "subtitle": "TBD: corporate.compliance_reports_screen.subtitle"
+    },
+    "compliance_training_screen": {
+      "title": "TBD: corporate.compliance_training_screen.title",
+      "subtitle": "TBD: corporate.compliance_training_screen.subtitle"
+    },
+    "coo_branch_comparison_screen": {
+      "title": "TBD: corporate.coo_branch_comparison_screen.title",
+      "subtitle": "TBD: corporate.coo_branch_comparison_screen.subtitle"
+    },
+    "coo_branch_operations_screen": {
+      "title": "TBD: corporate.coo_branch_operations_screen.title",
+      "subtitle": "TBD: corporate.coo_branch_operations_screen.subtitle"
+    },
+    "coo_compliance_view": {
+      "title": "TBD: corporate.coo_compliance_view.title",
+      "subtitle": "TBD: corporate.coo_compliance_view.subtitle"
+    },
+    "coo_compliance_view_screen": {
+      "title": "TBD: corporate.coo_compliance_view_screen.title",
+      "subtitle": "TBD: corporate.coo_compliance_view_screen.subtitle"
+    },
+    "coo_dashboard": {
+      "title": "TBD: corporate.coo_dashboard.title",
+      "subtitle": "TBD: corporate.coo_dashboard.subtitle",
+      "coo_dashboard_screen": {
+        "title": "TBD: corporate.coo_dashboard.coo_dashboard_screen.title",
+        "subtitle": "TBD: corporate.coo_dashboard.coo_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "coo_kpi_section": {
+          "title": "TBD: corporate.coo_dashboard.sections.coo_kpi_section.title",
+          "subtitle": "TBD: corporate.coo_dashboard.sections.coo_kpi_section.subtitle"
+        }
+      }
+    },
+    "coo_issue_escalations_screen": {
+      "title": "TBD: corporate.coo_issue_escalations_screen.title",
+      "subtitle": "TBD: corporate.coo_issue_escalations_screen.subtitle"
+    },
+    "coo_operations_overview_screen": {
+      "title": "TBD: corporate.coo_operations_overview_screen.title",
+      "subtitle": "TBD: corporate.coo_operations_overview_screen.subtitle"
+    },
+    "coo_reports_screen": {
+      "title": "TBD: corporate.coo_reports_screen.title",
+      "subtitle": "TBD: corporate.coo_reports_screen.subtitle"
+    },
+    "coo_scheduling_health_screen": {
+      "title": "TBD: corporate.coo_scheduling_health_screen.title",
+      "subtitle": "TBD: corporate.coo_scheduling_health_screen.subtitle"
+    },
+    "coo_service_delivery_screen": {
+      "title": "TBD: corporate.coo_service_delivery_screen.title",
+      "subtitle": "TBD: corporate.coo_service_delivery_screen.subtitle"
+    },
+    "coo_staffing_efficiency_screen": {
+      "title": "TBD: corporate.coo_staffing_efficiency_screen.title",
+      "subtitle": "TBD: corporate.coo_staffing_efficiency_screen.subtitle"
+    },
+    "coo_workflow_performance_screen": {
+      "title": "TBD: corporate.coo_workflow_performance_screen.title",
+      "subtitle": "TBD: corporate.coo_workflow_performance_screen.subtitle"
+    },
+    "course_library_screen": {
+      "title": "TBD: corporate.course_library_screen.title",
+      "subtitle": "TBD: corporate.course_library_screen.subtitle"
+    },
+    "cto_access_control_screen": {
+      "title": "TBD: corporate.cto_access_control_screen.title",
+      "subtitle": "TBD: corporate.cto_access_control_screen.subtitle"
+    },
+    "cto_api_monitoring_screen": {
+      "title": "TBD: corporate.cto_api_monitoring_screen.title",
+      "subtitle": "TBD: corporate.cto_api_monitoring_screen.subtitle"
+    },
+    "cto_audit_logs_screen": {
+      "title": "TBD: corporate.cto_audit_logs_screen.title",
+      "subtitle": "TBD: corporate.cto_audit_logs_screen.subtitle"
+    },
+    "cto_dashboard": {
+      "title": "TBD: corporate.cto_dashboard.title",
+      "subtitle": "TBD: corporate.cto_dashboard.subtitle",
+      "cto_dashboard_screen": {
+        "title": "TBD: corporate.cto_dashboard.cto_dashboard_screen.title",
+        "subtitle": "TBD: corporate.cto_dashboard.cto_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "cto_kpi_section": {
+          "title": "TBD: corporate.cto_dashboard.sections.cto_kpi_section.title",
+          "subtitle": "TBD: corporate.cto_dashboard.sections.cto_kpi_section.subtitle"
+        }
+      }
+    },
+    "cto_feature_adoption_screen": {
+      "title": "TBD: corporate.cto_feature_adoption_screen.title",
+      "subtitle": "TBD: corporate.cto_feature_adoption_screen.subtitle"
+    },
+    "cto_infrastructure_screen": {
+      "title": "TBD: corporate.cto_infrastructure_screen.title",
+      "subtitle": "TBD: corporate.cto_infrastructure_screen.subtitle"
+    },
+    "cto_integrations_screen": {
+      "title": "TBD: corporate.cto_integrations_screen.title",
+      "subtitle": "TBD: corporate.cto_integrations_screen.subtitle"
+    },
+    "cto_issue_tracking_screen": {
+      "title": "TBD: corporate.cto_issue_tracking_screen.title",
+      "subtitle": "TBD: corporate.cto_issue_tracking_screen.subtitle"
+    },
+    "cto_platform_usage_screen": {
+      "title": "TBD: corporate.cto_platform_usage_screen.title",
+      "subtitle": "TBD: corporate.cto_platform_usage_screen.subtitle"
+    },
+    "cto_release_management_screen": {
+      "title": "TBD: corporate.cto_release_management_screen.title",
+      "subtitle": "TBD: corporate.cto_release_management_screen.subtitle"
+    },
+    "cto_reports_screen": {
+      "title": "TBD: corporate.cto_reports_screen.title",
+      "subtitle": "TBD: corporate.cto_reports_screen.subtitle"
+    },
+    "cto_system_health_screen": {
+      "title": "TBD: corporate.cto_system_health_screen.title",
+      "subtitle": "TBD: corporate.cto_system_health_screen.subtitle"
+    },
+    "guest_dashboard": {
+      "title": "TBD: corporate.guest_dashboard.title",
+      "subtitle": "TBD: corporate.guest_dashboard.subtitle",
+      "guest_dashboard_screen": {
+        "title": "TBD: corporate.guest_dashboard.guest_dashboard_screen.title",
+        "subtitle": "TBD: corporate.guest_dashboard.guest_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "guest_kpi_section": {
+          "title": "TBD: corporate.guest_dashboard.sections.guest_kpi_section.title",
+          "subtitle": "TBD: corporate.guest_dashboard.sections.guest_kpi_section.subtitle"
+        }
+      }
+    },
+    "intake_coordinator_reports_screen": {
+      "title": "TBD: corporate.intake_coordinator_reports_screen.title",
+      "subtitle": "TBD: corporate.intake_coordinator_reports_screen.subtitle"
+    },
+    "intake_dashboard": {
+      "title": "TBD: corporate.intake_dashboard.title",
+      "subtitle": "TBD: corporate.intake_dashboard.subtitle",
+      "intake_dashboard_screen": {
+        "title": "TBD: corporate.intake_dashboard.intake_dashboard_screen.title",
+        "subtitle": "TBD: corporate.intake_dashboard.intake_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "intake_kpi_section": {
+          "title": "TBD: corporate.intake_dashboard.sections.intake_kpi_section.title",
+          "subtitle": "TBD: corporate.intake_dashboard.sections.intake_kpi_section.subtitle"
+        }
+      }
+    },
+    "patient_dashboard": {
+      "title": "TBD: corporate.patient_dashboard.title",
+      "subtitle": "TBD: corporate.patient_dashboard.subtitle",
+      "patient_dashboard_screen": {
+        "title": "TBD: corporate.patient_dashboard.patient_dashboard_screen.title",
+        "subtitle": "TBD: corporate.patient_dashboard.patient_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "patient_kpi_section": {
+          "title": "TBD: corporate.patient_dashboard.sections.patient_kpi_section.title",
+          "subtitle": "TBD: corporate.patient_dashboard.sections.patient_kpi_section.subtitle"
+        }
+      }
+    },
+    "qa_dashboard": {
+      "title": "TBD: corporate.qa_dashboard.title",
+      "subtitle": "TBD: corporate.qa_dashboard.subtitle",
+      "qa_dashboard_screen": {
+        "title": "TBD: corporate.qa_dashboard.qa_dashboard_screen.title",
+        "subtitle": "TBD: corporate.qa_dashboard.qa_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "qa_kpi_section": {
+          "title": "TBD: corporate.qa_dashboard.sections.qa_kpi_section.title",
+          "subtitle": "TBD: corporate.qa_dashboard.sections.qa_kpi_section.subtitle"
+        }
+      }
+    },
+    "scheduler_coordinator_reports_screen": {
+      "title": "TBD: corporate.scheduler_coordinator_reports_screen.title",
+      "subtitle": "TBD: corporate.scheduler_coordinator_reports_screen.subtitle"
+    },
+    "scrum_master_dashboard": {
+      "title": "TBD: corporate.scrum_master_dashboard.title",
+      "subtitle": "TBD: corporate.scrum_master_dashboard.subtitle",
+      "scrum_master_dashboard_screen": {
+        "title": "TBD: corporate.scrum_master_dashboard.scrum_master_dashboard_screen.title",
+        "subtitle": "TBD: corporate.scrum_master_dashboard.scrum_master_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "scrum_master_kpi_section": {
+          "title": "TBD: corporate.scrum_master_dashboard.sections.scrum_master_kpi_section.title",
+          "subtitle": "TBD: corporate.scrum_master_dashboard.sections.scrum_master_kpi_section.subtitle"
+        }
+      }
+    },
+    "staff_training_matrix_screen": {
+      "title": "TBD: corporate.staff_training_matrix_screen.title",
+      "subtitle": "TBD: corporate.staff_training_matrix_screen.subtitle"
+    },
+    "support_dashboard": {
+      "title": "TBD: corporate.support_dashboard.title",
+      "subtitle": "TBD: corporate.support_dashboard.subtitle",
+      "support_dashboard_screen": {
+        "title": "TBD: corporate.support_dashboard.support_dashboard_screen.title",
+        "subtitle": "TBD: corporate.support_dashboard.support_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "support_kpi_section": {
+          "title": "TBD: corporate.support_dashboard.sections.support_kpi_section.title",
+          "subtitle": "TBD: corporate.support_dashboard.sections.support_kpi_section.subtitle"
+        }
+      }
+    },
+    "trainer_assignments_screen": {
+      "title": "TBD: corporate.trainer_assignments_screen.title",
+      "subtitle": "TBD: corporate.trainer_assignments_screen.subtitle"
+    },
+    "training_coordinator_certifications_screen": {
+      "title": "TBD: corporate.training_coordinator_certifications_screen.title",
+      "subtitle": "TBD: corporate.training_coordinator_certifications_screen.subtitle"
+    },
+    "training_coordinator_dashboard": {
+      "title": "TBD: corporate.training_coordinator_dashboard.title",
+      "subtitle": "TBD: corporate.training_coordinator_dashboard.subtitle",
+      "training_coordinator_dashboard_screen": {
+        "title": "TBD: corporate.training_coordinator_dashboard.training_coordinator_dashboard_screen.title",
+        "subtitle": "TBD: corporate.training_coordinator_dashboard.training_coordinator_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "training_coordinator_kpi_section": {
+          "title": "TBD: corporate.training_coordinator_dashboard.sections.training_coordinator_kpi_section.title",
+          "subtitle": "TBD: corporate.training_coordinator_dashboard.sections.training_coordinator_kpi_section.subtitle"
+        }
+      }
+    },
+    "training_coordinator_reports_screen": {
+      "title": "TBD: corporate.training_coordinator_reports_screen.title",
+      "subtitle": "TBD: corporate.training_coordinator_reports_screen.subtitle"
+    },
+    "training_director_assessments_screen": {
+      "title": "TBD: corporate.training_director_assessments_screen.title",
+      "subtitle": "TBD: corporate.training_director_assessments_screen.subtitle"
+    },
+    "training_director_certifications_screen": {
+      "title": "TBD: corporate.training_director_certifications_screen.title",
+      "subtitle": "TBD: corporate.training_director_certifications_screen.subtitle"
+    },
+    "training_director_compliance_training_screen": {
+      "title": "TBD: corporate.training_director_compliance_training_screen.title",
+      "subtitle": "TBD: corporate.training_director_compliance_training_screen.subtitle"
+    },
+    "training_director_course_library_screen": {
+      "title": "TBD: corporate.training_director_course_library_screen.title",
+      "subtitle": "TBD: corporate.training_director_course_library_screen.subtitle"
+    },
+    "training_director_dashboard": {
+      "title": "TBD: corporate.training_director_dashboard.title",
+      "subtitle": "TBD: corporate.training_director_dashboard.subtitle",
+      "training_director_dashboard_screen": {
+        "title": "TBD: corporate.training_director_dashboard.training_director_dashboard_screen.title",
+        "subtitle": "TBD: corporate.training_director_dashboard.training_director_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "training_director_kpi_section": {
+          "title": "TBD: corporate.training_director_dashboard.sections.training_director_kpi_section.title",
+          "subtitle": "TBD: corporate.training_director_dashboard.sections.training_director_kpi_section.subtitle"
+        }
+      }
+    },
+    "training_director_reports_screen": {
+      "title": "TBD: corporate.training_director_reports_screen.title",
+      "subtitle": "TBD: corporate.training_director_reports_screen.subtitle"
+    },
+    "training_director_staff_training_matrix_screen": {
+      "title": "TBD: corporate.training_director_staff_training_matrix_screen.title",
+      "subtitle": "TBD: corporate.training_director_staff_training_matrix_screen.subtitle"
+    },
+    "training_director_trainer_assignments_screen": {
+      "title": "TBD: corporate.training_director_trainer_assignments_screen.title",
+      "subtitle": "TBD: corporate.training_director_trainer_assignments_screen.subtitle"
+    },
+    "training_director_training_programs_screen": {
+      "title": "TBD: corporate.training_director_training_programs_screen.title",
+      "subtitle": "TBD: corporate.training_director_training_programs_screen.subtitle"
+    },
+    "training_programs_screen": {
+      "title": "TBD: corporate.training_programs_screen.title",
+      "subtitle": "TBD: corporate.training_programs_screen.subtitle"
+    },
+    "training_reports_screen": {
+      "title": "TBD: corporate.training_reports_screen.title",
+      "subtitle": "TBD: corporate.training_reports_screen.subtitle"
     }
   },
   "franchise": {
@@ -197,6 +1011,396 @@
         "title": "Scheduling Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
+    },
+    "admin_claims_screen": {
+      "title": "TBD: franchise.admin_claims_screen.title",
+      "subtitle": "TBD: franchise.admin_claims_screen.subtitle"
+    },
+    "admin_invoices_screen": {
+      "title": "TBD: franchise.admin_invoices_screen.title",
+      "subtitle": "TBD: franchise.admin_invoices_screen.subtitle"
+    },
+    "admin_outstanding_balances_screen": {
+      "title": "TBD: franchise.admin_outstanding_balances_screen.title",
+      "subtitle": "TBD: franchise.admin_outstanding_balances_screen.subtitle"
+    },
+    "admin_payments_screen": {
+      "title": "TBD: franchise.admin_payments_screen.title",
+      "subtitle": "TBD: franchise.admin_payments_screen.subtitle"
+    },
+    "admin_reconciliation_screen": {
+      "title": "TBD: franchise.admin_reconciliation_screen.title",
+      "subtitle": "TBD: franchise.admin_reconciliation_screen.subtitle"
+    },
+    "admin_refunds_screen": {
+      "title": "TBD: franchise.admin_refunds_screen.title",
+      "subtitle": "TBD: franchise.admin_refunds_screen.subtitle"
+    },
+    "admin_reports_screen": {
+      "title": "TBD: franchise.admin_reports_screen.title",
+      "subtitle": "TBD: franchise.admin_reports_screen.subtitle"
+    },
+    "applicants_screen": {
+      "title": "TBD: franchise.applicants_screen.title",
+      "subtitle": "TBD: franchise.applicants_screen.subtitle"
+    },
+    "appointments_screen": {
+      "title": "TBD: franchise.appointments_screen.title",
+      "subtitle": "TBD: franchise.appointments_screen.subtitle"
+    },
+    "appointment_calendar_screen": {
+      "title": "TBD: franchise.appointment_calendar_screen.title",
+      "subtitle": "TBD: franchise.appointment_calendar_screen.subtitle"
+    },
+    "assignments_screen": {
+      "title": "TBD: franchise.assignments_screen.title",
+      "subtitle": "TBD: franchise.assignments_screen.subtitle"
+    },
+    "billing_admin_dashboard": {
+      "title": "TBD: franchise.billing_admin_dashboard.title",
+      "subtitle": "TBD: franchise.billing_admin_dashboard.subtitle",
+      "billing_admin_dashboard_screen": {
+        "title": "TBD: franchise.billing_admin_dashboard.billing_admin_dashboard_screen.title",
+        "subtitle": "TBD: franchise.billing_admin_dashboard.billing_admin_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "billing_admin_kpi_section": {
+          "title": "TBD: franchise.billing_admin_dashboard.sections.billing_admin_kpi_section.title",
+          "subtitle": "TBD: franchise.billing_admin_dashboard.sections.billing_admin_kpi_section.subtitle"
+        }
+      }
+    },
+    "billing_dashboard": {
+      "title": "TBD: franchise.billing_dashboard.title",
+      "subtitle": "TBD: franchise.billing_dashboard.subtitle"
+    },
+    "booking_requests_screen": {
+      "title": "TBD: franchise.booking_requests_screen.title",
+      "subtitle": "TBD: franchise.booking_requests_screen.subtitle"
+    },
+    "branch_overview_screen": {
+      "title": "TBD: franchise.branch_overview_screen.title",
+      "subtitle": "TBD: franchise.branch_overview_screen.subtitle"
+    },
+    "clients_screen": {
+      "title": "TBD: franchise.clients_screen.title",
+      "subtitle": "TBD: franchise.clients_screen.subtitle"
+    },
+    "community_outreach_reports_screen": {
+      "title": "TBD: franchise.community_outreach_reports_screen.title",
+      "subtitle": "TBD: franchise.community_outreach_reports_screen.subtitle"
+    },
+    "compliance_screen": {
+      "title": "TBD: franchise.compliance_screen.title",
+      "subtitle": "TBD: franchise.compliance_screen.subtitle"
+    },
+    "conflicts_screen": {
+      "title": "TBD: franchise.conflicts_screen.title",
+      "subtitle": "TBD: franchise.conflicts_screen.subtitle"
+    },
+    "credentials_screen": {
+      "title": "TBD: franchise.credentials_screen.title",
+      "subtitle": "TBD: franchise.credentials_screen.subtitle"
+    },
+    "daily_operations_screen": {
+      "title": "TBD: franchise.daily_operations_screen.title",
+      "subtitle": "TBD: franchise.daily_operations_screen.subtitle"
+    },
+    "financial_snapshot_screen": {
+      "title": "TBD: franchise.financial_snapshot_screen.title",
+      "subtitle": "TBD: franchise.financial_snapshot_screen.subtitle"
+    },
+    "franchise_claims_screen": {
+      "title": "TBD: franchise.franchise_claims_screen.title",
+      "subtitle": "TBD: franchise.franchise_claims_screen.subtitle"
+    },
+    "franchise_invoices_screen": {
+      "title": "TBD: franchise.franchise_invoices_screen.title",
+      "subtitle": "TBD: franchise.franchise_invoices_screen.subtitle"
+    },
+    "franchise_outstanding_balances_screen": {
+      "title": "TBD: franchise.franchise_outstanding_balances_screen.title",
+      "subtitle": "TBD: franchise.franchise_outstanding_balances_screen.subtitle"
+    },
+    "franchise_owner_appointments_screen": {
+      "title": "TBD: franchise.franchise_owner_appointments_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_appointments_screen.subtitle"
+    },
+    "franchise_owner_branch_overview_screen": {
+      "title": "TBD: franchise.franchise_owner_branch_overview_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_branch_overview_screen.subtitle"
+    },
+    "franchise_owner_clients_screen": {
+      "title": "TBD: franchise.franchise_owner_clients_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_clients_screen.subtitle"
+    },
+    "franchise_owner_compliance_screen": {
+      "title": "TBD: franchise.franchise_owner_compliance_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_compliance_screen.subtitle"
+    },
+    "franchise_owner_dashboard": {
+      "title": "TBD: franchise.franchise_owner_dashboard.title",
+      "subtitle": "TBD: franchise.franchise_owner_dashboard.subtitle",
+      "franchise_owner_dashboard_screen": {
+        "title": "TBD: franchise.franchise_owner_dashboard.franchise_owner_dashboard_screen.title",
+        "subtitle": "TBD: franchise.franchise_owner_dashboard.franchise_owner_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "franchise_owner_kpi_section": {
+          "title": "TBD: franchise.franchise_owner_dashboard.sections.franchise_owner_kpi_section.title",
+          "subtitle": "TBD: franchise.franchise_owner_dashboard.sections.franchise_owner_kpi_section.subtitle"
+        }
+      }
+    },
+    "franchise_owner_financial_snapshot_screen": {
+      "title": "TBD: franchise.franchise_owner_financial_snapshot_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_financial_snapshot_screen.subtitle"
+    },
+    "franchise_owner_hiring_screen": {
+      "title": "TBD: franchise.franchise_owner_hiring_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_hiring_screen.subtitle"
+    },
+    "franchise_owner_reports_screen": {
+      "title": "TBD: franchise.franchise_owner_reports_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_reports_screen.subtitle"
+    },
+    "franchise_owner_staff_screen": {
+      "title": "TBD: franchise.franchise_owner_staff_screen.title",
+      "subtitle": "TBD: franchise.franchise_owner_staff_screen.subtitle"
+    },
+    "franchise_payments_screen": {
+      "title": "TBD: franchise.franchise_payments_screen.title",
+      "subtitle": "TBD: franchise.franchise_payments_screen.subtitle"
+    },
+    "franchise_reconciliation_screen": {
+      "title": "TBD: franchise.franchise_reconciliation_screen.title",
+      "subtitle": "TBD: franchise.franchise_reconciliation_screen.subtitle"
+    },
+    "franchise_refunds_screen": {
+      "title": "TBD: franchise.franchise_refunds_screen.title",
+      "subtitle": "TBD: franchise.franchise_refunds_screen.subtitle"
+    },
+    "franchise_reports_screen": {
+      "title": "TBD: franchise.franchise_reports_screen.title",
+      "subtitle": "TBD: franchise.franchise_reports_screen.subtitle"
+    },
+    "hiring_screen": {
+      "title": "TBD: franchise.hiring_screen.title",
+      "subtitle": "TBD: franchise.hiring_screen.subtitle"
+    },
+    "hr_dashboard": {
+      "title": "TBD: franchise.hr_dashboard.title",
+      "subtitle": "TBD: franchise.hr_dashboard.subtitle"
+    },
+    "hr_hiring_applicants_screen": {
+      "title": "TBD: franchise.hr_hiring_applicants_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_applicants_screen.subtitle"
+    },
+    "hr_hiring_credentials_screen": {
+      "title": "TBD: franchise.hr_hiring_credentials_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_credentials_screen.subtitle"
+    },
+    "hr_hiring_dashboard": {
+      "title": "TBD: franchise.hr_hiring_dashboard.title",
+      "subtitle": "TBD: franchise.hr_hiring_dashboard.subtitle",
+      "hr_hiring_dashboard_screen": {
+        "title": "TBD: franchise.hr_hiring_dashboard.hr_hiring_dashboard_screen.title",
+        "subtitle": "TBD: franchise.hr_hiring_dashboard.hr_hiring_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "hr_hiring_kpi_section": {
+          "title": "TBD: franchise.hr_hiring_dashboard.sections.hr_hiring_kpi_section.title",
+          "subtitle": "TBD: franchise.hr_hiring_dashboard.sections.hr_hiring_kpi_section.subtitle"
+        }
+      }
+    },
+    "hr_hiring_interviews_screen": {
+      "title": "TBD: franchise.hr_hiring_interviews_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_interviews_screen.subtitle"
+    },
+    "hr_hiring_offers_screen": {
+      "title": "TBD: franchise.hr_hiring_offers_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_offers_screen.subtitle"
+    },
+    "hr_hiring_onboarding_screen": {
+      "title": "TBD: franchise.hr_hiring_onboarding_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_onboarding_screen.subtitle"
+    },
+    "hr_hiring_reports_screen": {
+      "title": "TBD: franchise.hr_hiring_reports_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_reports_screen.subtitle"
+    },
+    "hr_hiring_staff_documents_screen": {
+      "title": "TBD: franchise.hr_hiring_staff_documents_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_staff_documents_screen.subtitle"
+    },
+    "hr_hiring_training_status_screen": {
+      "title": "TBD: franchise.hr_hiring_training_status_screen.title",
+      "subtitle": "TBD: franchise.hr_hiring_training_status_screen.subtitle"
+    },
+    "interviews_screen": {
+      "title": "TBD: franchise.interviews_screen.title",
+      "subtitle": "TBD: franchise.interviews_screen.subtitle"
+    },
+    "issues_screen": {
+      "title": "TBD: franchise.issues_screen.title",
+      "subtitle": "TBD: franchise.issues_screen.subtitle"
+    },
+    "offers_screen": {
+      "title": "TBD: franchise.offers_screen.title",
+      "subtitle": "TBD: franchise.offers_screen.subtitle"
+    },
+    "onboarding_screen": {
+      "title": "TBD: franchise.onboarding_screen.title",
+      "subtitle": "TBD: franchise.onboarding_screen.subtitle"
+    },
+    "open_shifts_screen": {
+      "title": "TBD: franchise.open_shifts_screen.title",
+      "subtitle": "TBD: franchise.open_shifts_screen.subtitle"
+    },
+    "operations_manager_attendance_screen": {
+      "title": "TBD: franchise.operations_manager_attendance_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_attendance_screen.subtitle"
+    },
+    "operations_manager_daily_operations_screen": {
+      "title": "TBD: franchise.operations_manager_daily_operations_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_daily_operations_screen.subtitle"
+    },
+    "operations_manager_dashboard": {
+      "title": "TBD: franchise.operations_manager_dashboard.title",
+      "subtitle": "TBD: franchise.operations_manager_dashboard.subtitle",
+      "operations_manager_dashboard_screen": {
+        "title": "TBD: franchise.operations_manager_dashboard.operations_manager_dashboard_screen.title",
+        "subtitle": "TBD: franchise.operations_manager_dashboard.operations_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "operations_manager_kpi_section": {
+          "title": "TBD: franchise.operations_manager_dashboard.sections.operations_manager_kpi_section.title",
+          "subtitle": "TBD: franchise.operations_manager_dashboard.sections.operations_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "operations_manager_issues_screen": {
+      "title": "TBD: franchise.operations_manager_issues_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_issues_screen.subtitle"
+    },
+    "operations_manager_reports_screen": {
+      "title": "TBD: franchise.operations_manager_reports_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_reports_screen.subtitle"
+    },
+    "operations_manager_schedule_screen": {
+      "title": "TBD: franchise.operations_manager_schedule_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_schedule_screen.subtitle"
+    },
+    "operations_manager_service_quality_screen": {
+      "title": "TBD: franchise.operations_manager_service_quality_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_service_quality_screen.subtitle"
+    },
+    "operations_manager_shifts_screen": {
+      "title": "TBD: franchise.operations_manager_shifts_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_shifts_screen.subtitle"
+    },
+    "operations_manager_staff_coordination_screen": {
+      "title": "TBD: franchise.operations_manager_staff_coordination_screen.title",
+      "subtitle": "TBD: franchise.operations_manager_staff_coordination_screen.subtitle"
+    },
+    "ops_manager_dashboard": {
+      "title": "TBD: franchise.ops_manager_dashboard.title",
+      "subtitle": "TBD: franchise.ops_manager_dashboard.subtitle"
+    },
+    "provider_availability_screen": {
+      "title": "TBD: franchise.provider_availability_screen.title",
+      "subtitle": "TBD: franchise.provider_availability_screen.subtitle"
+    },
+    "scheduler_coordinator_appointment_calendar_screen": {
+      "title": "TBD: franchise.scheduler_coordinator_appointment_calendar_screen.title",
+      "subtitle": "TBD: franchise.scheduler_coordinator_appointment_calendar_screen.subtitle"
+    },
+    "scheduler_coordinator_assignments_screen": {
+      "title": "TBD: franchise.scheduler_coordinator_assignments_screen.title",
+      "subtitle": "TBD: franchise.scheduler_coordinator_assignments_screen.subtitle"
+    },
+    "scheduler_coordinator_booking_requests_screen": {
+      "title": "TBD: franchise.scheduler_coordinator_booking_requests_screen.title",
+      "subtitle": "TBD: franchise.scheduler_coordinator_booking_requests_screen.subtitle"
+    },
+    "scheduler_coordinator_conflicts_screen": {
+      "title": "TBD: franchise.scheduler_coordinator_conflicts_screen.title",
+      "subtitle": "TBD: franchise.scheduler_coordinator_conflicts_screen.subtitle"
+    },
+    "scheduler_coordinator_open_shifts_screen": {
+      "title": "TBD: franchise.scheduler_coordinator_open_shifts_screen.title",
+      "subtitle": "TBD: franchise.scheduler_coordinator_open_shifts_screen.subtitle"
+    },
+    "scheduler_coordinator_provider_availability_screen": {
+      "title": "TBD: franchise.scheduler_coordinator_provider_availability_screen.title",
+      "subtitle": "TBD: franchise.scheduler_coordinator_provider_availability_screen.subtitle"
+    },
+    "scheduler_coordinator_shift_calendar_screen": {
+      "title": "TBD: franchise.scheduler_coordinator_shift_calendar_screen.title",
+      "subtitle": "TBD: franchise.scheduler_coordinator_shift_calendar_screen.subtitle"
+    },
+    "scheduler_dashboard": {
+      "title": "TBD: franchise.scheduler_dashboard.title",
+      "subtitle": "TBD: franchise.scheduler_dashboard.subtitle",
+      "scheduler_dashboard_screen": {
+        "title": "TBD: franchise.scheduler_dashboard.scheduler_dashboard_screen.title",
+        "subtitle": "TBD: franchise.scheduler_dashboard.scheduler_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "scheduler_kpi_section": {
+          "title": "TBD: franchise.scheduler_dashboard.sections.scheduler_kpi_section.title",
+          "subtitle": "TBD: franchise.scheduler_dashboard.sections.scheduler_kpi_section.subtitle"
+        }
+      }
+    },
+    "schedule_screen": {
+      "title": "TBD: franchise.schedule_screen.title",
+      "subtitle": "TBD: franchise.schedule_screen.subtitle"
+    },
+    "scheduling_dashboard": {
+      "title": "TBD: franchise.scheduling_dashboard.title",
+      "subtitle": "TBD: franchise.scheduling_dashboard.subtitle"
+    },
+    "service_quality_screen": {
+      "title": "TBD: franchise.service_quality_screen.title",
+      "subtitle": "TBD: franchise.service_quality_screen.subtitle"
+    },
+    "shifts_screen": {
+      "title": "TBD: franchise.shifts_screen.title",
+      "subtitle": "TBD: franchise.shifts_screen.subtitle"
+    },
+    "shift_calendar_screen": {
+      "title": "TBD: franchise.shift_calendar_screen.title",
+      "subtitle": "TBD: franchise.shift_calendar_screen.subtitle"
+    },
+    "staff_coordination_screen": {
+      "title": "TBD: franchise.staff_coordination_screen.title",
+      "subtitle": "TBD: franchise.staff_coordination_screen.subtitle"
+    },
+    "staff_documents_screen": {
+      "title": "TBD: franchise.staff_documents_screen.title",
+      "subtitle": "TBD: franchise.staff_documents_screen.subtitle"
+    },
+    "staff_screen": {
+      "title": "TBD: franchise.staff_screen.title",
+      "subtitle": "TBD: franchise.staff_screen.subtitle"
+    },
+    "training_status_screen": {
+      "title": "TBD: franchise.training_status_screen.title",
+      "subtitle": "TBD: franchise.training_status_screen.subtitle"
+    },
+    "owner_dashboard": {
+      "owner_dashboard_screen": {
+        "title": "TBD: franchise.owner_dashboard.owner_dashboard_screen.title",
+        "subtitle": "TBD: franchise.owner_dashboard.owner_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "owner_kpi_section": {
+          "title": "TBD: franchise.owner_dashboard.sections.owner_kpi_section.title",
+          "subtitle": "TBD: franchise.owner_dashboard.sections.owner_kpi_section.subtitle"
+        }
+      }
     }
   },
   "marketing": {
@@ -235,9 +1439,607 @@
         "title": "Territorysales Manager Dashboard",
         "subtitle": "Real-time overview fetched natively via API."
       }
+    },
+    "brand_assets_screen": {
+      "title": "TBD: marketing.brand_assets_screen.title",
+      "subtitle": "TBD: marketing.brand_assets_screen.subtitle"
+    },
+    "campaigns_screen": {
+      "title": "TBD: marketing.campaigns_screen.title",
+      "subtitle": "TBD: marketing.campaigns_screen.subtitle"
+    },
+    "community_outreach_contacts_screen": {
+      "title": "TBD: marketing.community_outreach_contacts_screen.title",
+      "subtitle": "TBD: marketing.community_outreach_contacts_screen.subtitle"
+    },
+    "community_outreach_dashboard": {
+      "title": "TBD: marketing.community_outreach_dashboard.title",
+      "subtitle": "TBD: marketing.community_outreach_dashboard.subtitle",
+      "community_outreach_dashboard_screen": {
+        "title": "TBD: marketing.community_outreach_dashboard.community_outreach_dashboard_screen.title",
+        "subtitle": "TBD: marketing.community_outreach_dashboard.community_outreach_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "community_outreach_kpi_section": {
+          "title": "TBD: marketing.community_outreach_dashboard.sections.community_outreach_kpi_section.title",
+          "subtitle": "TBD: marketing.community_outreach_dashboard.sections.community_outreach_kpi_section.subtitle"
+        }
+      }
+    },
+    "community_outreach_events_screen": {
+      "title": "TBD: marketing.community_outreach_events_screen.title",
+      "subtitle": "TBD: marketing.community_outreach_events_screen.subtitle"
+    },
+    "community_outreach_follow_ups_screen": {
+      "title": "TBD: marketing.community_outreach_follow_ups_screen.title",
+      "subtitle": "TBD: marketing.community_outreach_follow_ups_screen.subtitle"
+    },
+    "community_outreach_partnerships_screen": {
+      "title": "TBD: marketing.community_outreach_partnerships_screen.title",
+      "subtitle": "TBD: marketing.community_outreach_partnerships_screen.subtitle"
+    },
+    "community_outreach_programs_screen": {
+      "title": "TBD: marketing.community_outreach_programs_screen.title",
+      "subtitle": "TBD: marketing.community_outreach_programs_screen.subtitle"
+    },
+    "community_outreach_volunteers_screen": {
+      "title": "TBD: marketing.community_outreach_volunteers_screen.title",
+      "subtitle": "TBD: marketing.community_outreach_volunteers_screen.subtitle"
+    },
+    "contacts_screen": {
+      "title": "TBD: marketing.contacts_screen.title",
+      "subtitle": "TBD: marketing.contacts_screen.subtitle"
+    },
+    "content_approval_screen": {
+      "title": "TBD: marketing.content_approval_screen.title",
+      "subtitle": "TBD: marketing.content_approval_screen.subtitle"
+    },
+    "events_screen": {
+      "title": "TBD: marketing.events_screen.title",
+      "subtitle": "TBD: marketing.events_screen.subtitle"
+    },
+    "funnel_analytics_screen": {
+      "title": "TBD: marketing.funnel_analytics_screen.title",
+      "subtitle": "TBD: marketing.funnel_analytics_screen.subtitle"
+    },
+    "head_of_marketing_brand_assets_screen": {
+      "title": "TBD: marketing.head_of_marketing_brand_assets_screen.title",
+      "subtitle": "TBD: marketing.head_of_marketing_brand_assets_screen.subtitle"
+    },
+    "head_of_marketing_campaigns_screen": {
+      "title": "TBD: marketing.head_of_marketing_campaigns_screen.title",
+      "subtitle": "TBD: marketing.head_of_marketing_campaigns_screen.subtitle"
+    },
+    "head_of_marketing_content_approval_screen": {
+      "title": "TBD: marketing.head_of_marketing_content_approval_screen.title",
+      "subtitle": "TBD: marketing.head_of_marketing_content_approval_screen.subtitle"
+    },
+    "head_of_marketing_dashboard": {
+      "title": "TBD: marketing.head_of_marketing_dashboard.title",
+      "subtitle": "TBD: marketing.head_of_marketing_dashboard.subtitle",
+      "head_of_marketing_dashboard_screen": {
+        "title": "TBD: marketing.head_of_marketing_dashboard.head_of_marketing_dashboard_screen.title",
+        "subtitle": "TBD: marketing.head_of_marketing_dashboard.head_of_marketing_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "head_of_marketing_kpi_section": {
+          "title": "TBD: marketing.head_of_marketing_dashboard.sections.head_of_marketing_kpi_section.title",
+          "subtitle": "TBD: marketing.head_of_marketing_dashboard.sections.head_of_marketing_kpi_section.subtitle"
+        }
+      }
+    },
+    "head_of_marketing_funnel_analytics_screen": {
+      "title": "TBD: marketing.head_of_marketing_funnel_analytics_screen.title",
+      "subtitle": "TBD: marketing.head_of_marketing_funnel_analytics_screen.subtitle"
+    },
+    "head_of_marketing_leads_screen": {
+      "title": "TBD: marketing.head_of_marketing_leads_screen.title",
+      "subtitle": "TBD: marketing.head_of_marketing_leads_screen.subtitle"
+    },
+    "head_of_marketing_performance_reports_screen": {
+      "title": "TBD: marketing.head_of_marketing_performance_reports_screen.title",
+      "subtitle": "TBD: marketing.head_of_marketing_performance_reports_screen.subtitle"
+    },
+    "head_of_marketing_regional_campaigns_screen": {
+      "title": "TBD: marketing.head_of_marketing_regional_campaigns_screen.title",
+      "subtitle": "TBD: marketing.head_of_marketing_regional_campaigns_screen.subtitle"
+    },
+    "local_assets_screen": {
+      "title": "TBD: marketing.local_assets_screen.title",
+      "subtitle": "TBD: marketing.local_assets_screen.subtitle"
+    },
+    "local_budget_screen": {
+      "title": "TBD: marketing.local_budget_screen.title",
+      "subtitle": "TBD: marketing.local_budget_screen.subtitle"
+    },
+    "local_campaigns_screen": {
+      "title": "TBD: marketing.local_campaigns_screen.title",
+      "subtitle": "TBD: marketing.local_campaigns_screen.subtitle"
+    },
+    "local_content_calendar_screen": {
+      "title": "TBD: marketing.local_content_calendar_screen.title",
+      "subtitle": "TBD: marketing.local_content_calendar_screen.subtitle"
+    },
+    "local_events_screen": {
+      "title": "TBD: marketing.local_events_screen.title",
+      "subtitle": "TBD: marketing.local_events_screen.subtitle"
+    },
+    "local_leads_screen": {
+      "title": "TBD: marketing.local_leads_screen.title",
+      "subtitle": "TBD: marketing.local_leads_screen.subtitle"
+    },
+    "local_marketing_dashboard": {
+      "title": "TBD: marketing.local_marketing_dashboard.title",
+      "subtitle": "TBD: marketing.local_marketing_dashboard.subtitle"
+    },
+    "local_marketing_manager_assets_screen": {
+      "title": "TBD: marketing.local_marketing_manager_assets_screen.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_assets_screen.subtitle"
+    },
+    "local_marketing_manager_budget_screen": {
+      "title": "TBD: marketing.local_marketing_manager_budget_screen.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_budget_screen.subtitle"
+    },
+    "local_marketing_manager_campaigns_screen": {
+      "title": "TBD: marketing.local_marketing_manager_campaigns_screen.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_campaigns_screen.subtitle"
+    },
+    "local_marketing_manager_content_calendar_screen": {
+      "title": "TBD: marketing.local_marketing_manager_content_calendar_screen.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_content_calendar_screen.subtitle"
+    },
+    "local_marketing_manager_dashboard": {
+      "title": "TBD: marketing.local_marketing_manager_dashboard.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_dashboard.subtitle",
+      "local_marketing_manager_dashboard_screen": {
+        "title": "TBD: marketing.local_marketing_manager_dashboard.local_marketing_manager_dashboard_screen.title",
+        "subtitle": "TBD: marketing.local_marketing_manager_dashboard.local_marketing_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "local_marketing_manager_kpi_section": {
+          "title": "TBD: marketing.local_marketing_manager_dashboard.sections.local_marketing_manager_kpi_section.title",
+          "subtitle": "TBD: marketing.local_marketing_manager_dashboard.sections.local_marketing_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "local_marketing_manager_events_screen": {
+      "title": "TBD: marketing.local_marketing_manager_events_screen.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_events_screen.subtitle"
+    },
+    "local_marketing_manager_leads_screen": {
+      "title": "TBD: marketing.local_marketing_manager_leads_screen.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_leads_screen.subtitle"
+    },
+    "local_marketing_manager_reports_screen": {
+      "title": "TBD: marketing.local_marketing_manager_reports_screen.title",
+      "subtitle": "TBD: marketing.local_marketing_manager_reports_screen.subtitle"
+    },
+    "local_reports_screen": {
+      "title": "TBD: marketing.local_reports_screen.title",
+      "subtitle": "TBD: marketing.local_reports_screen.subtitle"
+    },
+    "partnerships_screen": {
+      "title": "TBD: marketing.partnerships_screen.title",
+      "subtitle": "TBD: marketing.partnerships_screen.subtitle"
+    },
+    "performance_reports_screen": {
+      "title": "TBD: marketing.performance_reports_screen.title",
+      "subtitle": "TBD: marketing.performance_reports_screen.subtitle"
+    },
+    "programs_screen": {
+      "title": "TBD: marketing.programs_screen.title",
+      "subtitle": "TBD: marketing.programs_screen.subtitle"
+    },
+    "regional_campaigns_screen": {
+      "title": "TBD: marketing.regional_campaigns_screen.title",
+      "subtitle": "TBD: marketing.regional_campaigns_screen.subtitle"
+    },
+    "territory_area_performance_screen": {
+      "title": "TBD: marketing.territory_area_performance_screen.title",
+      "subtitle": "TBD: marketing.territory_area_performance_screen.subtitle"
+    },
+    "territory_competitors_screen": {
+      "title": "TBD: marketing.territory_competitors_screen.title",
+      "subtitle": "TBD: marketing.territory_competitors_screen.subtitle"
+    },
+    "territory_conversions_screen": {
+      "title": "TBD: marketing.territory_conversions_screen.title",
+      "subtitle": "TBD: marketing.territory_conversions_screen.subtitle"
+    },
+    "territory_field_activity_screen": {
+      "title": "TBD: marketing.territory_field_activity_screen.title",
+      "subtitle": "TBD: marketing.territory_field_activity_screen.subtitle"
+    },
+    "territory_leads_screen": {
+      "title": "TBD: marketing.territory_leads_screen.title",
+      "subtitle": "TBD: marketing.territory_leads_screen.subtitle"
+    },
+    "territory_pipeline_screen": {
+      "title": "TBD: marketing.territory_pipeline_screen.title",
+      "subtitle": "TBD: marketing.territory_pipeline_screen.subtitle"
+    },
+    "territory_reports_screen": {
+      "title": "TBD: marketing.territory_reports_screen.title",
+      "subtitle": "TBD: marketing.territory_reports_screen.subtitle"
+    },
+    "territory_sales_dashboard": {
+      "title": "TBD: marketing.territory_sales_dashboard.title",
+      "subtitle": "TBD: marketing.territory_sales_dashboard.subtitle"
+    },
+    "territory_sales_manager_area_performance_screen": {
+      "title": "TBD: marketing.territory_sales_manager_area_performance_screen.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_area_performance_screen.subtitle"
+    },
+    "territory_sales_manager_competitors_screen": {
+      "title": "TBD: marketing.territory_sales_manager_competitors_screen.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_competitors_screen.subtitle"
+    },
+    "territory_sales_manager_conversions_screen": {
+      "title": "TBD: marketing.territory_sales_manager_conversions_screen.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_conversions_screen.subtitle"
+    },
+    "territory_sales_manager_dashboard": {
+      "title": "TBD: marketing.territory_sales_manager_dashboard.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_dashboard.subtitle",
+      "territory_sales_manager_dashboard_screen": {
+        "title": "TBD: marketing.territory_sales_manager_dashboard.territory_sales_manager_dashboard_screen.title",
+        "subtitle": "TBD: marketing.territory_sales_manager_dashboard.territory_sales_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "territory_sales_manager_kpi_section": {
+          "title": "TBD: marketing.territory_sales_manager_dashboard.sections.territory_sales_manager_kpi_section.title",
+          "subtitle": "TBD: marketing.territory_sales_manager_dashboard.sections.territory_sales_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "territory_sales_manager_field_activity_screen": {
+      "title": "TBD: marketing.territory_sales_manager_field_activity_screen.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_field_activity_screen.subtitle"
+    },
+    "territory_sales_manager_leads_screen": {
+      "title": "TBD: marketing.territory_sales_manager_leads_screen.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_leads_screen.subtitle"
+    },
+    "territory_sales_manager_pipeline_screen": {
+      "title": "TBD: marketing.territory_sales_manager_pipeline_screen.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_pipeline_screen.subtitle"
+    },
+    "territory_sales_manager_reports_screen": {
+      "title": "TBD: marketing.territory_sales_manager_reports_screen.title",
+      "subtitle": "TBD: marketing.territory_sales_manager_reports_screen.subtitle"
+    },
+    "volunteers_screen": {
+      "title": "TBD: marketing.volunteers_screen.title",
+      "subtitle": "TBD: marketing.volunteers_screen.subtitle"
+    }
+  },
+  "common": {
+    "clinic_care_plan_screen": {
+      "title": "TBD: common.clinic_care_plan_screen.title",
+      "subtitle": "TBD: common.clinic_care_plan_screen.subtitle"
+    },
+    "clinic_check_in_out_screen": {
+      "title": "TBD: common.clinic_check_in_out_screen.title",
+      "subtitle": "TBD: common.clinic_check_in_out_screen.subtitle"
+    },
+    "clinic_client_profile_screen": {
+      "title": "TBD: common.clinic_client_profile_screen.title",
+      "subtitle": "TBD: common.clinic_client_profile_screen.subtitle"
+    },
+    "clinic_daily_notes_screen": {
+      "title": "TBD: common.clinic_daily_notes_screen.title",
+      "subtitle": "TBD: common.clinic_daily_notes_screen.subtitle"
+    },
+    "clinic_incident_report_screen": {
+      "title": "TBD: common.clinic_incident_report_screen.title",
+      "subtitle": "TBD: common.clinic_incident_report_screen.subtitle"
+    },
+    "clinic_my_shifts_screen": {
+      "title": "TBD: common.clinic_my_shifts_screen.title",
+      "subtitle": "TBD: common.clinic_my_shifts_screen.subtitle"
+    },
+    "clinic_shift_details_screen": {
+      "title": "TBD: common.clinic_shift_details_screen.title",
+      "subtitle": "TBD: common.clinic_shift_details_screen.subtitle"
+    },
+    "billing_admin_dashboard": {
+      "billing_admin_dashboard_screen": {
+        "title": "TBD: common.billing_admin_dashboard.billing_admin_dashboard_screen.title",
+        "subtitle": "TBD: common.billing_admin_dashboard.billing_admin_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "billing_admin_kpi_section": {
+          "title": "TBD: common.billing_admin_dashboard.sections.billing_admin_kpi_section.title",
+          "subtitle": "TBD: common.billing_admin_dashboard.sections.billing_admin_kpi_section.subtitle"
+        }
+      }
+    },
+    "ceo_dashboard": {
+      "ceo_dashboard_screen": {
+        "title": "TBD: common.ceo_dashboard.ceo_dashboard_screen.title",
+        "subtitle": "TBD: common.ceo_dashboard.ceo_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "ceo_kpi_section": {
+          "title": "TBD: common.ceo_dashboard.sections.ceo_kpi_section.title",
+          "subtitle": "TBD: common.ceo_dashboard.sections.ceo_kpi_section.subtitle"
+        }
+      }
+    },
+    "clinic_dashboard": {
+      "clinic_dashboard_screen": {
+        "title": "TBD: common.clinic_dashboard.clinic_dashboard_screen.title",
+        "subtitle": "TBD: common.clinic_dashboard.clinic_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "clinic_kpi_section": {
+          "title": "TBD: common.clinic_dashboard.sections.clinic_kpi_section.title",
+          "subtitle": "TBD: common.clinic_dashboard.sections.clinic_kpi_section.subtitle"
+        }
+      }
+    },
+    "compliance_manager_dashboard": {
+      "compliance_manager_dashboard_screen": {
+        "title": "TBD: common.compliance_manager_dashboard.compliance_manager_dashboard_screen.title",
+        "subtitle": "TBD: common.compliance_manager_dashboard.compliance_manager_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "compliance_manager_kpi_section": {
+          "title": "TBD: common.compliance_manager_dashboard.sections.compliance_manager_kpi_section.title",
+          "subtitle": "TBD: common.compliance_manager_dashboard.sections.compliance_manager_kpi_section.subtitle"
+        }
+      }
+    },
+    "customer_support_dashboard": {
+      "customer_support_dashboard_screen": {
+        "title": "TBD: common.customer_support_dashboard.customer_support_dashboard_screen.title",
+        "subtitle": "TBD: common.customer_support_dashboard.customer_support_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "customer_support_kpi_section": {
+          "title": "TBD: common.customer_support_dashboard.sections.customer_support_kpi_section.title",
+          "subtitle": "TBD: common.customer_support_dashboard.sections.customer_support_kpi_section.subtitle"
+        }
+      }
+    },
+    "franchise_owner_dashboard": {
+      "franchise_owner_dashboard_screen": {
+        "title": "TBD: common.franchise_owner_dashboard.franchise_owner_dashboard_screen.title",
+        "subtitle": "TBD: common.franchise_owner_dashboard.franchise_owner_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "franchise_owner_kpi_section": {
+          "title": "TBD: common.franchise_owner_dashboard.sections.franchise_owner_kpi_section.title",
+          "subtitle": "TBD: common.franchise_owner_dashboard.sections.franchise_owner_kpi_section.subtitle"
+        }
+      }
+    },
+    "head_of_bus_dev_dashboard": {
+      "head_of_bus_dev_dashboard_screen": {
+        "title": "TBD: common.head_of_bus_dev_dashboard.head_of_bus_dev_dashboard_screen.title",
+        "subtitle": "TBD: common.head_of_bus_dev_dashboard.head_of_bus_dev_dashboard_screen.subtitle"
+      },
+      "sections": {
+        "head_of_bus_dev_kpi_section": {
+          "title": "TBD: common.head_of_bus_dev_dashboard.sections.head_of_bus_dev_kpi_section.title",
+          "subtitle": "TBD: common.head_of_bus_dev_dashboard.sections.head_of_bus_dev_kpi_section.subtitle"
+        }
+      }
     }
   },
   "support": {
+    "attendance_screen": {
+      "title": "TBD: support.attendance_screen.title",
+      "subtitle": "TBD: support.attendance_screen.subtitle"
+    },
+    "audits_screen": {
+      "title": "TBD: support.audits_screen.title",
+      "subtitle": "TBD: support.audits_screen.subtitle"
+    },
+    "certifications_screen": {
+      "title": "TBD: support.certifications_screen.title",
+      "subtitle": "TBD: support.certifications_screen.subtitle"
+    },
+    "client_assignment_screen": {
+      "title": "TBD: support.client_assignment_screen.title",
+      "subtitle": "TBD: support.client_assignment_screen.subtitle"
+    },
+    "complaints_screen": {
+      "title": "TBD: support.complaints_screen.title",
+      "subtitle": "TBD: support.complaints_screen.subtitle"
+    },
+    "compliance_checks_screen": {
+      "title": "TBD: support.compliance_checks_screen.title",
+      "subtitle": "TBD: support.compliance_checks_screen.subtitle"
+    },
+    "corrective_actions_screen": {
+      "title": "TBD: support.corrective_actions_screen.title",
+      "subtitle": "TBD: support.corrective_actions_screen.subtitle"
+    },
+    "courses_screen": {
+      "title": "TBD: support.courses_screen.title",
+      "subtitle": "TBD: support.courses_screen.subtitle"
+    },
+    "customer_support_dashboard": {
+      "title": "TBD: support.customer_support_dashboard.title",
+      "subtitle": "TBD: support.customer_support_dashboard.subtitle"
+    },
+    "customer_support_escalations_screen": {
+      "title": "TBD: support.customer_support_escalations_screen.title",
+      "subtitle": "TBD: support.customer_support_escalations_screen.subtitle"
+    },
+    "customer_support_issue_categories_screen": {
+      "title": "TBD: support.customer_support_issue_categories_screen.title",
+      "subtitle": "TBD: support.customer_support_issue_categories_screen.subtitle"
+    },
+    "customer_support_reports_screen": {
+      "title": "TBD: support.customer_support_reports_screen.title",
+      "subtitle": "TBD: support.customer_support_reports_screen.subtitle"
+    },
+    "customer_support_templates_screen": {
+      "title": "TBD: support.customer_support_templates_screen.title",
+      "subtitle": "TBD: support.customer_support_templates_screen.subtitle"
+    },
+    "customer_support_tickets_screen": {
+      "title": "TBD: support.customer_support_tickets_screen.title",
+      "subtitle": "TBD: support.customer_support_tickets_screen.subtitle"
+    },
+    "eligibility_screen": {
+      "title": "TBD: support.eligibility_screen.title",
+      "subtitle": "TBD: support.eligibility_screen.subtitle"
+    },
+    "escalations_screen": {
+      "title": "TBD: support.escalations_screen.title",
+      "subtitle": "TBD: support.escalations_screen.subtitle"
+    },
+    "intake_coordinator_client_assignment_screen": {
+      "title": "TBD: support.intake_coordinator_client_assignment_screen.title",
+      "subtitle": "TBD: support.intake_coordinator_client_assignment_screen.subtitle"
+    },
+    "intake_coordinator_dashboard": {
+      "title": "TBD: support.intake_coordinator_dashboard.title",
+      "subtitle": "TBD: support.intake_coordinator_dashboard.subtitle"
+    },
+    "intake_coordinator_eligibility_screen": {
+      "title": "TBD: support.intake_coordinator_eligibility_screen.title",
+      "subtitle": "TBD: support.intake_coordinator_eligibility_screen.subtitle"
+    },
+    "intake_coordinator_intake_forms_screen": {
+      "title": "TBD: support.intake_coordinator_intake_forms_screen.title",
+      "subtitle": "TBD: support.intake_coordinator_intake_forms_screen.subtitle"
+    },
+    "intake_coordinator_new_intakes_screen": {
+      "title": "TBD: support.intake_coordinator_new_intakes_screen.title",
+      "subtitle": "TBD: support.intake_coordinator_new_intakes_screen.subtitle"
+    },
+    "intake_coordinator_scheduling_screen": {
+      "title": "TBD: support.intake_coordinator_scheduling_screen.title",
+      "subtitle": "TBD: support.intake_coordinator_scheduling_screen.subtitle"
+    },
+    "intake_dashboard": {
+      "title": "TBD: support.intake_dashboard.title",
+      "subtitle": "TBD: support.intake_dashboard.subtitle"
+    },
+    "intake_forms_screen": {
+      "title": "TBD: support.intake_forms_screen.title",
+      "subtitle": "TBD: support.intake_forms_screen.subtitle"
+    },
+    "issue_categories_screen": {
+      "title": "TBD: support.issue_categories_screen.title",
+      "subtitle": "TBD: support.issue_categories_screen.subtitle"
+    },
+    "materials_screen": {
+      "title": "TBD: support.materials_screen.title",
+      "subtitle": "TBD: support.materials_screen.subtitle"
+    },
+    "new_intakes_screen": {
+      "title": "TBD: support.new_intakes_screen.title",
+      "subtitle": "TBD: support.new_intakes_screen.subtitle"
+    },
+    "progress_screen": {
+      "title": "TBD: support.progress_screen.title",
+      "subtitle": "TBD: support.progress_screen.subtitle"
+    },
+    "qa_dashboard": {
+      "title": "TBD: support.qa_dashboard.title",
+      "subtitle": "TBD: support.qa_dashboard.subtitle"
+    },
+    "quality_assurance_audits_screen": {
+      "title": "TBD: support.quality_assurance_audits_screen.title",
+      "subtitle": "TBD: support.quality_assurance_audits_screen.subtitle"
+    },
+    "quality_assurance_complaints_screen": {
+      "title": "TBD: support.quality_assurance_complaints_screen.title",
+      "subtitle": "TBD: support.quality_assurance_complaints_screen.subtitle"
+    },
+    "quality_assurance_compliance_checks_screen": {
+      "title": "TBD: support.quality_assurance_compliance_checks_screen.title",
+      "subtitle": "TBD: support.quality_assurance_compliance_checks_screen.subtitle"
+    },
+    "quality_assurance_corrective_actions_screen": {
+      "title": "TBD: support.quality_assurance_corrective_actions_screen.title",
+      "subtitle": "TBD: support.quality_assurance_corrective_actions_screen.subtitle"
+    },
+    "quality_assurance_dashboard": {
+      "title": "TBD: support.quality_assurance_dashboard.title",
+      "subtitle": "TBD: support.quality_assurance_dashboard.subtitle"
+    },
+    "quality_assurance_reports_screen": {
+      "title": "TBD: support.quality_assurance_reports_screen.title",
+      "subtitle": "TBD: support.quality_assurance_reports_screen.subtitle"
+    },
+    "quality_assurance_reviews_screen": {
+      "title": "TBD: support.quality_assurance_reviews_screen.title",
+      "subtitle": "TBD: support.quality_assurance_reviews_screen.subtitle"
+    },
+    "quality_assurance_scorecards_screen": {
+      "title": "TBD: support.quality_assurance_scorecards_screen.title",
+      "subtitle": "TBD: support.quality_assurance_scorecards_screen.subtitle"
+    },
+    "reviews_screen": {
+      "title": "TBD: support.reviews_screen.title",
+      "subtitle": "TBD: support.reviews_screen.subtitle"
+    },
+    "scheduling_screen": {
+      "title": "TBD: support.scheduling_screen.title",
+      "subtitle": "TBD: support.scheduling_screen.subtitle"
+    },
+    "scorecards_screen": {
+      "title": "TBD: support.scorecards_screen.title",
+      "subtitle": "TBD: support.scorecards_screen.subtitle"
+    },
+    "support_dashboard": {
+      "title": "TBD: support.support_dashboard.title",
+      "subtitle": "TBD: support.support_dashboard.subtitle"
+    },
+    "support_reports_screen": {
+      "title": "TBD: support.support_reports_screen.title",
+      "subtitle": "TBD: support.support_reports_screen.subtitle"
+    },
+    "templates_screen": {
+      "title": "TBD: support.templates_screen.title",
+      "subtitle": "TBD: support.templates_screen.subtitle"
+    },
+    "tickets_view": {
+      "title": "TBD: support.tickets_view.title",
+      "subtitle": "TBD: support.tickets_view.subtitle"
+    },
+    "training_coordinator_attendance_screen": {
+      "title": "TBD: support.training_coordinator_attendance_screen.title",
+      "subtitle": "TBD: support.training_coordinator_attendance_screen.subtitle"
+    },
+    "training_coordinator_courses_screen": {
+      "title": "TBD: support.training_coordinator_courses_screen.title",
+      "subtitle": "TBD: support.training_coordinator_courses_screen.subtitle"
+    },
+    "training_coordinator_dashboard": {
+      "title": "TBD: support.training_coordinator_dashboard.title",
+      "subtitle": "TBD: support.training_coordinator_dashboard.subtitle"
+    },
+    "training_coordinator_materials_screen": {
+      "title": "TBD: support.training_coordinator_materials_screen.title",
+      "subtitle": "TBD: support.training_coordinator_materials_screen.subtitle"
+    },
+    "training_coordinator_progress_screen": {
+      "title": "TBD: support.training_coordinator_progress_screen.title",
+      "subtitle": "TBD: support.training_coordinator_progress_screen.subtitle"
+    },
+    "training_coordinator_training_schedule_screen": {
+      "title": "TBD: support.training_coordinator_training_schedule_screen.title",
+      "subtitle": "TBD: support.training_coordinator_training_schedule_screen.subtitle"
+    },
+    "training_coordinator_workshops_screen": {
+      "title": "TBD: support.training_coordinator_workshops_screen.title",
+      "subtitle": "TBD: support.training_coordinator_workshops_screen.subtitle"
+    },
+    "training_schedule_screen": {
+      "title": "TBD: support.training_schedule_screen.title",
+      "subtitle": "TBD: support.training_schedule_screen.subtitle"
+    },
+    "workshops_screen": {
+      "title": "TBD: support.workshops_screen.title",
+      "subtitle": "TBD: support.workshops_screen.subtitle"
+    },
     "customerSupport": {
       "dashboard": {
         "title": "Customersupport Dashboard",
