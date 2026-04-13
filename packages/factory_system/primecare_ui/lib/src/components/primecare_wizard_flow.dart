@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/theme_tokens.dart';
+
 import '../theme/design_system.dart';
 import 'primecare_card.dart';
 import 'primecare_button.dart';
@@ -114,7 +114,10 @@ class PrimeCareWizardFlow extends StatelessWidget {
                         step.description,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(color: PrimeCareDesignSystem.textMuted, height: 1.4),
+                        style: TextStyle(
+                          color: PrimeCareDesignSystem.textMuted,
+                          height: 1.4,
+                        ),
                       ),
                     ],
                   ),

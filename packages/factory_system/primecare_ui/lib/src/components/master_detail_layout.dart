@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
 import '../theme/design_system.dart';
-import '../theme/theme_tokens.dart';
 
 class MasterDetailLayout extends ConsumerWidget {
   final Widget masterList;

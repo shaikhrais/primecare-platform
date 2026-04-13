@@ -60,6 +60,35 @@ class NavigationRegistry {
         route: CommonRoutes.globalProfile,
       ),
     ],
+    'Receptionist': [
+      const PrimeCareNavigationItem(
+        label: 'Institutional Scheduler',
+        icon: LucideIcons.calendar,
+        route: CommonRoutes.institutionalScheduler,
+      ),
+      const PrimeCareNavigationItem(
+        label: 'Messaging',
+        icon: LucideIcons.messageSquare,
+        route: CommonRoutes.messagingHub,
+      ),
+    ],
+    'Facility Manager': [
+      const PrimeCareNavigationItem(
+        label: 'Command Center',
+        icon: LucideIcons.layoutDashboard,
+        route: CommonRoutes.institutionalScheduler,
+      ),
+      const PrimeCareNavigationItem(
+        label: 'Staff Matrix',
+        icon: LucideIcons.users,
+        route: CommonRoutes.institutionalScheduler,
+      ),
+      const PrimeCareNavigationItem(
+        label: 'System Audits',
+        icon: LucideIcons.shieldCheck,
+        route: CommonRoutes.auditsScreen,
+      ),
+    ],
   };
 
   static List<PrimeCareNavigationItem> getMenuForRole(String role) {

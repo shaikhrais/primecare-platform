@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/theme_tokens.dart';
+
 import '../theme/design_system.dart';
 
 class PrimeCareSchedulerEvent {
@@ -81,7 +81,10 @@ class PrimeCareScheduler extends StatelessWidget {
                           child: Text(
                             '${(startHour + i).toString().padLeft(2, '0')}:00',
                             textAlign: TextAlign.right,
-                            style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 12),
+                            style: TextStyle(
+                              color: PrimeCareDesignSystem.textMuted,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/theme_tokens.dart';
+
 import '../theme/design_system.dart';
 
 class PrimeCareHeatMap extends StatelessWidget {
@@ -72,7 +72,8 @@ class PrimeCareHeatMap extends StatelessWidget {
 
                     Color blockColor;
                     if (value == 0) {
-                      blockColor = PrimeCareDesignSystem.borderSubtle.withValues(alpha: 0.3);
+                      blockColor = PrimeCareDesignSystem.borderSubtle
+                          .withValues(alpha: 0.3);
                     } else if (value == 1) {
                       blockColor = primary.withValues(alpha: 0.3);
                     } else if (value == 2) {
@@ -100,12 +101,20 @@ class PrimeCareHeatMap extends StatelessWidget {
           const SizedBox(height: PrimeCareSpacing.sm),
           Row(
             children: [
-              Text('Less', style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted)),
+              Text(
+                'Less',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: PrimeCareDesignSystem.textMuted,
+                ),
+              ),
               const SizedBox(width: 4),
               Container(
                 width: 10,
                 height: 10,
-                color: PrimeCareDesignSystem.borderSubtle.withValues(alpha: 0.3),
+                color: PrimeCareDesignSystem.borderSubtle.withValues(
+                  alpha: 0.3,
+                ),
               ),
               const SizedBox(width: 2),
               Container(
@@ -128,7 +137,13 @@ class PrimeCareHeatMap extends StatelessWidget {
               const SizedBox(width: 2),
               Container(width: 10, height: 10, color: primary),
               const SizedBox(width: 4),
-              Text('More', style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted)),
+              Text(
+                'More',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: PrimeCareDesignSystem.textMuted,
+                ),
+              ),
             ],
           ),
         ],

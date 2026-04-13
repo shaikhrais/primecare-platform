@@ -59,17 +59,15 @@ class PrimeEarningsTrajectoryCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
-              PrimeCareBarChart(
+              PrimeCareLineChart(
                 chart: AnalyticsChart(
                   id: 'trajectory',
                   title: title,
-                  type: ChartType.bar,
-                  data: trajectoryData.entries
+                  type: ChartType.line,
+                  dataPoints: trajectoryData.entries
                       .map((e) => ChartDataPoint(label: e.key, value: e.value))
                       .toList(),
-                  unit: '\$',
                 ),
-                barColor: Theme.of(context).colorScheme.secondary,
               ),
             ],
           ),

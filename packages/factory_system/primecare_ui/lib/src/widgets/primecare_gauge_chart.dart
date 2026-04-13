@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../theme/theme_tokens.dart';
+
 import '../theme/design_system.dart';
 
 class PrimeCareGaugeChart extends StatelessWidget {
@@ -94,7 +94,10 @@ class PrimeCareGaugeChart extends StatelessWidget {
                       if (subtitle.isNotEmpty)
                         Text(
                           subtitle,
-                          style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 12),
+                          style: TextStyle(
+                            color: PrimeCareDesignSystem.textMuted,
+                            fontSize: 12,
+                          ),
                         ),
                     ],
                   ),

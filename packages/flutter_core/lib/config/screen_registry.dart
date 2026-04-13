@@ -309,6 +309,61 @@ class ScreenRegistry {
         },
       ],
     },
+    CommonRoutes.schedulingScreen: {
+      'title': 'Institutional Horizon',
+      'subtitle':
+          'Unified cross-professional staff matrix & appointment control.',
+      'kpis': [
+        {
+          'title': 'Active Staff',
+          'value': '48',
+          'deltaSuffix': 'Live Status',
+          'icon': 'users',
+          'iconColor': 'blue',
+        },
+        {
+          'title': 'Pending Intake',
+          'value': '12',
+          'deltaSuffix': 'Action Required',
+          'icon': 'clock',
+          'iconColor': 'orange',
+        },
+      ],
+    },
+    CommonRoutes.institutionalScheduler: {
+      'title': 'Central Command Center',
+      'subtitle': 'Real-time multi-staff scheduling & asset optimization hub.',
+      'kpis': [
+        {
+          'title': 'Staff Online',
+          'value': '32',
+          'deltaSuffix': 'Active Shift',
+          'icon': 'users',
+          'iconColor': 'blue',
+        },
+        {
+          'title': 'Resource Load',
+          'value': '78%',
+          'deltaSuffix': 'Peak Usage',
+          'icon': 'barChart2',
+          'iconColor': 'teal',
+        },
+        {
+          'title': 'Intake Queue',
+          'value': '5',
+          'deltaSuffix': 'Priority 1',
+          'icon': 'clock',
+          'iconColor': 'orange',
+        },
+        {
+          'title': 'Maintenance',
+          'value': '2',
+          'deltaSuffix': 'Active Alerts',
+          'icon': 'shieldAlert',
+          'iconColor': 'red',
+        },
+      ],
+    },
   };
 
   /// Fetch dashboard config for a route. Fallback to a default layout if none configured.

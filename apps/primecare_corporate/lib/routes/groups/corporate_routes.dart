@@ -445,13 +445,19 @@ final List<ScreenConfig> corporateScreenRegistry = [
   ),
 ];
 
-final List<RouteBase> corporateRoutes = corporateScreenRegistry.map((config) {
-  return GoRoute(
-    path: config.routePath,
-    builder: (context, state) => PageTemplate.orchestrate(
-      title: config.titleKey,
-      subtitle: config.subtitleKey,
-      provider: genericDashboardProvider(config.providerId),
-    ),
-  );
-}).toList();
+final List<RouteBase> corporateRoutes = [
+  ...corporateScreenRegistry.map((config) {
+    return GoRoute(
+      path: config.routePath,
+      builder: (context, state) => PageTemplate.orchestrate(
+        title: config.titleKey,
+        subtitle: config.subtitleKey,
+        provider: genericDashboardProvider(config.providerId),
+      ),
+    );
+  }),
+  GoRoute(
+    path: CommonRoutes.institutionalScheduler,
+    builder: (context, state) => const InstitutionalSchedulerScreen(),
+  ),
+];

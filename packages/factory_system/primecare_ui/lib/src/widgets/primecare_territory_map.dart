@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/theme_tokens.dart';
+
 import '../theme/design_system.dart';
 
 class PrimeCareTerritoryCoordinate {
@@ -97,13 +97,18 @@ class PrimeCareTerritoryMap extends StatelessWidget {
                         Icon(
                           Icons.map_outlined,
                           size: 48,
-                          color: PrimeCareDesignSystem.textMuted.withValues(alpha: 0.5),
+                          color: PrimeCareDesignSystem.textMuted.withValues(
+                            alpha: 0.5,
+                          ),
                         ),
                         const SizedBox(height: PrimeCareSpacing.sm),
                         Text(
                           'Territory Map Rendering Engine\nZones: ${zones.length} | Markers: ${markers.length}',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 12),
+                          style: TextStyle(
+                            color: PrimeCareDesignSystem.textMuted,
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),

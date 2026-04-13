@@ -16,14 +16,15 @@ class PrimeCarePieChart extends StatelessWidget {
         PieChartData(
           sectionsSpace: 2,
           centerSpaceRadius: 40,
-          sections: chart.data.map((data) {
-            final color = data.color != null
-                ? Color(int.parse(data.color!.replaceAll('#', '0xFF')))
+          sections: chart.dataPoints.map((dp) {
+            final color = dp.color != null
+                ? Color(int.parse(dp.color!.replaceAll('#', '0xFF')))
                 : Colors.blue;
+
             return PieChartSectionData(
               color: color,
-              value: data.value,
-              title: '${data.value.toInt()}${chart.unit ?? ''}',
+              value: dp.value,
+              title: dp.label,
               radius: 50,
               titleStyle: const TextStyle(
                 fontSize: 12,

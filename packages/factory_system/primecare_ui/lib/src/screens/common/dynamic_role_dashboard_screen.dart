@@ -1,29 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/primecare_core.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../../components/cards/primecare_kpi_card.dart';
-import '../../components/cards/primecare_chart_card.dart';
+import 'package:primecare_core/primecare_core.dart';
+import '../../components/cards/primecare_aura_card.dart';
 import '../../components/charts/prime_care_bar_chart.dart';
 import '../../components/charts/prime_care_line_chart.dart';
 import '../../components/charts/prime_care_pie_chart.dart';
-import '../../components/primecare_responsive_kpi_grid.dart';
+import '../../components/dashboards/prime_care_kpi_card.dart';
+import '../../components/dashboards/prime_care_responsive_kpi_grid.dart';
+import 'primecare_report_screen.dart';
 
-/// Centralized Role-Based Dashboard Screen.
-/// Aggregates metrics via the DataLogisticsHub and integrates PreferenceService for
-/// role-specific personalization (PINing/Favorites).
+extension StringExtension on String {
+  String capitalize() => "${this[0].toUpperCase()}${substring(1)}";
+}
+
 class DynamicRoleDashboardScreen extends ConsumerWidget {
-  const DynamicRoleDashboardScreen({super.key});
+  final String role;
+
+  const DynamicRoleDashboardScreen({super.key, required this.role});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Identify current role for data binding & personalization
-    final authState = ref.watch(authProvider);
-    final role = authState.role ?? 'guest';
-
-    // 2. Hydrate metrics via the global resilient provider
     final metricsAsync = ref.watch(dashboardMetricsProvider(role));
+    final auraAsync = ref.watch(auraInsightsProvider(role));
     final prefService = ref.watch(preferenceServiceProvider);
+
+    // 4. Aura Action Dispatcher
+    void handleAuraIntent(AuraIntent intent) {
+      if (intent.actions.isEmpty) return;
+
+      for (final action in intent.actions) {
+        switch (action.type) {
+          case AuraActionType.navigate:
+            // Institutional Navigation to Drill-Down Reports
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    PrimeCareReportScreen(reportId: action.target),
+              ),
+            );
+            break;
+          case AuraActionType.filter:
+            // Placeholder for real-time chart filtering logic
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Aura: Applying institutional filter for ${action.target}',
+                ),
+              ),
+            );
+            break;
+          default:
+            break;
+        }
+      }
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
@@ -44,30 +76,50 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.all(24),
               children: [
+                // 1. Intelligence Synthesis Strip
+                auraAsync.when(
+                  data: (insights) => Padding(
+                    padding: const EdgeInsets.only(bottom: 24.0),
+                    child: PrimeCareAuraCard(
+                      insights: insights,
+                      onAuraResult: handleAuraIntent,
+                    ),
+                  ),
+                  loading: () => const SizedBox(
+                    height: 100,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                  error: (_, _) => const SizedBox.shrink(),
+                ),
+
                 // Header Segment
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${role.split('_').map((s) => s.capitalize()).join(' ')} Workspace',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF1E3A8A),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${role.split('_').map((s) => s.capitalize()).join(' ')} Workspace',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF1E3A8A),
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          'Real-time metrics and institutional activity feed.',
-                          style: TextStyle(
-                            color: Color(0xFF64748B),
-                            fontSize: 14,
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Real-time metrics and institutional activity feed.',
+                            style: TextStyle(
+                              color: Color(0xFF64748B),
+                              fontSize: 14,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     if (metricsAsync.isRefreshing)
                       const SizedBox(
@@ -111,118 +163,29 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  ...(() {
-                    final sortedCharts =
-                        List<AnalyticsChart>.from(metrics.charts)..sort((a, b) {
-                          final aPinned = prefService.isPinned(
-                            role,
-                            'chart_${a.id}',
-                          );
-                          final bPinned = prefService.isPinned(
-                            role,
-                            'chart_${b.id}',
-                          );
-                          if (aPinned && !bPinned) return -1;
-                          if (!aPinned && bPinned) return 1;
-                          return 0;
-                        });
-
-                    return sortedCharts.map((chart) {
-                      final isPinned = prefService.isPinned(
-                        role,
-                        'chart_${chart.id}',
-                      );
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: PrimeCareChartCard(
-                          title: chart.title,
-                          isPinned: isPinned,
-                          onPinToggle: () async {
-                            await prefService.setPinned(
-                              role,
-                              'chart_${chart.id}',
-                              !isPinned,
-                            );
-                            ref.invalidate(preferenceServiceProvider);
-                          },
-                          chart: _buildChart(chart),
-                        ),
-                      );
-                    });
-                  })(),
-                ],
-
-                const SizedBox(height: 32),
-
-                // Activity Feed Segment (Blueprints or direct render)
-                if (metrics.recentActivity.isNotEmpty) ...[
-                  const Text(
-                    'Institutional Activity',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E3A8A),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: const BorderSide(color: Color(0xFFE2E8F0)),
-                    ),
-                    child: Column(
-                      children: metrics.recentActivity.map((activity) {
-                        return ListTile(
-                          leading: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Color(
-                                int.parse(
-                                  activity.color.replaceAll('#', '0xFF'),
-                                ),
-                              ).withValues(alpha: 0.1),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              _getIconForActivity(activity.icon),
-                              size: 20,
-                              color: Color(
-                                int.parse(
-                                  activity.color.replaceAll('#', '0xFF'),
-                                ),
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            activity.title,
-                            style: const TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          subtitle: Text(
-                            '${activity.subtitle} • ${activity.timestamp}',
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                  ...metrics.charts.map((chart) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 24.0),
+                      child: _buildChart(chart),
+                    );
+                  }),
                 ],
               ],
             ),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) =>
-            Center(child: Text('Error loading dashboard: $err')),
+        error: (e, st) => Center(child: Text('Institutional Error: $e')),
       ),
     );
   }
 
   Widget _buildChart(AnalyticsChart chart) {
     switch (chart.type) {
-      case ChartType.bar:
-        return PrimeCareBarChart(chart: chart);
       case ChartType.line:
         return PrimeCareLineChart(chart: chart);
+      case ChartType.bar:
+        return PrimeCareBarChart(chart: chart);
       case ChartType.pie:
         return PrimeCarePieChart(chart: chart);
     }
@@ -231,30 +194,11 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
   IconData _getIconForMetric(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('sales'))
+    if (t.contains('claim') || t.contains('revenue'))
       return LucideIcons.dollarSign;
-    if (t.contains('staff')) return LucideIcons.briefcase;
-    if (t.contains('task')) return LucideIcons.checkSquare;
+    if (t.contains('staff') || t.contains('capacity'))
+      return LucideIcons.userCheck;
+    if (t.contains('alert')) return LucideIcons.alertCircle;
     return LucideIcons.activity;
-  }
-
-  IconData _getIconForActivity(String iconName) {
-    switch (iconName) {
-      case 'user':
-        return LucideIcons.user;
-      case 'alert':
-        return LucideIcons.alertTriangle;
-      case 'check':
-        return LucideIcons.checkCircle;
-      default:
-        return LucideIcons.info;
-    }
-  }
-}
-
-extension StringExtension on String {
-  String capitalize() {
-    if (isEmpty) return this;
-    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }

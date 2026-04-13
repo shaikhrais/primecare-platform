@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_core/providers/portal_providers.dart';
 import '../theme/design_system.dart';
-import '../theme/theme_tokens.dart';
 
 enum PrimeCareButtonType { primary, secondary, text, danger }
 

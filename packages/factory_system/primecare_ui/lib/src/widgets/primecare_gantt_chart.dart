@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/theme_tokens.dart';
+
 import '../theme/design_system.dart';
 
 class PrimeCareGanttTask {
@@ -95,7 +95,8 @@ class PrimeCareGanttChart extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: PrimeCareDesignSystem.borderSubtle.withValues(alpha: 0.5),
+                                color: PrimeCareDesignSystem.borderSubtle
+                                    .withValues(alpha: 0.5),
                               ),
                             ),
                           ),
@@ -140,18 +141,26 @@ class PrimeCareGanttChart extends StatelessWidget {
           Container(
             height: 24,
             decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: PrimeCareDesignSystem.borderSubtle)),
+              border: Border(
+                top: BorderSide(color: PrimeCareDesignSystem.borderSubtle),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   '${minDate.month}/${minDate.day}',
-                  style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted),
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: PrimeCareDesignSystem.textMuted,
+                  ),
                 ),
                 Text(
                   '${maxDate.month}/${maxDate.day}',
-                  style: TextStyle(fontSize: 10, color: PrimeCareDesignSystem.textMuted),
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: PrimeCareDesignSystem.textMuted,
+                  ),
                 ),
               ],
             ),

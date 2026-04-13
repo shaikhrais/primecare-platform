@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
+export 'theme_tokens.dart';
 
 /// Centralized Design System that serves as the single source of truth for UI aesthetics.
 /// Provides semantic tokens for institutional consistency and density-aware scaling.
@@ -51,6 +52,9 @@ class PrimeCareDesignSystem {
     brightness: Brightness.dark,
     scaffoldBackgroundColor: PrimeCareColors.radarDark,
   );
+
+  /// Standard brand color used across the platform
+  static Color get primaryBrand => PrimeCareColors.skyBlue;
 }
 
 abstract class PrimeCareColorTokens {

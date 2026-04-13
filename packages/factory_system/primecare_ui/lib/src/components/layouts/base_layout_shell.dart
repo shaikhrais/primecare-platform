@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../theme/design_system.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../global_top_bar.dart';
 import '../universal_role_sidebar.dart';
 import '../adaptive_scaling_wrapper.dart';
 import 'package:primecare_core/flutter_core.dart';
-import '../../theme/theme_tokens.dart';
 
 class BaseLayoutShell extends ConsumerWidget {
   final Widget child;

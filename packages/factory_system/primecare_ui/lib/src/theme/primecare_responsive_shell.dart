@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
-import 'theme_tokens.dart';
+
 import 'design_system.dart';
 
 class ResponsiveNavigationData {
@@ -204,7 +204,9 @@ class _DesktopSidebar extends StatelessWidget {
                         children: [
                           Icon(
                             isSelected ? d.selectedIcon : d.icon,
-                            color: isSelected ? primaryIcon : PrimeCareDesignSystem.textMuted,
+                            color: isSelected
+                                ? primaryIcon
+                                : PrimeCareDesignSystem.textMuted,
                           ),
                           const SizedBox(width: PrimeCareSpacing.md),
                           Text(
@@ -212,7 +214,9 @@ class _DesktopSidebar extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
-                              color: isSelected ? primaryIcon : PrimeCareDesignSystem.textMuted,
+                              color: isSelected
+                                  ? primaryIcon
+                                  : PrimeCareDesignSystem.textMuted,
                               fontWeight: isSelected
                                   ? FontWeight.bold
                                   : FontWeight.w500,
@@ -271,7 +275,9 @@ class _TabletNavRail extends StatelessWidget {
         backgroundColor: Colors.transparent,
         indicatorColor: primaryIndicator,
         selectedIconTheme: IconThemeData(color: primaryIcon),
-        unselectedIconTheme: IconThemeData(color: PrimeCareDesignSystem.textMuted),
+        unselectedIconTheme: IconThemeData(
+          color: PrimeCareDesignSystem.textMuted,
+        ),
         selectedLabelTextStyle: TextStyle(
           color: primaryIcon,
           fontWeight: FontWeight.bold,

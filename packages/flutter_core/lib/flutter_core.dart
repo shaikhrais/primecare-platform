@@ -85,7 +85,21 @@ export 'features/patient_dashboard/domain/models/patient_dashboard_view_model.da
 export 'features/regional_bdm_dashboard/domain/models/regional_bdm_dashboard_view_model.dart';
 export 'features/franchise_dashboard/domain/models/franchise_dashboard_view_model.dart';
 
-export 'src/factory_floor/ui_blueprint.dart';
+export 'report_service.dart';
+export 'report_providers.dart';
+export 'intelligence_service.dart';
+export 'intelligence_providers.dart';
+export 'aura_command_service.dart';
+export 'aura_pulse_service.dart';
+export 'aura_providers.dart';
+
+// Institutional Scheduler
+export 'src/models/scheduler_models.dart';
+export 'src/services/scheduler_service.dart';
+export 'scheduler_providers.dart';
+export 'src/models/aura_intent.dart';
+export 'src/models/aura_event.dart';
+export 'src/models/intelligence_insight.dart';
 export 'src/factory_floor/data_logistics_hub.dart';
 export 'src/factory_floor/data_fallback_engine.dart';
 

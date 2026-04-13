@@ -20,13 +20,15 @@ export 'src/screens/common/global_profile.dart';
 export 'src/screens/common/document_vault.dart';
 export 'src/screens/common/messaging_hub.dart';
 export 'src/screens/common/notification_center.dart';
-
-// Global Shared Components (Common Logic)
 export 'src/screens/common/dynamic_role_dashboard_screen.dart';
+export 'src/screens/common/primecare_report_screen.dart';
+export 'src/screens/common/aura_interactive_sheet.dart';
 export 'src/screens/common/history_logs.dart';
 export 'src/screens/common/messaging.dart';
 export 'src/screens/common/profile_settings.dart';
 export 'src/screens/common/splash_screen.dart';
 export 'src/screens/common/subscription_upgrade_screen.dart';
- 
+export 'src/screens/common/primecare_horizon_scheduler_screen.dart';
+export 'src/screens/common/institutional_scheduler_screen.dart';
+
 // Developer Samples (Reference Implementations)

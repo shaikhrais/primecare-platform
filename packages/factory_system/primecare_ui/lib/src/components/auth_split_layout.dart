@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_core/flutter_core.dart';
 import '../theme/design_system.dart';
-import '../theme/theme_tokens.dart';
 
 class AuthSplitLayout extends ConsumerWidget {
   final Widget child;

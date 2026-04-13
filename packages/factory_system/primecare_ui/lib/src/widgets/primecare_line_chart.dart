@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../theme/theme_tokens.dart';
+
 import '../theme/design_system.dart';
 
 class PrimeCareLineChart extends StatelessWidget {
@@ -59,7 +59,10 @@ class PrimeCareLineChart extends StatelessWidget {
                   show: true,
                   drawVerticalLine: false,
                   getDrawingHorizontalLine: (value) {
-                    return FlLine(color: PrimeCareDesignSystem.borderSubtle, strokeWidth: 1);
+                    return FlLine(
+                      color: PrimeCareDesignSystem.borderSubtle,
+                      strokeWidth: 1,
+                    );
                   },
                 ),
                 titlesData: FlTitlesData(
@@ -100,7 +103,10 @@ class PrimeCareLineChart extends StatelessWidget {
                       getTitlesWidget: (value, meta) {
                         return Text(
                           value.toInt().toString(),
-                          style: TextStyle(color: PrimeCareDesignSystem.textMuted, fontSize: 10),
+                          style: TextStyle(
+                            color: PrimeCareDesignSystem.textMuted,
+                            fontSize: 10,
+                          ),
                         );
                       },
                     ),

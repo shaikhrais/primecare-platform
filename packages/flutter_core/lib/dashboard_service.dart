@@ -77,15 +77,17 @@ class AnalyticsChart {
   final String id;
   final String title;
   final ChartType type;
-  final List<ChartDataPoint> data;
-  final String? unit;
+  final List<ChartDataPoint> dataPoints;
+  final List<ChartDataPoint>? forecastDataPoints;
+  final String? reportId;
 
   AnalyticsChart({
     required this.id,
     required this.title,
     required this.type,
-    required this.data,
-    this.unit,
+    required this.dataPoints,
+    this.forecastDataPoints,
+    this.reportId,
   });
 
   factory AnalyticsChart.fromJson(Map<String, dynamic> json) {
@@ -96,10 +98,15 @@ class AnalyticsChart {
         (e) => e.name == (json['type'] as String).toLowerCase(),
         orElse: () => ChartType.bar,
       ),
-      data: (json['data'] as List)
+      dataPoints: (json['dataPoints'] as List)
           .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
           .toList(),
-      unit: json['unit'] as String?,
+      forecastDataPoints: json['forecastDataPoints'] != null
+          ? (json['forecastDataPoints'] as List)
+                .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
+                .toList()
+          : null,
+      reportId: json['reportId'] as String?,
     );
   }
 }

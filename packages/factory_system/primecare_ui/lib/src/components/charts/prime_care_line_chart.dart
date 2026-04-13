@@ -37,10 +37,10 @@ class PrimeCareLineChart extends StatelessWidget {
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
                   final index = value.toInt();
-                  if (index < 0 || index >= chart.data.length)
+                  if (index < 0 || index >= chart.dataPoints.length)
                     return const SizedBox.shrink();
                   return Text(
-                    chart.data[index].label,
+                    chart.dataPoints[index].label,
                     style: const TextStyle(
                       color: Color(0xFF64748B),
                       fontSize: 10,
@@ -61,8 +61,9 @@ class PrimeCareLineChart extends StatelessWidget {
           ),
           borderData: FlBorderData(show: false),
           lineBarsData: [
+            // 1. Primary Historical Data Line
             LineChartBarData(
-              spots: chart.data.asMap().entries.map((e) {
+              spots: chart.dataPoints.asMap().entries.map((e) {
                 return FlSpot(e.key.toDouble(), e.value.value);
               }).toList(),
               isCurved: true,
@@ -75,6 +76,31 @@ class PrimeCareLineChart extends StatelessWidget {
                 color: lineColor.withAlpha(25),
               ),
             ),
+            // 2. Predictive Forecast Line (Dashed)
+            if (chart.forecastDataPoints != null &&
+                chart.forecastDataPoints!.isNotEmpty)
+              LineChartBarData(
+                spots: [
+                  // Connect last historical point to first forecast point
+                  FlSpot(
+                    (chart.dataPoints.length - 1).toDouble(),
+                    chart.dataPoints.last.value,
+                  ),
+                  ...chart.forecastDataPoints!.asMap().entries.map((e) {
+                    return FlSpot(
+                      (chart.dataPoints.length + e.key).toDouble(),
+                      e.value.value,
+                    );
+                  }),
+                ],
+                isCurved: true,
+                color: const Color(0xFF818CF8), // Aura Indigo
+                barWidth: 3,
+                dashArray: [5, 5],
+                isStrokeCapRound: true,
+                dotData: const FlDotData(show: true), // Show dots for forecast
+                belowBarData: BarAreaData(show: false),
+              ),
           ],
         ),
       ),

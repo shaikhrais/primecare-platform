@@ -71,4 +71,5 @@ class CommonRoutes {
   static const String myAppointmentsScreen = '/dynamic/myAppointmentsScreen';
   static const String treatmentHistoryScreen =
       '/dynamic/treatmentHistoryScreen';
+  static const String institutionalScheduler = '/institutional/scheduler';
 }
