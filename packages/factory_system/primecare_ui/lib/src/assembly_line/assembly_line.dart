@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 import 'package:primecare_ui/src/fabricator/component_fabricator.dart';
 import 'package:primecare_ui/src/components/fallback_state_wrapper.dart';
 

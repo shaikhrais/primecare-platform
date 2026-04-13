@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { Control } from 'react-hook-form';
 import { Typography } from '@mui/material';
 import { AnyFormFieldType } from '@fuse/core/FuseSettings/ThemeFormConfigTypes';

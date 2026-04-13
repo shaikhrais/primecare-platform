@@ -1,5 +1,5 @@
 import { createMiddleware } from 'hono/factory';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 // import { tenantExtension } from '@primecare/database';
 // import { auditExtension } from '@primecare/database';
 // import { forensicExtension } from '@primecare/database';

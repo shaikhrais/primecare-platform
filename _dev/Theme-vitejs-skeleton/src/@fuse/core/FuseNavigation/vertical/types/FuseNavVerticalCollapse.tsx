@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 'use client';
 import Collapse from '@mui/material/Collapse';
 import clsx from 'clsx';

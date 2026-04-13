@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import clsx from 'clsx';

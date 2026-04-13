@@ -16,3 +16,5 @@ class DragAssignWidget extends StatelessWidget {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.

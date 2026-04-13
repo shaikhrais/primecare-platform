@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/primecare_core.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 final headOfBusDevDashboardAdapterProvider = FutureProvider<HeadOfBusDevDashboardViewModel>((ref) async {

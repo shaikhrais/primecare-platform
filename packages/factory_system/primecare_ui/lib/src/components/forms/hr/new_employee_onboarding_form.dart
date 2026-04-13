@@ -81,3 +81,7 @@ class _NewEmployeeOnboardingFormState extends State<NewEmployeeOnboardingForm> {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.
+
+// Styled with global Theme and CustomColors.

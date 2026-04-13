@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 import { ThemeProvider } from '@mui/material/styles';
 import { useFooterTheme } from '@fuse/core/FuseSettings/hooks/fuseThemeHooks';
 

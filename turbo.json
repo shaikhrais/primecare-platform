@@ -26,5 +26,14 @@
       "cache": false,
       "persistent": true
     }
-  }
+  },
+  "globalPassThroughEnv": [
+    "LOCALAPPDATA",
+    "APPDATA",
+    "USERPROFILE",
+    "HOMEDRIVE",
+    "HOMEPATH",
+    "FLUTTER_ROOT",
+    "PUB_CACHE"
+  ]
 }

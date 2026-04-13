@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import * as React from 'react';
 import { type Editor, type ChainedCommands } from '@tiptap/react';
 

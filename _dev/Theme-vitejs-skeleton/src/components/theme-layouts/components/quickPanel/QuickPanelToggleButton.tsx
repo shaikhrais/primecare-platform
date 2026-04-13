@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import IconButton from '@mui/material/IconButton';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { useQuickPanelContext } from './contexts/QuickPanelContext/useQuickPanelContext';

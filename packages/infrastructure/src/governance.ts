@@ -1,5 +1,5 @@
 import { MiddlewareHandler } from 'hono';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 
 /**
  * Middleware to enforce Network (VPN) and Device Governance.

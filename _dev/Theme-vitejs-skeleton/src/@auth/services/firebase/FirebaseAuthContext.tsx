@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { createContext } from 'react';
 import { FirebaseSignInPayload, FirebaseSignUpPayload } from '@auth/services/firebase/FirebaseAuthProvider';
 import { FuseAuthProviderState } from '@fuse/core/FuseAuthProvider/types/FuseAuthTypes';

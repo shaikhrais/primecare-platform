@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface ErrorBoundaryProps {

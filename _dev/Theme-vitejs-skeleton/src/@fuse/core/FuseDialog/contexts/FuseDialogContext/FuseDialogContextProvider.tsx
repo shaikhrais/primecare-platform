@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import React from 'react';
 import { FuseDialog, FuseDialogProps } from '../../FuseDialog';
 import { FuseDialogContext, FuseDialogDefaultContext } from './FuseDialogContext';

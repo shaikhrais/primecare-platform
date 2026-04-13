@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 import { Component, ReactNode } from 'react';
 import _ from 'lodash';
 import { defaultSettings, getParsedQuerySettings } from '@fuse/default-settings';

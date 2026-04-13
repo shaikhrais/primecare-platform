@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 
 const supportAgentsList = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

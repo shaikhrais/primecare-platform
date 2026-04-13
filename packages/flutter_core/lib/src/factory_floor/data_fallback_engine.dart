@@ -23,10 +23,30 @@ class DataFallbackEngine {
   static StatGridBlueprint createFallbackStatGrid(String title) {
     return StatGridBlueprint(
       dataPayload: const [
-        UniversalKpi(title: 'Revenue (Offline)', value: r'$0', trend: 0.0, status: KpiStatus.warning),
-        UniversalKpi(title: 'Active Clients', value: '-', trend: 0.0, status: KpiStatus.warning),
-        UniversalKpi(title: 'Pending Tasks', value: 'Offline', trend: 0.0, status: KpiStatus.warning),
-        UniversalKpi(title: 'System Status', value: 'Degraded', trend: 0.0, status: KpiStatus.critical),
+        UniversalKpi(
+          title: 'Revenue (Offline)',
+          value: r'$0',
+          trend: 0.0,
+          status: KpiStatus.warning,
+        ),
+        UniversalKpi(
+          title: 'Active Clients',
+          value: '-',
+          trend: 0.0,
+          status: KpiStatus.warning,
+        ),
+        UniversalKpi(
+          title: 'Pending Tasks',
+          value: 'Offline',
+          trend: 0.0,
+          status: KpiStatus.warning,
+        ),
+        UniversalKpi(
+          title: 'System Status',
+          value: 'Degraded',
+          trend: 0.0,
+          status: KpiStatus.critical,
+        ),
       ],
     );
   }

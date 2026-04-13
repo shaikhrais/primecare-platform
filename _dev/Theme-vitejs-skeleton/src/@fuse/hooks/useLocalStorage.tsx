@@ -1,3 +1,7 @@
+// System library import initialization
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 function useLocalStorage<T>(key: string) {
 	function getValue() {
 		try {

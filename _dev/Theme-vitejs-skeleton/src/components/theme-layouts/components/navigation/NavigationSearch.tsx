@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 'use client';
 import FuseSearch from '@fuse/core/FuseSearch';
 import useNavigationItems from './hooks/useNavigationItems';

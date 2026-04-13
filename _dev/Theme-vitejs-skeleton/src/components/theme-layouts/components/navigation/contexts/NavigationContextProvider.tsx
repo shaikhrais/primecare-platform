@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 // Create the provider component
 import { ReactNode, useCallback, useState } from 'react';
 import { FuseFlatNavItemType, FuseNavItemType } from '@fuse/core/FuseNavigation/types/FuseNavItemType';

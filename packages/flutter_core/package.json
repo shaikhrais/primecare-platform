@@ -1,0 +1,1 @@
+{ "name": "@primecare/flutter-pkg-flutter_core", "private": true, "scripts": { "test": "flutter test" } }

@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import clsx from 'clsx';

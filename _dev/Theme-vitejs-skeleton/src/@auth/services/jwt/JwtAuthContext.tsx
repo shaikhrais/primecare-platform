@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { FuseAuthProviderState } from '@fuse/core/FuseAuthProvider/types/FuseAuthTypes';
 import { User } from '@auth/user';
 import { createContext } from 'react';

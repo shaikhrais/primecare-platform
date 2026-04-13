@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { useState, useEffect, useCallback, useMemo, useImperativeHandle } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';

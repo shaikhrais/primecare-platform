@@ -3,7 +3,7 @@
  * Health, branding, stats, marketing leads, public registries, telemetry
  */
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 
 /** Worker start time — used to calculate uptime in health endpoint */
 const WORKER_START_TIME = Date.now();

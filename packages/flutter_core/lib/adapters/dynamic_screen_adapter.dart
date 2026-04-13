@@ -1,0 +1,40 @@
+import 'package:primecare_core/config/data_source_mode.dart';
+import 'package:primecare_core/network/api_client.dart';
+
+class DynamicScreenAdapter {
+  final String screenId;
+  final ApiClient apiClient;
+
+  DynamicScreenAdapter({required this.screenId, required this.apiClient});
+
+  Future<Map<String, dynamic>> getData() async {
+    if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
+        DataSourceConfig.currentMode == DataSourceType.mock) {
+      return {
+        'title': 'Dynamic Screen: $screenId (Mock)',
+        'status': 'ACTIVE',
+        'screenId': screenId,
+        'uiComponentType': 'CardLayout', // Fallback
+        'layoutType': 'Standard',
+      };
+    }
+
+    try {
+      final response = await apiClient.get('/screens/$screenId');
+      if (response.statusCode == 200) {
+        return response.data as Map<String, dynamic>;
+      } else {
+        throw Exception('Failed to load screen data: ${response.statusCode}');
+      }
+    } catch (e) {
+      if (DataSourceConfig.currentMode == DataSourceType.hybrid) {
+        return {
+          'title': 'Dynamic Screen: $screenId (Fallback)',
+          'status': 'DEGRADED',
+          'screenId': screenId,
+        };
+      }
+      rethrow;
+    }
+  }
+}

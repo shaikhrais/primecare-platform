@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';

@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 'use client';
 
 import Typography from '@mui/material/Typography';

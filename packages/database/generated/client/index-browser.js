@@ -160,7 +160,8 @@ exports.Prisma.TenantScalarFieldEnum = {
   corsAllowedMethods: 'corsAllowedMethods',
   corsAllowedHeaders: 'corsAllowedHeaders',
   taxPercentage: 'taxPercentage',
-  parentTenantId: 'parentTenantId'
+  parentTenantId: 'parentTenantId',
+  subscriptionTier: 'subscriptionTier'
 };
 
 exports.Prisma.RegistryScalarFieldEnum = {
@@ -431,6 +432,28 @@ exports.Prisma.SupplyForecastMetricsScalarFieldEnum = {
   deficitWarning: 'deficitWarning',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PromoCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  discountPercent: 'discountPercent',
+  targetTier: 'targetTier',
+  maxUses: 'maxUses',
+  currentUses: 'currentUses',
+  expiresAt: 'expiresAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriptionUpgradeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  promoCodeId: 'promoCodeId',
+  oldTier: 'oldTier',
+  newTier: 'newTier',
+  upgradedAt: 'upgradedAt'
 };
 
 exports.Prisma.ClientProfileScalarFieldEnum = {
@@ -1710,6 +1733,17 @@ exports.Prisma.DynamicFeatureRecordScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ScreenConfigurationScalarFieldEnum = {
+  id: 'id',
+  screenId: 'screenId',
+  uiComponentType: 'uiComponentType',
+  layoutType: 'layoutType',
+  cssStyles: 'cssStyles',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2455,6 +2489,8 @@ exports.Prisma.ModelName = {
   HospitalTarget: 'HospitalTarget',
   ReferralPipeline: 'ReferralPipeline',
   SupplyForecastMetrics: 'SupplyForecastMetrics',
+  PromoCode: 'PromoCode',
+  SubscriptionUpgrade: 'SubscriptionUpgrade',
   ClientProfile: 'ClientProfile',
   ProviderProfile: 'ProviderProfile',
   Visit: 'Visit',
@@ -2556,6 +2592,7 @@ exports.Prisma.ModelName = {
   NarrativeProgressNote: 'NarrativeProgressNote',
   CarePlanFollowUp: 'CarePlanFollowUp',
   DynamicFeatureRecord: 'DynamicFeatureRecord',
+  ScreenConfiguration: 'ScreenConfiguration',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

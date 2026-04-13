@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { ReactNode, useState } from 'react';
 import { NavbarContext } from './NavbarContext';
 

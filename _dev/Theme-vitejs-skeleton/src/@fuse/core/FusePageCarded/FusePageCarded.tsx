@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 'use client';
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import { styled } from '@mui/material/styles';

@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { createContext } from 'react';
 import { FuseAuthProviderState, FuseAuthProviderType } from './types/FuseAuthTypes';
 import { PartialDeep } from 'type-fest';

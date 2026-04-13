@@ -1,5 +1,6 @@
 // Master export file for flutter_core.
 
+export 'adapters/primecare_form_provider.dart';
 export 'adapter_providers.dart';
 export 'api_providers.dart';
 export 'auth_service.dart';
@@ -77,6 +78,140 @@ export 'features/patient_dashboard/domain/models/patient_dashboard_view_model.da
 export 'features/regional_bdm_dashboard/domain/models/regional_bdm_dashboard_view_model.dart';
 export 'features/franchise_dashboard/domain/models/franchise_dashboard_view_model.dart';
 
-
 export 'src/factory_floor/ui_blueprint.dart';
 export 'src/factory_floor/data_fallback_engine.dart';
+
+// Administrative Forms
+export 'features/administrative_forms/domain/models/approve_leave_request_form_view_model.dart';
+export 'features/administrative_forms/data/adapters/approve_leave_request_form_adapter.dart';
+export 'features/administrative_forms/domain/models/approve_expense_reimbursement_form_view_model.dart';
+export 'features/administrative_forms/data/adapters/approve_expense_reimbursement_form_adapter.dart';
+export 'features/administrative_forms/domain/models/approve_payroll_run_form_view_model.dart';
+export 'features/administrative_forms/data/adapters/approve_payroll_run_form_adapter.dart';
+
+// Clinical Forms
+export 'features/clinical_forms/domain/models/patient_intake_form_view_model.dart';
+export 'features/clinical_forms/data/adapters/patient_intake_form_adapter.dart';
+export 'features/clinical_forms/domain/models/daily_vitals_card_form_view_model.dart';
+export 'features/clinical_forms/data/adapters/daily_vitals_card_form_adapter.dart';
+export 'features/clinical_forms/domain/models/approve_medication_refill_form_view_model.dart';
+export 'features/clinical_forms/data/adapters/approve_medication_refill_form_adapter.dart';
+
+// CRM Forms
+export 'features/crm_forms/domain/models/add_franchise_lead_form_view_model.dart';
+export 'features/crm_forms/data/adapters/add_franchise_lead_form_adapter.dart';
+export 'features/crm_forms/domain/models/assign_lead_form_view_model.dart';
+export 'features/crm_forms/data/adapters/assign_lead_form_adapter.dart';
+export 'features/crm_forms/domain/models/submit_marketing_budget_form_view_model.dart';
+export 'features/crm_forms/data/adapters/submit_marketing_budget_form_adapter.dart';
+export 'features/crm_forms/domain/models/approve_franchise_disclosure_form_view_model.dart';
+export 'features/crm_forms/data/adapters/approve_franchise_disclosure_form_adapter.dart';
+export 'features/crm_forms/domain/models/create_ad_placement_form_view_model.dart';
+export 'features/crm_forms/data/adapters/create_ad_placement_form_adapter.dart';
+export 'features/crm_forms/domain/models/franchise_onboarding_checklist_form_view_model.dart';
+export 'features/crm_forms/data/adapters/franchise_onboarding_checklist_form_adapter.dart';
+export 'features/crm_forms/domain/models/log_franchisee_vetting_call_form_view_model.dart';
+export 'features/crm_forms/data/adapters/log_franchisee_vetting_call_form_adapter.dart';
+export 'features/crm_forms/domain/models/nurture_localized_lead_form_view_model.dart';
+export 'features/crm_forms/data/adapters/nurture_localized_lead_form_adapter.dart';
+export 'features/crm_forms/domain/models/review_lead_conversion_form_view_model.dart';
+export 'features/crm_forms/data/adapters/review_lead_conversion_form_adapter.dart';
+export 'features/crm_forms/domain/models/review_market_share_form_view_model.dart';
+export 'features/crm_forms/data/adapters/review_market_share_form_adapter.dart';
+export 'features/crm_forms/domain/models/schedule_open_house_form_view_model.dart';
+export 'features/crm_forms/data/adapters/schedule_open_house_form_adapter.dart';
+
+// Common Forms
+export 'features/common_forms/domain/models/single_input_form_view_model.dart';
+export 'features/common_forms/data/adapters/single_input_form_adapter.dart';
+
+// HR Forms
+export 'features/hr_forms/domain/models/assign_training_module_form_view_model.dart';
+export 'features/hr_forms/data/adapters/assign_training_module_form_adapter.dart';
+export 'features/hr_forms/domain/models/audit_payroll_discrepancy_form_view_model.dart';
+export 'features/hr_forms/data/adapters/audit_payroll_discrepancy_form_adapter.dart';
+export 'features/hr_forms/domain/models/discipline_log_form_view_model.dart';
+export 'features/hr_forms/data/adapters/discipline_log_form_adapter.dart';
+
+export 'features/hr_forms/domain/models/leave_request_form_view_model.dart';
+export 'features/hr_forms/data/adapters/leave_request_form_adapter.dart';
+export 'features/hr_forms/domain/models/log_employee_grievance_form_view_model.dart';
+export 'features/hr_forms/data/adapters/log_employee_grievance_form_adapter.dart';
+export 'features/hr_forms/domain/models/new_employee_onboarding_form_view_model.dart';
+export 'features/hr_forms/data/adapters/new_employee_onboarding_form_adapter.dart';
+export 'features/hr_forms/domain/models/request_shift_adjustment_form_view_model.dart';
+export 'features/hr_forms/data/adapters/request_shift_adjustment_form_adapter.dart';
+export 'features/hr_forms/domain/models/review_onboarding_status_form_view_model.dart';
+export 'features/hr_forms/data/adapters/review_onboarding_status_form_adapter.dart';
+export 'features/hr_forms/domain/models/review_peer_performance_form_view_model.dart';
+export 'features/hr_forms/data/adapters/review_peer_performance_form_adapter.dart';
+export 'features/hr_forms/domain/models/schedule_interview_form_view_model.dart';
+export 'features/hr_forms/data/adapters/schedule_interview_form_adapter.dart';
+export 'features/hr_forms/domain/models/submit_exit_interview_form_view_model.dart';
+export 'features/hr_forms/data/adapters/submit_exit_interview_form_adapter.dart';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

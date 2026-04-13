@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import { FormControl, FormLabel, Switch } from '@mui/material';
 import { Control } from 'react-hook-form';
 import { Controller } from 'react-hook-form';

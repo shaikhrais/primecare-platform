@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 import '../assembly_line/assembly_line.dart';
 import 'layout/prime_responsive_grid.dart';
 
@@ -116,9 +116,19 @@ class _OrchestratedPage<T> extends ConsumerWidget {
       data: (data) {
         // We expect T to have a 'blueprints' property and 'isOfflineFallback' flag.
         // This is the standard for PrimeCare ViewModels.
-        final dynamic d = data;
-        final blueprints = (d.blueprints as List<dynamic>?)?.cast<UIComponentBlueprint>() ?? [];
-        final isOffline = (d.isOfflineFallback as bool?) ?? false;
+        List<UIComponentBlueprint> blueprints = [];
+        bool isOffline = false;
+
+        if (data is Map) {
+          blueprints = (data['blueprints'] as List<dynamic>?)?.cast<UIComponentBlueprint>() ?? [];
+          isOffline = (data['isOfflineFallback'] as bool?) ?? false;
+        } else {
+          final dynamic d = data;
+          try {
+            blueprints = (d.blueprints as List<dynamic>?)?.cast<UIComponentBlueprint>() ?? [];
+            isOffline = (d.isOfflineFallback as bool?) ?? false;
+          } catch (_) {}
+        }
 
         return PageTemplate(
           title: title,

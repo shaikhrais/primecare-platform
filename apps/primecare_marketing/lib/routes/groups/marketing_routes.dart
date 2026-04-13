@@ -1,130 +1,217 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 
-final List<RouteBase> marketingRoutes = [
-  GoRoute(
-    path: CorporateRoutes.headOfMarketingDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+class ScreenConfig {
+  final String routePath;
+  final String titleKey;
+  final String subtitleKey;
+  final String providerId;
+
+  const ScreenConfig({
+    required this.routePath,
+    required this.titleKey,
+    required this.subtitleKey,
+    required this.providerId,
+  });
+}
+
+final List<ScreenConfig> marketingScreenRegistry = [
+  ScreenConfig(
+    routePath: CorporateRoutes.headOfMarketingDashboard,
+    titleKey: 'Head Of Marketing Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingDashboard',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerDashboard,
+    titleKey: 'Local Marketing Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerDashboard',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachDashboard,
+    titleKey: 'Community Outreach Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachDashboard',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerDashboard,
+    titleKey: 'Territory Sales Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerDashboard',
   ),
-  GoRoute(
-    path: MarketingRoutes.headOfMarketingCampaigns,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.headOfMarketingCampaigns,
+    titleKey: 'Head Of Marketing Campaigns',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingCampaigns',
   ),
-  GoRoute(
-    path: MarketingRoutes.headOfMarketingLeads,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.headOfMarketingLeads,
+    titleKey: 'Head Of Marketing Leads',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingLeads',
   ),
-  GoRoute(
-    path: MarketingRoutes.headOfMarketingFunnelAnalytics,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.headOfMarketingFunnelAnalytics,
+    titleKey: 'Head Of Marketing Funnel Analytics',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingFunnelAnalytics',
   ),
-  GoRoute(
-    path: MarketingRoutes.headOfMarketingBrandAssets,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.headOfMarketingBrandAssets,
+    titleKey: 'Head Of Marketing Brand Assets',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingBrandAssets',
   ),
-  GoRoute(
-    path: MarketingRoutes.headOfMarketingRegionalCampaigns,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.headOfMarketingRegionalCampaigns,
+    titleKey: 'Head Of Marketing Regional Campaigns',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingRegionalCampaigns',
   ),
-  GoRoute(
-    path: MarketingRoutes.headOfMarketingContentApproval,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.headOfMarketingContentApproval,
+    titleKey: 'Head Of Marketing Content Approval',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingContentApproval',
   ),
-  GoRoute(
-    path: MarketingRoutes.headOfMarketingPerformanceReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.headOfMarketingPerformanceReports,
+    titleKey: 'Head Of Marketing Performance Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'headOfMarketingPerformanceReports',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerCampaigns,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerCampaigns,
+    titleKey: 'Local Marketing Manager Campaigns',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerCampaigns',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerLeads,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerLeads,
+    titleKey: 'Local Marketing Manager Leads',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerLeads',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerContentCalendar,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerContentCalendar,
+    titleKey: 'Local Marketing Manager Content Calendar',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerContentCalendar',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerEvents,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerEvents,
+    titleKey: 'Local Marketing Manager Events',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerEvents',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerBudget,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerBudget,
+    titleKey: 'Local Marketing Manager Budget',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerBudget',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerReports,
+    titleKey: 'Local Marketing Manager Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerReports',
   ),
-  GoRoute(
-    path: MarketingRoutes.localMarketingManagerAssets,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.localMarketingManagerAssets,
+    titleKey: 'Local Marketing Manager Assets',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'localMarketingManagerAssets',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachPrograms,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachPrograms,
+    titleKey: 'Community Outreach Programs',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachPrograms',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachEvents,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachEvents,
+    titleKey: 'Community Outreach Events',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachEvents',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachPartnerships,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachPartnerships,
+    titleKey: 'Community Outreach Partnerships',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachPartnerships',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachVolunteers,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachVolunteers,
+    titleKey: 'Community Outreach Volunteers',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachVolunteers',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachContacts,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachContacts,
+    titleKey: 'Community Outreach Contacts',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachContacts',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachFollowUps,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachFollowUps,
+    titleKey: 'Community Outreach Follow Ups',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachFollowUps',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerLeads,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerLeads,
+    titleKey: 'Territory Sales Manager Leads',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerLeads',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerPipeline,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerPipeline,
+    titleKey: 'Territory Sales Manager Pipeline',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerPipeline',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerFieldActivity,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerFieldActivity,
+    titleKey: 'Territory Sales Manager Field Activity',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerFieldActivity',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerConversions,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerConversions,
+    titleKey: 'Territory Sales Manager Conversions',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerConversions',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerAreaPerformance,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerAreaPerformance,
+    titleKey: 'Territory Sales Manager Area Performance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerAreaPerformance',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerCompetitors,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerCompetitors,
+    titleKey: 'Territory Sales Manager Competitors',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerCompetitors',
   ),
-  GoRoute(
-    path: MarketingRoutes.territorySalesManagerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.territorySalesManagerReports,
+    titleKey: 'Territory Sales Manager Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territorySalesManagerReports',
   ),
 ];
+
+final List<RouteBase> marketingRoutes = marketingScreenRegistry.map((config) {
+  return GoRoute(
+    path: config.routePath,
+    builder: (context, state) => PageTemplate.orchestrate(
+      title: config.titleKey,
+      subtitle: config.subtitleKey,
+      provider: genericDashboardProvider(config.providerId),
+    ),
+  );
+}).toList();

@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import React from 'react';
 
 import AWSAuthProvider from '@auth/services/aws/AWSAuthProvider';

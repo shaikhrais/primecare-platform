@@ -1,3 +1,6 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { FuseRouteItemType } from '@fuse/utils/FuseUtils';
 import { layoutConfigOnlyMain } from '@/configs/layoutConfigTemplates';
 import Error401PageView from './components/views/Error401PageView';

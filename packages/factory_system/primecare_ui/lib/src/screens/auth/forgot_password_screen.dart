@@ -150,3 +150,5 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.

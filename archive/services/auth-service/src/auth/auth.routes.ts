@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 import { cors } from 'hono/cors';
 import registerRoutes from './routes/register';
 import loginRoutes from './routes/login';

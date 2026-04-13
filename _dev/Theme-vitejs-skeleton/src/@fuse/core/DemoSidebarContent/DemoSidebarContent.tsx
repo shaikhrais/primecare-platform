@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
 import _ from 'lodash';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';

@@ -184,6 +184,10 @@ model Tenant {
   // Registry
   registries Registry[]
 
+  // SaaS Subscription Extensions
+  subscriptionTier     String                @default("basic") @map("subscription_tier")
+  subscriptionUpgrades SubscriptionUpgrade[]
+
   // Domain Feature Extensions
   evvRecords            EVVRecord[]
   serviceAuthorizations ServiceAuthorization[]
@@ -578,6 +582,38 @@ model SupplyForecastMetrics {
   updatedAt       DateTime @updatedAt @map("updated_at")
 
   @@map("supply_forecast_metrics")
+}
+
+model PromoCode {
+  id              String    @id @default(uuid())
+  code            String    @unique
+  discountPercent Int?      @map("discount_percent")
+  targetTier      String?   @map("target_tier")
+  maxUses         Int?      @map("max_uses")
+  currentUses     Int       @default(0) @map("current_uses")
+  expiresAt       DateTime? @map("expires_at")
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  upgrades SubscriptionUpgrade[]
+
+  @@map("promo_codes")
+}
+
+model SubscriptionUpgrade {
+  id          String   @id @default(uuid())
+  tenantId    String   @map("tenant_id")
+  promoCodeId String?  @map("promo_code_id")
+  oldTier     String   @map("old_tier")
+  newTier     String   @map("new_tier")
+  upgradedAt  DateTime @default(now()) @map("upgraded_at")
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+  promoCode PromoCode? @relation(fields: [promoCodeId], references: [id])
+
+  @@index([tenantId])
+  @@map("subscription_upgrades")
 }
 
 // ==========================================
@@ -2576,6 +2612,19 @@ model DynamicFeatureRecord {
   @@index([featureId, tenantId])
   @@index([patientId])
   @@map("dynamic_feature_records")
+}
+
+model ScreenConfiguration {
+  id              String   @id @default(uuid())
+  screenId        String   @unique @map("screen_id")
+  uiComponentType String?  @map("ui_component_type")
+  layoutType      String?  @map("layout_type")
+  cssStyles       Json?    @map("css_styles")
+  metadata        Json?    @map("metadata")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("screen_configurations")
 }
 
 // Domain: d_clients.prisma

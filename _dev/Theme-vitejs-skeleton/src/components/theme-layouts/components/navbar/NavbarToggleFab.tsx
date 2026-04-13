@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import Fab from '@mui/material/Fab';
 import { styled } from '@mui/material/styles';
 

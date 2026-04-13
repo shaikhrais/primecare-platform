@@ -1,5 +1,5 @@
 import { Context, Next } from 'hono';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 
 /**
  * Ensures that if the user is a PSW, they are only accessing resources for a client assigned to them.

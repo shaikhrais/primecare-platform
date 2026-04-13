@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 'use client';
 import { styled } from '@mui/material/styles';
 import { Box, BoxProps } from '@mui/material';

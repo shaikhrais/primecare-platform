@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { useTheme } from '@mui/material/styles';
 import clsx from 'clsx';
 import Typography from '@mui/material/Typography';

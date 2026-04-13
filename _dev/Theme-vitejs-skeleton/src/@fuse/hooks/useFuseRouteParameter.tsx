@@ -1,3 +1,6 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { matchRoutes, RouteMatch } from 'react-router';
 import { useEffect, useState, useCallback } from 'react';
 import _ from 'lodash';

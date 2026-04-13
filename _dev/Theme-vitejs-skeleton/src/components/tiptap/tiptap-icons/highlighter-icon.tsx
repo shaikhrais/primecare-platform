@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import * as React from 'react';
 
 export const HighlighterIcon = React.memo(({ className, ...props }: React.SVGProps<SVGSVGElement>) => {

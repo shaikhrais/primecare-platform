@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';

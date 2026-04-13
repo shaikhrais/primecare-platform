@@ -1,3 +1,6 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import React, { Component } from 'react';
 import withRouter, { WithRouterProps } from '@fuse/core/withRouter/withRouter';
 import {

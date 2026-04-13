@@ -1,182 +1,295 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 
-final List<RouteBase> franchiseRoutes = [
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+class ScreenConfig {
+  final String routePath;
+  final String titleKey;
+  final String subtitleKey;
+  final String providerId;
+
+  const ScreenConfig({
+    required this.routePath,
+    required this.titleKey,
+    required this.subtitleKey,
+    required this.providerId,
+  });
+}
+
+final List<ScreenConfig> franchiseScreenRegistry = [
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerDashboard,
+    titleKey: 'Franchise Owner Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerDashboard',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerDashboard,
+    titleKey: 'Operations Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerDashboard',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerDashboard,
+    titleKey: 'Scheduler Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerDashboard',
   ),
-  GoRoute(
-    path: FranchiseRoutes.billingAdminDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.billingAdminDashboard,
+    titleKey: 'Billing Admin Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'billingAdminDashboard',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringDashboard,
+    titleKey: 'Hr Hiring Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringDashboard',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerBranchOverview,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerBranchOverview,
+    titleKey: 'Franchise Owner Branch Overview',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerBranchOverview',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerFinancialSnapshot,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerFinancialSnapshot,
+    titleKey: 'Franchise Owner Financial Snapshot',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerFinancialSnapshot',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerStaff,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerStaff,
+    titleKey: 'Franchise Owner Staff',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerStaff',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerAppointments,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerAppointments,
+    titleKey: 'Franchise Owner Appointments',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerAppointments',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerClients,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerClients,
+    titleKey: 'Franchise Owner Clients',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerClients',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerCompliance,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerCompliance,
+    titleKey: 'Franchise Owner Compliance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerCompliance',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerReports,
+    titleKey: 'Franchise Owner Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerReports',
   ),
-  GoRoute(
-    path: FranchiseRoutes.franchiseOwnerHiring,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.franchiseOwnerHiring,
+    titleKey: 'Franchise Owner Hiring',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseOwnerHiring',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerDailyOperations,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerDailyOperations,
+    titleKey: 'Operations Manager Daily Operations',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerDailyOperations',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerSchedule,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerSchedule,
+    titleKey: 'Operations Manager Schedule',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerSchedule',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerShifts,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerShifts,
+    titleKey: 'Operations Manager Shifts',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerShifts',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerIssues,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerIssues,
+    titleKey: 'Operations Manager Issues',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerIssues',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerServiceQuality,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerServiceQuality,
+    titleKey: 'Operations Manager Service Quality',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerServiceQuality',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerStaffCoordination,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerStaffCoordination,
+    titleKey: 'Operations Manager Staff Coordination',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerStaffCoordination',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerAttendance,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerAttendance,
+    titleKey: 'Operations Manager Attendance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerAttendance',
   ),
-  GoRoute(
-    path: FranchiseRoutes.operationsManagerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.operationsManagerReports,
+    titleKey: 'Operations Manager Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'operationsManagerReports',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorAppointmentCalendar,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorAppointmentCalendar,
+    titleKey: 'Scheduler Coordinator Appointment Calendar',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorAppointmentCalendar',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorShiftCalendar,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorShiftCalendar,
+    titleKey: 'Scheduler Coordinator Shift Calendar',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorShiftCalendar',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorProviderAvailability,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorProviderAvailability,
+    titleKey: 'Scheduler Coordinator Provider Availability',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorProviderAvailability',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorBookingRequests,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorBookingRequests,
+    titleKey: 'Scheduler Coordinator Booking Requests',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorBookingRequests',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorOpenShifts,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorOpenShifts,
+    titleKey: 'Scheduler Coordinator Open Shifts',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorOpenShifts',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorAssignments,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorAssignments,
+    titleKey: 'Scheduler Coordinator Assignments',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorAssignments',
   ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorConflicts,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorConflicts,
+    titleKey: 'Scheduler Coordinator Conflicts',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorConflicts',
   ),
-  GoRoute(
-    path: FranchiseRoutes.adminInvoices,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.adminInvoices,
+    titleKey: 'Admin Invoices',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'adminInvoices',
   ),
-  GoRoute(
-    path: FranchiseRoutes.adminPayments,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.adminPayments,
+    titleKey: 'Admin Payments',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'adminPayments',
   ),
-  GoRoute(
-    path: FranchiseRoutes.adminClaims,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.adminClaims,
+    titleKey: 'Admin Claims',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'adminClaims',
   ),
-  GoRoute(
-    path: FranchiseRoutes.adminReconciliation,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.adminReconciliation,
+    titleKey: 'Admin Reconciliation',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'adminReconciliation',
   ),
-  GoRoute(
-    path: FranchiseRoutes.adminOutstandingBalances,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.adminOutstandingBalances,
+    titleKey: 'Admin Outstanding Balances',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'adminOutstandingBalances',
   ),
-  GoRoute(
-    path: FranchiseRoutes.adminRefunds,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.adminRefunds,
+    titleKey: 'Admin Refunds',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'adminRefunds',
   ),
-  GoRoute(
-    path: FranchiseRoutes.adminReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.adminReports,
+    titleKey: 'Admin Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'adminReports',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringApplicants,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringApplicants,
+    titleKey: 'Hr Hiring Applicants',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringApplicants',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringInterviews,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringInterviews,
+    titleKey: 'Hr Hiring Interviews',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringInterviews',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringOffers,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringOffers,
+    titleKey: 'Hr Hiring Offers',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringOffers',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringOnboarding,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringOnboarding,
+    titleKey: 'Hr Hiring Onboarding',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringOnboarding',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringStaffDocuments,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringStaffDocuments,
+    titleKey: 'Hr Hiring Staff Documents',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringStaffDocuments',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringCredentials,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringCredentials,
+    titleKey: 'Hr Hiring Credentials',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringCredentials',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringTrainingStatus,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringTrainingStatus,
+    titleKey: 'Hr Hiring Training Status',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringTrainingStatus',
   ),
-  GoRoute(
-    path: FranchiseRoutes.hrHiringReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: FranchiseRoutes.hrHiringReports,
+    titleKey: 'Hr Hiring Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'hrHiringReports',
   ),
-  GoRoute(
-    path: MarketingRoutes.communityOutreachReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: MarketingRoutes.communityOutreachReports,
+    titleKey: 'Community Outreach Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'communityOutreachReports',
   ),
 ];
+
+final List<RouteBase> franchiseRoutes = franchiseScreenRegistry.map((config) {
+  return GoRoute(
+    path: config.routePath,
+    builder: (context, state) => PageTemplate.orchestrate(
+      title: config.titleKey,
+      subtitle: config.subtitleKey,
+      provider: genericDashboardProvider(config.providerId),
+    ),
+  );
+}).toList();

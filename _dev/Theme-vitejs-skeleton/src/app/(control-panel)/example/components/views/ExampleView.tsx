@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 'use client';
 import DemoContent from '@fuse/core/DemoContent';
 import FusePageSimple from '@fuse/core/FusePageSimple';

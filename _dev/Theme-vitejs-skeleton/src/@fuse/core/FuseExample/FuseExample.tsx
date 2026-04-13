@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import FuseHighlight from '@fuse/core/FuseHighlight';
 import Card from '@mui/material/Card';
 import clsx from 'clsx';

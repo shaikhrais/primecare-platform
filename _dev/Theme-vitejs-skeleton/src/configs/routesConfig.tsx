@@ -1,3 +1,6 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 // Dynamically import all *Route.tsx files from the app folder
 import { FuseRouteConfigType, FuseRoutesType } from '@fuse/utils/FuseUtils';
 import { Navigate } from 'react-router';

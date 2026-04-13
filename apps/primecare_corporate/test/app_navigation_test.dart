@@ -7,9 +7,9 @@ import 'package:primecare_ui/src/screens/common/document_vault.dart';
 import 'package:primecare_ui/src/screens/common/messaging_hub.dart';
 import 'package:primecare_ui/src/screens/common/notification_center.dart';
 // Important Core Imports for Mocking
-import 'package:flutter_core/dashboard_providers.dart';
-import 'package:flutter_core/dashboard_service.dart';
-import 'package:flutter_core/dynamic_page_providers.dart';
+import 'package:primecare_core/dashboard_providers.dart';
+import 'package:primecare_core/dashboard_service.dart';
+import 'package:primecare_core/dynamic_page_providers.dart';
 
 import '../integration_test/page_objects/master_dashboard_page.dart';
 
@@ -33,37 +33,37 @@ void main() {
       await tester.pumpWidget(wrapWithMocks(const GlobalSettingsScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
-      await dashboard.verifyTitle('System Preferences');
-      await dashboard.verifySubtitle('Overview and analytical breakdown for System Preferences.');
+      await dashboard.verifyTitle('common.settings.title');
+      await dashboard.verifySubtitle('common.settings.subtitle');
     });
 
     testWidgets('Verify Global Profile hydrations via POM', (tester) async {
       await tester.pumpWidget(wrapWithMocks(const GlobalProfileScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
-      await dashboard.verifyTitle('User Institutional Profile');
-      await dashboard.verifySubtitle('Overview and analytical breakdown for User Institutional Profile.');
+      await dashboard.verifyTitle('common.profile.title');
+      await dashboard.verifySubtitle('common.profile.subtitle');
     });
 
     testWidgets('Verify Document Vault hydrations via POM', (tester) async {
       await tester.pumpWidget(wrapWithMocks(const DocumentVaultScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
-      await dashboard.verifyTitle('Secure Institutional Vault');
+      await dashboard.verifyTitle('common.documentvault.title');
     });
 
     testWidgets('Verify Messaging Hub hydrations via POM', (tester) async {
       await tester.pumpWidget(wrapWithMocks(const MessagingHubScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
-      await dashboard.verifyTitle('Secure Messaging Hub');
+      await dashboard.verifyTitle('common.messaging.title');
     });
 
     testWidgets('Verify Notification Center hydrations via POM', (tester) async {
       await tester.pumpWidget(wrapWithMocks(const NotificationCenterScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
-      await dashboard.verifyTitle('Platform Notification Center');
+      await dashboard.verifyTitle('common.notifications.title');
     });
   });
 }

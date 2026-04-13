@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import clsx from 'clsx';
 import Typography from '@mui/material/Typography';
 import { FuseThemesType } from '@fuse/core/FuseSettings/FuseSettings';

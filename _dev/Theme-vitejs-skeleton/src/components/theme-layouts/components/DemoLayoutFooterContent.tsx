@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import PoweredByLinks from './PoweredByLinks';
 import DocumentationButton from './DocumentationButton';
 import PurchaseButton from './PurchaseButton';

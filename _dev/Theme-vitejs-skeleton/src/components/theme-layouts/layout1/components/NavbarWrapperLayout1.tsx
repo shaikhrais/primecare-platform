@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import { useEffect } from 'react';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
 import usePathname from '@fuse/hooks/usePathname';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../components/primecare_stat_card.dart';

@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { ReactNode, memo } from 'react';

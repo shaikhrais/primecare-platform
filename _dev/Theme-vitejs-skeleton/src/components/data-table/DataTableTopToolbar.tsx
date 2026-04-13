@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {

@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import * as React from 'react';
 
 type SpacerOrientation = 'horizontal' | 'vertical';

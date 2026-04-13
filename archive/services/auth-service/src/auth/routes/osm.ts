@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 import { generateToken, parseRoles } from '../auth.service';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

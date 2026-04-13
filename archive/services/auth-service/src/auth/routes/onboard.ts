@@ -1,14 +1,14 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 import { BusinessOnboardSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
-import { hashPassword } from '@primecare/shared-utils';
+import { hashPassword } from '@primecare/infrastructure';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // R19: Rate limit onboarding (5 per minute per IP)
-import { authRateLimit } from '@primecare/shared-utils';
+import { authRateLimit } from '@primecare/infrastructure';
 r.use('/onboard-business', authRateLimit);
 
 // POST /v1/auth/onboard-business

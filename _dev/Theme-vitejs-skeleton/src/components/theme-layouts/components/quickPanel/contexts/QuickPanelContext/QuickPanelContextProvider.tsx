@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { useState } from 'react';
 
 import { ReactNode } from 'react';

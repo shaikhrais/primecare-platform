@@ -1,114 +1,193 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 
-final List<RouteBase> supportRoutes = [
-  GoRoute(
-    path: SupportRoutes.customerSupportTickets,
-    builder: (context, state) => const DemoDashboardScreen(),
+class ScreenConfig {
+  final String routePath;
+  final String titleKey;
+  final String subtitleKey;
+  final String providerId;
+
+  const ScreenConfig({
+    required this.routePath,
+    required this.titleKey,
+    required this.subtitleKey,
+    required this.providerId,
+  });
+}
+
+final List<ScreenConfig> supportScreenRegistry = [
+  ScreenConfig(
+    routePath: SupportRoutes.customerSupportTickets,
+    titleKey: 'Customer Support Tickets',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'customerSupportTickets',
   ),
-  GoRoute(
-    path: SupportRoutes.customerSupportEscalations,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.customerSupportEscalations,
+    titleKey: 'Customer Support Escalations',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'customerSupportEscalations',
   ),
-  GoRoute(
-    path: SupportRoutes.customerSupportIssueCategories,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.customerSupportIssueCategories,
+    titleKey: 'Customer Support Issue Categories',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'customerSupportIssueCategories',
   ),
-  GoRoute(
-    path: SupportRoutes.customerSupportTemplates,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.customerSupportTemplates,
+    titleKey: 'Customer Support Templates',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'customerSupportTemplates',
   ),
-  GoRoute(
-    path: SupportRoutes.customerSupportReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.customerSupportReports,
+    titleKey: 'Customer Support Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'customerSupportReports',
   ),
-  GoRoute(
-    path: SupportRoutes.intakeCoordinatorNewIntakes,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.intakeCoordinatorNewIntakes,
+    titleKey: 'Intake Coordinator New Intakes',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'intakeCoordinatorNewIntakes',
   ),
-  GoRoute(
-    path: SupportRoutes.intakeCoordinatorIntakeForms,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.intakeCoordinatorIntakeForms,
+    titleKey: 'Intake Coordinator Intake Forms',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'intakeCoordinatorIntakeForms',
   ),
-  GoRoute(
-    path: SupportRoutes.intakeCoordinatorEligibility,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.intakeCoordinatorEligibility,
+    titleKey: 'Intake Coordinator Eligibility',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'intakeCoordinatorEligibility',
   ),
-  GoRoute(
-    path: SupportRoutes.intakeCoordinatorScheduling,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.intakeCoordinatorScheduling,
+    titleKey: 'Intake Coordinator Scheduling',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'intakeCoordinatorScheduling',
   ),
-  GoRoute(
-    path: SupportRoutes.intakeCoordinatorClientAssignment,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.intakeCoordinatorClientAssignment,
+    titleKey: 'Intake Coordinator Client Assignment',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'intakeCoordinatorClientAssignment',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceAudits,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceAudits,
+    titleKey: 'Quality Assurance Audits',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceAudits',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceReviews,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceReviews,
+    titleKey: 'Quality Assurance Reviews',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceReviews',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceComplaints,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceComplaints,
+    titleKey: 'Quality Assurance Complaints',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceComplaints',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceCorrectiveActions,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceCorrectiveActions,
+    titleKey: 'Quality Assurance Corrective Actions',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceCorrectiveActions',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceScorecards,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceScorecards,
+    titleKey: 'Quality Assurance Scorecards',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceScorecards',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceComplianceChecks,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceComplianceChecks,
+    titleKey: 'Quality Assurance Compliance Checks',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceComplianceChecks',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceReports,
+    titleKey: 'Quality Assurance Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceReports',
   ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorTrainingSchedule,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorTrainingSchedule,
+    titleKey: 'Training Coordinator Training Schedule',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorTrainingSchedule',
   ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorCourses,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorCourses,
+    titleKey: 'Training Coordinator Courses',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorCourses',
   ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorProgress,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorProgress,
+    titleKey: 'Training Coordinator Progress',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorProgress',
   ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorWorkshops,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorWorkshops,
+    titleKey: 'Training Coordinator Workshops',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorWorkshops',
   ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorAttendance,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorAttendance,
+    titleKey: 'Training Coordinator Attendance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorAttendance',
   ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorMaterials,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorMaterials,
+    titleKey: 'Training Coordinator Materials',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorMaterials',
   ),
-  GoRoute(
-    path: SupportRoutes.customerSupportDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.customerSupportDashboard,
+    titleKey: 'Customer Support Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'customerSupportDashboard',
   ),
-  GoRoute(
-    path: SupportRoutes.intakeCoordinatorDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.intakeCoordinatorDashboard,
+    titleKey: 'Intake Coordinator Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'intakeCoordinatorDashboard',
   ),
-  GoRoute(
-    path: SupportRoutes.qualityAssuranceDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.qualityAssuranceDashboard,
+    titleKey: 'Quality Assurance Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'qualityAssuranceDashboard',
   ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorDashboard,
+    titleKey: 'Training Coordinator Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorDashboard',
   ),
 ];
+
+final List<RouteBase> supportRoutes = supportScreenRegistry.map((config) {
+  return GoRoute(
+    path: config.routePath,
+    builder: (context, state) => PageTemplate.orchestrate(
+      title: config.titleKey,
+      subtitle: config.subtitleKey,
+      provider: genericDashboardProvider(config.providerId),
+    ),
+  );
+}).toList();

@@ -6,7 +6,9 @@
     "apps/*",
     "apps/cypress-test",
     "packages/*",
-    "services/*"
+    "services/*",
+    "archive/services/auth-service",
+    "archive/services/client-service"
   ],
   "scripts": {
     "dev:api": "npm run dev --workspace=@primecare/worker-api",
@@ -17,8 +19,11 @@
     "turbo:build": "npx turbo build",
     "turbo:typecheck": "npx turbo typecheck",
     "turbo:test": "npx turbo test",
+    "test:fast": "vitest run",
+    "test": "npm run test:fast",
     "turbo:lint": "npx turbo lint",
-    "dev:services": "turbo run dev --filter='./services/*'"
+    "dev:services": "turbo run dev --filter='./archive/services/*'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fastify/busboy": "^3.2.0",
@@ -37,12 +42,24 @@
     "cypress": "^15.10.0",
     "eslint": "9.25.0",
     "eslint-plugin-react-hooks": "5.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "ts-morph": "^27.0.2",
     "turbo": "^2.8.17",
     "typescript-eslint": "8.30.1",
+    "vitest": "^4.1.4",
     "wrangler": "^4.68.1"
   },
   "overrides": {
     "zod": "3.23.8"
+  },
+  "lint-staged": {
+    "*.dart": [
+      "dart format",
+      "dart analyze --fatal-infos"
+    ],
+    "*.{ts,tsx,js}": [
+      "eslint --fix"
+    ]
   }
 }

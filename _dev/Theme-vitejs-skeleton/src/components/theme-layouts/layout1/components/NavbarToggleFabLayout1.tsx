@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
 import NavbarToggleFab from 'src/components/theme-layouts/components/navbar/NavbarToggleFab';
 import useFuseLayoutSettings from '@fuse/core/FuseLayout/useFuseLayoutSettings';

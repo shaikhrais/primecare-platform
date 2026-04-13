@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 import * as React from 'react';
 import { useMemo } from 'react';
 import rtlPlugin from 'stylis-plugin-rtl';

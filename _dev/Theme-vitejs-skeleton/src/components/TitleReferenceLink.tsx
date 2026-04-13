@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 'use client';
 
 import { Tooltip, Typography } from '@mui/material';

@@ -14,9 +14,8 @@ abstract class UIComponentBlueprint {
 
 /// A blueprint for a grid of KPI/stat cards.
 class StatGridBlueprint extends UIComponentBlueprint {
-  const StatGridBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'stat_card_grid');
+  const StatGridBlueprint({required super.dataPayload})
+    : super(componentType: 'stat_card_grid');
 }
 
 /// A standard KPI data structure for orchestration.
@@ -54,59 +53,46 @@ class UniversalKpi {
   }
 }
 
-enum KpiStatus {
-  positive,
-  negative,
-  neutral,
-  warning,
-  critical
-}
+enum KpiStatus { positive, negative, neutral, warning, critical }
 
 /// A blueprint for a live operations feed / recent activity.
 class ActivityFeedBlueprint extends UIComponentBlueprint {
-  const ActivityFeedBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'activity_feed');
+  const ActivityFeedBlueprint({required super.dataPayload})
+    : super(componentType: 'activity_feed');
 }
 
 /// A blueprint for a common layout table.
 class DataTableBlueprint extends UIComponentBlueprint {
-  const DataTableBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'data_table');
+  const DataTableBlueprint({required super.dataPayload})
+    : super(componentType: 'data_table');
 }
 
 /// A blueprint for Risk Surveillance monitoring.
 class RiskMonitorBlueprint extends UIComponentBlueprint {
-  const RiskMonitorBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'risk_monitor');
+  const RiskMonitorBlueprint({required super.dataPayload})
+    : super(componentType: 'risk_monitor');
 }
 
 /// A blueprint for Financial Rails / Ledger tracking.
 class FinancialRailBlueprint extends UIComponentBlueprint {
-  const FinancialRailBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'financial_rail');
+  const FinancialRailBlueprint({required super.dataPayload})
+    : super(componentType: 'financial_rail');
 }
 
 /// A blueprint for system-level Management Actions (e.g. Quarantine).
 class ManagementActionBlueprint extends UIComponentBlueprint {
-  const ManagementActionBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'management_action');
+  const ManagementActionBlueprint({required super.dataPayload})
+    : super(componentType: 'management_action');
 }
 
 /// A blueprint for Clinical Metrics and ADL oversight.
 class ClinicalMetricBlueprint extends UIComponentBlueprint {
-  const ClinicalMetricBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'clinical_metric');
+  const ClinicalMetricBlueprint({required super.dataPayload})
+    : super(componentType: 'clinical_metric');
 }
 
 /// A blueprint for Compliance Gatekeeping and Verification (OCR).
 class ComplianceGateBlueprint extends UIComponentBlueprint {
-  const ComplianceGateBlueprint({
-    required super.dataPayload,
-  }) : super(componentType: 'compliance_gate');
+  const ComplianceGateBlueprint({required super.dataPayload})
+    : super(componentType: 'compliance_gate');
 }

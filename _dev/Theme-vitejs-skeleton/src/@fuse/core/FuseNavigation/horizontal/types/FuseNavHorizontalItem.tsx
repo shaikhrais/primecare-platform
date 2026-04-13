@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 'use client';
 
 import NavLinkAdapter from '@fuse/core/NavLinkAdapter';

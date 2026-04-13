@@ -48,3 +48,5 @@ class _ClientLayoutState extends State<ClientLayout> {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.

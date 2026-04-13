@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import clsx from 'clsx';
 import NavbarToggleButton, {
 	NavbarToggleButtonProps

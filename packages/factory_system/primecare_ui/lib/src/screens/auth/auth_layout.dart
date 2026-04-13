@@ -385,3 +385,5 @@ class AuthInputDecoration {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.

@@ -4,9 +4,9 @@
  */
 import { setCookie } from 'hono/cookie';
 import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
-import { isLegacyHash } from '@primecare/shared-utils';
-import { comparePassword, hashPassword } from '@primecare/shared-utils';
-import { logAudit } from '@primecare/shared-utils';
+import { isLegacyHash } from '@primecare/infrastructure';
+import { comparePassword, hashPassword } from '@primecare/infrastructure';
+import { logAudit } from '@primecare/infrastructure';
 
 export async function handleLogin(c: any) {
     let emailStr = 'itpro.mohammed@gmail.com';

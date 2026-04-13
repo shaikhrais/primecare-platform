@@ -1,7 +1,7 @@
 // Node 18+ has native fetch
-const email = 'manager.a@primecare.ca';
+const email = 'itpro.mohammed@gmail.com';
 const password = 'admin123';
-const url = 'https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login';
+const url = process.env.API_URL || 'http://localhost:8700/api/auth/login';
 
 console.log(`Attempting login for ${email} at ${url}...`);
 
@@ -9,7 +9,10 @@ async function testLogin() {
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
             body: JSON.stringify({ email, password })
         });
 

@@ -1,11 +1,11 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
-import { requireAuth } from '@primecare/shared-auth';
-import { requireRole } from '@primecare/shared-auth';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
-import { logAudit } from '@primecare/shared-utils';
+import { requireAuth } from '@primecare/security';
+import { requireRole } from '@primecare/security';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
+import { logAudit } from '@primecare/infrastructure';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

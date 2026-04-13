@@ -25,7 +25,9 @@ class CommonFeatureViewModel implements OfflineFallbackState {
     );
   }
 
-  factory CommonFeatureViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+  factory CommonFeatureViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
     return CommonFeatureViewModel(
       isOfflineFallback: false,
       kpis: metrics.kpis,
@@ -34,18 +36,25 @@ class CommonFeatureViewModel implements OfflineFallbackState {
     );
   }
 
-  static List<UIComponentBlueprint> _generateBlueprints(DashboardMetrics metrics) {
+  static List<UIComponentBlueprint> _generateBlueprints(
+    DashboardMetrics metrics,
+  ) {
     return [
       StatGridBlueprint(
-        dataPayload: metrics.kpis.map((k) => UniversalKpi(
-          title: k.title,
-          value: k.value,
-          trend: double.tryParse(k.trend ?? '0') ?? 0.0,
-          status: UniversalKpi.mapStatus(k.status),
-        )).toList(),
+        dataPayload: metrics.kpis
+            .map(
+              (k) => UniversalKpi(
+                title: k.title,
+                value: k.value,
+                trend: double.tryParse(k.trend ?? '0') ?? 0.0,
+                status: UniversalKpi.mapStatus(k.status),
+              ),
+            )
+            .toList(),
       ),
       if (metrics.recentActivity.isNotEmpty)
         ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
     ];
   }
 }
+

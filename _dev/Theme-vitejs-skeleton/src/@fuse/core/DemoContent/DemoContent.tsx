@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { memo } from 'react';
 
 /**

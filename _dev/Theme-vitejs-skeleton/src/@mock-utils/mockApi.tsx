@@ -1,3 +1,6 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { v4 as uuidv4 } from 'uuid';
 import mockDb from './mockDb.json';
 

@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import List from '@mui/material/List';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';

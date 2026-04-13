@@ -10,3 +10,7 @@ class DynamicRoleDashboardScreen extends StatelessWidget {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.
+
+// Styled with global Theme and CustomColors.

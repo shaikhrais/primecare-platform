@@ -1,290 +1,457 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 
-final List<RouteBase> corporateRoutes = [
-  GoRoute(
-    path: CorporateRoutes.ceoDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoEnterpriseOverview,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoFranchiseOverview,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoRegionPerformance,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoRevenueSummary,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoStrategicKpis,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoGrowthPipeline,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoLeadershipReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoAlertsAndRisks,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoOrganizationMap,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoApprovals,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ceoReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooOperationsOverview,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooBranchOperations,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooStaffingEfficiency,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooSchedulingHealth,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooServiceDelivery,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooIssueEscalations,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooComplianceView,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooWorkflowPerformance,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooBranchComparison,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cooReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoFinancialOverview,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoRevenue,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoExpenses,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoFranchiseFinancials,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoPayroll,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoAccountsReceivable,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoAccountsPayable,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoInvoices,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoProfitability,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoTaxAndRemittance,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoSystemHealth,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoPlatformUsage,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoFeatureAdoption,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoApiMonitoring,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoIntegrations,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoAuditLogs,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoAccessControl,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoReleaseManagement,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoIssueTracking,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoInfrastructure,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerComplianceCases,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerPolicies,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerAudits,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerIncidentReview,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerCredentialTracking,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerDocumentExpiry,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerRiskRegister,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerCorrectiveActions,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerTrainingCompliance,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.complianceManagerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorTrainingPrograms,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorStaffTrainingMatrix,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorComplianceTraining,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorCourseLibrary,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorAssessments,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorCertifications,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorTrainerAssignments,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.trainingDirectorReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: FranchiseRoutes.schedulerCoordinatorReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: SupportRoutes.intakeCoordinatorReports,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorCertifications,
-    builder: (context, state) => const DemoDashboardScreen(),
-  ),
-  GoRoute(
-    path: SupportRoutes.trainingCoordinatorReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+class ScreenConfig {
+  final String routePath;
+  final String titleKey;
+  final String subtitleKey;
+  final String providerId;
+
+  const ScreenConfig({
+    required this.routePath,
+    required this.titleKey,
+    required this.subtitleKey,
+    required this.providerId,
+  });
+}
+
+final List<ScreenConfig> corporateScreenRegistry = [
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoDashboard,
+    titleKey: 'Ceo Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoDashboard',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooDashboard,
+    titleKey: 'Coo Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooDashboard',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoDashboard,
+    titleKey: 'Cfo Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoDashboard',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoDashboard,
+    titleKey: 'Cto Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoDashboard',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerDashboard,
+    titleKey: 'Compliance Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerDashboard',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorDashboard,
+    titleKey: 'Training Director Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorDashboard',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoEnterpriseOverview,
+    titleKey: 'Ceo Enterprise Overview',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoEnterpriseOverview',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoFranchiseOverview,
+    titleKey: 'Ceo Franchise Overview',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoFranchiseOverview',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoRegionPerformance,
+    titleKey: 'Ceo Region Performance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoRegionPerformance',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoRevenueSummary,
+    titleKey: 'Ceo Revenue Summary',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoRevenueSummary',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoStrategicKpis,
+    titleKey: 'Ceo Strategic Kpis',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoStrategicKpis',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoGrowthPipeline,
+    titleKey: 'Ceo Growth Pipeline',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoGrowthPipeline',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoLeadershipReports,
+    titleKey: 'Ceo Leadership Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoLeadershipReports',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoAlertsAndRisks,
+    titleKey: 'Ceo Alerts And Risks',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoAlertsAndRisks',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoOrganizationMap,
+    titleKey: 'Ceo Organization Map',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoOrganizationMap',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoApprovals,
+    titleKey: 'Ceo Approvals',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoApprovals',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ceoReports,
+    titleKey: 'Ceo Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ceoReports',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooOperationsOverview,
+    titleKey: 'Coo Operations Overview',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooOperationsOverview',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooBranchOperations,
+    titleKey: 'Coo Branch Operations',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooBranchOperations',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooStaffingEfficiency,
+    titleKey: 'Coo Staffing Efficiency',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooStaffingEfficiency',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooSchedulingHealth,
+    titleKey: 'Coo Scheduling Health',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooSchedulingHealth',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooServiceDelivery,
+    titleKey: 'Coo Service Delivery',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooServiceDelivery',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooIssueEscalations,
+    titleKey: 'Coo Issue Escalations',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooIssueEscalations',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooComplianceView,
+    titleKey: 'Coo Compliance View',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooComplianceView',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooWorkflowPerformance,
+    titleKey: 'Coo Workflow Performance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooWorkflowPerformance',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooBranchComparison,
+    titleKey: 'Coo Branch Comparison',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooBranchComparison',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cooReports,
+    titleKey: 'Coo Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cooReports',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoFinancialOverview,
+    titleKey: 'Cfo Financial Overview',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoFinancialOverview',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoRevenue,
+    titleKey: 'Cfo Revenue',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoRevenue',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoExpenses,
+    titleKey: 'Cfo Expenses',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoExpenses',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoFranchiseFinancials,
+    titleKey: 'Cfo Franchise Financials',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoFranchiseFinancials',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoPayroll,
+    titleKey: 'Cfo Payroll',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoPayroll',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoAccountsReceivable,
+    titleKey: 'Cfo Accounts Receivable',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoAccountsReceivable',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoAccountsPayable,
+    titleKey: 'Cfo Accounts Payable',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoAccountsPayable',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoInvoices,
+    titleKey: 'Cfo Invoices',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoInvoices',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoProfitability,
+    titleKey: 'Cfo Profitability',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoProfitability',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoTaxAndRemittance,
+    titleKey: 'Cfo Tax And Remittance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoTaxAndRemittance',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.cfoReports,
+    titleKey: 'Cfo Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'cfoReports',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoSystemHealth,
+    titleKey: 'Cto System Health',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoSystemHealth',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoPlatformUsage,
+    titleKey: 'Cto Platform Usage',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoPlatformUsage',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoFeatureAdoption,
+    titleKey: 'Cto Feature Adoption',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoFeatureAdoption',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoApiMonitoring,
+    titleKey: 'Cto Api Monitoring',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoApiMonitoring',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoIntegrations,
+    titleKey: 'Cto Integrations',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoIntegrations',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoAuditLogs,
+    titleKey: 'Cto Audit Logs',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoAuditLogs',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoAccessControl,
+    titleKey: 'Cto Access Control',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoAccessControl',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoReleaseManagement,
+    titleKey: 'Cto Release Management',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoReleaseManagement',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoIssueTracking,
+    titleKey: 'Cto Issue Tracking',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoIssueTracking',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoInfrastructure,
+    titleKey: 'Cto Infrastructure',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoInfrastructure',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.ctoReports,
+    titleKey: 'Cto Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'ctoReports',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerComplianceCases,
+    titleKey: 'Compliance Manager Compliance Cases',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerComplianceCases',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerPolicies,
+    titleKey: 'Compliance Manager Policies',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerPolicies',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerAudits,
+    titleKey: 'Compliance Manager Audits',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerAudits',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerIncidentReview,
+    titleKey: 'Compliance Manager Incident Review',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerIncidentReview',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerCredentialTracking,
+    titleKey: 'Compliance Manager Credential Tracking',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerCredentialTracking',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerDocumentExpiry,
+    titleKey: 'Compliance Manager Document Expiry',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerDocumentExpiry',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerRiskRegister,
+    titleKey: 'Compliance Manager Risk Register',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerRiskRegister',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerCorrectiveActions,
+    titleKey: 'Compliance Manager Corrective Actions',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerCorrectiveActions',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerTrainingCompliance,
+    titleKey: 'Compliance Manager Training Compliance',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerTrainingCompliance',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.complianceManagerReports,
+    titleKey: 'Compliance Manager Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'complianceManagerReports',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorTrainingPrograms,
+    titleKey: 'Training Director Training Programs',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorTrainingPrograms',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorStaffTrainingMatrix,
+    titleKey: 'Training Director Staff Training Matrix',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorStaffTrainingMatrix',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorComplianceTraining,
+    titleKey: 'Training Director Compliance Training',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorComplianceTraining',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorCourseLibrary,
+    titleKey: 'Training Director Course Library',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorCourseLibrary',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorAssessments,
+    titleKey: 'Training Director Assessments',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorAssessments',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorCertifications,
+    titleKey: 'Training Director Certifications',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorCertifications',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorTrainerAssignments,
+    titleKey: 'Training Director Trainer Assignments',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorTrainerAssignments',
+  ),
+  ScreenConfig(
+    routePath: CorporateRoutes.trainingDirectorReports,
+    titleKey: 'Training Director Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingDirectorReports',
+  ),
+  ScreenConfig(
+    routePath: FranchiseRoutes.schedulerCoordinatorReports,
+    titleKey: 'Scheduler Coordinator Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'schedulerCoordinatorReports',
+  ),
+  ScreenConfig(
+    routePath: SupportRoutes.intakeCoordinatorReports,
+    titleKey: 'Intake Coordinator Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'intakeCoordinatorReports',
+  ),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorCertifications,
+    titleKey: 'Training Coordinator Certifications',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorCertifications',
+  ),
+  ScreenConfig(
+    routePath: SupportRoutes.trainingCoordinatorReports,
+    titleKey: 'Training Coordinator Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'trainingCoordinatorReports',
   ),
 ];
+
+final List<RouteBase> corporateRoutes = corporateScreenRegistry.map((config) {
+  return GoRoute(
+    path: config.routePath,
+    builder: (context, state) => PageTemplate.orchestrate(
+      title: config.titleKey,
+      subtitle: config.subtitleKey,
+      provider: genericDashboardProvider(config.providerId),
+    ),
+  );
+}).toList();

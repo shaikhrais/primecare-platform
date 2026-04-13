@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { useMemo } from 'react';
 import { User } from '@auth/user';
 import useAuth from '@fuse/core/FuseAuthProvider/useAuth';

@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { useEffect, useCallback, useImperativeHandle, useState, useMemo } from 'react';
 import { Amplify } from 'aws-amplify';
 import { User } from '@auth/user';

@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import Divider from '@mui/material/Divider';
 import { memo } from 'react';
 import GlobalStyles from '@mui/material/GlobalStyles';

@@ -139,6 +139,16 @@ export type ReferralPipeline = $Result.DefaultSelection<Prisma.$ReferralPipeline
  */
 export type SupplyForecastMetrics = $Result.DefaultSelection<Prisma.$SupplyForecastMetricsPayload>
 /**
+ * Model PromoCode
+ * 
+ */
+export type PromoCode = $Result.DefaultSelection<Prisma.$PromoCodePayload>
+/**
+ * Model SubscriptionUpgrade
+ * 
+ */
+export type SubscriptionUpgrade = $Result.DefaultSelection<Prisma.$SubscriptionUpgradePayload>
+/**
  * Model ClientProfile
  * 
  */
@@ -643,6 +653,11 @@ export type CarePlanFollowUp = $Result.DefaultSelection<Prisma.$CarePlanFollowUp
  * 
  */
 export type DynamicFeatureRecord = $Result.DefaultSelection<Prisma.$DynamicFeatureRecordPayload>
+/**
+ * Model ScreenConfiguration
+ * 
+ */
+export type ScreenConfiguration = $Result.DefaultSelection<Prisma.$ScreenConfigurationPayload>
 /**
  * Model FamilyAppointment
  * 
@@ -1316,6 +1331,26 @@ export class PrismaClient<
     * ```
     */
   get supplyForecastMetrics(): Prisma.SupplyForecastMetricsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.promoCode`: Exposes CRUD operations for the **PromoCode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PromoCodes
+    * const promoCodes = await prisma.promoCode.findMany()
+    * ```
+    */
+  get promoCode(): Prisma.PromoCodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.subscriptionUpgrade`: Exposes CRUD operations for the **SubscriptionUpgrade** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SubscriptionUpgrades
+    * const subscriptionUpgrades = await prisma.subscriptionUpgrade.findMany()
+    * ```
+    */
+  get subscriptionUpgrade(): Prisma.SubscriptionUpgradeDelegate<ExtArgs>;
 
   /**
    * `prisma.clientProfile`: Exposes CRUD operations for the **ClientProfile** model.
@@ -2326,6 +2361,16 @@ export class PrismaClient<
     * ```
     */
   get dynamicFeatureRecord(): Prisma.DynamicFeatureRecordDelegate<ExtArgs>;
+
+  /**
+   * `prisma.screenConfiguration`: Exposes CRUD operations for the **ScreenConfiguration** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ScreenConfigurations
+    * const screenConfigurations = await prisma.screenConfiguration.findMany()
+    * ```
+    */
+  get screenConfiguration(): Prisma.ScreenConfigurationDelegate<ExtArgs>;
 
   /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
@@ -3392,6 +3437,8 @@ export namespace Prisma {
     HospitalTarget: 'HospitalTarget',
     ReferralPipeline: 'ReferralPipeline',
     SupplyForecastMetrics: 'SupplyForecastMetrics',
+    PromoCode: 'PromoCode',
+    SubscriptionUpgrade: 'SubscriptionUpgrade',
     ClientProfile: 'ClientProfile',
     ProviderProfile: 'ProviderProfile',
     Visit: 'Visit',
@@ -3493,6 +3540,7 @@ export namespace Prisma {
     NarrativeProgressNote: 'NarrativeProgressNote',
     CarePlanFollowUp: 'CarePlanFollowUp',
     DynamicFeatureRecord: 'DynamicFeatureRecord',
+    ScreenConfiguration: 'ScreenConfiguration',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3568,7 +3616,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5319,6 +5367,146 @@ export namespace Prisma {
           count: {
             args: Prisma.SupplyForecastMetricsCountArgs<ExtArgs>
             result: $Utils.Optional<SupplyForecastMetricsCountAggregateOutputType> | number
+          }
+        }
+      }
+      PromoCode: {
+        payload: Prisma.$PromoCodePayload<ExtArgs>
+        fields: Prisma.PromoCodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PromoCodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PromoCodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>
+          }
+          findFirst: {
+            args: Prisma.PromoCodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PromoCodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>
+          }
+          findMany: {
+            args: Prisma.PromoCodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>[]
+          }
+          create: {
+            args: Prisma.PromoCodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>
+          }
+          createMany: {
+            args: Prisma.PromoCodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PromoCodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>[]
+          }
+          delete: {
+            args: Prisma.PromoCodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>
+          }
+          update: {
+            args: Prisma.PromoCodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>
+          }
+          deleteMany: {
+            args: Prisma.PromoCodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PromoCodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PromoCodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PromoCodePayload>
+          }
+          aggregate: {
+            args: Prisma.PromoCodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePromoCode>
+          }
+          groupBy: {
+            args: Prisma.PromoCodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PromoCodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PromoCodeCountArgs<ExtArgs>
+            result: $Utils.Optional<PromoCodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      SubscriptionUpgrade: {
+        payload: Prisma.$SubscriptionUpgradePayload<ExtArgs>
+        fields: Prisma.SubscriptionUpgradeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubscriptionUpgradeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubscriptionUpgradeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>
+          }
+          findFirst: {
+            args: Prisma.SubscriptionUpgradeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubscriptionUpgradeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>
+          }
+          findMany: {
+            args: Prisma.SubscriptionUpgradeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>[]
+          }
+          create: {
+            args: Prisma.SubscriptionUpgradeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>
+          }
+          createMany: {
+            args: Prisma.SubscriptionUpgradeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubscriptionUpgradeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>[]
+          }
+          delete: {
+            args: Prisma.SubscriptionUpgradeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>
+          }
+          update: {
+            args: Prisma.SubscriptionUpgradeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>
+          }
+          deleteMany: {
+            args: Prisma.SubscriptionUpgradeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubscriptionUpgradeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SubscriptionUpgradeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionUpgradePayload>
+          }
+          aggregate: {
+            args: Prisma.SubscriptionUpgradeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubscriptionUpgrade>
+          }
+          groupBy: {
+            args: Prisma.SubscriptionUpgradeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionUpgradeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubscriptionUpgradeCountArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionUpgradeCountAggregateOutputType> | number
           }
         }
       }
@@ -12392,6 +12580,76 @@ export namespace Prisma {
           }
         }
       }
+      ScreenConfiguration: {
+        payload: Prisma.$ScreenConfigurationPayload<ExtArgs>
+        fields: Prisma.ScreenConfigurationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ScreenConfigurationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ScreenConfigurationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>
+          }
+          findFirst: {
+            args: Prisma.ScreenConfigurationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ScreenConfigurationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>
+          }
+          findMany: {
+            args: Prisma.ScreenConfigurationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>[]
+          }
+          create: {
+            args: Prisma.ScreenConfigurationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>
+          }
+          createMany: {
+            args: Prisma.ScreenConfigurationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ScreenConfigurationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>[]
+          }
+          delete: {
+            args: Prisma.ScreenConfigurationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>
+          }
+          update: {
+            args: Prisma.ScreenConfigurationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ScreenConfigurationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ScreenConfigurationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ScreenConfigurationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenConfigurationPayload>
+          }
+          aggregate: {
+            args: Prisma.ScreenConfigurationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateScreenConfiguration>
+          }
+          groupBy: {
+            args: Prisma.ScreenConfigurationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ScreenConfigurationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ScreenConfigurationCountArgs<ExtArgs>
+            result: $Utils.Optional<ScreenConfigurationCountAggregateOutputType> | number
+          }
+        }
+      }
       FamilyAppointment: {
         payload: Prisma.$FamilyAppointmentPayload<ExtArgs>
         fields: Prisma.FamilyAppointmentFieldRefs
@@ -17163,6 +17421,7 @@ export namespace Prisma {
     financialReconciliations: number
     bankTransactions: number
     registries: number
+    subscriptionUpgrades: number
     evvRecords: number
     serviceAuthorizations: number
     consentForms: number
@@ -17256,6 +17515,7 @@ export namespace Prisma {
     financialReconciliations?: boolean | TenantCountOutputTypeCountFinancialReconciliationsArgs
     bankTransactions?: boolean | TenantCountOutputTypeCountBankTransactionsArgs
     registries?: boolean | TenantCountOutputTypeCountRegistriesArgs
+    subscriptionUpgrades?: boolean | TenantCountOutputTypeCountSubscriptionUpgradesArgs
     evvRecords?: boolean | TenantCountOutputTypeCountEvvRecordsArgs
     serviceAuthorizations?: boolean | TenantCountOutputTypeCountServiceAuthorizationsArgs
     consentForms?: boolean | TenantCountOutputTypeCountConsentFormsArgs
@@ -17776,6 +18036,13 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
+  export type TenantCountOutputTypeCountSubscriptionUpgradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionUpgradeWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
   export type TenantCountOutputTypeCountEvvRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EVVRecordWhereInput
   }
@@ -18060,6 +18327,37 @@ export namespace Prisma {
    */
   export type HospitalTargetCountOutputTypeCountPipelinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReferralPipelineWhereInput
+  }
+
+
+  /**
+   * Count Type PromoCodeCountOutputType
+   */
+
+  export type PromoCodeCountOutputType = {
+    upgrades: number
+  }
+
+  export type PromoCodeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    upgrades?: boolean | PromoCodeCountOutputTypeCountUpgradesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PromoCodeCountOutputType without action
+   */
+  export type PromoCodeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCodeCountOutputType
+     */
+    select?: PromoCodeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PromoCodeCountOutputType without action
+   */
+  export type PromoCodeCountOutputTypeCountUpgradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionUpgradeWhereInput
   }
 
 
@@ -21287,6 +21585,7 @@ export namespace Prisma {
     maxDevicesPerUser: number | null
     taxPercentage: Decimal | null
     parentTenantId: string | null
+    subscriptionTier: string | null
   }
 
   export type TenantMaxAggregateOutputType = {
@@ -21307,6 +21606,7 @@ export namespace Prisma {
     maxDevicesPerUser: number | null
     taxPercentage: Decimal | null
     parentTenantId: string | null
+    subscriptionTier: string | null
   }
 
   export type TenantCountAggregateOutputType = {
@@ -21332,6 +21632,7 @@ export namespace Prisma {
     corsAllowedHeaders: number
     taxPercentage: number
     parentTenantId: number
+    subscriptionTier: number
     _all: number
   }
 
@@ -21366,6 +21667,7 @@ export namespace Prisma {
     maxDevicesPerUser?: true
     taxPercentage?: true
     parentTenantId?: true
+    subscriptionTier?: true
   }
 
   export type TenantMaxAggregateInputType = {
@@ -21386,6 +21688,7 @@ export namespace Prisma {
     maxDevicesPerUser?: true
     taxPercentage?: true
     parentTenantId?: true
+    subscriptionTier?: true
   }
 
   export type TenantCountAggregateInputType = {
@@ -21411,6 +21714,7 @@ export namespace Prisma {
     corsAllowedHeaders?: true
     taxPercentage?: true
     parentTenantId?: true
+    subscriptionTier?: true
     _all?: true
   }
 
@@ -21523,6 +21827,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonValue
     taxPercentage: Decimal | null
     parentTenantId: string | null
+    subscriptionTier: string
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
     _sum: TenantSumAggregateOutputType | null
@@ -21567,6 +21872,7 @@ export namespace Prisma {
     corsAllowedHeaders?: boolean
     taxPercentage?: boolean
     parentTenantId?: boolean
+    subscriptionTier?: boolean
     auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
     bookings?: boolean | Tenant$bookingsArgs<ExtArgs>
     clientProfiles?: boolean | Tenant$clientProfilesArgs<ExtArgs>
@@ -21637,6 +21943,7 @@ export namespace Prisma {
     financialReconciliations?: boolean | Tenant$financialReconciliationsArgs<ExtArgs>
     bankTransactions?: boolean | Tenant$bankTransactionsArgs<ExtArgs>
     registries?: boolean | Tenant$registriesArgs<ExtArgs>
+    subscriptionUpgrades?: boolean | Tenant$subscriptionUpgradesArgs<ExtArgs>
     evvRecords?: boolean | Tenant$evvRecordsArgs<ExtArgs>
     serviceAuthorizations?: boolean | Tenant$serviceAuthorizationsArgs<ExtArgs>
     consentForms?: boolean | Tenant$consentFormsArgs<ExtArgs>
@@ -21684,6 +21991,7 @@ export namespace Prisma {
     corsAllowedHeaders?: boolean
     taxPercentage?: boolean
     parentTenantId?: boolean
+    subscriptionTier?: boolean
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -21710,6 +22018,7 @@ export namespace Prisma {
     corsAllowedHeaders?: boolean
     taxPercentage?: boolean
     parentTenantId?: boolean
+    subscriptionTier?: boolean
   }
 
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21783,6 +22092,7 @@ export namespace Prisma {
     financialReconciliations?: boolean | Tenant$financialReconciliationsArgs<ExtArgs>
     bankTransactions?: boolean | Tenant$bankTransactionsArgs<ExtArgs>
     registries?: boolean | Tenant$registriesArgs<ExtArgs>
+    subscriptionUpgrades?: boolean | Tenant$subscriptionUpgradesArgs<ExtArgs>
     evvRecords?: boolean | Tenant$evvRecordsArgs<ExtArgs>
     serviceAuthorizations?: boolean | Tenant$serviceAuthorizationsArgs<ExtArgs>
     consentForms?: boolean | Tenant$consentFormsArgs<ExtArgs>
@@ -21883,6 +22193,7 @@ export namespace Prisma {
       financialReconciliations: Prisma.$FinancialReconciliationPayload<ExtArgs>[]
       bankTransactions: Prisma.$BankTransactionPayload<ExtArgs>[]
       registries: Prisma.$RegistryPayload<ExtArgs>[]
+      subscriptionUpgrades: Prisma.$SubscriptionUpgradePayload<ExtArgs>[]
       evvRecords: Prisma.$EVVRecordPayload<ExtArgs>[]
       serviceAuthorizations: Prisma.$ServiceAuthorizationPayload<ExtArgs>[]
       consentForms: Prisma.$ConsentFormPayload<ExtArgs>[]
@@ -21928,6 +22239,7 @@ export namespace Prisma {
       corsAllowedHeaders: Prisma.JsonValue
       taxPercentage: Prisma.Decimal | null
       parentTenantId: string | null
+      subscriptionTier: string
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -22362,6 +22674,7 @@ export namespace Prisma {
     financialReconciliations<T extends Tenant$financialReconciliationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$financialReconciliationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findMany"> | Null>
     bankTransactions<T extends Tenant$bankTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$bankTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     registries<T extends Tenant$registriesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$registriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistryPayload<ExtArgs>, T, "findMany"> | Null>
+    subscriptionUpgrades<T extends Tenant$subscriptionUpgradesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$subscriptionUpgradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "findMany"> | Null>
     evvRecords<T extends Tenant$evvRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$evvRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EVVRecordPayload<ExtArgs>, T, "findMany"> | Null>
     serviceAuthorizations<T extends Tenant$serviceAuthorizationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$serviceAuthorizationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceAuthorizationPayload<ExtArgs>, T, "findMany"> | Null>
     consentForms<T extends Tenant$consentFormsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$consentFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsentFormPayload<ExtArgs>, T, "findMany"> | Null>
@@ -22434,6 +22747,7 @@ export namespace Prisma {
     readonly corsAllowedHeaders: FieldRef<"Tenant", 'Json'>
     readonly taxPercentage: FieldRef<"Tenant", 'Decimal'>
     readonly parentTenantId: FieldRef<"Tenant", 'String'>
+    readonly subscriptionTier: FieldRef<"Tenant", 'String'>
   }
     
 
@@ -24144,6 +24458,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RegistryScalarFieldEnum | RegistryScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.subscriptionUpgrades
+   */
+  export type Tenant$subscriptionUpgradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    where?: SubscriptionUpgradeWhereInput
+    orderBy?: SubscriptionUpgradeOrderByWithRelationInput | SubscriptionUpgradeOrderByWithRelationInput[]
+    cursor?: SubscriptionUpgradeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubscriptionUpgradeScalarFieldEnum | SubscriptionUpgradeScalarFieldEnum[]
   }
 
   /**
@@ -47284,6 +47618,2022 @@ export namespace Prisma {
      * Select specific fields to fetch from the SupplyForecastMetrics
      */
     select?: SupplyForecastMetricsSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PromoCode
+   */
+
+  export type AggregatePromoCode = {
+    _count: PromoCodeCountAggregateOutputType | null
+    _avg: PromoCodeAvgAggregateOutputType | null
+    _sum: PromoCodeSumAggregateOutputType | null
+    _min: PromoCodeMinAggregateOutputType | null
+    _max: PromoCodeMaxAggregateOutputType | null
+  }
+
+  export type PromoCodeAvgAggregateOutputType = {
+    discountPercent: number | null
+    maxUses: number | null
+    currentUses: number | null
+  }
+
+  export type PromoCodeSumAggregateOutputType = {
+    discountPercent: number | null
+    maxUses: number | null
+    currentUses: number | null
+  }
+
+  export type PromoCodeMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    discountPercent: number | null
+    targetTier: string | null
+    maxUses: number | null
+    currentUses: number | null
+    expiresAt: Date | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PromoCodeMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    discountPercent: number | null
+    targetTier: string | null
+    maxUses: number | null
+    currentUses: number | null
+    expiresAt: Date | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PromoCodeCountAggregateOutputType = {
+    id: number
+    code: number
+    discountPercent: number
+    targetTier: number
+    maxUses: number
+    currentUses: number
+    expiresAt: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PromoCodeAvgAggregateInputType = {
+    discountPercent?: true
+    maxUses?: true
+    currentUses?: true
+  }
+
+  export type PromoCodeSumAggregateInputType = {
+    discountPercent?: true
+    maxUses?: true
+    currentUses?: true
+  }
+
+  export type PromoCodeMinAggregateInputType = {
+    id?: true
+    code?: true
+    discountPercent?: true
+    targetTier?: true
+    maxUses?: true
+    currentUses?: true
+    expiresAt?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PromoCodeMaxAggregateInputType = {
+    id?: true
+    code?: true
+    discountPercent?: true
+    targetTier?: true
+    maxUses?: true
+    currentUses?: true
+    expiresAt?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PromoCodeCountAggregateInputType = {
+    id?: true
+    code?: true
+    discountPercent?: true
+    targetTier?: true
+    maxUses?: true
+    currentUses?: true
+    expiresAt?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PromoCodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PromoCode to aggregate.
+     */
+    where?: PromoCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PromoCodes to fetch.
+     */
+    orderBy?: PromoCodeOrderByWithRelationInput | PromoCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PromoCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PromoCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PromoCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PromoCodes
+    **/
+    _count?: true | PromoCodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PromoCodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PromoCodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PromoCodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PromoCodeMaxAggregateInputType
+  }
+
+  export type GetPromoCodeAggregateType<T extends PromoCodeAggregateArgs> = {
+        [P in keyof T & keyof AggregatePromoCode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePromoCode[P]>
+      : GetScalarType<T[P], AggregatePromoCode[P]>
+  }
+
+
+
+
+  export type PromoCodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PromoCodeWhereInput
+    orderBy?: PromoCodeOrderByWithAggregationInput | PromoCodeOrderByWithAggregationInput[]
+    by: PromoCodeScalarFieldEnum[] | PromoCodeScalarFieldEnum
+    having?: PromoCodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PromoCodeCountAggregateInputType | true
+    _avg?: PromoCodeAvgAggregateInputType
+    _sum?: PromoCodeSumAggregateInputType
+    _min?: PromoCodeMinAggregateInputType
+    _max?: PromoCodeMaxAggregateInputType
+  }
+
+  export type PromoCodeGroupByOutputType = {
+    id: string
+    code: string
+    discountPercent: number | null
+    targetTier: string | null
+    maxUses: number | null
+    currentUses: number
+    expiresAt: Date | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: PromoCodeCountAggregateOutputType | null
+    _avg: PromoCodeAvgAggregateOutputType | null
+    _sum: PromoCodeSumAggregateOutputType | null
+    _min: PromoCodeMinAggregateOutputType | null
+    _max: PromoCodeMaxAggregateOutputType | null
+  }
+
+  type GetPromoCodeGroupByPayload<T extends PromoCodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PromoCodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PromoCodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PromoCodeGroupByOutputType[P]>
+            : GetScalarType<T[P], PromoCodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PromoCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    discountPercent?: boolean
+    targetTier?: boolean
+    maxUses?: boolean
+    currentUses?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    upgrades?: boolean | PromoCode$upgradesArgs<ExtArgs>
+    _count?: boolean | PromoCodeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["promoCode"]>
+
+  export type PromoCodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    discountPercent?: boolean
+    targetTier?: boolean
+    maxUses?: boolean
+    currentUses?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["promoCode"]>
+
+  export type PromoCodeSelectScalar = {
+    id?: boolean
+    code?: boolean
+    discountPercent?: boolean
+    targetTier?: boolean
+    maxUses?: boolean
+    currentUses?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PromoCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    upgrades?: boolean | PromoCode$upgradesArgs<ExtArgs>
+    _count?: boolean | PromoCodeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PromoCodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PromoCodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PromoCode"
+    objects: {
+      upgrades: Prisma.$SubscriptionUpgradePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      discountPercent: number | null
+      targetTier: string | null
+      maxUses: number | null
+      currentUses: number
+      expiresAt: Date | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["promoCode"]>
+    composites: {}
+  }
+
+  type PromoCodeGetPayload<S extends boolean | null | undefined | PromoCodeDefaultArgs> = $Result.GetResult<Prisma.$PromoCodePayload, S>
+
+  type PromoCodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PromoCodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PromoCodeCountAggregateInputType | true
+    }
+
+  export interface PromoCodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PromoCode'], meta: { name: 'PromoCode' } }
+    /**
+     * Find zero or one PromoCode that matches the filter.
+     * @param {PromoCodeFindUniqueArgs} args - Arguments to find a PromoCode
+     * @example
+     * // Get one PromoCode
+     * const promoCode = await prisma.promoCode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PromoCodeFindUniqueArgs>(args: SelectSubset<T, PromoCodeFindUniqueArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PromoCode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PromoCodeFindUniqueOrThrowArgs} args - Arguments to find a PromoCode
+     * @example
+     * // Get one PromoCode
+     * const promoCode = await prisma.promoCode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PromoCodeFindUniqueOrThrowArgs>(args: SelectSubset<T, PromoCodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PromoCode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PromoCodeFindFirstArgs} args - Arguments to find a PromoCode
+     * @example
+     * // Get one PromoCode
+     * const promoCode = await prisma.promoCode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PromoCodeFindFirstArgs>(args?: SelectSubset<T, PromoCodeFindFirstArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PromoCode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PromoCodeFindFirstOrThrowArgs} args - Arguments to find a PromoCode
+     * @example
+     * // Get one PromoCode
+     * const promoCode = await prisma.promoCode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PromoCodeFindFirstOrThrowArgs>(args?: SelectSubset<T, PromoCodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PromoCodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PromoCodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PromoCodes
+     * const promoCodes = await prisma.promoCode.findMany()
+     * 
+     * // Get first 10 PromoCodes
+     * const promoCodes = await prisma.promoCode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const promoCodeWithIdOnly = await prisma.promoCode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PromoCodeFindManyArgs>(args?: SelectSubset<T, PromoCodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PromoCode.
+     * @param {PromoCodeCreateArgs} args - Arguments to create a PromoCode.
+     * @example
+     * // Create one PromoCode
+     * const PromoCode = await prisma.promoCode.create({
+     *   data: {
+     *     // ... data to create a PromoCode
+     *   }
+     * })
+     * 
+     */
+    create<T extends PromoCodeCreateArgs>(args: SelectSubset<T, PromoCodeCreateArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PromoCodes.
+     * @param {PromoCodeCreateManyArgs} args - Arguments to create many PromoCodes.
+     * @example
+     * // Create many PromoCodes
+     * const promoCode = await prisma.promoCode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PromoCodeCreateManyArgs>(args?: SelectSubset<T, PromoCodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PromoCodes and returns the data saved in the database.
+     * @param {PromoCodeCreateManyAndReturnArgs} args - Arguments to create many PromoCodes.
+     * @example
+     * // Create many PromoCodes
+     * const promoCode = await prisma.promoCode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PromoCodes and only return the `id`
+     * const promoCodeWithIdOnly = await prisma.promoCode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PromoCodeCreateManyAndReturnArgs>(args?: SelectSubset<T, PromoCodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PromoCode.
+     * @param {PromoCodeDeleteArgs} args - Arguments to delete one PromoCode.
+     * @example
+     * // Delete one PromoCode
+     * const PromoCode = await prisma.promoCode.delete({
+     *   where: {
+     *     // ... filter to delete one PromoCode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PromoCodeDeleteArgs>(args: SelectSubset<T, PromoCodeDeleteArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PromoCode.
+     * @param {PromoCodeUpdateArgs} args - Arguments to update one PromoCode.
+     * @example
+     * // Update one PromoCode
+     * const promoCode = await prisma.promoCode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PromoCodeUpdateArgs>(args: SelectSubset<T, PromoCodeUpdateArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PromoCodes.
+     * @param {PromoCodeDeleteManyArgs} args - Arguments to filter PromoCodes to delete.
+     * @example
+     * // Delete a few PromoCodes
+     * const { count } = await prisma.promoCode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PromoCodeDeleteManyArgs>(args?: SelectSubset<T, PromoCodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PromoCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PromoCodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PromoCodes
+     * const promoCode = await prisma.promoCode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PromoCodeUpdateManyArgs>(args: SelectSubset<T, PromoCodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PromoCode.
+     * @param {PromoCodeUpsertArgs} args - Arguments to update or create a PromoCode.
+     * @example
+     * // Update or create a PromoCode
+     * const promoCode = await prisma.promoCode.upsert({
+     *   create: {
+     *     // ... data to create a PromoCode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PromoCode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PromoCodeUpsertArgs>(args: SelectSubset<T, PromoCodeUpsertArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PromoCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PromoCodeCountArgs} args - Arguments to filter PromoCodes to count.
+     * @example
+     * // Count the number of PromoCodes
+     * const count = await prisma.promoCode.count({
+     *   where: {
+     *     // ... the filter for the PromoCodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends PromoCodeCountArgs>(
+      args?: Subset<T, PromoCodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PromoCodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PromoCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PromoCodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PromoCodeAggregateArgs>(args: Subset<T, PromoCodeAggregateArgs>): Prisma.PrismaPromise<GetPromoCodeAggregateType<T>>
+
+    /**
+     * Group by PromoCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PromoCodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PromoCodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PromoCodeGroupByArgs['orderBy'] }
+        : { orderBy?: PromoCodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PromoCodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPromoCodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PromoCode model
+   */
+  readonly fields: PromoCodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PromoCode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PromoCodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    upgrades<T extends PromoCode$upgradesArgs<ExtArgs> = {}>(args?: Subset<T, PromoCode$upgradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PromoCode model
+   */ 
+  interface PromoCodeFieldRefs {
+    readonly id: FieldRef<"PromoCode", 'String'>
+    readonly code: FieldRef<"PromoCode", 'String'>
+    readonly discountPercent: FieldRef<"PromoCode", 'Int'>
+    readonly targetTier: FieldRef<"PromoCode", 'String'>
+    readonly maxUses: FieldRef<"PromoCode", 'Int'>
+    readonly currentUses: FieldRef<"PromoCode", 'Int'>
+    readonly expiresAt: FieldRef<"PromoCode", 'DateTime'>
+    readonly isActive: FieldRef<"PromoCode", 'Boolean'>
+    readonly createdAt: FieldRef<"PromoCode", 'DateTime'>
+    readonly updatedAt: FieldRef<"PromoCode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PromoCode findUnique
+   */
+  export type PromoCodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which PromoCode to fetch.
+     */
+    where: PromoCodeWhereUniqueInput
+  }
+
+  /**
+   * PromoCode findUniqueOrThrow
+   */
+  export type PromoCodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which PromoCode to fetch.
+     */
+    where: PromoCodeWhereUniqueInput
+  }
+
+  /**
+   * PromoCode findFirst
+   */
+  export type PromoCodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which PromoCode to fetch.
+     */
+    where?: PromoCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PromoCodes to fetch.
+     */
+    orderBy?: PromoCodeOrderByWithRelationInput | PromoCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PromoCodes.
+     */
+    cursor?: PromoCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PromoCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PromoCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PromoCodes.
+     */
+    distinct?: PromoCodeScalarFieldEnum | PromoCodeScalarFieldEnum[]
+  }
+
+  /**
+   * PromoCode findFirstOrThrow
+   */
+  export type PromoCodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which PromoCode to fetch.
+     */
+    where?: PromoCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PromoCodes to fetch.
+     */
+    orderBy?: PromoCodeOrderByWithRelationInput | PromoCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PromoCodes.
+     */
+    cursor?: PromoCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PromoCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PromoCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PromoCodes.
+     */
+    distinct?: PromoCodeScalarFieldEnum | PromoCodeScalarFieldEnum[]
+  }
+
+  /**
+   * PromoCode findMany
+   */
+  export type PromoCodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which PromoCodes to fetch.
+     */
+    where?: PromoCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PromoCodes to fetch.
+     */
+    orderBy?: PromoCodeOrderByWithRelationInput | PromoCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PromoCodes.
+     */
+    cursor?: PromoCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PromoCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PromoCodes.
+     */
+    skip?: number
+    distinct?: PromoCodeScalarFieldEnum | PromoCodeScalarFieldEnum[]
+  }
+
+  /**
+   * PromoCode create
+   */
+  export type PromoCodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PromoCode.
+     */
+    data: XOR<PromoCodeCreateInput, PromoCodeUncheckedCreateInput>
+  }
+
+  /**
+   * PromoCode createMany
+   */
+  export type PromoCodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PromoCodes.
+     */
+    data: PromoCodeCreateManyInput | PromoCodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PromoCode createManyAndReturn
+   */
+  export type PromoCodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PromoCodes.
+     */
+    data: PromoCodeCreateManyInput | PromoCodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PromoCode update
+   */
+  export type PromoCodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PromoCode.
+     */
+    data: XOR<PromoCodeUpdateInput, PromoCodeUncheckedUpdateInput>
+    /**
+     * Choose, which PromoCode to update.
+     */
+    where: PromoCodeWhereUniqueInput
+  }
+
+  /**
+   * PromoCode updateMany
+   */
+  export type PromoCodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PromoCodes.
+     */
+    data: XOR<PromoCodeUpdateManyMutationInput, PromoCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which PromoCodes to update
+     */
+    where?: PromoCodeWhereInput
+  }
+
+  /**
+   * PromoCode upsert
+   */
+  export type PromoCodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PromoCode to update in case it exists.
+     */
+    where: PromoCodeWhereUniqueInput
+    /**
+     * In case the PromoCode found by the `where` argument doesn't exist, create a new PromoCode with this data.
+     */
+    create: XOR<PromoCodeCreateInput, PromoCodeUncheckedCreateInput>
+    /**
+     * In case the PromoCode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PromoCodeUpdateInput, PromoCodeUncheckedUpdateInput>
+  }
+
+  /**
+   * PromoCode delete
+   */
+  export type PromoCodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    /**
+     * Filter which PromoCode to delete.
+     */
+    where: PromoCodeWhereUniqueInput
+  }
+
+  /**
+   * PromoCode deleteMany
+   */
+  export type PromoCodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PromoCodes to delete
+     */
+    where?: PromoCodeWhereInput
+  }
+
+  /**
+   * PromoCode.upgrades
+   */
+  export type PromoCode$upgradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    where?: SubscriptionUpgradeWhereInput
+    orderBy?: SubscriptionUpgradeOrderByWithRelationInput | SubscriptionUpgradeOrderByWithRelationInput[]
+    cursor?: SubscriptionUpgradeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubscriptionUpgradeScalarFieldEnum | SubscriptionUpgradeScalarFieldEnum[]
+  }
+
+  /**
+   * PromoCode without action
+   */
+  export type PromoCodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SubscriptionUpgrade
+   */
+
+  export type AggregateSubscriptionUpgrade = {
+    _count: SubscriptionUpgradeCountAggregateOutputType | null
+    _min: SubscriptionUpgradeMinAggregateOutputType | null
+    _max: SubscriptionUpgradeMaxAggregateOutputType | null
+  }
+
+  export type SubscriptionUpgradeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    promoCodeId: string | null
+    oldTier: string | null
+    newTier: string | null
+    upgradedAt: Date | null
+  }
+
+  export type SubscriptionUpgradeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    promoCodeId: string | null
+    oldTier: string | null
+    newTier: string | null
+    upgradedAt: Date | null
+  }
+
+  export type SubscriptionUpgradeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    promoCodeId: number
+    oldTier: number
+    newTier: number
+    upgradedAt: number
+    _all: number
+  }
+
+
+  export type SubscriptionUpgradeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    promoCodeId?: true
+    oldTier?: true
+    newTier?: true
+    upgradedAt?: true
+  }
+
+  export type SubscriptionUpgradeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    promoCodeId?: true
+    oldTier?: true
+    newTier?: true
+    upgradedAt?: true
+  }
+
+  export type SubscriptionUpgradeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    promoCodeId?: true
+    oldTier?: true
+    newTier?: true
+    upgradedAt?: true
+    _all?: true
+  }
+
+  export type SubscriptionUpgradeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubscriptionUpgrade to aggregate.
+     */
+    where?: SubscriptionUpgradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionUpgrades to fetch.
+     */
+    orderBy?: SubscriptionUpgradeOrderByWithRelationInput | SubscriptionUpgradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubscriptionUpgradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionUpgrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionUpgrades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SubscriptionUpgrades
+    **/
+    _count?: true | SubscriptionUpgradeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubscriptionUpgradeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubscriptionUpgradeMaxAggregateInputType
+  }
+
+  export type GetSubscriptionUpgradeAggregateType<T extends SubscriptionUpgradeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubscriptionUpgrade]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubscriptionUpgrade[P]>
+      : GetScalarType<T[P], AggregateSubscriptionUpgrade[P]>
+  }
+
+
+
+
+  export type SubscriptionUpgradeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionUpgradeWhereInput
+    orderBy?: SubscriptionUpgradeOrderByWithAggregationInput | SubscriptionUpgradeOrderByWithAggregationInput[]
+    by: SubscriptionUpgradeScalarFieldEnum[] | SubscriptionUpgradeScalarFieldEnum
+    having?: SubscriptionUpgradeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubscriptionUpgradeCountAggregateInputType | true
+    _min?: SubscriptionUpgradeMinAggregateInputType
+    _max?: SubscriptionUpgradeMaxAggregateInputType
+  }
+
+  export type SubscriptionUpgradeGroupByOutputType = {
+    id: string
+    tenantId: string
+    promoCodeId: string | null
+    oldTier: string
+    newTier: string
+    upgradedAt: Date
+    _count: SubscriptionUpgradeCountAggregateOutputType | null
+    _min: SubscriptionUpgradeMinAggregateOutputType | null
+    _max: SubscriptionUpgradeMaxAggregateOutputType | null
+  }
+
+  type GetSubscriptionUpgradeGroupByPayload<T extends SubscriptionUpgradeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubscriptionUpgradeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubscriptionUpgradeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubscriptionUpgradeGroupByOutputType[P]>
+            : GetScalarType<T[P], SubscriptionUpgradeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubscriptionUpgradeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    promoCodeId?: boolean
+    oldTier?: boolean
+    newTier?: boolean
+    upgradedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    promoCode?: boolean | SubscriptionUpgrade$promoCodeArgs<ExtArgs>
+  }, ExtArgs["result"]["subscriptionUpgrade"]>
+
+  export type SubscriptionUpgradeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    promoCodeId?: boolean
+    oldTier?: boolean
+    newTier?: boolean
+    upgradedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    promoCode?: boolean | SubscriptionUpgrade$promoCodeArgs<ExtArgs>
+  }, ExtArgs["result"]["subscriptionUpgrade"]>
+
+  export type SubscriptionUpgradeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    promoCodeId?: boolean
+    oldTier?: boolean
+    newTier?: boolean
+    upgradedAt?: boolean
+  }
+
+  export type SubscriptionUpgradeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    promoCode?: boolean | SubscriptionUpgrade$promoCodeArgs<ExtArgs>
+  }
+  export type SubscriptionUpgradeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    promoCode?: boolean | SubscriptionUpgrade$promoCodeArgs<ExtArgs>
+  }
+
+  export type $SubscriptionUpgradePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SubscriptionUpgrade"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      promoCode: Prisma.$PromoCodePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      promoCodeId: string | null
+      oldTier: string
+      newTier: string
+      upgradedAt: Date
+    }, ExtArgs["result"]["subscriptionUpgrade"]>
+    composites: {}
+  }
+
+  type SubscriptionUpgradeGetPayload<S extends boolean | null | undefined | SubscriptionUpgradeDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionUpgradePayload, S>
+
+  type SubscriptionUpgradeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SubscriptionUpgradeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SubscriptionUpgradeCountAggregateInputType | true
+    }
+
+  export interface SubscriptionUpgradeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SubscriptionUpgrade'], meta: { name: 'SubscriptionUpgrade' } }
+    /**
+     * Find zero or one SubscriptionUpgrade that matches the filter.
+     * @param {SubscriptionUpgradeFindUniqueArgs} args - Arguments to find a SubscriptionUpgrade
+     * @example
+     * // Get one SubscriptionUpgrade
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubscriptionUpgradeFindUniqueArgs>(args: SelectSubset<T, SubscriptionUpgradeFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SubscriptionUpgrade that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SubscriptionUpgradeFindUniqueOrThrowArgs} args - Arguments to find a SubscriptionUpgrade
+     * @example
+     * // Get one SubscriptionUpgrade
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubscriptionUpgradeFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionUpgradeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SubscriptionUpgrade that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpgradeFindFirstArgs} args - Arguments to find a SubscriptionUpgrade
+     * @example
+     * // Get one SubscriptionUpgrade
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubscriptionUpgradeFindFirstArgs>(args?: SelectSubset<T, SubscriptionUpgradeFindFirstArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SubscriptionUpgrade that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpgradeFindFirstOrThrowArgs} args - Arguments to find a SubscriptionUpgrade
+     * @example
+     * // Get one SubscriptionUpgrade
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubscriptionUpgradeFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionUpgradeFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SubscriptionUpgrades that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpgradeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SubscriptionUpgrades
+     * const subscriptionUpgrades = await prisma.subscriptionUpgrade.findMany()
+     * 
+     * // Get first 10 SubscriptionUpgrades
+     * const subscriptionUpgrades = await prisma.subscriptionUpgrade.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subscriptionUpgradeWithIdOnly = await prisma.subscriptionUpgrade.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubscriptionUpgradeFindManyArgs>(args?: SelectSubset<T, SubscriptionUpgradeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SubscriptionUpgrade.
+     * @param {SubscriptionUpgradeCreateArgs} args - Arguments to create a SubscriptionUpgrade.
+     * @example
+     * // Create one SubscriptionUpgrade
+     * const SubscriptionUpgrade = await prisma.subscriptionUpgrade.create({
+     *   data: {
+     *     // ... data to create a SubscriptionUpgrade
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubscriptionUpgradeCreateArgs>(args: SelectSubset<T, SubscriptionUpgradeCreateArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SubscriptionUpgrades.
+     * @param {SubscriptionUpgradeCreateManyArgs} args - Arguments to create many SubscriptionUpgrades.
+     * @example
+     * // Create many SubscriptionUpgrades
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubscriptionUpgradeCreateManyArgs>(args?: SelectSubset<T, SubscriptionUpgradeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SubscriptionUpgrades and returns the data saved in the database.
+     * @param {SubscriptionUpgradeCreateManyAndReturnArgs} args - Arguments to create many SubscriptionUpgrades.
+     * @example
+     * // Create many SubscriptionUpgrades
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SubscriptionUpgrades and only return the `id`
+     * const subscriptionUpgradeWithIdOnly = await prisma.subscriptionUpgrade.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubscriptionUpgradeCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionUpgradeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SubscriptionUpgrade.
+     * @param {SubscriptionUpgradeDeleteArgs} args - Arguments to delete one SubscriptionUpgrade.
+     * @example
+     * // Delete one SubscriptionUpgrade
+     * const SubscriptionUpgrade = await prisma.subscriptionUpgrade.delete({
+     *   where: {
+     *     // ... filter to delete one SubscriptionUpgrade
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubscriptionUpgradeDeleteArgs>(args: SelectSubset<T, SubscriptionUpgradeDeleteArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SubscriptionUpgrade.
+     * @param {SubscriptionUpgradeUpdateArgs} args - Arguments to update one SubscriptionUpgrade.
+     * @example
+     * // Update one SubscriptionUpgrade
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubscriptionUpgradeUpdateArgs>(args: SelectSubset<T, SubscriptionUpgradeUpdateArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SubscriptionUpgrades.
+     * @param {SubscriptionUpgradeDeleteManyArgs} args - Arguments to filter SubscriptionUpgrades to delete.
+     * @example
+     * // Delete a few SubscriptionUpgrades
+     * const { count } = await prisma.subscriptionUpgrade.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubscriptionUpgradeDeleteManyArgs>(args?: SelectSubset<T, SubscriptionUpgradeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubscriptionUpgrades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpgradeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SubscriptionUpgrades
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubscriptionUpgradeUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpgradeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SubscriptionUpgrade.
+     * @param {SubscriptionUpgradeUpsertArgs} args - Arguments to update or create a SubscriptionUpgrade.
+     * @example
+     * // Update or create a SubscriptionUpgrade
+     * const subscriptionUpgrade = await prisma.subscriptionUpgrade.upsert({
+     *   create: {
+     *     // ... data to create a SubscriptionUpgrade
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SubscriptionUpgrade we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubscriptionUpgradeUpsertArgs>(args: SelectSubset<T, SubscriptionUpgradeUpsertArgs<ExtArgs>>): Prisma__SubscriptionUpgradeClient<$Result.GetResult<Prisma.$SubscriptionUpgradePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SubscriptionUpgrades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpgradeCountArgs} args - Arguments to filter SubscriptionUpgrades to count.
+     * @example
+     * // Count the number of SubscriptionUpgrades
+     * const count = await prisma.subscriptionUpgrade.count({
+     *   where: {
+     *     // ... the filter for the SubscriptionUpgrades we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubscriptionUpgradeCountArgs>(
+      args?: Subset<T, SubscriptionUpgradeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubscriptionUpgradeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SubscriptionUpgrade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpgradeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubscriptionUpgradeAggregateArgs>(args: Subset<T, SubscriptionUpgradeAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionUpgradeAggregateType<T>>
+
+    /**
+     * Group by SubscriptionUpgrade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpgradeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubscriptionUpgradeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubscriptionUpgradeGroupByArgs['orderBy'] }
+        : { orderBy?: SubscriptionUpgradeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubscriptionUpgradeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionUpgradeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SubscriptionUpgrade model
+   */
+  readonly fields: SubscriptionUpgradeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SubscriptionUpgrade.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubscriptionUpgradeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    promoCode<T extends SubscriptionUpgrade$promoCodeArgs<ExtArgs> = {}>(args?: Subset<T, SubscriptionUpgrade$promoCodeArgs<ExtArgs>>): Prisma__PromoCodeClient<$Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SubscriptionUpgrade model
+   */ 
+  interface SubscriptionUpgradeFieldRefs {
+    readonly id: FieldRef<"SubscriptionUpgrade", 'String'>
+    readonly tenantId: FieldRef<"SubscriptionUpgrade", 'String'>
+    readonly promoCodeId: FieldRef<"SubscriptionUpgrade", 'String'>
+    readonly oldTier: FieldRef<"SubscriptionUpgrade", 'String'>
+    readonly newTier: FieldRef<"SubscriptionUpgrade", 'String'>
+    readonly upgradedAt: FieldRef<"SubscriptionUpgrade", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SubscriptionUpgrade findUnique
+   */
+  export type SubscriptionUpgradeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionUpgrade to fetch.
+     */
+    where: SubscriptionUpgradeWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionUpgrade findUniqueOrThrow
+   */
+  export type SubscriptionUpgradeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionUpgrade to fetch.
+     */
+    where: SubscriptionUpgradeWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionUpgrade findFirst
+   */
+  export type SubscriptionUpgradeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionUpgrade to fetch.
+     */
+    where?: SubscriptionUpgradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionUpgrades to fetch.
+     */
+    orderBy?: SubscriptionUpgradeOrderByWithRelationInput | SubscriptionUpgradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubscriptionUpgrades.
+     */
+    cursor?: SubscriptionUpgradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionUpgrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionUpgrades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubscriptionUpgrades.
+     */
+    distinct?: SubscriptionUpgradeScalarFieldEnum | SubscriptionUpgradeScalarFieldEnum[]
+  }
+
+  /**
+   * SubscriptionUpgrade findFirstOrThrow
+   */
+  export type SubscriptionUpgradeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionUpgrade to fetch.
+     */
+    where?: SubscriptionUpgradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionUpgrades to fetch.
+     */
+    orderBy?: SubscriptionUpgradeOrderByWithRelationInput | SubscriptionUpgradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubscriptionUpgrades.
+     */
+    cursor?: SubscriptionUpgradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionUpgrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionUpgrades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubscriptionUpgrades.
+     */
+    distinct?: SubscriptionUpgradeScalarFieldEnum | SubscriptionUpgradeScalarFieldEnum[]
+  }
+
+  /**
+   * SubscriptionUpgrade findMany
+   */
+  export type SubscriptionUpgradeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionUpgrades to fetch.
+     */
+    where?: SubscriptionUpgradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionUpgrades to fetch.
+     */
+    orderBy?: SubscriptionUpgradeOrderByWithRelationInput | SubscriptionUpgradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SubscriptionUpgrades.
+     */
+    cursor?: SubscriptionUpgradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionUpgrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionUpgrades.
+     */
+    skip?: number
+    distinct?: SubscriptionUpgradeScalarFieldEnum | SubscriptionUpgradeScalarFieldEnum[]
+  }
+
+  /**
+   * SubscriptionUpgrade create
+   */
+  export type SubscriptionUpgradeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SubscriptionUpgrade.
+     */
+    data: XOR<SubscriptionUpgradeCreateInput, SubscriptionUpgradeUncheckedCreateInput>
+  }
+
+  /**
+   * SubscriptionUpgrade createMany
+   */
+  export type SubscriptionUpgradeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SubscriptionUpgrades.
+     */
+    data: SubscriptionUpgradeCreateManyInput | SubscriptionUpgradeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SubscriptionUpgrade createManyAndReturn
+   */
+  export type SubscriptionUpgradeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SubscriptionUpgrades.
+     */
+    data: SubscriptionUpgradeCreateManyInput | SubscriptionUpgradeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubscriptionUpgrade update
+   */
+  export type SubscriptionUpgradeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SubscriptionUpgrade.
+     */
+    data: XOR<SubscriptionUpgradeUpdateInput, SubscriptionUpgradeUncheckedUpdateInput>
+    /**
+     * Choose, which SubscriptionUpgrade to update.
+     */
+    where: SubscriptionUpgradeWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionUpgrade updateMany
+   */
+  export type SubscriptionUpgradeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SubscriptionUpgrades.
+     */
+    data: XOR<SubscriptionUpgradeUpdateManyMutationInput, SubscriptionUpgradeUncheckedUpdateManyInput>
+    /**
+     * Filter which SubscriptionUpgrades to update
+     */
+    where?: SubscriptionUpgradeWhereInput
+  }
+
+  /**
+   * SubscriptionUpgrade upsert
+   */
+  export type SubscriptionUpgradeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SubscriptionUpgrade to update in case it exists.
+     */
+    where: SubscriptionUpgradeWhereUniqueInput
+    /**
+     * In case the SubscriptionUpgrade found by the `where` argument doesn't exist, create a new SubscriptionUpgrade with this data.
+     */
+    create: XOR<SubscriptionUpgradeCreateInput, SubscriptionUpgradeUncheckedCreateInput>
+    /**
+     * In case the SubscriptionUpgrade was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubscriptionUpgradeUpdateInput, SubscriptionUpgradeUncheckedUpdateInput>
+  }
+
+  /**
+   * SubscriptionUpgrade delete
+   */
+  export type SubscriptionUpgradeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
+    /**
+     * Filter which SubscriptionUpgrade to delete.
+     */
+    where: SubscriptionUpgradeWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionUpgrade deleteMany
+   */
+  export type SubscriptionUpgradeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubscriptionUpgrades to delete
+     */
+    where?: SubscriptionUpgradeWhereInput
+  }
+
+  /**
+   * SubscriptionUpgrade.promoCode
+   */
+  export type SubscriptionUpgrade$promoCodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromoCode
+     */
+    select?: PromoCodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromoCodeInclude<ExtArgs> | null
+    where?: PromoCodeWhereInput
+  }
+
+  /**
+   * SubscriptionUpgrade without action
+   */
+  export type SubscriptionUpgradeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionUpgrade
+     */
+    select?: SubscriptionUpgradeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionUpgradeInclude<ExtArgs> | null
   }
 
 
@@ -152030,6 +154380,912 @@ export namespace Prisma {
 
 
   /**
+   * Model ScreenConfiguration
+   */
+
+  export type AggregateScreenConfiguration = {
+    _count: ScreenConfigurationCountAggregateOutputType | null
+    _min: ScreenConfigurationMinAggregateOutputType | null
+    _max: ScreenConfigurationMaxAggregateOutputType | null
+  }
+
+  export type ScreenConfigurationMinAggregateOutputType = {
+    id: string | null
+    screenId: string | null
+    uiComponentType: string | null
+    layoutType: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ScreenConfigurationMaxAggregateOutputType = {
+    id: string | null
+    screenId: string | null
+    uiComponentType: string | null
+    layoutType: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ScreenConfigurationCountAggregateOutputType = {
+    id: number
+    screenId: number
+    uiComponentType: number
+    layoutType: number
+    cssStyles: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ScreenConfigurationMinAggregateInputType = {
+    id?: true
+    screenId?: true
+    uiComponentType?: true
+    layoutType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ScreenConfigurationMaxAggregateInputType = {
+    id?: true
+    screenId?: true
+    uiComponentType?: true
+    layoutType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ScreenConfigurationCountAggregateInputType = {
+    id?: true
+    screenId?: true
+    uiComponentType?: true
+    layoutType?: true
+    cssStyles?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ScreenConfigurationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ScreenConfiguration to aggregate.
+     */
+    where?: ScreenConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenConfigurations to fetch.
+     */
+    orderBy?: ScreenConfigurationOrderByWithRelationInput | ScreenConfigurationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ScreenConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenConfigurations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ScreenConfigurations
+    **/
+    _count?: true | ScreenConfigurationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ScreenConfigurationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ScreenConfigurationMaxAggregateInputType
+  }
+
+  export type GetScreenConfigurationAggregateType<T extends ScreenConfigurationAggregateArgs> = {
+        [P in keyof T & keyof AggregateScreenConfiguration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateScreenConfiguration[P]>
+      : GetScalarType<T[P], AggregateScreenConfiguration[P]>
+  }
+
+
+
+
+  export type ScreenConfigurationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScreenConfigurationWhereInput
+    orderBy?: ScreenConfigurationOrderByWithAggregationInput | ScreenConfigurationOrderByWithAggregationInput[]
+    by: ScreenConfigurationScalarFieldEnum[] | ScreenConfigurationScalarFieldEnum
+    having?: ScreenConfigurationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ScreenConfigurationCountAggregateInputType | true
+    _min?: ScreenConfigurationMinAggregateInputType
+    _max?: ScreenConfigurationMaxAggregateInputType
+  }
+
+  export type ScreenConfigurationGroupByOutputType = {
+    id: string
+    screenId: string
+    uiComponentType: string | null
+    layoutType: string | null
+    cssStyles: JsonValue | null
+    metadata: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ScreenConfigurationCountAggregateOutputType | null
+    _min: ScreenConfigurationMinAggregateOutputType | null
+    _max: ScreenConfigurationMaxAggregateOutputType | null
+  }
+
+  type GetScreenConfigurationGroupByPayload<T extends ScreenConfigurationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ScreenConfigurationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ScreenConfigurationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ScreenConfigurationGroupByOutputType[P]>
+            : GetScalarType<T[P], ScreenConfigurationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ScreenConfigurationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    screenId?: boolean
+    uiComponentType?: boolean
+    layoutType?: boolean
+    cssStyles?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["screenConfiguration"]>
+
+  export type ScreenConfigurationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    screenId?: boolean
+    uiComponentType?: boolean
+    layoutType?: boolean
+    cssStyles?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["screenConfiguration"]>
+
+  export type ScreenConfigurationSelectScalar = {
+    id?: boolean
+    screenId?: boolean
+    uiComponentType?: boolean
+    layoutType?: boolean
+    cssStyles?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $ScreenConfigurationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ScreenConfiguration"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      screenId: string
+      uiComponentType: string | null
+      layoutType: string | null
+      cssStyles: Prisma.JsonValue | null
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["screenConfiguration"]>
+    composites: {}
+  }
+
+  type ScreenConfigurationGetPayload<S extends boolean | null | undefined | ScreenConfigurationDefaultArgs> = $Result.GetResult<Prisma.$ScreenConfigurationPayload, S>
+
+  type ScreenConfigurationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ScreenConfigurationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ScreenConfigurationCountAggregateInputType | true
+    }
+
+  export interface ScreenConfigurationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ScreenConfiguration'], meta: { name: 'ScreenConfiguration' } }
+    /**
+     * Find zero or one ScreenConfiguration that matches the filter.
+     * @param {ScreenConfigurationFindUniqueArgs} args - Arguments to find a ScreenConfiguration
+     * @example
+     * // Get one ScreenConfiguration
+     * const screenConfiguration = await prisma.screenConfiguration.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ScreenConfigurationFindUniqueArgs>(args: SelectSubset<T, ScreenConfigurationFindUniqueArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ScreenConfiguration that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ScreenConfigurationFindUniqueOrThrowArgs} args - Arguments to find a ScreenConfiguration
+     * @example
+     * // Get one ScreenConfiguration
+     * const screenConfiguration = await prisma.screenConfiguration.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ScreenConfigurationFindUniqueOrThrowArgs>(args: SelectSubset<T, ScreenConfigurationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ScreenConfiguration that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenConfigurationFindFirstArgs} args - Arguments to find a ScreenConfiguration
+     * @example
+     * // Get one ScreenConfiguration
+     * const screenConfiguration = await prisma.screenConfiguration.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ScreenConfigurationFindFirstArgs>(args?: SelectSubset<T, ScreenConfigurationFindFirstArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ScreenConfiguration that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenConfigurationFindFirstOrThrowArgs} args - Arguments to find a ScreenConfiguration
+     * @example
+     * // Get one ScreenConfiguration
+     * const screenConfiguration = await prisma.screenConfiguration.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ScreenConfigurationFindFirstOrThrowArgs>(args?: SelectSubset<T, ScreenConfigurationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ScreenConfigurations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenConfigurationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ScreenConfigurations
+     * const screenConfigurations = await prisma.screenConfiguration.findMany()
+     * 
+     * // Get first 10 ScreenConfigurations
+     * const screenConfigurations = await prisma.screenConfiguration.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const screenConfigurationWithIdOnly = await prisma.screenConfiguration.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ScreenConfigurationFindManyArgs>(args?: SelectSubset<T, ScreenConfigurationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ScreenConfiguration.
+     * @param {ScreenConfigurationCreateArgs} args - Arguments to create a ScreenConfiguration.
+     * @example
+     * // Create one ScreenConfiguration
+     * const ScreenConfiguration = await prisma.screenConfiguration.create({
+     *   data: {
+     *     // ... data to create a ScreenConfiguration
+     *   }
+     * })
+     * 
+     */
+    create<T extends ScreenConfigurationCreateArgs>(args: SelectSubset<T, ScreenConfigurationCreateArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ScreenConfigurations.
+     * @param {ScreenConfigurationCreateManyArgs} args - Arguments to create many ScreenConfigurations.
+     * @example
+     * // Create many ScreenConfigurations
+     * const screenConfiguration = await prisma.screenConfiguration.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ScreenConfigurationCreateManyArgs>(args?: SelectSubset<T, ScreenConfigurationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ScreenConfigurations and returns the data saved in the database.
+     * @param {ScreenConfigurationCreateManyAndReturnArgs} args - Arguments to create many ScreenConfigurations.
+     * @example
+     * // Create many ScreenConfigurations
+     * const screenConfiguration = await prisma.screenConfiguration.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ScreenConfigurations and only return the `id`
+     * const screenConfigurationWithIdOnly = await prisma.screenConfiguration.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ScreenConfigurationCreateManyAndReturnArgs>(args?: SelectSubset<T, ScreenConfigurationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ScreenConfiguration.
+     * @param {ScreenConfigurationDeleteArgs} args - Arguments to delete one ScreenConfiguration.
+     * @example
+     * // Delete one ScreenConfiguration
+     * const ScreenConfiguration = await prisma.screenConfiguration.delete({
+     *   where: {
+     *     // ... filter to delete one ScreenConfiguration
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ScreenConfigurationDeleteArgs>(args: SelectSubset<T, ScreenConfigurationDeleteArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ScreenConfiguration.
+     * @param {ScreenConfigurationUpdateArgs} args - Arguments to update one ScreenConfiguration.
+     * @example
+     * // Update one ScreenConfiguration
+     * const screenConfiguration = await prisma.screenConfiguration.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ScreenConfigurationUpdateArgs>(args: SelectSubset<T, ScreenConfigurationUpdateArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ScreenConfigurations.
+     * @param {ScreenConfigurationDeleteManyArgs} args - Arguments to filter ScreenConfigurations to delete.
+     * @example
+     * // Delete a few ScreenConfigurations
+     * const { count } = await prisma.screenConfiguration.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ScreenConfigurationDeleteManyArgs>(args?: SelectSubset<T, ScreenConfigurationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ScreenConfigurations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenConfigurationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ScreenConfigurations
+     * const screenConfiguration = await prisma.screenConfiguration.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ScreenConfigurationUpdateManyArgs>(args: SelectSubset<T, ScreenConfigurationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ScreenConfiguration.
+     * @param {ScreenConfigurationUpsertArgs} args - Arguments to update or create a ScreenConfiguration.
+     * @example
+     * // Update or create a ScreenConfiguration
+     * const screenConfiguration = await prisma.screenConfiguration.upsert({
+     *   create: {
+     *     // ... data to create a ScreenConfiguration
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ScreenConfiguration we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ScreenConfigurationUpsertArgs>(args: SelectSubset<T, ScreenConfigurationUpsertArgs<ExtArgs>>): Prisma__ScreenConfigurationClient<$Result.GetResult<Prisma.$ScreenConfigurationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ScreenConfigurations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenConfigurationCountArgs} args - Arguments to filter ScreenConfigurations to count.
+     * @example
+     * // Count the number of ScreenConfigurations
+     * const count = await prisma.screenConfiguration.count({
+     *   where: {
+     *     // ... the filter for the ScreenConfigurations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ScreenConfigurationCountArgs>(
+      args?: Subset<T, ScreenConfigurationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ScreenConfigurationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ScreenConfiguration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenConfigurationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ScreenConfigurationAggregateArgs>(args: Subset<T, ScreenConfigurationAggregateArgs>): Prisma.PrismaPromise<GetScreenConfigurationAggregateType<T>>
+
+    /**
+     * Group by ScreenConfiguration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenConfigurationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ScreenConfigurationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ScreenConfigurationGroupByArgs['orderBy'] }
+        : { orderBy?: ScreenConfigurationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ScreenConfigurationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetScreenConfigurationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ScreenConfiguration model
+   */
+  readonly fields: ScreenConfigurationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ScreenConfiguration.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ScreenConfigurationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ScreenConfiguration model
+   */ 
+  interface ScreenConfigurationFieldRefs {
+    readonly id: FieldRef<"ScreenConfiguration", 'String'>
+    readonly screenId: FieldRef<"ScreenConfiguration", 'String'>
+    readonly uiComponentType: FieldRef<"ScreenConfiguration", 'String'>
+    readonly layoutType: FieldRef<"ScreenConfiguration", 'String'>
+    readonly cssStyles: FieldRef<"ScreenConfiguration", 'Json'>
+    readonly metadata: FieldRef<"ScreenConfiguration", 'Json'>
+    readonly createdAt: FieldRef<"ScreenConfiguration", 'DateTime'>
+    readonly updatedAt: FieldRef<"ScreenConfiguration", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ScreenConfiguration findUnique
+   */
+  export type ScreenConfigurationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * Filter, which ScreenConfiguration to fetch.
+     */
+    where: ScreenConfigurationWhereUniqueInput
+  }
+
+  /**
+   * ScreenConfiguration findUniqueOrThrow
+   */
+  export type ScreenConfigurationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * Filter, which ScreenConfiguration to fetch.
+     */
+    where: ScreenConfigurationWhereUniqueInput
+  }
+
+  /**
+   * ScreenConfiguration findFirst
+   */
+  export type ScreenConfigurationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * Filter, which ScreenConfiguration to fetch.
+     */
+    where?: ScreenConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenConfigurations to fetch.
+     */
+    orderBy?: ScreenConfigurationOrderByWithRelationInput | ScreenConfigurationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ScreenConfigurations.
+     */
+    cursor?: ScreenConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenConfigurations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ScreenConfigurations.
+     */
+    distinct?: ScreenConfigurationScalarFieldEnum | ScreenConfigurationScalarFieldEnum[]
+  }
+
+  /**
+   * ScreenConfiguration findFirstOrThrow
+   */
+  export type ScreenConfigurationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * Filter, which ScreenConfiguration to fetch.
+     */
+    where?: ScreenConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenConfigurations to fetch.
+     */
+    orderBy?: ScreenConfigurationOrderByWithRelationInput | ScreenConfigurationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ScreenConfigurations.
+     */
+    cursor?: ScreenConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenConfigurations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ScreenConfigurations.
+     */
+    distinct?: ScreenConfigurationScalarFieldEnum | ScreenConfigurationScalarFieldEnum[]
+  }
+
+  /**
+   * ScreenConfiguration findMany
+   */
+  export type ScreenConfigurationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * Filter, which ScreenConfigurations to fetch.
+     */
+    where?: ScreenConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenConfigurations to fetch.
+     */
+    orderBy?: ScreenConfigurationOrderByWithRelationInput | ScreenConfigurationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ScreenConfigurations.
+     */
+    cursor?: ScreenConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenConfigurations.
+     */
+    skip?: number
+    distinct?: ScreenConfigurationScalarFieldEnum | ScreenConfigurationScalarFieldEnum[]
+  }
+
+  /**
+   * ScreenConfiguration create
+   */
+  export type ScreenConfigurationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ScreenConfiguration.
+     */
+    data: XOR<ScreenConfigurationCreateInput, ScreenConfigurationUncheckedCreateInput>
+  }
+
+  /**
+   * ScreenConfiguration createMany
+   */
+  export type ScreenConfigurationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ScreenConfigurations.
+     */
+    data: ScreenConfigurationCreateManyInput | ScreenConfigurationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ScreenConfiguration createManyAndReturn
+   */
+  export type ScreenConfigurationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ScreenConfigurations.
+     */
+    data: ScreenConfigurationCreateManyInput | ScreenConfigurationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ScreenConfiguration update
+   */
+  export type ScreenConfigurationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ScreenConfiguration.
+     */
+    data: XOR<ScreenConfigurationUpdateInput, ScreenConfigurationUncheckedUpdateInput>
+    /**
+     * Choose, which ScreenConfiguration to update.
+     */
+    where: ScreenConfigurationWhereUniqueInput
+  }
+
+  /**
+   * ScreenConfiguration updateMany
+   */
+  export type ScreenConfigurationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ScreenConfigurations.
+     */
+    data: XOR<ScreenConfigurationUpdateManyMutationInput, ScreenConfigurationUncheckedUpdateManyInput>
+    /**
+     * Filter which ScreenConfigurations to update
+     */
+    where?: ScreenConfigurationWhereInput
+  }
+
+  /**
+   * ScreenConfiguration upsert
+   */
+  export type ScreenConfigurationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ScreenConfiguration to update in case it exists.
+     */
+    where: ScreenConfigurationWhereUniqueInput
+    /**
+     * In case the ScreenConfiguration found by the `where` argument doesn't exist, create a new ScreenConfiguration with this data.
+     */
+    create: XOR<ScreenConfigurationCreateInput, ScreenConfigurationUncheckedCreateInput>
+    /**
+     * In case the ScreenConfiguration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ScreenConfigurationUpdateInput, ScreenConfigurationUncheckedUpdateInput>
+  }
+
+  /**
+   * ScreenConfiguration delete
+   */
+  export type ScreenConfigurationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+    /**
+     * Filter which ScreenConfiguration to delete.
+     */
+    where: ScreenConfigurationWhereUniqueInput
+  }
+
+  /**
+   * ScreenConfiguration deleteMany
+   */
+  export type ScreenConfigurationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ScreenConfigurations to delete
+     */
+    where?: ScreenConfigurationWhereInput
+  }
+
+  /**
+   * ScreenConfiguration without action
+   */
+  export type ScreenConfigurationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenConfiguration
+     */
+    select?: ScreenConfigurationSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -208961,7 +212217,8 @@ export namespace Prisma {
     corsAllowedMethods: 'corsAllowedMethods',
     corsAllowedHeaders: 'corsAllowedHeaders',
     taxPercentage: 'taxPercentage',
-    parentTenantId: 'parentTenantId'
+    parentTenantId: 'parentTenantId',
+    subscriptionTier: 'subscriptionTier'
   };
 
   export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
@@ -209304,6 +212561,34 @@ export namespace Prisma {
   };
 
   export type SupplyForecastMetricsScalarFieldEnum = (typeof SupplyForecastMetricsScalarFieldEnum)[keyof typeof SupplyForecastMetricsScalarFieldEnum]
+
+
+  export const PromoCodeScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    discountPercent: 'discountPercent',
+    targetTier: 'targetTier',
+    maxUses: 'maxUses',
+    currentUses: 'currentUses',
+    expiresAt: 'expiresAt',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PromoCodeScalarFieldEnum = (typeof PromoCodeScalarFieldEnum)[keyof typeof PromoCodeScalarFieldEnum]
+
+
+  export const SubscriptionUpgradeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    promoCodeId: 'promoCodeId',
+    oldTier: 'oldTier',
+    newTier: 'newTier',
+    upgradedAt: 'upgradedAt'
+  };
+
+  export type SubscriptionUpgradeScalarFieldEnum = (typeof SubscriptionUpgradeScalarFieldEnum)[keyof typeof SubscriptionUpgradeScalarFieldEnum]
 
 
   export const ClientProfileScalarFieldEnum: {
@@ -210886,6 +214171,20 @@ export namespace Prisma {
   export type DynamicFeatureRecordScalarFieldEnum = (typeof DynamicFeatureRecordScalarFieldEnum)[keyof typeof DynamicFeatureRecordScalarFieldEnum]
 
 
+  export const ScreenConfigurationScalarFieldEnum: {
+    id: 'id',
+    screenId: 'screenId',
+    uiComponentType: 'uiComponentType',
+    layoutType: 'layoutType',
+    cssStyles: 'cssStyles',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ScreenConfigurationScalarFieldEnum = (typeof ScreenConfigurationScalarFieldEnum)[keyof typeof ScreenConfigurationScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -212132,6 +215431,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonFilter<"Tenant">
     taxPercentage?: DecimalNullableFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
+    subscriptionTier?: StringFilter<"Tenant"> | string
     auditLogs?: AuditLogListRelationFilter
     bookings?: BookingListRelationFilter
     clientProfiles?: ClientProfileListRelationFilter
@@ -212202,6 +215502,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationListRelationFilter
     bankTransactions?: BankTransactionListRelationFilter
     registries?: RegistryListRelationFilter
+    subscriptionUpgrades?: SubscriptionUpgradeListRelationFilter
     evvRecords?: EVVRecordListRelationFilter
     serviceAuthorizations?: ServiceAuthorizationListRelationFilter
     consentForms?: ConsentFormListRelationFilter
@@ -212248,6 +215549,7 @@ export namespace Prisma {
     corsAllowedHeaders?: SortOrder
     taxPercentage?: SortOrderInput | SortOrder
     parentTenantId?: SortOrderInput | SortOrder
+    subscriptionTier?: SortOrder
     auditLogs?: AuditLogOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
     clientProfiles?: ClientProfileOrderByRelationAggregateInput
@@ -212318,6 +215620,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationOrderByRelationAggregateInput
     bankTransactions?: BankTransactionOrderByRelationAggregateInput
     registries?: RegistryOrderByRelationAggregateInput
+    subscriptionUpgrades?: SubscriptionUpgradeOrderByRelationAggregateInput
     evvRecords?: EVVRecordOrderByRelationAggregateInput
     serviceAuthorizations?: ServiceAuthorizationOrderByRelationAggregateInput
     consentForms?: ConsentFormOrderByRelationAggregateInput
@@ -212367,6 +215670,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonFilter<"Tenant">
     taxPercentage?: DecimalNullableFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
+    subscriptionTier?: StringFilter<"Tenant"> | string
     auditLogs?: AuditLogListRelationFilter
     bookings?: BookingListRelationFilter
     clientProfiles?: ClientProfileListRelationFilter
@@ -212437,6 +215741,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationListRelationFilter
     bankTransactions?: BankTransactionListRelationFilter
     registries?: RegistryListRelationFilter
+    subscriptionUpgrades?: SubscriptionUpgradeListRelationFilter
     evvRecords?: EVVRecordListRelationFilter
     serviceAuthorizations?: ServiceAuthorizationListRelationFilter
     consentForms?: ConsentFormListRelationFilter
@@ -212483,6 +215788,7 @@ export namespace Prisma {
     corsAllowedHeaders?: SortOrder
     taxPercentage?: SortOrderInput | SortOrder
     parentTenantId?: SortOrderInput | SortOrder
+    subscriptionTier?: SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
@@ -212516,6 +215822,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonWithAggregatesFilter<"Tenant">
     taxPercentage?: DecimalNullableWithAggregatesFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
+    subscriptionTier?: StringWithAggregatesFilter<"Tenant"> | string
   }
 
   export type RegistryWhereInput = {
@@ -214241,6 +217548,151 @@ export namespace Prisma {
     deficitWarning?: BoolWithAggregatesFilter<"SupplyForecastMetrics"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"SupplyForecastMetrics"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SupplyForecastMetrics"> | Date | string
+  }
+
+  export type PromoCodeWhereInput = {
+    AND?: PromoCodeWhereInput | PromoCodeWhereInput[]
+    OR?: PromoCodeWhereInput[]
+    NOT?: PromoCodeWhereInput | PromoCodeWhereInput[]
+    id?: StringFilter<"PromoCode"> | string
+    code?: StringFilter<"PromoCode"> | string
+    discountPercent?: IntNullableFilter<"PromoCode"> | number | null
+    targetTier?: StringNullableFilter<"PromoCode"> | string | null
+    maxUses?: IntNullableFilter<"PromoCode"> | number | null
+    currentUses?: IntFilter<"PromoCode"> | number
+    expiresAt?: DateTimeNullableFilter<"PromoCode"> | Date | string | null
+    isActive?: BoolFilter<"PromoCode"> | boolean
+    createdAt?: DateTimeFilter<"PromoCode"> | Date | string
+    updatedAt?: DateTimeFilter<"PromoCode"> | Date | string
+    upgrades?: SubscriptionUpgradeListRelationFilter
+  }
+
+  export type PromoCodeOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    discountPercent?: SortOrderInput | SortOrder
+    targetTier?: SortOrderInput | SortOrder
+    maxUses?: SortOrderInput | SortOrder
+    currentUses?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    upgrades?: SubscriptionUpgradeOrderByRelationAggregateInput
+  }
+
+  export type PromoCodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: PromoCodeWhereInput | PromoCodeWhereInput[]
+    OR?: PromoCodeWhereInput[]
+    NOT?: PromoCodeWhereInput | PromoCodeWhereInput[]
+    discountPercent?: IntNullableFilter<"PromoCode"> | number | null
+    targetTier?: StringNullableFilter<"PromoCode"> | string | null
+    maxUses?: IntNullableFilter<"PromoCode"> | number | null
+    currentUses?: IntFilter<"PromoCode"> | number
+    expiresAt?: DateTimeNullableFilter<"PromoCode"> | Date | string | null
+    isActive?: BoolFilter<"PromoCode"> | boolean
+    createdAt?: DateTimeFilter<"PromoCode"> | Date | string
+    updatedAt?: DateTimeFilter<"PromoCode"> | Date | string
+    upgrades?: SubscriptionUpgradeListRelationFilter
+  }, "id" | "code">
+
+  export type PromoCodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    discountPercent?: SortOrderInput | SortOrder
+    targetTier?: SortOrderInput | SortOrder
+    maxUses?: SortOrderInput | SortOrder
+    currentUses?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PromoCodeCountOrderByAggregateInput
+    _avg?: PromoCodeAvgOrderByAggregateInput
+    _max?: PromoCodeMaxOrderByAggregateInput
+    _min?: PromoCodeMinOrderByAggregateInput
+    _sum?: PromoCodeSumOrderByAggregateInput
+  }
+
+  export type PromoCodeScalarWhereWithAggregatesInput = {
+    AND?: PromoCodeScalarWhereWithAggregatesInput | PromoCodeScalarWhereWithAggregatesInput[]
+    OR?: PromoCodeScalarWhereWithAggregatesInput[]
+    NOT?: PromoCodeScalarWhereWithAggregatesInput | PromoCodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PromoCode"> | string
+    code?: StringWithAggregatesFilter<"PromoCode"> | string
+    discountPercent?: IntNullableWithAggregatesFilter<"PromoCode"> | number | null
+    targetTier?: StringNullableWithAggregatesFilter<"PromoCode"> | string | null
+    maxUses?: IntNullableWithAggregatesFilter<"PromoCode"> | number | null
+    currentUses?: IntWithAggregatesFilter<"PromoCode"> | number
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"PromoCode"> | Date | string | null
+    isActive?: BoolWithAggregatesFilter<"PromoCode"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"PromoCode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PromoCode"> | Date | string
+  }
+
+  export type SubscriptionUpgradeWhereInput = {
+    AND?: SubscriptionUpgradeWhereInput | SubscriptionUpgradeWhereInput[]
+    OR?: SubscriptionUpgradeWhereInput[]
+    NOT?: SubscriptionUpgradeWhereInput | SubscriptionUpgradeWhereInput[]
+    id?: StringFilter<"SubscriptionUpgrade"> | string
+    tenantId?: StringFilter<"SubscriptionUpgrade"> | string
+    promoCodeId?: StringNullableFilter<"SubscriptionUpgrade"> | string | null
+    oldTier?: StringFilter<"SubscriptionUpgrade"> | string
+    newTier?: StringFilter<"SubscriptionUpgrade"> | string
+    upgradedAt?: DateTimeFilter<"SubscriptionUpgrade"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    promoCode?: XOR<PromoCodeNullableRelationFilter, PromoCodeWhereInput> | null
+  }
+
+  export type SubscriptionUpgradeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    promoCodeId?: SortOrderInput | SortOrder
+    oldTier?: SortOrder
+    newTier?: SortOrder
+    upgradedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    promoCode?: PromoCodeOrderByWithRelationInput
+  }
+
+  export type SubscriptionUpgradeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SubscriptionUpgradeWhereInput | SubscriptionUpgradeWhereInput[]
+    OR?: SubscriptionUpgradeWhereInput[]
+    NOT?: SubscriptionUpgradeWhereInput | SubscriptionUpgradeWhereInput[]
+    tenantId?: StringFilter<"SubscriptionUpgrade"> | string
+    promoCodeId?: StringNullableFilter<"SubscriptionUpgrade"> | string | null
+    oldTier?: StringFilter<"SubscriptionUpgrade"> | string
+    newTier?: StringFilter<"SubscriptionUpgrade"> | string
+    upgradedAt?: DateTimeFilter<"SubscriptionUpgrade"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    promoCode?: XOR<PromoCodeNullableRelationFilter, PromoCodeWhereInput> | null
+  }, "id">
+
+  export type SubscriptionUpgradeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    promoCodeId?: SortOrderInput | SortOrder
+    oldTier?: SortOrder
+    newTier?: SortOrder
+    upgradedAt?: SortOrder
+    _count?: SubscriptionUpgradeCountOrderByAggregateInput
+    _max?: SubscriptionUpgradeMaxOrderByAggregateInput
+    _min?: SubscriptionUpgradeMinOrderByAggregateInput
+  }
+
+  export type SubscriptionUpgradeScalarWhereWithAggregatesInput = {
+    AND?: SubscriptionUpgradeScalarWhereWithAggregatesInput | SubscriptionUpgradeScalarWhereWithAggregatesInput[]
+    OR?: SubscriptionUpgradeScalarWhereWithAggregatesInput[]
+    NOT?: SubscriptionUpgradeScalarWhereWithAggregatesInput | SubscriptionUpgradeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SubscriptionUpgrade"> | string
+    tenantId?: StringWithAggregatesFilter<"SubscriptionUpgrade"> | string
+    promoCodeId?: StringNullableWithAggregatesFilter<"SubscriptionUpgrade"> | string | null
+    oldTier?: StringWithAggregatesFilter<"SubscriptionUpgrade"> | string
+    newTier?: StringWithAggregatesFilter<"SubscriptionUpgrade"> | string
+    upgradedAt?: DateTimeWithAggregatesFilter<"SubscriptionUpgrade"> | Date | string
   }
 
   export type ClientProfileWhereInput = {
@@ -222791,6 +226243,73 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"DynamicFeatureRecord"> | Date | string
   }
 
+  export type ScreenConfigurationWhereInput = {
+    AND?: ScreenConfigurationWhereInput | ScreenConfigurationWhereInput[]
+    OR?: ScreenConfigurationWhereInput[]
+    NOT?: ScreenConfigurationWhereInput | ScreenConfigurationWhereInput[]
+    id?: StringFilter<"ScreenConfiguration"> | string
+    screenId?: StringFilter<"ScreenConfiguration"> | string
+    uiComponentType?: StringNullableFilter<"ScreenConfiguration"> | string | null
+    layoutType?: StringNullableFilter<"ScreenConfiguration"> | string | null
+    cssStyles?: JsonNullableFilter<"ScreenConfiguration">
+    metadata?: JsonNullableFilter<"ScreenConfiguration">
+    createdAt?: DateTimeFilter<"ScreenConfiguration"> | Date | string
+    updatedAt?: DateTimeFilter<"ScreenConfiguration"> | Date | string
+  }
+
+  export type ScreenConfigurationOrderByWithRelationInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    uiComponentType?: SortOrderInput | SortOrder
+    layoutType?: SortOrderInput | SortOrder
+    cssStyles?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScreenConfigurationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    screenId?: string
+    AND?: ScreenConfigurationWhereInput | ScreenConfigurationWhereInput[]
+    OR?: ScreenConfigurationWhereInput[]
+    NOT?: ScreenConfigurationWhereInput | ScreenConfigurationWhereInput[]
+    uiComponentType?: StringNullableFilter<"ScreenConfiguration"> | string | null
+    layoutType?: StringNullableFilter<"ScreenConfiguration"> | string | null
+    cssStyles?: JsonNullableFilter<"ScreenConfiguration">
+    metadata?: JsonNullableFilter<"ScreenConfiguration">
+    createdAt?: DateTimeFilter<"ScreenConfiguration"> | Date | string
+    updatedAt?: DateTimeFilter<"ScreenConfiguration"> | Date | string
+  }, "id" | "screenId">
+
+  export type ScreenConfigurationOrderByWithAggregationInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    uiComponentType?: SortOrderInput | SortOrder
+    layoutType?: SortOrderInput | SortOrder
+    cssStyles?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ScreenConfigurationCountOrderByAggregateInput
+    _max?: ScreenConfigurationMaxOrderByAggregateInput
+    _min?: ScreenConfigurationMinOrderByAggregateInput
+  }
+
+  export type ScreenConfigurationScalarWhereWithAggregatesInput = {
+    AND?: ScreenConfigurationScalarWhereWithAggregatesInput | ScreenConfigurationScalarWhereWithAggregatesInput[]
+    OR?: ScreenConfigurationScalarWhereWithAggregatesInput[]
+    NOT?: ScreenConfigurationScalarWhereWithAggregatesInput | ScreenConfigurationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ScreenConfiguration"> | string
+    screenId?: StringWithAggregatesFilter<"ScreenConfiguration"> | string
+    uiComponentType?: StringNullableWithAggregatesFilter<"ScreenConfiguration"> | string | null
+    layoutType?: StringNullableWithAggregatesFilter<"ScreenConfiguration"> | string | null
+    cssStyles?: JsonNullableWithAggregatesFilter<"ScreenConfiguration">
+    metadata?: JsonNullableWithAggregatesFilter<"ScreenConfiguration">
+    createdAt?: DateTimeWithAggregatesFilter<"ScreenConfiguration"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ScreenConfiguration"> | Date | string
+  }
+
   export type FamilyAppointmentWhereInput = {
     AND?: FamilyAppointmentWhereInput | FamilyAppointmentWhereInput[]
     OR?: FamilyAppointmentWhereInput[]
@@ -227330,6 +230849,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -227400,6 +230920,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -227446,6 +230967,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -227515,6 +231037,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -227560,6 +231083,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -227630,6 +231154,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -227676,6 +231201,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -227745,6 +231271,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -227791,6 +231318,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
   }
 
   export type TenantUpdateManyMutationInput = {
@@ -227815,6 +231343,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
   }
 
   export type TenantUncheckedUpdateManyInput = {
@@ -227840,6 +231369,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
   }
 
   export type RegistryCreateInput = {
@@ -229734,6 +233264,162 @@ export namespace Prisma {
     deficitWarning?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PromoCodeCreateInput = {
+    id?: string
+    code: string
+    discountPercent?: number | null
+    targetTier?: string | null
+    maxUses?: number | null
+    currentUses?: number
+    expiresAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    upgrades?: SubscriptionUpgradeCreateNestedManyWithoutPromoCodeInput
+  }
+
+  export type PromoCodeUncheckedCreateInput = {
+    id?: string
+    code: string
+    discountPercent?: number | null
+    targetTier?: string | null
+    maxUses?: number | null
+    currentUses?: number
+    expiresAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    upgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutPromoCodeInput
+  }
+
+  export type PromoCodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    discountPercent?: NullableIntFieldUpdateOperationsInput | number | null
+    targetTier?: NullableStringFieldUpdateOperationsInput | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUses?: IntFieldUpdateOperationsInput | number
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    upgrades?: SubscriptionUpgradeUpdateManyWithoutPromoCodeNestedInput
+  }
+
+  export type PromoCodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    discountPercent?: NullableIntFieldUpdateOperationsInput | number | null
+    targetTier?: NullableStringFieldUpdateOperationsInput | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUses?: IntFieldUpdateOperationsInput | number
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    upgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutPromoCodeNestedInput
+  }
+
+  export type PromoCodeCreateManyInput = {
+    id?: string
+    code: string
+    discountPercent?: number | null
+    targetTier?: string | null
+    maxUses?: number | null
+    currentUses?: number
+    expiresAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PromoCodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    discountPercent?: NullableIntFieldUpdateOperationsInput | number | null
+    targetTier?: NullableStringFieldUpdateOperationsInput | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUses?: IntFieldUpdateOperationsInput | number
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PromoCodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    discountPercent?: NullableIntFieldUpdateOperationsInput | number | null
+    targetTier?: NullableStringFieldUpdateOperationsInput | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUses?: IntFieldUpdateOperationsInput | number
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpgradeCreateInput = {
+    id?: string
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutSubscriptionUpgradesInput
+    promoCode?: PromoCodeCreateNestedOneWithoutUpgradesInput
+  }
+
+  export type SubscriptionUpgradeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    promoCodeId?: string | null
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
+  }
+
+  export type SubscriptionUpgradeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutSubscriptionUpgradesNestedInput
+    promoCode?: PromoCodeUpdateOneWithoutUpgradesNestedInput
+  }
+
+  export type SubscriptionUpgradeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    promoCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpgradeCreateManyInput = {
+    id?: string
+    tenantId: string
+    promoCodeId?: string | null
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
+  }
+
+  export type SubscriptionUpgradeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpgradeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    promoCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientProfileCreateInput = {
@@ -238814,6 +242500,83 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ScreenConfigurationCreateInput = {
+    id?: string
+    screenId: string
+    uiComponentType?: string | null
+    layoutType?: string | null
+    cssStyles?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenConfigurationUncheckedCreateInput = {
+    id?: string
+    screenId: string
+    uiComponentType?: string | null
+    layoutType?: string | null
+    cssStyles?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenConfigurationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    uiComponentType?: NullableStringFieldUpdateOperationsInput | string | null
+    layoutType?: NullableStringFieldUpdateOperationsInput | string | null
+    cssStyles?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenConfigurationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    uiComponentType?: NullableStringFieldUpdateOperationsInput | string | null
+    layoutType?: NullableStringFieldUpdateOperationsInput | string | null
+    cssStyles?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenConfigurationCreateManyInput = {
+    id?: string
+    screenId: string
+    uiComponentType?: string | null
+    layoutType?: string | null
+    cssStyles?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenConfigurationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    uiComponentType?: NullableStringFieldUpdateOperationsInput | string | null
+    layoutType?: NullableStringFieldUpdateOperationsInput | string | null
+    cssStyles?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenConfigurationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    uiComponentType?: NullableStringFieldUpdateOperationsInput | string | null
+    layoutType?: NullableStringFieldUpdateOperationsInput | string | null
+    cssStyles?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -244549,6 +248312,12 @@ export namespace Prisma {
     none?: RegistryWhereInput
   }
 
+  export type SubscriptionUpgradeListRelationFilter = {
+    every?: SubscriptionUpgradeWhereInput
+    some?: SubscriptionUpgradeWhereInput
+    none?: SubscriptionUpgradeWhereInput
+  }
+
   export type EVVRecordListRelationFilter = {
     every?: EVVRecordWhereInput
     some?: EVVRecordWhereInput
@@ -244813,6 +248582,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type SubscriptionUpgradeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type EVVRecordOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -244876,6 +248649,7 @@ export namespace Prisma {
     corsAllowedHeaders?: SortOrder
     taxPercentage?: SortOrder
     parentTenantId?: SortOrder
+    subscriptionTier?: SortOrder
   }
 
   export type TenantAvgOrderByAggregateInput = {
@@ -244902,6 +248676,7 @@ export namespace Prisma {
     maxDevicesPerUser?: SortOrder
     taxPercentage?: SortOrder
     parentTenantId?: SortOrder
+    subscriptionTier?: SortOrder
   }
 
   export type TenantMinOrderByAggregateInput = {
@@ -244922,6 +248697,7 @@ export namespace Prisma {
     maxDevicesPerUser?: SortOrder
     taxPercentage?: SortOrder
     parentTenantId?: SortOrder
+    subscriptionTier?: SortOrder
   }
 
   export type TenantSumOrderByAggregateInput = {
@@ -246023,6 +249799,116 @@ export namespace Prisma {
     physicalSupply?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type PromoCodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    discountPercent?: SortOrder
+    targetTier?: SortOrder
+    maxUses?: SortOrder
+    currentUses?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PromoCodeAvgOrderByAggregateInput = {
+    discountPercent?: SortOrder
+    maxUses?: SortOrder
+    currentUses?: SortOrder
+  }
+
+  export type PromoCodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    discountPercent?: SortOrder
+    targetTier?: SortOrder
+    maxUses?: SortOrder
+    currentUses?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PromoCodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    discountPercent?: SortOrder
+    targetTier?: SortOrder
+    maxUses?: SortOrder
+    currentUses?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PromoCodeSumOrderByAggregateInput = {
+    discountPercent?: SortOrder
+    maxUses?: SortOrder
+    currentUses?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type PromoCodeNullableRelationFilter = {
+    is?: PromoCodeWhereInput | null
+    isNot?: PromoCodeWhereInput | null
+  }
+
+  export type SubscriptionUpgradeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    promoCodeId?: SortOrder
+    oldTier?: SortOrder
+    newTier?: SortOrder
+    upgradedAt?: SortOrder
+  }
+
+  export type SubscriptionUpgradeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    promoCodeId?: SortOrder
+    oldTier?: SortOrder
+    newTier?: SortOrder
+    upgradedAt?: SortOrder
+  }
+
+  export type SubscriptionUpgradeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    promoCodeId?: SortOrder
+    oldTier?: SortOrder
+    newTier?: SortOrder
+    upgradedAt?: SortOrder
+  }
+
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -246631,17 +250517,6 @@ export namespace Prisma {
     acknowledgedBy?: SortOrder
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type DailyEntryCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
@@ -246697,22 +250572,6 @@ export namespace Prisma {
 
   export type DailyEntrySumOrderByAggregateInput = {
     mood?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type BookingCountOrderByAggregateInput = {
@@ -250692,6 +254551,35 @@ export namespace Prisma {
     tenantId?: SortOrder
     patientId?: SortOrder
     entityType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScreenConfigurationCountOrderByAggregateInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    uiComponentType?: SortOrder
+    layoutType?: SortOrder
+    cssStyles?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScreenConfigurationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    uiComponentType?: SortOrder
+    layoutType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScreenConfigurationMinOrderByAggregateInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    uiComponentType?: SortOrder
+    layoutType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -255302,6 +259190,13 @@ export namespace Prisma {
     connect?: RegistryWhereUniqueInput | RegistryWhereUniqueInput[]
   }
 
+  export type SubscriptionUpgradeCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutTenantInput, SubscriptionUpgradeUncheckedCreateWithoutTenantInput> | SubscriptionUpgradeCreateWithoutTenantInput[] | SubscriptionUpgradeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutTenantInput | SubscriptionUpgradeCreateOrConnectWithoutTenantInput[]
+    createMany?: SubscriptionUpgradeCreateManyTenantInputEnvelope
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+  }
+
   export type EVVRecordCreateNestedManyWithoutTenantInput = {
     create?: XOR<EVVRecordCreateWithoutTenantInput, EVVRecordUncheckedCreateWithoutTenantInput> | EVVRecordCreateWithoutTenantInput[] | EVVRecordUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: EVVRecordCreateOrConnectWithoutTenantInput | EVVRecordCreateOrConnectWithoutTenantInput[]
@@ -255930,6 +259825,13 @@ export namespace Prisma {
     connectOrCreate?: RegistryCreateOrConnectWithoutTenantInput | RegistryCreateOrConnectWithoutTenantInput[]
     createMany?: RegistryCreateManyTenantInputEnvelope
     connect?: RegistryWhereUniqueInput | RegistryWhereUniqueInput[]
+  }
+
+  export type SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutTenantInput, SubscriptionUpgradeUncheckedCreateWithoutTenantInput> | SubscriptionUpgradeCreateWithoutTenantInput[] | SubscriptionUpgradeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutTenantInput | SubscriptionUpgradeCreateOrConnectWithoutTenantInput[]
+    createMany?: SubscriptionUpgradeCreateManyTenantInputEnvelope
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
   }
 
   export type EVVRecordUncheckedCreateNestedManyWithoutTenantInput = {
@@ -257073,6 +260975,20 @@ export namespace Prisma {
     update?: RegistryUpdateWithWhereUniqueWithoutTenantInput | RegistryUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: RegistryUpdateManyWithWhereWithoutTenantInput | RegistryUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: RegistryScalarWhereInput | RegistryScalarWhereInput[]
+  }
+
+  export type SubscriptionUpgradeUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutTenantInput, SubscriptionUpgradeUncheckedCreateWithoutTenantInput> | SubscriptionUpgradeCreateWithoutTenantInput[] | SubscriptionUpgradeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutTenantInput | SubscriptionUpgradeCreateOrConnectWithoutTenantInput[]
+    upsert?: SubscriptionUpgradeUpsertWithWhereUniqueWithoutTenantInput | SubscriptionUpgradeUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SubscriptionUpgradeCreateManyTenantInputEnvelope
+    set?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    disconnect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    delete?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    update?: SubscriptionUpgradeUpdateWithWhereUniqueWithoutTenantInput | SubscriptionUpgradeUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SubscriptionUpgradeUpdateManyWithWhereWithoutTenantInput | SubscriptionUpgradeUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SubscriptionUpgradeScalarWhereInput | SubscriptionUpgradeScalarWhereInput[]
   }
 
   export type EVVRecordUpdateManyWithoutTenantNestedInput = {
@@ -258335,6 +262251,20 @@ export namespace Prisma {
     deleteMany?: RegistryScalarWhereInput | RegistryScalarWhereInput[]
   }
 
+  export type SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutTenantInput, SubscriptionUpgradeUncheckedCreateWithoutTenantInput> | SubscriptionUpgradeCreateWithoutTenantInput[] | SubscriptionUpgradeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutTenantInput | SubscriptionUpgradeCreateOrConnectWithoutTenantInput[]
+    upsert?: SubscriptionUpgradeUpsertWithWhereUniqueWithoutTenantInput | SubscriptionUpgradeUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SubscriptionUpgradeCreateManyTenantInputEnvelope
+    set?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    disconnect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    delete?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    update?: SubscriptionUpgradeUpdateWithWhereUniqueWithoutTenantInput | SubscriptionUpgradeUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SubscriptionUpgradeUpdateManyWithWhereWithoutTenantInput | SubscriptionUpgradeUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SubscriptionUpgradeScalarWhereInput | SubscriptionUpgradeScalarWhereInput[]
+  }
+
   export type EVVRecordUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<EVVRecordCreateWithoutTenantInput, EVVRecordUncheckedCreateWithoutTenantInput> | EVVRecordCreateWithoutTenantInput[] | EVVRecordUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: EVVRecordCreateOrConnectWithoutTenantInput | EVVRecordCreateOrConnectWithoutTenantInput[]
@@ -259183,6 +263113,86 @@ export namespace Prisma {
     upsert?: HospitalTargetUpsertWithoutPipelinesInput
     connect?: HospitalTargetWhereUniqueInput
     update?: XOR<XOR<HospitalTargetUpdateToOneWithWhereWithoutPipelinesInput, HospitalTargetUpdateWithoutPipelinesInput>, HospitalTargetUncheckedUpdateWithoutPipelinesInput>
+  }
+
+  export type SubscriptionUpgradeCreateNestedManyWithoutPromoCodeInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput> | SubscriptionUpgradeCreateWithoutPromoCodeInput[] | SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput | SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput[]
+    createMany?: SubscriptionUpgradeCreateManyPromoCodeInputEnvelope
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+  }
+
+  export type SubscriptionUpgradeUncheckedCreateNestedManyWithoutPromoCodeInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput> | SubscriptionUpgradeCreateWithoutPromoCodeInput[] | SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput | SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput[]
+    createMany?: SubscriptionUpgradeCreateManyPromoCodeInputEnvelope
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type SubscriptionUpgradeUpdateManyWithoutPromoCodeNestedInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput> | SubscriptionUpgradeCreateWithoutPromoCodeInput[] | SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput | SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput[]
+    upsert?: SubscriptionUpgradeUpsertWithWhereUniqueWithoutPromoCodeInput | SubscriptionUpgradeUpsertWithWhereUniqueWithoutPromoCodeInput[]
+    createMany?: SubscriptionUpgradeCreateManyPromoCodeInputEnvelope
+    set?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    disconnect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    delete?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    update?: SubscriptionUpgradeUpdateWithWhereUniqueWithoutPromoCodeInput | SubscriptionUpgradeUpdateWithWhereUniqueWithoutPromoCodeInput[]
+    updateMany?: SubscriptionUpgradeUpdateManyWithWhereWithoutPromoCodeInput | SubscriptionUpgradeUpdateManyWithWhereWithoutPromoCodeInput[]
+    deleteMany?: SubscriptionUpgradeScalarWhereInput | SubscriptionUpgradeScalarWhereInput[]
+  }
+
+  export type SubscriptionUpgradeUncheckedUpdateManyWithoutPromoCodeNestedInput = {
+    create?: XOR<SubscriptionUpgradeCreateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput> | SubscriptionUpgradeCreateWithoutPromoCodeInput[] | SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput[]
+    connectOrCreate?: SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput | SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput[]
+    upsert?: SubscriptionUpgradeUpsertWithWhereUniqueWithoutPromoCodeInput | SubscriptionUpgradeUpsertWithWhereUniqueWithoutPromoCodeInput[]
+    createMany?: SubscriptionUpgradeCreateManyPromoCodeInputEnvelope
+    set?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    disconnect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    delete?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    connect?: SubscriptionUpgradeWhereUniqueInput | SubscriptionUpgradeWhereUniqueInput[]
+    update?: SubscriptionUpgradeUpdateWithWhereUniqueWithoutPromoCodeInput | SubscriptionUpgradeUpdateWithWhereUniqueWithoutPromoCodeInput[]
+    updateMany?: SubscriptionUpgradeUpdateManyWithWhereWithoutPromoCodeInput | SubscriptionUpgradeUpdateManyWithWhereWithoutPromoCodeInput[]
+    deleteMany?: SubscriptionUpgradeScalarWhereInput | SubscriptionUpgradeScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutSubscriptionUpgradesInput = {
+    create?: XOR<TenantCreateWithoutSubscriptionUpgradesInput, TenantUncheckedCreateWithoutSubscriptionUpgradesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSubscriptionUpgradesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type PromoCodeCreateNestedOneWithoutUpgradesInput = {
+    create?: XOR<PromoCodeCreateWithoutUpgradesInput, PromoCodeUncheckedCreateWithoutUpgradesInput>
+    connectOrCreate?: PromoCodeCreateOrConnectWithoutUpgradesInput
+    connect?: PromoCodeWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutSubscriptionUpgradesNestedInput = {
+    create?: XOR<TenantCreateWithoutSubscriptionUpgradesInput, TenantUncheckedCreateWithoutSubscriptionUpgradesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSubscriptionUpgradesInput
+    upsert?: TenantUpsertWithoutSubscriptionUpgradesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutSubscriptionUpgradesInput, TenantUpdateWithoutSubscriptionUpgradesInput>, TenantUncheckedUpdateWithoutSubscriptionUpgradesInput>
+  }
+
+  export type PromoCodeUpdateOneWithoutUpgradesNestedInput = {
+    create?: XOR<PromoCodeCreateWithoutUpgradesInput, PromoCodeUncheckedCreateWithoutUpgradesInput>
+    connectOrCreate?: PromoCodeCreateOrConnectWithoutUpgradesInput
+    upsert?: PromoCodeUpsertWithoutUpgradesInput
+    disconnect?: PromoCodeWhereInput | boolean
+    delete?: PromoCodeWhereInput | boolean
+    connect?: PromoCodeWhereUniqueInput
+    update?: XOR<XOR<PromoCodeUpdateToOneWithWhereWithoutUpgradesInput, PromoCodeUpdateWithoutUpgradesInput>, PromoCodeUncheckedUpdateWithoutUpgradesInput>
   }
 
   export type BookingCreateNestedManyWithoutClientInput = {
@@ -262221,14 +266231,6 @@ export namespace Prisma {
     create?: XOR<VisitCreateWithoutDailyEntryInput, VisitUncheckedCreateWithoutDailyEntryInput>
     connectOrCreate?: VisitCreateOrConnectWithoutDailyEntryInput
     connect?: VisitWhereUniqueInput
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput = {
@@ -265865,6 +269867,22 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -265903,22 +269921,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -266441,6 +270443,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -266510,6 +270513,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -266556,6 +270560,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -266624,6 +270629,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -268152,6 +272158,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -268221,6 +272228,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -268267,6 +272275,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -268335,6 +272344,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -271277,6 +275287,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -271346,6 +275357,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -271392,6 +275404,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -271460,6 +275473,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -271510,6 +275524,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -271579,6 +275594,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -271624,6 +275640,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -271693,6 +275710,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -272271,6 +276289,32 @@ export namespace Prisma {
 
   export type RegistryCreateManyTenantInputEnvelope = {
     data: RegistryCreateManyTenantInput | RegistryCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubscriptionUpgradeCreateWithoutTenantInput = {
+    id?: string
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
+    promoCode?: PromoCodeCreateNestedOneWithoutUpgradesInput
+  }
+
+  export type SubscriptionUpgradeUncheckedCreateWithoutTenantInput = {
+    id?: string
+    promoCodeId?: string | null
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
+  }
+
+  export type SubscriptionUpgradeCreateOrConnectWithoutTenantInput = {
+    where: SubscriptionUpgradeWhereUniqueInput
+    create: XOR<SubscriptionUpgradeCreateWithoutTenantInput, SubscriptionUpgradeUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SubscriptionUpgradeCreateManyTenantInputEnvelope = {
+    data: SubscriptionUpgradeCreateManyTenantInput | SubscriptionUpgradeCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -274474,6 +278518,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -274543,6 +278588,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -274589,6 +278635,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -274657,6 +278704,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -274722,6 +278770,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonFilter<"Tenant">
     taxPercentage?: DecimalNullableFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
+    subscriptionTier?: StringFilter<"Tenant"> | string
   }
 
   export type FranchiseUpsertWithWhereUniqueWithoutResellerInput = {
@@ -275182,6 +279231,34 @@ export namespace Prisma {
     tenantId?: StringNullableFilter<"Registry"> | string | null
     createdAt?: DateTimeFilter<"Registry"> | Date | string
     updatedAt?: DateTimeFilter<"Registry"> | Date | string
+  }
+
+  export type SubscriptionUpgradeUpsertWithWhereUniqueWithoutTenantInput = {
+    where: SubscriptionUpgradeWhereUniqueInput
+    update: XOR<SubscriptionUpgradeUpdateWithoutTenantInput, SubscriptionUpgradeUncheckedUpdateWithoutTenantInput>
+    create: XOR<SubscriptionUpgradeCreateWithoutTenantInput, SubscriptionUpgradeUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SubscriptionUpgradeUpdateWithWhereUniqueWithoutTenantInput = {
+    where: SubscriptionUpgradeWhereUniqueInput
+    data: XOR<SubscriptionUpgradeUpdateWithoutTenantInput, SubscriptionUpgradeUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type SubscriptionUpgradeUpdateManyWithWhereWithoutTenantInput = {
+    where: SubscriptionUpgradeScalarWhereInput
+    data: XOR<SubscriptionUpgradeUpdateManyMutationInput, SubscriptionUpgradeUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type SubscriptionUpgradeScalarWhereInput = {
+    AND?: SubscriptionUpgradeScalarWhereInput | SubscriptionUpgradeScalarWhereInput[]
+    OR?: SubscriptionUpgradeScalarWhereInput[]
+    NOT?: SubscriptionUpgradeScalarWhereInput | SubscriptionUpgradeScalarWhereInput[]
+    id?: StringFilter<"SubscriptionUpgrade"> | string
+    tenantId?: StringFilter<"SubscriptionUpgrade"> | string
+    promoCodeId?: StringNullableFilter<"SubscriptionUpgrade"> | string | null
+    oldTier?: StringFilter<"SubscriptionUpgrade"> | string
+    newTier?: StringFilter<"SubscriptionUpgrade"> | string
+    upgradedAt?: DateTimeFilter<"SubscriptionUpgrade"> | Date | string
   }
 
   export type EVVRecordUpsertWithWhereUniqueWithoutTenantInput = {
@@ -275718,6 +279795,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -275787,6 +279865,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -275833,6 +279912,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -275901,6 +279981,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -275962,6 +280043,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -276031,6 +280113,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -276077,6 +280160,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -276145,6 +280229,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -276190,6 +280275,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -276259,6 +280345,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -276305,6 +280392,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -276373,6 +280461,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -276434,6 +280523,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -276503,6 +280593,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -276549,6 +280640,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -276617,6 +280709,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -276775,6 +280868,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -276844,6 +280938,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -276890,6 +280985,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
@@ -276958,6 +281054,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -277138,6 +281235,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -277207,6 +281305,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -277253,6 +281352,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
@@ -277321,6 +281421,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -277366,6 +281467,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -277435,6 +281537,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -277481,6 +281584,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -277549,6 +281653,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -277723,6 +281828,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -277792,6 +281898,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -277838,6 +281945,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -277906,6 +282014,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -278070,6 +282179,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -278139,6 +282249,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -278185,6 +282296,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -278253,6 +282365,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -278314,6 +282427,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -278383,6 +282497,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -278429,6 +282544,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -278497,6 +282613,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -278774,6 +282891,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -278843,6 +282961,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -278889,6 +283008,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -278957,6 +283077,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -279018,6 +283139,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -279087,6 +283209,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -279133,6 +283256,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -279201,6 +283325,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -279460,6 +283585,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -279529,6 +283655,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -279575,6 +283702,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -279643,6 +283771,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -279922,6 +284051,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -279991,6 +284121,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -280037,6 +284168,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -280105,6 +284237,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -280434,6 +284567,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -280504,6 +284638,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -280549,6 +284684,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -280618,6 +284754,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -280762,6 +284899,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -280832,6 +284970,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -280877,6 +285016,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -280946,6 +285086,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -281629,45 +285770,49 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type BookingCreateWithoutClientInput = {
+  export type SubscriptionUpgradeCreateWithoutPromoCodeInput = {
     id?: string
-    branchId?: string | null
-    startAt: Date | string
-    endAt: Date | string
-    serviceType: string
-    priority?: string
-    notes?: string | null
-    status?: string
-    recurrenceRule?: string | null
-    tenant: TenantCreateNestedOneWithoutBookingsInput
-    visits?: VisitCreateNestedManyWithoutBookingInput
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutSubscriptionUpgradesInput
   }
 
-  export type BookingUncheckedCreateWithoutClientInput = {
+  export type SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput = {
     id?: string
-    branchId?: string | null
-    startAt: Date | string
-    endAt: Date | string
-    serviceType: string
-    priority?: string
-    notes?: string | null
-    status?: string
-    recurrenceRule?: string | null
     tenantId: string
-    visits?: VisitUncheckedCreateNestedManyWithoutBookingInput
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
   }
 
-  export type BookingCreateOrConnectWithoutClientInput = {
-    where: BookingWhereUniqueInput
-    create: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput>
+  export type SubscriptionUpgradeCreateOrConnectWithoutPromoCodeInput = {
+    where: SubscriptionUpgradeWhereUniqueInput
+    create: XOR<SubscriptionUpgradeCreateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput>
   }
 
-  export type BookingCreateManyClientInputEnvelope = {
-    data: BookingCreateManyClientInput | BookingCreateManyClientInput[]
+  export type SubscriptionUpgradeCreateManyPromoCodeInputEnvelope = {
+    data: SubscriptionUpgradeCreateManyPromoCodeInput | SubscriptionUpgradeCreateManyPromoCodeInput[]
     skipDuplicates?: boolean
   }
 
-  export type TenantCreateWithoutClientProfilesInput = {
+  export type SubscriptionUpgradeUpsertWithWhereUniqueWithoutPromoCodeInput = {
+    where: SubscriptionUpgradeWhereUniqueInput
+    update: XOR<SubscriptionUpgradeUpdateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedUpdateWithoutPromoCodeInput>
+    create: XOR<SubscriptionUpgradeCreateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedCreateWithoutPromoCodeInput>
+  }
+
+  export type SubscriptionUpgradeUpdateWithWhereUniqueWithoutPromoCodeInput = {
+    where: SubscriptionUpgradeWhereUniqueInput
+    data: XOR<SubscriptionUpgradeUpdateWithoutPromoCodeInput, SubscriptionUpgradeUncheckedUpdateWithoutPromoCodeInput>
+  }
+
+  export type SubscriptionUpgradeUpdateManyWithWhereWithoutPromoCodeInput = {
+    where: SubscriptionUpgradeScalarWhereInput
+    data: XOR<SubscriptionUpgradeUpdateManyMutationInput, SubscriptionUpgradeUncheckedUpdateManyWithoutPromoCodeInput>
+  }
+
+  export type TenantCreateWithoutSubscriptionUpgradesInput = {
     id?: string
     name: string
     slug: string
@@ -281689,8 +285834,10 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
     incidents?: IncidentCreateNestedManyWithoutTenantInput
     invoices?: InvoiceCreateNestedManyWithoutTenantInput
@@ -281781,6 +285928,592 @@ export namespace Prisma {
     dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
   }
 
+  export type TenantUncheckedCreateWithoutSubscriptionUpgradesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    subscriptionTier?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: ProviderAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    providerProfiles?: ProviderProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
+    shiftCheckIns?: ProviderShiftLogUncheckedCreateNestedManyWithoutTenantInput
+    adlCareLogs?: AdlCareLogUncheckedCreateNestedManyWithoutTenantInput
+    providerVitals?: ProviderVitalSignUncheckedCreateNestedManyWithoutTenantInput
+    behaviorNotes?: BehaviorNoteUncheckedCreateNestedManyWithoutTenantInput
+    nutritionRecords?: NutritionRecordUncheckedCreateNestedManyWithoutTenantInput
+    mobilityLogs?: MobilityLogUncheckedCreateNestedManyWithoutTenantInput
+    infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
+    narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
+    carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutSubscriptionUpgradesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutSubscriptionUpgradesInput, TenantUncheckedCreateWithoutSubscriptionUpgradesInput>
+  }
+
+  export type PromoCodeCreateWithoutUpgradesInput = {
+    id?: string
+    code: string
+    discountPercent?: number | null
+    targetTier?: string | null
+    maxUses?: number | null
+    currentUses?: number
+    expiresAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PromoCodeUncheckedCreateWithoutUpgradesInput = {
+    id?: string
+    code: string
+    discountPercent?: number | null
+    targetTier?: string | null
+    maxUses?: number | null
+    currentUses?: number
+    expiresAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PromoCodeCreateOrConnectWithoutUpgradesInput = {
+    where: PromoCodeWhereUniqueInput
+    create: XOR<PromoCodeCreateWithoutUpgradesInput, PromoCodeUncheckedCreateWithoutUpgradesInput>
+  }
+
+  export type TenantUpsertWithoutSubscriptionUpgradesInput = {
+    update: XOR<TenantUpdateWithoutSubscriptionUpgradesInput, TenantUncheckedUpdateWithoutSubscriptionUpgradesInput>
+    create: XOR<TenantCreateWithoutSubscriptionUpgradesInput, TenantUncheckedCreateWithoutSubscriptionUpgradesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutSubscriptionUpgradesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutSubscriptionUpgradesInput, TenantUncheckedUpdateWithoutSubscriptionUpgradesInput>
+  }
+
+  export type TenantUpdateWithoutSubscriptionUpgradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: ProviderAvailabilityUpdateManyWithoutTenantNestedInput
+    providerProfiles?: ProviderProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
+    shiftCheckIns?: ProviderShiftLogUpdateManyWithoutTenantNestedInput
+    adlCareLogs?: AdlCareLogUpdateManyWithoutTenantNestedInput
+    providerVitals?: ProviderVitalSignUpdateManyWithoutTenantNestedInput
+    behaviorNotes?: BehaviorNoteUpdateManyWithoutTenantNestedInput
+    nutritionRecords?: NutritionRecordUpdateManyWithoutTenantNestedInput
+    mobilityLogs?: MobilityLogUpdateManyWithoutTenantNestedInput
+    infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
+    narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
+    carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutSubscriptionUpgradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: ProviderAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    providerProfiles?: ProviderProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftCheckIns?: ProviderShiftLogUncheckedUpdateManyWithoutTenantNestedInput
+    adlCareLogs?: AdlCareLogUncheckedUpdateManyWithoutTenantNestedInput
+    providerVitals?: ProviderVitalSignUncheckedUpdateManyWithoutTenantNestedInput
+    behaviorNotes?: BehaviorNoteUncheckedUpdateManyWithoutTenantNestedInput
+    nutritionRecords?: NutritionRecordUncheckedUpdateManyWithoutTenantNestedInput
+    mobilityLogs?: MobilityLogUncheckedUpdateManyWithoutTenantNestedInput
+    infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
+    narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
+    carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type PromoCodeUpsertWithoutUpgradesInput = {
+    update: XOR<PromoCodeUpdateWithoutUpgradesInput, PromoCodeUncheckedUpdateWithoutUpgradesInput>
+    create: XOR<PromoCodeCreateWithoutUpgradesInput, PromoCodeUncheckedCreateWithoutUpgradesInput>
+    where?: PromoCodeWhereInput
+  }
+
+  export type PromoCodeUpdateToOneWithWhereWithoutUpgradesInput = {
+    where?: PromoCodeWhereInput
+    data: XOR<PromoCodeUpdateWithoutUpgradesInput, PromoCodeUncheckedUpdateWithoutUpgradesInput>
+  }
+
+  export type PromoCodeUpdateWithoutUpgradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    discountPercent?: NullableIntFieldUpdateOperationsInput | number | null
+    targetTier?: NullableStringFieldUpdateOperationsInput | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUses?: IntFieldUpdateOperationsInput | number
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PromoCodeUncheckedUpdateWithoutUpgradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    discountPercent?: NullableIntFieldUpdateOperationsInput | number | null
+    targetTier?: NullableStringFieldUpdateOperationsInput | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUses?: IntFieldUpdateOperationsInput | number
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingCreateWithoutClientInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: string | null
+    tenant: TenantCreateNestedOneWithoutBookingsInput
+    visits?: VisitCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingUncheckedCreateWithoutClientInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: string | null
+    tenantId: string
+    visits?: VisitUncheckedCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingCreateOrConnectWithoutClientInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput>
+  }
+
+  export type BookingCreateManyClientInputEnvelope = {
+    data: BookingCreateManyClientInput | BookingCreateManyClientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantCreateWithoutClientProfilesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: ProviderAvailabilityCreateNestedManyWithoutTenantInput
+    providerProfiles?: ProviderProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
+    shiftCheckIns?: ProviderShiftLogCreateNestedManyWithoutTenantInput
+    adlCareLogs?: AdlCareLogCreateNestedManyWithoutTenantInput
+    providerVitals?: ProviderVitalSignCreateNestedManyWithoutTenantInput
+    behaviorNotes?: BehaviorNoteCreateNestedManyWithoutTenantInput
+    nutritionRecords?: NutritionRecordCreateNestedManyWithoutTenantInput
+    mobilityLogs?: MobilityLogCreateNestedManyWithoutTenantInput
+    infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
+    narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
+    carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
+  }
+
   export type TenantUncheckedCreateWithoutClientProfilesInput = {
     id?: string
     name: string
@@ -281804,6 +286537,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
@@ -281872,6 +286606,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -283257,6 +287992,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -283326,6 +288062,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -283372,6 +288109,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
@@ -283440,6 +288178,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -284271,6 +289010,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -284340,6 +289080,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -284386,6 +289127,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -284454,6 +289196,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -285195,6 +289938,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -285264,6 +290008,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -285310,6 +290055,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -285378,6 +290124,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -286353,6 +291100,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -286422,6 +291170,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -286468,6 +291217,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -286536,6 +291286,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -287119,6 +291870,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -287188,6 +291940,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -287234,6 +291987,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -287302,6 +292056,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -287408,6 +292163,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -287477,6 +292233,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -287523,6 +292280,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -287591,6 +292349,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -287780,6 +292539,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -287849,6 +292609,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -287895,6 +292656,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -287963,6 +292725,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -288232,6 +292995,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -288301,6 +293065,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -288347,6 +293112,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -288415,6 +293181,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -288771,6 +293538,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -288840,6 +293608,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -288886,6 +293655,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -288954,6 +293724,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -290026,6 +294797,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -290095,6 +294867,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -290141,6 +294914,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -290209,6 +294983,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -290599,6 +295374,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -290668,6 +295444,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -290714,6 +295491,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -290782,6 +295560,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -291148,6 +295927,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -291217,6 +295997,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -291263,6 +296044,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -291331,6 +296113,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -291719,6 +296502,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -291788,6 +296572,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -291834,6 +296619,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -291902,6 +296688,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -292155,6 +296942,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -292224,6 +297012,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -292270,6 +297059,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
@@ -292338,6 +297128,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -292612,6 +297403,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -292681,6 +297473,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -292727,6 +297520,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
@@ -292795,6 +297589,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -292935,6 +297730,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -293004,6 +297800,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -293050,6 +297847,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -293118,6 +297916,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -293264,6 +298063,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -293333,6 +298133,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -293379,6 +298180,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -293447,6 +298249,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -293967,6 +298770,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -294036,6 +298840,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -294082,6 +298887,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -294150,6 +298956,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -294387,6 +299194,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -294456,6 +299264,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -294502,6 +299311,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -294570,6 +299380,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -294928,6 +299739,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -294997,6 +299809,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -295043,6 +299856,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -295111,6 +299925,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -295392,6 +300207,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -295461,6 +300277,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -295507,6 +300324,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -295575,6 +300393,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -296050,6 +300869,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -296119,6 +300939,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -296165,6 +300986,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -296233,6 +301055,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -296476,6 +301299,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -296545,6 +301369,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -296591,6 +301416,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -296659,6 +301485,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -296783,6 +301610,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -296852,6 +301680,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -296898,6 +301727,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -296966,6 +301796,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -297112,6 +301943,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -297181,6 +302013,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -297227,6 +302060,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -297295,6 +302129,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -297510,6 +302345,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -297579,6 +302415,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -297625,6 +302462,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -297693,6 +302531,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -297936,6 +302775,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -298005,6 +302845,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -298051,6 +302892,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -298119,6 +302961,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -298310,6 +303153,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -298379,6 +303223,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -298425,6 +303270,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -298493,6 +303339,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -298712,6 +303559,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -298781,6 +303629,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -298827,6 +303676,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -298895,6 +303745,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -298940,6 +303791,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -299009,6 +303861,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -299055,6 +303908,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -299123,6 +303977,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -299322,6 +304177,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -299391,6 +304247,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -299437,6 +304294,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -299505,6 +304363,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -299700,6 +304559,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -299770,6 +304630,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -299815,6 +304676,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -299884,6 +304746,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -300004,6 +304867,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -300074,6 +304938,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -300119,6 +304984,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -300188,6 +305054,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -300663,6 +305530,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -300732,6 +305600,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -300778,6 +305647,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -300846,6 +305716,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -301024,6 +305895,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -301093,6 +305965,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -301139,6 +306012,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -301207,6 +306081,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -301527,6 +306402,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -301596,6 +306472,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -301642,6 +306519,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -301710,6 +306588,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -302001,6 +306880,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -302070,6 +306950,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -302116,6 +306997,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -302184,6 +307066,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -302348,6 +307231,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -302417,6 +307301,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -302463,6 +307348,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -302531,6 +307417,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -302592,6 +307479,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -302661,6 +307549,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -302707,6 +307596,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -302775,6 +307665,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -303044,6 +307935,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -303113,6 +308005,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -303159,6 +308052,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -303227,6 +308121,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -303524,6 +308419,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -303593,6 +308489,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -303639,6 +308536,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -303707,6 +308605,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -303976,6 +308875,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -304045,6 +308945,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -304091,6 +308992,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -304159,6 +309061,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -304456,6 +309359,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -304525,6 +309429,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -304571,6 +309476,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -304639,6 +309545,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -304876,6 +309783,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -304945,6 +309853,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -304991,6 +309900,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -305059,6 +309969,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -305324,6 +310235,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -305393,6 +310305,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -305439,6 +310352,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -305507,6 +310421,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -305552,6 +310467,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -305621,6 +310537,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -305667,6 +310584,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -305735,6 +310653,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -305796,6 +310715,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -305865,6 +310785,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -305911,6 +310832,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -305979,6 +310901,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -306252,6 +311175,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -306321,6 +311245,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -306367,6 +311292,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -306435,6 +311361,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -306607,6 +311534,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -306676,6 +311604,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -306722,6 +311651,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -306790,6 +311720,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -307008,6 +311939,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -307077,6 +312009,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -307123,6 +312056,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -307191,6 +312125,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -307432,6 +312367,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -307501,6 +312437,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -307547,6 +312484,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -307615,6 +312553,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -308128,6 +313067,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -308198,6 +313138,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
     mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
@@ -308243,6 +313184,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -308312,6 +313254,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
     mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
@@ -308372,6 +313315,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -308442,6 +313386,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
     mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
@@ -308487,6 +313432,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -308556,6 +313502,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
     mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -308711,6 +313658,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -308781,6 +313729,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
     mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
@@ -308826,6 +313775,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -308895,6 +313845,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
     mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
@@ -309072,6 +314023,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -309142,6 +314094,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
     mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
@@ -309187,6 +314140,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -309256,6 +314210,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
     mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -309411,6 +314366,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -309481,6 +314437,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
@@ -309526,6 +314483,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -309595,6 +314553,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
@@ -309772,6 +314731,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -309842,6 +314802,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
@@ -309887,6 +314848,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -309956,6 +314918,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -310113,6 +315076,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -310182,6 +315146,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -310228,6 +315193,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -310296,6 +315262,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -310567,6 +315534,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -310636,6 +315604,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -310682,6 +315651,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -310750,6 +315720,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -311005,6 +315976,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -311074,6 +316046,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -311120,6 +316093,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -311188,6 +316162,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -311368,6 +316343,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -311437,6 +316413,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -311483,6 +316460,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -311551,6 +316529,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -311707,6 +316686,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -311776,6 +316756,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -311822,6 +316803,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -311890,6 +316872,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -312096,6 +317079,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -312165,6 +317149,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -312211,6 +317196,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -312279,6 +317265,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -312425,6 +317412,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -312494,6 +317482,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -312540,6 +317529,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -312608,6 +317598,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -312701,6 +317692,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -312770,6 +317762,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -312816,6 +317809,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -312884,6 +317878,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -312945,6 +317940,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -313014,6 +318010,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -313060,6 +318057,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -313128,6 +318126,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -313325,6 +318324,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -313394,6 +318394,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -313440,6 +318441,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -313508,6 +318510,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -313780,6 +318783,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -313849,6 +318853,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -313895,6 +318900,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -313963,6 +318969,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -314109,6 +319116,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -314178,6 +319186,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -314224,6 +319233,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -314292,6 +319302,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -314416,6 +319427,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -314486,6 +319498,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -314531,6 +319544,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -314600,6 +319614,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -314745,6 +319760,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -314815,6 +319831,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -314860,6 +319877,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -314929,6 +319947,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -314973,6 +319992,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -315042,6 +320062,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -315088,6 +320109,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -315156,6 +320178,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -315251,6 +320274,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -315320,6 +320344,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -315366,6 +320391,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -315434,6 +320460,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -315495,6 +320522,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -315564,6 +320592,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -315610,6 +320639,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -315678,6 +320708,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -315799,6 +320830,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -315868,6 +320900,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -315914,6 +320947,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -315982,6 +321016,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -316117,6 +321152,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -316186,6 +321222,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -316232,6 +321269,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -316300,6 +321338,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -316431,6 +321470,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -316500,6 +321540,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -316546,6 +321587,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -316614,6 +321656,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -316719,6 +321762,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -316788,6 +321832,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -316834,6 +321879,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -316902,6 +321948,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -317035,6 +322082,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -317104,6 +322152,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -317150,6 +322199,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -317218,6 +322268,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -317263,6 +322314,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -317332,6 +322384,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -317378,6 +322431,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -317446,6 +322500,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -317533,6 +322588,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -317602,6 +322658,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -317648,6 +322705,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -317716,6 +322774,7 @@ export namespace Prisma {
     financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -317777,6 +322836,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -317846,6 +322906,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -317892,6 +322953,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -317960,6 +323022,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -318134,6 +323197,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -318203,6 +323267,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -318249,6 +323314,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -318317,6 +323383,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -318824,6 +323891,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -318893,6 +323961,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -318939,6 +324008,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -319007,6 +324077,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -319276,6 +324347,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -319345,6 +324417,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -319391,6 +324464,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -319459,6 +324533,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -319601,6 +324676,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -319670,6 +324746,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -319716,6 +324793,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -319784,6 +324862,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -319875,6 +324954,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -319944,6 +325024,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -319990,6 +325071,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -320058,6 +325140,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -320193,6 +325276,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -320262,6 +325346,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -320308,6 +325393,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -320376,6 +325462,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -320461,6 +325548,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -320530,6 +325618,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -320576,6 +325665,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -320644,6 +325734,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -320772,6 +325863,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -320841,6 +325933,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -320887,6 +325980,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -320955,6 +326049,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -321046,6 +326141,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -321115,6 +326211,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -321161,6 +326258,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -321229,6 +326327,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -321364,6 +326463,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -321433,6 +326533,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -321479,6 +326580,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -321547,6 +326649,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -321608,6 +326711,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -321677,6 +326781,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -321723,6 +326828,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -321791,6 +326897,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -321836,6 +326943,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -321905,6 +327013,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -321951,6 +327060,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -322019,6 +327129,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -322080,6 +327191,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -322149,6 +327261,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -322195,6 +327308,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -322263,6 +327377,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -322308,6 +327423,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -322377,6 +327493,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -322423,6 +327540,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -322491,6 +327609,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -322696,6 +327815,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -322765,6 +327885,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -322811,6 +327932,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -322879,6 +328001,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -323075,6 +328198,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -323144,6 +328268,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -323190,6 +328315,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -323258,6 +328384,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -323430,6 +328557,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -323499,6 +328627,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -323545,6 +328674,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -323613,6 +328743,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -323802,6 +328933,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -323871,6 +329003,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -323917,6 +329050,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -323985,6 +329119,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -324190,6 +329325,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -324259,6 +329395,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -324305,6 +329442,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -324373,6 +329511,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -324535,6 +329674,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -324604,6 +329744,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -324650,6 +329791,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -324718,6 +329860,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -325003,6 +330146,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -325072,6 +330216,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -325118,6 +330263,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -325186,6 +330332,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -325467,6 +330614,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -325536,6 +330684,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -325582,6 +330731,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -325650,6 +330800,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -325711,6 +330862,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -325780,6 +330932,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -325826,6 +330979,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -325894,6 +331048,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -325939,6 +331094,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -326008,6 +331164,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -326054,6 +331211,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -326122,6 +331280,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -326183,6 +331342,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -326252,6 +331412,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -326298,6 +331459,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -326366,6 +331528,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -326411,6 +331574,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -326480,6 +331644,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -326526,6 +331691,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -326594,6 +331760,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -326655,6 +331822,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -326724,6 +331892,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -326770,6 +331939,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -326838,6 +332008,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -326883,6 +332054,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -326952,6 +332124,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -326998,6 +332171,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -327066,6 +332240,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -327127,6 +332302,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -327196,6 +332372,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -327242,6 +332419,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -327310,6 +332488,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -327355,6 +332534,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -327424,6 +332604,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -327470,6 +332651,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -327538,6 +332720,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -327599,6 +332782,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -327668,6 +332852,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -327714,6 +332899,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -327782,6 +332968,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -327940,6 +333127,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -328009,6 +333197,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -328055,6 +333244,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -328123,6 +333313,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -328303,6 +333494,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -328372,6 +333564,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -328418,6 +333611,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -328486,6 +333680,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -328642,6 +333837,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -328711,6 +333907,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -328757,6 +333954,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -328825,6 +334023,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -329003,6 +334202,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -329072,6 +334272,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -329118,6 +334319,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -329186,6 +334388,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -329433,6 +334636,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -329502,6 +334706,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -329548,6 +334753,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -329616,6 +334822,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -329891,6 +335098,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -329960,6 +335168,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -330006,6 +335215,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -330074,6 +335284,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -330119,6 +335330,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -330189,6 +335401,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -330234,6 +335447,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -330303,6 +335517,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -330363,6 +335578,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -330433,6 +335649,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -330478,6 +335695,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -330547,6 +335765,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -330702,6 +335921,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -330772,6 +335992,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -330817,6 +336038,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -330886,6 +336108,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -331063,6 +336286,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -331133,6 +336357,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -331178,6 +336403,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -331247,6 +336473,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -331483,6 +336710,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -331553,6 +336781,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -331598,6 +336827,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -331667,6 +336897,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -331931,6 +337162,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -332001,6 +337233,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -332046,6 +337279,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -332115,6 +337349,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -332189,6 +337424,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -332259,6 +337495,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -332304,6 +337541,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -332373,6 +337611,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -332463,6 +337702,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -332533,6 +337773,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -332578,6 +337819,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -332647,6 +337889,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -332759,6 +338002,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -332828,6 +338072,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -332874,6 +338119,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -332942,6 +338188,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -333116,6 +338363,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -333185,6 +338433,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -333231,6 +338480,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -333299,6 +338549,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -333463,6 +338714,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -333532,6 +338784,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -333578,6 +338831,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -333646,6 +338900,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -333820,6 +339075,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -333889,6 +339145,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -333935,6 +339192,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -334003,6 +339261,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -334167,6 +339426,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -334236,6 +339496,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -334282,6 +339543,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -334350,6 +339612,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -334524,6 +339787,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -334593,6 +339857,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -334639,6 +339904,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -334707,6 +339973,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -334871,6 +340138,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -334940,6 +340208,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -334986,6 +340255,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -335054,6 +340324,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -335115,6 +340386,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -335184,6 +340456,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -335230,6 +340503,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -335298,6 +340572,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -335343,6 +340618,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -335412,6 +340688,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -335458,6 +340735,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -335526,6 +340804,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -335587,6 +340866,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -335656,6 +340936,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -335702,6 +340983,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -335770,6 +341052,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -335815,6 +341098,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -335885,6 +341169,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -335930,6 +341215,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -335999,6 +341285,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -336172,6 +341459,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -336242,6 +341530,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -336287,6 +341576,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -336356,6 +341646,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -336943,6 +342234,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -337013,6 +342305,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -337058,6 +342351,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -337127,6 +342421,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -337423,6 +342718,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -337493,6 +342789,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -337538,6 +342835,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -337607,6 +342905,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -337875,6 +343174,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -337945,6 +343245,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -337990,6 +343291,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -338059,6 +343361,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -338355,6 +343658,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -338425,6 +343729,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -338470,6 +343775,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -338539,6 +343845,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -338807,6 +344114,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -338877,6 +344185,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -338922,6 +344231,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -338991,6 +344301,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -339287,6 +344598,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -339357,6 +344669,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -339402,6 +344715,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -339471,6 +344785,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -339739,6 +345054,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -339809,6 +345125,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -339854,6 +345171,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -339923,6 +345241,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -340219,6 +345538,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -340289,6 +345609,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -340334,6 +345655,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -340403,6 +345725,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -340671,6 +345994,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -340741,6 +346065,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -340786,6 +346111,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -340855,6 +346181,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -341151,6 +346478,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -341221,6 +346549,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -341266,6 +346595,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -341335,6 +346665,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -341603,6 +346934,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -341673,6 +347005,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -341718,6 +347051,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -341787,6 +347121,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -342083,6 +347418,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -342153,6 +347489,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -342198,6 +347535,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -342267,6 +347605,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -342535,6 +347874,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -342605,6 +347945,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -342650,6 +347991,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -342719,6 +348061,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -343015,6 +348358,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -343085,6 +348429,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -343130,6 +348475,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -343199,6 +348545,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -343467,6 +348814,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -343537,6 +348885,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -343582,6 +348931,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -343651,6 +349001,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -343947,6 +349298,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -344017,6 +349369,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -344062,6 +349415,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -344131,6 +349485,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -344399,6 +349754,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -344469,6 +349825,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -344514,6 +349871,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -344583,6 +349941,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -344879,6 +350238,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -344949,6 +350309,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -344994,6 +350355,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -345063,6 +350425,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -345107,6 +350470,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -345177,6 +350541,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
     registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
@@ -345222,6 +350587,7 @@ export namespace Prisma {
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
     parentTenantId?: string | null
+    subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -345291,6 +350657,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
     bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
     registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
     evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
     consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
@@ -345351,6 +350718,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -345421,6 +350789,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -345466,6 +350835,7 @@ export namespace Prisma {
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -345535,6 +350905,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -348116,6 +353487,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: string
   }
 
   export type FranchiseCreateManyResellerInput = {
@@ -348299,6 +353671,14 @@ export namespace Prisma {
     metadata?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type SubscriptionUpgradeCreateManyTenantInput = {
+    id?: string
+    promoCodeId?: string | null
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
   }
 
   export type EVVRecordCreateManyTenantInput = {
@@ -350683,6 +356063,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -350752,6 +356133,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
     registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
@@ -350797,6 +356179,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -350866,6 +356249,7 @@ export namespace Prisma {
     financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
     bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
     registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
     evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
     serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
     consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
@@ -350911,6 +356295,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
   }
 
   export type FranchiseUpdateWithoutResellerInput = {
@@ -351472,6 +356857,30 @@ export namespace Prisma {
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpgradeUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promoCode?: PromoCodeUpdateOneWithoutUpgradesNestedInput
+  }
+
+  export type SubscriptionUpgradeUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    promoCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpgradeUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    promoCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EVVRecordUpdateWithoutTenantInput = {
@@ -352505,6 +357914,38 @@ export namespace Prisma {
     referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isConverted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpgradeCreateManyPromoCodeInput = {
+    id?: string
+    tenantId: string
+    oldTier: string
+    newTier: string
+    upgradedAt?: Date | string
+  }
+
+  export type SubscriptionUpgradeUpdateWithoutPromoCodeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutSubscriptionUpgradesNestedInput
+  }
+
+  export type SubscriptionUpgradeUncheckedUpdateWithoutPromoCodeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpgradeUncheckedUpdateManyWithoutPromoCodeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    oldTier?: StringFieldUpdateOperationsInput | string
+    newTier?: StringFieldUpdateOperationsInput | string
+    upgradedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingCreateManyClientInput = {
@@ -356849,6 +362290,10 @@ export namespace Prisma {
      */
     export type HospitalTargetCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HospitalTargetCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use PromoCodeCountOutputTypeDefaultArgs instead
+     */
+    export type PromoCodeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PromoCodeCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ClientProfileCountOutputTypeDefaultArgs instead
      */
     export type ClientProfileCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
@@ -357036,6 +362481,14 @@ export namespace Prisma {
      * @deprecated Use SupplyForecastMetricsDefaultArgs instead
      */
     export type SupplyForecastMetricsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupplyForecastMetricsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PromoCodeDefaultArgs instead
+     */
+    export type PromoCodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PromoCodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SubscriptionUpgradeDefaultArgs instead
+     */
+    export type SubscriptionUpgradeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SubscriptionUpgradeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ClientProfileDefaultArgs instead
      */
@@ -357440,6 +362893,10 @@ export namespace Prisma {
      * @deprecated Use DynamicFeatureRecordDefaultArgs instead
      */
     export type DynamicFeatureRecordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DynamicFeatureRecordDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ScreenConfigurationDefaultArgs instead
+     */
+    export type ScreenConfigurationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ScreenConfigurationDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

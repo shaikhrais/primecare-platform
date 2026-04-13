@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { amber } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';

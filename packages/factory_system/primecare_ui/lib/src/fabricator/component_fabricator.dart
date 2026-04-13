@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 import '../warehouse/component_warehouse.dart';
 
 class ComponentFabricator {

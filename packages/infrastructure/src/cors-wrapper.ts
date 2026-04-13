@@ -5,7 +5,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { AdminRegistry } from '@primecare/domain';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 import { captureWorkerException } from './sentry';
 
 const { CorsRegistry } = AdminRegistry;

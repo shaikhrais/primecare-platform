@@ -1,3 +1,6 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import FuseLoading from '@fuse/core/FuseLoading';
 import { ReactNode, Suspense } from 'react';
 import { FuseLoadingProps } from '@fuse/core/FuseLoading/FuseLoading';

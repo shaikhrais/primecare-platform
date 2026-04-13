@@ -190,13 +190,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_core:
-    dependency: "direct main"
-    description:
-      path: "../../packages/flutter_core"
-      relative: true
-    source: path
-    version: "1.0.0+1"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -531,6 +524,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  primecare_core:
+    dependency: "direct main"
+    description:
+      path: "../../packages/flutter_core"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   primecare_ui:
     dependency: "direct main"
     description:

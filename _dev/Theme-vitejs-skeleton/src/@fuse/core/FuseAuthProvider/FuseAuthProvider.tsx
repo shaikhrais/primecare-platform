@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import React, { useCallback, useMemo, useState, useRef, useEffect } from 'react';
 import { PartialDeep } from 'type-fest';
 import FuseLoading from '@fuse/core/FuseLoading';

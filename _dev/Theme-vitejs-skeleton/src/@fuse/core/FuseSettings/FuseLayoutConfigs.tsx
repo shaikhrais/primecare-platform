@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import { Control } from 'react-hook-form';
 import FuseLayoutConfig from './FuseLayoutConfig';
 import ThemeFormConfigTypes from './ThemeFormConfigTypes';

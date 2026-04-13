@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 import * as React from 'react';
 import FuseTheme from '@fuse/core/FuseTheme';
 import { useMainTheme } from '@fuse/core/FuseSettings/hooks/fuseThemeHooks';

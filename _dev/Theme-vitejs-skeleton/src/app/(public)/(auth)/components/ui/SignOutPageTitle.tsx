@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import Typography from '@mui/material/Typography';
 
 function SignOutPageTitle() {

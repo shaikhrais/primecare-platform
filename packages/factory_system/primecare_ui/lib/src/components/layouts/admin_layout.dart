@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 
 class AdminLayout extends StatelessWidget {
   final Widget child;
@@ -148,3 +148,5 @@ class AdminLayout extends StatelessWidget {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.

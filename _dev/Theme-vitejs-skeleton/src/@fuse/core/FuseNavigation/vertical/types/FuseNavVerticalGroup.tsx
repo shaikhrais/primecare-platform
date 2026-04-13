@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 'use client';
 import { useMemo } from 'react';
 import FuseNavItem, { FuseNavItemComponentProps } from '../../FuseNavItem';

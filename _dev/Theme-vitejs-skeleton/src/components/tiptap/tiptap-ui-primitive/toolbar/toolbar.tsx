@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import * as React from 'react';
 import { Separator } from '@/components/tiptap/tiptap-ui-primitive/separator';
 import '@/components/tiptap/tiptap-ui-primitive/toolbar/toolbar.scss';

@@ -1,11 +1,11 @@
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_core/auth_service.dart';
+import 'package:primecare_core/auth_service.dart';
 import 'auth_layout.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {

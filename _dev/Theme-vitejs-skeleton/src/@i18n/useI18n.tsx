@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { useContext } from 'react';
 import I18nContext from './I18nContext';
 import { I18nContextType } from './I18nContext';

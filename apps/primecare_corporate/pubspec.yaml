@@ -18,7 +18,7 @@ dependencies:
   easy_localization: ^3.0.8
   lucide_icons: ^0.257.0
   fl_chart: 0.68.0
-  flutter_core:
+  primecare_core:
     path: ../../packages/flutter_core
   primecare_adapters:
     path: ../../packages/primecare_adapters

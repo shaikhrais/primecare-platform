@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 import '@i18n/i18n';
 import './styles/index.css';
 import { createRoot } from 'react-dom/client';

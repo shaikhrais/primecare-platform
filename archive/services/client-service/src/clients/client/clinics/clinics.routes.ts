@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '@primecare/shared-types';
+import { Bindings, Variables } from '@primecare/contracts';
 import { Prisma } from '@prisma/client';
 
 const clinicsList = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

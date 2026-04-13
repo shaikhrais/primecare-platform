@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { styled, Palette } from '@mui/material/styles';
 import { Controller, useForm } from 'react-hook-form';
 import themeLayoutConfigs, { themeLayoutDefaultsProps } from 'src/components/theme-layouts/themeLayoutConfigs';

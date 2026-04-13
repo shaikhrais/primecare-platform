@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';

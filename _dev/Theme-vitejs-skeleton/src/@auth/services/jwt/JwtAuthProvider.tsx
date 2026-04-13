@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { useState, useEffect, useCallback, useMemo, useImperativeHandle } from 'react';
 import { FuseAuthProviderComponentProps, FuseAuthProviderState } from '@fuse/core/FuseAuthProvider/types/FuseAuthTypes';
 import useLocalStorage from '@fuse/hooks/useLocalStorage';

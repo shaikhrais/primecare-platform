@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { styled } from '@mui/material/styles';

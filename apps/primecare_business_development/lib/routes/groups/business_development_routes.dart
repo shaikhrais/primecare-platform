@@ -1,154 +1,253 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 
-final List<RouteBase> businessDevelopmentRoutes = [
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalManagerOntarioDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+class ScreenConfig {
+  final String routePath;
+  final String titleKey;
+  final String subtitleKey;
+  final String providerId;
+
+  const ScreenConfig({
+    required this.routePath,
+    required this.titleKey,
+    required this.subtitleKey,
+    required this.providerId,
+  });
+}
+
+final List<ScreenConfig> businessDevelopmentScreenRegistry = [
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalManagerOntarioDashboard,
+    titleKey: 'Regional Manager Ontario Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalManagerOntarioDashboard',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalManagerUsaDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalManagerUsaDashboard,
+    titleKey: 'Regional Manager Usa Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalManagerUsaDashboard',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerDashboard,
+    titleKey: 'Franchise Sales Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerDashboard',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.generalManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.generalManagerDashboard,
+    titleKey: 'General Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'generalManagerDashboard',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.partnershipManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.partnershipManagerDashboard,
+    titleKey: 'Partnership Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'partnershipManagerDashboard',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerDashboard,
+    titleKey: 'Territory Expansion Manager Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerDashboard',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmLeads,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmLeads,
+    titleKey: 'Regional Bdm Leads',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmLeads',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmFranchisePipeline,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmFranchisePipeline,
+    titleKey: 'Regional Bdm Franchise Pipeline',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmFranchisePipeline',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmTerritoryGrowth,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmTerritoryGrowth,
+    titleKey: 'Regional Bdm Territory Growth',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmTerritoryGrowth',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmMeetings,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmMeetings,
+    titleKey: 'Regional Bdm Meetings',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmMeetings',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmDealTracker,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmDealTracker,
+    titleKey: 'Regional Bdm Deal Tracker',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmDealTracker',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmPartners,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmPartners,
+    titleKey: 'Regional Bdm Partners',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmPartners',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmCompetitorNotes,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmCompetitorNotes,
+    titleKey: 'Regional Bdm Competitor Notes',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmCompetitorNotes',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmTasks,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmTasks,
+    titleKey: 'Regional Bdm Tasks',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmTasks',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.regionalBdmReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalBdmReports,
+    titleKey: 'Regional Bdm Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'regionalBdmReports',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerLeads,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerLeads,
+    titleKey: 'Franchise Sales Manager Leads',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerLeads',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerProspects,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerProspects,
+    titleKey: 'Franchise Sales Manager Prospects',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerProspects',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerDiscoveryCalls,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerDiscoveryCalls,
+    titleKey: 'Franchise Sales Manager Discovery Calls',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerDiscoveryCalls',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerProposals,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerProposals,
+    titleKey: 'Franchise Sales Manager Proposals',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerProposals',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerSalesPipeline,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerSalesPipeline,
+    titleKey: 'Franchise Sales Manager Sales Pipeline',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerSalesPipeline',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerContracts,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerContracts,
+    titleKey: 'Franchise Sales Manager Contracts',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerContracts',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerFollowUps,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerFollowUps,
+    titleKey: 'Franchise Sales Manager Follow Ups',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerFollowUps',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.franchiseSalesManagerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.franchiseSalesManagerReports,
+    titleKey: 'Franchise Sales Manager Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'franchiseSalesManagerReports',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.partnershipManagerPartners,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.partnershipManagerPartners,
+    titleKey: 'Partnership Manager Partners',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'partnershipManagerPartners',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.partnershipManagerOutreach,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.partnershipManagerOutreach,
+    titleKey: 'Partnership Manager Outreach',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'partnershipManagerOutreach',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.partnershipManagerActiveDeals,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.partnershipManagerActiveDeals,
+    titleKey: 'Partnership Manager Active Deals',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'partnershipManagerActiveDeals',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.partnershipManagerProposals,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.partnershipManagerProposals,
+    titleKey: 'Partnership Manager Proposals',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'partnershipManagerProposals',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.partnershipManagerRenewals,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.partnershipManagerRenewals,
+    titleKey: 'Partnership Manager Renewals',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'partnershipManagerRenewals',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.partnershipManagerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.partnershipManagerReports,
+    titleKey: 'Partnership Manager Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'partnershipManagerReports',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerTerritoryMap,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerTerritoryMap,
+    titleKey: 'Territory Expansion Manager Territory Map',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerTerritoryMap',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerMarketResearch,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerMarketResearch,
+    titleKey: 'Territory Expansion Manager Market Research',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerMarketResearch',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerDemographics,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerDemographics,
+    titleKey: 'Territory Expansion Manager Demographics',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerDemographics',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerOpenTerritories,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerOpenTerritories,
+    titleKey: 'Territory Expansion Manager Open Territories',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerOpenTerritories',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerExpansionPlans,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerExpansionPlans,
+    titleKey: 'Territory Expansion Manager Expansion Plans',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerExpansionPlans',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerSiteSelection,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerSiteSelection,
+    titleKey: 'Territory Expansion Manager Site Selection',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerSiteSelection',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerForecast,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerForecast,
+    titleKey: 'Territory Expansion Manager Forecast',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerForecast',
   ),
-  GoRoute(
-    path: BusinessDevelopmentRoutes.territoryExpansionManagerReports,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerReports,
+    titleKey: 'Territory Expansion Manager Reports',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'territoryExpansionManagerReports',
   ),
 ];
+
+final List<RouteBase> businessDevelopmentRoutes = businessDevelopmentScreenRegistry.map((config) {
+  return GoRoute(
+    path: config.routePath,
+    builder: (context, state) => PageTemplate.orchestrate(
+      title: config.titleKey,
+      subtitle: config.subtitleKey,
+      provider: genericDashboardProvider(config.providerId),
+    ),
+  );
+}).toList();

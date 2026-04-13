@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 'use client';
 import * as Prism from 'prismjs';
 import { ElementType, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';

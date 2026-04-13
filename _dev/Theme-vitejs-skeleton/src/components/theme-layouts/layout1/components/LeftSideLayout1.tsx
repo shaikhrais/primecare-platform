@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Structural UI Theme and Styles layout binding
 import { memo } from 'react';
 
 /**

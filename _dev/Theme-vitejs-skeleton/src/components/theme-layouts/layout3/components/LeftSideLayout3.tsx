@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import FuseSidePanel from '@fuse/core/FuseSidePanel';
 import { memo } from 'react';
 import NavigationShortcuts from '../../components/navigation/NavigationShortcuts';

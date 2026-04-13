@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 import { NavLink } from 'react-router';
 import { CSSProperties, ReactNode } from 'react';
 

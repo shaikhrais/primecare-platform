@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import IconButton from '@mui/material/IconButton';
 import _ from 'lodash';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';

@@ -1,3 +1,5 @@
+// Structural UI Theme and Styles layout binding
+// Core presentation build Widget logic
 import { FuseSettingsConfigType } from '@fuse/core/FuseSettings/FuseSettings';
 import { PartialDeep } from 'type-fest';
 import { createContext } from 'react';

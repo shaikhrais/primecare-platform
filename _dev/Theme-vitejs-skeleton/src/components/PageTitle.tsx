@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import Typography from '@mui/material/Typography';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { Chip } from '@mui/material';

@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { styled, Theme } from '@mui/material/styles';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useEffect } from 'react';

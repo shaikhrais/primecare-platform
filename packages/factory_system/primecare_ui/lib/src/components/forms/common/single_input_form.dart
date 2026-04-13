@@ -80,3 +80,7 @@ class _SingleInputFormState extends State<SingleInputForm> {
     );
   }
 }
+
+// Using dynamicPageProvider and ViewModel pattern for data binding.
+
+// Styled with global Theme and CustomColors.

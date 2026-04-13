@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Link from '@fuse/core/Link';

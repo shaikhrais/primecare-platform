@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import clsx from 'clsx';
 import { FuseNavigationProps } from '../FuseNavigation';
 import { FuseNavItemType } from '../types/FuseNavItemType';

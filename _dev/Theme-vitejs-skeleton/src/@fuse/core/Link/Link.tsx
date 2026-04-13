@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import { Link as ILink, LinkProps as ILinkProps } from 'react-router';
 
 import { ReactNode } from 'react';

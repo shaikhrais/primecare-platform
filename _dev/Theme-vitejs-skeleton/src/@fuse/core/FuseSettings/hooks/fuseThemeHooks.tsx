@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import { FuseThemeType } from '@fuse/core/FuseSettings/FuseSettings';
 import { createTheme, getContrastRatio, Theme, ThemeOptions } from '@mui/material/styles';
 import _ from 'lodash';

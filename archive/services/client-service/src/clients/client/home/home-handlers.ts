@@ -2,7 +2,7 @@
  * Client Home Handlers - Stats Handler
  * Extracted from home.routes.ts
  */
-import { geocodeAddress } from '@primecare/shared-utils';
+import { geocodeAddress } from '@primecare/infrastructure';
 
 export async function handleGetClientStats(c: any) {
     const prisma = c.get('prisma'); const userId = c.get('jwtPayload').sub;

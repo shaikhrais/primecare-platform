@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import Button from '@mui/material/Button';
 import Link from '@fuse/core/Link';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';

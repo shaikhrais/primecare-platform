@@ -1,58 +1,109 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_core/flutter_core.dart';
 
-final List<RouteBase> clientRoutes = [
-  GoRoute(
-    path: ClientRoutes.clientBookAppointment,
-    builder: (context, state) => const DemoDashboardScreen(),
+class ScreenConfig {
+  final String routePath;
+  final String titleKey;
+  final String subtitleKey;
+  final String providerId;
+
+  const ScreenConfig({
+    required this.routePath,
+    required this.titleKey,
+    required this.subtitleKey,
+    required this.providerId,
+  });
+}
+
+final List<ScreenConfig> clientScreenRegistry = [
+  ScreenConfig(
+    routePath: ClientRoutes.clientBookAppointment,
+    titleKey: 'Client Book Appointment',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'clientBookAppointment',
   ),
-  GoRoute(
-    path: ClientRoutes.clientMyAppointments,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.clientMyAppointments,
+    titleKey: 'Client My Appointments',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'clientMyAppointments',
   ),
-  GoRoute(
-    path: ClientRoutes.clientCareTeam,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.clientCareTeam,
+    titleKey: 'Client Care Team',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'clientCareTeam',
   ),
-  GoRoute(
-    path: ClientRoutes.clientTreatmentHistory,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.clientTreatmentHistory,
+    titleKey: 'Client Treatment History',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'clientTreatmentHistory',
   ),
-  GoRoute(
-    path: ClientRoutes.clientPayments,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.clientPayments,
+    titleKey: 'Client Payments',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'clientPayments',
   ),
-  GoRoute(
-    path: ClientRoutes.clientProfile,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.clientProfile,
+    titleKey: 'Client Profile',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'clientProfile',
   ),
-  GoRoute(
-    path: ClientRoutes.familyMemberLovedOneSchedule,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.familyMemberLovedOneSchedule,
+    titleKey: 'Family Member Loved One Schedule',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'familyMemberLovedOneSchedule',
   ),
-  GoRoute(
-    path: ClientRoutes.familyMemberCareUpdates,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.familyMemberCareUpdates,
+    titleKey: 'Family Member Care Updates',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'familyMemberCareUpdates',
   ),
-  GoRoute(
-    path: ClientRoutes.familyMemberBilling,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.familyMemberBilling,
+    titleKey: 'Family Member Billing',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'familyMemberBilling',
   ),
-  GoRoute(
-    path: ClientRoutes.familyMemberEmergencyContacts,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.familyMemberEmergencyContacts,
+    titleKey: 'Family Member Emergency Contacts',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'familyMemberEmergencyContacts',
   ),
-  GoRoute(
-    path: ClientRoutes.familyMemberProfile,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.familyMemberProfile,
+    titleKey: 'Family Member Profile',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'familyMemberProfile',
   ),
-  GoRoute(
-    path: ClientRoutes.patientDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.patientDashboard,
+    titleKey: 'Patient Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'patientDashboard',
   ),
-  GoRoute(
-    path: ClientRoutes.familyMemberDashboard,
-    builder: (context, state) => const DemoDashboardScreen(),
+  ScreenConfig(
+    routePath: ClientRoutes.familyMemberDashboard,
+    titleKey: 'Family Member Dashboard',
+    subtitleKey: 'Real-time overview fetched natively via API.',
+    providerId: 'familyMemberDashboard',
   ),
 ];
+
+final List<RouteBase> clientRoutes = clientScreenRegistry.map((config) {
+  return GoRoute(
+    path: config.routePath,
+    builder: (context, state) => PageTemplate.orchestrate(
+      title: config.titleKey,
+      subtitle: config.subtitleKey,
+      provider: genericDashboardProvider(config.providerId),
+    ),
+  );
+}).toList();

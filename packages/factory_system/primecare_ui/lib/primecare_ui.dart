@@ -30,4 +30,3 @@ export 'src/screens/common/splash_screen.dart';
 export 'src/screens/common/subscription_upgrade_screen.dart';
  
 // Developer Samples (Reference Implementations)
-export 'src/screens/samples/demo_dashboard_screen.dart';

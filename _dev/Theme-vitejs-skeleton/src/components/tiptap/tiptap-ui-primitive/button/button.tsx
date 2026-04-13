@@ -1,3 +1,4 @@
+// Associated data Provider mapped for ViewModel
 import * as React from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/tiptap/tiptap-ui-primitive/tooltip';
 

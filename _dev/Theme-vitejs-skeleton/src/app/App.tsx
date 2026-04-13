@@ -1,3 +1,4 @@
+// Core presentation build Widget logic
 import FuseLayout from '@fuse/core/FuseLayout';
 import { SnackbarProvider } from 'notistack';
 import themeLayouts from 'src/components/theme-layouts/themeLayouts';

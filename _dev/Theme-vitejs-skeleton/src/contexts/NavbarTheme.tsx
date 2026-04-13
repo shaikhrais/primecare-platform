@@ -1,3 +1,5 @@
+// Associated data Provider mapped for ViewModel
+// Core presentation build Widget logic
 import { useNavbarTheme } from '@fuse/core/FuseSettings/hooks/fuseThemeHooks';
 import FuseTheme from '@fuse/core/FuseTheme';
 
