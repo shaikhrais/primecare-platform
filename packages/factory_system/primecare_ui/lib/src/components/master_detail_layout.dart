@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
+import '../theme/design_system.dart';
+import '../theme/theme_tokens.dart';
 
-class MasterDetailLayout extends StatelessWidget {
+class MasterDetailLayout extends ConsumerWidget {
   final Widget masterList;
   final Widget detailView;
   final bool isDetailActive;
@@ -16,7 +19,9 @@ class MasterDetailLayout extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scale = ref.watch(layoutProvider).scaleFactor;
+    final ds = PrimeCareDesignSystem.of(context);
     return LayoutBuilder(
       builder: (context, constraints) {
         // Desktop / Tablet Split-Pane Strategy
@@ -24,17 +29,14 @@ class MasterDetailLayout extends StatelessWidget {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 30% Master Pane
+              // Proportional Master Pane
               Container(
-                width: 350, // Fixed width for comfortable reading or dynamic
-                decoration: const BoxDecoration(
+                width: PrimeCareSpacing.scaled(350, scale),
+                decoration: BoxDecoration(
                   border: Border(
-                    right: BorderSide(
-                      color: PrimeCareColors.slate200,
-                      width: 1,
-                    ),
+                    right: BorderSide(color: ds.colors.borderSubtle, width: 1),
                   ),
-                  color: Colors.white,
+                  color: ds.colors.surface,
                 ),
                 child: masterList,
               ),
@@ -42,14 +44,14 @@ class MasterDetailLayout extends StatelessWidget {
               Expanded(
                 child: isDetailActive
                     ? detailView
-                    : const Center(
+                    : Center(
                         child: Text(
                           'Select an item from the list to view details.',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyle(
-                            color: PrimeCareColors.slate400,
-                            fontSize: 16,
+                            color: ds.colors.textTertiary,
+                            fontSize: PrimeCareSpacing.scaled(16, scale),
                           ),
                         ),
                       ),
@@ -63,22 +65,24 @@ class MasterDetailLayout extends StatelessWidget {
           if (isDetailActive) {
             return Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.white,
+                backgroundColor: ds.colors.surface,
                 elevation: 0,
                 leading: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back,
-                    color: PrimeCareColors.radarDark,
+                    color: ds.colors.primary,
+                    size: PrimeCareSpacing.scaled(24, scale),
                   ),
                   onPressed: onBackToMaster,
                 ),
-                title: const Text(
+                title: Text(
                   'Details',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: TextStyle(
-                    color: PrimeCareColors.radarDark,
+                    color: ds.colors.textPrimary,
                     fontWeight: FontWeight.bold,
+                    fontSize: PrimeCareSpacing.scaled(18, scale),
                   ),
                 ),
               ),

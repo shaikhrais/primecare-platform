@@ -3,136 +3,141 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_core/providers/portal_providers.dart';
+import 'package:primecare_core/config/screen_breakpoints.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  group('Dashboard Components Scaling', () {
-    testWidgets('StatCard scales dimensions based on LayoutProvider', (
-      WidgetTester tester,
+  setUpAll(() {
+    GoogleFonts.config.allowRuntimeFetching = false;
+  });
+
+  Widget buildTestableWidget({
+    required Widget child,
+    required ResolutionTier tier,
+    required double scaleFactor,
+  }) {
+    return ProviderScope(
+      overrides: [
+        layoutProvider.overrideWithValue(
+          LayoutConfig(
+            tier: tier,
+            scaleFactor: scaleFactor,
+            sidebarWidth: 280 * scaleFactor,
+            spacingMultiplier: scaleFactor,
+          ),
+        ),
+      ],
+      child: MaterialApp(
+        theme: PrimeCareDesignSystem.lightTheme,
+        home: Scaffold(body: child),
+      ),
+    );
+  }
+
+  group('Dashboard Component Scaling Regression Tests', () {
+    testWidgets('PageTemplate scales margins and typography on Mega Display', (
+      tester,
     ) async {
-      // 1. Setup Mega Display (Scale 3.0)
-      tester.view.physicalSize = const Size(5120, 2880);
+      // Set mega display size
+      tester.view.physicalSize = const Size(7680, 4320);
       tester.view.devicePixelRatio = 1.0;
 
+      const scale = 3.0;
       await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            screenMetricsProvider.overrideWith(ScreenMetricsNotifier.new),
-          ],
-          child: MaterialApp(
-            home: Consumer(
-              builder: (context, ref, child) {
-                // Initialize the metrics immediately
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  ref
-                      .read(screenMetricsProvider.notifier)
-                      .state = const MediaQueryData(
-                    size: Size(5120, 2880),
-                    devicePixelRatio: 1.0,
-                  );
-                });
-
-                return BaseLayoutShell(
-                  currentPath: '/',
-                  child: Consumer(
-                    builder: (context, ref, child) {
-                      final layout = ref.watch(layoutProvider);
-                      debugPrint('Layout Tier: ${layout.tier}');
-                      debugPrint('Scale Factor: ${layout.scaleFactor}');
-                      return PrimeCareStatCard(
-                        title: 'Revenue',
-                        value: '\$12,500',
-                        delta: 12.5,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
+        buildTestableWidget(
+          tier: ResolutionTier.mega,
+          scaleFactor: scale,
+          child: const PageTemplate(
+            title: 'Institutional Dashboard',
+            child: Text('Content'),
           ),
         ),
       );
 
-      await tester.pumpAndSettle();
-      await tester.pump(); // Second pump to capture metrics sync
+      // Verify Title Scaling (AppBar title is 20 * scale)
+      final titleFinder = find.text('Institutional Dashboard');
+      expect(titleFinder, findsOneWidget);
+      final titleText = tester.widget<Text>(titleFinder);
+      expect(titleText.style?.fontSize, equals(20.0 * scale));
 
-      // Find the card container specifically within PrimeCareStatCard
-      final containerFinder = find
-          .descendant(
-            of: find.byType(PrimeCareStatCard),
-            matching: find.byType(Container),
-          )
-          .first;
-      final container = tester.widget<Container>(containerFinder);
-
-      // Expected padding: 24.0 (lg) * 3.0 (mega scale) = 72.0
-      expect(container.padding, isA<EdgeInsets>());
-      expect((container.padding as EdgeInsets).top, 72.0);
-
-      // Verify Title font size scaling (Standard bodyMedium 14 * 3.0 = 42)
-      final titleText = tester.widget<Text>(find.text('Revenue'));
-      expect(titleText.style?.fontSize, 42.0);
+      // Verify Scaled Padding (Edge Screen Margin)
+      final scrollFinder = find.byType(SingleChildScrollView);
+      final scrollView = tester.widget<SingleChildScrollView>(scrollFinder);
+      expect(
+        scrollView.padding,
+        equals(PrimeCareSpacing.scaledEdgeScreen(scale)),
+      );
 
       addTearDown(tester.view.resetPhysicalSize);
     });
 
-    testWidgets('KPI Grid increases columns for Mega Tier', (
-      WidgetTester tester,
+    testWidgets('PrimeCareStatCard scales geometry and typography', (
+      tester,
     ) async {
-      // Setup Mega Display (Scale 3.0)
-      tester.view.physicalSize = const Size(5120, 2880);
-      tester.view.devicePixelRatio = 1.0;
-
+      const scale = 2.0; // 4k Tier
       await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            screenMetricsProvider.overrideWith(ScreenMetricsNotifier.new),
-          ],
-          child: MaterialApp(
-            home: Consumer(
-              builder: (context, ref, child) {
-                // Initialize the metrics immediately
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  ref
-                      .read(screenMetricsProvider.notifier)
-                      .state = const MediaQueryData(
-                    size: Size(5120, 2880),
-                    devicePixelRatio: 1.0,
-                  );
-                });
-                return BaseLayoutShell(
-                  currentPath: '/',
-                  child: PrimeCareResponsiveKpiGrid(
-                    children: List.generate(10, (i) => Text('Card $i')),
-                  ),
-                );
-              },
-            ),
+        buildTestableWidget(
+          tier: ResolutionTier.fourK,
+          scaleFactor: scale,
+          child: const PrimeCareStatCard(
+            title: 'Active Patients',
+            value: '1,280',
+            delta: 12.5,
           ),
         ),
       );
 
-      await tester.pumpAndSettle();
-      await tester.pump(); // Second pump for layout sync
+      // Verify StatCard title is uppercase as implemented
+      final titleFinder = find.text('ACTIVE PATIENTS');
+      expect(titleFinder, findsOneWidget);
 
-      // Find the sized box specifically within the grid
-      final firstCardFinder = find
-          .descendant(
-            of: find.byType(PrimeCareResponsiveKpiGrid),
-            matching: find.byType(SizedBox),
-          )
-          .first;
-      final firstCardBase = tester.widget<SizedBox>(firstCardFinder);
+      // Verify Container Padding (lg = 24)
+      final containerFinder = find.byType(Container).first;
+      final container = tester.widget<Container>(containerFinder);
+      final padding = container.padding as EdgeInsets;
+      expect(padding.top, equals(24.0 * scale));
 
-      // Verify width is roughly 1/6th of available space
-      // Logic: (maxWidth - 5 * spacing) / 6
-      final spacing = 16.0 * 3.0; // md * mega scale
-      final gridWidth = tester
-          .getSize(find.byType(PrimeCareResponsiveKpiGrid))
-          .width;
-      final expectedWidth = (gridWidth - (5 * spacing)) / 6;
+      // Verify Metric Value Scaling (we set 32 in refactor)
+      final valueFinder = find.text('1,280');
+      final valueText = tester.widget<Text>(valueFinder);
+      expect(valueText.style?.fontSize, equals(32.0 * scale));
+    });
 
-      expect(firstCardBase.width, isNotNull);
-      expect(firstCardBase.width!, closeTo(expectedWidth, 0.1));
+    testWidgets('PrimeCareResponsiveKpiGrid enforces 6-column density on Mega Tier', (
+      tester,
+    ) async {
+      // Set mega display size - wider to ensure 6 col fits without overflow if Wrap wraps
+      tester.view.physicalSize = const Size(7680, 4320);
+      tester.view.devicePixelRatio = 1.0;
+
+      final children = List.generate(
+        12,
+        (i) => PrimeCareStatCard(title: 'Stat $i', value: '$i'),
+      );
+
+      await tester.pumpWidget(
+        buildTestableWidget(
+          tier: ResolutionTier.mega,
+          scaleFactor: 3.0,
+          child: SizedBox(
+            width: 7680,
+            child: PrimeCareResponsiveKpiGrid(children: children),
+          ),
+        ),
+      );
+
+      // On Mega tier (6 columns), spacing is PrimeCareSpacing.md * 3 (16 * 3 = 48)
+      double spacing = 16.0 * 3.0;
+      // horizontalPadding from PageTemplate is scaledEdgeScreen(3.0) = 48?
+      // No, this grid is raw in the test.
+      // Child width calculation in grid: (maxWidth - (spacing * (activeCols - 1))) / activeCols
+      double expectedWidth = (7680 - (spacing * 5)) / 6;
+
+      final firstStat = find
+          .byType(SizedBox)
+          .at(1); // The first child SizedBox wrapping the child
+      final sizeBox = tester.widget<SizedBox>(firstStat);
+      expect(sizeBox.width, closeTo(expectedWidth, 0.1));
 
       addTearDown(tester.view.resetPhysicalSize);
     });

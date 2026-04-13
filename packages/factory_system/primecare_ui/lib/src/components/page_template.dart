@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_core/flutter_core.dart';
 import '../assembly_line/assembly_line.dart';
 import 'layout/prime_responsive_grid.dart';
+import '../theme/design_system.dart';
+import '../theme/theme_tokens.dart';
 
 class PageTemplate extends ConsumerWidget {
   final String title;
@@ -46,46 +49,71 @@ class PageTemplate extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final layout = ref.watch(layoutProvider);
+    final scale = layout.scaleFactor;
+    final ds = PrimeCareDesignSystem.of(context);
+
+    // Dynamic institutional spacing
+    final screenPadding = PrimeCareSpacing.scaledEdgeScreen(scale);
+    final sectionSpacing = PrimeCareSpacing.scaled(48.0, scale);
+
     return Scaffold(
-      backgroundColor: Colors.transparent, // Assumes a background wrapper exists
+      backgroundColor:
+          Colors.transparent, // Assumes a background wrapper exists
       appBar: AppBar(
-        title: Text(title, key: const Key('page_title')),
+        title: Text(
+          title,
+          key: const Key('page_title'),
+          style: TextStyle(
+            fontSize: PrimeCareSpacing.scaled(20, scale),
+            fontWeight: FontWeight.bold,
+            color: ds.colors.textPrimary,
+          ),
+        ),
         actions: actionButton != null ? [actionButton!] : null,
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: false,
+        iconTheme: IconThemeData(
+          size: PrimeCareSpacing.scaled(24, scale),
+          color: ds.colors.textPrimary,
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+          padding: screenPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (subtitle != null)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 32.0),
+                  padding: EdgeInsets.only(
+                    bottom: PrimeCareSpacing.scaled(32.0, scale),
+                  ),
                   child: Text(
                     subtitle!,
                     key: const Key('page_subtitle'),
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Colors.white70,
-                          letterSpacing: 0.5,
-                        ),
+                    style: GoogleFonts.inter(
+                      fontSize: PrimeCareSpacing.scaled(16.0, scale),
+                      color: ds.colors.textSecondary,
+                      letterSpacing: 0.5,
+                      height: 1.5,
+                    ),
                   ),
                 ),
-              if (kpiCards != null) ...[
+              if (kpiCards case final List<Widget> cards) ...[
                 PrimeResponsiveGrid(
                   key: const Key('kpi_grid'),
-                  desktopMainAxisExtent: 160,
-                  children: kpiCards!,
+                  desktopMainAxisExtent: PrimeCareSpacing.scaled(160, scale),
+                  children: cards,
                 ),
-                const SizedBox(height: 48),
+                SizedBox(height: sectionSpacing),
               ],
-              ?child,
-              if (bodySections != null) ...bodySections!,
-              if (footer != null) ...[
-                const SizedBox(height: 64),
-                footer!,
+              if (child case final Widget c) c,
+              if (bodySections case final List<Widget> sections) ...sections,
+              if (footer case final Widget f) ...[
+                SizedBox(height: PrimeCareSpacing.scaled(64, scale)),
+                f,
               ],
             ],
           ),
@@ -111,6 +139,9 @@ class _OrchestratedPage<T> extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(provider);
+    final layout = ref.watch(layoutProvider);
+    final scale = layout.scaleFactor;
+    final ds = PrimeCareDesignSystem.of(context);
 
     return asyncValue.when(
       data: (data) {
@@ -120,12 +151,18 @@ class _OrchestratedPage<T> extends ConsumerWidget {
         bool isOffline = false;
 
         if (data is Map) {
-          blueprints = (data['blueprints'] as List<dynamic>?)?.cast<UIComponentBlueprint>() ?? [];
+          blueprints =
+              (data['blueprints'] as List<dynamic>?)
+                  ?.cast<UIComponentBlueprint>() ??
+              [];
           isOffline = (data['isOfflineFallback'] as bool?) ?? false;
         } else {
           final dynamic d = data;
           try {
-            blueprints = (d.blueprints as List<dynamic>?)?.cast<UIComponentBlueprint>() ?? [];
+            blueprints =
+                (d.blueprints as List<dynamic>?)
+                    ?.cast<UIComponentBlueprint>() ??
+                [];
             isOffline = (d.isOfflineFallback as bool?) ?? false;
           } catch (_) {}
         }
@@ -140,26 +177,34 @@ class _OrchestratedPage<T> extends ConsumerWidget {
           ),
         );
       },
-      loading: () => const Center(
+      loading: () => Center(
         child: Padding(
-          padding: EdgeInsets.all(80.0),
+          padding: EdgeInsets.all(PrimeCareSpacing.scaled(80.0, scale)),
           child: CircularProgressIndicator(
-            color: Colors.tealAccent,
-            strokeWidth: 3,
+            color: ds.colors.primary,
+            strokeWidth: 3 * scale,
           ),
         ),
       ),
       error: (err, stack) => Center(
         child: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: EdgeInsets.all(PrimeCareSpacing.scaled(40.0, scale)),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline, color: Colors.redAccent, size: 48),
-              const SizedBox(height: 16),
+              Icon(
+                Icons.error_outline,
+                color: ds.colors.error,
+                size: PrimeCareSpacing.scaled(48, scale),
+              ),
+              SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
               Text(
                 'Orchestration Error: $err',
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white70),
+                style: GoogleFonts.inter(
+                  color: ds.colors.textSecondary,
+                  fontSize: PrimeCareSpacing.scaled(14, scale),
+                ),
               ),
             ],
           ),

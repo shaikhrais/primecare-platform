@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 /// Centralized Design System that serves as the single source of truth for UI aesthetics.
-/// Completely decoupled from BuildContext or ThemeExtension to ensure easy universal access.
+/// Provides semantic tokens for institutional consistency and density-aware scaling.
 class PrimeCareDesignSystem {
   static bool _isDarkMode = false;
 
@@ -11,14 +11,24 @@ class PrimeCareDesignSystem {
     _isDarkMode = isDark;
   }
 
+  /// Hook to access tokens within a build context
+  static PrimeCareDesignSystem of(BuildContext context) {
+    return PrimeCareDesignSystem();
+  }
+
+  /// Semantic Color Tokens
+  PrimeCareColorTokens get colors =>
+      _isDarkMode ? _DarkTokens() : _LightTokens();
+
+  // Static Getters for simplified access
   static Color get surfaceElevated =>
-      _isDarkMode ? PrimeCareColors.slate800 : Colors.white;
+      _isDarkMode ? PrimeCareColors.slate800 : PrimeCareColors.white;
   static Color get borderSubtle =>
       _isDarkMode ? PrimeCareColors.slate700 : PrimeCareColors.slate200;
   static Color get textMuted =>
       _isDarkMode ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
 
-  // Semantic Colors (Institutional Muted Tones)
+  // Static Semantic Access for legacy components
   static Color get successSurface => _isDarkMode
       ? PrimeCareColors.emerald.withValues(alpha: 0.15)
       : const Color(0xFFF0FDF4);
@@ -27,4 +37,97 @@ class PrimeCareDesignSystem {
       : const Color(0xFFFEF2F2);
   static Color get successText => PrimeCareColors.emerald;
   static Color get dangerText => PrimeCareColors.rose;
+
+  /// Institutional Material Theme (Light)
+  static ThemeData get lightTheme => ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+  );
+
+  /// Institutional Material Theme (Dark)
+  static ThemeData get darkTheme => ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: PrimeCareColors.radarDark,
+  );
+}
+
+abstract class PrimeCareColorTokens {
+  Color get primary;
+  Color get secondary;
+  Color get surface;
+  Color get background;
+  Color get borderSubtle;
+  Color get textPrimary;
+  Color get textSecondary;
+  Color get textTertiary;
+  Color get shadow;
+  Color get success;
+  Color get danger;
+  Color get successSurface;
+  Color get dangerSurface;
+  Color get error;
+}
+
+class _LightTokens implements PrimeCareColorTokens {
+  @override
+  Color get primary => PrimeCareColors.skyBlue;
+  @override
+  Color get secondary => PrimeCareColors.purple;
+  @override
+  Color get surface => PrimeCareColors.white;
+  @override
+  Color get background => const Color(0xFFF8FAFC);
+  @override
+  Color get borderSubtle => PrimeCareColors.slate200;
+  @override
+  Color get textPrimary => PrimeCareColors.radarDark;
+  @override
+  Color get textSecondary => PrimeCareColors.slate500;
+  @override
+  Color get textTertiary => PrimeCareColors.slate400;
+  @override
+  Color get shadow => const Color(0x0A000000);
+  @override
+  Color get success => PrimeCareColors.emerald;
+  @override
+  Color get danger => PrimeCareColors.rose;
+  @override
+  Color get successSurface => const Color(0xFFF0FDF4);
+  @override
+  Color get dangerSurface => const Color(0xFFFEF2F2);
+  @override
+  Color get error => danger;
+}
+
+class _DarkTokens implements PrimeCareColorTokens {
+  @override
+  Color get primary => PrimeCareColors.skyBlue;
+  @override
+  Color get secondary => PrimeCareColors.purple;
+  @override
+  Color get surface => PrimeCareColors.slate800;
+  @override
+  Color get background => PrimeCareColors.radarDark;
+  @override
+  Color get borderSubtle => PrimeCareColors.slate700;
+  @override
+  Color get textPrimary => PrimeCareColors.white;
+  @override
+  Color get textSecondary => PrimeCareColors.slate400;
+  @override
+  Color get textTertiary => PrimeCareColors.slate500;
+  @override
+  Color get shadow => const Color(0x33000000);
+  @override
+  Color get success => PrimeCareColors.emerald;
+  @override
+  Color get danger => PrimeCareColors.rose;
+  @override
+  Color get successSurface => PrimeCareColors.emerald.withValues(alpha: 0.15);
+  @override
+  Color get dangerSurface => PrimeCareColors.rose.withValues(alpha: 0.15);
+  @override
+  Color get error => danger;
 }

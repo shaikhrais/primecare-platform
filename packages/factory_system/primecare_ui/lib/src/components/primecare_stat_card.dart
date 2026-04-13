@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_core/providers/portal_providers.dart';
 import '../theme/theme_tokens.dart';
 import '../theme/design_system.dart';
@@ -26,15 +27,22 @@ class PrimeCareStatCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final layout = ref.watch(layoutProvider);
     final scale = layout.scaleFactor;
+    final ds = PrimeCareDesignSystem.of(context);
     final isPositive = (delta ?? 0) >= 0;
 
     return Container(
       padding: EdgeInsets.all(PrimeCareSpacing.lg * scale),
       decoration: BoxDecoration(
-        color: PrimeCareDesignSystem.surfaceElevated,
+        color: ds.colors.surface,
         borderRadius: BorderRadius.circular(PrimeCareRadii.lg * scale),
-        border: Border.all(color: PrimeCareDesignSystem.borderSubtle, width: 1),
-        boxShadow: const [PrimeCareShadows.soft],
+        border: Border.all(color: ds.colors.borderSubtle, width: 1.5 * scale),
+        boxShadow: [
+          BoxShadow(
+            color: ds.colors.shadow,
+            blurRadius: 10 * scale,
+            offset: Offset(0, 4 * scale),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,22 +50,23 @@ class PrimeCareStatCard extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: PrimeCareDesignSystem.textMuted,
-                  fontWeight: FontWeight.w600,
-                  fontSize:
-                      (Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14) *
-                      scale,
+              Expanded(
+                child: Text(
+                  title.toUpperCase(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: GoogleFonts.inter(
+                    color: ds.colors.textSecondary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12 * scale,
+                    letterSpacing: 1.2 * scale,
+                  ),
                 ),
               ),
               if (icon != null)
                 Icon(
                   icon,
-                  color: PrimeCareDesignSystem.textMuted,
+                  color: iconColor ?? ds.colors.primary,
                   size: 20 * scale,
                 ),
             ],
@@ -67,10 +76,11 @@ class PrimeCareStatCard extends ConsumerWidget {
             value,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontSize:
-                  (Theme.of(context).textTheme.headlineMedium?.fontSize ?? 24) *
-                  scale,
+            style: GoogleFonts.outfit(
+              fontSize: 32 * scale,
+              fontWeight: FontWeight.bold,
+              color: ds.colors.textPrimary,
+              letterSpacing: -0.5 * scale,
             ),
           ),
           if (delta != null) ...[
@@ -79,39 +89,38 @@ class PrimeCareStatCard extends ConsumerWidget {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: PrimeCareSpacing.xs * scale,
-                    vertical: 2 * scale,
+                    horizontal: 8 * scale,
+                    vertical: 4 * scale,
                   ),
                   decoration: BoxDecoration(
                     color: isPositive
-                        ? PrimeCareDesignSystem.successSurface
-                        : PrimeCareDesignSystem.dangerSurface,
+                        ? ds.colors.successSurface
+                        : ds.colors.dangerSurface,
                     borderRadius: BorderRadius.circular(
                       PrimeCareRadii.sm * scale,
                     ),
                   ),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         isPositive
-                            ? Icons.arrow_upward_rounded
-                            : Icons.arrow_downward_rounded,
-                        size: 12 * scale,
+                            ? Icons.trending_up_rounded
+                            : Icons.trending_down_rounded,
+                        size: 14 * scale,
                         color: isPositive
-                            ? PrimeCareDesignSystem.successText
-                            : PrimeCareDesignSystem.dangerText,
+                            ? ds.colors.success
+                            : ds.colors.danger,
                       ),
-                      SizedBox(width: 2 * scale),
+                      SizedBox(width: 4 * scale),
                       Text(
                         '${delta!.abs().toStringAsFixed(1)}%',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           fontSize: 12 * scale,
                           fontWeight: FontWeight.bold,
                           color: isPositive
-                              ? PrimeCareDesignSystem.successText
-                              : PrimeCareDesignSystem.dangerText,
+                              ? ds.colors.success
+                              : ds.colors.danger,
                         ),
                       ),
                     ],
@@ -123,9 +132,9 @@ class PrimeCareStatCard extends ConsumerWidget {
                     deltaSuffix!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       fontSize: 12 * scale,
-                      color: PrimeCareDesignSystem.textMuted,
+                      color: ds.colors.textTertiary,
                     ),
                   ),
                 ],

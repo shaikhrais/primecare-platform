@@ -1,12 +1,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:primecare_core/flutter_core.dart';
+import '../theme/design_system.dart';
+import '../theme/theme_tokens.dart';
 
-class AuthSplitLayout extends StatelessWidget {
+class AuthSplitLayout extends ConsumerWidget {
   final Widget child;
   final String title;
   final String subtitle;
   final String imageUrl;
+  final ImageProvider? backgroundImage;
 
   const AuthSplitLayout({
     super.key,
@@ -15,12 +20,15 @@ class AuthSplitLayout extends StatelessWidget {
     required this.subtitle,
     this.imageUrl =
         'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2560&auto=format&fit=crop',
+    this.backgroundImage,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scale = ref.watch(layoutProvider).scaleFactor;
+    final ds = PrimeCareDesignSystem.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A), // Slate 900
+      backgroundColor: ds.colors.surface,
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth >= 1024) {
@@ -34,23 +42,25 @@ class AuthSplitLayout extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.black,
                       image: DecorationImage(
-                        image: NetworkImage(imageUrl),
+                        image: backgroundImage ?? NetworkImage(imageUrl),
                         fit: BoxFit.cover,
                         colorFilter: ColorFilter.mode(
-                          const Color(0xFF0F172A).withValues(alpha: 0.6),
+                          ds.colors.surface.withValues(alpha: 0.6),
                           BlendMode.srcOver,
                         ),
                       ),
                     ),
                     child: Container(
-                      padding: const EdgeInsets.all(64),
+                      padding: EdgeInsets.all(
+                        PrimeCareSpacing.scaled(64, scale),
+                      ),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            const Color(0xFF0F172A).withValues(alpha: 0.9),
+                            ds.colors.surface.withValues(alpha: 0.9),
                           ],
                         ),
                       ),
@@ -59,27 +69,27 @@ class AuthSplitLayout extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.shield_rounded,
-                            size: 48,
-                            color: Colors.blueAccent,
+                            size: PrimeCareSpacing.scaled(48, scale),
+                            color: ds.colors.primary,
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: PrimeCareSpacing.scaled(24, scale)),
                           Text(
                             title,
                             style: GoogleFonts.outfit(
-                              fontSize: 48,
+                              fontSize: PrimeCareSpacing.scaled(48, scale),
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               letterSpacing: -1,
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
                           Text(
                             subtitle,
                             style: GoogleFonts.inter(
-                              fontSize: 18,
-                              color: Colors.blueGrey.shade200,
+                              fontSize: PrimeCareSpacing.scaled(18, scale),
+                              color: ds.colors.textSecondary,
                               height: 1.5,
                             ),
                           ),
@@ -94,10 +104,12 @@ class AuthSplitLayout extends StatelessWidget {
                   child: Center(
                     child: SingleChildScrollView(
                       child: Container(
-                        constraints: const BoxConstraints(maxWidth: 480),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 48,
-                          vertical: 64,
+                        constraints: BoxConstraints(
+                          maxWidth: PrimeCareSpacing.scaled(480, scale),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: PrimeCareSpacing.scaled(48, scale),
+                          vertical: PrimeCareSpacing.scaled(64, scale),
                         ),
                         child: child,
                       ),
@@ -112,7 +124,7 @@ class AuthSplitLayout extends StatelessWidget {
           return Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(imageUrl),
+                image: backgroundImage ?? NetworkImage(imageUrl),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                   const Color(0xFF0F172A).withValues(alpha: 0.85),
@@ -122,18 +134,22 @@ class AuthSplitLayout extends StatelessWidget {
             ),
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
+                padding: EdgeInsets.all(PrimeCareSpacing.scaled(24, scale)),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: PrimeCareRadii.scaled(scale),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
                       width: double.infinity,
-                      constraints: const BoxConstraints(maxWidth: 480),
-                      padding: const EdgeInsets.all(40),
+                      constraints: BoxConstraints(
+                        maxWidth: PrimeCareSpacing.scaled(480, scale),
+                      ),
+                      padding: EdgeInsets.all(
+                        PrimeCareSpacing.scaled(40, scale),
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: PrimeCareRadii.scaled(scale),
                         border: Border.all(
                           color: Colors.white.withValues(alpha: 0.2),
                         ),
@@ -141,31 +157,31 @@ class AuthSplitLayout extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.shield_rounded,
-                            size: 48,
-                            color: Colors.blueAccent,
+                            size: PrimeCareSpacing.scaled(48, scale),
+                            color: ds.colors.primary,
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: PrimeCareSpacing.scaled(24, scale)),
                           Text(
                             title,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.outfit(
-                              fontSize: 32,
+                              fontSize: PrimeCareSpacing.scaled(32, scale),
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: PrimeCareSpacing.scaled(8, scale)),
                           Text(
                             subtitle,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
-                              fontSize: 14,
-                              color: Colors.blueGrey.shade200,
+                              fontSize: PrimeCareSpacing.scaled(14, scale),
+                              color: ds.colors.textSecondary,
                             ),
                           ),
-                          const SizedBox(height: 48),
+                          SizedBox(height: PrimeCareSpacing.scaled(48, scale)),
                           child,
                         ],
                       ),

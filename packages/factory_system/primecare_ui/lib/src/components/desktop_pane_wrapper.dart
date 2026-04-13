@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
+import '../theme/design_system.dart';
+import '../theme/theme_tokens.dart';
 import 'responsive_layout_manager.dart';
 
-class DesktopPaneWrapper extends StatelessWidget {
+class DesktopPaneWrapper extends ConsumerWidget {
   final Widget child;
 
   const DesktopPaneWrapper({super.key, required this.child});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scale = ref.watch(layoutProvider).scaleFactor;
+    final ds = PrimeCareDesignSystem.of(context);
     return ResponsiveLayoutManager(
       mob: child,
       oneK: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1400),
+          constraints: BoxConstraints(maxWidth: 1400 * scale),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+            padding: EdgeInsets.symmetric(
+              horizontal: PrimeCareSpacing.scaled(40, scale),
+              vertical: PrimeCareSpacing.scaled(24, scale),
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -22,13 +31,15 @@ class DesktopPaneWrapper extends StatelessWidget {
                   flex: 3,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: const [
+                      color: ds.colors.surface,
+                      borderRadius: BorderRadius.circular(
+                        PrimeCareSpacing.scaled(24, scale),
+                      ),
+                      boxShadow: [
                         BoxShadow(
-                          color: Color(0x0A000000),
-                          blurRadius: 24,
-                          offset: Offset(0, 8),
+                          color: ds.colors.shadow,
+                          blurRadius: PrimeCareSpacing.scaled(24, scale),
+                          offset: Offset(0, PrimeCareSpacing.scaled(8, scale)),
                         ),
                       ],
                     ),
@@ -36,63 +47,65 @@ class DesktopPaneWrapper extends StatelessWidget {
                     child: child,
                   ),
                 ),
-                const SizedBox(width: 40),
+                SizedBox(width: PrimeCareSpacing.scaled(40, scale)),
                 Expanded(
                   flex: 2,
                   child: Container(
-                    padding: const EdgeInsets.all(40),
+                    padding: EdgeInsets.all(PrimeCareSpacing.scaled(40, scale)),
                     decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.primary.withAlpha(10),
-                      borderRadius: BorderRadius.circular(24),
+                      color: ds.colors.primary.withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(
+                        PrimeCareSpacing.scaled(24, scale),
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Icon(
                           Icons.shield_rounded,
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 40,
+                          color: ds.colors.primary,
+                          size: PrimeCareSpacing.scaled(40, scale),
                         ),
-                        const SizedBox(height: 24),
+                        SizedBox(height: PrimeCareSpacing.scaled(24, scale)),
                         Text(
                           'Enterprise Operation Protocol',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                          style: Theme.of(context).textTheme.headlineMedium
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
+                          style: TextStyle(
+                            color: ds.colors.textPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: PrimeCareSpacing.scaled(24, scale),
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
                         Text(
                           'Ensure all patient records, communications, and clinical inputs are verified precisely before physical transmission. All payload data is instantly encrypted locally utilizing local AES-256 blocks before transmitting securely into the PrimeCare Cloudflare node matrix.',
-                          style: Theme.of(context).textTheme.bodyLarge
-                              ?.copyWith(
-                                height: 1.6,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primary.withAlpha(200),
-                              ),
+                          style: TextStyle(
+                            height: 1.6,
+                            color: ds.colors.textSecondary,
+                            fontSize: PrimeCareSpacing.scaled(16, scale),
+                          ),
                         ),
-                        const SizedBox(height: 32),
-                        const Divider(),
-                        const SizedBox(height: 32),
+                        SizedBox(height: PrimeCareSpacing.scaled(32, scale)),
+                        Divider(color: ds.colors.borderSubtle),
+                        SizedBox(height: PrimeCareSpacing.scaled(32, scale)),
                         Row(
                           children: [
                             Icon(
                               Icons.verified_user,
-                              color: Theme.of(context).colorScheme.secondary,
-                              size: 24,
+                              color: ds.colors.success,
+                              size: PrimeCareSpacing.scaled(24, scale),
                             ),
-                            const SizedBox(width: 16),
-                            const Text(
+                            SizedBox(width: PrimeCareSpacing.scaled(16, scale)),
+                            Text(
                               'End-To-End Encrypted Link',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                color: ds.colors.textPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: PrimeCareSpacing.scaled(14, scale),
+                              ),
                             ),
                           ],
                         ),
