@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/src/components/global_top_bar.dart';
-import 'package:primecare_ui/src/components/universal_role_sidebar.dart';
-import 'package:primecare_core/auth_service.dart';
+import 'package:go_router/go_router.dart';
+import 'base_layout_shell.dart';
 
 class ProviderLayout extends ConsumerWidget {
   final Widget child;
@@ -11,23 +10,12 @@ class ProviderLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // The Provider Layout strictly enforces The Luminous Clinician aesthetics.
-    // We dynamically pull the auth role to inject into the Top Bar.
-    final role = ref.watch(authProvider).role ?? '';
+    final String currentPath = GoRouterState.of(context).uri.toString();
 
-    return UniversalRoleSidebar(
-      currentPath: '/',
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        appBar: GlobalTopBar(
-          title: 'Provider',
-          activeRole: role,
-          onLogout: () {
-            ref.read(authProvider.notifier).logout();
-          },
-        ),
-        body: child,
-      ),
+    return BaseLayoutShell(
+      userRole: 'PSW',
+      currentPath: currentPath,
+      child: child,
     );
   }
 }

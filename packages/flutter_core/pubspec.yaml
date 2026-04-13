@@ -19,8 +19,6 @@ dependencies:
   lucide_icons: ^0.257.0
   fl_chart: ^1.2.0
   riverpod_annotation: any
-  primecare_ui:
-    path: ../factory_system/primecare_ui
 dev_dependencies:
   build_runner: any
   riverpod_generator: any

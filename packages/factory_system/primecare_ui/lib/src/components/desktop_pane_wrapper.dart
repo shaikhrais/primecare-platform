@@ -9,8 +9,8 @@ class DesktopPaneWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayoutManager(
-      mobile: child,
-      desktop: Center(
+      mob: child,
+      oneK: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1400),
           child: Padding(

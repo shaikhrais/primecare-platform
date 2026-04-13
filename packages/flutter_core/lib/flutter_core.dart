@@ -13,6 +13,10 @@ export 'config/api_config.dart';
 export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';
 export 'config/screen_registry.dart';
+export 'config/screen_breakpoints.dart';
+export 'config/adaptive_scaling_config.dart';
+export 'config/navigation_registry.dart';
+export 'models/navigation_item.dart';
 
 export 'manifest/action_manifest.dart';
 export 'network/api_client.dart';
@@ -149,69 +153,3 @@ export 'features/hr_forms/domain/models/schedule_interview_form_view_model.dart'
 export 'features/hr_forms/data/adapters/schedule_interview_form_adapter.dart';
 export 'features/hr_forms/domain/models/submit_exit_interview_form_view_model.dart';
 export 'features/hr_forms/data/adapters/submit_exit_interview_form_adapter.dart';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
