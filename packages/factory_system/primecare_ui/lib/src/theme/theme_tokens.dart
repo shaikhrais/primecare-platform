@@ -18,15 +18,18 @@ class PrimeCareSpacing {
     horizontal: lg,
     vertical: md,
   );
+
+  /// Returns a scaled value based on the current layout factor.
+  static double scaled(double value, double factor) => value * factor;
 }
 
-/// Enterprise Curvature Metrics
+/// Enterprise Curvature Metrics (Institutional Classic: 4px - 8px limits)
 class PrimeCareRadii {
-  static const double sm = 4.0;
-  static const double md = 8.0;
-  static const double rounded = 12.0;
-  static const double lg = 16.0;
-  static const double xl = 24.0;
+  static const double sm = 2.0;
+  static const double md = 4.0;
+  static const double rounded = 6.0;
+  static const double lg = 8.0;
+  static const double xl = 12.0;
   static const double pill = 999.0;
 
   static final BorderRadius boardSm = BorderRadius.circular(sm);
@@ -35,6 +38,10 @@ class PrimeCareRadii {
   static final BorderRadius boardLg = BorderRadius.circular(lg);
   static final BorderRadius boardXl = BorderRadius.circular(xl);
   static final BorderRadius boardPill = BorderRadius.circular(pill);
+
+  /// Returns a scaled BorderRadius based on the lg (8px) institutional standard.
+  static BorderRadius scaled(double factor) =>
+      BorderRadius.circular(lg * factor);
 }
 
 /// Enterprise Physical Depth Simulator (Soft Shadow Vectors)

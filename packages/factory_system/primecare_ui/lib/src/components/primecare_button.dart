@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/providers/portal_providers.dart';
+import '../theme/theme_tokens.dart';
 
 enum PrimeCareButtonType { primary, secondary, text }
 
-class PrimeCareButton extends StatefulWidget {
+class PrimeCareButton extends ConsumerStatefulWidget {
   final Widget? child;
   final String? label;
   final String? text;
@@ -27,10 +30,10 @@ class PrimeCareButton extends StatefulWidget {
   });
 
   @override
-  State<PrimeCareButton> createState() => _PrimeCareButtonState();
+  ConsumerState<PrimeCareButton> createState() => _PrimeCareButtonState();
 }
 
-class _PrimeCareButtonState extends State<PrimeCareButton>
+class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
@@ -43,7 +46,7 @@ class _PrimeCareButtonState extends State<PrimeCareButton>
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.96).animate(
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.98).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
   }
@@ -56,8 +59,15 @@ class _PrimeCareButtonState extends State<PrimeCareButton>
 
   @override
   Widget build(BuildContext context) {
+    final layout = ref.watch(layoutProvider);
+    final scale = layout.scaleFactor;
+    final theme = Theme.of(context);
+
     bool resolveIsPrimary =
         widget.isPrimary ?? (widget.type == PrimeCareButtonType.primary);
+
+    final primaryColor = theme.primaryColor;
+    final onPrimaryColor = Colors.white;
 
     Widget displayChild =
         widget.child ??
@@ -66,20 +76,22 @@ class _PrimeCareButtonState extends State<PrimeCareButton>
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            color: resolveIsPrimary ? Colors.white : Colors.indigo,
-            letterSpacing: 0.5,
+            fontSize: 15 * scale,
+            fontWeight: FontWeight.w600, // Semi-bold for institutional look
+            color: resolveIsPrimary ? onPrimaryColor : primaryColor,
+            letterSpacing: 0.2,
           ),
         );
 
     if (widget.isLoading) {
-      displayChild = const SizedBox(
-        width: 18,
-        height: 18,
+      displayChild = SizedBox(
+        width: 18 * scale,
+        height: 18 * scale,
         child: CircularProgressIndicator(
-          strokeWidth: 2,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          strokeWidth: 2 * scale,
+          valueColor: AlwaysStoppedAnimation<Color>(
+            resolveIsPrimary ? onPrimaryColor : primaryColor,
+          ),
         ),
       );
     } else if (widget.icon != null) {
@@ -89,22 +101,25 @@ class _PrimeCareButtonState extends State<PrimeCareButton>
         children: [
           Icon(
             widget.icon,
-            size: 20,
-            color: resolveIsPrimary ? Colors.white : Colors.indigo,
+            size: 18 * scale,
+            color: resolveIsPrimary ? onPrimaryColor : primaryColor,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8 * scale),
           displayChild,
         ],
       );
     }
 
+    final borderRadius = PrimeCareRadii.scaled(scale);
+
     if (widget.type == PrimeCareButtonType.text) {
       return TextButton(
         style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+          padding: EdgeInsets.symmetric(
+            horizontal: 16 * scale,
+            vertical: 8 * scale,
           ),
+          shape: RoundedRectangleBorder(borderRadius: borderRadius),
         ),
         onPressed: widget.isLoading ? null : widget.onPressed,
         child: displayChild,
@@ -112,36 +127,18 @@ class _PrimeCareButtonState extends State<PrimeCareButton>
     }
 
     final decoration = BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
-      gradient: resolveIsPrimary
-          ? LinearGradient(
-              colors: _isHovering
-                  ? [
-                      Colors.indigo.shade600,
-                      Theme.of(context).primaryColorLight,
-                    ]
-                  : [Colors.indigo, Theme.of(context).colorScheme.secondary],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            )
-          : null,
+      borderRadius: borderRadius,
       color: resolveIsPrimary
-          ? null
-          : (_isHovering ? Colors.indigo.shade50 : Colors.white),
+          ? (widget.onPressed == null ? theme.disabledColor : primaryColor)
+          : Colors.transparent,
       border: resolveIsPrimary
           ? null
-          : Border.all(color: Colors.indigo.withValues(alpha: 0.3), width: 1.5),
-      boxShadow: resolveIsPrimary
-          ? [
-              BoxShadow(
-                color: Theme.of(context).colorScheme.secondary.withValues(
-                  alpha: _isHovering ? 0.6 : 0.3,
-                ),
-                blurRadius: _isHovering ? 16 : 8,
-                offset: const Offset(0, 4),
-              ),
-            ]
-          : [],
+          : Border.all(
+              color: widget.onPressed == null
+                  ? theme.disabledColor.withValues(alpha: 0.3)
+                  : primaryColor.withValues(alpha: 0.5),
+              width: 1.0,
+            ),
     );
 
     return MouseRegion(
@@ -151,8 +148,9 @@ class _PrimeCareButtonState extends State<PrimeCareButton>
         onTapDown: (_) => _animationController.forward(),
         onTapUp: (_) {
           _animationController.reverse();
-          if (!widget.isLoading && widget.onPressed != null)
+          if (!widget.isLoading && widget.onPressed != null) {
             widget.onPressed!();
+          }
         },
         onTapCancel: () => _animationController.reverse(),
         child: ScaleTransition(
@@ -162,10 +160,16 @@ class _PrimeCareButtonState extends State<PrimeCareButton>
             curve: Curves.easeOut,
             width: widget.isFullWidth ? double.infinity : null,
             decoration: decoration,
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
+            padding: EdgeInsets.symmetric(
+              horizontal: 24 * scale,
+              vertical: 12 * scale,
+            ),
             child: Center(
               widthFactor: widget.isFullWidth ? null : 1.0,
-              child: displayChild,
+              child: Opacity(
+                opacity: _isHovering ? 0.9 : 1.0,
+                child: displayChild,
+              ),
             ),
           ),
         ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/providers/portal_providers.dart';
 import '../theme/theme_tokens.dart';
 import '../theme/design_system.dart';
 
-class PrimeCareCard extends StatelessWidget {
+class PrimeCareCard extends ConsumerWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -16,7 +18,7 @@ class PrimeCareCard extends StatelessWidget {
   const PrimeCareCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(PrimeCareSpacing.md),
+    this.padding,
     this.margin,
     this.onTap,
     this.muted = false,
@@ -27,27 +29,29 @@ class PrimeCareCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final layout = ref.watch(layoutProvider);
+    final scale = layout.scaleFactor;
+
+    final effectivePadding =
+        padding ?? EdgeInsets.all(PrimeCareSpacing.md * scale);
+    final borderRadius = PrimeCareRadii.scaled(scale);
+
     final decoration = BoxDecoration(
       color: backgroundColor ?? PrimeCareDesignSystem.surfaceElevated,
-      borderRadius: BorderRadius.circular(20), // Premium smooth curve
+      borderRadius: borderRadius,
       border: muted
           ? null
-          : Border.all(color: Colors.grey.withValues(alpha: 0.15), width: 1.0),
+          : Border.all(color: PrimeCareDesignSystem.borderSubtle, width: 1.0),
       boxShadow: muted
           ? []
           : [
               BoxShadow(
                 color: Colors.black.withValues(
                   alpha: 0.04,
-                ), // Soft diffused SaaS shadow
-                blurRadius: 24,
-                offset: const Offset(0, 10),
-              ),
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.02),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
+                ), // Institutional depth
+                blurRadius: 12 * scale,
+                offset: Offset(0, 4 * scale),
               ),
             ],
     );
@@ -61,10 +65,11 @@ class PrimeCareCard extends StatelessWidget {
         decoration: decoration,
         child: Material(
           color: Colors.transparent,
+          borderRadius: borderRadius,
           child: InkWell(
             onTap: onTap,
-            borderRadius: PrimeCareRadii.boardLg,
-            child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
+            borderRadius: borderRadius,
+            child: Padding(padding: effectivePadding, child: child),
           ),
         ),
       );
@@ -72,7 +77,7 @@ class PrimeCareCard extends StatelessWidget {
 
     return Container(
       margin: margin,
-      padding: padding,
+      padding: effectivePadding,
       width: width,
       height: height,
       clipBehavior: clipBehavior,

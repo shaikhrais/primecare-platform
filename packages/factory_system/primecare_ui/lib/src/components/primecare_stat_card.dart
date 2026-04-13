@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/providers/portal_providers.dart';
 import '../theme/theme_tokens.dart';
 import '../theme/design_system.dart';
 
-class PrimeCareStatCard extends StatelessWidget {
+class PrimeCareStatCard extends ConsumerWidget {
   final String title;
   final String value;
   final double? delta;
@@ -21,14 +23,16 @@ class PrimeCareStatCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final layout = ref.watch(layoutProvider);
+    final scale = layout.scaleFactor;
     final isPositive = (delta ?? 0) >= 0;
 
     return Container(
-      padding: PrimeCareSpacing.edgeAllLg,
+      padding: EdgeInsets.all(PrimeCareSpacing.lg * scale),
       decoration: BoxDecoration(
         color: PrimeCareDesignSystem.surfaceElevated,
-        borderRadius: PrimeCareRadii.boardLg,
+        borderRadius: BorderRadius.circular(PrimeCareRadii.lg * scale),
         border: Border.all(color: PrimeCareDesignSystem.borderSubtle, width: 1),
         boxShadow: const [PrimeCareShadows.soft],
       ),
@@ -45,30 +49,46 @@ class PrimeCareStatCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: PrimeCareDesignSystem.textMuted,
                   fontWeight: FontWeight.w600,
+                  fontSize:
+                      (Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14) *
+                      scale,
                 ),
               ),
-              if (icon != null) Icon(icon, color: PrimeCareDesignSystem.textMuted, size: 20),
+              if (icon != null)
+                Icon(
+                  icon,
+                  color: PrimeCareDesignSystem.textMuted,
+                  size: 20 * scale,
+                ),
             ],
           ),
-          const SizedBox(height: PrimeCareSpacing.md),
+          SizedBox(height: PrimeCareSpacing.md * scale),
           Text(
             value,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              fontSize:
+                  (Theme.of(context).textTheme.headlineMedium?.fontSize ?? 24) *
+                  scale,
+            ),
           ),
           if (delta != null) ...[
-            const SizedBox(height: PrimeCareSpacing.sm),
+            SizedBox(height: PrimeCareSpacing.sm * scale),
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: PrimeCareSpacing.xs,
-                    vertical: 2,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: PrimeCareSpacing.xs * scale,
+                    vertical: 2 * scale,
                   ),
                   decoration: BoxDecoration(
-                    color: isPositive ? PrimeCareDesignSystem.successSurface : PrimeCareDesignSystem.dangerSurface,
-                    borderRadius: PrimeCareRadii.boardSm,
+                    color: isPositive
+                        ? PrimeCareDesignSystem.successSurface
+                        : PrimeCareDesignSystem.dangerSurface,
+                    borderRadius: BorderRadius.circular(
+                      PrimeCareRadii.sm * scale,
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -76,34 +96,37 @@ class PrimeCareStatCard extends StatelessWidget {
                         isPositive
                             ? Icons.arrow_upward_rounded
                             : Icons.arrow_downward_rounded,
-                        size: 12,
+                        size: 12 * scale,
                         color: isPositive
-                            ? const Color(0xFF10B981)
-                            : const Color(0xFFE11D48),
+                            ? PrimeCareDesignSystem.successText
+                            : PrimeCareDesignSystem.dangerText,
                       ),
-                      const SizedBox(width: 2),
+                      SizedBox(width: 2 * scale),
                       Text(
                         '${delta!.abs().toStringAsFixed(1)}%',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12 * scale,
                           fontWeight: FontWeight.bold,
                           color: isPositive
-                              ? const Color(0xFF10B981)
-                              : const Color(0xFFE11D48),
+                              ? PrimeCareDesignSystem.successText
+                              : PrimeCareDesignSystem.dangerText,
                         ),
                       ),
                     ],
                   ),
                 ),
                 if (deltaSuffix != null) ...[
-                  const SizedBox(width: PrimeCareSpacing.xs),
+                  SizedBox(width: PrimeCareSpacing.xs * scale),
                   Text(
                     deltaSuffix!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(fontSize: 12, color: PrimeCareDesignSystem.textMuted),
+                    style: TextStyle(
+                      fontSize: 12 * scale,
+                      color: PrimeCareDesignSystem.textMuted,
+                    ),
                   ),
                 ],
               ],

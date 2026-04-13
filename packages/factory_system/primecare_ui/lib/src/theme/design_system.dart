@@ -11,11 +11,20 @@ class PrimeCareDesignSystem {
     _isDarkMode = isDark;
   }
 
-  static Color get surfaceElevated => _isDarkMode ? PrimeCareColors.slate800 : Colors.white;
-  static Color get borderSubtle => _isDarkMode ? PrimeCareColors.slate700 : PrimeCareColors.slate200;
-  static Color get textMuted => _isDarkMode ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
-  
-  // Semantic Colors
-  static Color get successSurface => _isDarkMode ? const Color(0x2210B981) : const Color(0xFFD1FAE5);
-  static Color get dangerSurface => _isDarkMode ? const Color(0x22E11D48) : const Color(0xFFFFE4E6);
+  static Color get surfaceElevated =>
+      _isDarkMode ? PrimeCareColors.slate800 : Colors.white;
+  static Color get borderSubtle =>
+      _isDarkMode ? PrimeCareColors.slate700 : PrimeCareColors.slate200;
+  static Color get textMuted =>
+      _isDarkMode ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
+
+  // Semantic Colors (Institutional Muted Tones)
+  static Color get successSurface => _isDarkMode
+      ? PrimeCareColors.emerald.withValues(alpha: 0.15)
+      : const Color(0xFFF0FDF4);
+  static Color get dangerSurface => _isDarkMode
+      ? PrimeCareColors.rose.withValues(alpha: 0.15)
+      : const Color(0xFFFEF2F2);
+  static Color get successText => PrimeCareColors.emerald;
+  static Color get dangerText => PrimeCareColors.rose;
 }

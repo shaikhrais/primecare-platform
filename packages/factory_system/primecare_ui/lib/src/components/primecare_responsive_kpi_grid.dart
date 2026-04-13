@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/config/screen_breakpoints.dart';
+import 'package:primecare_core/providers/portal_providers.dart';
+import '../theme/theme_tokens.dart';
 
-class PrimeCareResponsiveKpiGrid extends StatelessWidget {
+class PrimeCareResponsiveKpiGrid extends ConsumerWidget {
   final List<Widget> children;
 
   const PrimeCareResponsiveKpiGrid({super.key, required this.children});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final layout = ref.watch(layoutProvider);
+    final scale = layout.scaleFactor;
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        int crossAxisCount = 1; // Default to mobile
-        if (constraints.maxWidth > 1024) {
-          crossAxisCount = 3; // Desktop
-        } else if (constraints.maxWidth > 600) {
-          crossAxisCount = 2; // Tablet
-        }
+        final crossAxisCount = switch (layout.tier) {
+          ResolutionTier.mega => 6,
+          ResolutionTier.fourK => 5,
+          ResolutionTier.threeK || ResolutionTier.twoK => 4,
+          ResolutionTier.oneK => 3,
+          ResolutionTier.tab => 2,
+          ResolutionTier.mob => 1,
+        };
 
-        // If there are exactly 2 children but 3 columns available, scale up their width or just utilize Wrap
-        // A Wrap with calculate child width is safer than GridView if elements have dynamic height.
-
-        double spacing = 16.0;
+        double spacing = PrimeCareSpacing.md * scale;
         int activeCols = children.length < crossAxisCount
             ? children.length
             : crossAxisCount;
