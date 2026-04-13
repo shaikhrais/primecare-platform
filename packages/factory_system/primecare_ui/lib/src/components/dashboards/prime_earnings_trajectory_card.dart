@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_core/primecare_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimeEarningsTrajectoryCard extends StatelessWidget {
@@ -59,7 +60,15 @@ class PrimeEarningsTrajectoryCard extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               PrimeCareBarChart(
-                data: trajectoryData,
+                chart: AnalyticsChart(
+                  id: 'trajectory',
+                  title: title,
+                  type: ChartType.bar,
+                  data: trajectoryData.entries
+                      .map((e) => ChartDataPoint(label: e.key, value: e.value))
+                      .toList(),
+                  unit: '\$',
+                ),
                 barColor: Theme.of(context).colorScheme.secondary,
               ),
             ],

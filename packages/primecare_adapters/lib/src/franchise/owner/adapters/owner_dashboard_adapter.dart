@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
 
-final ownerDashboardAdapterProvider = FutureProvider<OwnerDashboardViewModel>((ref) async {
+final ownerDashboardAdapterProvider = FutureProvider<OwnerDashboardViewModel>((
+  ref,
+) async {
   return DataLogisticsHub.fetchAndAssemble<OwnerDashboardViewModel>(
     fetchCall: () async {
       final apiClient = ref.read(apiClientProvider);
@@ -25,7 +26,9 @@ final ownerDashboardAdapterProvider = FutureProvider<OwnerDashboardViewModel>((r
         isOfflineFallback: true,
         blueprints: [
           DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
-          DataFallbackEngine.createFallbackActivityFeed('System Logs (Degraded)'),
+          DataFallbackEngine.createFallbackActivityFeed(
+            'System Logs (Degraded)',
+          ),
         ],
       );
     },

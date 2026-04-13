@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
 
-final cfoDashboardAdapterProvider = FutureProvider<CfoDashboardViewModel>((ref) async {
+final cfoDashboardAdapterProvider = FutureProvider<CfoDashboardViewModel>((
+  ref,
+) async {
   return DataLogisticsHub.fetchAndAssemble<CfoDashboardViewModel>(
     fetchCall: () async {
       final apiClient = ref.read(apiClientProvider);
@@ -25,7 +26,9 @@ final cfoDashboardAdapterProvider = FutureProvider<CfoDashboardViewModel>((ref) 
         isOfflineFallback: true,
         blueprints: [
           DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
-          DataFallbackEngine.createFallbackActivityFeed('System Logs (Degraded)'),
+          DataFallbackEngine.createFallbackActivityFeed(
+            'System Logs (Degraded)',
+          ),
         ],
       );
     },

@@ -5,7 +5,7 @@ library;
 // -------------------------------------------------------------
 // DATA LOGISTICS HUB & FALLBACK ENGINE
 // -------------------------------------------------------------
-export 'src/data_logistics_hub.dart';
+// Data Logistics Hub is now centrally located in primecare_core
 
 // -------------------------------------------------------------
 // HYDRATED UI DATA BOUND ADAPTERS

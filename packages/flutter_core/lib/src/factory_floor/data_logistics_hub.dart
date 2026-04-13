@@ -1,3 +1,5 @@
+/// Core Data Logistics Hub for the PrimeCare Platform.
+/// Provides a unified mechanism for API hydration with automatic fallback to offline blueprints.
 class DataLogisticsHub {
   /// Assembles the data payload from the API into strongly-typed UI components.
   /// If the API payload fails, times out, or throws an exception, this gracefully falls back
@@ -13,8 +15,7 @@ class DataLogisticsHub {
       if (onError != null) {
         onError(e, st);
       } else {
-        // Core telemetry logic could be injected here internally without UI components caring.
-        // print('[DataLogisticsHub] API Failure Caught: \$e. Emitting Fallback Blueprints.');
+        // print('[DataLogisticsHub] API Failure Caught: $e. Emitting Fallback Blueprints.');
       }
       return fallbackBuilder();
     }

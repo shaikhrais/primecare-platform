@@ -55,11 +55,65 @@ class DashboardActivity {
   }
 }
 
+enum ChartType { bar, line, pie }
+
+class ChartDataPoint {
+  final String label;
+  final double value;
+  final String? color;
+
+  ChartDataPoint({required this.label, required this.value, this.color});
+
+  factory ChartDataPoint.fromJson(Map<String, dynamic> json) {
+    return ChartDataPoint(
+      label: json['label'] as String,
+      value: (json['value'] as num).toDouble(),
+      color: json['color'] as String?,
+    );
+  }
+}
+
+class AnalyticsChart {
+  final String id;
+  final String title;
+  final ChartType type;
+  final List<ChartDataPoint> data;
+  final String? unit;
+
+  AnalyticsChart({
+    required this.id,
+    required this.title,
+    required this.type,
+    required this.data,
+    this.unit,
+  });
+
+  factory AnalyticsChart.fromJson(Map<String, dynamic> json) {
+    return AnalyticsChart(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      type: ChartType.values.firstWhere(
+        (e) => e.name == (json['type'] as String).toLowerCase(),
+        orElse: () => ChartType.bar,
+      ),
+      data: (json['data'] as List)
+          .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
+          .toList(),
+      unit: json['unit'] as String?,
+    );
+  }
+}
+
 class DashboardMetrics {
   final List<KpiMetric> kpis;
   final List<DashboardActivity> recentActivity;
+  final List<AnalyticsChart> charts;
 
-  DashboardMetrics({required this.kpis, required this.recentActivity});
+  DashboardMetrics({
+    required this.kpis,
+    required this.recentActivity,
+    this.charts = const [],
+  });
 
   factory DashboardMetrics.fromJson(Map<String, dynamic> json) {
     return DashboardMetrics(
@@ -69,6 +123,11 @@ class DashboardMetrics {
       recentActivity: (json['recentActivity'] as List)
           .map((i) => DashboardActivity.fromJson(i as Map<String, dynamic>))
           .toList(),
+      charts: json['charts'] != null
+          ? (json['charts'] as List)
+                .map((i) => AnalyticsChart.fromJson(i as Map<String, dynamic>))
+                .toList()
+          : [],
     );
   }
 }

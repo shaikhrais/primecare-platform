@@ -8,7 +8,9 @@ export 'dashboard_providers.dart';
 export 'dashboard_service.dart';
 export 'domain_service.dart';
 export 'dynamic_page_providers.dart';
+export 'preference_service.dart';
 export 'provider_service.dart';
+
 export 'providers/portal_providers.dart';
 export 'config/api_config.dart';
 export 'config/data_source_mode.dart';
@@ -84,6 +86,7 @@ export 'features/regional_bdm_dashboard/domain/models/regional_bdm_dashboard_vie
 export 'features/franchise_dashboard/domain/models/franchise_dashboard_view_model.dart';
 
 export 'src/factory_floor/ui_blueprint.dart';
+export 'src/factory_floor/data_logistics_hub.dart';
 export 'src/factory_floor/data_fallback_engine.dart';
 
 // Administrative Forms
