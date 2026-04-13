@@ -65,8 +65,12 @@ abstract class PrimeCareColorTokens {
   Color get shadow;
   Color get success;
   Color get danger;
+  Color get warning;
+  Color get info;
   Color get successSurface;
   Color get dangerSurface;
+  Color get warningSurface;
+  Color get infoSurface;
   Color get error;
 }
 
@@ -94,9 +98,17 @@ class _LightTokens implements PrimeCareColorTokens {
   @override
   Color get danger => PrimeCareColors.rose;
   @override
+  Color get warning => PrimeCareColors.amber;
+  @override
+  Color get info => PrimeCareColors.skyBlue;
+  @override
   Color get successSurface => const Color(0xFFF0FDF4);
   @override
   Color get dangerSurface => const Color(0xFFFEF2F2);
+  @override
+  Color get warningSurface => const Color(0xFFFFFBEB);
+  @override
+  Color get infoSurface => const Color(0xFFF0F9FF);
   @override
   Color get error => danger;
 }
@@ -125,9 +137,17 @@ class _DarkTokens implements PrimeCareColorTokens {
   @override
   Color get danger => PrimeCareColors.rose;
   @override
+  Color get warning => PrimeCareColors.amber;
+  @override
+  Color get info => PrimeCareColors.skyBlue;
+  @override
   Color get successSurface => PrimeCareColors.emerald.withValues(alpha: 0.15);
   @override
   Color get dangerSurface => PrimeCareColors.rose.withValues(alpha: 0.15);
+  @override
+  Color get warningSurface => PrimeCareColors.amber.withValues(alpha: 0.15);
+  @override
+  Color get infoSurface => PrimeCareColors.skyBlue.withValues(alpha: 0.15);
   @override
   Color get error => danger;
 }

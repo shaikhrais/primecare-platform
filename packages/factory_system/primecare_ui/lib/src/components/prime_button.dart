@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'primecare_button.dart';
 
 class PrimeButton extends StatelessWidget {
   final String label;
@@ -16,40 +17,14 @@ class PrimeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isDanger
-        ? Colors.red
-        : Theme.of(context).colorScheme.secondary;
-    if (isOutline) {
-      return OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          side: BorderSide(color: color, width: 2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Text(
-          label,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          style: TextStyle(color: color, fontWeight: FontWeight.bold),
-        ),
-      );
-    }
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-      ),
+    return PrimeCareButton(
+      label: label,
       onPressed: onPressed,
-      child: Text(
-        label,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-      ),
+      type: isDanger
+          ? PrimeCareButtonType.danger
+          : (isOutline
+                ? PrimeCareButtonType.secondary
+                : PrimeCareButtonType.primary),
     );
   }
 }

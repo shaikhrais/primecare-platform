@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_core/providers/portal_providers.dart';
+import '../theme/design_system.dart';
 import '../theme/theme_tokens.dart';
 
-enum PrimeCareButtonType { primary, secondary, text }
+enum PrimeCareButtonType { primary, secondary, text, danger }
 
 class PrimeCareButton extends ConsumerStatefulWidget {
   final Widget? child;
@@ -61,36 +63,55 @@ class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
   Widget build(BuildContext context) {
     final layout = ref.watch(layoutProvider);
     final scale = layout.scaleFactor;
-    final theme = Theme.of(context);
+    final ds = PrimeCareDesignSystem.of(context);
 
     bool resolveIsPrimary =
         widget.isPrimary ?? (widget.type == PrimeCareButtonType.primary);
 
-    final primaryColor = theme.primaryColor;
-    final onPrimaryColor = Colors.white;
+    Color buttonColor;
+    Color textColor;
+
+    switch (widget.type) {
+      case PrimeCareButtonType.primary:
+        buttonColor = ds.colors.primary;
+        textColor = Colors.white;
+        break;
+      case PrimeCareButtonType.secondary:
+        buttonColor = Colors.transparent;
+        textColor = ds.colors.primary;
+        break;
+      case PrimeCareButtonType.danger:
+        buttonColor = ds.colors.danger;
+        textColor = Colors.white;
+        break;
+      case PrimeCareButtonType.text:
+        buttonColor = Colors.transparent;
+        textColor = ds.colors.primary;
+        break;
+    }
 
     Widget displayChild =
         widget.child ??
         Text(
-          widget.label ?? widget.text ?? '',
+          (widget.label ?? widget.text ?? '').toUpperCase(),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
-          style: TextStyle(
-            fontSize: 15 * scale,
-            fontWeight: FontWeight.w600, // Semi-bold for institutional look
-            color: resolveIsPrimary ? onPrimaryColor : primaryColor,
-            letterSpacing: 0.2,
+          style: GoogleFonts.outfit(
+            fontSize: PrimeCareSpacing.scaled(14, scale).toDouble(),
+            fontWeight: FontWeight.bold,
+            color: resolveIsPrimary ? textColor : buttonColor,
+            letterSpacing: 0.5 * scale,
           ),
         );
 
     if (widget.isLoading) {
       displayChild = SizedBox(
-        width: 18 * scale,
-        height: 18 * scale,
+        width: 18.0 * scale,
+        height: 18.0 * scale,
         child: CircularProgressIndicator(
-          strokeWidth: 2 * scale,
+          strokeWidth: 2.0 * scale,
           valueColor: AlwaysStoppedAnimation<Color>(
-            resolveIsPrimary ? onPrimaryColor : primaryColor,
+            resolveIsPrimary ? textColor : buttonColor,
           ),
         ),
       );
@@ -101,10 +122,10 @@ class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
         children: [
           Icon(
             widget.icon,
-            size: 18 * scale,
-            color: resolveIsPrimary ? onPrimaryColor : primaryColor,
+            size: 18.0 * scale,
+            color: resolveIsPrimary ? textColor : buttonColor,
           ),
-          SizedBox(width: 8 * scale),
+          SizedBox(width: 8.0 * scale),
           displayChild,
         ],
       );
@@ -116,8 +137,8 @@ class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
       return TextButton(
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
-            horizontal: 16 * scale,
-            vertical: 8 * scale,
+            horizontal: PrimeCareSpacing.scaled(16, scale).toDouble(),
+            vertical: PrimeCareSpacing.scaled(8, scale).toDouble(),
           ),
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
         ),
@@ -129,16 +150,25 @@ class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
     final decoration = BoxDecoration(
       borderRadius: borderRadius,
       color: resolveIsPrimary
-          ? (widget.onPressed == null ? theme.disabledColor : primaryColor)
+          ? (widget.onPressed == null ? ds.colors.textTertiary : buttonColor)
           : Colors.transparent,
       border: resolveIsPrimary
           ? null
           : Border.all(
               color: widget.onPressed == null
-                  ? theme.disabledColor.withValues(alpha: 0.3)
-                  : primaryColor.withValues(alpha: 0.5),
-              width: 1.0,
+                  ? ds.colors.borderSubtle
+                  : buttonColor.withValues(alpha: 0.5),
+              width: 1.5 * scale,
             ),
+      boxShadow: resolveIsPrimary && widget.onPressed != null
+          ? [
+              BoxShadow(
+                color: buttonColor.withValues(alpha: 0.2),
+                blurRadius: 8.0 * scale,
+                offset: Offset(0, 4.0 * scale),
+              ),
+            ]
+          : null,
     );
 
     return MouseRegion(
@@ -161,13 +191,13 @@ class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
             width: widget.isFullWidth ? double.infinity : null,
             decoration: decoration,
             padding: EdgeInsets.symmetric(
-              horizontal: 24 * scale,
-              vertical: 12 * scale,
+              horizontal: PrimeCareSpacing.scaled(24, scale).toDouble(),
+              vertical: PrimeCareSpacing.scaled(14, scale).toDouble(),
             ),
             child: Center(
               widthFactor: widget.isFullWidth ? null : 1.0,
               child: Opacity(
-                opacity: _isHovering ? 0.9 : 1.0,
+                opacity: _isHovering && widget.onPressed != null ? 0.9 : 1.0,
                 child: displayChild,
               ),
             ),
