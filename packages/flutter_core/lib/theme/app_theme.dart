@@ -3,12 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Classic Institutional Palette
-  static const Color primary = Color(0xFF1B263B); // Navy
-  static const Color secondary = Color(0xFF415A77); // Blue-Grey
+  static const Color primary = Color(0xFF0D1B2A); // Deep Navy
+  static const Color secondary = Color(0xFF1B263B); // Navy-Slate
   
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color background = Color(0xFFF0F2F5); // Classic light grey
-  static const Color border = Color(0xFFD8DEE9);
+  static const Color background = Color(0xFFF8F9FA); // Clean Institutional Grey
+  static const Color border = Color(0xFFE2E8F0);
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -55,7 +55,7 @@ class AppTheme {
         color: surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(4),
           side: const BorderSide(color: border),
         ),
       ),
@@ -72,15 +72,15 @@ class AppTheme {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(4),
           borderSide: const BorderSide(color: border),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(4),
           borderSide: const BorderSide(color: border),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(4),
           borderSide: const BorderSide(color: primary, width: 2),
         ),
       ),

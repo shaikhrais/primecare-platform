@@ -41,9 +41,15 @@ class BaseLayoutShell extends ConsumerWidget {
       }
     }
 
+    final layout = ref.watch(layoutProvider);
+    final scale = layout.scaleFactor;
+
     return AdaptiveScalingWrapper(
       child: Scaffold(
-        appBar: GlobalTopBar(actions: topBarActions),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(56.0 * scale + 1.0),
+          child: GlobalTopBar(actions: topBarActions),
+        ),
         body: UniversalRoleSidebar(
           currentPath: effectivePath,
           items: items,

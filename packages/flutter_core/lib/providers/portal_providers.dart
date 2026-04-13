@@ -72,6 +72,7 @@ class ScreenMetricsNotifier extends Notifier<MediaQueryData?> {
   @override
   MediaQueryData? build() => null;
 
+  @override
   set state(MediaQueryData? value) => super.state = value;
 }
 

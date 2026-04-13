@@ -120,6 +120,12 @@ void main() {
       final rail = tester.widget<NavigationRail>(railFinder);
       expect(rail.minExtendedWidth, 480.0);
 
+      // Verify scaled AppBar height (56.0 * 3.0 + 1.0 = 169.0)
+      final appBarFinder = find.byType(AppBar);
+      expect(appBarFinder, findsOneWidget);
+      final appBar = tester.widget<AppBar>(appBarFinder);
+      expect(appBar.toolbarHeight, 56.0 * 3.0);
+
       addTearDown(tester.view.resetPhysicalSize);
     });
 

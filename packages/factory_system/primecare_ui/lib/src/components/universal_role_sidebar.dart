@@ -40,8 +40,10 @@ class UniversalRoleSidebar extends ConsumerWidget {
                 },
                 items: items.map((item) {
                   return BottomNavigationBarItem(
-                    icon: Icon(item.icon),
-                    activeIcon: item.activeIcon != null ? Icon(item.activeIcon) : null,
+                    icon: Icon(item.icon, size: 24 * layout.scaleFactor),
+                    activeIcon: item.activeIcon != null 
+                        ? Icon(item.activeIcon, size: 24 * layout.scaleFactor) 
+                        : null,
                     label: item.label,
                   );
                 }).toList(),
@@ -75,20 +77,20 @@ class UniversalRoleSidebar extends ConsumerWidget {
               },
               destinations: items.map((item) {
                 return NavigationRailDestination(
-                  icon: Icon(item.icon),
+                  icon: Icon(item.icon, size: 24 * layout.scaleFactor),
                   selectedIcon: item.activeIcon != null
-                      ? Icon(item.activeIcon)
-                      : Icon(item.icon, color: theme.colorScheme.primary),
+                      ? Icon(item.activeIcon, size: 24 * layout.scaleFactor)
+                      : Icon(item.icon, size: 24 * layout.scaleFactor, color: theme.colorScheme.primary),
                   label: Text(
                     item.label,
-                    style: const TextStyle(fontSize: 13),
+                    style: TextStyle(fontSize: 13 * layout.scaleFactor),
                   ),
                 );
               }).toList(),
             ),
             VerticalDivider(
-              thickness: 1, 
-              width: 1, 
+              thickness: 1 * layout.scaleFactor, 
+              width: 1 * layout.scaleFactor, 
               color: theme.colorScheme.outline,
             ),
           ],

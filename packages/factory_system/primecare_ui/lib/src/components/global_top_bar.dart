@@ -15,13 +15,16 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final layout = ref.watch(layoutProvider);
     final config = ref.watch(portalConfigProvider);
-    final authState = ref.watch(authProvider);
     final theme = Theme.of(context);
+    
+    final scale = layout.scaleFactor;
 
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
+      toolbarHeight: 56.0 * scale,
       backgroundColor: theme.colorScheme.surface,
       surfaceTintColor: Colors.transparent,
       bottom: PreferredSize(
@@ -39,15 +42,15 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
           ? [
               ...?actions,
               IconButton(
-                icon: const Icon(Icons.notifications_none),
+                icon: Icon(Icons.notifications_none, size: 24 * scale),
                 onPressed: () {},
               ),
               PopupMenuButton<String>(
-                icon: const Icon(Icons.account_circle, size: 28),
+                icon: Icon(Icons.account_circle, size: 28 * scale),
                 tooltip: 'Account Options',
-                offset: const Offset(0, 48),
+                offset: Offset(0, 48 * scale),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(4),
                   side: BorderSide(color: theme.colorScheme.outline),
                 ),
                 onSelected: (value) {
@@ -122,5 +125,5 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 1);
+  Size get preferredSize => Size.fromHeight(56.0 + 1.0); // Logic will handle internal scaling
 }
