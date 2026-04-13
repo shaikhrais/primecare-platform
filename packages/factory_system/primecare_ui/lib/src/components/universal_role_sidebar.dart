@@ -39,10 +39,11 @@ class UniversalRoleSidebar extends ConsumerWidget {
                   if (index < items.length) context.go(items[index].route);
                 },
                 items: items.map((item) {
+                  final iconSize = 24.0 * layout.scaleFactor;
                   return BottomNavigationBarItem(
-                    icon: Icon(item.icon, size: 24 * layout.scaleFactor),
-                    activeIcon: item.activeIcon != null 
-                        ? Icon(item.activeIcon, size: 24 * layout.scaleFactor) 
+                    icon: Icon(item.icon, size: iconSize),
+                    activeIcon: item.activeIcon != null
+                        ? Icon(item.activeIcon, size: iconSize)
                         : null,
                     label: item.label,
                   );
@@ -62,7 +63,7 @@ class UniversalRoleSidebar extends ConsumerWidget {
     LayoutConfig layout,
   ) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       body: Row(
         children: [
@@ -76,21 +77,41 @@ class UniversalRoleSidebar extends ConsumerWidget {
                 if (index < items.length) context.go(items[index].route);
               },
               destinations: items.map((item) {
+                final iconSize = 24.0 * layout.scaleFactor;
                 return NavigationRailDestination(
-                  icon: Icon(item.icon, size: 24 * layout.scaleFactor),
+                  icon: Icon(
+                    item.icon,
+                    size: iconSize,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
                   selectedIcon: item.activeIcon != null
-                      ? Icon(item.activeIcon, size: 24 * layout.scaleFactor)
-                      : Icon(item.icon, size: 24 * layout.scaleFactor, color: theme.colorScheme.primary),
-                  label: Text(
-                    item.label,
-                    style: TextStyle(fontSize: 13 * layout.scaleFactor),
+                      ? Icon(
+                          item.activeIcon,
+                          size: iconSize,
+                          color: theme.colorScheme.primary,
+                        )
+                      : Icon(
+                          item.icon,
+                          size: iconSize,
+                          color: theme.colorScheme.primary,
+                        ),
+                  label: Padding(
+                    padding: EdgeInsets.only(top: 4 * layout.scaleFactor),
+                    child: Text(
+                      item.label,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        fontSize: 12.0 * layout.scaleFactor,
+                        fontWeight: FontWeight.w500,
+                        color: theme.colorScheme.onSurface,
+                      ),
+                    ),
                   ),
                 );
               }).toList(),
             ),
             VerticalDivider(
-              thickness: 1 * layout.scaleFactor, 
-              width: 1 * layout.scaleFactor, 
+              thickness: 1 * layout.scaleFactor,
+              width: 1 * layout.scaleFactor,
               color: theme.colorScheme.outline,
             ),
           ],

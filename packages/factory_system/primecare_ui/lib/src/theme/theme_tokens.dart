@@ -19,6 +19,10 @@ class PrimeCareSpacing {
     vertical: md,
   );
 
+  /// Returns a scaled EdgeInsets for screen-edge margins based on layout factor.
+  static EdgeInsets scaledEdgeScreen(double factor) =>
+      EdgeInsets.symmetric(horizontal: lg * factor, vertical: md * factor);
+
   /// Returns a scaled value based on the current layout factor.
   static double scaled(double value, double factor) => value * factor;
 }

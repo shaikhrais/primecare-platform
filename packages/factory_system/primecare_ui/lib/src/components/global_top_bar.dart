@@ -2,40 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'primecare_button.dart';
+import '../theme/theme_tokens.dart';
+import '../theme/design_system.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final bool showActions;
 
-  const GlobalTopBar({
-    super.key,
-    this.actions,
-    this.showActions = true,
-  });
+  const GlobalTopBar({super.key, this.actions, this.showActions = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final layout = ref.watch(layoutProvider);
     final config = ref.watch(portalConfigProvider);
     final theme = Theme.of(context);
-    
+
     final scale = layout.scaleFactor;
 
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
       toolbarHeight: 56.0 * scale,
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: PrimeCareDesignSystem.surfaceElevated,
       surfaceTintColor: Colors.transparent,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(1.0),
-        child: Divider(height: 1, color: theme.colorScheme.outline),
+        preferredSize: Size.fromHeight(1.0 * scale),
+        child: Divider(
+          height: 1 * scale,
+          thickness: 1 * scale,
+          color: PrimeCareDesignSystem.borderSubtle,
+        ),
       ),
       title: Text(
         config.title,
         style: theme.textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w600,
           color: theme.colorScheme.onSurface,
+          fontSize: (theme.textTheme.titleMedium?.fontSize ?? 16.0) * scale,
         ),
       ),
       actions: showActions
@@ -50,14 +54,14 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                 tooltip: 'Account Options',
                 offset: Offset(0, 48 * scale),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  side: BorderSide(color: theme.colorScheme.outline),
+                  borderRadius: PrimeCareRadii.scaled(scale),
+                  side: BorderSide(color: PrimeCareDesignSystem.borderSubtle),
                 ),
                 onSelected: (value) {
                   if (value == 'profile') {
                     context.push('/profile');
                   } else if (value == 'logout') {
-                    _handleLogout(context, ref);
+                    _handleLogout(context, ref, scale);
                   }
                 },
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -74,7 +78,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                   PopupMenuItem<String>(
                     value: 'logout',
                     child: ListTile(
-                      leading: Icon(Icons.logout, color: theme.colorScheme.error),
+                      leading: Icon(
+                        Icons.logout,
+                        color: theme.colorScheme.error,
+                      ),
                       title: Text(
                         'Sign Out',
                         style: TextStyle(
@@ -93,31 +100,38 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     );
   }
 
-  void _handleLogout(BuildContext context, WidgetRef ref) {
+  void _handleLogout(BuildContext context, WidgetRef ref, double scale) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        title: const Text('Confirm Sign Out'),
-        content: const Text(
+        backgroundColor: PrimeCareDesignSystem.surfaceElevated,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: PrimeCareRadii.scaled(scale),
+        ),
+        title: Text(
+          'Confirm Sign Out',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18 * scale),
+        ),
+        content: Text(
           'Are you sure you want to terminate your current session?',
+          style: TextStyle(fontSize: 14 * scale),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text('Cancel', style: TextStyle(fontSize: 14 * scale)),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
-              elevation: 0,
+          SizedBox(
+            width: 120 * scale,
+            child: PrimeCareButton(
+              label: 'Sign Out',
+              type: PrimeCareButtonType.secondary,
+              onPressed: () {
+                Navigator.pop(ctx);
+                ref.read(authProvider.notifier).logout();
+              },
             ),
-            onPressed: () {
-              Navigator.pop(ctx);
-              ref.read(authProvider.notifier).logout();
-            },
-            child: const Text('Sign Out'),
           ),
         ],
       ),
@@ -125,5 +139,5 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(56.0 + 1.0); // Logic will handle internal scaling
+  Size get preferredSize => const Size.fromHeight(200.0); // Large enough bounds, AppBar toolbarHeight controls actual draw
 }
