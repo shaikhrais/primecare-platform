@@ -1,9 +1,2 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-echo "[🛡️ Shift-Left] Running Pre-Commit Security Checks..."
-
-# Run code formatters and static analyzers (dart analyze, eslint)
 npx lint-staged
-
 echo "[✅ Shift-Left] Local Checks Passed. Code is clean."
