@@ -42,6 +42,8 @@ class ResponsiveLayoutManager extends StatelessWidget {
         final tier = ScreenBreakpoints.getTier(constraints.maxWidth);
 
         switch (tier) {
+          case ResolutionTier.mega:
+            return fourK ?? threeK ?? twoK ?? oneK ?? tab ?? mob;
           case ResolutionTier.fourK:
             return fourK ?? threeK ?? twoK ?? oneK ?? tab ?? mob;
           case ResolutionTier.threeK:

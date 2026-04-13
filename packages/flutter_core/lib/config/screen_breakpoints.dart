@@ -18,6 +18,9 @@ enum ResolutionTier {
 
   /// 4K resolution (>= 3840px)
   fourK,
+
+  /// Wall-sized / Digital Signage / Institutional display (75"-100"+)
+  mega,
 }
 
 class ScreenBreakpoints {
@@ -27,7 +30,12 @@ class ScreenBreakpoints {
   static const double twoKMax = 2560;
   static const double threeKMax = 3840;
 
-  static ResolutionTier getTier(double width) {
+  static ResolutionTier getTier(double width, {double? pixelRatio}) {
+    // Explicit Mega check via Window properties or extreme width
+    if (width >= 5120 || (width >= 3840 && (pixelRatio ?? 1.0) >= 3.0)) {
+      return ResolutionTier.mega;
+    }
+    
     if (width < mobileMax) return ResolutionTier.mob;
     if (width < tabletMax) return ResolutionTier.tab;
     if (width < oneKMax) return ResolutionTier.oneK;

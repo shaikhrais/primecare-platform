@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'base_layout_shell.dart';
 
-class ProviderLayout extends ConsumerWidget {
+class ProviderLayout extends StatelessWidget {
   final Widget child;
+  final String? currentPath;
 
-  const ProviderLayout({super.key, required this.child});
+  const ProviderLayout({
+    super.key, 
+    required this.child,
+    this.currentPath,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final String currentPath = GoRouterState.of(context).uri.toString();
-
+  Widget build(BuildContext context) {
     return BaseLayoutShell(
-      userRole: 'PSW',
       currentPath: currentPath,
       child: child,
     );

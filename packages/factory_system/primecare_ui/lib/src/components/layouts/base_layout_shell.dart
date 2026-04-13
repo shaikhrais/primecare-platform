@@ -1,40 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../global_top_bar.dart';
 import '../universal_role_sidebar.dart';
 import '../adaptive_scaling_wrapper.dart';
 import 'package:primecare_core/flutter_core.dart';
 
-class BaseLayoutShell extends StatelessWidget {
+class BaseLayoutShell extends ConsumerWidget {
   final Widget child;
-  final String currentPath;
-  final String userRole;
+  final String? currentPath;
   final List<Widget>? topBarActions;
 
   const BaseLayoutShell({
     super.key,
     required this.child,
-    required this.currentPath,
-    required this.userRole,
+    this.currentPath,
     this.topBarActions,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final List<PrimeCareNavigationItem> items =
-        NavigationRegistry.getMenuForRole(userRole);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(navigationMenuProvider);
+    final mediaQuery = MediaQuery.of(context);
+    
+    // Synchronize global layout state with local MediaQuery data
+    // Use addPostFrameCallback to avoid state modification during build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ref.read(screenMetricsProvider) != mediaQuery) {
+        ref.read(screenMetricsProvider.notifier).state = mediaQuery;
+      }
+    });
+
+    // Fallback path logic
+    String effectivePath = currentPath ?? '/';
+    if (currentPath == null) {
+      try {
+        effectivePath = GoRouterState.of(context).uri.toString();
+      } catch (_) {
+        // Not in a GoRouter context (e.g. tests or early boot)
+      }
+    }
 
     return AdaptiveScalingWrapper(
-      child: Column(
-        children: [
-          GlobalTopBar(userRole: userRole, actions: topBarActions),
-          Expanded(
-            child: UniversalRoleSidebar(
-              currentPath: currentPath,
-              items: items,
-              child: child,
-            ),
-          ),
-        ],
+      child: Scaffold(
+        appBar: GlobalTopBar(actions: topBarActions),
+        body: UniversalRoleSidebar(
+          currentPath: effectivePath,
+          items: items,
+          child: child,
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
@@ -11,14 +12,16 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: BaseLayoutShell(
-            userRole: 'CEO',
-            currentPath: '/',
-            child: const Text('Content'),
+        const ProviderScope(
+          child: MaterialApp(
+            home: BaseLayoutShell(
+              currentPath: '/',
+              child: Text('Content'),
+            ),
           ),
         ),
       );
+      await tester.pump();
 
       expect(find.byType(BottomNavigationBar), findsOneWidget);
       expect(find.byType(NavigationRail), findsNothing);
@@ -33,14 +36,16 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: BaseLayoutShell(
-            userRole: 'CEO',
-            currentPath: '/',
-            child: const Text('Content'),
+        const ProviderScope(
+          child: MaterialApp(
+            home: BaseLayoutShell(
+              currentPath: '/',
+              child: Text('Content'),
+            ),
           ),
         ),
       );
+      await tester.pump();
 
       final railFinder = find.byType(NavigationRail);
       expect(railFinder, findsOneWidget);
@@ -58,14 +63,17 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: BaseLayoutShell(
-            userRole: 'CEO',
-            currentPath: '/',
-            child: const Text('High Res Content'),
+        const ProviderScope(
+          child: MaterialApp(
+            home: BaseLayoutShell(
+              currentPath: '/',
+              child: Text('High Res Content'),
+            ),
           ),
         ),
       );
+
+      await tester.pump(); // Synchronize layout state
 
       // Verify extended sidebar
       final railFinder = find.byType(NavigationRail);
@@ -79,6 +87,59 @@ void main() {
       expect(mediaQuery.textScaler.scale(10), 15.0); // 1.5x scaling for 4k
 
       addTearDown(tester.view.resetPhysicalSize);
+    });
+
+    testWidgets('Mega Tier (5120) - Verifies Extreme Scaling & Mega Sidebar', (
+      WidgetTester tester,
+    ) async {
+      // Threshold: width >= 5120 OR (width >= 3840 AND DPR >= 3.0)
+      tester.view.physicalSize = const Size(5120, 2160);
+      tester.view.devicePixelRatio = 1.0; // Logical width 5120
+
+      await tester.pumpWidget(
+        const ProviderScope(
+          child: MaterialApp(
+            home: BaseLayoutShell(
+              currentPath: '/',
+              child: Text('Mega Content'),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(); // Synchronize layout state
+
+      await tester.pumpAndSettle();
+      
+      final textWidget = tester.element(find.text('Mega Content'));
+      final mediaQuery = MediaQuery.of(textWidget);
+      expect(mediaQuery.textScaler.scale(10), 30.0);
+
+      final railFinder = find.byType(NavigationRail);
+      expect(railFinder, findsOneWidget);
+      final rail = tester.widget<NavigationRail>(railFinder);
+      expect(rail.minExtendedWidth, 480.0);
+
+      addTearDown(tester.view.resetPhysicalSize);
+    });
+
+    group('Navigation Actions Visibility', () {
+      testWidgets('Top bar actions are rendered in shell', (WidgetTester tester) async {
+        await tester.pumpWidget(
+          ProviderScope(
+            child: MaterialApp(
+              home: BaseLayoutShell(
+                currentPath: '/',
+                topBarActions: [
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.add), key: const Key('action_add')),
+                ],
+                child: const Text('Content'),
+              ),
+            ),
+          ),
+        );
+        expect(find.byKey(const Key('action_add')), findsOneWidget);
+      });
     });
   });
 }

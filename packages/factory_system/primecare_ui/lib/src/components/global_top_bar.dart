@@ -1,44 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/auth_service.dart';
+import 'package:primecare_core/flutter_core.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
-  final String? title;
-  final VoidCallback? onLogout;
-  final String userRole;
-  final Widget? languageToggleWidget;
   final List<Widget>? actions;
   final bool showActions;
 
   const GlobalTopBar({
     super.key,
-    this.title,
-    this.onLogout,
-    required this.userRole,
-    this.languageToggleWidget,
     this.actions,
     this.showActions = true,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final config = ref.watch(portalConfigProvider);
+    final authState = ref.watch(authProvider);
+    final theme = Theme.of(context);
+
     return AppBar(
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      backgroundColor: theme.colorScheme.surface,
+      surfaceTintColor: Colors.transparent,
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(1.0),
+        child: Divider(height: 1, color: theme.colorScheme.outline),
+      ),
       title: Text(
-        title ?? '${userRole.toUpperCase()} Portal',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-        style: const TextStyle(fontWeight: FontWeight.bold),
+        config.title,
+        style: theme.textTheme.titleMedium?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: theme.colorScheme.onSurface,
+        ),
       ),
       actions: showActions
           ? [
               ...?actions,
-              ?languageToggleWidget,
-              IconButton(
-                icon: const Icon(Icons.assignment_ind_outlined),
-                tooltip: 'Role SOP & Objectives Checklist',
-                onPressed: () => context.push('/$userRole/sow'),
-              ),
               IconButton(
                 icon: const Icon(Icons.notifications_none),
                 onPressed: () {},
@@ -46,9 +45,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               PopupMenuButton<String>(
                 icon: const Icon(Icons.account_circle, size: 28),
                 tooltip: 'Account Options',
-                offset: const Offset(0, 40),
+                offset: const Offset(0, 48),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: theme.colorScheme.outline),
                 ),
                 onSelected: (value) {
                   if (value == 'profile') {
@@ -60,31 +60,27 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                   PopupMenuItem<String>(
                     value: 'profile',
-                    child: Row(
-                      children: [
-                        Icon(Icons.person_outline, color: Colors.grey.shade700),
-                        const SizedBox(width: 12),
-                        const Text('User Profile'),
-                      ],
+                    child: ListTile(
+                      leading: const Icon(Icons.person_outline),
+                      title: const Text('User Profile'),
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
                     ),
                   ),
                   const PopupMenuDivider(),
                   PopupMenuItem<String>(
                     value: 'logout',
-                    child: Row(
-                      children: [
-                        Icon(Icons.logout, color: Colors.red),
-                        const SizedBox(width: 12),
-                        const Text(
-                          'Sign Out',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    child: ListTile(
+                      leading: Icon(Icons.logout, color: theme.colorScheme.error),
+                      title: Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          color: theme.colorScheme.error,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
                     ),
                   ),
                 ],
@@ -98,16 +94,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Row(
-          children: [
-            Icon(Icons.warning_amber_rounded, color: Colors.red),
-            SizedBox(width: 12),
-            Text('Confirm Sign Out'),
-          ],
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        title: const Text('Confirm Sign Out'),
         content: const Text(
-          'Are you sure you want to terminate your current session? You will need to re-authenticate.',
+          'Are you sure you want to terminate your current session?',
         ),
         actions: [
           TextButton(
@@ -116,16 +106,13 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red.shade700,
-              foregroundColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+              elevation: 0,
             ),
             onPressed: () {
               Navigator.pop(ctx);
-              if (onLogout != null) {
-                onLogout!();
-              } else {
-                ref.read(authProvider.notifier).logout();
-              }
+              ref.read(authProvider.notifier).logout();
             },
             child: const Text('Sign Out'),
           ),
@@ -135,5 +122,5 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 1);
 }

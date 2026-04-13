@@ -52,11 +52,11 @@ class MasterLayout extends ConsumerWidget {
 
     switch (shellType) {
       case AppShellType.admin:
-        return AdminLayout(child: animatedChild);
+        return AdminLayout(currentPath: currentUri, child: animatedChild);
       case AppShellType.provider:
-        return ProviderLayout(child: animatedChild);
+        return ProviderLayout(currentPath: currentUri, child: animatedChild);
       case AppShellType.client:
-        return ClientLayout(child: animatedChild);
+        return ClientLayout(currentPath: currentUri, child: animatedChild);
       case AppShellType.none:
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,

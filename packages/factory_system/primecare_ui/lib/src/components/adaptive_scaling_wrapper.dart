@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
 
 /// A wrapper that dynamically adjusts scaling
-/// to implement "Scaling Up" strategy for 3k/4k resolutions.
-class AdaptiveScalingWrapper extends StatelessWidget {
+/// to implement "Scaling Up" strategy for high-res and mega displays.
+class AdaptiveScalingWrapper extends ConsumerWidget {
   final Widget child;
 
   const AdaptiveScalingWrapper({super.key, required this.child});
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final width = constraints.maxWidth;
-        final tier = ScreenBreakpoints.getTier(width);
-        final scaleFactor = AdaptiveScalingConfig.getScaleFactor(tier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Consume the centrally calculated layout configuration.
+    final layout = ref.watch(layoutProvider);
 
-        return MediaQuery(
-          data: MediaQuery.of(
-            context,
-          ).copyWith(textScaler: TextScaler.linear(scaleFactor)),
-          child: child,
-        );
-      },
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(
+        textScaler: TextScaler.linear(layout.scaleFactor),
+      ),
+      child: child,
     );
   }
 }

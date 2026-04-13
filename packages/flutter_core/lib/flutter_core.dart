@@ -9,6 +9,7 @@ export 'dashboard_service.dart';
 export 'domain_service.dart';
 export 'dynamic_page_providers.dart';
 export 'provider_service.dart';
+export 'providers/portal_providers.dart';
 export 'config/api_config.dart';
 export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';
