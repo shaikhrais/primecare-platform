@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_core/primecare_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Inject the UI implementation into the Core Registry to prevent circular package cycles
+  ScreenRegistry.setDynamicDashboardBuilder((context, role) => DynamicRoleDashboardScreen(role: role));
+
   await EasyLocalization.ensureInitialized();
   
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
-      path: 'packages/flutter_core/assets/translations',
-      fallbackLocale: const Locale('en'),
-      child: const ProviderScope(child: PrimeCareCorporateApp()),
+  final sharedPreferences = await SharedPreferences.getInstance();
+  
+  AppErrorBoundary.runGuarded(
+    () => runApp(
+      EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
+        // Use the resolved package path that matches the web server directory structure
+        path: 'assets/translations', 
+        fallbackLocale: const Locale('en'),
+        useOnlyLangCode: true,
+        child: ProviderScope(
+          overrides: [
+            sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+          ],
+          child: const PrimeCareCorporateApp(),
+        ),
+      ),
     ),
   );
 }
@@ -22,6 +41,7 @@ class PrimeCareCorporateApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: 'PrimeCare Corporate',

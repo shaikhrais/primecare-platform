@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
-class PrimeCareBarChart extends StatelessWidget {
+class PrimeCareBarChart extends ConsumerWidget {
   final AnalyticsChart chart;
   final Color barColor;
 
@@ -13,7 +14,14 @@ class PrimeCareBarChart extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.auraEngine,
+      'Rendering BarChart: ${chart.title} (${chart.dataPoints.length} bars)',
+    );
+    final auraActive = ref.watch(auraActiveVisualizationProvider);
+    final auraAnomaly = ref.watch(auraActiveAnomalyProvider);
+
     return Container(
       height: 200,
       padding: const EdgeInsets.only(top: 16, right: 16),
@@ -82,14 +90,27 @@ class PrimeCareBarChart extends StatelessWidget {
           borderData: FlBorderData(show: false),
           barGroups: List.generate(chart.dataPoints.length, (i) {
             final spot = chart.dataPoints[i];
+            
+            // Aura Predictive Styling
+            Color actualColor = spot.color != null
+                ? Color(int.parse(spot.color!.replaceAll('#', '0xFF')))
+                : barColor;
+                
+            double height = spot.value;
+            bool isOutlier = height > (_getMaxValue() * 0.8);
+            
+            if (auraActive && isOutlier && auraAnomaly != null) {
+               if (auraAnomaly.impact == InsightImpact.alert) actualColor = Colors.redAccent;
+               if (auraAnomaly.impact == InsightImpact.caution) actualColor = Colors.orangeAccent;
+               height += (height * 0.15); // Exaggerate the outlier for predictive view
+            }
+
             return BarChartGroupData(
               x: i,
               barRods: [
                 BarChartRodData(
-                  toY: spot.value,
-                  color: spot.color != null
-                      ? Color(int.parse(spot.color!.replaceAll('#', '0xFF')))
-                      : barColor,
+                  toY: height,
+                  color: actualColor,
                   width: 16,
                   borderRadius: BorderRadius.circular(4),
                 ),

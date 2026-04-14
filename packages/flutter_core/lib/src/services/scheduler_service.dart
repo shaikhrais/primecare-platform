@@ -1,7 +1,15 @@
 import '../models/scheduler_models.dart';
 import '../factory_floor/data_logistics_hub.dart';
+import '../../network/result.dart';
+import '../../telemetry_service.dart';
 
 class SchedulerService {
+  ExecutionGateService? _telemetry;
+
+  void attachTelemetry(ExecutionGateService telemetry) {
+    _telemetry = telemetry;
+  }
+
   Future<HorizonSchedule> getHorizonSchedule() async {
     return DataLogisticsHub.fetchAndAssemble<HorizonSchedule>(
       fetchCall: () async {
@@ -60,34 +68,91 @@ class SchedulerService {
     return false;
   }
 
-  Future<void> createAppointment(Appointment appt) async {
-    // Simulate API Latency
-    await Future.delayed(const Duration(milliseconds: 600));
+  Future<Result<void>> createAppointment(Appointment appt) async {
+    return Result.guardFuture<void>(
+      () async {
+        // Simulate API Latency
+        await Future.delayed(const Duration(milliseconds: 600));
 
-    // Simulate Server-side conflict check
-    final blueprint = _getBootstrapSchedule();
-    if (hasConflict(appt, blueprint.appointments, blueprint.resources)) {
-      throw Exception('Conflict detected on server for ${appt.patientName}');
-    }
+        // Simulate Server-side conflict check
+        final blueprint = _getBootstrapSchedule();
+        if (hasConflict(appt, blueprint.appointments, blueprint.resources)) {
+          throw Exception('Conflict detected on server for ${appt.patientName}');
+        }
+        _telemetry?.passGate(
+          ExecutionGateCategory.scheduler,
+          'Appointment created successfully',
+          metadata: {'apptId': appt.id, 'patient': appt.patientName},
+        );
+      },
+      onError: (e, st) {
+        _telemetry?.failGate(
+          ExecutionGateCategory.scheduler,
+          'Failed to create appointment',
+          error: e,
+          stackTrace: st,
+          metadata: {'apptId': appt.id},
+        );
+        throw e;
+      },
+    );
   }
 
-  Future<void> updateAppointment(Appointment appt) async {
-    await Future.delayed(const Duration(milliseconds: 600));
+  Future<Result<void>> updateAppointment(Appointment appt) async {
+    return Result.guardFuture<void>(
+      () async {
+        await Future.delayed(const Duration(milliseconds: 600));
 
-    // Validation: New slot must be available
-    final blueprint = _getBootstrapSchedule();
-    final otherApps = blueprint.appointments
-        .where((a) => a.id != appt.id)
-        .toList();
-    if (hasConflict(appt, otherApps, blueprint.resources)) {
-      throw Exception(
-        'The new time slot for ${appt.patientName} is not available.',
-      );
-    }
+        // Validation: New slot must be available
+        final blueprint = _getBootstrapSchedule();
+        final otherApps = blueprint.appointments
+            .where((a) => a.id != appt.id)
+            .toList();
+        if (hasConflict(appt, otherApps, blueprint.resources)) {
+          throw Exception(
+            'The new time slot for ${appt.patientName} is not available.',
+          );
+        }
+        _telemetry?.passGate(
+          ExecutionGateCategory.scheduler,
+          'Appointment updated successfully',
+          metadata: {'apptId': appt.id, 'patient': appt.patientName},
+        );
+      },
+      onError: (e, st) {
+        _telemetry?.failGate(
+          ExecutionGateCategory.scheduler,
+          'Failed to update appointment',
+          error: e,
+          stackTrace: st,
+          metadata: {'apptId': appt.id},
+        );
+        throw e;
+      },
+    );
   }
 
-  Future<void> deleteAppointment(String id) async {
-    await Future.delayed(const Duration(milliseconds: 400));
+  Future<Result<void>> deleteAppointment(String id) async {
+    return Result.guardFuture<void>(
+      () async {
+        await Future.delayed(const Duration(milliseconds: 400));
+        _telemetry?.passGate(
+          ExecutionGateCategory.scheduler,
+          'Appointment deleted successfully',
+          metadata: {'apptId': id},
+        );
+      },
+      onError: (e, st) {
+        _telemetry?.failGate(
+          ExecutionGateCategory.scheduler,
+          'Failed to delete appointment',
+          error: e,
+          stackTrace: st,
+          metadata: {'apptId': id},
+        );
+        throw e;
+      },
+    );
   }
 
   HorizonSchedule _getBootstrapSchedule() {

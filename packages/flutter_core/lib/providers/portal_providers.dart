@@ -4,14 +4,18 @@ import '../config/navigation_registry.dart';
 import '../models/navigation_item.dart';
 import '../config/screen_breakpoints.dart';
 import '../config/adaptive_scaling_config.dart';
+import '../telemetry_service.dart';
 import 'package:flutter/widgets.dart';
 
 /// Provider that supplies the navigation menu items for the current user's role.
 final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
   final authState = ref.watch(authProvider);
   final role = authState.role ?? 'PSW';
-  return NavigationRegistry.getMenuForRole(role);
+  final menu = NavigationRegistry.getMenuForRole(role);
+  ref.read(executionGateProvider).passGate(ExecutionGateCategory.navigationLayer, 'Hydrated ${menu.length} navigation items for role: $role');
+  return menu;
 });
+
 
 /// Provider for portal-specific configuration.
 final portalConfigProvider = Provider<PortalConfig>((ref) {

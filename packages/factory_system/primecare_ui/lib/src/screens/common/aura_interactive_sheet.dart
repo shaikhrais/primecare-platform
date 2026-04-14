@@ -38,6 +38,10 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
     )..repeat();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(executionGateProvider).passGate(
+        ExecutionGateCategory.auraEngine,
+        'Aura Interactive Sheet Opened: Requesting institutional context.',
+      );
       _focusNode.requestFocus();
     });
   }
@@ -145,6 +149,10 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                         onPressed: () {
                           if (auraIntent != null &&
                               auraIntent.actions.isNotEmpty) {
+                            ref.read(executionGateProvider).passGate(
+                              ExecutionGateCategory.auraEngine,
+                              'Aura: Discovering intent: ${auraIntent.title}',
+                            );
                             Navigator.pop(context, auraIntent);
                           }
                         },

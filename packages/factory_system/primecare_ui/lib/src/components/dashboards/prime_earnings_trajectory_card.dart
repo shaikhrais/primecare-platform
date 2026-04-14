@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PrimeEarningsTrajectoryCard extends StatelessWidget {
+class PrimeEarningsTrajectoryCard extends ConsumerWidget {
   final String title;
   final String totalPayout;
   final Map<String, double> trajectoryData;
@@ -15,7 +16,11 @@ class PrimeEarningsTrajectoryCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.auraEngine,
+      'Hydrating Trajectory: $title',
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

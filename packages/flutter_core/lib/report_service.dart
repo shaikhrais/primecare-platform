@@ -1,4 +1,6 @@
 import 'network/api_client.dart';
+import 'network/result.dart';
+import 'telemetry_service.dart';
 
 class ReportColumn {
   final String key;
@@ -61,24 +63,39 @@ class ReportData {
 
 class ReportService {
   final ApiClient _apiClient;
+  final ExecutionGateService _telemetry;
 
-  ReportService(this._apiClient);
+  ReportService(this._apiClient, this._telemetry);
 
-  Future<ReportData> getReport(String reportId) async {
-    try {
-      // In the future, this would hit a dedicated reporting endpoint
-      // For now, we utilize the standardized client for dynamic hydration
-      final endpoint = '/api/reports/$reportId';
-      final response = await _apiClient.get(endpoint);
+  Future<Result<ReportData>> getReport(String reportId) async {
+    return Result.guardFuture<ReportData>(
+      () async {
+        final endpoint = '/api/reports/$reportId';
+        final response = await _apiClient.get(endpoint);
 
-      if (response.statusCode == 200) {
-        return ReportData.fromJson(response.data as Map<String, dynamic>);
-      }
-      throw Exception(
-        'Failed to load report $reportId: ${response.statusCode}',
-      );
-    } catch (e) {
-      throw Exception('Failed to fetch report data for ID $reportId: $e');
-    }
+        if (response.statusCode == 200) {
+          _telemetry.passGate(
+            ExecutionGateCategory.metricsLayer,
+            'Report fetched successfully: $reportId',
+            metadata: {'reportId': reportId},
+          );
+          return ReportData.fromJson(response.data as Map<String, dynamic>);
+        }
+        throw Exception(
+          'Failed to load report $reportId: ${response.statusCode}',
+        );
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.metricsLayer,
+          'Failed to fetch report: $reportId',
+          error: e,
+          stackTrace: st,
+          metadata: {'reportId': reportId},
+        );
+        // Re-throw to let the provider layer handle fallback
+        throw e;
+      },
+    );
   }
 }

@@ -142,6 +142,17 @@ class _OrchestratedPage<T> extends ConsumerWidget {
     final scale = layout.scaleFactor;
     final ds = PrimeCareDesignSystem.of(context);
 
+    // Resilience Block: Verify that we actually have an AsyncValue before calling .when
+    if (asyncValue is! AsyncValue) {
+      return Center(
+        child: Text(
+          'Aura Orchestration Failure: Expected AsyncValue, got ${asyncValue.runtimeType}\nProvider: ${provider.runtimeType}',
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.red),
+        ),
+      );
+    }
+
     return asyncValue.when(
       data: (data) {
         // We expect T to have a 'blueprints' property and 'isOfflineFallback' flag.

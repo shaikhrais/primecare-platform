@@ -3,6 +3,7 @@ import 'intelligence_service.dart';
 import 'dashboard_providers.dart';
 import 'aura_providers.dart';
 import 'src/models/intelligence_insight.dart';
+import 'src/factory_floor/data_logistics_hub.dart';
 
 /// Provider for the base IntelligenceService.
 final auraIntelligenceServiceProvider = Provider<IntelligenceService>((ref) {
@@ -18,7 +19,11 @@ final auraInsightsProvider = FutureProvider.family<List<IntelligenceInsight>, St
   final service = ref.watch(auraIntelligenceServiceProvider);
 
   // 1. Await metrics from the resilient dashboard provider
-  final metrics = await ref.watch(dashboardMetricsProvider(role).future);
+  final result = await ref.watch(dashboardMetricsProvider(role).future);
+  final metrics = result.fold(
+    (data) => data,
+    (error) => DataLogisticsHub.getDashboardMetrics(role),
+  );
 
   // 2. Synthesize insights
   try {

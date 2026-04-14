@@ -4,6 +4,11 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 import '../components/primecare_stat_card.dart';
 import '../components/layout/prime_responsive_grid.dart';
+import '../components/cards/primecare_chart_card.dart';
+import '../components/charts/prime_care_line_chart.dart';
+import '../screens/common/primecare_report_screen.dart';
+import '../components/aura/aura_dashboard_hud.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A function signature for building a specific component from a blueprint payload.
 typedef ComponentBuilder = Widget Function(BuildContext context, dynamic dataPayload);
@@ -20,6 +25,8 @@ class ComponentWarehouse {
     'management_action': _buildManagementAction,
     'clinical_metric': _buildClinicalMetric,
     'compliance_gate': _buildComplianceGate,
+    'analytics_chart': _buildAnalyticsChart,
+    'aura_dashboard_hud': _buildAuraDashboardHud,
   };
 
   /// Register a new component dynamically (could be used for lazy-loaded plugins).
@@ -47,10 +54,21 @@ class ComponentWarehouse {
     
     return PrimeResponsiveGrid(
       children: kpis.map((kpi) {
-        final title = kpi.title as String;
-        final value = kpi.value as String;
-        final status = kpi.status as String;
-        final trend = kpi.trend as String?;
+        if (kpi is UniversalKpi) {
+          return PrimeCareStatCard(
+            title: kpi.title,
+            value: kpi.value,
+            deltaSuffix: kpi.trend != 0.0 ? "${kpi.trend > 0 ? '+' : ''}${kpi.trend}%" : null,
+            icon: _inferIcon(kpi.title),
+            iconColor: _inferColor(kpi.status.name),
+          );
+        }
+        
+        // Fallback for raw map data
+        final title = kpi['title'] as String? ?? 'Metric';
+        final value = kpi['value'] as String? ?? '0';
+        final status = kpi['status'] as String? ?? 'neutral';
+        final trend = kpi['trend']?.toString();
         
         return PrimeCareStatCard(
           title: title,
@@ -64,14 +82,56 @@ class ComponentWarehouse {
   }
 
   static Widget _buildActivityFeed(BuildContext context, dynamic dataPayload) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white.withAlpha(12),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withAlpha(25)),
-      ),
-      child: const Center(child: Text("Activity Feed - Assembled", style: TextStyle(color: Colors.white))),
+    final activities = dataPayload as List<dynamic>;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 8, bottom: 12),
+          child: Text("Operational Continuity", style: TextStyle(color: Colors.white70, fontSize: 13, letterSpacing: 1.2, fontWeight: FontWeight.bold)),
+        ),
+        ...activities.map((activity) {
+          final type = activity['type'] as String? ?? 'info';
+          final color = type == 'success' ? Colors.tealAccent : (type == 'warning' ? Colors.orangeAccent : Colors.blueAccent);
+          
+          return Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white.withAlpha(5),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 8,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: color.withAlpha(100),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(activity['title'] as String,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600)),
+                      Text(activity['timestamp'] as String,
+                          style: TextStyle(
+                              color: Colors.white.withAlpha(100),
+                              fontSize: 12)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
     );
   }
 
@@ -136,34 +196,94 @@ class ComponentWarehouse {
   }
 
   static Widget _buildFinancialRail(BuildContext context, dynamic dataPayload) {
-    return Container(
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: const Color(0xFF0F3460).withAlpha(150),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: Colors.blueAccent.withAlpha(50)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.blueAccent.withAlpha(30),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(LucideIcons.banknote, color: Colors.blueAccent),
-          ),
-          const SizedBox(width: 24),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Financial Rails", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)),
-              Text("Automated ledger reconciliation active", style: TextStyle(color: Colors.white54)),
+    // Expected dynamic list of FinancialMetric (or raw maps)
+    final metricsRaw = dataPayload as List<dynamic>;
+    final metrics = metricsRaw.map((m) {
+      if (m is FinancialMetric) return m;
+      return FinancialMetric.fromJson(m as Map<String, dynamic>);
+    }).toList();
+
+    return Column(
+      children: metrics.map((metric) {
+        final color = _inferColor(metric.status);
+        
+        return Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: color.withValues(alpha: 0.2)),
+            boxShadow: [
+              BoxShadow(
+                color: color.withValues(alpha: 0.05),
+                blurRadius: 15,
+                spreadRadius: -5,
+              ),
             ],
           ),
-        ],
-      ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(LucideIcons.landmark, color: color, size: 20),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      metric.label.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.5),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      metric.value,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (metric.trend != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    metric.trend!,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+      }).toList(),
     );
+  }
+
+  static Widget _buildAuraDashboardHud(BuildContext context, dynamic dataPayload) {
+    return const AuraDashboardHud();
   }
 
   static Widget _buildManagementAction(BuildContext context, dynamic dataPayload) {
@@ -193,18 +313,84 @@ class ComponentWarehouse {
   }
 
   static Widget _buildClinicalMetric(BuildContext context, dynamic dataPayload) {
-     return Container(
-      padding: const EdgeInsets.all(24),
+    final title = dataPayload['title'] as String? ?? 'Clinical Intelligence';
+    final metrics = dataPayload['metrics'] as List<dynamic>? ?? [];
+
+    return Container(
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: const Color(0xFF1B262C),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.tealAccent.withAlpha(40)),
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(20),
+            blurRadius: 40,
+            offset: const Offset(0, 20),
+          ),
+        ],
       ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Clinical Care Score", style: TextStyle(color: Colors.white, fontSize: 16)),
-          Text("98.4%", style: TextStyle(color: Colors.tealAccent, fontSize: 24, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+              const Spacer(),
+              const Icon(LucideIcons.trendingUp, color: Colors.tealAccent, size: 18),
+            ],
+          ),
+          const SizedBox(height: 24),
+          ...metrics.map((m) {
+            final label = m['label'] as String;
+            final value = (m['value'] as num).toDouble();
+            
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(label, style: const TextStyle(color: Colors.white70, fontSize: 14)),
+                      Text("${(value * 100).toInt()}%", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Stack(
+                    children: [
+                      Container(
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withAlpha(10),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                      ),
+                      FractionallySizedBox(
+                        widthFactor: value,
+                        child: Container(
+                          height: 6,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Colors.tealAccent, Color(0xFF2193b0)],
+                            ),
+                            borderRadius: BorderRadius.circular(3),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.tealAccent.withAlpha(80),
+                                blurRadius: 10,
+                                spreadRadius: 1,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }),
         ],
       ),
     );
@@ -247,6 +433,46 @@ class ComponentWarehouse {
          child: Text('Unknown component type: $type'),
        );
     };
+  }
+
+  static Widget _buildAnalyticsChart(BuildContext context, dynamic dataPayload) {
+    if (dataPayload is! AnalyticsChart) {
+      return const SizedBox.shrink();
+    }
+
+    return Consumer(
+      builder: (context, ref, child) {
+        final auraToggles = ref.watch(auraDashboardToggleProvider);
+        final isAuraActive = auraToggles[dataPayload.id] ?? false;
+
+        return PrimeCareChartCard(
+          title: dataPayload.title,
+          isAuraActive: isAuraActive,
+          chart: SizedBox(
+            height: 250,
+            child: PrimeCareLineChart(
+              chart: dataPayload,
+              lineColor: _inferColor(dataPayload.id),
+              isPredictive: isAuraActive,
+            ),
+          ),
+          isAuraSupported: true,
+          onPinToggle: () {},
+          onAuraToggle: () {
+            ref.read(auraDashboardToggleProvider.notifier).toggle(dataPayload.id);
+          },
+          onDetailPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PrimeCareReportScreen(
+                    reportId: dataPayload.reportId ?? 'unspecified'),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   // --- Utility Methods ---

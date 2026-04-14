@@ -460,4 +460,40 @@ final List<RouteBase> corporateRoutes = [
     path: CommonRoutes.institutionalScheduler,
     builder: (context, state) => const InstitutionalSchedulerScreen(),
   ),
+  GoRoute(
+    path: CommonRoutes.receptionistDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'receptionist'),
+  ),
+  GoRoute(
+    path: CommonRoutes.clinicalDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'clinical'),
+  ),
+  GoRoute(
+    path: FranchiseRoutes.billingAdminDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'billing_admin'),
+  ),
+  GoRoute(
+    path: FranchiseRoutes.operationsManagerDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'operations_manager'),
+  ),
+  GoRoute(
+    path: FranchiseRoutes.schedulerDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'scheduler'),
+  ),
+  GoRoute(
+    path: FranchiseRoutes.hrHiringDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'hr_hiring'),
+  ),
+  GoRoute(
+    path: SupportRoutes.customerSupportDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'customer_support'),
+  ),
+  GoRoute(
+    path: SupportRoutes.intakeCoordinatorDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'intake_coordinator'),
+  ),
+  GoRoute(
+    path: SupportRoutes.qualityAssuranceDashboard,
+    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'quality_assurance'),
+  ),
 ];

@@ -12,7 +12,11 @@ class AuraReportToggleNotifier extends Notifier<Map<String, bool>> {
   Map<String, bool> build() => {};
 
   void toggle(String reportId) {
-    state = {...state, reportId: !(state[reportId] ?? false)};
+    final newState = !(state[reportId] ?? false);
+    state = {...state, reportId: newState};
+    
+    // Sync the global visualization provider so deeply nested charts update
+    ref.read(auraActiveVisualizationProvider.notifier).update(newState);
   }
 }
 
@@ -28,6 +32,10 @@ class PrimeCareReportScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.navigationLayer,
+      'Navigating to Report: $reportId',
+    );
     final reportAsync = ref.watch(reportDataProvider(reportId));
     final layout = ref.watch(layoutProvider);
     final auraToggles = ref.watch(auraReportToggleProvider);
@@ -41,7 +49,8 @@ class PrimeCareReportScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       body: reportAsync.when(
-        data: (report) => ListView(
+        data: (result) => result.fold(
+          (report) => ListView(
           padding: EdgeInsets.all(24 * scale),
           children: [
             // Aura Financial Intelligence HUD (Visible only for revenue reports)
@@ -193,6 +202,19 @@ class PrimeCareReportScreen extends ConsumerWidget {
               },
             ),
           ],
+        ),
+          (error) => Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(LucideIcons.alertCircle, size: 48, color: Color(0xFFEF4444)),
+                const SizedBox(height: 16),
+                Text('Report hydration failed', style: GoogleFonts.plusJakartaSans(fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xFF1E293B))),
+                const SizedBox(height: 8),
+                Text(error.toString(), style: GoogleFonts.inter(color: const Color(0xFF64748B))),
+              ],
+            ),
+          ),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(

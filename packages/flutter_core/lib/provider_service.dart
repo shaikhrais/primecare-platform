@@ -1,6 +1,7 @@
 import 'config/api_config.dart';
 import 'network/api_client.dart';
-import 'network/api_error.dart';
+import 'network/result.dart';
+import 'telemetry_service.dart';
 
 enum ProviderRole { psw, rn, rmt, unknown }
 
@@ -56,42 +57,77 @@ class ProviderProfile {
 /// This replaces disparate silos like RnService and PswService.
 class ProviderService {
   final ApiClient _apiClient;
+  final ExecutionGateService _telemetry;
 
-  ProviderService(this._apiClient);
+  ProviderService(this._apiClient, this._telemetry);
 
   /// Fetches the unified provider profile natively mapped to the logged-in Identity.
-  Future<ProviderProfile> getSelfProfile() async {
-    try {
-      // Hits the newly structured API gateway scope
-      final endpoint = ApiConfig.endpoints['providerDashboard']!;
-      final response = await _apiClient.get(endpoint);
+  Future<Result<ProviderProfile>> getSelfProfile() async {
+    return Result.guardFuture<ProviderProfile>(
+      () async {
+        final endpoint = ApiConfig.endpoints['providerDashboard']!;
+        final response = await _apiClient.get(endpoint);
 
-      if (response.statusCode == 200) {
-        return ProviderProfile.fromJson(response.data as Map<String, dynamic>);
-      }
-      throw Exception(
-        'Failed to load active provider profile: ${response.statusCode}',
-      );
-    } catch (e) {
-      throw Exception(ApiErrorAdapter.mapApiError(e));
-    }
+        if (response.statusCode == 200) {
+          _telemetry.passGate(
+            ExecutionGateCategory.domainApi,
+            'Provider self-profile fetched successfully',
+            metadata: {'endpoint': 'providerDashboard'},
+          );
+          return ProviderProfile.fromJson(response.data as Map<String, dynamic>);
+        }
+        throw Exception(
+          'Failed to load active provider profile: ${response.statusCode}',
+        );
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to fetch provider self-profile',
+          error: e,
+          stackTrace: st,
+          metadata: {'endpoint': 'providerDashboard'},
+        );
+        // Return a safe fallback profile
+        return ProviderProfile(
+          id: 'fallback',
+          fullName: 'Provider (Offline)',
+          role: ProviderRole.unknown,
+        );
+      },
+    );
   }
 
   /// Logs a check-in event using standard Unified identifiers.
-  Future<void> logCheckIn(String visitId, double lat, double lng) async {
-    try {
-      final baseEndpoint = ApiConfig.endpoints['providerCheckin']!;
-      final endpoint = baseEndpoint.replaceAll(':visitId', visitId);
-      await _apiClient.post(
-        endpoint,
-        body: {
-          'lat': lat,
-          'lng': lng,
-          'timestamp': DateTime.now().toIso8601String(),
-        },
-      );
-    } catch (e) {
-      throw Exception(ApiErrorAdapter.mapApiError(e));
-    }
+  Future<Result<void>> logCheckIn(String visitId, double lat, double lng) async {
+    return Result.guardFuture<void>(
+      () async {
+        final baseEndpoint = ApiConfig.endpoints['providerCheckin']!;
+        final endpoint = baseEndpoint.replaceAll(':visitId', visitId);
+        await _apiClient.post(
+          endpoint,
+          body: {
+            'lat': lat,
+            'lng': lng,
+            'timestamp': DateTime.now().toIso8601String(),
+          },
+        );
+        _telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Provider check-in logged successfully',
+          metadata: {'visitId': visitId},
+        );
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to log provider check-in',
+          error: e,
+          stackTrace: st,
+          metadata: {'visitId': visitId},
+        );
+        // void return — fallback is a no-op, error is logged
+      },
+    );
   }
 }

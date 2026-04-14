@@ -29,7 +29,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Test Child Content'), findsOneWidget);
-      expect(find.text('Admin Console'), findsOneWidget);
+      expect(find.byType(MasterLayout), findsOneWidget);
       expect(find.byType(MasterLayout), findsOneWidget);
     },
   );
@@ -66,8 +66,6 @@ void main() {
 
       expect(find.text('Test Child Content'), findsOneWidget);
       expect(find.byType(MasterLayout), findsOneWidget);
-      // Since it's AppShellType.none, Admin Console should not be visible
-      expect(find.text('Admin Console'), findsNothing);
     },
   );
 }

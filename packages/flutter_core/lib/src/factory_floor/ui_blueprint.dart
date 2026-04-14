@@ -10,6 +10,52 @@ abstract class UIComponentBlueprint {
     required this.componentType,
     required this.dataPayload,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'componentType': componentType,
+      'dataPayload': _payloadToJson(dataPayload),
+    };
+  }
+
+  static dynamic _payloadToJson(dynamic payload) {
+    if (payload is List) {
+      return payload.map((e) => _payloadToJson(e)).toList();
+    }
+    if (payload is Map) {
+      return payload.map((k, v) => MapEntry(k, _payloadToJson(v)));
+    }
+    try {
+      // Check if it has a toJson method (e.g. UniversalKpi, DashboardActivity)
+      return (payload as dynamic).toJson();
+    } catch (_) {
+      return payload;
+    }
+  }
+
+  factory UIComponentBlueprint.fromJson(Map<String, dynamic> json) {
+    final type = json['componentType'] as String;
+    final payload = json['dataPayload'];
+
+    switch (type) {
+      case 'stat_card_grid':
+        final list = (payload as List<dynamic>?) ?? [];
+        return StatGridBlueprint(
+          dataPayload:
+              list
+                  .map((i) => UniversalKpi.fromJson(i as Map<String, dynamic>))
+                  .toList(),
+        );
+      case 'activity_feed':
+        return ActivityFeedBlueprint(dataPayload: payload);
+      case 'financial_rail':
+        return FinancialRailBlueprint(dataPayload: payload as List<dynamic>);
+      case 'analytics_chart':
+        return ChartBlueprint(dataPayload: payload);
+      default:
+        return StatGridBlueprint(dataPayload: payload);
+    }
+  }
 }
 
 /// A blueprint for a grid of KPI/stat cards.
@@ -51,6 +97,19 @@ class UniversalKpi {
         return KpiStatus.neutral;
     }
   }
+
+  factory UniversalKpi.fromJson(Map<String, dynamic> json) {
+    return UniversalKpi(
+      title: json['title'] as String? ?? 'Unnamed Metric',
+      value: json['value'] as String? ?? '0',
+      trend: (json['trend'] as num?)?.toDouble() ?? 0.0,
+      status: mapStatus(json['status'] as String?),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'title': title, 'value': value, 'trend': trend, 'status': status.name};
+  }
 }
 
 enum KpiStatus { positive, negative, neutral, warning, critical }
@@ -75,8 +134,14 @@ class RiskMonitorBlueprint extends UIComponentBlueprint {
 
 /// A blueprint for Financial Rails / Ledger tracking.
 class FinancialRailBlueprint extends UIComponentBlueprint {
-  const FinancialRailBlueprint({required super.dataPayload})
+  const FinancialRailBlueprint({required List<dynamic> super.dataPayload})
     : super(componentType: 'financial_rail');
+}
+
+/// A blueprint for the Aura real-time intelligence HUD.
+class AuraDashboardHudBlueprint extends UIComponentBlueprint {
+  const AuraDashboardHudBlueprint({super.dataPayload})
+    : super(componentType: 'aura_dashboard_hud');
 }
 
 /// A blueprint for system-level Management Actions (e.g. Quarantine).
@@ -89,6 +154,12 @@ class ManagementActionBlueprint extends UIComponentBlueprint {
 class ClinicalMetricBlueprint extends UIComponentBlueprint {
   const ClinicalMetricBlueprint({required super.dataPayload})
     : super(componentType: 'clinical_metric');
+}
+
+/// A blueprint for high-fidelity Analytics Charts (Line, Bar, Pie).
+class ChartBlueprint extends UIComponentBlueprint {
+  const ChartBlueprint({required super.dataPayload})
+    : super(componentType: 'analytics_chart');
 }
 
 /// A blueprint for Compliance Gatekeeping and Verification (OCR).

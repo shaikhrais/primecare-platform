@@ -1,38 +1,85 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
-final intakeDashboardAdapterProvider = FutureProvider<IntakeDashboardViewModel>(
-  (ref) async {
-    return DataLogisticsHub.fetchAndAssemble<IntakeDashboardViewModel>(
-      fetchCall: () async {
-        final apiClient = ref.read(apiClientProvider);
-        final endpoint = '/api/v1/metrics';
-        final response = await apiClient.get('$endpoint?route=UnknownRoute');
+final intakeDashboardAdapterProvider =
+    FutureProvider<Result<IntakeCoordinatorDashboardViewModel>>((ref) async {
+      final telemetry = ref.read(executionGateProvider);
+      final resilience = ref.read(resilienceServiceProvider);
+      const cacheKey = 'intake_coordinator_dashboard';
 
-        if (response.statusCode == 200) {
-          return IntakeDashboardViewModel(
-            blueprints: [
-              DataFallbackEngine.createFallbackStatGrid('Live Dashboard'),
-              DataFallbackEngine.createFallbackActivityFeed('System Logs'),
-            ],
+      return Result.guardFuture<IntakeCoordinatorDashboardViewModel>(
+        () async {
+          return DataLogisticsHub.fetchAndAssemble<
+            IntakeCoordinatorDashboardViewModel
+          >(
+            fetchCall: () async {
+              final apiClient = ref.read(apiClientProvider);
+              const endpoint = '/api/v1/metrics';
+
+              telemetry.passGate(
+                ExecutionGateCategory.metricsLayer,
+                'Fetching Intake Coordinator Metrics: $endpoint',
+              );
+
+              final response = await apiClient.get(
+                '$endpoint?route=IntakeCoordinator',
+              );
+
+              if (response.statusCode == 200) {
+                telemetry.passGate(
+                  ExecutionGateCategory.metricsLayer,
+                  'Intake Coordinator Metrics Hydrated',
+                );
+                final metrics = DashboardMetrics.fromJson(
+                  response.data as Map<String, dynamic>,
+                );
+                final viewModel =
+                    IntakeCoordinatorDashboardViewModel.fromDashboardMetrics(
+                      metrics,
+                    );
+
+                // Background hydration of LKG cache with real serialized data
+                unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
+
+                return viewModel;
+              } else {
+                telemetry.failGate(
+                  ExecutionGateCategory.metricsLayer,
+                  'Intake Coordinator API Error: ${response.statusCode}',
+                  metadata: {'status': response.statusCode},
+                );
+                throw Exception(
+                  'API error loading dashboard: ${response.statusCode}',
+                );
+              }
+            },
+            fallbackBuilder: () {
+              telemetry.failGate(
+                ExecutionGateCategory.metricsLayer,
+                'Intake Coordinator Logistics Fallback Triggered',
+              );
+              return IntakeCoordinatorDashboardViewModel.assemble(isOffline: true);
+            },
           );
-        } else {
-          throw Exception(
-            'API error loading dashboard: ${response.statusCode}',
+        },
+        onError: (e, st) {
+          telemetry.failGate(
+            ExecutionGateCategory.resource,
+            'Major failure in Intake Coordinator Dashboard Adapter',
+            error: e,
+            stackTrace: st,
           );
-        }
-      },
-      fallbackBuilder: () {
-        return IntakeDashboardViewModel(
-          isOfflineFallback: true,
-          blueprints: [
-            DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
-            DataFallbackEngine.createFallbackActivityFeed(
-              'System Logs (Degraded)',
-            ),
-          ],
-        );
-      },
-    );
-  },
-);
+
+          final snapshot = resilience.getSnapshot(cacheKey);
+          if (snapshot != null) {
+            telemetry.passGate(
+              ExecutionGateCategory.resource,
+              'Resilience: Restoring Intake Coordinator Dashboard from LKG snapshot',
+            );
+            return IntakeCoordinatorDashboardViewModel.fromJson(snapshot);
+          }
+          throw e;
+        },
+      );
+    });

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PrimeShiftExecutionCard extends StatelessWidget {
+class PrimeShiftExecutionCard extends ConsumerWidget {
   final bool isShiftActive;
   final String formattedTime;
   final String activeClientName;
@@ -16,7 +18,7 @@ class PrimeShiftExecutionCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return PrimeCareCard(
       backgroundColor: isShiftActive
           ? Theme.of(context).primaryColorLight
@@ -52,7 +54,14 @@ class PrimeShiftExecutionCard extends StatelessWidget {
             type: isShiftActive
                 ? PrimeCareButtonType.secondary
                 : PrimeCareButtonType.primary,
-            onPressed: onToggleShift,
+            onPressed: () {
+              ref.read(executionGateProvider).passGate(
+                ExecutionGateCategory.navigationLayer,
+                'Shift Toggle: ${isShiftActive ? 'ENDING' : 'STARTING'}',
+                metadata: {'clientName': activeClientName},
+              );
+              onToggleShift();
+            },
           ),
         ],
       ),

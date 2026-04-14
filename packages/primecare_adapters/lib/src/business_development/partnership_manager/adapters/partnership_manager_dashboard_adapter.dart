@@ -1,39 +1,87 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
 final partnershipManagerDashboardAdapterProvider =
-    FutureProvider<PartnershipManagerDashboardViewModel>((ref) async {
-      return DataLogisticsHub.fetchAndAssemble<
-        PartnershipManagerDashboardViewModel
-      >(
-        fetchCall: () async {
-          final apiClient = ref.read(apiClientProvider);
-          final endpoint = '/api/v1/metrics';
-          final response = await apiClient.get('$endpoint?route=UnknownRoute');
+    FutureProvider<Result<PartnershipManagerDashboardViewModel>>((ref) async {
+      final telemetry = ref.read(executionGateProvider);
+      final resilience = ref.read(resilienceServiceProvider);
+      const cacheKey = 'partnership_manager_dashboard';
 
-          if (response.statusCode == 200) {
-            return PartnershipManagerDashboardViewModel(
-              blueprints: [
-                DataFallbackEngine.createFallbackStatGrid('Live Dashboard'),
-                DataFallbackEngine.createFallbackActivityFeed('System Logs'),
-              ],
-            );
-          } else {
-            throw Exception(
-              'API error loading dashboard: ${response.statusCode}',
-            );
-          }
-        },
-        fallbackBuilder: () {
-          return PartnershipManagerDashboardViewModel(
-            isOfflineFallback: true,
-            blueprints: [
-              DataFallbackEngine.createFallbackStatGrid('Offline Dashboard'),
-              DataFallbackEngine.createFallbackActivityFeed(
-                'System Logs (Degraded)',
-              ),
-            ],
+      return Result.guardFuture<PartnershipManagerDashboardViewModel>(
+        () async {
+          return DataLogisticsHub.fetchAndAssemble<
+            PartnershipManagerDashboardViewModel
+          >(
+            fetchCall: () async {
+              final apiClient = ref.read(apiClientProvider);
+              const endpoint = '/api/v1/metrics';
+
+              telemetry.passGate(
+                ExecutionGateCategory.metricsLayer,
+                'Fetching Partnership Manager Metrics: $endpoint',
+              );
+
+              final response = await apiClient.get(
+                '$endpoint?route=PartnershipManager',
+              );
+
+              if (response.statusCode == 200) {
+                telemetry.passGate(
+                  ExecutionGateCategory.metricsLayer,
+                  'Partnership Manager Metrics Hydrated',
+                );
+                final metrics = DashboardMetrics.fromJson(
+                  response.data as Map<String, dynamic>,
+                );
+                final viewModel =
+                    PartnershipManagerDashboardViewModel.fromDashboardMetrics(
+                      metrics,
+                    );
+
+                // Background hydration of LKG cache with real serialized data
+                unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
+
+                return viewModel;
+              } else {
+                telemetry.failGate(
+                  ExecutionGateCategory.metricsLayer,
+                  'Partnership Manager API Error: ${response.statusCode}',
+                  metadata: {'status': response.statusCode},
+                );
+                throw Exception(
+                  'API error loading dashboard: ${response.statusCode}',
+                );
+              }
+            },
+            fallbackBuilder: () {
+              telemetry.failGate(
+                ExecutionGateCategory.metricsLayer,
+                'Partnership Manager Logistics Fallback Triggered',
+              );
+              return PartnershipManagerDashboardViewModel.assemble(
+                isOffline: true,
+              );
+            },
           );
+        },
+        onError: (e, st) {
+          telemetry.failGate(
+            ExecutionGateCategory.resource,
+            'Major failure in Partnership Manager Dashboard Adapter',
+            error: e,
+            stackTrace: st,
+          );
+
+          final snapshot = resilience.getSnapshot(cacheKey);
+          if (snapshot != null) {
+            telemetry.passGate(
+              ExecutionGateCategory.resource,
+              'Resilience: Restoring Partnership Manager Dashboard from LKG snapshot',
+            );
+            return PartnershipManagerDashboardViewModel.fromJson(snapshot);
+          }
+          throw e;
         },
       );
     });

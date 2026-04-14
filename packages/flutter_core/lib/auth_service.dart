@@ -11,6 +11,7 @@ import 'routes/groups/marketing_routes.dart';
 import 'routes/groups/support_routes.dart';
 import 'routes/groups/common_routes.dart';
 import 'config/api_config.dart';
+import 'telemetry_service.dart';
 
 class AuthState {
   final bool isAuthenticated;
@@ -167,8 +168,15 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('family')) return ClientRoutes.familyMemberDashboard;
 
     // Technical / System
-    if (r.contains('scrum') || r.contains('master')) {
-      return CommonRoutes.scrumMasterDashboard;
+    // General Roles & Institutional Fallbacks
+    if (r == 'admin') {
+      return FranchiseRoutes.billingAdminDashboard;
+    }
+    if (r == 'receptionist') {
+      return CommonRoutes.receptionistDashboard;
+    }
+    if (r == 'operations_manager' || r == 'ops_manager') {
+      return FranchiseRoutes.operationsManagerDashboard;
     }
 
     return CommonRoutes.clinicDashboard; // Fallback security
@@ -187,6 +195,19 @@ class AuthNotifier extends Notifier<AuthState> {
         tenantId: tenantId,
       );
       authListenable.value = true;
+      ref.read(executionGateProvider).passGate(
+            ExecutionGateCategory.auth,
+            'Session restored for active role: $role',
+            metadata: {
+              'tenantId': tenantId,
+              'hasToken': true,
+            },
+          );
+    } else {
+      ref.read(executionGateProvider).passGate(
+            ExecutionGateCategory.auth,
+            'Initial build: No stored session found',
+          );
     }
   }
 
@@ -232,15 +253,25 @@ class AuthNotifier extends Notifier<AuthState> {
           tenantId: tenantId,
         );
         authListenable.value = true;
+        ref.read(executionGateProvider).passGate(
+              ExecutionGateCategory.auth,
+              'API Authentication via Cloudflare successful. Role: $role',
+              metadata: {
+                'tenantId': tenantId,
+                'email': email,
+              },
+            );
         return true;
       } else {
         String mockRole = 'PSW';
-        if (email.contains('admin')) mockRole = 'Admin';
+        if (email.contains('admin')) mockRole = 'admin';
+        if (email.contains('receptionist')) mockRole = 'receptionist';
+        if (email.contains('ops')) mockRole = 'operations_manager';
         if (email.contains('rn')) mockRole = 'RN';
         if (email.contains('rmt')) mockRole = 'RMT';
         if (email.contains('physio')) mockRole = 'Physio';
         if (email.contains('chiro')) mockRole = 'Chiro';
-        if (email.contains('founder')) mockRole = 'Founder / CEO';
+        if (email.contains('founder') || email.contains('ceo')) mockRole = 'Founder / CEO';
 
         state = state.copyWith(
           isAuthenticated: true,
@@ -248,23 +279,35 @@ class AuthNotifier extends Notifier<AuthState> {
           role: mockRole,
         );
         authListenable.value = true;
+        ref.read(executionGateProvider).passGate(
+              ExecutionGateCategory.auth,
+              'Local sandbox auth fallback. MockRole: $mockRole',
+              metadata: {
+                'email': email,
+                'isMock': true,
+                'originalStatusCode': response.statusCode,
+              },
+            );
         return true;
       }
-    } catch (e) {
+    } catch (e, st) {
       String mockRole = 'PSW';
-      if (email.contains('admin')) mockRole = 'Admin';
-      if (email.contains('rn')) mockRole = 'RN';
-      if (email.contains('rmt')) mockRole = 'RMT';
-      if (email.contains('physio')) mockRole = 'Physio';
-      if (email.contains('chiro')) mockRole = 'Chiro';
-      if (email.contains('founder')) mockRole = 'Founder / CEO';
-
+      // Local fallback in case of errors
       state = state.copyWith(
         isAuthenticated: true,
-        token: 'mock-token',
         role: mockRole,
       );
       authListenable.value = true;
+      ref.read(executionGateProvider).failGate(
+            ExecutionGateCategory.auth,
+            'Authentication failed, falling back to local mock data. MockRole: $mockRole',
+            error: e,
+            stackTrace: st,
+            metadata: {
+              'email': email,
+              'isCriticalFallback': true,
+            },
+          );
       return true;
     }
   }
@@ -310,6 +353,10 @@ class AuthNotifier extends Notifier<AuthState> {
     await prefs.remove('auth_tenant_id');
     state = AuthState();
     authListenable.value = false;
+    ref.read(executionGateProvider).passGate(
+          ExecutionGateCategory.auth,
+          'Explicit Logout: Identity session terminated',
+        );
   }
 }
 

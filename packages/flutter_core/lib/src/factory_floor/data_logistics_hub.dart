@@ -6,6 +6,98 @@ import '../models/scheduler_models.dart';
 /// Core Data Logistics Hub for the PrimeCare Platform.
 /// Provides a unified mechanism for API hydration with automatic fallback to offline blueprints.
 class DataLogisticsHub {
+  /// Provides high-fidelity clinical intelligence blueprints.
+  static ClinicalIntelligenceViewModel getClinicIntelligenceMetrics() {
+    return ClinicalIntelligenceViewModel(
+      isOfflineFallback: true,
+      blueprints: [
+        const AuraDashboardHudBlueprint(dataPayload: null),
+        const StatGridBlueprint(
+          dataPayload: [
+            UniversalKpi(
+              title: 'Patient Census',
+              value: '142',
+              trend: 4.2,
+              status: KpiStatus.positive,
+            ),
+            UniversalKpi(
+              title: 'Bed Occupancy',
+              value: '88%',
+              trend: -1.5,
+              status: KpiStatus.warning,
+            ),
+            UniversalKpi(
+              title: 'Staff Readiness',
+              value: '94%',
+              trend: 0.8,
+              status: KpiStatus.positive,
+            ),
+          ],
+        ),
+        const ClinicalMetricBlueprint(
+          dataPayload: {
+            'title': 'ADL Velocity',
+            'metrics': [
+              {'label': 'Mobility', 'value': 0.85},
+              {'label': 'Hygiene', 'value': 0.72},
+              {'label': 'Nutrition', 'value': 0.94},
+            ],
+          },
+        ),
+        const ActivityFeedBlueprint(
+          dataPayload: [
+            {
+              'id': 'evt_1',
+              'title': 'Medication Protocol Met',
+              'timestamp': '12m ago',
+              'type': 'success',
+            },
+            {
+              'id': 'evt_2',
+              'title': 'High Heart Rate Alert (Room 102)',
+              'timestamp': '5m ago',
+              'type': 'warning',
+            },
+          ],
+        ),
+        ChartBlueprint(
+          dataPayload: AnalyticsChart(
+            id: 'risk_trajectory',
+            title: 'Critical Risk Velocity',
+            type: ChartType.line,
+            dataPoints: [
+              ChartDataPoint(label: 'Mon', value: 12),
+              ChartDataPoint(label: 'Tue', value: 18),
+              ChartDataPoint(label: 'Wed', value: 14),
+              ChartDataPoint(label: 'Thu', value: 22),
+              ChartDataPoint(label: 'Fri', value: 19),
+            ],
+            forecastDataPoints: [
+              ChartDataPoint(label: 'Sat', value: 25),
+              ChartDataPoint(label: 'Sun', value: 28),
+            ],
+          ),
+        ),
+        FinancialRailBlueprint(
+          dataPayload: [
+            FinancialMetric(
+              label: 'Operational Ledger',
+              value: 'SYNCED',
+              status: 'operational',
+              trend: 'NOMINAL',
+            ),
+            FinancialMetric(
+              label: 'Revenue Variance',
+              value: '-\$12,400',
+              status: 'warning',
+              trend: '-2.4%',
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   /// Assembles the data payload from the API into strongly-typed UI components.
   /// If the API payload fails, times out, or throws an exception, this gracefully falls back
   /// to the [fallbackBuilder] so that the UI can assemble its offline/fallback views.

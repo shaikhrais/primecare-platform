@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
 final auraPulseServiceProvider = Provider<AuraPulseService>((ref) {
-  final service = AuraPulseService();
+  final service = AuraPulseService(ref);
   service.start();
   ref.onDispose(() => service.stop());
   return service;
@@ -20,6 +20,28 @@ final auraActiveAnomalyProvider = Provider<AuraEvent?>((ref) {
     return pulse;
   }
   return null;
+});
+
+/// Global toggle state to engage Aura predictive visualizations deeply within charts/dashboards.
+class AuraActiveVisualizationNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+  void update(bool value) => state = value;
+}
+
+final auraActiveVisualizationProvider = NotifierProvider<AuraActiveVisualizationNotifier, bool>(() {
+  return AuraActiveVisualizationNotifier();
+});
+
+/// Global toggle state to snooze Aura HUD alerts.
+class AuraSnoozeNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+  void update(bool value) => state = value;
+}
+
+final auraSnoozeProvider = NotifierProvider<AuraSnoozeNotifier, bool>(() {
+  return AuraSnoozeNotifier();
 });
 
 /// Provider for the AuraCommandService instance.
@@ -46,5 +68,11 @@ final auraIntentProvider = Provider.autoDispose((ref) {
   final query = ref.watch(auraQueryProvider);
 
   if (query.isEmpty) return null;
-  return service.processQuery(query);
+  final intent = service.processQuery(query);
+  if (intent.title == 'Query Interrupted') {
+    ref.read(executionGateProvider).failGate(ExecutionGateCategory.auraEngine, 'Aura encountered a dynamic boundary issue', error: 'Parsing Exception', stackTrace: StackTrace.current);
+  } else {
+    ref.read(executionGateProvider).passGate(ExecutionGateCategory.auraEngine, 'Processed NLP Intent: ${intent.title}');
+  }
+  return intent;
 });

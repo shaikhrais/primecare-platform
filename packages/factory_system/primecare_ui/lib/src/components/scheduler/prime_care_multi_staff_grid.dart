@@ -39,6 +39,11 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
     final totalSlots = ((endHour - startHour) * 60 / slotDuration.inMinutes)
         .floor();
 
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.scheduler,
+      'Rendering MultiStaffGrid: ${staff.length} staff, ${appointments.length} appointments',
+    );
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -258,7 +263,9 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
                   final isHovered = candidateData.isNotEmpty;
 
                   return GestureDetector(
-                    onTap: () => onSlotSelected?.call(s, slotTime),
+                    onTap: () {
+                      onSlotSelected?.call(s, slotTime);
+                    },
                     child: Container(
                       height: 60 * scale,
                       decoration: BoxDecoration(

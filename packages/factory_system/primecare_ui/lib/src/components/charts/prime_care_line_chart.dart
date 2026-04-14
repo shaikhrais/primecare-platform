@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:primecare_core/primecare_core.dart';
 
-class PrimeCareLineChart extends StatelessWidget {
+class PrimeCareLineChart extends ConsumerWidget {
   final AnalyticsChart chart;
   final Color lineColor;
+  final bool isPredictive;
 
   const PrimeCareLineChart({
     super.key,
     required this.chart,
     this.lineColor = const Color(0xFF3B82F6),
+    this.isPredictive = false,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.auraEngine,
+      'Rendering LineChart: ${chart.title} (${chart.dataPoints.length} points)',
+    );
     return Container(
       height: 200,
       padding: const EdgeInsets.all(16),
@@ -28,7 +35,7 @@ class PrimeCareLineChart extends StatelessWidget {
             show: true,
             drawVerticalLine: false,
             getDrawingHorizontalLine: (value) =>
-                FlLine(color: const Color(0xFFE2E8F0), strokeWidth: 1),
+                FlLine(color: Colors.white.withAlpha(20), strokeWidth: 1),
           ),
           titlesData: FlTitlesData(
             show: true,
@@ -39,11 +46,15 @@ class PrimeCareLineChart extends StatelessWidget {
                   final index = value.toInt();
                   if (index < 0 || index >= chart.dataPoints.length)
                     return const SizedBox.shrink();
-                  return Text(
-                    chart.dataPoints[index].label,
-                    style: const TextStyle(
-                      color: Color(0xFF64748B),
-                      fontSize: 10,
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Text(
+                      chart.dataPoints[index].label,
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(80),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   );
                 },
@@ -68,16 +79,36 @@ class PrimeCareLineChart extends StatelessWidget {
               }).toList(),
               isCurved: true,
               color: lineColor,
-              barWidth: 3,
+              barWidth: 4,
               isStrokeCapRound: true,
-              dotData: const FlDotData(show: false),
+              dotData: FlDotData(
+                show: true,
+                getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
+                  radius: 4,
+                  color: Colors.white,
+                  strokeWidth: 2,
+                  strokeColor: lineColor,
+                ),
+              ),
+              shadow: Shadow(
+                color: lineColor.withAlpha(150),
+                blurRadius: 15,
+                offset: const Offset(0, 5),
+              ),
               belowBarData: BarAreaData(
                 show: true,
-                color: lineColor.withAlpha(25),
+                gradient: LinearGradient(
+                  colors: [
+                    lineColor.withAlpha(80),
+                    lineColor.withAlpha(5),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
             ),
             // 2. Predictive Forecast Line (Dashed)
-            if (chart.forecastDataPoints != null &&
+            if (isPredictive && chart.forecastDataPoints != null &&
                 chart.forecastDataPoints!.isNotEmpty)
               LineChartBarData(
                 spots: [
@@ -94,11 +125,19 @@ class PrimeCareLineChart extends StatelessWidget {
                   }),
                 ],
                 isCurved: true,
-                color: const Color(0xFF818CF8), // Aura Indigo
+                color: Colors.indigoAccent,
                 barWidth: 3,
-                dashArray: [5, 5],
+                dashArray: [8, 8],
                 isStrokeCapRound: true,
-                dotData: const FlDotData(show: true), // Show dots for forecast
+                dotData: FlDotData(
+                  show: true,
+                  getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
+                    radius: 3,
+                    color: Colors.indigoAccent,
+                    strokeWidth: 2,
+                    strokeColor: Colors.white,
+                  ),
+                ),
                 belowBarData: BarAreaData(show: false),
               ),
           ],

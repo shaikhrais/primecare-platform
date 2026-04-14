@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimeWorkflowQueueItem {
@@ -15,7 +17,7 @@ class PrimeWorkflowQueueItem {
   });
 }
 
-class PrimeWorkflowQueueCard extends StatelessWidget {
+class PrimeWorkflowQueueCard extends ConsumerWidget {
   final String title;
   final List<PrimeWorkflowQueueItem> tasks;
 
@@ -26,7 +28,7 @@ class PrimeWorkflowQueueCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -53,7 +55,13 @@ class PrimeWorkflowQueueCard extends StatelessWidget {
                     icon: task.icon,
                     title: task.title,
                     statusColor: task.statusColor,
-                    onTap: task.onTap,
+                    onTap: () {
+                      ref.read(executionGateProvider).passGate(
+                        ExecutionGateCategory.navigationLayer,
+                        'Workflow Task Tapped: ${task.title}',
+                      );
+                      task.onTap();
+                    },
                   ),
                   if (idx < tasks.length - 1) const Divider(height: 1),
                 ],

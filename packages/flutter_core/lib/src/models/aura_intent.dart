@@ -1,4 +1,4 @@
-enum AuraActionType { navigate, filter, summarize, unknown }
+enum AuraActionType { navigate, filter, summarize, snooze, reassign, unknown }
 
 class AuraAction {
   final AuraActionType type;
@@ -9,6 +9,7 @@ class AuraAction {
 }
 
 class AuraIntent {
+  final String id;
   final String rawQuery;
   final String title;
   final String description;
@@ -16,6 +17,7 @@ class AuraIntent {
   final double confidence;
 
   const AuraIntent({
+    required this.id,
     required this.rawQuery,
     required this.title,
     required this.description,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_core/primecare_core.dart';
 
-class PrimeCareChartCard extends StatelessWidget {
+class PrimeCareChartCard extends ConsumerWidget {
   final String title;
   final Widget chart;
   final bool isPinned;
@@ -24,20 +26,25 @@ class PrimeCareChartCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(
-          color: isAuraActive
-              ? const Color(0xFF6366F1).withValues(alpha: 0.5)
-              : const Color(0xFFE2E8F0),
-          width: isAuraActive ? 2 : 1,
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.auraEngine, 
+      'Building Chart: $title (Aura Supported: $isAuraSupported, Active: $isAuraActive)'
+    );
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF1B262C),
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(20),
+            blurRadius: 40,
+            offset: const Offset(0, 20),
+          ),
+        ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(28),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -49,28 +56,29 @@ class PrimeCareChartCard extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: Colors.white,
                       ),
                     ),
                     if (isAuraActive) ...[
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 12),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
+                          horizontal: 8,
+                          vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF6366F1).withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.indigoAccent.withAlpha(30),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
                           'AURA ACTIVE',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF4338CA),
+                            color: Colors.indigoAccent,
+                            letterSpacing: 1.2,
                           ),
                         ),
                       ),
@@ -80,49 +88,82 @@ class PrimeCareChartCard extends StatelessWidget {
                 Row(
                   children: [
                     if (isAuraSupported)
-                      IconButton(
-                        icon: Icon(
-                          LucideIcons.sparkles,
-                          size: 18,
-                          color: isAuraActive
-                              ? const Color(0xFF6366F1)
-                              : const Color(0xFF94A3B8),
-                        ),
-                        onPressed: onAuraToggle,
-                        tooltip: isAuraActive
-                            ? 'Disable Aura Analysis'
-                            : 'Enable Aura Forecast',
+                      _buildHeaderButton(
+                        icon: LucideIcons.sparkles,
+                        isActive: isAuraActive,
+                        activeColor: Colors.indigoAccent,
+                        onPressed: () {
+                          ref.read(executionGateProvider).passGate(
+                            ExecutionGateCategory.auraEngine, 
+                            'Toggling Aura Forecast for $title',
+                            metadata: {'active': !isAuraActive}
+                          );
+                          onAuraToggle?.call();
+                        },
+                        tooltip: isAuraActive ? 'Disable Aura Analysis' : 'Enable Aura Forecast',
                       ),
                     if (onDetailPressed != null)
-                      IconButton(
-                        icon: const Icon(
-                          LucideIcons.externalLink,
-                          size: 18,
-                          color: Color(0xFF94A3B8),
-                        ),
-                        onPressed: onDetailPressed,
+                      _buildHeaderButton(
+                        icon: LucideIcons.externalLink,
+                        isActive: false,
+                        activeColor: Colors.blueAccent,
+                        onPressed: () {
+                          ref.read(executionGateProvider).passGate(
+                            ExecutionGateCategory.navigationLayer, 
+                            'Navigating to Details from $title'
+                          );
+                          onDetailPressed?.call();
+                        },
                         tooltip: 'View detailed report',
                       ),
-                    IconButton(
-                      icon: Icon(
-                        isPinned ? LucideIcons.pin : LucideIcons.pinOff,
-                        size: 18,
-                        color: isPinned
-                            ? const Color(0xFF3B82F6)
-                            : const Color(0xFF94A3B8),
-                      ),
-                      onPressed: onPinToggle,
+                    _buildHeaderButton(
+                      icon: isPinned ? LucideIcons.pin : LucideIcons.pinOff,
+                      isActive: isPinned,
+                      activeColor: Colors.blueAccent,
+                      onPressed: () {
+                        ref.read(executionGateProvider).passGate(
+                          ExecutionGateCategory.ui, 
+                          'Toggling Pin for $title',
+                          metadata: {'pinned': !isPinned}
+                        );
+                        onPinToggle?.call();
+                      },
                       tooltip: isPinned ? 'Unpin from top' : 'Pin to top',
                     ),
                   ],
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             chart,
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildHeaderButton({
+    required IconData icon,
+    required bool isActive,
+    required Color activeColor,
+    required VoidCallback? onPressed,
+    required String tooltip,
+  }) {
+    return IconButton(
+      icon: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: isActive ? activeColor.withAlpha(30) : Colors.white.withAlpha(5),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(
+          icon,
+          size: 18,
+          color: isActive ? activeColor : Colors.white.withAlpha(100),
+        ),
+      ),
+      onPressed: onPressed,
+      tooltip: tooltip,
     );
   }
 }

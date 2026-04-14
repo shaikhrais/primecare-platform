@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_core/primecare_core.dart';
 
-class PrimeCareKpiCard extends StatelessWidget {
+class PrimeCareKpiCard extends ConsumerWidget {
   final String title;
   final String value;
   final String subtitle;
@@ -20,7 +22,12 @@ class PrimeCareKpiCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.ui, 
+      'Building KPI Card: $title',
+      metadata: {'value': value, 'isPinned': isPinned}
+    );
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -46,7 +53,14 @@ class PrimeCareKpiCard extends StatelessWidget {
             top: 0,
             right: 0,
             child: GestureDetector(
-              onTap: onPinToggle,
+              onTap: () {
+                ref.read(executionGateProvider).passGate(
+                  ExecutionGateCategory.ui, 
+                  'Toggling Pin for KPI: $title',
+                  metadata: {'pinned': !isPinned}
+                );
+                onPinToggle();
+              },
               child: Icon(
                 isPinned ? LucideIcons.pin : LucideIcons.pinOff,
                 size: 16,
@@ -61,14 +75,14 @@ class PrimeCareKpiCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.blue.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(icon, color: Colors.blue, size: 24),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -80,7 +94,7 @@ class PrimeCareKpiCard extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Row(
                     textBaseline: TextBaseline.alphabetic,
                     crossAxisAlignment: CrossAxisAlignment.baseline,

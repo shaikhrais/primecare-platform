@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_core/flutter_core.dart';
+import '../../screens/dashboard.dart';
 
 class ScreenConfig {
   final String routePath;
@@ -49,9 +50,9 @@ final List<ScreenConfig> clinicScreenRegistry = [
   ),
   ScreenConfig(
     routePath: CommonRoutes.clinicDashboard,
-    titleKey: 'Clinic Dashboard',
-    subtitleKey: 'Real-time overview fetched natively via API.',
-    providerId: 'clinicDashboard',
+    titleKey: 'Clinical Intelligence',
+    subtitleKey: 'High-fidelity operations and risk surveillance.',
+    providerId: 'clinicIntelligence',
   ),
   ScreenConfig(
     routePath: CorporateRoutes.complianceManagerDashboard,
@@ -123,6 +124,12 @@ final List<ScreenConfig> clinicScreenRegistry = [
 
 final List<RouteBase> clinicRoutes = [
   ...clinicScreenRegistry.map((config) {
+    if (config.providerId == 'clinicIntelligence') {
+      return GoRoute(
+        path: config.routePath,
+        builder: (context, state) => const DashboardScreen(),
+      );
+    }
     return GoRoute(
       path: config.routePath,
       builder: (context, state) => PageTemplate.orchestrate(

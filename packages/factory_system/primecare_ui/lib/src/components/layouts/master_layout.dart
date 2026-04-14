@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'admin_layout.dart';
 import 'provider_layout.dart';
 import 'client_layout.dart';
+import '../diagnostic/execution_gate_overlay.dart';
 
 enum AppShellType { admin, provider, client, none }
 
@@ -50,18 +51,25 @@ class MasterLayout extends ConsumerWidget {
       ),
     );
 
+    Widget shell;
     switch (shellType) {
       case AppShellType.admin:
-        return AdminLayout(currentPath: currentUri, child: animatedChild);
+        shell = AdminLayout(currentPath: currentUri, child: animatedChild);
+        break;
       case AppShellType.provider:
-        return ProviderLayout(currentPath: currentUri, child: animatedChild);
+        shell = ProviderLayout(currentPath: currentUri, child: animatedChild);
+        break;
       case AppShellType.client:
-        return ClientLayout(currentPath: currentUri, child: animatedChild);
+        shell = ClientLayout(currentPath: currentUri, child: animatedChild);
+        break;
       case AppShellType.none:
-        return Scaffold(
+        shell = Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           body: animatedChild,
         ); // Raw master wrapper
+        break;
     }
+
+    return ExecutionGateOverlay(child: shell);
   }
 }

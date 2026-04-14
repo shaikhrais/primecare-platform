@@ -10,10 +10,16 @@ class HorizonGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(executionGateProvider).passGate(
+      ExecutionGateCategory.scheduler,
+      'Rendering Horizon Grid (Staff: ${schedule.staff.length}, Appts: ${schedule.appointments.length})',
+    );
     const double hourHeight = 120.0;
     const double staffWidth = 220.0;
     const int startHour = 8;
     const int endHour = 20;
+
+    final auraPulse = ref.watch(auraPulseProvider).value;
 
     return Row(
       children: [
@@ -52,9 +58,14 @@ class HorizonGrid extends ConsumerWidget {
                       final pressure = ref.watch(
                         staffPressureProvider(staff.id),
                       );
+                      
+                      final isAuraTarget = auraPulse?.metadata?['staffId'] == staff.id || 
+                         (auraPulse != null && auraPulse.description.toLowerCase().contains(staff.name.toLowerCase()));
+
                       return _StaffColumn(
                         staff: staff,
                         pressure: pressure,
+                        isAuraTarget: isAuraTarget,
                         resources: schedule.resources,
                         appointments: schedule.appointments
                             .where((a) => a.staffId == staff.id)
@@ -76,9 +87,10 @@ class HorizonGrid extends ConsumerWidget {
   }
 }
 
-class _StaffColumn extends StatelessWidget {
+class _StaffColumn extends ConsumerWidget {
   final StaffMember staff;
   final SchedulePressure pressure;
+  final bool isAuraTarget;
   final List<InstitutionalResource> resources;
   final List<Appointment> appointments;
   final double hourHeight;
@@ -89,6 +101,7 @@ class _StaffColumn extends StatelessWidget {
   const _StaffColumn({
     required this.staff,
     required this.pressure,
+    required this.isAuraTarget,
     required this.resources,
     required this.appointments,
     required this.hourHeight,
@@ -98,20 +111,27 @@ class _StaffColumn extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final pressureColor = _getPressureColor(pressure);
 
     return Container(
       width: staffWidth,
       decoration: BoxDecoration(
+        color: isAuraTarget ? Colors.indigoAccent.withValues(alpha: 0.1) : null,
         border: Border(
-          right: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
+          right: BorderSide(
+            color: isAuraTarget 
+                ? Colors.indigoAccent.withValues(alpha: 0.4) 
+                : Colors.white.withValues(alpha: 0.05),
+            width: isAuraTarget ? 2 : 1,
+          ),
+          left: isAuraTarget ? BorderSide(color: Colors.indigoAccent.withValues(alpha: 0.4), width: 2) : BorderSide.none,
         ),
       ),
       child: Column(
         children: [
           // Staff Header
-          _StaffHeader(staff: staff, pressure: pressure, color: pressureColor),
+          _StaffHeader(staff: staff, pressure: pressure, color: pressureColor, isAuraTarget: isAuraTarget),
 
           // Appointments Stack
           Expanded(
@@ -132,35 +152,49 @@ class _StaffColumn extends StatelessWidget {
 
                 // Appointment Cards
                 ...appointments.map((appt) {
-                  final top = _calculateOffset(
-                    appt.startTime,
-                    startHour,
-                    hourHeight,
-                  );
-                  final height = (appt.duration.inMinutes / 60.0) * hourHeight;
+                  try {
+                    final top = _calculateOffset(
+                      appt.startTime,
+                      startHour,
+                      hourHeight,
+                    );
+                      final height = (appt.duration.inMinutes / 60.0) * hourHeight;
+                    
+                    if (top.isNaN || height.isNaN || top < 0 || height < 0) {
+                      ref.read(executionGateProvider).failGate(
+                        ExecutionGateCategory.scheduler,
+                        'Invalid Appointment Layout for appt_id: ${appt.id}',
+                        metadata: {'top': top, 'height': height},
+                      );
+                      throw Exception('Invalid layout measurement');
+                    }
 
-                  return Positioned(
-                    top: top,
-                    left: 8,
-                    right: 8,
-                    height: height,
-                    child: _AppointmentCard(
-                      appointment: appt,
-                      color: staff.themeColor,
-                      resourceName: appt.resourceId != null
-                          ? resources
-                                .firstWhere(
-                                  (r) => r.id == appt.resourceId,
-                                  orElse: () => InstitutionalResource(
-                                    id: '',
-                                    name: 'Unknown',
-                                    type: ResourceType.room,
-                                  ),
-                                )
-                                .name
-                          : null,
-                    ),
-                  );
+                    return Positioned(
+                      top: top,
+                      left: 8,
+                      right: 8,
+                      height: height,
+                      child: _AppointmentCard(
+                        appointment: appt,
+                        color: staff.themeColor,
+                        resourceName: appt.resourceId != null
+                            ? resources
+                                  .firstWhere(
+                                    (r) => r.id == appt.resourceId,
+                                    orElse: () => InstitutionalResource(
+                                      id: '',
+                                      name: 'Unknown',
+                                      type: ResourceType.room,
+                                    ),
+                                  )
+                                  .name
+                            : null,
+                      ),
+                    );
+                  } catch (e) {
+                    // Checkpoint: Gracefully hide corrupted appointment layout
+                    return const SizedBox.shrink();
+                  }
                 }),
               ],
             ),
@@ -192,11 +226,13 @@ class _StaffHeader extends StatelessWidget {
   final StaffMember staff;
   final SchedulePressure pressure;
   final Color color;
+  final bool isAuraTarget;
 
   const _StaffHeader({
     required this.staff,
     required this.pressure,
     required this.color,
+    this.isAuraTarget = false,
   });
 
   @override
@@ -207,7 +243,10 @@ class _StaffHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor.withValues(alpha: 0.3),
         border: Border(
-          bottom: BorderSide(color: color.withValues(alpha: 0.5), width: 2),
+          bottom: BorderSide(
+            color: isAuraTarget ? Colors.indigoAccent : color.withValues(alpha: 0.5), 
+            width: isAuraTarget ? 3 : 2
+          ),
         ),
       ),
       child: Row(
@@ -215,7 +254,7 @@ class _StaffHeader extends StatelessWidget {
           CircleAvatar(
             radius: 20,
             backgroundImage: NetworkImage(staff.avatarUrl),
-            backgroundColor: staff.themeColor.withValues(alpha: 0.2),
+            backgroundColor: isAuraTarget ? Colors.indigoAccent : staff.themeColor.withValues(alpha: 0.2),
           ),
           const SizedBox(width: 12),
           Expanded(

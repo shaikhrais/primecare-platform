@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/primecare_core.dart';
 import 'app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ProviderScope(child: PrimeCareMarketingApp()));
+  AppErrorBoundary.runGuarded(
+    () => runApp(const ProviderScope(child: PrimeCareMarketingApp())),
+  );
 }
 
 class PrimeCareMarketingApp extends ConsumerWidget {
@@ -12,6 +15,7 @@ class PrimeCareMarketingApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: 'PrimeCare Marketing',

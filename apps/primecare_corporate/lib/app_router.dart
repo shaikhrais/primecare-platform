@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_core/flutter_core.dart';
+import 'package:primecare_core/primecare_core.dart';
 import 'routes/groups/corporate_routes.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -18,7 +18,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       }
 
       if (isLoggingIn || state.uri.toString() == '/') {
-        return AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
+        final role = authState.role ?? '';
+        final destination = AuthNotifier.getDashboardRouteForRole(role);
+        
+        // Safety: Allow authorized institutional and enterprise routes.
+        // Block raw /clinic path which is reserved for the clinical app build.
+        if (destination == '/clinic/dashboard') {
+          return CorporateRoutes.ceoDashboard;
+        }
+        return destination;
       }
 
       return null;

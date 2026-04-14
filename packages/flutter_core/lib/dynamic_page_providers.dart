@@ -1,23 +1,50 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'network/api_client.dart';
 import 'config/api_config.dart';
+import 'network/result.dart';
+import 'api_providers.dart';
+import 'telemetry_service.dart';
 
-final apiClient = ApiClient();
-
-final dynamicPageProvider = FutureProvider.family<List<dynamic>, String>((
+final dynamicPageProvider = FutureProvider.family<Result<List<dynamic>>, String>((
   ref,
   endpointKey,
 ) async {
-  final path =
-      ApiConfig.endpoints[endpointKey] ?? '/v1/primecare/office/$endpointKey';
+  final apiClient = ref.watch(apiClientProvider);
+  final telemetry = ref.read(executionGateProvider);
 
-  final parts = path.split('/').where((p) => p.isNotEmpty).toList();
-  final dataKey = parts.last.replaceAll('-', '_');
+  return Result.guardFuture<List<dynamic>>(
+    () async {
+      final path =
+          ApiConfig.endpoints[endpointKey] ?? '/v1/primecare/office/$endpointKey';
 
-  final response = await apiClient.get(path);
-  final json = response.data;
-  if (json is Map && json.containsKey(dataKey)) {
-    return json[dataKey] as List<dynamic>;
-  }
-  return [];
+      final parts = path.split('/').where((p) => p.isNotEmpty).toList();
+      final dataKey = parts.last.replaceAll('-', '_');
+
+      final response = await apiClient.get(path);
+      final json = response.data;
+      
+      List<dynamic> result;
+      if (json is Map && json.containsKey(dataKey)) {
+        result = json[dataKey] as List<dynamic>;
+      } else {
+        result = [];
+      }
+
+      telemetry.passGate(
+        ExecutionGateCategory.domainApi,
+        'Dynamic page hydrated: $endpointKey (${result.length} items)',
+        metadata: {'endpointKey': endpointKey, 'path': path},
+      );
+      return result;
+    },
+    onError: (e, st) {
+      telemetry.failGate(
+        ExecutionGateCategory.domainApi,
+        'Dynamic page hydration failed: $endpointKey',
+        error: e,
+        stackTrace: st,
+        metadata: {'endpointKey': endpointKey},
+      );
+      return <dynamic>[];
+    },
+  );
 });

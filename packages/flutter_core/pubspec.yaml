@@ -17,6 +17,7 @@ dependencies:
   dio: ^5.9.2
   easy_localization: ^3.0.8
   lucide_icons: ^0.257.0
+  connectivity_plus: ^6.1.4
   fl_chart: ^1.2.0
   riverpod_annotation: any
 dev_dependencies:

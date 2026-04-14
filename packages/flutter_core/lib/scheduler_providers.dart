@@ -8,26 +8,52 @@ final schedulerServiceProvider = Provider<SchedulerService>(
 class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
   @override
   Future<HorizonSchedule> build() async {
+    final telemetry = ref.read(executionGateProvider);
     final service = ref.watch(schedulerServiceProvider);
-    return service.getHorizonSchedule();
+    
+    telemetry.passGate(ExecutionGateCategory.scheduler, 'Hydrating Horizon Schedule');
+    try {
+      final schedule = await service.getHorizonSchedule();
+      telemetry.passGate(ExecutionGateCategory.scheduler, 'Horizon Schedule Hydrated', metadata: {
+        'apptCount': schedule.appointments.length,
+        'staffCount': schedule.staff.length,
+      });
+      return schedule;
+    } catch (e, stack) {
+      telemetry.failGate(
+        ExecutionGateCategory.scheduler, 
+        'Failed to hydrate Horizon Schedule', 
+        error: e, 
+        stackTrace: stack,
+        metadata: {'error': e.toString()}
+      );
+      rethrow;
+    }
   }
 
   Future<void> addAppointment(Appointment appt) async {
+    final telemetry = ref.read(executionGateProvider);
     final oldState = state.value;
     if (oldState == null) return;
+
+    telemetry.passGate(ExecutionGateCategory.scheduler, 'Initiating Optimistic Appointment Add', metadata: {'apptId': appt.id});
 
     // Optimistic Update
     state = AsyncData(
       oldState.copyWith(appointments: [...oldState.appointments, appt]),
     );
 
-    try {
-      await ref.read(schedulerServiceProvider).createAppointment(appt);
-    } catch (e) {
-      // Rollback on error
-      state = AsyncData(oldState);
-      rethrow;
-    }
+    final result = await ref.read(schedulerServiceProvider).createAppointment(appt);
+    result.fold(
+      (_) {
+        telemetry.passGate(ExecutionGateCategory.scheduler, 'Appointment Persisted Successfully', metadata: {'apptId': appt.id});
+      },
+      (error) {
+        telemetry.failGate(ExecutionGateCategory.scheduler, 'Appointment Persistence Failed - Rolling Back', metadata: {'error': error.toString()});
+        // Rollback on error
+        state = AsyncData(oldState);
+      },
+    );
   }
 
   Future<void> updateAppointment(Appointment appt) async {
@@ -43,12 +69,13 @@ class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
       ),
     );
 
-    try {
-      await ref.read(schedulerServiceProvider).updateAppointment(appt);
-    } catch (e) {
-      state = AsyncData(oldState);
-      rethrow;
-    }
+    final result = await ref.read(schedulerServiceProvider).updateAppointment(appt);
+    result.fold(
+      (_) {},
+      (_) {
+        state = AsyncData(oldState);
+      },
+    );
   }
 
   Future<void> deleteAppointment(String id) async {
@@ -62,12 +89,13 @@ class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
       ),
     );
 
-    try {
-      await ref.read(schedulerServiceProvider).deleteAppointment(id);
-    } catch (e) {
-      state = AsyncData(oldState);
-      rethrow;
-    }
+    final result = await ref.read(schedulerServiceProvider).deleteAppointment(id);
+    result.fold(
+      (_) {},
+      (_) {
+        state = AsyncData(oldState);
+      },
+    );
   }
 }
 
@@ -76,11 +104,38 @@ final horizonScheduleProvider =
       return HorizonScheduleNotifier();
     });
 
-/// Provider for mapping 'Live Pressure' to staff members based on their appointment density.
+final historicalAnalyticsProvider = Provider.family<double, String>((ref, staffId) {
+  try {
+    // Deterministic simulation based on ID hash
+    final hash = staffId.hashCode.abs();
+    // Generate a multiplier between 0.8 and 1.4
+    final variance = (hash % 60) / 100.0; 
+    final result = 0.8 + variance;
+    
+    // Bounds validation checkpoint to prevent dynamic scaling errors
+    if (result.isNaN || result.isInfinite) return 1.0;
+    return result.clamp(0.5, 2.0);
+  } catch (e) {
+    // Return standard neutral load upon dynamic failure
+    return 1.0;
+  }
+});
+
 final staffPressureProvider = Provider.family<SchedulePressure, String>((
   ref,
   staffId,
 ) {
+  // 1. Reactive Aura Intelligence Override
+  final pulse = ref.watch(auraPulseProvider).value;
+  if (pulse != null && pulse.metadata?['staffId'] == staffId) {
+    if (pulse.impact == InsightImpact.alert) {
+      return SchedulePressure.critical;
+    } else if (pulse.impact == InsightImpact.caution) {
+      return SchedulePressure.high;
+    }
+  }
+
+  // 2. Fallback to normal capacity checks with Historical Trends
   final schedule = ref.watch(horizonScheduleProvider).value;
   if (schedule == null) return SchedulePressure.optimal;
 
@@ -88,8 +143,31 @@ final staffPressureProvider = Provider.family<SchedulePressure, String>((
       .where((a) => a.staffId == staffId)
       .length;
 
-  if (apptCount > 6) return SchedulePressure.critical;
-  if (apptCount > 4) return SchedulePressure.high;
+  final historicalMultiplier = ref.watch(historicalAnalyticsProvider(staffId));
+  
+  // Safe computation checkpoint
+  double effectiveLoad = 0.0;
+  try {
+    effectiveLoad = apptCount * historicalMultiplier;
+    if (effectiveLoad.isNaN || effectiveLoad.isInfinite) {
+      ref.read(executionGateProvider).failGate(
+        ExecutionGateCategory.scheduler, 
+        'Pressure Computation Invalid - NaN/Infinite detected',
+        metadata: {'staffId': staffId, 'load': effectiveLoad}
+      );
+      effectiveLoad = apptCount.toDouble();
+    }
+  } catch (e) {
+    ref.read(executionGateProvider).failGate(
+      ExecutionGateCategory.scheduler, 
+      'Pressure Computation Error',
+      metadata: {'staffId': staffId, 'error': e.toString()}
+    );
+    effectiveLoad = apptCount.toDouble();
+  }
+
+  if (effectiveLoad > 6) return SchedulePressure.critical;
+  if (effectiveLoad > 4) return SchedulePressure.high;
   return SchedulePressure.optimal;
 });
 
@@ -99,6 +177,7 @@ final schedulerAnomalyProvider = Provider<List<AuraEvent>>((ref) {
   if (schedule == null) return [];
 
   final anomalies = <AuraEvent>[];
+  final telemetry = ref.read(executionGateProvider);
 
   // 1. Staff Pressure Anomaly Detection
   for (final staff in schedule.staff) {
@@ -106,9 +185,11 @@ final schedulerAnomalyProvider = Provider<List<AuraEvent>>((ref) {
         .where((a) => a.staffId == staff.id)
         .toList();
     if (appts.length > 6) {
+      telemetry.passGate(ExecutionGateCategory.aura, 'Burnout Anomaly Detected', metadata: {'staffId': staff.id});
       anomalies.add(
         AuraEvent(
           id: 'burnout_${staff.id}',
+// ... rest of the code ...
           type: AuraEventType.workforceEfficiency,
           title: 'Critical Burnout Risk',
           description:
