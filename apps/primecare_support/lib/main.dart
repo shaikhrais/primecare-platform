@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 import 'app_router.dart';
 
-void main() async {
+void main() {
+  AppErrorBoundary.runGuarded(() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AppErrorBoundary.runGuarded(
-    () => runApp(const ProviderScope(child: PrimeCareSupportApp())),
-  );
+      runApp(const ProviderScope(child: PrimeCareSupportApp()));
+  });
 }
 
 class PrimeCareSupportApp extends ConsumerWidget {

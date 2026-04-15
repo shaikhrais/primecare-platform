@@ -107,15 +107,34 @@ void main() {
 
     test('only retries GET requests', () {
       const policy = RetryPolicy();
-      expect(policy.shouldRetry(RequestOptions(path: '/', method: 'GET'), 0), isTrue);
-      expect(policy.shouldRetry(RequestOptions(path: '/', method: 'POST'), 0), isFalse);
-      expect(policy.shouldRetry(RequestOptions(path: '/', method: 'PUT'), 0), isFalse);
-      expect(policy.shouldRetry(RequestOptions(path: '/', method: 'DELETE'), 0), isFalse);
+      expect(
+        policy.shouldRetry(DioException(
+            requestOptions: RequestOptions(path: '/', method: 'GET'),
+            type: DioExceptionType.connectionError)),
+        isTrue,
+      );
+      expect(
+        policy.shouldRetry(DioException(
+            requestOptions: RequestOptions(path: '/', method: 'POST'),
+            type: DioExceptionType.connectionError)),
+        isFalse,
+      );
+      expect(
+        policy.shouldRetry(DioException(requestOptions: RequestOptions(path: '/', method: 'PUT'))),
+        isFalse,
+      );
+      expect(
+        policy.shouldRetry(DioException(requestOptions: RequestOptions(path: '/', method: 'DELETE'))),
+        isFalse,
+      );
     });
 
-    test('does not retry beyond max retries', () {
+    test('does not retry POST by default', () {
       const policy = RetryPolicy(maxRetries: 2);
-      expect(policy.shouldRetry(RequestOptions(path: '/', method: 'GET'), 2), isFalse);
+      expect(
+        policy.shouldRetry(DioException(requestOptions: RequestOptions(path: '/', method: 'POST'))),
+        isFalse,
+      );
     });
   });
 

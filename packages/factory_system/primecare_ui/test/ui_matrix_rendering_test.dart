@@ -35,7 +35,7 @@ void main() {
         sharedPreferencesProvider.overrideWithValue(mockPrefs),
         // Overriding metrics to ensure deterministic hydration in tests
         dashboardMetricsProvider.overrideWith(
-          (ref, role) => DataLogisticsHub.getDashboardMetrics(role),
+          (ref, role) async => Success(DataLogisticsHub.getDashboardMetrics(role)),
         ),
         // Overriding insights to ensure deterministic hydration in tests
         auraInsightsProvider.overrideWith(
@@ -43,7 +43,7 @@ void main() {
         ),
         // Neutralizing the heartbeat timer and service to prevent pumpAndSettle timeouts
         auraPulseServiceProvider.overrideWith(
-          (ref) => AuraPulseService(),
+          (ref) => AuraPulseService(ref),
         ), // Service without start()
         auraPulseProvider.overrideWith(
           (ref) => Stream.value(AuraEvent.stable()),

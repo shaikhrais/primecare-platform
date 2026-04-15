@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class ApiConfig {
   /// Base API destination URL (e.g. gateway edge proxy)
   static String get baseUrl =>
-      dotenv.env['API_URL'] ??
+      (dotenv.isInitialized ? dotenv.env['API_URL'] : null) ??
       'https://primecare-api-gateway.itpro-mohammed.workers.dev';
 
   /// Global Semantic Versioning flag injected natively into the uri strings

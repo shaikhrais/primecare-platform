@@ -23,6 +23,10 @@
     "test": "npm run test:fast",
     "turbo:lint": "npx turbo lint",
     "dev:services": "turbo run dev --filter='./archive/services/*'",
+    "verify": "powershell -ExecutionPolicy Bypass -File .\\scripts\\preflight.ps1",
+    "checkpoint": "powershell -ExecutionPolicy Bypass -File .\\scripts\\checkpoint.ps1",
+    "dev:safe:api": "powershell -ExecutionPolicy Bypass -File .\\scripts\\run_safe.ps1 -Target dev:api",
+    "dev:safe:web": "powershell -ExecutionPolicy Bypass -File .\\scripts\\run_safe.ps1 -Target dev:web",
     "prepare": "husky"
   },
   "dependencies": {

@@ -7,7 +7,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_router.dart';
 
-void main() async {
+void main() {
+  AppErrorBoundary.runGuarded(() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   // Inject the UI implementation into the Core Registry to prevent circular package cycles
@@ -17,8 +18,7 @@ void main() async {
   
   final sharedPreferences = await SharedPreferences.getInstance();
   
-  AppErrorBoundary.runGuarded(
-    () => runApp(
+      runApp(
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
         // Use the resolved package path that matches the web server directory structure
@@ -32,8 +32,8 @@ void main() async {
           child: const PrimeCareCorporateApp(),
         ),
       ),
-    ),
-  );
+    );
+  });
 }
 
 class PrimeCareCorporateApp extends ConsumerWidget {

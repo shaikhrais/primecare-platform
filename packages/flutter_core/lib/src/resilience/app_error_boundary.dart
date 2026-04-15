@@ -13,12 +13,15 @@ class AppErrorBoundary {
   ///
   /// Usage in main.dart:
   /// ```dart
-  /// void main() async {
-  ///   WidgetsFlutterBinding.ensureInitialized();
-  ///   AppErrorBoundary.runGuarded(() => runApp(ProviderScope(child: MyApp())));
+  /// void main() {
+  ///   AppErrorBoundary.runGuarded(() async {
+  ///     WidgetsFlutterBinding.ensureInitialized();
+  ///     // other awaits...
+  ///     runApp(ProviderScope(child: MyApp()));
+  ///   });
   /// }
   /// ```
-  static void runGuarded(void Function() appRunner) {
+  static void runGuarded(Future<void> Function() appRunner) {
     // Vector 1: Widget build/layout/paint errors
     FlutterError.onError = (FlutterErrorDetails details) {
       FlutterError.presentError(details);
@@ -33,7 +36,9 @@ class AppErrorBoundary {
 
     // Vector 3: Async errors in the zone
     runZonedGuarded(
-      appRunner,
+      () async {
+        await appRunner();
+      },
       (error, stackTrace) {
         _reportZoneError(error, stackTrace);
       },

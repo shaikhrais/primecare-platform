@@ -4,18 +4,18 @@ import 'package:primecare_core/primecare_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_router.dart';
 
-void main() async {
+void main() {
+  AppErrorBoundary.runGuarded(() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
 
-  AppErrorBoundary.runGuarded(
-    () => runApp(
+      runApp(
       ProviderScope(
         overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
         child: const PrimeCareClinicApp(),
       ),
-    ),
-  );
+    );
+  });
 }
 
 class PrimeCareClinicApp extends ConsumerWidget {
