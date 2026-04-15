@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
-import { flattenObject, detectSection } from '@primecare/shared-utils';
+import { flattenObject, detectSection } from '@primecare/infrastructure';
 import { AdminRegistry } from 'prime-care-shared';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

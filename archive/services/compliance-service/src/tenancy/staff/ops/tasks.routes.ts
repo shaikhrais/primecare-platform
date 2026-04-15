@@ -1,8 +1,8 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
 // RBAC: Inherits requireAnyPermission(['view_home', 'view_ops_home']) from staff.module.ts
-import { logAudit } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

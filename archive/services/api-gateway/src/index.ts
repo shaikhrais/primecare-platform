@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { handleMockUIEndpoint } from './mock_ui_service';
-import { prismaMiddleware } from '@primecare/shared-utils';
+import { prismaMiddleware } from '@primecare/infrastructure';
 
 type Bindings = {
   AUTH_SERVICE: Fetcher;

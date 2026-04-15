@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { PrismaClient } from '@primecare/database'
 import { Bindings, Variables } from '@primecare/shared-types'
-import { prismaMiddleware } from '@primecare/shared-utils'
+import { prismaMiddleware } from '@primecare/infrastructure'
 
 const screensRouter = new Hono<{ Bindings: Bindings, Variables: Variables }>()
 

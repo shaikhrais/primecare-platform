@@ -24,15 +24,14 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final telemetry = ref.read(executionGateProvider);
     telemetry.passGate(
-      ExecutionGateCategory.navigationLayer, 
-      'Navigated to dynamic role dashboard screen for role: $role'
+      ExecutionGateCategory.navigationLayer,
+      'Navigated to dynamic role dashboard screen for role: $role',
     );
     final metricsAsync = ref.watch(dashboardMetricsProvider(role));
-    // 4. Aura Action Dispatcher (Refactored to private class method _handleAuraIntent)
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      body: metricsAsync.when(
+    return ColoredBox(
+      color: const Color(0xFFF8FAFC),
+      child: metricsAsync.when(
         data: (result) {
           return result.fold(
             (metrics) {
@@ -53,11 +52,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                 'Render-time failure in dashboard content: $role',
                 error: error,
               );
-              return _buildResilientFallback(
-                context, 
-                ref, 
-                error.toString()
-              );
+              return _buildResilientFallback(context, ref, error.toString());
             },
           );
         },
@@ -81,7 +76,11 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildResilientFallback(BuildContext context, WidgetRef ref, String error) {
+  Widget _buildResilientFallback(
+    BuildContext context,
+    WidgetRef ref,
+    String error,
+  ) {
     return Column(
       children: [
         _buildResilienceBanner(context),
@@ -90,7 +89,11 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(LucideIcons.shieldAlert, size: 48, color: Color(0xFFEAB308)),
+                const Icon(
+                  LucideIcons.shieldAlert,
+                  size: 48,
+                  color: Color(0xFFEAB308),
+                ),
                 const SizedBox(height: 16),
                 Text(
                   'Institutional Resilience Mode',
@@ -111,7 +114,8 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
-                  onPressed: () => ref.invalidate(dashboardMetricsProvider(role)),
+                  onPressed: () =>
+                      ref.invalidate(dashboardMetricsProvider(role)),
                   icon: const Icon(LucideIcons.refreshCw, size: 16),
                   label: const Text('Attempt Re-Hydration'),
                   style: ElevatedButton.styleFrom(
@@ -183,7 +187,8 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: 24.0),
               child: PrimeCareAuraCard(
                 insights: insights,
-                onAuraResult: (intent) => _handleAuraIntent(context, telemetry, intent),
+                onAuraResult: (intent) =>
+                    _handleAuraIntent(context, telemetry, intent),
               ),
             ),
             loading: () => const SizedBox(
@@ -213,10 +218,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                     const SizedBox(height: 4),
                     const Text(
                       'Real-time metrics and institutional activity feed.',
-                      style: TextStyle(
-                        color: Color(0xFF64748B),
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Color(0xFF64748B), fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -230,12 +232,16 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
           metrics.kpis.isEmpty
               ? const Center(
                   child: Padding(
-                  padding: EdgeInsets.all(32.0),
-                  child: Text('No institutional metrics available for this role.'),
-                ))
+                    padding: EdgeInsets.all(32.0),
+                    child: Text(
+                      'No institutional metrics available for this role.',
+                    ),
+                  ),
+                )
               : PrimeCareResponsiveKpiGrid(
                   children: sortedKpis.map((kpi) {
-                    final isPinned = prefService?.isPinned(role, kpi.title) ?? false;
+                    final isPinned =
+                        prefService?.isPinned(role, kpi.title) ?? false;
                     return PrimeCareKpiCard(
                       title: kpi.title,
                       value: kpi.value,
@@ -244,7 +250,11 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                       isPinned: isPinned,
                       onPinToggle: () async {
                         if (prefService != null) {
-                          await prefService.setPinned(role, kpi.title, !isPinned);
+                          await prefService.setPinned(
+                            role,
+                            kpi.title,
+                            !isPinned,
+                          );
                           // Trigger UI update
                           ref.invalidate(preferenceServiceProvider);
                         }
@@ -278,7 +288,11 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
     );
   }
 
-  void _handleAuraIntent(BuildContext context, ExecutionGateService telemetry, AuraIntent intent) {
+  void _handleAuraIntent(
+    BuildContext context,
+    ExecutionGateService telemetry,
+    AuraIntent intent,
+  ) {
     if (intent.actions.isEmpty) return;
 
     for (final action in intent.actions) {
@@ -287,7 +301,8 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PrimeCareReportScreen(reportId: action.target),
+              builder: (context) =>
+                  PrimeCareReportScreen(reportId: action.target),
             ),
           );
           break;

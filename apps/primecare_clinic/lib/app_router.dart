@@ -29,7 +29,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: CommonRoutes.login,
         builder: (context, state) => const LoginScreen(),
       ),
-      ...clinicRoutes,
+      ShellRoute(
+        builder: (context, state, child) => MasterLayout(
+          shellType: AppShellType.provider, // clinic uses provider shell
+          child: child,
+        ),
+        routes: clinicRoutes,
+      ),
     ],
   );
 });

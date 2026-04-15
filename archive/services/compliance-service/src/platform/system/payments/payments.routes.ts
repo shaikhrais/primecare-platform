@@ -1,8 +1,8 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import Stripe from 'stripe';
 import { Bindings, Variables } from '@primecare/shared-types';
-import { logAudit } from '@primecare/shared-utils';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

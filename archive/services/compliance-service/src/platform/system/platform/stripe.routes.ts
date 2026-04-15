@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
-import { StripeService } from '@primecare/shared-utils';
+import { StripeService } from '@primecare/infrastructure';
 
 const stripeRoutes = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

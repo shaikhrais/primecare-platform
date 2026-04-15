@@ -4,7 +4,7 @@
  *           Smart Care Plan Summaries, Sentiment Analysis, Telehealth,
  *           Peer Matching
  */
-import { logAudit } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
 
 export async function processSlaEscalations(prisma: any) {
   let processed = 0;

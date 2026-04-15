@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
-import { hashPassword } from '@primecare/shared-utils';;
+import { hashPassword } from '@primecare/infrastructure';;
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

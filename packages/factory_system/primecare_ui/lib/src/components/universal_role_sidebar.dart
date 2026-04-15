@@ -54,69 +54,383 @@ class UniversalRoleSidebar extends ConsumerWidget {
     }
 
     // Tablet and Desktop layouts (Sidebar)
-    return _buildRailLayout(context, currentIndex, layout);
+    return Scaffold(
+      body: Row(
+        children: [
+          _buildSidebar(context, ref, currentIndex, layout),
+          Expanded(
+            child: Container(color: theme.colorScheme.surface, child: child),
+          ),
+        ],
+      ),
+    );
   }
 
-  Widget _buildRailLayout(
+  Widget _buildSidebar(
     BuildContext context,
+    WidgetRef ref,
     int currentIndex,
     LayoutConfig layout,
   ) {
     final theme = Theme.of(context);
+    final isExtended = layout.isExtended;
+    final scale = layout.scaleFactor;
+    final width = isExtended ? 260.0 * scale : 82.0 * scale;
 
-    return Scaffold(
-      body: Row(
+    // Group items by section
+    final Map<String, List<PrimeCareNavigationItem>> groupedItems = {};
+    for (var item in items) {
+      final section = item.section ?? 'Main';
+      if (!groupedItems.containsKey(section)) {
+        groupedItems[section] = [];
+      }
+      groupedItems[section]!.add(item);
+    }
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      width: width,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        border: Border(
+          right: BorderSide(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Column(
         children: [
-          if (items.isNotEmpty) ...[
-            NavigationRail(
-              extended: layout.isExtended,
-              minExtendedWidth: layout.sidebarWidth,
-              selectedIndex: currentIndex,
-              backgroundColor: theme.colorScheme.surface,
-              onDestinationSelected: (index) {
-                if (index < items.length) context.go(items[index].route);
-              },
-              destinations: items.map((item) {
-                final iconSize = 24.0 * layout.scaleFactor;
-                return NavigationRailDestination(
-                  icon: Icon(
-                    item.icon,
-                    size: iconSize,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                  selectedIcon: item.activeIcon != null
-                      ? Icon(
-                          item.activeIcon,
-                          size: iconSize,
-                          color: theme.colorScheme.primary,
-                        )
-                      : Icon(
-                          item.icon,
-                          size: iconSize,
-                          color: theme.colorScheme.primary,
+          // Logo Header
+          _SidebarHeader(isExtended: isExtended, scale: scale),
+
+          // Menu Items
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                horizontal: isExtended ? 16 * scale : 8 * scale,
+              ),
+              children: [
+                ...groupedItems.entries.map((entry) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (isExtended)
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 10 * scale,
+                            top: 18 * scale,
+                            bottom: 8 * scale,
+                          ),
+                          child: Text(
+                            entry.key.toUpperCase(),
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant
+                                  .withValues(alpha: 0.5),
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5 * scale,
+                              fontSize: 10 * scale,
+                            ),
+                          ),
                         ),
-                  label: Padding(
-                    padding: EdgeInsets.only(top: 4 * layout.scaleFactor),
-                    child: Text(
-                      item.label,
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        fontSize: 12.0 * layout.scaleFactor,
-                        fontWeight: FontWeight.w500,
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
+                      ...entry.value.map((item) {
+                        final isSelected = items.indexOf(item) == currentIndex;
+                        return _SidebarMenuItem(
+                          item: item,
+                          isSelected: isSelected,
+                          isExtended: isExtended,
+                          scale: scale,
+                          onTap: () => context.go(item.route),
+                        );
+                      }),
+                    ],
+                  );
+                }),
+              ],
             ),
-            VerticalDivider(
-              thickness: 1 * layout.scaleFactor,
-              width: 1 * layout.scaleFactor,
-              color: theme.colorScheme.outline,
+          ),
+
+          // Footer (User Card)
+          _SidebarFooter(isExtended: isExtended, scale: scale),
+        ],
+      ),
+    );
+  }
+}
+
+class _SidebarHeader extends StatelessWidget {
+  final bool isExtended;
+  final double scale;
+
+  const _SidebarHeader({required this.isExtended, required this.scale});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+        16 * scale,
+        24 * scale,
+        16 * scale,
+        24 * scale,
+      ),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
+      ),
+      margin: EdgeInsets.only(bottom: 20 * scale),
+      child: Row(
+        mainAxisAlignment: isExtended
+            ? MainAxisAlignment.start
+            : MainAxisAlignment.center,
+        children: [
+          // Logo Icon (Gradient P)
+          Container(
+            width: 44 * scale,
+            height: 44 * scale,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12 * scale),
+              gradient: const LinearGradient(
+                colors: [Color(0xFF2563EB), Color(0xFF06B6D4)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              'P',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20 * scale,
+              ),
+            ),
+          ),
+          if (isExtended) ...[
+            SizedBox(width: 12 * scale),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'PrimeCare',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18 * scale,
+                    height: 1.1,
+                  ),
+                ),
+                Text(
+                  'Care Management',
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant.withValues(
+                      alpha: 0.6,
+                    ),
+                    fontSize: 11 * scale,
+                  ),
+                ),
+              ],
             ),
           ],
-          Expanded(child: child),
         ],
+      ),
+    );
+  }
+}
+
+class _SidebarMenuItem extends StatefulWidget {
+  final PrimeCareNavigationItem item;
+  final bool isSelected;
+  final bool isExtended;
+  final double scale;
+  final VoidCallback onTap;
+
+  const _SidebarMenuItem({
+    required this.item,
+    required this.isSelected,
+    required this.isExtended,
+    required this.scale,
+    required this.onTap,
+  });
+
+  @override
+  State<_SidebarMenuItem> createState() => _SidebarMenuItemState();
+}
+
+class _SidebarMenuItemState extends State<_SidebarMenuItem> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    Color backgroundColor = Colors.transparent;
+    Color iconColor = theme.colorScheme.onSurfaceVariant;
+    Color textColor = theme.colorScheme.onSurface;
+
+    if (widget.isSelected) {
+      backgroundColor = const Color(0xFF2563EB);
+      iconColor = Colors.white;
+      textColor = Colors.white;
+    } else if (_isHovered) {
+      backgroundColor = const Color(0xFFEFF6FF);
+      iconColor = const Color(0xFF2563EB);
+      textColor = const Color(0xFF2563EB);
+    }
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          margin: EdgeInsets.only(bottom: 6 * widget.scale),
+          padding: EdgeInsets.symmetric(
+            horizontal: 14 * widget.scale,
+            vertical: 12 * widget.scale,
+          ),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(12 * widget.scale),
+          ),
+          child: Row(
+            mainAxisAlignment: widget.isExtended
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.center,
+            children: [
+              Icon(
+                widget.isSelected && widget.item.activeIcon != null
+                    ? widget.item.activeIcon
+                    : widget.item.icon,
+                size: 20 * widget.scale,
+                color: iconColor,
+              ),
+              if (widget.isExtended) ...[
+                SizedBox(width: 12 * widget.scale),
+                Expanded(
+                  child: Text(
+                    widget.item.label,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 15 * widget.scale,
+                      fontWeight: widget.isSelected
+                          ? FontWeight.w600
+                          : FontWeight.w500,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SidebarFooter extends ConsumerWidget {
+  final bool isExtended;
+  final double scale;
+
+  const _SidebarFooter({required this.isExtended, required this.scale});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final authState = ref.watch(authProvider);
+    final role = authState.role ?? 'Administrator';
+
+    // Using placeholder data as per HTML spec, but making role half-dynamic
+    const userName = 'Mohammed';
+    final initials =
+        userName.substring(0, 1) +
+        (userName.length > 1 ? userName.substring(userName.length - 1) : '');
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: 20 * scale,
+        horizontal: 16 * scale,
+      ),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(isExtended ? 12 * scale : 0),
+        decoration: isExtended
+            ? BoxDecoration(
+                color: const Color(0xFFF9FAFB),
+                borderRadius: BorderRadius.circular(14 * scale),
+              )
+            : null,
+        child: Row(
+          mainAxisAlignment: isExtended
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
+          children: [
+            // Avatar
+            Container(
+              width: 44 * scale,
+              height: 44 * scale,
+              decoration: const BoxDecoration(
+                color: Color(0xFF2563EB),
+                shape: BoxShape.circle,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                initials.toUpperCase(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14 * scale,
+                ),
+              ),
+            ),
+            if (isExtended) ...[
+              SizedBox(width: 12 * scale),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      userName,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14 * scale,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      role,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant.withValues(
+                          alpha: 0.6,
+                        ),
+                        fontSize: 12 * scale,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }

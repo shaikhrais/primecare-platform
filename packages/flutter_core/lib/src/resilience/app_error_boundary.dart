@@ -21,28 +21,25 @@ class AppErrorBoundary {
   ///   });
   /// }
   /// ```
-  static void runGuarded(Future<void> Function() appRunner) {
+  static void runGuarded(Future<void> Function() appRunner) async {
     // Vector 1: Widget build/layout/paint errors
     FlutterError.onError = (FlutterErrorDetails details) {
       FlutterError.presentError(details);
       _reportFlutterError(details);
     };
 
-    // Vector 2: Platform-level errors (not caught by runZonedGuarded)
+    // Vector 2: Platform-level errors (and all unhandled async errors in Flutter 3.3+)
     PlatformDispatcher.instance.onError = (error, stack) {
       _reportPlatformError(error, stack);
       return true; // Prevents app termination
     };
 
-    // Vector 3: Async errors in the zone
-    runZonedGuarded(
-      () async {
-        await appRunner();
-      },
-      (error, stackTrace) {
-        _reportZoneError(error, stackTrace);
-      },
-    );
+    // Run directly in the root zone to prevent Zone Mismatch assertions
+    try {
+      await appRunner();
+    } catch (error, stackTrace) {
+      _reportZoneError(error, stackTrace);
+    }
   }
 
   static void _reportFlutterError(FlutterErrorDetails details) {
@@ -79,12 +76,14 @@ class AppErrorBoundary {
   static void _safeLog(String vector, Object error, StackTrace? stack) {
     try {
       // Store in a static buffer that the telemetry service can pick up
-      _pendingErrors.add(_BoundaryError(
-        vector: vector,
-        error: error,
-        stackTrace: stack,
-        timestamp: DateTime.now(),
-      ));
+      _pendingErrors.add(
+        _BoundaryError(
+          vector: vector,
+          error: error,
+          stackTrace: stack,
+          timestamp: DateTime.now(),
+        ),
+      );
 
       // Cap the pending error buffer (prevent OOM from error storms)
       if (_pendingErrors.length > _maxPendingErrors) {

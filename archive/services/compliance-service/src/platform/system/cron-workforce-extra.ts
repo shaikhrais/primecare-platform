@@ -2,7 +2,7 @@
  * Cron Workforce Handlers — Part 2 (Surveys + Birthday)
  * Split from cron-workforce.ts to keep files under 200 lines
  */
-import { logAudit } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
 
 export async function processNoShowPrediction(prisma: any) {
     let aiNoShowWarnings = 0;

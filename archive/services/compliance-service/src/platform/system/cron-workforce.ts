@@ -4,7 +4,7 @@
  *           Performance Reviews, Dismissal Safeguard, No-Show Prediction,
  *           Targeted Surveys, Birthday Wishes
  */
-import { logAudit } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
 
 export async function processTimesheetAutoApproval(prisma: any) {
   let autoApprovedCount = 0;

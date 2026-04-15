@@ -3,7 +3,7 @@
  * Extracted from admin-actions.routes.ts
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { createAuditEntry, verifyChain, getEntityAuditTrail } from '@primecare/shared-utils';
+import { createAuditEntry, verifyChain, getEntityAuditTrail } from '@primecare/infrastructure';
 
 const SuccessResponseSchema = z.object({ success: z.boolean(), message: z.string() });
 const ErrorResponseSchema = z.object({ error: z.string() });

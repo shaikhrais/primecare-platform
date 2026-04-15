@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/shared-types';
 import { requirePermission } from '@primecare/shared-auth';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
 import { getFulfillmentStats, getRevenueStats } from './stats/fulfillment';
 import { getIncidentStats, getVolumeAndServiceStats } from './stats/indicators';
 import { getStaffStats } from './stats/staff';

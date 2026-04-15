@@ -20,7 +20,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (isLoggingIn || state.uri.toString() == '/') {
         final role = authState.role ?? '';
         final destination = AuthNotifier.getDashboardRouteForRole(role);
-        
+
         // Safety: Allow authorized institutional and enterprise routes.
         // Block raw /clinic path which is reserved for the clinical app build.
         if (destination == '/clinic/dashboard') {
@@ -36,7 +36,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: CommonRoutes.login,
         builder: (context, state) => const LoginScreen(),
       ),
-      ...corporateRoutes,
+      ShellRoute(
+        builder: (context, state, child) =>
+            MasterLayout(shellType: AppShellType.admin, child: child),
+        routes: corporateRoutes,
+      ),
     ],
   );
 });

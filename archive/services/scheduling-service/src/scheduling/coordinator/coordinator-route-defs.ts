@@ -3,7 +3,7 @@
  * Extracted from coordinator.routes.ts for modularity
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
 import { requirePermission } from '@primecare/shared-auth';
 
 export const CoordinatorStatsSchema = z.object({

@@ -3,9 +3,9 @@
  * Extracted from financial.routes.ts
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { FinancialService } from '@primecare/shared-utils';
-import { BillingService } from '@primecare/shared-utils';
-import { ForecastingService } from '@primecare/shared-utils';
+import { FinancialService } from '@primecare/infrastructure';
+import { BillingService } from '@primecare/infrastructure';
+import { ForecastingService } from '@primecare/infrastructure';
 
 export const listLedgerRoute = createRoute({ method: 'get', path: '/', summary: 'List Financial Ledger', description: 'Returns all financial transactions with their balanced journal entries.', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' },
     '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },

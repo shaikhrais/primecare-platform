@@ -3,7 +3,7 @@
  * Extracted from manager_ops.routes.ts
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
 
 export const StatsSchema = z.object({ revenue: z.number(), utilization: z.number(), churnRate: z.number(), activeClients: z.number(), activeProviders: z.number() });
 export const ComplianceSchema = z.object({ success: z.boolean(), processed: z.number(), flags: z.number() });

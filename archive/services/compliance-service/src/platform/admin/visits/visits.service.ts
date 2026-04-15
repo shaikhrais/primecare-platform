@@ -1,5 +1,5 @@
 import { rrulestr } from 'rrule';
-import { logAudit } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
 
 /**
  * VisitService — Business logic for admin visit management.

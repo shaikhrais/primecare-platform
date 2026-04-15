@@ -3,9 +3,9 @@
  * Extracted from clinical.routes.ts
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
 import { requirePermission } from '@primecare/shared-auth';
-import { logAudit } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
 
 export const submitAssessmentRoute = createRoute({ ...ROUTE_METADATA.RN.CLINICAL_ASSESS, method: 'post', path: '/assessments', summary: 'Submit Assessment', tags: ['RN', 'Clinical'], middleware: [requirePermission('manage_care_plans')], request: { body: { content: { 'application/json': { schema: z.object({ clientId: z.string(), type: z.string(), assessmentData: z.any(), score: z.number().optional(), recommendations: z.string().optional() }) } } } }, responses: { 201: { description: 'Assessment created successfully', content: { 'application/json': { schema: z.any() } } },
     '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },

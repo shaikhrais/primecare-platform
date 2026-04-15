@@ -3,8 +3,8 @@
  * Extracted from users.routes.ts
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { ROUTE_METADATA } from '@primecare/shared-utils';
-import { logAudit } from '@primecare/shared-utils';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
+import { logAudit } from '@primecare/infrastructure';
 import { AdminUserService } from './users.service';
 
 const UserParamsSchema = z.object({ id: z.string().openapi({ param: { name: 'id', in: 'path' }, example: 'user_123' }) });

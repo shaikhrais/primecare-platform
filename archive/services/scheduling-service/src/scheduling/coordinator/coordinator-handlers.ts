@@ -2,7 +2,7 @@
  * Coordinator Route Handlers
  * Extracted from coordinator.routes.ts for modularity
  */
-import { logAudit } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/infrastructure';
 
 export async function handleSosDispatch(c: any) {
     const prisma = c.get('prisma');
