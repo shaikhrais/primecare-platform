@@ -19,15 +19,17 @@ class PrimeCareAuraCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activeAnomaly = ref.watch(auraActiveAnomalyProvider);
 
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.aura, 
-      'Building Aura Card',
-      metadata: {
-        'insightCount': insights.length,
-        'hasActiveAnomaly': activeAnomaly != null,
-        'anomalyImpact': activeAnomaly?.impact.toString(),
-      }
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.aura,
+          'Building Aura Card',
+          metadata: {
+            'insightCount': insights.length,
+            'hasActiveAnomaly': activeAnomaly != null,
+            'anomalyImpact': activeAnomaly?.impact.toString(),
+          },
+        );
 
     final gradientColors = activeAnomaly == null
         ? const [Color(0xFF4F46E5), Color(0xFF6366F1), Color(0xFF818CF8)]
@@ -89,11 +91,13 @@ class PrimeCareAuraCard extends ConsumerWidget {
               if (onAuraResult != null)
                 TextButton.icon(
                   onPressed: () async {
-                    ref.read(executionGateProvider).passGate(
-                      ExecutionGateCategory.ui, 
-                      'Aura Search Triggered',
-                      metadata: {'source': 'aura_card_header'}
-                    );
+                    ref
+                        .read(executionGateProvider)
+                        .passGate(
+                          ExecutionGateCategory.ui,
+                          'Aura Search Triggered',
+                          metadata: {'source': 'aura_card_header'},
+                        );
                     final intent = await AuraInteractiveSheet.show(context);
                     if (intent != null) {
                       onAuraResult!(intent);
@@ -112,21 +116,23 @@ class PrimeCareAuraCard extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 20),
-          ...insights.map((insight) => _AuraInsightTile(insight: insight)).toList(),
+          ...insights.map((insight) => _AuraInsightTile(insight: insight)),
           if (activeAnomaly != null &&
               activeAnomaly.impact == InsightImpact.alert)
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: ElevatedButton.icon(
                 onPressed: () async {
-                  ref.read(executionGateProvider).passGate(
-                    ExecutionGateCategory.ui, 
-                    'Aura Investigation Triggered',
-                    metadata: {
-                      'anomalyId': activeAnomaly.id,
-                      'anomalyType': activeAnomaly.type,
-                    }
-                  );
+                  ref
+                      .read(executionGateProvider)
+                      .passGate(
+                        ExecutionGateCategory.ui,
+                        'Aura Investigation Triggered',
+                        metadata: {
+                          'anomalyId': activeAnomaly.id,
+                          'anomalyType': activeAnomaly.type,
+                        },
+                      );
                   final intent = await AuraInteractiveSheet.show(context);
                   if (intent != null && onAuraResult != null) {
                     onAuraResult!(intent);

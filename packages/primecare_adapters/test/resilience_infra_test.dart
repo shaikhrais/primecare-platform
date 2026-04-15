@@ -1,6 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_core/network/circuit_breaker.dart';
-import 'package:primecare_core/network/retry_interceptor.dart';
 import 'package:primecare_core/primecare_core.dart';
 import 'package:dio/dio.dart';
 
@@ -9,7 +7,10 @@ void main() {
     late CircuitBreaker breaker;
 
     setUp(() {
-      breaker = CircuitBreaker(failureThreshold: 3, resetTimeout: const Duration(seconds: 2));
+      breaker = CircuitBreaker(
+        failureThreshold: 3,
+        resetTimeout: const Duration(seconds: 2),
+      );
     });
 
     test('starts in CLOSED state', () {
@@ -100,7 +101,10 @@ void main() {
     });
 
     test('caps delay at maxDelay', () {
-      const policy = RetryPolicy(baseDelay: Duration(seconds: 5), maxDelay: Duration(seconds: 8));
+      const policy = RetryPolicy(
+        baseDelay: Duration(seconds: 5),
+        maxDelay: Duration(seconds: 8),
+      );
       final d = policy.getDelay(2);
       expect(d.inMilliseconds, lessThanOrEqualTo(10000));
     });
@@ -108,23 +112,37 @@ void main() {
     test('only retries GET requests', () {
       const policy = RetryPolicy();
       expect(
-        policy.shouldRetry(DioException(
+        policy.shouldRetry(
+          DioException(
             requestOptions: RequestOptions(path: '/', method: 'GET'),
-            type: DioExceptionType.connectionError)),
+            type: DioExceptionType.connectionError,
+          ),
+        ),
         isTrue,
       );
       expect(
-        policy.shouldRetry(DioException(
+        policy.shouldRetry(
+          DioException(
             requestOptions: RequestOptions(path: '/', method: 'POST'),
-            type: DioExceptionType.connectionError)),
+            type: DioExceptionType.connectionError,
+          ),
+        ),
         isFalse,
       );
       expect(
-        policy.shouldRetry(DioException(requestOptions: RequestOptions(path: '/', method: 'PUT'))),
+        policy.shouldRetry(
+          DioException(
+            requestOptions: RequestOptions(path: '/', method: 'PUT'),
+          ),
+        ),
         isFalse,
       );
       expect(
-        policy.shouldRetry(DioException(requestOptions: RequestOptions(path: '/', method: 'DELETE'))),
+        policy.shouldRetry(
+          DioException(
+            requestOptions: RequestOptions(path: '/', method: 'DELETE'),
+          ),
+        ),
         isFalse,
       );
     });
@@ -132,7 +150,11 @@ void main() {
     test('does not retry POST by default', () {
       const policy = RetryPolicy(maxRetries: 2);
       expect(
-        policy.shouldRetry(DioException(requestOptions: RequestOptions(path: '/', method: 'POST'))),
+        policy.shouldRetry(
+          DioException(
+            requestOptions: RequestOptions(path: '/', method: 'POST'),
+          ),
+        ),
         isFalse,
       );
     });

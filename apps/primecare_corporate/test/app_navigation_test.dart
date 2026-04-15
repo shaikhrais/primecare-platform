@@ -7,9 +7,6 @@ import 'package:primecare_ui/src/screens/common/document_vault.dart';
 import 'package:primecare_ui/src/screens/common/messaging_hub.dart';
 import 'package:primecare_ui/src/screens/common/notification_center.dart';
 // Important Core Imports for Mocking
-import 'package:primecare_core/dashboard_providers.dart';
-import 'package:primecare_core/dashboard_service.dart';
-import 'package:primecare_core/dynamic_page_providers.dart';
 import 'package:primecare_core/primecare_core.dart';
 
 import '../integration_test/page_objects/master_dashboard_page.dart';
@@ -19,7 +16,8 @@ void main() {
     return ProviderScope(
       overrides: [
         dashboardMetricsProvider.overrideWith(
-          (ref, route) async => Success(DashboardMetrics(kpis: [], recentActivity: [])),
+          (ref, route) async =>
+              Success(DashboardMetrics(kpis: [], recentActivity: [])),
         ),
         dynamicPageProvider.overrideWith(
           (ref, endpointKey) async => Success(<dynamic>[]),
@@ -60,7 +58,9 @@ void main() {
       await dashboard.verifyTitle('common.messaging.title');
     });
 
-    testWidgets('Verify Notification Center hydrations via POM', (tester) async {
+    testWidgets('Verify Notification Center hydrations via POM', (
+      tester,
+    ) async {
       await tester.pumpWidget(wrapWithMocks(const NotificationCenterScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
