@@ -84,4 +84,14 @@ class FranchiseRoutes {
       '/offices/franchise/roles/hr_hiring/training-status';
   static const String hrHiringReports =
       '/offices/franchise/roles/hr_hiring/reports';
+  static const String regionalManagerDashboard =
+      '/offices/franchise/roles/regional_manager/dashboard';
+  static const String regionalManagerBranchComparison =
+      '/offices/franchise/roles/regional_manager/branch_comparison';
+  static const String billingAdminInvoices =
+      '/offices/franchise/roles/billing_admin/invoices';
+  static const String marketingManagerDashboard =
+      '/offices/franchise/roles/marketing_manager/dashboard';
+  static const String marketingManagerCampaigns =
+      '/offices/franchise/roles/marketing_manager/campaigns';
 }

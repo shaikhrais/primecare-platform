@@ -8,9 +8,22 @@ class ComplianceManagerDashboardViewModel extends PrimeCareDashboardViewModel {
     super.blueprints,
   });
 
+  factory ComplianceManagerDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final base = PrimeCareDashboardViewModel.fromJson(json);
+    return ComplianceManagerDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+
   factory ComplianceManagerDashboardViewModel.fromDashboardMetrics(
-      DashboardMetrics metrics,
-      {bool isOffline = false}) {
+    DashboardMetrics metrics, {
+    bool isOffline = false,
+  }) {
     return ComplianceManagerDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
@@ -18,12 +31,14 @@ class ComplianceManagerDashboardViewModel extends PrimeCareDashboardViewModel {
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
-              .map((kpi) => UniversalKpi(
-                    title: kpi.title,
-                    value: kpi.value,
-                    trend: 0.0,
-                    status: UniversalKpi.mapStatus(kpi.status),
-                  ))
+              .map(
+                (kpi) => UniversalKpi(
+                  title: kpi.title,
+                  value: kpi.value,
+                  trend: 0.0,
+                  status: UniversalKpi.mapStatus(kpi.status),
+                ),
+              )
               .toList(),
         ),
         const StitchBlueprint(
@@ -33,9 +48,13 @@ class ComplianceManagerDashboardViewModel extends PrimeCareDashboardViewModel {
     );
   }
 
-  static ComplianceManagerDashboardViewModel assemble({required bool isOffline}) {
+  static ComplianceManagerDashboardViewModel assemble({
+    required bool isOffline,
+  }) {
     final metrics = DataLogisticsHub.getDashboardMetrics('compliance');
-    return ComplianceManagerDashboardViewModel.fromDashboardMetrics(metrics,
-        isOffline: isOffline);
+    return ComplianceManagerDashboardViewModel.fromDashboardMetrics(
+      metrics,
+      isOffline: isOffline,
+    );
   }
 }

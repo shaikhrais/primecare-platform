@@ -8,9 +8,22 @@ class TrainingDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
     super.blueprints,
   });
 
+  factory TrainingDirectorDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final base = PrimeCareDashboardViewModel.fromJson(json);
+    return TrainingDirectorDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+
   factory TrainingDirectorDashboardViewModel.fromDashboardMetrics(
-      DashboardMetrics metrics,
-      {bool isOffline = false}) {
+    DashboardMetrics metrics, {
+    bool isOffline = false,
+  }) {
     return TrainingDirectorDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
@@ -18,12 +31,14 @@ class TrainingDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
-              .map((kpi) => UniversalKpi(
-                    title: kpi.title,
-                    value: kpi.value,
-                    trend: 0.0,
-                    status: UniversalKpi.mapStatus(kpi.status),
-                  ))
+              .map(
+                (kpi) => UniversalKpi(
+                  title: kpi.title,
+                  value: kpi.value,
+                  trend: 0.0,
+                  status: UniversalKpi.mapStatus(kpi.status),
+                ),
+              )
               .toList(),
         ),
         const StitchBlueprint(
@@ -33,9 +48,13 @@ class TrainingDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
     );
   }
 
-  static TrainingDirectorDashboardViewModel assemble({required bool isOffline}) {
+  static TrainingDirectorDashboardViewModel assemble({
+    required bool isOffline,
+  }) {
     final metrics = DataLogisticsHub.getDashboardMetrics('training');
-    return TrainingDirectorDashboardViewModel.fromDashboardMetrics(metrics,
-        isOffline: isOffline);
+    return TrainingDirectorDashboardViewModel.fromDashboardMetrics(
+      metrics,
+      isOffline: isOffline,
+    );
   }
 }

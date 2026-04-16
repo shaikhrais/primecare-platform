@@ -103,11 +103,7 @@ class PortalConfig {
   });
 }
 
-enum SidebarMode {
-  hidden,
-  minimal,
-  extended,
-}
+enum SidebarMode { hidden, minimal, extended }
 
 /// Model for resolution-aware layout properties.
 class LayoutConfig {
@@ -191,8 +187,25 @@ final screenMetricsProvider =
       ScreenMetricsNotifier.new,
     );
 
+/// Notifier for the user override of sidebar mode.
+class SidebarOverrideNotifier extends Notifier<SidebarMode?> {
+  @override
+  SidebarMode? build() => null;
+
+  void setMode(SidebarMode mode) => state = mode;
+}
+
+/// Provider for the user override of sidebar mode.
+final sidebarOverrideProvider =
+    NotifierProvider<SidebarOverrideNotifier, SidebarMode?>(
+      SidebarOverrideNotifier.new,
+    );
+
 /// Provider for the sidebar mode (toggled by user or system).
-final sidebarModeProvider = StateProvider<SidebarMode>((ref) {
+final sidebarModeProvider = Provider<SidebarMode>((ref) {
+  final override = ref.watch(sidebarOverrideProvider);
+  if (override != null) return override;
+
   final metrics = ref.watch(screenMetricsProvider);
   if (metrics == null) return SidebarMode.extended;
 

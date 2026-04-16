@@ -1,5 +1,6 @@
 import 'package:primecare_core/config/data_source_mode.dart';
 import 'package:primecare_core/network/api_client.dart';
+import 'package:primecare_core/src/factory_floor/data_logistics_hub.dart';
 
 class DynamicScreenAdapter {
   final String screenId;

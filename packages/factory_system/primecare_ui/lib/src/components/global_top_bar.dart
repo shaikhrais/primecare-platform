@@ -50,11 +50,21 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
             ),
           ),
           title: Padding(
-            padding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 24 * scale),
+            padding: EdgeInsets.symmetric(
+              horizontal: isMobile ? 12 : 24 * scale,
+            ),
             child: Row(
               children: [
                 // Left: Menu & Logo
-                customLeft ?? _buildLeftSection(context, theme, layout, scale, isMobile, ref),
+                customLeft ??
+                    _buildLeftSection(
+                      context,
+                      theme,
+                      layout,
+                      scale,
+                      isMobile,
+                      ref,
+                    ),
 
                 // Center: Search (Hidden on Mobile/Tablet as per HTML)
                 if (!isMobile && !isTablet)
@@ -62,7 +72,9 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                     child: Center(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(maxWidth: 500 * scale),
-                        child: customCenter ?? _buildSearchBox(theme, layout, scale),
+                        child:
+                            customCenter ??
+                            _buildSearchBox(theme, layout, scale),
                       ),
                     ),
                   )
@@ -122,18 +134,27 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                 onPressed: () {
                   final current = ref.read(sidebarModeProvider);
                   if (current == SidebarMode.extended) {
-                    ref.read(sidebarModeProvider.notifier).state = SidebarMode.minimal;
+                    ref
+                        .read(sidebarOverrideProvider.notifier)
+                        .setMode(SidebarMode.minimal);
                   } else {
-                    ref.read(sidebarModeProvider.notifier).state = SidebarMode.extended;
+                    ref
+                        .read(sidebarOverrideProvider.notifier)
+                        .setMode(SidebarMode.extended);
                   }
                 },
                 icon: Icon(
-                  layout.isExtended ? LucideIcons.chevronLeft : LucideIcons.menu,
+                  layout.isExtended
+                      ? LucideIcons.chevronLeft
+                      : LucideIcons.menu,
                   size: 20 * scale,
                 ),
-                tooltip: layout.isExtended ? 'Collapse Sidebar' : 'Expand Sidebar',
+                tooltip: layout.isExtended
+                    ? 'Collapse Sidebar'
+                    : 'Expand Sidebar',
                 style: IconButton.styleFrom(
-                  backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                  backgroundColor: theme.colorScheme.surfaceContainerHighest
+                      .withValues(alpha: 0.3),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8 * scale),
                   ),
@@ -146,7 +167,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               height: 42 * scale,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [theme.colorScheme.primary, theme.colorScheme.tertiary],
+                  colors: [
+                    theme.colorScheme.primary,
+                    theme.colorScheme.tertiary,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -269,7 +293,11 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
             color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(10 * scale),
           ),
-          child: Icon(icon, size: 18 * scale, color: theme.colorScheme.onSurfaceVariant),
+          child: Icon(
+            icon,
+            size: 18 * scale,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
         if (hasBadge)
           Positioned(
@@ -281,7 +309,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                 color: theme.colorScheme.error,
                 shape: BoxShape.circle,
-                border: Border.all(color: theme.colorScheme.surface, width: 2 * scale),
+                border: Border.all(
+                  color: theme.colorScheme.surface,
+                  width: 2 * scale,
+                ),
               ),
             ),
           ),
@@ -299,13 +330,15 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     final authState = ref.watch(authProvider);
     final userName = authState.userName ?? 'PrimeCare User';
     final role = authState.role ?? 'Administrator';
-    final initials = userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
+    final initials = userName.isNotEmpty
+        ? userName.substring(0, 1).toUpperCase()
+        : 'U';
 
     return InkWell(
       onTap: () => _showAccountMenu(context, ref, scale),
       child: Row(
         children: [
-           Container(
+          Container(
             width: 42 * scale,
             height: 42 * scale,
             decoration: BoxDecoration(

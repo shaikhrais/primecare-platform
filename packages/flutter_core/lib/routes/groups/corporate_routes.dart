@@ -125,4 +125,10 @@ class CorporateRoutes {
       '/offices/corporate/roles/training_director/trainer-assignments';
   static const String trainingDirectorReports =
       '/offices/corporate/roles/training_director/reports';
+  static const String trainingDirectorAnalytics =
+      '/offices/corporate/roles/training_director/analytics';
+  static const String financeDirectorDashboard =
+      '/offices/corporate/roles/finance_director/dashboard';
+  static const String financeDirectorCashFlow =
+      '/offices/corporate/roles/finance_director/cashflow';
 }

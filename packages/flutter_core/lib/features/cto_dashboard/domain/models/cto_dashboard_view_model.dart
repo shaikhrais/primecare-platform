@@ -8,8 +8,20 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
     super.blueprints,
   });
 
-  factory CtoDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics,
-      {bool isOffline = false}) {
+  factory CtoDashboardViewModel.fromJson(Map<String, dynamic> json) {
+    final base = PrimeCareDashboardViewModel.fromJson(json);
+    return CtoDashboardViewModel(
+      isOfflineFallback: base.isOfflineFallback,
+      kpis: base.kpis,
+      recentActivity: base.recentActivity,
+      blueprints: base.blueprints,
+    );
+  }
+
+  factory CtoDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics, {
+    bool isOffline = false,
+  }) {
     return CtoDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
@@ -17,12 +29,14 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
-              .map((kpi) => UniversalKpi(
-                    title: kpi.title,
-                    value: kpi.value,
-                    trend: 0.0,
-                    status: UniversalKpi.mapStatus(kpi.status),
-                  ))
+              .map(
+                (kpi) => UniversalKpi(
+                  title: kpi.title,
+                  value: kpi.value,
+                  trend: 0.0,
+                  status: UniversalKpi.mapStatus(kpi.status),
+                ),
+              )
               .toList(),
         ),
         const StitchBlueprint(
@@ -34,7 +48,9 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
 
   static CtoDashboardViewModel assemble({required bool isOffline}) {
     final metrics = DataLogisticsHub.getDashboardMetrics('cto');
-    return CtoDashboardViewModel.fromDashboardMetrics(metrics,
-        isOffline: isOffline);
+    return CtoDashboardViewModel.fromDashboardMetrics(
+      metrics,
+      isOffline: isOffline,
+    );
   }
 }

@@ -14,7 +14,14 @@ if ($refreshData -eq "y") {
 # ----------------------------------------
 
 $apps = @(
-
+    "primecare_business_development",
+    "primecare_client",
+    "primecare_clinic",
+    "primecare_corporate",
+    "primecare_franchise",
+    "primecare_marketing",
+    "primecare_support"
+)
 foreach ($app in $apps) {
     # Convert underscores to hyphens for Cloudflare project name
     $projectName = $app -replace "_", "-"

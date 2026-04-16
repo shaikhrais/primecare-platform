@@ -16,9 +16,13 @@ class DataLogisticsHub {
   static Future<void> ensureOfflineDataLoaded() async {
     if (_offlineData != null) return;
     try {
-      final String jsonContent = await rootBundle.loadString('assets/data/offline_seed.json');
+      final String jsonContent = await rootBundle.loadString(
+        'assets/data/offline_seed.json',
+      );
       _offlineData = json.decode(jsonContent) as Map<String, dynamic>;
-      debugPrint('PRIMECARE_LOGISTICS: Offline seed data hydrated successfully.');
+      debugPrint(
+        'PRIMECARE_LOGISTICS: Offline seed data hydrated successfully.',
+      );
     } catch (e) {
       debugPrint('PRIMECARE_LOGISTICS: Failed to load offline seed data: $e');
       _offlineData = {}; // Prevent repeated failed attempts
@@ -29,18 +33,22 @@ class DataLogisticsHub {
   /// Provides high-fidelity clinical intelligence blueprints from the cache.
   static ClinicalIntelligenceViewModel getClinicIntelligenceMetrics() {
     final nodes = safeLookup<List>('institutional_nodes.clinicNode', []);
-    
+
     return ClinicalIntelligenceViewModel(
       isOfflineFallback: true,
       blueprints: [
         const AuraDashboardHudBlueprint(dataPayload: null),
         StatGridBlueprint(
-          dataPayload: nodes.map((n) => UniversalKpi(
-            title: n['name'] ?? 'Facility',
-            value: '${n['patientCount'] ?? 0}',
-            trend: 2.1,
-            status: KpiStatus.positive,
-          )).toList(),
+          dataPayload: nodes
+              .map(
+                (n) => UniversalKpi(
+                  title: n['name'] ?? 'Facility',
+                  value: '${n['patientCount'] ?? 0}',
+                  trend: 2.1,
+                  status: KpiStatus.positive,
+                ),
+              )
+              .toList(),
         ),
         // Additional blueprints can be appended here based on domain nodes
       ],
@@ -63,15 +71,20 @@ class DataLogisticsHub {
 
   /// Retrieves a report blueprint from the cache.
   static Map<String, dynamic>? getReportBlueprint(String reportId) {
-    final reports = safeLookup<Map<String, dynamic>>('reporting.blueprints', {});
+    final reports = safeLookup<Map<String, dynamic>>(
+      'reporting.blueprints',
+      {},
+    );
     if (reports.containsKey(reportId)) return reports[reportId];
-    
+
     // Minimal fallback for missing reports
     return {
-        'id': reportId,
-        'title': 'System Report',
-        'columns': [{'key': 'id', 'label': 'ID'}],
-        'rows': []
+      'id': reportId,
+      'title': 'System Report',
+      'columns': [
+        {'key': 'id', 'label': 'ID'},
+      ],
+      'rows': [],
     };
   }
 
@@ -79,25 +92,31 @@ class DataLogisticsHub {
   static List<IntelligenceInsight> getAuraBlueprints(String role) {
     final aiRecs = safeLookup<List>('institutional_nodes.aiRecommendation', []);
     if (aiRecs.isNotEmpty) {
-        return aiRecs.map((n) => IntelligenceInsight(
-            id: n['id'] ?? 'ai_gen',
-            title: n['name'] ?? 'Insight',
-            summary: n['description'] ?? 'Aura is analyzing domain patterns.',
-            impact: InsightImpact.positive,
-        )).toList();
+      return aiRecs
+          .map(
+            (n) => IntelligenceInsight(
+              id: n['id'] ?? 'ai_gen',
+              title: n['name'] ?? 'Insight',
+              summary: n['description'] ?? 'Aura is analyzing domain patterns.',
+              impact: InsightImpact.positive,
+            ),
+          )
+          .toList();
     }
 
     return [
       IntelligenceInsight(
         id: 'aura_1',
         title: 'Cache Hydrated',
-        summary: 'Aura is pulling insights directly from the institutional data layer.',
+        summary:
+            'Aura is pulling insights directly from the institutional data layer.',
         impact: InsightImpact.positive,
       ),
     ];
   }
 
-  static List<IntelligenceInsight> getAuraInsights(String role) => getAuraBlueprints(role);
+  static List<IntelligenceInsight> getAuraInsights(String role) =>
+      getAuraBlueprints(role);
 
   static DashboardMetrics getDashboardMetrics(String role) {
     if (_offlineData != null && _offlineData!.containsKey('metrics')) {
@@ -106,7 +125,9 @@ class DataLogisticsHub {
         try {
           return DashboardMetrics.fromJson(roleData as Map<String, dynamic>);
         } catch (e) {
-          debugPrint('PRIMECARE_LOGISTICS: Failed to parse offline data for role $role: $e');
+          debugPrint(
+            'PRIMECARE_LOGISTICS: Failed to parse offline data for role $role: $e',
+          );
         }
       }
     }
@@ -116,36 +137,53 @@ class DataLogisticsHub {
   static DashboardMetrics _buildResilientFallback(String role) {
     // Determine domain-specific context for the fallback
     final isClinical = ['rn', 'rpn', 'psw', 'physiotherapist'].contains(role);
-    final isGrowth = ['ceo', 'coo', 'cfo', 'partnership_manager', 'territory_expansion_manager'].contains(role);
+    final isGrowth = [
+      'ceo',
+      'coo',
+      'cfo',
+      'partnership_manager',
+      'territory_expansion_manager',
+    ].contains(role);
 
     return DashboardMetrics(
       kpis: [
-        KpiMetric(title: 'Active Node', value: 'VERIFIED', status: 'stable', subtitle: role.toUpperCase()),
         KpiMetric(
-          title: isGrowth ? 'Institutional Growth' : 'Care Compliance', 
-          value: isGrowth ? '12.4%' : '98.2%', 
-          status: 'positive', 
-          subtitle: 'Q1 2026 Baseline'
+          title: 'Active Node',
+          value: 'VERIFIED',
+          status: 'stable',
+          subtitle: role.toUpperCase(),
         ),
-        const KpiMetric(title: 'Sync Status', value: 'OFFLINE', status: 'warning', subtitle: 'LKG Snapshot Active')
+        KpiMetric(
+          title: isGrowth ? 'Institutional Growth' : 'Care Compliance',
+          value: isGrowth ? '12.4%' : '98.2%',
+          status: 'positive',
+          subtitle: 'Q1 2026 Baseline',
+        ),
+        KpiMetric(
+          title: 'Sync Status',
+          value: 'OFFLINE',
+          status: 'warning',
+          subtitle: 'LKG Snapshot Active',
+        ),
       ],
       recentActivity: [
         DashboardActivity(
-          title: 'Aura Intelligence: Active', 
-          subtitle: 'Processing ${role.replaceAll('_', ' ')} domain logic via logistics hub.', 
-          timestamp: 'Just now', 
-          icon: 'cpu', 
+          title: 'Aura Intelligence: Active',
+          subtitle:
+              'Processing ${role.replaceAll('_', ' ')} domain logic via logistics hub.',
+          timestamp: 'Just now',
+          icon: 'cpu',
           color: 'purple',
-          type: 'system'
         ),
         DashboardActivity(
-          title: isClinical ? 'Clinical Sweep: Passed' : 'Security Sweep: Passed', 
-          subtitle: 'No anomalies detected in the local cache nodes.', 
-          timestamp: '5m ago', 
-          icon: 'shield-check', 
+          title: isClinical
+              ? 'Clinical Sweep: Passed'
+              : 'Security Sweep: Passed',
+          subtitle: 'No anomalies detected in the local cache nodes.',
+          timestamp: '5m ago',
+          icon: 'shield-check',
           color: 'green',
-          type: 'compliance'
-        )
+        ),
       ],
       charts: [],
     );
@@ -153,23 +191,51 @@ class DataLogisticsHub {
 
   /// Horizon (Scheduling) Assembly Logic
   static HorizonSchedule getHorizonBlueprint() {
-    final resources = safeLookup<List>('institutional_nodes.institutionalResource', []);
+    final resources = safeLookup<List>(
+      'institutional_nodes.institutionalResource',
+      [],
+    );
     final staff = safeLookup<List>('institutional_nodes.staffMember', []);
     final appointments = safeLookup<List>('visits', []);
 
     return HorizonSchedule(
-      resources: resources.map((n) => InstitutionalResource(
-          id: n['id'], name: n['name'], type: ResourceType.room, status: ResourceStatus.available
-      )).toList(),
-      staff: staff.map((n) => StaffMember(
-          id: n['id'], name: n['name'], role: n['role'] ?? 'Provider'
-      )).toList(),
-      appointments: appointments.map((n) => Appointment(
-          id: n['id'], patientName: n['client']?['fullName'] ?? 'Patient',
-          startTime: DateTime.parse(n['requestedStartAt']),
-          duration: Duration(minutes: n['durationMinutes'] ?? 60),
-          status: AppointmentStatus.confirmed
-      )).toList(),
+      resources: resources
+          .map(
+            (n) => InstitutionalResource(
+              id: n['id'],
+              name: n['name'],
+              type: ResourceType.room,
+              status: ResourceStatus.available,
+            ),
+          )
+          .toList()
+          .cast<InstitutionalResource>(),
+      staff: staff
+          .map(
+            (n) => StaffMember(
+              id: n['id'],
+              name: n['name'],
+              role: n['role'] ?? 'Provider',
+              specialization: 'Staff',
+              themeColor: Colors.blue,
+              avatarUrl: '',
+            ),
+          )
+          .toList()
+          .cast<StaffMember>(),
+      appointments: appointments
+          .map(
+            (n) => Appointment(
+              id: n['id'],
+              patientName: n['client']?['fullName'] ?? 'Patient',
+              startTime: DateTime.parse(n['requestedStartAt']),
+              duration: Duration(minutes: n['durationMinutes'] ?? 60),
+              status: AppointmentStatus.confirmed,
+              staffId: '0',
+            ),
+          )
+          .toList()
+          .cast<Appointment>(),
     );
   }
 
@@ -185,10 +251,10 @@ class DataLogisticsHub {
   /// Helper for safe nested lookup in the offline cache
   static T safeLookup<T>(String path, T fallback) {
     if (_offlineData == null) return fallback;
-    
+
     dynamic current = _offlineData;
     final segments = path.split('.');
-    
+
     for (final segment in segments) {
       if (current is Map) {
         // Try exact match first
@@ -200,7 +266,7 @@ class DataLogisticsHub {
             (k) => k?.toLowerCase() == segment.toLowerCase(),
             orElse: () => null,
           );
-          
+
           if (key != null) {
             current = current[key];
           } else {
@@ -211,9 +277,9 @@ class DataLogisticsHub {
         return fallback;
       }
     }
-    
+
     if (current is T) return current;
-    
+
     // Type coercion for numbers (JSON might decode to Int or Double)
     if (T == double && current is num) return current.toDouble() as T;
     if (T == int && current is num) return current.toInt() as T;
