@@ -284,34 +284,12 @@ class NavigationRegistry {
   };
 
   static List<PrimeCareNavigationItem> getMenuForRole(String role) {
-    // 1. Super Admin / Admin master directory fallback
-    final checkRole = role.toLowerCase();
-    if (checkRole == 'super admin' ||
-        checkRole == 'admin' ||
-        checkRole == 'it admin') {
-      final Map<String, PrimeCareNavigationItem> allItems = {};
-      _roleMenus.forEach((roleName, menuList) {
-        for (final item in menuList) {
-          if (!allItems.containsKey(item.route)) {
-            allItems[item.route] = PrimeCareNavigationItem(
-              label: item.label,
-              icon: item.icon,
-              route: item.route,
-              section: '$roleName Screens', // Group all buttons intelligently
-              activeIcon: item.activeIcon,
-            );
-          }
-        }
-      });
-      return allItems.values.toList();
-    }
-
-    // 2. Try exact match first (for acronyms like CEO, CTO, PSW)
+    // 1. Try exact match first (for acronyms like CEO, CTO, PSW)
     if (_roleMenus.containsKey(role)) {
       return _roleMenus[role]!;
     }
 
-    // 3. Try case-insensitive exact match
+    // 2. Try case-insensitive exact match
     final upperRole = role.toUpperCase();
     for (var key in _roleMenus.keys) {
       if (key.toUpperCase() == upperRole) {
@@ -319,16 +297,16 @@ class NavigationRegistry {
       }
     }
 
-    // 4. Fallback to Title Case normalization for standard roles
+    // 3. Fallback to Title Case normalization for standard roles
     final normalizedRole = role
         .split(' ')
         .map(
-          (e) => e.isEmpty
+          (word) => word.isEmpty
               ? ''
-              : e[0].toUpperCase() + e.substring(1).toLowerCase(),
+              : '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}',
         )
         .join(' ');
 
-    return _roleMenus[normalizedRole] ?? _roleMenus['CEO'] ?? [];
+    return _roleMenus[normalizedRole] ?? _roleMenus['Admin'] ?? [];
   }
 }
