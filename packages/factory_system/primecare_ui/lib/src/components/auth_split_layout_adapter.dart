@@ -12,14 +12,16 @@ class AuthSplitLayoutAdapter extends Notifier<AuthSplitLayoutViewModel> {
   AuthSplitLayoutViewModel build() {
     return AuthSplitLayoutViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = AuthSplitLayoutViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = AuthSplitLayoutViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = AuthSplitLayoutViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = AuthSplitLayoutViewModel(isLoading: false, data: {});
   }
 }
 
-final authSplitLayoutAdapterProvider = NotifierProvider<AuthSplitLayoutAdapter, AuthSplitLayoutViewModel>(() {
-  return AuthSplitLayoutAdapter();
-});
+final authSplitLayoutAdapterProvider =
+    NotifierProvider<AuthSplitLayoutAdapter, AuthSplitLayoutViewModel>(() {
+      return AuthSplitLayoutAdapter();
+    });

@@ -7,19 +7,24 @@ class RolePermissionsFormViewModel {
   RolePermissionsFormViewModel({this.isLoading = false, this.data});
 }
 
-class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> {
+class RolePermissionsFormAdapter
+    extends Notifier<RolePermissionsFormViewModel> {
   @override
   RolePermissionsFormViewModel build() {
     return RolePermissionsFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = RolePermissionsFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = RolePermissionsFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = RolePermissionsFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = RolePermissionsFormViewModel(isLoading: false, data: {});
   }
 }
 
-final rolePermissionsFormAdapterProvider = NotifierProvider<RolePermissionsFormAdapter, RolePermissionsFormViewModel>(() {
-  return RolePermissionsFormAdapter();
-});
+final rolePermissionsFormAdapterProvider =
+    NotifierProvider<RolePermissionsFormAdapter, RolePermissionsFormViewModel>(
+      () {
+        return RolePermissionsFormAdapter();
+      },
+    );

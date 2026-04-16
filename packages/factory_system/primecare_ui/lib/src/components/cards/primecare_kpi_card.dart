@@ -22,10 +22,12 @@ class PrimeCareKpiCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.metricsLayer, 
-      'Hydrating KPI: $title with value: $value'
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.metricsLayer,
+          'Hydrating KPI: $title with value: $value',
+        );
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
       decoration: BoxDecoration(

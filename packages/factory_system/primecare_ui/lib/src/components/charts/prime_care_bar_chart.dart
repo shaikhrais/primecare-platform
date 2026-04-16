@@ -15,10 +15,12 @@ class PrimeCareBarChart extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.auraEngine,
-      'Rendering BarChart: ${chart.title} (${chart.dataPoints.length} bars)',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.auraEngine,
+          'Rendering BarChart: ${chart.title} (${chart.dataPoints.length} bars)',
+        );
     final auraActive = ref.watch(auraActiveVisualizationProvider);
     final auraAnomaly = ref.watch(auraActiveAnomalyProvider);
 
@@ -90,19 +92,22 @@ class PrimeCareBarChart extends ConsumerWidget {
           borderData: FlBorderData(show: false),
           barGroups: List.generate(chart.dataPoints.length, (i) {
             final spot = chart.dataPoints[i];
-            
+
             // Aura Predictive Styling
             Color actualColor = spot.color != null
                 ? Color(int.parse(spot.color!.replaceAll('#', '0xFF')))
                 : barColor;
-                
+
             double height = spot.value;
             bool isOutlier = height > (_getMaxValue() * 0.8);
-            
+
             if (auraActive && isOutlier && auraAnomaly != null) {
-               if (auraAnomaly.impact == InsightImpact.alert) actualColor = Colors.redAccent;
-               if (auraAnomaly.impact == InsightImpact.caution) actualColor = Colors.orangeAccent;
-               height += (height * 0.15); // Exaggerate the outlier for predictive view
+              if (auraAnomaly.impact == InsightImpact.alert)
+                actualColor = Colors.redAccent;
+              if (auraAnomaly.impact == InsightImpact.caution)
+                actualColor = Colors.orangeAccent;
+              height +=
+                  (height * 0.15); // Exaggerate the outlier for predictive view
             }
 
             return BarChartGroupData(

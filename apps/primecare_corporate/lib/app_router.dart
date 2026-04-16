@@ -31,6 +31,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
       return null;
     },
+    errorBuilder: (context, state) => MasterLayout(
+      shellType: AppShellType.admin,
+      child: NotFoundScreen(message: state.error?.message),
+    ),
     routes: [
       GoRoute(
         path: CommonRoutes.login,
@@ -39,7 +43,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         builder: (context, state, child) =>
             MasterLayout(shellType: AppShellType.admin, child: child),
-        routes: corporateRoutes,
+        routes: [
+          ...corporateRoutes,
+          ...sharedCommonRoutes,
+        ],
       ),
     ],
   );

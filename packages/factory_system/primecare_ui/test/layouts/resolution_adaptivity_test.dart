@@ -14,10 +14,7 @@ void main() {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
-            home: BaseLayoutShell(
-              currentPath: '/',
-              child: Text('Content'),
-            ),
+            home: BaseLayoutShell(currentPath: '/', child: Text('Content')),
           ),
         ),
       );
@@ -38,10 +35,7 @@ void main() {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
-            home: BaseLayoutShell(
-              currentPath: '/',
-              child: Text('Content'),
-            ),
+            home: BaseLayoutShell(currentPath: '/', child: Text('Content')),
           ),
         ),
       );
@@ -110,7 +104,7 @@ void main() {
       await tester.pump(); // Synchronize layout state
 
       await tester.pumpAndSettle();
-      
+
       final textWidget = tester.element(find.text('Mega Content'));
       final mediaQuery = MediaQuery.of(textWidget);
       expect(mediaQuery.textScaler.scale(10), 30.0);
@@ -130,14 +124,20 @@ void main() {
     });
 
     group('Navigation Actions Visibility', () {
-      testWidgets('Top bar actions are rendered in shell', (WidgetTester tester) async {
+      testWidgets('Top bar actions are rendered in shell', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(
           ProviderScope(
             child: MaterialApp(
               home: BaseLayoutShell(
                 currentPath: '/',
                 topBarActions: [
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.add), key: const Key('action_add')),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.add),
+                    key: const Key('action_add'),
+                  ),
                 ],
                 child: const Text('Content'),
               ),

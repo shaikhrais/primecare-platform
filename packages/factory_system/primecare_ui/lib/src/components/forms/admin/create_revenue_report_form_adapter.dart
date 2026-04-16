@@ -7,19 +7,25 @@ class CreateRevenueReportFormViewModel {
   CreateRevenueReportFormViewModel({this.isLoading = false, this.data});
 }
 
-class CreateRevenueReportFormAdapter extends Notifier<CreateRevenueReportFormViewModel> {
+class CreateRevenueReportFormAdapter
+    extends Notifier<CreateRevenueReportFormViewModel> {
   @override
   CreateRevenueReportFormViewModel build() {
     return CreateRevenueReportFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = CreateRevenueReportFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = CreateRevenueReportFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = CreateRevenueReportFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = CreateRevenueReportFormViewModel(isLoading: false, data: {});
   }
 }
 
-final createRevenueReportFormAdapterProvider = NotifierProvider<CreateRevenueReportFormAdapter, CreateRevenueReportFormViewModel>(() {
-  return CreateRevenueReportFormAdapter();
-});
+final createRevenueReportFormAdapterProvider =
+    NotifierProvider<
+      CreateRevenueReportFormAdapter,
+      CreateRevenueReportFormViewModel
+    >(() {
+      return CreateRevenueReportFormAdapter();
+    });

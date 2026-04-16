@@ -9,8 +9,8 @@ class NotificationCenterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => PageTemplate.orchestrate(
-        title: 'common.notifications.title',
-        subtitle: 'common.notifications.subtitle',
-        provider: commonFeatureDataProvider('notifications'),
-      );
+    title: 'common.notifications.title',
+    subtitle: 'common.notifications.subtitle',
+    provider: commonFeatureDataProvider('notifications'),
+  );
 }

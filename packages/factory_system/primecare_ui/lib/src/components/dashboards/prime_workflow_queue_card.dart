@@ -56,10 +56,12 @@ class PrimeWorkflowQueueCard extends ConsumerWidget {
                     title: task.title,
                     statusColor: task.statusColor,
                     onTap: () {
-                      ref.read(executionGateProvider).passGate(
-                        ExecutionGateCategory.navigationLayer,
-                        'Workflow Task Tapped: ${task.title}',
-                      );
+                      ref
+                          .read(executionGateProvider)
+                          .passGate(
+                            ExecutionGateCategory.navigationLayer,
+                            'Workflow Task Tapped: ${task.title}',
+                          );
                       task.onTap();
                     },
                   ),

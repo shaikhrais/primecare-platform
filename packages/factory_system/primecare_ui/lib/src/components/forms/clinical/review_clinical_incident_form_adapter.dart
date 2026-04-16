@@ -7,19 +7,28 @@ class ReviewClinicalIncidentFormViewModel {
   ReviewClinicalIncidentFormViewModel({this.isLoading = false, this.data});
 }
 
-class ReviewClinicalIncidentFormAdapter extends Notifier<ReviewClinicalIncidentFormViewModel> {
+class ReviewClinicalIncidentFormAdapter
+    extends Notifier<ReviewClinicalIncidentFormViewModel> {
   @override
   ReviewClinicalIncidentFormViewModel build() {
     return ReviewClinicalIncidentFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ReviewClinicalIncidentFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ReviewClinicalIncidentFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ReviewClinicalIncidentFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
+    // Simulate fetch
+    state = ReviewClinicalIncidentFormViewModel(isLoading: false, data: {});
   }
 }
 
-final reviewClinicalIncidentFormAdapterProvider = NotifierProvider<ReviewClinicalIncidentFormAdapter, ReviewClinicalIncidentFormViewModel>(() {
-  return ReviewClinicalIncidentFormAdapter();
-});
+final reviewClinicalIncidentFormAdapterProvider =
+    NotifierProvider<
+      ReviewClinicalIncidentFormAdapter,
+      ReviewClinicalIncidentFormViewModel
+    >(() {
+      return ReviewClinicalIncidentFormAdapter();
+    });

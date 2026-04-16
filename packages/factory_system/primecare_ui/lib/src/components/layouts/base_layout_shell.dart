@@ -11,12 +11,18 @@ class BaseLayoutShell extends ConsumerWidget {
   final Widget child;
   final String? currentPath;
   final List<Widget>? topBarActions;
+  final Widget? customTopBarLeft;
+  final Widget? customTopBarCenter;
+  final Widget? customTopBarRight;
 
   const BaseLayoutShell({
     super.key,
     required this.child,
     this.currentPath,
     this.topBarActions,
+    this.customTopBarLeft,
+    this.customTopBarCenter,
+    this.customTopBarRight,
   });
 
   @override
@@ -48,9 +54,17 @@ class BaseLayoutShell extends ConsumerWidget {
     return AdaptiveScalingWrapper(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(56.0 * scale + 1.0),
-          child: GlobalTopBar(actions: topBarActions),
+          preferredSize: Size.fromHeight(
+            72.0 * scale + 1.0,
+          ), // Match global top bar height
+          child: GlobalTopBar(
+            actions: topBarActions,
+            customLeft: customTopBarLeft,
+            customCenter: customTopBarCenter,
+            customRight: customTopBarRight,
+          ),
         ),
+        drawer: UniversalRoleDrawer(currentPath: effectivePath, items: items),
         body: UniversalRoleSidebar(
           currentPath: effectivePath,
           items: items,

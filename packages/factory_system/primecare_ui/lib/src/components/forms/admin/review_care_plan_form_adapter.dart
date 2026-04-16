@@ -12,14 +12,18 @@ class ReviewCarePlanFormAdapter extends Notifier<ReviewCarePlanFormViewModel> {
   ReviewCarePlanFormViewModel build() {
     return ReviewCarePlanFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ReviewCarePlanFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ReviewCarePlanFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ReviewCarePlanFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = ReviewCarePlanFormViewModel(isLoading: false, data: {});
   }
 }
 
-final reviewCarePlanFormAdapterProvider = NotifierProvider<ReviewCarePlanFormAdapter, ReviewCarePlanFormViewModel>(() {
-  return ReviewCarePlanFormAdapter();
-});
+final reviewCarePlanFormAdapterProvider =
+    NotifierProvider<ReviewCarePlanFormAdapter, ReviewCarePlanFormViewModel>(
+      () {
+        return ReviewCarePlanFormAdapter();
+      },
+    );

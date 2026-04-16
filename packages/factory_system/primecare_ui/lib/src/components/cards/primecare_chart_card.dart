@@ -27,10 +27,12 @@ class PrimeCareChartCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.auraEngine, 
-      'Building Chart: $title (Aura Supported: $isAuraSupported, Active: $isAuraActive)'
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.auraEngine,
+          'Building Chart: $title (Aura Supported: $isAuraSupported, Active: $isAuraActive)',
+        );
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF1B262C),
@@ -93,14 +95,18 @@ class PrimeCareChartCard extends ConsumerWidget {
                         isActive: isAuraActive,
                         activeColor: Colors.indigoAccent,
                         onPressed: () {
-                          ref.read(executionGateProvider).passGate(
-                            ExecutionGateCategory.auraEngine, 
-                            'Toggling Aura Forecast for $title',
-                            metadata: {'active': !isAuraActive}
-                          );
+                          ref
+                              .read(executionGateProvider)
+                              .passGate(
+                                ExecutionGateCategory.auraEngine,
+                                'Toggling Aura Forecast for $title',
+                                metadata: {'active': !isAuraActive},
+                              );
                           onAuraToggle?.call();
                         },
-                        tooltip: isAuraActive ? 'Disable Aura Analysis' : 'Enable Aura Forecast',
+                        tooltip: isAuraActive
+                            ? 'Disable Aura Analysis'
+                            : 'Enable Aura Forecast',
                       ),
                     if (onDetailPressed != null)
                       _buildHeaderButton(
@@ -108,10 +114,12 @@ class PrimeCareChartCard extends ConsumerWidget {
                         isActive: false,
                         activeColor: Colors.blueAccent,
                         onPressed: () {
-                          ref.read(executionGateProvider).passGate(
-                            ExecutionGateCategory.navigationLayer, 
-                            'Navigating to Details from $title'
-                          );
+                          ref
+                              .read(executionGateProvider)
+                              .passGate(
+                                ExecutionGateCategory.navigationLayer,
+                                'Navigating to Details from $title',
+                              );
                           onDetailPressed?.call();
                         },
                         tooltip: 'View detailed report',
@@ -121,11 +129,13 @@ class PrimeCareChartCard extends ConsumerWidget {
                       isActive: isPinned,
                       activeColor: Colors.blueAccent,
                       onPressed: () {
-                        ref.read(executionGateProvider).passGate(
-                          ExecutionGateCategory.ui, 
-                          'Toggling Pin for $title',
-                          metadata: {'pinned': !isPinned}
-                        );
+                        ref
+                            .read(executionGateProvider)
+                            .passGate(
+                              ExecutionGateCategory.ui,
+                              'Toggling Pin for $title',
+                              metadata: {'pinned': !isPinned},
+                            );
                         onPinToggle?.call();
                       },
                       tooltip: isPinned ? 'Unpin from top' : 'Pin to top',
@@ -153,7 +163,9 @@ class PrimeCareChartCard extends ConsumerWidget {
       icon: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isActive ? activeColor.withAlpha(30) : Colors.white.withAlpha(5),
+          color: isActive
+              ? activeColor.withAlpha(30)
+              : Colors.white.withAlpha(5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Icon(

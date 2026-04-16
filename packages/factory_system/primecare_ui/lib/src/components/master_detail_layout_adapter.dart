@@ -12,14 +12,18 @@ class MasterDetailLayoutAdapter extends Notifier<MasterDetailLayoutViewModel> {
   MasterDetailLayoutViewModel build() {
     return MasterDetailLayoutViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = MasterDetailLayoutViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = MasterDetailLayoutViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = MasterDetailLayoutViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = MasterDetailLayoutViewModel(isLoading: false, data: {});
   }
 }
 
-final masterDetailLayoutAdapterProvider = NotifierProvider<MasterDetailLayoutAdapter, MasterDetailLayoutViewModel>(() {
-  return MasterDetailLayoutAdapter();
-});
+final masterDetailLayoutAdapterProvider =
+    NotifierProvider<MasterDetailLayoutAdapter, MasterDetailLayoutViewModel>(
+      () {
+        return MasterDetailLayoutAdapter();
+      },
+    );

@@ -11,7 +11,8 @@ import '../components/aura/aura_dashboard_hud.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A function signature for building a specific component from a blueprint payload.
-typedef ComponentBuilder = Widget Function(BuildContext context, dynamic dataPayload);
+typedef ComponentBuilder =
+    Widget Function(BuildContext context, dynamic dataPayload);
 
 /// A centralized registry to securely map component string types to their respective Builders.
 /// This replaces large switch statements and is O(1) time complexity.
@@ -45,31 +46,32 @@ class ComponentWarehouse {
     return builder(context, blueprint.dataPayload);
   }
 
-
   // --- Builders for default widgets ---
 
   static Widget _buildStatCardGrid(BuildContext context, dynamic dataPayload) {
     // Expected a list of KPI objects
-    final kpis = dataPayload as List<dynamic>; 
-    
+    final kpis = dataPayload as List<dynamic>;
+
     return PrimeResponsiveGrid(
       children: kpis.map((kpi) {
         if (kpi is UniversalKpi) {
           return PrimeCareStatCard(
             title: kpi.title,
             value: kpi.value,
-            deltaSuffix: kpi.trend != 0.0 ? "${kpi.trend > 0 ? '+' : ''}${kpi.trend}%" : null,
+            deltaSuffix: kpi.trend != 0.0
+                ? "${kpi.trend > 0 ? '+' : ''}${kpi.trend}%"
+                : null,
             icon: _inferIcon(kpi.title),
             iconColor: _inferColor(kpi.status.name),
           );
         }
-        
+
         // Fallback for raw map data
         final title = kpi['title'] as String? ?? 'Metric';
         final value = kpi['value'] as String? ?? '0';
         final status = kpi['status'] as String? ?? 'neutral';
         final trend = kpi['trend']?.toString();
-        
+
         return PrimeCareStatCard(
           title: title,
           value: value,
@@ -88,12 +90,22 @@ class ComponentWarehouse {
       children: [
         const Padding(
           padding: EdgeInsets.only(left: 8, bottom: 12),
-          child: Text("Operational Continuity", style: TextStyle(color: Colors.white70, fontSize: 13, letterSpacing: 1.2, fontWeight: FontWeight.bold)),
+          child: Text(
+            "Operational Continuity",
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 13,
+              letterSpacing: 1.2,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         ...activities.map((activity) {
           final type = activity['type'] as String? ?? 'info';
-          final color = type == 'success' ? Colors.tealAccent : (type == 'warning' ? Colors.orangeAccent : Colors.blueAccent);
-          
+          final color = type == 'success'
+              ? Colors.tealAccent
+              : (type == 'warning' ? Colors.orangeAccent : Colors.blueAccent);
+
           return Container(
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(20),
@@ -116,14 +128,20 @@ class ComponentWarehouse {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(activity['title'] as String,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600)),
-                      Text(activity['timestamp'] as String,
-                          style: TextStyle(
-                              color: Colors.white.withAlpha(100),
-                              fontSize: 12)),
+                      Text(
+                        activity['title'] as String,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        activity['timestamp'] as String,
+                        style: TextStyle(
+                          color: Colors.white.withAlpha(100),
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -143,7 +161,12 @@ class ComponentWarehouse {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: Colors.white.withAlpha(25)),
       ),
-      child: const Center(child: Text("Data Table - Assembled", style: TextStyle(color: Colors.white))),
+      child: const Center(
+        child: Text(
+          "Data Table - Assembled",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
     );
   }
 
@@ -163,7 +186,7 @@ class ComponentWarehouse {
             color: Colors.redAccent.withAlpha(20),
             blurRadius: 40,
             spreadRadius: 5,
-          )
+          ),
         ],
       ),
       child: Column(
@@ -171,7 +194,11 @@ class ComponentWarehouse {
         children: [
           Row(
             children: [
-              const Icon(LucideIcons.shieldAlert, color: Colors.redAccent, size: 28),
+              const Icon(
+                LucideIcons.shieldAlert,
+                color: Colors.redAccent,
+                size: 28,
+              ),
               const SizedBox(width: 16),
               Text(
                 "Risk Surveillance Engine".toUpperCase(),
@@ -182,7 +209,13 @@ class ComponentWarehouse {
                 ),
               ),
               const Spacer(),
-              const Text("LIVE", style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w900)),
+              const Text(
+                "LIVE",
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 24),
@@ -206,7 +239,7 @@ class ComponentWarehouse {
     return Column(
       children: metrics.map((metric) {
         final color = _inferColor(metric.status);
-        
+
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(24),
@@ -261,7 +294,10 @@ class ComponentWarehouse {
               ),
               if (metric.trend != null)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
@@ -282,11 +318,17 @@ class ComponentWarehouse {
     );
   }
 
-  static Widget _buildAuraDashboardHud(BuildContext context, dynamic dataPayload) {
+  static Widget _buildAuraDashboardHud(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
     return const AuraDashboardHud();
   }
 
-  static Widget _buildManagementAction(BuildContext context, dynamic dataPayload) {
+  static Widget _buildManagementAction(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -297,14 +339,32 @@ class ComponentWarehouse {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Critical Controls", style: TextStyle(color: Colors.orangeAccent, fontWeight: FontWeight.bold)),
+          const Text(
+            "Critical Controls",
+            style: TextStyle(
+              color: Colors.orangeAccent,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 16),
           Wrap(
             spacing: 12,
             children: [
-              _buildActionButton("Quarantine Tenant", LucideIcons.lock, Colors.redAccent),
-              _buildActionButton("System Audit", LucideIcons.fileSearch, Colors.blueAccent),
-              _buildActionButton("Freeze Payouts", LucideIcons.pause, Colors.orangeAccent),
+              _buildActionButton(
+                "Quarantine Tenant",
+                LucideIcons.lock,
+                Colors.redAccent,
+              ),
+              _buildActionButton(
+                "System Audit",
+                LucideIcons.fileSearch,
+                Colors.blueAccent,
+              ),
+              _buildActionButton(
+                "Freeze Payouts",
+                LucideIcons.pause,
+                Colors.orangeAccent,
+              ),
             ],
           ),
         ],
@@ -312,7 +372,10 @@ class ComponentWarehouse {
     );
   }
 
-  static Widget _buildClinicalMetric(BuildContext context, dynamic dataPayload) {
+  static Widget _buildClinicalMetric(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
     final title = dataPayload['title'] as String? ?? 'Clinical Intelligence';
     final metrics = dataPayload['metrics'] as List<dynamic>? ?? [];
 
@@ -334,16 +397,27 @@ class ComponentWarehouse {
         children: [
           Row(
             children: [
-              Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const Spacer(),
-              const Icon(LucideIcons.trendingUp, color: Colors.tealAccent, size: 18),
+              const Icon(
+                LucideIcons.trendingUp,
+                color: Colors.tealAccent,
+                size: 18,
+              ),
             ],
           ),
           const SizedBox(height: 24),
           ...metrics.map((m) {
             final label = m['label'] as String;
             final value = (m['value'] as num).toDouble();
-            
+
             return Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: Column(
@@ -352,8 +426,20 @@ class ComponentWarehouse {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(label, style: const TextStyle(color: Colors.white70, fontSize: 14)),
-                      Text("${(value * 100).toInt()}%", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      Text(
+                        label,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        "${(value * 100).toInt()}%",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -396,15 +482,23 @@ class ComponentWarehouse {
     );
   }
 
-  static Widget _buildComplianceGate(BuildContext context, dynamic dataPayload) {
-     return Container(
+  static Widget _buildComplianceGate(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.indigo.withAlpha(30),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: Colors.indigoAccent.withAlpha(50)),
       ),
-      child: const Center(child: Text("Compliance Gate - Verified", style: TextStyle(color: Colors.indigoAccent))),
+      child: const Center(
+        child: Text(
+          "Compliance Gate - Verified",
+          style: TextStyle(color: Colors.indigoAccent),
+        ),
+      ),
     );
   }
 
@@ -421,7 +515,14 @@ class ComponentWarehouse {
         children: [
           Icon(icon, color: color, size: 18),
           const SizedBox(width: 8),
-          Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w600, fontSize: 13)),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+            ),
+          ),
         ],
       ),
     );
@@ -429,13 +530,14 @@ class ComponentWarehouse {
 
   static ComponentBuilder _buildUnknownComponent(String type) {
     return (BuildContext context, dynamic payload) {
-       return Center(
-         child: Text('Unknown component type: $type'),
-       );
+      return Center(child: Text('Unknown component type: $type'));
     };
   }
 
-  static Widget _buildAnalyticsChart(BuildContext context, dynamic dataPayload) {
+  static Widget _buildAnalyticsChart(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
     if (dataPayload is! AnalyticsChart) {
       return const SizedBox.shrink();
     }
@@ -459,14 +561,17 @@ class ComponentWarehouse {
           isAuraSupported: true,
           onPinToggle: () {},
           onAuraToggle: () {
-            ref.read(auraDashboardToggleProvider.notifier).toggle(dataPayload.id);
+            ref
+                .read(auraDashboardToggleProvider.notifier)
+                .toggle(dataPayload.id);
           },
           onDetailPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => PrimeCareReportScreen(
-                    reportId: dataPayload.reportId ?? 'unspecified'),
+                  reportId: dataPayload.reportId ?? 'unspecified',
+                ),
               ),
             );
           },
@@ -479,19 +584,26 @@ class ComponentWarehouse {
   static IconData _inferIcon(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient') || t.contains('client')) return LucideIcons.users;
-    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice')) return LucideIcons.dollarSign;
-    if (t.contains('appointment') || t.contains('schedule')) return LucideIcons.calendar;
-    if (t.contains('alert') || t.contains('critical')) return LucideIcons.alertCircle;
-    if (t.contains('staff') || t.contains('provider') || t.contains('rpn')) return LucideIcons.stethoscope;
-    if (t.contains('task') || t.contains('pipeline')) return LucideIcons.checkSquare;
+    if (t.contains('revenue') || t.contains('payment') || t.contains('invoice'))
+      return LucideIcons.dollarSign;
+    if (t.contains('appointment') || t.contains('schedule'))
+      return LucideIcons.calendar;
+    if (t.contains('alert') || t.contains('critical'))
+      return LucideIcons.alertCircle;
+    if (t.contains('staff') || t.contains('provider') || t.contains('rpn'))
+      return LucideIcons.stethoscope;
+    if (t.contains('task') || t.contains('pipeline'))
+      return LucideIcons.checkSquare;
     return LucideIcons.activity;
   }
 
   static Color _inferColor(String status) {
     final s = status.toLowerCase();
-    if (s == 'operational' || s == 'positive' || s == 'up' || s == 'active') return Colors.greenAccent;
+    if (s == 'operational' || s == 'positive' || s == 'up' || s == 'active')
+      return Colors.greenAccent;
     if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative') return Colors.redAccent;
+    if (s == 'critical' || s == 'down' || s == 'negative')
+      return Colors.redAccent;
     return Colors.tealAccent;
   }
 }

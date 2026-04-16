@@ -17,10 +17,12 @@ class PrimeEarningsTrajectoryCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.auraEngine,
-      'Hydrating Trajectory: $title',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.auraEngine,
+          'Hydrating Trajectory: $title',
+        );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

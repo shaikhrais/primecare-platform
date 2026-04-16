@@ -12,14 +12,16 @@ class AuthLayoutAdapter extends Notifier<AuthLayoutViewModel> {
   AuthLayoutViewModel build() {
     return AuthLayoutViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = AuthLayoutViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = AuthLayoutViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = AuthLayoutViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = AuthLayoutViewModel(isLoading: false, data: {});
   }
 }
 
-final authLayoutAdapterProvider = NotifierProvider<AuthLayoutAdapter, AuthLayoutViewModel>(() {
-  return AuthLayoutAdapter();
-});
+final authLayoutAdapterProvider =
+    NotifierProvider<AuthLayoutAdapter, AuthLayoutViewModel>(() {
+      return AuthLayoutAdapter();
+    });

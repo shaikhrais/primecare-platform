@@ -12,14 +12,16 @@ class ProviderLayoutAdapter extends Notifier<ProviderLayoutViewModel> {
   ProviderLayoutViewModel build() {
     return ProviderLayoutViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ProviderLayoutViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ProviderLayoutViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ProviderLayoutViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = ProviderLayoutViewModel(isLoading: false, data: {});
   }
 }
 
-final providerLayoutAdapterProvider = NotifierProvider<ProviderLayoutAdapter, ProviderLayoutViewModel>(() {
-  return ProviderLayoutAdapter();
-});
+final providerLayoutAdapterProvider =
+    NotifierProvider<ProviderLayoutAdapter, ProviderLayoutViewModel>(() {
+      return ProviderLayoutAdapter();
+    });

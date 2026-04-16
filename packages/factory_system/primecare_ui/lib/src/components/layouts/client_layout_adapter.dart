@@ -12,14 +12,16 @@ class ClientLayoutAdapter extends Notifier<ClientLayoutViewModel> {
   ClientLayoutViewModel build() {
     return ClientLayoutViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ClientLayoutViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ClientLayoutViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ClientLayoutViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = ClientLayoutViewModel(isLoading: false, data: {});
   }
 }
 
-final clientLayoutAdapterProvider = NotifierProvider<ClientLayoutAdapter, ClientLayoutViewModel>(() {
-  return ClientLayoutAdapter();
-});
+final clientLayoutAdapterProvider =
+    NotifierProvider<ClientLayoutAdapter, ClientLayoutViewModel>(() {
+      return ClientLayoutAdapter();
+    });

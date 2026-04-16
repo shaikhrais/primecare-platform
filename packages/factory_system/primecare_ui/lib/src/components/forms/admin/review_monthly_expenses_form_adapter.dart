@@ -7,19 +7,28 @@ class ReviewMonthlyExpensesFormViewModel {
   ReviewMonthlyExpensesFormViewModel({this.isLoading = false, this.data});
 }
 
-class ReviewMonthlyExpensesFormAdapter extends Notifier<ReviewMonthlyExpensesFormViewModel> {
+class ReviewMonthlyExpensesFormAdapter
+    extends Notifier<ReviewMonthlyExpensesFormViewModel> {
   @override
   ReviewMonthlyExpensesFormViewModel build() {
     return ReviewMonthlyExpensesFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ReviewMonthlyExpensesFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ReviewMonthlyExpensesFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ReviewMonthlyExpensesFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
+    // Simulate fetch
+    state = ReviewMonthlyExpensesFormViewModel(isLoading: false, data: {});
   }
 }
 
-final reviewMonthlyExpensesFormAdapterProvider = NotifierProvider<ReviewMonthlyExpensesFormAdapter, ReviewMonthlyExpensesFormViewModel>(() {
-  return ReviewMonthlyExpensesFormAdapter();
-});
+final reviewMonthlyExpensesFormAdapterProvider =
+    NotifierProvider<
+      ReviewMonthlyExpensesFormAdapter,
+      ReviewMonthlyExpensesFormViewModel
+    >(() {
+      return ReviewMonthlyExpensesFormAdapter();
+    });

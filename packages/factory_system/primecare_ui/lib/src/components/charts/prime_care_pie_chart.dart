@@ -24,16 +24,20 @@ class PrimeCarePieChart extends ConsumerWidget {
             Color actualColor = dp.color != null
                 ? Color(int.parse(dp.color!.replaceAll('#', '0xFF')))
                 : Colors.blue;
-                
+
             double radius = 50.0;
-            
+
             // Aura Predictive Styling
             // Let's assume the highest value is the target of interest for anomalies
-            final double maxValue = chart.dataPoints.map((e) => e.value).reduce((a, b) => a > b ? a : b);
+            final double maxValue = chart.dataPoints
+                .map((e) => e.value)
+                .reduce((a, b) => a > b ? a : b);
             if (auraActive && dp.value == maxValue && auraAnomaly != null) {
-               if (auraAnomaly.impact == InsightImpact.alert) actualColor = Colors.redAccent;
-               if (auraAnomaly.impact == InsightImpact.caution) actualColor = Colors.orangeAccent;
-               radius = 60.0; // Pop out the anomalous segment
+              if (auraAnomaly.impact == InsightImpact.alert)
+                actualColor = Colors.redAccent;
+              if (auraAnomaly.impact == InsightImpact.caution)
+                actualColor = Colors.orangeAccent;
+              radius = 60.0; // Pop out the anomalous segment
             }
 
             return PieChartSectionData(

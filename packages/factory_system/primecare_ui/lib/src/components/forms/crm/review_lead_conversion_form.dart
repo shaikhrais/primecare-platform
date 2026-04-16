@@ -43,7 +43,8 @@ class _ReviewLeadConversionFormState extends State<ReviewLeadConversionForm> {
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   border: const OutlineInputBorder(),
                 ),
-                validator: (value) => value == null || value.isEmpty ? 'Required' : null,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Required' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -53,7 +54,8 @@ class _ReviewLeadConversionFormState extends State<ReviewLeadConversionForm> {
                   border: const OutlineInputBorder(),
                 ),
                 maxLines: 3,
-                validator: (value) => value == null || value.isEmpty ? 'Required' : null,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Required' : null,
               ),
               // TODO: Integrate with active ViewModel/provider for structured submission
             ],

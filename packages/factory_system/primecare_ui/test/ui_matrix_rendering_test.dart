@@ -35,7 +35,8 @@ void main() {
         sharedPreferencesProvider.overrideWithValue(mockPrefs),
         // Overriding metrics to ensure deterministic hydration in tests
         dashboardMetricsProvider.overrideWith(
-          (ref, role) async => Success(DataLogisticsHub.getDashboardMetrics(role)),
+          (ref, role) async =>
+              Success(DataLogisticsHub.getDashboardMetrics(role)),
         ),
         // Overriding insights to ensure deterministic hydration in tests
         auraInsightsProvider.overrideWith(

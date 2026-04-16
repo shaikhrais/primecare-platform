@@ -12,14 +12,16 @@ class AssignCarePodFormAdapter extends Notifier<AssignCarePodFormViewModel> {
   AssignCarePodFormViewModel build() {
     return AssignCarePodFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = AssignCarePodFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = AssignCarePodFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = AssignCarePodFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = AssignCarePodFormViewModel(isLoading: false, data: {});
   }
 }
 
-final assignCarePodFormAdapterProvider = NotifierProvider<AssignCarePodFormAdapter, AssignCarePodFormViewModel>(() {
-  return AssignCarePodFormAdapter();
-});
+final assignCarePodFormAdapterProvider =
+    NotifierProvider<AssignCarePodFormAdapter, AssignCarePodFormViewModel>(() {
+      return AssignCarePodFormAdapter();
+    });

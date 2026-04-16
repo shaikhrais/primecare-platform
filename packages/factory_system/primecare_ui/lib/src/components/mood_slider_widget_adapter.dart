@@ -12,14 +12,16 @@ class MoodSliderWidgetAdapter extends Notifier<MoodSliderWidgetViewModel> {
   MoodSliderWidgetViewModel build() {
     return MoodSliderWidgetViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = MoodSliderWidgetViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = MoodSliderWidgetViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = MoodSliderWidgetViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = MoodSliderWidgetViewModel(isLoading: false, data: {});
   }
 }
 
-final moodSliderWidgetAdapterProvider = NotifierProvider<MoodSliderWidgetAdapter, MoodSliderWidgetViewModel>(() {
-  return MoodSliderWidgetAdapter();
-});
+final moodSliderWidgetAdapterProvider =
+    NotifierProvider<MoodSliderWidgetAdapter, MoodSliderWidgetViewModel>(() {
+      return MoodSliderWidgetAdapter();
+    });

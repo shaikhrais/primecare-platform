@@ -55,11 +55,13 @@ class PrimeShiftExecutionCard extends ConsumerWidget {
                 ? PrimeCareButtonType.secondary
                 : PrimeCareButtonType.primary,
             onPressed: () {
-              ref.read(executionGateProvider).passGate(
-                ExecutionGateCategory.navigationLayer,
-                'Shift Toggle: ${isShiftActive ? 'ENDING' : 'STARTING'}',
-                metadata: {'clientName': activeClientName},
-              );
+              ref
+                  .read(executionGateProvider)
+                  .passGate(
+                    ExecutionGateCategory.navigationLayer,
+                    'Shift Toggle: ${isShiftActive ? 'ENDING' : 'STARTING'}',
+                    metadata: {'clientName': activeClientName},
+                  );
               onToggleShift();
             },
           ),

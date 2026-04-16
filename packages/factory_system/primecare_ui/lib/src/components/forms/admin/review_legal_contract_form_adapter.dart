@@ -7,19 +7,25 @@ class ReviewLegalContractFormViewModel {
   ReviewLegalContractFormViewModel({this.isLoading = false, this.data});
 }
 
-class ReviewLegalContractFormAdapter extends Notifier<ReviewLegalContractFormViewModel> {
+class ReviewLegalContractFormAdapter
+    extends Notifier<ReviewLegalContractFormViewModel> {
   @override
   ReviewLegalContractFormViewModel build() {
     return ReviewLegalContractFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ReviewLegalContractFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ReviewLegalContractFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ReviewLegalContractFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = ReviewLegalContractFormViewModel(isLoading: false, data: {});
   }
 }
 
-final reviewLegalContractFormAdapterProvider = NotifierProvider<ReviewLegalContractFormAdapter, ReviewLegalContractFormViewModel>(() {
-  return ReviewLegalContractFormAdapter();
-});
+final reviewLegalContractFormAdapterProvider =
+    NotifierProvider<
+      ReviewLegalContractFormAdapter,
+      ReviewLegalContractFormViewModel
+    >(() {
+      return ReviewLegalContractFormAdapter();
+    });

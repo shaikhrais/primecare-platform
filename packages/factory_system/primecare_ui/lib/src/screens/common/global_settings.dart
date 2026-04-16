@@ -9,8 +9,8 @@ class GlobalSettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => PageTemplate.orchestrate(
-        title: 'common.settings.title',
-        subtitle: 'common.settings.subtitle',
-        provider: commonFeatureDataProvider('settings'),
-      );
+    title: 'common.settings.title',
+    subtitle: 'common.settings.subtitle',
+    provider: commonFeatureDataProvider('settings'),
+  );
 }

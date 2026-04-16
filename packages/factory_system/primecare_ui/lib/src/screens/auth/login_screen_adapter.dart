@@ -12,14 +12,16 @@ class LoginScreenAdapter extends Notifier<LoginScreenViewModel> {
   LoginScreenViewModel build() {
     return LoginScreenViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = LoginScreenViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = LoginScreenViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = LoginScreenViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = LoginScreenViewModel(isLoading: false, data: {});
   }
 }
 
-final loginScreenAdapterProvider = NotifierProvider<LoginScreenAdapter, LoginScreenViewModel>(() {
-  return LoginScreenAdapter();
-});
+final loginScreenAdapterProvider =
+    NotifierProvider<LoginScreenAdapter, LoginScreenViewModel>(() {
+      return LoginScreenAdapter();
+    });

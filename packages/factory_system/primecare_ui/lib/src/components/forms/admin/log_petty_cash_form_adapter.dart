@@ -12,14 +12,16 @@ class LogPettyCashFormAdapter extends Notifier<LogPettyCashFormViewModel> {
   LogPettyCashFormViewModel build() {
     return LogPettyCashFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = LogPettyCashFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = LogPettyCashFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = LogPettyCashFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = LogPettyCashFormViewModel(isLoading: false, data: {});
   }
 }
 
-final logPettyCashFormAdapterProvider = NotifierProvider<LogPettyCashFormAdapter, LogPettyCashFormViewModel>(() {
-  return LogPettyCashFormAdapter();
-});
+final logPettyCashFormAdapterProvider =
+    NotifierProvider<LogPettyCashFormAdapter, LogPettyCashFormViewModel>(() {
+      return LogPettyCashFormAdapter();
+    });

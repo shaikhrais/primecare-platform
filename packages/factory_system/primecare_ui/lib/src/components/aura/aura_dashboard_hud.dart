@@ -44,8 +44,13 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
 
     return pulseAsync.when(
       data: (event) => _buildHudContent(context, event),
-      loading: () => _buildStablePulse(context, 'Synchronizing Aura IQ...', isSyncing: true),
-      error: (err, stack) => _buildStablePulse(context, 'Aura Offline', isDimmed: true),
+      loading: () => _buildStablePulse(
+        context,
+        'Synchronizing Aura IQ...',
+        isSyncing: true,
+      ),
+      error: (err, stack) =>
+          _buildStablePulse(context, 'Aura Offline', isDimmed: true),
     );
   }
 
@@ -61,7 +66,11 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
       ),
       child: Row(
         children: [
-          Icon(LucideIcons.bellOff, color: color.withValues(alpha: 0.5), size: 18),
+          Icon(
+            LucideIcons.bellOff,
+            color: color.withValues(alpha: 0.5),
+            size: 18,
+          ),
           const SizedBox(width: 16),
           Text(
             'Aura Alerts Snoozed',
@@ -74,8 +83,16 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           ),
           const Spacer(),
           TextButton(
-            onPressed: () => ref.read(auraSnoozeProvider.notifier).update(false),
-            child: const Text('RESUME', style: TextStyle(color: Color(0xFF6366F1), fontSize: 12, fontWeight: FontWeight.bold)),
+            onPressed: () =>
+                ref.read(auraSnoozeProvider.notifier).update(false),
+            child: const Text(
+              'RESUME',
+              style: TextStyle(
+                color: Color(0xFF6366F1),
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,7 +100,9 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
   }
 
   Widget _buildHudContent(BuildContext context, AuraEvent event) {
-    final isAnomaly = event.impact == InsightImpact.alert || event.impact == InsightImpact.caution;
+    final isAnomaly =
+        event.impact == InsightImpact.alert ||
+        event.impact == InsightImpact.caution;
     final color = _getColor(event.impact);
 
     return Container(
@@ -92,10 +111,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A).withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: color.withValues(alpha: 0.3),
-          width: 1.5,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.15),
@@ -184,7 +200,12 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
     );
   }
 
-  Widget _buildStablePulse(BuildContext context, String message, {bool isSyncing = false, bool isDimmed = false}) {
+  Widget _buildStablePulse(
+    BuildContext context,
+    String message, {
+    bool isSyncing = false,
+    bool isDimmed = false,
+  }) {
     final color = isDimmed ? Colors.grey : const Color(0xFF6366F1);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -199,9 +220,16 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           SizedBox(
             width: 20,
             height: 20,
-            child: isSyncing 
-              ? CircularProgressIndicator(strokeWidth: 2, color: color.withValues(alpha: 0.5))
-              : Icon(LucideIcons.shieldCheck, color: color.withValues(alpha: 0.5), size: 18),
+            child: isSyncing
+                ? CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: color.withValues(alpha: 0.5),
+                  )
+                : Icon(
+                    LucideIcons.shieldCheck,
+                    color: color.withValues(alpha: 0.5),
+                    size: 18,
+                  ),
           ),
           const SizedBox(width: 16),
           Text(
@@ -229,7 +257,11 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
               color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(LucideIcons.bellOff, color: Colors.white.withValues(alpha: 0.5), size: 16),
+            child: Icon(
+              LucideIcons.bellOff,
+              color: Colors.white.withValues(alpha: 0.5),
+              size: 16,
+            ),
           ),
         ),
         const SizedBox(width: 8),

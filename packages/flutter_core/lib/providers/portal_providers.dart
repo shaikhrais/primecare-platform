@@ -12,6 +12,12 @@ final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
   final authState = ref.watch(authProvider);
   final role = authState.role ?? 'PSW';
   final menu = NavigationRegistry.getMenuForRole(role);
+  
+  // Diagnostic Telemetry: Detect if we fell back to Admin unexpectedly
+  if (role != 'Admin' && menu == NavigationRegistry.getMenuForRole('Admin')) {
+    ref.read(executionGateProvider).failGate(ExecutionGateCategory.navigationLayer, 'navigation_fallback_warning: Fallback to Admin for role $role');
+  }
+
   ref.read(executionGateProvider).passGate(ExecutionGateCategory.navigationLayer, 'Hydrated ${menu.length} navigation items for role: $role');
   return menu;
 });

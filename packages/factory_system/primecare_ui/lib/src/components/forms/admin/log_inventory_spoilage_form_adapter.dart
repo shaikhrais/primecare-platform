@@ -7,19 +7,28 @@ class LogInventorySpoilageFormViewModel {
   LogInventorySpoilageFormViewModel({this.isLoading = false, this.data});
 }
 
-class LogInventorySpoilageFormAdapter extends Notifier<LogInventorySpoilageFormViewModel> {
+class LogInventorySpoilageFormAdapter
+    extends Notifier<LogInventorySpoilageFormViewModel> {
   @override
   LogInventorySpoilageFormViewModel build() {
     return LogInventorySpoilageFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = LogInventorySpoilageFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = LogInventorySpoilageFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = LogInventorySpoilageFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
+    // Simulate fetch
+    state = LogInventorySpoilageFormViewModel(isLoading: false, data: {});
   }
 }
 
-final logInventorySpoilageFormAdapterProvider = NotifierProvider<LogInventorySpoilageFormAdapter, LogInventorySpoilageFormViewModel>(() {
-  return LogInventorySpoilageFormAdapter();
-});
+final logInventorySpoilageFormAdapterProvider =
+    NotifierProvider<
+      LogInventorySpoilageFormAdapter,
+      LogInventorySpoilageFormViewModel
+    >(() {
+      return LogInventorySpoilageFormAdapter();
+    });

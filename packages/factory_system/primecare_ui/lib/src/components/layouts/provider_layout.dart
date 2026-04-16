@@ -4,17 +4,29 @@ import 'base_layout_shell.dart';
 class ProviderLayout extends StatelessWidget {
   final Widget child;
   final String? currentPath;
+  final List<Widget>? topBarActions;
+  final Widget? customTopBarLeft;
+  final Widget? customTopBarCenter;
+  final Widget? customTopBarRight;
 
   const ProviderLayout({
-    super.key, 
+    super.key,
     required this.child,
     this.currentPath,
+    this.topBarActions,
+    this.customTopBarLeft,
+    this.customTopBarCenter,
+    this.customTopBarRight,
   });
 
   @override
   Widget build(BuildContext context) {
     return BaseLayoutShell(
       currentPath: currentPath,
+      topBarActions: topBarActions,
+      customTopBarLeft: customTopBarLeft,
+      customTopBarCenter: customTopBarCenter,
+      customTopBarRight: customTopBarRight,
       child: child,
     );
   }

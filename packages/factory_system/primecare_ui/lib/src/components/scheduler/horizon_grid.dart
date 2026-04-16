@@ -10,10 +10,12 @@ class HorizonGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.scheduler,
-      'Rendering Horizon Grid (Staff: ${schedule.staff.length}, Appts: ${schedule.appointments.length})',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.scheduler,
+          'Rendering Horizon Grid (Staff: ${schedule.staff.length}, Appts: ${schedule.appointments.length})',
+        );
     const double hourHeight = 120.0;
     const double staffWidth = 220.0;
     const int startHour = 8;
@@ -58,9 +60,13 @@ class HorizonGrid extends ConsumerWidget {
                       final pressure = ref.watch(
                         staffPressureProvider(staff.id),
                       );
-                      
-                      final isAuraTarget = auraPulse?.metadata?['staffId'] == staff.id || 
-                         (auraPulse != null && auraPulse.description.toLowerCase().contains(staff.name.toLowerCase()));
+
+                      final isAuraTarget =
+                          auraPulse?.metadata?['staffId'] == staff.id ||
+                          (auraPulse != null &&
+                              auraPulse.description.toLowerCase().contains(
+                                staff.name.toLowerCase(),
+                              ));
 
                       return _StaffColumn(
                         staff: staff,
@@ -120,18 +126,28 @@ class _StaffColumn extends ConsumerWidget {
         color: isAuraTarget ? Colors.indigoAccent.withValues(alpha: 0.1) : null,
         border: Border(
           right: BorderSide(
-            color: isAuraTarget 
-                ? Colors.indigoAccent.withValues(alpha: 0.4) 
+            color: isAuraTarget
+                ? Colors.indigoAccent.withValues(alpha: 0.4)
                 : Colors.white.withValues(alpha: 0.05),
             width: isAuraTarget ? 2 : 1,
           ),
-          left: isAuraTarget ? BorderSide(color: Colors.indigoAccent.withValues(alpha: 0.4), width: 2) : BorderSide.none,
+          left: isAuraTarget
+              ? BorderSide(
+                  color: Colors.indigoAccent.withValues(alpha: 0.4),
+                  width: 2,
+                )
+              : BorderSide.none,
         ),
       ),
       child: Column(
         children: [
           // Staff Header
-          _StaffHeader(staff: staff, pressure: pressure, color: pressureColor, isAuraTarget: isAuraTarget),
+          _StaffHeader(
+            staff: staff,
+            pressure: pressure,
+            color: pressureColor,
+            isAuraTarget: isAuraTarget,
+          ),
 
           // Appointments Stack
           Expanded(
@@ -158,14 +174,17 @@ class _StaffColumn extends ConsumerWidget {
                       startHour,
                       hourHeight,
                     );
-                      final height = (appt.duration.inMinutes / 60.0) * hourHeight;
-                    
+                    final height =
+                        (appt.duration.inMinutes / 60.0) * hourHeight;
+
                     if (top.isNaN || height.isNaN || top < 0 || height < 0) {
-                      ref.read(executionGateProvider).failGate(
-                        ExecutionGateCategory.scheduler,
-                        'Invalid Appointment Layout for appt_id: ${appt.id}',
-                        metadata: {'top': top, 'height': height},
-                      );
+                      ref
+                          .read(executionGateProvider)
+                          .failGate(
+                            ExecutionGateCategory.scheduler,
+                            'Invalid Appointment Layout for appt_id: ${appt.id}',
+                            metadata: {'top': top, 'height': height},
+                          );
                       throw Exception('Invalid layout measurement');
                     }
 
@@ -244,8 +263,10 @@ class _StaffHeader extends StatelessWidget {
         color: Theme.of(context).cardColor.withValues(alpha: 0.3),
         border: Border(
           bottom: BorderSide(
-            color: isAuraTarget ? Colors.indigoAccent : color.withValues(alpha: 0.5), 
-            width: isAuraTarget ? 3 : 2
+            color: isAuraTarget
+                ? Colors.indigoAccent
+                : color.withValues(alpha: 0.5),
+            width: isAuraTarget ? 3 : 2,
           ),
         ),
       ),
@@ -254,7 +275,9 @@ class _StaffHeader extends StatelessWidget {
           CircleAvatar(
             radius: 20,
             backgroundImage: NetworkImage(staff.avatarUrl),
-            backgroundColor: isAuraTarget ? Colors.indigoAccent : staff.themeColor.withValues(alpha: 0.2),
+            backgroundColor: isAuraTarget
+                ? Colors.indigoAccent
+                : staff.themeColor.withValues(alpha: 0.2),
           ),
           const SizedBox(width: 12),
           Expanded(

@@ -38,10 +38,12 @@ class _PrimeCareResponsiveKpiGridState
 
   @override
   Widget build(BuildContext context) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.auraEngine,
-      'Rendering KPI Grid (Children: ${widget.children.length})',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.auraEngine,
+          'Rendering KPI Grid (Children: ${widget.children.length})',
+        );
     final auraActive = ref.watch(auraActiveVisualizationProvider);
 
     if (auraActive) {
@@ -50,7 +52,10 @@ class _PrimeCareResponsiveKpiGridState
       }
     } else {
       if (_pulseController.isAnimating) {
-        _pulseController.animateTo(0, duration: const Duration(milliseconds: 300));
+        _pulseController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+        );
       }
     }
 
@@ -67,7 +72,8 @@ class _PrimeCareResponsiveKpiGridState
           crossAxisCount: crossAxisCount,
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
-          childAspectRatio: 1.4, // Lowered ratio to provide more vertical headroom for resilient stacking
+          childAspectRatio:
+              1.4, // Lowered ratio to provide more vertical headroom for resilient stacking
           children: widget.children,
         );
 
@@ -82,8 +88,9 @@ class _PrimeCareResponsiveKpiGridState
                 boxShadow: auraActive
                     ? [
                         BoxShadow(
-                          color: const Color(0xFF6366F1)
-                              .withValues(alpha: 0.2 * glowValue),
+                          color: const Color(
+                            0xFF6366F1,
+                          ).withValues(alpha: 0.2 * glowValue),
                           blurRadius: 20 * glowValue,
                           spreadRadius: 5 * glowValue,
                         ),

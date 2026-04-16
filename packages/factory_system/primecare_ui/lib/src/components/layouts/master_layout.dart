@@ -11,11 +11,19 @@ enum AppShellType { admin, provider, client, none }
 class MasterLayout extends ConsumerWidget {
   final Widget child;
   final AppShellType shellType;
+  final List<Widget>? topBarActions;
+  final Widget? customTopBarLeft;
+  final Widget? customTopBarCenter;
+  final Widget? customTopBarRight;
 
   const MasterLayout({
     super.key,
     required this.child,
     this.shellType = AppShellType.none,
+    this.topBarActions,
+    this.customTopBarLeft,
+    this.customTopBarCenter,
+    this.customTopBarRight,
   });
 
   @override
@@ -54,13 +62,34 @@ class MasterLayout extends ConsumerWidget {
     Widget shell;
     switch (shellType) {
       case AppShellType.admin:
-        shell = AdminLayout(currentPath: currentUri, child: animatedChild);
+        shell = AdminLayout(
+          currentPath: currentUri,
+          topBarActions: topBarActions,
+          customTopBarLeft: customTopBarLeft,
+          customTopBarCenter: customTopBarCenter,
+          customTopBarRight: customTopBarRight,
+          child: animatedChild,
+        );
         break;
       case AppShellType.provider:
-        shell = ProviderLayout(currentPath: currentUri, child: animatedChild);
+        shell = ProviderLayout(
+          currentPath: currentUri,
+          topBarActions: topBarActions,
+          customTopBarLeft: customTopBarLeft,
+          customTopBarCenter: customTopBarCenter,
+          customTopBarRight: customTopBarRight,
+          child: animatedChild,
+        );
         break;
       case AppShellType.client:
-        shell = ClientLayout(currentPath: currentUri, child: animatedChild);
+        shell = ClientLayout(
+          currentPath: currentUri,
+          topBarActions: topBarActions,
+          customTopBarLeft: customTopBarLeft,
+          customTopBarCenter: customTopBarCenter,
+          customTopBarRight: customTopBarRight,
+          child: animatedChild,
+        );
         break;
       case AppShellType.none:
         shell = Scaffold(

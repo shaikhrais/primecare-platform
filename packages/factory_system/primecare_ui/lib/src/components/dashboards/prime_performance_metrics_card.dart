@@ -49,10 +49,12 @@ class PrimePerformanceMetricsCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.metricsLayer,
-      'Hydrating PerformanceMetrics: $tasksLogged tasks logged',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.metricsLayer,
+          'Hydrating PerformanceMetrics: $tasksLogged tasks logged',
+        );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

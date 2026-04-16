@@ -7,19 +7,28 @@ class ScheduleClinicalAuditFormViewModel {
   ScheduleClinicalAuditFormViewModel({this.isLoading = false, this.data});
 }
 
-class ScheduleClinicalAuditFormAdapter extends Notifier<ScheduleClinicalAuditFormViewModel> {
+class ScheduleClinicalAuditFormAdapter
+    extends Notifier<ScheduleClinicalAuditFormViewModel> {
   @override
   ScheduleClinicalAuditFormViewModel build() {
     return ScheduleClinicalAuditFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ScheduleClinicalAuditFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ScheduleClinicalAuditFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ScheduleClinicalAuditFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
+    // Simulate fetch
+    state = ScheduleClinicalAuditFormViewModel(isLoading: false, data: {});
   }
 }
 
-final scheduleClinicalAuditFormAdapterProvider = NotifierProvider<ScheduleClinicalAuditFormAdapter, ScheduleClinicalAuditFormViewModel>(() {
-  return ScheduleClinicalAuditFormAdapter();
-});
+final scheduleClinicalAuditFormAdapterProvider =
+    NotifierProvider<
+      ScheduleClinicalAuditFormAdapter,
+      ScheduleClinicalAuditFormViewModel
+    >(() {
+      return ScheduleClinicalAuditFormAdapter();
+    });

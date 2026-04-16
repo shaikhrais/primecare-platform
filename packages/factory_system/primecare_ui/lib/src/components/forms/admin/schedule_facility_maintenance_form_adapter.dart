@@ -7,19 +7,31 @@ class ScheduleFacilityMaintenanceFormViewModel {
   ScheduleFacilityMaintenanceFormViewModel({this.isLoading = false, this.data});
 }
 
-class ScheduleFacilityMaintenanceFormAdapter extends Notifier<ScheduleFacilityMaintenanceFormViewModel> {
+class ScheduleFacilityMaintenanceFormAdapter
+    extends Notifier<ScheduleFacilityMaintenanceFormViewModel> {
   @override
   ScheduleFacilityMaintenanceFormViewModel build() {
     return ScheduleFacilityMaintenanceFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = ScheduleFacilityMaintenanceFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = ScheduleFacilityMaintenanceFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = ScheduleFacilityMaintenanceFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
+    // Simulate fetch
+    state = ScheduleFacilityMaintenanceFormViewModel(
+      isLoading: false,
+      data: {},
+    );
   }
 }
 
-final scheduleFacilityMaintenanceFormAdapterProvider = NotifierProvider<ScheduleFacilityMaintenanceFormAdapter, ScheduleFacilityMaintenanceFormViewModel>(() {
-  return ScheduleFacilityMaintenanceFormAdapter();
-});
+final scheduleFacilityMaintenanceFormAdapterProvider =
+    NotifierProvider<
+      ScheduleFacilityMaintenanceFormAdapter,
+      ScheduleFacilityMaintenanceFormViewModel
+    >(() {
+      return ScheduleFacilityMaintenanceFormAdapter();
+    });

@@ -8,8 +8,12 @@ class ClinicalAtelierTheme {
   // Brand Colors for Clinical Atelier
   static const Color vibrantBlue = Color(0xFF0052CC); // Vibrant Primary Blue
   static const Color vibrantLightBlue = Color(0xFF2684FF); // Accent Blue
-  static const Color surfaceGlass = Color(0xCCFFFFFF); // 80% opacity white for glassmorphism
-  static const Color surfaceGlassDark = Color(0xCC1E293B); // 80% opacity dark slate for dark mode
+  static const Color surfaceGlass = Color(
+    0xCCFFFFFF,
+  ); // 80% opacity white for glassmorphism
+  static const Color surfaceGlassDark = Color(
+    0xCC1E293B,
+  ); // 80% opacity dark slate for dark mode
 
   static TextTheme _buildTextTheme(Color baseColor, Color mutedColor) {
     final baseTextTheme = GoogleFonts.interTextTheme();
@@ -49,7 +53,9 @@ class ClinicalAtelierTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      scaffoldBackgroundColor: const Color(0xFFF0F4F8), // Soft background to let glass pop
+      scaffoldBackgroundColor: const Color(
+        0xFFF0F4F8,
+      ), // Soft background to let glass pop
       primaryColor: vibrantBlue,
       colorScheme: const ColorScheme.light(
         primary: vibrantBlue,
@@ -57,8 +63,11 @@ class ClinicalAtelierTheme {
         surface: surfaceGlass,
         error: PrimeCareColors.rose,
       ),
-      textTheme: _buildTextTheme(PrimeCareColors.radarDark, PrimeCareColors.slate500),
-      
+      textTheme: _buildTextTheme(
+        PrimeCareColors.radarDark,
+        PrimeCareColors.slate500,
+      ),
+
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent, // For glassmorphic headers
         elevation: 0,
@@ -105,7 +114,10 @@ class ClinicalAtelierTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: PrimeCareColors.white.withAlpha(200),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 18,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
           borderSide: const BorderSide(color: PrimeCareColors.slate200),
@@ -120,11 +132,13 @@ class ClinicalAtelierTheme {
         ),
         labelStyle: GoogleFonts.inter(color: PrimeCareColors.slate500),
       ),
-      
+
       dialogTheme: DialogThemeData(
         backgroundColor: surfaceGlass,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
         titleTextStyle: GoogleFonts.outfit(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -144,8 +158,11 @@ class ClinicalAtelierTheme {
         surface: surfaceGlassDark,
         error: PrimeCareColors.rose,
       ),
-      textTheme: _buildTextTheme(PrimeCareColors.white, PrimeCareColors.slate400),
-      
+      textTheme: _buildTextTheme(
+        PrimeCareColors.white,
+        PrimeCareColors.slate400,
+      ),
+
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent, // For glassmorphic headers
         elevation: 0,
@@ -192,7 +209,10 @@ class ClinicalAtelierTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: PrimeCareColors.slate800.withAlpha(150),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 18,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
           borderSide: const BorderSide(color: PrimeCareColors.slate700),
@@ -207,11 +227,13 @@ class ClinicalAtelierTheme {
         ),
         labelStyle: GoogleFonts.inter(color: PrimeCareColors.slate400),
       ),
-      
+
       dialogTheme: DialogThemeData(
         backgroundColor: surfaceGlassDark,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
         titleTextStyle: GoogleFonts.outfit(
           fontSize: 20,
           fontWeight: FontWeight.bold,

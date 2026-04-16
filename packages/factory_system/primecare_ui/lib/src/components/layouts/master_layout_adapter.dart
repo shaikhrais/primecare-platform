@@ -12,14 +12,16 @@ class MasterLayoutAdapter extends Notifier<MasterLayoutViewModel> {
   MasterLayoutViewModel build() {
     return MasterLayoutViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = MasterLayoutViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = MasterLayoutViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = MasterLayoutViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = MasterLayoutViewModel(isLoading: false, data: {});
   }
 }
 
-final masterLayoutAdapterProvider = NotifierProvider<MasterLayoutAdapter, MasterLayoutViewModel>(() {
-  return MasterLayoutAdapter();
-});
+final masterLayoutAdapterProvider =
+    NotifierProvider<MasterLayoutAdapter, MasterLayoutViewModel>(() {
+      return MasterLayoutAdapter();
+    });

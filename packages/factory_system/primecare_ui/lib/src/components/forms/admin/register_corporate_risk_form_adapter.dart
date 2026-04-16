@@ -7,19 +7,28 @@ class RegisterCorporateRiskFormViewModel {
   RegisterCorporateRiskFormViewModel({this.isLoading = false, this.data});
 }
 
-class RegisterCorporateRiskFormAdapter extends Notifier<RegisterCorporateRiskFormViewModel> {
+class RegisterCorporateRiskFormAdapter
+    extends Notifier<RegisterCorporateRiskFormViewModel> {
   @override
   RegisterCorporateRiskFormViewModel build() {
     return RegisterCorporateRiskFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = RegisterCorporateRiskFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = RegisterCorporateRiskFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = RegisterCorporateRiskFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
+    // Simulate fetch
+    state = RegisterCorporateRiskFormViewModel(isLoading: false, data: {});
   }
 }
 
-final registerCorporateRiskFormAdapterProvider = NotifierProvider<RegisterCorporateRiskFormAdapter, RegisterCorporateRiskFormViewModel>(() {
-  return RegisterCorporateRiskFormAdapter();
-});
+final registerCorporateRiskFormAdapterProvider =
+    NotifierProvider<
+      RegisterCorporateRiskFormAdapter,
+      RegisterCorporateRiskFormViewModel
+    >(() {
+      return RegisterCorporateRiskFormAdapter();
+    });

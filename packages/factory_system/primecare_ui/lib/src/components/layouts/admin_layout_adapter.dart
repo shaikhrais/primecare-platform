@@ -12,14 +12,16 @@ class AdminLayoutAdapter extends Notifier<AdminLayoutViewModel> {
   AdminLayoutViewModel build() {
     return AdminLayoutViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = AdminLayoutViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = AdminLayoutViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = AdminLayoutViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = AdminLayoutViewModel(isLoading: false, data: {});
   }
 }
 
-final adminLayoutAdapterProvider = NotifierProvider<AdminLayoutAdapter, AdminLayoutViewModel>(() {
-  return AdminLayoutAdapter();
-});
+final adminLayoutAdapterProvider =
+    NotifierProvider<AdminLayoutAdapter, AdminLayoutViewModel>(() {
+      return AdminLayoutAdapter();
+    });

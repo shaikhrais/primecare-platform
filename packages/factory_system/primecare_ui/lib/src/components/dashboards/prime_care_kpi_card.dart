@@ -23,11 +23,13 @@ class PrimeCareKpiCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.ui, 
-      'Building KPI Card: $title',
-      metadata: {'value': value, 'isPinned': isPinned}
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.ui,
+          'Building KPI Card: $title',
+          metadata: {'value': value, 'isPinned': isPinned},
+        );
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -54,11 +56,13 @@ class PrimeCareKpiCard extends ConsumerWidget {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                ref.read(executionGateProvider).passGate(
-                  ExecutionGateCategory.ui, 
-                  'Toggling Pin for KPI: $title',
-                  metadata: {'pinned': !isPinned}
-                );
+                ref
+                    .read(executionGateProvider)
+                    .passGate(
+                      ExecutionGateCategory.ui,
+                      'Toggling Pin for KPI: $title',
+                      metadata: {'pinned': !isPinned},
+                    );
                 onPinToggle();
               },
               child: Icon(

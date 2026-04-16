@@ -12,14 +12,16 @@ class SignupScreenAdapter extends Notifier<SignupScreenViewModel> {
   SignupScreenViewModel build() {
     return SignupScreenViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = SignupScreenViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = SignupScreenViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = SignupScreenViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = SignupScreenViewModel(isLoading: false, data: {});
   }
 }
 
-final signupScreenAdapterProvider = NotifierProvider<SignupScreenAdapter, SignupScreenViewModel>(() {
-  return SignupScreenAdapter();
-});
+final signupScreenAdapterProvider =
+    NotifierProvider<SignupScreenAdapter, SignupScreenViewModel>(() {
+      return SignupScreenAdapter();
+    });

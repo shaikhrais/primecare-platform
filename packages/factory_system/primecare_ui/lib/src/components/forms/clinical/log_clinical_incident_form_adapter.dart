@@ -7,19 +7,25 @@ class LogClinicalIncidentFormViewModel {
   LogClinicalIncidentFormViewModel({this.isLoading = false, this.data});
 }
 
-class LogClinicalIncidentFormAdapter extends Notifier<LogClinicalIncidentFormViewModel> {
+class LogClinicalIncidentFormAdapter
+    extends Notifier<LogClinicalIncidentFormViewModel> {
   @override
   LogClinicalIncidentFormViewModel build() {
     return LogClinicalIncidentFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = LogClinicalIncidentFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = LogClinicalIncidentFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = LogClinicalIncidentFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = LogClinicalIncidentFormViewModel(isLoading: false, data: {});
   }
 }
 
-final logClinicalIncidentFormAdapterProvider = NotifierProvider<LogClinicalIncidentFormAdapter, LogClinicalIncidentFormViewModel>(() {
-  return LogClinicalIncidentFormAdapter();
-});
+final logClinicalIncidentFormAdapterProvider =
+    NotifierProvider<
+      LogClinicalIncidentFormAdapter,
+      LogClinicalIncidentFormViewModel
+    >(() {
+      return LogClinicalIncidentFormAdapter();
+    });

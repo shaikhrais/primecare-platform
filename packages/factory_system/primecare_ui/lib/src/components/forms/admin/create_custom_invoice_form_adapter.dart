@@ -7,19 +7,25 @@ class CreateCustomInvoiceFormViewModel {
   CreateCustomInvoiceFormViewModel({this.isLoading = false, this.data});
 }
 
-class CreateCustomInvoiceFormAdapter extends Notifier<CreateCustomInvoiceFormViewModel> {
+class CreateCustomInvoiceFormAdapter
+    extends Notifier<CreateCustomInvoiceFormViewModel> {
   @override
   CreateCustomInvoiceFormViewModel build() {
     return CreateCustomInvoiceFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = CreateCustomInvoiceFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = CreateCustomInvoiceFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = CreateCustomInvoiceFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = CreateCustomInvoiceFormViewModel(isLoading: false, data: {});
   }
 }
 
-final createCustomInvoiceFormAdapterProvider = NotifierProvider<CreateCustomInvoiceFormAdapter, CreateCustomInvoiceFormViewModel>(() {
-  return CreateCustomInvoiceFormAdapter();
-});
+final createCustomInvoiceFormAdapterProvider =
+    NotifierProvider<
+      CreateCustomInvoiceFormAdapter,
+      CreateCustomInvoiceFormViewModel
+    >(() {
+      return CreateCustomInvoiceFormAdapter();
+    });

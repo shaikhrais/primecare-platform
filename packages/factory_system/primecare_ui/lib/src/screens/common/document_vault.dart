@@ -9,8 +9,8 @@ class DocumentVaultScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => PageTemplate.orchestrate(
-        title: 'common.documentVault.title',
-        subtitle: 'common.documentVault.subtitle',
-        provider: commonFeatureDataProvider('document_vault'),
-      );
+    title: 'common.documentVault.title',
+    subtitle: 'common.documentVault.subtitle',
+    provider: commonFeatureDataProvider('document_vault'),
+  );
 }

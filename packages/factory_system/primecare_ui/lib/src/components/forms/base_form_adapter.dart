@@ -12,14 +12,16 @@ class BaseFormAdapter extends Notifier<BaseFormViewModel> {
   BaseFormViewModel build() {
     return BaseFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = BaseFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = BaseFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = BaseFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = BaseFormViewModel(isLoading: false, data: {});
   }
 }
 
-final baseFormAdapterProvider = NotifierProvider<BaseFormAdapter, BaseFormViewModel>(() {
-  return BaseFormAdapter();
-});
+final baseFormAdapterProvider =
+    NotifierProvider<BaseFormAdapter, BaseFormViewModel>(() {
+      return BaseFormAdapter();
+    });

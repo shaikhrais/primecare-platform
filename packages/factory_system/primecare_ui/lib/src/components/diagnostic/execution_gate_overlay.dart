@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
-/// A floating diagnostic overlay that lets developers/engineers pull the 
+/// A floating diagnostic overlay that lets developers/engineers pull the
 /// execution trace of the current session to diagnose dynamic failures.
 class ExecutionGateOverlay extends ConsumerStatefulWidget {
   final Widget child;
@@ -11,7 +11,8 @@ class ExecutionGateOverlay extends ConsumerStatefulWidget {
   const ExecutionGateOverlay({super.key, required this.child});
 
   @override
-  ConsumerState<ExecutionGateOverlay> createState() => _ExecutionGateOverlayState();
+  ConsumerState<ExecutionGateOverlay> createState() =>
+      _ExecutionGateOverlayState();
 }
 
 class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
@@ -57,8 +58,10 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
   @override
   Widget build(BuildContext context) {
     final gates = ref.watch(executionGateProvider).allGates;
-    final currentlyFailed = gates.any((g) => g.status == ExecutionGateStatus.fail);
-    
+    final currentlyFailed = gates.any(
+      (g) => g.status == ExecutionGateStatus.fail,
+    );
+
     // Auto-open on failure if not already open
     if (currentlyFailed && !_isVisible && !_hasFailed) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -74,7 +77,7 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
     return Stack(
       children: [
         widget.child,
-        
+
         // A dev-only floating pill to pull up the report
         Positioned(
           bottom: 16,
@@ -86,20 +89,33 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
                 if (_isVisible)
                   Container(
                     margin: const EdgeInsets.only(right: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.9),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surfaceContainerHighest
+                          .withValues(alpha: 0.9),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.5)),
+                      border: Border.all(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.5),
+                      ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
-                        )
+                        ),
                       ],
                     ),
-                    constraints: const BoxConstraints(maxHeight: 300, maxWidth: 400),
+                    constraints: const BoxConstraints(
+                      maxHeight: 300,
+                      maxWidth: 400,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -108,37 +124,43 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
                           children: [
                             Text(
                               'Execution Gates',
-                              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                             Row(
-                                children: [
-                                 if (_isSubmitting)
-                                    const Padding(
-                                      padding: EdgeInsets.only(right: 8.0),
-                                      child: SizedBox(
-                                        width: 12,
-                                        height: 12,
-                                        child: CircularProgressIndicator(strokeWidth: 2),
+                              children: [
+                                if (_isSubmitting)
+                                  const Padding(
+                                    padding: EdgeInsets.only(right: 8.0),
+                                    child: SizedBox(
+                                      width: 12,
+                                      height: 12,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
                                       ),
                                     ),
-                                  IconButton(
-                                    icon: const Icon(Icons.cloud_upload, size: 16),
-                                    onPressed: _isSubmitting ? null : () => _manualSubmitReport(context),
-                                    tooltip: 'Submit Report Manually',
                                   ),
-                                  IconButton(
-                                    icon: const Icon(Icons.copy, size: 16),
-                                    onPressed: () => _copyAuditReport(context),
-                                    tooltip: 'Copy to Clipboard',
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.cloud_upload,
+                                    size: 16,
                                   ),
-                                  IconButton(
-                                    icon: const Icon(Icons.clear_all, size: 16),
-                                    onPressed: _clearGates,
-                                    tooltip: 'Clear Audit Traces',
-                                  ),
-                                ],
+                                  onPressed: _isSubmitting
+                                      ? null
+                                      : () => _manualSubmitReport(context),
+                                  tooltip: 'Submit Report Manually',
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.copy, size: 16),
+                                  onPressed: () => _copyAuditReport(context),
+                                  tooltip: 'Copy to Clipboard',
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.clear_all, size: 16),
+                                  onPressed: _clearGates,
+                                  tooltip: 'Clear Audit Traces',
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -147,15 +169,18 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
                           child: SingleChildScrollView(
                             child: Consumer(
                               builder: (context, ref, child) {
-                                // In a real scenario you might want the provider to notify listeners when it updates, 
+                                // In a real scenario you might want the provider to notify listeners when it updates,
                                 // but we can just forcefully read it when the panel is open.
-                                final report = ref.read(executionGateProvider).generateAuditReport();
+                                final report = ref
+                                    .read(executionGateProvider)
+                                    .generateAuditReport();
                                 return Text(
                                   report,
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    fontFamily: 'monospace',
-                                    fontSize: 10,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(
+                                        fontFamily: 'monospace',
+                                        fontSize: 10,
+                                      ),
                                 );
                               },
                             ),
@@ -164,16 +189,18 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
                       ],
                     ),
                   ),
-                
+
                 // The toggle button
                 FloatingActionButton.small(
-                  backgroundColor: currentlyFailed 
-                      ? Theme.of(context).colorScheme.error 
+                  backgroundColor: currentlyFailed
+                      ? Theme.of(context).colorScheme.error
                       : Theme.of(context).colorScheme.primary,
                   foregroundColor: currentlyFailed
                       ? Theme.of(context).colorScheme.onError
                       : Theme.of(context).colorScheme.onPrimary,
-                  child: Icon(currentlyFailed ? Icons.priority_high : Icons.bug_report),
+                  child: Icon(
+                    currentlyFailed ? Icons.priority_high : Icons.bug_report,
+                  ),
                   onPressed: () {
                     setState(() {
                       _isVisible = !_isVisible;

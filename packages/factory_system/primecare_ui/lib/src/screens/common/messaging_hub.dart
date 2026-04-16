@@ -9,8 +9,8 @@ class MessagingHubScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => PageTemplate.orchestrate(
-        title: 'common.messaging.title',
-        subtitle: 'common.messaging.subtitle',
-        provider: commonFeatureDataProvider('messaging'),
-      );
+    title: 'common.messaging.title',
+    subtitle: 'common.messaging.subtitle',
+    provider: commonFeatureDataProvider('messaging'),
+  );
 }

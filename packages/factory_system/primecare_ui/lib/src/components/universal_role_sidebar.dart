@@ -57,7 +57,7 @@ class UniversalRoleSidebar extends ConsumerWidget {
     return Scaffold(
       body: Row(
         children: [
-          _buildSidebar(context, ref, currentIndex, layout),
+          buildSidebarContent(context, ref, currentIndex, layout, items),
           Expanded(
             child: Container(color: theme.colorScheme.surface, child: child),
           ),
@@ -66,11 +66,12 @@ class UniversalRoleSidebar extends ConsumerWidget {
     );
   }
 
-  Widget _buildSidebar(
+  static Widget buildSidebarContent(
     BuildContext context,
     WidgetRef ref,
     int currentIndex,
     LayoutConfig layout,
+    List<PrimeCareNavigationItem> items,
   ) {
     final theme = Theme.of(context);
     final isExtended = layout.isExtended;
@@ -153,6 +154,46 @@ class UniversalRoleSidebar extends ConsumerWidget {
           // Footer (User Card)
           _SidebarFooter(isExtended: isExtended, scale: scale),
         ],
+      ),
+    );
+  }
+}
+
+class UniversalRoleDrawer extends ConsumerWidget {
+  final String currentPath;
+  final List<PrimeCareNavigationItem> items;
+
+  const UniversalRoleDrawer({
+    super.key,
+    required this.currentPath,
+    required this.items,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    int currentIndex = items.indexWhere((item) => item.route == currentPath);
+    if (currentIndex == -1) currentIndex = 0;
+
+    final layout = ref.watch(layoutProvider);
+    final drawerLayout = LayoutConfig(
+      tier: layout.tier,
+      scaleFactor: layout.scaleFactor,
+      sidebarWidth: 260.0 * layout.scaleFactor,
+      spacingMultiplier: layout.spacingMultiplier,
+      isExtended: true, // Force extended for the drawer!
+    );
+
+    return Drawer(
+      width: 260.0 * layout.scaleFactor,
+      child: Material(
+        color: Theme.of(context).colorScheme.surface,
+        child: UniversalRoleSidebar.buildSidebarContent(
+          context,
+          ref,
+          currentIndex,
+          drawerLayout,
+          items,
+        ),
       ),
     );
   }
@@ -348,11 +389,10 @@ class _SidebarFooter extends ConsumerWidget {
     final authState = ref.watch(authProvider);
     final role = authState.role ?? 'Administrator';
 
-    // Using placeholder data as per HTML spec, but making role half-dynamic
-    const userName = 'Mohammed';
-    final initials =
-        userName.substring(0, 1) +
-        (userName.length > 1 ? userName.substring(userName.length - 1) : '');
+    final userName = authState.userName ?? 'PrimeCare User';
+    final initials = userName.isNotEmpty 
+        ? userName.substring(0, 1).toUpperCase() 
+        : 'U';
 
     return Container(
       padding: EdgeInsets.symmetric(

@@ -74,9 +74,9 @@ class _SubscriptionUpgradeScreenState
             Text(
               'Subscription & Upgrades',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
@@ -87,7 +87,7 @@ class _SubscriptionUpgradeScreenState
               ),
             ),
             const SizedBox(height: 32),
-            
+
             // Current Status Card
             Container(
               padding: const EdgeInsets.all(24),
@@ -111,30 +111,37 @@ class _SubscriptionUpgradeScreenState
                     children: [
                       Text(
                         _isSuccess ? "PREMIUM" : "FREE PLAN",
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              color: _isSuccess ? Colors.tealAccent : Colors.white,
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
+                              color: _isSuccess
+                                  ? Colors.tealAccent
+                                  : Colors.white,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,
                             ),
                       ),
                       if (_isSuccess) ...[
                         const SizedBox(width: 12),
-                        const Icon(Icons.verified, color: Colors.tealAccent, size: 20),
+                        const Icon(
+                          Icons.verified,
+                          color: Colors.tealAccent,
+                          size: 20,
+                        ),
                       ],
                     ],
                   ),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 48),
-            
+
             Text(
               'Promo Code',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 16),
             Row(
@@ -150,11 +157,15 @@ class _SubscriptionUpgradeScreenState
                       hintStyle: TextStyle(color: Colors.white.withAlpha(100)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.white.withAlpha(30)),
+                        borderSide: BorderSide(
+                          color: Colors.white.withAlpha(30),
+                        ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.white.withAlpha(30)),
+                        borderSide: BorderSide(
+                          color: Colors.white.withAlpha(30),
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -184,7 +195,9 @@ class _SubscriptionUpgradeScreenState
                           height: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.black,
+                            ),
                           ),
                         )
                       : const Text(
@@ -199,10 +212,12 @@ class _SubscriptionUpgradeScreenState
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: (_isSuccess ? Colors.tealAccent : Colors.redAccent).withAlpha(20),
+                  color: (_isSuccess ? Colors.tealAccent : Colors.redAccent)
+                      .withAlpha(20),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: (_isSuccess ? Colors.tealAccent : Colors.redAccent).withAlpha(50),
+                    color: (_isSuccess ? Colors.tealAccent : Colors.redAccent)
+                        .withAlpha(50),
                   ),
                 ),
                 child: Row(
@@ -216,7 +231,9 @@ class _SubscriptionUpgradeScreenState
                       child: Text(
                         _applyMessage!,
                         style: TextStyle(
-                          color: _isSuccess ? Colors.tealAccent : Colors.redAccent,
+                          color: _isSuccess
+                              ? Colors.tealAccent
+                              : Colors.redAccent,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

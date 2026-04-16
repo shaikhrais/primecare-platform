@@ -7,19 +7,28 @@ class AuditSecurityComplianceFormViewModel {
   AuditSecurityComplianceFormViewModel({this.isLoading = false, this.data});
 }
 
-class AuditSecurityComplianceFormAdapter extends Notifier<AuditSecurityComplianceFormViewModel> {
+class AuditSecurityComplianceFormAdapter
+    extends Notifier<AuditSecurityComplianceFormViewModel> {
   @override
   AuditSecurityComplianceFormViewModel build() {
     return AuditSecurityComplianceFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = AuditSecurityComplianceFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = AuditSecurityComplianceFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = AuditSecurityComplianceFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
+    // Simulate fetch
+    state = AuditSecurityComplianceFormViewModel(isLoading: false, data: {});
   }
 }
 
-final auditSecurityComplianceFormAdapterProvider = NotifierProvider<AuditSecurityComplianceFormAdapter, AuditSecurityComplianceFormViewModel>(() {
-  return AuditSecurityComplianceFormAdapter();
-});
+final auditSecurityComplianceFormAdapterProvider =
+    NotifierProvider<
+      AuditSecurityComplianceFormAdapter,
+      AuditSecurityComplianceFormViewModel
+    >(() {
+      return AuditSecurityComplianceFormAdapter();
+    });

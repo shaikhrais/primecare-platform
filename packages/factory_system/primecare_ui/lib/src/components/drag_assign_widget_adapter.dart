@@ -12,14 +12,16 @@ class DragAssignWidgetAdapter extends Notifier<DragAssignWidgetViewModel> {
   DragAssignWidgetViewModel build() {
     return DragAssignWidgetViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = DragAssignWidgetViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = DragAssignWidgetViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = DragAssignWidgetViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = DragAssignWidgetViewModel(isLoading: false, data: {});
   }
 }
 
-final dragAssignWidgetAdapterProvider = NotifierProvider<DragAssignWidgetAdapter, DragAssignWidgetViewModel>(() {
-  return DragAssignWidgetAdapter();
-});
+final dragAssignWidgetAdapterProvider =
+    NotifierProvider<DragAssignWidgetAdapter, DragAssignWidgetViewModel>(() {
+      return DragAssignWidgetAdapter();
+    });

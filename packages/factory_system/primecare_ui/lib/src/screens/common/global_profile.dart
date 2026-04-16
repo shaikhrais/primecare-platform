@@ -9,8 +9,8 @@ class GlobalProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => PageTemplate.orchestrate(
-        title: 'common.profile.title',
-        subtitle: 'common.profile.subtitle',
-        provider: commonFeatureDataProvider('profile'),
-      );
+    title: 'common.profile.title',
+    subtitle: 'common.profile.subtitle',
+    provider: commonFeatureDataProvider('profile'),
+  );
 }

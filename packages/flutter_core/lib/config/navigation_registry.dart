@@ -220,7 +220,7 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'Shift Tracker',
         icon: LucideIcons.clock,
-        route: '/',
+        route: CommonRoutes.clinicMyShifts,
       ),
       const PrimeCareNavigationItem(
         label: 'Messages',
@@ -237,22 +237,38 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'Care Plan',
         icon: LucideIcons.heartPulse,
-        route: '/',
+        route: ClientRoutes.clientTreatmentHistory,
       ),
       const PrimeCareNavigationItem(
         label: 'Billing',
         icon: LucideIcons.receipt,
-        route: '/',
+        route: ClientRoutes.clientPayments,
       ),
     ],
   };
 
   static List<PrimeCareNavigationItem> getMenuForRole(String role) {
-    // Normalize role name to match the map keys
+    // 1. Try exact match first (for acronyms like CEO, CTO, PSW)
+    if (_roleMenus.containsKey(role)) {
+      return _roleMenus[role]!;
+    }
+
+    // 2. Try case-insensitive exact match
+    final upperRole = role.toUpperCase();
+    for (var key in _roleMenus.keys) {
+      if (key.toUpperCase() == upperRole) {
+        return _roleMenus[key]!;
+      }
+    }
+
+    // 3. Fallback to Title Case normalization for standard roles
     final normalizedRole = role
         .split(' ')
-        .map((e) => e[0].toUpperCase() + e.substring(1).toLowerCase())
+        .map((e) => e.isEmpty
+            ? ''
+            : e[0].toUpperCase() + e.substring(1).toLowerCase())
         .join(' ');
+
     return _roleMenus[normalizedRole] ?? _roleMenus['Admin']!;
   }
 }

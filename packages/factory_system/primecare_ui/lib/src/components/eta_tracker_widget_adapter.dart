@@ -12,14 +12,16 @@ class EtaTrackerWidgetAdapter extends Notifier<EtaTrackerWidgetViewModel> {
   EtaTrackerWidgetViewModel build() {
     return EtaTrackerWidgetViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = EtaTrackerWidgetViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = EtaTrackerWidgetViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = EtaTrackerWidgetViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = EtaTrackerWidgetViewModel(isLoading: false, data: {});
   }
 }
 
-final etaTrackerWidgetAdapterProvider = NotifierProvider<EtaTrackerWidgetAdapter, EtaTrackerWidgetViewModel>(() {
-  return EtaTrackerWidgetAdapter();
-});
+final etaTrackerWidgetAdapterProvider =
+    NotifierProvider<EtaTrackerWidgetAdapter, EtaTrackerWidgetViewModel>(() {
+      return EtaTrackerWidgetAdapter();
+    });

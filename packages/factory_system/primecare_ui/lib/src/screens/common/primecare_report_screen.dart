@@ -14,7 +14,7 @@ class AuraReportToggleNotifier extends Notifier<Map<String, bool>> {
   void toggle(String reportId) {
     final newState = !(state[reportId] ?? false);
     state = {...state, reportId: newState};
-    
+
     // Sync the global visualization provider so deeply nested charts update
     ref.read(auraActiveVisualizationProvider.notifier).update(newState);
   }
@@ -32,10 +32,12 @@ class PrimeCareReportScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.navigationLayer,
-      'Navigating to Report: $reportId',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.navigationLayer,
+          'Navigating to Report: $reportId',
+        );
     final reportAsync = ref.watch(reportDataProvider(reportId));
     final layout = ref.watch(layoutProvider);
     final auraToggles = ref.watch(auraReportToggleProvider);
@@ -51,167 +53,181 @@ class PrimeCareReportScreen extends ConsumerWidget {
       body: reportAsync.when(
         data: (result) => result.fold(
           (report) => ListView(
-          padding: EdgeInsets.all(24 * scale),
-          children: [
-            // Aura Financial Intelligence HUD (Visible only for revenue reports)
-            if (reportId == 'revenue_log' && isAuraActive)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 24),
-                child: AuraFinancialHud(insights: auraForecast.insights),
+            padding: EdgeInsets.all(24 * scale),
+            children: [
+              // Aura Financial Intelligence HUD (Visible only for revenue reports)
+              if (reportId == 'revenue_log' && isAuraActive)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: AuraFinancialHud(insights: auraForecast.insights),
+                ),
+
+              // Header Segment
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        report.title,
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 28 * scale,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF1E293B),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Last updated: ${DateTime.now().toLocal().toString().split('.')[0]}',
+                        style: GoogleFonts.inter(
+                          fontSize: 14 * scale,
+                          color: const Color(0xFF64748B),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      _ActionButton(
+                        icon: LucideIcons.download,
+                        label: 'Export',
+                        onTap: () {},
+                        scale: scale,
+                      ),
+                      const SizedBox(width: 12),
+                      _ActionButton(
+                        icon: LucideIcons.share2,
+                        label: 'Share',
+                        onTap: () {},
+                        isPrimary: true,
+                        scale: scale,
+                      ),
+                    ],
+                  ),
+                ],
               ),
+              const SizedBox(height: 32),
 
-            // Header Segment
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      report.title,
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 28 * scale,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF1E293B),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Last updated: ${DateTime.now().toLocal().toString().split('.')[0]}',
-                      style: GoogleFonts.inter(
-                        fontSize: 14 * scale,
-                        color: const Color(0xFF64748B),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    _ActionButton(
-                      icon: LucideIcons.download,
-                      label: 'Export',
-                      onTap: () {},
-                      scale: scale,
-                    ),
-                    const SizedBox(width: 12),
-                    _ActionButton(
-                      icon: LucideIcons.share2,
-                      label: 'Share',
-                      onTap: () {},
-                      isPrimary: true,
-                      scale: scale,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
+              // Metrics Grid
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: isMobile ? 1 : 3,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 2.5,
+                children: [
+                  _SummaryCard(
+                    label: 'Total Revenue',
+                    value: r'$42,850.00',
+                    trend: '+12.5%',
+                    isPositive: true,
+                    scale: scale,
+                  ),
+                  _SummaryCard(
+                    label: 'Pending Claims',
+                    value: '143',
+                    trend: '-2.4%',
+                    isPositive: true,
+                    scale: scale,
+                  ),
+                  _SummaryCard(
+                    label: 'Avg. Recovery',
+                    value: '88.2%',
+                    trend: '+5.1%',
+                    isPositive: true,
+                    scale: scale,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
 
-            // Metrics Grid
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: isMobile ? 1 : 3,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 2.5,
-              children: [
-                _SummaryCard(
-                  label: 'Total Revenue',
-                  value: r'$42,850.00',
-                  trend: '+12.5%',
-                  isPositive: true,
-                  scale: scale,
-                ),
-                _SummaryCard(
-                  label: 'Pending Claims',
-                  value: '143',
-                  trend: '-2.4%',
-                  isPositive: true,
-                  scale: scale,
-                ),
-                _SummaryCard(
-                  label: 'Avg. Recovery',
-                  value: '88.2%',
-                  trend: '+5.1%',
-                  isPositive: true,
-                  scale: scale,
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-
-            // Visualization Segment
-            if (reportId == 'revenue_log') ...[
-              PrimeCareChartCard(
-                title: 'Revenue Velocity - 30 Day View',
-                isAuraSupported: true,
-                isAuraActive: isAuraActive,
-                onAuraToggle: () => ref
-                    .read(auraReportToggleProvider.notifier)
-                    .toggle(reportId),
-                chart: SizedBox(
-                  height: 200,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          LucideIcons.barChart3,
-                          size: 48,
-                          color: Color(0xFF94A3B8),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          isAuraActive
-                              ? 'Displaying AI-Augmented Forecast Logic'
-                              : 'Historical Transactional View',
-                          style: TextStyle(
-                            color: const Color(0xFF64748B),
-                            fontSize: 13 * scale,
+              // Visualization Segment
+              if (reportId == 'revenue_log') ...[
+                PrimeCareChartCard(
+                  title: 'Revenue Velocity - 30 Day View',
+                  isAuraSupported: true,
+                  isAuraActive: isAuraActive,
+                  onAuraToggle: () => ref
+                      .read(auraReportToggleProvider.notifier)
+                      .toggle(reportId),
+                  chart: SizedBox(
+                    height: 200,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            LucideIcons.barChart3,
+                            size: 48,
+                            color: Color(0xFF94A3B8),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 12),
+                          Text(
+                            isAuraActive
+                                ? 'Displaying AI-Augmented Forecast Logic'
+                                : 'Historical Transactional View',
+                            style: TextStyle(
+                              color: const Color(0xFF64748B),
+                              fontSize: 13 * scale,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 32),
-            ],
+                const SizedBox(height: 32),
+              ],
 
-            // Data Segment
-            PrimeCareDataTable(
-              columns: report.columns.map((col) => col.label).toList(),
-              data: report.rows,
-              rowBuilder: (row) {
-                return report.columns.map((col) {
-                  final value = row.cells[col.key];
-                  return DataCell(
-                    Text(
-                      value?.toString() ?? '-',
-                      style: GoogleFonts.inter(
-                        fontSize: 14 * scale,
-                        color: const Color(0xFF334155),
-                        fontWeight: col.isNumeric
-                            ? FontWeight.w600
-                            : FontWeight.normal,
+              // Data Segment
+              PrimeCareDataTable(
+                columns: report.columns.map((col) => col.label).toList(),
+                data: report.rows,
+                rowBuilder: (row) {
+                  return report.columns.map((col) {
+                    final value = row.cells[col.key];
+                    return DataCell(
+                      Text(
+                        value?.toString() ?? '-',
+                        style: GoogleFonts.inter(
+                          fontSize: 14 * scale,
+                          color: const Color(0xFF334155),
+                          fontWeight: col.isNumeric
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                        ),
                       ),
-                    ),
-                  );
-                }).toList();
-              },
-            ),
-          ],
-        ),
+                    );
+                  }).toList();
+                },
+              ),
+            ],
+          ),
           (error) => Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(LucideIcons.alertCircle, size: 48, color: Color(0xFFEF4444)),
+                const Icon(
+                  LucideIcons.alertCircle,
+                  size: 48,
+                  color: Color(0xFFEF4444),
+                ),
                 const SizedBox(height: 16),
-                Text('Report hydration failed', style: GoogleFonts.plusJakartaSans(fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xFF1E293B))),
+                Text(
+                  'Report hydration failed',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF1E293B),
+                  ),
+                ),
                 const SizedBox(height: 8),
-                Text(error.toString(), style: GoogleFonts.inter(color: const Color(0xFF64748B))),
+                Text(
+                  error.toString(),
+                  style: GoogleFonts.inter(color: const Color(0xFF64748B)),
+                ),
               ],
             ),
           ),

@@ -7,19 +7,25 @@ class AuditRoyaltyPaymentFormViewModel {
   AuditRoyaltyPaymentFormViewModel({this.isLoading = false, this.data});
 }
 
-class AuditRoyaltyPaymentFormAdapter extends Notifier<AuditRoyaltyPaymentFormViewModel> {
+class AuditRoyaltyPaymentFormAdapter
+    extends Notifier<AuditRoyaltyPaymentFormViewModel> {
   @override
   AuditRoyaltyPaymentFormViewModel build() {
     return AuditRoyaltyPaymentFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = AuditRoyaltyPaymentFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = AuditRoyaltyPaymentFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = AuditRoyaltyPaymentFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = AuditRoyaltyPaymentFormViewModel(isLoading: false, data: {});
   }
 }
 
-final auditRoyaltyPaymentFormAdapterProvider = NotifierProvider<AuditRoyaltyPaymentFormAdapter, AuditRoyaltyPaymentFormViewModel>(() {
-  return AuditRoyaltyPaymentFormAdapter();
-});
+final auditRoyaltyPaymentFormAdapterProvider =
+    NotifierProvider<
+      AuditRoyaltyPaymentFormAdapter,
+      AuditRoyaltyPaymentFormViewModel
+    >(() {
+      return AuditRoyaltyPaymentFormAdapter();
+    });

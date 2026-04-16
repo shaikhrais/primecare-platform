@@ -12,14 +12,16 @@ class MfaScreenAdapter extends Notifier<MfaScreenViewModel> {
   MfaScreenViewModel build() {
     return MfaScreenViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = MfaScreenViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = MfaScreenViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = MfaScreenViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = MfaScreenViewModel(isLoading: false, data: {});
   }
 }
 
-final mfaScreenAdapterProvider = NotifierProvider<MfaScreenAdapter, MfaScreenViewModel>(() {
-  return MfaScreenAdapter();
-});
+final mfaScreenAdapterProvider =
+    NotifierProvider<MfaScreenAdapter, MfaScreenViewModel>(() {
+      return MfaScreenAdapter();
+    });

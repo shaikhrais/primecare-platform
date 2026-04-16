@@ -10,8 +10,13 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(ExecutionGateCategory.navigationLayer, 'Navigated to primecare horizon scheduler screen');
-    
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.navigationLayer,
+          'Navigated to primecare horizon scheduler screen',
+        );
+
     ref.listen(auraIntentProvider, (previous, next) {
       if (next != null && next.actions.isNotEmpty) {
         final action = next.actions.first.type;
@@ -52,7 +57,11 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
     );
   }
 
-  void _showAuraActionDialog(BuildContext context, WidgetRef ref, AuraIntent intent) {
+  void _showAuraActionDialog(
+    BuildContext context,
+    WidgetRef ref,
+    AuraIntent intent,
+  ) {
     // Checkpoint: Validation boundary to prevent malformed dynamic modals
     if (intent.description.isEmpty || intent.actions.isEmpty) return;
     if (intent.actions.first.type == AuraActionType.unknown) return;
@@ -71,7 +80,8 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
             const Icon(LucideIcons.sparkles, color: Colors.indigoAccent),
             const SizedBox(width: 8),
             Text(
-              intent.actions.isNotEmpty && intent.actions.first.type == AuraActionType.reassign
+              intent.actions.isNotEmpty &&
+                      intent.actions.first.type == AuraActionType.reassign
                   ? 'Reassignment Proposed'
                   : 'Scheduling Proposed',
               style: const TextStyle(color: Colors.white, fontSize: 18),
@@ -85,7 +95,10 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel', style: TextStyle(color: Colors.white38)),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Colors.white38),
+            ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -94,14 +107,16 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
             ),
             onPressed: () {
               // Execute logic
-              ref.read(executionGateProvider).passGate(
-                ExecutionGateCategory.scheduler, 
-                'Executing Aura Proposed Action',
-                metadata: {
-                  'intentId': intent.id,
-                  'description': intent.description,
-                }
-              );
+              ref
+                  .read(executionGateProvider)
+                  .passGate(
+                    ExecutionGateCategory.scheduler,
+                    'Executing Aura Proposed Action',
+                    metadata: {
+                      'intentId': intent.id,
+                      'description': intent.description,
+                    },
+                  );
               Navigator.of(ctx).pop();
             },
             child: const Text('Confirm'),
@@ -154,16 +169,23 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
               InkWell(
                 onTap: () {
                   final newState = !auraActive;
-                  ref.read(executionGateProvider).passGate(
-                    ExecutionGateCategory.ui, 
-                    'Toggling Aura Forecaster',
-                    metadata: {'enabled': newState}
-                  );
-                  ref.read(auraActiveVisualizationProvider.notifier).update(newState);
+                  ref
+                      .read(executionGateProvider)
+                      .passGate(
+                        ExecutionGateCategory.ui,
+                        'Toggling Aura Forecaster',
+                        metadata: {'enabled': newState},
+                      );
+                  ref
+                      .read(auraActiveVisualizationProvider.notifier)
+                      .update(newState);
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: auraActive
                         ? Colors.indigoAccent.withValues(alpha: 0.2)
@@ -178,13 +200,17 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                       Icon(
                         LucideIcons.sparkles,
                         size: 16,
-                        color: auraActive ? Colors.indigoAccent : Colors.white38,
+                        color: auraActive
+                            ? Colors.indigoAccent
+                            : Colors.white38,
                       ),
                       const SizedBox(width: 8),
                       Text(
                         'Aura Forecaster',
                         style: TextStyle(
-                          color: auraActive ? Colors.indigoAccent : Colors.white38,
+                          color: auraActive
+                              ? Colors.indigoAccent
+                              : Colors.white38,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
@@ -238,7 +264,11 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSidebar(BuildContext context, WidgetRef ref, HorizonSchedule schedule) {
+  Widget _buildSidebar(
+    BuildContext context,
+    WidgetRef ref,
+    HorizonSchedule schedule,
+  ) {
     final auraPulse = ref.watch(auraPulseProvider).value;
     final scheduledAnomalies = ref.watch(schedulerAnomalyProvider);
 
@@ -291,9 +321,13 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                     ) &&
                     a.endTime.isAfter(DateTime.now()),
               );
-              
-              final isPulseAnomalous = auraPulse != null && auraPulse.metadata?['resourceId'] == res.id;
-              final isScheduledAnomalous = scheduledAnomalies.any((evt) => evt.metadata?['resourceId'] == res.id);
+
+              final isPulseAnomalous =
+                  auraPulse != null &&
+                  auraPulse.metadata?['resourceId'] == res.id;
+              final isScheduledAnomalous = scheduledAnomalies.any(
+                (evt) => evt.metadata?['resourceId'] == res.id,
+              );
               final isAnomalous = isPulseAnomalous || isScheduledAnomalous;
 
               return Padding(
@@ -306,8 +340,8 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                         color: isAnomalous
                             ? Colors.redAccent.withValues(alpha: 0.1)
                             : isAssigned
-                                ? const Color(0xFF6366F1).withValues(alpha: 0.1)
-                                : Colors.white.withValues(alpha: 0.05),
+                            ? const Color(0xFF6366F1).withValues(alpha: 0.1)
+                            : Colors.white.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(
@@ -315,11 +349,11 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                             ? LucideIcons.home
                             : LucideIcons.zap,
                         size: 14,
-                        color: isAnomalous 
+                        color: isAnomalous
                             ? Colors.redAccent
                             : isAssigned
-                                ? const Color(0xFF6366F1)
-                                : Colors.white24,
+                            ? const Color(0xFF6366F1)
+                            : Colors.white24,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -334,18 +368,26 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                               fontWeight: isAssigned || isAnomalous
                                   ? FontWeight.bold
                                   : FontWeight.normal,
-                              color: isAnomalous ? Colors.redAccent : (isAssigned ? Colors.white : Colors.white60),
+                              color: isAnomalous
+                                  ? Colors.redAccent
+                                  : (isAssigned
+                                        ? Colors.white
+                                        : Colors.white60),
                             ),
                           ),
                           Text(
-                            isAnomalous ? 'Anomaly Detected' : (isAssigned ? 'In Use' : 'Ready'),
+                            isAnomalous
+                                ? 'Anomaly Detected'
+                                : (isAssigned ? 'In Use' : 'Ready'),
                             style: TextStyle(
                               fontSize: 9,
                               color: isAnomalous
                                   ? Colors.redAccent.withValues(alpha: 0.8)
                                   : isAssigned
-                                      ? const Color(0xFF6366F1).withValues(alpha: 0.7)
-                                      : Colors.greenAccent.withValues(alpha: 0.4),
+                                  ? const Color(
+                                      0xFF6366F1,
+                                    ).withValues(alpha: 0.7)
+                                  : Colors.greenAccent.withValues(alpha: 0.4),
                             ),
                           ),
                         ],

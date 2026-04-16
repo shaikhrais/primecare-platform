@@ -9,8 +9,18 @@ import '../theme/design_system.dart';
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final bool showActions;
+  final Widget? customLeft;
+  final Widget? customCenter;
+  final Widget? customRight;
 
-  const GlobalTopBar({super.key, this.actions, this.showActions = true});
+  const GlobalTopBar({
+    super.key,
+    this.actions,
+    this.showActions = true,
+    this.customLeft,
+    this.customCenter,
+    this.customRight,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +50,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             // Left: Menu & Logo
-            _buildLeftSection(context, layout, scale, isMobile),
+            customLeft ?? _buildLeftSection(context, layout, scale, isMobile),
 
             // Center: Search (Hidden on Mobile/Tablet as per HTML)
             if (!isMobile && !isTablet)
@@ -48,7 +58,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                 child: Center(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: 500 * scale),
-                    child: _buildSearchBox(layout, scale),
+                    child: customCenter ?? _buildSearchBox(layout, scale),
                   ),
                 ),
               )
@@ -56,7 +66,16 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               const Spacer(),
 
             // Right: Actions & Profile
-            _buildRightSection(context, ref, layout, scale, isMobile),
+            if (showActions)
+              customRight ??
+                  _buildRightSection(
+                    context,
+                    ref,
+                    layout,
+                    scale,
+                    isMobile,
+                    actions,
+                  ),
           ],
         ),
       ),
@@ -173,9 +192,11 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     LayoutConfig layout,
     double scale,
     bool isMobile,
+    List<Widget>? extraActions,
   ) {
     return Row(
       children: [
+        if (extraActions != null) ...extraActions,
         if (!isMobile) ...[
           _buildIconButton(LucideIcons.globe, scale),
           SizedBox(width: 14 * scale),
@@ -235,11 +256,16 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     double scale,
     bool isMobile,
   ) {
+    final authState = ref.watch(authProvider);
+    final userName = authState.userName ?? 'PrimeCare User';
+    final role = authState.role ?? 'Administrator';
+    final initials = userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
+
     return InkWell(
       onTap: () => _showAccountMenu(context, ref, scale),
       child: Row(
         children: [
-          Container(
+           Container(
             width: 42 * scale,
             height: 42 * scale,
             decoration: const BoxDecoration(
@@ -248,7 +274,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
             ),
             child: Center(
               child: Text(
-                'MS',
+                initials,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -264,7 +290,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Mohammed',
+                  userName,
                   style: TextStyle(
                     fontSize: 14 * scale,
                     fontWeight: FontWeight.w600,
@@ -272,7 +298,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                   ),
                 ),
                 Text(
-                  'Administrator',
+                  role,
                   style: TextStyle(
                     fontSize: 12 * scale,
                     color: const Color(0xFF6B7280),
@@ -311,7 +337,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
       ],
     ).then((value) {
       if (!context.mounted) return;
-      if (value == 'profile') context.push('/profile');
+      if (value == 'profile') context.push(CommonRoutes.globalProfile);
       if (value == 'logout') _handleLogout(context, ref, scale);
     });
   }

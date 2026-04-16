@@ -67,10 +67,12 @@ class _InstitutionalBookingDialogState
     _durationMinutes = appt?.duration.inMinutes ?? 60;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.scheduler,
-        'Hydrating Booking Dialog: ${widget.initialAppointment != null ? "Edit" : "New"}',
-      );
+      ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.scheduler,
+            'Hydrating Booking Dialog: ${widget.initialAppointment != null ? "Edit" : "New"}',
+          );
     });
   }
 
@@ -403,20 +405,24 @@ class _InstitutionalBookingDialogState
     );
 
     if (hasConflict) {
-      ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.scheduler,
-        'Booking Conflict: Patient $_patientName with ${_selectedStaff.name}',
-      );
+      ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.scheduler,
+            'Booking Conflict: Patient $_patientName with ${_selectedStaff.name}',
+          );
       setState(() {
         _isChecking = false;
         _error =
             'Conflict detected! Staff or Resource is unavailable or in maintenance during this slot.';
       });
     } else {
-      ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.scheduler,
-        'Booking Confirmed: $_patientName',
-      );
+      ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.scheduler,
+            'Booking Confirmed: $_patientName',
+          );
       if (mounted) {
         // Return the constructed appointment object
         Navigator.pop(context, newAppt);

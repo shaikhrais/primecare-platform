@@ -18,12 +18,14 @@ class AuthState {
   final String? token;
   final String? role;
   final String? tenantId;
+  final String? userName;
 
   AuthState({
     this.isAuthenticated = false,
     this.token,
     this.role,
     this.tenantId,
+    this.userName,
   });
 
   AuthState copyWith({
@@ -31,12 +33,14 @@ class AuthState {
     String? token,
     String? role,
     String? tenantId,
+    String? userName,
   }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
       token: token ?? this.token,
       role: role ?? this.role,
       tenantId: tenantId ?? this.tenantId,
+      userName: userName ?? this.userName,
     );
   }
 }
@@ -187,12 +191,14 @@ class AuthNotifier extends Notifier<AuthState> {
     final token = prefs.getString('auth_token');
     final role = prefs.getString('auth_role');
     final tenantId = prefs.getString('auth_tenant_id');
+    final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
     if (token != null && role != null) {
       state = state.copyWith(
         isAuthenticated: true,
         token: token,
         role: role,
         tenantId: tenantId,
+        userName: userName,
       );
       authListenable.value = true;
       ref.read(executionGateProvider).passGate(
@@ -201,6 +207,7 @@ class AuthNotifier extends Notifier<AuthState> {
             metadata: {
               'tenantId': tenantId,
               'hasToken': true,
+              'userName': userName,
             },
           );
     } else {
@@ -241,16 +248,22 @@ class AuthNotifier extends Notifier<AuthState> {
             data['tenantId'] ??
             (data['user'] != null ? data['user']['tenantId'] : null) ??
             '00000000-0000-0000-0000-000000000000';
+            
+        final firstName = (data['user'] != null ? data['user']['firstName'] : null) ?? 'Active';
+        final lastName = (data['user'] != null ? data['user']['lastName'] : null) ?? 'User';
+        final userName = '$firstName $lastName';
 
         await prefs.setString('auth_token', token);
         await prefs.setString('auth_role', role);
         await prefs.setString('auth_tenant_id', tenantId);
+        await prefs.setString('auth_username', userName);
 
         state = state.copyWith(
           isAuthenticated: true,
           token: token,
           role: role,
           tenantId: tenantId,
+          userName: userName,
         );
         authListenable.value = true;
         ref.read(executionGateProvider).passGate(
@@ -263,20 +276,19 @@ class AuthNotifier extends Notifier<AuthState> {
             );
         return true;
       } else {
-        String mockRole = 'PSW';
-        if (email.contains('admin')) mockRole = 'admin';
-        if (email.contains('receptionist')) mockRole = 'receptionist';
-        if (email.contains('ops')) mockRole = 'operations_manager';
-        if (email.contains('rn')) mockRole = 'RN';
-        if (email.contains('rmt')) mockRole = 'RMT';
-        if (email.contains('physio')) mockRole = 'Physio';
-        if (email.contains('chiro')) mockRole = 'Chiro';
-        if (email.contains('founder') || email.contains('ceo')) mockRole = 'Founder / CEO';
+        final emailPrefix = email.split('@').first;
+        final userName = emailPrefix.isNotEmpty 
+            ? emailPrefix[0].toUpperCase() + emailPrefix.substring(1).replaceAll('_', ' ') 
+            : 'Demo User';
+            
+        // Dynamically assign role based on email prefix, falling back to PSW
+        String mockRole = emailPrefix.isNotEmpty ? emailPrefix : 'PSW';
 
         state = state.copyWith(
           isAuthenticated: true,
           token: 'mock-token',
           role: mockRole,
+          userName: userName,
         );
         authListenable.value = true;
         ref.read(executionGateProvider).passGate(
@@ -291,11 +303,19 @@ class AuthNotifier extends Notifier<AuthState> {
         return true;
       }
     } catch (e, st) {
-      String mockRole = 'PSW';
+      final emailPrefix = email.split('@').first;
+      final userName = emailPrefix.isNotEmpty 
+          ? emailPrefix[0].toUpperCase() + emailPrefix.substring(1).replaceAll('_', ' ') 
+          : 'Demo User';
+          
+      // Dynamically assign role based on email prefix, falling back to PSW
+      String mockRole = emailPrefix.isNotEmpty ? emailPrefix : 'PSW';
+
       // Local fallback in case of errors
       state = state.copyWith(
         isAuthenticated: true,
         role: mockRole,
+        userName: userName,
       );
       authListenable.value = true;
       ref.read(executionGateProvider).failGate(
@@ -351,6 +371,7 @@ class AuthNotifier extends Notifier<AuthState> {
     await prefs.remove('auth_token');
     await prefs.remove('auth_role');
     await prefs.remove('auth_tenant_id');
+    await prefs.remove('auth_username');
     state = AuthState();
     authListenable.value = false;
     ref.read(executionGateProvider).passGate(

@@ -17,6 +17,8 @@ export 'src/warehouse/component_warehouse.dart';
 // Global Shared Screens (Common)
 export 'src/screens/common/global_settings.dart';
 export 'src/screens/common/global_profile.dart';
+export 'src/screens/common/not_found_screen.dart';
+export 'src/routes/shared_routes.dart';
 export 'src/screens/common/document_vault.dart';
 export 'src/screens/common/messaging_hub.dart';
 export 'src/screens/common/notification_center.dart';

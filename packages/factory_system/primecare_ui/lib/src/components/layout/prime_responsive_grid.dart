@@ -33,16 +33,16 @@ class PrimeResponsiveGrid extends StatelessWidget {
         if (width >= 3400) {
           crossAxisCount = 10; // 4K (3840px)
         } else if (width >= 2400) {
-          crossAxisCount = 8;  // 3K (2560px)
+          crossAxisCount = 8; // 3K (2560px)
         } else if (width >= 1900) {
-          crossAxisCount = 6;  // 2K (2048px)
+          crossAxisCount = 6; // 2K (2048px)
         } else if (width >= 1200) {
-          crossAxisCount = 4;  // 1K / Desktop (1280px)
+          crossAxisCount = 4; // 1K / Desktop (1280px)
         } else if (width >= 768) {
-          crossAxisCount = 2;  // Tablet
+          crossAxisCount = 2; // Tablet
           extent = tabletMainAxisExtent;
         } else {
-          crossAxisCount = 1;  // Mobile
+          crossAxisCount = 1; // Mobile
           extent = mobileMainAxisExtent;
         }
 

@@ -39,10 +39,12 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
     final totalSlots = ((endHour - startHour) * 60 / slotDuration.inMinutes)
         .floor();
 
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.scheduler,
-      'Rendering MultiStaffGrid: ${staff.length} staff, ${appointments.length} appointments',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.scheduler,
+          'Rendering MultiStaffGrid: ${staff.length} staff, ${appointments.length} appointments',
+        );
 
     return Container(
       decoration: BoxDecoration(

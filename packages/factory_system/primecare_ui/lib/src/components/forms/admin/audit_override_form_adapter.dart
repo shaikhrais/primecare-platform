@@ -12,14 +12,16 @@ class AuditOverrideFormAdapter extends Notifier<AuditOverrideFormViewModel> {
   AuditOverrideFormViewModel build() {
     return AuditOverrideFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = AuditOverrideFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = AuditOverrideFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = AuditOverrideFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = AuditOverrideFormViewModel(isLoading: false, data: {});
   }
 }
 
-final auditOverrideFormAdapterProvider = NotifierProvider<AuditOverrideFormAdapter, AuditOverrideFormViewModel>(() {
-  return AuditOverrideFormAdapter();
-});
+final auditOverrideFormAdapterProvider =
+    NotifierProvider<AuditOverrideFormAdapter, AuditOverrideFormViewModel>(() {
+      return AuditOverrideFormAdapter();
+    });

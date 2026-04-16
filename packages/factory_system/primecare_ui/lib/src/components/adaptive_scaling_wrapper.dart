@@ -15,9 +15,9 @@ class AdaptiveScalingWrapper extends ConsumerWidget {
     final layout = ref.watch(layoutProvider);
 
     return MediaQuery(
-      data: MediaQuery.of(context).copyWith(
-        textScaler: TextScaler.linear(layout.scaleFactor),
-      ),
+      data: MediaQuery.of(
+        context,
+      ).copyWith(textScaler: TextScaler.linear(layout.scaleFactor)),
       child: child,
     );
   }

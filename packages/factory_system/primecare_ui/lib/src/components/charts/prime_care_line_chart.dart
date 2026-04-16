@@ -17,10 +17,12 @@ class PrimeCareLineChart extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.auraEngine,
-      'Rendering LineChart: ${chart.title} (${chart.dataPoints.length} points)',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.auraEngine,
+          'Rendering LineChart: ${chart.title} (${chart.dataPoints.length} points)',
+        );
     return Container(
       height: 200,
       padding: const EdgeInsets.all(16),
@@ -83,12 +85,13 @@ class PrimeCareLineChart extends ConsumerWidget {
               isStrokeCapRound: true,
               dotData: FlDotData(
                 show: true,
-                getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
-                  radius: 4,
-                  color: Colors.white,
-                  strokeWidth: 2,
-                  strokeColor: lineColor,
-                ),
+                getDotPainter: (spot, percent, barData, index) =>
+                    FlDotCirclePainter(
+                      radius: 4,
+                      color: Colors.white,
+                      strokeWidth: 2,
+                      strokeColor: lineColor,
+                    ),
               ),
               shadow: Shadow(
                 color: lineColor.withAlpha(150),
@@ -98,17 +101,15 @@ class PrimeCareLineChart extends ConsumerWidget {
               belowBarData: BarAreaData(
                 show: true,
                 gradient: LinearGradient(
-                  colors: [
-                    lineColor.withAlpha(80),
-                    lineColor.withAlpha(5),
-                  ],
+                  colors: [lineColor.withAlpha(80), lineColor.withAlpha(5)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
               ),
             ),
             // 2. Predictive Forecast Line (Dashed)
-            if (isPredictive && chart.forecastDataPoints != null &&
+            if (isPredictive &&
+                chart.forecastDataPoints != null &&
                 chart.forecastDataPoints!.isNotEmpty)
               LineChartBarData(
                 spots: [
@@ -131,12 +132,13 @@ class PrimeCareLineChart extends ConsumerWidget {
                 isStrokeCapRound: true,
                 dotData: FlDotData(
                   show: true,
-                  getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
-                    radius: 3,
-                    color: Colors.indigoAccent,
-                    strokeWidth: 2,
-                    strokeColor: Colors.white,
-                  ),
+                  getDotPainter: (spot, percent, barData, index) =>
+                      FlDotCirclePainter(
+                        radius: 3,
+                        color: Colors.indigoAccent,
+                        strokeWidth: 2,
+                        strokeColor: Colors.white,
+                      ),
                 ),
                 belowBarData: BarAreaData(show: false),
               ),

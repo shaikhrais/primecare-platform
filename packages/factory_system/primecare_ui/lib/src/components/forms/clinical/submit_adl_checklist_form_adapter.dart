@@ -7,19 +7,25 @@ class SubmitAdlChecklistFormViewModel {
   SubmitAdlChecklistFormViewModel({this.isLoading = false, this.data});
 }
 
-class SubmitAdlChecklistFormAdapter extends Notifier<SubmitAdlChecklistFormViewModel> {
+class SubmitAdlChecklistFormAdapter
+    extends Notifier<SubmitAdlChecklistFormViewModel> {
   @override
   SubmitAdlChecklistFormViewModel build() {
     return SubmitAdlChecklistFormViewModel();
   }
+
   Future<void> loadData() async {
-     // TODO: Prisma API binding
-     state = SubmitAdlChecklistFormViewModel(isLoading: true, data: state.data);
-     // Simulate fetch
-     state = SubmitAdlChecklistFormViewModel(isLoading: false, data: {});
+    // TODO: Prisma API binding
+    state = SubmitAdlChecklistFormViewModel(isLoading: true, data: state.data);
+    // Simulate fetch
+    state = SubmitAdlChecklistFormViewModel(isLoading: false, data: {});
   }
 }
 
-final submitAdlChecklistFormAdapterProvider = NotifierProvider<SubmitAdlChecklistFormAdapter, SubmitAdlChecklistFormViewModel>(() {
-  return SubmitAdlChecklistFormAdapter();
-});
+final submitAdlChecklistFormAdapterProvider =
+    NotifierProvider<
+      SubmitAdlChecklistFormAdapter,
+      SubmitAdlChecklistFormViewModel
+    >(() {
+      return SubmitAdlChecklistFormAdapter();
+    });

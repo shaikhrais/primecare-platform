@@ -1,7 +1,6 @@
 import { Hono } from 'hono';
-import { cors } from 'hono/cors';
 import { handleMockUIEndpoint } from './mock_ui_service';
-import { prismaMiddleware } from '@primecare/infrastructure';
+import { prismaMiddleware, registerCorsMiddleware, registerErrorHandler, createFetchWrapper } from '@primecare/infrastructure';
 
 type Bindings = {
   AUTH_SERVICE: Fetcher;
@@ -19,20 +18,9 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 
-// Strict CORS configuration
-app.use('*', cors({
-  origin: [
-    'https://primecare-v4.pages.dev',
-    'http://localhost:3000',
-    'http://localhost:8000',
-    'http://localhost:5173'
-  ],
-  allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  allowMethods: ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
-  exposeHeaders: ['Content-Length', 'x-custom-header'],
-  maxAge: 600,
-  credentials: true,
-}));
+// Infrastructure Standard Setup
+registerCorsMiddleware(app as any);
+registerErrorHandler(app as any);
 
 // Global Middleware
 app.use('*', prismaMiddleware());
@@ -112,4 +100,4 @@ app.get('/openapi.json', async (c) => {
   return c.json(merged);
 });
 
-export default app;
+export default createFetchWrapper(app as any);
