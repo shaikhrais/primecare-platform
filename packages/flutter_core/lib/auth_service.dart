@@ -201,7 +201,9 @@ class AuthNotifier extends Notifier<AuthState> {
         userName: userName,
       );
       authListenable.value = true;
-      ref.read(executionGateProvider).passGate(
+      ref
+          .read(executionGateProvider)
+          .passGate(
             ExecutionGateCategory.auth,
             'Session restored for active role: $role',
             metadata: {
@@ -211,7 +213,9 @@ class AuthNotifier extends Notifier<AuthState> {
             },
           );
     } else {
-      ref.read(executionGateProvider).passGate(
+      ref
+          .read(executionGateProvider)
+          .passGate(
             ExecutionGateCategory.auth,
             'Initial build: No stored session found',
           );
@@ -248,9 +252,12 @@ class AuthNotifier extends Notifier<AuthState> {
             data['tenantId'] ??
             (data['user'] != null ? data['user']['tenantId'] : null) ??
             '00000000-0000-0000-0000-000000000000';
-            
-        final firstName = (data['user'] != null ? data['user']['firstName'] : null) ?? 'Active';
-        final lastName = (data['user'] != null ? data['user']['lastName'] : null) ?? 'User';
+
+        final firstName =
+            (data['user'] != null ? data['user']['firstName'] : null) ??
+            'Active';
+        final lastName =
+            (data['user'] != null ? data['user']['lastName'] : null) ?? 'User';
         final userName = '$firstName $lastName';
 
         await prefs.setString('auth_token', token);
@@ -266,69 +273,39 @@ class AuthNotifier extends Notifier<AuthState> {
           userName: userName,
         );
         authListenable.value = true;
-        ref.read(executionGateProvider).passGate(
+        ref
+            .read(executionGateProvider)
+            .passGate(
               ExecutionGateCategory.auth,
               'API Authentication via Cloudflare successful. Role: $role',
-              metadata: {
-                'tenantId': tenantId,
-                'email': email,
-              },
+              metadata: {'tenantId': tenantId, 'email': email},
             );
         return true;
       } else {
-        final emailPrefix = email.split('@').first;
-        final userName = emailPrefix.isNotEmpty 
-            ? emailPrefix[0].toUpperCase() + emailPrefix.substring(1).replaceAll('_', ' ') 
-            : 'Demo User';
-            
-        // Dynamically assign role based on email prefix, falling back to PSW
-        String mockRole = emailPrefix.isNotEmpty ? emailPrefix : 'PSW';
-
-        state = state.copyWith(
-          isAuthenticated: true,
-          token: 'mock-token',
-          role: mockRole,
-          userName: userName,
-        );
-        authListenable.value = true;
-        ref.read(executionGateProvider).passGate(
+        ref
+            .read(executionGateProvider)
+            .failGate(
               ExecutionGateCategory.auth,
-              'Local sandbox auth fallback. MockRole: $mockRole',
+              'API Authentication declined. Status: ${response.statusCode}',
               metadata: {
                 'email': email,
-                'isMock': true,
-                'originalStatusCode': response.statusCode,
+                'statusCode': response.statusCode,
+                'responseBody': response.data.toString(),
               },
             );
-        return true;
+        return false;
       }
     } catch (e, st) {
-      final emailPrefix = email.split('@').first;
-      final userName = emailPrefix.isNotEmpty 
-          ? emailPrefix[0].toUpperCase() + emailPrefix.substring(1).replaceAll('_', ' ') 
-          : 'Demo User';
-          
-      // Dynamically assign role based on email prefix, falling back to PSW
-      String mockRole = emailPrefix.isNotEmpty ? emailPrefix : 'PSW';
-
-      // Local fallback in case of errors
-      state = state.copyWith(
-        isAuthenticated: true,
-        role: mockRole,
-        userName: userName,
-      );
-      authListenable.value = true;
-      ref.read(executionGateProvider).failGate(
+      ref
+          .read(executionGateProvider)
+          .failGate(
             ExecutionGateCategory.auth,
-            'Authentication failed, falling back to local mock data. MockRole: $mockRole',
+            'API Connection Exception during login.',
             error: e,
             stackTrace: st,
-            metadata: {
-              'email': email,
-              'isCriticalFallback': true,
-            },
+            metadata: {'email': email, 'target': ApiConfig.endpoints['login']},
           );
-      return true;
+      return false;
     }
   }
 
@@ -356,13 +333,22 @@ class AuthNotifier extends Notifier<AuthState> {
         // Automatically login the user after successful registration
         return await login(email, password);
       } else {
-        // Fallback or handle error
         return false;
       }
-    } catch (e) {
-      // In a real environment we would show the error message.
-      // We will fallback to mock login for our demo sandbox.
-      return await login(email, password);
+    } catch (e, st) {
+      ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.auth,
+            'API Connection Exception during registration.',
+            error: e,
+            stackTrace: st,
+            metadata: {
+              'email': email,
+              'target': ApiConfig.endpoints['register'],
+            },
+          );
+      return false;
     }
   }
 
@@ -374,7 +360,9 @@ class AuthNotifier extends Notifier<AuthState> {
     await prefs.remove('auth_username');
     state = AuthState();
     authListenable.value = false;
-    ref.read(executionGateProvider).passGate(
+    ref
+        .read(executionGateProvider)
+        .passGate(
           ExecutionGateCategory.auth,
           'Explicit Logout: Identity session terminated',
         );
