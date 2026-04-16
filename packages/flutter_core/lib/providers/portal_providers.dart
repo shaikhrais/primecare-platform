@@ -69,6 +69,13 @@ final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
         ExecutionGateCategory.navigationLayer,
         'Hydrated ${menu.length} navigation items for role: $role',
       );
+
+  debugPrint('--- [DEBUG] HYDRATED SIDEBAR MENU FOR ROLE: $role ---');
+  for (var item in menu) {
+    debugPrint(' - [${item.section}] ${item.label} -> ${item.route}');
+  }
+  debugPrint('-----------------------------------------------------');
+
   return menu;
 });
 
