@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_core/flutter_core.dart';
 import '../assembly_line/assembly_line.dart';
 import 'layout/prime_responsive_grid.dart';
@@ -61,8 +62,8 @@ class PageTemplate extends ConsumerWidget {
           Colors.transparent, // Assumes a background wrapper exists
       appBar: AppBar(
         title: Text(
-          title,
-          key: const Key('page_title'),
+          title.tr(),
+          key: Key('page_title_${title.hashCode}'),
           style: TextStyle(
             fontSize: PrimeCareSpacing.scaled(20, scale),
             fontWeight: FontWeight.bold,
@@ -90,8 +91,8 @@ class PageTemplate extends ConsumerWidget {
                     bottom: PrimeCareSpacing.scaled(32.0, scale),
                   ),
                   child: Text(
-                    subtitle!,
-                    key: const Key('page_subtitle'),
+                    subtitle!.tr(),
+                    key: Key('page_subtitle_${subtitle.hashCode}'),
                     style: GoogleFonts.inter(
                       fontSize: PrimeCareSpacing.scaled(16.0, scale),
                       color: ds.colors.textSecondary,
@@ -102,7 +103,7 @@ class PageTemplate extends ConsumerWidget {
                 ),
               if (kpiCards case final List<Widget> cards) ...[
                 PrimeResponsiveGrid(
-                  key: const Key('kpi_grid'),
+                  key: Key('kpi_grid_${title.hashCode}'),
                   desktopMainAxisExtent: PrimeCareSpacing.scaled(160, scale),
                   children: cards,
                 ),
@@ -160,15 +161,52 @@ class _OrchestratedPage<T> extends ConsumerWidget {
         List<UIComponentBlueprint> blueprints = [];
         bool isOffline = false;
 
-        if (data is Map) {
+        // UNWRAP Result if present
+        dynamic unwrappedData = data;
+        if (data is Result) {
+          unwrappedData = data.dataOrNull;
+        }
+
+        if (unwrappedData == null) {
+          debugPrint('[PageTemplate] Orchestration warning: unwrappedData is null for "$title"');
+          if (data is Failure) {
+            final failure = data as Failure;
+            debugPrint('[PageTemplate] Error found in Result payload: ${failure.message}');
+          }
+          
+          return PageTemplate(
+            title: title,
+            subtitle: subtitle,
+            icon: icon,
+            child: const AssemblyLine(
+              blueprints: [],
+              isOfflineFallback: true,
+            ),
+          );
+        }
+
+        if (unwrappedData is PrimeCareDashboardViewModel) {
+          blueprints = unwrappedData.blueprints;
+          isOffline = unwrappedData.isOfflineFallback;
+        } else if (unwrappedData is DashboardMetrics) {
+          final vm = PrimeCareDashboardViewModel.fromDashboardMetrics(
+            unwrappedData,
+          );
+          blueprints = vm.blueprints;
+          isOffline = vm.isOfflineFallback;
+        } else if (unwrappedData is ClinicalIntelligenceViewModel) {
+          blueprints = unwrappedData.blueprints;
+          isOffline = unwrappedData.isOfflineFallback;
+        } else if (unwrappedData is Map) {
           blueprints =
-              (data['blueprints'] as List<dynamic>?)
+              (unwrappedData['blueprints'] as List<dynamic>?)
                   ?.cast<UIComponentBlueprint>() ??
               [];
-          isOffline = (data['isOfflineFallback'] as bool?) ?? false;
+          isOffline = (unwrappedData['isOfflineFallback'] as bool?) ?? false;
         } else {
-          final dynamic d = data;
+          final dynamic d = unwrappedData;
           try {
+            // Duck-typing fallback for custom ViewModels not explicitly handled
             blueprints =
                 (d.blueprints as List<dynamic>?)
                     ?.cast<UIComponentBlueprint>() ??

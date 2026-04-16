@@ -383,6 +383,33 @@ class ScreenRegistry {
         },
       ],
     },
+    CommonRoutes.messagingHub: {
+      'title': 'Communication Nexus',
+      'subtitle': 'Real-time inter-tenant messaging and collaboration network.',
+      'kpis': [
+        {
+          'title': 'Active Chats',
+          'value': '28',
+          'deltaSuffix': 'Live now',
+          'icon': 'users',
+          'iconColor': 'blue',
+        },
+        {
+          'title': 'Unread Alert',
+          'value': '5',
+          'deltaSuffix': 'Priority',
+          'icon': 'shieldAlert',
+          'iconColor': 'orange',
+        },
+        {
+          'title': 'Avg Response',
+          'value': '4m',
+          'deltaSuffix': 'SLA Target',
+          'icon': 'clock',
+          'iconColor': 'teal',
+        },
+      ],
+    },
   };
 
   /// Fetch dashboard config for a route. Fallback to a default layout if none configured.

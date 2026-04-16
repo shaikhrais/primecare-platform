@@ -31,7 +31,57 @@ class AdaptiveScalingConfig {
     }
   }
 
-  /// Returns target sidebar width for the given tier.
+  /// Returns the target column count for the grid system based on the tier.
+  static int getGridColumns(ResolutionTier tier) {
+    switch (tier) {
+      case ResolutionTier.mega:
+        return 24;
+      case ResolutionTier.threeK:
+      case ResolutionTier.fourK:
+        return 20;
+      case ResolutionTier.twoK:
+        return 16;
+      case ResolutionTier.oneK:
+        return 12;
+      case ResolutionTier.tab:
+        return 8;
+      case ResolutionTier.mob:
+        return 4;
+    }
+  }
+
+  /// Returns the column span for the sidebar based on the tier.
+  static int getSidebarSpan(ResolutionTier tier) {
+    switch (tier) {
+      case ResolutionTier.mega:
+      case ResolutionTier.fourK:
+      case ResolutionTier.threeK:
+        return 4;
+      case ResolutionTier.twoK:
+        return 3;
+      case ResolutionTier.oneK:
+        return 2;
+      default:
+        return 0; // Drawer/Hidden modes
+    }
+  }
+
+  /// Returns the minimal (collapsed) column span for the sidebar.
+  static int getMinimalSidebarSpan(ResolutionTier tier) {
+    switch (tier) {
+      case ResolutionTier.mega:
+      case ResolutionTier.fourK:
+      case ResolutionTier.threeK:
+      case ResolutionTier.twoK:
+        return 2;
+      case ResolutionTier.oneK:
+        return 1;
+      default:
+        return 0;
+    }
+  }
+
+  /// Returns target sidebar width for the given tier (Legacy/Drawer support).
   static double getSidebarWidth(ResolutionTier tier) {
     switch (tier) {
       case ResolutionTier.mega:
@@ -41,7 +91,7 @@ class AdaptiveScalingConfig {
       case ResolutionTier.threeK:
         return 280.0;
       default:
-        return 240.0;
+        return 260.0;
     }
   }
 }

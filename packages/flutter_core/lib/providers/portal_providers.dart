@@ -103,33 +103,75 @@ class PortalConfig {
   });
 }
 
+enum SidebarMode {
+  hidden,
+  minimal,
+  extended,
+}
+
 /// Model for resolution-aware layout properties.
 class LayoutConfig {
   final ResolutionTier tier;
   final double scaleFactor;
   final double sidebarWidth;
   final double spacingMultiplier;
-  final bool isExtended;
+  final SidebarMode sidebarMode;
+  final int totalColumns;
+  final int sidebarColumns;
+  final double screenWidth;
 
   const LayoutConfig({
     required this.tier,
     required this.scaleFactor,
     required this.sidebarWidth,
     required this.spacingMultiplier,
-    this.isExtended = true,
+    this.sidebarMode = SidebarMode.extended,
+    this.totalColumns = 12,
+    this.sidebarColumns = 2,
+    this.screenWidth = 1024,
   });
 
-  factory LayoutConfig.fromWidth(double width, {double? pixelRatio}) {
+  bool get isExtended => sidebarMode == SidebarMode.extended;
+  bool get isMinimal => sidebarMode == SidebarMode.minimal;
+  bool get isHidden => sidebarMode == SidebarMode.hidden;
+
+  /// The width of a single unit in the current grid system.
+  double get gridUnitWidth => screenWidth / totalColumns;
+
+  factory LayoutConfig.fromWidth(
+    double width, {
+    double? pixelRatio,
+    SidebarMode mode = SidebarMode.extended,
+  }) {
     final tier = ScreenBreakpoints.getTier(width, pixelRatio: pixelRatio);
+    final totalCols = AdaptiveScalingConfig.getGridColumns(tier);
+
+    // Dynamic sidebar column span based on mode
+    int sidebarCols = 0;
+    if (mode == SidebarMode.extended) {
+      sidebarCols = AdaptiveScalingConfig.getSidebarSpan(tier);
+    } else if (mode == SidebarMode.minimal) {
+      sidebarCols = AdaptiveScalingConfig.getMinimalSidebarSpan(tier);
+    }
+
+    // Default width for mobile/tablet drawers
+    double calculatedSidebarWidth = AdaptiveScalingConfig.getSidebarWidth(tier);
+
+    if (sidebarCols > 0) {
+      calculatedSidebarWidth = (width / totalCols) * sidebarCols;
+    } else if (mode == SidebarMode.hidden) {
+      calculatedSidebarWidth = 0;
+    }
+
     return LayoutConfig(
       tier: tier,
       scaleFactor: AdaptiveScalingConfig.getScaleFactor(tier),
-      sidebarWidth: AdaptiveScalingConfig.getSidebarWidth(tier),
+      sidebarWidth: calculatedSidebarWidth,
       spacingMultiplier: AdaptiveScalingConfig.getSpacingMultiplier(tier),
-      isExtended:
-          tier != ResolutionTier.mob &&
-          tier != ResolutionTier.tab &&
-          tier != ResolutionTier.oneK,
+      sidebarMode: mode,
+      totalColumns: totalCols,
+      sidebarColumns: sidebarCols,
+      screenWidth: width,
     );
   }
 }
@@ -149,15 +191,34 @@ final screenMetricsProvider =
       ScreenMetricsNotifier.new,
     );
 
+/// Provider for the sidebar mode (toggled by user or system).
+final sidebarModeProvider = StateProvider<SidebarMode>((ref) {
+  final metrics = ref.watch(screenMetricsProvider);
+  if (metrics == null) return SidebarMode.extended;
+
+  final tier = ScreenBreakpoints.getTier(
+    metrics.size.width,
+    pixelRatio: metrics.devicePixelRatio,
+  );
+
+  // Default to hidden for mobile/tablet, extended otherwise
+  if (tier == ResolutionTier.mob || tier == ResolutionTier.tab) {
+    return SidebarMode.hidden;
+  }
+  return SidebarMode.extended;
+});
+
 /// Master layout provider that supplies density-aware configuration.
 final layoutProvider = Provider<LayoutConfig>((ref) {
   final data = ref.watch(screenMetricsProvider);
+  final mode = ref.watch(sidebarModeProvider);
+
   if (data == null) {
-    // Return a safe default for pre-load/test scenarios
-    return LayoutConfig.fromWidth(1024);
+    return LayoutConfig.fromWidth(1024, mode: mode);
   }
   return LayoutConfig.fromWidth(
     data.size.width,
     pixelRatio: data.devicePixelRatio,
+    mode: mode,
   );
 });

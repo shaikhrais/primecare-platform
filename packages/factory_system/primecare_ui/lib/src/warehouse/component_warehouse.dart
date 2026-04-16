@@ -8,7 +8,9 @@ import '../components/cards/primecare_chart_card.dart';
 import '../components/charts/prime_care_line_chart.dart';
 import '../screens/common/primecare_report_screen.dart';
 import '../components/aura/aura_dashboard_hud.dart';
+import '../components/stitch_engine/stitch_engine_renderer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../theme/design_system.dart';
 
 /// A function signature for building a specific component from a blueprint payload.
 typedef ComponentBuilder =
@@ -28,6 +30,7 @@ class ComponentWarehouse {
     'compliance_gate': _buildComplianceGate,
     'analytics_chart': _buildAnalyticsChart,
     'aura_dashboard_hud': _buildAuraDashboardHud,
+    'stitch_screen': _buildStitchScreen,
   };
 
   /// Register a new component dynamically (could be used for lazy-loaded plugins).
@@ -43,14 +46,26 @@ class ComponentWarehouse {
   /// Extracts the required Builder and creates the widget safely.
   static Widget build(BuildContext context, UIComponentBlueprint blueprint) {
     final builder = getBuilder(blueprint.componentType);
-    return builder(context, blueprint.dataPayload);
+    final widget = builder(context, blueprint.dataPayload);
+
+    // Resolution for "Duplicate GlobalKey" issues: Wrap in a KeyedSubtree with a unique ID
+    // derived from the blueprint type and payload identity/hash.
+    // We add a 'salt' to the key to distinguish between top-level orchestration and nested items.
+    return KeyedSubtree(
+      key: ValueKey('warehouse_${blueprint.componentType}_${blueprint.dataPayload.hashCode}'),
+      child: widget,
+    );
   }
 
   // --- Builders for default widgets ---
 
   static Widget _buildStatCardGrid(BuildContext context, dynamic dataPayload) {
     // Expected a list of KPI objects
-    final kpis = dataPayload as List<dynamic>;
+    if (dataPayload == null || dataPayload is! List) {
+      return const SizedBox.shrink();
+    }
+    final kpis = dataPayload;
+    final ds = PrimeCareDesignSystem.of(context);
 
     return PrimeResponsiveGrid(
       children: kpis.map((kpi) {
@@ -62,65 +77,111 @@ class ComponentWarehouse {
                 ? "${kpi.trend > 0 ? '+' : ''}${kpi.trend}%"
                 : null,
             icon: _inferIcon(kpi.title),
-            iconColor: _inferColor(kpi.status.name),
+            iconColor: _inferColor(ds, kpi.status.name),
           );
         }
 
-        // Fallback for raw map data
-        final title = kpi['title'] as String? ?? 'Metric';
-        final value = kpi['value'] as String? ?? '0';
-        final status = kpi['status'] as String? ?? 'neutral';
-        final trend = kpi['trend']?.toString();
+        // Fallback for raw map data or dynamic objects
+        try {
+          final title = (kpi is Map) ? kpi['title'] : (kpi as dynamic).title;
+          final value = (kpi is Map) ? kpi['value'] : (kpi as dynamic).value;
+          final status = (kpi is Map) ? (kpi['status'] ?? 'neutral') : (kpi as dynamic).status;
+          final trend = (kpi is Map) ? kpi['trend']?.toString() : (kpi as dynamic).trend?.toString();
 
-        return PrimeCareStatCard(
-          title: title,
-          value: value,
-          deltaSuffix: trend,
-          icon: _inferIcon(title),
-          iconColor: _inferColor(status),
-        );
+          return PrimeCareStatCard(
+            title: title as String? ?? 'Metric',
+            value: value as String? ?? '0',
+            deltaSuffix: trend,
+            icon: _inferIcon(title as String? ?? 'Metric'),
+            iconColor: _inferColor(ds, status?.toString() ?? 'neutral'),
+          );
+        } catch (e) {
+          return const PrimeCareStatCard(
+            title: 'Error',
+            value: '!',
+            icon: LucideIcons.alertCircle,
+          );
+        }
       }).toList(),
     );
   }
 
   static Widget _buildActivityFeed(BuildContext context, dynamic dataPayload) {
     final activities = dataPayload as List<dynamic>;
+    final ds = PrimeCareDesignSystem.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 8, bottom: 12),
-          child: Text(
-            "Operational Continuity",
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 13,
-              letterSpacing: 1.2,
-              fontWeight: FontWeight.bold,
-            ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, bottom: 16),
+          child: Row(
+            children: [
+              Icon(LucideIcons.activity, size: 16, color: ds.colors.primary),
+              const SizedBox(width: 8),
+              Text(
+                "INSTITUTIONAL CONTINUITY FEED",
+                style: TextStyle(
+                  color: ds.colors.primary,
+                  fontSize: 11,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ],
           ),
         ),
         ...activities.map((activity) {
-          final type = activity['type'] as String? ?? 'info';
-          final color = type == 'success'
-              ? Colors.tealAccent
-              : (type == 'warning' ? Colors.orangeAccent : Colors.blueAccent);
+          String title;
+          String timestamp;
+          String colorStr;
+
+          if (activity is DashboardActivity) {
+            title = activity.title;
+            timestamp = activity.timestamp;
+            colorStr = activity.color;
+          } else if (activity is Map) {
+            // Fallback for raw map data
+            title = activity['title'] as String? ?? 'Activity';
+            timestamp = activity['timestamp'] as String? ?? '';
+            // Support both 'color' and 'type' keys for backward compatibility
+            colorStr = (activity['color'] ?? activity['type']) as String? ?? 'primary';
+          } else {
+            // Surgical fallback for dynamic objects that might not be detected by type check
+            try {
+              title = (activity as dynamic).title as String? ?? 'System Update';
+              timestamp = (activity as dynamic).timestamp as String? ?? 'Recently';
+              colorStr = (activity as dynamic).color as String? ?? 'primary';
+            } catch (_) {
+              title = 'System Update';
+              timestamp = 'Recently';
+              colorStr = 'primary';
+            }
+          }
+
+          final color = colorStr == 'success' || colorStr == 'green'
+              ? ds.colors.success
+              : (colorStr == 'warning' || colorStr == 'orange'
+                  ? ds.colors.warning
+                  : (colorStr == 'danger' || colorStr == 'red'
+                      ? ds.colors.danger
+                      : ds.colors.primary));
 
           return Container(
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.white.withAlpha(5),
+              color: ds.colors.surface,
               borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: ds.colors.borderSubtle),
             ),
             child: Row(
               children: [
                 Container(
-                  width: 8,
-                  height: 40,
+                  width: 4,
+                  height: 32,
                   decoration: BoxDecoration(
-                    color: color.withAlpha(100),
-                    borderRadius: BorderRadius.circular(4),
+                    color: color,
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -129,16 +190,16 @@ class ComponentWarehouse {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        activity['title'] as String,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        title,
+                        style: TextStyle(
+                          color: ds.colors.textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        activity['timestamp'] as String,
+                        timestamp,
                         style: TextStyle(
-                          color: Colors.white.withAlpha(100),
+                          color: ds.colors.textTertiary,
                           fontSize: 12,
                         ),
                       ),
@@ -154,36 +215,48 @@ class ComponentWarehouse {
   }
 
   static Widget _buildDataTable(BuildContext context, dynamic dataPayload) {
+    final ds = PrimeCareDesignSystem.of(context);
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(12),
+        color: ds.colors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withAlpha(25)),
+        border: Border.all(color: ds.colors.borderSubtle),
       ),
-      child: const Center(
-        child: Text(
-          "Data Table - Assembled",
-          style: TextStyle(color: Colors.white),
-        ),
+      child: Column(
+        children: [
+          Icon(LucideIcons.database, size: 48, color: ds.colors.primary.withValues(alpha: 0.2)),
+          const SizedBox(height: 16),
+          Text(
+            "HYDRATED DATA MATRIX",
+            style: TextStyle(
+              color: ds.colors.textPrimary, 
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "Institutional records are fully synchronized and available in memory.",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: ds.colors.textSecondary, fontSize: 13),
+          ),
+        ],
       ),
     );
   }
 
   static Widget _buildRiskMonitor(BuildContext context, dynamic dataPayload) {
+    final ds = PrimeCareDesignSystem.of(context);
     return Container(
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF1A1A2E), Color(0xFF16213E)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: ds.colors.surface,
         borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: Colors.redAccent.withAlpha(50), width: 2),
+        border: Border.all(color: ds.colors.danger.withValues(alpha: 0.3), width: 2),
         boxShadow: [
           BoxShadow(
-            color: Colors.redAccent.withAlpha(20),
+            color: ds.colors.danger.withValues(alpha: 0.1),
             blurRadius: 40,
             spreadRadius: 5,
           ),
@@ -194,34 +267,34 @@ class ComponentWarehouse {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 LucideIcons.shieldAlert,
-                color: Colors.redAccent,
+                color: ds.colors.danger,
                 size: 28,
               ),
               const SizedBox(width: 16),
               Text(
                 "Risk Surveillance Engine".toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: ds.colors.textPrimary,
                   letterSpacing: 2,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Spacer(),
-              const Text(
+              Text(
                 "LIVE",
                 style: TextStyle(
-                  color: Colors.redAccent,
+                  color: ds.colors.danger,
                   fontWeight: FontWeight.w900,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 24),
-          const Text(
+          Text(
             "Monitoring algorithmic health and care quality signals across all tenants.",
-            style: TextStyle(color: Colors.white70, height: 1.5),
+            style: TextStyle(color: ds.colors.textSecondary, height: 1.5),
           ),
         ],
       ),
@@ -231,6 +304,7 @@ class ComponentWarehouse {
   static Widget _buildFinancialRail(BuildContext context, dynamic dataPayload) {
     // Expected dynamic list of FinancialMetric (or raw maps)
     final metricsRaw = dataPayload as List<dynamic>;
+    final ds = PrimeCareDesignSystem.of(context);
     final metrics = metricsRaw.map((m) {
       if (m is FinancialMetric) return m;
       return FinancialMetric.fromJson(m as Map<String, dynamic>);
@@ -238,13 +312,13 @@ class ComponentWarehouse {
 
     return Column(
       children: metrics.map((metric) {
-        final color = _inferColor(metric.status);
+        final color = _inferColor(ds, metric.status);
 
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: const Color(0xFF0F172A).withValues(alpha: 0.5),
+            color: ds.colors.surface,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(color: color.withValues(alpha: 0.2)),
             boxShadow: [
@@ -273,7 +347,7 @@ class ComponentWarehouse {
                     Text(
                       metric.label.toUpperCase(),
                       style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.5),
+                        color: ds.colors.textSecondary,
                         fontSize: 10,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 1.2,
@@ -282,8 +356,8 @@ class ComponentWarehouse {
                     const SizedBox(height: 4),
                     Text(
                       metric.value,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: ds.colors.textPrimary,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         letterSpacing: -0.5,
@@ -325,45 +399,74 @@ class ComponentWarehouse {
     return const AuraDashboardHud();
   }
 
+  static Widget _buildStitchScreen(BuildContext context, dynamic dataPayload) {
+    final screenId = dataPayload as String;
+    // Note: In a production environment, this would fetch the actual high-fidelity
+    // components from the Stitch backend via the screenId.
+    // For now, we delegate to the StitchEngineRenderer with simulated items
+    // tagged with the screenId for traceability.
+    return StitchEngineRenderer(
+      featureId: screenId,
+      items: [
+        FeatureViewModel(
+          id: 'ceo-1',
+          title: 'Executive Revenue Command',
+          description: 'High-fidelity financial data stream for Screen $screenId',
+          status: 'ACTIVE',
+        ),
+        FeatureViewModel(
+          id: 'ceo-2',
+          title: 'Institutional Risk Surveillance',
+          description: 'Predictive risk monitoring for $screenId',
+          status: 'MONITORING',
+        ),
+      ],
+    );
+  }
   static Widget _buildManagementAction(
     BuildContext context,
     dynamic dataPayload,
   ) {
+    final ds = PrimeCareDesignSystem.of(context);
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(10),
+        color: ds.colors.surface,
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: Colors.orangeAccent.withAlpha(30)),
+        border: Border.all(color: ds.colors.warning.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Critical Controls",
             style: TextStyle(
-              color: Colors.orangeAccent,
+              color: ds.colors.warning,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 16),
           Wrap(
             spacing: 12,
+            runSpacing: 12,
             children: [
               _buildActionButton(
+                context,
                 "Quarantine Tenant",
                 LucideIcons.lock,
-                Colors.redAccent,
+                ds.colors.danger,
               ),
               _buildActionButton(
+                context,
                 "System Audit",
                 LucideIcons.fileSearch,
-                Colors.blueAccent,
+                ds.colors.primary,
               ),
               _buildActionButton(
+                context,
                 "Freeze Payouts",
                 LucideIcons.pause,
-                Colors.orangeAccent,
+                ds.colors.warning,
               ),
             ],
           ),
@@ -378,12 +481,14 @@ class ComponentWarehouse {
   ) {
     final title = dataPayload['title'] as String? ?? 'Clinical Intelligence';
     final metrics = dataPayload['metrics'] as List<dynamic>? ?? [];
+    final ds = PrimeCareDesignSystem.of(context);
 
     return Container(
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        color: const Color(0xFF1B262C),
+        color: ds.colors.surface,
         borderRadius: BorderRadius.circular(32),
+        border: Border.all(color: ds.colors.borderSubtle),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withAlpha(20),
@@ -399,16 +504,16 @@ class ComponentWarehouse {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: ds.colors.textPrimary,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Spacer(),
-              const Icon(
+              Icon(
                 LucideIcons.trendingUp,
-                color: Colors.tealAccent,
+                color: ds.colors.success,
                 size: 18,
               ),
             ],
@@ -428,15 +533,15 @@ class ComponentWarehouse {
                     children: [
                       Text(
                         label,
-                        style: const TextStyle(
-                          color: Colors.white70,
+                        style: TextStyle(
+                          color: ds.colors.textSecondary,
                           fontSize: 14,
                         ),
                       ),
                       Text(
                         "${(value * 100).toInt()}%",
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: ds.colors.textPrimary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -448,7 +553,7 @@ class ComponentWarehouse {
                       Container(
                         height: 6,
                         decoration: BoxDecoration(
-                          color: Colors.white.withAlpha(10),
+                          color: ds.colors.borderSubtle,
                           borderRadius: BorderRadius.circular(3),
                         ),
                       ),
@@ -457,13 +562,13 @@ class ComponentWarehouse {
                         child: Container(
                           height: 6,
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Colors.tealAccent, Color(0xFF2193b0)],
+                            gradient: LinearGradient(
+                              colors: [ds.colors.primary, ds.colors.secondary],
                             ),
                             borderRadius: BorderRadius.circular(3),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.tealAccent.withAlpha(80),
+                                color: ds.colors.primary.withValues(alpha: 0.3),
                                 blurRadius: 10,
                                 spreadRadius: 1,
                               ),
@@ -486,29 +591,55 @@ class ComponentWarehouse {
     BuildContext context,
     dynamic dataPayload,
   ) {
+    final ds = PrimeCareDesignSystem.of(context);
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
-        color: Colors.indigo.withAlpha(30),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.indigoAccent.withAlpha(50)),
-      ),
-      child: const Center(
-        child: Text(
-          "Compliance Gate - Verified",
-          style: TextStyle(color: Colors.indigoAccent),
+        gradient: LinearGradient(
+          colors: [
+            ds.colors.primary.withValues(alpha: 0.1),
+            ds.colors.success.withValues(alpha: 0.05),
+          ],
         ),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: ds.colors.success.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        children: [
+          Icon(LucideIcons.shieldCheck, color: ds.colors.success, size: 24),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "REGULATORY COMPLIANCE GATE",
+                  style: TextStyle(
+                    color: ds.colors.success, 
+                    fontWeight: FontWeight.w900,
+                    fontSize: 12,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+                Text(
+                  "All institutional checkpoints verified and passed.",
+                  style: TextStyle(color: ds.colors.textSecondary, fontSize: 13),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  static Widget _buildActionButton(String label, IconData icon, Color color) {
+  static Widget _buildActionButton(BuildContext context, String label, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: color.withAlpha(20),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withAlpha(40)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -547,6 +678,7 @@ class ComponentWarehouse {
         final auraToggles = ref.watch(auraDashboardToggleProvider);
         final isAuraActive = auraToggles[dataPayload.id] ?? false;
 
+        final ds = PrimeCareDesignSystem.of(context);
         return PrimeCareChartCard(
           title: dataPayload.title,
           isAuraActive: isAuraActive,
@@ -554,7 +686,7 @@ class ComponentWarehouse {
             height: 250,
             child: PrimeCareLineChart(
               chart: dataPayload,
-              lineColor: _inferColor(dataPayload.id),
+              lineColor: _inferColor(ds, dataPayload.id),
               isPredictive: isAuraActive,
             ),
           ),
@@ -597,13 +729,13 @@ class ComponentWarehouse {
     return LucideIcons.activity;
   }
 
-  static Color _inferColor(String status) {
+  static Color _inferColor(PrimeCareDesignSystem ds, String status) {
     final s = status.toLowerCase();
     if (s == 'operational' || s == 'positive' || s == 'up' || s == 'active')
-      return Colors.greenAccent;
-    if (s == 'warning' || s == 'attention') return Colors.orangeAccent;
-    if (s == 'critical' || s == 'down' || s == 'negative')
-      return Colors.redAccent;
-    return Colors.tealAccent;
+      return ds.colors.success;
+    if (s == 'warning' || s == 'attention') return ds.colors.warning;
+    if (s == 'critical' || s == 'down' || s == 'negative' || s == 'error')
+      return ds.colors.danger;
+    return ds.colors.primary;
   }
 }

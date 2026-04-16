@@ -51,12 +51,59 @@ class BaseLayoutShell extends ConsumerWidget {
     final layout = ref.watch(layoutProvider);
     final scale = layout.scaleFactor;
 
+    // Mobile & Tablet layout (Hidden/Overlay Sidebar)
+    if (layout.isHidden) {
+      return AdaptiveScalingWrapper(
+        child: Scaffold(
+          extendBodyBehindAppBar: true, // Allow glassmorphism to blur the content
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(72.0 * scale),
+            child: GlobalTopBar(
+              actions: topBarActions,
+              customLeft: customTopBarLeft,
+              customCenter: customTopBarCenter,
+              customRight: customTopBarRight,
+            ),
+          ),
+          drawer: UniversalRoleDrawer(currentPath: effectivePath, items: items),
+          bottomNavigationBar: items.isNotEmpty
+              ? BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: items.indexWhere((item) => item.route == effectivePath).clamp(0, items.length - 1),
+                  selectedItemColor: Theme.of(context).colorScheme.primary,
+                  unselectedItemColor: Theme.of(context).disabledColor,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  elevation: 8,
+                  items: items.map((item) {
+                    final iconSize = 24.0 * scale;
+                    return BottomNavigationBarItem(
+                      icon: Icon(item.icon, size: iconSize),
+                      label: item.label,
+                    );
+                  }).toList(),
+                  onTap: (index) => context.go(items[index].route),
+                )
+              : null,
+          body: Padding(
+            key: const Key('shell_content_padding'),
+            padding: EdgeInsets.only(
+              top: 72.0 * scale, // Account for the extended AppBar
+              left: PrimeCareSpacing.scaledEdgeScreen(scale).left,
+              right: PrimeCareSpacing.scaledEdgeScreen(scale).right,
+              bottom: PrimeCareSpacing.scaledEdgeScreen(scale).bottom,
+            ),
+            child: child,
+          ),
+        ),
+      );
+    }
+
+    // Desktop layout (Fixed Sidebar)
     return AdaptiveScalingWrapper(
       child: Scaffold(
+        extendBodyBehindAppBar: true, // Allow glassmorphism to blur the content
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(
-            72.0 * scale + 1.0,
-          ), // Match global top bar height
+          preferredSize: Size.fromHeight(72.0 * scale),
           child: GlobalTopBar(
             actions: topBarActions,
             customLeft: customTopBarLeft,
@@ -64,13 +111,20 @@ class BaseLayoutShell extends ConsumerWidget {
             customRight: customTopBarRight,
           ),
         ),
-        drawer: UniversalRoleDrawer(currentPath: effectivePath, items: items),
+        drawer: layout.isHidden
+            ? UniversalRoleDrawer(currentPath: effectivePath, items: items)
+            : null,
         body: UniversalRoleSidebar(
           currentPath: effectivePath,
           items: items,
           child: Padding(
             key: const Key('shell_content_padding'),
-            padding: PrimeCareSpacing.scaledEdgeScreen(scale),
+            padding: EdgeInsets.only(
+              top: 72.0 * scale, // Account for the extended AppBar
+              left: PrimeCareSpacing.scaledEdgeScreen(scale).left,
+              right: PrimeCareSpacing.scaledEdgeScreen(scale).right,
+              bottom: PrimeCareSpacing.scaledEdgeScreen(scale).bottom,
+            ),
             child: child,
           ),
         ),

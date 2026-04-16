@@ -1,3 +1,5 @@
+import '../../dashboard_service.dart';
+
 /// A universal blueprint that defines a UI component mapping from data to layout.
 abstract class UIComponentBlueprint {
   /// The type of UI component (e.g. 'stat_card_grid', 'data_table').
@@ -41,20 +43,41 @@ abstract class UIComponentBlueprint {
       case 'stat_card_grid':
         final list = (payload as List<dynamic>?) ?? [];
         return StatGridBlueprint(
-          dataPayload: list
-              .map((i) => UniversalKpi.fromJson(i as Map<String, dynamic>))
-              .toList(),
+          dataPayload: list.map((i) {
+            if (i is Map<String, dynamic>) {
+              return UniversalKpi.fromJson(i);
+            }
+            return i; // Already a UniversalKpi or mixed object
+          }).toList(),
         );
       case 'activity_feed':
-        return ActivityFeedBlueprint(dataPayload: payload);
+        final list = (payload as List<dynamic>?) ?? [];
+        return ActivityFeedBlueprint(
+          dataPayload: list.map((i) {
+            if (i is Map<String, dynamic>) {
+              return DashboardActivity.fromJson(i);
+            }
+            return i; // Already an object (e.g. from in-memory assembly)
+          }).toList(),
+        );
       case 'financial_rail':
         return FinancialRailBlueprint(dataPayload: payload as List<dynamic>);
       case 'analytics_chart':
         return ChartBlueprint(dataPayload: payload);
+      case 'stitch_screen':
+        return StitchBlueprint(screenId: payload as String);
       default:
         return StatGridBlueprint(dataPayload: payload);
     }
   }
+}
+
+/// A blueprint for a Stitch-orchestrated screen.
+class StitchBlueprint extends UIComponentBlueprint {
+  const StitchBlueprint({required String screenId})
+    : super(componentType: 'stitch_screen', dataPayload: screenId);
+
+  String get screenId => dataPayload as String;
 }
 
 /// A blueprint for a grid of KPI/stat cards.

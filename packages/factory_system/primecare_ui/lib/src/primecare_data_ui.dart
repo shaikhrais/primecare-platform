@@ -69,12 +69,14 @@ class PrimeCareFormBuilder extends StatefulWidget {
   final List<Map<String, dynamic>> schema;
   final String submitLabel;
   final Future<void> Function(Map<String, dynamic> data) onSubmit;
+  final String? keySeed;
 
   const PrimeCareFormBuilder({
     super.key,
     required this.schema,
     required this.onSubmit,
     this.submitLabel = 'Submit',
+    this.keySeed,
   });
 
   @override
@@ -82,7 +84,7 @@ class PrimeCareFormBuilder extends StatefulWidget {
 }
 
 class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
-  final _formKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> _formKey;
   final Map<String, TextEditingController> _controllers = {};
   final Map<String, String> _dropdownValues = {};
   bool _isSaving = false;
@@ -90,6 +92,9 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
   @override
   void initState() {
     super.initState();
+    _formKey = widget.keySeed != null 
+        ? GlobalObjectKey<FormState>('pc_form_${widget.keySeed}_${identityHashCode(this)}') 
+        : GlobalKey<FormState>();
     for (var field in widget.schema) {
       if (['text', 'phone', 'email', 'number'].contains(field['type'])) {
         _controllers[field['key']] = TextEditingController(

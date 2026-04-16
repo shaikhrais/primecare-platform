@@ -449,11 +449,21 @@ final List<RouteBase> corporateRoutes = [
   ...corporateScreenRegistry.map((config) {
     return GoRoute(
       path: config.routePath,
-      builder: (context, state) => PageTemplate.orchestrate(
-        title: config.titleKey,
-        subtitle: config.subtitleKey,
-        provider: genericDashboardProvider(config.providerId),
-      ),
+      builder: (context, state) {
+        final adapter = resolveAdapterByName(config.providerId);
+        if (adapter != null) {
+          return PageTemplate.orchestrate(
+            title: config.titleKey,
+            subtitle: config.subtitleKey,
+            provider: adapter,
+          );
+        }
+        return PageTemplate.orchestrate(
+          title: config.titleKey,
+          subtitle: config.subtitleKey,
+          provider: dashboardMetricsProvider(config.providerId),
+        );
+      },
     );
   }),
   GoRoute(

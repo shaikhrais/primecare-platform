@@ -2081,6 +2081,8 @@
     "volunteers_screen": {
       "title": "Volunteers Screen",
       "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-    }
+    },
+    "Ceo Region Performance": "Ceo Region Performance",
+    "Real-time overview fetched natively via API.": "Real-time overview fetched natively via API."
   }
 }

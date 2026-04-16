@@ -16,8 +16,8 @@ void main() {
     );
 
     await EasyLocalization.ensureInitialized();
-
     final sharedPreferences = await SharedPreferences.getInstance();
+    await DataLogisticsHub.ensureOfflineDataLoaded();
 
     runApp(
       EasyLocalization(

@@ -46,18 +46,16 @@ class PrimeResponsiveGrid extends StatelessWidget {
           extent = mobileMainAxisExtent;
         }
 
-        return GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: crossAxisSpacing,
-            mainAxisSpacing: mainAxisSpacing,
-            mainAxisExtent: extent,
-          ),
-          itemCount: children.length,
-          itemBuilder: (context, index) => children[index],
+        final itemWidth = (width - (crossAxisCount - 1) * crossAxisSpacing) / crossAxisCount;
+
+        return Wrap(
+          spacing: crossAxisSpacing,
+          runSpacing: mainAxisSpacing,
+          children: children.map((child) => SizedBox(
+            width: itemWidth,
+            height: extent,
+            child: child,
+          )).toList(),
         );
       },
     );

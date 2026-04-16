@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,53 +31,59 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     final isMobile = layout.tier == ResolutionTier.mob;
     final isTablet = layout.tier == ResolutionTier.tab;
 
-    return AppBar(
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      toolbarHeight: 72.0 * scale,
-      backgroundColor: theme.colorScheme.surface,
-      surfaceTintColor: Colors.transparent,
-      automaticallyImplyLeading: false,
-      titleSpacing: 0,
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(1.0 * scale),
-        child: Container(
-          height: 1 * scale,
-          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.15),
-        ),
-      ),
-      title: Padding(
-        padding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 24 * scale),
-        child: Row(
-          children: [
-            // Left: Menu & Logo
-            customLeft ?? _buildLeftSection(context, layout, scale, isMobile),
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+        child: AppBar(
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          toolbarHeight: 72.0 * scale,
+          backgroundColor: theme.colorScheme.surface.withValues(alpha: 0.8),
+          surfaceTintColor: Colors.transparent,
+          automaticallyImplyLeading: false,
+          titleSpacing: 0,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(1.0 * scale),
+            child: Container(
+              height: 1 * scale,
+              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.1),
+            ),
+          ),
+          title: Padding(
+            padding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 24 * scale),
+            child: Row(
+              children: [
+                // Left: Menu & Logo
+                customLeft ?? _buildLeftSection(context, theme, layout, scale, isMobile, ref),
 
-            // Center: Search (Hidden on Mobile/Tablet as per HTML)
-            if (!isMobile && !isTablet)
-              Expanded(
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: 500 * scale),
-                    child: customCenter ?? _buildSearchBox(layout, scale),
-                  ),
-                ),
-              )
-            else
-              const Spacer(),
+                // Center: Search (Hidden on Mobile/Tablet as per HTML)
+                if (!isMobile && !isTablet)
+                  Expanded(
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 500 * scale),
+                        child: customCenter ?? _buildSearchBox(theme, layout, scale),
+                      ),
+                    ),
+                  )
+                else
+                  const Spacer(),
 
-            // Right: Actions & Profile
-            if (showActions)
-              customRight ??
-                  _buildRightSection(
-                    context,
-                    ref,
-                    layout,
-                    scale,
-                    isMobile,
-                    actions,
-                  ),
-          ],
+                // Right: Actions & Profile
+                if (showActions)
+                  customRight ??
+                      _buildRightSection(
+                        context,
+                        ref,
+                        theme,
+                        layout,
+                        scale,
+                        isMobile,
+                        actions,
+                      ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -84,34 +91,62 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
 
   Widget _buildLeftSection(
     BuildContext context,
+    ThemeData theme,
     LayoutConfig layout,
     double scale,
     bool isMobile,
+    WidgetRef ref,
   ) {
     return Row(
       children: [
-        IconButton(
-          onPressed: () {
-            // Toggle sidebar or open drawer
-            Scaffold.of(context).openDrawer();
-          },
-          icon: Icon(LucideIcons.menu, size: 24 * scale),
-          style: IconButton.styleFrom(
-            backgroundColor: PrimeCareDesignSystem.surfaceElevated,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10 * scale),
+        if (isMobile) ...[
+          IconButton(
+            onPressed: () {
+              // Toggle sidebar or open drawer
+              Scaffold.of(context).openDrawer();
+            },
+            icon: Icon(LucideIcons.menu, size: 24 * scale),
+            style: IconButton.styleFrom(
+              backgroundColor: PrimeCareDesignSystem.surfaceElevated,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10 * scale),
+              ),
             ),
           ),
-        ),
-        SizedBox(width: isMobile ? 8 : 16 * scale),
+          SizedBox(width: 8 * scale),
+        ],
         Row(
           children: [
+            if (!isMobile) ...[
+              IconButton(
+                onPressed: () {
+                  final current = ref.read(sidebarModeProvider);
+                  if (current == SidebarMode.extended) {
+                    ref.read(sidebarModeProvider.notifier).state = SidebarMode.minimal;
+                  } else {
+                    ref.read(sidebarModeProvider.notifier).state = SidebarMode.extended;
+                  }
+                },
+                icon: Icon(
+                  layout.isExtended ? LucideIcons.chevronLeft : LucideIcons.menu,
+                  size: 20 * scale,
+                ),
+                tooltip: layout.isExtended ? 'Collapse Sidebar' : 'Expand Sidebar',
+                style: IconButton.styleFrom(
+                  backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8 * scale),
+                  ),
+                ),
+              ),
+              SizedBox(width: 16 * scale),
+            ],
             Container(
               width: 42 * scale,
               height: 42 * scale,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF2563EB), Color(0xFF06B6D4)],
+                gradient: LinearGradient(
+                  colors: [theme.colorScheme.primary, theme.colorScheme.tertiary],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -121,7 +156,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                 child: Text(
                   'P',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: theme.colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
                     fontSize: 18 * scale,
                   ),
@@ -139,7 +174,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                     style: TextStyle(
                       fontSize: 20 * scale,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF111827),
+                      color: theme.colorScheme.onSurface,
                       height: 1.1,
                     ),
                   ),
@@ -147,7 +182,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                     'Care Management Platform',
                     style: TextStyle(
                       fontSize: 12 * scale,
-                      color: const Color(0xFF6B7280),
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -159,25 +194,27 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildSearchBox(LayoutConfig layout, double scale) {
+  Widget _buildSearchBox(ThemeData theme, LayoutConfig layout, double scale) {
     return Container(
       height: 44 * scale,
       decoration: BoxDecoration(
-        color: const Color(0xFFF9FAFB),
-        borderRadius: BorderRadius.circular(12 * scale),
-        border: Border.all(color: const Color(0xFFD1D5DB)),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+        borderRadius: BorderRadius.circular(14 * scale),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+        ),
       ),
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Search clients, caregivers, shifts...',
+          hintText: 'Search institutional workspace...',
           hintStyle: TextStyle(
             fontSize: 14 * scale,
-            color: const Color(0xFF6B7280),
+            color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
           ),
           prefixIcon: Icon(
             LucideIcons.search,
             size: 16 * scale,
-            color: const Color(0xFF6B7280),
+            color: theme.colorScheme.primary.withValues(alpha: 0.7),
           ),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(vertical: 10 * scale),
@@ -189,6 +226,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget _buildRightSection(
     BuildContext context,
     WidgetRef ref,
+    ThemeData theme,
     LayoutConfig layout,
     double scale,
     bool isMobile,
@@ -198,25 +236,26 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
       children: [
         if (extraActions != null) ...extraActions,
         if (!isMobile) ...[
-          _buildIconButton(LucideIcons.globe, scale),
+          _buildIconButton(theme, LucideIcons.globe, scale),
           SizedBox(width: 14 * scale),
-          _buildIconButton(LucideIcons.messageSquare, scale),
+          _buildIconButton(theme, LucideIcons.messageSquare, scale),
           SizedBox(width: 14 * scale),
         ],
-        _buildIconButton(LucideIcons.bell, scale, hasBadge: true),
+        _buildIconButton(theme, LucideIcons.bell, scale, hasBadge: true),
         SizedBox(width: 16 * scale),
         Container(
           height: 42 * scale,
           width: 1 * scale,
-          color: const Color(0xFFE5E7EB),
+          color: theme.colorScheme.outlineVariant,
         ),
         SizedBox(width: 8 * scale),
-        _buildProfileBox(context, ref, scale, isMobile),
+        _buildProfileBox(context, ref, theme, scale, isMobile),
       ],
     );
   }
 
   Widget _buildIconButton(
+    ThemeData theme,
     IconData icon,
     double scale, {
     bool hasBadge = false,
@@ -227,10 +266,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
           width: 42 * scale,
           height: 42 * scale,
           decoration: BoxDecoration(
-            color: const Color(0xFFF1F5F9),
+            color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(10 * scale),
           ),
-          child: Icon(icon, size: 18 * scale, color: const Color(0xFF1F2937)),
+          child: Icon(icon, size: 18 * scale, color: theme.colorScheme.onSurfaceVariant),
         ),
         if (hasBadge)
           Positioned(
@@ -240,9 +279,9 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               width: 10 * scale,
               height: 10 * scale,
               decoration: BoxDecoration(
-                color: const Color(0xFFEF4444),
+                color: theme.colorScheme.error,
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2 * scale),
+                border: Border.all(color: theme.colorScheme.surface, width: 2 * scale),
               ),
             ),
           ),
@@ -253,6 +292,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget _buildProfileBox(
     BuildContext context,
     WidgetRef ref,
+    ThemeData theme,
     double scale,
     bool isMobile,
   ) {
@@ -268,15 +308,15 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
            Container(
             width: 42 * scale,
             height: 42 * scale,
-            decoration: const BoxDecoration(
-              color: Color(0xFF2563EB),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary,
               shape: BoxShape.circle,
             ),
             child: Center(
               child: Text(
                 initials,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: theme.colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16 * scale,
                 ),
@@ -294,14 +334,14 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                   style: TextStyle(
                     fontSize: 14 * scale,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF111827),
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
                 Text(
                   role,
                   style: TextStyle(
                     fontSize: 12 * scale,
-                    color: const Color(0xFF6B7280),
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],

@@ -161,6 +161,10 @@
     }
   },
   "common": {
+    "messaging": {
+      "title": "Secure Messaging Hub",
+      "subtitle": "Unified communication layer for clinical and corporate stakeholders."
+    },
     "clinic_care_plan_screen": {
       "title": "Clinic Care Plan Screen",
       "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."

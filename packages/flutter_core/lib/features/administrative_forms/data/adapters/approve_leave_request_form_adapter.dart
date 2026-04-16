@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/approve_leave_request_form_view_model.dart';
 import '../dtos/approve_leave_request_form_dto.dart';
 import '../mappers/approve_leave_request_form_mapper.dart';
+import '../../../../src/factory_floor/data_logistics_hub.dart';
+
 
 class ApproveLeaveRequestFormAdapter
     extends Notifier<ApproveLeaveRequestFormViewModel> {
@@ -14,18 +16,18 @@ class ApproveLeaveRequestFormAdapter
     state = state.copyWith(isLoading: true);
 
     try {
-      // TODO: Prisma API binding
-      await Future.delayed(const Duration(milliseconds: 500));
-
+      // Pull dynamic node from the hardened seeding layer
+      final node = DataLogisticsHub.getInstitutionalNode('leaveRequestNode', 'REQ-12345');
+      
       final mockDto = ApproveLeaveRequestFormDto(
-        id: 'REQ-12345',
-        employeeName: 'Jane Doe',
-        leaveType: 'Vacation',
-        startDate: DateTime.now()
+        id: node?['id'] ?? 'REQ-12345',
+        employeeName: node?['employeeName'] ?? 'Jane Doe',
+        leaveType: node?['type'] ?? 'Vacation',
+        startDate: node?['startDate'] ?? DateTime.now()
             .add(const Duration(days: 7))
             .toIso8601String(),
-        endDate: DateTime.now().add(const Duration(days: 14)).toIso8601String(),
-        status: 'Pending HR Approval',
+        endDate: node?['endDate'] ?? DateTime.now().add(const Duration(days: 14)).toIso8601String(),
+        status: node?['status'] ?? 'Pending HR Approval',
       );
 
       final viewModel = ApproveLeaveRequestFormMapper.fromDto(mockDto);

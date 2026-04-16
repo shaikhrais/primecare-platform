@@ -25,7 +25,7 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'User Management',
         icon: LucideIcons.users,
-        route: '/common/user-management',
+        route: CommonRoutes.userManagement,
         section: 'Management',
       ),
     ],
@@ -69,7 +69,7 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'User Management',
         icon: LucideIcons.users,
-        route: '/common/user-management',
+        route: CommonRoutes.userManagement,
         section: 'Management',
       ),
     ],
@@ -159,24 +159,76 @@ class NavigationRegistry {
     ],
     'Compliance Manager': [
       const PrimeCareNavigationItem(
+        label: 'Compliance Hub',
+        icon: LucideIcons.layoutDashboard,
+        route: CorporateRoutes.complianceManagerDashboard,
+        section: 'HR & Compliance',
+      ),
+      const PrimeCareNavigationItem(
         label: 'Cases',
         icon: LucideIcons.briefcase,
         route: CorporateRoutes.complianceManagerComplianceCases,
+        section: 'Workflows',
       ),
       const PrimeCareNavigationItem(
         label: 'Policy Manager',
         icon: LucideIcons.bookOpen,
         route: CorporateRoutes.complianceManagerPolicies,
+        section: 'Workflows',
       ),
       const PrimeCareNavigationItem(
         label: 'Audits',
         icon: LucideIcons.listChecks,
         route: CorporateRoutes.complianceManagerAudits,
+        section: 'Workflows',
       ),
       const PrimeCareNavigationItem(
         label: 'Risk Register',
         icon: LucideIcons.flame,
         route: CorporateRoutes.complianceManagerRiskRegister,
+        section: 'Workflows',
+      ),
+    ],
+    'Training Director': [
+      const PrimeCareNavigationItem(
+        label: 'Curriculum Hub',
+        icon: LucideIcons.graduationCap,
+        route: CorporateRoutes.trainingDirectorDashboard,
+        section: 'Strategic',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'Skill Matrix',
+        icon: LucideIcons.award,
+        route: CorporateRoutes.trainingDirectorAnalytics,
+        section: 'Workflows',
+      ),
+    ],
+    'Regional Manager': [
+      const PrimeCareNavigationItem(
+        label: 'Region Dashboard',
+        icon: LucideIcons.map,
+        route: FranchiseRoutes.regionalManagerDashboard,
+        section: 'Operations',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'Branch Comparison',
+        icon: LucideIcons.split,
+        route: FranchiseRoutes.regionalManagerBranchComparison,
+        section: 'Operations',
+      ),
+    ],
+    'Finance Director': [
+      const PrimeCareNavigationItem(
+        label: 'Ledger Command',
+        icon: LucideIcons.landmark,
+        route: CorporateRoutes.financeDirectorDashboard,
+        section: 'Finance',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'Cash Flow',
+        icon: LucideIcons.arrowDownUp,
+        route: CorporateRoutes.financeDirectorCashFlow,
+        section: 'Finance',
       ),
     ],
     'Corporate Developer': [
@@ -196,38 +248,52 @@ class NavigationRegistry {
         route: CorporateRoutes.ctoApiMonitoring,
       ),
     ],
-    'Clinical Director': [
-      const PrimeCareNavigationItem(
-        label: 'Clinical Command',
-        icon: LucideIcons.stethoscope,
-        route: ClinicalRoutes.clinicalDirectorDashboard,
-      ),
-      const PrimeCareNavigationItem(
-        label: 'Quality Metrics',
-        icon: LucideIcons.checkCircle2,
-        route: ClinicalRoutes.clinicalDirectorQualityMetrics,
-      ),
-      const PrimeCareNavigationItem(
-        label: 'Staffing Health',
-        icon: LucideIcons.users2,
-        route: ClinicalRoutes.clinicalDirectorStaffing,
-      ),
-    ],
     'Intake Coordinator': [
       const PrimeCareNavigationItem(
         label: 'Intake Pipeline',
         icon: LucideIcons.userPlus,
         route: ClinicalRoutes.intakeCoordinatorDashboard,
+        section: 'Clinical',
       ),
       const PrimeCareNavigationItem(
         label: 'Referrals',
         icon: LucideIcons.fileInput,
         route: ClinicalRoutes.intakeCoordinatorReferrals,
+        section: 'Workflows',
       ),
       const PrimeCareNavigationItem(
         label: 'Pending assessments',
         icon: LucideIcons.clipboardList,
         route: ClinicalRoutes.intakeCoordinatorAssessments,
+        section: 'Workflows',
+      ),
+    ],
+    'Billing Admin': [
+      const PrimeCareNavigationItem(
+        label: 'Billing Console',
+        icon: LucideIcons.receipt,
+        route: FranchiseRoutes.billingAdminDashboard,
+        section: 'Finance',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'Invoices',
+        icon: LucideIcons.fileText,
+        route: FranchiseRoutes.billingAdminInvoices,
+        section: 'Finance',
+      ),
+    ],
+    'Marketing Manager': [
+      const PrimeCareNavigationItem(
+        label: 'Marketing Hub',
+        icon: LucideIcons.megaphone,
+        route: FranchiseRoutes.marketingManagerDashboard,
+        section: 'Growth',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'Campaign Analytics',
+        icon: LucideIcons.lineChart,
+        route: FranchiseRoutes.marketingManagerCampaigns,
+        section: 'Growth',
       ),
     ],
     'Franchise Owner': [
@@ -297,7 +363,7 @@ class NavigationRegistry {
               label: item.label,
               icon: item.icon,
               route: item.route,
-              section: '$roleName Screens', // Groups intelligently by role!
+              section: item.section ?? 'Master Directory',
               activeIcon: item.activeIcon,
             );
           }

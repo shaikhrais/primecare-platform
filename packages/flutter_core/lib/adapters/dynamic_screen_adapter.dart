@@ -10,13 +10,16 @@ class DynamicScreenAdapter {
   Future<Map<String, dynamic>> getData() async {
     if (DataSourceConfig.currentMode == DataSourceType.hybrid ||
         DataSourceConfig.currentMode == DataSourceType.mock) {
-      return {
-        'title': 'Dynamic Screen: $screenId (Mock)',
-        'status': 'ACTIVE',
-        'screenId': screenId,
-        'uiComponentType': 'CardLayout', // Fallback
-        'layoutType': 'Standard',
-      };
+      return DataLogisticsHub.safeLookup<Map<String, dynamic>>(
+        'institutional_nodes.screenDefinition.$screenId',
+        {
+          'title': 'Dynamic Screen: $screenId (Cache)',
+          'status': 'ACTIVE',
+          'screenId': screenId,
+          'uiComponentType': 'CardLayout',
+          'layoutType': 'Standard',
+        },
+      );
     }
 
     try {

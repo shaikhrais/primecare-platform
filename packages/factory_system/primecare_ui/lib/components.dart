@@ -77,3 +77,5 @@ export 'src/components/dashboards/prime_workflow_queue_card.dart';
 export 'src/components/headers/primecare_section_header.dart';
 export 'src/components/layout/prime_responsive_grid.dart';
 export 'src/components/stitch_engine/stitch_engine_renderer.dart';
+export 'src/components/dashboards/blueprint_renderer.dart';
+export 'src/components/stitch_engine/stitch_screen_widget.dart';

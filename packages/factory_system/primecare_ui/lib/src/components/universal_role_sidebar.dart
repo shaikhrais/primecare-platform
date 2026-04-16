@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -23,46 +24,14 @@ class UniversalRoleSidebar extends ConsumerWidget {
     final theme = Theme.of(context);
     final layout = ref.watch(layoutProvider);
 
-    // Mobile layout
-    if (layout.tier == ResolutionTier.mob) {
-      return Scaffold(
-        body: child,
-        bottomNavigationBar: items.isNotEmpty
-            ? BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                currentIndex: currentIndex,
-                selectedItemColor: theme.colorScheme.primary,
-                unselectedItemColor: theme.disabledColor,
-                backgroundColor: theme.colorScheme.surface,
-                elevation: 8,
-                onTap: (index) {
-                  if (index < items.length) context.go(items[index].route);
-                },
-                items: items.map((item) {
-                  final iconSize = 24.0 * layout.scaleFactor;
-                  return BottomNavigationBarItem(
-                    icon: Icon(item.icon, size: iconSize),
-                    activeIcon: item.activeIcon != null
-                        ? Icon(item.activeIcon, size: iconSize)
-                        : null,
-                    label: item.label,
-                  );
-                }).toList(),
-              )
-            : null,
-      );
-    }
-
     // Tablet and Desktop layouts (Sidebar)
-    return Scaffold(
-      body: Row(
-        children: [
-          buildSidebarContent(context, ref, currentIndex, layout, items),
-          Expanded(
-            child: Container(color: theme.colorScheme.surface, child: child),
-          ),
-        ],
-      ),
+    return Row(
+      children: [
+        buildSidebarContent(context, ref, currentIndex, layout, items, currentPath),
+        Expanded(
+          child: Container(color: theme.colorScheme.surface, child: child),
+        ),
+      ],
     );
   }
 
@@ -72,11 +41,14 @@ class UniversalRoleSidebar extends ConsumerWidget {
     int currentIndex,
     LayoutConfig layout,
     List<PrimeCareNavigationItem> items,
+    String currentPath,
   ) {
     final theme = Theme.of(context);
     final isExtended = layout.isExtended;
     final scale = layout.scaleFactor;
-    final width = isExtended ? 260.0 * scale : 82.0 * scale;
+    
+    // Dynamic width based on Grid Columns
+    final width = layout.sidebarWidth;
 
     // Group items dynamically by their section
     final Map<String, List<PrimeCareNavigationItem>> groupedItems = {};
@@ -86,7 +58,7 @@ class UniversalRoleSidebar extends ConsumerWidget {
 
       // Normalize common sections slightly
       if (item.route.startsWith('/common/') &&
-          item.route != '/common/user-management') {
+          item.route != CommonRoutes.userManagement) {
         sectionName = 'Common Tools';
       }
 
@@ -109,15 +81,14 @@ class UniversalRoleSidebar extends ConsumerWidget {
         color: theme.colorScheme.surface,
         border: Border(
           right: BorderSide(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+            color: theme.colorScheme.outline.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
       ),
       child: Column(
         children: [
-          // Logo Header
-          _SidebarHeader(isExtended: isExtended, scale: scale),
+          SizedBox(height: 12 * scale), // Replaced Logo Header
 
           // Menu Items
           Expanded(
@@ -127,38 +98,15 @@ class UniversalRoleSidebar extends ConsumerWidget {
               ),
               children: [
                 ...groupedItems.entries.map((entry) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (isExtended)
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: 10 * scale,
-                            top: 18 * scale,
-                            bottom: 8 * scale,
-                          ),
-                          child: Text(
-                            entry.key.toUpperCase(),
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: theme.colorScheme.onSurfaceVariant
-                                  .withValues(alpha: 0.5),
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5 * scale,
-                              fontSize: 10 * scale,
-                            ),
-                          ),
-                        ),
-                      ...entry.value.map((item) {
-                        final isSelected = items.indexOf(item) == currentIndex;
-                        return _SidebarMenuItem(
-                          item: item,
-                          isSelected: isSelected,
-                          isExtended: isExtended,
-                          scale: scale,
-                          onTap: () => context.go(item.route),
-                        );
-                      }),
-                    ],
+                  return _SidebarGroup(
+                    title: entry.key,
+                    items: entry.value,
+                    currentPath: currentPath,
+                    isExtended: isExtended,
+                    scale: scale,
+                    onTap: (item) => context.go(item.route),
+                    // Auto-expand if the current path is in this group
+                    startsExpanded: entry.value.any((item) => item.route == currentPath),
                   );
                 }),
               ],
@@ -194,11 +142,11 @@ class UniversalRoleDrawer extends ConsumerWidget {
       scaleFactor: layout.scaleFactor,
       sidebarWidth: 260.0 * layout.scaleFactor,
       spacingMultiplier: layout.spacingMultiplier,
-      isExtended: true, // Force extended for the drawer!
+      sidebarMode: SidebarMode.extended, // Force extended for the drawer!
     );
 
     return Drawer(
-      width: 260.0 * layout.scaleFactor,
+      width: drawerLayout.sidebarWidth,
       child: Material(
         color: Theme.of(context).colorScheme.surface,
         child: UniversalRoleSidebar.buildSidebarContent(
@@ -207,96 +155,114 @@ class UniversalRoleDrawer extends ConsumerWidget {
           currentIndex,
           drawerLayout,
           items,
+          currentPath,
         ),
       ),
     );
   }
 }
 
-class _SidebarHeader extends StatelessWidget {
+class _SidebarGroup extends StatefulWidget {
+  final String title;
+  final List<PrimeCareNavigationItem> items;
+  final String currentPath;
   final bool isExtended;
   final double scale;
+  final Function(PrimeCareNavigationItem) onTap;
+  final bool startsExpanded;
 
-  const _SidebarHeader({required this.isExtended, required this.scale});
+  const _SidebarGroup({
+    required this.title,
+    required this.items,
+    required this.currentPath,
+    required this.isExtended,
+    required this.scale,
+    required this.onTap,
+    this.startsExpanded = true,
+  });
+
+  @override
+  State<_SidebarGroup> createState() => _SidebarGroupState();
+}
+
+class _SidebarGroupState extends State<_SidebarGroup> {
+  late bool _isExpanded;
+
+  @override
+  void initState() {
+    super.initState();
+    _isExpanded = widget.startsExpanded;
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      padding: EdgeInsets.fromLTRB(
-        16 * scale,
-        24 * scale,
-        16 * scale,
-        24 * scale,
-      ),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
-            width: 1,
-          ),
-        ),
-      ),
-      margin: EdgeInsets.only(bottom: 20 * scale),
-      child: Row(
-        mainAxisAlignment: isExtended
-            ? MainAxisAlignment.start
-            : MainAxisAlignment.center,
-        children: [
-          // Logo Icon (Gradient P)
-          Container(
-            width: 44 * scale,
-            height: 44 * scale,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12 * scale),
-              gradient: const LinearGradient(
-                colors: [Color(0xFF2563EB), Color(0xFF06B6D4)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.isExtended)
+          InkWell(
+            onTap: () => setState(() => _isExpanded = !_isExpanded),
+            borderRadius: BorderRadius.circular(8 * widget.scale),
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 10 * widget.scale,
+                top: 18 * widget.scale,
+                bottom: 8 * widget.scale,
+                right: 8 * widget.scale,
               ),
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              'P',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20 * scale,
-              ),
-            ),
-          ),
-          if (isExtended) ...[
-            SizedBox(width: 12 * scale),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'PrimeCare',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18 * scale,
-                    height: 1.1,
-                  ),
-                ),
-                Text(
-                  'Care Management',
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant.withValues(
-                      alpha: 0.6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.title.toUpperCase(),
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant
+                          .withValues(alpha: 0.5),
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5 * widget.scale,
+                      fontSize: 10 * widget.scale,
                     ),
-                    fontSize: 11 * scale,
                   ),
-                ),
-              ],
+                  Transform.rotate(
+                    angle: _isExpanded ? math.pi / 2 : 0,
+                    child: Icon(
+                      Icons.chevron_right,
+                      size: 14 * widget.scale,
+                      color: theme.colorScheme.onSurfaceVariant
+                          .withValues(alpha: 0.3),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ],
-      ),
+          ),
+        
+        AnimatedCrossFade(
+          firstChild: const SizedBox(width: double.infinity),
+          secondChild: Column(
+            children: widget.items.map((item) {
+              final isSelected = item.route == widget.currentPath;
+              return _SidebarMenuItem(
+                item: item,
+                isSelected: isSelected,
+                isExtended: widget.isExtended,
+                scale: widget.scale,
+                onTap: () => widget.onTap(item),
+              );
+            }).toList(),
+          ),
+          crossFadeState: (widget.isExtended && !_isExpanded)
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          duration: const Duration(milliseconds: 250),
+        ),
+      ],
     );
   }
 }
+
 
 class _SidebarMenuItem extends StatefulWidget {
   final PrimeCareNavigationItem item;
@@ -329,13 +295,13 @@ class _SidebarMenuItemState extends State<_SidebarMenuItem> {
     Color textColor = theme.colorScheme.onSurface;
 
     if (widget.isSelected) {
-      backgroundColor = const Color(0xFF2563EB);
-      iconColor = Colors.white;
-      textColor = Colors.white;
+      backgroundColor = theme.colorScheme.primary; 
+      iconColor = theme.colorScheme.onPrimary;
+      textColor = theme.colorScheme.onPrimary;
     } else if (_isHovered) {
-      backgroundColor = const Color(0xFFEFF6FF);
-      iconColor = const Color(0xFF2563EB);
-      textColor = const Color(0xFF2563EB);
+      backgroundColor = theme.colorScheme.primary.withValues(alpha: 0.08);
+      iconColor = theme.colorScheme.primary;
+      textColor = theme.colorScheme.primary;
     }
 
     return MouseRegion(
@@ -344,15 +310,35 @@ class _SidebarMenuItemState extends State<_SidebarMenuItem> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          margin: EdgeInsets.only(bottom: 6 * widget.scale),
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+          margin: EdgeInsets.only(bottom: 4 * widget.scale),
           padding: EdgeInsets.symmetric(
             horizontal: 14 * widget.scale,
-            vertical: 12 * widget.scale,
+            vertical: 11 * widget.scale,
           ),
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(12 * widget.scale),
+            gradient: widget.isSelected 
+              ? LinearGradient(
+                  colors: [
+                    theme.colorScheme.primary,
+                    theme.colorScheme.primary.withValues(alpha: 0.8),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
+            boxShadow: widget.isSelected 
+              ? [
+                  BoxShadow(
+                    color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                    blurRadius: 10 * widget.scale,
+                    offset: Offset(0, 4 * widget.scale),
+                  )
+                ]
+              : [],
           ),
           child: Row(
             mainAxisAlignment: widget.isExtended
@@ -416,7 +402,7 @@ class _SidebarFooter extends ConsumerWidget {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
+            color: theme.colorScheme.outline.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
@@ -425,7 +411,7 @@ class _SidebarFooter extends ConsumerWidget {
         padding: EdgeInsets.all(isExtended ? 12 * scale : 0),
         decoration: isExtended
             ? BoxDecoration(
-                color: const Color(0xFFF9FAFB),
+                color: theme.colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(14 * scale),
               )
             : null,
@@ -438,15 +424,15 @@ class _SidebarFooter extends ConsumerWidget {
             Container(
               width: 44 * scale,
               height: 44 * scale,
-              decoration: const BoxDecoration(
-                color: Color(0xFF2563EB),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary,
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
               child: Text(
                 initials.toUpperCase(),
                 style: TextStyle(
-                  color: Colors.white,
+                  color: theme.colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                   fontSize: 14 * scale,
                 ),

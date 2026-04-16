@@ -46,6 +46,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         routes: [
           ...corporateRoutes,
           ...sharedCommonRoutes,
+          GoRoute(
+            path: '/:segment1/:segment2',
+            builder: (context, state) => NotFoundScreen(
+              message:
+                  'God Mode Preview:\n\n${state.uri.toString()} belongs to a different frontend application in the monolithic PrimeCare system.',
+            ),
+          ),
+          GoRoute(
+            path: '/:segment1/:segment2/:segment3',
+            builder: (context, state) => NotFoundScreen(
+              message:
+                  'God Mode Preview:\n\n${state.uri.toString()} belongs to a different frontend application in the monolithic PrimeCare system.',
+            ),
+          ),
         ],
       ),
     ],

@@ -8,6 +8,7 @@ export 'dashboard_providers.dart';
 export 'dashboard_service.dart';
 export 'domain_service.dart';
 export 'dynamic_page_providers.dart';
+export 'dynamic_adapter_resolver.dart';
 export 'preference_service.dart';
 export 'provider_service.dart';
 export 'telemetry_service.dart';
@@ -15,10 +16,12 @@ export 'src/services/resilience_service.dart';
 export 'src/resilience/app_error_boundary.dart';
 export 'network/circuit_breaker.dart';
 export 'network/retry_interceptor.dart';
+export 'src/factory_floor/ui_blueprint.dart';
 export 'src/resilience/connectivity_service.dart';
 export 'src/resilience/provider_ttl.dart';
 
 export 'providers/portal_providers.dart';
+export 'providers/user_management_provider.dart';
 export 'config/api_config.dart';
 export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';
@@ -46,6 +49,7 @@ export 'routes/groups/support_routes.dart';
 export 'routes/groups/common_routes.dart';
 export 'theme/app_theme.dart';
 
+export 'features/common/domain/models/primecare_dashboard_view_model.dart';
 export 'features/franchise_owner_dashboard/domain/models/franchise_owner_view_model.dart';
 
 // Auto-scaled adapters

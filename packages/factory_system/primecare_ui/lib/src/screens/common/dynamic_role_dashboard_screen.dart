@@ -9,6 +9,7 @@ import '../../components/charts/prime_care_line_chart.dart';
 import '../../components/charts/prime_care_pie_chart.dart';
 import '../../components/dashboards/prime_care_kpi_card.dart';
 import '../../components/dashboards/prime_care_responsive_kpi_grid.dart';
+import '../../components/dashboards/blueprint_renderer.dart';
 import 'primecare_report_screen.dart';
 
 extension StringExtension on String {
@@ -27,10 +28,45 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
       ExecutionGateCategory.navigationLayer,
       'Navigated to dynamic role dashboard screen for role: $role',
     );
+    final theme = Theme.of(context);
+
+    // 1. Attempt to resolve specialized dashboard adapter (e.g., 'ceoDashboard')
+    final adapterKey = '${role.split('_').map((s) => s.toLowerCase()).join('')}Dashboard';
+    final specializedProvider = resolveAdapterByName(adapterKey);
+
+    if (specializedProvider != null) {
+      final specializedAsync = ref.watch(specializedProvider as dynamic);
+
+      return specializedAsync.when(
+        data: (result) {
+          return result.fold(
+            (viewModel) {
+              telemetry.passGate(
+                ExecutionGateCategory.metricsLayer,
+                'Hydrated specialized dashboard for: $role',
+              );
+              return _buildDashboardContent(
+                context,
+                ref,
+                viewModel,
+                isResilientFallback: false,
+              );
+            },
+            (error) {
+              return _buildResilientFallback(context, ref, error.toString());
+            },
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, st) => _buildResilientFallback(context, ref, e.toString()),
+      );
+    }
+
+    // 2. Fallback to generic metrics provider
     final metricsAsync = ref.watch(dashboardMetricsProvider(role));
 
     return ColoredBox(
-      color: const Color(0xFFF8FAFC),
+      color: theme.colorScheme.surface,
       child: metricsAsync.when(
         data: (result) {
           return result.fold(
@@ -81,6 +117,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
     WidgetRef ref,
     String error,
   ) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         _buildResilienceBanner(context),
@@ -89,10 +126,10 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   LucideIcons.shieldAlert,
                   size: 48,
-                  color: Color(0xFFEAB308),
+                  color: theme.colorScheme.secondary,
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -100,7 +137,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                   style: GoogleFonts.outfit(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1E3A8A),
+                    color: theme.colorScheme.primary,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -109,7 +146,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                   child: Text(
                     'We encountered an issue hydrating the live workspace. Forensics have been dispatched, and you are currently viewing the most stable fallback state.',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(color: const Color(0xFF64748B)),
+                    style: GoogleFonts.inter(color: theme.colorScheme.onSurfaceVariant),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -119,8 +156,8 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                   icon: const Icon(LucideIcons.refreshCw, size: 16),
                   label: const Text('Attempt Re-Hydration'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1E3A8A),
-                    foregroundColor: Colors.white,
+                    backgroundColor: theme.colorScheme.primary,
+                    foregroundColor: theme.colorScheme.onPrimary,
                   ),
                 ),
               ],
@@ -132,13 +169,14 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
   }
 
   Widget _buildResilienceBanner(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      color: const Color(0xFFFEF9C3), // Yellow 100
+      color: theme.colorScheme.secondaryContainer,
       child: Row(
         children: [
-          const Icon(LucideIcons.info, size: 14, color: Color(0xFF854D0E)),
+          Icon(LucideIcons.info, size: 14, color: theme.colorScheme.onSecondaryContainer),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -146,7 +184,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
               style: GoogleFonts.inter(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: const Color(0xFF854D0E),
+                color: theme.colorScheme.onSecondaryContainer,
               ),
             ),
           ),
@@ -158,15 +196,29 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
   Widget _buildDashboardContent(
     BuildContext context,
     WidgetRef ref,
-    DashboardMetrics metrics, {
+    dynamic metricsOrViewModel, {
     required bool isResilientFallback,
   }) {
+    final theme = Theme.of(context);
     final auraAsync = ref.watch(auraInsightsProvider(role));
     final prefService = ref.watch(preferenceServiceProvider);
     final telemetry = ref.read(executionGateProvider);
 
+    // Extract metrics and blueprints
+    final kpis = metricsOrViewModel is PrimeCareDashboardViewModel
+        ? metricsOrViewModel.kpis
+        : (metricsOrViewModel as DashboardMetrics).kpis;
+    
+    final charts = metricsOrViewModel is PrimeCareDashboardViewModel
+        ? [] // Charts are usually in blueprints now
+        : (metricsOrViewModel as DashboardMetrics).charts;
+
+    final blueprints = metricsOrViewModel is PrimeCareDashboardViewModel
+        ? metricsOrViewModel.blueprints
+        : <UIComponentBlueprint>[];
+
     // 3. Process personalization (Sorting pinned items first)
-    final sortedKpis = List<KpiMetric>.from(metrics.kpis)
+    final sortedKpis = List<KpiMetric>.from(kpis)
       ..sort((a, b) {
         final aPinned = prefService?.isPinned(role, a.title) ?? false;
         final bPinned = prefService?.isPinned(role, b.title) ?? false;
@@ -208,17 +260,17 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                   children: [
                     Text(
                       '${role.split('_').map((s) => s.capitalize()).join(' ')} Workspace',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E3A8A),
+                        color: theme.colorScheme.onSurface,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
-                    const Text(
+                    Text(
                       'Real-time metrics and institutional activity feed.',
-                      style: TextStyle(color: Color(0xFF64748B), fontSize: 14),
+                      style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -228,55 +280,67 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 32),
 
-          // KPI Segment (Personalized Grid)
-          metrics.kpis.isEmpty
-              ? const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(32.0),
-                    child: Text(
-                      'No institutional metrics available for this role.',
+          // Blueprint Segment (High-Fidelity Modules)
+          if (blueprints.isNotEmpty) ...[
+            ...blueprints.map((blueprint) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 24.0),
+                child: BlueprintRenderer(blueprint: blueprint),
+              );
+            }),
+          ],
+
+          // KPI Segment (Personalized Grid - Fallback or Supplemental)
+          if (blueprints.isEmpty) ...[
+            kpis.isEmpty
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(32.0),
+                      child: Text(
+                        'No institutional metrics available for this role.',
+                      ),
                     ),
+                  )
+                : PrimeCareResponsiveKpiGrid(
+                    children: sortedKpis.map((kpi) {
+                      final isPinned =
+                          prefService?.isPinned(role, kpi.title) ?? false;
+                      return PrimeCareKpiCard(
+                        title: kpi.title,
+                        value: kpi.value,
+                        subtitle: kpi.subtitle ?? '',
+                        icon: _getIconForMetric(kpi.title),
+                        isPinned: isPinned,
+                        onPinToggle: () async {
+                          if (prefService != null) {
+                            await prefService.setPinned(
+                              role,
+                              kpi.title,
+                              !isPinned,
+                            );
+                            // Trigger UI update
+                            ref.invalidate(preferenceServiceProvider);
+                          }
+                        },
+                      );
+                    }).toList(),
                   ),
-                )
-              : PrimeCareResponsiveKpiGrid(
-                  children: sortedKpis.map((kpi) {
-                    final isPinned =
-                        prefService?.isPinned(role, kpi.title) ?? false;
-                    return PrimeCareKpiCard(
-                      title: kpi.title,
-                      value: kpi.value,
-                      subtitle: kpi.subtitle ?? '',
-                      icon: _getIconForMetric(kpi.title),
-                      isPinned: isPinned,
-                      onPinToggle: () async {
-                        if (prefService != null) {
-                          await prefService.setPinned(
-                            role,
-                            kpi.title,
-                            !isPinned,
-                          );
-                          // Trigger UI update
-                          ref.invalidate(preferenceServiceProvider);
-                        }
-                      },
-                    );
-                  }).toList(),
-                ),
+          ],
 
           const SizedBox(height: 32),
 
           // Analytics Segment (Personalized Charts)
-          if (metrics.charts.isNotEmpty) ...[
-            const Text(
+          if (charts.isNotEmpty) ...[
+            Text(
               'Operational Insights',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1E3A8A),
+                color: theme.colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 16),
-            ...metrics.charts.map((chart) {
+            ...charts.map((chart) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 24.0),
                 child: _buildChart(chart),
