@@ -22,8 +22,20 @@ class NavigationRegistry {
         route: CommonRoutes.globalSettings,
         section: 'Management',
       ),
+      const PrimeCareNavigationItem(
+        label: 'User Management',
+        icon: LucideIcons.users,
+        route: '/common/user-management',
+        section: 'Management',
+      ),
     ],
     'CEO': [
+      const PrimeCareNavigationItem(
+        label: 'CEO Dashboard',
+        icon: LucideIcons.layoutDashboard,
+        route: CorporateRoutes.ceoDashboard,
+        section: 'Main',
+      ),
       const PrimeCareNavigationItem(
         label: 'Enterprise Overview',
         icon: LucideIcons.globe,
@@ -54,8 +66,20 @@ class NavigationRegistry {
         route: CorporateRoutes.ceoLeadershipReports,
         section: 'Strategic',
       ),
+      const PrimeCareNavigationItem(
+        label: 'User Management',
+        icon: LucideIcons.users,
+        route: '/common/user-management',
+        section: 'Management',
+      ),
     ],
     'CFO': [
+      const PrimeCareNavigationItem(
+        label: 'CFO Dashboard',
+        icon: LucideIcons.layoutDashboard,
+        route: CorporateRoutes.cfoDashboard,
+        section: 'Main',
+      ),
       const PrimeCareNavigationItem(
         label: 'Financial Overview',
         icon: LucideIcons.wallet,
@@ -79,6 +103,12 @@ class NavigationRegistry {
     ],
     'COO': [
       const PrimeCareNavigationItem(
+        label: 'COO Dashboard',
+        icon: LucideIcons.layoutDashboard,
+        route: CorporateRoutes.cooDashboard,
+        section: 'Main',
+      ),
+      const PrimeCareNavigationItem(
         label: 'Operations Board',
         icon: LucideIcons.activity,
         route: CorporateRoutes.cooOperationsOverview,
@@ -100,6 +130,12 @@ class NavigationRegistry {
       ),
     ],
     'CTO': [
+      const PrimeCareNavigationItem(
+        label: 'CTO Dashboard',
+        icon: LucideIcons.layoutDashboard,
+        route: CorporateRoutes.ctoDashboard,
+        section: 'Main',
+      ),
       const PrimeCareNavigationItem(
         label: 'System Health',
         icon: LucideIcons.hardDrive,
@@ -264,9 +300,11 @@ class NavigationRegistry {
     // 3. Fallback to Title Case normalization for standard roles
     final normalizedRole = role
         .split(' ')
-        .map((e) => e.isEmpty
-            ? ''
-            : e[0].toUpperCase() + e.substring(1).toLowerCase())
+        .map(
+          (e) => e.isEmpty
+              ? ''
+              : e[0].toUpperCase() + e.substring(1).toLowerCase(),
+        )
         .join(' ');
 
     return _roleMenus[normalizedRole] ?? _roleMenus['Admin']!;

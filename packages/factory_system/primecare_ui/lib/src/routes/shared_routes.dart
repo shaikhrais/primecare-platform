@@ -5,6 +5,7 @@ import '../screens/common/global_settings.dart';
 import '../screens/common/messaging_hub.dart';
 import '../screens/common/notification_center.dart';
 import '../screens/common/document_vault.dart';
+import '../screens/common/user_management.dart';
 
 /// Central registry for routes that are available across all PrimeCare portals.
 /// These routes are typically hosted within a ShellRoute.
@@ -28,5 +29,9 @@ final List<RouteBase> sharedCommonRoutes = [
   GoRoute(
     path: CommonRoutes.documentVault,
     builder: (context, state) => const DocumentVaultScreen(),
+  ),
+  GoRoute(
+    path: CommonRoutes.userManagement,
+    builder: (context, state) => const UserManagementScreen(),
   ),
 ];

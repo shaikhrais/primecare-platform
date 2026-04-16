@@ -78,15 +78,22 @@ class UniversalRoleSidebar extends ConsumerWidget {
     final scale = layout.scaleFactor;
     final width = isExtended ? 260.0 * scale : 82.0 * scale;
 
-    // Group items by section
-    final Map<String, List<PrimeCareNavigationItem>> groupedItems = {};
+    // Group items into Role Specific and Common
+    final Map<String, List<PrimeCareNavigationItem>> groupedItems = {
+      'Role Specific': [],
+      'Common': [],
+    };
     for (var item in items) {
-      final section = item.section ?? 'Main';
-      if (!groupedItems.containsKey(section)) {
-        groupedItems[section] = [];
+      if (item.section == 'Common Tools' ||
+          item.section == 'Common' ||
+          item.route.startsWith('/common/') &&
+              item.route != '/common/user-management') {
+        groupedItems['Common']!.add(item);
+      } else {
+        groupedItems['Role Specific']!.add(item);
       }
-      groupedItems[section]!.add(item);
     }
+    groupedItems.removeWhere((key, value) => value.isEmpty);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
@@ -390,8 +397,8 @@ class _SidebarFooter extends ConsumerWidget {
     final role = authState.role ?? 'Administrator';
 
     final userName = authState.userName ?? 'PrimeCare User';
-    final initials = userName.isNotEmpty 
-        ? userName.substring(0, 1).toUpperCase() 
+    final initials = userName.isNotEmpty
+        ? userName.substring(0, 1).toUpperCase()
         : 'U';
 
     return Container(

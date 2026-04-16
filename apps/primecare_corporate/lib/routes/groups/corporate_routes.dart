@@ -19,25 +19,25 @@ class ScreenConfig {
 final List<ScreenConfig> corporateScreenRegistry = [
   ScreenConfig(
     routePath: CorporateRoutes.ceoDashboard,
-    titleKey: 'Ceo Dashboard',
+    titleKey: 'CEO Dashboard',
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'ceoDashboard',
   ),
   ScreenConfig(
     routePath: CorporateRoutes.cooDashboard,
-    titleKey: 'Coo Dashboard',
+    titleKey: 'COO Dashboard',
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'cooDashboard',
   ),
   ScreenConfig(
     routePath: CorporateRoutes.cfoDashboard,
-    titleKey: 'Cfo Dashboard',
+    titleKey: 'CFO Dashboard',
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'cfoDashboard',
   ),
   ScreenConfig(
     routePath: CorporateRoutes.ctoDashboard,
-    titleKey: 'Cto Dashboard',
+    titleKey: 'CTO Dashboard',
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'ctoDashboard',
   ),
@@ -462,38 +462,47 @@ final List<RouteBase> corporateRoutes = [
   ),
   GoRoute(
     path: CommonRoutes.receptionistDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'receptionist'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'receptionist'),
   ),
   GoRoute(
     path: CommonRoutes.clinicalDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'clinical'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'clinical'),
   ),
   GoRoute(
     path: FranchiseRoutes.billingAdminDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'billing_admin'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'billing_admin'),
   ),
   GoRoute(
     path: FranchiseRoutes.operationsManagerDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'operations_manager'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'operations_manager'),
   ),
   GoRoute(
     path: FranchiseRoutes.schedulerDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'scheduler'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'scheduler'),
   ),
   GoRoute(
     path: FranchiseRoutes.hrHiringDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'hr_hiring'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'hr_hiring'),
   ),
   GoRoute(
     path: SupportRoutes.customerSupportDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'customer_support'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'customer_support'),
   ),
   GoRoute(
     path: SupportRoutes.intakeCoordinatorDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'intake_coordinator'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'intake_coordinator'),
   ),
   GoRoute(
     path: SupportRoutes.qualityAssuranceDashboard,
-    builder: (context, state) => ScreenRegistry.buildDynamicDashboard(context, 'quality_assurance'),
+    builder: (context, state) =>
+        ScreenRegistry.buildDynamicDashboard(context, 'quality_assurance'),
   ),
 ];

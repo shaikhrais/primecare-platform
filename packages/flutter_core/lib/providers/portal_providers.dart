@@ -6,28 +6,77 @@ import '../config/screen_breakpoints.dart';
 import '../config/adaptive_scaling_config.dart';
 import '../telemetry_service.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import '../routes/groups/common_routes.dart';
 
 /// Provider that supplies the navigation menu items for the current user's role.
 final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
   final authState = ref.watch(authProvider);
   final role = authState.role ?? 'PSW';
-  final menu = NavigationRegistry.getMenuForRole(role);
-  
+  final menu = List<PrimeCareNavigationItem>.from(
+    NavigationRegistry.getMenuForRole(role),
+  );
+
   // Diagnostic Telemetry: Detect if we fell back to Admin unexpectedly
-  if (role != 'Admin' && menu == NavigationRegistry.getMenuForRole('Admin')) {
-    ref.read(executionGateProvider).failGate(ExecutionGateCategory.navigationLayer, 'navigation_fallback_warning: Fallback to Admin for role $role');
+  if (role != 'Admin' &&
+      role != 'CEO' &&
+      menu == NavigationRegistry.getMenuForRole('Admin')) {
+    ref
+        .read(executionGateProvider)
+        .failGate(
+          ExecutionGateCategory.navigationLayer,
+          'navigation_fallback_warning: Fallback to Admin for role $role',
+        );
   }
 
-  ref.read(executionGateProvider).passGate(ExecutionGateCategory.navigationLayer, 'Hydrated ${menu.length} navigation items for role: $role');
+  // Inject Common Tools for all users dynamically, except for routes they already have.
+  final commonItems = [
+    const PrimeCareNavigationItem(
+      label: 'Messaging Hub',
+      icon: LucideIcons.messageSquare,
+      route: CommonRoutes.messagingHub,
+      section: 'Common Tools',
+    ),
+    const PrimeCareNavigationItem(
+      label: 'Document Vault',
+      icon: LucideIcons.folder,
+      route: CommonRoutes.documentVault,
+      section: 'Common Tools',
+    ),
+    const PrimeCareNavigationItem(
+      label: 'Notifications',
+      icon: LucideIcons.bell,
+      route: CommonRoutes.notificationCenter,
+      section: 'Common Tools',
+    ),
+    const PrimeCareNavigationItem(
+      label: 'Global Settings',
+      icon: LucideIcons.settings,
+      route: CommonRoutes.globalSettings,
+      section: 'Common Tools',
+    ),
+  ];
+
+  for (var commonItem in commonItems) {
+    if (!menu.any((item) => item.route == commonItem.route)) {
+      menu.add(commonItem);
+    }
+  }
+
+  ref
+      .read(executionGateProvider)
+      .passGate(
+        ExecutionGateCategory.navigationLayer,
+        'Hydrated ${menu.length} navigation items for role: $role',
+      );
   return menu;
 });
-
 
 /// Provider for portal-specific configuration.
 final portalConfigProvider = Provider<PortalConfig>((ref) {
   final authState = ref.watch(authProvider);
   final role = authState.role ?? 'PSW';
-  
+
   return PortalConfig(
     title: '${role.toUpperCase()} Portal',
     brandingName: 'PrimeCare Classic',
@@ -70,9 +119,10 @@ class LayoutConfig {
       scaleFactor: AdaptiveScalingConfig.getScaleFactor(tier),
       sidebarWidth: AdaptiveScalingConfig.getSidebarWidth(tier),
       spacingMultiplier: AdaptiveScalingConfig.getSpacingMultiplier(tier),
-      isExtended: tier != ResolutionTier.mob && 
-                  tier != ResolutionTier.tab && 
-                  tier != ResolutionTier.oneK,
+      isExtended:
+          tier != ResolutionTier.mob &&
+          tier != ResolutionTier.tab &&
+          tier != ResolutionTier.oneK,
     );
   }
 }
@@ -87,7 +137,10 @@ class ScreenMetricsNotifier extends Notifier<MediaQueryData?> {
 }
 
 /// Provider for the screen size. This should be updated by the root widget.
-final screenMetricsProvider = NotifierProvider<ScreenMetricsNotifier, MediaQueryData?>(ScreenMetricsNotifier.new);
+final screenMetricsProvider =
+    NotifierProvider<ScreenMetricsNotifier, MediaQueryData?>(
+      ScreenMetricsNotifier.new,
+    );
 
 /// Master layout provider that supplies density-aware configuration.
 final layoutProvider = Provider<LayoutConfig>((ref) {
