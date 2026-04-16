@@ -21,7 +21,8 @@ extension SafeNavigation on BuildContext {
   void goSafe(AppRoute route, {Object? extra}) => go(route.path, extra: extra);
 
   /// Safely pushes using a compiled [AppRoute].
-  void pushSafe(AppRoute route, {Object? extra}) => push(route.path, extra: extra);
+  void pushSafe(AppRoute route, {Object? extra}) =>
+      push(route.path, extra: extra);
 
   /// Safely replaces current route using a compiled [AppRoute].
   void pushReplacementSafe(AppRoute route, {Object? extra}) =>

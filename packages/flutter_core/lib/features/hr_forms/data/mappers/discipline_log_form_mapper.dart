@@ -11,8 +11,6 @@ class DisciplineLogFormMapper {
   }
 
   static DisciplineLogFormDto toDto(DisciplineLogFormViewModel viewModel) {
-    return DisciplineLogFormDto(
-      rawData: viewModel.data,
-    );
+    return DisciplineLogFormDto(rawData: viewModel.data);
   }
 }

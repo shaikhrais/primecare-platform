@@ -11,8 +11,6 @@ class LeaveRequestFormMapper {
   }
 
   static LeaveRequestFormDto toDto(LeaveRequestFormViewModel viewModel) {
-    return LeaveRequestFormDto(
-      rawData: viewModel.data,
-    );
+    return LeaveRequestFormDto(rawData: viewModel.data);
   }
 }

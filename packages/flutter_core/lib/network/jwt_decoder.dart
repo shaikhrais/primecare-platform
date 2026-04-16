@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-/// A robust utility for decoding JSON Web Tokens (JWT) locally without relying on 
+/// A robust utility for decoding JSON Web Tokens (JWT) locally without relying on
 /// heavy cryptographic libraries. It extracts claims and verifies expirations.
 class JwtDecoder {
-  
   /// Parses the JWT standard Base64Url payload and returns it as a Map.
   static Map<String, dynamic> parseJwt(String token) {
     final parts = token.split('.');
@@ -13,7 +12,7 @@ class JwtDecoder {
 
     final payload = _decodeBase64(parts[1]);
     final payloadMap = json.decode(payload);
-    
+
     if (payloadMap is! Map<String, dynamic>) {
       throw const FormatException('Invalid payload format');
     }
@@ -41,8 +40,11 @@ class JwtDecoder {
 
         if (expInt == 0) return true; // Fail safe
 
-        final expirationDate = DateTime.fromMillisecondsSinceEpoch(expInt * 1000, isUtc: true);
-        
+        final expirationDate = DateTime.fromMillisecondsSinceEpoch(
+          expInt * 1000,
+          isUtc: true,
+        );
+
         // Return true if the current time in UTC is after the expiration date
         return DateTime.now().toUtc().isAfter(expirationDate);
       }
@@ -64,14 +66,17 @@ class JwtDecoder {
       if (payload['role'] != null && payload['role'].toString().isNotEmpty) {
         return payload['role'].toString();
       }
-      if (payload['activeRole'] != null && payload['activeRole'].toString().isNotEmpty) {
+      if (payload['activeRole'] != null &&
+          payload['activeRole'].toString().isNotEmpty) {
         return payload['activeRole'].toString();
       }
 
       // Check standard backend objects
       if (payload['user'] != null && payload['user'] is Map) {
         final Map userObj = payload['user'];
-        if (userObj['roles'] != null && userObj['roles'] is List && (userObj['roles'] as List).isNotEmpty) {
+        if (userObj['roles'] != null &&
+            userObj['roles'] is List &&
+            (userObj['roles'] as List).isNotEmpty) {
           return userObj['roles'][0].toString();
         }
       }
@@ -98,9 +103,9 @@ class JwtDecoder {
         return payload['tenantId'].toString();
       }
       if (payload['user'] != null && payload['user'] is Map) {
-         if (payload['user']['tenantId'] != null) {
-           return payload['user']['tenantId'].toString();
-         }
+        if (payload['user']['tenantId'] != null) {
+          return payload['user']['tenantId'].toString();
+        }
       }
       if (payload['app_metadata'] != null && payload['app_metadata'] is Map) {
         if (payload['app_metadata']['tenantId'] != null) {

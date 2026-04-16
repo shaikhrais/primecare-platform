@@ -14,7 +14,10 @@ void main(List<String> args) {
 
   print('Starting Large Scale Instrumentation Cleanup in ${args[0]}...');
 
-  final files = dir.listSync(recursive: true).whereType<File>().where((f) => f.path.endsWith('.dart'));
+  final files = dir
+      .listSync(recursive: true)
+      .whereType<File>()
+      .where((f) => f.path.endsWith('.dart'));
 
   int processedCount = 0;
   int removedCount = 0;
@@ -22,21 +25,26 @@ void main(List<String> args) {
   for (final file in files) {
     processedCount++;
     final content = file.readAsStringSync();
-    
+
     // We target specifically the unused import cases
-    if (content.contains("import 'package:primecare_core/primecare_core.dart';")) {
-       if (!content.contains('ExecutionGateCategory') && 
-           !content.contains('executionGateProvider') &&
-           !content.contains('ExecutionGateStatus')) {
-         
-         // Remove the import line completely including trailing newline
-         final lines = content.split('\n');
-         lines.removeWhere((line) => line.contains("import 'package:primecare_core/primecare_core.dart';"));
-         
-         file.writeAsStringSync(lines.join('\n'));
-         removedCount++;
-         print('Removed unused import: ${file.path}');
-       }
+    if (content.contains(
+      "import 'package:primecare_core/primecare_core.dart';",
+    )) {
+      if (!content.contains('ExecutionGateCategory') &&
+          !content.contains('executionGateProvider') &&
+          !content.contains('ExecutionGateStatus')) {
+        // Remove the import line completely including trailing newline
+        final lines = content.split('\n');
+        lines.removeWhere(
+          (line) => line.contains(
+            "import 'package:primecare_core/primecare_core.dart';",
+          ),
+        );
+
+        file.writeAsStringSync(lines.join('\n'));
+        removedCount++;
+        print('Removed unused import: ${file.path}');
+      }
     }
   }
 

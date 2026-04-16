@@ -17,11 +17,11 @@ class LeaveRequestFormAdapter extends Notifier<LeaveRequestFormViewModel> {
     try {
       // API call simulated
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = LeaveRequestFormMapper.toDto(state);
       // ignore: avoid_print
       print('Submitting leave request: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false, isSuccess: true);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -33,5 +33,5 @@ class LeaveRequestFormAdapter extends Notifier<LeaveRequestFormViewModel> {
 
 final leaveRequestFormAdapterProvider =
     NotifierProvider<LeaveRequestFormAdapter, LeaveRequestFormViewModel>(() {
-  return LeaveRequestFormAdapter();
-});
+      return LeaveRequestFormAdapter();
+    });

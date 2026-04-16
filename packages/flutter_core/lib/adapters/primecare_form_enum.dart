@@ -17,11 +17,19 @@ enum PrimeCareForm {
   adminLayout('adminLayout'),
   adminReconciliationDashboardAdapter('adminReconciliationDashboardAdapter'),
   adminReconciliationDashboardDto('adminReconciliationDashboardDto'),
-  adminReconciliationDashboardDtoAdapter('adminReconciliationDashboardDtoAdapter'),
+  adminReconciliationDashboardDtoAdapter(
+    'adminReconciliationDashboardDtoAdapter',
+  ),
   adminReconciliationDashboardMapper('adminReconciliationDashboardMapper'),
-  adminReconciliationDashboardMapperAdapter('adminReconciliationDashboardMapperAdapter'),
-  adminReconciliationDashboardViewModel('adminReconciliationDashboardViewModel'),
-  adminReconciliationDashboardViewModelAdapter('adminReconciliationDashboardViewModelAdapter'),
+  adminReconciliationDashboardMapperAdapter(
+    'adminReconciliationDashboardMapperAdapter',
+  ),
+  adminReconciliationDashboardViewModel(
+    'adminReconciliationDashboardViewModel',
+  ),
+  adminReconciliationDashboardViewModelAdapter(
+    'adminReconciliationDashboardViewModelAdapter',
+  ),
   alignCenterIcon('alignCenterIcon'),
   alignJustifyIcon('alignJustifyIcon'),
   alignLeftIcon('alignLeftIcon'),
@@ -59,10 +67,14 @@ enum PrimeCareForm {
   billingAdminDashboardMapper('billingAdminDashboardMapper'),
   billingAdminDashboardMapperAdapter('billingAdminDashboardMapperAdapter'),
   billingAdminDashboardViewModel('billingAdminDashboardViewModel'),
-  billingAdminDashboardViewModelAdapter('billingAdminDashboardViewModelAdapter'),
+  billingAdminDashboardViewModelAdapter(
+    'billingAdminDashboardViewModelAdapter',
+  ),
   blockQuoteIcon('blockQuoteIcon'),
   boldIcon('boldIcon'),
-  businessdevelopmentRegionalBdmDashboardScreenAdapter('businessdevelopmentRegionalBdmDashboardScreenAdapter'),
+  businessdevelopmentRegionalBdmDashboardScreenAdapter(
+    'businessdevelopmentRegionalBdmDashboardScreenAdapter',
+  ),
   button('button'),
   carePlanEvaluationForm('carePlanEvaluationForm'),
   ceoDashboardAdapter('ceoDashboardAdapter'),
@@ -106,16 +118,24 @@ enum PrimeCareForm {
   communityOutreachDashboardDto('communityOutreachDashboardDto'),
   communityOutreachDashboardDtoAdapter('communityOutreachDashboardDtoAdapter'),
   communityOutreachDashboardMapper('communityOutreachDashboardMapper'),
-  communityOutreachDashboardMapperAdapter('communityOutreachDashboardMapperAdapter'),
+  communityOutreachDashboardMapperAdapter(
+    'communityOutreachDashboardMapperAdapter',
+  ),
   communityOutreachDashboardViewModel('communityOutreachDashboardViewModel'),
-  communityOutreachDashboardViewModelAdapter('communityOutreachDashboardViewModelAdapter'),
+  communityOutreachDashboardViewModelAdapter(
+    'communityOutreachDashboardViewModelAdapter',
+  ),
   complianceManagerDashboardAdapter('complianceManagerDashboardAdapter'),
   complianceManagerDashboardDto('complianceManagerDashboardDto'),
   complianceManagerDashboardDtoAdapter('complianceManagerDashboardDtoAdapter'),
   complianceManagerDashboardMapper('complianceManagerDashboardMapper'),
-  complianceManagerDashboardMapperAdapter('complianceManagerDashboardMapperAdapter'),
+  complianceManagerDashboardMapperAdapter(
+    'complianceManagerDashboardMapperAdapter',
+  ),
   complianceManagerDashboardViewModel('complianceManagerDashboardViewModel'),
-  complianceManagerDashboardViewModelAdapter('complianceManagerDashboardViewModelAdapter'),
+  complianceManagerDashboardViewModelAdapter(
+    'complianceManagerDashboardViewModelAdapter',
+  ),
   configurator('configurator'),
   cooDashboardAdapter('cooDashboardAdapter'),
   cooDashboardDto('cooDashboardDto'),
@@ -143,9 +163,13 @@ enum PrimeCareForm {
   customerSupportDashboardDto('customerSupportDashboardDto'),
   customerSupportDashboardDtoAdapter('customerSupportDashboardDtoAdapter'),
   customerSupportDashboardMapper('customerSupportDashboardMapper'),
-  customerSupportDashboardMapperAdapter('customerSupportDashboardMapperAdapter'),
+  customerSupportDashboardMapperAdapter(
+    'customerSupportDashboardMapperAdapter',
+  ),
   customerSupportDashboardViewModel('customerSupportDashboardViewModel'),
-  customerSupportDashboardViewModelAdapter('customerSupportDashboardViewModelAdapter'),
+  customerSupportDashboardViewModelAdapter(
+    'customerSupportDashboardViewModelAdapter',
+  ),
   dailyVitalsCardForm('dailyVitalsCardForm'),
   dataTable('dataTable'),
   dataTableTopToolbar('dataTableTopToolbar'),
@@ -202,35 +226,67 @@ enum PrimeCareForm {
   franchiseOwnerDashboardMapper('franchiseOwnerDashboardMapper'),
   franchiseOwnerDashboardMapperAdapter('franchiseOwnerDashboardMapperAdapter'),
   franchiseOwnerDashboardViewModel('franchiseOwnerDashboardViewModel'),
-  franchiseOwnerDashboardViewModelAdapter('franchiseOwnerDashboardViewModelAdapter'),
-  franchiseReconciliationDashboardAdapter('franchiseReconciliationDashboardAdapter'),
+  franchiseOwnerDashboardViewModelAdapter(
+    'franchiseOwnerDashboardViewModelAdapter',
+  ),
+  franchiseReconciliationDashboardAdapter(
+    'franchiseReconciliationDashboardAdapter',
+  ),
   franchiseReconciliationDashboardDto('franchiseReconciliationDashboardDto'),
-  franchiseReconciliationDashboardDtoAdapter('franchiseReconciliationDashboardDtoAdapter'),
-  franchiseReconciliationDashboardMapper('franchiseReconciliationDashboardMapper'),
-  franchiseReconciliationDashboardMapperAdapter('franchiseReconciliationDashboardMapperAdapter'),
-  franchiseReconciliationDashboardViewModel('franchiseReconciliationDashboardViewModel'),
-  franchiseReconciliationDashboardViewModelAdapter('franchiseReconciliationDashboardViewModelAdapter'),
+  franchiseReconciliationDashboardDtoAdapter(
+    'franchiseReconciliationDashboardDtoAdapter',
+  ),
+  franchiseReconciliationDashboardMapper(
+    'franchiseReconciliationDashboardMapper',
+  ),
+  franchiseReconciliationDashboardMapperAdapter(
+    'franchiseReconciliationDashboardMapperAdapter',
+  ),
+  franchiseReconciliationDashboardViewModel(
+    'franchiseReconciliationDashboardViewModel',
+  ),
+  franchiseReconciliationDashboardViewModelAdapter(
+    'franchiseReconciliationDashboardViewModelAdapter',
+  ),
   franchiseRefundsDashboardAdapter('franchiseRefundsDashboardAdapter'),
   franchiseRefundsDashboardDto('franchiseRefundsDashboardDto'),
   franchiseRefundsDashboardDtoAdapter('franchiseRefundsDashboardDtoAdapter'),
   franchiseRefundsDashboardMapper('franchiseRefundsDashboardMapper'),
-  franchiseRefundsDashboardMapperAdapter('franchiseRefundsDashboardMapperAdapter'),
+  franchiseRefundsDashboardMapperAdapter(
+    'franchiseRefundsDashboardMapperAdapter',
+  ),
   franchiseRefundsDashboardViewModel('franchiseRefundsDashboardViewModel'),
-  franchiseRefundsDashboardViewModelAdapter('franchiseRefundsDashboardViewModelAdapter'),
+  franchiseRefundsDashboardViewModelAdapter(
+    'franchiseRefundsDashboardViewModelAdapter',
+  ),
   franchiseReportsDashboardAdapter('franchiseReportsDashboardAdapter'),
   franchiseReportsDashboardDto('franchiseReportsDashboardDto'),
   franchiseReportsDashboardDtoAdapter('franchiseReportsDashboardDtoAdapter'),
   franchiseReportsDashboardMapper('franchiseReportsDashboardMapper'),
-  franchiseReportsDashboardMapperAdapter('franchiseReportsDashboardMapperAdapter'),
+  franchiseReportsDashboardMapperAdapter(
+    'franchiseReportsDashboardMapperAdapter',
+  ),
   franchiseReportsDashboardViewModel('franchiseReportsDashboardViewModel'),
-  franchiseReportsDashboardViewModelAdapter('franchiseReportsDashboardViewModelAdapter'),
-  franchiseSalesManagerDashboardAdapter('franchiseSalesManagerDashboardAdapter'),
+  franchiseReportsDashboardViewModelAdapter(
+    'franchiseReportsDashboardViewModelAdapter',
+  ),
+  franchiseSalesManagerDashboardAdapter(
+    'franchiseSalesManagerDashboardAdapter',
+  ),
   franchiseSalesManagerDashboardDto('franchiseSalesManagerDashboardDto'),
-  franchiseSalesManagerDashboardDtoAdapter('franchiseSalesManagerDashboardDtoAdapter'),
+  franchiseSalesManagerDashboardDtoAdapter(
+    'franchiseSalesManagerDashboardDtoAdapter',
+  ),
   franchiseSalesManagerDashboardMapper('franchiseSalesManagerDashboardMapper'),
-  franchiseSalesManagerDashboardMapperAdapter('franchiseSalesManagerDashboardMapperAdapter'),
-  franchiseSalesManagerDashboardViewModel('franchiseSalesManagerDashboardViewModel'),
-  franchiseSalesManagerDashboardViewModelAdapter('franchiseSalesManagerDashboardViewModelAdapter'),
+  franchiseSalesManagerDashboardMapperAdapter(
+    'franchiseSalesManagerDashboardMapperAdapter',
+  ),
+  franchiseSalesManagerDashboardViewModel(
+    'franchiseSalesManagerDashboardViewModel',
+  ),
+  franchiseSalesManagerDashboardViewModelAdapter(
+    'franchiseSalesManagerDashboardViewModelAdapter',
+  ),
   fullScreenToggle('fullScreenToggle'),
   fuseAuthContext('fuseAuthContext'),
   fuseAuthProvider('fuseAuthProvider'),
@@ -290,7 +346,9 @@ enum PrimeCareForm {
   generalManagerDashboardMapper('generalManagerDashboardMapper'),
   generalManagerDashboardMapperAdapter('generalManagerDashboardMapperAdapter'),
   generalManagerDashboardViewModel('generalManagerDashboardViewModel'),
-  generalManagerDashboardViewModelAdapter('generalManagerDashboardViewModelAdapter'),
+  generalManagerDashboardViewModelAdapter(
+    'generalManagerDashboardViewModelAdapter',
+  ),
   goToDocBox('goToDocBox'),
   greetingHeaderWidget('greetingHeaderWidget'),
   guestDashboardAdapter('guestDashboardAdapter'),
@@ -306,14 +364,20 @@ enum PrimeCareForm {
   headOfBusDevDashboardMapper('headOfBusDevDashboardMapper'),
   headOfBusDevDashboardMapperAdapter('headOfBusDevDashboardMapperAdapter'),
   headOfBusDevDashboardViewModel('headOfBusDevDashboardViewModel'),
-  headOfBusDevDashboardViewModelAdapter('headOfBusDevDashboardViewModelAdapter'),
+  headOfBusDevDashboardViewModelAdapter(
+    'headOfBusDevDashboardViewModelAdapter',
+  ),
   headOfMarketingDashboardAdapter('headOfMarketingDashboardAdapter'),
   headOfMarketingDashboardDto('headOfMarketingDashboardDto'),
   headOfMarketingDashboardDtoAdapter('headOfMarketingDashboardDtoAdapter'),
   headOfMarketingDashboardMapper('headOfMarketingDashboardMapper'),
-  headOfMarketingDashboardMapperAdapter('headOfMarketingDashboardMapperAdapter'),
+  headOfMarketingDashboardMapperAdapter(
+    'headOfMarketingDashboardMapperAdapter',
+  ),
   headOfMarketingDashboardViewModel('headOfMarketingDashboardViewModel'),
-  headOfMarketingDashboardViewModelAdapter('headOfMarketingDashboardViewModelAdapter'),
+  headOfMarketingDashboardViewModelAdapter(
+    'headOfMarketingDashboardViewModelAdapter',
+  ),
   headingButton('headingButton'),
   headingDropdownMenu('headingDropdownMenu'),
   headingFiveIcon('headingFiveIcon'),
@@ -370,13 +434,23 @@ enum PrimeCareForm {
   listIcon('listIcon'),
   listOrderedIcon('listOrderedIcon'),
   listTodoIcon('listTodoIcon'),
-  localMarketingManagerDashboardAdapter('localMarketingManagerDashboardAdapter'),
+  localMarketingManagerDashboardAdapter(
+    'localMarketingManagerDashboardAdapter',
+  ),
   localMarketingManagerDashboardDto('localMarketingManagerDashboardDto'),
-  localMarketingManagerDashboardDtoAdapter('localMarketingManagerDashboardDtoAdapter'),
+  localMarketingManagerDashboardDtoAdapter(
+    'localMarketingManagerDashboardDtoAdapter',
+  ),
   localMarketingManagerDashboardMapper('localMarketingManagerDashboardMapper'),
-  localMarketingManagerDashboardMapperAdapter('localMarketingManagerDashboardMapperAdapter'),
-  localMarketingManagerDashboardViewModel('localMarketingManagerDashboardViewModel'),
-  localMarketingManagerDashboardViewModelAdapter('localMarketingManagerDashboardViewModelAdapter'),
+  localMarketingManagerDashboardMapperAdapter(
+    'localMarketingManagerDashboardMapperAdapter',
+  ),
+  localMarketingManagerDashboardViewModel(
+    'localMarketingManagerDashboardViewModel',
+  ),
+  localMarketingManagerDashboardViewModelAdapter(
+    'localMarketingManagerDashboardViewModelAdapter',
+  ),
   logClinicalIncidentForm('logClinicalIncidentForm'),
   logEmployeeGrievanceForm('logEmployeeGrievanceForm'),
   logFranchiseeVettingCallForm('logFranchiseeVettingCallForm'),
@@ -428,9 +502,13 @@ enum PrimeCareForm {
   operationsManagerDashboardDto('operationsManagerDashboardDto'),
   operationsManagerDashboardDtoAdapter('operationsManagerDashboardDtoAdapter'),
   operationsManagerDashboardMapper('operationsManagerDashboardMapper'),
-  operationsManagerDashboardMapperAdapter('operationsManagerDashboardMapperAdapter'),
+  operationsManagerDashboardMapperAdapter(
+    'operationsManagerDashboardMapperAdapter',
+  ),
   operationsManagerDashboardViewModel('operationsManagerDashboardViewModel'),
-  operationsManagerDashboardViewModelAdapter('operationsManagerDashboardViewModelAdapter'),
+  operationsManagerDashboardViewModelAdapter(
+    'operationsManagerDashboardViewModelAdapter',
+  ),
   overrideGlobalScheduleForm('overrideGlobalScheduleForm'),
   ownerDashboardAdapter('ownerDashboardAdapter'),
   ownerDashboardDto('ownerDashboardDto'),
@@ -445,11 +523,17 @@ enum PrimeCareForm {
   paletteSelector('paletteSelector'),
   partnershipManagerDashboardAdapter('partnershipManagerDashboardAdapter'),
   partnershipManagerDashboardDto('partnershipManagerDashboardDto'),
-  partnershipManagerDashboardDtoAdapter('partnershipManagerDashboardDtoAdapter'),
+  partnershipManagerDashboardDtoAdapter(
+    'partnershipManagerDashboardDtoAdapter',
+  ),
   partnershipManagerDashboardMapper('partnershipManagerDashboardMapper'),
-  partnershipManagerDashboardMapperAdapter('partnershipManagerDashboardMapperAdapter'),
+  partnershipManagerDashboardMapperAdapter(
+    'partnershipManagerDashboardMapperAdapter',
+  ),
   partnershipManagerDashboardViewModel('partnershipManagerDashboardViewModel'),
-  partnershipManagerDashboardViewModelAdapter('partnershipManagerDashboardViewModelAdapter'),
+  partnershipManagerDashboardViewModelAdapter(
+    'partnershipManagerDashboardViewModelAdapter',
+  ),
   patientDashboardAdapter('patientDashboardAdapter'),
   patientDashboardDto('patientDashboardDto'),
   patientDashboardDtoAdapter('patientDashboardDtoAdapter'),
@@ -472,7 +556,9 @@ enum PrimeCareForm {
   qaDashboardScreen('qaDashboardScreen'),
   qaDashboardViewModel('qaDashboardViewModel'),
   qaDashboardViewModelAdapter('qaDashboardViewModelAdapter'),
-  qualityassuranceQaDashboardScreenAdapter('qualityassuranceQaDashboardScreenAdapter'),
+  qualityassuranceQaDashboardScreenAdapter(
+    'qualityassuranceQaDashboardScreenAdapter',
+  ),
   quickPanel('quickPanel'),
   quickPanelContextProvider('quickPanelContextProvider'),
   quickPanelToggleButton('quickPanelToggleButton'),
@@ -487,15 +573,31 @@ enum PrimeCareForm {
   regionalBdmDashboardScreen('regionalBdmDashboardScreen'),
   regionalBdmDashboardViewModel('regionalBdmDashboardViewModel'),
   regionalBdmDashboardViewModelAdapter('regionalBdmDashboardViewModelAdapter'),
-  regionalManagerOntarioDashboardAdapter('regionalManagerOntarioDashboardAdapter'),
+  regionalManagerOntarioDashboardAdapter(
+    'regionalManagerOntarioDashboardAdapter',
+  ),
   regionalManagerOntarioDashboardDto('regionalManagerOntarioDashboardDto'),
-  regionalManagerOntarioDashboardDtoAdapter('regionalManagerOntarioDashboardDtoAdapter'),
-  regionalManagerOntarioDashboardMapper('regionalManagerOntarioDashboardMapper'),
-  regionalManagerOntarioDashboardMapperAdapter('regionalManagerOntarioDashboardMapperAdapter'),
-  regionalManagerOntarioDashboardViewModel('regionalManagerOntarioDashboardViewModel'),
-  regionalManagerOntarioDashboardViewModelAdapter('regionalManagerOntarioDashboardViewModelAdapter'),
-  regionalmanagerontarioRegionalManagerOntarioDashboardScreenAdapter('regionalmanagerontarioRegionalManagerOntarioDashboardScreenAdapter'),
-  regionalmanagerusaRegionalManagerUsaDashboardScreenAdapter('regionalmanagerusaRegionalManagerUsaDashboardScreenAdapter'),
+  regionalManagerOntarioDashboardDtoAdapter(
+    'regionalManagerOntarioDashboardDtoAdapter',
+  ),
+  regionalManagerOntarioDashboardMapper(
+    'regionalManagerOntarioDashboardMapper',
+  ),
+  regionalManagerOntarioDashboardMapperAdapter(
+    'regionalManagerOntarioDashboardMapperAdapter',
+  ),
+  regionalManagerOntarioDashboardViewModel(
+    'regionalManagerOntarioDashboardViewModel',
+  ),
+  regionalManagerOntarioDashboardViewModelAdapter(
+    'regionalManagerOntarioDashboardViewModelAdapter',
+  ),
+  regionalmanagerontarioRegionalManagerOntarioDashboardScreenAdapter(
+    'regionalmanagerontarioRegionalManagerOntarioDashboardScreenAdapter',
+  ),
+  regionalmanagerusaRegionalManagerUsaDashboardScreenAdapter(
+    'regionalmanagerusaRegionalManagerUsaDashboardScreenAdapter',
+  ),
   registerCorporateRiskForm('registerCorporateRiskForm'),
   requestShiftAdjustmentForm('requestShiftAdjustmentForm'),
   reviewCarePlanForm('reviewCarePlanForm'),
@@ -579,8 +681,7 @@ enum PrimeCareForm {
   useUser('useUser'),
   userMenu('userMenu'),
   withRouter('withRouter'),
-  withUser('withUser')
-  ;
+  withUser('withUser');
 
   final String id;
   const PrimeCareForm(this.id);

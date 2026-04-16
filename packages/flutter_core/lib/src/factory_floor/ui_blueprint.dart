@@ -41,10 +41,9 @@ abstract class UIComponentBlueprint {
       case 'stat_card_grid':
         final list = (payload as List<dynamic>?) ?? [];
         return StatGridBlueprint(
-          dataPayload:
-              list
-                  .map((i) => UniversalKpi.fromJson(i as Map<String, dynamic>))
-                  .toList(),
+          dataPayload: list
+              .map((i) => UniversalKpi.fromJson(i as Map<String, dynamic>))
+              .toList(),
         );
       case 'activity_feed':
         return ActivityFeedBlueprint(dataPayload: payload);
@@ -108,7 +107,12 @@ class UniversalKpi {
   }
 
   Map<String, dynamic> toJson() {
-    return {'title': title, 'value': value, 'trend': trend, 'status': status.name};
+    return {
+      'title': title,
+      'value': value,
+      'trend': trend,
+      'status': status.name,
+    };
   }
 }
 

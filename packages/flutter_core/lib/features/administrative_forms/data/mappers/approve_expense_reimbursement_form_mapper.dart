@@ -2,7 +2,9 @@ import '../../domain/models/approve_expense_reimbursement_form_view_model.dart';
 import '../dtos/approve_expense_reimbursement_form_dto.dart';
 
 class ApproveExpenseReimbursementFormMapper {
-  static ApproveExpenseReimbursementFormViewModel fromDto(ApproveExpenseReimbursementFormDto dto) {
+  static ApproveExpenseReimbursementFormViewModel fromDto(
+    ApproveExpenseReimbursementFormDto dto,
+  ) {
     return ApproveExpenseReimbursementFormViewModel(
       expenseId: dto.id ?? '',
       employeeName: dto.employeeName ?? 'Unknown Employee',

@@ -16,15 +16,21 @@ class AuraPulseService {
   void start() {
     _heartbeatTimer?.cancel();
     final telemetry = _ref.read(executionGateProvider);
-    
-    telemetry.passGate(ExecutionGateCategory.auraEngine, 'Aura Heartbeat Service Started');
+
+    telemetry.passGate(
+      ExecutionGateCategory.auraEngine,
+      'Aura Heartbeat Service Started',
+    );
 
     // Emit a stable heartbeat every 10 seconds
     _heartbeatTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
       if (_random.nextDouble() > 0.7) {
         _emitAnomaly();
       } else {
-        telemetry.passGate(ExecutionGateCategory.auraEngine, 'Aura Pulse Stable');
+        telemetry.passGate(
+          ExecutionGateCategory.auraEngine,
+          'Aura Pulse Stable',
+        );
         _controller.add(AuraEvent.stable());
       }
     });
@@ -52,13 +58,15 @@ class AuraPulseService {
         impact: InsightImpact.alert,
         timestamp: DateTime.now(),
       );
-      
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.aura, 
-        'Aura ALERT Event Emitted: ${event.title}',
-        metadata: {'id': event.id, 'type': event.type.name}
-      );
-      
+
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.aura,
+            'Aura ALERT Event Emitted: ${event.title}',
+            metadata: {'id': event.id, 'type': event.type.name},
+          );
+
       _controller.add(event);
     } else if (impactValue > 0.4) {
       // Caution Anomaly
@@ -71,13 +79,15 @@ class AuraPulseService {
         impact: InsightImpact.caution,
         timestamp: DateTime.now(),
       );
-      
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.aura, 
-        'Aura Caution Event Emitted: ${event.title}',
-        metadata: {'id': event.id, 'type': event.type.name}
-      );
-      
+
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.aura,
+            'Aura Caution Event Emitted: ${event.title}',
+            metadata: {'id': event.id, 'type': event.type.name},
+          );
+
       _controller.add(event);
     } else {
       // Info Anomaly
@@ -91,11 +101,13 @@ class AuraPulseService {
         timestamp: DateTime.now(),
       );
 
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.auraEngine, 
-        'Aura Efficiency Event Emitted: ${event.title}',
-        metadata: {'id': event.id}
-      );
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.auraEngine,
+            'Aura Efficiency Event Emitted: ${event.title}',
+            metadata: {'id': event.id},
+          );
 
       _controller.add(event);
     }

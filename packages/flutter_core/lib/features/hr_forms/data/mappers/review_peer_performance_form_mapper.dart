@@ -2,7 +2,9 @@ import '../../domain/models/review_peer_performance_form_view_model.dart';
 import '../dtos/review_peer_performance_form_dto.dart';
 
 class ReviewPeerPerformanceFormMapper {
-  static ReviewPeerPerformanceFormViewModel toViewModel(ReviewPeerPerformanceFormDto dto) {
+  static ReviewPeerPerformanceFormViewModel toViewModel(
+    ReviewPeerPerformanceFormDto dto,
+  ) {
     return ReviewPeerPerformanceFormViewModel(
       isLoading: false,
       isSuccess: true,
@@ -10,9 +12,9 @@ class ReviewPeerPerformanceFormMapper {
     );
   }
 
-  static ReviewPeerPerformanceFormDto toDto(ReviewPeerPerformanceFormViewModel viewModel) {
-    return ReviewPeerPerformanceFormDto(
-      rawData: viewModel.data,
-    );
+  static ReviewPeerPerformanceFormDto toDto(
+    ReviewPeerPerformanceFormViewModel viewModel,
+  ) {
+    return ReviewPeerPerformanceFormDto(rawData: viewModel.data);
   }
 }

@@ -2,7 +2,9 @@ import '../../domain/models/assign_training_module_form_view_model.dart';
 import '../dtos/assign_training_module_form_dto.dart';
 
 class AssignTrainingModuleFormMapper {
-  static AssignTrainingModuleFormViewModel toViewModel(AssignTrainingModuleFormDto dto) {
+  static AssignTrainingModuleFormViewModel toViewModel(
+    AssignTrainingModuleFormDto dto,
+  ) {
     return AssignTrainingModuleFormViewModel(
       isLoading: false,
       isSuccess: true,
@@ -10,9 +12,9 @@ class AssignTrainingModuleFormMapper {
     );
   }
 
-  static AssignTrainingModuleFormDto toDto(AssignTrainingModuleFormViewModel viewModel) {
-    return AssignTrainingModuleFormDto(
-      rawData: viewModel.data,
-    );
+  static AssignTrainingModuleFormDto toDto(
+    AssignTrainingModuleFormViewModel viewModel,
+  ) {
+    return AssignTrainingModuleFormDto(rawData: viewModel.data);
   }
 }

@@ -3,7 +3,6 @@ import 'package:primecare_core/routes/route_guard.dart';
 
 void main() {
   group('RouteGuard Boundary Enforcement Suite', () {
-
     // Seed the RouteGuard with a controlled mock permission subset
     setUp(() {
       RouteGuard.synchronizePermissions({
@@ -64,7 +63,7 @@ void main() {
       final result = RouteGuard.verify(
         requestedRoute: '/common/settings',
         isLoggedIn: true,
-        userRole: 'franchise_owner', 
+        userRole: 'franchise_owner',
       );
       expect(result.isAllowed, isTrue);
     });

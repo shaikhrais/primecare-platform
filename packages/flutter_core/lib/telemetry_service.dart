@@ -71,7 +71,8 @@ class ExecutionGate {
   @override
   String toString() {
     final statusSymbol = status == ExecutionGateStatus.pass ? '✅' : '❌';
-    String base = '[${timestamp.toIso8601String()}] $statusSymbol [${category.displayName}] $message';
+    String base =
+        '[${timestamp.toIso8601String()}] $statusSymbol [${category.displayName}] $message';
     if (metadata != null) {
       base += '\n    META: $metadata';
     }
@@ -89,26 +90,38 @@ class ExecutionGate {
 class ExecutionGateService {
   final Ref _ref;
   final List<ExecutionGate> _gates = [];
-  
+
   /// Maximum number of gate entries to retain in memory.
   /// Prevents OOM on long-running sessions (8+ hour nursing shifts).
   static const int _maxGateEntries = 500;
-  
+
   ExecutionGateService(this._ref);
 
   List<ExecutionGate> get allGates => List.unmodifiable(_gates);
 
-  void passGate(ExecutionGateCategory category, String message, {Map<String, dynamic>? metadata}) {
-    _recordGate(ExecutionGate(
-      timestamp: DateTime.now(),
-      category: category,
-      message: message,
-      status: ExecutionGateStatus.pass,
-      metadata: metadata,
-    ));
+  void passGate(
+    ExecutionGateCategory category,
+    String message, {
+    Map<String, dynamic>? metadata,
+  }) {
+    _recordGate(
+      ExecutionGate(
+        timestamp: DateTime.now(),
+        category: category,
+        message: message,
+        status: ExecutionGateStatus.pass,
+        metadata: metadata,
+      ),
+    );
   }
 
-  void failGate(ExecutionGateCategory category, String message, {Object? error, StackTrace? stackTrace, Map<String, dynamic>? metadata}) {
+  void failGate(
+    ExecutionGateCategory category,
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, dynamic>? metadata,
+  }) {
     final gate = ExecutionGate(
       timestamp: DateTime.now(),
       category: category,
@@ -119,14 +132,14 @@ class ExecutionGateService {
       metadata: metadata,
     );
     _recordGate(gate);
-    
+
     // Automatically trigger crash report for critical failures in production-like environments
     _submitCrashReport(gate);
   }
 
   void _recordGate(ExecutionGate gate) {
     _gates.add(gate);
-    
+
     // Ring buffer: trim oldest entries when capacity exceeded
     if (_gates.length > _maxGateEntries) {
       _gates.removeRange(0, _gates.length - _maxGateEntries);
@@ -157,7 +170,9 @@ class ExecutionGateService {
 
     // Guard 2: Throttle — max N reports per window
     final now = DateTime.now();
-    _crashReportTimestamps.removeWhere((t) => now.difference(t) > _crashReportWindow);
+    _crashReportTimestamps.removeWhere(
+      (t) => now.difference(t) > _crashReportWindow,
+    );
     if (_crashReportTimestamps.length >= _maxCrashReportsPerWindow) return;
 
     _isSubmittingCrashReport = true;
@@ -166,7 +181,7 @@ class ExecutionGateService {
     try {
       final apiClient = _ref.read(apiClientProvider);
       final report = generateAuditReport();
-      
+
       final payload = {
         'timestamp': DateTime.now().toIso8601String(),
         'failedGate': {
@@ -180,7 +195,7 @@ class ExecutionGateService {
       };
 
       await apiClient.post('/telemetry/crash-report', body: payload);
-      
+
       if (kDebugMode) {
         print('PRIMECARE_TELEMETRY: Crash report submitted successfully.');
       }
@@ -207,4 +222,3 @@ class ExecutionGateService {
 final executionGateProvider = Provider<ExecutionGateService>((ref) {
   return ExecutionGateService(ref);
 });
-

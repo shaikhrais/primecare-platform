@@ -7,7 +7,9 @@ class PatientIntakeFormMapper {
       patientId: dto.id ?? '',
       firstName: dto.firstName ?? '',
       lastName: dto.lastName ?? '',
-      dateOfBirth: dto.dateOfBirth != null ? DateTime.tryParse(dto.dateOfBirth!) : null,
+      dateOfBirth: dto.dateOfBirth != null
+          ? DateTime.tryParse(dto.dateOfBirth!)
+          : null,
       healthCardNumber: dto.healthCardNumber ?? '',
       primaryDiagnosis: dto.primaryDiagnosis ?? '',
       allergies: dto.allergies ?? [],

@@ -10,15 +10,15 @@ class AssignLeadFormAdapter extends Notifier<AssignLeadFormViewModel> {
 
   Future<void> assignLead() async {
     state = state.copyWith(isLoading: true);
-    
+
     try {
       // Simulate network delay
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = AssignLeadFormMapper.toDto(state);
       // ignore: avoid_print
       print('Assigning Lead: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false);
@@ -44,5 +44,5 @@ class AssignLeadFormAdapter extends Notifier<AssignLeadFormViewModel> {
 
 final assignLeadFormAdapterProvider =
     NotifierProvider<AssignLeadFormAdapter, AssignLeadFormViewModel>(() {
-  return AssignLeadFormAdapter();
-});
+      return AssignLeadFormAdapter();
+    });

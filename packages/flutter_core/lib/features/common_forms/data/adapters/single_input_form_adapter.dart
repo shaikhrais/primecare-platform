@@ -17,11 +17,11 @@ class SingleInputFormAdapter extends Notifier<SingleInputFormViewModel> {
     try {
       // API call simulated
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = SingleInputFormMapper.toDto(state);
       // ignore: avoid_print
       print('Submitting single input: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false, isSuccess: true);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -33,5 +33,5 @@ class SingleInputFormAdapter extends Notifier<SingleInputFormViewModel> {
 
 final singleInputFormAdapterProvider =
     NotifierProvider<SingleInputFormAdapter, SingleInputFormViewModel>(() {
-  return SingleInputFormAdapter();
-});
+      return SingleInputFormAdapter();
+    });

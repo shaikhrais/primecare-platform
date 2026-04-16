@@ -2,7 +2,9 @@ import '../../domain/models/log_franchisee_vetting_call_form_view_model.dart';
 import '../dtos/log_franchisee_vetting_call_form_dto.dart';
 
 class LogFranchiseeVettingCallFormMapper {
-  static LogFranchiseeVettingCallFormViewModel toViewModel(LogFranchiseeVettingCallFormDto dto) {
+  static LogFranchiseeVettingCallFormViewModel toViewModel(
+    LogFranchiseeVettingCallFormDto dto,
+  ) {
     return LogFranchiseeVettingCallFormViewModel(
       isLoading: false,
       isSuccess: true,
@@ -10,9 +12,9 @@ class LogFranchiseeVettingCallFormMapper {
     );
   }
 
-  static LogFranchiseeVettingCallFormDto toDto(LogFranchiseeVettingCallFormViewModel viewModel) {
-    return LogFranchiseeVettingCallFormDto(
-      rawData: viewModel.data,
-    );
+  static LogFranchiseeVettingCallFormDto toDto(
+    LogFranchiseeVettingCallFormViewModel viewModel,
+  ) {
+    return LogFranchiseeVettingCallFormDto(rawData: viewModel.data);
   }
 }

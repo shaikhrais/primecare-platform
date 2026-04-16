@@ -9,7 +9,9 @@ class IntakeCoordinatorDashboardViewModel extends PrimeCareDashboardViewModel {
     super.blueprints = const [],
   });
 
-  factory IntakeCoordinatorDashboardViewModel.fromJson(Map<String, dynamic> json) {
+  factory IntakeCoordinatorDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     final base = PrimeCareDashboardViewModel.fromJson(json);
     return IntakeCoordinatorDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,
@@ -31,7 +33,9 @@ class IntakeCoordinatorDashboardViewModel extends PrimeCareDashboardViewModel {
     );
   }
 
-  factory IntakeCoordinatorDashboardViewModel.assemble({required bool isOffline}) {
+  factory IntakeCoordinatorDashboardViewModel.assemble({
+    required bool isOffline,
+  }) {
     final base = PrimeCareDashboardViewModel.assemble(isOffline: isOffline);
     return IntakeCoordinatorDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,

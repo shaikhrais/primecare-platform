@@ -34,12 +34,15 @@ void main() {
       expect(errorCalled, isTrue);
     });
 
-    test('getClinicIntelligenceMetrics should return a valid offline fallback model', () {
-      final model = DataLogisticsHub.getClinicIntelligenceMetrics();
+    test(
+      'getClinicIntelligenceMetrics should return a valid offline fallback model',
+      () {
+        final model = DataLogisticsHub.getClinicIntelligenceMetrics();
 
-      expect(model.isOfflineFallback, isTrue);
-      expect(model.blueprints, isNotEmpty);
-      expect(model.blueprints.any((b) => b is StatGridBlueprint), isTrue);
-    });
+        expect(model.isOfflineFallback, isTrue);
+        expect(model.blueprints, isNotEmpty);
+        expect(model.blueprints.any((b) => b is StatGridBlueprint), isTrue);
+      },
+    );
   });
 }

@@ -50,8 +50,10 @@ class DailyVitalsCardFormViewModel {
       patientId: patientId ?? this.patientId,
       temperature: temperature ?? this.temperature,
       heartRate: heartRate ?? this.heartRate,
-      bloodPressureSystolic: bloodPressureSystolic ?? this.bloodPressureSystolic,
-      bloodPressureDiastolic: bloodPressureDiastolic ?? this.bloodPressureDiastolic,
+      bloodPressureSystolic:
+          bloodPressureSystolic ?? this.bloodPressureSystolic,
+      bloodPressureDiastolic:
+          bloodPressureDiastolic ?? this.bloodPressureDiastolic,
       oxygenSaturation: oxygenSaturation ?? this.oxygenSaturation,
       recordedAt: recordedAt ?? this.recordedAt,
     );

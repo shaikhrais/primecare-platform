@@ -77,7 +77,7 @@ class CircuitBreakerInterceptor extends Interceptor {
   final CircuitBreaker breaker;
 
   CircuitBreakerInterceptor({CircuitBreaker? breaker})
-      : breaker = breaker ?? CircuitBreaker();
+    : breaker = breaker ?? CircuitBreaker();
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -109,7 +109,8 @@ class CircuitBreakerInterceptor extends Interceptor {
     // Only count server-side failures, not client errors (4xx)
     final statusCode = err.response?.statusCode;
     final isServerError = statusCode != null && statusCode >= 500;
-    final isNetworkError = err.type == DioExceptionType.connectionTimeout ||
+    final isNetworkError =
+        err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.receiveTimeout ||
         err.type == DioExceptionType.connectionError;
 

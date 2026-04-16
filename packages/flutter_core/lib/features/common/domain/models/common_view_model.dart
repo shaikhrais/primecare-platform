@@ -4,4 +4,3 @@ class CommonViewModel {
 
   const CommonViewModel({required this.title, required this.status});
 }
-

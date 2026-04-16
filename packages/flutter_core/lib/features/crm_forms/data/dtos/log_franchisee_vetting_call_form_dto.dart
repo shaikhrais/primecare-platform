@@ -1,14 +1,10 @@
 class LogFranchiseeVettingCallFormDto {
   final Map<String, dynamic> rawData;
 
-  LogFranchiseeVettingCallFormDto({
-    required this.rawData,
-  });
+  LogFranchiseeVettingCallFormDto({required this.rawData});
 
   factory LogFranchiseeVettingCallFormDto.fromJson(Map<String, dynamic> json) {
-    return LogFranchiseeVettingCallFormDto(
-      rawData: json,
-    );
+    return LogFranchiseeVettingCallFormDto(rawData: json);
   }
 
   Map<String, dynamic> toJson() {

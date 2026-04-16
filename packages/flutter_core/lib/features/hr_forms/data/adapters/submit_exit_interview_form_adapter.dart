@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/submit_exit_interview_form_view_model.dart';
 import '../mappers/submit_exit_interview_form_mapper.dart';
 
-class SubmitExitInterviewFormAdapter extends Notifier<SubmitExitInterviewFormViewModel> {
+class SubmitExitInterviewFormAdapter
+    extends Notifier<SubmitExitInterviewFormViewModel> {
   @override
   SubmitExitInterviewFormViewModel build() {
     return SubmitExitInterviewFormViewModel();
@@ -17,11 +18,11 @@ class SubmitExitInterviewFormAdapter extends Notifier<SubmitExitInterviewFormVie
     try {
       // API call simulated
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = SubmitExitInterviewFormMapper.toDto(state);
       // ignore: avoid_print
       print('Submitting exit interview: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false, isSuccess: true);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -32,6 +33,9 @@ class SubmitExitInterviewFormAdapter extends Notifier<SubmitExitInterviewFormVie
 }
 
 final submitExitInterviewFormAdapterProvider =
-    NotifierProvider<SubmitExitInterviewFormAdapter, SubmitExitInterviewFormViewModel>(() {
-  return SubmitExitInterviewFormAdapter();
-});
+    NotifierProvider<
+      SubmitExitInterviewFormAdapter,
+      SubmitExitInterviewFormViewModel
+    >(() {
+      return SubmitExitInterviewFormAdapter();
+    });

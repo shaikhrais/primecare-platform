@@ -3,7 +3,8 @@ import '../../domain/models/approve_expense_reimbursement_form_view_model.dart';
 import '../dtos/approve_expense_reimbursement_form_dto.dart';
 import '../mappers/approve_expense_reimbursement_form_mapper.dart';
 
-class ApproveExpenseReimbursementFormAdapter extends Notifier<ApproveExpenseReimbursementFormViewModel> {
+class ApproveExpenseReimbursementFormAdapter
+    extends Notifier<ApproveExpenseReimbursementFormViewModel> {
   @override
   ApproveExpenseReimbursementFormViewModel build() {
     return ApproveExpenseReimbursementFormViewModel();
@@ -42,6 +43,9 @@ class ApproveExpenseReimbursementFormAdapter extends Notifier<ApproveExpenseReim
 }
 
 final approveExpenseReimbursementFormAdapterProvider =
-    NotifierProvider<ApproveExpenseReimbursementFormAdapter, ApproveExpenseReimbursementFormViewModel>(() {
-  return ApproveExpenseReimbursementFormAdapter();
-});
+    NotifierProvider<
+      ApproveExpenseReimbursementFormAdapter,
+      ApproveExpenseReimbursementFormViewModel
+    >(() {
+      return ApproveExpenseReimbursementFormAdapter();
+    });

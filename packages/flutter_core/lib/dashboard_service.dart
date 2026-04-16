@@ -148,7 +148,8 @@ class AnalyticsChart {
     final dataPointsRaw =
         json['dataPoints'] ?? json['data_points'] as List<dynamic>? ?? [];
     final forecastRaw =
-        json['forecastDataPoints'] ?? json['forecast_data_points'] as List<dynamic>?;
+        json['forecastDataPoints'] ??
+        json['forecast_data_points'] as List<dynamic>?;
 
     return AnalyticsChart(
       id:
@@ -159,18 +160,14 @@ class AnalyticsChart {
         (e) => e.name == (json['type'] as String? ?? 'bar').toLowerCase(),
         orElse: () => ChartType.bar,
       ),
-      dataPoints:
-          (dataPointsRaw as List)
-              .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
-              .toList(),
-      forecastDataPoints:
-          forecastRaw != null
-              ? (forecastRaw as List)
-                  .map(
-                    (i) => ChartDataPoint.fromJson(i as Map<String, dynamic>),
-                  )
-                  .toList()
-              : null,
+      dataPoints: (dataPointsRaw as List)
+          .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
+          .toList(),
+      forecastDataPoints: forecastRaw != null
+          ? (forecastRaw as List)
+                .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
+                .toList()
+          : null,
       reportId: json['reportId'] as String?,
     );
   }
@@ -200,22 +197,17 @@ class DashboardMetrics {
 
   factory DashboardMetrics.fromJson(Map<String, dynamic> json) {
     return DashboardMetrics(
-      kpis:
-          (json['kpis'] as List)
-              .map((i) => KpiMetric.fromJson(i as Map<String, dynamic>))
-              .toList(),
-      recentActivity:
-          (json['recentActivity'] as List)
-              .map((i) => DashboardActivity.fromJson(i as Map<String, dynamic>))
-              .toList(),
-      charts:
-          json['charts'] != null
-              ? (json['charts'] as List)
-                  .map(
-                    (i) => AnalyticsChart.fromJson(i as Map<String, dynamic>),
-                  )
-                  .toList()
-              : [],
+      kpis: (json['kpis'] as List)
+          .map((i) => KpiMetric.fromJson(i as Map<String, dynamic>))
+          .toList(),
+      recentActivity: (json['recentActivity'] as List)
+          .map((i) => DashboardActivity.fromJson(i as Map<String, dynamic>))
+          .toList(),
+      charts: json['charts'] != null
+          ? (json['charts'] as List)
+                .map((i) => AnalyticsChart.fromJson(i as Map<String, dynamic>))
+                .toList()
+          : [],
     );
   }
 
@@ -249,7 +241,9 @@ class DashboardService {
         final endpoint = ApiConfig.endpoints['providerMetrics']!;
         final response = await _apiClient.get('$endpoint?route=$route');
         if (response.statusCode == 200) {
-          return DashboardMetrics.fromJson(response.data as Map<String, dynamic>);
+          return DashboardMetrics.fromJson(
+            response.data as Map<String, dynamic>,
+          );
         }
         throw Exception('Failed to load metrics: ${response.statusCode}');
       },
@@ -268,19 +262,24 @@ class DashboardService {
   Future<Result<ClinicalIntelligenceViewModel>> getClinicalIntelligence(
     String route,
   ) async {
-    PrimeLogger.clinical('Fetching clinical intelligence', tag: 'DashboardService');
+    PrimeLogger.clinical(
+      'Fetching clinical intelligence',
+      tag: 'DashboardService',
+    );
     return Result.guardFuture<ClinicalIntelligenceViewModel>(
       () async {
-        final response = await _apiClient.get('/clinical-intelligence?route=$route');
-        
+        final response = await _apiClient.get(
+          '/clinical-intelligence?route=$route',
+        );
+
         if (response.statusCode == 200) {
           final data = response.data as Map<String, dynamic>;
           final blueprintsJson = data['blueprints'] as List<dynamic>? ?? [];
-          
+
           final blueprints = blueprintsJson.map((json) {
             final type = json['componentType'] as String;
             final payload = json['dataPayload'];
-            
+
             switch (type) {
               case 'stat_card_grid':
                 return StatGridBlueprint(dataPayload: payload);
@@ -289,25 +288,35 @@ class DashboardService {
               case 'activity_feed':
                 return ActivityFeedBlueprint(dataPayload: payload);
               case 'analytics_chart':
-                final chart = AnalyticsChart.fromJson(payload as Map<String, dynamic>);
+                final chart = AnalyticsChart.fromJson(
+                  payload as Map<String, dynamic>,
+                );
                 return ChartBlueprint(dataPayload: chart);
               case 'financial_rail':
                 final metrics = (payload as List<dynamic>)
-                    .map((m) => FinancialMetric.fromJson(m as Map<String, dynamic>))
+                    .map(
+                      (m) =>
+                          FinancialMetric.fromJson(m as Map<String, dynamic>),
+                    )
                     .toList();
                 return FinancialRailBlueprint(dataPayload: metrics);
               case 'aura_dashboard_hud':
                 return AuraDashboardHudBlueprint(dataPayload: payload);
               default:
-                PrimeLogger.warning('Unknown blueprint type: $type', tag: 'DashboardService');
+                PrimeLogger.warning(
+                  'Unknown blueprint type: $type',
+                  tag: 'DashboardService',
+                );
                 return StatGridBlueprint(dataPayload: payload); // Fallback
             }
           }).toList();
 
           return ClinicalIntelligenceViewModel(blueprints: blueprints);
         }
-        
-        throw Exception('Failed to load clinical intelligence: ${response.statusCode}');
+
+        throw Exception(
+          'Failed to load clinical intelligence: ${response.statusCode}',
+        );
       },
       onError: (e, st) {
         PrimeLogger.error(

@@ -1,7 +1,8 @@
 import '../../../common/domain/models/primecare_dashboard_view_model.dart';
 import '../../../../dashboard_service.dart';
 
-class SchedulerCoordinatorDashboardViewModel extends PrimeCareDashboardViewModel {
+class SchedulerCoordinatorDashboardViewModel
+    extends PrimeCareDashboardViewModel {
   const SchedulerCoordinatorDashboardViewModel({
     super.isOfflineFallback = false,
     super.kpis = const [],
@@ -9,7 +10,9 @@ class SchedulerCoordinatorDashboardViewModel extends PrimeCareDashboardViewModel
     super.blueprints = const [],
   });
 
-  factory SchedulerCoordinatorDashboardViewModel.fromJson(Map<String, dynamic> json) {
+  factory SchedulerCoordinatorDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     final base = PrimeCareDashboardViewModel.fromJson(json);
     return SchedulerCoordinatorDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,
@@ -31,7 +34,9 @@ class SchedulerCoordinatorDashboardViewModel extends PrimeCareDashboardViewModel
     );
   }
 
-  factory SchedulerCoordinatorDashboardViewModel.assemble({required bool isOffline}) {
+  factory SchedulerCoordinatorDashboardViewModel.assemble({
+    required bool isOffline,
+  }) {
     final base = PrimeCareDashboardViewModel.assemble(isOffline: isOffline);
     return SchedulerCoordinatorDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,

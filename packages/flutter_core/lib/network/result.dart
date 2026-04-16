@@ -2,12 +2,13 @@
 /// Use this to replace try-catch blocks with data-driven error handling.
 sealed class Result<T> {
   final DateTime timestamp = DateTime.now();
-  
+
   bool get isSuccess => this is Success<T>;
   bool get isFailure => this is Failure<T>;
 
   T? get dataOrNull => this is Success<T> ? (this as Success<T>).data : null;
-  Object? get errorOrNull => this is Failure<T> ? (this as Failure<T>).error : null;
+  Object? get errorOrNull =>
+      this is Failure<T> ? (this as Failure<T>).error : null;
 
   /// Transformation utility for result handling.
   R fold<R>(R Function(T data) onSuccess, R Function(Object error) onFailure) {
@@ -18,7 +19,7 @@ sealed class Result<T> {
     }
   }
 
-  /// Deterministically guards a future operation and executes an optional 
+  /// Deterministically guards a future operation and executes an optional
   /// recovery block (e.g., LKG restoration) on failure.
   static Future<Result<T>> guardFuture<T>(
     Future<T> Function() computation, {

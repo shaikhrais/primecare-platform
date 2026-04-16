@@ -68,7 +68,7 @@ class RetryInterceptor extends Interceptor {
   final RetryPolicy policy;
 
   RetryInterceptor({required this.dio, RetryPolicy? policy})
-      : policy = policy ?? const RetryPolicy();
+    : policy = policy ?? const RetryPolicy();
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {

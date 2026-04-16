@@ -26,7 +26,7 @@ class RouteGuard {
     // Business Development
     'regional_manager': ['/bd', '/common'],
     'franchise_sales': ['/bd', '/common'],
-    
+
     // Franchise Tier
     'franchise_owner': ['/franchise', '/common'],
     'operations_manager': ['/franchise', '/common'],
@@ -53,7 +53,9 @@ class RouteGuard {
   };
 
   /// Dynamically synchronizes permissions from the backend payload.
-  static void synchronizePermissions(Map<String, List<String>> dynamicPermissions) {
+  static void synchronizePermissions(
+    Map<String, List<String>> dynamicPermissions,
+  ) {
     if (dynamicPermissions.isNotEmpty) {
       _rolePermissions = dynamicPermissions;
     }
@@ -67,19 +69,25 @@ class RouteGuard {
     required String? userRole,
   }) {
     // 1. Allow unconditionally public routes.
-    if (requestedRoute == CommonRoutes.login || 
+    if (requestedRoute == CommonRoutes.login ||
         requestedRoute == CommonRoutes.signup ||
         requestedRoute == CommonRoutes.forgotPassword ||
         requestedRoute == '/') {
-      
       // If logged in and trying to hit public unauthenticated routes, redirect to dashboard.
       if (isLoggedIn) {
-        // Technically, the dashboard needs resolving. In the router integration, 
+        // Technically, the dashboard needs resolving. In the router integration,
         // we'll handle dashboard resolution. Here we return not allowed.
-        _log(requestedRoute, userRole, isLoggedIn, 'Blocked (Logged in user accessing public route)');
-        return GuardResult(false); // Router should pick this up and redirect to dashboard.
+        _log(
+          requestedRoute,
+          userRole,
+          isLoggedIn,
+          'Blocked (Logged in user accessing public route)',
+        );
+        return GuardResult(
+          false,
+        ); // Router should pick this up and redirect to dashboard.
       }
-      
+
       _log(requestedRoute, userRole, isLoggedIn, 'Allowed (Public Route)');
       return GuardResult(true);
     }
@@ -97,8 +105,11 @@ class RouteGuard {
     }
 
     // Normalize role string (lower-cased and replacing spaces)
-    final normalizedRole = userRole.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
-    
+    final normalizedRole = userRole
+        .toLowerCase()
+        .replaceAll(' ', '_')
+        .replaceAll('/', '_');
+
     // Find the closest matching role prefix list
     List<String> allowedPrefixes = [];
     for (final role in _rolePermissions.keys) {
@@ -112,7 +123,7 @@ class RouteGuard {
     if (allowedPrefixes.isEmpty) {
       _log(requestedRoute, userRole, isLoggedIn, 'Blocked (Role Unregistered)');
       // You can redirect to an "unauthorized" fallback screen.
-      return GuardResult(false, redirectRoute: CommonRoutes.login); 
+      return GuardResult(false, redirectRoute: CommonRoutes.login);
     }
 
     // 4. Validate bounds: Does the requested route fall within allowed prefixes?
@@ -128,16 +139,26 @@ class RouteGuard {
       _log(requestedRoute, userRole, isLoggedIn, 'Allowed');
       return GuardResult(true);
     } else {
-      _log(requestedRoute, userRole, isLoggedIn, 'Blocked (Unauthorized Role Boundary)');
+      _log(
+        requestedRoute,
+        userRole,
+        isLoggedIn,
+        'Blocked (Unauthorized Role Boundary)',
+      );
       // For cross-boundary attempts, push back to a generic safe area or fail safe.
-      return GuardResult(false, redirectRoute: '/common/settings'); // Or an unauthorized screen
+      return GuardResult(
+        false,
+        redirectRoute: '/common/settings',
+      ); // Or an unauthorized screen
     }
   }
 
   /// Internal logger
   static void _log(String route, String? role, bool isLoggedIn, String result) {
     if (kDebugMode) {
-      print('🛡️ [RouteGuard] Auth: $isLoggedIn | Role: ${role ?? "None"} | Target: $route => $result');
+      print(
+        '🛡️ [RouteGuard] Auth: $isLoggedIn | Role: ${role ?? "None"} | Target: $route => $result',
+      );
     }
   }
 }

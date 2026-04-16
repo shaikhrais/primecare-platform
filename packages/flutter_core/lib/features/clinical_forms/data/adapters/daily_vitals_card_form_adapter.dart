@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/daily_vitals_card_form_view_model.dart';
 import '../mappers/daily_vitals_card_form_mapper.dart';
 
-class DailyVitalsCardFormAdapter extends Notifier<DailyVitalsCardFormViewModel> {
+class DailyVitalsCardFormAdapter
+    extends Notifier<DailyVitalsCardFormViewModel> {
   @override
   DailyVitalsCardFormViewModel build() {
     return DailyVitalsCardFormViewModel();
@@ -10,15 +11,15 @@ class DailyVitalsCardFormAdapter extends Notifier<DailyVitalsCardFormViewModel> 
 
   Future<void> saveVitals() async {
     state = state.copyWith(isLoading: true);
-    
+
     try {
       // Simulate network delay
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = DailyVitalsCardFormMapper.toDto(state);
       // ignore: avoid_print
       print('Saving Daily Vitals: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false);
@@ -45,6 +46,8 @@ class DailyVitalsCardFormAdapter extends Notifier<DailyVitalsCardFormViewModel> 
 }
 
 final dailyVitalsCardFormAdapterProvider =
-    NotifierProvider<DailyVitalsCardFormAdapter, DailyVitalsCardFormViewModel>(() {
-  return DailyVitalsCardFormAdapter();
-});
+    NotifierProvider<DailyVitalsCardFormAdapter, DailyVitalsCardFormViewModel>(
+      () {
+        return DailyVitalsCardFormAdapter();
+      },
+    );

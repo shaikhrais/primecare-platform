@@ -2,7 +2,9 @@ import '../../domain/models/review_lead_conversion_form_view_model.dart';
 import '../dtos/review_lead_conversion_form_dto.dart';
 
 class ReviewLeadConversionFormMapper {
-  static ReviewLeadConversionFormViewModel toViewModel(ReviewLeadConversionFormDto dto) {
+  static ReviewLeadConversionFormViewModel toViewModel(
+    ReviewLeadConversionFormDto dto,
+  ) {
     return ReviewLeadConversionFormViewModel(
       isLoading: false,
       isSuccess: true,
@@ -10,9 +12,9 @@ class ReviewLeadConversionFormMapper {
     );
   }
 
-  static ReviewLeadConversionFormDto toDto(ReviewLeadConversionFormViewModel viewModel) {
-    return ReviewLeadConversionFormDto(
-      rawData: viewModel.data,
-    );
+  static ReviewLeadConversionFormDto toDto(
+    ReviewLeadConversionFormViewModel viewModel,
+  ) {
+    return ReviewLeadConversionFormDto(rawData: viewModel.data);
   }
 }

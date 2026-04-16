@@ -15,7 +15,9 @@ class ApproveExpenseReimbursementFormDto {
     this.status,
   });
 
-  factory ApproveExpenseReimbursementFormDto.fromJson(Map<String, dynamic> json) {
+  factory ApproveExpenseReimbursementFormDto.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return ApproveExpenseReimbursementFormDto(
       id: json['id'] as String?,
       employeeName: json['employeeName'] as String?,

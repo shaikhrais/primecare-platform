@@ -12,34 +12,37 @@ final dashboardServiceProvider = Provider<DashboardService>((ref) {
 });
 
 final clinicIntelligenceProvider =
-    FutureProvider.family<ClinicalIntelligenceViewModel, String>((ref, route) async {
-  final service = ref.watch(dashboardServiceProvider);
-  final telemetry = ref.read(executionGateProvider);
+    FutureProvider.family<ClinicalIntelligenceViewModel, String>((
+      ref,
+      route,
+    ) async {
+      final service = ref.watch(dashboardServiceProvider);
+      final telemetry = ref.read(executionGateProvider);
 
-  final serviceResult = await service.getClinicalIntelligence(route);
-  return serviceResult.fold(
-    (data) {
-      telemetry.passGate(
-        ExecutionGateCategory.metricsLayer,
-        'Hydrated clinical intelligence for: $route',
+      final serviceResult = await service.getClinicalIntelligence(route);
+      return serviceResult.fold(
+        (data) {
+          telemetry.passGate(
+            ExecutionGateCategory.metricsLayer,
+            'Hydrated clinical intelligence for: $route',
+          );
+          return data;
+        },
+        (error) {
+          telemetry.failGate(
+            ExecutionGateCategory.metricsLayer,
+            'Clinical intelligence hydration failed for: $route',
+            error: error,
+          );
+          PrimeLogger.error(
+            'Failed to fetch clinical intelligence',
+            error: error,
+            tag: 'ClinicIntelligenceProvider',
+          );
+          return DataLogisticsHub.getClinicIntelligenceMetrics();
+        },
       );
-      return data;
-    },
-    (error) {
-      telemetry.failGate(
-        ExecutionGateCategory.metricsLayer,
-        'Clinical intelligence hydration failed for: $route',
-        error: error,
-      );
-      PrimeLogger.error(
-        'Failed to fetch clinical intelligence',
-        error: error,
-        tag: 'ClinicIntelligenceProvider',
-      );
-      return DataLogisticsHub.getClinicIntelligenceMetrics();
-    },
-  );
-});
+    });
 
 // Using a family provider to support fetching distinct metrics per route/role with resilient hydration
 final dashboardMetricsProvider =

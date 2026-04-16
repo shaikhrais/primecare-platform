@@ -10,22 +10,29 @@ class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
   Future<HorizonSchedule> build() async {
     final telemetry = ref.read(executionGateProvider);
     final service = ref.watch(schedulerServiceProvider);
-    
-    telemetry.passGate(ExecutionGateCategory.scheduler, 'Hydrating Horizon Schedule');
+
+    telemetry.passGate(
+      ExecutionGateCategory.scheduler,
+      'Hydrating Horizon Schedule',
+    );
     try {
       final schedule = await service.getHorizonSchedule();
-      telemetry.passGate(ExecutionGateCategory.scheduler, 'Horizon Schedule Hydrated', metadata: {
-        'apptCount': schedule.appointments.length,
-        'staffCount': schedule.staff.length,
-      });
+      telemetry.passGate(
+        ExecutionGateCategory.scheduler,
+        'Horizon Schedule Hydrated',
+        metadata: {
+          'apptCount': schedule.appointments.length,
+          'staffCount': schedule.staff.length,
+        },
+      );
       return schedule;
     } catch (e, stack) {
       telemetry.failGate(
-        ExecutionGateCategory.scheduler, 
-        'Failed to hydrate Horizon Schedule', 
-        error: e, 
+        ExecutionGateCategory.scheduler,
+        'Failed to hydrate Horizon Schedule',
+        error: e,
         stackTrace: stack,
-        metadata: {'error': e.toString()}
+        metadata: {'error': e.toString()},
       );
       rethrow;
     }
@@ -36,20 +43,34 @@ class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
     final oldState = state.value;
     if (oldState == null) return;
 
-    telemetry.passGate(ExecutionGateCategory.scheduler, 'Initiating Optimistic Appointment Add', metadata: {'apptId': appt.id});
+    telemetry.passGate(
+      ExecutionGateCategory.scheduler,
+      'Initiating Optimistic Appointment Add',
+      metadata: {'apptId': appt.id},
+    );
 
     // Optimistic Update
     state = AsyncData(
       oldState.copyWith(appointments: [...oldState.appointments, appt]),
     );
 
-    final result = await ref.read(schedulerServiceProvider).createAppointment(appt);
+    final result = await ref
+        .read(schedulerServiceProvider)
+        .createAppointment(appt);
     result.fold(
       (_) {
-        telemetry.passGate(ExecutionGateCategory.scheduler, 'Appointment Persisted Successfully', metadata: {'apptId': appt.id});
+        telemetry.passGate(
+          ExecutionGateCategory.scheduler,
+          'Appointment Persisted Successfully',
+          metadata: {'apptId': appt.id},
+        );
       },
       (error) {
-        telemetry.failGate(ExecutionGateCategory.scheduler, 'Appointment Persistence Failed - Rolling Back', metadata: {'error': error.toString()});
+        telemetry.failGate(
+          ExecutionGateCategory.scheduler,
+          'Appointment Persistence Failed - Rolling Back',
+          metadata: {'error': error.toString()},
+        );
         // Rollback on error
         state = AsyncData(oldState);
       },
@@ -69,13 +90,12 @@ class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
       ),
     );
 
-    final result = await ref.read(schedulerServiceProvider).updateAppointment(appt);
-    result.fold(
-      (_) {},
-      (_) {
-        state = AsyncData(oldState);
-      },
-    );
+    final result = await ref
+        .read(schedulerServiceProvider)
+        .updateAppointment(appt);
+    result.fold((_) {}, (_) {
+      state = AsyncData(oldState);
+    });
   }
 
   Future<void> deleteAppointment(String id) async {
@@ -89,13 +109,12 @@ class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
       ),
     );
 
-    final result = await ref.read(schedulerServiceProvider).deleteAppointment(id);
-    result.fold(
-      (_) {},
-      (_) {
-        state = AsyncData(oldState);
-      },
-    );
+    final result = await ref
+        .read(schedulerServiceProvider)
+        .deleteAppointment(id);
+    result.fold((_) {}, (_) {
+      state = AsyncData(oldState);
+    });
   }
 }
 
@@ -104,14 +123,17 @@ final horizonScheduleProvider =
       return HorizonScheduleNotifier();
     });
 
-final historicalAnalyticsProvider = Provider.family<double, String>((ref, staffId) {
+final historicalAnalyticsProvider = Provider.family<double, String>((
+  ref,
+  staffId,
+) {
   try {
     // Deterministic simulation based on ID hash
     final hash = staffId.hashCode.abs();
     // Generate a multiplier between 0.8 and 1.4
-    final variance = (hash % 60) / 100.0; 
+    final variance = (hash % 60) / 100.0;
     final result = 0.8 + variance;
-    
+
     // Bounds validation checkpoint to prevent dynamic scaling errors
     if (result.isNaN || result.isInfinite) return 1.0;
     return result.clamp(0.5, 2.0);
@@ -144,25 +166,29 @@ final staffPressureProvider = Provider.family<SchedulePressure, String>((
       .length;
 
   final historicalMultiplier = ref.watch(historicalAnalyticsProvider(staffId));
-  
+
   // Safe computation checkpoint
   double effectiveLoad = 0.0;
   try {
     effectiveLoad = apptCount * historicalMultiplier;
     if (effectiveLoad.isNaN || effectiveLoad.isInfinite) {
-      ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.scheduler, 
-        'Pressure Computation Invalid - NaN/Infinite detected',
-        metadata: {'staffId': staffId, 'load': effectiveLoad}
-      );
+      ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.scheduler,
+            'Pressure Computation Invalid - NaN/Infinite detected',
+            metadata: {'staffId': staffId, 'load': effectiveLoad},
+          );
       effectiveLoad = apptCount.toDouble();
     }
   } catch (e) {
-    ref.read(executionGateProvider).failGate(
-      ExecutionGateCategory.scheduler, 
-      'Pressure Computation Error',
-      metadata: {'staffId': staffId, 'error': e.toString()}
-    );
+    ref
+        .read(executionGateProvider)
+        .failGate(
+          ExecutionGateCategory.scheduler,
+          'Pressure Computation Error',
+          metadata: {'staffId': staffId, 'error': e.toString()},
+        );
     effectiveLoad = apptCount.toDouble();
   }
 
@@ -185,11 +211,15 @@ final schedulerAnomalyProvider = Provider<List<AuraEvent>>((ref) {
         .where((a) => a.staffId == staff.id)
         .toList();
     if (appts.length > 6) {
-      telemetry.passGate(ExecutionGateCategory.aura, 'Burnout Anomaly Detected', metadata: {'staffId': staff.id});
+      telemetry.passGate(
+        ExecutionGateCategory.aura,
+        'Burnout Anomaly Detected',
+        metadata: {'staffId': staff.id},
+      );
       anomalies.add(
         AuraEvent(
           id: 'burnout_${staff.id}',
-// ... rest of the code ...
+          // ... rest of the code ...
           type: AuraEventType.workforceEfficiency,
           title: 'Critical Burnout Risk',
           description:

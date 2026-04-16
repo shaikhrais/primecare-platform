@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/request_shift_adjustment_form_view_model.dart';
 import '../mappers/request_shift_adjustment_form_mapper.dart';
 
-class RequestShiftAdjustmentFormAdapter extends Notifier<RequestShiftAdjustmentFormViewModel> {
+class RequestShiftAdjustmentFormAdapter
+    extends Notifier<RequestShiftAdjustmentFormViewModel> {
   @override
   RequestShiftAdjustmentFormViewModel build() {
     return RequestShiftAdjustmentFormViewModel();
@@ -17,11 +18,11 @@ class RequestShiftAdjustmentFormAdapter extends Notifier<RequestShiftAdjustmentF
     try {
       // API call simulated
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = RequestShiftAdjustmentFormMapper.toDto(state);
       // ignore: avoid_print
       print('Requesting shift adjustment: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false, isSuccess: true);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -32,6 +33,9 @@ class RequestShiftAdjustmentFormAdapter extends Notifier<RequestShiftAdjustmentF
 }
 
 final requestShiftAdjustmentFormAdapterProvider =
-    NotifierProvider<RequestShiftAdjustmentFormAdapter, RequestShiftAdjustmentFormViewModel>(() {
-  return RequestShiftAdjustmentFormAdapter();
-});
+    NotifierProvider<
+      RequestShiftAdjustmentFormAdapter,
+      RequestShiftAdjustmentFormViewModel
+    >(() {
+      return RequestShiftAdjustmentFormAdapter();
+    });

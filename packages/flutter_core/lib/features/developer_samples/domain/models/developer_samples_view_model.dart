@@ -4,4 +4,3 @@ class DeveloperSamplesViewModel {
 
   const DeveloperSamplesViewModel({required this.title, required this.status});
 }
-

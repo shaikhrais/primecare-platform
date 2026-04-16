@@ -19,7 +19,9 @@ class HrHiringDashboardViewModel extends PrimeCareDashboardViewModel {
     );
   }
 
-  factory HrHiringDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+  factory HrHiringDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
     final base = PrimeCareDashboardViewModel.fromDashboardMetrics(metrics);
     return HrHiringDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,

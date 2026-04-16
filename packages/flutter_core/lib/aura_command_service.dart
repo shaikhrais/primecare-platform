@@ -8,138 +8,144 @@ class AuraCommandService {
       final lowerQuery = query.toLowerCase();
 
       // Scheduling / Reassignment intents
-      if (lowerQuery.contains('reassign') || lowerQuery.contains('schedule') || lowerQuery.contains('move')) {
-        final targetResource = lowerQuery.replaceAll(RegExp(r'(reassign|schedule|move|to|from)'), '').trim();
+      if (lowerQuery.contains('reassign') ||
+          lowerQuery.contains('schedule') ||
+          lowerQuery.contains('move')) {
+        final targetResource = lowerQuery
+            .replaceAll(RegExp(r'(reassign|schedule|move|to|from)'), '')
+            .trim();
         return AuraIntent(
           id: 'aura_reassign_${DateTime.now().millisecondsSinceEpoch}',
           rawQuery: query,
           title: 'Schedule Reallocation',
           description: 'Initiating smart reassignment for $targetResource.',
           actions: [
-            AuraAction(
-              type: AuraActionType.reassign,
-              target: targetResource,
+            AuraAction(type: AuraActionType.reassign, target: targetResource),
+          ],
+        );
+      }
+
+      // Snooze intents
+      if (lowerQuery.contains('snooze') ||
+          lowerQuery.contains('quiet') ||
+          lowerQuery.contains('mute')) {
+        return AuraIntent(
+          id: 'aura_snooze_${DateTime.now().millisecondsSinceEpoch}',
+          rawQuery: query,
+          title: 'Snooze Aura Alerts',
+          description: 'Silencing HUD anomaly alerts temporarily.',
+          actions: [const AuraAction(type: AuraActionType.snooze, target: '')],
+        );
+      }
+
+      // Navigation Scents to ScreenRegistry
+      if (lowerQuery.contains('revenue') ||
+          lowerQuery.contains('billing') ||
+          lowerQuery.contains('finance')) {
+        return AuraIntent(
+          id: 'aura_nav_finance_${DateTime.now().millisecondsSinceEpoch}',
+          rawQuery: query,
+          title: 'Analyze Financial Trajectory',
+          description: 'Navigating to the CFO Financial Overview dashboard.',
+          actions: [
+            const AuraAction(
+              type: AuraActionType.navigate,
+              target:
+                  '/offices/corporate/roles/cfo/financial-overview', // cfoFinancialOverview
             ),
           ],
         );
       }
 
-    // Snooze intents
-    if (lowerQuery.contains('snooze') || lowerQuery.contains('quiet') || lowerQuery.contains('mute')) {
-      return AuraIntent(
-        id: 'aura_snooze_${DateTime.now().millisecondsSinceEpoch}',
-        rawQuery: query,
-        title: 'Snooze Aura Alerts',
-        description: 'Silencing HUD anomaly alerts temporarily.',
-        actions: [
-          const AuraAction(
-            type: AuraActionType.snooze,
-            target: '',
-          ),
-        ],
-      );
-    }
+      if (lowerQuery.contains('staff') ||
+          lowerQuery.contains('resource') ||
+          lowerQuery.contains('nurses')) {
+        return AuraIntent(
+          id: 'aura_nav_staffing_${DateTime.now().millisecondsSinceEpoch}',
+          rawQuery: query,
+          title: 'Review Staffing Allocation',
+          description: 'Navigating to COO Staffing Efficiency dashboard.',
+          actions: [
+            const AuraAction(
+              type: AuraActionType.navigate,
+              target:
+                  '/offices/corporate/roles/coo/staffing-efficiency', // cooStaffingEfficiency
+            ),
+          ],
+        );
+      }
 
-    // Navigation Scents to ScreenRegistry
-    if (lowerQuery.contains('revenue') || lowerQuery.contains('billing') || lowerQuery.contains('finance')) {
-      return AuraIntent(
-        id: 'aura_nav_finance_${DateTime.now().millisecondsSinceEpoch}',
-        rawQuery: query,
-        title: 'Analyze Financial Trajectory',
-        description: 'Navigating to the CFO Financial Overview dashboard.',
-        actions: [
-          const AuraAction(
-            type: AuraActionType.navigate,
-            target: '/offices/corporate/roles/cfo/financial-overview', // cfoFinancialOverview
-          ),
-        ],
-      );
-    }
+      if (lowerQuery.contains('occupancy') ||
+          lowerQuery.contains('ward') ||
+          lowerQuery.contains('bed')) {
+        return AuraIntent(
+          id: 'aura_nav_scheduler_${DateTime.now().millisecondsSinceEpoch}',
+          rawQuery: query,
+          title: 'Occupancy Volume Synthesis',
+          description: 'Navigating to the Institutional Scheduler.',
+          actions: [
+            const AuraAction(
+              type: AuraActionType.navigate,
+              target: '/institutional/scheduler', // institutionalScheduler
+            ),
+          ],
+        );
+      }
 
-    if (lowerQuery.contains('staff') || lowerQuery.contains('resource') || lowerQuery.contains('nurses')) {
-      return AuraIntent(
-        id: 'aura_nav_staffing_${DateTime.now().millisecondsSinceEpoch}',
-        rawQuery: query,
-        title: 'Review Staffing Allocation',
-        description: 'Navigating to COO Staffing Efficiency dashboard.',
-        actions: [
-          const AuraAction(
-            type: AuraActionType.navigate,
-            target: '/offices/corporate/roles/coo/staffing-efficiency', // cooStaffingEfficiency
-          ),
-        ],
-      );
-    }
+      if (lowerQuery.contains('icu') || lowerQuery.contains('report')) {
+        return AuraIntent(
+          id: 'aura_nav_log_${DateTime.now().millisecondsSinceEpoch}',
+          rawQuery: query,
+          title: 'Drill Down Log',
+          description: 'Navigating to the default institutional log reports.',
+          actions: [
+            const AuraAction(
+              type: AuraActionType.navigate,
+              target:
+                  'revenue_log', // Fallback to PrimeCareReportScreen if not a route
+            ),
+          ],
+        );
+      }
 
-    if (lowerQuery.contains('occupancy') || lowerQuery.contains('ward') || lowerQuery.contains('bed')) {
-      return AuraIntent(
-        id: 'aura_nav_scheduler_${DateTime.now().millisecondsSinceEpoch}',
-        rawQuery: query,
-        title: 'Occupancy Volume Synthesis',
-        description: 'Navigating to the Institutional Scheduler.',
-        actions: [
-          const AuraAction(
-            type: AuraActionType.navigate,
-            target: '/institutional/scheduler', // institutionalScheduler
-          ),
-        ],
-      );
-    }
-    
-    if (lowerQuery.contains('icu') || lowerQuery.contains('report')) {
-      return AuraIntent(
-        id: 'aura_nav_log_${DateTime.now().millisecondsSinceEpoch}',
-        rawQuery: query,
-        title: 'Drill Down Log',
-        description: 'Navigating to the default institutional log reports.',
-        actions: [
-          const AuraAction(
-            type: AuraActionType.navigate,
-            target: 'revenue_log', // Fallback to PrimeCareReportScreen if not a route
-          ),
-        ],
-      );
-    }
+      // Generic Performance Scents
+      if (lowerQuery.contains('trend') ||
+          lowerQuery.contains('performance') ||
+          lowerQuery.contains('how is')) {
+        return AuraIntent(
+          id: 'aura_nav_pulse_${DateTime.now().millisecondsSinceEpoch}',
+          rawQuery: query,
+          title: 'Institutional Pulse Check',
+          description: 'Navigating to the Global Platform Overview dashboard.',
+          actions: [
+            const AuraAction(
+              type: AuraActionType.navigate,
+              target: '/offices/corporate/roles/ceo/dashboard', // ceoDashboard
+            ),
+          ],
+        );
+      }
 
-    // Generic Performance Scents
-    if (lowerQuery.contains('trend') || lowerQuery.contains('performance') || lowerQuery.contains('how is')) {
+      // Unknown Trigger
       return AuraIntent(
-        id: 'aura_nav_pulse_${DateTime.now().millisecondsSinceEpoch}',
+        id: 'aura_unknown_${DateTime.now().millisecondsSinceEpoch}',
         rawQuery: query,
-        title: 'Institutional Pulse Check',
-        description: 'Navigating to the Global Platform Overview dashboard.',
-        actions: [
-          const AuraAction(
-            type: AuraActionType.navigate, 
-            target: '/offices/corporate/roles/ceo/dashboard', // ceoDashboard
-          ),
-        ],
+        title: 'Synthesizing Query...',
+        description:
+            'Aura is searching for the relevant institutional context for "$query".',
+        actions: [],
+        confidence: 0.0,
       );
-    }
-
-    // Unknown Trigger
-    return AuraIntent(
-      id: 'aura_unknown_${DateTime.now().millisecondsSinceEpoch}',
-      rawQuery: query,
-      title: 'Synthesizing Query...',
-      description: 'Aura is searching for the relevant institutional context for "$query".',
-      actions: [],
-      confidence: 0.0,
-    );
     } catch (e) {
-      // Checkpoint: Gracefully handle any dynamic parsing failures, ensuring the UI 
+      // Checkpoint: Gracefully handle any dynamic parsing failures, ensuring the UI
       // receives a safe standard state rather than a crash from null values.
       return AuraIntent(
         id: 'aura_error_${DateTime.now().millisecondsSinceEpoch}',
         rawQuery: query,
         title: 'Query Interrupted',
-        description: 'Aura encountered a dynamic boundary issue and safely aborted the query.',
-        actions: const [
-          AuraAction(
-            type: AuraActionType.unknown,
-            target: '',
-          ),
-        ],
+        description:
+            'Aura encountered a dynamic boundary issue and safely aborted the query.',
+        actions: const [AuraAction(type: AuraActionType.unknown, target: '')],
         confidence: 0.0,
       );
     }

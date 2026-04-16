@@ -2,7 +2,9 @@ import '../../domain/models/approve_medication_refill_form_view_model.dart';
 import '../dtos/approve_medication_refill_form_dto.dart';
 
 class ApproveMedicationRefillFormMapper {
-  static ApproveMedicationRefillFormViewModel fromDto(ApproveMedicationRefillFormDto dto) {
+  static ApproveMedicationRefillFormViewModel fromDto(
+    ApproveMedicationRefillFormDto dto,
+  ) {
     return ApproveMedicationRefillFormViewModel(
       requestRefillId: dto.id ?? '',
       patientId: dto.patientId ?? '',
@@ -14,7 +16,9 @@ class ApproveMedicationRefillFormMapper {
     );
   }
 
-  static ApproveMedicationRefillFormDto toDto(ApproveMedicationRefillFormViewModel model) {
+  static ApproveMedicationRefillFormDto toDto(
+    ApproveMedicationRefillFormViewModel model,
+  ) {
     return ApproveMedicationRefillFormDto(
       id: model.requestRefillId.isEmpty ? null : model.requestRefillId,
       patientId: model.patientId,

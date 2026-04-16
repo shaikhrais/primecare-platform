@@ -7,7 +7,7 @@ import '../../telemetry_service.dart';
 /// Provides deterministic fallback snapshots for when network resources are unavailable.
 class ResilienceService {
   final Ref _ref;
-  
+
   ResilienceService(this._ref);
 
   static const String _lkgPrefix = 'lkg_snapshot_';
@@ -19,19 +19,23 @@ class ResilienceService {
       if (prefs == null) return;
 
       await prefs.setString('$_lkgPrefix$key', jsonEncode(data));
-      
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.resource,
-        'Resilience: LKG Snapshot Persisted: $key',
-        metadata: {'timestamp': DateTime.now().toIso8601String()},
-      );
+
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.resource,
+            'Resilience: LKG Snapshot Persisted: $key',
+            metadata: {'timestamp': DateTime.now().toIso8601String()},
+          );
     } catch (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.resource,
-        'Resilience: Failed to persist LKG snapshot: $key',
-        error: e,
-        stackTrace: stack,
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.resource,
+            'Resilience: Failed to persist LKG snapshot: $key',
+            error: e,
+            stackTrace: stack,
+          );
     }
   }
 
@@ -44,19 +48,23 @@ class ResilienceService {
       final raw = prefs.getString('$_lkgPrefix$key');
       if (raw == null) return null;
 
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.resource,
-        'Resilience: LKG Snapshot Restored: $key',
-      );
-      
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.resource,
+            'Resilience: LKG Snapshot Restored: $key',
+          );
+
       return jsonDecode(raw) as Map<String, dynamic>;
     } catch (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.resource,
-        'Resilience: Memory Corruption in LKG snapshot: $key',
-        error: e,
-        stackTrace: stack,
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.resource,
+            'Resilience: Memory Corruption in LKG snapshot: $key',
+            error: e,
+            stackTrace: stack,
+          );
       return null;
     }
   }

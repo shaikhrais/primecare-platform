@@ -9,7 +9,9 @@ class RegionalManagerUsaDashboardViewModel extends PrimeCareDashboardViewModel {
     super.blueprints = const [],
   });
 
-  factory RegionalManagerUsaDashboardViewModel.fromJson(Map<String, dynamic> json) {
+  factory RegionalManagerUsaDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     final base = PrimeCareDashboardViewModel.fromJson(json);
     return RegionalManagerUsaDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,
@@ -31,7 +33,9 @@ class RegionalManagerUsaDashboardViewModel extends PrimeCareDashboardViewModel {
     );
   }
 
-  factory RegionalManagerUsaDashboardViewModel.assemble({required bool isOffline}) {
+  factory RegionalManagerUsaDashboardViewModel.assemble({
+    required bool isOffline,
+  }) {
     final base = PrimeCareDashboardViewModel.assemble(isOffline: isOffline);
     return RegionalManagerUsaDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,

@@ -77,7 +77,9 @@ class SchedulerService {
         // Simulate Server-side conflict check
         final blueprint = _getBootstrapSchedule();
         if (hasConflict(appt, blueprint.appointments, blueprint.resources)) {
-          throw Exception('Conflict detected on server for ${appt.patientName}');
+          throw Exception(
+            'Conflict detected on server for ${appt.patientName}',
+          );
         }
         _telemetry?.passGate(
           ExecutionGateCategory.scheduler,

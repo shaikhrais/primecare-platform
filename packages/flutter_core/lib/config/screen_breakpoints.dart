@@ -35,7 +35,7 @@ class ScreenBreakpoints {
     if (width >= 5120 || (width >= 3840 && (pixelRatio ?? 1.0) >= 3.0)) {
       return ResolutionTier.mega;
     }
-    
+
     if (width < mobileMax) return ResolutionTier.mob;
     if (width < tabletMax) return ResolutionTier.tab;
     if (width < oneKMax) return ResolutionTier.oneK;

@@ -60,7 +60,7 @@ class SchemaFormEngine<T> extends StatelessWidget {
             // TODO: Collect data and call onSave
           },
           child: const Text('Save'),
-        )
+        ),
       ],
     );
   }

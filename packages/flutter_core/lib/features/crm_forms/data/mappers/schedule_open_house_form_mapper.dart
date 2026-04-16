@@ -2,7 +2,9 @@ import '../../domain/models/schedule_open_house_form_view_model.dart';
 import '../dtos/schedule_open_house_form_dto.dart';
 
 class ScheduleOpenHouseFormMapper {
-  static ScheduleOpenHouseFormViewModel toViewModel(ScheduleOpenHouseFormDto dto) {
+  static ScheduleOpenHouseFormViewModel toViewModel(
+    ScheduleOpenHouseFormDto dto,
+  ) {
     return ScheduleOpenHouseFormViewModel(
       isLoading: false,
       isSuccess: true,
@@ -10,9 +12,9 @@ class ScheduleOpenHouseFormMapper {
     );
   }
 
-  static ScheduleOpenHouseFormDto toDto(ScheduleOpenHouseFormViewModel viewModel) {
-    return ScheduleOpenHouseFormDto(
-      rawData: viewModel.data,
-    );
+  static ScheduleOpenHouseFormDto toDto(
+    ScheduleOpenHouseFormViewModel viewModel,
+  ) {
+    return ScheduleOpenHouseFormDto(rawData: viewModel.data);
   }
 }

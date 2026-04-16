@@ -16,7 +16,9 @@ class DomainService {
   }
 
   // Intake Domain
-  Future<Result<Map<String, dynamic>>> openCase(Map<String, dynamic> data) async {
+  Future<Result<Map<String, dynamic>>> openCase(
+    Map<String, dynamic> data,
+  ) async {
     return Result.guardFuture<Map<String, dynamic>>(
       () async {
         final response = await _apiClient.post(
@@ -44,7 +46,9 @@ class DomainService {
   }
 
   // Care Plans Domain
-  Future<Result<Map<String, dynamic>>> updateCarePlan(Map<String, dynamic> data) async {
+  Future<Result<Map<String, dynamic>>> updateCarePlan(
+    Map<String, dynamic> data,
+  ) async {
     return Result.guardFuture<Map<String, dynamic>>(
       () async {
         final response = await _apiClient.post(
@@ -102,7 +106,9 @@ class DomainService {
   }
 
   // Support Domain
-  Future<Result<Map<String, dynamic>>> escalateTicket(Map<String, dynamic> data) async {
+  Future<Result<Map<String, dynamic>>> escalateTicket(
+    Map<String, dynamic> data,
+  ) async {
     return Result.guardFuture<Map<String, dynamic>>(
       () async {
         final response = await _apiClient.post(

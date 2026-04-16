@@ -29,9 +29,10 @@ class AuraActiveVisualizationNotifier extends Notifier<bool> {
   void update(bool value) => state = value;
 }
 
-final auraActiveVisualizationProvider = NotifierProvider<AuraActiveVisualizationNotifier, bool>(() {
-  return AuraActiveVisualizationNotifier();
-});
+final auraActiveVisualizationProvider =
+    NotifierProvider<AuraActiveVisualizationNotifier, bool>(() {
+      return AuraActiveVisualizationNotifier();
+    });
 
 /// Global toggle state to snooze Aura HUD alerts.
 class AuraSnoozeNotifier extends Notifier<bool> {
@@ -70,9 +71,21 @@ final auraIntentProvider = Provider.autoDispose((ref) {
   if (query.isEmpty) return null;
   final intent = service.processQuery(query);
   if (intent.title == 'Query Interrupted') {
-    ref.read(executionGateProvider).failGate(ExecutionGateCategory.auraEngine, 'Aura encountered a dynamic boundary issue', error: 'Parsing Exception', stackTrace: StackTrace.current);
+    ref
+        .read(executionGateProvider)
+        .failGate(
+          ExecutionGateCategory.auraEngine,
+          'Aura encountered a dynamic boundary issue',
+          error: 'Parsing Exception',
+          stackTrace: StackTrace.current,
+        );
   } else {
-    ref.read(executionGateProvider).passGate(ExecutionGateCategory.auraEngine, 'Processed NLP Intent: ${intent.title}');
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.auraEngine,
+          'Processed NLP Intent: ${intent.title}',
+        );
   }
   return intent;
 });

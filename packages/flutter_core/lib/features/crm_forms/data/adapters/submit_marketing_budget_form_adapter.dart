@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/submit_marketing_budget_form_view_model.dart';
 import '../mappers/submit_marketing_budget_form_mapper.dart';
 
-class SubmitMarketingBudgetFormAdapter extends Notifier<SubmitMarketingBudgetFormViewModel> {
+class SubmitMarketingBudgetFormAdapter
+    extends Notifier<SubmitMarketingBudgetFormViewModel> {
   @override
   SubmitMarketingBudgetFormViewModel build() {
     return SubmitMarketingBudgetFormViewModel();
@@ -10,15 +11,15 @@ class SubmitMarketingBudgetFormAdapter extends Notifier<SubmitMarketingBudgetFor
 
   Future<void> submitBudget() async {
     state = state.copyWith(isLoading: true);
-    
+
     try {
       // Simulate network delay
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = SubmitMarketingBudgetFormMapper.toDto(state);
       // ignore: avoid_print
       print('Submitting Budget: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false);
@@ -47,6 +48,9 @@ class SubmitMarketingBudgetFormAdapter extends Notifier<SubmitMarketingBudgetFor
 }
 
 final submitMarketingBudgetFormAdapterProvider =
-    NotifierProvider<SubmitMarketingBudgetFormAdapter, SubmitMarketingBudgetFormViewModel>(() {
-  return SubmitMarketingBudgetFormAdapter();
-});
+    NotifierProvider<
+      SubmitMarketingBudgetFormAdapter,
+      SubmitMarketingBudgetFormViewModel
+    >(() {
+      return SubmitMarketingBudgetFormAdapter();
+    });

@@ -60,15 +60,14 @@ class ApiClient {
             await prefs.remove('auth_tenant_id');
             // Trigger GoRouter redirect to login via the global listenable
             authListenable.value = false;
-            _ref.read(executionGateProvider).failGate(
-              ExecutionGateCategory.auth,
-              'Token expired or rejected (401). Session invalidated, redirecting to login.',
-              error: e,
-              metadata: {
-                'path': e.requestOptions.path,
-                'statusCode': 401,
-              },
-            );
+            _ref
+                .read(executionGateProvider)
+                .failGate(
+                  ExecutionGateCategory.auth,
+                  'Token expired or rejected (401). Session invalidated, redirecting to login.',
+                  error: e,
+                  metadata: {'path': e.requestOptions.path, 'statusCode': 401},
+                );
           }
           return handler.next(e);
         },
@@ -79,42 +78,48 @@ class ApiClient {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          _ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.network,
-            'Request Initiated: [${options.method}] ${options.path}',
-            metadata: {
-              'path': options.path,
-              'method': options.method,
-              'baseUrl': options.baseUrl,
-            },
-          );
+          _ref
+              .read(executionGateProvider)
+              .passGate(
+                ExecutionGateCategory.network,
+                'Request Initiated: [${options.method}] ${options.path}',
+                metadata: {
+                  'path': options.path,
+                  'method': options.method,
+                  'baseUrl': options.baseUrl,
+                },
+              );
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          _ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.network,
-            'Response Received: ${response.statusCode} from ${response.requestOptions.path}',
-            metadata: {
-              'statusCode': response.statusCode,
-              'path': response.requestOptions.path,
-              'latencyMs': response.headers['x-response-time'] ?? 'unknown',
-            },
-          );
+          _ref
+              .read(executionGateProvider)
+              .passGate(
+                ExecutionGateCategory.network,
+                'Response Received: ${response.statusCode} from ${response.requestOptions.path}',
+                metadata: {
+                  'statusCode': response.statusCode,
+                  'path': response.requestOptions.path,
+                  'latencyMs': response.headers['x-response-time'] ?? 'unknown',
+                },
+              );
           return handler.next(response);
         },
         onError: (DioException e, handler) {
-          _ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.network,
-            'Network Error: ${e.type} on ${e.requestOptions.path}',
-            error: e,
-            stackTrace: e.stackTrace,
-            metadata: {
-              'type': e.type.toString(),
-              'statusCode': e.response?.statusCode,
-              'path': e.requestOptions.path,
-              'message': e.message,
-            },
-          );
+          _ref
+              .read(executionGateProvider)
+              .failGate(
+                ExecutionGateCategory.network,
+                'Network Error: ${e.type} on ${e.requestOptions.path}',
+                error: e,
+                stackTrace: e.stackTrace,
+                metadata: {
+                  'type': e.type.toString(),
+                  'statusCode': e.response?.statusCode,
+                  'path': e.requestOptions.path,
+                  'message': e.message,
+                },
+              );
           return handler.next(e);
         },
       ),

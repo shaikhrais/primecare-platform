@@ -25,32 +25,36 @@ class PreferenceService {
     try {
       final current = getFavorites(role);
       final isExisting = current.contains(widgetId);
-      
+
       if (isExisting) {
         current.remove(widgetId);
       } else {
         current.add(widgetId);
       }
-      
+
       await _prefs.setStringList('$_favoritesPrefix$role', current);
-      
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.resource,
-        'Favorite Persistent State Updated: $role',
-        metadata: {
-          'widgetId': widgetId,
-          'action': isExisting ? 'removed' : 'added',
-          'totalCount': current.length,
-        },
-      );
+
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.resource,
+            'Favorite Persistent State Updated: $role',
+            metadata: {
+              'widgetId': widgetId,
+              'action': isExisting ? 'removed' : 'added',
+              'totalCount': current.length,
+            },
+          );
     } catch (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.resource,
-        'Failed to persist favorite toggle: $role',
-        error: e,
-        stackTrace: stack,
-        metadata: {'widgetId': widgetId},
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.resource,
+            'Failed to persist favorite toggle: $role',
+            error: e,
+            stackTrace: stack,
+            metadata: {'widgetId': widgetId},
+          );
     }
   }
 
@@ -62,18 +66,22 @@ class PreferenceService {
   Future<void> setPinned(String role, String componentId, bool pinned) async {
     try {
       await _prefs.setBool('$_pinPrefix${role}_$componentId', pinned);
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.resource,
-        'Pin State Persisted: $componentId for $role',
-        metadata: {'pinned': pinned},
-      );
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.resource,
+            'Pin State Persisted: $componentId for $role',
+            metadata: {'pinned': pinned},
+          );
     } catch (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.resource,
-        'Failed to persist pin state',
-        error: e,
-        stackTrace: stack,
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.resource,
+            'Failed to persist pin state',
+            error: e,
+            stackTrace: stack,
+          );
     }
   }
 
@@ -84,18 +92,22 @@ class PreferenceService {
   ) async {
     try {
       await _prefs.setString('$_layoutPrefix$role', jsonEncode(config));
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.resource,
-        'Workspace Layout Saved: $role',
-        metadata: {'configKeys': config.keys.toList()},
-      );
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.resource,
+            'Workspace Layout Saved: $role',
+            metadata: {'configKeys': config.keys.toList()},
+          );
     } catch (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.resource,
-        'Critical: Failed to save layout configuration: $role',
-        error: e,
-        stackTrace: stack,
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.resource,
+            'Critical: Failed to save layout configuration: $role',
+            error: e,
+            stackTrace: stack,
+          );
     }
   }
 
@@ -105,12 +117,14 @@ class PreferenceService {
     try {
       return jsonDecode(raw) as Map<String, dynamic>;
     } catch (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.resource,
-        'Memory Corruption: Invalid JSON in layout configuration: $role',
-        error: e,
-        stackTrace: stack,
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.resource,
+            'Memory Corruption: Invalid JSON in layout configuration: $role',
+            error: e,
+            stackTrace: stack,
+          );
       return null;
     }
   }
@@ -119,15 +133,17 @@ class PreferenceService {
   Future<void> clearRolePreferences(String role) async {
     await _prefs.remove('$_favoritesPrefix$role');
     await _prefs.remove('$_layoutPrefix$role');
-    _ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.resource,
-      'Role Preferences Purged: $role',
-    );
+    _ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.resource,
+          'Role Preferences Purged: $role',
+        );
   }
 }
 
 /// Provider for the global PreferenceService.
-/// On Web, we fall back to a FutureProvider or similar if not overridden, 
+/// On Web, we fall back to a FutureProvider or similar if not overridden,
 /// but to keep it simple and synchronous for the UI, we return a blank holder if not ready.
 final sharedPreferencesProvider = Provider<SharedPreferences?>((ref) {
   // Hardened for non-blocking hydration. This should be overridden in main.dart,
@@ -139,10 +155,12 @@ final preferenceServiceProvider = Provider<PreferenceService?>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   if (prefs == null) {
     // Audit hydration delay for diagnostic visibility
-    ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.resource,
-      'Persistence Hydration: Pending SharedPreferences initialization',
-    );
+    ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.resource,
+          'Persistence Hydration: Pending SharedPreferences initialization',
+        );
     return null;
   }
   return PreferenceService(ref, prefs);

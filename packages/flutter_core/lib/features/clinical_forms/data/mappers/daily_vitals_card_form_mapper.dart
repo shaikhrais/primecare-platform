@@ -11,7 +11,9 @@ class DailyVitalsCardFormMapper {
       bloodPressureSystolic: dto.bloodPressureSystolic ?? 120,
       bloodPressureDiastolic: dto.bloodPressureDiastolic ?? 80,
       oxygenSaturation: dto.oxygenSaturation ?? 98,
-      recordedAt: dto.recordedAt != null ? DateTime.tryParse(dto.recordedAt!) : null,
+      recordedAt: dto.recordedAt != null
+          ? DateTime.tryParse(dto.recordedAt!)
+          : null,
     );
   }
 

@@ -17,11 +17,11 @@ class DisciplineLogFormAdapter extends Notifier<DisciplineLogFormViewModel> {
     try {
       // API call simulated
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = DisciplineLogFormMapper.toDto(state);
       // ignore: avoid_print
       print('Logging discipline: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false, isSuccess: true);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -33,5 +33,5 @@ class DisciplineLogFormAdapter extends Notifier<DisciplineLogFormViewModel> {
 
 final disciplineLogFormAdapterProvider =
     NotifierProvider<DisciplineLogFormAdapter, DisciplineLogFormViewModel>(() {
-  return DisciplineLogFormAdapter();
-});
+      return DisciplineLogFormAdapter();
+    });

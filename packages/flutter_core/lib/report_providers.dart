@@ -46,7 +46,7 @@ final reportDataProvider = FutureProvider.family<Result<ReportData>, String>((
         error: e,
         stackTrace: st,
       );
-      
+
       final blueprint = DataLogisticsHub.getReportBlueprint(reportId);
       if (blueprint != null) {
         telemetry.passGate(
@@ -139,10 +139,15 @@ final auraFinancialForecastProvider =
 
               return (forecast: forecast, insights: insights);
             },
-            (_) => (forecast: <ChartDataPoint>[], insights: <IntelligenceInsight>[]),
+            (_) => (
+              forecast: <ChartDataPoint>[],
+              insights: <IntelligenceInsight>[],
+            ),
           );
         },
-        loading: () => (forecast: <ChartDataPoint>[], insights: <IntelligenceInsight>[]),
-        error: (_, _) => (forecast: <ChartDataPoint>[], insights: <IntelligenceInsight>[]),
+        loading: () =>
+            (forecast: <ChartDataPoint>[], insights: <IntelligenceInsight>[]),
+        error: (_, _) =>
+            (forecast: <ChartDataPoint>[], insights: <IntelligenceInsight>[]),
       );
     });

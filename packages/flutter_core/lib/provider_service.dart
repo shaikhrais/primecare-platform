@@ -74,7 +74,9 @@ class ProviderService {
             'Provider self-profile fetched successfully',
             metadata: {'endpoint': 'providerDashboard'},
           );
-          return ProviderProfile.fromJson(response.data as Map<String, dynamic>);
+          return ProviderProfile.fromJson(
+            response.data as Map<String, dynamic>,
+          );
         }
         throw Exception(
           'Failed to load active provider profile: ${response.statusCode}',
@@ -99,7 +101,11 @@ class ProviderService {
   }
 
   /// Logs a check-in event using standard Unified identifiers.
-  Future<Result<void>> logCheckIn(String visitId, double lat, double lng) async {
+  Future<Result<void>> logCheckIn(
+    String visitId,
+    double lat,
+    double lng,
+  ) async {
     return Result.guardFuture<void>(
       () async {
         final baseEndpoint = ApiConfig.endpoints['providerCheckin']!;

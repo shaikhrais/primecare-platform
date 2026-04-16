@@ -13,7 +13,7 @@ import '../../telemetry_service.dart';
 class ConnectivityService {
   final Connectivity _connectivity = Connectivity();
   final Ref _ref;
-  
+
   bool _isOnline = true;
   StreamSubscription<List<ConnectivityResult>>? _subscription;
 
@@ -36,17 +36,21 @@ class ConnectivityService {
     _isOnline = results.any((r) => r != ConnectivityResult.none);
 
     if (wasOnline && !_isOnline) {
-      _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.network,
-        'Device went OFFLINE. API calls will be skipped.',
-        metadata: {'connectivity': results.map((r) => r.name).toList()},
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.network,
+            'Device went OFFLINE. API calls will be skipped.',
+            metadata: {'connectivity': results.map((r) => r.name).toList()},
+          );
     } else if (!wasOnline && _isOnline) {
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.network,
-        'Device came ONLINE. Resuming API calls.',
-        metadata: {'connectivity': results.map((r) => r.name).toList()},
-      );
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.network,
+            'Device came ONLINE. Resuming API calls.',
+            metadata: {'connectivity': results.map((r) => r.name).toList()},
+          );
     }
   }
 

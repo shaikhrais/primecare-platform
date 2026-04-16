@@ -27,7 +27,9 @@ class PatientIntakeFormDto {
       dateOfBirth: json['dateOfBirth'] as String?,
       healthCardNumber: json['healthCardNumber'] as String?,
       primaryDiagnosis: json['primaryDiagnosis'] as String?,
-      allergies: (json['allergies'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      allergies: (json['allergies'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       status: json['status'] as String?,
     );
   }

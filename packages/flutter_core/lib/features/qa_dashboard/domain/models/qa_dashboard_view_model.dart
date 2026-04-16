@@ -9,7 +9,9 @@ class QualityAssuranceDashboardViewModel extends PrimeCareDashboardViewModel {
     super.blueprints = const [],
   });
 
-  factory QualityAssuranceDashboardViewModel.fromJson(Map<String, dynamic> json) {
+  factory QualityAssuranceDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     final base = PrimeCareDashboardViewModel.fromJson(json);
     return QualityAssuranceDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,
@@ -31,7 +33,9 @@ class QualityAssuranceDashboardViewModel extends PrimeCareDashboardViewModel {
     );
   }
 
-  factory QualityAssuranceDashboardViewModel.assemble({required bool isOffline}) {
+  factory QualityAssuranceDashboardViewModel.assemble({
+    required bool isOffline,
+  }) {
     final base = PrimeCareDashboardViewModel.assemble(isOffline: isOffline);
     return QualityAssuranceDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,

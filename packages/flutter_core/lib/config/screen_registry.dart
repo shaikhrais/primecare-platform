@@ -99,7 +99,8 @@ class DashboardConfig {
   }
 }
 
-typedef DynamicDashboardBuilder = Widget Function(BuildContext context, String role);
+typedef DynamicDashboardBuilder =
+    Widget Function(BuildContext context, String role);
 
 /// Central Registry mapping application routes to dynamic dashboard JSON configurations.
 class ScreenRegistry {
@@ -114,7 +115,9 @@ class ScreenRegistry {
     if (_dynamicDashboardBuilder != null) {
       return _dynamicDashboardBuilder!(context, role);
     }
-    return Center(child: Text('Dynamic Dashboard Builder Not Initialized for $role'));
+    return Center(
+      child: Text('Dynamic Dashboard Builder Not Initialized for $role'),
+    );
   }
 
   // We represent the registry as JSON structures so it can easily be backed by an API/Edge Worker later.

@@ -57,4 +57,3 @@ class CommonFeatureViewModel implements OfflineFallbackState {
     ];
   }
 }
-

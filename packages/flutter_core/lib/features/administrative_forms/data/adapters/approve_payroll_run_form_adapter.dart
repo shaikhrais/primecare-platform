@@ -3,7 +3,8 @@ import '../../domain/models/approve_payroll_run_form_view_model.dart';
 import '../dtos/approve_payroll_run_form_dto.dart';
 import '../mappers/approve_payroll_run_form_mapper.dart';
 
-class ApprovePayrollRunFormAdapter extends Notifier<ApprovePayrollRunFormViewModel> {
+class ApprovePayrollRunFormAdapter
+    extends Notifier<ApprovePayrollRunFormViewModel> {
   @override
   ApprovePayrollRunFormViewModel build() {
     return ApprovePayrollRunFormViewModel();
@@ -18,7 +19,9 @@ class ApprovePayrollRunFormAdapter extends Notifier<ApprovePayrollRunFormViewMod
 
       final mockDto = ApprovePayrollRunFormDto(
         id: 'PRL-2023-11',
-        periodStartDate: DateTime.now().subtract(const Duration(days: 14)).toIso8601String(),
+        periodStartDate: DateTime.now()
+            .subtract(const Duration(days: 14))
+            .toIso8601String(),
         periodEndDate: DateTime.now().toIso8601String(),
         totalPayrollAmount: 145000.50,
         totalEmployees: 42,
@@ -42,6 +45,9 @@ class ApprovePayrollRunFormAdapter extends Notifier<ApprovePayrollRunFormViewMod
 }
 
 final approvePayrollRunFormAdapterProvider =
-    NotifierProvider<ApprovePayrollRunFormAdapter, ApprovePayrollRunFormViewModel>(() {
-  return ApprovePayrollRunFormAdapter();
-});
+    NotifierProvider<
+      ApprovePayrollRunFormAdapter,
+      ApprovePayrollRunFormViewModel
+    >(() {
+      return ApprovePayrollRunFormAdapter();
+    });

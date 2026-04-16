@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/audit_payroll_discrepancy_form_view_model.dart';
 import '../mappers/audit_payroll_discrepancy_form_mapper.dart';
 
-class AuditPayrollDiscrepancyFormAdapter extends Notifier<AuditPayrollDiscrepancyFormViewModel> {
+class AuditPayrollDiscrepancyFormAdapter
+    extends Notifier<AuditPayrollDiscrepancyFormViewModel> {
   @override
   AuditPayrollDiscrepancyFormViewModel build() {
     return AuditPayrollDiscrepancyFormViewModel();
@@ -17,11 +18,11 @@ class AuditPayrollDiscrepancyFormAdapter extends Notifier<AuditPayrollDiscrepanc
     try {
       // API call simulated
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = AuditPayrollDiscrepancyFormMapper.toDto(state);
       // ignore: avoid_print
       print('Auditing payroll discrepancy: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false, isSuccess: true);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -32,6 +33,9 @@ class AuditPayrollDiscrepancyFormAdapter extends Notifier<AuditPayrollDiscrepanc
 }
 
 final auditPayrollDiscrepancyFormAdapterProvider =
-    NotifierProvider<AuditPayrollDiscrepancyFormAdapter, AuditPayrollDiscrepancyFormViewModel>(() {
-  return AuditPayrollDiscrepancyFormAdapter();
-});
+    NotifierProvider<
+      AuditPayrollDiscrepancyFormAdapter,
+      AuditPayrollDiscrepancyFormViewModel
+    >(() {
+      return AuditPayrollDiscrepancyFormAdapter();
+    });

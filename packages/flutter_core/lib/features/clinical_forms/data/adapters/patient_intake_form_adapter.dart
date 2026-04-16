@@ -10,15 +10,15 @@ class PatientIntakeFormAdapter extends Notifier<PatientIntakeFormViewModel> {
 
   Future<void> submit() async {
     state = state.copyWith(isLoading: true);
-    
+
     try {
       // Simulate network delay
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final dto = PatientIntakeFormMapper.toDto(state);
       // ignore: avoid_print
       print('Submitting Patient Intake: ${dto.toJson()}');
-      
+
       state = state.copyWith(isLoading: false, status: 'Submitted');
     } catch (e) {
       state = state.copyWith(isLoading: false, status: 'Error');
@@ -44,5 +44,5 @@ class PatientIntakeFormAdapter extends Notifier<PatientIntakeFormViewModel> {
 
 final patientIntakeFormAdapterProvider =
     NotifierProvider<PatientIntakeFormAdapter, PatientIntakeFormViewModel>(() {
-  return PatientIntakeFormAdapter();
-});
+      return PatientIntakeFormAdapter();
+    });

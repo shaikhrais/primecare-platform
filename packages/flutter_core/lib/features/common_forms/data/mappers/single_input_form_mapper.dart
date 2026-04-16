@@ -11,8 +11,6 @@ class SingleInputFormMapper {
   }
 
   static SingleInputFormDto toDto(SingleInputFormViewModel viewModel) {
-    return SingleInputFormDto(
-      rawData: viewModel.data,
-    );
+    return SingleInputFormDto(rawData: viewModel.data);
   }
 }

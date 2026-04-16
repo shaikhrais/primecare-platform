@@ -11,7 +11,12 @@ class PrimeLogger {
     _log('WARN', message, tag: tag);
   }
 
-  static void error(String message, {Object? error, StackTrace? stackTrace, String? tag}) {
+  static void error(
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    String? tag,
+  }) {
     _log('ERROR', message, error: error, stackTrace: stackTrace, tag: tag);
   }
 
@@ -27,17 +32,14 @@ class PrimeLogger {
     StackTrace? stackTrace,
     String? tag,
   }) {
-    final fullTag = tag != null ? 'PrimeCare [$level] ($tag)' : 'PrimeCare [$level]';
-    
+    final fullTag = tag != null
+        ? 'PrimeCare [$level] ($tag)'
+        : 'PrimeCare [$level]';
+
     if (kDebugMode) {
-      dev.log(
-        message,
-        name: fullTag,
-        error: error,
-        stackTrace: stackTrace,
-      );
+      dev.log(message, name: fullTag, error: error, stackTrace: stackTrace);
     }
-    
+
     // In the future, this can be integrated with Sentry or Firebase Crashlytics.
   }
 }

@@ -5,9 +5,13 @@ import 'primecare_form_enum.dart';
 export 'primecare_form_enum.dart';
 
 /// Topology V2: Enum-Driven Families
-/// This strongly typifies form IDs to exactly the 578 valid identifiers without 
+/// This strongly typifies form IDs to exactly the 578 valid identifiers without
 /// the need for code generation across hundreds of files.
-final formSchemaDataProvider = FutureProvider.family<Map<String, dynamic>, PrimeCareForm>((ref, form) async {
-  final adapter = ref.watch(dynamicScreenAdapterProvider(form.id));
-  return await adapter.getData();
-});
+final formSchemaDataProvider =
+    FutureProvider.family<Map<String, dynamic>, PrimeCareForm>((
+      ref,
+      form,
+    ) async {
+      final adapter = ref.watch(dynamicScreenAdapterProvider(form.id));
+      return await adapter.getData();
+    });

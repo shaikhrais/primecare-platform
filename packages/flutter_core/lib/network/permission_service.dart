@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../config/api_config.dart';
 import '../routes/route_guard.dart';
 
-/// Service responsible for fetching, caching, and disseminating dynamic 
+/// Service responsible for fetching, caching, and disseminating dynamic
 /// route permission boundaries from the PrimeCare backend.
 class PermissionService {
   static const String _cacheKey = 'primecare_role_permissions';
@@ -29,17 +29,21 @@ class PermissionService {
   /// Fetches permissions from the backend asynchronously and updates RouteGuard.
   static Future<void> fetchAndSyncPermissions(dynamic apiClient) async {
     try {
-      final response = await apiClient.get(ApiConfig.endpoints['systemPermissions']!);
+      final response = await apiClient.get(
+        ApiConfig.endpoints['systemPermissions']!,
+      );
       if (response.statusCode == 200 && response.data != null) {
         final Map<String, dynamic> data = response.data;
         final Map<String, List<String>> permissions = {};
         for (var key in data.keys) {
-           // Safely cast to List<String>
-           permissions[key] = (data[key] as List).map((e) => e.toString()).toList();
+          // Safely cast to List<String>
+          permissions[key] = (data[key] as List)
+              .map((e) => e.toString())
+              .toList();
         }
-        
+
         RouteGuard.synchronizePermissions(permissions);
-        
+
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(_cacheKey, json.encode(permissions));
       } else {
@@ -71,7 +75,7 @@ class PermissionService {
       'client': ['/client', '/common'],
       'family': ['/client', '/common'],
     };
-    
+
     RouteGuard.synchronizePermissions(mockPermissions);
   }
 }
