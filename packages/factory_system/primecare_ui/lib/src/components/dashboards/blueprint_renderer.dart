@@ -20,7 +20,9 @@ class BlueprintRenderer extends StatelessWidget {
       case 'stat_card_grid':
         return _buildStatGrid(blueprint as StatGridBlueprint);
       case 'stitch_screen':
-        return StitchScreenWidget(screenId: (blueprint as StitchBlueprint).screenId);
+        return StitchScreenWidget(
+          screenId: (blueprint as StitchBlueprint).screenId,
+        );
       case 'analytics_chart':
         return _buildChart(blueprint as ChartBlueprint);
       default:
@@ -34,7 +36,10 @@ class BlueprintRenderer extends StatelessWidget {
           ),
           child: Text(
             'Unknown Blueprint: ${blueprint.componentType}',
-            style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         );
     }
@@ -43,15 +48,19 @@ class BlueprintRenderer extends StatelessWidget {
   Widget _buildStatGrid(StatGridBlueprint blueprint) {
     final kpis = blueprint.dataPayload as List<UniversalKpi>;
     return PrimeCareResponsiveKpiGrid(
-      children: kpis.map((kpi) {
-        return PrimeCareKpiCard(
-          title: kpi.title,
-          value: kpi.value,
-          subtitle: '${kpi.trend >= 0 ? '+' : ''}${kpi.trend}% vs last month',
-          icon: _getIconForMetric(kpi.title),
-          onPinToggle: () {},
-        );
-      }).toList().cast<Widget>(),
+      children: kpis
+          .map((kpi) {
+            return PrimeCareKpiCard(
+              title: kpi.title,
+              value: kpi.value,
+              subtitle:
+                  '${kpi.trend >= 0 ? '+' : ''}${kpi.trend}% vs last month',
+              icon: _getIconForMetric(kpi.title),
+              onPinToggle: () {},
+            );
+          })
+          .toList()
+          .cast<Widget>(),
     );
   }
 
@@ -89,9 +98,11 @@ class BlueprintRenderer extends StatelessWidget {
   IconData _getIconForMetric(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient')) return Icons.people;
-    if (t.contains('revenue') || t.contains('dollar')) return Icons.attach_money;
+    if (t.contains('revenue') || t.contains('dollar'))
+      return Icons.attach_money;
     if (t.contains('capacity')) return Icons.pie_chart;
-    if (t.contains('alert') || t.contains('risk')) return Icons.warning_amber_rounded;
+    if (t.contains('alert') || t.contains('risk'))
+      return Icons.warning_amber_rounded;
     return Icons.insights;
   }
 }

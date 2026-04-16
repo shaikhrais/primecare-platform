@@ -71,7 +71,9 @@ class StitchEngineRenderer extends ConsumerWidget {
           final item = entry.value;
           return [
             KeyedSubtree(
-              key: ValueKey('stitch_list_${featureId}_${item.id}_${index}_$scale'),
+              key: ValueKey(
+                'stitch_list_${featureId}_${item.id}_${index}_$scale',
+              ),
               child: _buildListCard(item, ds, scale),
             ),
             SizedBox(height: 12 * scale),
@@ -82,11 +84,15 @@ class StitchEngineRenderer extends ConsumerWidget {
       final screenWidth = MediaQuery.of(context).size.width;
       final isTablet = screenWidth < 1200;
       final crossAxisCount = screenWidth < 600 ? 1 : (isTablet ? 2 : 3);
-      
+
       // Calculate item width accounting for padding and spacing
       final horizontalPadding = isMobile ? 32.0 : (isTablet ? 48.0 : 80.0);
-      final effectiveWidth = (screenWidth - horizontalPadding).clamp(200.0, double.infinity);
-      final itemWidth = (effectiveWidth - (crossAxisCount - 1) * 16 * scale) / crossAxisCount;
+      final effectiveWidth = (screenWidth - horizontalPadding).clamp(
+        200.0,
+        double.infinity,
+      );
+      final itemWidth =
+          (effectiveWidth - (crossAxisCount - 1) * 16 * scale) / crossAxisCount;
 
       return Wrap(
         spacing: 16 * scale,
@@ -95,7 +101,9 @@ class StitchEngineRenderer extends ConsumerWidget {
           final index = entry.key;
           final item = entry.value;
           return KeyedSubtree(
-            key: ValueKey('stitch_grid_${featureId}_${item.id}_${index}_$scale'),
+            key: ValueKey(
+              'stitch_grid_${featureId}_${item.id}_${index}_$scale',
+            ),
             child: SizedBox(
               width: itemWidth > 0 ? itemWidth : 200, // Safety fallback
               child: _buildGridCard(item, ds, scale),
@@ -107,7 +115,9 @@ class StitchEngineRenderer extends ConsumerWidget {
   }
 
   Widget _buildEmptyState(PrimeCareDesignSystem ds, double scale) {
-    debugPrint('[StitchEngineRenderer] FeatureId: $featureId, Items: ${items.length}');
+    debugPrint(
+      '[StitchEngineRenderer] FeatureId: $featureId, Items: ${items.length}',
+    );
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -342,7 +352,9 @@ class StitchEngineRenderer extends ConsumerWidget {
     PrimeCareDesignSystem ds,
     double scale,
   ) {
-    debugPrint('[StitchEngineRenderer] Rendering GridCard: ${item.id} (${item.title})');
+    debugPrint(
+      '[StitchEngineRenderer] Rendering GridCard: ${item.id} (${item.title})',
+    );
     return ClinicalGlass(
       padding: EdgeInsets.all(20 * scale),
       child: Column(

@@ -55,7 +55,8 @@ class BaseLayoutShell extends ConsumerWidget {
     if (layout.isHidden) {
       return AdaptiveScalingWrapper(
         child: Scaffold(
-          extendBodyBehindAppBar: true, // Allow glassmorphism to blur the content
+          extendBodyBehindAppBar:
+              true, // Allow glassmorphism to blur the content
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(72.0 * scale),
             child: GlobalTopBar(
@@ -69,7 +70,9 @@ class BaseLayoutShell extends ConsumerWidget {
           bottomNavigationBar: items.isNotEmpty
               ? BottomNavigationBar(
                   type: BottomNavigationBarType.fixed,
-                  currentIndex: items.indexWhere((item) => item.route == effectivePath).clamp(0, items.length - 1),
+                  currentIndex: items
+                      .indexWhere((item) => item.route == effectivePath)
+                      .clamp(0, items.length - 1),
                   selectedItemColor: Theme.of(context).colorScheme.primary,
                   unselectedItemColor: Theme.of(context).disabledColor,
                   backgroundColor: Theme.of(context).colorScheme.surface,

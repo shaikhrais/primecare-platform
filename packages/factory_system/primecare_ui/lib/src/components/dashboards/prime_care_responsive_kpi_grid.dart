@@ -66,11 +66,8 @@ class _PrimeCareResponsiveKpiGridState
       runSpacing: 16 * layout.scaleFactor,
       children: widget.children.map((child) {
         return ResponsiveGridCol(
-          span: 4, 
-          child: AspectRatio(
-            aspectRatio: 1.6,
-            child: child,
-          ),
+          span: 4,
+          child: AspectRatio(aspectRatio: 1.6, child: child),
         );
       }).toList(),
     );

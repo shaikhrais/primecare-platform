@@ -10,7 +10,7 @@ class StitchScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 24),
       child: ClinicalGlass(
@@ -61,7 +61,9 @@ class StitchScreenWidget extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 10,
-                color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: 0.5,
+                ),
               ),
             ),
           ],
@@ -93,7 +95,12 @@ class StitchScreenWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return Row(
       children: [
-        _buildMiniMetric(context, 'Operational Efficiency', '98.4%', Icons.speed),
+        _buildMiniMetric(
+          context,
+          'Operational Efficiency',
+          '98.4%',
+          Icons.speed,
+        ),
         const SizedBox(width: 24),
         _buildMiniMetric(context, 'Resource Allocation', 'High', Icons.hub),
         const SizedBox(width: 24),
@@ -102,7 +109,12 @@ class StitchScreenWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMiniMetric(BuildContext context, String label, String value, IconData icon) {
+  Widget _buildMiniMetric(
+    BuildContext context,
+    String label,
+    String value,
+    IconData icon,
+  ) {
     final theme = Theme.of(context);
     return Expanded(
       child: Column(

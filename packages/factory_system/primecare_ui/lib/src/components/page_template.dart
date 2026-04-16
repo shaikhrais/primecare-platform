@@ -168,20 +168,21 @@ class _OrchestratedPage<T> extends ConsumerWidget {
         }
 
         if (unwrappedData == null) {
-          debugPrint('[PageTemplate] Orchestration warning: unwrappedData is null for "$title"');
+          debugPrint(
+            '[PageTemplate] Orchestration warning: unwrappedData is null for "$title"',
+          );
           if (data is Failure) {
             final failure = data as Failure;
-            debugPrint('[PageTemplate] Error found in Result payload: ${failure.message}');
+            debugPrint(
+              '[PageTemplate] Error found in Result payload: ${failure.message}',
+            );
           }
-          
+
           return PageTemplate(
             title: title,
             subtitle: subtitle,
             icon: icon,
-            child: const AssemblyLine(
-              blueprints: [],
-              isOfflineFallback: true,
-            ),
+            child: const AssemblyLine(blueprints: [], isOfflineFallback: true),
           );
         }
 

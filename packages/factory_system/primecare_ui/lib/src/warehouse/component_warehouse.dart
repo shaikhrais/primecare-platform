@@ -11,6 +11,13 @@ import '../components/aura/aura_dashboard_hud.dart';
 import '../components/stitch_engine/stitch_engine_renderer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/design_system.dart';
+import '../components/forms/clinical/patient_intake_form.dart';
+import '../components/forms/clinical/vitals_capture_form.dart';
+import '../components/forms/admin/new_staff_provisioning_form.dart';
+import '../components/forms/clinical_incident_form.dart';
+import '../components/forms/billing_payment_form.dart';
+import '../components/forms/medication_administration_form.dart';
+import '../components/forms/employee_timesheet_form.dart';
 
 /// A function signature for building a specific component from a blueprint payload.
 typedef ComponentBuilder =
@@ -31,6 +38,13 @@ class ComponentWarehouse {
     'analytics_chart': _buildAnalyticsChart,
     'aura_dashboard_hud': _buildAuraDashboardHud,
     'stitch_screen': _buildStitchScreen,
+    'patient_intake_form': _buildPatientIntakeForm,
+    'vitals_capture_form': _buildVitalsCaptureForm,
+    'staff_provisioning_form': _buildStaffProvisioningForm,
+    'clinical_incident_form': _buildClinicalIncidentForm,
+    'billing_payment_form': _buildBillingPaymentForm,
+    'medication_administration_form': _buildMedicationAdministrationForm,
+    'employee_timesheet_form': _buildEmployeeTimesheetForm,
   };
 
   /// Register a new component dynamically (could be used for lazy-loaded plugins).
@@ -52,7 +66,9 @@ class ComponentWarehouse {
     // derived from the blueprint type and payload identity/hash.
     // We add a 'salt' to the key to distinguish between top-level orchestration and nested items.
     return KeyedSubtree(
-      key: ValueKey('warehouse_${blueprint.componentType}_${blueprint.dataPayload.hashCode}'),
+      key: ValueKey(
+        'warehouse_${blueprint.componentType}_${blueprint.dataPayload.hashCode}',
+      ),
       child: widget,
     );
   }
@@ -85,8 +101,12 @@ class ComponentWarehouse {
         try {
           final title = (kpi is Map) ? kpi['title'] : (kpi as dynamic).title;
           final value = (kpi is Map) ? kpi['value'] : (kpi as dynamic).value;
-          final status = (kpi is Map) ? (kpi['status'] ?? 'neutral') : (kpi as dynamic).status;
-          final trend = (kpi is Map) ? kpi['trend']?.toString() : (kpi as dynamic).trend?.toString();
+          final status = (kpi is Map)
+              ? (kpi['status'] ?? 'neutral')
+              : (kpi as dynamic).status;
+          final trend = (kpi is Map)
+              ? kpi['trend']?.toString()
+              : (kpi as dynamic).trend?.toString();
 
           return PrimeCareStatCard(
             title: title as String? ?? 'Metric',
@@ -144,12 +164,14 @@ class ComponentWarehouse {
             title = activity['title'] as String? ?? 'Activity';
             timestamp = activity['timestamp'] as String? ?? '';
             // Support both 'color' and 'type' keys for backward compatibility
-            colorStr = (activity['color'] ?? activity['type']) as String? ?? 'primary';
+            colorStr =
+                (activity['color'] ?? activity['type']) as String? ?? 'primary';
           } else {
             // Surgical fallback for dynamic objects that might not be detected by type check
             try {
               title = (activity as dynamic).title as String? ?? 'System Update';
-              timestamp = (activity as dynamic).timestamp as String? ?? 'Recently';
+              timestamp =
+                  (activity as dynamic).timestamp as String? ?? 'Recently';
               colorStr = (activity as dynamic).color as String? ?? 'primary';
             } catch (_) {
               title = 'System Update';
@@ -161,10 +183,10 @@ class ComponentWarehouse {
           final color = colorStr == 'success' || colorStr == 'green'
               ? ds.colors.success
               : (colorStr == 'warning' || colorStr == 'orange'
-                  ? ds.colors.warning
-                  : (colorStr == 'danger' || colorStr == 'red'
-                      ? ds.colors.danger
-                      : ds.colors.primary));
+                    ? ds.colors.warning
+                    : (colorStr == 'danger' || colorStr == 'red'
+                          ? ds.colors.danger
+                          : ds.colors.primary));
 
           return Container(
             margin: const EdgeInsets.only(bottom: 12),
@@ -225,12 +247,16 @@ class ComponentWarehouse {
       ),
       child: Column(
         children: [
-          Icon(LucideIcons.database, size: 48, color: ds.colors.primary.withValues(alpha: 0.2)),
+          Icon(
+            LucideIcons.database,
+            size: 48,
+            color: ds.colors.primary.withValues(alpha: 0.2),
+          ),
           const SizedBox(height: 16),
           Text(
             "HYDRATED DATA MATRIX",
             style: TextStyle(
-              color: ds.colors.textPrimary, 
+              color: ds.colors.textPrimary,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.2,
             ),
@@ -253,7 +279,10 @@ class ComponentWarehouse {
       decoration: BoxDecoration(
         color: ds.colors.surface,
         borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: ds.colors.danger.withValues(alpha: 0.3), width: 2),
+        border: Border.all(
+          color: ds.colors.danger.withValues(alpha: 0.3),
+          width: 2,
+        ),
         boxShadow: [
           BoxShadow(
             color: ds.colors.danger.withValues(alpha: 0.1),
@@ -267,11 +296,7 @@ class ComponentWarehouse {
         children: [
           Row(
             children: [
-              Icon(
-                LucideIcons.shieldAlert,
-                color: ds.colors.danger,
-                size: 28,
-              ),
+              Icon(LucideIcons.shieldAlert, color: ds.colors.danger, size: 28),
               const SizedBox(width: 16),
               Text(
                 "Risk Surveillance Engine".toUpperCase(),
@@ -411,7 +436,8 @@ class ComponentWarehouse {
         FeatureViewModel(
           id: 'ceo-1',
           title: 'Executive Revenue Command',
-          description: 'High-fidelity financial data stream for Screen $screenId',
+          description:
+              'High-fidelity financial data stream for Screen $screenId',
           status: 'ACTIVE',
         ),
         FeatureViewModel(
@@ -423,6 +449,7 @@ class ComponentWarehouse {
       ],
     );
   }
+
   static Widget _buildManagementAction(
     BuildContext context,
     dynamic dataPayload,
@@ -511,11 +538,7 @@ class ComponentWarehouse {
                 ),
               ),
               const Spacer(),
-              Icon(
-                LucideIcons.trendingUp,
-                color: ds.colors.success,
-                size: 18,
-              ),
+              Icon(LucideIcons.trendingUp, color: ds.colors.success, size: 18),
             ],
           ),
           const SizedBox(height: 24),
@@ -615,7 +638,7 @@ class ComponentWarehouse {
                 Text(
                   "REGULATORY COMPLIANCE GATE",
                   style: TextStyle(
-                    color: ds.colors.success, 
+                    color: ds.colors.success,
                     fontWeight: FontWeight.w900,
                     fontSize: 12,
                     letterSpacing: 1.1,
@@ -623,7 +646,10 @@ class ComponentWarehouse {
                 ),
                 Text(
                   "All institutional checkpoints verified and passed.",
-                  style: TextStyle(color: ds.colors.textSecondary, fontSize: 13),
+                  style: TextStyle(
+                    color: ds.colors.textSecondary,
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),
@@ -633,7 +659,12 @@ class ComponentWarehouse {
     );
   }
 
-  static Widget _buildActionButton(BuildContext context, String label, IconData icon, Color color) {
+  static Widget _buildActionButton(
+    BuildContext context,
+    String label,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -710,6 +741,55 @@ class ComponentWarehouse {
         );
       },
     );
+  }
+
+  static Widget _buildPatientIntakeForm(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return const PatientIntakeForm();
+  }
+
+  static Widget _buildVitalsCaptureForm(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return const VitalsCaptureForm();
+  }
+
+  static Widget _buildStaffProvisioningForm(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return const NewStaffProvisioningForm();
+  }
+
+  static Widget _buildClinicalIncidentForm(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return const ClinicalIncidentForm();
+  }
+
+  static Widget _buildBillingPaymentForm(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return const BillingPaymentForm();
+  }
+
+  static Widget _buildMedicationAdministrationForm(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return const MedicationAdministrationForm();
+  }
+
+  static Widget _buildEmployeeTimesheetForm(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    return const EmployeeTimesheetForm();
   }
 
   // --- Utility Methods ---

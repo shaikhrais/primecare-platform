@@ -7,44 +7,48 @@ import '../../layouts/responsive_grid_layout.dart';
 import '../base_form.dart';
 
 // --- State Model ---
-class PatientIntakeData {
-  final String firstName;
-  final String lastName;
-  final String details;
+class VitalsData {
+  final String heartRate;
+  final String bloodPressure;
+  final String temperature;
 
-  PatientIntakeData({
-    this.firstName = '',
-    this.lastName = '',
-    this.details = '',
+  VitalsData({
+    this.heartRate = '',
+    this.bloodPressure = '',
+    this.temperature = '',
   });
 
-  PatientIntakeData copyWith({
-    String? firstName,
-    String? lastName,
-    String? details,
+  VitalsData copyWith({
+    String? heartRate,
+    String? bloodPressure,
+    String? temperature,
   }) {
-    return PatientIntakeData(
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      details: details ?? this.details,
+    return VitalsData(
+      heartRate: heartRate ?? this.heartRate,
+      bloodPressure: bloodPressure ?? this.bloodPressure,
+      temperature: temperature ?? this.temperature,
     );
   }
 }
 
 // --- Notifier / ViewModel ---
-class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
+class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
   @override
-  FutureOr<PatientIntakeData> build() {
-    return PatientIntakeData();
+  FutureOr<VitalsData> build() {
+    return VitalsData();
   }
 
-  void updateData({String? firstName, String? lastName, String? details}) {
-    final current = state.value ?? PatientIntakeData();
+  void updateData({
+    String? heartRate,
+    String? bloodPressure,
+    String? temperature,
+  }) {
+    final current = state.value ?? VitalsData();
     state = AsyncData(
       current.copyWith(
-        firstName: firstName,
-        lastName: lastName,
-        details: details,
+        heartRate: heartRate,
+        bloodPressure: bloodPressure,
+        temperature: temperature,
       ),
     );
   }
@@ -68,14 +72,16 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
     // 2. Network Telemetry wrapper
     final result = await Result.guardFuture<bool>(
       () async {
-        // Mock API Client call: await ref.read(apiClientProvider).post('/v1/clinical/patient-intake', data: {...});
-        await Future.delayed(const Duration(seconds: 1)); // Simulate network
+        // Mock API Client call
+        await Future.delayed(
+          const Duration(milliseconds: 800),
+        ); // Simulate network
 
         ref
             .read(executionGateProvider)
             .passGate(
               ExecutionGateCategory.domainApi,
-              'Patient intake submitted successfully',
+              'Vitals captured successfully',
             );
         return true;
       },
@@ -84,7 +90,7 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
             .read(executionGateProvider)
             .failGate(
               ExecutionGateCategory.domainApi,
-              'Patient intake submission failed',
+              'Vitals capture failed',
               error: e,
               stackTrace: st,
             );
@@ -96,12 +102,9 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
     result.fold(
       (success) {
         if (success) {
-          state = AsyncData(PatientIntakeData()); // Reset on success
+          state = AsyncData(VitalsData()); // Reset on success
         } else {
-          state = AsyncError(
-            'Failed to submit patient intake.',
-            StackTrace.current,
-          );
+          state = AsyncError('Failed to capture vitals.', StackTrace.current);
         }
       },
       (failure) {
@@ -111,28 +114,28 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
   }
 }
 
-final patientIntakeProvider =
-    AsyncNotifierProvider<PatientIntakeNotifier, PatientIntakeData>(
-      () => PatientIntakeNotifier(),
+final vitalsCaptureProvider =
+    AsyncNotifierProvider<VitalsCaptureNotifier, VitalsData>(
+      () => VitalsCaptureNotifier(),
     );
 
 // --- UI Component ---
-class PatientIntakeForm extends ConsumerStatefulWidget {
+class VitalsCaptureForm extends ConsumerStatefulWidget {
   final VoidCallback? onSuccess;
 
-  const PatientIntakeForm({super.key, this.onSuccess});
+  const VitalsCaptureForm({super.key, this.onSuccess});
 
   @override
-  ConsumerState<PatientIntakeForm> createState() => _PatientIntakeFormState();
+  ConsumerState<VitalsCaptureForm> createState() => _VitalsCaptureFormState();
 }
 
-class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
+class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {
-    final notifier = ref.read(patientIntakeProvider.notifier);
+    final notifier = ref.read(vitalsCaptureProvider.notifier);
     notifier.submit().then((_) {
-      if (ref.read(patientIntakeProvider).hasValue) {
+      if (ref.read(vitalsCaptureProvider).hasValue) {
         widget.onSuccess?.call();
       }
     });
@@ -140,19 +143,23 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
 
   @override
   Widget build(BuildContext context) {
-    final asyncState = ref.watch(patientIntakeProvider);
+    final asyncState = ref.watch(vitalsCaptureProvider);
     final theme = Theme.of(context);
     final layout = ref.watch(layoutProvider);
 
     // Dynamic span allocation based on current grid threshold
-    final int halfSpan = (layout.totalColumns / 2).ceil();
+    final int thirdSpan = (layout.totalColumns / 3).ceil();
     final int fullSpan = layout.totalColumns;
+    final int itemSpan = layout.tier == ResolutionTier.mob
+        ? fullSpan
+        : thirdSpan;
 
     return BaseForm(
       formKey: _formKey,
-      title: 'Patient Intake',
-      subtitle: 'Complete the assessment details mapping to the adaptive grid.',
+      title: 'Capture Vitals',
+      subtitle: 'Record the patient\'s current vitals.',
       onSubmit: _submit,
+      submitText: 'Save Vitals',
       isLoading: asyncState.isLoading,
       children: [
         if (asyncState.hasError)
@@ -170,63 +177,75 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
           runSpacing: 16 * layout.scaleFactor,
           children: [
             ResponsiveGridCol(
-              span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
+              span: itemSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'First Name',
+                  labelText: 'Heart Rate (bpm)',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
                       12 * layout.scaleFactor,
                     ),
                   ),
+                  prefixIcon: const Icon(Icons.favorite, color: Colors.red),
                 ),
-                initialValue: asyncState.value?.firstName,
+                keyboardType: TextInputType.number,
+                initialValue: asyncState.value?.heartRate,
                 onChanged: (val) => ref
-                    .read(patientIntakeProvider.notifier)
-                    .updateData(firstName: val),
+                    .read(vitalsCaptureProvider.notifier)
+                    .updateData(heartRate: val),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
             ),
             ResponsiveGridCol(
-              span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
+              span: itemSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Last Name',
+                  labelText: 'Blood Pressure',
+                  hintText: '120/80',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
                       12 * layout.scaleFactor,
                     ),
                   ),
+                  prefixIcon: const Icon(
+                    Icons.monitor_heart,
+                    color: Colors.blue,
+                  ),
                 ),
-                initialValue: asyncState.value?.lastName,
+                initialValue: asyncState.value?.bloodPressure,
                 onChanged: (val) => ref
-                    .read(patientIntakeProvider.notifier)
-                    .updateData(lastName: val),
+                    .read(vitalsCaptureProvider.notifier)
+                    .updateData(bloodPressure: val),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
             ),
             ResponsiveGridCol(
-              span: fullSpan,
+              span: itemSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Assessment Details',
+                  labelText: 'Temperature (°C)',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
                       12 * layout.scaleFactor,
                     ),
                   ),
-                  alignLabelWithHint: true,
+                  prefixIcon: const Icon(
+                    Icons.thermostat,
+                    color: Colors.orange,
+                  ),
                 ),
-                maxLines: 4,
-                initialValue: asyncState.value?.details,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                initialValue: asyncState.value?.temperature,
                 onChanged: (val) => ref
-                    .read(patientIntakeProvider.notifier)
-                    .updateData(details: val),
+                    .read(vitalsCaptureProvider.notifier)
+                    .updateData(temperature: val),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),

@@ -27,7 +27,14 @@ class UniversalRoleSidebar extends ConsumerWidget {
     // Tablet and Desktop layouts (Sidebar)
     return Row(
       children: [
-        buildSidebarContent(context, ref, currentIndex, layout, items, currentPath),
+        buildSidebarContent(
+          context,
+          ref,
+          currentIndex,
+          layout,
+          items,
+          currentPath,
+        ),
         Expanded(
           child: Container(color: theme.colorScheme.surface, child: child),
         ),
@@ -46,7 +53,7 @@ class UniversalRoleSidebar extends ConsumerWidget {
     final theme = Theme.of(context);
     final isExtended = layout.isExtended;
     final scale = layout.scaleFactor;
-    
+
     // Dynamic width based on Grid Columns
     final width = layout.sidebarWidth;
 
@@ -89,7 +96,6 @@ class UniversalRoleSidebar extends ConsumerWidget {
       child: Column(
         children: [
           SizedBox(height: 12 * scale), // Replaced Logo Header
-
           // Menu Items
           Expanded(
             child: ListView(
@@ -106,7 +112,9 @@ class UniversalRoleSidebar extends ConsumerWidget {
                     scale: scale,
                     onTap: (item) => context.go(item.route),
                     // Auto-expand if the current path is in this group
-                    startsExpanded: entry.value.any((item) => item.route == currentPath),
+                    startsExpanded: entry.value.any(
+                      (item) => item.route == currentPath,
+                    ),
                   );
                 }),
               ],
@@ -218,8 +226,9 @@ class _SidebarGroupState extends State<_SidebarGroup> {
                   Text(
                     widget.title.toUpperCase(),
                     style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant
-                          .withValues(alpha: 0.5),
+                      color: theme.colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.5,
+                      ),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.5 * widget.scale,
                       fontSize: 10 * widget.scale,
@@ -230,15 +239,16 @@ class _SidebarGroupState extends State<_SidebarGroup> {
                     child: Icon(
                       Icons.chevron_right,
                       size: 14 * widget.scale,
-                      color: theme.colorScheme.onSurfaceVariant
-                          .withValues(alpha: 0.3),
+                      color: theme.colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.3,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-        
+
         AnimatedCrossFade(
           firstChild: const SizedBox(width: double.infinity),
           secondChild: Column(
@@ -262,7 +272,6 @@ class _SidebarGroupState extends State<_SidebarGroup> {
     );
   }
 }
-
 
 class _SidebarMenuItem extends StatefulWidget {
   final PrimeCareNavigationItem item;
@@ -295,7 +304,7 @@ class _SidebarMenuItemState extends State<_SidebarMenuItem> {
     Color textColor = theme.colorScheme.onSurface;
 
     if (widget.isSelected) {
-      backgroundColor = theme.colorScheme.primary; 
+      backgroundColor = theme.colorScheme.primary;
       iconColor = theme.colorScheme.onPrimary;
       textColor = theme.colorScheme.onPrimary;
     } else if (_isHovered) {
@@ -320,25 +329,25 @@ class _SidebarMenuItemState extends State<_SidebarMenuItem> {
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(12 * widget.scale),
-            gradient: widget.isSelected 
-              ? LinearGradient(
-                  colors: [
-                    theme.colorScheme.primary,
-                    theme.colorScheme.primary.withValues(alpha: 0.8),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : null,
-            boxShadow: widget.isSelected 
-              ? [
-                  BoxShadow(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.3),
-                    blurRadius: 10 * widget.scale,
-                    offset: Offset(0, 4 * widget.scale),
+            gradient: widget.isSelected
+                ? LinearGradient(
+                    colors: [
+                      theme.colorScheme.primary,
+                      theme.colorScheme.primary.withValues(alpha: 0.8),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   )
-                ]
-              : [],
+                : null,
+            boxShadow: widget.isSelected
+                ? [
+                    BoxShadow(
+                      color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                      blurRadius: 10 * widget.scale,
+                      offset: Offset(0, 4 * widget.scale),
+                    ),
+                  ]
+                : [],
           ),
           child: Row(
             mainAxisAlignment: widget.isExtended

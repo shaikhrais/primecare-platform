@@ -56,8 +56,8 @@ class ClinicalGlassPanel extends StatelessWidget {
                 children: [
                   if (title != null)
                     Text(title!, style: PrimeCareTheme.typography.h3)
-                  else
-                  if (headerTrailing != null) headerTrailing!,
+                  else if (headerTrailing != null)
+                    headerTrailing!,
                 ],
               ),
             ),

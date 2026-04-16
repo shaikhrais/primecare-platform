@@ -92,8 +92,10 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
   @override
   void initState() {
     super.initState();
-    _formKey = widget.keySeed != null 
-        ? GlobalObjectKey<FormState>('pc_form_${widget.keySeed}_${identityHashCode(this)}') 
+    _formKey = widget.keySeed != null
+        ? GlobalObjectKey<FormState>(
+            'pc_form_${widget.keySeed}_${identityHashCode(this)}',
+          )
         : GlobalKey<FormState>();
     for (var field in widget.schema) {
       if (['text', 'phone', 'email', 'number'].contains(field['type'])) {

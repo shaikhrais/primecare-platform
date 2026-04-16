@@ -25,14 +25,24 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
     final telemetry = ref.read(executionGateProvider);
 
     if (value == 'admin123') {
-      telemetry.passGate(ExecutionGateCategory.auth, 'System Console accessed successfully.');
+      telemetry.passGate(
+        ExecutionGateCategory.auth,
+        'System Console accessed successfully.',
+      );
       setState(() => _isAuthenticated = true);
     } else {
-      telemetry.failGate(ExecutionGateCategory.auth, 'Failed console access attempt.', metadata: {'attempt_value': value});
+      telemetry.failGate(
+        ExecutionGateCategory.auth,
+        'Failed console access attempt.',
+        metadata: {'attempt_value': value},
+      );
       _passwordController.clear();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Access Denied. Invalid Credentials.', style: TextStyle(fontFamily: 'monospace')),
+          content: Text(
+            'Access Denied. Invalid Credentials.',
+            style: TextStyle(fontFamily: 'monospace'),
+          ),
           backgroundColor: Colors.red,
         ),
       );
@@ -61,19 +71,32 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
           children: [
             const Text(
               'PrimeCare System Console v4.0.0',
-              style: TextStyle(color: Colors.green, fontFamily: 'monospace', fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.green,
+                fontFamily: 'monospace',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             const Text(
               'Unauthorized access is strictly prohibited. All attempts are logged via ExecutionGateService.',
-              style: TextStyle(color: Colors.yellow, fontFamily: 'monospace', fontSize: 14),
+              style: TextStyle(
+                color: Colors.yellow,
+                fontFamily: 'monospace',
+                fontSize: 14,
+              ),
             ),
             const SizedBox(height: 32),
             Row(
               children: [
                 const Text(
                   'root@primecare:~# login ',
-                  style: TextStyle(color: Colors.green, fontFamily: 'monospace', fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontFamily: 'monospace',
+                    fontSize: 16,
+                  ),
                 ),
                 Expanded(
                   child: TextField(
@@ -81,7 +104,11 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                     focusNode: _focusNode,
                     autofocus: true,
                     obscureText: true,
-                    style: const TextStyle(color: Colors.white, fontFamily: 'monospace', fontSize: 16),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'monospace',
+                      fontSize: 16,
+                    ),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       isDense: true,
@@ -114,19 +141,29 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
             children: [
               const Text(
                 'LIVE SYSTEM LOGS // EXECUTION GATES',
-                style: TextStyle(color: Colors.green, fontFamily: 'monospace', fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.green,
+                  fontFamily: 'monospace',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.logout, color: Colors.green),
                 tooltip: 'Logout Console',
                 onPressed: () {
-                  ref.read(executionGateProvider).passGate(ExecutionGateCategory.auth, 'System Console session terminated.');
+                  ref
+                      .read(executionGateProvider)
+                      .passGate(
+                        ExecutionGateCategory.auth,
+                        'System Console session terminated.',
+                      );
                   setState(() {
                     _isAuthenticated = false;
                     _passwordController.clear();
                   });
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -137,10 +174,14 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
             itemBuilder: (context, index) {
               final gate = gates[index];
               final isPass = gate.status == ExecutionGateStatus.pass;
-              
+
               // Formatting Timestamp
-              final timeStr = gate.timestamp.toIso8601String().split('T').last.substring(0, 12);
-              
+              final timeStr = gate.timestamp
+                  .toIso8601String()
+                  .split('T')
+                  .last
+                  .substring(0, 12);
+
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Row(
@@ -148,7 +189,11 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                   children: [
                     Text(
                       '[$timeStr]',
-                      style: const TextStyle(color: Colors.blueGrey, fontFamily: 'monospace', fontSize: 14),
+                      style: const TextStyle(
+                        color: Colors.blueGrey,
+                        fontFamily: 'monospace',
+                        fontSize: 14,
+                      ),
                     ),
                     const SizedBox(width: 12),
                     Text(
@@ -168,7 +213,9 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                           Text(
                             '${gate.category.name.toUpperCase()} - ${gate.message}',
                             style: TextStyle(
-                              color: isPass ? const Color(0xFFE0E0E0) : Colors.redAccent,
+                              color: isPass
+                                  ? const Color(0xFFE0E0E0)
+                                  : Colors.redAccent,
                               fontFamily: 'monospace',
                               fontSize: 14,
                             ),
@@ -196,7 +243,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                                   fontSize: 13,
                                 ),
                               ),
-                            )
+                            ),
                         ],
                       ),
                     ),

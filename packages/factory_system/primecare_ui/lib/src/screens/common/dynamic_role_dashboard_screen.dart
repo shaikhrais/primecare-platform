@@ -31,7 +31,8 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
     final theme = Theme.of(context);
 
     // 1. Attempt to resolve specialized dashboard adapter (e.g., 'ceoDashboard')
-    final adapterKey = '${role.split('_').map((s) => s.toLowerCase()).join('')}Dashboard';
+    final adapterKey =
+        '${role.split('_').map((s) => s.toLowerCase()).join('')}Dashboard';
     final specializedProvider = resolveAdapterByName(adapterKey);
 
     if (specializedProvider != null) {
@@ -146,7 +147,9 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                   child: Text(
                     'We encountered an issue hydrating the live workspace. Forensics have been dispatched, and you are currently viewing the most stable fallback state.',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(color: theme.colorScheme.onSurfaceVariant),
+                    style: GoogleFonts.inter(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -176,7 +179,11 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
       color: theme.colorScheme.secondaryContainer,
       child: Row(
         children: [
-          Icon(LucideIcons.info, size: 14, color: theme.colorScheme.onSecondaryContainer),
+          Icon(
+            LucideIcons.info,
+            size: 14,
+            color: theme.colorScheme.onSecondaryContainer,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -208,7 +215,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
     final kpis = metricsOrViewModel is PrimeCareDashboardViewModel
         ? metricsOrViewModel.kpis
         : (metricsOrViewModel as DashboardMetrics).kpis;
-    
+
     final charts = metricsOrViewModel is PrimeCareDashboardViewModel
         ? [] // Charts are usually in blueprints now
         : (metricsOrViewModel as DashboardMetrics).charts;
@@ -270,7 +277,10 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                     const SizedBox(height: 4),
                     Text(
                       'Real-time metrics and institutional activity feed.',
-                      style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: 14),
+                      style: TextStyle(
+                        color: theme.colorScheme.onSurfaceVariant,
+                        fontSize: 14,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

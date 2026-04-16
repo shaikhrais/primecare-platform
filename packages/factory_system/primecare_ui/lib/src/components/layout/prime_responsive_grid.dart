@@ -46,16 +46,18 @@ class PrimeResponsiveGrid extends StatelessWidget {
           extent = mobileMainAxisExtent;
         }
 
-        final itemWidth = (width - (crossAxisCount - 1) * crossAxisSpacing) / crossAxisCount;
+        final itemWidth =
+            (width - (crossAxisCount - 1) * crossAxisSpacing) / crossAxisCount;
 
         return Wrap(
           spacing: crossAxisSpacing,
           runSpacing: mainAxisSpacing,
-          children: children.map((child) => SizedBox(
-            width: itemWidth,
-            height: extent,
-            child: child,
-          )).toList(),
+          children: children
+              .map(
+                (child) =>
+                    SizedBox(width: itemWidth, height: extent, child: child),
+              )
+              .toList(),
         );
       },
     );

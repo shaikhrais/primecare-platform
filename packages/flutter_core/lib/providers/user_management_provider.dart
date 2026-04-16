@@ -35,15 +35,18 @@ class UserModel {
   }
 }
 
-class UserManagementNotifier extends Notifier<List<UserModel>> {
+class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
   @override
-  List<UserModel> build() {
+  Future<List<UserModel>> build() async {
+    // TODO: Connect to actual primecare-api user.service.ts endpoint. 
+    // For now, simulating network delay and returning initial set to prove AsyncNotifier architecture
+    await Future.delayed(const Duration(milliseconds: 800));
     return [
       UserModel(
         id: '1',
         name: 'Mohammed',
         email: 'itpro.mohammed@gmail.com',
-        role: 'Super Admin',
+        role: 'SYSTEM_ADMIN_TIER_1',
         status: 'Active',
         office: 'Global',
       ),
@@ -51,7 +54,7 @@ class UserManagementNotifier extends Notifier<List<UserModel>> {
         id: '2',
         name: 'Sarah CEO',
         email: 'ceo@primecare.com',
-        role: 'CEO',
+        role: 'FINANCE_DIRECTOR_TIER_3',
         status: 'Active',
         office: 'Global',
       ),
@@ -59,41 +62,78 @@ class UserManagementNotifier extends Notifier<List<UserModel>> {
         id: '3',
         name: 'Alex Clinical',
         email: 'clinician@primecare.com',
-        role: 'PSW',
+        role: 'PSW_HUB_MANAGER_TIER_4',
         status: 'Inactive',
         office: 'Toronto West',
       ),
     ];
   }
 
-  void addUser(UserModel user) {
-    state = [...state, user];
+  Future<void> reload() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => build());
   }
 
-  void updateUser(String id, UserModel updatedUser) {
-    state = [
-      for (final user in state)
+  Future<void> addUser(UserModel user) async {
+    final previousState = state;
+    // Optimistic insert
+    state = AsyncData([...state.value ?? [], user]);
+    try {
+      // Simulate API call
+      await Future.delayed(const Duration(milliseconds: 500));
+      // In real implementation we would send this to the backend
+    } catch (e, st) {
+      state = previousState;
+      state = AsyncError(e, st);
+    }
+  }
+
+  Future<void> updateUser(String id, UserModel updatedUser) async {
+    final previousState = state;
+    state = AsyncData([
+      for (final user in state.value ?? <UserModel>[])
         if (user.id == id) updatedUser else user,
-    ];
+    ]);
+    try {
+      await Future.delayed(const Duration(milliseconds: 500));
+    } catch (e, st) {
+      state = previousState;
+      state = AsyncError(e, st);
+    }
   }
 
-  void toggleStatus(String id) {
-    state = [
-      for (final user in state)
+  Future<void> toggleStatus(String id) async {
+    final previousState = state;
+    state = AsyncData([
+      for (final user in state.value ?? <UserModel>[])
         if (user.id == id)
-          user.copyWith(
-              status: user.status == 'Active' ? 'Inactive' : 'Active')
+          user.copyWith(status: user.status == 'Active' ? 'Inactive' : 'Active')
         else
           user,
-    ];
+    ]);
+    try {
+      await Future.delayed(const Duration(milliseconds: 500));
+    } catch (e, st) {
+      state = previousState;
+      state = AsyncError(e, st);
+    }
   }
 
-  void deleteUser(String id) {
-    state = state.where((user) => user.id != id).toList();
+  Future<void> deleteUser(String id) async {
+    final previousState = state;
+    state = AsyncData(
+      (state.value ?? <UserModel>[]).where((user) => user.id != id).toList(),
+    );
+    try {
+      await Future.delayed(const Duration(milliseconds: 500));
+    } catch (e, st) {
+      state = previousState;
+      state = AsyncError(e, st);
+    }
   }
 }
 
 final userManagementProvider =
-    NotifierProvider<UserManagementNotifier, List<UserModel>>(() {
+    AsyncNotifierProvider<UserManagementNotifier, List<UserModel>>(() {
   return UserManagementNotifier();
 });

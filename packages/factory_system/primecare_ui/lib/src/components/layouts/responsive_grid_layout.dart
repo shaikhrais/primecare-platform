@@ -26,7 +26,7 @@ class ResponsiveGridRow extends ConsumerWidget {
       builder: (context, constraints) {
         final effectiveSpacing = spacing ?? 0;
         final rowWidth = constraints.maxWidth;
-        
+
         // Ensure totalColumns is valid
         final totalCols = layout.totalColumns;
         if (totalCols <= 0 || rowWidth <= 0) return const SizedBox.shrink();
@@ -43,11 +43,13 @@ class ResponsiveGridRow extends ConsumerWidget {
           children: children.map((col) {
             // Apply standard mathematical calculation to get the actual px width
             final targetSpan = col.span > totalCols ? totalCols : col.span;
-            double colWidth = (unitWidth * targetSpan) + (effectiveSpacing * (targetSpan - 1));
-            
+            double colWidth =
+                (unitWidth * targetSpan) +
+                (effectiveSpacing * (targetSpan - 1));
+
             // Fix rounding errors that could cause overflow to next line
             if (colWidth > rowWidth - 0.5) colWidth = rowWidth;
-            
+
             // Slight bounded float safety for Wrap breaking
             colWidth = colWidth - 0.1;
 
