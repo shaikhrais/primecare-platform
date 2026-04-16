@@ -284,7 +284,29 @@ class NavigationRegistry {
   };
 
   static List<PrimeCareNavigationItem> getMenuForRole(String role) {
-    // 1. Try exact match first (for acronyms like CEO, CTO, PSW)
+    // 1. Super Admin / Admin master directory fallback
+    final checkRole = role.toLowerCase();
+    if (checkRole == 'super admin' ||
+        checkRole == 'admin' ||
+        checkRole == 'it admin') {
+      final Map<String, PrimeCareNavigationItem> allItems = {};
+      _roleMenus.forEach((roleName, menuList) {
+        for (final item in menuList) {
+          if (!allItems.containsKey(item.route)) {
+            allItems[item.route] = PrimeCareNavigationItem(
+              label: item.label,
+              icon: item.icon,
+              route: item.route,
+              section: '$roleName Screens', // Groups intelligently by role!
+              activeIcon: item.activeIcon,
+            );
+          }
+        }
+      });
+      return allItems.values.toList();
+    }
+
+    // 2. Try exact match first (for acronyms like CEO, CTO, PSW)
     if (_roleMenus.containsKey(role)) {
       return _roleMenus[role]!;
     }

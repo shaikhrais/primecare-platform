@@ -78,22 +78,29 @@ class UniversalRoleSidebar extends ConsumerWidget {
     final scale = layout.scaleFactor;
     final width = isExtended ? 260.0 * scale : 82.0 * scale;
 
-    // Group items into Role Specific and Common
-    final Map<String, List<PrimeCareNavigationItem>> groupedItems = {
-      'Role Specific': [],
-      'Common': [],
-    };
+    // Group items dynamically by their section
+    final Map<String, List<PrimeCareNavigationItem>> groupedItems = {};
+
     for (var item in items) {
-      if (item.section == 'Common Tools' ||
-          item.section == 'Common' ||
-          item.route.startsWith('/common/') &&
-              item.route != '/common/user-management') {
-        groupedItems['Common']!.add(item);
-      } else {
-        groupedItems['Role Specific']!.add(item);
+      String sectionName = item.section ?? 'Main';
+
+      // Normalize common sections slightly
+      if (item.route.startsWith('/common/') &&
+          item.route != '/common/user-management') {
+        sectionName = 'Common Tools';
       }
+
+      if (!groupedItems.containsKey(sectionName)) {
+        groupedItems[sectionName] = [];
+      }
+      groupedItems[sectionName]!.add(item);
     }
-    groupedItems.removeWhere((key, value) => value.isEmpty);
+
+    // Ensure 'Common Tools' is always moved to the very bottom, if it exists
+    if (groupedItems.containsKey('Common Tools')) {
+      final commonItems = groupedItems.remove('Common Tools')!;
+      groupedItems['Common Tools'] = commonItems;
+    }
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
