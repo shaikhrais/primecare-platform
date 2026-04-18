@@ -10,7 +10,7 @@ class IncidentReviews extends ConsumerWidget {
     return const PageTemplate(
       title: 'IncidentReviews',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

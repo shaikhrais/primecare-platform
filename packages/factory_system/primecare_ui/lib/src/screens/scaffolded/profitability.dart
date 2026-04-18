@@ -10,7 +10,7 @@ class Profitability extends ConsumerWidget {
     return const PageTemplate(
       title: 'Profitability',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

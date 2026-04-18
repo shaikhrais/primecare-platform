@@ -10,7 +10,7 @@ class ComplianceHub extends ConsumerWidget {
     return const PageTemplate(
       title: 'Compliance Hub',
       subtitle: 'Regulatory and standard compliance status',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Compliance Interface Provisioning...')),
     );
   }

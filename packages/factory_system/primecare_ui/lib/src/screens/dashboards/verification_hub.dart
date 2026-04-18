@@ -35,7 +35,7 @@ class VerificationHub extends ConsumerWidget {
               Container(
                 padding: EdgeInsets.all(PrimeCareSpacing.scaled(16, scale)),
                 decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.1),
+                  color: statusColor.withValues(alpha: 0.1),
                   border: Border.all(color: statusColor),
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -49,7 +49,7 @@ class VerificationHub extends ConsumerWidget {
                     SizedBox(width: PrimeCareSpacing.scaled(16, scale)),
                     Text(
                       'Database Status: ${data.status.toUpperCase()}',
-                      style: ds.typography.h4.copyWith(color: statusColor),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: statusColor),
                     ),
                     if (data.isOffline) ...[
                       const Spacer(),
@@ -63,17 +63,25 @@ class VerificationHub extends ConsumerWidget {
                 ),
               ),
               SizedBox(height: PrimeCareSpacing.scaled(32, scale)),
-              Text('Table Row Counts', style: ds.typography.h3),
+              Text('Table Row Counts', style: Theme.of(context).textTheme.headlineSmall),
               SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
               PrimeResponsiveGrid(
                 desktopMainAxisExtent: PrimeCareSpacing.scaled(160, scale),
-                children: data.modelCounts.entries.map((entry) {
-                  return KpiCard(
-                    title: entry.key,
-                    value: entry.value.toString(),
-                    trend: '',
-                    icon: Icons.table_chart_outlined,
-                    trendPositive: true,
+                children: data.modelCounts.entries.map<Widget>((entry) {
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.table_chart_outlined, size: 32, color: PrimeCareColors.slate400),
+                          const SizedBox(height: 8),
+                          Text(entry.key, style: Theme.of(context).textTheme.bodyMedium),
+                          const SizedBox(height: 4),
+                          Text(entry.value.toString(), style: Theme.of(context).textTheme.titleLarge),
+                        ],
+                      )
+                    )
                   );
                 }).toList(),
               ),

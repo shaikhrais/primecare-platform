@@ -10,7 +10,7 @@ class Invoices extends ConsumerWidget {
     return const PageTemplate(
       title: 'Invoices',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

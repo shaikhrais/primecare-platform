@@ -10,7 +10,7 @@ class Audits extends ConsumerWidget {
     return const PageTemplate(
       title: 'Audits',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

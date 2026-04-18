@@ -10,7 +10,7 @@ class RevenueTracker extends ConsumerWidget {
     return const PageTemplate(
       title: 'RevenueTracker',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

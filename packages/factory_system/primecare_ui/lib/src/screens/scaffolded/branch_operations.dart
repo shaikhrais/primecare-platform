@@ -10,7 +10,7 @@ class BranchOperations extends ConsumerWidget {
     return const PageTemplate(
       title: 'BranchOperations',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

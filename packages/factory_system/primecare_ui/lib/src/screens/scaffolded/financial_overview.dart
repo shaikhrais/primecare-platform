@@ -10,7 +10,7 @@ class FinancialOverview extends ConsumerWidget {
     return const PageTemplate(
       title: 'FinancialOverview',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

@@ -10,7 +10,7 @@ class Referrals extends ConsumerWidget {
     return const PageTemplate(
       title: 'Referrals',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

@@ -10,7 +10,7 @@ class TaxRemittance extends ConsumerWidget {
     return const PageTemplate(
       title: 'TaxRemittance',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

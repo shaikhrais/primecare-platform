@@ -10,7 +10,7 @@ class CashFlow extends ConsumerWidget {
     return const PageTemplate(
       title: 'CashFlow',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

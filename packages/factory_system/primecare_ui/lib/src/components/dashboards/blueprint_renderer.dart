@@ -82,21 +82,6 @@ class BlueprintRenderer extends StatelessWidget {
     return const SizedBox.shrink();
   }
 
-  Color? _mapStatus(KpiStatus status) {
-    switch (status) {
-      case KpiStatus.positive:
-        return PrimeCareColors.emerald;
-      case KpiStatus.negative:
-        return PrimeCareColors.rose;
-      case KpiStatus.warning:
-        return PrimeCareColors.amber;
-      case KpiStatus.critical:
-        return PrimeCareColors.rose;
-      case KpiStatus.neutral:
-        return PrimeCareColors.skyBlue;
-    }
-  }
-
   IconData _getIconForMetric(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient')) return Icons.people;

@@ -20,7 +20,7 @@ class AppTheme {
           letterSpacing: -0.5,
         ),
       ),
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,

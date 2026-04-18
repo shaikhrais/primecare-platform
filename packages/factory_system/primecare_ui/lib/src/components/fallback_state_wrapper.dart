@@ -20,7 +20,7 @@ class FallbackStateWrapper extends StatelessWidget {
     return Banner(
       message: 'MOCK DATA',
       location: BannerLocation.topStart,
-      color: PrimeCareColors.amber.shade800,
+      color: PrimeCareColors.amber,
       textStyle: const TextStyle(
         color: PrimeCareColors.white,
         fontSize: 10,

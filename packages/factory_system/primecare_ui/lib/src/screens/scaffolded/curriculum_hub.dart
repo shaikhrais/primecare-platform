@@ -10,7 +10,7 @@ class CurriculumHub extends ConsumerWidget {
     return const PageTemplate(
       title: 'CurriculumHub',
       subtitle: 'Auto-scaffolded module',
-      kpiCards: SizedBox(),
+      kpiCards: [SizedBox.shrink()],
       child: Center(child: Text('Provisioning...')),
     );
   }

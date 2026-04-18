@@ -95,7 +95,6 @@ class StitchScreenWidget extends StatelessWidget {
   }
 
   Widget _buildMetricsPreview(BuildContext context) {
-    final theme = Theme.of(context);
     return Row(
       children: [
         _buildMiniMetric(

@@ -98,7 +98,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                         .maxHeight, // Keep fullscreen height for prototype
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: PrimeCareColors.slate400.shade100,
+                        color: PrimeCareColors.slate400.withValues(alpha: 0.1),
                         width: 2,
                       ),
                       boxShadow: const [
