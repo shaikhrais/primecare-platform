@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
-import 'package:primecare_core/features/system_verification/domain/models/system_verification_view_model.dart';
 
 final systemVerificationAdapterProvider =
     FutureProvider<Result<SystemVerificationViewModel>>((ref) async {

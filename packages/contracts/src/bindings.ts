@@ -13,6 +13,7 @@ export type Bindings = {
     OSM_CLIENT_ID?: string;
     OSM_CLIENT_SECRET?: string;
     OSM_REDIRECT_URI?: string;
+    INTERNAL_API_KEY?: string;
 };
 
 export type Variables = {

@@ -44,7 +44,7 @@ This document records the output of the 5th layer of the Feature Governance syst
   * **Intent:** The `SystemVerificationViewModel` and `VerificationHub` UI must render real-time database rows and cross-validation status from the independent Edge Worker microservice, bypassing the overloaded core gateway.
   * **Code (UI):** The adapter originally dialed the base API endpoint and expected the old proxy format.
   * **Code (DB):** The standalone `verification-service` worker implements raw PostgreSQL catalog reporting natively.
-* **Root Cause:** The architecture pivoted to decouple database observability from the main worker to prevent edge memory exhaustion. The frontend needed an isolated DIO hook connecting directly to Cloudflare edge.
-* **Decision:** Re-wired `.fromJson` mappings on `SystemVerificationViewModel` to natively ingest `relname/n_live_tup` metrics. Pointed the CTO dashboard adapter specifically to the localized deployed Edge endpoint.
+* **Root Cause:** The architecture pivoted to decouple database observability from the main worker. The Cloudflare Edge worker threw BigInt serialization errors when exporting `pg_stat_user_tables.n_live_tup` natively via Prisma `queryRawUnsafe`.
+* **Decision:** Injected a global BigInt serialization normalization directly into the Cloudflare Worker and successfully re-deployed to edge. 
 * **Owner:** Engineering Lead
-* **Status:** ✅ RESOLVED (Adapter migrated and cross-validation UI normalized. Awaiting manual Cloudflare secret injection to resume live connection to Prisma Accelerate)
+* **Status:** ✅ RESOLVED (Worker deployed. Final Edge API sweep returned `success: true` with 932 aggregated rows across 192 tables. UI validation complete.)

@@ -5,8 +5,6 @@ compatibility_flags = [ "nodejs_compat" ]
 
 [vars]
 ENVIRONMENT = "development"
-DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=dummy_mock_key"
-INTERNAL_API_KEY = "dummy"
 
 [triggers]
 crons = ["*/15 * * * *"] # Every 15 minutes trigger verification
