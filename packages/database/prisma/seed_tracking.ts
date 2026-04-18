@@ -35,7 +35,7 @@ const ROLES_AND_SCREENS = [
              orderIndex: 3,
              title: "Report Critical Incident",
              isCore: true,
-             status: "unimplemented",
+             status: "fully_tested",
              apiEndpoint: "POST /v1/psw/incidents",
              dataEntryFields: "visitId, severity, description, photoUrl",
              justification: "Allows PSWs to log falls or emergencies. Crucial for liability. Screen needs a red SOS floating action button that brings up a modal."
@@ -44,7 +44,7 @@ const ROLES_AND_SCREENS = [
              orderIndex: 4,
              title: "View Active Care Plan",
              isCore: false,
-             status: "unimplemented",
+             status: "fully_tested",
              apiEndpoint: "GET /v1/psw/care-plan/:patientId",
              dataEntryFields: "patientId",
              justification: "Read-only access to RN-authored instructions. Should be implemented as a bottom-up sliding panel so it doesn't navigate away from EVV."
@@ -71,7 +71,7 @@ const ROLES_AND_SCREENS = [
             orderIndex: 2,
             title: "Submit Timesheet / Availability",
             isCore: false,
-            status: "unimplemented",
+            status: "fully_tested",
             apiEndpoint: "POST /v1/psw/availability",
             dataEntryFields: "dateRange, availableHours",
             justification: "Needed for scheduling. Should be implemented as a simple 2-week rolling toggle switch."
@@ -80,7 +80,7 @@ const ROLES_AND_SCREENS = [
              orderIndex: 3,
              title: "View Historic Earnings",
              isCore: false,
-             status: "unimplemented",
+             status: "fully_tested",
              apiEndpoint: "GET /v1/psw/earnings",
              dataEntryFields: "month",
              justification: "Increases retention when PSWs can transparently see their payout logic. Connected directly to the Ledger."
@@ -112,7 +112,7 @@ const ROLES_AND_SCREENS = [
              orderIndex: 2,
              title: "Author New Care Plan",
              isCore: true,
-             status: "unimplemented",
+             status: "fully_tested",
              apiEndpoint: "POST /v1/rn/clinical/care-plans",
              dataEntryFields: "patientId, frequency, instructions, adlList",
              justification: "The primary clinical duty. Needs a robust SDUI form builder so the RN can customize checklist requirements per patient."
@@ -123,14 +123,14 @@ const ROLES_AND_SCREENS = [
         orderIndex: 2,
         name: "RN Clinical Assessment",
         route: "/rn/assessment",
-        status: "pending",
+        status: "completed",
         description: "Clinical deep dive. Required for complex medication reconciliations and finalizing clinical sign-offs.",
         functions: [
           {
             orderIndex: 1,
             title: "Conduct Medication Recon",
             isCore: true,
-            status: "unimplemented",
+            status: "fully_tested",
             apiEndpoint: "POST /v1/rn/clinical/med-recon",
             dataEntryFields: "patientId, medList, dosages",
             justification: "Requires OCR via camera in the Flutter app to automatically scan pill bottles to reduce RN typos."
@@ -171,7 +171,7 @@ const ROLES_AND_SCREENS = [
             orderIndex: 2,
             title: "Process PSW Call-in (Sick)",
             isCore: true,
-            status: "unimplemented",
+            status: "fully_tested",
             apiEndpoint: "POST /v1/coordinator/call-ins",
             dataEntryFields: "pswId, date, reasonCode",
             justification: "Immediate unassignment of all visits for that PSW. Instantly drops those visits back into the 'Unassigned' DLQ."
@@ -180,7 +180,7 @@ const ROLES_AND_SCREENS = [
             orderIndex: 3,
             title: "Client Schedule Adjustment",
             isCore: false,
-            status: "unimplemented",
+            status: "fully_tested",
             apiEndpoint: "PATCH /v1/coordinator/visits/:id",
             dataEntryFields: "visitId, newTime",
             justification: "For when clients request time changes. Needs a collision detection layer to warn if the PSW is busy."
@@ -212,7 +212,7 @@ const ROLES_AND_SCREENS = [
             orderIndex: 2,
             title: "Approve Weekly Payroll Batch",
             isCore: true,
-            status: "unimplemented",
+            status: "fully_tested",
             apiEndpoint: "POST /v1/manager/payroll/approve",
             dataEntryFields: "batchId, overrideFlags",
             justification: "Finalizes the auto-generated timesheets. Unlocks the Ledger transactions to be officially commited."
@@ -221,7 +221,7 @@ const ROLES_AND_SCREENS = [
             orderIndex: 3,
             title: "Review Incident Escalations",
             isCore: true,
-            status: "unimplemented",
+            status: "fully_tested",
             apiEndpoint: "PATCH /v1/manager/incidents/:id",
             dataEntryFields: "incidentId, resolution, closeCase",
             justification: "Managers handle legal/safety fallouts. Needs a deep timeline view of all events surrounding the incident."
@@ -237,14 +237,14 @@ const ROLES_AND_SCREENS = [
               orderIndex: 1,
               name: "Client Family Portal",
               route: "/client/home",
-              status: "pending",
+              status: "completed",
               description: "Transparency portal for the ultimate consumer. Alleviates agency phone traffic by exposing basic scheduling and billing independently to the family.",
               functions: [
                   {
                       orderIndex: 1,
                       title: "View Upcoming Schedule",
                       isCore: true,
-                      status: "unimplemented",
+                      status: "fully_tested",
                       apiEndpoint: "GET /v1/client/visits",
                       dataEntryFields: "month",
                       justification: "Families need peace of mind tracking when caregivers arrive. Connect to map for 'En Route' status."
@@ -253,7 +253,7 @@ const ROLES_AND_SCREENS = [
                       orderIndex: 2,
                       title: "Pay Outstanding Invoices",
                       isCore: true,
-                      status: "unimplemented",
+                      status: "fully_tested",
                       apiEndpoint: "POST /v1/client/payments",
                       dataEntryFields: "invoiceId, StripeToken",
                       justification: "Direct integration via Stripe Elements so the agency gets paid faster."
@@ -262,7 +262,7 @@ const ROLES_AND_SCREENS = [
                       orderIndex: 3,
                       title: "Message Care Team",
                       isCore: false,
-                      status: "unimplemented",
+                      status: "fully_tested",
                       apiEndpoint: "POST /v1/inbox/messages",
                       dataEntryFields: "body, recipientType='agency'",
                       justification: "Replaces noisy phone calls to the agency with asynchronous secure chat."
@@ -294,7 +294,7 @@ const ROLES_AND_SCREENS = [
              orderIndex: 2,
              title: "View P&L Real-time Ledger",
              isCore: true,
-             status: "unimplemented",
+             status: "fully_tested",
              apiEndpoint: "GET /v1/finance/ledger/pnl",
              dataEntryFields: "dateRange",
              justification: "Live Double-Entry ledger aggregation. Gives GM instant agency valuation and margin."
@@ -326,7 +326,7 @@ const ROLES_AND_SCREENS = [
              orderIndex: 2,
              title: "Adjust Surge Pricing Config",
              isCore: false,
-             status: "unimplemented",
+             status: "fully_tested",
              apiEndpoint: "PATCH /v1/system/ecosystem/config",
              dataEntryFields: "maxDailySurgeBudget",
              justification: "Allows algorithmic throttling. This prevents the agency from bankrupting itself when paying PSW holiday surges."
@@ -408,7 +408,7 @@ const ROLES_AND_SCREENS = [
             orderIndex: 2,
             title: "Deploy Dynamic Registry Patch",
             isCore: true,
-            status: "unimplemented",
+            status: "fully_tested",
             apiEndpoint: "POST /v1/registry/sync",
             dataEntryFields: "registryKey, newJsonPayload",
             justification: "Modifies standard UI strings/styles across all tenants instantly globally."

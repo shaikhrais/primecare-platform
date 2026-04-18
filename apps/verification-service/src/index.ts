@@ -43,6 +43,35 @@ app.get('/v1/health', (c) => {
     });
 });
 
+// Missing Plans Discovery Endpoint (Task: Find unimplemented registry components)
+app.get('/v1/verifications/missing-plans', async (c) => {
+    const prisma = c.get('prisma');
+    if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);
+
+    try {
+        const missingScreens = await prisma.platformScreen.findMany({
+            where: { status: { in: ['unimplemented', 'pending'] } },
+            select: { id: true, name: true, route: true, status: true, role: { select: { name: true } } }
+        });
+
+        const missingFunctions = await prisma.screenFunctionality.findMany({
+            where: { status: { in: ['unimplemented', 'pending'] } },
+            select: { id: true, title: true, status: true, screen: { select: { name: true, role: { select: { name: true } } } } }
+        });
+
+        return c.json({
+            success: true,
+            missingScreensCount: missingScreens.length,
+            missingFunctionsCount: missingFunctions.length,
+            missingScreens,
+            missingFunctions,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error: any) {
+        return c.json({ success: false, error: error.message }, 500);
+    }
+});
+
 // Cross-Validation & Database Utility Hook (Task 6)
 app.get('/v1/verifications/cross-validate', async (c) => {
     const prisma = c.get('prisma');
