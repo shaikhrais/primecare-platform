@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class SubmitDailyCensusFormViewModel {
@@ -15,10 +16,15 @@ class SubmitDailyCensusFormAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = SubmitDailyCensusFormViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = SubmitDailyCensusFormViewModel(isLoading: false, data: {});
+        state = SubmitDailyCensusFormViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/submit-daily-census-form-adapter');
+      state = SubmitDailyCensusFormViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = SubmitDailyCensusFormViewModel(isLoading: false, data: {});
+    }
   }
 }
 

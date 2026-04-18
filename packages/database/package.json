@@ -6,7 +6,8 @@
   "scripts": {
     "generate": "prisma generate",
     "postinstall": "prisma generate",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check-architecture": "npx tsx ci_architectural_gate.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

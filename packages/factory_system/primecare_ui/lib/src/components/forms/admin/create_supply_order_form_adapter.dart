@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class CreateSupplyOrderFormViewModel {
@@ -15,10 +16,15 @@ class CreateSupplyOrderFormAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = CreateSupplyOrderFormViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = CreateSupplyOrderFormViewModel(isLoading: false, data: {});
+        state = CreateSupplyOrderFormViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/create-supply-order-form-adapter');
+      state = CreateSupplyOrderFormViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = CreateSupplyOrderFormViewModel(isLoading: false, data: {});
+    }
   }
 }
 

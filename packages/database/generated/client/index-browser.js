@@ -1103,7 +1103,8 @@ exports.Prisma.FinancialTransactionScalarFieldEnum = {
   status: 'status',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  metadata: 'metadata'
 };
 
 exports.Prisma.JournalEntryScalarFieldEnum = {
@@ -1157,6 +1158,7 @@ exports.Prisma.TransactionLedgerScalarFieldEnum = {
   previousChecksum: 'previousChecksum',
   status: 'status',
   voidedByEntryId: 'voidedByEntryId',
+  metadata: 'metadata',
   createdAt: 'createdAt'
 };
 
@@ -1772,6 +1774,81 @@ exports.Prisma.AnomalyReportScalarFieldEnum = {
   severity: 'severity',
   message: 'message',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ArchitecturalLayerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  orderIndex: 'orderIndex',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ComponentPurposeScalarFieldEnum = {
+  id: 'id',
+  layerId: 'layerId',
+  screenId: 'screenId',
+  functionalityId: 'functionalityId',
+  targetFile: 'targetFile',
+  description: 'description',
+  implementedWell: 'implementedWell',
+  anomaliesDetail: 'anomaliesDetail',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SystemDomainScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  owner: 'owner',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SoftwareSystemScalarFieldEnum = {
+  id: 'id',
+  domainId: 'domainId',
+  name: 'name',
+  description: 'description',
+  url: 'url',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SysComponentScalarFieldEnum = {
+  id: 'id',
+  systemId: 'systemId',
+  name: 'name',
+  type: 'type',
+  language: 'language',
+  description: 'description',
+  status: 'status',
+  repoPath: 'repoPath',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ApiContractScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  description: 'description',
+  providerId: 'providerId',
+  consumerId: 'consumerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DataResourceScalarFieldEnum = {
+  id: 'id',
+  componentId: 'componentId',
+  name: 'name',
+  type: 'type',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
@@ -2626,6 +2703,13 @@ exports.Prisma.ModelName = {
   ImplementationEvent: 'ImplementationEvent',
   VerificationLog: 'VerificationLog',
   AnomalyReport: 'AnomalyReport',
+  ArchitecturalLayer: 'ArchitecturalLayer',
+  ComponentPurpose: 'ComponentPurpose',
+  SystemDomain: 'SystemDomain',
+  SoftwareSystem: 'SoftwareSystem',
+  SysComponent: 'SysComponent',
+  ApiContract: 'ApiContract',
+  DataResource: 'DataResource',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class ForgotPasswordScreenViewModel {
@@ -15,10 +16,15 @@ class ForgotPasswordScreenAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = ForgotPasswordScreenViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = ForgotPasswordScreenViewModel(isLoading: false, data: {});
+        state = ForgotPasswordScreenViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/forgot-password-screen-adapter');
+      state = ForgotPasswordScreenViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = ForgotPasswordScreenViewModel(isLoading: false, data: {});
+    }
   }
 }
 

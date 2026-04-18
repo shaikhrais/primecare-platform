@@ -1640,6 +1640,7 @@ model FinancialTransaction {
   tenantId    String   @map("tenant_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
+  metadata    Json?    @map("metadata")
 
   tenant          Tenant                    @relation(fields: [tenantId], references: [id])
   journalEntries  JournalEntry[]
@@ -1726,6 +1727,7 @@ model TransactionLedger {
   previousChecksum String?  @map("previous_checksum") // SHA-256 of previous entry
   status           String   @default("sealed") // sealed = immutable, voided = reversed by another entry
   voidedByEntryId  String?  @map("voided_by_entry_id") // links to the reversal entry
+  metadata         Json?    @map("metadata")
   createdAt        DateTime @default(now()) @map("created_at")
   // NO updatedAt — records are immutable
 
@@ -2355,8 +2357,9 @@ model PlatformScreen {
   description String? @db.Text
   orderIndex  Int     @default(0) @map("order_index")
 
-  role      PlatformRole          @relation(fields: [roleId], references: [id])
-  functions ScreenFunctionality[]
+  role              PlatformRole          @relation(fields: [roleId], references: [id])
+  functions         ScreenFunctionality[]
+  componentPurposes ComponentPurpose[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -2377,7 +2380,8 @@ model ScreenFunctionality {
   notes           String?
   orderIndex      Int     @default(0) @map("order_index")
 
-  screen PlatformScreen @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  screen            PlatformScreen     @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  componentPurposes ComponentPurpose[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -2655,6 +2659,142 @@ model AnomalyReport {
   severity  String
   message   String
   createdAt DateTime @default(now())
+}
+
+// ==========================================
+// ARCHITECTURE GOVERNANCE MODULE
+// ==========================================
+
+model ArchitecturalLayer {
+  id          String  @id @default(uuid())
+  name        String  @unique // e.g., 'Strategic', 'Infrastructure', 'Topographical'
+  description String?
+  orderIndex  Int     @default(0)
+
+  componentPurposes ComponentPurpose[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("architectural_layers")
+}
+
+model ComponentPurpose {
+  id              String  @id @default(uuid())
+  layerId         String  @map("layer_id")
+  screenId        String? @map("screen_id")
+  functionalityId String? @map("functionality_id")
+  targetFile      String? @map("target_file")
+
+  description     String  @db.Text
+  implementedWell Boolean @default(true) @map("implemented_well")
+  anomaliesDetail String? @map("anomalies_detail") @db.Text
+
+  // Foreign Key Relationships
+  layer         ArchitecturalLayer   @relation(fields: [layerId], references: [id])
+  screen        PlatformScreen?      @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  functionality ScreenFunctionality? @relation(fields: [functionalityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([layerId])
+  @@index([screenId])
+  @@index([functionalityId])
+  @@map("component_purposes")
+}
+
+// ==========================================
+// ENTERPRISE REGISTRY MODULE (BACKSTAGE ENTITY MODEL)
+// ==========================================
+
+model SystemDomain {
+  id          String  @id @default(uuid())
+  name        String  @unique // e.g., 'Clinical Core', 'Financial Subsystem'
+  description String? @db.Text
+  owner       String? // Reference to owning team
+
+  systems SoftwareSystem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("system_domains")
+}
+
+model SoftwareSystem {
+  id          String  @id @default(uuid())
+  domainId    String  @map("domain_id")
+  name        String // e.g., 'Verification Service', 'Flutter Web Admin'
+  description String? @db.Text
+  url         String? // The deployed URL
+
+  domain     SystemDomain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  components SysComponent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([domainId])
+  @@map("software_systems")
+}
+
+model SysComponent {
+  id          String  @id @default(uuid())
+  systemId    String  @map("system_id")
+  name        String // e.g., 'Edge Telemetry API', 'Architectural Dashboard'
+  type        String // 'service', 'website', 'library'
+  language    String? // 'typescript', 'dart'
+  description String? @db.Text
+  status      String  @default("implemented") // 'implemented', 'unimplemented', 'deprecated'
+  repoPath    String? @map("repo_path") // e.g., 'apps/verification-service'
+
+  system       SoftwareSystem @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  providedApis ApiContract[]  @relation("provided")
+  consumedApis ApiContract[]  @relation("consumed")
+  resources    DataResource[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([systemId])
+  @@map("sys_components")
+}
+
+model ApiContract {
+  id          String  @id @default(uuid())
+  name        String // e.g., 'GET /v1/verifications/purpose-report'
+  type        String // 'openapi', 'graphql', 'grpc'
+  description String? @db.Text
+
+  providerId String  @map("provider_id")
+  consumerId String? @map("consumer_id") // Optional, for explicitly tracking consumers
+
+  provider SysComponent  @relation("provided", fields: [providerId], references: [id], onDelete: Cascade)
+  consumer SysComponent? @relation("consumed", fields: [consumerId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([providerId])
+  @@index([consumerId])
+  @@map("api_contracts")
+}
+
+model DataResource {
+  id          String  @id @default(uuid())
+  componentId String  @map("component_id")
+  name        String // e.g., 'Primary PostgreSQL DB', 'Cloudflare KV'
+  type        String // 'postgres', 'redis', 's3'
+  description String? @db.Text
+
+  component SysComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([componentId])
+  @@map("data_resources")
 }
 
 // Domain: d_clients.prisma

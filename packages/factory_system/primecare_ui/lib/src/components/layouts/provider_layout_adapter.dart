@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class ProviderLayoutViewModel {
@@ -14,10 +15,15 @@ class ProviderLayoutAdapter extends Notifier<ProviderLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = ProviderLayoutViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = ProviderLayoutViewModel(isLoading: false, data: {});
+        state = ProviderLayoutViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/provider-layout-adapter');
+      state = ProviderLayoutViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = ProviderLayoutViewModel(isLoading: false, data: {});
+    }
   }
 }
 

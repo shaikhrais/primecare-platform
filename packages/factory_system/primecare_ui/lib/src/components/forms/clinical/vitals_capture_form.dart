@@ -73,10 +73,15 @@ class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
     // 2. Network Telemetry wrapper
     final result = await Result.guardFuture<bool>(
       () async {
-        // Mock API Client call
-        await Future.delayed(
-          const Duration(milliseconds: 800),
-        ); // Simulate network
+        // Connect safely to the database-driven clinical endpoint
+        await ref.read(apiClientProvider).post(
+          '/api/v1/clinical/vitals-capture',
+          body: {
+            'heartRate': currentData.heartRate,
+            'bloodPressure': currentData.bloodPressure,
+            'temperature': currentData.temperature,
+          },
+        );
 
         ref
             .read(executionGateProvider)

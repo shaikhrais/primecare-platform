@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class ReviewMedicationInventoryFormViewModel {
@@ -15,13 +16,15 @@ class ReviewMedicationInventoryFormAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = ReviewMedicationInventoryFormViewModel(
-      isLoading: true,
-      data: state.data,
-    );
-    // Simulate fetch
-    state = ReviewMedicationInventoryFormViewModel(isLoading: false, data: {});
+        state = dynamic(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/review-medication-inventory-form-adapter');
+      state = dynamic(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = dynamic(isLoading: false, data: {});
+    }
   }
 }
 

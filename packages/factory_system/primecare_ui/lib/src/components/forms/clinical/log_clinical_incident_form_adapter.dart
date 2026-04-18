@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class LogClinicalIncidentFormViewModel {
@@ -15,10 +16,15 @@ class LogClinicalIncidentFormAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = LogClinicalIncidentFormViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = LogClinicalIncidentFormViewModel(isLoading: false, data: {});
+        state = LogClinicalIncidentFormViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/log-clinical-incident-form-adapter');
+      state = LogClinicalIncidentFormViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = LogClinicalIncidentFormViewModel(isLoading: false, data: {});
+    }
   }
 }
 

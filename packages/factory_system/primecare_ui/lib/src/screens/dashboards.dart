@@ -6,3 +6,4 @@ export 'dashboards/system_dashboard.dart';
 export 'dashboards/region_dashboard.dart';
 export 'dashboards/compliance_hub.dart';
 export 'dashboards/verification_hub.dart';
+export 'dashboards/architectural_planning_dashboard.dart';

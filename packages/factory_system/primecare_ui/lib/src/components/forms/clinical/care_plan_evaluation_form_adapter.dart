@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class CarePlanEvaluationFormViewModel {
@@ -15,10 +16,15 @@ class CarePlanEvaluationFormAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = CarePlanEvaluationFormViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = CarePlanEvaluationFormViewModel(isLoading: false, data: {});
+        state = CarePlanEvaluationFormViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/care-plan-evaluation-form-adapter');
+      state = CarePlanEvaluationFormViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = CarePlanEvaluationFormViewModel(isLoading: false, data: {});
+    }
   }
 }
 

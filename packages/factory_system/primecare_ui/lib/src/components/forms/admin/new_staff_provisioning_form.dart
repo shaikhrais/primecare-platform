@@ -90,10 +90,18 @@ class StaffProvisioningNotifier extends AsyncNotifier<StaffProvisionData> {
     // 2. Network Telemetry wrapper
     final result = await Result.guardFuture<bool>(
       () async {
-        // Mock API Client call
-        await Future.delayed(
-          const Duration(milliseconds: 1200),
-        ); // Simulate network
+        // Connect safely to the database-driven admin endpoint
+        await ref.read(apiClientProvider).post(
+          '/api/v1/admin/provision-staff',
+          body: {
+            'firstName': currentData.firstName,
+            'lastName': currentData.lastName,
+            'email': currentData.email,
+            'role': currentData.role,
+            'department': currentData.department,
+            'additionalNotes': currentData.additionalNotes,
+          },
+        );
 
         ref
             .read(executionGateProvider)

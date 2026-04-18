@@ -11,6 +11,7 @@ class CommonRoutes {
   static const String messagingHub = '/common/messages';
   static const String documentVault = '/common/documents';
   static const String userManagement = '/common/users';
+  static const String architecturalPlanning = '/common/architecture-planning';
 
   static const String clinicMasterShell = '/clinic/master-shell';
   static const String clinicDashboard = '/clinic/dashboard';

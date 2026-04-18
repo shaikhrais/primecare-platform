@@ -674,6 +674,41 @@ export type VerificationLog = $Result.DefaultSelection<Prisma.$VerificationLogPa
  */
 export type AnomalyReport = $Result.DefaultSelection<Prisma.$AnomalyReportPayload>
 /**
+ * Model ArchitecturalLayer
+ * 
+ */
+export type ArchitecturalLayer = $Result.DefaultSelection<Prisma.$ArchitecturalLayerPayload>
+/**
+ * Model ComponentPurpose
+ * 
+ */
+export type ComponentPurpose = $Result.DefaultSelection<Prisma.$ComponentPurposePayload>
+/**
+ * Model SystemDomain
+ * 
+ */
+export type SystemDomain = $Result.DefaultSelection<Prisma.$SystemDomainPayload>
+/**
+ * Model SoftwareSystem
+ * 
+ */
+export type SoftwareSystem = $Result.DefaultSelection<Prisma.$SoftwareSystemPayload>
+/**
+ * Model SysComponent
+ * 
+ */
+export type SysComponent = $Result.DefaultSelection<Prisma.$SysComponentPayload>
+/**
+ * Model ApiContract
+ * 
+ */
+export type ApiContract = $Result.DefaultSelection<Prisma.$ApiContractPayload>
+/**
+ * Model DataResource
+ * 
+ */
+export type DataResource = $Result.DefaultSelection<Prisma.$DataResourcePayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2418,6 +2453,76 @@ export class PrismaClient<
   get anomalyReport(): Prisma.AnomalyReportDelegate<ExtArgs>;
 
   /**
+   * `prisma.architecturalLayer`: Exposes CRUD operations for the **ArchitecturalLayer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ArchitecturalLayers
+    * const architecturalLayers = await prisma.architecturalLayer.findMany()
+    * ```
+    */
+  get architecturalLayer(): Prisma.ArchitecturalLayerDelegate<ExtArgs>;
+
+  /**
+   * `prisma.componentPurpose`: Exposes CRUD operations for the **ComponentPurpose** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ComponentPurposes
+    * const componentPurposes = await prisma.componentPurpose.findMany()
+    * ```
+    */
+  get componentPurpose(): Prisma.ComponentPurposeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.systemDomain`: Exposes CRUD operations for the **SystemDomain** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemDomains
+    * const systemDomains = await prisma.systemDomain.findMany()
+    * ```
+    */
+  get systemDomain(): Prisma.SystemDomainDelegate<ExtArgs>;
+
+  /**
+   * `prisma.softwareSystem`: Exposes CRUD operations for the **SoftwareSystem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SoftwareSystems
+    * const softwareSystems = await prisma.softwareSystem.findMany()
+    * ```
+    */
+  get softwareSystem(): Prisma.SoftwareSystemDelegate<ExtArgs>;
+
+  /**
+   * `prisma.sysComponent`: Exposes CRUD operations for the **SysComponent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SysComponents
+    * const sysComponents = await prisma.sysComponent.findMany()
+    * ```
+    */
+  get sysComponent(): Prisma.SysComponentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.apiContract`: Exposes CRUD operations for the **ApiContract** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ApiContracts
+    * const apiContracts = await prisma.apiContract.findMany()
+    * ```
+    */
+  get apiContract(): Prisma.ApiContractDelegate<ExtArgs>;
+
+  /**
+   * `prisma.dataResource`: Exposes CRUD operations for the **DataResource** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DataResources
+    * const dataResources = await prisma.dataResource.findMany()
+    * ```
+    */
+  get dataResource(): Prisma.DataResourceDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3589,6 +3694,13 @@ export namespace Prisma {
     ImplementationEvent: 'ImplementationEvent',
     VerificationLog: 'VerificationLog',
     AnomalyReport: 'AnomalyReport',
+    ArchitecturalLayer: 'ArchitecturalLayer',
+    ComponentPurpose: 'ComponentPurpose',
+    SystemDomain: 'SystemDomain',
+    SoftwareSystem: 'SoftwareSystem',
+    SysComponent: 'SysComponent',
+    ApiContract: 'ApiContract',
+    DataResource: 'DataResource',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3664,7 +3776,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "dataResource" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -12908,6 +13020,496 @@ export namespace Prisma {
           }
         }
       }
+      ArchitecturalLayer: {
+        payload: Prisma.$ArchitecturalLayerPayload<ExtArgs>
+        fields: Prisma.ArchitecturalLayerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArchitecturalLayerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArchitecturalLayerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>
+          }
+          findFirst: {
+            args: Prisma.ArchitecturalLayerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArchitecturalLayerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>
+          }
+          findMany: {
+            args: Prisma.ArchitecturalLayerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>[]
+          }
+          create: {
+            args: Prisma.ArchitecturalLayerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>
+          }
+          createMany: {
+            args: Prisma.ArchitecturalLayerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArchitecturalLayerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>[]
+          }
+          delete: {
+            args: Prisma.ArchitecturalLayerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>
+          }
+          update: {
+            args: Prisma.ArchitecturalLayerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>
+          }
+          deleteMany: {
+            args: Prisma.ArchitecturalLayerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArchitecturalLayerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ArchitecturalLayerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArchitecturalLayerPayload>
+          }
+          aggregate: {
+            args: Prisma.ArchitecturalLayerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArchitecturalLayer>
+          }
+          groupBy: {
+            args: Prisma.ArchitecturalLayerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArchitecturalLayerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArchitecturalLayerCountArgs<ExtArgs>
+            result: $Utils.Optional<ArchitecturalLayerCountAggregateOutputType> | number
+          }
+        }
+      }
+      ComponentPurpose: {
+        payload: Prisma.$ComponentPurposePayload<ExtArgs>
+        fields: Prisma.ComponentPurposeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ComponentPurposeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ComponentPurposeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>
+          }
+          findFirst: {
+            args: Prisma.ComponentPurposeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ComponentPurposeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>
+          }
+          findMany: {
+            args: Prisma.ComponentPurposeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>[]
+          }
+          create: {
+            args: Prisma.ComponentPurposeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>
+          }
+          createMany: {
+            args: Prisma.ComponentPurposeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ComponentPurposeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>[]
+          }
+          delete: {
+            args: Prisma.ComponentPurposeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>
+          }
+          update: {
+            args: Prisma.ComponentPurposeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>
+          }
+          deleteMany: {
+            args: Prisma.ComponentPurposeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ComponentPurposeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ComponentPurposeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPurposePayload>
+          }
+          aggregate: {
+            args: Prisma.ComponentPurposeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComponentPurpose>
+          }
+          groupBy: {
+            args: Prisma.ComponentPurposeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ComponentPurposeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ComponentPurposeCountArgs<ExtArgs>
+            result: $Utils.Optional<ComponentPurposeCountAggregateOutputType> | number
+          }
+        }
+      }
+      SystemDomain: {
+        payload: Prisma.$SystemDomainPayload<ExtArgs>
+        fields: Prisma.SystemDomainFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SystemDomainFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SystemDomainFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>
+          }
+          findFirst: {
+            args: Prisma.SystemDomainFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SystemDomainFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>
+          }
+          findMany: {
+            args: Prisma.SystemDomainFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>[]
+          }
+          create: {
+            args: Prisma.SystemDomainCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>
+          }
+          createMany: {
+            args: Prisma.SystemDomainCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SystemDomainCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>[]
+          }
+          delete: {
+            args: Prisma.SystemDomainDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>
+          }
+          update: {
+            args: Prisma.SystemDomainUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>
+          }
+          deleteMany: {
+            args: Prisma.SystemDomainDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SystemDomainUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SystemDomainUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemDomainPayload>
+          }
+          aggregate: {
+            args: Prisma.SystemDomainAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSystemDomain>
+          }
+          groupBy: {
+            args: Prisma.SystemDomainGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SystemDomainGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SystemDomainCountArgs<ExtArgs>
+            result: $Utils.Optional<SystemDomainCountAggregateOutputType> | number
+          }
+        }
+      }
+      SoftwareSystem: {
+        payload: Prisma.$SoftwareSystemPayload<ExtArgs>
+        fields: Prisma.SoftwareSystemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SoftwareSystemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SoftwareSystemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>
+          }
+          findFirst: {
+            args: Prisma.SoftwareSystemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SoftwareSystemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>
+          }
+          findMany: {
+            args: Prisma.SoftwareSystemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>[]
+          }
+          create: {
+            args: Prisma.SoftwareSystemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>
+          }
+          createMany: {
+            args: Prisma.SoftwareSystemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SoftwareSystemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>[]
+          }
+          delete: {
+            args: Prisma.SoftwareSystemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>
+          }
+          update: {
+            args: Prisma.SoftwareSystemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>
+          }
+          deleteMany: {
+            args: Prisma.SoftwareSystemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SoftwareSystemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SoftwareSystemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SoftwareSystemPayload>
+          }
+          aggregate: {
+            args: Prisma.SoftwareSystemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSoftwareSystem>
+          }
+          groupBy: {
+            args: Prisma.SoftwareSystemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SoftwareSystemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SoftwareSystemCountArgs<ExtArgs>
+            result: $Utils.Optional<SoftwareSystemCountAggregateOutputType> | number
+          }
+        }
+      }
+      SysComponent: {
+        payload: Prisma.$SysComponentPayload<ExtArgs>
+        fields: Prisma.SysComponentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SysComponentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SysComponentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>
+          }
+          findFirst: {
+            args: Prisma.SysComponentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SysComponentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>
+          }
+          findMany: {
+            args: Prisma.SysComponentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>[]
+          }
+          create: {
+            args: Prisma.SysComponentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>
+          }
+          createMany: {
+            args: Prisma.SysComponentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SysComponentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>[]
+          }
+          delete: {
+            args: Prisma.SysComponentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>
+          }
+          update: {
+            args: Prisma.SysComponentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>
+          }
+          deleteMany: {
+            args: Prisma.SysComponentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SysComponentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SysComponentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SysComponentPayload>
+          }
+          aggregate: {
+            args: Prisma.SysComponentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSysComponent>
+          }
+          groupBy: {
+            args: Prisma.SysComponentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SysComponentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SysComponentCountArgs<ExtArgs>
+            result: $Utils.Optional<SysComponentCountAggregateOutputType> | number
+          }
+        }
+      }
+      ApiContract: {
+        payload: Prisma.$ApiContractPayload<ExtArgs>
+        fields: Prisma.ApiContractFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ApiContractFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ApiContractFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>
+          }
+          findFirst: {
+            args: Prisma.ApiContractFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ApiContractFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>
+          }
+          findMany: {
+            args: Prisma.ApiContractFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>[]
+          }
+          create: {
+            args: Prisma.ApiContractCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>
+          }
+          createMany: {
+            args: Prisma.ApiContractCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ApiContractCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>[]
+          }
+          delete: {
+            args: Prisma.ApiContractDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>
+          }
+          update: {
+            args: Prisma.ApiContractUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>
+          }
+          deleteMany: {
+            args: Prisma.ApiContractDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ApiContractUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ApiContractUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiContractPayload>
+          }
+          aggregate: {
+            args: Prisma.ApiContractAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateApiContract>
+          }
+          groupBy: {
+            args: Prisma.ApiContractGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ApiContractGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ApiContractCountArgs<ExtArgs>
+            result: $Utils.Optional<ApiContractCountAggregateOutputType> | number
+          }
+        }
+      }
+      DataResource: {
+        payload: Prisma.$DataResourcePayload<ExtArgs>
+        fields: Prisma.DataResourceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DataResourceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DataResourceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>
+          }
+          findFirst: {
+            args: Prisma.DataResourceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DataResourceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>
+          }
+          findMany: {
+            args: Prisma.DataResourceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>[]
+          }
+          create: {
+            args: Prisma.DataResourceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>
+          }
+          createMany: {
+            args: Prisma.DataResourceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DataResourceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>[]
+          }
+          delete: {
+            args: Prisma.DataResourceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>
+          }
+          update: {
+            args: Prisma.DataResourceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>
+          }
+          deleteMany: {
+            args: Prisma.DataResourceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DataResourceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DataResourceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataResourcePayload>
+          }
+          aggregate: {
+            args: Prisma.DataResourceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDataResource>
+          }
+          groupBy: {
+            args: Prisma.DataResourceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DataResourceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DataResourceCountArgs<ExtArgs>
+            result: $Utils.Optional<DataResourceCountAggregateOutputType> | number
+          }
+        }
+      }
       FamilyAppointment: {
         payload: Prisma.$FamilyAppointmentPayload<ExtArgs>
         fields: Prisma.FamilyAppointmentFieldRefs
@@ -19794,10 +20396,12 @@ export namespace Prisma {
 
   export type PlatformScreenCountOutputType = {
     functions: number
+    componentPurposes: number
   }
 
   export type PlatformScreenCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     functions?: boolean | PlatformScreenCountOutputTypeCountFunctionsArgs
+    componentPurposes?: boolean | PlatformScreenCountOutputTypeCountComponentPurposesArgs
   }
 
   // Custom InputTypes
@@ -19816,6 +20420,186 @@ export namespace Prisma {
    */
   export type PlatformScreenCountOutputTypeCountFunctionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ScreenFunctionalityWhereInput
+  }
+
+  /**
+   * PlatformScreenCountOutputType without action
+   */
+  export type PlatformScreenCountOutputTypeCountComponentPurposesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComponentPurposeWhereInput
+  }
+
+
+  /**
+   * Count Type ScreenFunctionalityCountOutputType
+   */
+
+  export type ScreenFunctionalityCountOutputType = {
+    componentPurposes: number
+  }
+
+  export type ScreenFunctionalityCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    componentPurposes?: boolean | ScreenFunctionalityCountOutputTypeCountComponentPurposesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ScreenFunctionalityCountOutputType without action
+   */
+  export type ScreenFunctionalityCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionalityCountOutputType
+     */
+    select?: ScreenFunctionalityCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ScreenFunctionalityCountOutputType without action
+   */
+  export type ScreenFunctionalityCountOutputTypeCountComponentPurposesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComponentPurposeWhereInput
+  }
+
+
+  /**
+   * Count Type ArchitecturalLayerCountOutputType
+   */
+
+  export type ArchitecturalLayerCountOutputType = {
+    componentPurposes: number
+  }
+
+  export type ArchitecturalLayerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    componentPurposes?: boolean | ArchitecturalLayerCountOutputTypeCountComponentPurposesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ArchitecturalLayerCountOutputType without action
+   */
+  export type ArchitecturalLayerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayerCountOutputType
+     */
+    select?: ArchitecturalLayerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ArchitecturalLayerCountOutputType without action
+   */
+  export type ArchitecturalLayerCountOutputTypeCountComponentPurposesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComponentPurposeWhereInput
+  }
+
+
+  /**
+   * Count Type SystemDomainCountOutputType
+   */
+
+  export type SystemDomainCountOutputType = {
+    systems: number
+  }
+
+  export type SystemDomainCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    systems?: boolean | SystemDomainCountOutputTypeCountSystemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SystemDomainCountOutputType without action
+   */
+  export type SystemDomainCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomainCountOutputType
+     */
+    select?: SystemDomainCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SystemDomainCountOutputType without action
+   */
+  export type SystemDomainCountOutputTypeCountSystemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SoftwareSystemWhereInput
+  }
+
+
+  /**
+   * Count Type SoftwareSystemCountOutputType
+   */
+
+  export type SoftwareSystemCountOutputType = {
+    components: number
+  }
+
+  export type SoftwareSystemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    components?: boolean | SoftwareSystemCountOutputTypeCountComponentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SoftwareSystemCountOutputType without action
+   */
+  export type SoftwareSystemCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystemCountOutputType
+     */
+    select?: SoftwareSystemCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SoftwareSystemCountOutputType without action
+   */
+  export type SoftwareSystemCountOutputTypeCountComponentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SysComponentWhereInput
+  }
+
+
+  /**
+   * Count Type SysComponentCountOutputType
+   */
+
+  export type SysComponentCountOutputType = {
+    providedApis: number
+    consumedApis: number
+    resources: number
+  }
+
+  export type SysComponentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    providedApis?: boolean | SysComponentCountOutputTypeCountProvidedApisArgs
+    consumedApis?: boolean | SysComponentCountOutputTypeCountConsumedApisArgs
+    resources?: boolean | SysComponentCountOutputTypeCountResourcesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SysComponentCountOutputType without action
+   */
+  export type SysComponentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponentCountOutputType
+     */
+    select?: SysComponentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SysComponentCountOutputType without action
+   */
+  export type SysComponentCountOutputTypeCountProvidedApisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApiContractWhereInput
+  }
+
+  /**
+   * SysComponentCountOutputType without action
+   */
+  export type SysComponentCountOutputTypeCountConsumedApisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApiContractWhereInput
+  }
+
+  /**
+   * SysComponentCountOutputType without action
+   */
+  export type SysComponentCountOutputTypeCountResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DataResourceWhereInput
   }
 
 
@@ -101759,6 +102543,7 @@ export namespace Prisma {
     tenantId: number
     createdAt: number
     updatedAt: number
+    metadata: number
     _all: number
   }
 
@@ -101805,6 +102590,7 @@ export namespace Prisma {
     tenantId?: true
     createdAt?: true
     updatedAt?: true
+    metadata?: true
     _all?: true
   }
 
@@ -101904,6 +102690,7 @@ export namespace Prisma {
     tenantId: string
     createdAt: Date
     updatedAt: Date
+    metadata: JsonValue | null
     _count: FinancialTransactionCountAggregateOutputType | null
     _avg: FinancialTransactionAvgAggregateOutputType | null
     _sum: FinancialTransactionSumAggregateOutputType | null
@@ -101935,6 +102722,7 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    metadata?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     journalEntries?: boolean | FinancialTransaction$journalEntriesArgs<ExtArgs>
     reconciliations?: boolean | FinancialTransaction$reconciliationsArgs<ExtArgs>
@@ -101951,6 +102739,7 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    metadata?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["financialTransaction"]>
 
@@ -101964,6 +102753,7 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    metadata?: boolean
   }
 
   export type FinancialTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -101993,6 +102783,7 @@ export namespace Prisma {
       tenantId: string
       createdAt: Date
       updatedAt: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["financialTransaction"]>
     composites: {}
   }
@@ -102398,6 +103189,7 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"FinancialTransaction", 'String'>
     readonly createdAt: FieldRef<"FinancialTransaction", 'DateTime'>
     readonly updatedAt: FieldRef<"FinancialTransaction", 'DateTime'>
+    readonly metadata: FieldRef<"FinancialTransaction", 'Json'>
   }
     
 
@@ -105911,6 +106703,7 @@ export namespace Prisma {
     previousChecksum: number
     status: number
     voidedByEntryId: number
+    metadata: number
     createdAt: number
     _all: number
   }
@@ -105981,6 +106774,7 @@ export namespace Prisma {
     previousChecksum?: true
     status?: true
     voidedByEntryId?: true
+    metadata?: true
     createdAt?: true
     _all?: true
   }
@@ -106088,6 +106882,7 @@ export namespace Prisma {
     previousChecksum: string | null
     status: string
     voidedByEntryId: string | null
+    metadata: JsonValue | null
     createdAt: Date
     _count: TransactionLedgerCountAggregateOutputType | null
     _avg: TransactionLedgerAvgAggregateOutputType | null
@@ -106127,6 +106922,7 @@ export namespace Prisma {
     previousChecksum?: boolean
     status?: boolean
     voidedByEntryId?: boolean
+    metadata?: boolean
     createdAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | TransactionLedger$actorArgs<ExtArgs>
@@ -106149,6 +106945,7 @@ export namespace Prisma {
     previousChecksum?: boolean
     status?: boolean
     voidedByEntryId?: boolean
+    metadata?: boolean
     createdAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | TransactionLedger$actorArgs<ExtArgs>
@@ -106171,6 +106968,7 @@ export namespace Prisma {
     previousChecksum?: boolean
     status?: boolean
     voidedByEntryId?: boolean
+    metadata?: boolean
     createdAt?: boolean
   }
 
@@ -106206,6 +107004,7 @@ export namespace Prisma {
       previousChecksum: string | null
       status: string
       voidedByEntryId: string | null
+      metadata: Prisma.JsonValue | null
       createdAt: Date
     }, ExtArgs["result"]["transactionLedger"]>
     composites: {}
@@ -106618,6 +107417,7 @@ export namespace Prisma {
     readonly previousChecksum: FieldRef<"TransactionLedger", 'String'>
     readonly status: FieldRef<"TransactionLedger", 'String'>
     readonly voidedByEntryId: FieldRef<"TransactionLedger", 'String'>
+    readonly metadata: FieldRef<"TransactionLedger", 'Json'>
     readonly createdAt: FieldRef<"TransactionLedger", 'DateTime'>
   }
     
@@ -142643,6 +143443,7 @@ export namespace Prisma {
     updatedAt?: boolean
     role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
     functions?: boolean | PlatformScreen$functionsArgs<ExtArgs>
+    componentPurposes?: boolean | PlatformScreen$componentPurposesArgs<ExtArgs>
     _count?: boolean | PlatformScreenCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["platformScreen"]>
 
@@ -142674,6 +143475,7 @@ export namespace Prisma {
   export type PlatformScreenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
     functions?: boolean | PlatformScreen$functionsArgs<ExtArgs>
+    componentPurposes?: boolean | PlatformScreen$componentPurposesArgs<ExtArgs>
     _count?: boolean | PlatformScreenCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PlatformScreenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -142685,6 +143487,7 @@ export namespace Prisma {
     objects: {
       role: Prisma.$PlatformRolePayload<ExtArgs>
       functions: Prisma.$ScreenFunctionalityPayload<ExtArgs>[]
+      componentPurposes: Prisma.$ComponentPurposePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -143062,6 +143865,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     role<T extends PlatformRoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlatformRoleDefaultArgs<ExtArgs>>): Prisma__PlatformRoleClient<$Result.GetResult<Prisma.$PlatformRolePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     functions<T extends PlatformScreen$functionsArgs<ExtArgs> = {}>(args?: Subset<T, PlatformScreen$functionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findMany"> | Null>
+    componentPurposes<T extends PlatformScreen$componentPurposesArgs<ExtArgs> = {}>(args?: Subset<T, PlatformScreen$componentPurposesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -143438,6 +144242,26 @@ export namespace Prisma {
   }
 
   /**
+   * PlatformScreen.componentPurposes
+   */
+  export type PlatformScreen$componentPurposesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    where?: ComponentPurposeWhereInput
+    orderBy?: ComponentPurposeOrderByWithRelationInput | ComponentPurposeOrderByWithRelationInput[]
+    cursor?: ComponentPurposeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComponentPurposeScalarFieldEnum | ComponentPurposeScalarFieldEnum[]
+  }
+
+  /**
    * PlatformScreen without action
    */
   export type PlatformScreenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -143707,6 +144531,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
+    componentPurposes?: boolean | ScreenFunctionality$componentPurposesArgs<ExtArgs>
+    _count?: boolean | ScreenFunctionalityCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["screenFunctionality"]>
 
   export type ScreenFunctionalitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -143742,6 +144568,8 @@ export namespace Prisma {
 
   export type ScreenFunctionalityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
+    componentPurposes?: boolean | ScreenFunctionality$componentPurposesArgs<ExtArgs>
+    _count?: boolean | ScreenFunctionalityCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ScreenFunctionalityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
@@ -143751,6 +144579,7 @@ export namespace Prisma {
     name: "ScreenFunctionality"
     objects: {
       screen: Prisma.$PlatformScreenPayload<ExtArgs>
+      componentPurposes: Prisma.$ComponentPurposePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -144130,6 +144959,7 @@ export namespace Prisma {
   export interface Prisma__ScreenFunctionalityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     screen<T extends PlatformScreenDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlatformScreenDefaultArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    componentPurposes<T extends ScreenFunctionality$componentPurposesArgs<ExtArgs> = {}>(args?: Subset<T, ScreenFunctionality$componentPurposesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -144486,6 +145316,26 @@ export namespace Prisma {
      * Filter which ScreenFunctionalities to delete
      */
     where?: ScreenFunctionalityWhereInput
+  }
+
+  /**
+   * ScreenFunctionality.componentPurposes
+   */
+  export type ScreenFunctionality$componentPurposesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    where?: ComponentPurposeWhereInput
+    orderBy?: ComponentPurposeOrderByWithRelationInput | ComponentPurposeOrderByWithRelationInput[]
+    cursor?: ComponentPurposeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComponentPurposeScalarFieldEnum | ComponentPurposeScalarFieldEnum[]
   }
 
   /**
@@ -158272,6 +159122,6992 @@ export namespace Prisma {
      * Select specific fields to fetch from the AnomalyReport
      */
     select?: AnomalyReportSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ArchitecturalLayer
+   */
+
+  export type AggregateArchitecturalLayer = {
+    _count: ArchitecturalLayerCountAggregateOutputType | null
+    _avg: ArchitecturalLayerAvgAggregateOutputType | null
+    _sum: ArchitecturalLayerSumAggregateOutputType | null
+    _min: ArchitecturalLayerMinAggregateOutputType | null
+    _max: ArchitecturalLayerMaxAggregateOutputType | null
+  }
+
+  export type ArchitecturalLayerAvgAggregateOutputType = {
+    orderIndex: number | null
+  }
+
+  export type ArchitecturalLayerSumAggregateOutputType = {
+    orderIndex: number | null
+  }
+
+  export type ArchitecturalLayerMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    orderIndex: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ArchitecturalLayerMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    orderIndex: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ArchitecturalLayerCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    orderIndex: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ArchitecturalLayerAvgAggregateInputType = {
+    orderIndex?: true
+  }
+
+  export type ArchitecturalLayerSumAggregateInputType = {
+    orderIndex?: true
+  }
+
+  export type ArchitecturalLayerMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    orderIndex?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ArchitecturalLayerMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    orderIndex?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ArchitecturalLayerCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    orderIndex?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ArchitecturalLayerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArchitecturalLayer to aggregate.
+     */
+    where?: ArchitecturalLayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArchitecturalLayers to fetch.
+     */
+    orderBy?: ArchitecturalLayerOrderByWithRelationInput | ArchitecturalLayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArchitecturalLayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArchitecturalLayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArchitecturalLayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ArchitecturalLayers
+    **/
+    _count?: true | ArchitecturalLayerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ArchitecturalLayerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ArchitecturalLayerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArchitecturalLayerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArchitecturalLayerMaxAggregateInputType
+  }
+
+  export type GetArchitecturalLayerAggregateType<T extends ArchitecturalLayerAggregateArgs> = {
+        [P in keyof T & keyof AggregateArchitecturalLayer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArchitecturalLayer[P]>
+      : GetScalarType<T[P], AggregateArchitecturalLayer[P]>
+  }
+
+
+
+
+  export type ArchitecturalLayerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArchitecturalLayerWhereInput
+    orderBy?: ArchitecturalLayerOrderByWithAggregationInput | ArchitecturalLayerOrderByWithAggregationInput[]
+    by: ArchitecturalLayerScalarFieldEnum[] | ArchitecturalLayerScalarFieldEnum
+    having?: ArchitecturalLayerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArchitecturalLayerCountAggregateInputType | true
+    _avg?: ArchitecturalLayerAvgAggregateInputType
+    _sum?: ArchitecturalLayerSumAggregateInputType
+    _min?: ArchitecturalLayerMinAggregateInputType
+    _max?: ArchitecturalLayerMaxAggregateInputType
+  }
+
+  export type ArchitecturalLayerGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    orderIndex: number
+    createdAt: Date
+    updatedAt: Date
+    _count: ArchitecturalLayerCountAggregateOutputType | null
+    _avg: ArchitecturalLayerAvgAggregateOutputType | null
+    _sum: ArchitecturalLayerSumAggregateOutputType | null
+    _min: ArchitecturalLayerMinAggregateOutputType | null
+    _max: ArchitecturalLayerMaxAggregateOutputType | null
+  }
+
+  type GetArchitecturalLayerGroupByPayload<T extends ArchitecturalLayerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArchitecturalLayerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArchitecturalLayerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArchitecturalLayerGroupByOutputType[P]>
+            : GetScalarType<T[P], ArchitecturalLayerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArchitecturalLayerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    orderIndex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    componentPurposes?: boolean | ArchitecturalLayer$componentPurposesArgs<ExtArgs>
+    _count?: boolean | ArchitecturalLayerCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["architecturalLayer"]>
+
+  export type ArchitecturalLayerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    orderIndex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["architecturalLayer"]>
+
+  export type ArchitecturalLayerSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    orderIndex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ArchitecturalLayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    componentPurposes?: boolean | ArchitecturalLayer$componentPurposesArgs<ExtArgs>
+    _count?: boolean | ArchitecturalLayerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ArchitecturalLayerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ArchitecturalLayerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ArchitecturalLayer"
+    objects: {
+      componentPurposes: Prisma.$ComponentPurposePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      orderIndex: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["architecturalLayer"]>
+    composites: {}
+  }
+
+  type ArchitecturalLayerGetPayload<S extends boolean | null | undefined | ArchitecturalLayerDefaultArgs> = $Result.GetResult<Prisma.$ArchitecturalLayerPayload, S>
+
+  type ArchitecturalLayerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ArchitecturalLayerFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ArchitecturalLayerCountAggregateInputType | true
+    }
+
+  export interface ArchitecturalLayerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ArchitecturalLayer'], meta: { name: 'ArchitecturalLayer' } }
+    /**
+     * Find zero or one ArchitecturalLayer that matches the filter.
+     * @param {ArchitecturalLayerFindUniqueArgs} args - Arguments to find a ArchitecturalLayer
+     * @example
+     * // Get one ArchitecturalLayer
+     * const architecturalLayer = await prisma.architecturalLayer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArchitecturalLayerFindUniqueArgs>(args: SelectSubset<T, ArchitecturalLayerFindUniqueArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ArchitecturalLayer that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ArchitecturalLayerFindUniqueOrThrowArgs} args - Arguments to find a ArchitecturalLayer
+     * @example
+     * // Get one ArchitecturalLayer
+     * const architecturalLayer = await prisma.architecturalLayer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArchitecturalLayerFindUniqueOrThrowArgs>(args: SelectSubset<T, ArchitecturalLayerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ArchitecturalLayer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArchitecturalLayerFindFirstArgs} args - Arguments to find a ArchitecturalLayer
+     * @example
+     * // Get one ArchitecturalLayer
+     * const architecturalLayer = await prisma.architecturalLayer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArchitecturalLayerFindFirstArgs>(args?: SelectSubset<T, ArchitecturalLayerFindFirstArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ArchitecturalLayer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArchitecturalLayerFindFirstOrThrowArgs} args - Arguments to find a ArchitecturalLayer
+     * @example
+     * // Get one ArchitecturalLayer
+     * const architecturalLayer = await prisma.architecturalLayer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArchitecturalLayerFindFirstOrThrowArgs>(args?: SelectSubset<T, ArchitecturalLayerFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ArchitecturalLayers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArchitecturalLayerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ArchitecturalLayers
+     * const architecturalLayers = await prisma.architecturalLayer.findMany()
+     * 
+     * // Get first 10 ArchitecturalLayers
+     * const architecturalLayers = await prisma.architecturalLayer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const architecturalLayerWithIdOnly = await prisma.architecturalLayer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArchitecturalLayerFindManyArgs>(args?: SelectSubset<T, ArchitecturalLayerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ArchitecturalLayer.
+     * @param {ArchitecturalLayerCreateArgs} args - Arguments to create a ArchitecturalLayer.
+     * @example
+     * // Create one ArchitecturalLayer
+     * const ArchitecturalLayer = await prisma.architecturalLayer.create({
+     *   data: {
+     *     // ... data to create a ArchitecturalLayer
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArchitecturalLayerCreateArgs>(args: SelectSubset<T, ArchitecturalLayerCreateArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ArchitecturalLayers.
+     * @param {ArchitecturalLayerCreateManyArgs} args - Arguments to create many ArchitecturalLayers.
+     * @example
+     * // Create many ArchitecturalLayers
+     * const architecturalLayer = await prisma.architecturalLayer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArchitecturalLayerCreateManyArgs>(args?: SelectSubset<T, ArchitecturalLayerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ArchitecturalLayers and returns the data saved in the database.
+     * @param {ArchitecturalLayerCreateManyAndReturnArgs} args - Arguments to create many ArchitecturalLayers.
+     * @example
+     * // Create many ArchitecturalLayers
+     * const architecturalLayer = await prisma.architecturalLayer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ArchitecturalLayers and only return the `id`
+     * const architecturalLayerWithIdOnly = await prisma.architecturalLayer.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArchitecturalLayerCreateManyAndReturnArgs>(args?: SelectSubset<T, ArchitecturalLayerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ArchitecturalLayer.
+     * @param {ArchitecturalLayerDeleteArgs} args - Arguments to delete one ArchitecturalLayer.
+     * @example
+     * // Delete one ArchitecturalLayer
+     * const ArchitecturalLayer = await prisma.architecturalLayer.delete({
+     *   where: {
+     *     // ... filter to delete one ArchitecturalLayer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArchitecturalLayerDeleteArgs>(args: SelectSubset<T, ArchitecturalLayerDeleteArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ArchitecturalLayer.
+     * @param {ArchitecturalLayerUpdateArgs} args - Arguments to update one ArchitecturalLayer.
+     * @example
+     * // Update one ArchitecturalLayer
+     * const architecturalLayer = await prisma.architecturalLayer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArchitecturalLayerUpdateArgs>(args: SelectSubset<T, ArchitecturalLayerUpdateArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ArchitecturalLayers.
+     * @param {ArchitecturalLayerDeleteManyArgs} args - Arguments to filter ArchitecturalLayers to delete.
+     * @example
+     * // Delete a few ArchitecturalLayers
+     * const { count } = await prisma.architecturalLayer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArchitecturalLayerDeleteManyArgs>(args?: SelectSubset<T, ArchitecturalLayerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArchitecturalLayers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArchitecturalLayerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ArchitecturalLayers
+     * const architecturalLayer = await prisma.architecturalLayer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArchitecturalLayerUpdateManyArgs>(args: SelectSubset<T, ArchitecturalLayerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ArchitecturalLayer.
+     * @param {ArchitecturalLayerUpsertArgs} args - Arguments to update or create a ArchitecturalLayer.
+     * @example
+     * // Update or create a ArchitecturalLayer
+     * const architecturalLayer = await prisma.architecturalLayer.upsert({
+     *   create: {
+     *     // ... data to create a ArchitecturalLayer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ArchitecturalLayer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArchitecturalLayerUpsertArgs>(args: SelectSubset<T, ArchitecturalLayerUpsertArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ArchitecturalLayers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArchitecturalLayerCountArgs} args - Arguments to filter ArchitecturalLayers to count.
+     * @example
+     * // Count the number of ArchitecturalLayers
+     * const count = await prisma.architecturalLayer.count({
+     *   where: {
+     *     // ... the filter for the ArchitecturalLayers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArchitecturalLayerCountArgs>(
+      args?: Subset<T, ArchitecturalLayerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArchitecturalLayerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ArchitecturalLayer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArchitecturalLayerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArchitecturalLayerAggregateArgs>(args: Subset<T, ArchitecturalLayerAggregateArgs>): Prisma.PrismaPromise<GetArchitecturalLayerAggregateType<T>>
+
+    /**
+     * Group by ArchitecturalLayer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArchitecturalLayerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArchitecturalLayerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArchitecturalLayerGroupByArgs['orderBy'] }
+        : { orderBy?: ArchitecturalLayerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArchitecturalLayerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArchitecturalLayerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ArchitecturalLayer model
+   */
+  readonly fields: ArchitecturalLayerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ArchitecturalLayer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArchitecturalLayerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    componentPurposes<T extends ArchitecturalLayer$componentPurposesArgs<ExtArgs> = {}>(args?: Subset<T, ArchitecturalLayer$componentPurposesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ArchitecturalLayer model
+   */ 
+  interface ArchitecturalLayerFieldRefs {
+    readonly id: FieldRef<"ArchitecturalLayer", 'String'>
+    readonly name: FieldRef<"ArchitecturalLayer", 'String'>
+    readonly description: FieldRef<"ArchitecturalLayer", 'String'>
+    readonly orderIndex: FieldRef<"ArchitecturalLayer", 'Int'>
+    readonly createdAt: FieldRef<"ArchitecturalLayer", 'DateTime'>
+    readonly updatedAt: FieldRef<"ArchitecturalLayer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ArchitecturalLayer findUnique
+   */
+  export type ArchitecturalLayerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * Filter, which ArchitecturalLayer to fetch.
+     */
+    where: ArchitecturalLayerWhereUniqueInput
+  }
+
+  /**
+   * ArchitecturalLayer findUniqueOrThrow
+   */
+  export type ArchitecturalLayerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * Filter, which ArchitecturalLayer to fetch.
+     */
+    where: ArchitecturalLayerWhereUniqueInput
+  }
+
+  /**
+   * ArchitecturalLayer findFirst
+   */
+  export type ArchitecturalLayerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * Filter, which ArchitecturalLayer to fetch.
+     */
+    where?: ArchitecturalLayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArchitecturalLayers to fetch.
+     */
+    orderBy?: ArchitecturalLayerOrderByWithRelationInput | ArchitecturalLayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArchitecturalLayers.
+     */
+    cursor?: ArchitecturalLayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArchitecturalLayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArchitecturalLayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArchitecturalLayers.
+     */
+    distinct?: ArchitecturalLayerScalarFieldEnum | ArchitecturalLayerScalarFieldEnum[]
+  }
+
+  /**
+   * ArchitecturalLayer findFirstOrThrow
+   */
+  export type ArchitecturalLayerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * Filter, which ArchitecturalLayer to fetch.
+     */
+    where?: ArchitecturalLayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArchitecturalLayers to fetch.
+     */
+    orderBy?: ArchitecturalLayerOrderByWithRelationInput | ArchitecturalLayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArchitecturalLayers.
+     */
+    cursor?: ArchitecturalLayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArchitecturalLayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArchitecturalLayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArchitecturalLayers.
+     */
+    distinct?: ArchitecturalLayerScalarFieldEnum | ArchitecturalLayerScalarFieldEnum[]
+  }
+
+  /**
+   * ArchitecturalLayer findMany
+   */
+  export type ArchitecturalLayerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * Filter, which ArchitecturalLayers to fetch.
+     */
+    where?: ArchitecturalLayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArchitecturalLayers to fetch.
+     */
+    orderBy?: ArchitecturalLayerOrderByWithRelationInput | ArchitecturalLayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ArchitecturalLayers.
+     */
+    cursor?: ArchitecturalLayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArchitecturalLayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArchitecturalLayers.
+     */
+    skip?: number
+    distinct?: ArchitecturalLayerScalarFieldEnum | ArchitecturalLayerScalarFieldEnum[]
+  }
+
+  /**
+   * ArchitecturalLayer create
+   */
+  export type ArchitecturalLayerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ArchitecturalLayer.
+     */
+    data: XOR<ArchitecturalLayerCreateInput, ArchitecturalLayerUncheckedCreateInput>
+  }
+
+  /**
+   * ArchitecturalLayer createMany
+   */
+  export type ArchitecturalLayerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ArchitecturalLayers.
+     */
+    data: ArchitecturalLayerCreateManyInput | ArchitecturalLayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ArchitecturalLayer createManyAndReturn
+   */
+  export type ArchitecturalLayerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ArchitecturalLayers.
+     */
+    data: ArchitecturalLayerCreateManyInput | ArchitecturalLayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ArchitecturalLayer update
+   */
+  export type ArchitecturalLayerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ArchitecturalLayer.
+     */
+    data: XOR<ArchitecturalLayerUpdateInput, ArchitecturalLayerUncheckedUpdateInput>
+    /**
+     * Choose, which ArchitecturalLayer to update.
+     */
+    where: ArchitecturalLayerWhereUniqueInput
+  }
+
+  /**
+   * ArchitecturalLayer updateMany
+   */
+  export type ArchitecturalLayerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ArchitecturalLayers.
+     */
+    data: XOR<ArchitecturalLayerUpdateManyMutationInput, ArchitecturalLayerUncheckedUpdateManyInput>
+    /**
+     * Filter which ArchitecturalLayers to update
+     */
+    where?: ArchitecturalLayerWhereInput
+  }
+
+  /**
+   * ArchitecturalLayer upsert
+   */
+  export type ArchitecturalLayerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ArchitecturalLayer to update in case it exists.
+     */
+    where: ArchitecturalLayerWhereUniqueInput
+    /**
+     * In case the ArchitecturalLayer found by the `where` argument doesn't exist, create a new ArchitecturalLayer with this data.
+     */
+    create: XOR<ArchitecturalLayerCreateInput, ArchitecturalLayerUncheckedCreateInput>
+    /**
+     * In case the ArchitecturalLayer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArchitecturalLayerUpdateInput, ArchitecturalLayerUncheckedUpdateInput>
+  }
+
+  /**
+   * ArchitecturalLayer delete
+   */
+  export type ArchitecturalLayerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+    /**
+     * Filter which ArchitecturalLayer to delete.
+     */
+    where: ArchitecturalLayerWhereUniqueInput
+  }
+
+  /**
+   * ArchitecturalLayer deleteMany
+   */
+  export type ArchitecturalLayerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArchitecturalLayers to delete
+     */
+    where?: ArchitecturalLayerWhereInput
+  }
+
+  /**
+   * ArchitecturalLayer.componentPurposes
+   */
+  export type ArchitecturalLayer$componentPurposesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    where?: ComponentPurposeWhereInput
+    orderBy?: ComponentPurposeOrderByWithRelationInput | ComponentPurposeOrderByWithRelationInput[]
+    cursor?: ComponentPurposeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComponentPurposeScalarFieldEnum | ComponentPurposeScalarFieldEnum[]
+  }
+
+  /**
+   * ArchitecturalLayer without action
+   */
+  export type ArchitecturalLayerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArchitecturalLayer
+     */
+    select?: ArchitecturalLayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArchitecturalLayerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ComponentPurpose
+   */
+
+  export type AggregateComponentPurpose = {
+    _count: ComponentPurposeCountAggregateOutputType | null
+    _min: ComponentPurposeMinAggregateOutputType | null
+    _max: ComponentPurposeMaxAggregateOutputType | null
+  }
+
+  export type ComponentPurposeMinAggregateOutputType = {
+    id: string | null
+    layerId: string | null
+    screenId: string | null
+    functionalityId: string | null
+    targetFile: string | null
+    description: string | null
+    implementedWell: boolean | null
+    anomaliesDetail: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ComponentPurposeMaxAggregateOutputType = {
+    id: string | null
+    layerId: string | null
+    screenId: string | null
+    functionalityId: string | null
+    targetFile: string | null
+    description: string | null
+    implementedWell: boolean | null
+    anomaliesDetail: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ComponentPurposeCountAggregateOutputType = {
+    id: number
+    layerId: number
+    screenId: number
+    functionalityId: number
+    targetFile: number
+    description: number
+    implementedWell: number
+    anomaliesDetail: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ComponentPurposeMinAggregateInputType = {
+    id?: true
+    layerId?: true
+    screenId?: true
+    functionalityId?: true
+    targetFile?: true
+    description?: true
+    implementedWell?: true
+    anomaliesDetail?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ComponentPurposeMaxAggregateInputType = {
+    id?: true
+    layerId?: true
+    screenId?: true
+    functionalityId?: true
+    targetFile?: true
+    description?: true
+    implementedWell?: true
+    anomaliesDetail?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ComponentPurposeCountAggregateInputType = {
+    id?: true
+    layerId?: true
+    screenId?: true
+    functionalityId?: true
+    targetFile?: true
+    description?: true
+    implementedWell?: true
+    anomaliesDetail?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ComponentPurposeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ComponentPurpose to aggregate.
+     */
+    where?: ComponentPurposeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentPurposes to fetch.
+     */
+    orderBy?: ComponentPurposeOrderByWithRelationInput | ComponentPurposeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ComponentPurposeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentPurposes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentPurposes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ComponentPurposes
+    **/
+    _count?: true | ComponentPurposeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ComponentPurposeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ComponentPurposeMaxAggregateInputType
+  }
+
+  export type GetComponentPurposeAggregateType<T extends ComponentPurposeAggregateArgs> = {
+        [P in keyof T & keyof AggregateComponentPurpose]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComponentPurpose[P]>
+      : GetScalarType<T[P], AggregateComponentPurpose[P]>
+  }
+
+
+
+
+  export type ComponentPurposeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComponentPurposeWhereInput
+    orderBy?: ComponentPurposeOrderByWithAggregationInput | ComponentPurposeOrderByWithAggregationInput[]
+    by: ComponentPurposeScalarFieldEnum[] | ComponentPurposeScalarFieldEnum
+    having?: ComponentPurposeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ComponentPurposeCountAggregateInputType | true
+    _min?: ComponentPurposeMinAggregateInputType
+    _max?: ComponentPurposeMaxAggregateInputType
+  }
+
+  export type ComponentPurposeGroupByOutputType = {
+    id: string
+    layerId: string
+    screenId: string | null
+    functionalityId: string | null
+    targetFile: string | null
+    description: string
+    implementedWell: boolean
+    anomaliesDetail: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ComponentPurposeCountAggregateOutputType | null
+    _min: ComponentPurposeMinAggregateOutputType | null
+    _max: ComponentPurposeMaxAggregateOutputType | null
+  }
+
+  type GetComponentPurposeGroupByPayload<T extends ComponentPurposeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ComponentPurposeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ComponentPurposeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ComponentPurposeGroupByOutputType[P]>
+            : GetScalarType<T[P], ComponentPurposeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ComponentPurposeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    layerId?: boolean
+    screenId?: boolean
+    functionalityId?: boolean
+    targetFile?: boolean
+    description?: boolean
+    implementedWell?: boolean
+    anomaliesDetail?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    layer?: boolean | ArchitecturalLayerDefaultArgs<ExtArgs>
+    screen?: boolean | ComponentPurpose$screenArgs<ExtArgs>
+    functionality?: boolean | ComponentPurpose$functionalityArgs<ExtArgs>
+  }, ExtArgs["result"]["componentPurpose"]>
+
+  export type ComponentPurposeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    layerId?: boolean
+    screenId?: boolean
+    functionalityId?: boolean
+    targetFile?: boolean
+    description?: boolean
+    implementedWell?: boolean
+    anomaliesDetail?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    layer?: boolean | ArchitecturalLayerDefaultArgs<ExtArgs>
+    screen?: boolean | ComponentPurpose$screenArgs<ExtArgs>
+    functionality?: boolean | ComponentPurpose$functionalityArgs<ExtArgs>
+  }, ExtArgs["result"]["componentPurpose"]>
+
+  export type ComponentPurposeSelectScalar = {
+    id?: boolean
+    layerId?: boolean
+    screenId?: boolean
+    functionalityId?: boolean
+    targetFile?: boolean
+    description?: boolean
+    implementedWell?: boolean
+    anomaliesDetail?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ComponentPurposeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    layer?: boolean | ArchitecturalLayerDefaultArgs<ExtArgs>
+    screen?: boolean | ComponentPurpose$screenArgs<ExtArgs>
+    functionality?: boolean | ComponentPurpose$functionalityArgs<ExtArgs>
+  }
+  export type ComponentPurposeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    layer?: boolean | ArchitecturalLayerDefaultArgs<ExtArgs>
+    screen?: boolean | ComponentPurpose$screenArgs<ExtArgs>
+    functionality?: boolean | ComponentPurpose$functionalityArgs<ExtArgs>
+  }
+
+  export type $ComponentPurposePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ComponentPurpose"
+    objects: {
+      layer: Prisma.$ArchitecturalLayerPayload<ExtArgs>
+      screen: Prisma.$PlatformScreenPayload<ExtArgs> | null
+      functionality: Prisma.$ScreenFunctionalityPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      layerId: string
+      screenId: string | null
+      functionalityId: string | null
+      targetFile: string | null
+      description: string
+      implementedWell: boolean
+      anomaliesDetail: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["componentPurpose"]>
+    composites: {}
+  }
+
+  type ComponentPurposeGetPayload<S extends boolean | null | undefined | ComponentPurposeDefaultArgs> = $Result.GetResult<Prisma.$ComponentPurposePayload, S>
+
+  type ComponentPurposeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ComponentPurposeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ComponentPurposeCountAggregateInputType | true
+    }
+
+  export interface ComponentPurposeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ComponentPurpose'], meta: { name: 'ComponentPurpose' } }
+    /**
+     * Find zero or one ComponentPurpose that matches the filter.
+     * @param {ComponentPurposeFindUniqueArgs} args - Arguments to find a ComponentPurpose
+     * @example
+     * // Get one ComponentPurpose
+     * const componentPurpose = await prisma.componentPurpose.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ComponentPurposeFindUniqueArgs>(args: SelectSubset<T, ComponentPurposeFindUniqueArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ComponentPurpose that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ComponentPurposeFindUniqueOrThrowArgs} args - Arguments to find a ComponentPurpose
+     * @example
+     * // Get one ComponentPurpose
+     * const componentPurpose = await prisma.componentPurpose.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ComponentPurposeFindUniqueOrThrowArgs>(args: SelectSubset<T, ComponentPurposeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ComponentPurpose that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentPurposeFindFirstArgs} args - Arguments to find a ComponentPurpose
+     * @example
+     * // Get one ComponentPurpose
+     * const componentPurpose = await prisma.componentPurpose.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ComponentPurposeFindFirstArgs>(args?: SelectSubset<T, ComponentPurposeFindFirstArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ComponentPurpose that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentPurposeFindFirstOrThrowArgs} args - Arguments to find a ComponentPurpose
+     * @example
+     * // Get one ComponentPurpose
+     * const componentPurpose = await prisma.componentPurpose.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ComponentPurposeFindFirstOrThrowArgs>(args?: SelectSubset<T, ComponentPurposeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ComponentPurposes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentPurposeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ComponentPurposes
+     * const componentPurposes = await prisma.componentPurpose.findMany()
+     * 
+     * // Get first 10 ComponentPurposes
+     * const componentPurposes = await prisma.componentPurpose.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const componentPurposeWithIdOnly = await prisma.componentPurpose.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ComponentPurposeFindManyArgs>(args?: SelectSubset<T, ComponentPurposeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ComponentPurpose.
+     * @param {ComponentPurposeCreateArgs} args - Arguments to create a ComponentPurpose.
+     * @example
+     * // Create one ComponentPurpose
+     * const ComponentPurpose = await prisma.componentPurpose.create({
+     *   data: {
+     *     // ... data to create a ComponentPurpose
+     *   }
+     * })
+     * 
+     */
+    create<T extends ComponentPurposeCreateArgs>(args: SelectSubset<T, ComponentPurposeCreateArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ComponentPurposes.
+     * @param {ComponentPurposeCreateManyArgs} args - Arguments to create many ComponentPurposes.
+     * @example
+     * // Create many ComponentPurposes
+     * const componentPurpose = await prisma.componentPurpose.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ComponentPurposeCreateManyArgs>(args?: SelectSubset<T, ComponentPurposeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ComponentPurposes and returns the data saved in the database.
+     * @param {ComponentPurposeCreateManyAndReturnArgs} args - Arguments to create many ComponentPurposes.
+     * @example
+     * // Create many ComponentPurposes
+     * const componentPurpose = await prisma.componentPurpose.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ComponentPurposes and only return the `id`
+     * const componentPurposeWithIdOnly = await prisma.componentPurpose.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ComponentPurposeCreateManyAndReturnArgs>(args?: SelectSubset<T, ComponentPurposeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ComponentPurpose.
+     * @param {ComponentPurposeDeleteArgs} args - Arguments to delete one ComponentPurpose.
+     * @example
+     * // Delete one ComponentPurpose
+     * const ComponentPurpose = await prisma.componentPurpose.delete({
+     *   where: {
+     *     // ... filter to delete one ComponentPurpose
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ComponentPurposeDeleteArgs>(args: SelectSubset<T, ComponentPurposeDeleteArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ComponentPurpose.
+     * @param {ComponentPurposeUpdateArgs} args - Arguments to update one ComponentPurpose.
+     * @example
+     * // Update one ComponentPurpose
+     * const componentPurpose = await prisma.componentPurpose.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ComponentPurposeUpdateArgs>(args: SelectSubset<T, ComponentPurposeUpdateArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ComponentPurposes.
+     * @param {ComponentPurposeDeleteManyArgs} args - Arguments to filter ComponentPurposes to delete.
+     * @example
+     * // Delete a few ComponentPurposes
+     * const { count } = await prisma.componentPurpose.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ComponentPurposeDeleteManyArgs>(args?: SelectSubset<T, ComponentPurposeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ComponentPurposes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentPurposeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ComponentPurposes
+     * const componentPurpose = await prisma.componentPurpose.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ComponentPurposeUpdateManyArgs>(args: SelectSubset<T, ComponentPurposeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ComponentPurpose.
+     * @param {ComponentPurposeUpsertArgs} args - Arguments to update or create a ComponentPurpose.
+     * @example
+     * // Update or create a ComponentPurpose
+     * const componentPurpose = await prisma.componentPurpose.upsert({
+     *   create: {
+     *     // ... data to create a ComponentPurpose
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ComponentPurpose we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ComponentPurposeUpsertArgs>(args: SelectSubset<T, ComponentPurposeUpsertArgs<ExtArgs>>): Prisma__ComponentPurposeClient<$Result.GetResult<Prisma.$ComponentPurposePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ComponentPurposes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentPurposeCountArgs} args - Arguments to filter ComponentPurposes to count.
+     * @example
+     * // Count the number of ComponentPurposes
+     * const count = await prisma.componentPurpose.count({
+     *   where: {
+     *     // ... the filter for the ComponentPurposes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ComponentPurposeCountArgs>(
+      args?: Subset<T, ComponentPurposeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ComponentPurposeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ComponentPurpose.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentPurposeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ComponentPurposeAggregateArgs>(args: Subset<T, ComponentPurposeAggregateArgs>): Prisma.PrismaPromise<GetComponentPurposeAggregateType<T>>
+
+    /**
+     * Group by ComponentPurpose.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentPurposeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ComponentPurposeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ComponentPurposeGroupByArgs['orderBy'] }
+        : { orderBy?: ComponentPurposeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ComponentPurposeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetComponentPurposeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ComponentPurpose model
+   */
+  readonly fields: ComponentPurposeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ComponentPurpose.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ComponentPurposeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    layer<T extends ArchitecturalLayerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ArchitecturalLayerDefaultArgs<ExtArgs>>): Prisma__ArchitecturalLayerClient<$Result.GetResult<Prisma.$ArchitecturalLayerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    screen<T extends ComponentPurpose$screenArgs<ExtArgs> = {}>(args?: Subset<T, ComponentPurpose$screenArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    functionality<T extends ComponentPurpose$functionalityArgs<ExtArgs> = {}>(args?: Subset<T, ComponentPurpose$functionalityArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ComponentPurpose model
+   */ 
+  interface ComponentPurposeFieldRefs {
+    readonly id: FieldRef<"ComponentPurpose", 'String'>
+    readonly layerId: FieldRef<"ComponentPurpose", 'String'>
+    readonly screenId: FieldRef<"ComponentPurpose", 'String'>
+    readonly functionalityId: FieldRef<"ComponentPurpose", 'String'>
+    readonly targetFile: FieldRef<"ComponentPurpose", 'String'>
+    readonly description: FieldRef<"ComponentPurpose", 'String'>
+    readonly implementedWell: FieldRef<"ComponentPurpose", 'Boolean'>
+    readonly anomaliesDetail: FieldRef<"ComponentPurpose", 'String'>
+    readonly createdAt: FieldRef<"ComponentPurpose", 'DateTime'>
+    readonly updatedAt: FieldRef<"ComponentPurpose", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ComponentPurpose findUnique
+   */
+  export type ComponentPurposeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentPurpose to fetch.
+     */
+    where: ComponentPurposeWhereUniqueInput
+  }
+
+  /**
+   * ComponentPurpose findUniqueOrThrow
+   */
+  export type ComponentPurposeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentPurpose to fetch.
+     */
+    where: ComponentPurposeWhereUniqueInput
+  }
+
+  /**
+   * ComponentPurpose findFirst
+   */
+  export type ComponentPurposeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentPurpose to fetch.
+     */
+    where?: ComponentPurposeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentPurposes to fetch.
+     */
+    orderBy?: ComponentPurposeOrderByWithRelationInput | ComponentPurposeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ComponentPurposes.
+     */
+    cursor?: ComponentPurposeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentPurposes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentPurposes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ComponentPurposes.
+     */
+    distinct?: ComponentPurposeScalarFieldEnum | ComponentPurposeScalarFieldEnum[]
+  }
+
+  /**
+   * ComponentPurpose findFirstOrThrow
+   */
+  export type ComponentPurposeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentPurpose to fetch.
+     */
+    where?: ComponentPurposeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentPurposes to fetch.
+     */
+    orderBy?: ComponentPurposeOrderByWithRelationInput | ComponentPurposeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ComponentPurposes.
+     */
+    cursor?: ComponentPurposeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentPurposes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentPurposes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ComponentPurposes.
+     */
+    distinct?: ComponentPurposeScalarFieldEnum | ComponentPurposeScalarFieldEnum[]
+  }
+
+  /**
+   * ComponentPurpose findMany
+   */
+  export type ComponentPurposeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentPurposes to fetch.
+     */
+    where?: ComponentPurposeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentPurposes to fetch.
+     */
+    orderBy?: ComponentPurposeOrderByWithRelationInput | ComponentPurposeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ComponentPurposes.
+     */
+    cursor?: ComponentPurposeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentPurposes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentPurposes.
+     */
+    skip?: number
+    distinct?: ComponentPurposeScalarFieldEnum | ComponentPurposeScalarFieldEnum[]
+  }
+
+  /**
+   * ComponentPurpose create
+   */
+  export type ComponentPurposeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ComponentPurpose.
+     */
+    data: XOR<ComponentPurposeCreateInput, ComponentPurposeUncheckedCreateInput>
+  }
+
+  /**
+   * ComponentPurpose createMany
+   */
+  export type ComponentPurposeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ComponentPurposes.
+     */
+    data: ComponentPurposeCreateManyInput | ComponentPurposeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ComponentPurpose createManyAndReturn
+   */
+  export type ComponentPurposeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ComponentPurposes.
+     */
+    data: ComponentPurposeCreateManyInput | ComponentPurposeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ComponentPurpose update
+   */
+  export type ComponentPurposeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ComponentPurpose.
+     */
+    data: XOR<ComponentPurposeUpdateInput, ComponentPurposeUncheckedUpdateInput>
+    /**
+     * Choose, which ComponentPurpose to update.
+     */
+    where: ComponentPurposeWhereUniqueInput
+  }
+
+  /**
+   * ComponentPurpose updateMany
+   */
+  export type ComponentPurposeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ComponentPurposes.
+     */
+    data: XOR<ComponentPurposeUpdateManyMutationInput, ComponentPurposeUncheckedUpdateManyInput>
+    /**
+     * Filter which ComponentPurposes to update
+     */
+    where?: ComponentPurposeWhereInput
+  }
+
+  /**
+   * ComponentPurpose upsert
+   */
+  export type ComponentPurposeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ComponentPurpose to update in case it exists.
+     */
+    where: ComponentPurposeWhereUniqueInput
+    /**
+     * In case the ComponentPurpose found by the `where` argument doesn't exist, create a new ComponentPurpose with this data.
+     */
+    create: XOR<ComponentPurposeCreateInput, ComponentPurposeUncheckedCreateInput>
+    /**
+     * In case the ComponentPurpose was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ComponentPurposeUpdateInput, ComponentPurposeUncheckedUpdateInput>
+  }
+
+  /**
+   * ComponentPurpose delete
+   */
+  export type ComponentPurposeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+    /**
+     * Filter which ComponentPurpose to delete.
+     */
+    where: ComponentPurposeWhereUniqueInput
+  }
+
+  /**
+   * ComponentPurpose deleteMany
+   */
+  export type ComponentPurposeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ComponentPurposes to delete
+     */
+    where?: ComponentPurposeWhereInput
+  }
+
+  /**
+   * ComponentPurpose.screen
+   */
+  export type ComponentPurpose$screenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    where?: PlatformScreenWhereInput
+  }
+
+  /**
+   * ComponentPurpose.functionality
+   */
+  export type ComponentPurpose$functionalityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    where?: ScreenFunctionalityWhereInput
+  }
+
+  /**
+   * ComponentPurpose without action
+   */
+  export type ComponentPurposeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentPurpose
+     */
+    select?: ComponentPurposeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentPurposeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SystemDomain
+   */
+
+  export type AggregateSystemDomain = {
+    _count: SystemDomainCountAggregateOutputType | null
+    _min: SystemDomainMinAggregateOutputType | null
+    _max: SystemDomainMaxAggregateOutputType | null
+  }
+
+  export type SystemDomainMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    owner: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SystemDomainMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    owner: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SystemDomainCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    owner: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SystemDomainMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    owner?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SystemDomainMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    owner?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SystemDomainCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    owner?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SystemDomainAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemDomain to aggregate.
+     */
+    where?: SystemDomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemDomains to fetch.
+     */
+    orderBy?: SystemDomainOrderByWithRelationInput | SystemDomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SystemDomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemDomains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemDomains.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SystemDomains
+    **/
+    _count?: true | SystemDomainCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SystemDomainMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SystemDomainMaxAggregateInputType
+  }
+
+  export type GetSystemDomainAggregateType<T extends SystemDomainAggregateArgs> = {
+        [P in keyof T & keyof AggregateSystemDomain]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSystemDomain[P]>
+      : GetScalarType<T[P], AggregateSystemDomain[P]>
+  }
+
+
+
+
+  export type SystemDomainGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemDomainWhereInput
+    orderBy?: SystemDomainOrderByWithAggregationInput | SystemDomainOrderByWithAggregationInput[]
+    by: SystemDomainScalarFieldEnum[] | SystemDomainScalarFieldEnum
+    having?: SystemDomainScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SystemDomainCountAggregateInputType | true
+    _min?: SystemDomainMinAggregateInputType
+    _max?: SystemDomainMaxAggregateInputType
+  }
+
+  export type SystemDomainGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    owner: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SystemDomainCountAggregateOutputType | null
+    _min: SystemDomainMinAggregateOutputType | null
+    _max: SystemDomainMaxAggregateOutputType | null
+  }
+
+  type GetSystemDomainGroupByPayload<T extends SystemDomainGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SystemDomainGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SystemDomainGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SystemDomainGroupByOutputType[P]>
+            : GetScalarType<T[P], SystemDomainGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SystemDomainSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    owner?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    systems?: boolean | SystemDomain$systemsArgs<ExtArgs>
+    _count?: boolean | SystemDomainCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["systemDomain"]>
+
+  export type SystemDomainSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    owner?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["systemDomain"]>
+
+  export type SystemDomainSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    owner?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SystemDomainInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    systems?: boolean | SystemDomain$systemsArgs<ExtArgs>
+    _count?: boolean | SystemDomainCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SystemDomainIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SystemDomainPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SystemDomain"
+    objects: {
+      systems: Prisma.$SoftwareSystemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      owner: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["systemDomain"]>
+    composites: {}
+  }
+
+  type SystemDomainGetPayload<S extends boolean | null | undefined | SystemDomainDefaultArgs> = $Result.GetResult<Prisma.$SystemDomainPayload, S>
+
+  type SystemDomainCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SystemDomainFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SystemDomainCountAggregateInputType | true
+    }
+
+  export interface SystemDomainDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SystemDomain'], meta: { name: 'SystemDomain' } }
+    /**
+     * Find zero or one SystemDomain that matches the filter.
+     * @param {SystemDomainFindUniqueArgs} args - Arguments to find a SystemDomain
+     * @example
+     * // Get one SystemDomain
+     * const systemDomain = await prisma.systemDomain.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SystemDomainFindUniqueArgs>(args: SelectSubset<T, SystemDomainFindUniqueArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SystemDomain that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SystemDomainFindUniqueOrThrowArgs} args - Arguments to find a SystemDomain
+     * @example
+     * // Get one SystemDomain
+     * const systemDomain = await prisma.systemDomain.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SystemDomainFindUniqueOrThrowArgs>(args: SelectSubset<T, SystemDomainFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SystemDomain that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemDomainFindFirstArgs} args - Arguments to find a SystemDomain
+     * @example
+     * // Get one SystemDomain
+     * const systemDomain = await prisma.systemDomain.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SystemDomainFindFirstArgs>(args?: SelectSubset<T, SystemDomainFindFirstArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SystemDomain that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemDomainFindFirstOrThrowArgs} args - Arguments to find a SystemDomain
+     * @example
+     * // Get one SystemDomain
+     * const systemDomain = await prisma.systemDomain.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SystemDomainFindFirstOrThrowArgs>(args?: SelectSubset<T, SystemDomainFindFirstOrThrowArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SystemDomains that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemDomainFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SystemDomains
+     * const systemDomains = await prisma.systemDomain.findMany()
+     * 
+     * // Get first 10 SystemDomains
+     * const systemDomains = await prisma.systemDomain.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const systemDomainWithIdOnly = await prisma.systemDomain.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SystemDomainFindManyArgs>(args?: SelectSubset<T, SystemDomainFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SystemDomain.
+     * @param {SystemDomainCreateArgs} args - Arguments to create a SystemDomain.
+     * @example
+     * // Create one SystemDomain
+     * const SystemDomain = await prisma.systemDomain.create({
+     *   data: {
+     *     // ... data to create a SystemDomain
+     *   }
+     * })
+     * 
+     */
+    create<T extends SystemDomainCreateArgs>(args: SelectSubset<T, SystemDomainCreateArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SystemDomains.
+     * @param {SystemDomainCreateManyArgs} args - Arguments to create many SystemDomains.
+     * @example
+     * // Create many SystemDomains
+     * const systemDomain = await prisma.systemDomain.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SystemDomainCreateManyArgs>(args?: SelectSubset<T, SystemDomainCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SystemDomains and returns the data saved in the database.
+     * @param {SystemDomainCreateManyAndReturnArgs} args - Arguments to create many SystemDomains.
+     * @example
+     * // Create many SystemDomains
+     * const systemDomain = await prisma.systemDomain.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SystemDomains and only return the `id`
+     * const systemDomainWithIdOnly = await prisma.systemDomain.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SystemDomainCreateManyAndReturnArgs>(args?: SelectSubset<T, SystemDomainCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SystemDomain.
+     * @param {SystemDomainDeleteArgs} args - Arguments to delete one SystemDomain.
+     * @example
+     * // Delete one SystemDomain
+     * const SystemDomain = await prisma.systemDomain.delete({
+     *   where: {
+     *     // ... filter to delete one SystemDomain
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SystemDomainDeleteArgs>(args: SelectSubset<T, SystemDomainDeleteArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SystemDomain.
+     * @param {SystemDomainUpdateArgs} args - Arguments to update one SystemDomain.
+     * @example
+     * // Update one SystemDomain
+     * const systemDomain = await prisma.systemDomain.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SystemDomainUpdateArgs>(args: SelectSubset<T, SystemDomainUpdateArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SystemDomains.
+     * @param {SystemDomainDeleteManyArgs} args - Arguments to filter SystemDomains to delete.
+     * @example
+     * // Delete a few SystemDomains
+     * const { count } = await prisma.systemDomain.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SystemDomainDeleteManyArgs>(args?: SelectSubset<T, SystemDomainDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemDomains.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemDomainUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SystemDomains
+     * const systemDomain = await prisma.systemDomain.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SystemDomainUpdateManyArgs>(args: SelectSubset<T, SystemDomainUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SystemDomain.
+     * @param {SystemDomainUpsertArgs} args - Arguments to update or create a SystemDomain.
+     * @example
+     * // Update or create a SystemDomain
+     * const systemDomain = await prisma.systemDomain.upsert({
+     *   create: {
+     *     // ... data to create a SystemDomain
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SystemDomain we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SystemDomainUpsertArgs>(args: SelectSubset<T, SystemDomainUpsertArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SystemDomains.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemDomainCountArgs} args - Arguments to filter SystemDomains to count.
+     * @example
+     * // Count the number of SystemDomains
+     * const count = await prisma.systemDomain.count({
+     *   where: {
+     *     // ... the filter for the SystemDomains we want to count
+     *   }
+     * })
+    **/
+    count<T extends SystemDomainCountArgs>(
+      args?: Subset<T, SystemDomainCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SystemDomainCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SystemDomain.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemDomainAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SystemDomainAggregateArgs>(args: Subset<T, SystemDomainAggregateArgs>): Prisma.PrismaPromise<GetSystemDomainAggregateType<T>>
+
+    /**
+     * Group by SystemDomain.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemDomainGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SystemDomainGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SystemDomainGroupByArgs['orderBy'] }
+        : { orderBy?: SystemDomainGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SystemDomainGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSystemDomainGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SystemDomain model
+   */
+  readonly fields: SystemDomainFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SystemDomain.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SystemDomainClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    systems<T extends SystemDomain$systemsArgs<ExtArgs> = {}>(args?: Subset<T, SystemDomain$systemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SystemDomain model
+   */ 
+  interface SystemDomainFieldRefs {
+    readonly id: FieldRef<"SystemDomain", 'String'>
+    readonly name: FieldRef<"SystemDomain", 'String'>
+    readonly description: FieldRef<"SystemDomain", 'String'>
+    readonly owner: FieldRef<"SystemDomain", 'String'>
+    readonly createdAt: FieldRef<"SystemDomain", 'DateTime'>
+    readonly updatedAt: FieldRef<"SystemDomain", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SystemDomain findUnique
+   */
+  export type SystemDomainFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemDomain to fetch.
+     */
+    where: SystemDomainWhereUniqueInput
+  }
+
+  /**
+   * SystemDomain findUniqueOrThrow
+   */
+  export type SystemDomainFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemDomain to fetch.
+     */
+    where: SystemDomainWhereUniqueInput
+  }
+
+  /**
+   * SystemDomain findFirst
+   */
+  export type SystemDomainFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemDomain to fetch.
+     */
+    where?: SystemDomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemDomains to fetch.
+     */
+    orderBy?: SystemDomainOrderByWithRelationInput | SystemDomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemDomains.
+     */
+    cursor?: SystemDomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemDomains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemDomains.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemDomains.
+     */
+    distinct?: SystemDomainScalarFieldEnum | SystemDomainScalarFieldEnum[]
+  }
+
+  /**
+   * SystemDomain findFirstOrThrow
+   */
+  export type SystemDomainFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemDomain to fetch.
+     */
+    where?: SystemDomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemDomains to fetch.
+     */
+    orderBy?: SystemDomainOrderByWithRelationInput | SystemDomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemDomains.
+     */
+    cursor?: SystemDomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemDomains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemDomains.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemDomains.
+     */
+    distinct?: SystemDomainScalarFieldEnum | SystemDomainScalarFieldEnum[]
+  }
+
+  /**
+   * SystemDomain findMany
+   */
+  export type SystemDomainFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemDomains to fetch.
+     */
+    where?: SystemDomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemDomains to fetch.
+     */
+    orderBy?: SystemDomainOrderByWithRelationInput | SystemDomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SystemDomains.
+     */
+    cursor?: SystemDomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemDomains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemDomains.
+     */
+    skip?: number
+    distinct?: SystemDomainScalarFieldEnum | SystemDomainScalarFieldEnum[]
+  }
+
+  /**
+   * SystemDomain create
+   */
+  export type SystemDomainCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SystemDomain.
+     */
+    data: XOR<SystemDomainCreateInput, SystemDomainUncheckedCreateInput>
+  }
+
+  /**
+   * SystemDomain createMany
+   */
+  export type SystemDomainCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SystemDomains.
+     */
+    data: SystemDomainCreateManyInput | SystemDomainCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemDomain createManyAndReturn
+   */
+  export type SystemDomainCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SystemDomains.
+     */
+    data: SystemDomainCreateManyInput | SystemDomainCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemDomain update
+   */
+  export type SystemDomainUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SystemDomain.
+     */
+    data: XOR<SystemDomainUpdateInput, SystemDomainUncheckedUpdateInput>
+    /**
+     * Choose, which SystemDomain to update.
+     */
+    where: SystemDomainWhereUniqueInput
+  }
+
+  /**
+   * SystemDomain updateMany
+   */
+  export type SystemDomainUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SystemDomains.
+     */
+    data: XOR<SystemDomainUpdateManyMutationInput, SystemDomainUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemDomains to update
+     */
+    where?: SystemDomainWhereInput
+  }
+
+  /**
+   * SystemDomain upsert
+   */
+  export type SystemDomainUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SystemDomain to update in case it exists.
+     */
+    where: SystemDomainWhereUniqueInput
+    /**
+     * In case the SystemDomain found by the `where` argument doesn't exist, create a new SystemDomain with this data.
+     */
+    create: XOR<SystemDomainCreateInput, SystemDomainUncheckedCreateInput>
+    /**
+     * In case the SystemDomain was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SystemDomainUpdateInput, SystemDomainUncheckedUpdateInput>
+  }
+
+  /**
+   * SystemDomain delete
+   */
+  export type SystemDomainDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+    /**
+     * Filter which SystemDomain to delete.
+     */
+    where: SystemDomainWhereUniqueInput
+  }
+
+  /**
+   * SystemDomain deleteMany
+   */
+  export type SystemDomainDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemDomains to delete
+     */
+    where?: SystemDomainWhereInput
+  }
+
+  /**
+   * SystemDomain.systems
+   */
+  export type SystemDomain$systemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    where?: SoftwareSystemWhereInput
+    orderBy?: SoftwareSystemOrderByWithRelationInput | SoftwareSystemOrderByWithRelationInput[]
+    cursor?: SoftwareSystemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SoftwareSystemScalarFieldEnum | SoftwareSystemScalarFieldEnum[]
+  }
+
+  /**
+   * SystemDomain without action
+   */
+  export type SystemDomainDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemDomain
+     */
+    select?: SystemDomainSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemDomainInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SoftwareSystem
+   */
+
+  export type AggregateSoftwareSystem = {
+    _count: SoftwareSystemCountAggregateOutputType | null
+    _min: SoftwareSystemMinAggregateOutputType | null
+    _max: SoftwareSystemMaxAggregateOutputType | null
+  }
+
+  export type SoftwareSystemMinAggregateOutputType = {
+    id: string | null
+    domainId: string | null
+    name: string | null
+    description: string | null
+    url: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SoftwareSystemMaxAggregateOutputType = {
+    id: string | null
+    domainId: string | null
+    name: string | null
+    description: string | null
+    url: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SoftwareSystemCountAggregateOutputType = {
+    id: number
+    domainId: number
+    name: number
+    description: number
+    url: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SoftwareSystemMinAggregateInputType = {
+    id?: true
+    domainId?: true
+    name?: true
+    description?: true
+    url?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SoftwareSystemMaxAggregateInputType = {
+    id?: true
+    domainId?: true
+    name?: true
+    description?: true
+    url?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SoftwareSystemCountAggregateInputType = {
+    id?: true
+    domainId?: true
+    name?: true
+    description?: true
+    url?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SoftwareSystemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SoftwareSystem to aggregate.
+     */
+    where?: SoftwareSystemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SoftwareSystems to fetch.
+     */
+    orderBy?: SoftwareSystemOrderByWithRelationInput | SoftwareSystemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SoftwareSystemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SoftwareSystems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SoftwareSystems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SoftwareSystems
+    **/
+    _count?: true | SoftwareSystemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SoftwareSystemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SoftwareSystemMaxAggregateInputType
+  }
+
+  export type GetSoftwareSystemAggregateType<T extends SoftwareSystemAggregateArgs> = {
+        [P in keyof T & keyof AggregateSoftwareSystem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSoftwareSystem[P]>
+      : GetScalarType<T[P], AggregateSoftwareSystem[P]>
+  }
+
+
+
+
+  export type SoftwareSystemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SoftwareSystemWhereInput
+    orderBy?: SoftwareSystemOrderByWithAggregationInput | SoftwareSystemOrderByWithAggregationInput[]
+    by: SoftwareSystemScalarFieldEnum[] | SoftwareSystemScalarFieldEnum
+    having?: SoftwareSystemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SoftwareSystemCountAggregateInputType | true
+    _min?: SoftwareSystemMinAggregateInputType
+    _max?: SoftwareSystemMaxAggregateInputType
+  }
+
+  export type SoftwareSystemGroupByOutputType = {
+    id: string
+    domainId: string
+    name: string
+    description: string | null
+    url: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SoftwareSystemCountAggregateOutputType | null
+    _min: SoftwareSystemMinAggregateOutputType | null
+    _max: SoftwareSystemMaxAggregateOutputType | null
+  }
+
+  type GetSoftwareSystemGroupByPayload<T extends SoftwareSystemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SoftwareSystemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SoftwareSystemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SoftwareSystemGroupByOutputType[P]>
+            : GetScalarType<T[P], SoftwareSystemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SoftwareSystemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    domainId?: boolean
+    name?: boolean
+    description?: boolean
+    url?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    domain?: boolean | SystemDomainDefaultArgs<ExtArgs>
+    components?: boolean | SoftwareSystem$componentsArgs<ExtArgs>
+    _count?: boolean | SoftwareSystemCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["softwareSystem"]>
+
+  export type SoftwareSystemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    domainId?: boolean
+    name?: boolean
+    description?: boolean
+    url?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    domain?: boolean | SystemDomainDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["softwareSystem"]>
+
+  export type SoftwareSystemSelectScalar = {
+    id?: boolean
+    domainId?: boolean
+    name?: boolean
+    description?: boolean
+    url?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SoftwareSystemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    domain?: boolean | SystemDomainDefaultArgs<ExtArgs>
+    components?: boolean | SoftwareSystem$componentsArgs<ExtArgs>
+    _count?: boolean | SoftwareSystemCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SoftwareSystemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    domain?: boolean | SystemDomainDefaultArgs<ExtArgs>
+  }
+
+  export type $SoftwareSystemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SoftwareSystem"
+    objects: {
+      domain: Prisma.$SystemDomainPayload<ExtArgs>
+      components: Prisma.$SysComponentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      domainId: string
+      name: string
+      description: string | null
+      url: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["softwareSystem"]>
+    composites: {}
+  }
+
+  type SoftwareSystemGetPayload<S extends boolean | null | undefined | SoftwareSystemDefaultArgs> = $Result.GetResult<Prisma.$SoftwareSystemPayload, S>
+
+  type SoftwareSystemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SoftwareSystemFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SoftwareSystemCountAggregateInputType | true
+    }
+
+  export interface SoftwareSystemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SoftwareSystem'], meta: { name: 'SoftwareSystem' } }
+    /**
+     * Find zero or one SoftwareSystem that matches the filter.
+     * @param {SoftwareSystemFindUniqueArgs} args - Arguments to find a SoftwareSystem
+     * @example
+     * // Get one SoftwareSystem
+     * const softwareSystem = await prisma.softwareSystem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SoftwareSystemFindUniqueArgs>(args: SelectSubset<T, SoftwareSystemFindUniqueArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SoftwareSystem that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SoftwareSystemFindUniqueOrThrowArgs} args - Arguments to find a SoftwareSystem
+     * @example
+     * // Get one SoftwareSystem
+     * const softwareSystem = await prisma.softwareSystem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SoftwareSystemFindUniqueOrThrowArgs>(args: SelectSubset<T, SoftwareSystemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SoftwareSystem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoftwareSystemFindFirstArgs} args - Arguments to find a SoftwareSystem
+     * @example
+     * // Get one SoftwareSystem
+     * const softwareSystem = await prisma.softwareSystem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SoftwareSystemFindFirstArgs>(args?: SelectSubset<T, SoftwareSystemFindFirstArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SoftwareSystem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoftwareSystemFindFirstOrThrowArgs} args - Arguments to find a SoftwareSystem
+     * @example
+     * // Get one SoftwareSystem
+     * const softwareSystem = await prisma.softwareSystem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SoftwareSystemFindFirstOrThrowArgs>(args?: SelectSubset<T, SoftwareSystemFindFirstOrThrowArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SoftwareSystems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoftwareSystemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SoftwareSystems
+     * const softwareSystems = await prisma.softwareSystem.findMany()
+     * 
+     * // Get first 10 SoftwareSystems
+     * const softwareSystems = await prisma.softwareSystem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const softwareSystemWithIdOnly = await prisma.softwareSystem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SoftwareSystemFindManyArgs>(args?: SelectSubset<T, SoftwareSystemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SoftwareSystem.
+     * @param {SoftwareSystemCreateArgs} args - Arguments to create a SoftwareSystem.
+     * @example
+     * // Create one SoftwareSystem
+     * const SoftwareSystem = await prisma.softwareSystem.create({
+     *   data: {
+     *     // ... data to create a SoftwareSystem
+     *   }
+     * })
+     * 
+     */
+    create<T extends SoftwareSystemCreateArgs>(args: SelectSubset<T, SoftwareSystemCreateArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SoftwareSystems.
+     * @param {SoftwareSystemCreateManyArgs} args - Arguments to create many SoftwareSystems.
+     * @example
+     * // Create many SoftwareSystems
+     * const softwareSystem = await prisma.softwareSystem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SoftwareSystemCreateManyArgs>(args?: SelectSubset<T, SoftwareSystemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SoftwareSystems and returns the data saved in the database.
+     * @param {SoftwareSystemCreateManyAndReturnArgs} args - Arguments to create many SoftwareSystems.
+     * @example
+     * // Create many SoftwareSystems
+     * const softwareSystem = await prisma.softwareSystem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SoftwareSystems and only return the `id`
+     * const softwareSystemWithIdOnly = await prisma.softwareSystem.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SoftwareSystemCreateManyAndReturnArgs>(args?: SelectSubset<T, SoftwareSystemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SoftwareSystem.
+     * @param {SoftwareSystemDeleteArgs} args - Arguments to delete one SoftwareSystem.
+     * @example
+     * // Delete one SoftwareSystem
+     * const SoftwareSystem = await prisma.softwareSystem.delete({
+     *   where: {
+     *     // ... filter to delete one SoftwareSystem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SoftwareSystemDeleteArgs>(args: SelectSubset<T, SoftwareSystemDeleteArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SoftwareSystem.
+     * @param {SoftwareSystemUpdateArgs} args - Arguments to update one SoftwareSystem.
+     * @example
+     * // Update one SoftwareSystem
+     * const softwareSystem = await prisma.softwareSystem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SoftwareSystemUpdateArgs>(args: SelectSubset<T, SoftwareSystemUpdateArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SoftwareSystems.
+     * @param {SoftwareSystemDeleteManyArgs} args - Arguments to filter SoftwareSystems to delete.
+     * @example
+     * // Delete a few SoftwareSystems
+     * const { count } = await prisma.softwareSystem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SoftwareSystemDeleteManyArgs>(args?: SelectSubset<T, SoftwareSystemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SoftwareSystems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoftwareSystemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SoftwareSystems
+     * const softwareSystem = await prisma.softwareSystem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SoftwareSystemUpdateManyArgs>(args: SelectSubset<T, SoftwareSystemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SoftwareSystem.
+     * @param {SoftwareSystemUpsertArgs} args - Arguments to update or create a SoftwareSystem.
+     * @example
+     * // Update or create a SoftwareSystem
+     * const softwareSystem = await prisma.softwareSystem.upsert({
+     *   create: {
+     *     // ... data to create a SoftwareSystem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SoftwareSystem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SoftwareSystemUpsertArgs>(args: SelectSubset<T, SoftwareSystemUpsertArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SoftwareSystems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoftwareSystemCountArgs} args - Arguments to filter SoftwareSystems to count.
+     * @example
+     * // Count the number of SoftwareSystems
+     * const count = await prisma.softwareSystem.count({
+     *   where: {
+     *     // ... the filter for the SoftwareSystems we want to count
+     *   }
+     * })
+    **/
+    count<T extends SoftwareSystemCountArgs>(
+      args?: Subset<T, SoftwareSystemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SoftwareSystemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SoftwareSystem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoftwareSystemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SoftwareSystemAggregateArgs>(args: Subset<T, SoftwareSystemAggregateArgs>): Prisma.PrismaPromise<GetSoftwareSystemAggregateType<T>>
+
+    /**
+     * Group by SoftwareSystem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoftwareSystemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SoftwareSystemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SoftwareSystemGroupByArgs['orderBy'] }
+        : { orderBy?: SoftwareSystemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SoftwareSystemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSoftwareSystemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SoftwareSystem model
+   */
+  readonly fields: SoftwareSystemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SoftwareSystem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SoftwareSystemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    domain<T extends SystemDomainDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SystemDomainDefaultArgs<ExtArgs>>): Prisma__SystemDomainClient<$Result.GetResult<Prisma.$SystemDomainPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    components<T extends SoftwareSystem$componentsArgs<ExtArgs> = {}>(args?: Subset<T, SoftwareSystem$componentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SoftwareSystem model
+   */ 
+  interface SoftwareSystemFieldRefs {
+    readonly id: FieldRef<"SoftwareSystem", 'String'>
+    readonly domainId: FieldRef<"SoftwareSystem", 'String'>
+    readonly name: FieldRef<"SoftwareSystem", 'String'>
+    readonly description: FieldRef<"SoftwareSystem", 'String'>
+    readonly url: FieldRef<"SoftwareSystem", 'String'>
+    readonly createdAt: FieldRef<"SoftwareSystem", 'DateTime'>
+    readonly updatedAt: FieldRef<"SoftwareSystem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SoftwareSystem findUnique
+   */
+  export type SoftwareSystemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * Filter, which SoftwareSystem to fetch.
+     */
+    where: SoftwareSystemWhereUniqueInput
+  }
+
+  /**
+   * SoftwareSystem findUniqueOrThrow
+   */
+  export type SoftwareSystemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * Filter, which SoftwareSystem to fetch.
+     */
+    where: SoftwareSystemWhereUniqueInput
+  }
+
+  /**
+   * SoftwareSystem findFirst
+   */
+  export type SoftwareSystemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * Filter, which SoftwareSystem to fetch.
+     */
+    where?: SoftwareSystemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SoftwareSystems to fetch.
+     */
+    orderBy?: SoftwareSystemOrderByWithRelationInput | SoftwareSystemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SoftwareSystems.
+     */
+    cursor?: SoftwareSystemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SoftwareSystems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SoftwareSystems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SoftwareSystems.
+     */
+    distinct?: SoftwareSystemScalarFieldEnum | SoftwareSystemScalarFieldEnum[]
+  }
+
+  /**
+   * SoftwareSystem findFirstOrThrow
+   */
+  export type SoftwareSystemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * Filter, which SoftwareSystem to fetch.
+     */
+    where?: SoftwareSystemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SoftwareSystems to fetch.
+     */
+    orderBy?: SoftwareSystemOrderByWithRelationInput | SoftwareSystemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SoftwareSystems.
+     */
+    cursor?: SoftwareSystemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SoftwareSystems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SoftwareSystems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SoftwareSystems.
+     */
+    distinct?: SoftwareSystemScalarFieldEnum | SoftwareSystemScalarFieldEnum[]
+  }
+
+  /**
+   * SoftwareSystem findMany
+   */
+  export type SoftwareSystemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * Filter, which SoftwareSystems to fetch.
+     */
+    where?: SoftwareSystemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SoftwareSystems to fetch.
+     */
+    orderBy?: SoftwareSystemOrderByWithRelationInput | SoftwareSystemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SoftwareSystems.
+     */
+    cursor?: SoftwareSystemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SoftwareSystems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SoftwareSystems.
+     */
+    skip?: number
+    distinct?: SoftwareSystemScalarFieldEnum | SoftwareSystemScalarFieldEnum[]
+  }
+
+  /**
+   * SoftwareSystem create
+   */
+  export type SoftwareSystemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SoftwareSystem.
+     */
+    data: XOR<SoftwareSystemCreateInput, SoftwareSystemUncheckedCreateInput>
+  }
+
+  /**
+   * SoftwareSystem createMany
+   */
+  export type SoftwareSystemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SoftwareSystems.
+     */
+    data: SoftwareSystemCreateManyInput | SoftwareSystemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SoftwareSystem createManyAndReturn
+   */
+  export type SoftwareSystemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SoftwareSystems.
+     */
+    data: SoftwareSystemCreateManyInput | SoftwareSystemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SoftwareSystem update
+   */
+  export type SoftwareSystemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SoftwareSystem.
+     */
+    data: XOR<SoftwareSystemUpdateInput, SoftwareSystemUncheckedUpdateInput>
+    /**
+     * Choose, which SoftwareSystem to update.
+     */
+    where: SoftwareSystemWhereUniqueInput
+  }
+
+  /**
+   * SoftwareSystem updateMany
+   */
+  export type SoftwareSystemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SoftwareSystems.
+     */
+    data: XOR<SoftwareSystemUpdateManyMutationInput, SoftwareSystemUncheckedUpdateManyInput>
+    /**
+     * Filter which SoftwareSystems to update
+     */
+    where?: SoftwareSystemWhereInput
+  }
+
+  /**
+   * SoftwareSystem upsert
+   */
+  export type SoftwareSystemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SoftwareSystem to update in case it exists.
+     */
+    where: SoftwareSystemWhereUniqueInput
+    /**
+     * In case the SoftwareSystem found by the `where` argument doesn't exist, create a new SoftwareSystem with this data.
+     */
+    create: XOR<SoftwareSystemCreateInput, SoftwareSystemUncheckedCreateInput>
+    /**
+     * In case the SoftwareSystem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SoftwareSystemUpdateInput, SoftwareSystemUncheckedUpdateInput>
+  }
+
+  /**
+   * SoftwareSystem delete
+   */
+  export type SoftwareSystemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+    /**
+     * Filter which SoftwareSystem to delete.
+     */
+    where: SoftwareSystemWhereUniqueInput
+  }
+
+  /**
+   * SoftwareSystem deleteMany
+   */
+  export type SoftwareSystemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SoftwareSystems to delete
+     */
+    where?: SoftwareSystemWhereInput
+  }
+
+  /**
+   * SoftwareSystem.components
+   */
+  export type SoftwareSystem$componentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    where?: SysComponentWhereInput
+    orderBy?: SysComponentOrderByWithRelationInput | SysComponentOrderByWithRelationInput[]
+    cursor?: SysComponentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SysComponentScalarFieldEnum | SysComponentScalarFieldEnum[]
+  }
+
+  /**
+   * SoftwareSystem without action
+   */
+  export type SoftwareSystemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SoftwareSystem
+     */
+    select?: SoftwareSystemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SoftwareSystemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SysComponent
+   */
+
+  export type AggregateSysComponent = {
+    _count: SysComponentCountAggregateOutputType | null
+    _min: SysComponentMinAggregateOutputType | null
+    _max: SysComponentMaxAggregateOutputType | null
+  }
+
+  export type SysComponentMinAggregateOutputType = {
+    id: string | null
+    systemId: string | null
+    name: string | null
+    type: string | null
+    language: string | null
+    description: string | null
+    status: string | null
+    repoPath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SysComponentMaxAggregateOutputType = {
+    id: string | null
+    systemId: string | null
+    name: string | null
+    type: string | null
+    language: string | null
+    description: string | null
+    status: string | null
+    repoPath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SysComponentCountAggregateOutputType = {
+    id: number
+    systemId: number
+    name: number
+    type: number
+    language: number
+    description: number
+    status: number
+    repoPath: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SysComponentMinAggregateInputType = {
+    id?: true
+    systemId?: true
+    name?: true
+    type?: true
+    language?: true
+    description?: true
+    status?: true
+    repoPath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SysComponentMaxAggregateInputType = {
+    id?: true
+    systemId?: true
+    name?: true
+    type?: true
+    language?: true
+    description?: true
+    status?: true
+    repoPath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SysComponentCountAggregateInputType = {
+    id?: true
+    systemId?: true
+    name?: true
+    type?: true
+    language?: true
+    description?: true
+    status?: true
+    repoPath?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SysComponentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SysComponent to aggregate.
+     */
+    where?: SysComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SysComponents to fetch.
+     */
+    orderBy?: SysComponentOrderByWithRelationInput | SysComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SysComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SysComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SysComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SysComponents
+    **/
+    _count?: true | SysComponentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SysComponentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SysComponentMaxAggregateInputType
+  }
+
+  export type GetSysComponentAggregateType<T extends SysComponentAggregateArgs> = {
+        [P in keyof T & keyof AggregateSysComponent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSysComponent[P]>
+      : GetScalarType<T[P], AggregateSysComponent[P]>
+  }
+
+
+
+
+  export type SysComponentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SysComponentWhereInput
+    orderBy?: SysComponentOrderByWithAggregationInput | SysComponentOrderByWithAggregationInput[]
+    by: SysComponentScalarFieldEnum[] | SysComponentScalarFieldEnum
+    having?: SysComponentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SysComponentCountAggregateInputType | true
+    _min?: SysComponentMinAggregateInputType
+    _max?: SysComponentMaxAggregateInputType
+  }
+
+  export type SysComponentGroupByOutputType = {
+    id: string
+    systemId: string
+    name: string
+    type: string
+    language: string | null
+    description: string | null
+    status: string
+    repoPath: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SysComponentCountAggregateOutputType | null
+    _min: SysComponentMinAggregateOutputType | null
+    _max: SysComponentMaxAggregateOutputType | null
+  }
+
+  type GetSysComponentGroupByPayload<T extends SysComponentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SysComponentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SysComponentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SysComponentGroupByOutputType[P]>
+            : GetScalarType<T[P], SysComponentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SysComponentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    systemId?: boolean
+    name?: boolean
+    type?: boolean
+    language?: boolean
+    description?: boolean
+    status?: boolean
+    repoPath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    system?: boolean | SoftwareSystemDefaultArgs<ExtArgs>
+    providedApis?: boolean | SysComponent$providedApisArgs<ExtArgs>
+    consumedApis?: boolean | SysComponent$consumedApisArgs<ExtArgs>
+    resources?: boolean | SysComponent$resourcesArgs<ExtArgs>
+    _count?: boolean | SysComponentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sysComponent"]>
+
+  export type SysComponentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    systemId?: boolean
+    name?: boolean
+    type?: boolean
+    language?: boolean
+    description?: boolean
+    status?: boolean
+    repoPath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    system?: boolean | SoftwareSystemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sysComponent"]>
+
+  export type SysComponentSelectScalar = {
+    id?: boolean
+    systemId?: boolean
+    name?: boolean
+    type?: boolean
+    language?: boolean
+    description?: boolean
+    status?: boolean
+    repoPath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SysComponentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    system?: boolean | SoftwareSystemDefaultArgs<ExtArgs>
+    providedApis?: boolean | SysComponent$providedApisArgs<ExtArgs>
+    consumedApis?: boolean | SysComponent$consumedApisArgs<ExtArgs>
+    resources?: boolean | SysComponent$resourcesArgs<ExtArgs>
+    _count?: boolean | SysComponentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SysComponentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    system?: boolean | SoftwareSystemDefaultArgs<ExtArgs>
+  }
+
+  export type $SysComponentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SysComponent"
+    objects: {
+      system: Prisma.$SoftwareSystemPayload<ExtArgs>
+      providedApis: Prisma.$ApiContractPayload<ExtArgs>[]
+      consumedApis: Prisma.$ApiContractPayload<ExtArgs>[]
+      resources: Prisma.$DataResourcePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      systemId: string
+      name: string
+      type: string
+      language: string | null
+      description: string | null
+      status: string
+      repoPath: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["sysComponent"]>
+    composites: {}
+  }
+
+  type SysComponentGetPayload<S extends boolean | null | undefined | SysComponentDefaultArgs> = $Result.GetResult<Prisma.$SysComponentPayload, S>
+
+  type SysComponentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SysComponentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SysComponentCountAggregateInputType | true
+    }
+
+  export interface SysComponentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SysComponent'], meta: { name: 'SysComponent' } }
+    /**
+     * Find zero or one SysComponent that matches the filter.
+     * @param {SysComponentFindUniqueArgs} args - Arguments to find a SysComponent
+     * @example
+     * // Get one SysComponent
+     * const sysComponent = await prisma.sysComponent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SysComponentFindUniqueArgs>(args: SelectSubset<T, SysComponentFindUniqueArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SysComponent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SysComponentFindUniqueOrThrowArgs} args - Arguments to find a SysComponent
+     * @example
+     * // Get one SysComponent
+     * const sysComponent = await prisma.sysComponent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SysComponentFindUniqueOrThrowArgs>(args: SelectSubset<T, SysComponentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SysComponent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SysComponentFindFirstArgs} args - Arguments to find a SysComponent
+     * @example
+     * // Get one SysComponent
+     * const sysComponent = await prisma.sysComponent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SysComponentFindFirstArgs>(args?: SelectSubset<T, SysComponentFindFirstArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SysComponent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SysComponentFindFirstOrThrowArgs} args - Arguments to find a SysComponent
+     * @example
+     * // Get one SysComponent
+     * const sysComponent = await prisma.sysComponent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SysComponentFindFirstOrThrowArgs>(args?: SelectSubset<T, SysComponentFindFirstOrThrowArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SysComponents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SysComponentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SysComponents
+     * const sysComponents = await prisma.sysComponent.findMany()
+     * 
+     * // Get first 10 SysComponents
+     * const sysComponents = await prisma.sysComponent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sysComponentWithIdOnly = await prisma.sysComponent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SysComponentFindManyArgs>(args?: SelectSubset<T, SysComponentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SysComponent.
+     * @param {SysComponentCreateArgs} args - Arguments to create a SysComponent.
+     * @example
+     * // Create one SysComponent
+     * const SysComponent = await prisma.sysComponent.create({
+     *   data: {
+     *     // ... data to create a SysComponent
+     *   }
+     * })
+     * 
+     */
+    create<T extends SysComponentCreateArgs>(args: SelectSubset<T, SysComponentCreateArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SysComponents.
+     * @param {SysComponentCreateManyArgs} args - Arguments to create many SysComponents.
+     * @example
+     * // Create many SysComponents
+     * const sysComponent = await prisma.sysComponent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SysComponentCreateManyArgs>(args?: SelectSubset<T, SysComponentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SysComponents and returns the data saved in the database.
+     * @param {SysComponentCreateManyAndReturnArgs} args - Arguments to create many SysComponents.
+     * @example
+     * // Create many SysComponents
+     * const sysComponent = await prisma.sysComponent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SysComponents and only return the `id`
+     * const sysComponentWithIdOnly = await prisma.sysComponent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SysComponentCreateManyAndReturnArgs>(args?: SelectSubset<T, SysComponentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SysComponent.
+     * @param {SysComponentDeleteArgs} args - Arguments to delete one SysComponent.
+     * @example
+     * // Delete one SysComponent
+     * const SysComponent = await prisma.sysComponent.delete({
+     *   where: {
+     *     // ... filter to delete one SysComponent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SysComponentDeleteArgs>(args: SelectSubset<T, SysComponentDeleteArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SysComponent.
+     * @param {SysComponentUpdateArgs} args - Arguments to update one SysComponent.
+     * @example
+     * // Update one SysComponent
+     * const sysComponent = await prisma.sysComponent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SysComponentUpdateArgs>(args: SelectSubset<T, SysComponentUpdateArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SysComponents.
+     * @param {SysComponentDeleteManyArgs} args - Arguments to filter SysComponents to delete.
+     * @example
+     * // Delete a few SysComponents
+     * const { count } = await prisma.sysComponent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SysComponentDeleteManyArgs>(args?: SelectSubset<T, SysComponentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SysComponents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SysComponentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SysComponents
+     * const sysComponent = await prisma.sysComponent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SysComponentUpdateManyArgs>(args: SelectSubset<T, SysComponentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SysComponent.
+     * @param {SysComponentUpsertArgs} args - Arguments to update or create a SysComponent.
+     * @example
+     * // Update or create a SysComponent
+     * const sysComponent = await prisma.sysComponent.upsert({
+     *   create: {
+     *     // ... data to create a SysComponent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SysComponent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SysComponentUpsertArgs>(args: SelectSubset<T, SysComponentUpsertArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SysComponents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SysComponentCountArgs} args - Arguments to filter SysComponents to count.
+     * @example
+     * // Count the number of SysComponents
+     * const count = await prisma.sysComponent.count({
+     *   where: {
+     *     // ... the filter for the SysComponents we want to count
+     *   }
+     * })
+    **/
+    count<T extends SysComponentCountArgs>(
+      args?: Subset<T, SysComponentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SysComponentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SysComponent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SysComponentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SysComponentAggregateArgs>(args: Subset<T, SysComponentAggregateArgs>): Prisma.PrismaPromise<GetSysComponentAggregateType<T>>
+
+    /**
+     * Group by SysComponent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SysComponentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SysComponentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SysComponentGroupByArgs['orderBy'] }
+        : { orderBy?: SysComponentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SysComponentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSysComponentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SysComponent model
+   */
+  readonly fields: SysComponentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SysComponent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SysComponentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    system<T extends SoftwareSystemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SoftwareSystemDefaultArgs<ExtArgs>>): Prisma__SoftwareSystemClient<$Result.GetResult<Prisma.$SoftwareSystemPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    providedApis<T extends SysComponent$providedApisArgs<ExtArgs> = {}>(args?: Subset<T, SysComponent$providedApisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "findMany"> | Null>
+    consumedApis<T extends SysComponent$consumedApisArgs<ExtArgs> = {}>(args?: Subset<T, SysComponent$consumedApisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "findMany"> | Null>
+    resources<T extends SysComponent$resourcesArgs<ExtArgs> = {}>(args?: Subset<T, SysComponent$resourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SysComponent model
+   */ 
+  interface SysComponentFieldRefs {
+    readonly id: FieldRef<"SysComponent", 'String'>
+    readonly systemId: FieldRef<"SysComponent", 'String'>
+    readonly name: FieldRef<"SysComponent", 'String'>
+    readonly type: FieldRef<"SysComponent", 'String'>
+    readonly language: FieldRef<"SysComponent", 'String'>
+    readonly description: FieldRef<"SysComponent", 'String'>
+    readonly status: FieldRef<"SysComponent", 'String'>
+    readonly repoPath: FieldRef<"SysComponent", 'String'>
+    readonly createdAt: FieldRef<"SysComponent", 'DateTime'>
+    readonly updatedAt: FieldRef<"SysComponent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SysComponent findUnique
+   */
+  export type SysComponentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SysComponent to fetch.
+     */
+    where: SysComponentWhereUniqueInput
+  }
+
+  /**
+   * SysComponent findUniqueOrThrow
+   */
+  export type SysComponentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SysComponent to fetch.
+     */
+    where: SysComponentWhereUniqueInput
+  }
+
+  /**
+   * SysComponent findFirst
+   */
+  export type SysComponentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SysComponent to fetch.
+     */
+    where?: SysComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SysComponents to fetch.
+     */
+    orderBy?: SysComponentOrderByWithRelationInput | SysComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SysComponents.
+     */
+    cursor?: SysComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SysComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SysComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SysComponents.
+     */
+    distinct?: SysComponentScalarFieldEnum | SysComponentScalarFieldEnum[]
+  }
+
+  /**
+   * SysComponent findFirstOrThrow
+   */
+  export type SysComponentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SysComponent to fetch.
+     */
+    where?: SysComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SysComponents to fetch.
+     */
+    orderBy?: SysComponentOrderByWithRelationInput | SysComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SysComponents.
+     */
+    cursor?: SysComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SysComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SysComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SysComponents.
+     */
+    distinct?: SysComponentScalarFieldEnum | SysComponentScalarFieldEnum[]
+  }
+
+  /**
+   * SysComponent findMany
+   */
+  export type SysComponentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SysComponents to fetch.
+     */
+    where?: SysComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SysComponents to fetch.
+     */
+    orderBy?: SysComponentOrderByWithRelationInput | SysComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SysComponents.
+     */
+    cursor?: SysComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SysComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SysComponents.
+     */
+    skip?: number
+    distinct?: SysComponentScalarFieldEnum | SysComponentScalarFieldEnum[]
+  }
+
+  /**
+   * SysComponent create
+   */
+  export type SysComponentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SysComponent.
+     */
+    data: XOR<SysComponentCreateInput, SysComponentUncheckedCreateInput>
+  }
+
+  /**
+   * SysComponent createMany
+   */
+  export type SysComponentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SysComponents.
+     */
+    data: SysComponentCreateManyInput | SysComponentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SysComponent createManyAndReturn
+   */
+  export type SysComponentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SysComponents.
+     */
+    data: SysComponentCreateManyInput | SysComponentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SysComponent update
+   */
+  export type SysComponentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SysComponent.
+     */
+    data: XOR<SysComponentUpdateInput, SysComponentUncheckedUpdateInput>
+    /**
+     * Choose, which SysComponent to update.
+     */
+    where: SysComponentWhereUniqueInput
+  }
+
+  /**
+   * SysComponent updateMany
+   */
+  export type SysComponentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SysComponents.
+     */
+    data: XOR<SysComponentUpdateManyMutationInput, SysComponentUncheckedUpdateManyInput>
+    /**
+     * Filter which SysComponents to update
+     */
+    where?: SysComponentWhereInput
+  }
+
+  /**
+   * SysComponent upsert
+   */
+  export type SysComponentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SysComponent to update in case it exists.
+     */
+    where: SysComponentWhereUniqueInput
+    /**
+     * In case the SysComponent found by the `where` argument doesn't exist, create a new SysComponent with this data.
+     */
+    create: XOR<SysComponentCreateInput, SysComponentUncheckedCreateInput>
+    /**
+     * In case the SysComponent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SysComponentUpdateInput, SysComponentUncheckedUpdateInput>
+  }
+
+  /**
+   * SysComponent delete
+   */
+  export type SysComponentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    /**
+     * Filter which SysComponent to delete.
+     */
+    where: SysComponentWhereUniqueInput
+  }
+
+  /**
+   * SysComponent deleteMany
+   */
+  export type SysComponentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SysComponents to delete
+     */
+    where?: SysComponentWhereInput
+  }
+
+  /**
+   * SysComponent.providedApis
+   */
+  export type SysComponent$providedApisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    where?: ApiContractWhereInput
+    orderBy?: ApiContractOrderByWithRelationInput | ApiContractOrderByWithRelationInput[]
+    cursor?: ApiContractWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ApiContractScalarFieldEnum | ApiContractScalarFieldEnum[]
+  }
+
+  /**
+   * SysComponent.consumedApis
+   */
+  export type SysComponent$consumedApisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    where?: ApiContractWhereInput
+    orderBy?: ApiContractOrderByWithRelationInput | ApiContractOrderByWithRelationInput[]
+    cursor?: ApiContractWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ApiContractScalarFieldEnum | ApiContractScalarFieldEnum[]
+  }
+
+  /**
+   * SysComponent.resources
+   */
+  export type SysComponent$resourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    where?: DataResourceWhereInput
+    orderBy?: DataResourceOrderByWithRelationInput | DataResourceOrderByWithRelationInput[]
+    cursor?: DataResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DataResourceScalarFieldEnum | DataResourceScalarFieldEnum[]
+  }
+
+  /**
+   * SysComponent without action
+   */
+  export type SysComponentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ApiContract
+   */
+
+  export type AggregateApiContract = {
+    _count: ApiContractCountAggregateOutputType | null
+    _min: ApiContractMinAggregateOutputType | null
+    _max: ApiContractMaxAggregateOutputType | null
+  }
+
+  export type ApiContractMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: string | null
+    description: string | null
+    providerId: string | null
+    consumerId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ApiContractMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: string | null
+    description: string | null
+    providerId: string | null
+    consumerId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ApiContractCountAggregateOutputType = {
+    id: number
+    name: number
+    type: number
+    description: number
+    providerId: number
+    consumerId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ApiContractMinAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    description?: true
+    providerId?: true
+    consumerId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ApiContractMaxAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    description?: true
+    providerId?: true
+    consumerId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ApiContractCountAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    description?: true
+    providerId?: true
+    consumerId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ApiContractAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApiContract to aggregate.
+     */
+    where?: ApiContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiContracts to fetch.
+     */
+    orderBy?: ApiContractOrderByWithRelationInput | ApiContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ApiContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiContracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ApiContracts
+    **/
+    _count?: true | ApiContractCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ApiContractMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ApiContractMaxAggregateInputType
+  }
+
+  export type GetApiContractAggregateType<T extends ApiContractAggregateArgs> = {
+        [P in keyof T & keyof AggregateApiContract]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateApiContract[P]>
+      : GetScalarType<T[P], AggregateApiContract[P]>
+  }
+
+
+
+
+  export type ApiContractGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApiContractWhereInput
+    orderBy?: ApiContractOrderByWithAggregationInput | ApiContractOrderByWithAggregationInput[]
+    by: ApiContractScalarFieldEnum[] | ApiContractScalarFieldEnum
+    having?: ApiContractScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ApiContractCountAggregateInputType | true
+    _min?: ApiContractMinAggregateInputType
+    _max?: ApiContractMaxAggregateInputType
+  }
+
+  export type ApiContractGroupByOutputType = {
+    id: string
+    name: string
+    type: string
+    description: string | null
+    providerId: string
+    consumerId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ApiContractCountAggregateOutputType | null
+    _min: ApiContractMinAggregateOutputType | null
+    _max: ApiContractMaxAggregateOutputType | null
+  }
+
+  type GetApiContractGroupByPayload<T extends ApiContractGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ApiContractGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ApiContractGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ApiContractGroupByOutputType[P]>
+            : GetScalarType<T[P], ApiContractGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ApiContractSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    description?: boolean
+    providerId?: boolean
+    consumerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    provider?: boolean | SysComponentDefaultArgs<ExtArgs>
+    consumer?: boolean | ApiContract$consumerArgs<ExtArgs>
+  }, ExtArgs["result"]["apiContract"]>
+
+  export type ApiContractSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    description?: boolean
+    providerId?: boolean
+    consumerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    provider?: boolean | SysComponentDefaultArgs<ExtArgs>
+    consumer?: boolean | ApiContract$consumerArgs<ExtArgs>
+  }, ExtArgs["result"]["apiContract"]>
+
+  export type ApiContractSelectScalar = {
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    description?: boolean
+    providerId?: boolean
+    consumerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ApiContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    provider?: boolean | SysComponentDefaultArgs<ExtArgs>
+    consumer?: boolean | ApiContract$consumerArgs<ExtArgs>
+  }
+  export type ApiContractIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    provider?: boolean | SysComponentDefaultArgs<ExtArgs>
+    consumer?: boolean | ApiContract$consumerArgs<ExtArgs>
+  }
+
+  export type $ApiContractPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ApiContract"
+    objects: {
+      provider: Prisma.$SysComponentPayload<ExtArgs>
+      consumer: Prisma.$SysComponentPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      type: string
+      description: string | null
+      providerId: string
+      consumerId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["apiContract"]>
+    composites: {}
+  }
+
+  type ApiContractGetPayload<S extends boolean | null | undefined | ApiContractDefaultArgs> = $Result.GetResult<Prisma.$ApiContractPayload, S>
+
+  type ApiContractCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ApiContractFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ApiContractCountAggregateInputType | true
+    }
+
+  export interface ApiContractDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ApiContract'], meta: { name: 'ApiContract' } }
+    /**
+     * Find zero or one ApiContract that matches the filter.
+     * @param {ApiContractFindUniqueArgs} args - Arguments to find a ApiContract
+     * @example
+     * // Get one ApiContract
+     * const apiContract = await prisma.apiContract.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ApiContractFindUniqueArgs>(args: SelectSubset<T, ApiContractFindUniqueArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ApiContract that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ApiContractFindUniqueOrThrowArgs} args - Arguments to find a ApiContract
+     * @example
+     * // Get one ApiContract
+     * const apiContract = await prisma.apiContract.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ApiContractFindUniqueOrThrowArgs>(args: SelectSubset<T, ApiContractFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ApiContract that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiContractFindFirstArgs} args - Arguments to find a ApiContract
+     * @example
+     * // Get one ApiContract
+     * const apiContract = await prisma.apiContract.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ApiContractFindFirstArgs>(args?: SelectSubset<T, ApiContractFindFirstArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ApiContract that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiContractFindFirstOrThrowArgs} args - Arguments to find a ApiContract
+     * @example
+     * // Get one ApiContract
+     * const apiContract = await prisma.apiContract.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ApiContractFindFirstOrThrowArgs>(args?: SelectSubset<T, ApiContractFindFirstOrThrowArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ApiContracts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiContractFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ApiContracts
+     * const apiContracts = await prisma.apiContract.findMany()
+     * 
+     * // Get first 10 ApiContracts
+     * const apiContracts = await prisma.apiContract.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const apiContractWithIdOnly = await prisma.apiContract.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ApiContractFindManyArgs>(args?: SelectSubset<T, ApiContractFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ApiContract.
+     * @param {ApiContractCreateArgs} args - Arguments to create a ApiContract.
+     * @example
+     * // Create one ApiContract
+     * const ApiContract = await prisma.apiContract.create({
+     *   data: {
+     *     // ... data to create a ApiContract
+     *   }
+     * })
+     * 
+     */
+    create<T extends ApiContractCreateArgs>(args: SelectSubset<T, ApiContractCreateArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ApiContracts.
+     * @param {ApiContractCreateManyArgs} args - Arguments to create many ApiContracts.
+     * @example
+     * // Create many ApiContracts
+     * const apiContract = await prisma.apiContract.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ApiContractCreateManyArgs>(args?: SelectSubset<T, ApiContractCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ApiContracts and returns the data saved in the database.
+     * @param {ApiContractCreateManyAndReturnArgs} args - Arguments to create many ApiContracts.
+     * @example
+     * // Create many ApiContracts
+     * const apiContract = await prisma.apiContract.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ApiContracts and only return the `id`
+     * const apiContractWithIdOnly = await prisma.apiContract.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ApiContractCreateManyAndReturnArgs>(args?: SelectSubset<T, ApiContractCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ApiContract.
+     * @param {ApiContractDeleteArgs} args - Arguments to delete one ApiContract.
+     * @example
+     * // Delete one ApiContract
+     * const ApiContract = await prisma.apiContract.delete({
+     *   where: {
+     *     // ... filter to delete one ApiContract
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ApiContractDeleteArgs>(args: SelectSubset<T, ApiContractDeleteArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ApiContract.
+     * @param {ApiContractUpdateArgs} args - Arguments to update one ApiContract.
+     * @example
+     * // Update one ApiContract
+     * const apiContract = await prisma.apiContract.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ApiContractUpdateArgs>(args: SelectSubset<T, ApiContractUpdateArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ApiContracts.
+     * @param {ApiContractDeleteManyArgs} args - Arguments to filter ApiContracts to delete.
+     * @example
+     * // Delete a few ApiContracts
+     * const { count } = await prisma.apiContract.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ApiContractDeleteManyArgs>(args?: SelectSubset<T, ApiContractDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ApiContracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiContractUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ApiContracts
+     * const apiContract = await prisma.apiContract.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ApiContractUpdateManyArgs>(args: SelectSubset<T, ApiContractUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ApiContract.
+     * @param {ApiContractUpsertArgs} args - Arguments to update or create a ApiContract.
+     * @example
+     * // Update or create a ApiContract
+     * const apiContract = await prisma.apiContract.upsert({
+     *   create: {
+     *     // ... data to create a ApiContract
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ApiContract we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ApiContractUpsertArgs>(args: SelectSubset<T, ApiContractUpsertArgs<ExtArgs>>): Prisma__ApiContractClient<$Result.GetResult<Prisma.$ApiContractPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ApiContracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiContractCountArgs} args - Arguments to filter ApiContracts to count.
+     * @example
+     * // Count the number of ApiContracts
+     * const count = await prisma.apiContract.count({
+     *   where: {
+     *     // ... the filter for the ApiContracts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ApiContractCountArgs>(
+      args?: Subset<T, ApiContractCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ApiContractCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ApiContract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiContractAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ApiContractAggregateArgs>(args: Subset<T, ApiContractAggregateArgs>): Prisma.PrismaPromise<GetApiContractAggregateType<T>>
+
+    /**
+     * Group by ApiContract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiContractGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ApiContractGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ApiContractGroupByArgs['orderBy'] }
+        : { orderBy?: ApiContractGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ApiContractGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetApiContractGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ApiContract model
+   */
+  readonly fields: ApiContractFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ApiContract.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ApiContractClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    provider<T extends SysComponentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SysComponentDefaultArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    consumer<T extends ApiContract$consumerArgs<ExtArgs> = {}>(args?: Subset<T, ApiContract$consumerArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ApiContract model
+   */ 
+  interface ApiContractFieldRefs {
+    readonly id: FieldRef<"ApiContract", 'String'>
+    readonly name: FieldRef<"ApiContract", 'String'>
+    readonly type: FieldRef<"ApiContract", 'String'>
+    readonly description: FieldRef<"ApiContract", 'String'>
+    readonly providerId: FieldRef<"ApiContract", 'String'>
+    readonly consumerId: FieldRef<"ApiContract", 'String'>
+    readonly createdAt: FieldRef<"ApiContract", 'DateTime'>
+    readonly updatedAt: FieldRef<"ApiContract", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ApiContract findUnique
+   */
+  export type ApiContractFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiContract to fetch.
+     */
+    where: ApiContractWhereUniqueInput
+  }
+
+  /**
+   * ApiContract findUniqueOrThrow
+   */
+  export type ApiContractFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiContract to fetch.
+     */
+    where: ApiContractWhereUniqueInput
+  }
+
+  /**
+   * ApiContract findFirst
+   */
+  export type ApiContractFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiContract to fetch.
+     */
+    where?: ApiContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiContracts to fetch.
+     */
+    orderBy?: ApiContractOrderByWithRelationInput | ApiContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApiContracts.
+     */
+    cursor?: ApiContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiContracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApiContracts.
+     */
+    distinct?: ApiContractScalarFieldEnum | ApiContractScalarFieldEnum[]
+  }
+
+  /**
+   * ApiContract findFirstOrThrow
+   */
+  export type ApiContractFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiContract to fetch.
+     */
+    where?: ApiContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiContracts to fetch.
+     */
+    orderBy?: ApiContractOrderByWithRelationInput | ApiContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApiContracts.
+     */
+    cursor?: ApiContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiContracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApiContracts.
+     */
+    distinct?: ApiContractScalarFieldEnum | ApiContractScalarFieldEnum[]
+  }
+
+  /**
+   * ApiContract findMany
+   */
+  export type ApiContractFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiContracts to fetch.
+     */
+    where?: ApiContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiContracts to fetch.
+     */
+    orderBy?: ApiContractOrderByWithRelationInput | ApiContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ApiContracts.
+     */
+    cursor?: ApiContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiContracts.
+     */
+    skip?: number
+    distinct?: ApiContractScalarFieldEnum | ApiContractScalarFieldEnum[]
+  }
+
+  /**
+   * ApiContract create
+   */
+  export type ApiContractCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ApiContract.
+     */
+    data: XOR<ApiContractCreateInput, ApiContractUncheckedCreateInput>
+  }
+
+  /**
+   * ApiContract createMany
+   */
+  export type ApiContractCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ApiContracts.
+     */
+    data: ApiContractCreateManyInput | ApiContractCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ApiContract createManyAndReturn
+   */
+  export type ApiContractCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ApiContracts.
+     */
+    data: ApiContractCreateManyInput | ApiContractCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ApiContract update
+   */
+  export type ApiContractUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ApiContract.
+     */
+    data: XOR<ApiContractUpdateInput, ApiContractUncheckedUpdateInput>
+    /**
+     * Choose, which ApiContract to update.
+     */
+    where: ApiContractWhereUniqueInput
+  }
+
+  /**
+   * ApiContract updateMany
+   */
+  export type ApiContractUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ApiContracts.
+     */
+    data: XOR<ApiContractUpdateManyMutationInput, ApiContractUncheckedUpdateManyInput>
+    /**
+     * Filter which ApiContracts to update
+     */
+    where?: ApiContractWhereInput
+  }
+
+  /**
+   * ApiContract upsert
+   */
+  export type ApiContractUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ApiContract to update in case it exists.
+     */
+    where: ApiContractWhereUniqueInput
+    /**
+     * In case the ApiContract found by the `where` argument doesn't exist, create a new ApiContract with this data.
+     */
+    create: XOR<ApiContractCreateInput, ApiContractUncheckedCreateInput>
+    /**
+     * In case the ApiContract was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ApiContractUpdateInput, ApiContractUncheckedUpdateInput>
+  }
+
+  /**
+   * ApiContract delete
+   */
+  export type ApiContractDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+    /**
+     * Filter which ApiContract to delete.
+     */
+    where: ApiContractWhereUniqueInput
+  }
+
+  /**
+   * ApiContract deleteMany
+   */
+  export type ApiContractDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApiContracts to delete
+     */
+    where?: ApiContractWhereInput
+  }
+
+  /**
+   * ApiContract.consumer
+   */
+  export type ApiContract$consumerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SysComponent
+     */
+    select?: SysComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SysComponentInclude<ExtArgs> | null
+    where?: SysComponentWhereInput
+  }
+
+  /**
+   * ApiContract without action
+   */
+  export type ApiContractDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiContract
+     */
+    select?: ApiContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiContractInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DataResource
+   */
+
+  export type AggregateDataResource = {
+    _count: DataResourceCountAggregateOutputType | null
+    _min: DataResourceMinAggregateOutputType | null
+    _max: DataResourceMaxAggregateOutputType | null
+  }
+
+  export type DataResourceMinAggregateOutputType = {
+    id: string | null
+    componentId: string | null
+    name: string | null
+    type: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DataResourceMaxAggregateOutputType = {
+    id: string | null
+    componentId: string | null
+    name: string | null
+    type: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DataResourceCountAggregateOutputType = {
+    id: number
+    componentId: number
+    name: number
+    type: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DataResourceMinAggregateInputType = {
+    id?: true
+    componentId?: true
+    name?: true
+    type?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DataResourceMaxAggregateInputType = {
+    id?: true
+    componentId?: true
+    name?: true
+    type?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DataResourceCountAggregateInputType = {
+    id?: true
+    componentId?: true
+    name?: true
+    type?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DataResourceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataResource to aggregate.
+     */
+    where?: DataResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataResources to fetch.
+     */
+    orderBy?: DataResourceOrderByWithRelationInput | DataResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DataResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataResources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DataResources
+    **/
+    _count?: true | DataResourceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DataResourceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DataResourceMaxAggregateInputType
+  }
+
+  export type GetDataResourceAggregateType<T extends DataResourceAggregateArgs> = {
+        [P in keyof T & keyof AggregateDataResource]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDataResource[P]>
+      : GetScalarType<T[P], AggregateDataResource[P]>
+  }
+
+
+
+
+  export type DataResourceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DataResourceWhereInput
+    orderBy?: DataResourceOrderByWithAggregationInput | DataResourceOrderByWithAggregationInput[]
+    by: DataResourceScalarFieldEnum[] | DataResourceScalarFieldEnum
+    having?: DataResourceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DataResourceCountAggregateInputType | true
+    _min?: DataResourceMinAggregateInputType
+    _max?: DataResourceMaxAggregateInputType
+  }
+
+  export type DataResourceGroupByOutputType = {
+    id: string
+    componentId: string
+    name: string
+    type: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DataResourceCountAggregateOutputType | null
+    _min: DataResourceMinAggregateOutputType | null
+    _max: DataResourceMaxAggregateOutputType | null
+  }
+
+  type GetDataResourceGroupByPayload<T extends DataResourceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DataResourceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DataResourceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DataResourceGroupByOutputType[P]>
+            : GetScalarType<T[P], DataResourceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DataResourceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    componentId?: boolean
+    name?: boolean
+    type?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    component?: boolean | SysComponentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataResource"]>
+
+  export type DataResourceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    componentId?: boolean
+    name?: boolean
+    type?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    component?: boolean | SysComponentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataResource"]>
+
+  export type DataResourceSelectScalar = {
+    id?: boolean
+    componentId?: boolean
+    name?: boolean
+    type?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DataResourceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    component?: boolean | SysComponentDefaultArgs<ExtArgs>
+  }
+  export type DataResourceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    component?: boolean | SysComponentDefaultArgs<ExtArgs>
+  }
+
+  export type $DataResourcePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DataResource"
+    objects: {
+      component: Prisma.$SysComponentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      componentId: string
+      name: string
+      type: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dataResource"]>
+    composites: {}
+  }
+
+  type DataResourceGetPayload<S extends boolean | null | undefined | DataResourceDefaultArgs> = $Result.GetResult<Prisma.$DataResourcePayload, S>
+
+  type DataResourceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DataResourceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DataResourceCountAggregateInputType | true
+    }
+
+  export interface DataResourceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DataResource'], meta: { name: 'DataResource' } }
+    /**
+     * Find zero or one DataResource that matches the filter.
+     * @param {DataResourceFindUniqueArgs} args - Arguments to find a DataResource
+     * @example
+     * // Get one DataResource
+     * const dataResource = await prisma.dataResource.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DataResourceFindUniqueArgs>(args: SelectSubset<T, DataResourceFindUniqueArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DataResource that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DataResourceFindUniqueOrThrowArgs} args - Arguments to find a DataResource
+     * @example
+     * // Get one DataResource
+     * const dataResource = await prisma.dataResource.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DataResourceFindUniqueOrThrowArgs>(args: SelectSubset<T, DataResourceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DataResource that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataResourceFindFirstArgs} args - Arguments to find a DataResource
+     * @example
+     * // Get one DataResource
+     * const dataResource = await prisma.dataResource.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DataResourceFindFirstArgs>(args?: SelectSubset<T, DataResourceFindFirstArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DataResource that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataResourceFindFirstOrThrowArgs} args - Arguments to find a DataResource
+     * @example
+     * // Get one DataResource
+     * const dataResource = await prisma.dataResource.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DataResourceFindFirstOrThrowArgs>(args?: SelectSubset<T, DataResourceFindFirstOrThrowArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DataResources that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataResourceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DataResources
+     * const dataResources = await prisma.dataResource.findMany()
+     * 
+     * // Get first 10 DataResources
+     * const dataResources = await prisma.dataResource.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dataResourceWithIdOnly = await prisma.dataResource.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DataResourceFindManyArgs>(args?: SelectSubset<T, DataResourceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DataResource.
+     * @param {DataResourceCreateArgs} args - Arguments to create a DataResource.
+     * @example
+     * // Create one DataResource
+     * const DataResource = await prisma.dataResource.create({
+     *   data: {
+     *     // ... data to create a DataResource
+     *   }
+     * })
+     * 
+     */
+    create<T extends DataResourceCreateArgs>(args: SelectSubset<T, DataResourceCreateArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DataResources.
+     * @param {DataResourceCreateManyArgs} args - Arguments to create many DataResources.
+     * @example
+     * // Create many DataResources
+     * const dataResource = await prisma.dataResource.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DataResourceCreateManyArgs>(args?: SelectSubset<T, DataResourceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DataResources and returns the data saved in the database.
+     * @param {DataResourceCreateManyAndReturnArgs} args - Arguments to create many DataResources.
+     * @example
+     * // Create many DataResources
+     * const dataResource = await prisma.dataResource.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DataResources and only return the `id`
+     * const dataResourceWithIdOnly = await prisma.dataResource.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DataResourceCreateManyAndReturnArgs>(args?: SelectSubset<T, DataResourceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DataResource.
+     * @param {DataResourceDeleteArgs} args - Arguments to delete one DataResource.
+     * @example
+     * // Delete one DataResource
+     * const DataResource = await prisma.dataResource.delete({
+     *   where: {
+     *     // ... filter to delete one DataResource
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DataResourceDeleteArgs>(args: SelectSubset<T, DataResourceDeleteArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DataResource.
+     * @param {DataResourceUpdateArgs} args - Arguments to update one DataResource.
+     * @example
+     * // Update one DataResource
+     * const dataResource = await prisma.dataResource.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DataResourceUpdateArgs>(args: SelectSubset<T, DataResourceUpdateArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DataResources.
+     * @param {DataResourceDeleteManyArgs} args - Arguments to filter DataResources to delete.
+     * @example
+     * // Delete a few DataResources
+     * const { count } = await prisma.dataResource.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DataResourceDeleteManyArgs>(args?: SelectSubset<T, DataResourceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DataResources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataResourceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DataResources
+     * const dataResource = await prisma.dataResource.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DataResourceUpdateManyArgs>(args: SelectSubset<T, DataResourceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DataResource.
+     * @param {DataResourceUpsertArgs} args - Arguments to update or create a DataResource.
+     * @example
+     * // Update or create a DataResource
+     * const dataResource = await prisma.dataResource.upsert({
+     *   create: {
+     *     // ... data to create a DataResource
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DataResource we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DataResourceUpsertArgs>(args: SelectSubset<T, DataResourceUpsertArgs<ExtArgs>>): Prisma__DataResourceClient<$Result.GetResult<Prisma.$DataResourcePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DataResources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataResourceCountArgs} args - Arguments to filter DataResources to count.
+     * @example
+     * // Count the number of DataResources
+     * const count = await prisma.dataResource.count({
+     *   where: {
+     *     // ... the filter for the DataResources we want to count
+     *   }
+     * })
+    **/
+    count<T extends DataResourceCountArgs>(
+      args?: Subset<T, DataResourceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DataResourceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DataResource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataResourceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DataResourceAggregateArgs>(args: Subset<T, DataResourceAggregateArgs>): Prisma.PrismaPromise<GetDataResourceAggregateType<T>>
+
+    /**
+     * Group by DataResource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataResourceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DataResourceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DataResourceGroupByArgs['orderBy'] }
+        : { orderBy?: DataResourceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DataResourceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDataResourceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DataResource model
+   */
+  readonly fields: DataResourceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DataResource.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DataResourceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    component<T extends SysComponentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SysComponentDefaultArgs<ExtArgs>>): Prisma__SysComponentClient<$Result.GetResult<Prisma.$SysComponentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DataResource model
+   */ 
+  interface DataResourceFieldRefs {
+    readonly id: FieldRef<"DataResource", 'String'>
+    readonly componentId: FieldRef<"DataResource", 'String'>
+    readonly name: FieldRef<"DataResource", 'String'>
+    readonly type: FieldRef<"DataResource", 'String'>
+    readonly description: FieldRef<"DataResource", 'String'>
+    readonly createdAt: FieldRef<"DataResource", 'DateTime'>
+    readonly updatedAt: FieldRef<"DataResource", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DataResource findUnique
+   */
+  export type DataResourceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DataResource to fetch.
+     */
+    where: DataResourceWhereUniqueInput
+  }
+
+  /**
+   * DataResource findUniqueOrThrow
+   */
+  export type DataResourceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DataResource to fetch.
+     */
+    where: DataResourceWhereUniqueInput
+  }
+
+  /**
+   * DataResource findFirst
+   */
+  export type DataResourceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DataResource to fetch.
+     */
+    where?: DataResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataResources to fetch.
+     */
+    orderBy?: DataResourceOrderByWithRelationInput | DataResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataResources.
+     */
+    cursor?: DataResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataResources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataResources.
+     */
+    distinct?: DataResourceScalarFieldEnum | DataResourceScalarFieldEnum[]
+  }
+
+  /**
+   * DataResource findFirstOrThrow
+   */
+  export type DataResourceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DataResource to fetch.
+     */
+    where?: DataResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataResources to fetch.
+     */
+    orderBy?: DataResourceOrderByWithRelationInput | DataResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataResources.
+     */
+    cursor?: DataResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataResources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataResources.
+     */
+    distinct?: DataResourceScalarFieldEnum | DataResourceScalarFieldEnum[]
+  }
+
+  /**
+   * DataResource findMany
+   */
+  export type DataResourceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which DataResources to fetch.
+     */
+    where?: DataResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataResources to fetch.
+     */
+    orderBy?: DataResourceOrderByWithRelationInput | DataResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DataResources.
+     */
+    cursor?: DataResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataResources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataResources.
+     */
+    skip?: number
+    distinct?: DataResourceScalarFieldEnum | DataResourceScalarFieldEnum[]
+  }
+
+  /**
+   * DataResource create
+   */
+  export type DataResourceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DataResource.
+     */
+    data: XOR<DataResourceCreateInput, DataResourceUncheckedCreateInput>
+  }
+
+  /**
+   * DataResource createMany
+   */
+  export type DataResourceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DataResources.
+     */
+    data: DataResourceCreateManyInput | DataResourceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DataResource createManyAndReturn
+   */
+  export type DataResourceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DataResources.
+     */
+    data: DataResourceCreateManyInput | DataResourceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DataResource update
+   */
+  export type DataResourceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DataResource.
+     */
+    data: XOR<DataResourceUpdateInput, DataResourceUncheckedUpdateInput>
+    /**
+     * Choose, which DataResource to update.
+     */
+    where: DataResourceWhereUniqueInput
+  }
+
+  /**
+   * DataResource updateMany
+   */
+  export type DataResourceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DataResources.
+     */
+    data: XOR<DataResourceUpdateManyMutationInput, DataResourceUncheckedUpdateManyInput>
+    /**
+     * Filter which DataResources to update
+     */
+    where?: DataResourceWhereInput
+  }
+
+  /**
+   * DataResource upsert
+   */
+  export type DataResourceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DataResource to update in case it exists.
+     */
+    where: DataResourceWhereUniqueInput
+    /**
+     * In case the DataResource found by the `where` argument doesn't exist, create a new DataResource with this data.
+     */
+    create: XOR<DataResourceCreateInput, DataResourceUncheckedCreateInput>
+    /**
+     * In case the DataResource was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DataResourceUpdateInput, DataResourceUncheckedUpdateInput>
+  }
+
+  /**
+   * DataResource delete
+   */
+  export type DataResourceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
+    /**
+     * Filter which DataResource to delete.
+     */
+    where: DataResourceWhereUniqueInput
+  }
+
+  /**
+   * DataResource deleteMany
+   */
+  export type DataResourceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataResources to delete
+     */
+    where?: DataResourceWhereInput
+  }
+
+  /**
+   * DataResource without action
+   */
+  export type DataResourceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataResource
+     */
+    select?: DataResourceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataResourceInclude<ExtArgs> | null
   }
 
 
@@ -216375,7 +224211,8 @@ export namespace Prisma {
     status: 'status',
     tenantId: 'tenantId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    metadata: 'metadata'
   };
 
   export type FinancialTransactionScalarFieldEnum = (typeof FinancialTransactionScalarFieldEnum)[keyof typeof FinancialTransactionScalarFieldEnum]
@@ -216441,6 +224278,7 @@ export namespace Prisma {
     previousChecksum: 'previousChecksum',
     status: 'status',
     voidedByEntryId: 'voidedByEntryId',
+    metadata: 'metadata',
     createdAt: 'createdAt'
   };
 
@@ -217212,6 +225050,102 @@ export namespace Prisma {
   };
 
   export type AnomalyReportScalarFieldEnum = (typeof AnomalyReportScalarFieldEnum)[keyof typeof AnomalyReportScalarFieldEnum]
+
+
+  export const ArchitecturalLayerScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    orderIndex: 'orderIndex',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ArchitecturalLayerScalarFieldEnum = (typeof ArchitecturalLayerScalarFieldEnum)[keyof typeof ArchitecturalLayerScalarFieldEnum]
+
+
+  export const ComponentPurposeScalarFieldEnum: {
+    id: 'id',
+    layerId: 'layerId',
+    screenId: 'screenId',
+    functionalityId: 'functionalityId',
+    targetFile: 'targetFile',
+    description: 'description',
+    implementedWell: 'implementedWell',
+    anomaliesDetail: 'anomaliesDetail',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ComponentPurposeScalarFieldEnum = (typeof ComponentPurposeScalarFieldEnum)[keyof typeof ComponentPurposeScalarFieldEnum]
+
+
+  export const SystemDomainScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    owner: 'owner',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SystemDomainScalarFieldEnum = (typeof SystemDomainScalarFieldEnum)[keyof typeof SystemDomainScalarFieldEnum]
+
+
+  export const SoftwareSystemScalarFieldEnum: {
+    id: 'id',
+    domainId: 'domainId',
+    name: 'name',
+    description: 'description',
+    url: 'url',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SoftwareSystemScalarFieldEnum = (typeof SoftwareSystemScalarFieldEnum)[keyof typeof SoftwareSystemScalarFieldEnum]
+
+
+  export const SysComponentScalarFieldEnum: {
+    id: 'id',
+    systemId: 'systemId',
+    name: 'name',
+    type: 'type',
+    language: 'language',
+    description: 'description',
+    status: 'status',
+    repoPath: 'repoPath',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SysComponentScalarFieldEnum = (typeof SysComponentScalarFieldEnum)[keyof typeof SysComponentScalarFieldEnum]
+
+
+  export const ApiContractScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    description: 'description',
+    providerId: 'providerId',
+    consumerId: 'consumerId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ApiContractScalarFieldEnum = (typeof ApiContractScalarFieldEnum)[keyof typeof ApiContractScalarFieldEnum]
+
+
+  export const DataResourceScalarFieldEnum: {
+    id: 'id',
+    componentId: 'componentId',
+    name: 'name',
+    type: 'type',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DataResourceScalarFieldEnum = (typeof DataResourceScalarFieldEnum)[keyof typeof DataResourceScalarFieldEnum]
 
 
   export const FamilyAppointmentScalarFieldEnum: {
@@ -225103,6 +233037,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
     updatedAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    metadata?: JsonNullableFilter<"FinancialTransaction">
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     journalEntries?: JournalEntryListRelationFilter
     reconciliations?: FinancialReconciliationListRelationFilter
@@ -225118,6 +233053,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
     journalEntries?: JournalEntryOrderByRelationAggregateInput
     reconciliations?: FinancialReconciliationOrderByRelationAggregateInput
@@ -225136,6 +233072,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
     updatedAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    metadata?: JsonNullableFilter<"FinancialTransaction">
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     journalEntries?: JournalEntryListRelationFilter
     reconciliations?: FinancialReconciliationListRelationFilter
@@ -225151,6 +233088,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: FinancialTransactionCountOrderByAggregateInput
     _avg?: FinancialTransactionAvgOrderByAggregateInput
     _max?: FinancialTransactionMaxOrderByAggregateInput
@@ -225171,6 +233109,7 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"FinancialTransaction">
   }
 
   export type JournalEntryWhereInput = {
@@ -225427,6 +233366,7 @@ export namespace Prisma {
     previousChecksum?: StringNullableFilter<"TransactionLedger"> | string | null
     status?: StringFilter<"TransactionLedger"> | string
     voidedByEntryId?: StringNullableFilter<"TransactionLedger"> | string | null
+    metadata?: JsonNullableFilter<"TransactionLedger">
     createdAt?: DateTimeFilter<"TransactionLedger"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
@@ -225449,6 +233389,7 @@ export namespace Prisma {
     previousChecksum?: SortOrderInput | SortOrder
     status?: SortOrder
     voidedByEntryId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     actor?: UserOrderByWithRelationInput
@@ -225474,6 +233415,7 @@ export namespace Prisma {
     previousChecksum?: StringNullableFilter<"TransactionLedger"> | string | null
     status?: StringFilter<"TransactionLedger"> | string
     voidedByEntryId?: StringNullableFilter<"TransactionLedger"> | string | null
+    metadata?: JsonNullableFilter<"TransactionLedger">
     createdAt?: DateTimeFilter<"TransactionLedger"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
@@ -225496,6 +233438,7 @@ export namespace Prisma {
     previousChecksum?: SortOrderInput | SortOrder
     status?: SortOrder
     voidedByEntryId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: TransactionLedgerCountOrderByAggregateInput
     _avg?: TransactionLedgerAvgOrderByAggregateInput
@@ -225524,6 +233467,7 @@ export namespace Prisma {
     previousChecksum?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
     status?: StringWithAggregatesFilter<"TransactionLedger"> | string
     voidedByEntryId?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"TransactionLedger">
     createdAt?: DateTimeWithAggregatesFilter<"TransactionLedger"> | Date | string
   }
 
@@ -228278,6 +236222,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
     functions?: ScreenFunctionalityListRelationFilter
+    componentPurposes?: ComponentPurposeListRelationFilter
   }
 
   export type PlatformScreenOrderByWithRelationInput = {
@@ -228292,6 +236237,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     role?: PlatformRoleOrderByWithRelationInput
     functions?: ScreenFunctionalityOrderByRelationAggregateInput
+    componentPurposes?: ComponentPurposeOrderByRelationAggregateInput
   }
 
   export type PlatformScreenWhereUniqueInput = Prisma.AtLeast<{
@@ -228309,6 +236255,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
     functions?: ScreenFunctionalityListRelationFilter
+    componentPurposes?: ComponentPurposeListRelationFilter
   }, "id">
 
   export type PlatformScreenOrderByWithAggregationInput = {
@@ -228360,6 +236307,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     screen?: XOR<PlatformScreenRelationFilter, PlatformScreenWhereInput>
+    componentPurposes?: ComponentPurposeListRelationFilter
   }
 
   export type ScreenFunctionalityOrderByWithRelationInput = {
@@ -228376,6 +236324,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     screen?: PlatformScreenOrderByWithRelationInput
+    componentPurposes?: ComponentPurposeOrderByRelationAggregateInput
   }
 
   export type ScreenFunctionalityWhereUniqueInput = Prisma.AtLeast<{
@@ -228395,6 +236344,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     screen?: XOR<PlatformScreenRelationFilter, PlatformScreenWhereInput>
+    componentPurposes?: ComponentPurposeListRelationFilter
   }, "id">
 
   export type ScreenFunctionalityOrderByWithAggregationInput = {
@@ -229525,6 +237475,509 @@ export namespace Prisma {
     severity?: StringWithAggregatesFilter<"AnomalyReport"> | string
     message?: StringWithAggregatesFilter<"AnomalyReport"> | string
     createdAt?: DateTimeWithAggregatesFilter<"AnomalyReport"> | Date | string
+  }
+
+  export type ArchitecturalLayerWhereInput = {
+    AND?: ArchitecturalLayerWhereInput | ArchitecturalLayerWhereInput[]
+    OR?: ArchitecturalLayerWhereInput[]
+    NOT?: ArchitecturalLayerWhereInput | ArchitecturalLayerWhereInput[]
+    id?: StringFilter<"ArchitecturalLayer"> | string
+    name?: StringFilter<"ArchitecturalLayer"> | string
+    description?: StringNullableFilter<"ArchitecturalLayer"> | string | null
+    orderIndex?: IntFilter<"ArchitecturalLayer"> | number
+    createdAt?: DateTimeFilter<"ArchitecturalLayer"> | Date | string
+    updatedAt?: DateTimeFilter<"ArchitecturalLayer"> | Date | string
+    componentPurposes?: ComponentPurposeListRelationFilter
+  }
+
+  export type ArchitecturalLayerOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    componentPurposes?: ComponentPurposeOrderByRelationAggregateInput
+  }
+
+  export type ArchitecturalLayerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: ArchitecturalLayerWhereInput | ArchitecturalLayerWhereInput[]
+    OR?: ArchitecturalLayerWhereInput[]
+    NOT?: ArchitecturalLayerWhereInput | ArchitecturalLayerWhereInput[]
+    description?: StringNullableFilter<"ArchitecturalLayer"> | string | null
+    orderIndex?: IntFilter<"ArchitecturalLayer"> | number
+    createdAt?: DateTimeFilter<"ArchitecturalLayer"> | Date | string
+    updatedAt?: DateTimeFilter<"ArchitecturalLayer"> | Date | string
+    componentPurposes?: ComponentPurposeListRelationFilter
+  }, "id" | "name">
+
+  export type ArchitecturalLayerOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ArchitecturalLayerCountOrderByAggregateInput
+    _avg?: ArchitecturalLayerAvgOrderByAggregateInput
+    _max?: ArchitecturalLayerMaxOrderByAggregateInput
+    _min?: ArchitecturalLayerMinOrderByAggregateInput
+    _sum?: ArchitecturalLayerSumOrderByAggregateInput
+  }
+
+  export type ArchitecturalLayerScalarWhereWithAggregatesInput = {
+    AND?: ArchitecturalLayerScalarWhereWithAggregatesInput | ArchitecturalLayerScalarWhereWithAggregatesInput[]
+    OR?: ArchitecturalLayerScalarWhereWithAggregatesInput[]
+    NOT?: ArchitecturalLayerScalarWhereWithAggregatesInput | ArchitecturalLayerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ArchitecturalLayer"> | string
+    name?: StringWithAggregatesFilter<"ArchitecturalLayer"> | string
+    description?: StringNullableWithAggregatesFilter<"ArchitecturalLayer"> | string | null
+    orderIndex?: IntWithAggregatesFilter<"ArchitecturalLayer"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"ArchitecturalLayer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ArchitecturalLayer"> | Date | string
+  }
+
+  export type ComponentPurposeWhereInput = {
+    AND?: ComponentPurposeWhereInput | ComponentPurposeWhereInput[]
+    OR?: ComponentPurposeWhereInput[]
+    NOT?: ComponentPurposeWhereInput | ComponentPurposeWhereInput[]
+    id?: StringFilter<"ComponentPurpose"> | string
+    layerId?: StringFilter<"ComponentPurpose"> | string
+    screenId?: StringNullableFilter<"ComponentPurpose"> | string | null
+    functionalityId?: StringNullableFilter<"ComponentPurpose"> | string | null
+    targetFile?: StringNullableFilter<"ComponentPurpose"> | string | null
+    description?: StringFilter<"ComponentPurpose"> | string
+    implementedWell?: BoolFilter<"ComponentPurpose"> | boolean
+    anomaliesDetail?: StringNullableFilter<"ComponentPurpose"> | string | null
+    createdAt?: DateTimeFilter<"ComponentPurpose"> | Date | string
+    updatedAt?: DateTimeFilter<"ComponentPurpose"> | Date | string
+    layer?: XOR<ArchitecturalLayerRelationFilter, ArchitecturalLayerWhereInput>
+    screen?: XOR<PlatformScreenNullableRelationFilter, PlatformScreenWhereInput> | null
+    functionality?: XOR<ScreenFunctionalityNullableRelationFilter, ScreenFunctionalityWhereInput> | null
+  }
+
+  export type ComponentPurposeOrderByWithRelationInput = {
+    id?: SortOrder
+    layerId?: SortOrder
+    screenId?: SortOrderInput | SortOrder
+    functionalityId?: SortOrderInput | SortOrder
+    targetFile?: SortOrderInput | SortOrder
+    description?: SortOrder
+    implementedWell?: SortOrder
+    anomaliesDetail?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    layer?: ArchitecturalLayerOrderByWithRelationInput
+    screen?: PlatformScreenOrderByWithRelationInput
+    functionality?: ScreenFunctionalityOrderByWithRelationInput
+  }
+
+  export type ComponentPurposeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ComponentPurposeWhereInput | ComponentPurposeWhereInput[]
+    OR?: ComponentPurposeWhereInput[]
+    NOT?: ComponentPurposeWhereInput | ComponentPurposeWhereInput[]
+    layerId?: StringFilter<"ComponentPurpose"> | string
+    screenId?: StringNullableFilter<"ComponentPurpose"> | string | null
+    functionalityId?: StringNullableFilter<"ComponentPurpose"> | string | null
+    targetFile?: StringNullableFilter<"ComponentPurpose"> | string | null
+    description?: StringFilter<"ComponentPurpose"> | string
+    implementedWell?: BoolFilter<"ComponentPurpose"> | boolean
+    anomaliesDetail?: StringNullableFilter<"ComponentPurpose"> | string | null
+    createdAt?: DateTimeFilter<"ComponentPurpose"> | Date | string
+    updatedAt?: DateTimeFilter<"ComponentPurpose"> | Date | string
+    layer?: XOR<ArchitecturalLayerRelationFilter, ArchitecturalLayerWhereInput>
+    screen?: XOR<PlatformScreenNullableRelationFilter, PlatformScreenWhereInput> | null
+    functionality?: XOR<ScreenFunctionalityNullableRelationFilter, ScreenFunctionalityWhereInput> | null
+  }, "id">
+
+  export type ComponentPurposeOrderByWithAggregationInput = {
+    id?: SortOrder
+    layerId?: SortOrder
+    screenId?: SortOrderInput | SortOrder
+    functionalityId?: SortOrderInput | SortOrder
+    targetFile?: SortOrderInput | SortOrder
+    description?: SortOrder
+    implementedWell?: SortOrder
+    anomaliesDetail?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ComponentPurposeCountOrderByAggregateInput
+    _max?: ComponentPurposeMaxOrderByAggregateInput
+    _min?: ComponentPurposeMinOrderByAggregateInput
+  }
+
+  export type ComponentPurposeScalarWhereWithAggregatesInput = {
+    AND?: ComponentPurposeScalarWhereWithAggregatesInput | ComponentPurposeScalarWhereWithAggregatesInput[]
+    OR?: ComponentPurposeScalarWhereWithAggregatesInput[]
+    NOT?: ComponentPurposeScalarWhereWithAggregatesInput | ComponentPurposeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ComponentPurpose"> | string
+    layerId?: StringWithAggregatesFilter<"ComponentPurpose"> | string
+    screenId?: StringNullableWithAggregatesFilter<"ComponentPurpose"> | string | null
+    functionalityId?: StringNullableWithAggregatesFilter<"ComponentPurpose"> | string | null
+    targetFile?: StringNullableWithAggregatesFilter<"ComponentPurpose"> | string | null
+    description?: StringWithAggregatesFilter<"ComponentPurpose"> | string
+    implementedWell?: BoolWithAggregatesFilter<"ComponentPurpose"> | boolean
+    anomaliesDetail?: StringNullableWithAggregatesFilter<"ComponentPurpose"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ComponentPurpose"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ComponentPurpose"> | Date | string
+  }
+
+  export type SystemDomainWhereInput = {
+    AND?: SystemDomainWhereInput | SystemDomainWhereInput[]
+    OR?: SystemDomainWhereInput[]
+    NOT?: SystemDomainWhereInput | SystemDomainWhereInput[]
+    id?: StringFilter<"SystemDomain"> | string
+    name?: StringFilter<"SystemDomain"> | string
+    description?: StringNullableFilter<"SystemDomain"> | string | null
+    owner?: StringNullableFilter<"SystemDomain"> | string | null
+    createdAt?: DateTimeFilter<"SystemDomain"> | Date | string
+    updatedAt?: DateTimeFilter<"SystemDomain"> | Date | string
+    systems?: SoftwareSystemListRelationFilter
+  }
+
+  export type SystemDomainOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    owner?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    systems?: SoftwareSystemOrderByRelationAggregateInput
+  }
+
+  export type SystemDomainWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: SystemDomainWhereInput | SystemDomainWhereInput[]
+    OR?: SystemDomainWhereInput[]
+    NOT?: SystemDomainWhereInput | SystemDomainWhereInput[]
+    description?: StringNullableFilter<"SystemDomain"> | string | null
+    owner?: StringNullableFilter<"SystemDomain"> | string | null
+    createdAt?: DateTimeFilter<"SystemDomain"> | Date | string
+    updatedAt?: DateTimeFilter<"SystemDomain"> | Date | string
+    systems?: SoftwareSystemListRelationFilter
+  }, "id" | "name">
+
+  export type SystemDomainOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    owner?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SystemDomainCountOrderByAggregateInput
+    _max?: SystemDomainMaxOrderByAggregateInput
+    _min?: SystemDomainMinOrderByAggregateInput
+  }
+
+  export type SystemDomainScalarWhereWithAggregatesInput = {
+    AND?: SystemDomainScalarWhereWithAggregatesInput | SystemDomainScalarWhereWithAggregatesInput[]
+    OR?: SystemDomainScalarWhereWithAggregatesInput[]
+    NOT?: SystemDomainScalarWhereWithAggregatesInput | SystemDomainScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SystemDomain"> | string
+    name?: StringWithAggregatesFilter<"SystemDomain"> | string
+    description?: StringNullableWithAggregatesFilter<"SystemDomain"> | string | null
+    owner?: StringNullableWithAggregatesFilter<"SystemDomain"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SystemDomain"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SystemDomain"> | Date | string
+  }
+
+  export type SoftwareSystemWhereInput = {
+    AND?: SoftwareSystemWhereInput | SoftwareSystemWhereInput[]
+    OR?: SoftwareSystemWhereInput[]
+    NOT?: SoftwareSystemWhereInput | SoftwareSystemWhereInput[]
+    id?: StringFilter<"SoftwareSystem"> | string
+    domainId?: StringFilter<"SoftwareSystem"> | string
+    name?: StringFilter<"SoftwareSystem"> | string
+    description?: StringNullableFilter<"SoftwareSystem"> | string | null
+    url?: StringNullableFilter<"SoftwareSystem"> | string | null
+    createdAt?: DateTimeFilter<"SoftwareSystem"> | Date | string
+    updatedAt?: DateTimeFilter<"SoftwareSystem"> | Date | string
+    domain?: XOR<SystemDomainRelationFilter, SystemDomainWhereInput>
+    components?: SysComponentListRelationFilter
+  }
+
+  export type SoftwareSystemOrderByWithRelationInput = {
+    id?: SortOrder
+    domainId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    domain?: SystemDomainOrderByWithRelationInput
+    components?: SysComponentOrderByRelationAggregateInput
+  }
+
+  export type SoftwareSystemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SoftwareSystemWhereInput | SoftwareSystemWhereInput[]
+    OR?: SoftwareSystemWhereInput[]
+    NOT?: SoftwareSystemWhereInput | SoftwareSystemWhereInput[]
+    domainId?: StringFilter<"SoftwareSystem"> | string
+    name?: StringFilter<"SoftwareSystem"> | string
+    description?: StringNullableFilter<"SoftwareSystem"> | string | null
+    url?: StringNullableFilter<"SoftwareSystem"> | string | null
+    createdAt?: DateTimeFilter<"SoftwareSystem"> | Date | string
+    updatedAt?: DateTimeFilter<"SoftwareSystem"> | Date | string
+    domain?: XOR<SystemDomainRelationFilter, SystemDomainWhereInput>
+    components?: SysComponentListRelationFilter
+  }, "id">
+
+  export type SoftwareSystemOrderByWithAggregationInput = {
+    id?: SortOrder
+    domainId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SoftwareSystemCountOrderByAggregateInput
+    _max?: SoftwareSystemMaxOrderByAggregateInput
+    _min?: SoftwareSystemMinOrderByAggregateInput
+  }
+
+  export type SoftwareSystemScalarWhereWithAggregatesInput = {
+    AND?: SoftwareSystemScalarWhereWithAggregatesInput | SoftwareSystemScalarWhereWithAggregatesInput[]
+    OR?: SoftwareSystemScalarWhereWithAggregatesInput[]
+    NOT?: SoftwareSystemScalarWhereWithAggregatesInput | SoftwareSystemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SoftwareSystem"> | string
+    domainId?: StringWithAggregatesFilter<"SoftwareSystem"> | string
+    name?: StringWithAggregatesFilter<"SoftwareSystem"> | string
+    description?: StringNullableWithAggregatesFilter<"SoftwareSystem"> | string | null
+    url?: StringNullableWithAggregatesFilter<"SoftwareSystem"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SoftwareSystem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SoftwareSystem"> | Date | string
+  }
+
+  export type SysComponentWhereInput = {
+    AND?: SysComponentWhereInput | SysComponentWhereInput[]
+    OR?: SysComponentWhereInput[]
+    NOT?: SysComponentWhereInput | SysComponentWhereInput[]
+    id?: StringFilter<"SysComponent"> | string
+    systemId?: StringFilter<"SysComponent"> | string
+    name?: StringFilter<"SysComponent"> | string
+    type?: StringFilter<"SysComponent"> | string
+    language?: StringNullableFilter<"SysComponent"> | string | null
+    description?: StringNullableFilter<"SysComponent"> | string | null
+    status?: StringFilter<"SysComponent"> | string
+    repoPath?: StringNullableFilter<"SysComponent"> | string | null
+    createdAt?: DateTimeFilter<"SysComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"SysComponent"> | Date | string
+    system?: XOR<SoftwareSystemRelationFilter, SoftwareSystemWhereInput>
+    providedApis?: ApiContractListRelationFilter
+    consumedApis?: ApiContractListRelationFilter
+    resources?: DataResourceListRelationFilter
+  }
+
+  export type SysComponentOrderByWithRelationInput = {
+    id?: SortOrder
+    systemId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    language?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    repoPath?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    system?: SoftwareSystemOrderByWithRelationInput
+    providedApis?: ApiContractOrderByRelationAggregateInput
+    consumedApis?: ApiContractOrderByRelationAggregateInput
+    resources?: DataResourceOrderByRelationAggregateInput
+  }
+
+  export type SysComponentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SysComponentWhereInput | SysComponentWhereInput[]
+    OR?: SysComponentWhereInput[]
+    NOT?: SysComponentWhereInput | SysComponentWhereInput[]
+    systemId?: StringFilter<"SysComponent"> | string
+    name?: StringFilter<"SysComponent"> | string
+    type?: StringFilter<"SysComponent"> | string
+    language?: StringNullableFilter<"SysComponent"> | string | null
+    description?: StringNullableFilter<"SysComponent"> | string | null
+    status?: StringFilter<"SysComponent"> | string
+    repoPath?: StringNullableFilter<"SysComponent"> | string | null
+    createdAt?: DateTimeFilter<"SysComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"SysComponent"> | Date | string
+    system?: XOR<SoftwareSystemRelationFilter, SoftwareSystemWhereInput>
+    providedApis?: ApiContractListRelationFilter
+    consumedApis?: ApiContractListRelationFilter
+    resources?: DataResourceListRelationFilter
+  }, "id">
+
+  export type SysComponentOrderByWithAggregationInput = {
+    id?: SortOrder
+    systemId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    language?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    repoPath?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SysComponentCountOrderByAggregateInput
+    _max?: SysComponentMaxOrderByAggregateInput
+    _min?: SysComponentMinOrderByAggregateInput
+  }
+
+  export type SysComponentScalarWhereWithAggregatesInput = {
+    AND?: SysComponentScalarWhereWithAggregatesInput | SysComponentScalarWhereWithAggregatesInput[]
+    OR?: SysComponentScalarWhereWithAggregatesInput[]
+    NOT?: SysComponentScalarWhereWithAggregatesInput | SysComponentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SysComponent"> | string
+    systemId?: StringWithAggregatesFilter<"SysComponent"> | string
+    name?: StringWithAggregatesFilter<"SysComponent"> | string
+    type?: StringWithAggregatesFilter<"SysComponent"> | string
+    language?: StringNullableWithAggregatesFilter<"SysComponent"> | string | null
+    description?: StringNullableWithAggregatesFilter<"SysComponent"> | string | null
+    status?: StringWithAggregatesFilter<"SysComponent"> | string
+    repoPath?: StringNullableWithAggregatesFilter<"SysComponent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SysComponent"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SysComponent"> | Date | string
+  }
+
+  export type ApiContractWhereInput = {
+    AND?: ApiContractWhereInput | ApiContractWhereInput[]
+    OR?: ApiContractWhereInput[]
+    NOT?: ApiContractWhereInput | ApiContractWhereInput[]
+    id?: StringFilter<"ApiContract"> | string
+    name?: StringFilter<"ApiContract"> | string
+    type?: StringFilter<"ApiContract"> | string
+    description?: StringNullableFilter<"ApiContract"> | string | null
+    providerId?: StringFilter<"ApiContract"> | string
+    consumerId?: StringNullableFilter<"ApiContract"> | string | null
+    createdAt?: DateTimeFilter<"ApiContract"> | Date | string
+    updatedAt?: DateTimeFilter<"ApiContract"> | Date | string
+    provider?: XOR<SysComponentRelationFilter, SysComponentWhereInput>
+    consumer?: XOR<SysComponentNullableRelationFilter, SysComponentWhereInput> | null
+  }
+
+  export type ApiContractOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    providerId?: SortOrder
+    consumerId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    provider?: SysComponentOrderByWithRelationInput
+    consumer?: SysComponentOrderByWithRelationInput
+  }
+
+  export type ApiContractWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ApiContractWhereInput | ApiContractWhereInput[]
+    OR?: ApiContractWhereInput[]
+    NOT?: ApiContractWhereInput | ApiContractWhereInput[]
+    name?: StringFilter<"ApiContract"> | string
+    type?: StringFilter<"ApiContract"> | string
+    description?: StringNullableFilter<"ApiContract"> | string | null
+    providerId?: StringFilter<"ApiContract"> | string
+    consumerId?: StringNullableFilter<"ApiContract"> | string | null
+    createdAt?: DateTimeFilter<"ApiContract"> | Date | string
+    updatedAt?: DateTimeFilter<"ApiContract"> | Date | string
+    provider?: XOR<SysComponentRelationFilter, SysComponentWhereInput>
+    consumer?: XOR<SysComponentNullableRelationFilter, SysComponentWhereInput> | null
+  }, "id">
+
+  export type ApiContractOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    providerId?: SortOrder
+    consumerId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ApiContractCountOrderByAggregateInput
+    _max?: ApiContractMaxOrderByAggregateInput
+    _min?: ApiContractMinOrderByAggregateInput
+  }
+
+  export type ApiContractScalarWhereWithAggregatesInput = {
+    AND?: ApiContractScalarWhereWithAggregatesInput | ApiContractScalarWhereWithAggregatesInput[]
+    OR?: ApiContractScalarWhereWithAggregatesInput[]
+    NOT?: ApiContractScalarWhereWithAggregatesInput | ApiContractScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ApiContract"> | string
+    name?: StringWithAggregatesFilter<"ApiContract"> | string
+    type?: StringWithAggregatesFilter<"ApiContract"> | string
+    description?: StringNullableWithAggregatesFilter<"ApiContract"> | string | null
+    providerId?: StringWithAggregatesFilter<"ApiContract"> | string
+    consumerId?: StringNullableWithAggregatesFilter<"ApiContract"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ApiContract"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ApiContract"> | Date | string
+  }
+
+  export type DataResourceWhereInput = {
+    AND?: DataResourceWhereInput | DataResourceWhereInput[]
+    OR?: DataResourceWhereInput[]
+    NOT?: DataResourceWhereInput | DataResourceWhereInput[]
+    id?: StringFilter<"DataResource"> | string
+    componentId?: StringFilter<"DataResource"> | string
+    name?: StringFilter<"DataResource"> | string
+    type?: StringFilter<"DataResource"> | string
+    description?: StringNullableFilter<"DataResource"> | string | null
+    createdAt?: DateTimeFilter<"DataResource"> | Date | string
+    updatedAt?: DateTimeFilter<"DataResource"> | Date | string
+    component?: XOR<SysComponentRelationFilter, SysComponentWhereInput>
+  }
+
+  export type DataResourceOrderByWithRelationInput = {
+    id?: SortOrder
+    componentId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    component?: SysComponentOrderByWithRelationInput
+  }
+
+  export type DataResourceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DataResourceWhereInput | DataResourceWhereInput[]
+    OR?: DataResourceWhereInput[]
+    NOT?: DataResourceWhereInput | DataResourceWhereInput[]
+    componentId?: StringFilter<"DataResource"> | string
+    name?: StringFilter<"DataResource"> | string
+    type?: StringFilter<"DataResource"> | string
+    description?: StringNullableFilter<"DataResource"> | string | null
+    createdAt?: DateTimeFilter<"DataResource"> | Date | string
+    updatedAt?: DateTimeFilter<"DataResource"> | Date | string
+    component?: XOR<SysComponentRelationFilter, SysComponentWhereInput>
+  }, "id">
+
+  export type DataResourceOrderByWithAggregationInput = {
+    id?: SortOrder
+    componentId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DataResourceCountOrderByAggregateInput
+    _max?: DataResourceMaxOrderByAggregateInput
+    _min?: DataResourceMinOrderByAggregateInput
+  }
+
+  export type DataResourceScalarWhereWithAggregatesInput = {
+    AND?: DataResourceScalarWhereWithAggregatesInput | DataResourceScalarWhereWithAggregatesInput[]
+    OR?: DataResourceScalarWhereWithAggregatesInput[]
+    NOT?: DataResourceScalarWhereWithAggregatesInput | DataResourceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DataResource"> | string
+    componentId?: StringWithAggregatesFilter<"DataResource"> | string
+    name?: StringWithAggregatesFilter<"DataResource"> | string
+    type?: StringWithAggregatesFilter<"DataResource"> | string
+    description?: StringNullableWithAggregatesFilter<"DataResource"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DataResource"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DataResource"> | Date | string
   }
 
   export type FamilyAppointmentWhereInput = {
@@ -241301,6 +249754,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant: TenantCreateNestedOneWithoutFinancialTransactionsInput
     journalEntries?: JournalEntryCreateNestedManyWithoutTransactionInput
     reconciliations?: FinancialReconciliationCreateNestedManyWithoutTransactionInput
@@ -241316,6 +249770,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTransactionInput
     reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTransactionInput
   }
@@ -241329,6 +249784,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionsNestedInput
     journalEntries?: JournalEntryUpdateManyWithoutTransactionNestedInput
     reconciliations?: FinancialReconciliationUpdateManyWithoutTransactionNestedInput
@@ -241344,6 +249800,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryUncheckedUpdateManyWithoutTransactionNestedInput
     reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTransactionNestedInput
   }
@@ -241358,6 +249815,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type FinancialTransactionUpdateManyMutationInput = {
@@ -241369,6 +249827,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type FinancialTransactionUncheckedUpdateManyInput = {
@@ -241381,6 +249840,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JournalEntryCreateInput = {
@@ -241633,6 +250093,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutTransactionLedgerInput
     actor?: UserCreateNestedOneWithoutLedgerEntriesInput
@@ -241655,6 +250116,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -241673,6 +250135,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutTransactionLedgerNestedInput
     actor?: UserUpdateOneWithoutLedgerEntriesNestedInput
@@ -241695,6 +250158,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -241715,6 +250179,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -241733,6 +250198,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -241753,6 +250219,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -244690,6 +253157,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role: PlatformRoleCreateNestedOneWithoutScreensInput
     functions?: ScreenFunctionalityCreateNestedManyWithoutScreenInput
+    componentPurposes?: ComponentPurposeCreateNestedManyWithoutScreenInput
   }
 
   export type PlatformScreenUncheckedCreateInput = {
@@ -244703,6 +253171,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
+    componentPurposes?: ComponentPurposeUncheckedCreateNestedManyWithoutScreenInput
   }
 
   export type PlatformScreenUpdateInput = {
@@ -244716,6 +253185,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
     functions?: ScreenFunctionalityUpdateManyWithoutScreenNestedInput
+    componentPurposes?: ComponentPurposeUpdateManyWithoutScreenNestedInput
   }
 
   export type PlatformScreenUncheckedUpdateInput = {
@@ -244729,6 +253199,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
+    componentPurposes?: ComponentPurposeUncheckedUpdateManyWithoutScreenNestedInput
   }
 
   export type PlatformScreenCreateManyInput = {
@@ -244779,6 +253250,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     screen: PlatformScreenCreateNestedOneWithoutFunctionsInput
+    componentPurposes?: ComponentPurposeCreateNestedManyWithoutFunctionalityInput
   }
 
   export type ScreenFunctionalityUncheckedCreateInput = {
@@ -244794,6 +253266,7 @@ export namespace Prisma {
     orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    componentPurposes?: ComponentPurposeUncheckedCreateNestedManyWithoutFunctionalityInput
   }
 
   export type ScreenFunctionalityUpdateInput = {
@@ -244809,6 +253282,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     screen?: PlatformScreenUpdateOneRequiredWithoutFunctionsNestedInput
+    componentPurposes?: ComponentPurposeUpdateManyWithoutFunctionalityNestedInput
   }
 
   export type ScreenFunctionalityUncheckedUpdateInput = {
@@ -244824,6 +253298,7 @@ export namespace Prisma {
     orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    componentPurposes?: ComponentPurposeUncheckedUpdateManyWithoutFunctionalityNestedInput
   }
 
   export type ScreenFunctionalityCreateManyInput = {
@@ -246002,6 +254477,547 @@ export namespace Prisma {
     severity?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArchitecturalLayerCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    componentPurposes?: ComponentPurposeCreateNestedManyWithoutLayerInput
+  }
+
+  export type ArchitecturalLayerUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    componentPurposes?: ComponentPurposeUncheckedCreateNestedManyWithoutLayerInput
+  }
+
+  export type ArchitecturalLayerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    componentPurposes?: ComponentPurposeUpdateManyWithoutLayerNestedInput
+  }
+
+  export type ArchitecturalLayerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    componentPurposes?: ComponentPurposeUncheckedUpdateManyWithoutLayerNestedInput
+  }
+
+  export type ArchitecturalLayerCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ArchitecturalLayerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArchitecturalLayerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeCreateInput = {
+    id?: string
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    layer: ArchitecturalLayerCreateNestedOneWithoutComponentPurposesInput
+    screen?: PlatformScreenCreateNestedOneWithoutComponentPurposesInput
+    functionality?: ScreenFunctionalityCreateNestedOneWithoutComponentPurposesInput
+  }
+
+  export type ComponentPurposeUncheckedCreateInput = {
+    id?: string
+    layerId: string
+    screenId?: string | null
+    functionalityId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComponentPurposeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    layer?: ArchitecturalLayerUpdateOneRequiredWithoutComponentPurposesNestedInput
+    screen?: PlatformScreenUpdateOneWithoutComponentPurposesNestedInput
+    functionality?: ScreenFunctionalityUpdateOneWithoutComponentPurposesNestedInput
+  }
+
+  export type ComponentPurposeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    layerId?: StringFieldUpdateOperationsInput | string
+    screenId?: NullableStringFieldUpdateOperationsInput | string | null
+    functionalityId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeCreateManyInput = {
+    id?: string
+    layerId: string
+    screenId?: string | null
+    functionalityId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComponentPurposeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    layerId?: StringFieldUpdateOperationsInput | string
+    screenId?: NullableStringFieldUpdateOperationsInput | string | null
+    functionalityId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemDomainCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    owner?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systems?: SoftwareSystemCreateNestedManyWithoutDomainInput
+  }
+
+  export type SystemDomainUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    owner?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systems?: SoftwareSystemUncheckedCreateNestedManyWithoutDomainInput
+  }
+
+  export type SystemDomainUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systems?: SoftwareSystemUpdateManyWithoutDomainNestedInput
+  }
+
+  export type SystemDomainUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systems?: SoftwareSystemUncheckedUpdateManyWithoutDomainNestedInput
+  }
+
+  export type SystemDomainCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    owner?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SystemDomainUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemDomainUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SoftwareSystemCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    domain: SystemDomainCreateNestedOneWithoutSystemsInput
+    components?: SysComponentCreateNestedManyWithoutSystemInput
+  }
+
+  export type SoftwareSystemUncheckedCreateInput = {
+    id?: string
+    domainId: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    components?: SysComponentUncheckedCreateNestedManyWithoutSystemInput
+  }
+
+  export type SoftwareSystemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    domain?: SystemDomainUpdateOneRequiredWithoutSystemsNestedInput
+    components?: SysComponentUpdateManyWithoutSystemNestedInput
+  }
+
+  export type SoftwareSystemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domainId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    components?: SysComponentUncheckedUpdateManyWithoutSystemNestedInput
+  }
+
+  export type SoftwareSystemCreateManyInput = {
+    id?: string
+    domainId: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SoftwareSystemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SoftwareSystemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domainId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SysComponentCreateInput = {
+    id?: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    system: SoftwareSystemCreateNestedOneWithoutComponentsInput
+    providedApis?: ApiContractCreateNestedManyWithoutProviderInput
+    consumedApis?: ApiContractCreateNestedManyWithoutConsumerInput
+    resources?: DataResourceCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentUncheckedCreateInput = {
+    id?: string
+    systemId: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    providedApis?: ApiContractUncheckedCreateNestedManyWithoutProviderInput
+    consumedApis?: ApiContractUncheckedCreateNestedManyWithoutConsumerInput
+    resources?: DataResourceUncheckedCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    system?: SoftwareSystemUpdateOneRequiredWithoutComponentsNestedInput
+    providedApis?: ApiContractUpdateManyWithoutProviderNestedInput
+    consumedApis?: ApiContractUpdateManyWithoutConsumerNestedInput
+    resources?: DataResourceUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    systemId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providedApis?: ApiContractUncheckedUpdateManyWithoutProviderNestedInput
+    consumedApis?: ApiContractUncheckedUpdateManyWithoutConsumerNestedInput
+    resources?: DataResourceUncheckedUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentCreateManyInput = {
+    id?: string
+    systemId: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SysComponentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SysComponentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    systemId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractCreateInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider: SysComponentCreateNestedOneWithoutProvidedApisInput
+    consumer?: SysComponentCreateNestedOneWithoutConsumedApisInput
+  }
+
+  export type ApiContractUncheckedCreateInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    providerId: string
+    consumerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApiContractUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: SysComponentUpdateOneRequiredWithoutProvidedApisNestedInput
+    consumer?: SysComponentUpdateOneWithoutConsumedApisNestedInput
+  }
+
+  export type ApiContractUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: StringFieldUpdateOperationsInput | string
+    consumerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractCreateManyInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    providerId: string
+    consumerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApiContractUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: StringFieldUpdateOperationsInput | string
+    consumerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataResourceCreateInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    component: SysComponentCreateNestedOneWithoutResourcesInput
+  }
+
+  export type DataResourceUncheckedCreateInput = {
+    id?: string
+    componentId: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DataResourceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    component?: SysComponentUpdateOneRequiredWithoutResourcesNestedInput
+  }
+
+  export type DataResourceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    componentId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataResourceCreateManyInput = {
+    id?: string
+    componentId: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DataResourceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataResourceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    componentId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FamilyAppointmentCreateInput = {
@@ -255709,6 +264725,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    metadata?: SortOrder
   }
 
   export type FinancialTransactionAvgOrderByAggregateInput = {
@@ -255899,6 +264916,7 @@ export namespace Prisma {
     previousChecksum?: SortOrder
     status?: SortOrder
     voidedByEntryId?: SortOrder
+    metadata?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -257459,7 +266477,17 @@ export namespace Prisma {
     none?: ScreenFunctionalityWhereInput
   }
 
+  export type ComponentPurposeListRelationFilter = {
+    every?: ComponentPurposeWhereInput
+    some?: ComponentPurposeWhereInput
+    none?: ComponentPurposeWhereInput
+  }
+
   export type ScreenFunctionalityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ComponentPurposeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -258103,6 +267131,314 @@ export namespace Prisma {
     severity?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type ArchitecturalLayerCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ArchitecturalLayerAvgOrderByAggregateInput = {
+    orderIndex?: SortOrder
+  }
+
+  export type ArchitecturalLayerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ArchitecturalLayerMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ArchitecturalLayerSumOrderByAggregateInput = {
+    orderIndex?: SortOrder
+  }
+
+  export type ArchitecturalLayerRelationFilter = {
+    is?: ArchitecturalLayerWhereInput
+    isNot?: ArchitecturalLayerWhereInput
+  }
+
+  export type PlatformScreenNullableRelationFilter = {
+    is?: PlatformScreenWhereInput | null
+    isNot?: PlatformScreenWhereInput | null
+  }
+
+  export type ScreenFunctionalityNullableRelationFilter = {
+    is?: ScreenFunctionalityWhereInput | null
+    isNot?: ScreenFunctionalityWhereInput | null
+  }
+
+  export type ComponentPurposeCountOrderByAggregateInput = {
+    id?: SortOrder
+    layerId?: SortOrder
+    screenId?: SortOrder
+    functionalityId?: SortOrder
+    targetFile?: SortOrder
+    description?: SortOrder
+    implementedWell?: SortOrder
+    anomaliesDetail?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ComponentPurposeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    layerId?: SortOrder
+    screenId?: SortOrder
+    functionalityId?: SortOrder
+    targetFile?: SortOrder
+    description?: SortOrder
+    implementedWell?: SortOrder
+    anomaliesDetail?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ComponentPurposeMinOrderByAggregateInput = {
+    id?: SortOrder
+    layerId?: SortOrder
+    screenId?: SortOrder
+    functionalityId?: SortOrder
+    targetFile?: SortOrder
+    description?: SortOrder
+    implementedWell?: SortOrder
+    anomaliesDetail?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SoftwareSystemListRelationFilter = {
+    every?: SoftwareSystemWhereInput
+    some?: SoftwareSystemWhereInput
+    none?: SoftwareSystemWhereInput
+  }
+
+  export type SoftwareSystemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SystemDomainCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    owner?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemDomainMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    owner?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemDomainMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    owner?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemDomainRelationFilter = {
+    is?: SystemDomainWhereInput
+    isNot?: SystemDomainWhereInput
+  }
+
+  export type SysComponentListRelationFilter = {
+    every?: SysComponentWhereInput
+    some?: SysComponentWhereInput
+    none?: SysComponentWhereInput
+  }
+
+  export type SysComponentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SoftwareSystemCountOrderByAggregateInput = {
+    id?: SortOrder
+    domainId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SoftwareSystemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    domainId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SoftwareSystemMinOrderByAggregateInput = {
+    id?: SortOrder
+    domainId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SoftwareSystemRelationFilter = {
+    is?: SoftwareSystemWhereInput
+    isNot?: SoftwareSystemWhereInput
+  }
+
+  export type ApiContractListRelationFilter = {
+    every?: ApiContractWhereInput
+    some?: ApiContractWhereInput
+    none?: ApiContractWhereInput
+  }
+
+  export type DataResourceListRelationFilter = {
+    every?: DataResourceWhereInput
+    some?: DataResourceWhereInput
+    none?: DataResourceWhereInput
+  }
+
+  export type ApiContractOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DataResourceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SysComponentCountOrderByAggregateInput = {
+    id?: SortOrder
+    systemId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    language?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    repoPath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SysComponentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    systemId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    language?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    repoPath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SysComponentMinOrderByAggregateInput = {
+    id?: SortOrder
+    systemId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    language?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    repoPath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SysComponentRelationFilter = {
+    is?: SysComponentWhereInput
+    isNot?: SysComponentWhereInput
+  }
+
+  export type SysComponentNullableRelationFilter = {
+    is?: SysComponentWhereInput | null
+    isNot?: SysComponentWhereInput | null
+  }
+
+  export type ApiContractCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    providerId?: SortOrder
+    consumerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApiContractMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    providerId?: SortOrder
+    consumerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApiContractMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    providerId?: SortOrder
+    consumerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DataResourceCountOrderByAggregateInput = {
+    id?: SortOrder
+    componentId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DataResourceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    componentId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DataResourceMinOrderByAggregateInput = {
+    id?: SortOrder
+    componentId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type FamilyAppointmentCountOrderByAggregateInput = {
@@ -272611,11 +281947,25 @@ export namespace Prisma {
     connect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
   }
 
+  export type ComponentPurposeCreateNestedManyWithoutScreenInput = {
+    create?: XOR<ComponentPurposeCreateWithoutScreenInput, ComponentPurposeUncheckedCreateWithoutScreenInput> | ComponentPurposeCreateWithoutScreenInput[] | ComponentPurposeUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutScreenInput | ComponentPurposeCreateOrConnectWithoutScreenInput[]
+    createMany?: ComponentPurposeCreateManyScreenInputEnvelope
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+  }
+
   export type ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput = {
     create?: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput> | ScreenFunctionalityCreateWithoutScreenInput[] | ScreenFunctionalityUncheckedCreateWithoutScreenInput[]
     connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutScreenInput | ScreenFunctionalityCreateOrConnectWithoutScreenInput[]
     createMany?: ScreenFunctionalityCreateManyScreenInputEnvelope
     connect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+  }
+
+  export type ComponentPurposeUncheckedCreateNestedManyWithoutScreenInput = {
+    create?: XOR<ComponentPurposeCreateWithoutScreenInput, ComponentPurposeUncheckedCreateWithoutScreenInput> | ComponentPurposeCreateWithoutScreenInput[] | ComponentPurposeUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutScreenInput | ComponentPurposeCreateOrConnectWithoutScreenInput[]
+    createMany?: ComponentPurposeCreateManyScreenInputEnvelope
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
   }
 
   export type PlatformRoleUpdateOneRequiredWithoutScreensNestedInput = {
@@ -272640,6 +281990,20 @@ export namespace Prisma {
     deleteMany?: ScreenFunctionalityScalarWhereInput | ScreenFunctionalityScalarWhereInput[]
   }
 
+  export type ComponentPurposeUpdateManyWithoutScreenNestedInput = {
+    create?: XOR<ComponentPurposeCreateWithoutScreenInput, ComponentPurposeUncheckedCreateWithoutScreenInput> | ComponentPurposeCreateWithoutScreenInput[] | ComponentPurposeUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutScreenInput | ComponentPurposeCreateOrConnectWithoutScreenInput[]
+    upsert?: ComponentPurposeUpsertWithWhereUniqueWithoutScreenInput | ComponentPurposeUpsertWithWhereUniqueWithoutScreenInput[]
+    createMany?: ComponentPurposeCreateManyScreenInputEnvelope
+    set?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    disconnect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    delete?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    update?: ComponentPurposeUpdateWithWhereUniqueWithoutScreenInput | ComponentPurposeUpdateWithWhereUniqueWithoutScreenInput[]
+    updateMany?: ComponentPurposeUpdateManyWithWhereWithoutScreenInput | ComponentPurposeUpdateManyWithWhereWithoutScreenInput[]
+    deleteMany?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
+  }
+
   export type ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput = {
     create?: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput> | ScreenFunctionalityCreateWithoutScreenInput[] | ScreenFunctionalityUncheckedCreateWithoutScreenInput[]
     connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutScreenInput | ScreenFunctionalityCreateOrConnectWithoutScreenInput[]
@@ -272654,10 +282018,38 @@ export namespace Prisma {
     deleteMany?: ScreenFunctionalityScalarWhereInput | ScreenFunctionalityScalarWhereInput[]
   }
 
+  export type ComponentPurposeUncheckedUpdateManyWithoutScreenNestedInput = {
+    create?: XOR<ComponentPurposeCreateWithoutScreenInput, ComponentPurposeUncheckedCreateWithoutScreenInput> | ComponentPurposeCreateWithoutScreenInput[] | ComponentPurposeUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutScreenInput | ComponentPurposeCreateOrConnectWithoutScreenInput[]
+    upsert?: ComponentPurposeUpsertWithWhereUniqueWithoutScreenInput | ComponentPurposeUpsertWithWhereUniqueWithoutScreenInput[]
+    createMany?: ComponentPurposeCreateManyScreenInputEnvelope
+    set?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    disconnect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    delete?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    update?: ComponentPurposeUpdateWithWhereUniqueWithoutScreenInput | ComponentPurposeUpdateWithWhereUniqueWithoutScreenInput[]
+    updateMany?: ComponentPurposeUpdateManyWithWhereWithoutScreenInput | ComponentPurposeUpdateManyWithWhereWithoutScreenInput[]
+    deleteMany?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
+  }
+
   export type PlatformScreenCreateNestedOneWithoutFunctionsInput = {
     create?: XOR<PlatformScreenCreateWithoutFunctionsInput, PlatformScreenUncheckedCreateWithoutFunctionsInput>
     connectOrCreate?: PlatformScreenCreateOrConnectWithoutFunctionsInput
     connect?: PlatformScreenWhereUniqueInput
+  }
+
+  export type ComponentPurposeCreateNestedManyWithoutFunctionalityInput = {
+    create?: XOR<ComponentPurposeCreateWithoutFunctionalityInput, ComponentPurposeUncheckedCreateWithoutFunctionalityInput> | ComponentPurposeCreateWithoutFunctionalityInput[] | ComponentPurposeUncheckedCreateWithoutFunctionalityInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutFunctionalityInput | ComponentPurposeCreateOrConnectWithoutFunctionalityInput[]
+    createMany?: ComponentPurposeCreateManyFunctionalityInputEnvelope
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+  }
+
+  export type ComponentPurposeUncheckedCreateNestedManyWithoutFunctionalityInput = {
+    create?: XOR<ComponentPurposeCreateWithoutFunctionalityInput, ComponentPurposeUncheckedCreateWithoutFunctionalityInput> | ComponentPurposeCreateWithoutFunctionalityInput[] | ComponentPurposeUncheckedCreateWithoutFunctionalityInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutFunctionalityInput | ComponentPurposeCreateOrConnectWithoutFunctionalityInput[]
+    createMany?: ComponentPurposeCreateManyFunctionalityInputEnvelope
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
   }
 
   export type PlatformScreenUpdateOneRequiredWithoutFunctionsNestedInput = {
@@ -272666,6 +282058,34 @@ export namespace Prisma {
     upsert?: PlatformScreenUpsertWithoutFunctionsInput
     connect?: PlatformScreenWhereUniqueInput
     update?: XOR<XOR<PlatformScreenUpdateToOneWithWhereWithoutFunctionsInput, PlatformScreenUpdateWithoutFunctionsInput>, PlatformScreenUncheckedUpdateWithoutFunctionsInput>
+  }
+
+  export type ComponentPurposeUpdateManyWithoutFunctionalityNestedInput = {
+    create?: XOR<ComponentPurposeCreateWithoutFunctionalityInput, ComponentPurposeUncheckedCreateWithoutFunctionalityInput> | ComponentPurposeCreateWithoutFunctionalityInput[] | ComponentPurposeUncheckedCreateWithoutFunctionalityInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutFunctionalityInput | ComponentPurposeCreateOrConnectWithoutFunctionalityInput[]
+    upsert?: ComponentPurposeUpsertWithWhereUniqueWithoutFunctionalityInput | ComponentPurposeUpsertWithWhereUniqueWithoutFunctionalityInput[]
+    createMany?: ComponentPurposeCreateManyFunctionalityInputEnvelope
+    set?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    disconnect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    delete?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    update?: ComponentPurposeUpdateWithWhereUniqueWithoutFunctionalityInput | ComponentPurposeUpdateWithWhereUniqueWithoutFunctionalityInput[]
+    updateMany?: ComponentPurposeUpdateManyWithWhereWithoutFunctionalityInput | ComponentPurposeUpdateManyWithWhereWithoutFunctionalityInput[]
+    deleteMany?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
+  }
+
+  export type ComponentPurposeUncheckedUpdateManyWithoutFunctionalityNestedInput = {
+    create?: XOR<ComponentPurposeCreateWithoutFunctionalityInput, ComponentPurposeUncheckedCreateWithoutFunctionalityInput> | ComponentPurposeCreateWithoutFunctionalityInput[] | ComponentPurposeUncheckedCreateWithoutFunctionalityInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutFunctionalityInput | ComponentPurposeCreateOrConnectWithoutFunctionalityInput[]
+    upsert?: ComponentPurposeUpsertWithWhereUniqueWithoutFunctionalityInput | ComponentPurposeUpsertWithWhereUniqueWithoutFunctionalityInput[]
+    createMany?: ComponentPurposeCreateManyFunctionalityInputEnvelope
+    set?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    disconnect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    delete?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    update?: ComponentPurposeUpdateWithWhereUniqueWithoutFunctionalityInput | ComponentPurposeUpdateWithWhereUniqueWithoutFunctionalityInput[]
+    updateMany?: ComponentPurposeUpdateManyWithWhereWithoutFunctionalityInput | ComponentPurposeUpdateManyWithWhereWithoutFunctionalityInput[]
+    deleteMany?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutShiftCheckInsInput = {
@@ -273058,6 +282478,376 @@ export namespace Prisma {
     upsert?: TenantUpsertWithoutDynamicFeatureRecordsInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDynamicFeatureRecordsInput, TenantUpdateWithoutDynamicFeatureRecordsInput>, TenantUncheckedUpdateWithoutDynamicFeatureRecordsInput>
+  }
+
+  export type ComponentPurposeCreateNestedManyWithoutLayerInput = {
+    create?: XOR<ComponentPurposeCreateWithoutLayerInput, ComponentPurposeUncheckedCreateWithoutLayerInput> | ComponentPurposeCreateWithoutLayerInput[] | ComponentPurposeUncheckedCreateWithoutLayerInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutLayerInput | ComponentPurposeCreateOrConnectWithoutLayerInput[]
+    createMany?: ComponentPurposeCreateManyLayerInputEnvelope
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+  }
+
+  export type ComponentPurposeUncheckedCreateNestedManyWithoutLayerInput = {
+    create?: XOR<ComponentPurposeCreateWithoutLayerInput, ComponentPurposeUncheckedCreateWithoutLayerInput> | ComponentPurposeCreateWithoutLayerInput[] | ComponentPurposeUncheckedCreateWithoutLayerInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutLayerInput | ComponentPurposeCreateOrConnectWithoutLayerInput[]
+    createMany?: ComponentPurposeCreateManyLayerInputEnvelope
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+  }
+
+  export type ComponentPurposeUpdateManyWithoutLayerNestedInput = {
+    create?: XOR<ComponentPurposeCreateWithoutLayerInput, ComponentPurposeUncheckedCreateWithoutLayerInput> | ComponentPurposeCreateWithoutLayerInput[] | ComponentPurposeUncheckedCreateWithoutLayerInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutLayerInput | ComponentPurposeCreateOrConnectWithoutLayerInput[]
+    upsert?: ComponentPurposeUpsertWithWhereUniqueWithoutLayerInput | ComponentPurposeUpsertWithWhereUniqueWithoutLayerInput[]
+    createMany?: ComponentPurposeCreateManyLayerInputEnvelope
+    set?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    disconnect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    delete?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    update?: ComponentPurposeUpdateWithWhereUniqueWithoutLayerInput | ComponentPurposeUpdateWithWhereUniqueWithoutLayerInput[]
+    updateMany?: ComponentPurposeUpdateManyWithWhereWithoutLayerInput | ComponentPurposeUpdateManyWithWhereWithoutLayerInput[]
+    deleteMany?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
+  }
+
+  export type ComponentPurposeUncheckedUpdateManyWithoutLayerNestedInput = {
+    create?: XOR<ComponentPurposeCreateWithoutLayerInput, ComponentPurposeUncheckedCreateWithoutLayerInput> | ComponentPurposeCreateWithoutLayerInput[] | ComponentPurposeUncheckedCreateWithoutLayerInput[]
+    connectOrCreate?: ComponentPurposeCreateOrConnectWithoutLayerInput | ComponentPurposeCreateOrConnectWithoutLayerInput[]
+    upsert?: ComponentPurposeUpsertWithWhereUniqueWithoutLayerInput | ComponentPurposeUpsertWithWhereUniqueWithoutLayerInput[]
+    createMany?: ComponentPurposeCreateManyLayerInputEnvelope
+    set?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    disconnect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    delete?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    connect?: ComponentPurposeWhereUniqueInput | ComponentPurposeWhereUniqueInput[]
+    update?: ComponentPurposeUpdateWithWhereUniqueWithoutLayerInput | ComponentPurposeUpdateWithWhereUniqueWithoutLayerInput[]
+    updateMany?: ComponentPurposeUpdateManyWithWhereWithoutLayerInput | ComponentPurposeUpdateManyWithWhereWithoutLayerInput[]
+    deleteMany?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
+  }
+
+  export type ArchitecturalLayerCreateNestedOneWithoutComponentPurposesInput = {
+    create?: XOR<ArchitecturalLayerCreateWithoutComponentPurposesInput, ArchitecturalLayerUncheckedCreateWithoutComponentPurposesInput>
+    connectOrCreate?: ArchitecturalLayerCreateOrConnectWithoutComponentPurposesInput
+    connect?: ArchitecturalLayerWhereUniqueInput
+  }
+
+  export type PlatformScreenCreateNestedOneWithoutComponentPurposesInput = {
+    create?: XOR<PlatformScreenCreateWithoutComponentPurposesInput, PlatformScreenUncheckedCreateWithoutComponentPurposesInput>
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutComponentPurposesInput
+    connect?: PlatformScreenWhereUniqueInput
+  }
+
+  export type ScreenFunctionalityCreateNestedOneWithoutComponentPurposesInput = {
+    create?: XOR<ScreenFunctionalityCreateWithoutComponentPurposesInput, ScreenFunctionalityUncheckedCreateWithoutComponentPurposesInput>
+    connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutComponentPurposesInput
+    connect?: ScreenFunctionalityWhereUniqueInput
+  }
+
+  export type ArchitecturalLayerUpdateOneRequiredWithoutComponentPurposesNestedInput = {
+    create?: XOR<ArchitecturalLayerCreateWithoutComponentPurposesInput, ArchitecturalLayerUncheckedCreateWithoutComponentPurposesInput>
+    connectOrCreate?: ArchitecturalLayerCreateOrConnectWithoutComponentPurposesInput
+    upsert?: ArchitecturalLayerUpsertWithoutComponentPurposesInput
+    connect?: ArchitecturalLayerWhereUniqueInput
+    update?: XOR<XOR<ArchitecturalLayerUpdateToOneWithWhereWithoutComponentPurposesInput, ArchitecturalLayerUpdateWithoutComponentPurposesInput>, ArchitecturalLayerUncheckedUpdateWithoutComponentPurposesInput>
+  }
+
+  export type PlatformScreenUpdateOneWithoutComponentPurposesNestedInput = {
+    create?: XOR<PlatformScreenCreateWithoutComponentPurposesInput, PlatformScreenUncheckedCreateWithoutComponentPurposesInput>
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutComponentPurposesInput
+    upsert?: PlatformScreenUpsertWithoutComponentPurposesInput
+    disconnect?: PlatformScreenWhereInput | boolean
+    delete?: PlatformScreenWhereInput | boolean
+    connect?: PlatformScreenWhereUniqueInput
+    update?: XOR<XOR<PlatformScreenUpdateToOneWithWhereWithoutComponentPurposesInput, PlatformScreenUpdateWithoutComponentPurposesInput>, PlatformScreenUncheckedUpdateWithoutComponentPurposesInput>
+  }
+
+  export type ScreenFunctionalityUpdateOneWithoutComponentPurposesNestedInput = {
+    create?: XOR<ScreenFunctionalityCreateWithoutComponentPurposesInput, ScreenFunctionalityUncheckedCreateWithoutComponentPurposesInput>
+    connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutComponentPurposesInput
+    upsert?: ScreenFunctionalityUpsertWithoutComponentPurposesInput
+    disconnect?: ScreenFunctionalityWhereInput | boolean
+    delete?: ScreenFunctionalityWhereInput | boolean
+    connect?: ScreenFunctionalityWhereUniqueInput
+    update?: XOR<XOR<ScreenFunctionalityUpdateToOneWithWhereWithoutComponentPurposesInput, ScreenFunctionalityUpdateWithoutComponentPurposesInput>, ScreenFunctionalityUncheckedUpdateWithoutComponentPurposesInput>
+  }
+
+  export type SoftwareSystemCreateNestedManyWithoutDomainInput = {
+    create?: XOR<SoftwareSystemCreateWithoutDomainInput, SoftwareSystemUncheckedCreateWithoutDomainInput> | SoftwareSystemCreateWithoutDomainInput[] | SoftwareSystemUncheckedCreateWithoutDomainInput[]
+    connectOrCreate?: SoftwareSystemCreateOrConnectWithoutDomainInput | SoftwareSystemCreateOrConnectWithoutDomainInput[]
+    createMany?: SoftwareSystemCreateManyDomainInputEnvelope
+    connect?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+  }
+
+  export type SoftwareSystemUncheckedCreateNestedManyWithoutDomainInput = {
+    create?: XOR<SoftwareSystemCreateWithoutDomainInput, SoftwareSystemUncheckedCreateWithoutDomainInput> | SoftwareSystemCreateWithoutDomainInput[] | SoftwareSystemUncheckedCreateWithoutDomainInput[]
+    connectOrCreate?: SoftwareSystemCreateOrConnectWithoutDomainInput | SoftwareSystemCreateOrConnectWithoutDomainInput[]
+    createMany?: SoftwareSystemCreateManyDomainInputEnvelope
+    connect?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+  }
+
+  export type SoftwareSystemUpdateManyWithoutDomainNestedInput = {
+    create?: XOR<SoftwareSystemCreateWithoutDomainInput, SoftwareSystemUncheckedCreateWithoutDomainInput> | SoftwareSystemCreateWithoutDomainInput[] | SoftwareSystemUncheckedCreateWithoutDomainInput[]
+    connectOrCreate?: SoftwareSystemCreateOrConnectWithoutDomainInput | SoftwareSystemCreateOrConnectWithoutDomainInput[]
+    upsert?: SoftwareSystemUpsertWithWhereUniqueWithoutDomainInput | SoftwareSystemUpsertWithWhereUniqueWithoutDomainInput[]
+    createMany?: SoftwareSystemCreateManyDomainInputEnvelope
+    set?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    disconnect?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    delete?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    connect?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    update?: SoftwareSystemUpdateWithWhereUniqueWithoutDomainInput | SoftwareSystemUpdateWithWhereUniqueWithoutDomainInput[]
+    updateMany?: SoftwareSystemUpdateManyWithWhereWithoutDomainInput | SoftwareSystemUpdateManyWithWhereWithoutDomainInput[]
+    deleteMany?: SoftwareSystemScalarWhereInput | SoftwareSystemScalarWhereInput[]
+  }
+
+  export type SoftwareSystemUncheckedUpdateManyWithoutDomainNestedInput = {
+    create?: XOR<SoftwareSystemCreateWithoutDomainInput, SoftwareSystemUncheckedCreateWithoutDomainInput> | SoftwareSystemCreateWithoutDomainInput[] | SoftwareSystemUncheckedCreateWithoutDomainInput[]
+    connectOrCreate?: SoftwareSystemCreateOrConnectWithoutDomainInput | SoftwareSystemCreateOrConnectWithoutDomainInput[]
+    upsert?: SoftwareSystemUpsertWithWhereUniqueWithoutDomainInput | SoftwareSystemUpsertWithWhereUniqueWithoutDomainInput[]
+    createMany?: SoftwareSystemCreateManyDomainInputEnvelope
+    set?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    disconnect?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    delete?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    connect?: SoftwareSystemWhereUniqueInput | SoftwareSystemWhereUniqueInput[]
+    update?: SoftwareSystemUpdateWithWhereUniqueWithoutDomainInput | SoftwareSystemUpdateWithWhereUniqueWithoutDomainInput[]
+    updateMany?: SoftwareSystemUpdateManyWithWhereWithoutDomainInput | SoftwareSystemUpdateManyWithWhereWithoutDomainInput[]
+    deleteMany?: SoftwareSystemScalarWhereInput | SoftwareSystemScalarWhereInput[]
+  }
+
+  export type SystemDomainCreateNestedOneWithoutSystemsInput = {
+    create?: XOR<SystemDomainCreateWithoutSystemsInput, SystemDomainUncheckedCreateWithoutSystemsInput>
+    connectOrCreate?: SystemDomainCreateOrConnectWithoutSystemsInput
+    connect?: SystemDomainWhereUniqueInput
+  }
+
+  export type SysComponentCreateNestedManyWithoutSystemInput = {
+    create?: XOR<SysComponentCreateWithoutSystemInput, SysComponentUncheckedCreateWithoutSystemInput> | SysComponentCreateWithoutSystemInput[] | SysComponentUncheckedCreateWithoutSystemInput[]
+    connectOrCreate?: SysComponentCreateOrConnectWithoutSystemInput | SysComponentCreateOrConnectWithoutSystemInput[]
+    createMany?: SysComponentCreateManySystemInputEnvelope
+    connect?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+  }
+
+  export type SysComponentUncheckedCreateNestedManyWithoutSystemInput = {
+    create?: XOR<SysComponentCreateWithoutSystemInput, SysComponentUncheckedCreateWithoutSystemInput> | SysComponentCreateWithoutSystemInput[] | SysComponentUncheckedCreateWithoutSystemInput[]
+    connectOrCreate?: SysComponentCreateOrConnectWithoutSystemInput | SysComponentCreateOrConnectWithoutSystemInput[]
+    createMany?: SysComponentCreateManySystemInputEnvelope
+    connect?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+  }
+
+  export type SystemDomainUpdateOneRequiredWithoutSystemsNestedInput = {
+    create?: XOR<SystemDomainCreateWithoutSystemsInput, SystemDomainUncheckedCreateWithoutSystemsInput>
+    connectOrCreate?: SystemDomainCreateOrConnectWithoutSystemsInput
+    upsert?: SystemDomainUpsertWithoutSystemsInput
+    connect?: SystemDomainWhereUniqueInput
+    update?: XOR<XOR<SystemDomainUpdateToOneWithWhereWithoutSystemsInput, SystemDomainUpdateWithoutSystemsInput>, SystemDomainUncheckedUpdateWithoutSystemsInput>
+  }
+
+  export type SysComponentUpdateManyWithoutSystemNestedInput = {
+    create?: XOR<SysComponentCreateWithoutSystemInput, SysComponentUncheckedCreateWithoutSystemInput> | SysComponentCreateWithoutSystemInput[] | SysComponentUncheckedCreateWithoutSystemInput[]
+    connectOrCreate?: SysComponentCreateOrConnectWithoutSystemInput | SysComponentCreateOrConnectWithoutSystemInput[]
+    upsert?: SysComponentUpsertWithWhereUniqueWithoutSystemInput | SysComponentUpsertWithWhereUniqueWithoutSystemInput[]
+    createMany?: SysComponentCreateManySystemInputEnvelope
+    set?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    disconnect?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    delete?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    connect?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    update?: SysComponentUpdateWithWhereUniqueWithoutSystemInput | SysComponentUpdateWithWhereUniqueWithoutSystemInput[]
+    updateMany?: SysComponentUpdateManyWithWhereWithoutSystemInput | SysComponentUpdateManyWithWhereWithoutSystemInput[]
+    deleteMany?: SysComponentScalarWhereInput | SysComponentScalarWhereInput[]
+  }
+
+  export type SysComponentUncheckedUpdateManyWithoutSystemNestedInput = {
+    create?: XOR<SysComponentCreateWithoutSystemInput, SysComponentUncheckedCreateWithoutSystemInput> | SysComponentCreateWithoutSystemInput[] | SysComponentUncheckedCreateWithoutSystemInput[]
+    connectOrCreate?: SysComponentCreateOrConnectWithoutSystemInput | SysComponentCreateOrConnectWithoutSystemInput[]
+    upsert?: SysComponentUpsertWithWhereUniqueWithoutSystemInput | SysComponentUpsertWithWhereUniqueWithoutSystemInput[]
+    createMany?: SysComponentCreateManySystemInputEnvelope
+    set?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    disconnect?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    delete?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    connect?: SysComponentWhereUniqueInput | SysComponentWhereUniqueInput[]
+    update?: SysComponentUpdateWithWhereUniqueWithoutSystemInput | SysComponentUpdateWithWhereUniqueWithoutSystemInput[]
+    updateMany?: SysComponentUpdateManyWithWhereWithoutSystemInput | SysComponentUpdateManyWithWhereWithoutSystemInput[]
+    deleteMany?: SysComponentScalarWhereInput | SysComponentScalarWhereInput[]
+  }
+
+  export type SoftwareSystemCreateNestedOneWithoutComponentsInput = {
+    create?: XOR<SoftwareSystemCreateWithoutComponentsInput, SoftwareSystemUncheckedCreateWithoutComponentsInput>
+    connectOrCreate?: SoftwareSystemCreateOrConnectWithoutComponentsInput
+    connect?: SoftwareSystemWhereUniqueInput
+  }
+
+  export type ApiContractCreateNestedManyWithoutProviderInput = {
+    create?: XOR<ApiContractCreateWithoutProviderInput, ApiContractUncheckedCreateWithoutProviderInput> | ApiContractCreateWithoutProviderInput[] | ApiContractUncheckedCreateWithoutProviderInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutProviderInput | ApiContractCreateOrConnectWithoutProviderInput[]
+    createMany?: ApiContractCreateManyProviderInputEnvelope
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+  }
+
+  export type ApiContractCreateNestedManyWithoutConsumerInput = {
+    create?: XOR<ApiContractCreateWithoutConsumerInput, ApiContractUncheckedCreateWithoutConsumerInput> | ApiContractCreateWithoutConsumerInput[] | ApiContractUncheckedCreateWithoutConsumerInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutConsumerInput | ApiContractCreateOrConnectWithoutConsumerInput[]
+    createMany?: ApiContractCreateManyConsumerInputEnvelope
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+  }
+
+  export type DataResourceCreateNestedManyWithoutComponentInput = {
+    create?: XOR<DataResourceCreateWithoutComponentInput, DataResourceUncheckedCreateWithoutComponentInput> | DataResourceCreateWithoutComponentInput[] | DataResourceUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: DataResourceCreateOrConnectWithoutComponentInput | DataResourceCreateOrConnectWithoutComponentInput[]
+    createMany?: DataResourceCreateManyComponentInputEnvelope
+    connect?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+  }
+
+  export type ApiContractUncheckedCreateNestedManyWithoutProviderInput = {
+    create?: XOR<ApiContractCreateWithoutProviderInput, ApiContractUncheckedCreateWithoutProviderInput> | ApiContractCreateWithoutProviderInput[] | ApiContractUncheckedCreateWithoutProviderInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutProviderInput | ApiContractCreateOrConnectWithoutProviderInput[]
+    createMany?: ApiContractCreateManyProviderInputEnvelope
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+  }
+
+  export type ApiContractUncheckedCreateNestedManyWithoutConsumerInput = {
+    create?: XOR<ApiContractCreateWithoutConsumerInput, ApiContractUncheckedCreateWithoutConsumerInput> | ApiContractCreateWithoutConsumerInput[] | ApiContractUncheckedCreateWithoutConsumerInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutConsumerInput | ApiContractCreateOrConnectWithoutConsumerInput[]
+    createMany?: ApiContractCreateManyConsumerInputEnvelope
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+  }
+
+  export type DataResourceUncheckedCreateNestedManyWithoutComponentInput = {
+    create?: XOR<DataResourceCreateWithoutComponentInput, DataResourceUncheckedCreateWithoutComponentInput> | DataResourceCreateWithoutComponentInput[] | DataResourceUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: DataResourceCreateOrConnectWithoutComponentInput | DataResourceCreateOrConnectWithoutComponentInput[]
+    createMany?: DataResourceCreateManyComponentInputEnvelope
+    connect?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+  }
+
+  export type SoftwareSystemUpdateOneRequiredWithoutComponentsNestedInput = {
+    create?: XOR<SoftwareSystemCreateWithoutComponentsInput, SoftwareSystemUncheckedCreateWithoutComponentsInput>
+    connectOrCreate?: SoftwareSystemCreateOrConnectWithoutComponentsInput
+    upsert?: SoftwareSystemUpsertWithoutComponentsInput
+    connect?: SoftwareSystemWhereUniqueInput
+    update?: XOR<XOR<SoftwareSystemUpdateToOneWithWhereWithoutComponentsInput, SoftwareSystemUpdateWithoutComponentsInput>, SoftwareSystemUncheckedUpdateWithoutComponentsInput>
+  }
+
+  export type ApiContractUpdateManyWithoutProviderNestedInput = {
+    create?: XOR<ApiContractCreateWithoutProviderInput, ApiContractUncheckedCreateWithoutProviderInput> | ApiContractCreateWithoutProviderInput[] | ApiContractUncheckedCreateWithoutProviderInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutProviderInput | ApiContractCreateOrConnectWithoutProviderInput[]
+    upsert?: ApiContractUpsertWithWhereUniqueWithoutProviderInput | ApiContractUpsertWithWhereUniqueWithoutProviderInput[]
+    createMany?: ApiContractCreateManyProviderInputEnvelope
+    set?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    disconnect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    delete?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    update?: ApiContractUpdateWithWhereUniqueWithoutProviderInput | ApiContractUpdateWithWhereUniqueWithoutProviderInput[]
+    updateMany?: ApiContractUpdateManyWithWhereWithoutProviderInput | ApiContractUpdateManyWithWhereWithoutProviderInput[]
+    deleteMany?: ApiContractScalarWhereInput | ApiContractScalarWhereInput[]
+  }
+
+  export type ApiContractUpdateManyWithoutConsumerNestedInput = {
+    create?: XOR<ApiContractCreateWithoutConsumerInput, ApiContractUncheckedCreateWithoutConsumerInput> | ApiContractCreateWithoutConsumerInput[] | ApiContractUncheckedCreateWithoutConsumerInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutConsumerInput | ApiContractCreateOrConnectWithoutConsumerInput[]
+    upsert?: ApiContractUpsertWithWhereUniqueWithoutConsumerInput | ApiContractUpsertWithWhereUniqueWithoutConsumerInput[]
+    createMany?: ApiContractCreateManyConsumerInputEnvelope
+    set?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    disconnect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    delete?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    update?: ApiContractUpdateWithWhereUniqueWithoutConsumerInput | ApiContractUpdateWithWhereUniqueWithoutConsumerInput[]
+    updateMany?: ApiContractUpdateManyWithWhereWithoutConsumerInput | ApiContractUpdateManyWithWhereWithoutConsumerInput[]
+    deleteMany?: ApiContractScalarWhereInput | ApiContractScalarWhereInput[]
+  }
+
+  export type DataResourceUpdateManyWithoutComponentNestedInput = {
+    create?: XOR<DataResourceCreateWithoutComponentInput, DataResourceUncheckedCreateWithoutComponentInput> | DataResourceCreateWithoutComponentInput[] | DataResourceUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: DataResourceCreateOrConnectWithoutComponentInput | DataResourceCreateOrConnectWithoutComponentInput[]
+    upsert?: DataResourceUpsertWithWhereUniqueWithoutComponentInput | DataResourceUpsertWithWhereUniqueWithoutComponentInput[]
+    createMany?: DataResourceCreateManyComponentInputEnvelope
+    set?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    disconnect?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    delete?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    connect?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    update?: DataResourceUpdateWithWhereUniqueWithoutComponentInput | DataResourceUpdateWithWhereUniqueWithoutComponentInput[]
+    updateMany?: DataResourceUpdateManyWithWhereWithoutComponentInput | DataResourceUpdateManyWithWhereWithoutComponentInput[]
+    deleteMany?: DataResourceScalarWhereInput | DataResourceScalarWhereInput[]
+  }
+
+  export type ApiContractUncheckedUpdateManyWithoutProviderNestedInput = {
+    create?: XOR<ApiContractCreateWithoutProviderInput, ApiContractUncheckedCreateWithoutProviderInput> | ApiContractCreateWithoutProviderInput[] | ApiContractUncheckedCreateWithoutProviderInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutProviderInput | ApiContractCreateOrConnectWithoutProviderInput[]
+    upsert?: ApiContractUpsertWithWhereUniqueWithoutProviderInput | ApiContractUpsertWithWhereUniqueWithoutProviderInput[]
+    createMany?: ApiContractCreateManyProviderInputEnvelope
+    set?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    disconnect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    delete?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    update?: ApiContractUpdateWithWhereUniqueWithoutProviderInput | ApiContractUpdateWithWhereUniqueWithoutProviderInput[]
+    updateMany?: ApiContractUpdateManyWithWhereWithoutProviderInput | ApiContractUpdateManyWithWhereWithoutProviderInput[]
+    deleteMany?: ApiContractScalarWhereInput | ApiContractScalarWhereInput[]
+  }
+
+  export type ApiContractUncheckedUpdateManyWithoutConsumerNestedInput = {
+    create?: XOR<ApiContractCreateWithoutConsumerInput, ApiContractUncheckedCreateWithoutConsumerInput> | ApiContractCreateWithoutConsumerInput[] | ApiContractUncheckedCreateWithoutConsumerInput[]
+    connectOrCreate?: ApiContractCreateOrConnectWithoutConsumerInput | ApiContractCreateOrConnectWithoutConsumerInput[]
+    upsert?: ApiContractUpsertWithWhereUniqueWithoutConsumerInput | ApiContractUpsertWithWhereUniqueWithoutConsumerInput[]
+    createMany?: ApiContractCreateManyConsumerInputEnvelope
+    set?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    disconnect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    delete?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    connect?: ApiContractWhereUniqueInput | ApiContractWhereUniqueInput[]
+    update?: ApiContractUpdateWithWhereUniqueWithoutConsumerInput | ApiContractUpdateWithWhereUniqueWithoutConsumerInput[]
+    updateMany?: ApiContractUpdateManyWithWhereWithoutConsumerInput | ApiContractUpdateManyWithWhereWithoutConsumerInput[]
+    deleteMany?: ApiContractScalarWhereInput | ApiContractScalarWhereInput[]
+  }
+
+  export type DataResourceUncheckedUpdateManyWithoutComponentNestedInput = {
+    create?: XOR<DataResourceCreateWithoutComponentInput, DataResourceUncheckedCreateWithoutComponentInput> | DataResourceCreateWithoutComponentInput[] | DataResourceUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: DataResourceCreateOrConnectWithoutComponentInput | DataResourceCreateOrConnectWithoutComponentInput[]
+    upsert?: DataResourceUpsertWithWhereUniqueWithoutComponentInput | DataResourceUpsertWithWhereUniqueWithoutComponentInput[]
+    createMany?: DataResourceCreateManyComponentInputEnvelope
+    set?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    disconnect?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    delete?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    connect?: DataResourceWhereUniqueInput | DataResourceWhereUniqueInput[]
+    update?: DataResourceUpdateWithWhereUniqueWithoutComponentInput | DataResourceUpdateWithWhereUniqueWithoutComponentInput[]
+    updateMany?: DataResourceUpdateManyWithWhereWithoutComponentInput | DataResourceUpdateManyWithWhereWithoutComponentInput[]
+    deleteMany?: DataResourceScalarWhereInput | DataResourceScalarWhereInput[]
+  }
+
+  export type SysComponentCreateNestedOneWithoutProvidedApisInput = {
+    create?: XOR<SysComponentCreateWithoutProvidedApisInput, SysComponentUncheckedCreateWithoutProvidedApisInput>
+    connectOrCreate?: SysComponentCreateOrConnectWithoutProvidedApisInput
+    connect?: SysComponentWhereUniqueInput
+  }
+
+  export type SysComponentCreateNestedOneWithoutConsumedApisInput = {
+    create?: XOR<SysComponentCreateWithoutConsumedApisInput, SysComponentUncheckedCreateWithoutConsumedApisInput>
+    connectOrCreate?: SysComponentCreateOrConnectWithoutConsumedApisInput
+    connect?: SysComponentWhereUniqueInput
+  }
+
+  export type SysComponentUpdateOneRequiredWithoutProvidedApisNestedInput = {
+    create?: XOR<SysComponentCreateWithoutProvidedApisInput, SysComponentUncheckedCreateWithoutProvidedApisInput>
+    connectOrCreate?: SysComponentCreateOrConnectWithoutProvidedApisInput
+    upsert?: SysComponentUpsertWithoutProvidedApisInput
+    connect?: SysComponentWhereUniqueInput
+    update?: XOR<XOR<SysComponentUpdateToOneWithWhereWithoutProvidedApisInput, SysComponentUpdateWithoutProvidedApisInput>, SysComponentUncheckedUpdateWithoutProvidedApisInput>
+  }
+
+  export type SysComponentUpdateOneWithoutConsumedApisNestedInput = {
+    create?: XOR<SysComponentCreateWithoutConsumedApisInput, SysComponentUncheckedCreateWithoutConsumedApisInput>
+    connectOrCreate?: SysComponentCreateOrConnectWithoutConsumedApisInput
+    upsert?: SysComponentUpsertWithoutConsumedApisInput
+    disconnect?: SysComponentWhereInput | boolean
+    delete?: SysComponentWhereInput | boolean
+    connect?: SysComponentWhereUniqueInput
+    update?: XOR<XOR<SysComponentUpdateToOneWithWhereWithoutConsumedApisInput, SysComponentUpdateWithoutConsumedApisInput>, SysComponentUncheckedUpdateWithoutConsumedApisInput>
+  }
+
+  export type SysComponentCreateNestedOneWithoutResourcesInput = {
+    create?: XOR<SysComponentCreateWithoutResourcesInput, SysComponentUncheckedCreateWithoutResourcesInput>
+    connectOrCreate?: SysComponentCreateOrConnectWithoutResourcesInput
+    connect?: SysComponentWhereUniqueInput
+  }
+
+  export type SysComponentUpdateOneRequiredWithoutResourcesNestedInput = {
+    create?: XOR<SysComponentCreateWithoutResourcesInput, SysComponentUncheckedCreateWithoutResourcesInput>
+    connectOrCreate?: SysComponentCreateOrConnectWithoutResourcesInput
+    upsert?: SysComponentUpsertWithoutResourcesInput
+    connect?: SysComponentWhereUniqueInput
+    update?: XOR<XOR<SysComponentUpdateToOneWithWhereWithoutResourcesInput, SysComponentUpdateWithoutResourcesInput>, SysComponentUncheckedUpdateWithoutResourcesInput>
   }
 
   export type PatientCreateNestedManyWithoutClinicInput = {
@@ -274344,6 +284134,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutTransactionLedgerInput
   }
@@ -274364,6 +284155,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -276060,6 +285852,7 @@ export namespace Prisma {
     previousChecksum?: StringNullableFilter<"TransactionLedger"> | string | null
     status?: StringFilter<"TransactionLedger"> | string
     voidedByEntryId?: StringNullableFilter<"TransactionLedger"> | string | null
+    metadata?: JsonNullableFilter<"TransactionLedger">
     createdAt?: DateTimeFilter<"TransactionLedger"> | Date | string
   }
 
@@ -278757,6 +288550,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     actor?: UserCreateNestedOneWithoutLedgerEntriesInput
   }
@@ -278777,6 +288571,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -279664,6 +289459,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryCreateNestedManyWithoutTransactionInput
     reconciliations?: FinancialReconciliationCreateNestedManyWithoutTransactionInput
   }
@@ -279677,6 +289473,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTransactionInput
     reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTransactionInput
   }
@@ -282636,6 +292433,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
     updatedAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    metadata?: JsonNullableFilter<"FinancialTransaction">
   }
 
   export type JournalEntryUpsertWithWhereUniqueWithoutTenantInput = {
@@ -288401,6 +298199,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityCreateNestedManyWithoutScreenInput
+    componentPurposes?: ComponentPurposeCreateNestedManyWithoutScreenInput
   }
 
   export type PlatformScreenUncheckedCreateWithoutRoleInput = {
@@ -288413,6 +298212,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
+    componentPurposes?: ComponentPurposeUncheckedCreateNestedManyWithoutScreenInput
   }
 
   export type PlatformScreenCreateOrConnectWithoutRoleInput = {
@@ -324776,6 +334576,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant: TenantCreateNestedOneWithoutFinancialTransactionsInput
     reconciliations?: FinancialReconciliationCreateNestedManyWithoutTransactionInput
   }
@@ -324790,6 +334591,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTransactionInput
   }
 
@@ -325082,6 +334884,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionsNestedInput
     reconciliations?: FinancialReconciliationUpdateManyWithoutTransactionNestedInput
   }
@@ -325096,6 +334899,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
@@ -325384,6 +335188,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant: TenantCreateNestedOneWithoutFinancialTransactionsInput
     journalEntries?: JournalEntryCreateNestedManyWithoutTransactionInput
   }
@@ -325398,6 +335203,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTransactionInput
   }
 
@@ -325692,6 +335498,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionsNestedInput
     journalEntries?: JournalEntryUpdateManyWithoutTransactionNestedInput
   }
@@ -325706,6 +335513,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
@@ -345596,6 +355404,7 @@ export namespace Prisma {
     orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    componentPurposes?: ComponentPurposeCreateNestedManyWithoutFunctionalityInput
   }
 
   export type ScreenFunctionalityUncheckedCreateWithoutScreenInput = {
@@ -345610,6 +355419,7 @@ export namespace Prisma {
     orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    componentPurposes?: ComponentPurposeUncheckedCreateNestedManyWithoutFunctionalityInput
   }
 
   export type ScreenFunctionalityCreateOrConnectWithoutScreenInput = {
@@ -345619,6 +355429,40 @@ export namespace Prisma {
 
   export type ScreenFunctionalityCreateManyScreenInputEnvelope = {
     data: ScreenFunctionalityCreateManyScreenInput | ScreenFunctionalityCreateManyScreenInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ComponentPurposeCreateWithoutScreenInput = {
+    id?: string
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    layer: ArchitecturalLayerCreateNestedOneWithoutComponentPurposesInput
+    functionality?: ScreenFunctionalityCreateNestedOneWithoutComponentPurposesInput
+  }
+
+  export type ComponentPurposeUncheckedCreateWithoutScreenInput = {
+    id?: string
+    layerId: string
+    functionalityId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComponentPurposeCreateOrConnectWithoutScreenInput = {
+    where: ComponentPurposeWhereUniqueInput
+    create: XOR<ComponentPurposeCreateWithoutScreenInput, ComponentPurposeUncheckedCreateWithoutScreenInput>
+  }
+
+  export type ComponentPurposeCreateManyScreenInputEnvelope = {
+    data: ComponentPurposeCreateManyScreenInput | ComponentPurposeCreateManyScreenInput[]
     skipDuplicates?: boolean
   }
 
@@ -345691,6 +355535,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
   }
 
+  export type ComponentPurposeUpsertWithWhereUniqueWithoutScreenInput = {
+    where: ComponentPurposeWhereUniqueInput
+    update: XOR<ComponentPurposeUpdateWithoutScreenInput, ComponentPurposeUncheckedUpdateWithoutScreenInput>
+    create: XOR<ComponentPurposeCreateWithoutScreenInput, ComponentPurposeUncheckedCreateWithoutScreenInput>
+  }
+
+  export type ComponentPurposeUpdateWithWhereUniqueWithoutScreenInput = {
+    where: ComponentPurposeWhereUniqueInput
+    data: XOR<ComponentPurposeUpdateWithoutScreenInput, ComponentPurposeUncheckedUpdateWithoutScreenInput>
+  }
+
+  export type ComponentPurposeUpdateManyWithWhereWithoutScreenInput = {
+    where: ComponentPurposeScalarWhereInput
+    data: XOR<ComponentPurposeUpdateManyMutationInput, ComponentPurposeUncheckedUpdateManyWithoutScreenInput>
+  }
+
+  export type ComponentPurposeScalarWhereInput = {
+    AND?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
+    OR?: ComponentPurposeScalarWhereInput[]
+    NOT?: ComponentPurposeScalarWhereInput | ComponentPurposeScalarWhereInput[]
+    id?: StringFilter<"ComponentPurpose"> | string
+    layerId?: StringFilter<"ComponentPurpose"> | string
+    screenId?: StringNullableFilter<"ComponentPurpose"> | string | null
+    functionalityId?: StringNullableFilter<"ComponentPurpose"> | string | null
+    targetFile?: StringNullableFilter<"ComponentPurpose"> | string | null
+    description?: StringFilter<"ComponentPurpose"> | string
+    implementedWell?: BoolFilter<"ComponentPurpose"> | boolean
+    anomaliesDetail?: StringNullableFilter<"ComponentPurpose"> | string | null
+    createdAt?: DateTimeFilter<"ComponentPurpose"> | Date | string
+    updatedAt?: DateTimeFilter<"ComponentPurpose"> | Date | string
+  }
+
   export type PlatformScreenCreateWithoutFunctionsInput = {
     id?: string
     name: string
@@ -345701,6 +355577,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     role: PlatformRoleCreateNestedOneWithoutScreensInput
+    componentPurposes?: ComponentPurposeCreateNestedManyWithoutScreenInput
   }
 
   export type PlatformScreenUncheckedCreateWithoutFunctionsInput = {
@@ -345713,11 +355590,46 @@ export namespace Prisma {
     orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    componentPurposes?: ComponentPurposeUncheckedCreateNestedManyWithoutScreenInput
   }
 
   export type PlatformScreenCreateOrConnectWithoutFunctionsInput = {
     where: PlatformScreenWhereUniqueInput
     create: XOR<PlatformScreenCreateWithoutFunctionsInput, PlatformScreenUncheckedCreateWithoutFunctionsInput>
+  }
+
+  export type ComponentPurposeCreateWithoutFunctionalityInput = {
+    id?: string
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    layer: ArchitecturalLayerCreateNestedOneWithoutComponentPurposesInput
+    screen?: PlatformScreenCreateNestedOneWithoutComponentPurposesInput
+  }
+
+  export type ComponentPurposeUncheckedCreateWithoutFunctionalityInput = {
+    id?: string
+    layerId: string
+    screenId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComponentPurposeCreateOrConnectWithoutFunctionalityInput = {
+    where: ComponentPurposeWhereUniqueInput
+    create: XOR<ComponentPurposeCreateWithoutFunctionalityInput, ComponentPurposeUncheckedCreateWithoutFunctionalityInput>
+  }
+
+  export type ComponentPurposeCreateManyFunctionalityInputEnvelope = {
+    data: ComponentPurposeCreateManyFunctionalityInput | ComponentPurposeCreateManyFunctionalityInput[]
+    skipDuplicates?: boolean
   }
 
   export type PlatformScreenUpsertWithoutFunctionsInput = {
@@ -345741,6 +355653,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
+    componentPurposes?: ComponentPurposeUpdateManyWithoutScreenNestedInput
   }
 
   export type PlatformScreenUncheckedUpdateWithoutFunctionsInput = {
@@ -345753,6 +355666,23 @@ export namespace Prisma {
     orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    componentPurposes?: ComponentPurposeUncheckedUpdateManyWithoutScreenNestedInput
+  }
+
+  export type ComponentPurposeUpsertWithWhereUniqueWithoutFunctionalityInput = {
+    where: ComponentPurposeWhereUniqueInput
+    update: XOR<ComponentPurposeUpdateWithoutFunctionalityInput, ComponentPurposeUncheckedUpdateWithoutFunctionalityInput>
+    create: XOR<ComponentPurposeCreateWithoutFunctionalityInput, ComponentPurposeUncheckedCreateWithoutFunctionalityInput>
+  }
+
+  export type ComponentPurposeUpdateWithWhereUniqueWithoutFunctionalityInput = {
+    where: ComponentPurposeWhereUniqueInput
+    data: XOR<ComponentPurposeUpdateWithoutFunctionalityInput, ComponentPurposeUncheckedUpdateWithoutFunctionalityInput>
+  }
+
+  export type ComponentPurposeUpdateManyWithWhereWithoutFunctionalityInput = {
+    where: ComponentPurposeScalarWhereInput
+    data: XOR<ComponentPurposeUpdateManyMutationInput, ComponentPurposeUncheckedUpdateManyWithoutFunctionalityInput>
   }
 
   export type UserCreateWithoutShiftCheckInsInput = {
@@ -354767,6 +364697,882 @@ export namespace Prisma {
     carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
   }
 
+  export type ComponentPurposeCreateWithoutLayerInput = {
+    id?: string
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    screen?: PlatformScreenCreateNestedOneWithoutComponentPurposesInput
+    functionality?: ScreenFunctionalityCreateNestedOneWithoutComponentPurposesInput
+  }
+
+  export type ComponentPurposeUncheckedCreateWithoutLayerInput = {
+    id?: string
+    screenId?: string | null
+    functionalityId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComponentPurposeCreateOrConnectWithoutLayerInput = {
+    where: ComponentPurposeWhereUniqueInput
+    create: XOR<ComponentPurposeCreateWithoutLayerInput, ComponentPurposeUncheckedCreateWithoutLayerInput>
+  }
+
+  export type ComponentPurposeCreateManyLayerInputEnvelope = {
+    data: ComponentPurposeCreateManyLayerInput | ComponentPurposeCreateManyLayerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ComponentPurposeUpsertWithWhereUniqueWithoutLayerInput = {
+    where: ComponentPurposeWhereUniqueInput
+    update: XOR<ComponentPurposeUpdateWithoutLayerInput, ComponentPurposeUncheckedUpdateWithoutLayerInput>
+    create: XOR<ComponentPurposeCreateWithoutLayerInput, ComponentPurposeUncheckedCreateWithoutLayerInput>
+  }
+
+  export type ComponentPurposeUpdateWithWhereUniqueWithoutLayerInput = {
+    where: ComponentPurposeWhereUniqueInput
+    data: XOR<ComponentPurposeUpdateWithoutLayerInput, ComponentPurposeUncheckedUpdateWithoutLayerInput>
+  }
+
+  export type ComponentPurposeUpdateManyWithWhereWithoutLayerInput = {
+    where: ComponentPurposeScalarWhereInput
+    data: XOR<ComponentPurposeUpdateManyMutationInput, ComponentPurposeUncheckedUpdateManyWithoutLayerInput>
+  }
+
+  export type ArchitecturalLayerCreateWithoutComponentPurposesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ArchitecturalLayerUncheckedCreateWithoutComponentPurposesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ArchitecturalLayerCreateOrConnectWithoutComponentPurposesInput = {
+    where: ArchitecturalLayerWhereUniqueInput
+    create: XOR<ArchitecturalLayerCreateWithoutComponentPurposesInput, ArchitecturalLayerUncheckedCreateWithoutComponentPurposesInput>
+  }
+
+  export type PlatformScreenCreateWithoutComponentPurposesInput = {
+    id?: string
+    name: string
+    route: string
+    status?: string
+    description?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role: PlatformRoleCreateNestedOneWithoutScreensInput
+    functions?: ScreenFunctionalityCreateNestedManyWithoutScreenInput
+  }
+
+  export type PlatformScreenUncheckedCreateWithoutComponentPurposesInput = {
+    id?: string
+    roleId: string
+    name: string
+    route: string
+    status?: string
+    description?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
+  }
+
+  export type PlatformScreenCreateOrConnectWithoutComponentPurposesInput = {
+    where: PlatformScreenWhereUniqueInput
+    create: XOR<PlatformScreenCreateWithoutComponentPurposesInput, PlatformScreenUncheckedCreateWithoutComponentPurposesInput>
+  }
+
+  export type ScreenFunctionalityCreateWithoutComponentPurposesInput = {
+    id?: string
+    title: string
+    isCore?: boolean
+    status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
+    notes?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    screen: PlatformScreenCreateNestedOneWithoutFunctionsInput
+  }
+
+  export type ScreenFunctionalityUncheckedCreateWithoutComponentPurposesInput = {
+    id?: string
+    screenId: string
+    title: string
+    isCore?: boolean
+    status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
+    notes?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenFunctionalityCreateOrConnectWithoutComponentPurposesInput = {
+    where: ScreenFunctionalityWhereUniqueInput
+    create: XOR<ScreenFunctionalityCreateWithoutComponentPurposesInput, ScreenFunctionalityUncheckedCreateWithoutComponentPurposesInput>
+  }
+
+  export type ArchitecturalLayerUpsertWithoutComponentPurposesInput = {
+    update: XOR<ArchitecturalLayerUpdateWithoutComponentPurposesInput, ArchitecturalLayerUncheckedUpdateWithoutComponentPurposesInput>
+    create: XOR<ArchitecturalLayerCreateWithoutComponentPurposesInput, ArchitecturalLayerUncheckedCreateWithoutComponentPurposesInput>
+    where?: ArchitecturalLayerWhereInput
+  }
+
+  export type ArchitecturalLayerUpdateToOneWithWhereWithoutComponentPurposesInput = {
+    where?: ArchitecturalLayerWhereInput
+    data: XOR<ArchitecturalLayerUpdateWithoutComponentPurposesInput, ArchitecturalLayerUncheckedUpdateWithoutComponentPurposesInput>
+  }
+
+  export type ArchitecturalLayerUpdateWithoutComponentPurposesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArchitecturalLayerUncheckedUpdateWithoutComponentPurposesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformScreenUpsertWithoutComponentPurposesInput = {
+    update: XOR<PlatformScreenUpdateWithoutComponentPurposesInput, PlatformScreenUncheckedUpdateWithoutComponentPurposesInput>
+    create: XOR<PlatformScreenCreateWithoutComponentPurposesInput, PlatformScreenUncheckedCreateWithoutComponentPurposesInput>
+    where?: PlatformScreenWhereInput
+  }
+
+  export type PlatformScreenUpdateToOneWithWhereWithoutComponentPurposesInput = {
+    where?: PlatformScreenWhereInput
+    data: XOR<PlatformScreenUpdateWithoutComponentPurposesInput, PlatformScreenUncheckedUpdateWithoutComponentPurposesInput>
+  }
+
+  export type PlatformScreenUpdateWithoutComponentPurposesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
+    functions?: ScreenFunctionalityUpdateManyWithoutScreenNestedInput
+  }
+
+  export type PlatformScreenUncheckedUpdateWithoutComponentPurposesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
+  }
+
+  export type ScreenFunctionalityUpsertWithoutComponentPurposesInput = {
+    update: XOR<ScreenFunctionalityUpdateWithoutComponentPurposesInput, ScreenFunctionalityUncheckedUpdateWithoutComponentPurposesInput>
+    create: XOR<ScreenFunctionalityCreateWithoutComponentPurposesInput, ScreenFunctionalityUncheckedCreateWithoutComponentPurposesInput>
+    where?: ScreenFunctionalityWhereInput
+  }
+
+  export type ScreenFunctionalityUpdateToOneWithWhereWithoutComponentPurposesInput = {
+    where?: ScreenFunctionalityWhereInput
+    data: XOR<ScreenFunctionalityUpdateWithoutComponentPurposesInput, ScreenFunctionalityUncheckedUpdateWithoutComponentPurposesInput>
+  }
+
+  export type ScreenFunctionalityUpdateWithoutComponentPurposesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    screen?: PlatformScreenUpdateOneRequiredWithoutFunctionsNestedInput
+  }
+
+  export type ScreenFunctionalityUncheckedUpdateWithoutComponentPurposesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SoftwareSystemCreateWithoutDomainInput = {
+    id?: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    components?: SysComponentCreateNestedManyWithoutSystemInput
+  }
+
+  export type SoftwareSystemUncheckedCreateWithoutDomainInput = {
+    id?: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    components?: SysComponentUncheckedCreateNestedManyWithoutSystemInput
+  }
+
+  export type SoftwareSystemCreateOrConnectWithoutDomainInput = {
+    where: SoftwareSystemWhereUniqueInput
+    create: XOR<SoftwareSystemCreateWithoutDomainInput, SoftwareSystemUncheckedCreateWithoutDomainInput>
+  }
+
+  export type SoftwareSystemCreateManyDomainInputEnvelope = {
+    data: SoftwareSystemCreateManyDomainInput | SoftwareSystemCreateManyDomainInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SoftwareSystemUpsertWithWhereUniqueWithoutDomainInput = {
+    where: SoftwareSystemWhereUniqueInput
+    update: XOR<SoftwareSystemUpdateWithoutDomainInput, SoftwareSystemUncheckedUpdateWithoutDomainInput>
+    create: XOR<SoftwareSystemCreateWithoutDomainInput, SoftwareSystemUncheckedCreateWithoutDomainInput>
+  }
+
+  export type SoftwareSystemUpdateWithWhereUniqueWithoutDomainInput = {
+    where: SoftwareSystemWhereUniqueInput
+    data: XOR<SoftwareSystemUpdateWithoutDomainInput, SoftwareSystemUncheckedUpdateWithoutDomainInput>
+  }
+
+  export type SoftwareSystemUpdateManyWithWhereWithoutDomainInput = {
+    where: SoftwareSystemScalarWhereInput
+    data: XOR<SoftwareSystemUpdateManyMutationInput, SoftwareSystemUncheckedUpdateManyWithoutDomainInput>
+  }
+
+  export type SoftwareSystemScalarWhereInput = {
+    AND?: SoftwareSystemScalarWhereInput | SoftwareSystemScalarWhereInput[]
+    OR?: SoftwareSystemScalarWhereInput[]
+    NOT?: SoftwareSystemScalarWhereInput | SoftwareSystemScalarWhereInput[]
+    id?: StringFilter<"SoftwareSystem"> | string
+    domainId?: StringFilter<"SoftwareSystem"> | string
+    name?: StringFilter<"SoftwareSystem"> | string
+    description?: StringNullableFilter<"SoftwareSystem"> | string | null
+    url?: StringNullableFilter<"SoftwareSystem"> | string | null
+    createdAt?: DateTimeFilter<"SoftwareSystem"> | Date | string
+    updatedAt?: DateTimeFilter<"SoftwareSystem"> | Date | string
+  }
+
+  export type SystemDomainCreateWithoutSystemsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    owner?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SystemDomainUncheckedCreateWithoutSystemsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    owner?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SystemDomainCreateOrConnectWithoutSystemsInput = {
+    where: SystemDomainWhereUniqueInput
+    create: XOR<SystemDomainCreateWithoutSystemsInput, SystemDomainUncheckedCreateWithoutSystemsInput>
+  }
+
+  export type SysComponentCreateWithoutSystemInput = {
+    id?: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    providedApis?: ApiContractCreateNestedManyWithoutProviderInput
+    consumedApis?: ApiContractCreateNestedManyWithoutConsumerInput
+    resources?: DataResourceCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentUncheckedCreateWithoutSystemInput = {
+    id?: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    providedApis?: ApiContractUncheckedCreateNestedManyWithoutProviderInput
+    consumedApis?: ApiContractUncheckedCreateNestedManyWithoutConsumerInput
+    resources?: DataResourceUncheckedCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentCreateOrConnectWithoutSystemInput = {
+    where: SysComponentWhereUniqueInput
+    create: XOR<SysComponentCreateWithoutSystemInput, SysComponentUncheckedCreateWithoutSystemInput>
+  }
+
+  export type SysComponentCreateManySystemInputEnvelope = {
+    data: SysComponentCreateManySystemInput | SysComponentCreateManySystemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SystemDomainUpsertWithoutSystemsInput = {
+    update: XOR<SystemDomainUpdateWithoutSystemsInput, SystemDomainUncheckedUpdateWithoutSystemsInput>
+    create: XOR<SystemDomainCreateWithoutSystemsInput, SystemDomainUncheckedCreateWithoutSystemsInput>
+    where?: SystemDomainWhereInput
+  }
+
+  export type SystemDomainUpdateToOneWithWhereWithoutSystemsInput = {
+    where?: SystemDomainWhereInput
+    data: XOR<SystemDomainUpdateWithoutSystemsInput, SystemDomainUncheckedUpdateWithoutSystemsInput>
+  }
+
+  export type SystemDomainUpdateWithoutSystemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemDomainUncheckedUpdateWithoutSystemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SysComponentUpsertWithWhereUniqueWithoutSystemInput = {
+    where: SysComponentWhereUniqueInput
+    update: XOR<SysComponentUpdateWithoutSystemInput, SysComponentUncheckedUpdateWithoutSystemInput>
+    create: XOR<SysComponentCreateWithoutSystemInput, SysComponentUncheckedCreateWithoutSystemInput>
+  }
+
+  export type SysComponentUpdateWithWhereUniqueWithoutSystemInput = {
+    where: SysComponentWhereUniqueInput
+    data: XOR<SysComponentUpdateWithoutSystemInput, SysComponentUncheckedUpdateWithoutSystemInput>
+  }
+
+  export type SysComponentUpdateManyWithWhereWithoutSystemInput = {
+    where: SysComponentScalarWhereInput
+    data: XOR<SysComponentUpdateManyMutationInput, SysComponentUncheckedUpdateManyWithoutSystemInput>
+  }
+
+  export type SysComponentScalarWhereInput = {
+    AND?: SysComponentScalarWhereInput | SysComponentScalarWhereInput[]
+    OR?: SysComponentScalarWhereInput[]
+    NOT?: SysComponentScalarWhereInput | SysComponentScalarWhereInput[]
+    id?: StringFilter<"SysComponent"> | string
+    systemId?: StringFilter<"SysComponent"> | string
+    name?: StringFilter<"SysComponent"> | string
+    type?: StringFilter<"SysComponent"> | string
+    language?: StringNullableFilter<"SysComponent"> | string | null
+    description?: StringNullableFilter<"SysComponent"> | string | null
+    status?: StringFilter<"SysComponent"> | string
+    repoPath?: StringNullableFilter<"SysComponent"> | string | null
+    createdAt?: DateTimeFilter<"SysComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"SysComponent"> | Date | string
+  }
+
+  export type SoftwareSystemCreateWithoutComponentsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    domain: SystemDomainCreateNestedOneWithoutSystemsInput
+  }
+
+  export type SoftwareSystemUncheckedCreateWithoutComponentsInput = {
+    id?: string
+    domainId: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SoftwareSystemCreateOrConnectWithoutComponentsInput = {
+    where: SoftwareSystemWhereUniqueInput
+    create: XOR<SoftwareSystemCreateWithoutComponentsInput, SoftwareSystemUncheckedCreateWithoutComponentsInput>
+  }
+
+  export type ApiContractCreateWithoutProviderInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    consumer?: SysComponentCreateNestedOneWithoutConsumedApisInput
+  }
+
+  export type ApiContractUncheckedCreateWithoutProviderInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    consumerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApiContractCreateOrConnectWithoutProviderInput = {
+    where: ApiContractWhereUniqueInput
+    create: XOR<ApiContractCreateWithoutProviderInput, ApiContractUncheckedCreateWithoutProviderInput>
+  }
+
+  export type ApiContractCreateManyProviderInputEnvelope = {
+    data: ApiContractCreateManyProviderInput | ApiContractCreateManyProviderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ApiContractCreateWithoutConsumerInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    provider: SysComponentCreateNestedOneWithoutProvidedApisInput
+  }
+
+  export type ApiContractUncheckedCreateWithoutConsumerInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApiContractCreateOrConnectWithoutConsumerInput = {
+    where: ApiContractWhereUniqueInput
+    create: XOR<ApiContractCreateWithoutConsumerInput, ApiContractUncheckedCreateWithoutConsumerInput>
+  }
+
+  export type ApiContractCreateManyConsumerInputEnvelope = {
+    data: ApiContractCreateManyConsumerInput | ApiContractCreateManyConsumerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DataResourceCreateWithoutComponentInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DataResourceUncheckedCreateWithoutComponentInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DataResourceCreateOrConnectWithoutComponentInput = {
+    where: DataResourceWhereUniqueInput
+    create: XOR<DataResourceCreateWithoutComponentInput, DataResourceUncheckedCreateWithoutComponentInput>
+  }
+
+  export type DataResourceCreateManyComponentInputEnvelope = {
+    data: DataResourceCreateManyComponentInput | DataResourceCreateManyComponentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SoftwareSystemUpsertWithoutComponentsInput = {
+    update: XOR<SoftwareSystemUpdateWithoutComponentsInput, SoftwareSystemUncheckedUpdateWithoutComponentsInput>
+    create: XOR<SoftwareSystemCreateWithoutComponentsInput, SoftwareSystemUncheckedCreateWithoutComponentsInput>
+    where?: SoftwareSystemWhereInput
+  }
+
+  export type SoftwareSystemUpdateToOneWithWhereWithoutComponentsInput = {
+    where?: SoftwareSystemWhereInput
+    data: XOR<SoftwareSystemUpdateWithoutComponentsInput, SoftwareSystemUncheckedUpdateWithoutComponentsInput>
+  }
+
+  export type SoftwareSystemUpdateWithoutComponentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    domain?: SystemDomainUpdateOneRequiredWithoutSystemsNestedInput
+  }
+
+  export type SoftwareSystemUncheckedUpdateWithoutComponentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domainId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractUpsertWithWhereUniqueWithoutProviderInput = {
+    where: ApiContractWhereUniqueInput
+    update: XOR<ApiContractUpdateWithoutProviderInput, ApiContractUncheckedUpdateWithoutProviderInput>
+    create: XOR<ApiContractCreateWithoutProviderInput, ApiContractUncheckedCreateWithoutProviderInput>
+  }
+
+  export type ApiContractUpdateWithWhereUniqueWithoutProviderInput = {
+    where: ApiContractWhereUniqueInput
+    data: XOR<ApiContractUpdateWithoutProviderInput, ApiContractUncheckedUpdateWithoutProviderInput>
+  }
+
+  export type ApiContractUpdateManyWithWhereWithoutProviderInput = {
+    where: ApiContractScalarWhereInput
+    data: XOR<ApiContractUpdateManyMutationInput, ApiContractUncheckedUpdateManyWithoutProviderInput>
+  }
+
+  export type ApiContractScalarWhereInput = {
+    AND?: ApiContractScalarWhereInput | ApiContractScalarWhereInput[]
+    OR?: ApiContractScalarWhereInput[]
+    NOT?: ApiContractScalarWhereInput | ApiContractScalarWhereInput[]
+    id?: StringFilter<"ApiContract"> | string
+    name?: StringFilter<"ApiContract"> | string
+    type?: StringFilter<"ApiContract"> | string
+    description?: StringNullableFilter<"ApiContract"> | string | null
+    providerId?: StringFilter<"ApiContract"> | string
+    consumerId?: StringNullableFilter<"ApiContract"> | string | null
+    createdAt?: DateTimeFilter<"ApiContract"> | Date | string
+    updatedAt?: DateTimeFilter<"ApiContract"> | Date | string
+  }
+
+  export type ApiContractUpsertWithWhereUniqueWithoutConsumerInput = {
+    where: ApiContractWhereUniqueInput
+    update: XOR<ApiContractUpdateWithoutConsumerInput, ApiContractUncheckedUpdateWithoutConsumerInput>
+    create: XOR<ApiContractCreateWithoutConsumerInput, ApiContractUncheckedCreateWithoutConsumerInput>
+  }
+
+  export type ApiContractUpdateWithWhereUniqueWithoutConsumerInput = {
+    where: ApiContractWhereUniqueInput
+    data: XOR<ApiContractUpdateWithoutConsumerInput, ApiContractUncheckedUpdateWithoutConsumerInput>
+  }
+
+  export type ApiContractUpdateManyWithWhereWithoutConsumerInput = {
+    where: ApiContractScalarWhereInput
+    data: XOR<ApiContractUpdateManyMutationInput, ApiContractUncheckedUpdateManyWithoutConsumerInput>
+  }
+
+  export type DataResourceUpsertWithWhereUniqueWithoutComponentInput = {
+    where: DataResourceWhereUniqueInput
+    update: XOR<DataResourceUpdateWithoutComponentInput, DataResourceUncheckedUpdateWithoutComponentInput>
+    create: XOR<DataResourceCreateWithoutComponentInput, DataResourceUncheckedCreateWithoutComponentInput>
+  }
+
+  export type DataResourceUpdateWithWhereUniqueWithoutComponentInput = {
+    where: DataResourceWhereUniqueInput
+    data: XOR<DataResourceUpdateWithoutComponentInput, DataResourceUncheckedUpdateWithoutComponentInput>
+  }
+
+  export type DataResourceUpdateManyWithWhereWithoutComponentInput = {
+    where: DataResourceScalarWhereInput
+    data: XOR<DataResourceUpdateManyMutationInput, DataResourceUncheckedUpdateManyWithoutComponentInput>
+  }
+
+  export type DataResourceScalarWhereInput = {
+    AND?: DataResourceScalarWhereInput | DataResourceScalarWhereInput[]
+    OR?: DataResourceScalarWhereInput[]
+    NOT?: DataResourceScalarWhereInput | DataResourceScalarWhereInput[]
+    id?: StringFilter<"DataResource"> | string
+    componentId?: StringFilter<"DataResource"> | string
+    name?: StringFilter<"DataResource"> | string
+    type?: StringFilter<"DataResource"> | string
+    description?: StringNullableFilter<"DataResource"> | string | null
+    createdAt?: DateTimeFilter<"DataResource"> | Date | string
+    updatedAt?: DateTimeFilter<"DataResource"> | Date | string
+  }
+
+  export type SysComponentCreateWithoutProvidedApisInput = {
+    id?: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    system: SoftwareSystemCreateNestedOneWithoutComponentsInput
+    consumedApis?: ApiContractCreateNestedManyWithoutConsumerInput
+    resources?: DataResourceCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentUncheckedCreateWithoutProvidedApisInput = {
+    id?: string
+    systemId: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    consumedApis?: ApiContractUncheckedCreateNestedManyWithoutConsumerInput
+    resources?: DataResourceUncheckedCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentCreateOrConnectWithoutProvidedApisInput = {
+    where: SysComponentWhereUniqueInput
+    create: XOR<SysComponentCreateWithoutProvidedApisInput, SysComponentUncheckedCreateWithoutProvidedApisInput>
+  }
+
+  export type SysComponentCreateWithoutConsumedApisInput = {
+    id?: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    system: SoftwareSystemCreateNestedOneWithoutComponentsInput
+    providedApis?: ApiContractCreateNestedManyWithoutProviderInput
+    resources?: DataResourceCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentUncheckedCreateWithoutConsumedApisInput = {
+    id?: string
+    systemId: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    providedApis?: ApiContractUncheckedCreateNestedManyWithoutProviderInput
+    resources?: DataResourceUncheckedCreateNestedManyWithoutComponentInput
+  }
+
+  export type SysComponentCreateOrConnectWithoutConsumedApisInput = {
+    where: SysComponentWhereUniqueInput
+    create: XOR<SysComponentCreateWithoutConsumedApisInput, SysComponentUncheckedCreateWithoutConsumedApisInput>
+  }
+
+  export type SysComponentUpsertWithoutProvidedApisInput = {
+    update: XOR<SysComponentUpdateWithoutProvidedApisInput, SysComponentUncheckedUpdateWithoutProvidedApisInput>
+    create: XOR<SysComponentCreateWithoutProvidedApisInput, SysComponentUncheckedCreateWithoutProvidedApisInput>
+    where?: SysComponentWhereInput
+  }
+
+  export type SysComponentUpdateToOneWithWhereWithoutProvidedApisInput = {
+    where?: SysComponentWhereInput
+    data: XOR<SysComponentUpdateWithoutProvidedApisInput, SysComponentUncheckedUpdateWithoutProvidedApisInput>
+  }
+
+  export type SysComponentUpdateWithoutProvidedApisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    system?: SoftwareSystemUpdateOneRequiredWithoutComponentsNestedInput
+    consumedApis?: ApiContractUpdateManyWithoutConsumerNestedInput
+    resources?: DataResourceUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentUncheckedUpdateWithoutProvidedApisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    systemId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedApis?: ApiContractUncheckedUpdateManyWithoutConsumerNestedInput
+    resources?: DataResourceUncheckedUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentUpsertWithoutConsumedApisInput = {
+    update: XOR<SysComponentUpdateWithoutConsumedApisInput, SysComponentUncheckedUpdateWithoutConsumedApisInput>
+    create: XOR<SysComponentCreateWithoutConsumedApisInput, SysComponentUncheckedCreateWithoutConsumedApisInput>
+    where?: SysComponentWhereInput
+  }
+
+  export type SysComponentUpdateToOneWithWhereWithoutConsumedApisInput = {
+    where?: SysComponentWhereInput
+    data: XOR<SysComponentUpdateWithoutConsumedApisInput, SysComponentUncheckedUpdateWithoutConsumedApisInput>
+  }
+
+  export type SysComponentUpdateWithoutConsumedApisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    system?: SoftwareSystemUpdateOneRequiredWithoutComponentsNestedInput
+    providedApis?: ApiContractUpdateManyWithoutProviderNestedInput
+    resources?: DataResourceUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentUncheckedUpdateWithoutConsumedApisInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    systemId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providedApis?: ApiContractUncheckedUpdateManyWithoutProviderNestedInput
+    resources?: DataResourceUncheckedUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentCreateWithoutResourcesInput = {
+    id?: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    system: SoftwareSystemCreateNestedOneWithoutComponentsInput
+    providedApis?: ApiContractCreateNestedManyWithoutProviderInput
+    consumedApis?: ApiContractCreateNestedManyWithoutConsumerInput
+  }
+
+  export type SysComponentUncheckedCreateWithoutResourcesInput = {
+    id?: string
+    systemId: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    providedApis?: ApiContractUncheckedCreateNestedManyWithoutProviderInput
+    consumedApis?: ApiContractUncheckedCreateNestedManyWithoutConsumerInput
+  }
+
+  export type SysComponentCreateOrConnectWithoutResourcesInput = {
+    where: SysComponentWhereUniqueInput
+    create: XOR<SysComponentCreateWithoutResourcesInput, SysComponentUncheckedCreateWithoutResourcesInput>
+  }
+
+  export type SysComponentUpsertWithoutResourcesInput = {
+    update: XOR<SysComponentUpdateWithoutResourcesInput, SysComponentUncheckedUpdateWithoutResourcesInput>
+    create: XOR<SysComponentCreateWithoutResourcesInput, SysComponentUncheckedCreateWithoutResourcesInput>
+    where?: SysComponentWhereInput
+  }
+
+  export type SysComponentUpdateToOneWithWhereWithoutResourcesInput = {
+    where?: SysComponentWhereInput
+    data: XOR<SysComponentUpdateWithoutResourcesInput, SysComponentUncheckedUpdateWithoutResourcesInput>
+  }
+
+  export type SysComponentUpdateWithoutResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    system?: SoftwareSystemUpdateOneRequiredWithoutComponentsNestedInput
+    providedApis?: ApiContractUpdateManyWithoutProviderNestedInput
+    consumedApis?: ApiContractUpdateManyWithoutConsumerNestedInput
+  }
+
+  export type SysComponentUncheckedUpdateWithoutResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    systemId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providedApis?: ApiContractUncheckedUpdateManyWithoutProviderNestedInput
+    consumedApis?: ApiContractUncheckedUpdateManyWithoutConsumerNestedInput
+  }
+
   export type PatientCreateWithoutClinicInput = {
     id?: string
     firstName: string
@@ -355073,6 +365879,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -355840,6 +366647,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutTransactionLedgerNestedInput
   }
@@ -355860,6 +366668,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -355879,6 +366688,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -357303,6 +368113,7 @@ export namespace Prisma {
     previousChecksum?: string | null
     status?: string
     voidedByEntryId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -357470,6 +368281,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JournalEntryCreateManyTenantInput = {
@@ -359846,6 +370658,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     actor?: UserUpdateOneWithoutLedgerEntriesNestedInput
   }
@@ -359866,6 +370679,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -359885,6 +370699,7 @@ export namespace Prisma {
     previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -360550,6 +371365,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryUpdateManyWithoutTransactionNestedInput
     reconciliations?: FinancialReconciliationUpdateManyWithoutTransactionNestedInput
   }
@@ -360563,6 +371379,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     journalEntries?: JournalEntryUncheckedUpdateManyWithoutTransactionNestedInput
     reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTransactionNestedInput
   }
@@ -360576,6 +371393,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JournalEntryUpdateWithoutTenantInput = {
@@ -361670,6 +372488,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUpdateManyWithoutScreenNestedInput
+    componentPurposes?: ComponentPurposeUpdateManyWithoutScreenNestedInput
   }
 
   export type PlatformScreenUncheckedUpdateWithoutRoleInput = {
@@ -361682,6 +372501,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
+    componentPurposes?: ComponentPurposeUncheckedUpdateManyWithoutScreenNestedInput
   }
 
   export type PlatformScreenUncheckedUpdateManyWithoutRoleInput = {
@@ -366017,6 +376837,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ComponentPurposeCreateManyScreenInput = {
+    id?: string
+    layerId: string
+    functionalityId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ScreenFunctionalityUpdateWithoutScreenInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -366029,6 +376861,7 @@ export namespace Prisma {
     orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    componentPurposes?: ComponentPurposeUpdateManyWithoutFunctionalityNestedInput
   }
 
   export type ScreenFunctionalityUncheckedUpdateWithoutScreenInput = {
@@ -366043,6 +376876,7 @@ export namespace Prisma {
     orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    componentPurposes?: ComponentPurposeUncheckedUpdateManyWithoutFunctionalityNestedInput
   }
 
   export type ScreenFunctionalityUncheckedUpdateManyWithoutScreenInput = {
@@ -366055,6 +376889,346 @@ export namespace Prisma {
     justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeUpdateWithoutScreenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    layer?: ArchitecturalLayerUpdateOneRequiredWithoutComponentPurposesNestedInput
+    functionality?: ScreenFunctionalityUpdateOneWithoutComponentPurposesNestedInput
+  }
+
+  export type ComponentPurposeUncheckedUpdateWithoutScreenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    layerId?: StringFieldUpdateOperationsInput | string
+    functionalityId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeUncheckedUpdateManyWithoutScreenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    layerId?: StringFieldUpdateOperationsInput | string
+    functionalityId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeCreateManyFunctionalityInput = {
+    id?: string
+    layerId: string
+    screenId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComponentPurposeUpdateWithoutFunctionalityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    layer?: ArchitecturalLayerUpdateOneRequiredWithoutComponentPurposesNestedInput
+    screen?: PlatformScreenUpdateOneWithoutComponentPurposesNestedInput
+  }
+
+  export type ComponentPurposeUncheckedUpdateWithoutFunctionalityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    layerId?: StringFieldUpdateOperationsInput | string
+    screenId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeUncheckedUpdateManyWithoutFunctionalityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    layerId?: StringFieldUpdateOperationsInput | string
+    screenId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeCreateManyLayerInput = {
+    id?: string
+    screenId?: string | null
+    functionalityId?: string | null
+    targetFile?: string | null
+    description: string
+    implementedWell?: boolean
+    anomaliesDetail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComponentPurposeUpdateWithoutLayerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    screen?: PlatformScreenUpdateOneWithoutComponentPurposesNestedInput
+    functionality?: ScreenFunctionalityUpdateOneWithoutComponentPurposesNestedInput
+  }
+
+  export type ComponentPurposeUncheckedUpdateWithoutLayerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: NullableStringFieldUpdateOperationsInput | string | null
+    functionalityId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentPurposeUncheckedUpdateManyWithoutLayerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: NullableStringFieldUpdateOperationsInput | string | null
+    functionalityId?: NullableStringFieldUpdateOperationsInput | string | null
+    targetFile?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    implementedWell?: BoolFieldUpdateOperationsInput | boolean
+    anomaliesDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SoftwareSystemCreateManyDomainInput = {
+    id?: string
+    name: string
+    description?: string | null
+    url?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SoftwareSystemUpdateWithoutDomainInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    components?: SysComponentUpdateManyWithoutSystemNestedInput
+  }
+
+  export type SoftwareSystemUncheckedUpdateWithoutDomainInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    components?: SysComponentUncheckedUpdateManyWithoutSystemNestedInput
+  }
+
+  export type SoftwareSystemUncheckedUpdateManyWithoutDomainInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SysComponentCreateManySystemInput = {
+    id?: string
+    name: string
+    type: string
+    language?: string | null
+    description?: string | null
+    status?: string
+    repoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SysComponentUpdateWithoutSystemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providedApis?: ApiContractUpdateManyWithoutProviderNestedInput
+    consumedApis?: ApiContractUpdateManyWithoutConsumerNestedInput
+    resources?: DataResourceUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentUncheckedUpdateWithoutSystemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providedApis?: ApiContractUncheckedUpdateManyWithoutProviderNestedInput
+    consumedApis?: ApiContractUncheckedUpdateManyWithoutConsumerNestedInput
+    resources?: DataResourceUncheckedUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SysComponentUncheckedUpdateManyWithoutSystemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    repoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractCreateManyProviderInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    consumerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApiContractCreateManyConsumerInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DataResourceCreateManyComponentInput = {
+    id?: string
+    name: string
+    type: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApiContractUpdateWithoutProviderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumer?: SysComponentUpdateOneWithoutConsumedApisNestedInput
+  }
+
+  export type ApiContractUncheckedUpdateWithoutProviderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    consumerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractUncheckedUpdateManyWithoutProviderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    consumerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractUpdateWithoutConsumerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    provider?: SysComponentUpdateOneRequiredWithoutProvidedApisNestedInput
+  }
+
+  export type ApiContractUncheckedUpdateWithoutConsumerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiContractUncheckedUpdateManyWithoutConsumerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataResourceUpdateWithoutComponentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataResourceUncheckedUpdateWithoutComponentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataResourceUncheckedUpdateManyWithoutComponentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -366224,6 +377398,26 @@ export namespace Prisma {
      * @deprecated Use PlatformScreenCountOutputTypeDefaultArgs instead
      */
     export type PlatformScreenCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformScreenCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ScreenFunctionalityCountOutputTypeDefaultArgs instead
+     */
+    export type ScreenFunctionalityCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ScreenFunctionalityCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ArchitecturalLayerCountOutputTypeDefaultArgs instead
+     */
+    export type ArchitecturalLayerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ArchitecturalLayerCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SystemDomainCountOutputTypeDefaultArgs instead
+     */
+    export type SystemDomainCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SystemDomainCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SoftwareSystemCountOutputTypeDefaultArgs instead
+     */
+    export type SoftwareSystemCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SoftwareSystemCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SysComponentCountOutputTypeDefaultArgs instead
+     */
+    export type SysComponentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SysComponentCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ClinicCountOutputTypeDefaultArgs instead
      */
@@ -366756,6 +377950,34 @@ export namespace Prisma {
      * @deprecated Use AnomalyReportDefaultArgs instead
      */
     export type AnomalyReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AnomalyReportDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ArchitecturalLayerDefaultArgs instead
+     */
+    export type ArchitecturalLayerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ArchitecturalLayerDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ComponentPurposeDefaultArgs instead
+     */
+    export type ComponentPurposeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ComponentPurposeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SystemDomainDefaultArgs instead
+     */
+    export type SystemDomainArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SystemDomainDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SoftwareSystemDefaultArgs instead
+     */
+    export type SoftwareSystemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SoftwareSystemDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SysComponentDefaultArgs instead
+     */
+    export type SysComponentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SysComponentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ApiContractDefaultArgs instead
+     */
+    export type ApiContractArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ApiContractDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DataResourceDefaultArgs instead
+     */
+    export type DataResourceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DataResourceDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class AuthSplitLayoutViewModel {
@@ -14,10 +15,15 @@ class AuthSplitLayoutAdapter extends Notifier<AuthSplitLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = AuthSplitLayoutViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = AuthSplitLayoutViewModel(isLoading: false, data: {});
+        state = AuthSplitLayoutViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/auth-split-layout-adapter');
+      state = AuthSplitLayoutViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = AuthSplitLayoutViewModel(isLoading: false, data: {});
+    }
   }
 }
 

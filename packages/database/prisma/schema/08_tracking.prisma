@@ -13,6 +13,7 @@ model PlatformScreen {
 
   role      PlatformRole          @relation(fields: [roleId], references: [id])
   functions ScreenFunctionality[]
+  componentPurposes ComponentPurpose[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -34,6 +35,7 @@ model ScreenFunctionality {
   orderIndex      Int     @default(0) @map("order_index")
 
   screen PlatformScreen @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  componentPurposes ComponentPurpose[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

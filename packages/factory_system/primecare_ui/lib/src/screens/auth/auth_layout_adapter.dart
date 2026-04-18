@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class AuthLayoutViewModel {
@@ -14,10 +15,15 @@ class AuthLayoutAdapter extends Notifier<AuthLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = AuthLayoutViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = AuthLayoutViewModel(isLoading: false, data: {});
+        state = AuthLayoutViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/auth-layout-adapter');
+      state = AuthLayoutViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = AuthLayoutViewModel(isLoading: false, data: {});
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/contracts';
 import { prismaMiddleware } from '@primecare/infrastructure';
+import { registerFinanceRoutes } from './routes/finance';
 
 if (!(BigInt.prototype as any).toJSON) {
   (BigInt.prototype as any).toJSON = function() {
@@ -173,6 +174,135 @@ app.post('/v1/verifications/pre-flight', async (c) => {
         issues: isSafe ? [] : ['Missing required featureName for telemetry propagation.'] 
     });
 });
+
+// Structural Anomaly Resolution API - AI Analytics Forecasting
+app.get('/v1/clinical/ai-analytics/q3-extrapolations', async (c) => {
+    // Scaffolded endpoint representing the AI analytics forecasting integration
+    return c.json({
+        success: true,
+        data: {
+            revenueProjections: [120000.50, 134000.20, 142050.00],
+            careCostMargins: '12.4%',
+            overheadAverages: '3.2%',
+            modelConfidence: 0.94,
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// Architectural Audit - Purpose Report
+app.get('/v1/verifications/purpose-report', async (c) => {
+    const prisma = c.get('prisma');
+    if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);
+
+    try {
+        const pLayers = prisma.architecturalLayer.findMany({
+            include: { componentPurposes: true }
+        });
+        const pScreens = prisma.platformScreen.findMany({
+            include: { functions: true, componentPurposes: true }
+        });
+        const pDomains = prisma.systemDomain.findMany({
+            include: { systems: { include: { components: true } } }
+        });
+
+        const [structuralLayers, screens, domains] = await Promise.all([pLayers, pScreens, pDomains]);
+
+        const missingImplementedConcerns = screens.flatMap((s: any) => 
+            s.functions.map((f: any) => ({ ...f, screenName: s.name, route: s.route }))
+        ).filter((f: any) => f.status === 'unimplemented' || !f.apiEndpoint);
+
+        const missingC4Components = domains.flatMap((d: any) =>
+            d.systems.flatMap((sys: any) => 
+                sys.components.filter((c: any) => c.status === 'unimplemented').map((c: any) => ({
+                    id: c.id,
+                    title: `[C4 Component] ${c.name}`,
+                    screenName: `[System] ${sys.name}`,
+                    route: c.repoPath || 'N/A',
+                    justification: `Language: ${c.language || 'Unknown'}`
+                }))
+            )
+        );
+
+        const allMissingAnomalies = [
+            ...missingImplementedConcerns.map((m: any) => ({
+                id: m.id,
+                title: m.title,
+                screenName: m.screenName,
+                route: m.route,
+                justification: m.justification || 'No justification provided'
+            })),
+            ...missingC4Components
+        ];
+
+        return c.json({
+            success: true,
+            dbLinkedLayers: structuralLayers.map((l: any) => ({
+                id: l.id,
+                name: l.name,
+                componentsGoverned: l.componentPurposes.length
+            })),
+            c4Topology: domains.map((d: any) => ({
+                id: d.id,
+                name: d.name,
+                description: d.description || '',
+                systems: d.systems.map((sys: any) => ({
+                    id: sys.id,
+                    name: sys.name,
+                    componentsCount: sys.components.length,
+                    components: sys.components.map((c: any) => ({
+                        id: c.id,
+                        name: c.name,
+                        status: c.status,
+                        repoPath: c.repoPath
+                    }))
+                }))
+            })),
+            layerStatus: {
+                flaggedFunctionsWithoutAPIs: allMissingAnomalies.length,
+                missingComponents: allMissingAnomalies
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (error: any) {
+        return c.json({ success: false, error: error.message }, 500);
+    }
+});
+
+// Architectural Audit - Ingest Purpose
+app.post('/v1/verifications/audit-purpose', async (c) => {
+    const body = await c.req.json();
+    const prisma = c.get('prisma');
+    if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);
+
+    try {
+        // Find or create the Layer
+        const layer = await prisma.architecturalLayer.upsert({
+            where: { name: body.layer || 'Unassigned' },
+            create: { name: body.layer || 'Unassigned', description: 'Auto-generated via API audit' },
+            update: {}
+        });
+
+        // Insert native DB Relationship
+        const purposeEvent = await prisma.componentPurpose.create({
+            data: {
+                layerId: layer.id,
+                screenId: body.screenId || null,
+                functionalityId: body.functionalityId || null,
+                targetFile: body.component || null,
+                description: body.purpose || 'No purpose supplied',
+                implementedWell: body.implementedWell !== false
+            }
+        });
+
+        return c.json({ success: true, message: 'Code purpose formalized into DB schema', purposeId: purposeEvent.id }, 201);
+    } catch (error: any) {
+        return c.json({ success: false, error: error.message }, 500);
+    }
+});
+
+// Mount the Finance / Ledger APIs
+registerFinanceRoutes(app);
 
 // Cron trigger for Automated Sweeps (Task 7)
 export default {

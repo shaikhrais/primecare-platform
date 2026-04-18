@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class AuditSystemLogsFormViewModel {
@@ -15,10 +16,15 @@ class AuditSystemLogsFormAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = AuditSystemLogsFormViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = AuditSystemLogsFormViewModel(isLoading: false, data: {});
+        state = AuditSystemLogsFormViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/audit-system-logs-form-adapter');
+      state = AuditSystemLogsFormViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = AuditSystemLogsFormViewModel(isLoading: false, data: {});
+    }
   }
 }
 

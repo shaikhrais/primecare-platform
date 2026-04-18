@@ -47,6 +47,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
+      - name: Architectural Governance Gate
+        run: npm run check-architecture
+        working-directory: packages/database
+
       - name: Run Global Pipeline (Test/Lint/Typecheck)
         run: npx turbo run typecheck lint test --concurrency=4
 

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class DynamicRoleDashboardScreenViewModel {
@@ -15,13 +16,15 @@ class DynamicRoleDashboardScreenAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = DynamicRoleDashboardScreenViewModel(
-      isLoading: true,
-      data: state.data,
-    );
-    // Simulate fetch
-    state = DynamicRoleDashboardScreenViewModel(isLoading: false, data: {});
+        state = dynamic(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/dynamic-role-dashboard-screen-adapter');
+      state = dynamic(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = dynamic(isLoading: false, data: {});
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class GreetingHeaderWidgetViewModel {
@@ -15,10 +16,15 @@ class GreetingHeaderWidgetAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = GreetingHeaderWidgetViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = GreetingHeaderWidgetViewModel(isLoading: false, data: {});
+        state = GreetingHeaderWidgetViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/greeting-header-widget-adapter');
+      state = GreetingHeaderWidgetViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = GreetingHeaderWidgetViewModel(isLoading: false, data: {});
+    }
   }
 }
 

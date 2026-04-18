@@ -35,6 +35,7 @@ export 'src/corporate/compliance_manager/adapters/compliance_manager_dashboard_a
 export 'src/corporate/coo/adapters/coo_dashboard_adapter.dart';
 export 'src/corporate/cto/adapters/cto_dashboard_adapter.dart';
 export 'src/corporate/cto/adapters/system_verification_adapter.dart';
+export 'src/corporate/cto/adapters/architecture_planning_adapter.dart';
 export 'src/corporate/general_manager/adapters/general_manager_dashboard_adapter.dart';
 export 'src/corporate/head_of_business_development/adapters/head_of_bus_dev_dashboard_adapter.dart';
 export 'src/corporate/scrum_master/adapters/scrum_master_dashboard_adapter.dart';

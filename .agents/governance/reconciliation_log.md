@@ -48,3 +48,16 @@ This document records the output of the 5th layer of the Feature Governance syst
 * **Decision:** Injected a global BigInt serialization normalization directly into the Cloudflare Worker and successfully re-deployed to edge. 
 * **Owner:** Engineering Lead
 * **Status:** ✅ RESOLVED (Worker deployed. Final Edge API sweep returned `success: true` with 932 aggregated rows across 192 tables. UI validation complete.)
+
+### LOG-004: C4 Enterprise Structural Governance Gate
+
+* **Date:** 2026-04-18
+* **Feature:** CI/CD Architectural Gate (`npm run check-architecture`)
+* **Mismatch:**
+  * **Intent:** Deployments must not occur if there are any orphaned architectural intents that are documented but not implemented in the codebase.
+  * **Code (UI/API):** The verification hub lacked micro-component tracking (SysComponent) mapped directly back to source code locations (`repoPath`).
+  * **Code (DB):** Original C4 topology definitions (`11_c4_topology.prisma`) didn't feature component-level life cycle definitions for unimplemented elements.
+* **Root Cause:** A governance capability gap for enforcing zero-latency architecture mapping in an enterprise environment where architecture designs precede code.
+* **Decision:** Extracted the C4 Component schema natively into Prisma (`12_architecture_governance.prisma`). Linked the CI/CD pipeline verification script natively into the Verification Edge Worker. 
+* **Owner:** Systems Architect
+* **Status:** ✅ RESOLVED (Injected intentional anomalies "Offline Sync Engine" and "AI Forecast" which successfully triggered an immediate CI exit code. Gate has proven fully deterministic.)

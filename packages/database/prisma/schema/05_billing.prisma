@@ -151,6 +151,7 @@ model FinancialTransaction {
   tenantId    String   @map("tenant_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
+  metadata    Json?    @map("metadata")
 
   tenant          Tenant                    @relation(fields: [tenantId], references: [id])
   journalEntries  JournalEntry[]
@@ -237,6 +238,7 @@ model TransactionLedger {
   previousChecksum String?  @map("previous_checksum") // SHA-256 of previous entry
   status           String   @default("sealed") // sealed = immutable, voided = reversed by another entry
   voidedByEntryId  String?  @map("voided_by_entry_id") // links to the reversal entry
+  metadata         Json?    @map("metadata")
   createdAt        DateTime @default(now()) @map("created_at")
   // NO updatedAt — records are immutable
 

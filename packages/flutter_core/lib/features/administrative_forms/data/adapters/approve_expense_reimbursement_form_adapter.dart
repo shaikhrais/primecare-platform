@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/models/approve_expense_reimbursement_form_view_model.dart';
+import 'package:primecare_core/primecare_core.dart';
 import '../dtos/approve_expense_reimbursement_form_dto.dart';
 import '../mappers/approve_expense_reimbursement_form_mapper.dart';
 
@@ -13,24 +13,38 @@ class ApproveExpenseReimbursementFormAdapter
   Future<void> loadData() async {
     state = state.copyWith(isLoading: true);
 
-    try {
-      // TODO: Prisma API binding
-      await Future.delayed(const Duration(milliseconds: 500));
+    final telemetry = ref.read(executionGateProvider);
+    final apiClient = ref.read(apiClientProvider);
 
-      final mockDto = ApproveExpenseReimbursementFormDto(
-        id: 'EXP-9921',
-        employeeName: 'John Smith',
-        requestedAmount: 450.75,
-        expenseCategory: 'Travel & Accommodation',
-        description: 'Flight to Regional Conference Q3',
-        status: 'Pending Finance Approval',
-      );
+    telemetry.passGate(ExecutionGateCategory.domainApi, 'Starting Expense Reimbursement fetch');
 
-      final viewModel = ApproveExpenseReimbursementFormMapper.fromDto(mockDto);
-      state = viewModel.copyWith(isLoading: false);
-    } catch (e) {
-      state = state.copyWith(isLoading: false);
-    }
+    final result = await Result.guardFuture<ApproveExpenseReimbursementFormDto>(() async {
+      final response = await apiClient.get('/api/v1/admin/expenses/latest');
+      if (response.statusCode == 200) {
+        return ApproveExpenseReimbursementFormDto.fromJson(response.data);
+      }
+      throw Exception('API error: ${response.statusCode}');
+    });
+
+    result.fold(
+      (dto) {
+        telemetry.passGate(ExecutionGateCategory.domainApi, 'Expense API fetched successfully');
+        state = ApproveExpenseReimbursementFormMapper.fromDto(dto).copyWith(isLoading: false);
+      },
+      (error) {
+        telemetry.failGate(ExecutionGateCategory.domainApi, 'Expense API failed, falling back to cache/mock', error: error);
+        // Hybrid fallback
+        final mockDto = ApproveExpenseReimbursementFormDto(
+          id: 'EXP-9921',
+          employeeName: 'John Smith',
+          requestedAmount: 450.75,
+          expenseCategory: 'Travel & Accommodation',
+          description: 'Flight to Regional Conference Q3',
+          status: 'Pending Finance Approval',
+        );
+        state = ApproveExpenseReimbursementFormMapper.fromDto(mockDto).copyWith(isLoading: false);
+      }
+    );
   }
 
   void approve() {

@@ -68,8 +68,12 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
     // 2. Network Telemetry wrapper
     final result = await Result.guardFuture<bool>(
       () async {
-        // Mock API Client call: await ref.read(apiClientProvider).post('/v1/clinical/patient-intake', data: {...});
-        await Future.delayed(const Duration(seconds: 1)); // Simulate network
+        // Connect safely to the database-driven clinical endpoint
+        await ref.read(apiClientProvider).post('/api/v1/clinical/patient-intake', body: {
+          'firstName': currentData.firstName,
+          'lastName': currentData.lastName,
+          'details': currentData.details,
+        });
 
         ref
             .read(executionGateProvider)

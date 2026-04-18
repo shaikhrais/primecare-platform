@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class ReviewLegalContractFormViewModel {
@@ -15,10 +16,15 @@ class ReviewLegalContractFormAdapter
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = ReviewLegalContractFormViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = ReviewLegalContractFormViewModel(isLoading: false, data: {});
+        state = ReviewLegalContractFormViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/review-legal-contract-form-adapter');
+      state = ReviewLegalContractFormViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = ReviewLegalContractFormViewModel(isLoading: false, data: {});
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 // Prisma Load Adapter
 
 class SignupScreenViewModel {
@@ -14,10 +15,15 @@ class SignupScreenAdapter extends Notifier<SignupScreenViewModel> {
   }
 
   Future<void> loadData() async {
-    // TODO: Prisma API binding
-    state = SignupScreenViewModel(isLoading: true, data: state.data);
-    // Simulate fetch
-    state = SignupScreenViewModel(isLoading: false, data: {});
+        state = SignupScreenViewModel(isLoading: true, data: state.data);
+    try {
+      final client = ref.read(apiClientProvider);
+      final response = await client.get('/api/v1/signup-screen-adapter');
+      state = SignupScreenViewModel(isLoading: false, data: response ?? {});
+    } catch (e) {
+      // Fallback
+      state = SignupScreenViewModel(isLoading: false, data: {});
+    }
   }
 }
 

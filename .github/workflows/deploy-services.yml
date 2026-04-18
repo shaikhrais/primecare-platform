@@ -24,6 +24,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Architectural Governance Gate
+        run: npm run check-architecture
+        working-directory: packages/database
+
       - name: Turbo Build & Typecheck
         run: npx turbo build typecheck
 
