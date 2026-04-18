@@ -39,6 +39,19 @@ class CooDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        const ManagementActionBlueprint(
+          dataPayload: {
+            'title': 'Operational Directives',
+            'actions': [
+              {'label': 'Approve Staffing Model', 'urgency': 'high'},
+              {'label': 'Review Procurement', 'urgency': 'medium'},
+              {'label': 'Acknowledge Overtime', 'urgency': 'normal'},
+            ],
+          },
+        ),
+        ActivityFeedBlueprint(
+          dataPayload: metrics.recentActivity.map((e) => e.toJson()).toList(),
+        ),
         const StitchBlueprint(
           screenId: '5e1d8a1b9c244705a405113ae8623ec1', // COO Dashboard
         ),

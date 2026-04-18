@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class IncidentReportFab extends StatelessWidget {
@@ -7,13 +8,16 @@ class IncidentReportFab extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       onPressed: () {},
-      backgroundColor: Colors.red.shade600,
-      icon: const Icon(Icons.warning, color: Colors.white),
+      backgroundColor: PrimeCareColors.rose,
+      icon: const Icon(Icons.warning, color: PrimeCareColors.white),
       label: const Text(
         'REPORT INCIDENT',
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: PrimeCareColors.white,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

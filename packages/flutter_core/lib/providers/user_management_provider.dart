@@ -38,7 +38,7 @@ class UserModel {
 class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
   @override
   Future<List<UserModel>> build() async {
-    // TODO: Connect to actual primecare-api user.service.ts endpoint. 
+    // TODO: Connect to actual primecare-api user.service.ts endpoint.
     // For now, simulating network delay and returning initial set to prove AsyncNotifier architecture
     await Future.delayed(const Duration(milliseconds: 800));
     return [
@@ -135,5 +135,5 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
 
 final userManagementProvider =
     AsyncNotifierProvider<UserManagementNotifier, List<UserModel>>(() {
-  return UserManagementNotifier();
-});
+      return UserManagementNotifier();
+    });

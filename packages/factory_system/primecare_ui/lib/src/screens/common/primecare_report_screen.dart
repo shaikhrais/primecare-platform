@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -290,7 +291,7 @@ class _ActionButton extends StatelessWidget {
           vertical: 10 * scale,
         ),
         decoration: BoxDecoration(
-          color: isPrimary ? const Color(0xFF2563EB) : Colors.white,
+          color: isPrimary ? const Color(0xFF2563EB) : PrimeCareColors.white,
           borderRadius: BorderRadius.circular(12),
           border: isPrimary ? null : Border.all(color: const Color(0xFFE2E8F0)),
           boxShadow: isPrimary
@@ -308,7 +309,9 @@ class _ActionButton extends StatelessWidget {
             Icon(
               icon,
               size: 18 * scale,
-              color: isPrimary ? Colors.white : const Color(0xFF475569),
+              color: isPrimary
+                  ? PrimeCareColors.white
+                  : const Color(0xFF475569),
             ),
             const SizedBox(width: 8),
             Text(
@@ -316,7 +319,9 @@ class _ActionButton extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 14 * scale,
                 fontWeight: FontWeight.w600,
-                color: isPrimary ? Colors.white : const Color(0xFF475569),
+                color: isPrimary
+                    ? PrimeCareColors.white
+                    : const Color(0xFF475569),
               ),
             ),
           ],
@@ -346,7 +351,7 @@ class _SummaryCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20 * scale),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFE2E8F0)),
       ),

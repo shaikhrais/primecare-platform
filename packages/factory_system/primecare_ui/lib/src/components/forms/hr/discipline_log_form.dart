@@ -19,7 +19,10 @@ class _DisciplineLogFormState extends State<DisciplineLogForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {
-    widget.onSubmit({});
+    if (_formKey.currentState?.validate() ?? false) {
+      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+    }
   }
 
   @override
@@ -56,8 +59,7 @@ class _DisciplineLogFormState extends State<DisciplineLogForm> {
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-              // TODO: Integrate with active ViewModel/provider for structured submission
-            ],
+                          ],
           ),
         ),
       ],

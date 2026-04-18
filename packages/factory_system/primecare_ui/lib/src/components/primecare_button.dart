@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,7 +74,7 @@ class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
     switch (widget.type) {
       case PrimeCareButtonType.primary:
         buttonColor = ds.colors.primary;
-        textColor = Colors.white;
+        textColor = PrimeCareColors.white;
         break;
       case PrimeCareButtonType.secondary:
         buttonColor = Colors.transparent;
@@ -81,7 +82,7 @@ class _PrimeCareButtonState extends ConsumerState<PrimeCareButton>
         break;
       case PrimeCareButtonType.danger:
         buttonColor = ds.colors.danger;
-        textColor = Colors.white;
+        textColor = PrimeCareColors.white;
         break;
       case PrimeCareButtonType.text:
         buttonColor = Colors.transparent;

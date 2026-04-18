@@ -49,7 +49,7 @@ class PrimeClientIntelCard extends StatelessWidget {
                 'Condition: $condition',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: const TextStyle(color: Colors.grey),
+                style: const TextStyle(color: PrimeCareColors.slate400),
               ),
               const SizedBox(height: 16),
               Wrap(spacing: 8.0, runSpacing: 8.0, children: conditionBadges),

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -112,7 +113,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         fontSize: 36,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 8.0,
-                        color: Colors.white,
+                        color: PrimeCareColors.white,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -122,7 +123,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         fontSize: 12,
                         letterSpacing: 4.0,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white.withValues(alpha: 0.7),
+                        color: PrimeCareColors.white.withValues(alpha: 0.7),
                       ),
                     ),
                     const SizedBox(height: 64),
@@ -144,7 +145,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         fontSize: 10,
                         letterSpacing: 2.0,
                         fontWeight: FontWeight.w800,
-                        color: Colors.white.withValues(alpha: 0.5),
+                        color: PrimeCareColors.white.withValues(alpha: 0.5),
                       ),
                     ),
                   ],

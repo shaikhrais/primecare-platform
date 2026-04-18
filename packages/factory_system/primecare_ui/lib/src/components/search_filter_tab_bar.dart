@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class SearchFilterTabBar extends StatelessWidget {
@@ -12,7 +13,7 @@ class SearchFilterTabBar extends StatelessWidget {
           prefixIcon: const Icon(Icons.search),
           hintText: 'Search patients, acuity, location...',
           filled: true,
-          fillColor: Colors.grey.shade100,
+          fillColor: PrimeCareColors.slate400,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,

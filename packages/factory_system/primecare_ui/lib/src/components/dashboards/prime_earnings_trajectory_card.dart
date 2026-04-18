@@ -49,7 +49,7 @@ class PrimeEarningsTrajectoryCard extends ConsumerWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: PrimeCareColors.slate400,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -59,7 +59,7 @@ class PrimeEarningsTrajectoryCard extends ConsumerWidget {
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Colors.green,
+                      color: PrimeCareColors.emerald,
                       fontWeight: FontWeight.w900,
                     ),
                   ),

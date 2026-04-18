@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeAvatar extends StatelessWidget {
@@ -37,9 +38,9 @@ class PrimeAvatar extends StatelessWidget {
               width: radius * 0.6,
               height: radius * 0.6,
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: PrimeCareColors.emerald,
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
+                border: Border.all(color: PrimeCareColors.white, width: 2),
               ),
             ),
           ),

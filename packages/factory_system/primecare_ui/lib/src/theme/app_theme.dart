@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'theme_extension.dart';
 
@@ -6,10 +7,10 @@ class AppTheme {
     return ThemeData(
       primarySwatch: Colors.indigo,
       primaryColor: const Color(0xFF1E3A8A),
-      scaffoldBackgroundColor: Colors.grey.shade50,
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+      scaffoldBackgroundColor: PrimeCareColors.slate50,
+      appBarTheme: AppBarTheme(
+        backgroundColor: PrimeCareColors.white,
+        foregroundColor: PrimeCareColors.black.withValues(alpha: 0.87),
         elevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
@@ -29,20 +30,26 @@ class AppTheme {
         headlineMedium: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w700,
-          color: Colors.black87,
+          color: PrimeCareColors.black.withValues(alpha: 0.87),
           letterSpacing: -0.5,
         ),
         titleLarge: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color: Colors.black87,
+          color: PrimeCareColors.black.withValues(alpha: 0.87),
         ),
-        bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
-        bodyMedium: TextStyle(fontSize: 14, color: Colors.black87),
+        bodyLarge: TextStyle(
+          fontSize: 16,
+          color: PrimeCareColors.black.withValues(alpha: 0.87),
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 14,
+          color: PrimeCareColors.black.withValues(alpha: 0.87),
+        ),
         labelLarge: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: Colors.white,
+          color: PrimeCareColors.white,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -56,7 +63,7 @@ class AppTheme {
       cardTheme: CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: Colors.white,
+        color: PrimeCareColors.white,
       ),
       extensions: const [PrimeCareThemeExtension.light],
     );

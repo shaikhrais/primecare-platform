@@ -41,6 +41,20 @@ class ComplianceManagerDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        const RiskMonitorBlueprint(
+          dataPayload: {
+            'status': 'WARNING',
+            'summary':
+                'Elevated compliance risks observed in 2 regional branches. Audit required.',
+          },
+        ),
+        const ComplianceGateBlueprint(
+          dataPayload: {
+            'gate': 'verified',
+            'summary':
+                'All mandatory institutional compliance checkpoints are verified and passed for the current quarter.',
+          },
+        ),
         const StitchBlueprint(
           screenId: '4d5e6f7a8b244705a405113ae8623ec4', // Compliance Dashboard
         ),

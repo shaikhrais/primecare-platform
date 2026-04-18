@@ -74,6 +74,7 @@ class _PasswordResetFormState extends ConsumerState<PasswordResetForm> {
                   vertical: 8.0,
                 ),
                 child: TextFormField(
+                  key: const Key('password_reset_input'),
                   controller: _newPasswordController,
                   decoration: const InputDecoration(labelText: 'New Password'),
                   obscureText: true,

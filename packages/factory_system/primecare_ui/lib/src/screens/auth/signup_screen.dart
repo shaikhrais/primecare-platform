@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:primecare_core/flutter_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -149,7 +150,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               onPressed: _isLoading ? null : _signup,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0F172A),
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeCareColors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -160,7 +161,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
-                        color: Colors.white,
+                        color: PrimeCareColors.white,
                         strokeWidth: 2,
                       ),
                     )

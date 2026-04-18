@@ -13,3 +13,5 @@ export 'screens/support.dart';
 // Removed stale samples export
 
 // Auto-generated Orchestrated Screens
+export 'src/screens/dashboards.dart';
+export 'src/screens/scaffolded/scaffolded.dart';

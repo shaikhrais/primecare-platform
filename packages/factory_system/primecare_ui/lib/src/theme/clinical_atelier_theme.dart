@@ -1,6 +1,6 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'colors.dart';
 
 /// Clinical Atelier Design System
 /// Implements vibrant blues, Outfit/Inter fonts, and glassmorphic 16dp corners.

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class QuickCallButton extends StatelessWidget {
@@ -9,10 +10,10 @@ class QuickCallButton extends StatelessWidget {
       icon: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.green.shade50,
+          color: PrimeCareColors.emerald,
           shape: BoxShape.circle,
         ),
-        child: Icon(Icons.videocam, color: Colors.green.shade600),
+        child: Icon(Icons.videocam, color: PrimeCareColors.emerald),
       ),
       onPressed: () {},
     );

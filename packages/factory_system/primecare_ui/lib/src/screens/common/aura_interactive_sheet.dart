@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:ui';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -108,7 +109,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                     children: [
                       const Icon(
                         LucideIcons.sparkles,
-                        color: Colors.white,
+                        color: PrimeCareColors.white,
                         size: 28,
                       ),
                       const SizedBox(width: 16),
@@ -117,7 +118,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                         style: GoogleFonts.inter(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: PrimeCareColors.white,
                         ),
                       ),
                     ],
@@ -127,7 +128,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                     'Conversational institutional synthesis at your fingertips.',
                     style: GoogleFonts.inter(
                       fontSize: 14,
-                      color: Colors.white70,
+                      color: PrimeCareColors.white.withValues(alpha: 0.6),
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -136,10 +137,15 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                     focusNode: _focusNode,
                     onChanged: (val) =>
                         ref.read(auraQueryProvider.notifier).update(val),
-                    style: GoogleFonts.inter(fontSize: 18, color: Colors.white),
+                    style: GoogleFonts.inter(
+                      fontSize: 18,
+                      color: PrimeCareColors.white,
+                    ),
                     decoration: InputDecoration(
                       hintText: 'Search or ask a question...',
-                      hintStyle: const TextStyle(color: Colors.white38),
+                      hintStyle: TextStyle(
+                        color: PrimeCareColors.white.withValues(alpha: 0.6),
+                      ),
                       filled: true,
                       fillColor: Colors.white12,
                       border: OutlineInputBorder(
@@ -147,7 +153,10 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                         borderSide: BorderSide.none,
                       ),
                       suffixIcon: IconButton(
-                        icon: const Icon(LucideIcons.send, color: Colors.white),
+                        icon: const Icon(
+                          LucideIcons.send,
+                          color: PrimeCareColors.white,
+                        ),
                         onPressed: () {
                           if (auraIntent != null &&
                               auraIntent.actions.isNotEmpty) {
@@ -170,7 +179,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white38,
+                        color: PrimeCareColors.white.withValues(alpha: 0.6),
                         letterSpacing: 1.2,
                       ),
                     ),
@@ -199,7 +208,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       'Aura uses institutional context to generate actionable summaries.',
                       style: GoogleFonts.inter(
                         fontSize: 11,
-                        color: Colors.white38,
+                        color: PrimeCareColors.white.withValues(alpha: 0.6),
                       ),
                     ),
                   ),
@@ -223,9 +232,9 @@ class _AuraWavePainter extends CustomPainter {
     final paint = Paint()
       ..shader = LinearGradient(
         colors: [
-          Colors.white.withValues(alpha: 0.05),
-          Colors.white.withValues(alpha: 0.15),
-          Colors.white.withValues(alpha: 0.05),
+          PrimeCareColors.white.withValues(alpha: 0.05),
+          PrimeCareColors.white.withValues(alpha: 0.15),
+          PrimeCareColors.white.withValues(alpha: 0.05),
         ],
         stops: const [0.0, 0.5, 1.0],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
@@ -298,7 +307,7 @@ class _SuggestionChip extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: const TextStyle(color: Colors.white, fontSize: 13),
+          style: const TextStyle(color: PrimeCareColors.white, fontSize: 13),
         ),
       ),
     );
@@ -328,7 +337,9 @@ class _IntentResultCard extends StatelessWidget {
             children: [
               Icon(
                 hasActions ? LucideIcons.zap : LucideIcons.search,
-                color: hasActions ? const Color(0xFF4ADE80) : Colors.white38,
+                color: hasActions
+                    ? const Color(0xFF4ADE80)
+                    : PrimeCareColors.white.withValues(alpha: 0.6),
                 size: 20,
               ),
               const SizedBox(width: 12),
@@ -336,7 +347,7 @@ class _IntentResultCard extends StatelessWidget {
                 child: Text(
                   intent.title,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: PrimeCareColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -347,8 +358,8 @@ class _IntentResultCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             intent.description,
-            style: const TextStyle(
-              color: Colors.white70,
+            style: TextStyle(
+              color: PrimeCareColors.white.withValues(alpha: 0.6),
               fontSize: 13,
               height: 1.4,
             ),

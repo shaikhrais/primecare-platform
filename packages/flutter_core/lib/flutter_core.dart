@@ -91,6 +91,7 @@ export 'features/franchise_reconciliation_dashboard/domain/models/franchise_reco
 // Office: system
 export 'features/guest_dashboard/domain/models/guest_dashboard_view_model.dart';
 export 'features/scrum_master_dashboard/domain/models/scrum_master_dashboard_view_model.dart';
+export 'features/system_verification/domain/models/system_verification_view_model.dart';
 
 // Office: patient
 export 'features/patient_dashboard/domain/models/patient_dashboard_view_model.dart';

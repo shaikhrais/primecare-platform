@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'prime_card.dart';
 
@@ -13,10 +14,10 @@ class PatientAcuityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = acuityLevel == 3
-        ? Colors.red
+        ? PrimeCareColors.rose
         : acuityLevel == 2
-        ? Colors.orange
-        : Colors.green;
+        ? PrimeCareColors.amber
+        : PrimeCareColors.emerald;
     return PrimeCard(
       child: Row(
         children: [

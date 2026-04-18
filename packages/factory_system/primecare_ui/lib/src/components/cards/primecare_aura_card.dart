@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -80,7 +81,7 @@ class PrimeCareAuraCard extends ConsumerWidget {
                         style: GoogleFonts.inter(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: PrimeCareColors.white,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -103,14 +104,16 @@ class PrimeCareAuraCard extends ConsumerWidget {
                       onAuraResult!(intent);
                     }
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     LucideIcons.messageSquare,
                     size: 16,
-                    color: Colors.white70,
+                    color: PrimeCareColors.white.withValues(alpha: 0.6),
                   ),
-                  label: const Text(
+                  label: Text(
                     'Ask Aura',
-                    style: TextStyle(color: Colors.white70),
+                    style: TextStyle(
+                      color: PrimeCareColors.white.withValues(alpha: 0.6),
+                    ),
                   ),
                 ),
             ],
@@ -140,7 +143,7 @@ class PrimeCareAuraCard extends ConsumerWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white24,
-                  foregroundColor: Colors.white,
+                  foregroundColor: PrimeCareColors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -199,8 +202,8 @@ class _AuraPulseIconState extends State<_AuraPulseIcon>
     final pulseColor = switch (widget.impact) {
       InsightImpact.positive => const Color(0xFF4ADE80),
       InsightImpact.caution => const Color(0xFFFBBF24),
-      InsightImpact.alert => Colors.white,
-      InsightImpact.info => Colors.white,
+      InsightImpact.alert => PrimeCareColors.white,
+      InsightImpact.info => PrimeCareColors.white,
     };
 
     return AnimatedBuilder(
@@ -243,7 +246,7 @@ class _AuraInsightTile extends StatelessWidget {
       InsightImpact.positive => const Color(0xFF4ADE80),
       InsightImpact.caution => const Color(0xFFFBBF24),
       InsightImpact.alert => const Color(0xFFEF4444),
-      InsightImpact.info => Colors.white,
+      InsightImpact.info => PrimeCareColors.white,
     };
 
     return Padding(
@@ -270,7 +273,7 @@ class _AuraInsightTile extends StatelessWidget {
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: PrimeCareColors.white,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -278,7 +281,7 @@ class _AuraInsightTile extends StatelessWidget {
                   insight.summary,
                   style: GoogleFonts.inter(
                     fontSize: 13,
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: PrimeCareColors.white.withValues(alpha: 0.9),
                     height: 1.4,
                   ),
                 ),

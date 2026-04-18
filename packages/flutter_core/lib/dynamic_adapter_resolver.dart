@@ -154,8 +154,10 @@ import 'package:primecare_ui/src/theme/primecare_responsive_shell_adapter.dart';
 
 /// Global Registry dynamically mapping screen routing IDs to their Hydration Adapters
 final Map<String, dynamic> globalAdapterRegistry = {
-  'territorySalesManagerDashboard': territorySalesManagerDashboardAdapterProvider,
-  'localMarketingManagerDashboard': localMarketingManagerDashboardAdapterProvider,
+  'territorySalesManagerDashboard':
+      territorySalesManagerDashboardAdapterProvider,
+  'localMarketingManagerDashboard':
+      localMarketingManagerDashboardAdapterProvider,
   'headOfMarketingDashboard': headOfMarketingDashboardAdapterProvider,
   'communityOutreachDashboard': communityOutreachDashboardAdapterProvider,
   'schedulerDashboard': schedulerDashboardAdapterProvider,
@@ -183,11 +185,14 @@ final Map<String, dynamic> globalAdapterRegistry = {
   'guestDashboard': guestDashboardAdapterProvider,
   'familyDashboard': familyDashboardAdapterProvider,
   'clientDashboard': clientDashboardAdapterProvider,
-  'territoryExpansionManagerDashboard': territoryExpansionManagerDashboardAdapterProvider,
+  'territoryExpansionManagerDashboard':
+      territoryExpansionManagerDashboardAdapterProvider,
   'regionalManagerUSADashboard': regionalManagerUSADashboardAdapterProvider,
-  'regionalManagerOntarioDashboard': regionalManagerOntarioDashboardAdapterProvider,
+  'regionalManagerOntarioDashboard':
+      regionalManagerOntarioDashboardAdapterProvider,
   'partnershipManagerDashboard': partnershipManagerDashboardAdapterProvider,
-  'franchiseSalesManagerDashboard': franchiseSalesManagerDashboardAdapterProvider,
+  'franchiseSalesManagerDashboard':
+      franchiseSalesManagerDashboardAdapterProvider,
   'assignTrainingModuleForm': assignTrainingModuleFormAdapterProvider,
   'auditPayrollDiscrepancyForm': auditPayrollDiscrepancyFormAdapterProvider,
   'disciplineLogForm': disciplineLogFormAdapterProvider,
@@ -200,10 +205,12 @@ final Map<String, dynamic> globalAdapterRegistry = {
   'scheduleInterviewForm': scheduleInterviewFormAdapterProvider,
   'submitExitInterviewForm': submitExitInterviewFormAdapterProvider,
   'addFranchiseLeadForm': addFranchiseLeadFormAdapterProvider,
-  'approveFranchiseDisclosureForm': approveFranchiseDisclosureFormAdapterProvider,
+  'approveFranchiseDisclosureForm':
+      approveFranchiseDisclosureFormAdapterProvider,
   'assignLeadForm': assignLeadFormAdapterProvider,
   'createAdPlacementForm': createAdPlacementFormAdapterProvider,
-  'franchiseOnboardingChecklistForm': franchiseOnboardingChecklistFormAdapterProvider,
+  'franchiseOnboardingChecklistForm':
+      franchiseOnboardingChecklistFormAdapterProvider,
   'logFranchiseeVettingCallForm': logFranchiseeVettingCallFormAdapterProvider,
   'nurtureLocalizedLeadForm': nurtureLocalizedLeadFormAdapterProvider,
   'reviewLeadConversionForm': reviewLeadConversionFormAdapterProvider,
@@ -214,7 +221,8 @@ final Map<String, dynamic> globalAdapterRegistry = {
   'approveMedicationRefillForm': approveMedicationRefillFormAdapterProvider,
   'dailyVitalsCardForm': dailyVitalsCardFormAdapterProvider,
   'patientIntakeForm': patientIntakeFormAdapterProvider,
-  'approveExpenseReimbursementForm': approveExpenseReimbursementFormAdapterProvider,
+  'approveExpenseReimbursementForm':
+      approveExpenseReimbursementFormAdapterProvider,
   'approveLeaveRequestForm': approveLeaveRequestFormAdapterProvider,
   'approvePayrollRunForm': approvePayrollRunFormAdapterProvider,
   'authSplitLayout': authSplitLayoutAdapterProvider,
@@ -259,7 +267,8 @@ final Map<String, dynamic> globalAdapterRegistry = {
   'reviewMonthlyExpensesForm': reviewMonthlyExpensesFormAdapterProvider,
   'reviewVendorContractsForm': reviewVendorContractsFormAdapterProvider,
   'rolePermissionsForm': rolePermissionsFormAdapterProvider,
-  'scheduleFacilityMaintenanceForm': scheduleFacilityMaintenanceFormAdapterProvider,
+  'scheduleFacilityMaintenanceForm':
+      scheduleFacilityMaintenanceFormAdapterProvider,
   'submitDailyCensusForm': submitDailyCensusFormAdapterProvider,
   'submitHealthcareClaimForm': submitHealthcareClaimFormAdapterProvider,
   'assignCarePodForm': assignCarePodFormAdapterProvider,

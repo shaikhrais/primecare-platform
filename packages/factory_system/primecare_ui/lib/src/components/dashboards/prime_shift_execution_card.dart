@@ -22,7 +22,7 @@ class PrimeShiftExecutionCard extends ConsumerWidget {
     return PrimeCareCard(
       backgroundColor: isShiftActive
           ? Theme.of(context).primaryColorLight
-          : Colors.white,
+          : PrimeCareColors.white,
       child: Column(
         children: [
           Text(

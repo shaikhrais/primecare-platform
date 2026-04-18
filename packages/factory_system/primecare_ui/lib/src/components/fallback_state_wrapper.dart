@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class FallbackStateWrapper extends StatelessWidget {
@@ -19,9 +20,9 @@ class FallbackStateWrapper extends StatelessWidget {
     return Banner(
       message: 'MOCK DATA',
       location: BannerLocation.topStart,
-      color: Colors.amber.shade800,
+      color: PrimeCareColors.amber.shade800,
       textStyle: const TextStyle(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         fontSize: 10,
         fontWeight: FontWeight.bold,
         letterSpacing: 1.2,
@@ -29,7 +30,7 @@ class FallbackStateWrapper extends StatelessWidget {
       child: ColorFiltered(
         // Slightly tint the entire screen to indicate it's not live
         colorFilter: ColorFilter.mode(
-          Colors.amber.withValues(alpha: 0.05),
+          PrimeCareColors.amber.withValues(alpha: 0.05),
           BlendMode.srcOver,
         ),
         child: child,

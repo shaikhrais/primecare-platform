@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class SlideToClockInWidget extends StatelessWidget {
@@ -37,7 +38,7 @@ class SlideToClockInWidget extends StatelessWidget {
               ),
               child: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white,
+                color: PrimeCareColors.white,
                 size: 20,
               ),
             ),

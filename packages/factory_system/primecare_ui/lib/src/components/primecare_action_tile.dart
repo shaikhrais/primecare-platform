@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeCareActionTile extends StatefulWidget {
@@ -34,19 +35,19 @@ class _PrimeCareActionTileState extends State<PrimeCareActionTile> {
           decoration: BoxDecoration(
             color: _isHovering
                 ? widget.iconColor.withValues(alpha: 0.03)
-                : Colors.white,
+                : PrimeCareColors.white,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: _isHovering
                   ? widget.iconColor.withValues(alpha: 0.4)
-                  : Colors.grey.withValues(alpha: 0.12),
+                  : PrimeCareColors.slate400.withValues(alpha: 0.12),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
                 color: _isHovering
                     ? widget.iconColor.withValues(alpha: 0.15)
-                    : Colors.black.withValues(alpha: 0.04),
+                    : PrimeCareColors.black.withValues(alpha: 0.04),
                 blurRadius: _isHovering ? 16 : 8,
                 offset: Offset(0, _isHovering ? 8 : 4),
               ),

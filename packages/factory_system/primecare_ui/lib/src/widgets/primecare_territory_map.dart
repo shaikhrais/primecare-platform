@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/design_system.dart';
@@ -22,7 +23,7 @@ class PrimeCareTerritoryZone {
     required this.id,
     required this.name,
     required this.boundary,
-    this.fillColor = Colors.blueAccent,
+    this.fillColor = PrimeCareColors.skyBlue,
   });
 }
 
@@ -37,7 +38,7 @@ class PrimeCareTerritoryMarker {
     required this.id,
     required this.coordinate,
     this.icon = Icons.location_history,
-    this.color = Colors.blue,
+    this.color = PrimeCareColors.skyBlue,
     this.label,
   });
 }
@@ -132,13 +133,15 @@ class PrimeCareTerritoryMap extends StatelessWidget {
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.black54,
+                                  color: PrimeCareColors.black.withValues(
+                                    alpha: 0.54,
+                                  ),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                                 child: Text(
                                   marker.label!,
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: PrimeCareColors.white,
                                     fontSize: 8,
                                   ),
                                 ),

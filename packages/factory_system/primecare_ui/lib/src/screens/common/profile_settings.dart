@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/layouts/provider_layout.dart';
 
@@ -11,7 +12,7 @@ class ProfileSettingsScreen extends StatelessWidget {
         child: Text(
           'Profile & Settings Interface Pending Data Hydration',
           style: TextStyle(
-            color: Colors.white.withValues(alpha: 0.7),
+            color: PrimeCareColors.white.withValues(alpha: 0.7),
             fontSize: 24,
           ),
         ),

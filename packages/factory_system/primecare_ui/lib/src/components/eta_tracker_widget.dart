@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'prime_card.dart';
 
@@ -12,10 +13,13 @@ class EtaTrackerWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: PrimeCareColors.black,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Icons.directions_car, color: Colors.white),
+            child: const Icon(
+              Icons.directions_car,
+              color: PrimeCareColors.white,
+            ),
           ),
           const SizedBox(width: 16),
           const Expanded(
@@ -32,7 +36,7 @@ class EtaTrackerWidget extends StatelessWidget {
                   'ETA: 14 Mins • 2.1 miles away',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: PrimeCareColors.slate400),
                 ),
               ],
             ),

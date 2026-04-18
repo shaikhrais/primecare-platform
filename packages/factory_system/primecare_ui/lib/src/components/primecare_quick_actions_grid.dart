@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -60,13 +61,13 @@ class PrimeCareQuickActionsGrid extends StatelessWidget {
                   height: 64,
                   child: ElevatedButton.icon(
                     onPressed: () => context.push(action.route),
-                    icon: Icon(action.icon, color: Colors.white),
+                    icon: Icon(action.icon, color: PrimeCareColors.white),
                     label: Text(
                       action.title,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: PrimeCareColors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),

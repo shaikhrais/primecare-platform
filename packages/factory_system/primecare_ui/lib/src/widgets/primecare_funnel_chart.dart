@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/design_system.dart';
@@ -100,7 +101,7 @@ class PrimeCareFunnelChart extends StatelessWidget {
                                 Text(
                                   step.label,
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: PrimeCareColors.white,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -109,7 +110,7 @@ class PrimeCareFunnelChart extends StatelessWidget {
                                 Text(
                                   '${step.count}',
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: PrimeCareColors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),

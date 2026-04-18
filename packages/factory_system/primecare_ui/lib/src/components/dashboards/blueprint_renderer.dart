@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart';
 import '../../components/dashboards/prime_care_kpi_card.dart';
@@ -5,7 +6,6 @@ import '../../components/dashboards/prime_care_responsive_kpi_grid.dart';
 import '../../components/charts/prime_care_bar_chart.dart';
 import '../../components/charts/prime_care_line_chart.dart';
 import '../../components/charts/prime_care_pie_chart.dart';
-import '../../components/stitch_engine/stitch_engine_renderer.dart';
 import '../stitch_engine/stitch_screen_widget.dart';
 
 /// A factory-style widget that translates [UIComponentBlueprint] entities into high-fidelity UI components.
@@ -30,14 +30,16 @@ class BlueprintRenderer extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: Colors.red.withValues(alpha: 0.1),
+            color: PrimeCareColors.rose.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
+            border: Border.all(
+              color: PrimeCareColors.rose.withValues(alpha: 0.2),
+            ),
           ),
           child: Text(
             'Unknown Blueprint: ${blueprint.componentType}',
             style: const TextStyle(
-              color: Colors.red,
+              color: PrimeCareColors.rose,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -83,15 +85,15 @@ class BlueprintRenderer extends StatelessWidget {
   Color? _mapStatus(KpiStatus status) {
     switch (status) {
       case KpiStatus.positive:
-        return Colors.green;
+        return PrimeCareColors.emerald;
       case KpiStatus.negative:
-        return Colors.red;
+        return PrimeCareColors.rose;
       case KpiStatus.warning:
-        return Colors.orange;
+        return PrimeCareColors.amber;
       case KpiStatus.critical:
-        return Colors.redAccent;
+        return PrimeCareColors.rose;
       case KpiStatus.neutral:
-        return Colors.blue;
+        return PrimeCareColors.skyBlue;
     }
   }
 

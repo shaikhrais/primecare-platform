@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -39,7 +40,7 @@ class PrimeCareChartCard extends ConsumerWidget {
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(20),
+            color: PrimeCareColors.black.withAlpha(20),
             blurRadius: 40,
             offset: const Offset(0, 20),
           ),
@@ -60,7 +61,7 @@ class PrimeCareChartCard extends ConsumerWidget {
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: PrimeCareColors.white,
                       ),
                     ),
                     if (isAuraActive) ...[
@@ -71,7 +72,7 @@ class PrimeCareChartCard extends ConsumerWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.indigoAccent.withAlpha(30),
+                          color: PrimeCareColors.purple.withAlpha(30),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
@@ -79,7 +80,7 @@ class PrimeCareChartCard extends ConsumerWidget {
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Colors.indigoAccent,
+                            color: PrimeCareColors.purple,
                             letterSpacing: 1.2,
                           ),
                         ),
@@ -93,7 +94,7 @@ class PrimeCareChartCard extends ConsumerWidget {
                       _buildHeaderButton(
                         icon: LucideIcons.sparkles,
                         isActive: isAuraActive,
-                        activeColor: Colors.indigoAccent,
+                        activeColor: PrimeCareColors.purple,
                         onPressed: () {
                           ref
                               .read(executionGateProvider)
@@ -112,7 +113,7 @@ class PrimeCareChartCard extends ConsumerWidget {
                       _buildHeaderButton(
                         icon: LucideIcons.externalLink,
                         isActive: false,
-                        activeColor: Colors.blueAccent,
+                        activeColor: PrimeCareColors.skyBlue,
                         onPressed: () {
                           ref
                               .read(executionGateProvider)
@@ -127,7 +128,7 @@ class PrimeCareChartCard extends ConsumerWidget {
                     _buildHeaderButton(
                       icon: isPinned ? LucideIcons.pin : LucideIcons.pinOff,
                       isActive: isPinned,
-                      activeColor: Colors.blueAccent,
+                      activeColor: PrimeCareColors.skyBlue,
                       onPressed: () {
                         ref
                             .read(executionGateProvider)
@@ -165,13 +166,13 @@ class PrimeCareChartCard extends ConsumerWidget {
         decoration: BoxDecoration(
           color: isActive
               ? activeColor.withAlpha(30)
-              : Colors.white.withAlpha(5),
+              : PrimeCareColors.white.withAlpha(5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Icon(
           icon,
           size: 18,
-          color: isActive ? activeColor : Colors.white.withAlpha(100),
+          color: isActive ? activeColor : PrimeCareColors.white.withAlpha(100),
         ),
       ),
       onPressed: onPressed,

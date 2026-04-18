@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeCareTheme {
@@ -23,7 +24,7 @@ class PrimeCareTheme {
   // Colors
   static const Color primary = Color(0xFF5654A8);
   static const Color primaryContainer = Color(0xFFE2E0FF);
-  static const Color onPrimary = Colors.white;
+  static const Color onPrimary = PrimeCareColors.white;
   static const Color onPrimaryContainer = Color(0xFF130066);
   static const Color primaryFixed = Color(0xFFE0E0FF);
   static const Color primaryFixedDim = Color(0xFFBEC2FF);
@@ -36,7 +37,7 @@ class PrimeCareTheme {
 
   static const Color tertiary = Color(0xFF6D7A72);
   static const Color tertiaryContainer = Color(0xFFF4FDFA);
-  static const Color onTertiary = Colors.white;
+  static const Color onTertiary = PrimeCareColors.white;
   static const Color onTertiaryContainer = Color(0xFF27322E);
   static const Color tertiaryFixed = Color(0xFFCCE4DA);
 
@@ -160,7 +161,7 @@ class _PrimeCareColors {
   Color get brownSolid => PrimeCareTheme.brownSolid;
   Color get brickRed => PrimeCareTheme.coralRed; // Alias
   Color get primaryFixed => PrimeCareTheme.navyIndigo; // Alias
-  Color get surfaceBright => Colors.white; // Alias
+  Color get surfaceBright => PrimeCareColors.white; // Alias
 
   Color get primary => PrimeCareTheme.primary;
   Color get secondary => PrimeCareTheme.secondary;

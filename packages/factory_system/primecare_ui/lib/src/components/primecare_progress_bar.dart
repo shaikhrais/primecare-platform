@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeCareProgressBar extends StatelessWidget {
@@ -8,7 +9,7 @@ class PrimeCareProgressBar extends StatelessWidget {
   const PrimeCareProgressBar({
     super.key,
     required this.progress,
-    this.activeColor = Colors.green,
+    this.activeColor = PrimeCareColors.emerald,
     this.inactiveColor = const Color(0xFFEEEEEE),
   });
 

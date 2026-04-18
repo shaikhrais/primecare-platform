@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -97,7 +98,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                         .maxHeight, // Keep fullscreen height for prototype
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.blueGrey.shade100,
+                        color: PrimeCareColors.slate400.shade100,
                         width: 2,
                       ),
                       boxShadow: const [
@@ -123,7 +124,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                 Container(
                   margin: const EdgeInsets.only(right: 12),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: PrimeCareColors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: const [
                       BoxShadow(
@@ -174,7 +175,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                 // Language Switcher
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: PrimeCareColors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: const [
                       BoxShadow(
@@ -279,7 +280,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                 style: GoogleFonts.outfit(
                   fontSize: isCompact ? 24 : 32,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: PrimeCareColors.white,
                 ),
               ),
             ],
@@ -290,7 +291,7 @@ class _AuthLayoutState extends State<AuthLayout> {
             style: GoogleFonts.outfit(
               fontSize: isCompact ? 36 : 64,
               fontWeight: FontWeight.w800,
-              color: Colors.white,
+              color: PrimeCareColors.white,
               height: 1.1,
             ),
           ),
@@ -299,7 +300,7 @@ class _AuthLayoutState extends State<AuthLayout> {
             widget.heroSubtitle,
             style: GoogleFonts.inter(
               fontSize: isCompact ? 16 : 20,
-              color: Colors.white70,
+              color: PrimeCareColors.white.withValues(alpha: 0.6),
               height: 1.5,
             ),
           ),
@@ -331,14 +332,14 @@ class _AuthLayoutState extends State<AuthLayout> {
                         style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: PrimeCareColors.white,
                         ),
                       ),
                       Text(
                         'auth.encryption_active'.tr(),
                         style: GoogleFonts.inter(
                           fontSize: 12,
-                          color: Colors.white70,
+                          color: PrimeCareColors.white.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -363,7 +364,7 @@ class AuthInputDecoration {
       ), // Slate 500
       prefixIcon: Icon(icon, color: const Color(0xFF94A3B8)), // Slate 400
       filled: true,
-      fillColor: Colors.white,
+      fillColor: PrimeCareColors.white,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(

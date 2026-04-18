@@ -1,6 +1,6 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'colors.dart';
 import 'theme_tokens.dart';
 
 class PrimeCareTheme {

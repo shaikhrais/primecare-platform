@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ComplianceExpiryGauge extends StatelessWidget {
@@ -26,7 +27,7 @@ class ComplianceExpiryGauge extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color: Colors.grey.shade300,
+            color: PrimeCareColors.slate400,
           ),
           child: FractionallySizedBox(
             alignment: Alignment.centerLeft,
@@ -35,7 +36,7 @@ class ComplianceExpiryGauge extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 gradient: const LinearGradient(
-                  colors: [Colors.green, Colors.teal],
+                  colors: [PrimeCareColors.emerald, PrimeCareColors.skyBlue],
                 ),
               ),
             ),
@@ -49,7 +50,7 @@ class ComplianceExpiryGauge extends StatelessWidget {
               '0%',
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: TextStyle(fontSize: 10, color: Colors.grey),
+              style: TextStyle(fontSize: 10, color: PrimeCareColors.slate400),
             ),
             Text(
               '100% Compliant',
@@ -57,7 +58,9 @@ class ComplianceExpiryGauge extends StatelessWidget {
               maxLines: 1,
               style: TextStyle(
                 fontSize: 10,
-                color: percent >= 1.0 ? Colors.green : Colors.grey,
+                color: percent >= 1.0
+                    ? PrimeCareColors.emerald
+                    : PrimeCareColors.slate400,
               ),
             ),
           ],

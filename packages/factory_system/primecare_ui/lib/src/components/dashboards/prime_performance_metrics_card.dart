@@ -38,7 +38,7 @@ class PrimePerformanceMetricsCard extends ConsumerWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: const TextStyle(
-            color: Colors.grey,
+            color: PrimeCareColors.slate400,
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
@@ -79,7 +79,7 @@ class PrimePerformanceMetricsCard extends ConsumerWidget {
                   _buildStatMetric(
                     'On-Time Arrival',
                     onTimeArrivalRate,
-                    Colors.green,
+                    PrimeCareColors.emerald,
                   ),
                   _buildStatMetric(
                     'Tasks Logged',
@@ -89,7 +89,7 @@ class PrimePerformanceMetricsCard extends ConsumerWidget {
                   _buildStatMetric(
                     'Patient Rating',
                     patientRating,
-                    Colors.orange,
+                    PrimeCareColors.amber,
                   ),
                 ],
               ),
@@ -101,7 +101,7 @@ class PrimePerformanceMetricsCard extends ConsumerWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey,
+                  color: PrimeCareColors.slate400,
                 ),
               ),
               const SizedBox(height: 8),

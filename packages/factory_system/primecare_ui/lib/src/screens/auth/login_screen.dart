@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:primecare_core/flutter_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -132,7 +133,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             obscureText: _obscurePassword,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
+              fillColor: PrimeCareColors.white,
               hintText: '••••••••',
               prefixIcon: const Icon(
                 LucideIcons.lock,
@@ -176,7 +177,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               onPressed: _isLoading ? null : _handleLogin,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0F172A),
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeCareColors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -187,7 +188,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       height: 24,
                       width: 24,
                       child: CircularProgressIndicator(
-                        color: Colors.white,
+                        color: PrimeCareColors.white,
                         strokeWidth: 2,
                       ),
                     )

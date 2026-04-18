@@ -1,5 +1,5 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'colors.dart';
 export 'theme_tokens.dart';
 
 /// Centralized Design System that serves as the single source of truth for UI aesthetics.

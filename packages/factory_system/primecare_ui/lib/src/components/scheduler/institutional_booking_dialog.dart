@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
@@ -296,7 +297,7 @@ class _InstitutionalBookingDialogState
                   onPressed: _isChecking ? null : _validateAndSubmit,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PrimeCareDesignSystem.primaryBrand,
-                    foregroundColor: Colors.white,
+                    foregroundColor: PrimeCareColors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: PrimeCareRadii.scaled(scale),
                     ),
@@ -307,7 +308,7 @@ class _InstitutionalBookingDialogState
                           width: 20 * scale,
                           child: const CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.white,
+                            color: PrimeCareColors.white,
                           ),
                         )
                       : Text(
@@ -337,7 +338,7 @@ class _InstitutionalBookingDialogState
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(foregroundColor: PrimeCareColors.rose),
             child: const Text('Delete'),
           ),
         ],

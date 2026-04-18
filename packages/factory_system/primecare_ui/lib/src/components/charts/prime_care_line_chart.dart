@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -36,8 +37,10 @@ class PrimeCareLineChart extends ConsumerWidget {
           gridData: FlGridData(
             show: true,
             drawVerticalLine: false,
-            getDrawingHorizontalLine: (value) =>
-                FlLine(color: Colors.white.withAlpha(20), strokeWidth: 1),
+            getDrawingHorizontalLine: (value) => FlLine(
+              color: PrimeCareColors.white.withAlpha(20),
+              strokeWidth: 1,
+            ),
           ),
           titlesData: FlTitlesData(
             show: true,
@@ -53,7 +56,7 @@ class PrimeCareLineChart extends ConsumerWidget {
                     child: Text(
                       chart.dataPoints[index].label,
                       style: TextStyle(
-                        color: Colors.white.withAlpha(80),
+                        color: PrimeCareColors.white.withAlpha(80),
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
                       ),
@@ -88,7 +91,7 @@ class PrimeCareLineChart extends ConsumerWidget {
                 getDotPainter: (spot, percent, barData, index) =>
                     FlDotCirclePainter(
                       radius: 4,
-                      color: Colors.white,
+                      color: PrimeCareColors.white,
                       strokeWidth: 2,
                       strokeColor: lineColor,
                     ),
@@ -126,7 +129,7 @@ class PrimeCareLineChart extends ConsumerWidget {
                   }),
                 ],
                 isCurved: true,
-                color: Colors.indigoAccent,
+                color: PrimeCareColors.purple,
                 barWidth: 3,
                 dashArray: [8, 8],
                 isStrokeCapRound: true,
@@ -135,9 +138,9 @@ class PrimeCareLineChart extends ConsumerWidget {
                   getDotPainter: (spot, percent, barData, index) =>
                       FlDotCirclePainter(
                         radius: 3,
-                        color: Colors.indigoAccent,
+                        color: PrimeCareColors.purple,
                         strokeWidth: 2,
-                        strokeColor: Colors.white,
+                        strokeColor: PrimeCareColors.white,
                       ),
                 ),
                 belowBarData: BarAreaData(show: false),

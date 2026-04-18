@@ -80,6 +80,7 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
             ResponsiveGridCol(
               span: 6,
               child: _buildTextField(
+                widgetKey: const Key('create_user_first_name_input'),
                 controller: _firstNameController,
                 label: 'First Name',
                 validator: (v) => v == null || v.isEmpty ? 'Required' : null,
@@ -88,6 +89,7 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
             ResponsiveGridCol(
               span: 6,
               child: _buildTextField(
+                widgetKey: const Key('create_user_last_name_input'),
                 controller: _lastNameController,
                 label: 'Last Name',
                 validator: (v) => v == null || v.isEmpty ? 'Required' : null,
@@ -96,6 +98,7 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
             ResponsiveGridCol(
               span: 12,
               child: _buildTextField(
+                widgetKey: const Key('create_user_email_input'),
                 controller: _emailController,
                 label: 'Email Address',
                 validator: (v) {
@@ -113,8 +116,9 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
                   vertical: 8.0,
                 ),
                 child: DropdownButtonFormField<String>(
+                  key: const Key('create_user_role_select'),
                   decoration: const InputDecoration(labelText: 'Platform Role'),
-                  value: _selectedRole,
+                  initialValue: _selectedRole,
                   items: const [
                     DropdownMenuItem(
                       value: 'SYSTEM_ADMIN_TIER_1',
@@ -145,6 +149,7 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
             ResponsiveGridCol(
               span: 6,
               child: _buildTextField(
+                widgetKey: const Key('create_user_office_input'),
                 controller: _officeNameController,
                 label: 'Office / Department',
               ),
@@ -156,6 +161,7 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
   }
 
   Widget _buildTextField({
+    Key? widgetKey,
     required TextEditingController controller,
     required String label,
     int maxLines = 1,
@@ -164,6 +170,7 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       child: TextFormField(
+        key: widgetKey,
         controller: controller,
         decoration: InputDecoration(labelText: label),
         maxLines: maxLines,

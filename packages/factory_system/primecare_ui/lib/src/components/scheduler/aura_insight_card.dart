@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,7 +71,7 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
               child: Container(
                 padding: EdgeInsets.all(16 * scale),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.7),
+                  color: PrimeCareColors.white.withValues(alpha: 0.7),
                   border: Border.all(
                     color: impactColor.withValues(alpha: 0.5),
                     width: 1.5 * scale,
@@ -112,7 +113,7 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
                             child: Icon(
                               LucideIcons.x,
                               size: 14 * scale,
-                              color: Colors.grey,
+                              color: PrimeCareColors.slate400,
                             ),
                           ),
                       ],
@@ -143,7 +144,7 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
                           'JUST NOW',
                           style: TextStyle(
                             fontSize: 9 * scale,
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate400,
                           ),
                         ),
                       ],
@@ -161,13 +162,13 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
   Color _getImpactColor(InsightImpact impact) {
     switch (impact) {
       case InsightImpact.alert:
-        return Colors.redAccent;
+        return PrimeCareColors.rose;
       case InsightImpact.caution:
-        return Colors.orangeAccent;
+        return PrimeCareColors.amber;
       case InsightImpact.positive:
-        return Colors.greenAccent;
+        return PrimeCareColors.emerald;
       case InsightImpact.info:
-        return Colors.blueAccent;
+        return PrimeCareColors.skyBlue;
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'components/primecare_card.dart';
 import 'components/primecare_button.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,11 @@ class PrimeCareAsyncCard<T> extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline, color: Colors.red, size: 48),
+              const Icon(
+                Icons.error_outline,
+                color: PrimeCareColors.rose,
+                size: 48,
+              ),
               const SizedBox(height: 16),
               Text(
                 'Connection Failed',
@@ -158,14 +163,14 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
                   decoration: InputDecoration(
                     labelText: field['label'],
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: PrimeCareColors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
+                      borderSide: BorderSide(color: PrimeCareColors.slate400),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
+                      borderSide: BorderSide(color: PrimeCareColors.slate400),
                     ),
                   ),
                   items: options
@@ -245,7 +250,7 @@ class _PrimeCareFeedState<T> extends ConsumerState<PrimeCareFeed<T>> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: PrimeCareColors.slate400,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -281,7 +286,7 @@ class _PrimeCareFeedState<T> extends ConsumerState<PrimeCareFeed<T>> {
           'Error loading feed: $err',
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
-          style: const TextStyle(color: Colors.red),
+          style: const TextStyle(color: PrimeCareColors.rose),
         ),
       ),
     );

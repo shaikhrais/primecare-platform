@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -133,7 +134,7 @@ class _PrimeCarePieChartState extends State<PrimeCarePieChart> {
                                   Theme.of(
                                     context,
                                   ).textTheme.bodyLarge?.color ??
-                                  Colors.black87,
+                                  PrimeCareColors.black.withValues(alpha: 0.87),
                             ),
                           ),
                         ],

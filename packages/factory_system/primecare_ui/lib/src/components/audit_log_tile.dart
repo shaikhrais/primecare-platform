@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class AuditLogTile extends StatelessWidget {
@@ -31,7 +32,7 @@ class AuditLogTile extends StatelessWidget {
       subtitle: Text(subtitle),
       trailing: Text(
         timestamp,
-        style: const TextStyle(color: Colors.grey, fontSize: 12),
+        style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 12),
       ),
     );
   }

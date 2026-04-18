@@ -1,0 +1,545 @@
+pages:
+  - id: "create_user_form"
+    route: "/admin/create-user"
+    name: "CreateUserForm"
+    role_allowed: ["admin_portal"]
+    actions: ["submit", "cancel"]
+    linked_intent: "user_management.create_user"
+
+  - id: "password_reset_form"
+    route: "/admin/reset-password"
+    name: "PasswordResetForm"
+    role_allowed: ["admin_portal"]
+    actions: ["submit", "cancel"]
+    linked_intent: "user_management.reset_password"
+
+  - id: "live_dispatch_map"
+    route: "/dispatch/live"
+    name: "LiveDispatchMap"
+    role_allowed: ["admin_portal", "dispatch_portal"]
+    actions: ["view_locations", "assign_staff"]
+    linked_intent: "view_dashboard"
+
+  - id: "auth_layout"
+    route: "/auth"
+    name: "AuthLayout"
+    role_allowed: ["public"]
+    actions: ["login", "forgot_password"]
+    linked_intent: "authenticate_user"
+
+
+  - id: "create_shift_form"
+    route: "/admin/create-shift"
+    name: "CreateShiftForm"
+    role_allowed: ["manager_portal"]
+    actions: ["submit"]
+    linked_intent: "create_shift"
+    implementation_status: "pending"
+  
+  - id: "create_shift_form"
+    route: "/admin/create-shift"
+    name: "CreateShiftForm"
+    role_allowed: ["manager_portal"]
+    actions: ["submit"]
+    linked_intent: "create_shift"
+    implementation_status: "pending"
+  - id: "system_dashboard"
+    route: "/generated/${CorporateRoutes.ceoDashboard}" # Placeholder since we don't know literal route string
+    name: "SystemDashboard"
+    label: "System Dashboard"
+    route_var: "CorporateRoutes.ceoDashboard"
+    icon_var: "LucideIcons.layoutDashboard"
+    section: "Main"
+    role_allowed: ["Admin", "CEO"]
+    actions: ["view"]
+    linked_intent: "navigate_system_dashboard"
+  - id: "compliance_hub"
+    route: "/generated/${CorporateRoutes.complianceManagerDashboard}" # Placeholder since we don't know literal route string
+    name: "ComplianceHub"
+    label: "Compliance Hub"
+    route_var: "CorporateRoutes.complianceManagerDashboard"
+    icon_var: "LucideIcons.shieldCheck"
+    section: "Management"
+    role_allowed: ["Admin", "Compliance Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_compliance_hub"
+  - id: "global_settings"
+    route: "/generated/${CommonRoutes.globalSettings}" # Placeholder since we don't know literal route string
+    name: "GlobalSettings"
+    label: "Global Settings"
+    route_var: "CommonRoutes.globalSettings"
+    icon_var: "LucideIcons.settings2"
+    section: "Management"
+    role_allowed: ["Admin"]
+    actions: ["view"]
+    linked_intent: "navigate_global_settings"
+  - id: "user_management"
+    route: "/generated/${CommonRoutes.userManagement}" # Placeholder since we don't know literal route string
+    name: "UserManagement"
+    label: "User Management"
+    route_var: "CommonRoutes.userManagement"
+    icon_var: "LucideIcons.users"
+    section: "Management"
+    role_allowed: ["Admin", "CEO"]
+    actions: ["view", "deactivate", "delete"]
+    linked_intent: "user_management.view_users"
+  - id: "enterprise_overview"
+    route: "/generated/${CorporateRoutes.ceoEnterpriseOverview}" # Placeholder since we don't know literal route string
+    name: "EnterpriseOverview"
+    label: "Enterprise Overview"
+    route_var: "CorporateRoutes.ceoEnterpriseOverview"
+    icon_var: "LucideIcons.globe"
+    section: "Main"
+    role_allowed: ["CEO"]
+    actions: ["view"]
+    linked_intent: "navigate_enterprise_overview"
+  - id: "strategic_kpis"
+    route: "/generated/${CorporateRoutes.ceoStrategicKpis}" # Placeholder since we don't know literal route string
+    name: "StrategicKPIs"
+    label: "Strategic KPIs"
+    route_var: "CorporateRoutes.ceoStrategicKpis"
+    icon_var: "LucideIcons.barChart3"
+    section: "Main"
+    role_allowed: ["CEO"]
+    actions: ["view"]
+    linked_intent: "navigate_strategic_kpis"
+  - id: "growth_pipeline"
+    route: "/generated/${CorporateRoutes.ceoGrowthPipeline}" # Placeholder since we don't know literal route string
+    name: "GrowthPipeline"
+    label: "Growth Pipeline"
+    route_var: "CorporateRoutes.ceoGrowthPipeline"
+    icon_var: "LucideIcons.trendingUp"
+    section: "Main"
+    role_allowed: ["CEO"]
+    actions: ["view"]
+    linked_intent: "navigate_growth_pipeline"
+  - id: "region_performance"
+    route: "/generated/${CorporateRoutes.ceoRegionPerformance}" # Placeholder since we don't know literal route string
+    name: "RegionPerformance"
+    label: "Region Performance"
+    route_var: "CorporateRoutes.ceoRegionPerformance"
+    icon_var: "LucideIcons.map"
+    section: "Strategic"
+    role_allowed: ["CEO"]
+    actions: ["view"]
+    linked_intent: "navigate_region_performance"
+  - id: "leadership_reports"
+    route: "/generated/${CorporateRoutes.ceoLeadershipReports}" # Placeholder since we don't know literal route string
+    name: "LeadershipReports"
+    label: "Leadership Reports"
+    route_var: "CorporateRoutes.ceoLeadershipReports"
+    icon_var: "LucideIcons.fileText"
+    section: "Strategic"
+    role_allowed: ["CEO"]
+    actions: ["view"]
+    linked_intent: "navigate_leadership_reports"
+  - id: "cfo_dashboard"
+    route: "/generated/${CorporateRoutes.cfoDashboard}" # Placeholder since we don't know literal route string
+    name: "CFODashboard"
+    label: "CFO Dashboard"
+    route_var: "CorporateRoutes.cfoDashboard"
+    icon_var: "LucideIcons.layoutDashboard"
+    section: "Main"
+    role_allowed: ["CFO"]
+    actions: ["view"]
+    linked_intent: "navigate_cfo_dashboard"
+  - id: "financial_overview"
+    route: "/generated/${CorporateRoutes.cfoFinancialOverview}" # Placeholder since we don't know literal route string
+    name: "FinancialOverview"
+    label: "Financial Overview"
+    route_var: "CorporateRoutes.cfoFinancialOverview"
+    icon_var: "LucideIcons.wallet"
+    section: "Main"
+    role_allowed: ["CFO"]
+    actions: ["view"]
+    linked_intent: "navigate_financial_overview"
+  - id: "revenue_tracker"
+    route: "/generated/${CorporateRoutes.cfoRevenue}" # Placeholder since we don't know literal route string
+    name: "RevenueTracker"
+    label: "Revenue Tracker"
+    route_var: "CorporateRoutes.cfoRevenue"
+    icon_var: "LucideIcons.dollarSign"
+    section: "Main"
+    role_allowed: ["CFO"]
+    actions: ["view"]
+    linked_intent: "navigate_revenue_tracker"
+  - id: "profitability"
+    route: "/generated/${CorporateRoutes.cfoProfitability}" # Placeholder since we don't know literal route string
+    name: "Profitability"
+    label: "Profitability"
+    route_var: "CorporateRoutes.cfoProfitability"
+    icon_var: "LucideIcons.pieChart"
+    section: "Main"
+    role_allowed: ["CFO"]
+    actions: ["view"]
+    linked_intent: "navigate_profitability"
+  - id: "tax_remittance"
+    route: "/generated/${CorporateRoutes.cfoTaxAndRemittance}" # Placeholder since we don't know literal route string
+    name: "Tax&Remittance"
+    label: "Tax & Remittance"
+    route_var: "CorporateRoutes.cfoTaxAndRemittance"
+    icon_var: "LucideIcons.landmark"
+    section: "Main"
+    role_allowed: ["CFO"]
+    actions: ["view"]
+    linked_intent: "navigate_tax_remittance"
+  - id: "coo_dashboard"
+    route: "/generated/${CorporateRoutes.cooDashboard}" # Placeholder since we don't know literal route string
+    name: "COODashboard"
+    label: "COO Dashboard"
+    route_var: "CorporateRoutes.cooDashboard"
+    icon_var: "LucideIcons.layoutDashboard"
+    section: "Main"
+    role_allowed: ["COO"]
+    actions: ["view"]
+    linked_intent: "navigate_coo_dashboard"
+  - id: "operations_board"
+    route: "/generated/${CorporateRoutes.cooOperationsOverview}" # Placeholder since we don't know literal route string
+    name: "OperationsBoard"
+    label: "Operations Board"
+    route_var: "CorporateRoutes.cooOperationsOverview"
+    icon_var: "LucideIcons.activity"
+    section: "Main"
+    role_allowed: ["COO"]
+    actions: ["view"]
+    linked_intent: "navigate_operations_board"
+  - id: "branch_operations"
+    route: "/generated/${CorporateRoutes.cooBranchOperations}" # Placeholder since we don't know literal route string
+    name: "BranchOperations"
+    label: "Branch Operations"
+    route_var: "CorporateRoutes.cooBranchOperations"
+    icon_var: "LucideIcons.gitMerge"
+    section: "Main"
+    role_allowed: ["COO"]
+    actions: ["view"]
+    linked_intent: "navigate_branch_operations"
+  - id: "scheduling_health"
+    route: "/generated/${CorporateRoutes.cooSchedulingHealth}" # Placeholder since we don't know literal route string
+    name: "SchedulingHealth"
+    label: "Scheduling Health"
+    route_var: "CorporateRoutes.cooSchedulingHealth"
+    icon_var: "LucideIcons.calendarCheck"
+    section: "Main"
+    role_allowed: ["COO"]
+    actions: ["view"]
+    linked_intent: "navigate_scheduling_health"
+  - id: "incident_reviews"
+    route: "/generated/${CorporateRoutes.cooIssueEscalations}" # Placeholder since we don't know literal route string
+    name: "IncidentReviews"
+    label: "Incident Reviews"
+    route_var: "CorporateRoutes.cooIssueEscalations"
+    icon_var: "LucideIcons.alertTriangle"
+    section: "Main"
+    role_allowed: ["COO"]
+    actions: ["view"]
+    linked_intent: "navigate_incident_reviews"
+  - id: "cto_dashboard"
+    route: "/generated/${CorporateRoutes.ctoDashboard}" # Placeholder since we don't know literal route string
+    name: "CTODashboard"
+    label: "CTO Dashboard"
+    route_var: "CorporateRoutes.ctoDashboard"
+    icon_var: "LucideIcons.layoutDashboard"
+    section: "Main"
+    role_allowed: ["CTO"]
+    actions: ["view"]
+    linked_intent: "navigate_cto_dashboard"
+  - id: "system_health"
+    route: "/generated/${CorporateRoutes.ctoSystemHealth}" # Placeholder since we don't know literal route string
+    name: "SystemHealth"
+    label: "System Health"
+    route_var: "CorporateRoutes.ctoSystemHealth"
+    icon_var: "LucideIcons.hardDrive"
+    section: "Main"
+    role_allowed: ["CTO", "Corporate Developer"]
+    actions: ["view"]
+    linked_intent: "navigate_system_health"
+  - id: "platform_usage"
+    route: "/generated/${CorporateRoutes.ctoPlatformUsage}" # Placeholder since we don't know literal route string
+    name: "PlatformUsage"
+    label: "Platform Usage"
+    route_var: "CorporateRoutes.ctoPlatformUsage"
+    icon_var: "LucideIcons.fingerprint"
+    section: "Main"
+    role_allowed: ["CTO", "Corporate Developer"]
+    actions: ["view"]
+    linked_intent: "navigate_platform_usage"
+  - id: "api_monitoring"
+    route: "/generated/${CorporateRoutes.ctoApiMonitoring}" # Placeholder since we don't know literal route string
+    name: "APIMonitoring"
+    label: "API Monitoring"
+    route_var: "CorporateRoutes.ctoApiMonitoring"
+    icon_var: "LucideIcons.cpu"
+    section: "Main"
+    role_allowed: ["CTO", "Corporate Developer"]
+    actions: ["view"]
+    linked_intent: "navigate_api_monitoring"
+  - id: "audit_logs"
+    route: "/generated/${CorporateRoutes.ctoAuditLogs}" # Placeholder since we don't know literal route string
+    name: "AuditLogs"
+    label: "Audit Logs"
+    route_var: "CorporateRoutes.ctoAuditLogs"
+    icon_var: "LucideIcons.scrollText"
+    section: "Main"
+    role_allowed: ["CTO"]
+    actions: ["view"]
+    linked_intent: "navigate_audit_logs"
+  - id: "cases"
+    route: "/generated/${CorporateRoutes.complianceManagerComplianceCases}" # Placeholder since we don't know literal route string
+    name: "Cases"
+    label: "Cases"
+    route_var: "CorporateRoutes.complianceManagerComplianceCases"
+    icon_var: "LucideIcons.briefcase"
+    section: "Workflows"
+    role_allowed: ["Compliance Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_cases"
+  - id: "policy_manager"
+    route: "/generated/${CorporateRoutes.complianceManagerPolicies}" # Placeholder since we don't know literal route string
+    name: "PolicyManager"
+    label: "Policy Manager"
+    route_var: "CorporateRoutes.complianceManagerPolicies"
+    icon_var: "LucideIcons.bookOpen"
+    section: "Workflows"
+    role_allowed: ["Compliance Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_policy_manager"
+  - id: "audits"
+    route: "/generated/${CorporateRoutes.complianceManagerAudits}" # Placeholder since we don't know literal route string
+    name: "Audits"
+    label: "Audits"
+    route_var: "CorporateRoutes.complianceManagerAudits"
+    icon_var: "LucideIcons.listChecks"
+    section: "Workflows"
+    role_allowed: ["Compliance Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_audits"
+  - id: "risk_register"
+    route: "/generated/${CorporateRoutes.complianceManagerRiskRegister}" # Placeholder since we don't know literal route string
+    name: "RiskRegister"
+    label: "Risk Register"
+    route_var: "CorporateRoutes.complianceManagerRiskRegister"
+    icon_var: "LucideIcons.flame"
+    section: "Workflows"
+    role_allowed: ["Compliance Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_risk_register"
+  - id: "curriculum_hub"
+    route: "/generated/${CorporateRoutes.trainingDirectorDashboard}" # Placeholder since we don't know literal route string
+    name: "CurriculumHub"
+    label: "Curriculum Hub"
+    route_var: "CorporateRoutes.trainingDirectorDashboard"
+    icon_var: "LucideIcons.graduationCap"
+    section: "Strategic"
+    role_allowed: ["Training Director"]
+    actions: ["view"]
+    linked_intent: "navigate_curriculum_hub"
+  - id: "skill_matrix"
+    route: "/generated/${CorporateRoutes.trainingDirectorAnalytics}" # Placeholder since we don't know literal route string
+    name: "SkillMatrix"
+    label: "Skill Matrix"
+    route_var: "CorporateRoutes.trainingDirectorAnalytics"
+    icon_var: "LucideIcons.award"
+    section: "Workflows"
+    role_allowed: ["Training Director"]
+    actions: ["view"]
+    linked_intent: "navigate_skill_matrix"
+  - id: "region_dashboard"
+    route: "/generated/${FranchiseRoutes.regionalManagerDashboard}" # Placeholder since we don't know literal route string
+    name: "RegionDashboard"
+    label: "Region Dashboard"
+    route_var: "FranchiseRoutes.regionalManagerDashboard"
+    icon_var: "LucideIcons.map"
+    section: "Operations"
+    role_allowed: ["Regional Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_region_dashboard"
+  - id: "branch_comparison"
+    route: "/generated/${FranchiseRoutes.regionalManagerBranchComparison}" # Placeholder since we don't know literal route string
+    name: "BranchComparison"
+    label: "Branch Comparison"
+    route_var: "FranchiseRoutes.regionalManagerBranchComparison"
+    icon_var: "LucideIcons.split"
+    section: "Operations"
+    role_allowed: ["Regional Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_branch_comparison"
+  - id: "ledger_command"
+    route: "/generated/${CorporateRoutes.financeDirectorDashboard}" # Placeholder since we don't know literal route string
+    name: "LedgerCommand"
+    label: "Ledger Command"
+    route_var: "CorporateRoutes.financeDirectorDashboard"
+    icon_var: "LucideIcons.landmark"
+    section: "Finance"
+    role_allowed: ["Finance Director"]
+    actions: ["view"]
+    linked_intent: "navigate_ledger_command"
+  - id: "cash_flow"
+    route: "/generated/${CorporateRoutes.financeDirectorCashFlow}" # Placeholder since we don't know literal route string
+    name: "CashFlow"
+    label: "Cash Flow"
+    route_var: "CorporateRoutes.financeDirectorCashFlow"
+    icon_var: "LucideIcons.arrowDownUp"
+    section: "Finance"
+    role_allowed: ["Finance Director"]
+    actions: ["view"]
+    linked_intent: "navigate_cash_flow"
+  - id: "intake_pipeline"
+    route: "/generated/${ClinicalRoutes.intakeCoordinatorDashboard}" # Placeholder since we don't know literal route string
+    name: "IntakePipeline"
+    label: "Intake Pipeline"
+    route_var: "ClinicalRoutes.intakeCoordinatorDashboard"
+    icon_var: "LucideIcons.userPlus"
+    section: "Clinical"
+    role_allowed: ["Intake Coordinator"]
+    actions: ["view"]
+    linked_intent: "navigate_intake_pipeline"
+  - id: "referrals"
+    route: "/generated/${ClinicalRoutes.intakeCoordinatorReferrals}" # Placeholder since we don't know literal route string
+    name: "Referrals"
+    label: "Referrals"
+    route_var: "ClinicalRoutes.intakeCoordinatorReferrals"
+    icon_var: "LucideIcons.fileInput"
+    section: "Workflows"
+    role_allowed: ["Intake Coordinator"]
+    actions: ["view"]
+    linked_intent: "navigate_referrals"
+  - id: "pending_assessments"
+    route: "/generated/${ClinicalRoutes.intakeCoordinatorAssessments}" # Placeholder since we don't know literal route string
+    name: "Pendingassessments"
+    label: "Pending assessments"
+    route_var: "ClinicalRoutes.intakeCoordinatorAssessments"
+    icon_var: "LucideIcons.clipboardList"
+    section: "Workflows"
+    role_allowed: ["Intake Coordinator"]
+    actions: ["view"]
+    linked_intent: "navigate_pending_assessments"
+  - id: "billing_console"
+    route: "/generated/${FranchiseRoutes.billingAdminDashboard}" # Placeholder since we don't know literal route string
+    name: "BillingConsole"
+    label: "Billing Console"
+    route_var: "FranchiseRoutes.billingAdminDashboard"
+    icon_var: "LucideIcons.receipt"
+    section: "Finance"
+    role_allowed: ["Billing Admin"]
+    actions: ["view"]
+    linked_intent: "navigate_billing_console"
+  - id: "invoices"
+    route: "/generated/${FranchiseRoutes.billingAdminInvoices}" # Placeholder since we don't know literal route string
+    name: "Invoices"
+    label: "Invoices"
+    route_var: "FranchiseRoutes.billingAdminInvoices"
+    icon_var: "LucideIcons.fileText"
+    section: "Finance"
+    role_allowed: ["Billing Admin"]
+    actions: ["view"]
+    linked_intent: "navigate_invoices"
+  - id: "marketing_hub"
+    route: "/generated/${FranchiseRoutes.marketingManagerDashboard}" # Placeholder since we don't know literal route string
+    name: "MarketingHub"
+    label: "Marketing Hub"
+    route_var: "FranchiseRoutes.marketingManagerDashboard"
+    icon_var: "LucideIcons.megaphone"
+    section: "Growth"
+    role_allowed: ["Marketing Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_marketing_hub"
+  - id: "campaign_analytics"
+    route: "/generated/${FranchiseRoutes.marketingManagerCampaigns}" # Placeholder since we don't know literal route string
+    name: "CampaignAnalytics"
+    label: "Campaign Analytics"
+    route_var: "FranchiseRoutes.marketingManagerCampaigns"
+    icon_var: "LucideIcons.lineChart"
+    section: "Growth"
+    role_allowed: ["Marketing Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_campaign_analytics"
+  - id: "business_overview"
+    route: "/generated/${FranchiseRoutes.franchiseOwnerDashboard}" # Placeholder since we don't know literal route string
+    name: "BusinessOverview"
+    label: "Business Overview"
+    route_var: "FranchiseRoutes.franchiseOwnerDashboard"
+    icon_var: "LucideIcons.building2"
+    section: "Main"
+    role_allowed: ["Franchise Owner"]
+    actions: ["view"]
+    linked_intent: "navigate_business_overview"
+  - id: "financial_performance"
+    route: "/generated/${FranchiseRoutes.franchiseOwnerFinancialSnapshot}" # Placeholder since we don't know literal route string
+    name: "FinancialPerformance"
+    label: "Financial Performance"
+    route_var: "FranchiseRoutes.franchiseOwnerFinancialSnapshot"
+    icon_var: "LucideIcons.barChart"
+    section: "Main"
+    role_allowed: ["Franchise Owner"]
+    actions: ["view"]
+    linked_intent: "navigate_financial_performance"
+  - id: "compliance_status"
+    route: "/generated/${FranchiseRoutes.franchiseOwnerCompliance}" # Placeholder since we don't know literal route string
+    name: "ComplianceStatus"
+    label: "Compliance Status"
+    route_var: "FranchiseRoutes.franchiseOwnerCompliance"
+    icon_var: "LucideIcons.shieldCheck"
+    section: "Main"
+    role_allowed: ["Franchise Owner"]
+    actions: ["view"]
+    linked_intent: "navigate_compliance_status"
+  - id: "clinical_dashboard"
+    route: "/generated/${CommonRoutes.clinicDashboard}" # Placeholder since we don't know literal route string
+    name: "ClinicalDashboard"
+    label: "Clinical Dashboard"
+    route_var: "CommonRoutes.clinicDashboard"
+    icon_var: "LucideIcons.stethoscope"
+    section: "Main"
+    role_allowed: ["PSW"]
+    actions: ["view"]
+    linked_intent: "navigate_clinical_dashboard"
+  - id: "shift_tracker"
+    route: "/generated/${CommonRoutes.clinicMyShifts}" # Placeholder since we don't know literal route string
+    name: "ShiftTracker"
+    label: "Shift Tracker"
+    route_var: "CommonRoutes.clinicMyShifts"
+    icon_var: "LucideIcons.clock"
+    section: "Main"
+    role_allowed: ["PSW"]
+    actions: ["view"]
+    linked_intent: "navigate_shift_tracker"
+  - id: "messages"
+    route: "/generated/${CommonRoutes.messagingHub}" # Placeholder since we don't know literal route string
+    name: "Messages"
+    label: "Messages"
+    route_var: "CommonRoutes.messagingHub"
+    icon_var: "LucideIcons.messageSquare"
+    section: "Main"
+    role_allowed: ["PSW"]
+    actions: ["view"]
+    linked_intent: "navigate_messages"
+  - id: "family_home"
+    route: "/generated/${ClientRoutes.clientDashboard}" # Placeholder since we don't know literal route string
+    name: "FamilyHome"
+    label: "Family Home"
+    route_var: "ClientRoutes.clientDashboard"
+    icon_var: "LucideIcons.home"
+    section: "Main"
+    role_allowed: ["Client"]
+    actions: ["view"]
+    linked_intent: "navigate_family_home"
+  - id: "care_plan"
+    route: "/generated/${ClientRoutes.clientTreatmentHistory}" # Placeholder since we don't know literal route string
+    name: "CarePlan"
+    label: "Care Plan"
+    route_var: "ClientRoutes.clientTreatmentHistory"
+    icon_var: "LucideIcons.heartPulse"
+    section: "Main"
+    role_allowed: ["Client"]
+    actions: ["view"]
+    linked_intent: "navigate_care_plan"
+  - id: "billing"
+    route: "/generated/${ClientRoutes.clientPayments}" # Placeholder since we don't know literal route string
+    name: "Billing"
+    label: "Billing"
+    route_var: "ClientRoutes.clientPayments"
+    icon_var: "LucideIcons.receipt"
+    section: "Main"
+    role_allowed: ["Client"]
+    actions: ["view"]
+    linked_intent: "navigate_billing"

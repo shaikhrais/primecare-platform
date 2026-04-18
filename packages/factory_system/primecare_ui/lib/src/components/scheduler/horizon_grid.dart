@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
@@ -45,7 +46,11 @@ class HorizonGrid extends ConsumerWidget {
                           child: Text(
                             '${h == 12 ? 12 : h % 12} ${h >= 12 ? 'PM' : 'AM'}',
                             style: Theme.of(context).textTheme.labelSmall
-                                ?.copyWith(color: Colors.white60),
+                                ?.copyWith(
+                                  color: PrimeCareColors.white.withValues(
+                                    alpha: 0.6,
+                                  ),
+                                ),
                           ),
                         ),
                     ],
@@ -123,19 +128,16 @@ class _StaffColumn extends ConsumerWidget {
     return Container(
       width: staffWidth,
       decoration: BoxDecoration(
-        color: isAuraTarget ? Colors.indigoAccent.withValues(alpha: 0.1) : null,
+        color: isAuraTarget ? PrimeCareColors.purple : null,
         border: Border(
           right: BorderSide(
             color: isAuraTarget
-                ? Colors.indigoAccent.withValues(alpha: 0.4)
-                : Colors.white.withValues(alpha: 0.05),
+                ? PrimeCareColors.purple
+                : PrimeCareColors.white.withValues(alpha: 0.05),
             width: isAuraTarget ? 2 : 1,
           ),
           left: isAuraTarget
-              ? BorderSide(
-                  color: Colors.indigoAccent.withValues(alpha: 0.4),
-                  width: 2,
-                )
+              ? BorderSide(color: PrimeCareColors.purple, width: 2)
               : BorderSide.none,
         ),
       ),
@@ -160,7 +162,7 @@ class _StaffColumn extends ConsumerWidget {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: Colors.white.withValues(alpha: 0.03),
+                          color: PrimeCareColors.white.withValues(alpha: 0.03),
                         ),
                       ),
                     ),
@@ -232,11 +234,11 @@ class _StaffColumn extends ConsumerWidget {
   Color _getPressureColor(SchedulePressure pressure) {
     switch (pressure) {
       case SchedulePressure.critical:
-        return Colors.redAccent;
+        return PrimeCareColors.rose;
       case SchedulePressure.high:
-        return Colors.orangeAccent;
+        return PrimeCareColors.amber;
       default:
-        return Colors.greenAccent;
+        return PrimeCareColors.emerald;
     }
   }
 }
@@ -264,7 +266,7 @@ class _StaffHeader extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             color: isAuraTarget
-                ? Colors.indigoAccent
+                ? PrimeCareColors.purple
                 : color.withValues(alpha: 0.5),
             width: isAuraTarget ? 3 : 2,
           ),
@@ -276,7 +278,7 @@ class _StaffHeader extends StatelessWidget {
             radius: 20,
             backgroundImage: NetworkImage(staff.avatarUrl),
             backgroundColor: isAuraTarget
-                ? Colors.indigoAccent
+                ? PrimeCareColors.purple
                 : staff.themeColor.withValues(alpha: 0.2),
           ),
           const SizedBox(width: 12),
@@ -295,7 +297,7 @@ class _StaffHeader extends StatelessWidget {
                 Text(
                   staff.specialization,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white70,
+                    color: PrimeCareColors.white.withValues(alpha: 0.6),
                     fontSize: 10,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -343,7 +345,7 @@ class _AppointmentCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: PrimeCareColors.white,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -354,7 +356,7 @@ class _AppointmentCard extends StatelessWidget {
                       ? LucideIcons.home
                       : LucideIcons.zap,
                   size: 10,
-                  color: Colors.white60,
+                  color: PrimeCareColors.white.withValues(alpha: 0.6),
                 ),
             ],
           ),
@@ -365,7 +367,7 @@ class _AppointmentCard extends StatelessWidget {
                 appointment.note ?? 'Standard Treatment',
                 style: TextStyle(
                   fontSize: 9,
-                  color: Colors.white.withValues(alpha: 0.6),
+                  color: PrimeCareColors.white.withValues(alpha: 0.6),
                 ),
                 overflow: TextOverflow.fade,
               ),
@@ -376,15 +378,15 @@ class _AppointmentCard extends StatelessWidget {
               margin: const EdgeInsets.only(top: 4),
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.05),
+                color: PrimeCareColors.white.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 resourceName!,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 8,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white54,
+                  color: PrimeCareColors.white.withValues(alpha: 0.6),
                 ),
                 overflow: TextOverflow.ellipsis,
               ),

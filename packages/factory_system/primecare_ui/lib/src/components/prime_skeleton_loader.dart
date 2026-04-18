@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeSkeletonLoader extends StatelessWidget {
@@ -18,7 +19,7 @@ class PrimeSkeletonLoader extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: PrimeCareColors.slate400,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
     );

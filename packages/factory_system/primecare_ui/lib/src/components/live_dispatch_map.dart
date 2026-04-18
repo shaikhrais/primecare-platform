@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeCareMapCoordinate {
@@ -22,7 +23,7 @@ class PrimeCareMapMarker {
     required this.label,
     required this.coordinate,
     this.icon = Icons.location_on,
-    this.color = Colors.red,
+    this.color = PrimeCareColors.rose,
   });
 }
 
@@ -47,9 +48,9 @@ class LiveDispatchMap extends StatelessWidget {
       child: Container(
         height: 250,
         decoration: BoxDecoration(
-          color: Colors.blueGrey.shade100,
+          color: PrimeCareColors.slate400.shade100,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.blueGrey.shade300),
+          border: Border.all(color: PrimeCareColors.slate400.shade300),
         ),
         child: Stack(
           children: [
@@ -59,12 +60,12 @@ class LiveDispatchMap extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.map, size: 60, color: Colors.white),
+                  const Icon(Icons.map, size: 60, color: PrimeCareColors.white),
                   const SizedBox(height: 8),
                   Text(
                     'Center: ${center?.latitude.toStringAsFixed(4) ?? 'Live'} / ${center?.longitude.toStringAsFixed(4) ?? 'GPS'}',
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: PrimeCareColors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                     ),
@@ -91,13 +92,13 @@ class LiveDispatchMap extends StatelessWidget {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.black87,
+                          color: PrimeCareColors.black.withValues(alpha: 0.87),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
                           marker.label,
                           style: const TextStyle(
-                            color: Colors.white,
+                            color: PrimeCareColors.white,
                             fontSize: 8,
                           ),
                         ),
@@ -113,7 +114,7 @@ class LiveDispatchMap extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.black87,
+                  color: PrimeCareColors.black.withValues(alpha: 0.87),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Row(
@@ -123,7 +124,7 @@ class LiveDispatchMap extends StatelessWidget {
                       width: 8,
                       height: 8,
                       decoration: const BoxDecoration(
-                        color: Colors.greenAccent,
+                        color: PrimeCareColors.emerald,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -131,7 +132,7 @@ class LiveDispatchMap extends StatelessWidget {
                     Text(
                       'LIVE DISPATCH | ${markers.length} UNITS',
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: PrimeCareColors.white,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),

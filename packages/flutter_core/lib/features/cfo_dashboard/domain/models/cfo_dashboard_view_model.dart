@@ -39,6 +39,28 @@ class CfoDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        FinancialRailBlueprint(
+          dataPayload: [
+            FinancialMetric(
+              label: 'Operating Cash Flow',
+              value: '\$2.4M',
+              status: 'positive',
+              trend: '+5.2%',
+            ),
+            FinancialMetric(
+              label: 'Payroll Liability',
+              value: '\$850K',
+              status: 'warning',
+              trend: '+12%',
+            ),
+            FinancialMetric(
+              label: 'Tax Remittance Account',
+              value: '\$120K',
+              status: 'neutral',
+              trend: '0%',
+            ),
+          ],
+        ),
         const StitchBlueprint(
           screenId: '2f3e9b1c8d244705a405113ae8623ec2', // CFO Dashboard
         ),

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
@@ -31,7 +32,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: isPinned ? const Color(0xFF1E88E5) : const Color(0xFFE2E8F0),
@@ -39,7 +40,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
+            color: PrimeCareColors.black.withValues(alpha: 0.02),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

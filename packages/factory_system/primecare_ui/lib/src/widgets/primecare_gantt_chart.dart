@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/design_system.dart';
@@ -120,7 +121,7 @@ class PrimeCareGanttChart extends StatelessWidget {
                                     task.name,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      color: Colors.white,
+                                      color: PrimeCareColors.white,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),

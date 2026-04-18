@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -6,51 +7,56 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: PrimeCareColors.black.withValues(alpha: 0.87),
       body: Center(
         child: Container(
           width: 400,
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.05),
+            color: PrimeCareColors.white.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+            border: Border.all(
+              color: PrimeCareColors.white.withValues(alpha: 0.1),
+            ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'Set New Password',
-                style: Theme.of(
-                  context,
-                ).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: PrimeCareColors.white,
+                ),
               ),
               const SizedBox(height: 24),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'New Password',
-                  prefixIcon: const Icon(Icons.lock, color: Colors.white54),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: PrimeCareColors.white.withValues(alpha: 0.6),
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: PrimeCareColors.white),
               ),
               const SizedBox(height: 16),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: Colors.white54,
+                    color: PrimeCareColors.white.withValues(alpha: 0.6),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: PrimeCareColors.white),
               ),
               const SizedBox(height: 32),
               ElevatedButton(

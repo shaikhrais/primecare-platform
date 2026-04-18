@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class UrgentAlertBanner extends StatelessWidget {
@@ -10,13 +11,13 @@ class UrgentAlertBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.red.shade50,
+        color: PrimeCareColors.rose,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.red.shade100),
+        border: Border.all(color: PrimeCareColors.rose),
       ),
       child: Row(
         children: [
-          Icon(Icons.warning_amber_rounded, color: Colors.red.shade700),
+          Icon(Icons.warning_amber_rounded, color: PrimeCareColors.rose),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -24,7 +25,7 @@ class UrgentAlertBanner extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: TextStyle(
-                color: Colors.red.shade900,
+                color: PrimeCareColors.rose,
                 fontWeight: FontWeight.w500,
               ),
             ),

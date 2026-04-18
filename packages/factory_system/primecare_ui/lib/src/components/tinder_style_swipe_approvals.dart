@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'prime_card.dart';
 
@@ -24,7 +25,7 @@ class TinderStyleSwipeApprovals<T> extends StatelessWidget {
           const Center(
             child: Text(
               'No items left to approve.',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: PrimeCareColors.slate400),
             ),
           );
     }
@@ -50,16 +51,24 @@ class TinderStyleSwipeApprovals<T> extends StatelessWidget {
               }
             },
             background: Container(
-              color: Colors.green,
+              color: PrimeCareColors.emerald,
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(left: 20),
-              child: const Icon(Icons.check, color: Colors.white, size: 40),
+              child: const Icon(
+                Icons.check,
+                color: PrimeCareColors.white,
+                size: 40,
+              ),
             ),
             secondaryBackground: Container(
-              color: Colors.red,
+              color: PrimeCareColors.rose,
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.only(right: 20),
-              child: const Icon(Icons.close, color: Colors.white, size: 40),
+              child: const Icon(
+                Icons.close,
+                color: PrimeCareColors.white,
+                size: 40,
+              ),
             ),
             child: PrimeCard(child: itemBuilder(context, item)),
           ),

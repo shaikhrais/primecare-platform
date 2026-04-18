@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class TimesheetDiscrepancyTable extends StatelessWidget {
@@ -20,7 +21,7 @@ class TimesheetDiscrepancyTable extends StatelessWidget {
                 '+45 mins',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: PrimeCareColors.rose),
               ),
             ),
           ],
@@ -33,7 +34,7 @@ class TimesheetDiscrepancyTable extends StatelessWidget {
                 '-15 mins',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: TextStyle(color: Colors.orange),
+                style: TextStyle(color: PrimeCareColors.amber),
               ),
             ),
           ],

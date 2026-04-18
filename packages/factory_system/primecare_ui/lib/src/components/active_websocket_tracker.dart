@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'prime_card.dart';
 
@@ -32,7 +33,7 @@ class ActiveWebSocketTracker extends StatelessWidget {
                 width: 12,
                 height: 12,
                 decoration: const BoxDecoration(
-                  color: Colors.greenAccent,
+                  color: PrimeCareColors.emerald,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -48,7 +49,7 @@ class ActiveWebSocketTracker extends StatelessWidget {
           _buildStatRow(
             'Job Queue (Pending)',
             pendingJobQueue.toString(),
-            Colors.orange,
+            PrimeCareColors.amber,
           ),
           const SizedBox(height: 8),
           _buildStatRow(
@@ -69,7 +70,9 @@ class ActiveWebSocketTracker extends StatelessWidget {
           label,
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
-          style: const TextStyle(color: Colors.black87),
+          style: TextStyle(
+            color: PrimeCareColors.black.withValues(alpha: 0.87),
+          ),
         ),
         Text(
           val,

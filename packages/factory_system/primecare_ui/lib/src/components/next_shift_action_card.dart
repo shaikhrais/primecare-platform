@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'prime_card.dart';
 import 'prime_status_badge.dart';
@@ -13,7 +14,7 @@ class NextShiftActionCard extends StatelessWidget {
     this.patientName = 'Eleanor Rigby',
     this.address = '123 Penny Lane, Liverpool',
     this.timeText = 'in 45 mins',
-    this.badgeColor = Colors.orange,
+    this.badgeColor = PrimeCareColors.amber,
   });
 
   @override
@@ -45,7 +46,7 @@ class NextShiftActionCard extends StatelessWidget {
             address,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            style: const TextStyle(color: Colors.grey),
+            style: const TextStyle(color: PrimeCareColors.slate400),
           ),
         ],
       ),

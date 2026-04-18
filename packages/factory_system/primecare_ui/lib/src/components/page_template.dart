@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -149,7 +150,7 @@ class _OrchestratedPage<T> extends ConsumerWidget {
         child: Text(
           'Aura Orchestration Failure: Expected AsyncValue, got ${asyncValue.runtimeType}\nProvider: ${provider.runtimeType}',
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.red),
+          style: const TextStyle(color: PrimeCareColors.rose),
         ),
       );
     }
@@ -172,7 +173,7 @@ class _OrchestratedPage<T> extends ConsumerWidget {
             '[PageTemplate] Orchestration warning: unwrappedData is null for "$title"',
           );
           if (data is Failure) {
-            final failure = data as Failure;
+            final failure = data;
             debugPrint(
               '[PageTemplate] Error found in Result payload: ${failure.message}',
             );

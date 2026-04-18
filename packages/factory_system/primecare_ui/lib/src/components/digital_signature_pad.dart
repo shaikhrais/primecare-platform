@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class DigitalSignaturePad extends StatelessWidget {
@@ -12,9 +13,9 @@ class DigitalSignaturePad extends StatelessWidget {
           height: 120,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.grey.shade50,
+            color: PrimeCareColors.slate50,
             border: Border.all(
-              color: Colors.grey.shade300,
+              color: PrimeCareColors.slate400,
               style: BorderStyle.solid,
             ),
             borderRadius: BorderRadius.circular(8),
@@ -24,7 +25,7 @@ class DigitalSignaturePad extends StatelessWidget {
               'Draw Signature Here',
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: TextStyle(color: Colors.grey.shade400),
+              style: TextStyle(color: PrimeCareColors.slate400),
             ),
           ),
         ),

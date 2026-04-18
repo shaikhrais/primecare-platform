@@ -22,8 +22,8 @@ class MedicationAdministrationNotifier extends AsyncNotifier<void> {
     // 2. Perform the async operation globally via architecture pattern
     state = await AsyncValue.guard(() async {
       final result = await Result.guardFuture(() async {
-        // TODO: Replace with actual Provider API call
-        await Future.delayed(const Duration(seconds: 2));
+        final client = ref.read(apiClientProvider);
+        await client.post('/api/v1/orchestration/actions', body: payload.data);
       });
       if (result.isFailure) {
         throw Exception('Failed to submit MedicationAdministration');

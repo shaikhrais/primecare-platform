@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +24,7 @@ class PrimeCarePieChart extends ConsumerWidget {
           sections: chart.dataPoints.map((dp) {
             Color actualColor = dp.color != null
                 ? Color(int.parse(dp.color!.replaceAll('#', '0xFF')))
-                : Colors.blue;
+                : PrimeCareColors.skyBlue;
 
             double radius = 50.0;
 
@@ -34,9 +35,9 @@ class PrimeCarePieChart extends ConsumerWidget {
                 .reduce((a, b) => a > b ? a : b);
             if (auraActive && dp.value == maxValue && auraAnomaly != null) {
               if (auraAnomaly.impact == InsightImpact.alert)
-                actualColor = Colors.redAccent;
+                actualColor = PrimeCareColors.rose;
               if (auraAnomaly.impact == InsightImpact.caution)
-                actualColor = Colors.orangeAccent;
+                actualColor = PrimeCareColors.amber;
               radius = 60.0; // Pop out the anomalous segment
             }
 
@@ -48,7 +49,7 @@ class PrimeCarePieChart extends ConsumerWidget {
               titleStyle: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: PrimeCareColors.white,
               ),
             );
           }).toList(),

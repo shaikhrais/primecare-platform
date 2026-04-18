@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,9 @@ class _TaskChecklistNodeState extends State<TaskChecklistNode> {
         maxLines: 1,
         style: TextStyle(
           decoration: isChecked ? TextDecoration.lineThrough : null,
-          color: isChecked ? Colors.grey : Colors.black87,
+          color: isChecked
+              ? PrimeCareColors.slate400
+              : PrimeCareColors.black.withValues(alpha: 0.87),
         ),
       ),
       controlAffinity: ListTileControlAffinity.leading,

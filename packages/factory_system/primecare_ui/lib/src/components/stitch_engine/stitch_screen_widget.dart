@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import '../../design_system/clinical_glass.dart';
 
@@ -76,14 +77,16 @@ class StitchScreenWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.green.withValues(alpha: 0.1),
+        color: PrimeCareColors.emerald.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+        border: Border.all(
+          color: PrimeCareColors.emerald.withValues(alpha: 0.2),
+        ),
       ),
       child: Text(
         text,
         style: const TextStyle(
-          color: Colors.green,
+          color: PrimeCareColors.emerald,
           fontSize: 10,
           fontWeight: FontWeight.bold,
         ),

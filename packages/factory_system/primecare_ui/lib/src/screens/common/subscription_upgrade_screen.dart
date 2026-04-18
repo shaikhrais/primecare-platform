@@ -75,14 +75,14 @@ class _SubscriptionUpgradeScreenState
               'Subscription & Upgrades',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w700,
-                color: Colors.white,
+                color: PrimeCareColors.white,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               'Manage your SaaS billing and promo codes.',
               style: TextStyle(
-                color: Colors.white.withAlpha(178),
+                color: PrimeCareColors.white.withAlpha(178),
                 fontSize: 16,
               ),
             ),
@@ -92,9 +92,9 @@ class _SubscriptionUpgradeScreenState
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.white.withAlpha(15),
+                color: PrimeCareColors.white.withAlpha(15),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.white.withAlpha(30)),
+                border: Border.all(color: PrimeCareColors.white.withAlpha(30)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +102,7 @@ class _SubscriptionUpgradeScreenState
                   Text(
                     "Current Tier",
                     style: TextStyle(
-                      color: Colors.white.withAlpha(150),
+                      color: PrimeCareColors.white.withAlpha(150),
                       fontSize: 14,
                     ),
                   ),
@@ -114,8 +114,8 @@ class _SubscriptionUpgradeScreenState
                         style: Theme.of(context).textTheme.headlineSmall
                             ?.copyWith(
                               color: _isSuccess
-                                  ? Colors.tealAccent
-                                  : Colors.white,
+                                  ? PrimeCareColors.skyBlue
+                                  : PrimeCareColors.white,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,
                             ),
@@ -124,7 +124,7 @@ class _SubscriptionUpgradeScreenState
                         const SizedBox(width: 12),
                         const Icon(
                           Icons.verified,
-                          color: Colors.tealAccent,
+                          color: PrimeCareColors.skyBlue,
                           size: 20,
                         ),
                       ],
@@ -139,7 +139,7 @@ class _SubscriptionUpgradeScreenState
             Text(
               'Promo Code',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: Colors.white,
+                color: PrimeCareColors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -149,27 +149,31 @@ class _SubscriptionUpgradeScreenState
                 Expanded(
                   child: TextField(
                     controller: _promoController,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: PrimeCareColors.white),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.white.withAlpha(10),
+                      fillColor: PrimeCareColors.white.withAlpha(10),
                       hintText: 'Enter code (e.g. LIFETIME50)',
-                      hintStyle: TextStyle(color: Colors.white.withAlpha(100)),
+                      hintStyle: TextStyle(
+                        color: PrimeCareColors.white.withAlpha(100),
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(
-                          color: Colors.white.withAlpha(30),
+                          color: PrimeCareColors.white.withAlpha(30),
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(
-                          color: Colors.white.withAlpha(30),
+                          color: PrimeCareColors.white.withAlpha(30),
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.tealAccent),
+                        borderSide: const BorderSide(
+                          color: PrimeCareColors.skyBlue,
+                        ),
                       ),
                     ),
                     onSubmitted: (_) => _applyPromoCode(),
@@ -179,8 +183,8 @@ class _SubscriptionUpgradeScreenState
                 ElevatedButton(
                   onPressed: _isApplying ? null : _applyPromoCode,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.tealAccent,
-                    foregroundColor: Colors.black,
+                    backgroundColor: PrimeCareColors.skyBlue,
+                    foregroundColor: PrimeCareColors.black,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 20,
@@ -196,7 +200,7 @@ class _SubscriptionUpgradeScreenState
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.black,
+                              PrimeCareColors.black,
                             ),
                           ),
                         )
@@ -212,19 +216,27 @@ class _SubscriptionUpgradeScreenState
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: (_isSuccess ? Colors.tealAccent : Colors.redAccent)
-                      .withAlpha(20),
+                  color:
+                      (_isSuccess
+                              ? PrimeCareColors.skyBlue
+                              : PrimeCareColors.rose)
+                          .withAlpha(20),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: (_isSuccess ? Colors.tealAccent : Colors.redAccent)
-                        .withAlpha(50),
+                    color:
+                        (_isSuccess
+                                ? PrimeCareColors.skyBlue
+                                : PrimeCareColors.rose)
+                            .withAlpha(50),
                   ),
                 ),
                 child: Row(
                   children: [
                     Icon(
                       _isSuccess ? Icons.check_circle : Icons.error_outline,
-                      color: _isSuccess ? Colors.tealAccent : Colors.redAccent,
+                      color: _isSuccess
+                          ? PrimeCareColors.skyBlue
+                          : PrimeCareColors.rose,
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -232,8 +244,8 @@ class _SubscriptionUpgradeScreenState
                         _applyMessage!,
                         style: TextStyle(
                           color: _isSuccess
-                              ? Colors.tealAccent
-                              : Colors.redAccent,
+                              ? PrimeCareColors.skyBlue
+                              : PrimeCareColors.rose,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

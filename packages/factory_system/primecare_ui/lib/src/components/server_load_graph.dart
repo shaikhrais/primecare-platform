@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ServerLoadGraph extends StatelessWidget {
@@ -8,7 +9,7 @@ class ServerLoadGraph extends StatelessWidget {
     return Container(
       height: 120,
       width: double.infinity,
-      color: Colors.black,
+      color: PrimeCareColors.black,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(
@@ -17,7 +18,7 @@ class ServerLoadGraph extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 2),
               height: (index * 7) % 80 + 20,
-              color: Colors.greenAccent,
+              color: PrimeCareColors.emerald,
             ),
           ),
         ),

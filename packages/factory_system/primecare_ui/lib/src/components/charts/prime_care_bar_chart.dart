@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,7 +39,7 @@ class PrimeCareBarChart extends ConsumerWidget {
                 return BarTooltipItem(
                   '${chart.dataPoints[groupIndex].label}\n',
                   const TextStyle(
-                    color: Colors.white,
+                    color: PrimeCareColors.white,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
@@ -103,9 +104,9 @@ class PrimeCareBarChart extends ConsumerWidget {
 
             if (auraActive && isOutlier && auraAnomaly != null) {
               if (auraAnomaly.impact == InsightImpact.alert)
-                actualColor = Colors.redAccent;
+                actualColor = PrimeCareColors.rose;
               if (auraAnomaly.impact == InsightImpact.caution)
-                actualColor = Colors.orangeAccent;
+                actualColor = PrimeCareColors.amber;
               height +=
                   (height * 0.15); // Exaggerate the outlier for predictive view
             }

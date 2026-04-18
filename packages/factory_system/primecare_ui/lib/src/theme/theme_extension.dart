@@ -1,5 +1,5 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 /// Enterprise Theme Extension for PrimeCare Semantic Tokens.
 /// This allows us to access brand-specific colors that aren't part of the standard ColorScheme.

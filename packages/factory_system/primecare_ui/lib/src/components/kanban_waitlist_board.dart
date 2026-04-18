@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeCareKanbanCard {
@@ -122,9 +123,9 @@ class KanbanWaitlistBoard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 6),
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: PrimeCareColors.slate400),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +141,7 @@ class KanbanWaitlistBoard extends StatelessWidget {
               card.subtitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 9, color: Colors.grey.shade600),
+              style: TextStyle(fontSize: 9, color: PrimeCareColors.slate400),
             ),
         ],
       ),

@@ -31,14 +31,18 @@ class CeoDashboardViewModel extends PrimeCareDashboardViewModel {
 
   factory CeoDashboardViewModel.assemble({required bool isOffline}) {
     final metrics = DataLogisticsHub.getDashboardMetrics('ceo');
-    
+
     // Convert KpiMetric to UniversalKpi for the StatGridBlueprint with high-fidelity mapping
-    final universalKpis = metrics.kpis.map((k) => UniversalKpi(
-      title: k.title,
-      value: k.value,
-      trend: double.tryParse(k.trend?.replaceAll('%', '') ?? '0') ?? 0.0, 
-      status: UniversalKpi.mapStatus(k.status),
-    )).toList();
+    final universalKpis = metrics.kpis
+        .map(
+          (k) => UniversalKpi(
+            title: k.title,
+            value: k.value,
+            trend: double.tryParse(k.trend?.replaceAll('%', '') ?? '0') ?? 0.0,
+            status: UniversalKpi.mapStatus(k.status),
+          ),
+        )
+        .toList();
 
     return CeoDashboardViewModel(
       isOfflineFallback: isOffline,
@@ -46,9 +50,16 @@ class CeoDashboardViewModel extends PrimeCareDashboardViewModel {
       recentActivity: metrics.recentActivity,
       blueprints: [
         StatGridBlueprint(dataPayload: universalKpis),
+        const AuraDashboardHudBlueprint(),
+        const RiskMonitorBlueprint(
+          dataPayload: {
+            'status': 'CRITICAL',
+            'summary':
+                'System-wide monitoring active. Multiple concurrent anomalies detected globally.',
+          },
+        ),
         const StitchBlueprint(screenId: '34b19469e4724705a405113ae8623ec0'),
       ],
     );
   }
 }
-

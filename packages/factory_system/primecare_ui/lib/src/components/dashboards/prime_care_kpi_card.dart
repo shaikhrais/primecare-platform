@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -33,18 +34,18 @@ class PrimeCareKpiCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.05),
+            color: PrimeCareColors.skyBlue.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
         ],
         border: Border.all(
           color: isPinned
-              ? Colors.blue.withValues(alpha: 0.2)
+              ? PrimeCareColors.skyBlue.withValues(alpha: 0.2)
               : Colors.transparent,
           width: 2,
         ),
@@ -69,8 +70,8 @@ class PrimeCareKpiCard extends ConsumerWidget {
                 isPinned ? LucideIcons.pin : LucideIcons.pinOff,
                 size: 16,
                 color: isPinned
-                    ? Colors.blue
-                    : Colors.grey.withValues(alpha: 0.4),
+                    ? PrimeCareColors.skyBlue
+                    : PrimeCareColors.slate400.withValues(alpha: 0.4),
               ),
             ),
           ),
@@ -82,10 +83,10 @@ class PrimeCareKpiCard extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withValues(alpha: 0.1),
+                  color: PrimeCareColors.skyBlue.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(icon, color: Colors.blue, size: 24),
+                child: Icon(icon, color: PrimeCareColors.skyBlue, size: 24),
               ),
               const SizedBox(height: 4),
               Column(

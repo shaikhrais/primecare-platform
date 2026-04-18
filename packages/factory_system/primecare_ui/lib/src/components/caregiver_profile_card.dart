@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'prime_card.dart';
 
@@ -49,7 +50,11 @@ class CaregiverProfileCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(Icons.star, color: Colors.amber, size: 16),
+                    const Icon(
+                      Icons.star,
+                      color: PrimeCareColors.amber,
+                      size: 16,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       rating.toStringAsFixed(1),
@@ -60,7 +65,7 @@ class CaregiverProfileCard extends StatelessWidget {
                       child: Text(
                         specialty,
                         style: TextStyle(
-                          color: Colors.grey.shade600,
+                          color: PrimeCareColors.slate400,
                           fontSize: 12,
                         ),
                         overflow: TextOverflow.ellipsis,

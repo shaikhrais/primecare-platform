@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -187,7 +188,10 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
                       12 * layout.scaleFactor,
                     ),
                   ),
-                  prefixIcon: const Icon(Icons.favorite, color: Colors.red),
+                  prefixIcon: const Icon(
+                    Icons.favorite,
+                    color: PrimeCareColors.rose,
+                  ),
                 ),
                 keyboardType: TextInputType.number,
                 initialValue: asyncState.value?.heartRate,
@@ -212,7 +216,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
                   ),
                   prefixIcon: const Icon(
                     Icons.monitor_heart,
-                    color: Colors.blue,
+                    color: PrimeCareColors.skyBlue,
                   ),
                 ),
                 initialValue: asyncState.value?.bloodPressure,
@@ -236,7 +240,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
                   ),
                   prefixIcon: const Icon(
                     Icons.thermostat,
-                    color: Colors.orange,
+                    color: PrimeCareColors.amber,
                   ),
                 ),
                 keyboardType: const TextInputType.numberWithOptions(

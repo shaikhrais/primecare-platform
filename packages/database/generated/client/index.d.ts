@@ -659,6 +659,21 @@ export type DynamicFeatureRecord = $Result.DefaultSelection<Prisma.$DynamicFeatu
  */
 export type ScreenConfiguration = $Result.DefaultSelection<Prisma.$ScreenConfigurationPayload>
 /**
+ * Model ImplementationEvent
+ * 
+ */
+export type ImplementationEvent = $Result.DefaultSelection<Prisma.$ImplementationEventPayload>
+/**
+ * Model VerificationLog
+ * 
+ */
+export type VerificationLog = $Result.DefaultSelection<Prisma.$VerificationLogPayload>
+/**
+ * Model AnomalyReport
+ * 
+ */
+export type AnomalyReport = $Result.DefaultSelection<Prisma.$AnomalyReportPayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2373,6 +2388,36 @@ export class PrismaClient<
   get screenConfiguration(): Prisma.ScreenConfigurationDelegate<ExtArgs>;
 
   /**
+   * `prisma.implementationEvent`: Exposes CRUD operations for the **ImplementationEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ImplementationEvents
+    * const implementationEvents = await prisma.implementationEvent.findMany()
+    * ```
+    */
+  get implementationEvent(): Prisma.ImplementationEventDelegate<ExtArgs>;
+
+  /**
+   * `prisma.verificationLog`: Exposes CRUD operations for the **VerificationLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VerificationLogs
+    * const verificationLogs = await prisma.verificationLog.findMany()
+    * ```
+    */
+  get verificationLog(): Prisma.VerificationLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.anomalyReport`: Exposes CRUD operations for the **AnomalyReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AnomalyReports
+    * const anomalyReports = await prisma.anomalyReport.findMany()
+    * ```
+    */
+  get anomalyReport(): Prisma.AnomalyReportDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3541,6 +3586,9 @@ export namespace Prisma {
     CarePlanFollowUp: 'CarePlanFollowUp',
     DynamicFeatureRecord: 'DynamicFeatureRecord',
     ScreenConfiguration: 'ScreenConfiguration',
+    ImplementationEvent: 'ImplementationEvent',
+    VerificationLog: 'VerificationLog',
+    AnomalyReport: 'AnomalyReport',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3616,7 +3664,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -12650,6 +12698,216 @@ export namespace Prisma {
           }
         }
       }
+      ImplementationEvent: {
+        payload: Prisma.$ImplementationEventPayload<ExtArgs>
+        fields: Prisma.ImplementationEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImplementationEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImplementationEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>
+          }
+          findFirst: {
+            args: Prisma.ImplementationEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImplementationEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>
+          }
+          findMany: {
+            args: Prisma.ImplementationEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>[]
+          }
+          create: {
+            args: Prisma.ImplementationEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>
+          }
+          createMany: {
+            args: Prisma.ImplementationEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ImplementationEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>[]
+          }
+          delete: {
+            args: Prisma.ImplementationEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>
+          }
+          update: {
+            args: Prisma.ImplementationEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.ImplementationEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImplementationEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ImplementationEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImplementationEventPayload>
+          }
+          aggregate: {
+            args: Prisma.ImplementationEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImplementationEvent>
+          }
+          groupBy: {
+            args: Prisma.ImplementationEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImplementationEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImplementationEventCountArgs<ExtArgs>
+            result: $Utils.Optional<ImplementationEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      VerificationLog: {
+        payload: Prisma.$VerificationLogPayload<ExtArgs>
+        fields: Prisma.VerificationLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VerificationLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VerificationLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>
+          }
+          findFirst: {
+            args: Prisma.VerificationLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VerificationLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>
+          }
+          findMany: {
+            args: Prisma.VerificationLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>[]
+          }
+          create: {
+            args: Prisma.VerificationLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>
+          }
+          createMany: {
+            args: Prisma.VerificationLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VerificationLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>[]
+          }
+          delete: {
+            args: Prisma.VerificationLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>
+          }
+          update: {
+            args: Prisma.VerificationLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.VerificationLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VerificationLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.VerificationLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationLogPayload>
+          }
+          aggregate: {
+            args: Prisma.VerificationLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVerificationLog>
+          }
+          groupBy: {
+            args: Prisma.VerificationLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VerificationLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VerificationLogCountArgs<ExtArgs>
+            result: $Utils.Optional<VerificationLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      AnomalyReport: {
+        payload: Prisma.$AnomalyReportPayload<ExtArgs>
+        fields: Prisma.AnomalyReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AnomalyReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AnomalyReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>
+          }
+          findFirst: {
+            args: Prisma.AnomalyReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AnomalyReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>
+          }
+          findMany: {
+            args: Prisma.AnomalyReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>[]
+          }
+          create: {
+            args: Prisma.AnomalyReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>
+          }
+          createMany: {
+            args: Prisma.AnomalyReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AnomalyReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>[]
+          }
+          delete: {
+            args: Prisma.AnomalyReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>
+          }
+          update: {
+            args: Prisma.AnomalyReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.AnomalyReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AnomalyReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AnomalyReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnomalyReportPayload>
+          }
+          aggregate: {
+            args: Prisma.AnomalyReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAnomalyReport>
+          }
+          groupBy: {
+            args: Prisma.AnomalyReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AnomalyReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AnomalyReportCountArgs<ExtArgs>
+            result: $Utils.Optional<AnomalyReportCountAggregateOutputType> | number
+          }
+        }
+      }
       FamilyAppointment: {
         payload: Prisma.$FamilyAppointmentPayload<ExtArgs>
         fields: Prisma.FamilyAppointmentFieldRefs
@@ -19609,6 +19867,8 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     email: string | null
+    firstName: string | null
+    lastName: string | null
     phone: string | null
     passwordHash: string | null
     osmId: string | null
@@ -19625,6 +19885,8 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
+    firstName: string | null
+    lastName: string | null
     phone: string | null
     passwordHash: string | null
     osmId: string | null
@@ -19641,6 +19903,8 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     email: number
+    firstName: number
+    lastName: number
     phone: number
     passwordHash: number
     osmId: number
@@ -19659,6 +19923,8 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
+    firstName?: true
+    lastName?: true
     phone?: true
     passwordHash?: true
     osmId?: true
@@ -19675,6 +19941,8 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
+    firstName?: true
+    lastName?: true
     phone?: true
     passwordHash?: true
     osmId?: true
@@ -19691,6 +19959,8 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
+    firstName?: true
+    lastName?: true
     phone?: true
     passwordHash?: true
     osmId?: true
@@ -19780,6 +20050,8 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     email: string
+    firstName: string | null
+    lastName: string | null
     phone: string | null
     passwordHash: string | null
     osmId: string | null
@@ -19813,6 +20085,8 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    firstName?: boolean
+    lastName?: boolean
     phone?: boolean
     passwordHash?: boolean
     osmId?: boolean
@@ -19870,6 +20144,8 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    firstName?: boolean
+    lastName?: boolean
     phone?: boolean
     passwordHash?: boolean
     osmId?: boolean
@@ -19887,6 +20163,8 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
+    firstName?: boolean
+    lastName?: boolean
     phone?: boolean
     passwordHash?: boolean
     osmId?: boolean
@@ -19994,6 +20272,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
+      firstName: string | null
+      lastName: string | null
       phone: string | null
       passwordHash: string | null
       osmId: string | null
@@ -20440,6 +20720,8 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly firstName: FieldRef<"User", 'String'>
+    readonly lastName: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly osmId: FieldRef<"User", 'String'>
@@ -155286,6 +155568,2714 @@ export namespace Prisma {
 
 
   /**
+   * Model ImplementationEvent
+   */
+
+  export type AggregateImplementationEvent = {
+    _count: ImplementationEventCountAggregateOutputType | null
+    _min: ImplementationEventMinAggregateOutputType | null
+    _max: ImplementationEventMaxAggregateOutputType | null
+  }
+
+  export type ImplementationEventMinAggregateOutputType = {
+    id: string | null
+    featureName: string | null
+    version: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ImplementationEventMaxAggregateOutputType = {
+    id: string | null
+    featureName: string | null
+    version: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ImplementationEventCountAggregateOutputType = {
+    id: number
+    featureName: number
+    version: number
+    status: number
+    payload: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ImplementationEventMinAggregateInputType = {
+    id?: true
+    featureName?: true
+    version?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ImplementationEventMaxAggregateInputType = {
+    id?: true
+    featureName?: true
+    version?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ImplementationEventCountAggregateInputType = {
+    id?: true
+    featureName?: true
+    version?: true
+    status?: true
+    payload?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ImplementationEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImplementationEvent to aggregate.
+     */
+    where?: ImplementationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImplementationEvents to fetch.
+     */
+    orderBy?: ImplementationEventOrderByWithRelationInput | ImplementationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImplementationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImplementationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImplementationEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ImplementationEvents
+    **/
+    _count?: true | ImplementationEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImplementationEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImplementationEventMaxAggregateInputType
+  }
+
+  export type GetImplementationEventAggregateType<T extends ImplementationEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateImplementationEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImplementationEvent[P]>
+      : GetScalarType<T[P], AggregateImplementationEvent[P]>
+  }
+
+
+
+
+  export type ImplementationEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImplementationEventWhereInput
+    orderBy?: ImplementationEventOrderByWithAggregationInput | ImplementationEventOrderByWithAggregationInput[]
+    by: ImplementationEventScalarFieldEnum[] | ImplementationEventScalarFieldEnum
+    having?: ImplementationEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImplementationEventCountAggregateInputType | true
+    _min?: ImplementationEventMinAggregateInputType
+    _max?: ImplementationEventMaxAggregateInputType
+  }
+
+  export type ImplementationEventGroupByOutputType = {
+    id: string
+    featureName: string
+    version: string
+    status: string
+    payload: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ImplementationEventCountAggregateOutputType | null
+    _min: ImplementationEventMinAggregateOutputType | null
+    _max: ImplementationEventMaxAggregateOutputType | null
+  }
+
+  type GetImplementationEventGroupByPayload<T extends ImplementationEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImplementationEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImplementationEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImplementationEventGroupByOutputType[P]>
+            : GetScalarType<T[P], ImplementationEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImplementationEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    featureName?: boolean
+    version?: boolean
+    status?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["implementationEvent"]>
+
+  export type ImplementationEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    featureName?: boolean
+    version?: boolean
+    status?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["implementationEvent"]>
+
+  export type ImplementationEventSelectScalar = {
+    id?: boolean
+    featureName?: boolean
+    version?: boolean
+    status?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $ImplementationEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ImplementationEvent"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      featureName: string
+      version: string
+      status: string
+      payload: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["implementationEvent"]>
+    composites: {}
+  }
+
+  type ImplementationEventGetPayload<S extends boolean | null | undefined | ImplementationEventDefaultArgs> = $Result.GetResult<Prisma.$ImplementationEventPayload, S>
+
+  type ImplementationEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ImplementationEventFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ImplementationEventCountAggregateInputType | true
+    }
+
+  export interface ImplementationEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ImplementationEvent'], meta: { name: 'ImplementationEvent' } }
+    /**
+     * Find zero or one ImplementationEvent that matches the filter.
+     * @param {ImplementationEventFindUniqueArgs} args - Arguments to find a ImplementationEvent
+     * @example
+     * // Get one ImplementationEvent
+     * const implementationEvent = await prisma.implementationEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ImplementationEventFindUniqueArgs>(args: SelectSubset<T, ImplementationEventFindUniqueArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ImplementationEvent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ImplementationEventFindUniqueOrThrowArgs} args - Arguments to find a ImplementationEvent
+     * @example
+     * // Get one ImplementationEvent
+     * const implementationEvent = await prisma.implementationEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ImplementationEventFindUniqueOrThrowArgs>(args: SelectSubset<T, ImplementationEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ImplementationEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImplementationEventFindFirstArgs} args - Arguments to find a ImplementationEvent
+     * @example
+     * // Get one ImplementationEvent
+     * const implementationEvent = await prisma.implementationEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ImplementationEventFindFirstArgs>(args?: SelectSubset<T, ImplementationEventFindFirstArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ImplementationEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImplementationEventFindFirstOrThrowArgs} args - Arguments to find a ImplementationEvent
+     * @example
+     * // Get one ImplementationEvent
+     * const implementationEvent = await prisma.implementationEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ImplementationEventFindFirstOrThrowArgs>(args?: SelectSubset<T, ImplementationEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ImplementationEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImplementationEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ImplementationEvents
+     * const implementationEvents = await prisma.implementationEvent.findMany()
+     * 
+     * // Get first 10 ImplementationEvents
+     * const implementationEvents = await prisma.implementationEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const implementationEventWithIdOnly = await prisma.implementationEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ImplementationEventFindManyArgs>(args?: SelectSubset<T, ImplementationEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ImplementationEvent.
+     * @param {ImplementationEventCreateArgs} args - Arguments to create a ImplementationEvent.
+     * @example
+     * // Create one ImplementationEvent
+     * const ImplementationEvent = await prisma.implementationEvent.create({
+     *   data: {
+     *     // ... data to create a ImplementationEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends ImplementationEventCreateArgs>(args: SelectSubset<T, ImplementationEventCreateArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ImplementationEvents.
+     * @param {ImplementationEventCreateManyArgs} args - Arguments to create many ImplementationEvents.
+     * @example
+     * // Create many ImplementationEvents
+     * const implementationEvent = await prisma.implementationEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ImplementationEventCreateManyArgs>(args?: SelectSubset<T, ImplementationEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ImplementationEvents and returns the data saved in the database.
+     * @param {ImplementationEventCreateManyAndReturnArgs} args - Arguments to create many ImplementationEvents.
+     * @example
+     * // Create many ImplementationEvents
+     * const implementationEvent = await prisma.implementationEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ImplementationEvents and only return the `id`
+     * const implementationEventWithIdOnly = await prisma.implementationEvent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ImplementationEventCreateManyAndReturnArgs>(args?: SelectSubset<T, ImplementationEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ImplementationEvent.
+     * @param {ImplementationEventDeleteArgs} args - Arguments to delete one ImplementationEvent.
+     * @example
+     * // Delete one ImplementationEvent
+     * const ImplementationEvent = await prisma.implementationEvent.delete({
+     *   where: {
+     *     // ... filter to delete one ImplementationEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ImplementationEventDeleteArgs>(args: SelectSubset<T, ImplementationEventDeleteArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ImplementationEvent.
+     * @param {ImplementationEventUpdateArgs} args - Arguments to update one ImplementationEvent.
+     * @example
+     * // Update one ImplementationEvent
+     * const implementationEvent = await prisma.implementationEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ImplementationEventUpdateArgs>(args: SelectSubset<T, ImplementationEventUpdateArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ImplementationEvents.
+     * @param {ImplementationEventDeleteManyArgs} args - Arguments to filter ImplementationEvents to delete.
+     * @example
+     * // Delete a few ImplementationEvents
+     * const { count } = await prisma.implementationEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ImplementationEventDeleteManyArgs>(args?: SelectSubset<T, ImplementationEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ImplementationEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImplementationEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ImplementationEvents
+     * const implementationEvent = await prisma.implementationEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ImplementationEventUpdateManyArgs>(args: SelectSubset<T, ImplementationEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ImplementationEvent.
+     * @param {ImplementationEventUpsertArgs} args - Arguments to update or create a ImplementationEvent.
+     * @example
+     * // Update or create a ImplementationEvent
+     * const implementationEvent = await prisma.implementationEvent.upsert({
+     *   create: {
+     *     // ... data to create a ImplementationEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ImplementationEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ImplementationEventUpsertArgs>(args: SelectSubset<T, ImplementationEventUpsertArgs<ExtArgs>>): Prisma__ImplementationEventClient<$Result.GetResult<Prisma.$ImplementationEventPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ImplementationEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImplementationEventCountArgs} args - Arguments to filter ImplementationEvents to count.
+     * @example
+     * // Count the number of ImplementationEvents
+     * const count = await prisma.implementationEvent.count({
+     *   where: {
+     *     // ... the filter for the ImplementationEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImplementationEventCountArgs>(
+      args?: Subset<T, ImplementationEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImplementationEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ImplementationEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImplementationEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImplementationEventAggregateArgs>(args: Subset<T, ImplementationEventAggregateArgs>): Prisma.PrismaPromise<GetImplementationEventAggregateType<T>>
+
+    /**
+     * Group by ImplementationEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImplementationEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImplementationEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImplementationEventGroupByArgs['orderBy'] }
+        : { orderBy?: ImplementationEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImplementationEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImplementationEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ImplementationEvent model
+   */
+  readonly fields: ImplementationEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ImplementationEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ImplementationEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ImplementationEvent model
+   */ 
+  interface ImplementationEventFieldRefs {
+    readonly id: FieldRef<"ImplementationEvent", 'String'>
+    readonly featureName: FieldRef<"ImplementationEvent", 'String'>
+    readonly version: FieldRef<"ImplementationEvent", 'String'>
+    readonly status: FieldRef<"ImplementationEvent", 'String'>
+    readonly payload: FieldRef<"ImplementationEvent", 'Json'>
+    readonly createdAt: FieldRef<"ImplementationEvent", 'DateTime'>
+    readonly updatedAt: FieldRef<"ImplementationEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ImplementationEvent findUnique
+   */
+  export type ImplementationEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * Filter, which ImplementationEvent to fetch.
+     */
+    where: ImplementationEventWhereUniqueInput
+  }
+
+  /**
+   * ImplementationEvent findUniqueOrThrow
+   */
+  export type ImplementationEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * Filter, which ImplementationEvent to fetch.
+     */
+    where: ImplementationEventWhereUniqueInput
+  }
+
+  /**
+   * ImplementationEvent findFirst
+   */
+  export type ImplementationEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * Filter, which ImplementationEvent to fetch.
+     */
+    where?: ImplementationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImplementationEvents to fetch.
+     */
+    orderBy?: ImplementationEventOrderByWithRelationInput | ImplementationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImplementationEvents.
+     */
+    cursor?: ImplementationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImplementationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImplementationEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImplementationEvents.
+     */
+    distinct?: ImplementationEventScalarFieldEnum | ImplementationEventScalarFieldEnum[]
+  }
+
+  /**
+   * ImplementationEvent findFirstOrThrow
+   */
+  export type ImplementationEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * Filter, which ImplementationEvent to fetch.
+     */
+    where?: ImplementationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImplementationEvents to fetch.
+     */
+    orderBy?: ImplementationEventOrderByWithRelationInput | ImplementationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImplementationEvents.
+     */
+    cursor?: ImplementationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImplementationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImplementationEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImplementationEvents.
+     */
+    distinct?: ImplementationEventScalarFieldEnum | ImplementationEventScalarFieldEnum[]
+  }
+
+  /**
+   * ImplementationEvent findMany
+   */
+  export type ImplementationEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * Filter, which ImplementationEvents to fetch.
+     */
+    where?: ImplementationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImplementationEvents to fetch.
+     */
+    orderBy?: ImplementationEventOrderByWithRelationInput | ImplementationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ImplementationEvents.
+     */
+    cursor?: ImplementationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImplementationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImplementationEvents.
+     */
+    skip?: number
+    distinct?: ImplementationEventScalarFieldEnum | ImplementationEventScalarFieldEnum[]
+  }
+
+  /**
+   * ImplementationEvent create
+   */
+  export type ImplementationEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ImplementationEvent.
+     */
+    data: XOR<ImplementationEventCreateInput, ImplementationEventUncheckedCreateInput>
+  }
+
+  /**
+   * ImplementationEvent createMany
+   */
+  export type ImplementationEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ImplementationEvents.
+     */
+    data: ImplementationEventCreateManyInput | ImplementationEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ImplementationEvent createManyAndReturn
+   */
+  export type ImplementationEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ImplementationEvents.
+     */
+    data: ImplementationEventCreateManyInput | ImplementationEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ImplementationEvent update
+   */
+  export type ImplementationEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ImplementationEvent.
+     */
+    data: XOR<ImplementationEventUpdateInput, ImplementationEventUncheckedUpdateInput>
+    /**
+     * Choose, which ImplementationEvent to update.
+     */
+    where: ImplementationEventWhereUniqueInput
+  }
+
+  /**
+   * ImplementationEvent updateMany
+   */
+  export type ImplementationEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ImplementationEvents.
+     */
+    data: XOR<ImplementationEventUpdateManyMutationInput, ImplementationEventUncheckedUpdateManyInput>
+    /**
+     * Filter which ImplementationEvents to update
+     */
+    where?: ImplementationEventWhereInput
+  }
+
+  /**
+   * ImplementationEvent upsert
+   */
+  export type ImplementationEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ImplementationEvent to update in case it exists.
+     */
+    where: ImplementationEventWhereUniqueInput
+    /**
+     * In case the ImplementationEvent found by the `where` argument doesn't exist, create a new ImplementationEvent with this data.
+     */
+    create: XOR<ImplementationEventCreateInput, ImplementationEventUncheckedCreateInput>
+    /**
+     * In case the ImplementationEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImplementationEventUpdateInput, ImplementationEventUncheckedUpdateInput>
+  }
+
+  /**
+   * ImplementationEvent delete
+   */
+  export type ImplementationEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+    /**
+     * Filter which ImplementationEvent to delete.
+     */
+    where: ImplementationEventWhereUniqueInput
+  }
+
+  /**
+   * ImplementationEvent deleteMany
+   */
+  export type ImplementationEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImplementationEvents to delete
+     */
+    where?: ImplementationEventWhereInput
+  }
+
+  /**
+   * ImplementationEvent without action
+   */
+  export type ImplementationEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImplementationEvent
+     */
+    select?: ImplementationEventSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VerificationLog
+   */
+
+  export type AggregateVerificationLog = {
+    _count: VerificationLogCountAggregateOutputType | null
+    _avg: VerificationLogAvgAggregateOutputType | null
+    _sum: VerificationLogSumAggregateOutputType | null
+    _min: VerificationLogMinAggregateOutputType | null
+    _max: VerificationLogMaxAggregateOutputType | null
+  }
+
+  export type VerificationLogAvgAggregateOutputType = {
+    anomalyCount: number | null
+  }
+
+  export type VerificationLogSumAggregateOutputType = {
+    anomalyCount: number | null
+  }
+
+  export type VerificationLogMinAggregateOutputType = {
+    id: string | null
+    implementationId: string | null
+    verifiedAt: Date | null
+    status: string | null
+    anomalyCount: number | null
+  }
+
+  export type VerificationLogMaxAggregateOutputType = {
+    id: string | null
+    implementationId: string | null
+    verifiedAt: Date | null
+    status: string | null
+    anomalyCount: number | null
+  }
+
+  export type VerificationLogCountAggregateOutputType = {
+    id: number
+    implementationId: number
+    verifiedAt: number
+    status: number
+    anomalyCount: number
+    details: number
+    _all: number
+  }
+
+
+  export type VerificationLogAvgAggregateInputType = {
+    anomalyCount?: true
+  }
+
+  export type VerificationLogSumAggregateInputType = {
+    anomalyCount?: true
+  }
+
+  export type VerificationLogMinAggregateInputType = {
+    id?: true
+    implementationId?: true
+    verifiedAt?: true
+    status?: true
+    anomalyCount?: true
+  }
+
+  export type VerificationLogMaxAggregateInputType = {
+    id?: true
+    implementationId?: true
+    verifiedAt?: true
+    status?: true
+    anomalyCount?: true
+  }
+
+  export type VerificationLogCountAggregateInputType = {
+    id?: true
+    implementationId?: true
+    verifiedAt?: true
+    status?: true
+    anomalyCount?: true
+    details?: true
+    _all?: true
+  }
+
+  export type VerificationLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerificationLog to aggregate.
+     */
+    where?: VerificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationLogs to fetch.
+     */
+    orderBy?: VerificationLogOrderByWithRelationInput | VerificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VerificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VerificationLogs
+    **/
+    _count?: true | VerificationLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VerificationLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VerificationLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VerificationLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VerificationLogMaxAggregateInputType
+  }
+
+  export type GetVerificationLogAggregateType<T extends VerificationLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateVerificationLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVerificationLog[P]>
+      : GetScalarType<T[P], AggregateVerificationLog[P]>
+  }
+
+
+
+
+  export type VerificationLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VerificationLogWhereInput
+    orderBy?: VerificationLogOrderByWithAggregationInput | VerificationLogOrderByWithAggregationInput[]
+    by: VerificationLogScalarFieldEnum[] | VerificationLogScalarFieldEnum
+    having?: VerificationLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VerificationLogCountAggregateInputType | true
+    _avg?: VerificationLogAvgAggregateInputType
+    _sum?: VerificationLogSumAggregateInputType
+    _min?: VerificationLogMinAggregateInputType
+    _max?: VerificationLogMaxAggregateInputType
+  }
+
+  export type VerificationLogGroupByOutputType = {
+    id: string
+    implementationId: string
+    verifiedAt: Date
+    status: string
+    anomalyCount: number
+    details: JsonValue | null
+    _count: VerificationLogCountAggregateOutputType | null
+    _avg: VerificationLogAvgAggregateOutputType | null
+    _sum: VerificationLogSumAggregateOutputType | null
+    _min: VerificationLogMinAggregateOutputType | null
+    _max: VerificationLogMaxAggregateOutputType | null
+  }
+
+  type GetVerificationLogGroupByPayload<T extends VerificationLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VerificationLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VerificationLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VerificationLogGroupByOutputType[P]>
+            : GetScalarType<T[P], VerificationLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VerificationLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    implementationId?: boolean
+    verifiedAt?: boolean
+    status?: boolean
+    anomalyCount?: boolean
+    details?: boolean
+  }, ExtArgs["result"]["verificationLog"]>
+
+  export type VerificationLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    implementationId?: boolean
+    verifiedAt?: boolean
+    status?: boolean
+    anomalyCount?: boolean
+    details?: boolean
+  }, ExtArgs["result"]["verificationLog"]>
+
+  export type VerificationLogSelectScalar = {
+    id?: boolean
+    implementationId?: boolean
+    verifiedAt?: boolean
+    status?: boolean
+    anomalyCount?: boolean
+    details?: boolean
+  }
+
+
+  export type $VerificationLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VerificationLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      implementationId: string
+      verifiedAt: Date
+      status: string
+      anomalyCount: number
+      details: Prisma.JsonValue | null
+    }, ExtArgs["result"]["verificationLog"]>
+    composites: {}
+  }
+
+  type VerificationLogGetPayload<S extends boolean | null | undefined | VerificationLogDefaultArgs> = $Result.GetResult<Prisma.$VerificationLogPayload, S>
+
+  type VerificationLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<VerificationLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: VerificationLogCountAggregateInputType | true
+    }
+
+  export interface VerificationLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VerificationLog'], meta: { name: 'VerificationLog' } }
+    /**
+     * Find zero or one VerificationLog that matches the filter.
+     * @param {VerificationLogFindUniqueArgs} args - Arguments to find a VerificationLog
+     * @example
+     * // Get one VerificationLog
+     * const verificationLog = await prisma.verificationLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VerificationLogFindUniqueArgs>(args: SelectSubset<T, VerificationLogFindUniqueArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one VerificationLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {VerificationLogFindUniqueOrThrowArgs} args - Arguments to find a VerificationLog
+     * @example
+     * // Get one VerificationLog
+     * const verificationLog = await prisma.verificationLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VerificationLogFindUniqueOrThrowArgs>(args: SelectSubset<T, VerificationLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first VerificationLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationLogFindFirstArgs} args - Arguments to find a VerificationLog
+     * @example
+     * // Get one VerificationLog
+     * const verificationLog = await prisma.verificationLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VerificationLogFindFirstArgs>(args?: SelectSubset<T, VerificationLogFindFirstArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first VerificationLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationLogFindFirstOrThrowArgs} args - Arguments to find a VerificationLog
+     * @example
+     * // Get one VerificationLog
+     * const verificationLog = await prisma.verificationLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VerificationLogFindFirstOrThrowArgs>(args?: SelectSubset<T, VerificationLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more VerificationLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VerificationLogs
+     * const verificationLogs = await prisma.verificationLog.findMany()
+     * 
+     * // Get first 10 VerificationLogs
+     * const verificationLogs = await prisma.verificationLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const verificationLogWithIdOnly = await prisma.verificationLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VerificationLogFindManyArgs>(args?: SelectSubset<T, VerificationLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a VerificationLog.
+     * @param {VerificationLogCreateArgs} args - Arguments to create a VerificationLog.
+     * @example
+     * // Create one VerificationLog
+     * const VerificationLog = await prisma.verificationLog.create({
+     *   data: {
+     *     // ... data to create a VerificationLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends VerificationLogCreateArgs>(args: SelectSubset<T, VerificationLogCreateArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many VerificationLogs.
+     * @param {VerificationLogCreateManyArgs} args - Arguments to create many VerificationLogs.
+     * @example
+     * // Create many VerificationLogs
+     * const verificationLog = await prisma.verificationLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VerificationLogCreateManyArgs>(args?: SelectSubset<T, VerificationLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VerificationLogs and returns the data saved in the database.
+     * @param {VerificationLogCreateManyAndReturnArgs} args - Arguments to create many VerificationLogs.
+     * @example
+     * // Create many VerificationLogs
+     * const verificationLog = await prisma.verificationLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VerificationLogs and only return the `id`
+     * const verificationLogWithIdOnly = await prisma.verificationLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VerificationLogCreateManyAndReturnArgs>(args?: SelectSubset<T, VerificationLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a VerificationLog.
+     * @param {VerificationLogDeleteArgs} args - Arguments to delete one VerificationLog.
+     * @example
+     * // Delete one VerificationLog
+     * const VerificationLog = await prisma.verificationLog.delete({
+     *   where: {
+     *     // ... filter to delete one VerificationLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VerificationLogDeleteArgs>(args: SelectSubset<T, VerificationLogDeleteArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one VerificationLog.
+     * @param {VerificationLogUpdateArgs} args - Arguments to update one VerificationLog.
+     * @example
+     * // Update one VerificationLog
+     * const verificationLog = await prisma.verificationLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VerificationLogUpdateArgs>(args: SelectSubset<T, VerificationLogUpdateArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more VerificationLogs.
+     * @param {VerificationLogDeleteManyArgs} args - Arguments to filter VerificationLogs to delete.
+     * @example
+     * // Delete a few VerificationLogs
+     * const { count } = await prisma.verificationLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VerificationLogDeleteManyArgs>(args?: SelectSubset<T, VerificationLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VerificationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VerificationLogs
+     * const verificationLog = await prisma.verificationLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VerificationLogUpdateManyArgs>(args: SelectSubset<T, VerificationLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one VerificationLog.
+     * @param {VerificationLogUpsertArgs} args - Arguments to update or create a VerificationLog.
+     * @example
+     * // Update or create a VerificationLog
+     * const verificationLog = await prisma.verificationLog.upsert({
+     *   create: {
+     *     // ... data to create a VerificationLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VerificationLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VerificationLogUpsertArgs>(args: SelectSubset<T, VerificationLogUpsertArgs<ExtArgs>>): Prisma__VerificationLogClient<$Result.GetResult<Prisma.$VerificationLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of VerificationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationLogCountArgs} args - Arguments to filter VerificationLogs to count.
+     * @example
+     * // Count the number of VerificationLogs
+     * const count = await prisma.verificationLog.count({
+     *   where: {
+     *     // ... the filter for the VerificationLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends VerificationLogCountArgs>(
+      args?: Subset<T, VerificationLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VerificationLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VerificationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VerificationLogAggregateArgs>(args: Subset<T, VerificationLogAggregateArgs>): Prisma.PrismaPromise<GetVerificationLogAggregateType<T>>
+
+    /**
+     * Group by VerificationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VerificationLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VerificationLogGroupByArgs['orderBy'] }
+        : { orderBy?: VerificationLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VerificationLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVerificationLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VerificationLog model
+   */
+  readonly fields: VerificationLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VerificationLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VerificationLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VerificationLog model
+   */ 
+  interface VerificationLogFieldRefs {
+    readonly id: FieldRef<"VerificationLog", 'String'>
+    readonly implementationId: FieldRef<"VerificationLog", 'String'>
+    readonly verifiedAt: FieldRef<"VerificationLog", 'DateTime'>
+    readonly status: FieldRef<"VerificationLog", 'String'>
+    readonly anomalyCount: FieldRef<"VerificationLog", 'Int'>
+    readonly details: FieldRef<"VerificationLog", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VerificationLog findUnique
+   */
+  export type VerificationLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * Filter, which VerificationLog to fetch.
+     */
+    where: VerificationLogWhereUniqueInput
+  }
+
+  /**
+   * VerificationLog findUniqueOrThrow
+   */
+  export type VerificationLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * Filter, which VerificationLog to fetch.
+     */
+    where: VerificationLogWhereUniqueInput
+  }
+
+  /**
+   * VerificationLog findFirst
+   */
+  export type VerificationLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * Filter, which VerificationLog to fetch.
+     */
+    where?: VerificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationLogs to fetch.
+     */
+    orderBy?: VerificationLogOrderByWithRelationInput | VerificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerificationLogs.
+     */
+    cursor?: VerificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerificationLogs.
+     */
+    distinct?: VerificationLogScalarFieldEnum | VerificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationLog findFirstOrThrow
+   */
+  export type VerificationLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * Filter, which VerificationLog to fetch.
+     */
+    where?: VerificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationLogs to fetch.
+     */
+    orderBy?: VerificationLogOrderByWithRelationInput | VerificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerificationLogs.
+     */
+    cursor?: VerificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerificationLogs.
+     */
+    distinct?: VerificationLogScalarFieldEnum | VerificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationLog findMany
+   */
+  export type VerificationLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * Filter, which VerificationLogs to fetch.
+     */
+    where?: VerificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationLogs to fetch.
+     */
+    orderBy?: VerificationLogOrderByWithRelationInput | VerificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VerificationLogs.
+     */
+    cursor?: VerificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationLogs.
+     */
+    skip?: number
+    distinct?: VerificationLogScalarFieldEnum | VerificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationLog create
+   */
+  export type VerificationLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * The data needed to create a VerificationLog.
+     */
+    data: XOR<VerificationLogCreateInput, VerificationLogUncheckedCreateInput>
+  }
+
+  /**
+   * VerificationLog createMany
+   */
+  export type VerificationLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VerificationLogs.
+     */
+    data: VerificationLogCreateManyInput | VerificationLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VerificationLog createManyAndReturn
+   */
+  export type VerificationLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many VerificationLogs.
+     */
+    data: VerificationLogCreateManyInput | VerificationLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VerificationLog update
+   */
+  export type VerificationLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * The data needed to update a VerificationLog.
+     */
+    data: XOR<VerificationLogUpdateInput, VerificationLogUncheckedUpdateInput>
+    /**
+     * Choose, which VerificationLog to update.
+     */
+    where: VerificationLogWhereUniqueInput
+  }
+
+  /**
+   * VerificationLog updateMany
+   */
+  export type VerificationLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VerificationLogs.
+     */
+    data: XOR<VerificationLogUpdateManyMutationInput, VerificationLogUncheckedUpdateManyInput>
+    /**
+     * Filter which VerificationLogs to update
+     */
+    where?: VerificationLogWhereInput
+  }
+
+  /**
+   * VerificationLog upsert
+   */
+  export type VerificationLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * The filter to search for the VerificationLog to update in case it exists.
+     */
+    where: VerificationLogWhereUniqueInput
+    /**
+     * In case the VerificationLog found by the `where` argument doesn't exist, create a new VerificationLog with this data.
+     */
+    create: XOR<VerificationLogCreateInput, VerificationLogUncheckedCreateInput>
+    /**
+     * In case the VerificationLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VerificationLogUpdateInput, VerificationLogUncheckedUpdateInput>
+  }
+
+  /**
+   * VerificationLog delete
+   */
+  export type VerificationLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+    /**
+     * Filter which VerificationLog to delete.
+     */
+    where: VerificationLogWhereUniqueInput
+  }
+
+  /**
+   * VerificationLog deleteMany
+   */
+  export type VerificationLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerificationLogs to delete
+     */
+    where?: VerificationLogWhereInput
+  }
+
+  /**
+   * VerificationLog without action
+   */
+  export type VerificationLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationLog
+     */
+    select?: VerificationLogSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AnomalyReport
+   */
+
+  export type AggregateAnomalyReport = {
+    _count: AnomalyReportCountAggregateOutputType | null
+    _min: AnomalyReportMinAggregateOutputType | null
+    _max: AnomalyReportMaxAggregateOutputType | null
+  }
+
+  export type AnomalyReportMinAggregateOutputType = {
+    id: string | null
+    logId: string | null
+    type: string | null
+    severity: string | null
+    message: string | null
+    createdAt: Date | null
+  }
+
+  export type AnomalyReportMaxAggregateOutputType = {
+    id: string | null
+    logId: string | null
+    type: string | null
+    severity: string | null
+    message: string | null
+    createdAt: Date | null
+  }
+
+  export type AnomalyReportCountAggregateOutputType = {
+    id: number
+    logId: number
+    type: number
+    severity: number
+    message: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AnomalyReportMinAggregateInputType = {
+    id?: true
+    logId?: true
+    type?: true
+    severity?: true
+    message?: true
+    createdAt?: true
+  }
+
+  export type AnomalyReportMaxAggregateInputType = {
+    id?: true
+    logId?: true
+    type?: true
+    severity?: true
+    message?: true
+    createdAt?: true
+  }
+
+  export type AnomalyReportCountAggregateInputType = {
+    id?: true
+    logId?: true
+    type?: true
+    severity?: true
+    message?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AnomalyReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AnomalyReport to aggregate.
+     */
+    where?: AnomalyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AnomalyReports to fetch.
+     */
+    orderBy?: AnomalyReportOrderByWithRelationInput | AnomalyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AnomalyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AnomalyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AnomalyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AnomalyReports
+    **/
+    _count?: true | AnomalyReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AnomalyReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AnomalyReportMaxAggregateInputType
+  }
+
+  export type GetAnomalyReportAggregateType<T extends AnomalyReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateAnomalyReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAnomalyReport[P]>
+      : GetScalarType<T[P], AggregateAnomalyReport[P]>
+  }
+
+
+
+
+  export type AnomalyReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnomalyReportWhereInput
+    orderBy?: AnomalyReportOrderByWithAggregationInput | AnomalyReportOrderByWithAggregationInput[]
+    by: AnomalyReportScalarFieldEnum[] | AnomalyReportScalarFieldEnum
+    having?: AnomalyReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AnomalyReportCountAggregateInputType | true
+    _min?: AnomalyReportMinAggregateInputType
+    _max?: AnomalyReportMaxAggregateInputType
+  }
+
+  export type AnomalyReportGroupByOutputType = {
+    id: string
+    logId: string
+    type: string
+    severity: string
+    message: string
+    createdAt: Date
+    _count: AnomalyReportCountAggregateOutputType | null
+    _min: AnomalyReportMinAggregateOutputType | null
+    _max: AnomalyReportMaxAggregateOutputType | null
+  }
+
+  type GetAnomalyReportGroupByPayload<T extends AnomalyReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AnomalyReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AnomalyReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AnomalyReportGroupByOutputType[P]>
+            : GetScalarType<T[P], AnomalyReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AnomalyReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    logId?: boolean
+    type?: boolean
+    severity?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["anomalyReport"]>
+
+  export type AnomalyReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    logId?: boolean
+    type?: boolean
+    severity?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["anomalyReport"]>
+
+  export type AnomalyReportSelectScalar = {
+    id?: boolean
+    logId?: boolean
+    type?: boolean
+    severity?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $AnomalyReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AnomalyReport"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      logId: string
+      type: string
+      severity: string
+      message: string
+      createdAt: Date
+    }, ExtArgs["result"]["anomalyReport"]>
+    composites: {}
+  }
+
+  type AnomalyReportGetPayload<S extends boolean | null | undefined | AnomalyReportDefaultArgs> = $Result.GetResult<Prisma.$AnomalyReportPayload, S>
+
+  type AnomalyReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AnomalyReportFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AnomalyReportCountAggregateInputType | true
+    }
+
+  export interface AnomalyReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AnomalyReport'], meta: { name: 'AnomalyReport' } }
+    /**
+     * Find zero or one AnomalyReport that matches the filter.
+     * @param {AnomalyReportFindUniqueArgs} args - Arguments to find a AnomalyReport
+     * @example
+     * // Get one AnomalyReport
+     * const anomalyReport = await prisma.anomalyReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AnomalyReportFindUniqueArgs>(args: SelectSubset<T, AnomalyReportFindUniqueArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AnomalyReport that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AnomalyReportFindUniqueOrThrowArgs} args - Arguments to find a AnomalyReport
+     * @example
+     * // Get one AnomalyReport
+     * const anomalyReport = await prisma.anomalyReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AnomalyReportFindUniqueOrThrowArgs>(args: SelectSubset<T, AnomalyReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AnomalyReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnomalyReportFindFirstArgs} args - Arguments to find a AnomalyReport
+     * @example
+     * // Get one AnomalyReport
+     * const anomalyReport = await prisma.anomalyReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AnomalyReportFindFirstArgs>(args?: SelectSubset<T, AnomalyReportFindFirstArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AnomalyReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnomalyReportFindFirstOrThrowArgs} args - Arguments to find a AnomalyReport
+     * @example
+     * // Get one AnomalyReport
+     * const anomalyReport = await prisma.anomalyReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AnomalyReportFindFirstOrThrowArgs>(args?: SelectSubset<T, AnomalyReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AnomalyReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnomalyReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AnomalyReports
+     * const anomalyReports = await prisma.anomalyReport.findMany()
+     * 
+     * // Get first 10 AnomalyReports
+     * const anomalyReports = await prisma.anomalyReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const anomalyReportWithIdOnly = await prisma.anomalyReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AnomalyReportFindManyArgs>(args?: SelectSubset<T, AnomalyReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AnomalyReport.
+     * @param {AnomalyReportCreateArgs} args - Arguments to create a AnomalyReport.
+     * @example
+     * // Create one AnomalyReport
+     * const AnomalyReport = await prisma.anomalyReport.create({
+     *   data: {
+     *     // ... data to create a AnomalyReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends AnomalyReportCreateArgs>(args: SelectSubset<T, AnomalyReportCreateArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AnomalyReports.
+     * @param {AnomalyReportCreateManyArgs} args - Arguments to create many AnomalyReports.
+     * @example
+     * // Create many AnomalyReports
+     * const anomalyReport = await prisma.anomalyReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AnomalyReportCreateManyArgs>(args?: SelectSubset<T, AnomalyReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AnomalyReports and returns the data saved in the database.
+     * @param {AnomalyReportCreateManyAndReturnArgs} args - Arguments to create many AnomalyReports.
+     * @example
+     * // Create many AnomalyReports
+     * const anomalyReport = await prisma.anomalyReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AnomalyReports and only return the `id`
+     * const anomalyReportWithIdOnly = await prisma.anomalyReport.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AnomalyReportCreateManyAndReturnArgs>(args?: SelectSubset<T, AnomalyReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AnomalyReport.
+     * @param {AnomalyReportDeleteArgs} args - Arguments to delete one AnomalyReport.
+     * @example
+     * // Delete one AnomalyReport
+     * const AnomalyReport = await prisma.anomalyReport.delete({
+     *   where: {
+     *     // ... filter to delete one AnomalyReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AnomalyReportDeleteArgs>(args: SelectSubset<T, AnomalyReportDeleteArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AnomalyReport.
+     * @param {AnomalyReportUpdateArgs} args - Arguments to update one AnomalyReport.
+     * @example
+     * // Update one AnomalyReport
+     * const anomalyReport = await prisma.anomalyReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AnomalyReportUpdateArgs>(args: SelectSubset<T, AnomalyReportUpdateArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AnomalyReports.
+     * @param {AnomalyReportDeleteManyArgs} args - Arguments to filter AnomalyReports to delete.
+     * @example
+     * // Delete a few AnomalyReports
+     * const { count } = await prisma.anomalyReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AnomalyReportDeleteManyArgs>(args?: SelectSubset<T, AnomalyReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AnomalyReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnomalyReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AnomalyReports
+     * const anomalyReport = await prisma.anomalyReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AnomalyReportUpdateManyArgs>(args: SelectSubset<T, AnomalyReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AnomalyReport.
+     * @param {AnomalyReportUpsertArgs} args - Arguments to update or create a AnomalyReport.
+     * @example
+     * // Update or create a AnomalyReport
+     * const anomalyReport = await prisma.anomalyReport.upsert({
+     *   create: {
+     *     // ... data to create a AnomalyReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AnomalyReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AnomalyReportUpsertArgs>(args: SelectSubset<T, AnomalyReportUpsertArgs<ExtArgs>>): Prisma__AnomalyReportClient<$Result.GetResult<Prisma.$AnomalyReportPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AnomalyReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnomalyReportCountArgs} args - Arguments to filter AnomalyReports to count.
+     * @example
+     * // Count the number of AnomalyReports
+     * const count = await prisma.anomalyReport.count({
+     *   where: {
+     *     // ... the filter for the AnomalyReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends AnomalyReportCountArgs>(
+      args?: Subset<T, AnomalyReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AnomalyReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AnomalyReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnomalyReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AnomalyReportAggregateArgs>(args: Subset<T, AnomalyReportAggregateArgs>): Prisma.PrismaPromise<GetAnomalyReportAggregateType<T>>
+
+    /**
+     * Group by AnomalyReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnomalyReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AnomalyReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AnomalyReportGroupByArgs['orderBy'] }
+        : { orderBy?: AnomalyReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AnomalyReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAnomalyReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AnomalyReport model
+   */
+  readonly fields: AnomalyReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AnomalyReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AnomalyReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AnomalyReport model
+   */ 
+  interface AnomalyReportFieldRefs {
+    readonly id: FieldRef<"AnomalyReport", 'String'>
+    readonly logId: FieldRef<"AnomalyReport", 'String'>
+    readonly type: FieldRef<"AnomalyReport", 'String'>
+    readonly severity: FieldRef<"AnomalyReport", 'String'>
+    readonly message: FieldRef<"AnomalyReport", 'String'>
+    readonly createdAt: FieldRef<"AnomalyReport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AnomalyReport findUnique
+   */
+  export type AnomalyReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * Filter, which AnomalyReport to fetch.
+     */
+    where: AnomalyReportWhereUniqueInput
+  }
+
+  /**
+   * AnomalyReport findUniqueOrThrow
+   */
+  export type AnomalyReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * Filter, which AnomalyReport to fetch.
+     */
+    where: AnomalyReportWhereUniqueInput
+  }
+
+  /**
+   * AnomalyReport findFirst
+   */
+  export type AnomalyReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * Filter, which AnomalyReport to fetch.
+     */
+    where?: AnomalyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AnomalyReports to fetch.
+     */
+    orderBy?: AnomalyReportOrderByWithRelationInput | AnomalyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AnomalyReports.
+     */
+    cursor?: AnomalyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AnomalyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AnomalyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AnomalyReports.
+     */
+    distinct?: AnomalyReportScalarFieldEnum | AnomalyReportScalarFieldEnum[]
+  }
+
+  /**
+   * AnomalyReport findFirstOrThrow
+   */
+  export type AnomalyReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * Filter, which AnomalyReport to fetch.
+     */
+    where?: AnomalyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AnomalyReports to fetch.
+     */
+    orderBy?: AnomalyReportOrderByWithRelationInput | AnomalyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AnomalyReports.
+     */
+    cursor?: AnomalyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AnomalyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AnomalyReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AnomalyReports.
+     */
+    distinct?: AnomalyReportScalarFieldEnum | AnomalyReportScalarFieldEnum[]
+  }
+
+  /**
+   * AnomalyReport findMany
+   */
+  export type AnomalyReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * Filter, which AnomalyReports to fetch.
+     */
+    where?: AnomalyReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AnomalyReports to fetch.
+     */
+    orderBy?: AnomalyReportOrderByWithRelationInput | AnomalyReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AnomalyReports.
+     */
+    cursor?: AnomalyReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AnomalyReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AnomalyReports.
+     */
+    skip?: number
+    distinct?: AnomalyReportScalarFieldEnum | AnomalyReportScalarFieldEnum[]
+  }
+
+  /**
+   * AnomalyReport create
+   */
+  export type AnomalyReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * The data needed to create a AnomalyReport.
+     */
+    data: XOR<AnomalyReportCreateInput, AnomalyReportUncheckedCreateInput>
+  }
+
+  /**
+   * AnomalyReport createMany
+   */
+  export type AnomalyReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AnomalyReports.
+     */
+    data: AnomalyReportCreateManyInput | AnomalyReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AnomalyReport createManyAndReturn
+   */
+  export type AnomalyReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AnomalyReports.
+     */
+    data: AnomalyReportCreateManyInput | AnomalyReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AnomalyReport update
+   */
+  export type AnomalyReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * The data needed to update a AnomalyReport.
+     */
+    data: XOR<AnomalyReportUpdateInput, AnomalyReportUncheckedUpdateInput>
+    /**
+     * Choose, which AnomalyReport to update.
+     */
+    where: AnomalyReportWhereUniqueInput
+  }
+
+  /**
+   * AnomalyReport updateMany
+   */
+  export type AnomalyReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AnomalyReports.
+     */
+    data: XOR<AnomalyReportUpdateManyMutationInput, AnomalyReportUncheckedUpdateManyInput>
+    /**
+     * Filter which AnomalyReports to update
+     */
+    where?: AnomalyReportWhereInput
+  }
+
+  /**
+   * AnomalyReport upsert
+   */
+  export type AnomalyReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * The filter to search for the AnomalyReport to update in case it exists.
+     */
+    where: AnomalyReportWhereUniqueInput
+    /**
+     * In case the AnomalyReport found by the `where` argument doesn't exist, create a new AnomalyReport with this data.
+     */
+    create: XOR<AnomalyReportCreateInput, AnomalyReportUncheckedCreateInput>
+    /**
+     * In case the AnomalyReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AnomalyReportUpdateInput, AnomalyReportUncheckedUpdateInput>
+  }
+
+  /**
+   * AnomalyReport delete
+   */
+  export type AnomalyReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+    /**
+     * Filter which AnomalyReport to delete.
+     */
+    where: AnomalyReportWhereUniqueInput
+  }
+
+  /**
+   * AnomalyReport deleteMany
+   */
+  export type AnomalyReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AnomalyReports to delete
+     */
+    where?: AnomalyReportWhereInput
+  }
+
+  /**
+   * AnomalyReport without action
+   */
+  export type AnomalyReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnomalyReport
+     */
+    select?: AnomalyReportSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -212179,6 +215169,8 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
+    firstName: 'firstName',
+    lastName: 'lastName',
     phone: 'phone',
     passwordHash: 'passwordHash',
     osmId: 'osmId',
@@ -214185,6 +217177,43 @@ export namespace Prisma {
   export type ScreenConfigurationScalarFieldEnum = (typeof ScreenConfigurationScalarFieldEnum)[keyof typeof ScreenConfigurationScalarFieldEnum]
 
 
+  export const ImplementationEventScalarFieldEnum: {
+    id: 'id',
+    featureName: 'featureName',
+    version: 'version',
+    status: 'status',
+    payload: 'payload',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ImplementationEventScalarFieldEnum = (typeof ImplementationEventScalarFieldEnum)[keyof typeof ImplementationEventScalarFieldEnum]
+
+
+  export const VerificationLogScalarFieldEnum: {
+    id: 'id',
+    implementationId: 'implementationId',
+    verifiedAt: 'verifiedAt',
+    status: 'status',
+    anomalyCount: 'anomalyCount',
+    details: 'details'
+  };
+
+  export type VerificationLogScalarFieldEnum = (typeof VerificationLogScalarFieldEnum)[keyof typeof VerificationLogScalarFieldEnum]
+
+
+  export const AnomalyReportScalarFieldEnum: {
+    id: 'id',
+    logId: 'logId',
+    type: 'type',
+    severity: 'severity',
+    message: 'message',
+    createdAt: 'createdAt'
+  };
+
+  export type AnomalyReportScalarFieldEnum = (typeof AnomalyReportScalarFieldEnum)[keyof typeof AnomalyReportScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -215199,6 +218228,8 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     osmId?: StringNullableFilter<"User"> | string | null
@@ -215255,6 +218286,8 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     passwordHash?: SortOrderInput | SortOrder
     osmId?: SortOrderInput | SortOrder
@@ -215315,6 +218348,8 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
@@ -215370,6 +218405,8 @@ export namespace Prisma {
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     passwordHash?: SortOrderInput | SortOrder
     osmId?: SortOrderInput | SortOrder
@@ -215392,6 +218429,8 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     passwordHash?: StringNullableWithAggregatesFilter<"User"> | string | null
     osmId?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -226310,6 +229349,184 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ScreenConfiguration"> | Date | string
   }
 
+  export type ImplementationEventWhereInput = {
+    AND?: ImplementationEventWhereInput | ImplementationEventWhereInput[]
+    OR?: ImplementationEventWhereInput[]
+    NOT?: ImplementationEventWhereInput | ImplementationEventWhereInput[]
+    id?: StringFilter<"ImplementationEvent"> | string
+    featureName?: StringFilter<"ImplementationEvent"> | string
+    version?: StringFilter<"ImplementationEvent"> | string
+    status?: StringFilter<"ImplementationEvent"> | string
+    payload?: JsonNullableFilter<"ImplementationEvent">
+    createdAt?: DateTimeFilter<"ImplementationEvent"> | Date | string
+    updatedAt?: DateTimeFilter<"ImplementationEvent"> | Date | string
+  }
+
+  export type ImplementationEventOrderByWithRelationInput = {
+    id?: SortOrder
+    featureName?: SortOrder
+    version?: SortOrder
+    status?: SortOrder
+    payload?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ImplementationEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ImplementationEventWhereInput | ImplementationEventWhereInput[]
+    OR?: ImplementationEventWhereInput[]
+    NOT?: ImplementationEventWhereInput | ImplementationEventWhereInput[]
+    featureName?: StringFilter<"ImplementationEvent"> | string
+    version?: StringFilter<"ImplementationEvent"> | string
+    status?: StringFilter<"ImplementationEvent"> | string
+    payload?: JsonNullableFilter<"ImplementationEvent">
+    createdAt?: DateTimeFilter<"ImplementationEvent"> | Date | string
+    updatedAt?: DateTimeFilter<"ImplementationEvent"> | Date | string
+  }, "id">
+
+  export type ImplementationEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    featureName?: SortOrder
+    version?: SortOrder
+    status?: SortOrder
+    payload?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ImplementationEventCountOrderByAggregateInput
+    _max?: ImplementationEventMaxOrderByAggregateInput
+    _min?: ImplementationEventMinOrderByAggregateInput
+  }
+
+  export type ImplementationEventScalarWhereWithAggregatesInput = {
+    AND?: ImplementationEventScalarWhereWithAggregatesInput | ImplementationEventScalarWhereWithAggregatesInput[]
+    OR?: ImplementationEventScalarWhereWithAggregatesInput[]
+    NOT?: ImplementationEventScalarWhereWithAggregatesInput | ImplementationEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ImplementationEvent"> | string
+    featureName?: StringWithAggregatesFilter<"ImplementationEvent"> | string
+    version?: StringWithAggregatesFilter<"ImplementationEvent"> | string
+    status?: StringWithAggregatesFilter<"ImplementationEvent"> | string
+    payload?: JsonNullableWithAggregatesFilter<"ImplementationEvent">
+    createdAt?: DateTimeWithAggregatesFilter<"ImplementationEvent"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ImplementationEvent"> | Date | string
+  }
+
+  export type VerificationLogWhereInput = {
+    AND?: VerificationLogWhereInput | VerificationLogWhereInput[]
+    OR?: VerificationLogWhereInput[]
+    NOT?: VerificationLogWhereInput | VerificationLogWhereInput[]
+    id?: StringFilter<"VerificationLog"> | string
+    implementationId?: StringFilter<"VerificationLog"> | string
+    verifiedAt?: DateTimeFilter<"VerificationLog"> | Date | string
+    status?: StringFilter<"VerificationLog"> | string
+    anomalyCount?: IntFilter<"VerificationLog"> | number
+    details?: JsonNullableFilter<"VerificationLog">
+  }
+
+  export type VerificationLogOrderByWithRelationInput = {
+    id?: SortOrder
+    implementationId?: SortOrder
+    verifiedAt?: SortOrder
+    status?: SortOrder
+    anomalyCount?: SortOrder
+    details?: SortOrderInput | SortOrder
+  }
+
+  export type VerificationLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VerificationLogWhereInput | VerificationLogWhereInput[]
+    OR?: VerificationLogWhereInput[]
+    NOT?: VerificationLogWhereInput | VerificationLogWhereInput[]
+    implementationId?: StringFilter<"VerificationLog"> | string
+    verifiedAt?: DateTimeFilter<"VerificationLog"> | Date | string
+    status?: StringFilter<"VerificationLog"> | string
+    anomalyCount?: IntFilter<"VerificationLog"> | number
+    details?: JsonNullableFilter<"VerificationLog">
+  }, "id">
+
+  export type VerificationLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    implementationId?: SortOrder
+    verifiedAt?: SortOrder
+    status?: SortOrder
+    anomalyCount?: SortOrder
+    details?: SortOrderInput | SortOrder
+    _count?: VerificationLogCountOrderByAggregateInput
+    _avg?: VerificationLogAvgOrderByAggregateInput
+    _max?: VerificationLogMaxOrderByAggregateInput
+    _min?: VerificationLogMinOrderByAggregateInput
+    _sum?: VerificationLogSumOrderByAggregateInput
+  }
+
+  export type VerificationLogScalarWhereWithAggregatesInput = {
+    AND?: VerificationLogScalarWhereWithAggregatesInput | VerificationLogScalarWhereWithAggregatesInput[]
+    OR?: VerificationLogScalarWhereWithAggregatesInput[]
+    NOT?: VerificationLogScalarWhereWithAggregatesInput | VerificationLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VerificationLog"> | string
+    implementationId?: StringWithAggregatesFilter<"VerificationLog"> | string
+    verifiedAt?: DateTimeWithAggregatesFilter<"VerificationLog"> | Date | string
+    status?: StringWithAggregatesFilter<"VerificationLog"> | string
+    anomalyCount?: IntWithAggregatesFilter<"VerificationLog"> | number
+    details?: JsonNullableWithAggregatesFilter<"VerificationLog">
+  }
+
+  export type AnomalyReportWhereInput = {
+    AND?: AnomalyReportWhereInput | AnomalyReportWhereInput[]
+    OR?: AnomalyReportWhereInput[]
+    NOT?: AnomalyReportWhereInput | AnomalyReportWhereInput[]
+    id?: StringFilter<"AnomalyReport"> | string
+    logId?: StringFilter<"AnomalyReport"> | string
+    type?: StringFilter<"AnomalyReport"> | string
+    severity?: StringFilter<"AnomalyReport"> | string
+    message?: StringFilter<"AnomalyReport"> | string
+    createdAt?: DateTimeFilter<"AnomalyReport"> | Date | string
+  }
+
+  export type AnomalyReportOrderByWithRelationInput = {
+    id?: SortOrder
+    logId?: SortOrder
+    type?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AnomalyReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AnomalyReportWhereInput | AnomalyReportWhereInput[]
+    OR?: AnomalyReportWhereInput[]
+    NOT?: AnomalyReportWhereInput | AnomalyReportWhereInput[]
+    logId?: StringFilter<"AnomalyReport"> | string
+    type?: StringFilter<"AnomalyReport"> | string
+    severity?: StringFilter<"AnomalyReport"> | string
+    message?: StringFilter<"AnomalyReport"> | string
+    createdAt?: DateTimeFilter<"AnomalyReport"> | Date | string
+  }, "id">
+
+  export type AnomalyReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    logId?: SortOrder
+    type?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    _count?: AnomalyReportCountOrderByAggregateInput
+    _max?: AnomalyReportMaxOrderByAggregateInput
+    _min?: AnomalyReportMinOrderByAggregateInput
+  }
+
+  export type AnomalyReportScalarWhereWithAggregatesInput = {
+    AND?: AnomalyReportScalarWhereWithAggregatesInput | AnomalyReportScalarWhereWithAggregatesInput[]
+    OR?: AnomalyReportScalarWhereWithAggregatesInput[]
+    NOT?: AnomalyReportScalarWhereWithAggregatesInput | AnomalyReportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AnomalyReport"> | string
+    logId?: StringWithAggregatesFilter<"AnomalyReport"> | string
+    type?: StringWithAggregatesFilter<"AnomalyReport"> | string
+    severity?: StringWithAggregatesFilter<"AnomalyReport"> | string
+    message?: StringWithAggregatesFilter<"AnomalyReport"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AnomalyReport"> | Date | string
+  }
+
   export type FamilyAppointmentWhereInput = {
     AND?: FamilyAppointmentWhereInput | FamilyAppointmentWhereInput[]
     OR?: FamilyAppointmentWhereInput[]
@@ -230563,6 +233780,8 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -230618,6 +233837,8 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -230673,6 +233894,8 @@ export namespace Prisma {
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -230728,6 +233951,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -230783,6 +234008,8 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -230799,6 +234026,8 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -230814,6 +234043,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -242577,6 +245808,202 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ImplementationEventCreateInput = {
+    id?: string
+    featureName: string
+    version: string
+    status: string
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImplementationEventUncheckedCreateInput = {
+    id?: string
+    featureName: string
+    version: string
+    status: string
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImplementationEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureName?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImplementationEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureName?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImplementationEventCreateManyInput = {
+    id?: string
+    featureName: string
+    version: string
+    status: string
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImplementationEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureName?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImplementationEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    featureName?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationLogCreateInput = {
+    id?: string
+    implementationId: string
+    verifiedAt?: Date | string
+    status: string
+    anomalyCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type VerificationLogUncheckedCreateInput = {
+    id?: string
+    implementationId: string
+    verifiedAt?: Date | string
+    status: string
+    anomalyCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type VerificationLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    implementationId?: StringFieldUpdateOperationsInput | string
+    verifiedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    anomalyCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type VerificationLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    implementationId?: StringFieldUpdateOperationsInput | string
+    verifiedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    anomalyCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type VerificationLogCreateManyInput = {
+    id?: string
+    implementationId: string
+    verifiedAt?: Date | string
+    status: string
+    anomalyCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type VerificationLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    implementationId?: StringFieldUpdateOperationsInput | string
+    verifiedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    anomalyCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type VerificationLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    implementationId?: StringFieldUpdateOperationsInput | string
+    verifiedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    anomalyCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AnomalyReportCreateInput = {
+    id?: string
+    logId: string
+    type: string
+    severity: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type AnomalyReportUncheckedCreateInput = {
+    id?: string
+    logId: string
+    type: string
+    severity: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type AnomalyReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    logId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnomalyReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    logId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnomalyReportCreateManyInput = {
+    id?: string
+    logId: string
+    type: string
+    severity: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type AnomalyReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    logId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnomalyReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    logId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -247821,6 +251248,8 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
     osmId?: SortOrder
@@ -247837,6 +251266,8 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
     osmId?: SortOrder
@@ -247853,6 +251284,8 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
     osmId?: SortOrder
@@ -254582,6 +258015,94 @@ export namespace Prisma {
     layoutType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ImplementationEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    featureName?: SortOrder
+    version?: SortOrder
+    status?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ImplementationEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    featureName?: SortOrder
+    version?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ImplementationEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    featureName?: SortOrder
+    version?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VerificationLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    implementationId?: SortOrder
+    verifiedAt?: SortOrder
+    status?: SortOrder
+    anomalyCount?: SortOrder
+    details?: SortOrder
+  }
+
+  export type VerificationLogAvgOrderByAggregateInput = {
+    anomalyCount?: SortOrder
+  }
+
+  export type VerificationLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    implementationId?: SortOrder
+    verifiedAt?: SortOrder
+    status?: SortOrder
+    anomalyCount?: SortOrder
+  }
+
+  export type VerificationLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    implementationId?: SortOrder
+    verifiedAt?: SortOrder
+    status?: SortOrder
+    anomalyCount?: SortOrder
+  }
+
+  export type VerificationLogSumOrderByAggregateInput = {
+    anomalyCount?: SortOrder
+  }
+
+  export type AnomalyReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    logId?: SortOrder
+    type?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AnomalyReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    logId?: SortOrder
+    type?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AnomalyReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    logId?: SortOrder
+    type?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type FamilyAppointmentCountOrderByAggregateInput = {
@@ -273924,6 +277445,8 @@ export namespace Prisma {
   export type UserCreateWithoutTenantInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -273978,6 +277501,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutTenantInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -277488,6 +281013,8 @@ export namespace Prisma {
     NOT?: UserScalarWhereInput | UserScalarWhereInput[]
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     osmId?: StringNullableFilter<"User"> | string | null
@@ -280736,6 +284263,8 @@ export namespace Prisma {
   export type UserCreateWithoutAuditLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -280790,6 +284319,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAuditLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -281097,6 +284628,8 @@ export namespace Prisma {
   export type UserUpdateWithoutAuditLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -281151,6 +284684,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -281685,6 +285220,8 @@ export namespace Prisma {
   export type UserCreateWithoutSystemEventsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -281739,6 +285276,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutSystemEventsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -282052,6 +285591,8 @@ export namespace Prisma {
   export type UserUpdateWithoutSystemEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -282106,6 +285647,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutSystemEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -282640,6 +286183,8 @@ export namespace Prisma {
   export type UserCreateWithoutDevicesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -282694,6 +286239,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutDevicesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -282764,6 +286311,8 @@ export namespace Prisma {
   export type UserUpdateWithoutDevicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -282818,6 +286367,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutDevicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -284264,6 +287815,8 @@ export namespace Prisma {
   export type UserCreateWithoutSentMessagesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -284318,6 +287871,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutSentMessagesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -284411,6 +287966,8 @@ export namespace Prisma {
   export type UserUpdateWithoutSentMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -284465,6 +288022,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -285424,6 +288983,8 @@ export namespace Prisma {
   export type UserCreateWithoutReputationInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -285478,6 +289039,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutReputationInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -285548,6 +289111,8 @@ export namespace Prisma {
   export type UserUpdateWithoutReputationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -285602,6 +289167,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutReputationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -286638,6 +290205,8 @@ export namespace Prisma {
   export type UserCreateWithoutClientProfileInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -286692,6 +290261,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutClientProfileInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -288216,6 +291787,8 @@ export namespace Prisma {
   export type UserUpdateWithoutClientProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -288270,6 +291843,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutClientProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -289228,6 +292803,8 @@ export namespace Prisma {
   export type UserCreateWithoutProviderProfileInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -289282,6 +292859,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutProviderProfileInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -290162,6 +293741,8 @@ export namespace Prisma {
   export type UserUpdateWithoutProviderProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -290216,6 +293797,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutProviderProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -292784,6 +296367,8 @@ export namespace Prisma {
   export type UserCreateWithoutVisitCheckEventInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -292838,6 +296423,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -293315,6 +296902,8 @@ export namespace Prisma {
   export type UserUpdateWithoutVisitCheckEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -293369,6 +296958,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -294552,6 +298143,8 @@ export namespace Prisma {
   export type UserCreateWithoutAcknowledgedIncidentsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -294606,6 +298199,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAcknowledgedIncidentsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -294665,6 +298260,8 @@ export namespace Prisma {
   export type UserCreateWithoutReportedIncidentsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -294719,6 +298316,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -295117,6 +298716,8 @@ export namespace Prisma {
   export type UserUpdateWithoutAcknowledgedIncidentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -295171,6 +298772,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAcknowledgedIncidentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -295236,6 +298839,8 @@ export namespace Prisma {
   export type UserUpdateWithoutReportedIncidentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -295290,6 +298895,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -295795,6 +299402,8 @@ export namespace Prisma {
   export type UserCreateWithoutDailyEntryInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -295849,6 +299458,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutDailyEntryInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -296364,6 +299975,8 @@ export namespace Prisma {
   export type UserUpdateWithoutDailyEntryInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -296418,6 +300031,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -298355,6 +301970,8 @@ export namespace Prisma {
   export type UserCreateWithoutVerifiedDocsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -298409,6 +302026,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -298564,6 +302183,8 @@ export namespace Prisma {
   export type UserUpdateWithoutVerifiedDocsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -298618,6 +302239,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -299607,6 +303230,8 @@ export namespace Prisma {
   export type UserCreateWithoutReviewedTimesheetsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -299661,6 +303286,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -300069,6 +303696,8 @@ export namespace Prisma {
   export type UserUpdateWithoutReviewedTimesheetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -300123,6 +303752,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -304034,6 +307665,8 @@ export namespace Prisma {
   export type UserCreateWithoutAssignedTasksInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -304088,6 +307721,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -304432,6 +308067,8 @@ export namespace Prisma {
   export type UserUpdateWithoutAssignedTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -304486,6 +308123,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -305137,6 +308776,8 @@ export namespace Prisma {
   export type UserCreateWithoutStaffGroupMemberInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -305191,6 +308832,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutStaffGroupMemberInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -305292,6 +308935,8 @@ export namespace Prisma {
   export type UserUpdateWithoutStaffGroupMemberInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -305346,6 +308991,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutStaffGroupMemberInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -306620,6 +310267,8 @@ export namespace Prisma {
   export type UserCreateWithoutCarePlansAuthoredInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -306674,6 +310323,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutCarePlansAuthoredInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -307104,6 +310755,8 @@ export namespace Prisma {
   export type UserUpdateWithoutCarePlansAuthoredInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -307158,6 +310811,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutCarePlansAuthoredInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -307803,6 +311458,8 @@ export namespace Prisma {
   export type UserCreateWithoutAssessmentsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -307857,6 +311514,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAssessmentsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -308281,6 +311940,8 @@ export namespace Prisma {
   export type UserUpdateWithoutAssessmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -308335,6 +311996,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAssessmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -308743,6 +312406,8 @@ export namespace Prisma {
   export type UserCreateWithoutMedicationReconsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -308797,6 +312462,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutMedicationReconsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -309221,6 +312888,8 @@ export namespace Prisma {
   export type UserUpdateWithoutMedicationReconsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -309275,6 +312944,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutMedicationReconsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -309651,6 +313322,8 @@ export namespace Prisma {
   export type UserCreateWithoutSupervisionLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -309705,6 +313378,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutSupervisionLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -310097,6 +313772,8 @@ export namespace Prisma {
   export type UserUpdateWithoutSupervisionLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -310151,6 +313828,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutSupervisionLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -314944,6 +318623,8 @@ export namespace Prisma {
   export type UserCreateWithoutDailyAuditSignOffsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -314998,6 +318679,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutDailyAuditSignOffsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -315396,6 +319079,8 @@ export namespace Prisma {
   export type UserUpdateWithoutDailyAuditSignOffsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -315450,6 +319135,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutDailyAuditSignOffsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -315844,6 +319531,8 @@ export namespace Prisma {
   export type UserCreateWithoutWellnessPulsesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -315898,6 +319587,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutWellnessPulsesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -316205,6 +319896,8 @@ export namespace Prisma {
   export type UserUpdateWithoutWellnessPulsesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -316259,6 +319952,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutWellnessPulsesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -323054,6 +326749,8 @@ export namespace Prisma {
   export type UserCreateWithoutLedgerEntriesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -323108,6 +326805,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutLedgerEntriesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -323421,6 +327120,8 @@ export namespace Prisma {
   export type UserUpdateWithoutLedgerEntriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -323475,6 +327176,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutLedgerEntriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -323529,6 +327232,8 @@ export namespace Prisma {
   export type UserCreateWithoutBlogPostsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -323583,6 +327288,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutBlogPostsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -323653,6 +327360,8 @@ export namespace Prisma {
   export type UserUpdateWithoutBlogPostsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -323707,6 +327416,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -330003,6 +333714,8 @@ export namespace Prisma {
   export type UserCreateWithoutTelehealthSessionsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -330057,6 +333770,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutTelehealthSessionsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -330487,6 +334202,8 @@ export namespace Prisma {
   export type UserUpdateWithoutTelehealthSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -330541,6 +334258,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutTelehealthSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -332995,6 +336714,8 @@ export namespace Prisma {
   export type UserCreateWithoutPerformedAuditsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -333049,6 +336770,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutPerformedAuditsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -333356,6 +337079,8 @@ export namespace Prisma {
   export type UserUpdateWithoutPerformedAuditsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -333410,6 +337135,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutPerformedAuditsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -336578,6 +340305,8 @@ export namespace Prisma {
   export type UserCreateWithoutPerformanceReviewsAuthoredInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -336632,6 +340361,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutPerformanceReviewsAuthoredInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -337024,6 +340755,8 @@ export namespace Prisma {
   export type UserUpdateWithoutPerformanceReviewsAuthoredInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -337078,6 +340811,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutPerformanceReviewsAuthoredInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -338220,6 +341955,8 @@ export namespace Prisma {
   export type UserCreateWithoutIotEventsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -338274,6 +342011,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutIotEventsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -338587,6 +342326,8 @@ export namespace Prisma {
   export type UserUpdateWithoutIotEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -338641,6 +342382,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutIotEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -338932,6 +342675,8 @@ export namespace Prisma {
   export type UserCreateWithoutAppNotificationsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -338986,6 +342731,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAppNotificationsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -339299,6 +343046,8 @@ export namespace Prisma {
   export type UserUpdateWithoutAppNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -339353,6 +343102,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAppNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -339644,6 +343395,8 @@ export namespace Prisma {
   export type UserCreateWithoutGamificationProfileInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -339698,6 +343451,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutGamificationProfileInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -340011,6 +343766,8 @@ export namespace Prisma {
   export type UserUpdateWithoutGamificationProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -340065,6 +343822,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutGamificationProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -341316,6 +345075,8 @@ export namespace Prisma {
   export type UserCreateWithoutDailyActivityInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -341370,6 +345131,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutDailyActivityInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -341683,6 +345446,8 @@ export namespace Prisma {
   export type UserUpdateWithoutDailyActivityInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -341737,6 +345502,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutDailyActivityInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -341991,6 +345758,8 @@ export namespace Prisma {
   export type UserCreateWithoutShiftCheckInsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -342045,6 +345814,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutShiftCheckInsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -342463,6 +346234,8 @@ export namespace Prisma {
   export type UserUpdateWithoutShiftCheckInsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -342517,6 +346290,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutShiftCheckInsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -342931,6 +346706,8 @@ export namespace Prisma {
   export type UserCreateWithoutAdlCareLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -342985,6 +346762,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAdlCareLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -343403,6 +347182,8 @@ export namespace Prisma {
   export type UserUpdateWithoutAdlCareLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -343457,6 +347238,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAdlCareLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -343871,6 +347654,8 @@ export namespace Prisma {
   export type UserCreateWithoutProviderVitalsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -343925,6 +347710,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutProviderVitalsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -344343,6 +348130,8 @@ export namespace Prisma {
   export type UserUpdateWithoutProviderVitalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -344397,6 +348186,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutProviderVitalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -344811,6 +348602,8 @@ export namespace Prisma {
   export type UserCreateWithoutBehaviorNotesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -344865,6 +348658,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutBehaviorNotesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -345283,6 +349078,8 @@ export namespace Prisma {
   export type UserUpdateWithoutBehaviorNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -345337,6 +349134,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutBehaviorNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -345751,6 +349550,8 @@ export namespace Prisma {
   export type UserCreateWithoutNutritionRecordsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -345805,6 +349606,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutNutritionRecordsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -346223,6 +350026,8 @@ export namespace Prisma {
   export type UserUpdateWithoutNutritionRecordsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -346277,6 +350082,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutNutritionRecordsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -346691,6 +350498,8 @@ export namespace Prisma {
   export type UserCreateWithoutMobilityLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -346745,6 +350554,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutMobilityLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -347163,6 +350974,8 @@ export namespace Prisma {
   export type UserUpdateWithoutMobilityLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -347217,6 +351030,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutMobilityLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -347631,6 +351446,8 @@ export namespace Prisma {
   export type UserCreateWithoutInfectionLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -347685,6 +351502,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutInfectionLogsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -348103,6 +351922,8 @@ export namespace Prisma {
   export type UserUpdateWithoutInfectionLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -348157,6 +351978,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutInfectionLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -348571,6 +352394,8 @@ export namespace Prisma {
   export type UserCreateWithoutNarrativeNotesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -348625,6 +352450,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutNarrativeNotesInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -349043,6 +352870,8 @@ export namespace Prisma {
   export type UserUpdateWithoutNarrativeNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -349097,6 +352926,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutNarrativeNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -349511,6 +353342,8 @@ export namespace Prisma {
   export type UserCreateWithoutCarePlanFollowUpsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -349565,6 +353398,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutCarePlanFollowUpsInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -349983,6 +353818,8 @@ export namespace Prisma {
   export type UserUpdateWithoutCarePlanFollowUpsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -350037,6 +353874,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutCarePlanFollowUpsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -353037,6 +356876,8 @@ export namespace Prisma {
   export type UserCreateManyTenantInput = {
     id?: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     phone?: string | null
     passwordHash?: string | null
     osmId?: string | null
@@ -354639,6 +358480,8 @@ export namespace Prisma {
   export type UserUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -354693,6 +358536,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -354747,6 +358592,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     osmId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -362897,6 +366744,18 @@ export namespace Prisma {
      * @deprecated Use ScreenConfigurationDefaultArgs instead
      */
     export type ScreenConfigurationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ScreenConfigurationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ImplementationEventDefaultArgs instead
+     */
+    export type ImplementationEventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ImplementationEventDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VerificationLogDefaultArgs instead
+     */
+    export type VerificationLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VerificationLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AnomalyReportDefaultArgs instead
+     */
+    export type AnomalyReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AnomalyReportDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

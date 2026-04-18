@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/flutter_core.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -112,7 +113,7 @@ class ComponentWarehouse {
             title: title as String? ?? 'Metric',
             value: value as String? ?? '0',
             deltaSuffix: trend,
-            icon: _inferIcon(title as String? ?? 'Metric'),
+            icon: _inferIcon(title ?? 'Metric'),
             iconColor: _inferColor(ds, status?.toString() ?? 'neutral'),
           );
         } catch (e) {
@@ -518,7 +519,7 @@ class ComponentWarehouse {
         border: Border.all(color: ds.colors.borderSubtle),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(20),
+            color: PrimeCareColors.black.withAlpha(20),
             blurRadius: 40,
             offset: const Offset(0, 20),
           ),
@@ -610,6 +611,7 @@ class ComponentWarehouse {
     );
   }
 
+  // FOUND1
   static Widget _buildComplianceGate(
     BuildContext context,
     dynamic dataPayload,

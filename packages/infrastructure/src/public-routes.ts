@@ -153,4 +153,42 @@ export function registerPublicRoutes(app: AppType) {
             return c.json({ success: false, error: 'Internal Server Error' }, 500);
         }
     });
+
+    // Database Utility Report
+    app.get('/v1/system/database-report', async (c) => {
+        const prisma = c.get('prisma');
+        try {
+            if (!prisma) {
+                return c.json({ success: false, error: 'Database context unavailable' }, 500);
+            }
+
+            // Dynamically discover all Prisma models exposed on the client
+            const models = Object.keys(prisma).filter(k => 
+                !k.startsWith('_') && 
+                !k.startsWith('$') && 
+                typeof (prisma as any)[k] === 'object' && 
+                'count' in (prisma as any)[k]
+            );
+
+            const results = [];
+            for (const model of models) {
+                try {
+                    const count = await (prisma as any)[model].count();
+                    results.push({ Entity: model, Count: count });
+                } catch (e) {
+                    results.push({ Entity: model, Count: 'ERROR' });
+                }
+            }
+
+            return c.json({ 
+                success: true, 
+                totalModels: results.length,
+                data: results, 
+                syncedAt: new Date().toISOString() 
+            });
+        } catch (e: any) {
+            console.error('[System.DatabaseReport] Fetch Error:', e.message);
+            return c.json({ success: false, error: 'Internal Server Error' }, 500);
+        }
+    });
 }

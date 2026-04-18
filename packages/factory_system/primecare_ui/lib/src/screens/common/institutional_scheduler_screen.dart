@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
@@ -41,7 +42,7 @@ class _InstitutionalSchedulerScreenState
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Appointment Created'),
-                backgroundColor: Colors.green,
+                backgroundColor: PrimeCareColors.emerald,
               ),
             );
           }
@@ -50,7 +51,7 @@ class _InstitutionalSchedulerScreenState
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Creation Failed: $e'),
-                backgroundColor: Colors.red,
+                backgroundColor: PrimeCareColors.rose,
               ),
             );
           }
@@ -83,14 +84,17 @@ class _InstitutionalSchedulerScreenState
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Appointment deleted'),
-                backgroundColor: Colors.red,
+                backgroundColor: PrimeCareColors.rose,
               ),
             );
           }
         } catch (e) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+              SnackBar(
+                content: Text('Error: $e'),
+                backgroundColor: PrimeCareColors.rose,
+              ),
             );
           }
         }
@@ -104,14 +108,17 @@ class _InstitutionalSchedulerScreenState
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Appointment updated'),
-                backgroundColor: Colors.green,
+                backgroundColor: PrimeCareColors.emerald,
               ),
             );
           }
         } catch (e) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+              SnackBar(
+                content: Text('Error: $e'),
+                backgroundColor: PrimeCareColors.rose,
+              ),
             );
           }
         }
@@ -146,7 +153,7 @@ class _InstitutionalSchedulerScreenState
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Move Failed: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: PrimeCareColors.rose,
           ),
         );
       }
@@ -175,7 +182,7 @@ class _InstitutionalSchedulerScreenState
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Appointment Created'),
-                backgroundColor: Colors.green,
+                backgroundColor: PrimeCareColors.emerald,
               ),
             );
           }
@@ -184,7 +191,7 @@ class _InstitutionalSchedulerScreenState
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Creation Failed: $e'),
-                backgroundColor: Colors.red,
+                backgroundColor: PrimeCareColors.rose,
               ),
             );
           }
@@ -340,7 +347,7 @@ class _InstitutionalSchedulerScreenState
   Widget _buildViewToggle(double scale) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: PrimeCareRadii.scaled(scale),
         border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
@@ -382,7 +389,9 @@ class _InstitutionalSchedulerScreenState
         child: Icon(
           icon,
           size: 18 * scale,
-          color: isActive ? PrimeCareDesignSystem.primaryBrand : Colors.grey,
+          color: isActive
+              ? PrimeCareDesignSystem.primaryBrand
+              : PrimeCareColors.slate400,
         ),
       ),
     );
@@ -395,7 +404,7 @@ class _InstitutionalSchedulerScreenState
         vertical: 8 * scale,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: PrimeCareRadii.scaled(scale),
         border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
@@ -432,7 +441,7 @@ class _InstitutionalSchedulerScreenState
     return Container(
       padding: EdgeInsets.all(20 * scale),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: PrimeCareRadii.scaled(scale),
         border: Border.all(color: PrimeCareDesignSystem.borderSubtle),
       ),
@@ -479,19 +488,19 @@ class _InstitutionalSchedulerScreenState
 
     switch (res.status) {
       case ResourceStatus.available:
-        statusColor = Colors.green;
+        statusColor = PrimeCareColors.emerald;
         statusIcon = LucideIcons.checkCircle2;
         break;
       case ResourceStatus.busy:
-        statusColor = Colors.orange;
+        statusColor = PrimeCareColors.amber;
         statusIcon = LucideIcons.activity;
         break;
       case ResourceStatus.maintenance:
-        statusColor = Colors.blue;
+        statusColor = PrimeCareColors.skyBlue;
         statusIcon = LucideIcons.wrench;
         break;
       case ResourceStatus.offline:
-        statusColor = Colors.red;
+        statusColor = PrimeCareColors.rose;
         statusIcon = LucideIcons.alertTriangle;
         break;
     }
@@ -520,7 +529,10 @@ class _InstitutionalSchedulerScreenState
               ),
               Text(
                 res.type.name.toUpperCase(),
-                style: TextStyle(fontSize: 10 * scale, color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 10 * scale,
+                  color: PrimeCareColors.slate400,
+                ),
               ),
             ],
           ),

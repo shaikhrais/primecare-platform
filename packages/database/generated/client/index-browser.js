@@ -125,6 +125,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  firstName: 'firstName',
+  lastName: 'lastName',
   phone: 'phone',
   passwordHash: 'passwordHash',
   osmId: 'osmId',
@@ -1744,6 +1746,34 @@ exports.Prisma.ScreenConfigurationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ImplementationEventScalarFieldEnum = {
+  id: 'id',
+  featureName: 'featureName',
+  version: 'version',
+  status: 'status',
+  payload: 'payload',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VerificationLogScalarFieldEnum = {
+  id: 'id',
+  implementationId: 'implementationId',
+  verifiedAt: 'verifiedAt',
+  status: 'status',
+  anomalyCount: 'anomalyCount',
+  details: 'details'
+};
+
+exports.Prisma.AnomalyReportScalarFieldEnum = {
+  id: 'id',
+  logId: 'logId',
+  type: 'type',
+  severity: 'severity',
+  message: 'message',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2593,6 +2623,9 @@ exports.Prisma.ModelName = {
   CarePlanFollowUp: 'CarePlanFollowUp',
   DynamicFeatureRecord: 'DynamicFeatureRecord',
   ScreenConfiguration: 'ScreenConfiguration',
+  ImplementationEvent: 'ImplementationEvent',
+  VerificationLog: 'VerificationLog',
+  AnomalyReport: 'AnomalyReport',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

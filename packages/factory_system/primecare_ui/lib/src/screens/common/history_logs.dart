@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/telemetry_service.dart';
@@ -43,7 +44,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
             'Access Denied. Invalid Credentials.',
             style: TextStyle(fontFamily: 'monospace'),
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: PrimeCareColors.rose,
         ),
       );
       _focusNode.requestFocus();
@@ -53,7 +54,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: PrimeCareColors.black,
       body: _isAuthenticated ? _buildLogViewer() : _buildLoginConsole(),
     );
   }
@@ -62,7 +63,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
     return GestureDetector(
       onTap: () => _focusNode.requestFocus(),
       child: Container(
-        color: Colors.black,
+        color: PrimeCareColors.black,
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.all(24.0),
@@ -72,7 +73,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
             const Text(
               'PrimeCare System Console v4.0.0',
               style: TextStyle(
-                color: Colors.green,
+                color: PrimeCareColors.emerald,
                 fontFamily: 'monospace',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
             const Text(
               'Unauthorized access is strictly prohibited. All attempts are logged via ExecutionGateService.',
               style: TextStyle(
-                color: Colors.yellow,
+                color: PrimeCareColors.amber,
                 fontFamily: 'monospace',
                 fontSize: 14,
               ),
@@ -93,7 +94,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                 const Text(
                   'root@primecare:~# login ',
                   style: TextStyle(
-                    color: Colors.green,
+                    color: PrimeCareColors.emerald,
                     fontFamily: 'monospace',
                     fontSize: 16,
                   ),
@@ -105,7 +106,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                     autofocus: true,
                     obscureText: true,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: PrimeCareColors.white,
                       fontFamily: 'monospace',
                       fontSize: 16,
                     ),
@@ -114,7 +115,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                       isDense: true,
                       contentPadding: EdgeInsets.zero,
                     ),
-                    cursorColor: Colors.green,
+                    cursorColor: PrimeCareColors.emerald,
                     onSubmitted: _submit,
                   ),
                 ),
@@ -134,7 +135,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          color: Colors.grey[900],
+          color: PrimeCareColors.slate400,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,14 +143,14 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
               const Text(
                 'LIVE SYSTEM LOGS // EXECUTION GATES',
                 style: TextStyle(
-                  color: Colors.green,
+                  color: PrimeCareColors.emerald,
                   fontFamily: 'monospace',
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.logout, color: Colors.green),
+                icon: const Icon(Icons.logout, color: PrimeCareColors.emerald),
                 tooltip: 'Logout Console',
                 onPressed: () {
                   ref
@@ -190,7 +191,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                     Text(
                       '[$timeStr]',
                       style: const TextStyle(
-                        color: Colors.blueGrey,
+                        color: PrimeCareColors.slate400,
                         fontFamily: 'monospace',
                         fontSize: 14,
                       ),
@@ -199,7 +200,9 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                     Text(
                       isPass ? '[ OK ]' : '[FAIL]',
                       style: TextStyle(
-                        color: isPass ? Colors.green : Colors.red,
+                        color: isPass
+                            ? PrimeCareColors.emerald
+                            : PrimeCareColors.rose,
                         fontFamily: 'monospace',
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
@@ -215,7 +218,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                             style: TextStyle(
                               color: isPass
                                   ? const Color(0xFFE0E0E0)
-                                  : Colors.redAccent,
+                                  : PrimeCareColors.rose,
                               fontFamily: 'monospace',
                               fontSize: 14,
                             ),
@@ -226,7 +229,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                               child: Text(
                                 'ERROR: ${gate.error}',
                                 style: const TextStyle(
-                                  color: Colors.red,
+                                  color: PrimeCareColors.rose,
                                   fontFamily: 'monospace',
                                   fontSize: 13,
                                 ),
@@ -238,7 +241,7 @@ class _HistoryLogsScreenState extends ConsumerState<HistoryLogsScreen> {
                               child: Text(
                                 'META: ${gate.metadata}',
                                 style: const TextStyle(
-                                  color: Colors.yellow,
+                                  color: PrimeCareColors.amber,
                                   fontFamily: 'monospace',
                                   fontSize: 13,
                                 ),

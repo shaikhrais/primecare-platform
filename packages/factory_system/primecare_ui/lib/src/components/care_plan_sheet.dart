@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -101,7 +102,10 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
                   _error!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                  style: const TextStyle(
+                    color: PrimeCareColors.rose,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             )
@@ -156,7 +160,7 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
             maxLines: 1,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.grey,
+              color: PrimeCareColors.slate400,
             ),
           ),
           Text(

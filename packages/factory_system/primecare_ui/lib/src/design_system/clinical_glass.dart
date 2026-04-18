@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'primecare_theme.dart';
 
@@ -27,7 +28,7 @@ class ClinicalGlassPanel extends StatelessWidget {
       width: width,
       padding: padding,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: BorderRadius.circular(24),
         border:
             border ??
@@ -56,8 +57,8 @@ class ClinicalGlassPanel extends StatelessWidget {
                 children: [
                   if (title != null)
                     Text(title!, style: PrimeCareTheme.typography.h3)
-                  else if (headerTrailing != null)
-                    headerTrailing!,
+                  else
+                    ?headerTrailing,
                 ],
               ),
             ),
@@ -119,7 +120,7 @@ class ClinicalGlassButton extends StatelessWidget {
             ? PrimeCareTheme.colors.emeraldTeal
             : PrimeCareTheme.colors.surfaceContainerHighest,
         foregroundColor: effectiveActive
-            ? Colors.white
+            ? PrimeCareColors.white
             : PrimeCareTheme.colors.slateGray,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),

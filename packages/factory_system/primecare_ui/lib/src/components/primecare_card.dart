@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/providers/portal_providers.dart';
@@ -47,7 +48,7 @@ class PrimeCareCard extends ConsumerWidget {
           ? []
           : [
               BoxShadow(
-                color: Colors.black.withValues(
+                color: PrimeCareColors.black.withValues(
                   alpha: 0.04,
                 ), // Institutional depth
                 blurRadius: 12 * scale,

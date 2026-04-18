@@ -6,5 +6,6 @@ class ScreenDataRegistry {
     'billingSummary': 'billingSummaryAdapter',
     'genericFeature': 'featureAdapter',
     'subscriptionUpgrade': 'subscriptionUpgradeAdapter',
+    'systemVerification': 'systemVerificationAdapter',
   };
 }

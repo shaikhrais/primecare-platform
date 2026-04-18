@@ -39,6 +39,16 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        ActivityFeedBlueprint(
+          dataPayload: metrics.recentActivity.map((e) => e.toJson()).toList(),
+        ),
+        const RiskMonitorBlueprint(
+          dataPayload: {
+            'status': 'WARNING',
+            'summary':
+                'API Rate limit approaching 90% threshold for tenant integration endpoints.',
+          },
+        ),
         const StitchBlueprint(
           screenId: '9a8b7c6d5e244705a405113ae8623ec3', // CTO Dashboard
         ),

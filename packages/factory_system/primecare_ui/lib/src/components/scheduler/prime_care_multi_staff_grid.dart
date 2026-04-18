@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
@@ -147,7 +148,10 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
                 ),
                 Text(
                   staff.specialization,
-                  style: TextStyle(fontSize: 11 * scale, color: Colors.grey),
+                  style: TextStyle(
+                    fontSize: 11 * scale,
+                    color: PrimeCareColors.slate400,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
@@ -186,7 +190,7 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
               '$hour:$minute',
               style: TextStyle(
                 fontSize: 12 * scale,
-                color: Colors.grey[600],
+                color: PrimeCareColors.slate400,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -276,7 +280,9 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
                             : Colors.transparent,
                         border: Border(
                           bottom: BorderSide(
-                            color: Colors.grey.withValues(alpha: 0.1),
+                            color: PrimeCareColors.slate400.withValues(
+                              alpha: 0.1,
+                            ),
                           ),
                         ),
                       ),
@@ -361,7 +367,7 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
         boxShadow: isFeedback
             ? [
                 BoxShadow(
-                  color: Colors.black26,
+                  color: PrimeCareColors.black.withValues(alpha: 0.26),
                   blurRadius: 10 * scale,
                   offset: Offset(0, 5 * scale),
                 ),
@@ -398,7 +404,7 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
                 Icon(
                   LucideIcons.mapPin,
                   size: 10 * scale,
-                  color: Colors.grey[700],
+                  color: PrimeCareColors.slate400,
                 ),
                 SizedBox(width: 4 * scale),
                 Expanded(
@@ -406,7 +412,7 @@ class PrimeCareMultiStaffGrid extends ConsumerWidget {
                     resource.name,
                     style: TextStyle(
                       fontSize: 10 * scale,
-                      color: Colors.grey[700],
+                      color: PrimeCareColors.slate400,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

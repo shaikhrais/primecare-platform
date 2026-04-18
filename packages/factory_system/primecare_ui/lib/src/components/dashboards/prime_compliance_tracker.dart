@@ -25,7 +25,7 @@ class PrimeComplianceTracker extends StatelessWidget {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.grey,
+            color: PrimeCareColors.slate400,
           ),
         ),
         const SizedBox(height: 12),

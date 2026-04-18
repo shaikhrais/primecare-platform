@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class OfflineBanner extends StatelessWidget {
@@ -12,14 +13,14 @@ class OfflineBanner extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Icon(Icons.wifi_off_rounded, color: Colors.white, size: 16),
+          Icon(Icons.wifi_off_rounded, color: PrimeCareColors.white, size: 16),
           SizedBox(width: 8),
           Text(
             'OFFLINE - Checkouts & Inputs queued locally',
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: TextStyle(
-              color: Colors.white,
+              color: PrimeCareColors.white,
               fontWeight: FontWeight.bold,
               fontSize: 12,
               letterSpacing: 0.5,

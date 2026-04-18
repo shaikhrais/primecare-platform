@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
@@ -29,7 +30,7 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
     final scheduleAsync = ref.watch(horizonScheduleProvider);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: PrimeCareColors.black,
       body: scheduleAsync.when(
         data: (schedule) => Row(
           children: [
@@ -73,37 +74,42 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
         backgroundColor: const Color(0xFF1B262C),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: Colors.indigoAccent),
+          side: const BorderSide(color: PrimeCareColors.purple),
         ),
         title: Row(
           children: [
-            const Icon(LucideIcons.sparkles, color: Colors.indigoAccent),
+            const Icon(LucideIcons.sparkles, color: PrimeCareColors.purple),
             const SizedBox(width: 8),
             Text(
               intent.actions.isNotEmpty &&
                       intent.actions.first.type == AuraActionType.reassign
                   ? 'Reassignment Proposed'
                   : 'Scheduling Proposed',
-              style: const TextStyle(color: Colors.white, fontSize: 18),
+              style: const TextStyle(
+                color: PrimeCareColors.white,
+                fontSize: 18,
+              ),
             ),
           ],
         ),
         content: Text(
           intent.description,
-          style: const TextStyle(color: Colors.white70),
+          style: TextStyle(color: PrimeCareColors.white.withValues(alpha: 0.6)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text(
+            child: Text(
               'Cancel',
-              style: TextStyle(color: Colors.white38),
+              style: TextStyle(
+                color: PrimeCareColors.white.withValues(alpha: 0.6),
+              ),
             ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.indigoAccent,
-              foregroundColor: Colors.white,
+              backgroundColor: PrimeCareColors.purple,
+              foregroundColor: PrimeCareColors.white,
             ),
             onPressed: () {
               // Execute logic
@@ -148,9 +154,12 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                   letterSpacing: -0.5,
                 ),
               ),
-              const Text(
+              Text(
                 'Centralized Staff Matrix & Appointment Control',
-                style: TextStyle(color: Colors.white38, fontSize: 12),
+                style: TextStyle(
+                  color: PrimeCareColors.white.withValues(alpha: 0.6),
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -188,11 +197,13 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                   ),
                   decoration: BoxDecoration(
                     color: auraActive
-                        ? Colors.indigoAccent.withValues(alpha: 0.2)
-                        : Colors.white.withValues(alpha: 0.05),
+                        ? PrimeCareColors.purple
+                        : PrimeCareColors.white.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: auraActive ? Colors.indigoAccent : Colors.white10,
+                      color: auraActive
+                          ? PrimeCareColors.purple
+                          : Colors.white10,
                     ),
                   ),
                   child: Row(
@@ -201,16 +212,16 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                         LucideIcons.sparkles,
                         size: 16,
                         color: auraActive
-                            ? Colors.indigoAccent
-                            : Colors.white38,
+                            ? PrimeCareColors.purple
+                            : PrimeCareColors.white.withValues(alpha: 0.6),
                       ),
                       const SizedBox(width: 8),
                       Text(
                         'Aura Forecaster',
                         style: TextStyle(
                           color: auraActive
-                              ? Colors.indigoAccent
-                              : Colors.white38,
+                              ? PrimeCareColors.purple
+                              : PrimeCareColors.white.withValues(alpha: 0.6),
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
@@ -235,13 +246,13 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
+        color: PrimeCareColors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white10),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 16, color: Colors.blueAccent),
+          Icon(icon, size: 16, color: PrimeCareColors.skyBlue),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +266,10 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
               ),
               Text(
                 label,
-                style: const TextStyle(color: Colors.white38, fontSize: 10),
+                style: TextStyle(
+                  color: PrimeCareColors.white.withValues(alpha: 0.6),
+                  fontSize: 10,
+                ),
               ),
             ],
           ),
@@ -302,12 +316,12 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
             const SizedBox(height: 32),
 
             // NEW: Institutional Capacity Monitor
-            const Text(
+            Text(
               'INSTITUTIONAL CAPACITY',
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
-                color: Colors.white38,
+                color: PrimeCareColors.white.withValues(alpha: 0.6),
                 letterSpacing: 1.2,
               ),
             ),
@@ -338,10 +352,10 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
                         color: isAnomalous
-                            ? Colors.redAccent.withValues(alpha: 0.1)
+                            ? PrimeCareColors.rose
                             : isAssigned
                             ? const Color(0xFF6366F1).withValues(alpha: 0.1)
-                            : Colors.white.withValues(alpha: 0.05),
+                            : PrimeCareColors.white.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(
@@ -350,7 +364,7 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                             : LucideIcons.zap,
                         size: 14,
                         color: isAnomalous
-                            ? Colors.redAccent
+                            ? PrimeCareColors.rose
                             : isAssigned
                             ? const Color(0xFF6366F1)
                             : Colors.white24,
@@ -369,10 +383,12 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                                   ? FontWeight.bold
                                   : FontWeight.normal,
                               color: isAnomalous
-                                  ? Colors.redAccent
+                                  ? PrimeCareColors.rose
                                   : (isAssigned
-                                        ? Colors.white
-                                        : Colors.white60),
+                                        ? PrimeCareColors.white
+                                        : PrimeCareColors.white.withValues(
+                                            alpha: 0.6,
+                                          )),
                             ),
                           ),
                           Text(
@@ -382,12 +398,12 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                             style: TextStyle(
                               fontSize: 9,
                               color: isAnomalous
-                                  ? Colors.redAccent.withValues(alpha: 0.8)
+                                  ? PrimeCareColors.rose
                                   : isAssigned
                                   ? const Color(
                                       0xFF6366F1,
                                     ).withValues(alpha: 0.7)
-                                  : Colors.greenAccent.withValues(alpha: 0.4),
+                                  : PrimeCareColors.emerald,
                             ),
                           ),
                         ],
@@ -434,22 +450,24 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.03),
+        color: PrimeCareColors.white.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        border: Border.all(
+          color: PrimeCareColors.white.withValues(alpha: 0.05),
+        ),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.blueAccent.withValues(alpha: 0.1),
+              color: PrimeCareColors.skyBlue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Icon(
               LucideIcons.user,
               size: 18,
-              color: Colors.blueAccent,
+              color: PrimeCareColors.skyBlue,
             ),
           ),
           const SizedBox(width: 12),
@@ -464,9 +482,12 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                     fontSize: 13,
                   ),
                 ),
-                const Text(
+                Text(
                   'Waiting: 15m',
-                  style: TextStyle(color: Colors.white38, fontSize: 11),
+                  style: TextStyle(
+                    color: PrimeCareColors.white.withValues(alpha: 0.6),
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

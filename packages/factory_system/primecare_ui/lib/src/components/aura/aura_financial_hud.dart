@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,7 +37,7 @@ class AuraFinancialHud extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
           child: Container(
-            color: Colors.white.withValues(alpha: 0.7),
+            color: PrimeCareColors.white.withValues(alpha: 0.7),
             padding: const EdgeInsets.all(24),
 
             child: Column(

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,7 +40,7 @@ class AuthSplitLayout extends ConsumerWidget {
                   flex: 5,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: PrimeCareColors.black,
                       image: DecorationImage(
                         image: backgroundImage ?? NetworkImage(imageUrl),
                         fit: BoxFit.cover,
@@ -79,7 +80,7 @@ class AuthSplitLayout extends ConsumerWidget {
                             style: GoogleFonts.outfit(
                               fontSize: PrimeCareSpacing.scaled(48, scale),
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: PrimeCareColors.white,
                               letterSpacing: -1,
                             ),
                           ),
@@ -147,10 +148,10 @@ class AuthSplitLayout extends ConsumerWidget {
                         PrimeCareSpacing.scaled(40, scale),
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.08),
+                        color: PrimeCareColors.white.withValues(alpha: 0.08),
                         borderRadius: PrimeCareRadii.scaled(scale),
                         border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.2),
+                          color: PrimeCareColors.white.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Column(
@@ -168,7 +169,7 @@ class AuthSplitLayout extends ConsumerWidget {
                             style: GoogleFonts.outfit(
                               fontSize: PrimeCareSpacing.scaled(32, scale),
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: PrimeCareColors.white,
                             ),
                           ),
                           SizedBox(height: PrimeCareSpacing.scaled(8, scale)),

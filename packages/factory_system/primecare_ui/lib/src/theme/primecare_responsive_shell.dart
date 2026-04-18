@@ -1,5 +1,5 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 import 'design_system.dart';
 
@@ -140,7 +140,7 @@ class _DesktopSidebar extends StatelessWidget {
         color: PrimeCareDesignSystem.surfaceElevated,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
+            color: PrimeCareColors.black.withValues(alpha: 0.35),
             blurRadius: 24,
             offset: const Offset(8, 0),
           ),
@@ -262,7 +262,7 @@ class _TabletNavRail extends StatelessWidget {
         color: PrimeCareDesignSystem.surfaceElevated,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
+            color: PrimeCareColors.black.withValues(alpha: 0.35),
             blurRadius: 24,
             offset: const Offset(8, 0),
           ),

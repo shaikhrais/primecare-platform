@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class LiveGeolocationMapLoader extends StatelessWidget {
@@ -9,22 +10,22 @@ class LiveGeolocationMapLoader extends StatelessWidget {
       height: 150,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.green.shade50,
+        color: PrimeCareColors.emerald,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.green.shade200),
+        border: Border.all(color: PrimeCareColors.emerald),
       ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.location_on, color: Colors.green.shade600, size: 32),
+            Icon(Icons.location_on, color: PrimeCareColors.emerald, size: 32),
             const SizedBox(height: 8),
             Text(
               '0.2 miles from client',
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: TextStyle(
-                color: Colors.green.shade800,
+                color: PrimeCareColors.emerald,
                 fontWeight: FontWeight.bold,
               ),
             ),

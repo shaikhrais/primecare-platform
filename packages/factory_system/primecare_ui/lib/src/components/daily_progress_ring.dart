@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class DailyProgressRing extends StatelessWidget {
@@ -15,7 +16,7 @@ class DailyProgressRing extends StatelessWidget {
           CircularProgressIndicator(
             value: progress,
             strokeWidth: 10,
-            backgroundColor: Colors.grey.shade200,
+            backgroundColor: PrimeCareColors.slate400,
             valueColor: AlwaysStoppedAnimation(
               Theme.of(context).colorScheme.secondary,
             ),

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimeCard extends StatelessWidget {
@@ -17,18 +18,18 @@ class PrimeCard extends StatelessWidget {
     return Container(
       padding: padding ?? const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: PrimeCareColors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: isFlat
             ? []
             : [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
+                  color: PrimeCareColors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
               ],
-        border: isFlat ? Border.all(color: Colors.grey.shade200) : null,
+        border: isFlat ? Border.all(color: PrimeCareColors.slate400) : null,
       ),
       child: child,
     );

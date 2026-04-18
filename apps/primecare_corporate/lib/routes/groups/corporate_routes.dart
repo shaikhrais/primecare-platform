@@ -515,4 +515,8 @@ final List<RouteBase> corporateRoutes = [
     builder: (context, state) =>
         ScreenRegistry.buildDynamicDashboard(context, 'quality_assurance'),
   ),
+  GoRoute(
+    path: CorporateRoutes.ctoVerificationHub,
+    builder: (context, state) => const VerificationHub(),
+  ),
 ];

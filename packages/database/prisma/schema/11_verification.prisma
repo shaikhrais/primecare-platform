@@ -1,0 +1,27 @@
+model ImplementationEvent {
+  id          String   @id @default(uuid())
+  featureName String
+  version     String
+  status      String
+  payload     Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model VerificationLog {
+  id              String   @id @default(uuid())
+  implementationId String
+  verifiedAt      DateTime @default(now())
+  status          String
+  anomalyCount    Int      @default(0)
+  details         Json?
+}
+
+model AnomalyReport {
+  id         String   @id @default(uuid())
+  logId      String
+  type       String
+  severity   String
+  message    String
+  createdAt  DateTime @default(now())
+}

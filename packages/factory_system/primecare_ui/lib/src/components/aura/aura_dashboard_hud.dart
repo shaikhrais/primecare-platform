@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
@@ -55,7 +56,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
   }
 
   Widget _buildSnoozedState(BuildContext context) {
-    final color = Colors.grey;
+    final color = PrimeCareColors.slate400;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -75,7 +76,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           Text(
             'Aura Alerts Snoozed',
             style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.4),
+              color: PrimeCareColors.white.withValues(alpha: 0.4),
               fontSize: 13,
               fontWeight: FontWeight.w500,
               letterSpacing: 0.5,
@@ -144,7 +145,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                     Text(
                       'REAL-TIME INTELLIGENCE',
                       style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.3),
+                        color: PrimeCareColors.white.withValues(alpha: 0.3),
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -156,8 +157,8 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                   event.description,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white70,
+                  style: TextStyle(
+                    color: PrimeCareColors.white.withValues(alpha: 0.6),
                     fontSize: 14,
                     height: 1.4,
                   ),
@@ -206,7 +207,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
     bool isSyncing = false,
     bool isDimmed = false,
   }) {
-    final color = isDimmed ? Colors.grey : const Color(0xFF6366F1);
+    final color = isDimmed ? PrimeCareColors.slate400 : const Color(0xFF6366F1);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -235,7 +236,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           Text(
             message,
             style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.4),
+              color: PrimeCareColors.white.withValues(alpha: 0.4),
               fontSize: 13,
               fontWeight: FontWeight.w500,
               letterSpacing: 0.5,
@@ -254,12 +255,12 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.05),
+              color: PrimeCareColors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
               LucideIcons.bellOff,
-              color: Colors.white.withValues(alpha: 0.5),
+              color: PrimeCareColors.white.withValues(alpha: 0.5),
               size: 16,
             ),
           ),

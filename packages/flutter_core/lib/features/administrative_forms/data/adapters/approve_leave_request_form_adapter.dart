@@ -4,7 +4,6 @@ import '../dtos/approve_leave_request_form_dto.dart';
 import '../mappers/approve_leave_request_form_mapper.dart';
 import '../../../../src/factory_floor/data_logistics_hub.dart';
 
-
 class ApproveLeaveRequestFormAdapter
     extends Notifier<ApproveLeaveRequestFormViewModel> {
   @override
@@ -17,16 +16,21 @@ class ApproveLeaveRequestFormAdapter
 
     try {
       // Pull dynamic node from the hardened seeding layer
-      final node = DataLogisticsHub.getInstitutionalNode('leaveRequestNode', 'REQ-12345');
-      
+      final node = DataLogisticsHub.getInstitutionalNode(
+        'leaveRequestNode',
+        'REQ-12345',
+      );
+
       final mockDto = ApproveLeaveRequestFormDto(
         id: node?['id'] ?? 'REQ-12345',
         employeeName: node?['employeeName'] ?? 'Jane Doe',
         leaveType: node?['type'] ?? 'Vacation',
-        startDate: node?['startDate'] ?? DateTime.now()
-            .add(const Duration(days: 7))
-            .toIso8601String(),
-        endDate: node?['endDate'] ?? DateTime.now().add(const Duration(days: 14)).toIso8601String(),
+        startDate:
+            node?['startDate'] ??
+            DateTime.now().add(const Duration(days: 7)).toIso8601String(),
+        endDate:
+            node?['endDate'] ??
+            DateTime.now().add(const Duration(days: 14)).toIso8601String(),
         status: node?['status'] ?? 'Pending HR Approval',
       );
 

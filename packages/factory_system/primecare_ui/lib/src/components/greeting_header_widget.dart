@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'prime_avatar.dart';
 
@@ -15,16 +16,16 @@ class GreetingHeaderWidget extends StatelessWidget {
           children: [
             Text(
               'Good Morning,',
-              style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+              style: TextStyle(color: PrimeCareColors.slate400, fontSize: 14),
             ),
             Text(
               name,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: PrimeCareColors.black.withValues(alpha: 0.87),
               ),
             ),
           ],
