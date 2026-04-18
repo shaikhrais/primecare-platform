@@ -10,22 +10,30 @@ import '../base_form.dart';
 class PatientIntakeData {
   final String firstName;
   final String lastName;
+  final String dob;
+  final String gender;
   final String details;
 
   PatientIntakeData({
     this.firstName = '',
     this.lastName = '',
+    this.dob = '',
+    this.gender = 'Other',
     this.details = '',
   });
 
   PatientIntakeData copyWith({
     String? firstName,
     String? lastName,
+    String? dob,
+    String? gender,
     String? details,
   }) {
     return PatientIntakeData(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
+      dob: dob ?? this.dob,
+      gender: gender ?? this.gender,
       details: details ?? this.details,
     );
   }
@@ -38,12 +46,20 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
     return PatientIntakeData();
   }
 
-  void updateData({String? firstName, String? lastName, String? details}) {
+  void updateData({
+    String? firstName,
+    String? lastName,
+    String? dob,
+    String? gender,
+    String? details,
+  }) {
     final current = state.value ?? PatientIntakeData();
     state = AsyncData(
       current.copyWith(
         firstName: firstName,
         lastName: lastName,
+        dob: dob,
+        gender: gender,
         details: details,
       ),
     );
@@ -69,11 +85,16 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
     final result = await Result.guardFuture<bool>(
       () async {
         // Connect safely to the database-driven clinical endpoint
-        await ref.read(apiClientProvider).post('/api/v1/clinical/patient-intake', body: {
-          'firstName': currentData.firstName,
-          'lastName': currentData.lastName,
-          'details': currentData.details,
-        });
+        await ref.read(apiClientProvider).post(
+          '/v1/clinical/patient-intake',
+          body: {
+            'firstName': currentData.firstName,
+            'lastName': currentData.lastName,
+            'dateOfBirth': currentData.dob,
+            'gender': currentData.gender,
+            'medicalHistory': currentData.details,
+          },
+        );
 
         ref
             .read(executionGateProvider)
@@ -211,6 +232,51 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
                     .updateData(lastName: val),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
+              ),
+            ),
+            ResponsiveGridCol(
+              span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Date of Birth (YYYY-MM-DD)',
+                  labelStyle: TextStyle(color: theme.colorScheme.primary),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
+                  ),
+                  prefixIcon: const Icon(Icons.cake),
+                ),
+                initialValue: asyncState.value?.dob,
+                onChanged: (val) => ref
+                    .read(patientIntakeProvider.notifier)
+                    .updateData(dob: val),
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Required' : null,
+              ),
+            ),
+            ResponsiveGridCol(
+              span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  labelText: 'Gender',
+                  labelStyle: TextStyle(color: theme.colorScheme.primary),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
+                  ),
+                ),
+                value: asyncState.value?.gender,
+                items: const [
+                  DropdownMenuItem(value: 'Male', child: Text('Male')),
+                  DropdownMenuItem(value: 'Female', child: Text('Female')),
+                  DropdownMenuItem(value: 'Non-Binary', child: Text('Non-Binary')),
+                  DropdownMenuItem(value: 'Other', child: Text('Other')),
+                ],
+                onChanged: (val) => ref
+                    .read(patientIntakeProvider.notifier)
+                    .updateData(gender: val),
               ),
             ),
             ResponsiveGridCol(

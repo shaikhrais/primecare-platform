@@ -130,6 +130,7 @@ model ChartOfAccount {
   type      String
   status    String   @default("active")
   tenantId  String   @map("tenant_id")
+  currency  String   @default("CAD")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -146,8 +147,10 @@ model FinancialTransaction {
   type        String // INVOICE, PAYMENT, PAYROLL, EXPENSE
   referenceId String?  @map("reference_id") // ID of linked document
   amount      Decimal
-  currency    String   @default("CAD")
-  status      String   @default("draft")
+  currency     String   @default("CAD")
+  exchangeRate Decimal? @map("exchange_rate")
+  baseAmount   Decimal? @map("base_amount")
+  status       String   @default("draft")
   tenantId    String   @map("tenant_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
@@ -169,6 +172,8 @@ model JournalEntry {
   debit         Decimal  @default(0)
   paidOutAmount Decimal? @map("paid_out_amount")
   currency      String   @default("CAD")
+  exchangeRate  Decimal? @map("exchange_rate")
+  baseAmount    Decimal? @map("base_amount")
   balanceBefore Decimal  @default(0) @map("balance_before")
   balanceAfter  Decimal  @default(0) @map("balance_after")
   tenantId      String   @map("tenant_id")
@@ -231,6 +236,8 @@ model TransactionLedger {
   creditAccount    String   @map("credit_account") // e.g. "revenue", "refund_payable"
   amount           Decimal
   currency         String   @default("CAD")
+  exchangeRate     Decimal? @map("exchange_rate")
+  baseAmount       Decimal? @map("base_amount")
   description      String?
   actorUserId      String?  @map("actor_user_id")
   ipAddress        String?  @map("ip_address")

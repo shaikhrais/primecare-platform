@@ -13,11 +13,15 @@ async function main() {
 
     const accounts = [
         { code: '1000', name: 'Cash', type: 'ASSET' },
+        { code: '1010', name: 'Petty Cash', type: 'ASSET' },
         { code: '1200', name: 'Accounts Receivable', type: 'ASSET' },
         { code: '2100', name: 'Sales Tax Payable', type: 'LIABILITY' },
         { code: '2200', name: 'Refund Payable', type: 'LIABILITY' },
         { code: '4000', name: 'Service Revenue', type: 'REVENUE' },
-        { code: '6000', name: 'Operating Expenses', type: 'EXPENSE' }
+        { code: '6000', name: 'Operating Expenses', type: 'EXPENSE' },
+        { code: '6100', name: 'Office Supplies', type: 'EXPENSE' },
+        { code: '6200', name: 'Travel & Meals', type: 'EXPENSE' },
+        { code: '6300', name: 'Maintenance & Repairs', type: 'EXPENSE' }
     ];
 
     for (const acc of accounts) {

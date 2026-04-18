@@ -144,6 +144,7 @@ model Tenant {
   corsAllowedMethods Json     @map("cors_allowed_methods")
   corsAllowedHeaders Json     @map("cors_allowed_headers")
   taxPercentage      Decimal? @map("tax_percentage")
+  baseCurrency       String   @default("CAD") @map("base_currency")
 
   // Fractal SaaS Extensions
   parentTenantId        String?                @map("parent_tenant_id")

@@ -1,66 +1,117 @@
 import 'package:flutter/material.dart';
-import '../base_form.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/src/components/audit_log_tile.dart';
+import 'package:primecare_ui/src/theme/colors.dart';
+import 'audit_system_logs_form_adapter.dart';
 
-class AuditSystemLogsForm extends StatefulWidget {
-  final Function(Map<String, dynamic>) onSubmit;
-  final bool isLoading;
-
-  const AuditSystemLogsForm({
-    super.key,
-    required this.onSubmit,
-    this.isLoading = false,
-  });
+class AuditSystemLogsForm extends ConsumerStatefulWidget {
+  const AuditSystemLogsForm({super.key});
 
   @override
-  State<AuditSystemLogsForm> createState() => _AuditSystemLogsFormState();
+  ConsumerState<AuditSystemLogsForm> createState() => _AuditSystemLogsFormState();
 }
 
-class _AuditSystemLogsFormState extends State<AuditSystemLogsForm> {
-  final _formKey = GlobalKey<FormState>();
+class _AuditSystemLogsFormState extends ConsumerState<AuditSystemLogsForm> {
+  final TextEditingController _searchController = TextEditingController();
+  String? _selectedAction;
+  
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      ref.read(auditSystemLogsFormAdapterProvider.notifier).loadLogs();
+    });
+  }
 
-  void _submit() {
-    if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
-    }
+  void _onFilterChanged() {
+    ref.read(auditSystemLogsFormAdapterProvider.notifier).loadLogs(
+      action: _selectedAction,
+      resourceType: _searchController.text.isEmpty ? null : _searchController.text,
+    );
+  }
+
+  IconData _getIconForAction(String action) {
+    if (action.contains('VOID')) return Icons.undo;
+    if (action.contains('CREATE')) return Icons.add_circle_outline;
+    if (action.contains('UPDATE')) return Icons.edit_note;
+    if (action.contains('DELETE')) return Icons.delete_outline;
+    if (action.contains('PERMISSION')) return Icons.security;
+    return Icons.history;
+  }
+
+  Color _getColorForAction(String action) {
+    if (action.contains('VOID')) return Colors.orange;
+    if (action.contains('CREATE')) return Colors.green;
+    if (action.contains('DELETE')) return Colors.red;
+    if (action.contains('PERMISSION')) return Colors.blue;
+    return PrimeCareColors.slate600;
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseForm(
-      formKey: _formKey,
-      title: 'Audit System Logs',
-      subtitle: 'Review sensitive access control logs.',
-      onSubmit: _submit,
-      isLoading: widget.isLoading,
+    final state = ref.watch(auditSystemLogsFormAdapterProvider);
+
+    return Column(
       children: [
+        // Filter Header
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
             children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+              Expanded(
+                child: TextField(
+                  controller: _searchController,
+                  decoration: const InputDecoration(
+                    hintText: 'Search resource type...',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(),
+                  ),
+                  onSubmitted: (_) => _onFilterChanged(),
                 ),
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Required' : null,
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Details',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
-                ),
-                maxLines: 3,
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Required' : null,
+              const SizedBox(width: 16),
+              DropdownButton<String>(
+                value: _selectedAction,
+                hint: const Text('All Actions'),
+                items: ['VOID_TRANSACTION', 'UPDATE_PERMISSIONS', 'LOGIN', 'LOGOUT']
+                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() => _selectedAction = val);
+                  _onFilterChanged();
+                },
               ),
-                          ],
+            ],
           ),
+        ),
+
+        // Logs List
+        Expanded(
+          child: state.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : state.error != null
+                  ? Center(child: Text('Error: ${state.error}'))
+                  : state.logs.isEmpty
+                      ? const Center(child: Text('No audit logs found.'))
+                      : ListView.separated(
+                          padding: const EdgeInsets.all(16),
+                          itemCount: state.logs.length,
+                          separatorBuilder: (_, __) => const Divider(),
+                          itemBuilder: (context, index) {
+                            final log = state.logs[index];
+                            final actor = log['actor'] != null 
+                                ? log['actor']['name'] ?? log['actor']['email'] 
+                                : 'System';
+                            
+                            return AuditLogTile(
+                              title: log['action'] ?? 'Unknown Action',
+                              subtitle: '$actor performed ${log['action']} on ${log['resourceType']}',
+                              timestamp: log['createdAt']?.toString().split('T').first ?? '',
+                              icon: _getIconForAction(log['action'] ?? ''),
+                              iconColor: _getColorForAction(log['action'] ?? ''),
+                            );
+                          },
+                        ),
         ),
       ],
     );

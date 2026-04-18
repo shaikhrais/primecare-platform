@@ -92,12 +92,12 @@ class StaffProvisioningNotifier extends AsyncNotifier<StaffProvisionData> {
       () async {
         // Connect safely to the database-driven admin endpoint
         await ref.read(apiClientProvider).post(
-          '/api/v1/admin/provision-staff',
+          '/v1/admin/provision-staff',
           body: {
             'firstName': currentData.firstName,
             'lastName': currentData.lastName,
             'email': currentData.email,
-            'role': currentData.role,
+            'roleId': currentData.role,
             'department': currentData.department,
             'additionalNotes': currentData.additionalNotes,
           },

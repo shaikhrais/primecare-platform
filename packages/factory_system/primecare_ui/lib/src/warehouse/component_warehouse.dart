@@ -756,7 +756,14 @@ class ComponentWarehouse {
     BuildContext context,
     dynamic dataPayload,
   ) {
-    return const VitalsCaptureForm();
+    String? patientId;
+    if (dataPayload is Map) {
+      patientId = dataPayload['patientId'] as String?;
+    } else if (dataPayload is String) {
+      patientId = dataPayload;
+    }
+
+    return VitalsCaptureForm(patientId: patientId);
   }
 
   static Widget _buildStaffProvisioningForm(

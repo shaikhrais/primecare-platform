@@ -2,6 +2,10 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/contracts';
 import { prismaMiddleware } from '@primecare/infrastructure';
 import { registerFinanceRoutes } from './routes/finance';
+import { registerIdentityRoutes } from './routes/identity';
+import { registerAuditRoutes } from './routes/audit';
+import { registerAdminRoutes } from './routes/admin';
+import { registerClinicalRoutes } from './routes/clinical';
 
 if (!(BigInt.prototype as any).toJSON) {
   (BigInt.prototype as any).toJSON = function() {
@@ -175,20 +179,7 @@ app.post('/v1/verifications/pre-flight', async (c) => {
     });
 });
 
-// Structural Anomaly Resolution API - AI Analytics Forecasting
-app.get('/v1/clinical/ai-analytics/q3-extrapolations', async (c) => {
-    // Scaffolded endpoint representing the AI analytics forecasting integration
-    return c.json({
-        success: true,
-        data: {
-            revenueProjections: [120000.50, 134000.20, 142050.00],
-            careCostMargins: '12.4%',
-            overheadAverages: '3.2%',
-            modelConfidence: 0.94,
-        },
-        timestamp: new Date().toISOString()
-    });
-});
+// Clinical Routes are now mounted via registerClinicalRoutes(app)
 
 // Architectural Audit - Purpose Report
 app.get('/v1/verifications/purpose-report', async (c) => {
@@ -301,8 +292,20 @@ app.post('/v1/verifications/audit-purpose', async (c) => {
     }
 });
 
+// Mount the Identity / RBAC APIs
+registerIdentityRoutes(app);
+
 // Mount the Finance / Ledger APIs
 registerFinanceRoutes(app);
+
+// Mount the Audit / Compliance APIs
+registerAuditRoutes(app);
+
+// Mount the Admin APIs
+registerAdminRoutes(app);
+
+// Mount the Clinical APIs
+registerClinicalRoutes(app);
 
 // Cron trigger for Automated Sweeps (Task 7)
 export default {

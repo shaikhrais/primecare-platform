@@ -54,7 +54,7 @@ class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
     );
   }
 
-  Future<void> submit() async {
+  Future<void> submit({String? patientId}) async {
     final currentData = state.value;
     if (currentData == null) return;
 
@@ -74,11 +74,17 @@ class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
     final result = await Result.guardFuture<bool>(
       () async {
         // Connect safely to the database-driven clinical endpoint
+        final bpParts = currentData.bloodPressure.split('/');
+        final systolic = bpParts.isNotEmpty ? bpParts[0] : null;
+        final diastolic = bpParts.length > 1 ? bpParts[1] : null;
+
         await ref.read(apiClientProvider).post(
-          '/api/v1/clinical/vitals-capture',
+          '/v1/clinical/vitals-capture',
           body: {
+            'patientId': patientId ?? 'PENDING_BINDING', // Use provided ID or fallback for general capture
             'heartRate': currentData.heartRate,
-            'bloodPressure': currentData.bloodPressure,
+            'systolic': systolic,
+            'diastolic': diastolic,
             'temperature': currentData.temperature,
           },
         );
@@ -127,9 +133,10 @@ final vitalsCaptureProvider =
 
 // --- UI Component ---
 class VitalsCaptureForm extends ConsumerStatefulWidget {
+  final String? patientId;
   final VoidCallback? onSuccess;
 
-  const VitalsCaptureForm({super.key, this.onSuccess});
+  const VitalsCaptureForm({super.key, this.patientId, this.onSuccess});
 
   @override
   ConsumerState<VitalsCaptureForm> createState() => _VitalsCaptureFormState();
@@ -140,7 +147,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
 
   void _submit() {
     final notifier = ref.read(vitalsCaptureProvider.notifier);
-    notifier.submit().then((_) {
+    notifier.submit(patientId: widget.patientId).then((_) {
       if (ref.read(vitalsCaptureProvider).hasValue) {
         widget.onSuccess?.call();
       }

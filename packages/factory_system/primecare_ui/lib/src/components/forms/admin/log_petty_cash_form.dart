@@ -1,66 +1,164 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../base_form.dart';
+import 'log_petty_cash_form_adapter.dart';
 
-class LogPettyCashForm extends StatefulWidget {
-  final Function(Map<String, dynamic>) onSubmit;
-  final bool isLoading;
-
-  const LogPettyCashForm({
-    super.key,
-    required this.onSubmit,
-    this.isLoading = false,
-  });
+class LogPettyCashForm extends ConsumerStatefulWidget {
+  const LogPettyCashForm({super.key});
 
   @override
-  State<LogPettyCashForm> createState() => _LogPettyCashFormState();
+  ConsumerState<LogPettyCashForm> createState() => _LogPettyCashFormState();
 }
 
-class _LogPettyCashFormState extends State<LogPettyCashForm> {
+class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
   final _formKey = GlobalKey<FormState>();
+  final _amountController = TextEditingController();
+  final _merchantController = TextEditingController();
+  final _detailsController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+  String _selectedCategory = '6100'; // Office Supplies
 
-  void _submit() {
+  final List<Map<String, String>> _categories = [
+    {'code': '6100', 'name': 'Office Supplies'},
+    {'code': '6200', 'name': 'Travel & Meals'},
+    {'code': '6300', 'name': 'Maintenance & Repairs'},
+    {'code': '6000', 'name': 'General Operating'},
+  ];
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    _merchantController.dispose();
+    _detailsController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+      final adapter = ref.read(logPettyCashFormAdapterProvider.notifier);
+      final success = await adapter.submit(
+        amount: double.parse(_amountController.text),
+        categoryCode: _selectedCategory,
+        merchant: _merchantController.text,
+        details: _detailsController.text,
+        date: _selectedDate,
+      );
+
+      if (mounted && success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Petty cash expenditure successfully logged.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _selectDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null) {
+      setState(() => _selectedDate = picked);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = ref.watch(logPettyCashFormAdapterProvider);
+    final theme = Theme.of(context);
+
     return BaseForm(
       formKey: _formKey,
       title: 'Log Petty Cash',
-      subtitle: 'Record localized petty cash expenditure.',
+      subtitle: 'Record and categorize localized petty cash expenditure.',
       onSubmit: _submit,
-      isLoading: widget.isLoading,
+      isLoading: viewModel.isLoading,
+      submitText: 'Record Expenditure',
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: TextFormField(
+                controller: _amountController,
                 decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+                  labelText: 'Amount',
+                  prefixIcon: const Icon(Icons.attach_money),
+                  hintText: '0.00',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  filled: true,
                 ),
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Required' : null,
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Required';
+                  if (double.tryParse(value) == null) return 'Invalid amount';
+                  return null;
+                },
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Details',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: InkWell(
+                onTap: _selectDate,
+                borderRadius: BorderRadius.circular(12),
+                child: InputDecorator(
+                  decoration: InputDecoration(
+                    labelText: 'Date',
+                    prefixIcon: const Icon(Icons.calendar_today),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    filled: true,
+                  ),
+                  child: Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
                 ),
-                maxLines: 3,
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Required' : null,
               ),
-                          ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        DropdownButtonFormField<String>(
+          value: _selectedCategory,
+          decoration: InputDecoration(
+            labelText: 'Category',
+            prefixIcon: const Icon(Icons.category),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            filled: true,
           ),
+          items: _categories.map((cat) {
+            return DropdownMenuItem(
+              value: cat['code'],
+              child: Text(cat['name']!),
+            );
+          }).toList(),
+          onChanged: (value) => setState(() => _selectedCategory = value!),
+        ),
+        const SizedBox(height: 16),
+        TextFormField(
+          controller: _merchantController,
+          decoration: InputDecoration(
+            labelText: 'Merchant / Vendor',
+            prefixIcon: const Icon(Icons.store),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            filled: true,
+          ),
+          validator: (value) => value == null || value.isEmpty ? 'Required' : null,
+        ),
+        const SizedBox(height: 16),
+        TextFormField(
+          controller: _detailsController,
+          maxLines: 3,
+          decoration: InputDecoration(
+            labelText: 'Expenditure Details',
+            alignLabelWithHint: true,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            filled: true,
+          ),
+          validator: (value) => value == null || value.isEmpty ? 'Required' : null,
         ),
       ],
     );
