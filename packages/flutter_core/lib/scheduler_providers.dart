@@ -15,27 +15,32 @@ class HorizonScheduleNotifier extends AsyncNotifier<HorizonSchedule> {
       ExecutionGateCategory.scheduler,
       'Hydrating Horizon Schedule',
     );
-    try {
-      final schedule = await service.getHorizonSchedule();
-      telemetry.passGate(
-        ExecutionGateCategory.scheduler,
-        'Horizon Schedule Hydrated',
-        metadata: {
-          'apptCount': schedule.appointments.length,
-          'staffCount': schedule.staff.length,
-        },
-      );
-      return schedule;
-    } catch (e, stack) {
-      telemetry.failGate(
-        ExecutionGateCategory.scheduler,
-        'Failed to hydrate Horizon Schedule',
-        error: e,
-        stackTrace: stack,
-        metadata: {'error': e.toString()},
-      );
-      rethrow;
-    }
+
+    final result = await service.getHorizonSchedule();
+    return result.fold(
+      (schedule) {
+        telemetry.passGate(
+          ExecutionGateCategory.scheduler,
+          'Horizon Schedule Hydrated',
+          metadata: {
+            'apptCount': schedule.appointments.length,
+            'staffCount': schedule.staff.length,
+          },
+        );
+        return schedule;
+      },
+      (error) {
+        telemetry.failGate(
+          ExecutionGateCategory.scheduler,
+          'Failed to hydrate Horizon Schedule',
+          error: error,
+          metadata: {'error': error.toString()},
+        );
+        // We throw here to ensure AsyncNotifier captures the error in current state,
+        // which the UI will handle via .when(error: ...)
+        throw error;
+      },
+    );
   }
 
   Future<void> addAppointment(Appointment appt) async {

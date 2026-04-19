@@ -15,6 +15,7 @@ enum ExecutionGateCategory {
   network,
   resource,
   domainApi,
+  adapters,
 }
 
 extension ExecutionGateCategoryExtension on ExecutionGateCategory {
@@ -42,6 +43,8 @@ extension ExecutionGateCategoryExtension on ExecutionGateCategory {
         return 'Resource';
       case ExecutionGateCategory.domainApi:
         return 'Domain API';
+      case ExecutionGateCategory.adapters:
+        return 'Data Adapters';
     }
   }
 }

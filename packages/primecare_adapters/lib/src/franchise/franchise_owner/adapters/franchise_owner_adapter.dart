@@ -27,11 +27,13 @@ final franchiseOwnerAdapterProvider =
                 );
 
                 // Background hydration of LKG cache with real serialized data
-                unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
+                unawaited(
+                  resilience.saveSnapshot(cacheKey, viewModel.toJson()),
+                );
 
                 return viewModel;
               } else {
-                return FranchiseOwnerDashboardViewModel.assemble(isOffline: true);
+                return FranchiseOwnerViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {

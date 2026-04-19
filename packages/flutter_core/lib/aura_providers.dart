@@ -69,23 +69,41 @@ final auraIntentProvider = Provider.autoDispose((ref) {
   final query = ref.watch(auraQueryProvider);
 
   if (query.isEmpty) return null;
-  final intent = service.processQuery(query);
-  if (intent.title == 'Query Interrupted') {
-    ref
-        .read(executionGateProvider)
-        .failGate(
-          ExecutionGateCategory.auraEngine,
-          'Aura encountered a dynamic boundary issue',
-          error: 'Parsing Exception',
-          stackTrace: StackTrace.current,
-        );
-  } else {
-    ref
-        .read(executionGateProvider)
-        .passGate(
-          ExecutionGateCategory.auraEngine,
-          'Processed NLP Intent: ${intent.title}',
-        );
-  }
-  return intent;
+
+  final result = service.processQuery(query);
+
+  return result.fold(
+    (intent) {
+      if (intent.title == 'Query Interrupted') {
+        ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.auraEngine,
+              'Aura encountered a dynamic boundary issue',
+              error: 'Parsing Exception',
+              stackTrace: StackTrace.current,
+            );
+      } else {
+        ref
+            .read(executionGateProvider)
+            .passGate(
+              ExecutionGateCategory.auraEngine,
+              'Processed NLP Intent: ${intent.title}',
+            );
+      }
+      return intent;
+    },
+    (error) {
+      // This case should be rare as processQuery has its own guard,
+      // but we handle it for absolute safety.
+      ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.auraEngine,
+            'Aura critical failure',
+            error: error.runtimeType,
+          );
+      return null;
+    },
+  );
 });

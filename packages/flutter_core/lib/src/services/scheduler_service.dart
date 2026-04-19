@@ -10,13 +10,37 @@ class SchedulerService {
     _telemetry = telemetry;
   }
 
-  Future<HorizonSchedule> getHorizonSchedule() async {
-    return DataLogisticsHub.fetchAndAssemble<HorizonSchedule>(
-      fetchCall: () async {
-        // Implementation for real API call would go here
+  Future<Result<HorizonSchedule>> getHorizonSchedule() async {
+    return Result.guardFuture<HorizonSchedule>(
+      () async {
+        final data = await DataLogisticsHub.fetchAndAssemble<HorizonSchedule>(
+          fetchCall: () async {
+            // Implementation for real API call would go here
+            return _getBootstrapSchedule();
+          },
+          fallbackBuilder: () => _getBootstrapSchedule(),
+        );
+
+        _telemetry?.passGate(
+          ExecutionGateCategory.scheduler,
+          'Horizon schedule synthesized successfully',
+          metadata: {
+            'apptCount': data.appointments.length,
+            'resourceCount': data.resources.length,
+          },
+        );
+        return data;
+      },
+      onError: (e, st) {
+        _telemetry?.failGate(
+          ExecutionGateCategory.scheduler,
+          'Failed to synthesize Horizon schedule',
+          error: e,
+          stackTrace: st,
+        );
+        // Fallback to bootstrap on critical failure to maintain UI stability
         return _getBootstrapSchedule();
       },
-      fallbackBuilder: () => _getBootstrapSchedule(),
     );
   }
 
@@ -69,77 +93,76 @@ class SchedulerService {
   }
 
   Future<Result<void>> createAppointment(Appointment appt) async {
-    try {
-      // Simulate API Latency
-      await Future.delayed(const Duration(milliseconds: 600));
+    return Result.guardFuture<void>(
+      () async {
+        // Simulate API Latency
+        await Future.delayed(const Duration(milliseconds: 600));
 
-      // Simulate Server-side conflict check
-      final blueprint = _getBootstrapSchedule();
-      if (hasConflict(appt, blueprint.appointments, blueprint.resources)) {
-        final error = Exception('Conflict detected on server for ${appt.patientName}');
+        // Simulate Server-side conflict check
+        final blueprint = _getBootstrapSchedule();
+        if (hasConflict(appt, blueprint.appointments, blueprint.resources)) {
+          throw Exception(
+            'Conflict detected on server for ${appt.patientName}',
+          );
+        }
+
+        _telemetry?.passGate(
+          ExecutionGateCategory.scheduler,
+          'Appointment created successfully',
+          metadata: {'apptId': appt.id, 'patient': appt.patientName},
+        );
+      },
+      onError: (e, st) {
         _telemetry?.failGate(
           ExecutionGateCategory.scheduler,
-          'Failed to create appointment (Conflict)',
-          error: error,
+          'Failed to create appointment',
+          error: e,
+          stackTrace: st,
           metadata: {'apptId': appt.id},
         );
-        return Result.failure(error);
-      }
-      
-      _telemetry?.passGate(
-        ExecutionGateCategory.scheduler,
-        'Appointment created successfully',
-        metadata: {'apptId': appt.id, 'patient': appt.patientName},
-      );
-      return Result.success(null);
-    } catch (e, st) {
-      _telemetry?.failGate(
-        ExecutionGateCategory.scheduler,
-        'Failed to create appointment (System)',
-        error: e,
-        stackTrace: st,
-        metadata: {'apptId': appt.id},
-      );
-      return Result.failure(e is Exception ? e : Exception(e.toString()));
-    }
+        // We rethrow here because Result.guardFuture will catch it and return a Failure,
+        // but we want the original error context preserved in the telemetry above.
+        // Actually, Result.guardFuture uses the error returned by onError or the thrown error.
+        // If we want a specific message in the Result failure, we can return null and handle it,
+        // but standard practice here is to let the guard take care of the Failure wrapping.
+        throw e;
+      },
+    );
   }
 
   Future<Result<void>> updateAppointment(Appointment appt) async {
-    try {
-      await Future.delayed(const Duration(milliseconds: 600));
+    return Result.guardFuture<void>(
+      () async {
+        await Future.delayed(const Duration(milliseconds: 600));
 
-      // Validation: New slot must be available
-      final blueprint = _getBootstrapSchedule();
-      final otherApps = blueprint.appointments
-          .where((a) => a.id != appt.id)
-          .toList();
-      if (hasConflict(appt, otherApps, blueprint.resources)) {
-        final error = Exception('The new time slot for ${appt.patientName} is not available.');
+        // Validation: New slot must be available
+        final blueprint = _getBootstrapSchedule();
+        final otherApps = blueprint.appointments
+            .where((a) => a.id != appt.id)
+            .toList();
+        if (hasConflict(appt, otherApps, blueprint.resources)) {
+          throw Exception(
+            'The new time slot for ${appt.patientName} is not available.',
+          );
+        }
+
+        _telemetry?.passGate(
+          ExecutionGateCategory.scheduler,
+          'Appointment updated successfully',
+          metadata: {'apptId': appt.id, 'patient': appt.patientName},
+        );
+      },
+      onError: (e, st) {
         _telemetry?.failGate(
           ExecutionGateCategory.scheduler,
-          'Failed to update appointment (Conflict)',
-          error: error,
+          'Failed to update appointment',
+          error: e,
+          stackTrace: st,
           metadata: {'apptId': appt.id},
         );
-        return Result.failure(error);
-      }
-      
-      _telemetry?.passGate(
-        ExecutionGateCategory.scheduler,
-        'Appointment updated successfully',
-        metadata: {'apptId': appt.id, 'patient': appt.patientName},
-      );
-      return Result.success(null);
-    } catch (e, st) {
-      _telemetry?.failGate(
-        ExecutionGateCategory.scheduler,
-        'Failed to update appointment (System)',
-        error: e,
-        stackTrace: st,
-        metadata: {'apptId': appt.id},
-      );
-      return Result.failure(e is Exception ? e : Exception(e.toString()));
-    }
+        throw e;
+      },
+    );
   }
 
   Future<Result<void>> deleteAppointment(String id) async {

@@ -19,6 +19,23 @@ sealed class Result<T> {
     }
   }
 
+  /// Factory for a successful result.
+  static Result<T> success<T>(T data, {Map<String, dynamic>? metadata}) =>
+      Success<T>(data, metadata: metadata);
+
+  /// Factory for a failed result.
+  static Result<T> failure<T>(
+    Object error, {
+    StackTrace? stackTrace,
+    String? message,
+    Map<String, dynamic>? metadata,
+  }) => Failure<T>(
+    error,
+    stackTrace: stackTrace,
+    message: message,
+    metadata: metadata,
+  );
+
   /// Deterministically guards a future operation and executes an optional
   /// recovery block (e.g., LKG restoration) on failure.
   static Future<Result<T>> guardFuture<T>(
@@ -27,6 +44,32 @@ sealed class Result<T> {
   }) async {
     try {
       final data = await computation();
+      return Success<T>(data);
+    } catch (e, st) {
+      if (onError != null) {
+        try {
+          final recoveredData = onError(e, st);
+          return Success<T>(recoveredData);
+        } catch (recoveryError, recoverySt) {
+          return Failure<T>(
+            recoveryError,
+            stackTrace: recoverySt,
+            message: 'Primary computation and recovery both failed',
+          );
+        }
+      }
+      return Failure<T>(e, stackTrace: st);
+    }
+  }
+
+  /// Deterministically guards a synchronous operation and executes an optional
+  /// recovery block (e.g., LKG restoration) on failure.
+  static Result<T> guard<T>(
+    T Function() computation, {
+    T Function(Object error, StackTrace)? onError,
+  }) {
+    try {
+      final data = computation();
       return Success<T>(data);
     } catch (e, st) {
       if (onError != null) {
