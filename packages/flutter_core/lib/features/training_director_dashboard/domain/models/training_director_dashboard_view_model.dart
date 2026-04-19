@@ -6,6 +6,7 @@ class TrainingDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
+    super.forecasting,
   });
 
   factory TrainingDirectorDashboardViewModel.fromJson(
@@ -17,17 +18,20 @@ class TrainingDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 
   factory TrainingDirectorDashboardViewModel.fromDashboardMetrics(
     DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
     bool isOffline = false,
   }) {
     return TrainingDirectorDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
+      forecasting: forecasting,
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
@@ -41,6 +45,8 @@ class TrainingDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        if (forecasting != null)
+          AIForecastingBlueprint(dataPayload: forecasting),
         const StitchBlueprint(
           screenId: '1b2c3d4e5f244705a405113ae8623ec5', // Training Dashboard
         ),

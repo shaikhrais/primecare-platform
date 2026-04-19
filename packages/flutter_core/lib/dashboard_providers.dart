@@ -88,6 +88,15 @@ final aiAnalyticsForecastingProvider =
       return await service.getAIAnalyticsForecasting();
     });
 
+/// Standardized family provider for AI forecasting to match dashboardMetricsProvider pattern.
+final forecastingProvider =
+    FutureProvider.family<Result<AIAnalyticsForecastingData>, String>((
+      ref,
+      route,
+    ) async {
+      return await ref.watch(aiAnalyticsForecastingProvider.future);
+    });
+
 /// Manages the predictive "Aura" state for dashboard components.
 class AuraDashboardToggleNotifier extends Notifier<Map<String, bool>> {
   @override
