@@ -88,21 +88,28 @@ class ReportService {
 
         if (response.statusCode == 200) {
           _telemetry.passGate(
-            ExecutionGateCategory.metricsLayer,
+            ExecutionGateCategory.reporting,
             'Report fetched successfully: $reportId',
             metadata: {'reportId': reportId},
           );
           return ReportData.fromJson(response.data as Map<String, dynamic>);
         }
-          return ReportData.empty(
-            id: reportId,
-            title: 'Report Load Failure (${response.statusCode})',
-            isOffline: true,
-          );
+
+        _telemetry.passGate(
+          ExecutionGateCategory.reporting,
+          'Report fetch returned empty (Status: ${response.statusCode})',
+          metadata: {'reportId': reportId},
+        );
+
+        return ReportData.empty(
+          id: reportId,
+          title: 'Report Load Failure (${response.statusCode})',
+          isOffline: true,
+        );
       },
       onError: (e, st) {
         _telemetry.failGate(
-          ExecutionGateCategory.metricsLayer,
+          ExecutionGateCategory.reporting,
           'Failed to fetch report: $reportId',
           error: e,
           stackTrace: st,

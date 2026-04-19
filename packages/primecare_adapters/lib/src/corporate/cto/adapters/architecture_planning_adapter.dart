@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
@@ -171,80 +170,31 @@ class ArchitecturePlanningViewModel {
 // --- The Adapter ---
 final architecturePlanningAdapterProvider =
     FutureProvider<Result<ArchitecturePlanningViewModel>>((ref) async {
-  final telemetry = ref.read(executionGateProvider);
   final resilience = ref.read(resilienceServiceProvider);
   const cacheKey = 'architecture_planning_metrics';
 
-  return Result.guardFuture<ArchitecturePlanningViewModel>(
-    () async {
-      return DataLogisticsHub.fetchAndAssemble<ArchitecturePlanningViewModel>(
-        fetchCall: () async {
-          const edgeUrl =
-              'https://primecare-verification-service.itpro-mohammed.workers.dev';
-          const endpoint = '/v1/verifications/purpose-report';
+  // Watch the hardened infrastructure provider
+  final result = await ref.watch(architecturePurposeProvider.future);
 
-          telemetry.passGate(
-            ExecutionGateCategory.metricsLayer,
-            'Fetching Architecture Planning Metrics: \$edgeUrl\$endpoint',
-          );
-
-          final edgeDio = Dio(
-            BaseOptions(
-              baseUrl: edgeUrl,
-              connectTimeout: const Duration(seconds: 10),
-              receiveTimeout: const Duration(seconds: 10),
-            ),
-          );
-
-          final response = await edgeDio.get(endpoint);
-
-          if (response.statusCode == 200) {
-            telemetry.passGate(
-              ExecutionGateCategory.metricsLayer,
-              'Architecture Planning Hydrated successfully',
-            );
-
-            final metrics = response.data as Map<String, dynamic>;
-            final viewModel = ArchitecturePlanningViewModel.fromJson(metrics);
-
-            unawaited(resilience.saveSnapshot(cacheKey, metrics));
-
-            return viewModel;
-          } else {
-            telemetry.failGate(
-              ExecutionGateCategory.metricsLayer,
-              'Architecture Metrics Error: \${response.statusCode}',
-              metadata: {'status': response.statusCode},
-            );
-            return ArchitecturePlanningViewModel.assemble(isOffline: true);
-          }
-        },
-        fallbackBuilder: () {
-          telemetry.failGate(
-            ExecutionGateCategory.metricsLayer,
-            'Architecture Validation Fallback Triggered',
-          );
-          return ArchitecturePlanningViewModel.assemble(isOffline: true);
-        },
-      );
+  return result.fold(
+    (data) {
+      final viewModel = ArchitecturePlanningViewModel.fromJson(data);
+      // Persist LKG for offline survival
+      unawaited(resilience.saveSnapshot(cacheKey, data));
+      return Success(viewModel);
     },
-    onError: (e, st) {
-      telemetry.failGate(
-        ExecutionGateCategory.metricsLayer,
-        'Deterministic Failure in Architecture Planning Adapter',
-        error: e,
-        stackTrace: st,
-      );
-
+    (error) {
+      // Automatic Resilience: Revert to LKG if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        telemetry.passGate(
-          ExecutionGateCategory.resource,
-          'Resilience: Restoring Architecture Planning from cache',
+        return Success(
+          ArchitecturePlanningViewModel.fromJson(
+            snapshot,
+            isOffline: true,
+          ),
         );
-        return ArchitecturePlanningViewModel.fromJson(snapshot as Map<String, dynamic>, isOffline: true);
       }
-      return ArchitecturePlanningViewModel.assemble(isOffline: true);
+      return Success(ArchitecturePlanningViewModel.assemble(isOffline: true));
     },
   );
 });

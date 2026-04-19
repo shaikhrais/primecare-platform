@@ -187,8 +187,8 @@ class _StaffColumn extends ConsumerWidget {
                             'Invalid Appointment Layout for appt_id: ${appt.id}',
                             metadata: {'top': top, 'height': height},
                           );
-                      PrimeLogger.error('Invalid layout measurement in HorizonGrid', tag: 'UI');
-                      return;
+                      debugPrint('Invalid layout measurement in HorizonGrid: \${appt.id}');
+                      return const SizedBox.shrink();
                     }
 
                     return Positioned(

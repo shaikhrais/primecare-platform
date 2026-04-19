@@ -26,7 +26,7 @@ class BillingPaymentNotifier extends AsyncNotifier<void> {
         await client.post('/api/v1/orchestration/actions', body: payload.data);
       });
       if (result.isFailure) {
-        return false;
+        throw Exception(result.errorOrNull.toString());
       }
     });
 

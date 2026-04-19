@@ -4,82 +4,30 @@ import 'package:primecare_core/primecare_core.dart';
 
 final customerSupportDashboardAdapterProvider =
     FutureProvider<Result<CustomerSupportDashboardViewModel>>((ref) async {
-      final telemetry = ref.read(executionGateProvider);
-      final resilience = ref.read(resilienceServiceProvider);
-      const cacheKey = 'customer_support_dashboard';
+  const route = 'CustomerSupport';
+  const cacheKey = 'customer_support_dashboard';
+  final resilience = ref.read(resilienceServiceProvider);
 
-      return Result.guardFuture<CustomerSupportDashboardViewModel>(
-        () async {
-          return DataLogisticsHub.fetchAndAssemble<
-            CustomerSupportDashboardViewModel
-          >(
-            fetchCall: () async {
-              final apiClient = ref.read(apiClientProvider);
-              const endpoint = '/api/v1/metrics';
+  // Watch the hardened infrastructure provider for standardized metrics fetching
+  final result = await ref.watch(dashboardMetricsProvider(route).future);
 
-              telemetry.passGate(
-                ExecutionGateCategory.metricsLayer,
-                'Fetching Customer Support Metrics: $endpoint',
-              );
-
-              final response = await apiClient.get(
-                '$endpoint?route=CustomerSupport',
-              );
-
-              if (response.statusCode == 200) {
-                telemetry.passGate(
-                  ExecutionGateCategory.metricsLayer,
-                  'Customer Support Metrics Hydrated',
-                );
-                final metrics = DashboardMetrics.fromJson(
-                  response.data as Map<String, dynamic>,
-                );
-                final viewModel =
-                    CustomerSupportDashboardViewModel.fromDashboardMetrics(
-                      metrics,
-                    );
-
-                // Background hydration of LKG cache with real serialized data
-                unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
-
-                return viewModel;
-              } else {
-                telemetry.failGate(
-                  ExecutionGateCategory.metricsLayer,
-                  'Customer Support API Error: ${response.statusCode}',
-                  metadata: {'status': response.statusCode},
-                );
-                return CustomerSupportDashboardViewModel.assemble(isOffline: true);
-              }
-            },
-            fallbackBuilder: () {
-              telemetry.failGate(
-                ExecutionGateCategory.metricsLayer,
-                'Customer Support Logistics Fallback Triggered',
-              );
-              return CustomerSupportDashboardViewModel.assemble(
-                isOffline: true,
-              );
-            },
-          );
-        },
-        onError: (e, st) {
-          telemetry.failGate(
-            ExecutionGateCategory.resource,
-            'Major failure in Customer Support Dashboard Adapter',
-            error: e,
-            stackTrace: st,
-          );
-
-          final snapshot = resilience.getSnapshot(cacheKey);
-          if (snapshot != null) {
-            telemetry.passGate(
-              ExecutionGateCategory.resource,
-              'Resilience: Restoring Customer Support Dashboard from LKG snapshot',
-            );
-            return CustomerSupportDashboardViewModel.fromJson(snapshot);
-          }
-          return CustomerSupportDashboardViewModel.assemble(isOffline: true);
-        },
+  return result.fold(
+    (metrics) {
+      final viewModel =
+          CustomerSupportDashboardViewModel.fromDashboardMetrics(metrics);
+      // Persist LKG snapshot for offline survival
+      unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
+      return Success(viewModel);
+    },
+    (error) {
+      // Fallback: Restore from local resilience cache if infrastructure is unreachable
+      final snapshot = resilience.getSnapshot(cacheKey);
+      if (snapshot != null) {
+        return Success(CustomerSupportDashboardViewModel.fromJson(snapshot));
+      }
+      return Success(
+        CustomerSupportDashboardViewModel.assemble(isOffline: true),
       );
-    });
+    },
+  );
+});

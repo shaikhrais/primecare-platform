@@ -1,8 +1,10 @@
 import 'config/api_config.dart';
+import 'package:dio/dio.dart';
 import 'network/api_client.dart';
 import 'network/result.dart';
 import 'src/factory_floor/ui_blueprint.dart';
 import 'src/utils/prime_logger.dart';
+import 'telemetry_service.dart';
 export 'src/factory_floor/ui_blueprint.dart';
 
 class KpiMetric {
@@ -228,6 +230,77 @@ class DashboardMetrics {
   }
 }
 
+class AIAnalyticsForecastingData {
+  final List<ForecastingProjection> projections;
+  final ForecastingKPIs kpis;
+  final double confidenceScore;
+  final List<String> insights;
+
+  AIAnalyticsForecastingData({
+    required this.projections,
+    required this.kpis,
+    required this.confidenceScore,
+    required this.insights,
+  });
+
+  factory AIAnalyticsForecastingData.fromJson(Map<String, dynamic> json) {
+    return AIAnalyticsForecastingData(
+      projections: (json['projections'] as List)
+          .map((i) => ForecastingProjection.fromJson(i as Map<String, dynamic>))
+          .toList(),
+      kpis: ForecastingKPIs.fromJson(json['kpis'] as Map<String, dynamic>),
+      confidenceScore: (json['confidenceScore'] as num).toDouble(),
+      insights: List<String>.from(json['insights'] as List),
+    );
+  }
+}
+
+class ForecastingProjection {
+  final String month;
+  final double revenue;
+  final double costs;
+  final int patients;
+
+  ForecastingProjection({
+    required this.month,
+    required this.revenue,
+    required this.costs,
+    required this.patients,
+  });
+
+  factory ForecastingProjection.fromJson(Map<String, dynamic> json) {
+    return ForecastingProjection(
+      month: json['month'] as String,
+      revenue: (json['revenue'] as num).toDouble(),
+      costs: (json['costs'] as num).toDouble(),
+      patients: json['patients'] as int,
+    );
+  }
+}
+
+class ForecastingKPIs {
+  final double quarterlyRevenue;
+  final double projectedGrowth;
+  final double marginEfficiency;
+  final int projectedAdmissions;
+
+  ForecastingKPIs({
+    required this.quarterlyRevenue,
+    required this.projectedGrowth,
+    required this.marginEfficiency,
+    required this.projectedAdmissions,
+  });
+
+  factory ForecastingKPIs.fromJson(Map<String, dynamic> json) {
+    return ForecastingKPIs(
+      quarterlyRevenue: (json['quarterlyRevenue'] as num).toDouble(),
+      projectedGrowth: (json['projectedGrowth'] as num).toDouble(),
+      marginEfficiency: (json['marginEfficiency'] as num).toDouble(),
+      projectedAdmissions: json['projectedAdmissions'] as int,
+    );
+  }
+}
+
 class ClinicalIntelligenceViewModel {
   final List<UIComponentBlueprint> blueprints;
   final bool isOfflineFallback;
@@ -247,8 +320,9 @@ class ClinicalIntelligenceViewModel {
 
 class DashboardService {
   final ApiClient _apiClient;
+  final ExecutionGateService _telemetry;
 
-  DashboardService(this._apiClient);
+  DashboardService(this._apiClient, this._telemetry);
 
   Future<Result<DashboardMetrics>> getMetrics(String route) async {
     return Result.guardFuture<DashboardMetrics>(
@@ -256,21 +330,20 @@ class DashboardService {
         final endpoint = ApiConfig.endpoints['providerMetrics']!;
         final response = await _apiClient.get('$endpoint?route=$route');
         if (response.statusCode == 200) {
+          _telemetry.passGate(
+            ExecutionGateCategory.metricsLayer,
+            'Dashboard metrics fetched for route: $route',
+          );
           return DashboardMetrics.fromJson(
             response.data as Map<String, dynamic>,
           );
         }
-        return DashboardMetrics.empty();
-      },
-      onError: (e, st) {
-        PrimeLogger.error(
-          'Failed to fetch dashboard metrics for route $route',
-          error: e,
-          stackTrace: st,
-          tag: 'DashboardService',
+        
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
         );
-        // Resilient fallback: Return empty metrics
-        return DashboardMetrics.empty();
       },
     );
   }
@@ -327,20 +400,42 @@ class DashboardService {
             }
           }).toList();
 
+          _telemetry.passGate(
+            ExecutionGateCategory.metricsLayer,
+            'Clinical intelligence blueprints hydrated: ${blueprints.length}',
+          );
           return ClinicalIntelligenceViewModel(blueprints: blueprints);
         }
 
+        _telemetry.passGate(
+          ExecutionGateCategory.metricsLayer,
+          'Clinical intelligence blueprints returned empty',
+        );
         return ClinicalIntelligenceViewModel(blueprints: []);
       },
-      onError: (e, st) {
-        PrimeLogger.error(
-          'Clinical intelligence fetch failed',
-          error: e,
-          stackTrace: st,
-          tag: 'DashboardService',
+    );
+  }
+
+  Future<Result<AIAnalyticsForecastingData>> getAIAnalyticsForecasting() async {
+    return Result.guardFuture<AIAnalyticsForecastingData>(
+      () async {
+        final response =
+            await _apiClient.get('/clinical/ai-analytics/q3-extrapolations');
+        if (response.statusCode == 200) {
+          _telemetry.passGate(
+            ExecutionGateCategory.metricsLayer,
+            'AI Analytics forecasting data fetched',
+          );
+          return AIAnalyticsForecastingData.fromJson(
+            response.data as Map<String, dynamic>,
+          );
+        }
+
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
         );
-        // Resilient fallback: Return empty intelligence state
-        return ClinicalIntelligenceViewModel.empty(isOffline: true);
       },
     );
   }

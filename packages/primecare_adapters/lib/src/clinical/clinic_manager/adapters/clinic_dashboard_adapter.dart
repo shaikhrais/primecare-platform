@@ -4,75 +4,27 @@ import 'package:primecare_core/primecare_core.dart';
 
 final clinicDashboardAdapterProvider =
     FutureProvider<Result<ClinicDashboardViewModel>>((ref) async {
-      final telemetry = ref.read(executionGateProvider);
-      final resilience = ref.read(resilienceServiceProvider);
-      const cacheKey = 'clinic_dashboard';
+  const route = 'ClinicManager';
+  const cacheKey = 'clinic_manager_dashboard';
+  final resilience = ref.read(resilienceServiceProvider);
 
-      return Result.guardFuture<ClinicDashboardViewModel>(
-        () async {
-          return DataLogisticsHub.fetchAndAssemble<ClinicDashboardViewModel>(
-            fetchCall: () async {
-              final apiClient = ref.read(apiClientProvider);
-              const endpoint = '/api/v1/metrics';
+  // Watch the hardened infrastructure provider for standardized metrics fetching
+  final result = await ref.watch(dashboardMetricsProvider(route).future);
 
-              telemetry.passGate(
-                ExecutionGateCategory.metricsLayer,
-                'Fetching Clinic Metrics: $endpoint',
-              );
-
-              final response = await apiClient.get('$endpoint?route=Clinic');
-
-              if (response.statusCode == 200) {
-                telemetry.passGate(
-                  ExecutionGateCategory.metricsLayer,
-                  'Clinic Metrics Hydrated',
-                );
-                final metrics = DashboardMetrics.fromJson(
-                  response.data as Map<String, dynamic>,
-                );
-                final viewModel = ClinicDashboardViewModel.fromDashboardMetrics(
-                  metrics,
-                );
-
-                // Background hydration of LKG cache with real serialized data
-                unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
-
-                return viewModel;
-              } else {
-                telemetry.failGate(
-                  ExecutionGateCategory.metricsLayer,
-                  'Clinic Metrics API Error: ${response.statusCode}',
-                  metadata: {'status': response.statusCode},
-                );
-                return ClinicDashboardViewModel.assemble(isOffline: true);
-              }
-            },
-            fallbackBuilder: () {
-              telemetry.failGate(
-                ExecutionGateCategory.metricsLayer,
-                'Clinic Metrics Logistics Fallback Triggered',
-              );
-              return ClinicDashboardViewModel.assemble(isOffline: true);
-            },
-          );
-        },
-        onError: (e, st) {
-          telemetry.failGate(
-            ExecutionGateCategory.resource,
-            'Major failure in Clinic Dashboard Adapter',
-            error: e,
-            stackTrace: st,
-          );
-
-          final snapshot = resilience.getSnapshot(cacheKey);
-          if (snapshot != null) {
-            telemetry.passGate(
-              ExecutionGateCategory.resource,
-              'Resilience: Restoring Clinic Dashboard from LKG snapshot',
-            );
-            return ClinicDashboardViewModel.fromJson(snapshot);
-          }
-          return ClinicDashboardViewModel.assemble(isOffline: true);
-        },
-      );
-    });
+  return result.fold(
+    (metrics) {
+      final viewModel = ClinicDashboardViewModel.fromDashboardMetrics(metrics);
+      // Persist LKG snapshot for offline survival
+      unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
+      return Success(viewModel);
+    },
+    (error) {
+      // Fallback: Restore from local resilience cache if infrastructure is unreachable
+      final snapshot = resilience.getSnapshot(cacheKey);
+      if (snapshot != null) {
+        return Success(ClinicDashboardViewModel.fromJson(snapshot));
+      }
+      return Success(ClinicDashboardViewModel.assemble(isOffline: true));
+    },
+  );
+});

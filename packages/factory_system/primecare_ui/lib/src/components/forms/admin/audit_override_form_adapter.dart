@@ -62,7 +62,7 @@ class AuditOverrideFormAdapter extends AsyncNotifier<AuditOverrideData> {
         return true;
       },
       (failure) {
-        state = AsyncError(failure.errorMessage, StackTrace.current);
+        state = AsyncError(failure.toString(), StackTrace.current);
         return false;
       },
     );

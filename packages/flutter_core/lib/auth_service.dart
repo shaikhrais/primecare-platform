@@ -363,27 +363,32 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   Future<void> logout() async {
-    try {
+    await Result.guardFuture<void>(() async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('auth_token');
       await prefs.remove('auth_role');
       await prefs.remove('auth_tenant_id');
       await prefs.remove('auth_username');
-    } catch (e, st) {
+      
+      ref.read(executionGateProvider).passGate(
+            ExecutionGateCategory.auth,
+            'User session persistence cleared successfully.',
+          );
+    }, onError: (e, st) {
       ref.read(executionGateProvider).failGate(
             ExecutionGateCategory.auth,
-            'SharedPreferences persistence failure during logout.',
+            'Persistence failure during logout.',
             error: e,
             stackTrace: st,
           );
-    } finally {
-      state = AuthState();
-      authListenable.value = false;
-      ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.auth,
-            'User session cleared successfully.',
-          );
-    }
+    });
+
+    state = AuthState();
+    authListenable.value = false;
+    ref.read(executionGateProvider).passGate(
+          ExecutionGateCategory.auth,
+          'Auth state reset sequence completed.',
+        );
   }
 }
 

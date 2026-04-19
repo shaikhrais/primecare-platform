@@ -69,7 +69,7 @@ class LogPettyCashFormAdapter extends Notifier<LogPettyCashFormViewModel> {
         }
       };
 
-      final response = await client.post('/v1/finance/ledger/transaction', data: payload);
+      final response = await client.post('/v1/finance/ledger/transaction', body: payload);
       
       if (response.statusCode == 201 || response.statusCode == 200) {
         return true;

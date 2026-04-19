@@ -64,6 +64,8 @@ abstract class UIComponentBlueprint {
         return FinancialRailBlueprint(dataPayload: payload as List<dynamic>);
       case 'analytics_chart':
         return ChartBlueprint(dataPayload: payload);
+      case 'ai_forecasting':
+        return AIForecastingBlueprint(dataPayload: payload);
       case 'stitch_screen':
         return StitchBlueprint(screenId: payload as String);
       default:
@@ -193,4 +195,10 @@ class ChartBlueprint extends UIComponentBlueprint {
 class ComplianceGateBlueprint extends UIComponentBlueprint {
   const ComplianceGateBlueprint({required super.dataPayload})
     : super(componentType: 'compliance_gate');
+}
+
+/// A blueprint for AI Analytics Forecasting projections and KPIs.
+class AIForecastingBlueprint extends UIComponentBlueprint {
+  const AIForecastingBlueprint({required super.dataPayload})
+    : super(componentType: 'ai_forecasting');
 }

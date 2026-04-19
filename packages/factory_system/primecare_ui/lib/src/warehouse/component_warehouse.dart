@@ -19,6 +19,7 @@ import '../components/forms/clinical_incident_form.dart';
 import '../components/forms/billing_payment_form.dart';
 import '../components/forms/medication_administration_form.dart';
 import '../components/forms/employee_timesheet_form.dart';
+import '../components/analytics/ai_forecasting_dashlet.dart';
 
 /// A function signature for building a specific component from a blueprint payload.
 typedef ComponentBuilder =
@@ -46,6 +47,7 @@ class ComponentWarehouse {
     'billing_payment_form': _buildBillingPaymentForm,
     'medication_administration_form': _buildMedicationAdministrationForm,
     'employee_timesheet_form': _buildEmployeeTimesheetForm,
+    'ai_forecasting': _buildAIForecastingDashlet,
   };
 
   /// Register a new component dynamically (could be used for lazy-loaded plugins).
@@ -826,5 +828,15 @@ class ComponentWarehouse {
     if (s == 'critical' || s == 'down' || s == 'negative' || s == 'error')
       return ds.colors.danger;
     return ds.colors.primary;
+  }
+
+  static Widget _buildAIForecastingDashlet(
+    BuildContext context,
+    dynamic dataPayload,
+  ) {
+    if (dataPayload is! AIAnalyticsForecastingData) {
+      return const SizedBox.shrink();
+    }
+    return AIForecastingDashlet(data: dataPayload);
   }
 }

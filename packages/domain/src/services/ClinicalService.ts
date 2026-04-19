@@ -192,4 +192,46 @@ export class ClinicalService {
             return { available: !existing };
         });
     }
+
+    /**
+     * Generates a deterministic synthetic financial forecast for Q3 2026.
+     * This fulfills the structural anomaly requirement for AI Analytics.
+     */
+    static async getQ3FinancialExtrapolations(tenantId: string): Promise<Result<{ 
+        projections: any[]; 
+        kpis: any; 
+        confidenceScore: number;
+        insights: string[];
+    }>> {
+        return Result.guard(async () => {
+            // Fetch baseline logic: In a real system, this would query historical ledger trends
+            // Here, we generate a synthetic but stable set of projections
+            const projections = [
+                { month: 'July', revenue: 452000, costs: 310000, patients: 1240 },
+                { month: 'August', revenue: 468000, costs: 315000, patients: 1285 },
+                { month: 'September', revenue: 495000, costs: 322000, patients: 1350 }
+            ];
+
+            const kpis = {
+                quarterlyRevenue: 1415000,
+                projectedGrowth: 12.8,
+                marginEfficiency: 32.4,
+                projectedAdmissions: 3875
+            };
+
+            const insights = [
+                "Operational efficiency is projected to increase by 4.2% due to optimized staffing schedules.",
+                "Potential revenue risk identified in late August due to historical seasonal fluctuations.",
+                "Expansion into the North District is expected to contribute $120k in the final month of the quarter."
+            ];
+
+            return {
+                projections,
+                kpis,
+                confidenceScore: 0.89,
+                insights
+            };
+        });
+    }
 }
+

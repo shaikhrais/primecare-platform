@@ -16,14 +16,14 @@ class ReviewVendorContractsFormAdapter
   }
 
   Future<void> loadData() async {
-        state = dynamic(isLoading: true, data: state.data);
+        state = ReviewVendorContractsFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/review-vendor-contracts-form-adapter');
-      state = dynamic(isLoading: false, data: response ?? {});
+      state = ReviewVendorContractsFormViewModel(isLoading: false, data: response ?? {});
     } catch (e) {
       // Fallback
-      state = dynamic(isLoading: false, data: {});
+      state = ReviewVendorContractsFormViewModel(isLoading: false, data: {});
     }
   }
 }

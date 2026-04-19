@@ -128,7 +128,7 @@ final Map<String, dynamic> globalAdapterRegistry = {
   'clientDashboard': clientDashboardAdapterProvider,
   'territoryExpansionManagerDashboard':
       territoryExpansionManagerDashboardAdapterProvider,
-  'regionalManagerUSADashboard': regionalManagerUSADashboardAdapterProvider,
+  'regionalManagerUSADashboard': regionalManagerUsaDashboardAdapterProvider,
   'regionalManagerOntarioDashboard':
       regionalManagerOntarioDashboardAdapterProvider,
   'partnershipManagerDashboard': partnershipManagerDashboardAdapterProvider,

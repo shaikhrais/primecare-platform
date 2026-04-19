@@ -7,6 +7,7 @@ class PrimeCareColors {
   static const Color radarDark = Color(0xFF0F172A); // Slate 900
   static const Color slate800 = Color(0xFF1E293B);
   static const Color slate700 = Color(0xFF334155);
+  static const Color slate600 = Color(0xFF475569);
 
   // Core Brand
   static const Color skyBlue = Color(0xFF38BDF8); // Primary

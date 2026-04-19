@@ -4,10 +4,12 @@ import 'dashboard_providers.dart';
 import 'aura_providers.dart';
 import 'src/models/intelligence_insight.dart';
 import 'src/factory_floor/data_logistics_hub.dart';
+import 'telemetry_service.dart';
 
 /// Provider for the base IntelligenceService.
 final auraIntelligenceServiceProvider = Provider<IntelligenceService>((ref) {
-  return IntelligenceService();
+  final telemetry = ref.watch(executionGateProvider);
+  return IntelligenceService(telemetry);
 });
 
 /// Resilient provider for Aura Insights.

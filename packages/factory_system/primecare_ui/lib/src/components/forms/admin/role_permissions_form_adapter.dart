@@ -159,7 +159,7 @@ class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> 
         }).toList(),
       };
 
-      final response = await client.post('/v1/identity/roles/${state.selectedRoleId}/permissions', data: payload);
+      final response = await client.post('/v1/identity/roles/${state.selectedRoleId}/permissions', body: payload);
       
       if (response.statusCode == 200 || response.statusCode == 201) {
         return true;

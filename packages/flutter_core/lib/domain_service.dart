@@ -4,6 +4,7 @@ import 'network/api_client.dart';
 import 'network/result.dart';
 import 'api_providers.dart';
 import 'telemetry_service.dart';
+import 'src/models/domain_response.dart';
 
 class DomainService {
   final Ref _ref;
@@ -16,10 +17,10 @@ class DomainService {
   }
 
   // Intake Domain
-  Future<Result<Map<String, dynamic>>> openCase(
+  Future<Result<DomainResponse>> openCase(
     Map<String, dynamic> data,
   ) async {
-    return Result.guardFuture<Map<String, dynamic>>(
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
           ApiConfig.endpoints['intakeCases']!,
@@ -30,7 +31,7 @@ class DomainService {
           'Intake case opened successfully',
           metadata: {'endpoint': 'intakeCases'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -40,16 +41,16 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'intakeCases'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }
 
   // Care Plans Domain
-  Future<Result<Map<String, dynamic>>> updateCarePlan(
+  Future<Result<DomainResponse>> updateCarePlan(
     Map<String, dynamic> data,
   ) async {
-    return Result.guardFuture<Map<String, dynamic>>(
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
           ApiConfig.endpoints['carePlansUpdate']!,
@@ -60,7 +61,7 @@ class DomainService {
           'Care plan updated successfully',
           metadata: {'endpoint': 'carePlansUpdate'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -70,16 +71,16 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'carePlansUpdate'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }
 
   // Training Domain
-  Future<Result<Map<String, dynamic>>> completeTrainingCourse(
+  Future<Result<DomainResponse>> completeTrainingCourse(
     Map<String, dynamic> data,
   ) async {
-    return Result.guardFuture<Map<String, dynamic>>(
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
           ApiConfig.endpoints['trainingComplete']!,
@@ -87,10 +88,10 @@ class DomainService {
         );
         _telemetry.passGate(
           ExecutionGateCategory.domainApi,
-          'Training course completing successfully',
+          'Training course completes successfully',
           metadata: {'endpoint': 'trainingComplete'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -100,16 +101,16 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'trainingComplete'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }
 
   // Support Domain
-  Future<Result<Map<String, dynamic>>> escalateTicket(
+  Future<Result<DomainResponse>> escalateTicket(
     Map<String, dynamic> data,
   ) async {
-    return Result.guardFuture<Map<String, dynamic>>(
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
           ApiConfig.endpoints['supportEscalate']!,
@@ -120,7 +121,7 @@ class DomainService {
           'Support ticket escalated successfully',
           metadata: {'endpoint': 'supportEscalate'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -130,16 +131,16 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'supportEscalate'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }
 
   // Franchise Domain
-  Future<Result<Map<String, dynamic>>> updateTerritory(
+  Future<Result<DomainResponse>> updateTerritory(
     Map<String, dynamic> data,
   ) async {
-    return Result.guardFuture<Map<String, dynamic>>(
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
           ApiConfig.endpoints['franchiseTerritoryUpdate']!,
@@ -150,7 +151,7 @@ class DomainService {
           'Territory updated successfully',
           metadata: {'endpoint': 'franchiseTerritoryUpdate'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -160,14 +161,14 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'franchiseTerritoryUpdate'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }
 
   // Reporting Domain (Fetch)
-  Future<Result<Map<String, dynamic>>> getReportingSummary() async {
-    return Result.guardFuture<Map<String, dynamic>>(
+  Future<Result<DomainResponse>> getReportingSummary() async {
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.get(
           ApiConfig.endpoints['reportingSummary']!,
@@ -177,7 +178,7 @@ class DomainService {
           'Reporting summary fetched successfully',
           metadata: {'endpoint': 'reportingSummary'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -187,16 +188,16 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'reportingSummary'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }
 
   // Admin Domain
-  Future<Result<Map<String, dynamic>>> provisionStaff(
+  Future<Result<DomainResponse>> provisionStaff(
     Map<String, dynamic> data,
   ) async {
-    return Result.guardFuture<Map<String, dynamic>>(
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
           ApiConfig.endpoints['adminStaffProvision']!,
@@ -207,7 +208,7 @@ class DomainService {
           'Staff provisioned successfully',
           metadata: {'endpoint': 'adminStaffProvision'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -217,15 +218,15 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'adminStaffProvision'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }
 
-  Future<Result<Map<String, dynamic>>> requestAuditOverride(
+  Future<Result<DomainResponse>> requestAuditOverride(
     Map<String, dynamic> data,
   ) async {
-    return Result.guardFuture<Map<String, dynamic>>(
+    return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
           ApiConfig.endpoints['adminAuditOverride']!,
@@ -236,7 +237,7 @@ class DomainService {
           'Audit override requested successfully',
           metadata: {'endpoint': 'adminAuditOverride'},
         );
-        return response.data;
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -246,7 +247,7 @@ class DomainService {
           stackTrace: st,
           metadata: {'endpoint': 'adminAuditOverride'},
         );
-        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+        return DomainResponse.error(e.toString());
       },
     );
   }

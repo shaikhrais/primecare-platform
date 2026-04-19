@@ -100,22 +100,20 @@ class PreferenceService {
     });
   }
 
-  Map<String, dynamic>? getLayoutConfig(String role) {
-    final raw = _prefs.getString('$_layoutPrefix$role');
-    if (raw == null) return null;
-    try {
+  Result<Map<String, dynamic>?> getLayoutConfig(String role) {
+    return Result.guard<Map<String, dynamic>?>(() {
+      final raw = _prefs.getString('$_layoutPrefix$role');
+      if (raw == null) return null;
       return jsonDecode(raw) as Map<String, dynamic>;
-    } catch (e, stack) {
-      _ref
-          .read(executionGateProvider)
-          .failGate(
+    }, onError: (e, stack) {
+      _ref.read(executionGateProvider).failGate(
             ExecutionGateCategory.resource,
             'Memory Corruption: Invalid JSON in layout configuration: $role',
             error: e,
             stackTrace: stack,
           );
       return null;
-    }
+    });
   }
 
   /// Clears all role-based personalization (e.g., on logout if requested).

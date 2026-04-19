@@ -62,28 +62,30 @@ class AuditSystemLogsFormAdapter
 
       final response = await client.get(
         '/v1/audit/logs',
-        queryParameters: queryParams,
+        query: queryParams,
       );
 
-      if (response != null && response['success'] == true) {
-        return response['data'];
+      if (response.data != null && response.data['success'] == true) {
+        return response.data['data'];
       }
       return false;
     });
 
-    if (result.isSuccess) {
-      final data = result.data;
-      state = state.copyWith(
-        isLoading: false,
-        logs: data['logs'] ?? [],
-        total: data['pagination']?['total'] ?? 0,
-      );
-    } else {
-      state = state.copyWith(
-        isLoading: false,
-        error: result.error,
-      );
-    }
+    result.fold(
+      (data) {
+        state = state.copyWith(
+          isLoading: false,
+          logs: data['logs'] ?? [],
+          total: data['pagination']?['total'] ?? 0,
+        );
+      },
+      (error) {
+        state = state.copyWith(
+          isLoading: false,
+          error: error.toString(),
+        );
+      },
+    );
   }
 }
 

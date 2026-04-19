@@ -73,4 +73,23 @@ export function registerClinicalRoutes(app: any) {
             (error) => c.json({ error }, 400)
         );
     });
+
+    /**
+     * GET /v1/clinical/ai-analytics/q3-extrapolations
+     * Generates a synthetic financial forecast for Q3 2026.
+     */
+    app.get('/v1/clinical/ai-analytics/q3-extrapolations', async (c: any) => {
+        const tenantId = c.req.header('x-tenant-id');
+        if (!tenantId) {
+            return c.json({ error: 'Missing x-tenant-id header' }, 400);
+        }
+
+        const result = await ClinicalService.getQ3FinancialExtrapolations(tenantId);
+
+        return result.fold(
+            (data) => c.json(data),
+            (error) => c.json({ error }, 400)
+        );
+    });
 }
+

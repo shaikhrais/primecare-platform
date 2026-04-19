@@ -8,7 +8,8 @@ import 'network/result.dart';
 
 final dashboardServiceProvider = Provider<DashboardService>((ref) {
   final apiClient = ref.watch(apiClientProvider);
-  return DashboardService(apiClient);
+  final telemetry = ref.watch(executionGateProvider);
+  return DashboardService(apiClient, telemetry);
 });
 
 final clinicIntelligenceProvider =
@@ -74,9 +75,17 @@ final dashboardMetricsProvider =
             error: error,
             tag: 'DashboardMetricsProvider',
           );
-          return Success(DataLogisticsHub.getDashboardMetrics(route));
+          // Standardized Resilience Pattern: Propagate the failure.
+          // The UI adapter layer is responsible for persistence-based LKG recovery.
+          return Failure(error);
         },
       );
+    });
+
+final aiAnalyticsForecastingProvider =
+    FutureProvider<Result<AIAnalyticsForecastingData>>((ref) async {
+      final service = ref.watch(dashboardServiceProvider);
+      return await service.getAIAnalyticsForecasting();
     });
 
 /// Manages the predictive "Aura" state for dashboard components.

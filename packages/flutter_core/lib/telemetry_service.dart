@@ -16,6 +16,9 @@ enum ExecutionGateCategory {
   resource,
   domainApi,
   adapters,
+  intelligence,
+  reporting,
+  resilience,
 }
 
 extension ExecutionGateCategoryExtension on ExecutionGateCategory {
@@ -45,6 +48,12 @@ extension ExecutionGateCategoryExtension on ExecutionGateCategory {
         return 'Domain API';
       case ExecutionGateCategory.adapters:
         return 'Data Adapters';
+      case ExecutionGateCategory.intelligence:
+        return 'Intelligence Engine';
+      case ExecutionGateCategory.reporting:
+        return 'Reporting System';
+      case ExecutionGateCategory.resilience:
+        return 'Resilience/Fallback';
     }
   }
 }

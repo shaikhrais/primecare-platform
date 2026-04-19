@@ -16,14 +16,14 @@ class ReviewMonthlyExpensesFormAdapter
   }
 
   Future<void> loadData() async {
-        state = dynamic(isLoading: true, data: state.data);
+        state = ReviewMonthlyExpensesFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/review-monthly-expenses-form-adapter');
-      state = dynamic(isLoading: false, data: response ?? {});
+      state = ReviewMonthlyExpensesFormViewModel(isLoading: false, data: response ?? {});
     } catch (e) {
       // Fallback
-      state = dynamic(isLoading: false, data: {});
+      state = ReviewMonthlyExpensesFormViewModel(isLoading: false, data: {});
     }
   }
 }

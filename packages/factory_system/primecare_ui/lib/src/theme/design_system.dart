@@ -1,5 +1,6 @@
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 export 'theme_tokens.dart';
 
 /// Centralized Design System that serves as the single source of truth for UI aesthetics.
@@ -20,6 +21,9 @@ class PrimeCareDesignSystem {
   /// Semantic Color Tokens
   PrimeCareColorTokens get colors =>
       _isDarkMode ? _DarkTokens() : _LightTokens();
+
+  /// Semantic Typography Tokens
+  PrimeCareTypographyTokens get typography => PrimeCareTypographyTokens();
 
   // Static Getters for simplified access
   static Color get surfaceElevated =>
@@ -154,4 +158,22 @@ class _DarkTokens implements PrimeCareColorTokens {
   Color get infoSurface => PrimeCareColors.skyBlue.withValues(alpha: 0.15);
   @override
   Color get error => danger;
+}
+
+class PrimeCareTypographyTokens {
+  TextStyle get labelSmall => GoogleFonts.inter(
+        fontSize: 11,
+        fontWeight: FontWeight.w900,
+        letterSpacing: 1.5,
+      );
+
+  TextStyle get bodySmall => GoogleFonts.inter(
+        fontSize: 12,
+        color: PrimeCareColors.slate500,
+      );
+
+  TextStyle get headingSmall => GoogleFonts.plusJakartaSans(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      );
 }

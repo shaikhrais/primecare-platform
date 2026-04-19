@@ -58,6 +58,7 @@ export 'src/components/universal_role_sidebar.dart';
 export 'src/components/urgent_alert_banner.dart';
 export 'src/components/cards/primecare_kpi_card.dart';
 export 'src/components/cards/primecare_chart_card.dart';
+export 'src/components/analytics/ai_forecasting_dashlet.dart';
 export 'src/components/containers/primecare_card_container.dart';
 export 'src/components/charts/prime_care_line_chart.dart';
 export 'src/components/charts/prime_care_pie_chart.dart';

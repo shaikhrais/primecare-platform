@@ -16,14 +16,14 @@ class LogInventorySpoilageFormAdapter
   }
 
   Future<void> loadData() async {
-        state = dynamic(isLoading: true, data: state.data);
+        state = LogInventorySpoilageFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/log-inventory-spoilage-form-adapter');
-      state = dynamic(isLoading: false, data: response ?? {});
+      state = LogInventorySpoilageFormViewModel(isLoading: false, data: response ?? {});
     } catch (e) {
       // Fallback
-      state = dynamic(isLoading: false, data: {});
+      state = LogInventorySpoilageFormViewModel(isLoading: false, data: {});
     }
   }
 }

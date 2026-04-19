@@ -63,5 +63,7 @@ class ApiConfig {
     'adminAuditOverride': '/admin/audit/override',
     'adminDepartments': '/admin/departments',
     'identityRoles': '/identity/roles',
+    'verificationPurposeReport': '/v1/verifications/purpose-report',
+    'verificationDatabaseReport': '/v1/database/report',
   };
 }

@@ -160,7 +160,7 @@ void main() {
 
       result.fold(
         (vm) {
-          expect(vm.isOfflineFallback, false);
+          expect(vm!.isOfflineFallback, false);
           expect(mockTelemetry.logs.any((l) => l.contains('CEO Metrics Hydrated')), isTrue);
         },
         (e) => fail('Should have succeeded: $e'),
@@ -192,7 +192,7 @@ void main() {
       expect(result.isSuccess, isTrue);
       result.fold(
         (vm) {
-          expect(vm.isOfflineFallback, isTrue);
+          expect(vm!.isOfflineFallback, isTrue);
           expect(mockTelemetry.logs.any((l) => l.contains('CEO Metrics Logistics Fallback Triggered')), isTrue);
         },
         (e) => fail('Should be Success with fallback vm'),
@@ -233,7 +233,7 @@ void main() {
       expect(result.isSuccess, isTrue);
       result.fold(
         (vm) {
-          expect(vm.isOfflineFallback, isTrue);
+          expect(vm!.isOfflineFallback, isTrue);
           expect(mockTelemetry.logs.any((l) => l.contains('CEO Metrics Logistics Fallback Triggered')), isTrue);
         },
         (e) => fail('Defensive Hub should have returned fallback'),

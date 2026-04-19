@@ -4,75 +4,27 @@ import 'package:primecare_core/primecare_core.dart';
 
 final cfoDashboardAdapterProvider =
     FutureProvider<Result<CfoDashboardViewModel>>((ref) async {
-      final telemetry = ref.read(executionGateProvider);
-      final resilience = ref.read(resilienceServiceProvider);
-      const cacheKey = 'cfo_dashboard';
+  const route = 'CFO';
+  const cacheKey = 'cfo_dashboard';
+  final resilience = ref.read(resilienceServiceProvider);
 
-      return Result.guardFuture<CfoDashboardViewModel>(
-        () async {
-          return DataLogisticsHub.fetchAndAssemble<CfoDashboardViewModel>(
-            fetchCall: () async {
-              final apiClient = ref.read(apiClientProvider);
-              const endpoint = '/api/v1/metrics';
+  // Watch the hardened infrastructure provider for standardized metrics fetching
+  final result = await ref.watch(dashboardMetricsProvider(route).future);
 
-              telemetry.passGate(
-                ExecutionGateCategory.metricsLayer,
-                'Fetching CFO Metrics: $endpoint',
-              );
-
-              final response = await apiClient.get('$endpoint?route=Cfo');
-
-              if (response.statusCode == 200) {
-                telemetry.passGate(
-                  ExecutionGateCategory.metricsLayer,
-                  'Cfo Metrics Hydrated',
-                );
-                final metrics = DashboardMetrics.fromJson(
-                  response.data as Map<String, dynamic>,
-                );
-                final viewModel = CfoDashboardViewModel.fromDashboardMetrics(
-                  metrics,
-                );
-
-                // Background hydration of LKG cache with real serialized data
-                unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
-
-                return viewModel;
-              } else {
-                telemetry.failGate(
-                  ExecutionGateCategory.metricsLayer,
-                  'Cfo Metrics API Error: ${response.statusCode}',
-                  metadata: {'status': response.statusCode},
-                );
-                return CfoDashboardViewModel.assemble(isOffline: true);
-              }
-            },
-            fallbackBuilder: () {
-              telemetry.failGate(
-                ExecutionGateCategory.metricsLayer,
-                'Cfo Metrics Logistics Fallback Triggered',
-              );
-              return CfoDashboardViewModel.assemble(isOffline: true);
-            },
-          );
-        },
-        onError: (e, st) {
-          telemetry.failGate(
-            ExecutionGateCategory.metricsLayer,
-            'Deterministic Adapter Failure: CFO Dashboard',
-            error: e,
-            stackTrace: st,
-          );
-
-          final snapshot = resilience.getSnapshot(cacheKey);
-          if (snapshot != null) {
-            telemetry.passGate(
-              ExecutionGateCategory.resource,
-              'Resilience: Restoring CFO Dashboard from LKG snapshot',
-            );
-            return CfoDashboardViewModel.fromJson(snapshot);
-          }
-          return CfoDashboardViewModel.assemble(isOffline: true);
-        },
-      );
-    });
+  return result.fold(
+    (metrics) {
+      final viewModel = CfoDashboardViewModel.fromDashboardMetrics(metrics);
+      // Persist LKG snapshot for offline survival
+      unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
+      return Success(viewModel);
+    },
+    (error) {
+      // Fallback: Restore from local resilience cache if infrastructure is unreachable
+      final snapshot = resilience.getSnapshot(cacheKey);
+      if (snapshot != null) {
+        return Success(CfoDashboardViewModel.fromJson(snapshot));
+      }
+      return Success(CfoDashboardViewModel.assemble(isOffline: true));
+    },
+  );
+});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -174,7 +175,7 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
     return Icons.layers;
   }
 
-  void _showComponentsBottomSheet(BuildContext context, C4System system, CoreDesignSystem ds) {
+  void _showComponentsBottomSheet(BuildContext context, C4System system, PrimeCareDesignSystem ds) {
     showModalBottomSheet(
       context: context,
       backgroundColor: ds.colors.surface,

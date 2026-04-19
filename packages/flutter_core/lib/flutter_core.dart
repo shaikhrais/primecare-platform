@@ -19,6 +19,9 @@ export 'network/retry_interceptor.dart';
 export 'src/factory_floor/ui_blueprint.dart';
 export 'src/resilience/connectivity_service.dart';
 export 'src/resilience/provider_ttl.dart';
+export 'verification_service.dart';
+export 'verification_providers.dart';
+
 
 export 'providers/portal_providers.dart';
 export 'providers/user_management_provider.dart';

@@ -16,14 +16,14 @@ class RegisterCorporateRiskFormAdapter
   }
 
   Future<void> loadData() async {
-        state = dynamic(isLoading: true, data: state.data);
+        state = RegisterCorporateRiskFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/register-corporate-risk-form-adapter');
-      state = dynamic(isLoading: false, data: response ?? {});
+      state = RegisterCorporateRiskFormViewModel(isLoading: false, data: response ?? {});
     } catch (e) {
       // Fallback
-      state = dynamic(isLoading: false, data: {});
+      state = RegisterCorporateRiskFormViewModel(isLoading: false, data: {});
     }
   }
 }
