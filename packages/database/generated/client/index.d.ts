@@ -22650,6 +22650,7 @@ export namespace Prisma {
     requireDeviceApproval: boolean | null
     maxDevicesPerUser: number | null
     taxPercentage: Decimal | null
+    baseCurrency: string | null
     parentTenantId: string | null
     subscriptionTier: string | null
   }
@@ -22671,6 +22672,7 @@ export namespace Prisma {
     requireDeviceApproval: boolean | null
     maxDevicesPerUser: number | null
     taxPercentage: Decimal | null
+    baseCurrency: string | null
     parentTenantId: string | null
     subscriptionTier: string | null
   }
@@ -22697,6 +22699,7 @@ export namespace Prisma {
     corsAllowedMethods: number
     corsAllowedHeaders: number
     taxPercentage: number
+    baseCurrency: number
     parentTenantId: number
     subscriptionTier: number
     _all: number
@@ -22732,6 +22735,7 @@ export namespace Prisma {
     requireDeviceApproval?: true
     maxDevicesPerUser?: true
     taxPercentage?: true
+    baseCurrency?: true
     parentTenantId?: true
     subscriptionTier?: true
   }
@@ -22753,6 +22757,7 @@ export namespace Prisma {
     requireDeviceApproval?: true
     maxDevicesPerUser?: true
     taxPercentage?: true
+    baseCurrency?: true
     parentTenantId?: true
     subscriptionTier?: true
   }
@@ -22779,6 +22784,7 @@ export namespace Prisma {
     corsAllowedMethods?: true
     corsAllowedHeaders?: true
     taxPercentage?: true
+    baseCurrency?: true
     parentTenantId?: true
     subscriptionTier?: true
     _all?: true
@@ -22892,6 +22898,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonValue
     corsAllowedHeaders: JsonValue
     taxPercentage: Decimal | null
+    baseCurrency: string
     parentTenantId: string | null
     subscriptionTier: string
     _count: TenantCountAggregateOutputType | null
@@ -22937,6 +22944,7 @@ export namespace Prisma {
     corsAllowedMethods?: boolean
     corsAllowedHeaders?: boolean
     taxPercentage?: boolean
+    baseCurrency?: boolean
     parentTenantId?: boolean
     subscriptionTier?: boolean
     auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
@@ -23056,6 +23064,7 @@ export namespace Prisma {
     corsAllowedMethods?: boolean
     corsAllowedHeaders?: boolean
     taxPercentage?: boolean
+    baseCurrency?: boolean
     parentTenantId?: boolean
     subscriptionTier?: boolean
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
@@ -23083,6 +23092,7 @@ export namespace Prisma {
     corsAllowedMethods?: boolean
     corsAllowedHeaders?: boolean
     taxPercentage?: boolean
+    baseCurrency?: boolean
     parentTenantId?: boolean
     subscriptionTier?: boolean
   }
@@ -23304,6 +23314,7 @@ export namespace Prisma {
       corsAllowedMethods: Prisma.JsonValue
       corsAllowedHeaders: Prisma.JsonValue
       taxPercentage: Prisma.Decimal | null
+      baseCurrency: string
       parentTenantId: string | null
       subscriptionTier: string
     }, ExtArgs["result"]["tenant"]>
@@ -23812,6 +23823,7 @@ export namespace Prisma {
     readonly corsAllowedMethods: FieldRef<"Tenant", 'Json'>
     readonly corsAllowedHeaders: FieldRef<"Tenant", 'Json'>
     readonly taxPercentage: FieldRef<"Tenant", 'Decimal'>
+    readonly baseCurrency: FieldRef<"Tenant", 'String'>
     readonly parentTenantId: FieldRef<"Tenant", 'String'>
     readonly subscriptionTier: FieldRef<"Tenant", 'String'>
   }
@@ -101511,6 +101523,7 @@ export namespace Prisma {
     type: string | null
     status: string | null
     tenantId: string | null
+    currency: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -101522,6 +101535,7 @@ export namespace Prisma {
     type: string | null
     status: string | null
     tenantId: string | null
+    currency: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -101533,6 +101547,7 @@ export namespace Prisma {
     type: number
     status: number
     tenantId: number
+    currency: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -101546,6 +101561,7 @@ export namespace Prisma {
     type?: true
     status?: true
     tenantId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -101557,6 +101573,7 @@ export namespace Prisma {
     type?: true
     status?: true
     tenantId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -101568,6 +101585,7 @@ export namespace Prisma {
     type?: true
     status?: true
     tenantId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -101652,6 +101670,7 @@ export namespace Prisma {
     type: string
     status: string
     tenantId: string
+    currency: string
     createdAt: Date
     updatedAt: Date
     _count: ChartOfAccountCountAggregateOutputType | null
@@ -101680,6 +101699,7 @@ export namespace Prisma {
     type?: boolean
     status?: boolean
     tenantId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -101694,6 +101714,7 @@ export namespace Prisma {
     type?: boolean
     status?: boolean
     tenantId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -101706,6 +101727,7 @@ export namespace Prisma {
     type?: boolean
     status?: boolean
     tenantId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -101732,6 +101754,7 @@ export namespace Prisma {
       type: string
       status: string
       tenantId: string
+      currency: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["chartOfAccount"]>
@@ -102135,6 +102158,7 @@ export namespace Prisma {
     readonly type: FieldRef<"ChartOfAccount", 'String'>
     readonly status: FieldRef<"ChartOfAccount", 'String'>
     readonly tenantId: FieldRef<"ChartOfAccount", 'String'>
+    readonly currency: FieldRef<"ChartOfAccount", 'String'>
     readonly createdAt: FieldRef<"ChartOfAccount", 'DateTime'>
     readonly updatedAt: FieldRef<"ChartOfAccount", 'DateTime'>
   }
@@ -102503,10 +102527,14 @@ export namespace Prisma {
 
   export type FinancialTransactionAvgAggregateOutputType = {
     amount: Decimal | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
   }
 
   export type FinancialTransactionSumAggregateOutputType = {
     amount: Decimal | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
   }
 
   export type FinancialTransactionMinAggregateOutputType = {
@@ -102515,6 +102543,8 @@ export namespace Prisma {
     referenceId: string | null
     amount: Decimal | null
     currency: string | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     status: string | null
     tenantId: string | null
     createdAt: Date | null
@@ -102527,6 +102557,8 @@ export namespace Prisma {
     referenceId: string | null
     amount: Decimal | null
     currency: string | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     status: string | null
     tenantId: string | null
     createdAt: Date | null
@@ -102539,6 +102571,8 @@ export namespace Prisma {
     referenceId: number
     amount: number
     currency: number
+    exchangeRate: number
+    baseAmount: number
     status: number
     tenantId: number
     createdAt: number
@@ -102550,10 +102584,14 @@ export namespace Prisma {
 
   export type FinancialTransactionAvgAggregateInputType = {
     amount?: true
+    exchangeRate?: true
+    baseAmount?: true
   }
 
   export type FinancialTransactionSumAggregateInputType = {
     amount?: true
+    exchangeRate?: true
+    baseAmount?: true
   }
 
   export type FinancialTransactionMinAggregateInputType = {
@@ -102562,6 +102600,8 @@ export namespace Prisma {
     referenceId?: true
     amount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     status?: true
     tenantId?: true
     createdAt?: true
@@ -102574,6 +102614,8 @@ export namespace Prisma {
     referenceId?: true
     amount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     status?: true
     tenantId?: true
     createdAt?: true
@@ -102586,6 +102628,8 @@ export namespace Prisma {
     referenceId?: true
     amount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     status?: true
     tenantId?: true
     createdAt?: true
@@ -102686,6 +102730,8 @@ export namespace Prisma {
     referenceId: string | null
     amount: Decimal
     currency: string
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     status: string
     tenantId: string
     createdAt: Date
@@ -102718,6 +102764,8 @@ export namespace Prisma {
     referenceId?: boolean
     amount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     status?: boolean
     tenantId?: boolean
     createdAt?: boolean
@@ -102735,6 +102783,8 @@ export namespace Prisma {
     referenceId?: boolean
     amount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     status?: boolean
     tenantId?: boolean
     createdAt?: boolean
@@ -102749,6 +102799,8 @@ export namespace Prisma {
     referenceId?: boolean
     amount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     status?: boolean
     tenantId?: boolean
     createdAt?: boolean
@@ -102779,6 +102831,8 @@ export namespace Prisma {
       referenceId: string | null
       amount: Prisma.Decimal
       currency: string
+      exchangeRate: Prisma.Decimal | null
+      baseAmount: Prisma.Decimal | null
       status: string
       tenantId: string
       createdAt: Date
@@ -103185,6 +103239,8 @@ export namespace Prisma {
     readonly referenceId: FieldRef<"FinancialTransaction", 'String'>
     readonly amount: FieldRef<"FinancialTransaction", 'Decimal'>
     readonly currency: FieldRef<"FinancialTransaction", 'String'>
+    readonly exchangeRate: FieldRef<"FinancialTransaction", 'Decimal'>
+    readonly baseAmount: FieldRef<"FinancialTransaction", 'Decimal'>
     readonly status: FieldRef<"FinancialTransaction", 'String'>
     readonly tenantId: FieldRef<"FinancialTransaction", 'String'>
     readonly createdAt: FieldRef<"FinancialTransaction", 'DateTime'>
@@ -103577,6 +103633,8 @@ export namespace Prisma {
   export type JournalEntryAvgAggregateOutputType = {
     debit: Decimal | null
     paidOutAmount: Decimal | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     balanceBefore: Decimal | null
     balanceAfter: Decimal | null
   }
@@ -103584,6 +103642,8 @@ export namespace Prisma {
   export type JournalEntrySumAggregateOutputType = {
     debit: Decimal | null
     paidOutAmount: Decimal | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     balanceBefore: Decimal | null
     balanceAfter: Decimal | null
   }
@@ -103595,6 +103655,8 @@ export namespace Prisma {
     debit: Decimal | null
     paidOutAmount: Decimal | null
     currency: string | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     balanceBefore: Decimal | null
     balanceAfter: Decimal | null
     tenantId: string | null
@@ -103608,6 +103670,8 @@ export namespace Prisma {
     debit: Decimal | null
     paidOutAmount: Decimal | null
     currency: string | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     balanceBefore: Decimal | null
     balanceAfter: Decimal | null
     tenantId: string | null
@@ -103621,6 +103685,8 @@ export namespace Prisma {
     debit: number
     paidOutAmount: number
     currency: number
+    exchangeRate: number
+    baseAmount: number
     balanceBefore: number
     balanceAfter: number
     tenantId: number
@@ -103632,6 +103698,8 @@ export namespace Prisma {
   export type JournalEntryAvgAggregateInputType = {
     debit?: true
     paidOutAmount?: true
+    exchangeRate?: true
+    baseAmount?: true
     balanceBefore?: true
     balanceAfter?: true
   }
@@ -103639,6 +103707,8 @@ export namespace Prisma {
   export type JournalEntrySumAggregateInputType = {
     debit?: true
     paidOutAmount?: true
+    exchangeRate?: true
+    baseAmount?: true
     balanceBefore?: true
     balanceAfter?: true
   }
@@ -103650,6 +103720,8 @@ export namespace Prisma {
     debit?: true
     paidOutAmount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     balanceBefore?: true
     balanceAfter?: true
     tenantId?: true
@@ -103663,6 +103735,8 @@ export namespace Prisma {
     debit?: true
     paidOutAmount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     balanceBefore?: true
     balanceAfter?: true
     tenantId?: true
@@ -103676,6 +103750,8 @@ export namespace Prisma {
     debit?: true
     paidOutAmount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     balanceBefore?: true
     balanceAfter?: true
     tenantId?: true
@@ -103776,6 +103852,8 @@ export namespace Prisma {
     debit: Decimal
     paidOutAmount: Decimal | null
     currency: string
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     balanceBefore: Decimal
     balanceAfter: Decimal
     tenantId: string
@@ -103808,6 +103886,8 @@ export namespace Prisma {
     debit?: boolean
     paidOutAmount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     balanceBefore?: boolean
     balanceAfter?: boolean
     tenantId?: boolean
@@ -103824,6 +103904,8 @@ export namespace Prisma {
     debit?: boolean
     paidOutAmount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     balanceBefore?: boolean
     balanceAfter?: boolean
     tenantId?: boolean
@@ -103840,6 +103922,8 @@ export namespace Prisma {
     debit?: boolean
     paidOutAmount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     balanceBefore?: boolean
     balanceAfter?: boolean
     tenantId?: boolean
@@ -103871,6 +103955,8 @@ export namespace Prisma {
       debit: Prisma.Decimal
       paidOutAmount: Prisma.Decimal | null
       currency: string
+      exchangeRate: Prisma.Decimal | null
+      baseAmount: Prisma.Decimal | null
       balanceBefore: Prisma.Decimal
       balanceAfter: Prisma.Decimal
       tenantId: string
@@ -104277,6 +104363,8 @@ export namespace Prisma {
     readonly debit: FieldRef<"JournalEntry", 'Decimal'>
     readonly paidOutAmount: FieldRef<"JournalEntry", 'Decimal'>
     readonly currency: FieldRef<"JournalEntry", 'String'>
+    readonly exchangeRate: FieldRef<"JournalEntry", 'Decimal'>
+    readonly baseAmount: FieldRef<"JournalEntry", 'Decimal'>
     readonly balanceBefore: FieldRef<"JournalEntry", 'Decimal'>
     readonly balanceAfter: FieldRef<"JournalEntry", 'Decimal'>
     readonly tenantId: FieldRef<"JournalEntry", 'String'>
@@ -106640,10 +106728,14 @@ export namespace Prisma {
 
   export type TransactionLedgerAvgAggregateOutputType = {
     amount: Decimal | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
   }
 
   export type TransactionLedgerSumAggregateOutputType = {
     amount: Decimal | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
   }
 
   export type TransactionLedgerMinAggregateOutputType = {
@@ -106656,6 +106748,8 @@ export namespace Prisma {
     creditAccount: string | null
     amount: Decimal | null
     currency: string | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     description: string | null
     actorUserId: string | null
     ipAddress: string | null
@@ -106676,6 +106770,8 @@ export namespace Prisma {
     creditAccount: string | null
     amount: Decimal | null
     currency: string | null
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     description: string | null
     actorUserId: string | null
     ipAddress: string | null
@@ -106696,6 +106792,8 @@ export namespace Prisma {
     creditAccount: number
     amount: number
     currency: number
+    exchangeRate: number
+    baseAmount: number
     description: number
     actorUserId: number
     ipAddress: number
@@ -106711,10 +106809,14 @@ export namespace Prisma {
 
   export type TransactionLedgerAvgAggregateInputType = {
     amount?: true
+    exchangeRate?: true
+    baseAmount?: true
   }
 
   export type TransactionLedgerSumAggregateInputType = {
     amount?: true
+    exchangeRate?: true
+    baseAmount?: true
   }
 
   export type TransactionLedgerMinAggregateInputType = {
@@ -106727,6 +106829,8 @@ export namespace Prisma {
     creditAccount?: true
     amount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     description?: true
     actorUserId?: true
     ipAddress?: true
@@ -106747,6 +106851,8 @@ export namespace Prisma {
     creditAccount?: true
     amount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     description?: true
     actorUserId?: true
     ipAddress?: true
@@ -106767,6 +106873,8 @@ export namespace Prisma {
     creditAccount?: true
     amount?: true
     currency?: true
+    exchangeRate?: true
+    baseAmount?: true
     description?: true
     actorUserId?: true
     ipAddress?: true
@@ -106875,6 +106983,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal
     currency: string
+    exchangeRate: Decimal | null
+    baseAmount: Decimal | null
     description: string | null
     actorUserId: string | null
     ipAddress: string | null
@@ -106915,6 +107025,8 @@ export namespace Prisma {
     creditAccount?: boolean
     amount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     description?: boolean
     actorUserId?: boolean
     ipAddress?: boolean
@@ -106938,6 +107050,8 @@ export namespace Prisma {
     creditAccount?: boolean
     amount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     description?: boolean
     actorUserId?: boolean
     ipAddress?: boolean
@@ -106961,6 +107075,8 @@ export namespace Prisma {
     creditAccount?: boolean
     amount?: boolean
     currency?: boolean
+    exchangeRate?: boolean
+    baseAmount?: boolean
     description?: boolean
     actorUserId?: boolean
     ipAddress?: boolean
@@ -106997,6 +107113,8 @@ export namespace Prisma {
       creditAccount: string
       amount: Prisma.Decimal
       currency: string
+      exchangeRate: Prisma.Decimal | null
+      baseAmount: Prisma.Decimal | null
       description: string | null
       actorUserId: string | null
       ipAddress: string | null
@@ -107410,6 +107528,8 @@ export namespace Prisma {
     readonly creditAccount: FieldRef<"TransactionLedger", 'String'>
     readonly amount: FieldRef<"TransactionLedger", 'Decimal'>
     readonly currency: FieldRef<"TransactionLedger", 'String'>
+    readonly exchangeRate: FieldRef<"TransactionLedger", 'Decimal'>
+    readonly baseAmount: FieldRef<"TransactionLedger", 'Decimal'>
     readonly description: FieldRef<"TransactionLedger", 'String'>
     readonly actorUserId: FieldRef<"TransactionLedger", 'String'>
     readonly ipAddress: FieldRef<"TransactionLedger", 'String'>
@@ -223045,6 +223165,7 @@ export namespace Prisma {
     corsAllowedMethods: 'corsAllowedMethods',
     corsAllowedHeaders: 'corsAllowedHeaders',
     taxPercentage: 'taxPercentage',
+    baseCurrency: 'baseCurrency',
     parentTenantId: 'parentTenantId',
     subscriptionTier: 'subscriptionTier'
   };
@@ -224195,6 +224316,7 @@ export namespace Prisma {
     type: 'type',
     status: 'status',
     tenantId: 'tenantId',
+    currency: 'currency',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -224208,6 +224330,8 @@ export namespace Prisma {
     referenceId: 'referenceId',
     amount: 'amount',
     currency: 'currency',
+    exchangeRate: 'exchangeRate',
+    baseAmount: 'baseAmount',
     status: 'status',
     tenantId: 'tenantId',
     createdAt: 'createdAt',
@@ -224225,6 +224349,8 @@ export namespace Prisma {
     debit: 'debit',
     paidOutAmount: 'paidOutAmount',
     currency: 'currency',
+    exchangeRate: 'exchangeRate',
+    baseAmount: 'baseAmount',
     balanceBefore: 'balanceBefore',
     balanceAfter: 'balanceAfter',
     tenantId: 'tenantId',
@@ -224271,6 +224397,8 @@ export namespace Prisma {
     creditAccount: 'creditAccount',
     amount: 'amount',
     currency: 'currency',
+    exchangeRate: 'exchangeRate',
+    baseAmount: 'baseAmount',
     description: 'description',
     actorUserId: 'actorUserId',
     ipAddress: 'ipAddress',
@@ -226403,6 +226531,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonFilter<"Tenant">
     corsAllowedHeaders?: JsonFilter<"Tenant">
     taxPercentage?: DecimalNullableFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFilter<"Tenant"> | string
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
     subscriptionTier?: StringFilter<"Tenant"> | string
     auditLogs?: AuditLogListRelationFilter
@@ -226521,6 +226650,7 @@ export namespace Prisma {
     corsAllowedMethods?: SortOrder
     corsAllowedHeaders?: SortOrder
     taxPercentage?: SortOrderInput | SortOrder
+    baseCurrency?: SortOrder
     parentTenantId?: SortOrderInput | SortOrder
     subscriptionTier?: SortOrder
     auditLogs?: AuditLogOrderByRelationAggregateInput
@@ -226642,6 +226772,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonFilter<"Tenant">
     corsAllowedHeaders?: JsonFilter<"Tenant">
     taxPercentage?: DecimalNullableFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFilter<"Tenant"> | string
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
     subscriptionTier?: StringFilter<"Tenant"> | string
     auditLogs?: AuditLogListRelationFilter
@@ -226760,6 +226891,7 @@ export namespace Prisma {
     corsAllowedMethods?: SortOrder
     corsAllowedHeaders?: SortOrder
     taxPercentage?: SortOrderInput | SortOrder
+    baseCurrency?: SortOrder
     parentTenantId?: SortOrderInput | SortOrder
     subscriptionTier?: SortOrder
     _count?: TenantCountOrderByAggregateInput
@@ -226794,6 +226926,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonWithAggregatesFilter<"Tenant">
     corsAllowedHeaders?: JsonWithAggregatesFilter<"Tenant">
     taxPercentage?: DecimalNullableWithAggregatesFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringWithAggregatesFilter<"Tenant"> | string
     parentTenantId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     subscriptionTier?: StringWithAggregatesFilter<"Tenant"> | string
   }
@@ -232960,6 +233093,7 @@ export namespace Prisma {
     type?: StringFilter<"ChartOfAccount"> | string
     status?: StringFilter<"ChartOfAccount"> | string
     tenantId?: StringFilter<"ChartOfAccount"> | string
+    currency?: StringFilter<"ChartOfAccount"> | string
     createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
     updatedAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
@@ -232973,6 +233107,7 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
@@ -232990,6 +233125,7 @@ export namespace Prisma {
     type?: StringFilter<"ChartOfAccount"> | string
     status?: StringFilter<"ChartOfAccount"> | string
     tenantId?: StringFilter<"ChartOfAccount"> | string
+    currency?: StringFilter<"ChartOfAccount"> | string
     createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
     updatedAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
@@ -233003,6 +233139,7 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ChartOfAccountCountOrderByAggregateInput
@@ -233020,6 +233157,7 @@ export namespace Prisma {
     type?: StringWithAggregatesFilter<"ChartOfAccount"> | string
     status?: StringWithAggregatesFilter<"ChartOfAccount"> | string
     tenantId?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    currency?: StringWithAggregatesFilter<"ChartOfAccount"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ChartOfAccount"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ChartOfAccount"> | Date | string
   }
@@ -233033,6 +233171,8 @@ export namespace Prisma {
     referenceId?: StringNullableFilter<"FinancialTransaction"> | string | null
     amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"FinancialTransaction"> | string
+    exchangeRate?: DecimalNullableFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
     status?: StringFilter<"FinancialTransaction"> | string
     tenantId?: StringFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
@@ -233049,6 +233189,8 @@ export namespace Prisma {
     referenceId?: SortOrderInput | SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrderInput | SortOrder
+    baseAmount?: SortOrderInput | SortOrder
     status?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
@@ -233068,6 +233210,8 @@ export namespace Prisma {
     referenceId?: StringNullableFilter<"FinancialTransaction"> | string | null
     amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"FinancialTransaction"> | string
+    exchangeRate?: DecimalNullableFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
     status?: StringFilter<"FinancialTransaction"> | string
     tenantId?: StringFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
@@ -233084,6 +233228,8 @@ export namespace Prisma {
     referenceId?: SortOrderInput | SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrderInput | SortOrder
+    baseAmount?: SortOrderInput | SortOrder
     status?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
@@ -233105,6 +233251,8 @@ export namespace Prisma {
     referenceId?: StringNullableWithAggregatesFilter<"FinancialTransaction"> | string | null
     amount?: DecimalWithAggregatesFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
     currency?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    exchangeRate?: DecimalNullableWithAggregatesFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableWithAggregatesFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
     status?: StringWithAggregatesFilter<"FinancialTransaction"> | string
     tenantId?: StringWithAggregatesFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
@@ -233122,6 +233270,8 @@ export namespace Prisma {
     debit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     paidOutAmount?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringFilter<"JournalEntry"> | string
+    exchangeRate?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     tenantId?: StringFilter<"JournalEntry"> | string
@@ -233138,6 +233288,8 @@ export namespace Prisma {
     debit?: SortOrder
     paidOutAmount?: SortOrderInput | SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrderInput | SortOrder
+    baseAmount?: SortOrderInput | SortOrder
     balanceBefore?: SortOrder
     balanceAfter?: SortOrder
     tenantId?: SortOrder
@@ -233157,6 +233309,8 @@ export namespace Prisma {
     debit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     paidOutAmount?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringFilter<"JournalEntry"> | string
+    exchangeRate?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     tenantId?: StringFilter<"JournalEntry"> | string
@@ -233173,6 +233327,8 @@ export namespace Prisma {
     debit?: SortOrder
     paidOutAmount?: SortOrderInput | SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrderInput | SortOrder
+    baseAmount?: SortOrderInput | SortOrder
     balanceBefore?: SortOrder
     balanceAfter?: SortOrder
     tenantId?: SortOrder
@@ -233194,6 +233350,8 @@ export namespace Prisma {
     debit?: DecimalWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     paidOutAmount?: DecimalNullableWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringWithAggregatesFilter<"JournalEntry"> | string
+    exchangeRate?: DecimalNullableWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     tenantId?: StringWithAggregatesFilter<"JournalEntry"> | string
@@ -233359,6 +233517,8 @@ export namespace Prisma {
     creditAccount?: StringFilter<"TransactionLedger"> | string
     amount?: DecimalFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"TransactionLedger"> | string
+    exchangeRate?: DecimalNullableFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableFilter<"TransactionLedger"> | string | null
     actorUserId?: StringNullableFilter<"TransactionLedger"> | string | null
     ipAddress?: StringNullableFilter<"TransactionLedger"> | string | null
@@ -233382,6 +233542,8 @@ export namespace Prisma {
     creditAccount?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrderInput | SortOrder
+    baseAmount?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     actorUserId?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
@@ -233408,6 +233570,8 @@ export namespace Prisma {
     creditAccount?: StringFilter<"TransactionLedger"> | string
     amount?: DecimalFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"TransactionLedger"> | string
+    exchangeRate?: DecimalNullableFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableFilter<"TransactionLedger"> | string | null
     actorUserId?: StringNullableFilter<"TransactionLedger"> | string | null
     ipAddress?: StringNullableFilter<"TransactionLedger"> | string | null
@@ -233431,6 +233595,8 @@ export namespace Prisma {
     creditAccount?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrderInput | SortOrder
+    baseAmount?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     actorUserId?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
@@ -233460,6 +233626,8 @@ export namespace Prisma {
     creditAccount?: StringWithAggregatesFilter<"TransactionLedger"> | string
     amount?: DecimalWithAggregatesFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
     currency?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    exchangeRate?: DecimalNullableWithAggregatesFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableWithAggregatesFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
     actorUserId?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
     ipAddress?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
@@ -242533,6 +242701,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -242650,6 +242819,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -242767,6 +242937,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -242884,6 +243055,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -243001,6 +243173,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
   }
@@ -243027,6 +243200,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
   }
 
@@ -243052,6 +243226,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
   }
@@ -249671,6 +249846,7 @@ export namespace Prisma {
     name: string
     type: string
     status?: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutFinancialAccountsInput
@@ -249684,6 +249860,7 @@ export namespace Prisma {
     type: string
     status?: string
     tenantId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutAccountInput
@@ -249695,6 +249872,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutFinancialAccountsNestedInput
@@ -249708,6 +249886,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     journalEntries?: JournalEntryUncheckedUpdateManyWithoutAccountNestedInput
@@ -249720,6 +249899,7 @@ export namespace Prisma {
     type: string
     status?: string
     tenantId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -249730,6 +249910,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -249741,6 +249922,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -249751,6 +249933,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -249766,6 +249950,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     tenantId: string
     createdAt?: Date | string
@@ -249781,6 +249967,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -249796,6 +249984,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -249811,6 +250001,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     tenantId: string
     createdAt?: Date | string
@@ -249824,6 +250016,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -249836,6 +250030,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -249848,6 +250044,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -249863,6 +250061,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     tenantId: string
@@ -249874,6 +250074,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -249889,6 +250091,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -249902,6 +250106,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     tenantId: string
@@ -249913,6 +250119,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -249925,6 +250133,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -250087,6 +250297,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     ipAddress?: string | null
     checksum?: string
@@ -250109,6 +250321,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     actorUserId?: string | null
     ipAddress?: string | null
@@ -250129,6 +250343,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     checksum?: StringFieldUpdateOperationsInput | string
@@ -250151,6 +250367,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
@@ -250172,6 +250390,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     actorUserId?: string | null
     ipAddress?: string | null
@@ -250192,6 +250412,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     checksum?: StringFieldUpdateOperationsInput | string
@@ -250212,6 +250434,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
@@ -261097,6 +261321,7 @@ export namespace Prisma {
     corsAllowedMethods?: SortOrder
     corsAllowedHeaders?: SortOrder
     taxPercentage?: SortOrder
+    baseCurrency?: SortOrder
     parentTenantId?: SortOrder
     subscriptionTier?: SortOrder
   }
@@ -261124,6 +261349,7 @@ export namespace Prisma {
     requireDeviceApproval?: SortOrder
     maxDevicesPerUser?: SortOrder
     taxPercentage?: SortOrder
+    baseCurrency?: SortOrder
     parentTenantId?: SortOrder
     subscriptionTier?: SortOrder
   }
@@ -261145,6 +261371,7 @@ export namespace Prisma {
     requireDeviceApproval?: SortOrder
     maxDevicesPerUser?: SortOrder
     taxPercentage?: SortOrder
+    baseCurrency?: SortOrder
     parentTenantId?: SortOrder
     subscriptionTier?: SortOrder
   }
@@ -264689,6 +264916,7 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -264700,6 +264928,7 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -264711,6 +264940,7 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -264721,6 +264951,8 @@ export namespace Prisma {
     referenceId?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
@@ -264730,6 +264962,8 @@ export namespace Prisma {
 
   export type FinancialTransactionAvgOrderByAggregateInput = {
     amount?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
   }
 
   export type FinancialTransactionMaxOrderByAggregateInput = {
@@ -264738,6 +264972,8 @@ export namespace Prisma {
     referenceId?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
@@ -264750,6 +264986,8 @@ export namespace Prisma {
     referenceId?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     status?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
@@ -264758,6 +264996,8 @@ export namespace Prisma {
 
   export type FinancialTransactionSumOrderByAggregateInput = {
     amount?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
   }
 
   export type FinancialTransactionRelationFilter = {
@@ -264777,6 +265017,8 @@ export namespace Prisma {
     debit?: SortOrder
     paidOutAmount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     balanceBefore?: SortOrder
     balanceAfter?: SortOrder
     tenantId?: SortOrder
@@ -264786,6 +265028,8 @@ export namespace Prisma {
   export type JournalEntryAvgOrderByAggregateInput = {
     debit?: SortOrder
     paidOutAmount?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     balanceBefore?: SortOrder
     balanceAfter?: SortOrder
   }
@@ -264797,6 +265041,8 @@ export namespace Prisma {
     debit?: SortOrder
     paidOutAmount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     balanceBefore?: SortOrder
     balanceAfter?: SortOrder
     tenantId?: SortOrder
@@ -264810,6 +265056,8 @@ export namespace Prisma {
     debit?: SortOrder
     paidOutAmount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     balanceBefore?: SortOrder
     balanceAfter?: SortOrder
     tenantId?: SortOrder
@@ -264819,6 +265067,8 @@ export namespace Prisma {
   export type JournalEntrySumOrderByAggregateInput = {
     debit?: SortOrder
     paidOutAmount?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     balanceBefore?: SortOrder
     balanceAfter?: SortOrder
   }
@@ -264909,6 +265159,8 @@ export namespace Prisma {
     creditAccount?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     description?: SortOrder
     actorUserId?: SortOrder
     ipAddress?: SortOrder
@@ -264922,6 +265174,8 @@ export namespace Prisma {
 
   export type TransactionLedgerAvgOrderByAggregateInput = {
     amount?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
   }
 
   export type TransactionLedgerMaxOrderByAggregateInput = {
@@ -264934,6 +265188,8 @@ export namespace Prisma {
     creditAccount?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     description?: SortOrder
     actorUserId?: SortOrder
     ipAddress?: SortOrder
@@ -264954,6 +265210,8 @@ export namespace Prisma {
     creditAccount?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
     description?: SortOrder
     actorUserId?: SortOrder
     ipAddress?: SortOrder
@@ -264966,6 +265224,8 @@ export namespace Prisma {
 
   export type TransactionLedgerSumOrderByAggregateInput = {
     amount?: SortOrder
+    exchangeRate?: SortOrder
+    baseAmount?: SortOrder
   }
 
   export type BlogPostCountOrderByAggregateInput = {
@@ -283754,6 +284014,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -283870,6 +284131,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -284128,6 +284390,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     ipAddress?: string | null
     checksum?: string
@@ -284149,6 +284413,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     ipAddress?: string | null
     checksum?: string
@@ -285471,6 +285737,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -285587,6 +285854,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -285845,6 +286113,8 @@ export namespace Prisma {
     creditAccount?: StringFilter<"TransactionLedger"> | string
     amount?: DecimalFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"TransactionLedger"> | string
+    exchangeRate?: DecimalNullableFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableFilter<"TransactionLedger"> | string | null
     actorUserId?: StringNullableFilter<"TransactionLedger"> | string | null
     ipAddress?: StringNullableFilter<"TransactionLedger"> | string | null
@@ -288544,6 +288814,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     ipAddress?: string | null
     checksum?: string
@@ -288564,6 +288836,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     actorUserId?: string | null
     ipAddress?: string | null
@@ -288607,6 +288881,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -288723,6 +288998,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -288844,6 +289120,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -288960,6 +289237,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -289424,6 +289702,7 @@ export namespace Prisma {
     name: string
     type: string
     status?: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     journalEntries?: JournalEntryCreateNestedManyWithoutAccountInput
@@ -289435,6 +289714,7 @@ export namespace Prisma {
     name: string
     type: string
     status?: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutAccountInput
@@ -289456,6 +289736,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -289470,6 +289752,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -289493,6 +289777,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -289507,6 +289793,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -291842,6 +292130,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -291958,6 +292247,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -292093,6 +292383,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonFilter<"Tenant">
     corsAllowedHeaders?: JsonFilter<"Tenant">
     taxPercentage?: DecimalNullableFilter<"Tenant"> | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFilter<"Tenant"> | string
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
     subscriptionTier?: StringFilter<"Tenant"> | string
   }
@@ -292400,6 +292691,7 @@ export namespace Prisma {
     type?: StringFilter<"ChartOfAccount"> | string
     status?: StringFilter<"ChartOfAccount"> | string
     tenantId?: StringFilter<"ChartOfAccount"> | string
+    currency?: StringFilter<"ChartOfAccount"> | string
     createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
     updatedAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
   }
@@ -292429,6 +292721,8 @@ export namespace Prisma {
     referenceId?: StringNullableFilter<"FinancialTransaction"> | string | null
     amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"FinancialTransaction"> | string
+    exchangeRate?: DecimalNullableFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string | null
     status?: StringFilter<"FinancialTransaction"> | string
     tenantId?: StringFilter<"FinancialTransaction"> | string
     createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
@@ -292462,6 +292756,8 @@ export namespace Prisma {
     debit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     paidOutAmount?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringFilter<"JournalEntry"> | string
+    exchangeRate?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: DecimalNullableFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
     tenantId?: StringFilter<"JournalEntry"> | string
@@ -293120,6 +293416,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -293236,6 +293533,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -293368,6 +293666,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -293484,6 +293783,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -293600,6 +293900,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -293716,6 +294017,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -293848,6 +294150,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -293964,6 +294267,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -294197,6 +294501,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -294313,6 +294618,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -294568,6 +294874,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -294684,6 +294991,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -294800,6 +295108,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -294916,6 +295225,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -295165,6 +295475,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -295281,6 +295592,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -295520,6 +295832,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -295636,6 +295949,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -295768,6 +296082,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -295884,6 +296199,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -296240,6 +296556,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -296356,6 +296673,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -296488,6 +296806,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -296604,6 +296923,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -296934,6 +297254,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -297050,6 +297371,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -297400,6 +297722,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -297516,6 +297839,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -297924,6 +298248,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -298040,6 +298365,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -298258,6 +298584,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -298374,6 +298701,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -299201,6 +299529,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -299317,6 +299646,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -299480,6 +299810,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -299596,6 +299927,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -299787,6 +300119,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -299903,6 +300236,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -301363,6 +301697,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -301479,6 +301814,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -302385,6 +302721,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -302501,6 +302838,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -303317,6 +303655,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -303433,6 +303772,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -304483,6 +304823,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -304599,6 +304940,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -305253,6 +305595,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -305369,6 +305712,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -305546,6 +305890,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -305662,6 +306007,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -305922,6 +306268,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -306038,6 +306385,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -306382,6 +306730,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -306498,6 +306847,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -306929,6 +307279,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -307045,6 +307396,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -308196,6 +308548,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -308312,6 +308665,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -308781,6 +309135,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -308897,6 +309252,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -309338,6 +309694,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -309454,6 +309811,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -309917,6 +310275,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -310033,6 +310392,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -310357,6 +310717,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -310473,6 +310834,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -310818,6 +311180,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -310934,6 +311297,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -311145,6 +311509,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -311261,6 +311626,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -311478,6 +311844,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -311594,6 +311961,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -312193,6 +312561,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -312309,6 +312678,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -312617,6 +312987,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -312733,6 +313104,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -313166,6 +313538,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -313282,6 +313655,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -313638,6 +314012,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -313754,6 +314129,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -314300,6 +314676,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -314416,6 +314793,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -314730,6 +315108,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -314846,6 +315225,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -315041,6 +315421,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -315157,6 +315538,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -315374,6 +315756,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -315490,6 +315873,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -315776,6 +316160,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -315892,6 +316277,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -316206,6 +316592,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -316322,6 +316709,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -316584,6 +316972,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -316700,6 +317089,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -316990,6 +317380,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -317106,6 +317497,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -317222,6 +317614,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -317338,6 +317731,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -317612,6 +318006,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -317728,6 +318123,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -317998,6 +318394,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -318114,6 +318511,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -318306,6 +318704,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -318422,6 +318821,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -318977,6 +319377,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -319093,6 +319494,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -319342,6 +319744,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -319458,6 +319861,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -319849,6 +320253,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -319965,6 +320370,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -320331,6 +320737,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -320447,6 +320854,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -320686,6 +321094,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -320802,6 +321211,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -320934,6 +321344,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -321050,6 +321461,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -321394,6 +321806,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -321510,6 +321923,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -321882,6 +322296,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -321998,6 +322413,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -322342,6 +322758,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -322458,6 +322875,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -322830,6 +323248,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -322946,6 +323365,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -323258,6 +323678,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -323374,6 +323795,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -323714,6 +324136,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -323830,6 +324253,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -323946,6 +324370,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -324062,6 +324487,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -324194,6 +324620,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -324310,6 +324737,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -324654,6 +325082,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -324770,6 +325199,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -325013,6 +325443,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -325129,6 +325560,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -325418,6 +325850,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -325534,6 +325967,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -325846,6 +326280,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -325962,6 +326397,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -326546,6 +326982,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -326662,6 +327099,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -326794,6 +327232,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -326910,6 +327349,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -327137,6 +327577,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -327253,6 +327694,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -327502,6 +327944,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -327618,6 +328061,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -327845,6 +328289,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -327961,6 +328406,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -328210,6 +328656,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -328326,6 +328773,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -328559,6 +329007,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -328675,6 +329124,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -329021,6 +329471,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -329137,6 +329588,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -329467,6 +329919,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -329583,6 +330036,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -329838,6 +330292,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -329954,6 +330409,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -330181,6 +330637,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -330297,6 +330754,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -330574,6 +331032,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -330690,6 +331149,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -330907,6 +331367,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -331023,6 +331484,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -331187,6 +331649,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -331303,6 +331766,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -331435,6 +331899,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -331551,6 +332016,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -331819,6 +332285,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -331935,6 +332402,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -332278,6 +332746,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -332394,6 +332863,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -332611,6 +333081,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -332727,6 +333198,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -332922,6 +333394,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -333038,6 +333511,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -333255,6 +333729,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -333371,6 +333846,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -333487,6 +333963,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -333603,6 +334080,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -333707,6 +334185,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -333720,6 +334200,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     tenantId: string
@@ -333769,6 +334251,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -333885,6 +334368,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -334017,6 +334501,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -334133,6 +334618,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -334237,6 +334723,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -334250,6 +334738,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     tenantId: string
@@ -334325,6 +334815,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -334441,6 +334932,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -334573,6 +335065,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -334587,6 +335081,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     tenantId: string
     createdAt?: Date | string
@@ -334606,6 +335102,7 @@ export namespace Prisma {
     name: string
     type: string
     status?: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutFinancialAccountsInput
@@ -334618,6 +335115,7 @@ export namespace Prisma {
     type: string
     status?: string
     tenantId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -334649,6 +335147,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -334765,6 +335264,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -334881,6 +335381,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -334895,6 +335397,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -334920,6 +335424,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutFinancialAccountsNestedInput
@@ -334932,6 +335437,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -334969,6 +335475,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -335085,6 +335592,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -335185,6 +335693,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -335199,6 +335709,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     tenantId: string
     createdAt?: Date | string
@@ -335263,6 +335775,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -335379,6 +335892,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -335495,6 +336009,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -335509,6 +336025,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -335585,6 +336103,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -335701,6 +336220,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -335817,6 +336337,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -335933,6 +336454,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -336091,6 +336613,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -336207,6 +336730,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -336339,6 +336863,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -336455,6 +336980,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -336704,6 +337230,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -336820,6 +337347,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -337410,6 +337938,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -337526,6 +338055,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -337866,6 +338396,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -337982,6 +338513,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -338195,6 +338727,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -338311,6 +338844,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -338473,6 +339007,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -338589,6 +339124,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -338795,6 +339331,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -338911,6 +339448,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -339067,6 +339605,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -339183,6 +339722,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -339382,6 +339922,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -339498,6 +340039,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -339660,6 +340202,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -339776,6 +340319,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -339982,6 +340526,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -340098,6 +340643,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -340230,6 +340776,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -340346,6 +340893,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -340462,6 +341010,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -340578,6 +341127,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -340710,6 +341260,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -340826,6 +341377,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -340942,6 +341494,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -341058,6 +341611,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -341334,6 +341888,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -341450,6 +342005,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -341717,6 +342273,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -341833,6 +342390,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -342076,6 +342634,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -342192,6 +342751,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -342452,6 +343012,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -342568,6 +343129,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -342844,6 +343406,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -342960,6 +343523,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -343193,6 +343757,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -343309,6 +343874,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -343669,6 +344235,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -343785,6 +344352,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -344141,6 +344709,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -344257,6 +344826,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -344389,6 +344959,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -344505,6 +345076,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -344621,6 +345193,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -344737,6 +345310,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -344869,6 +345443,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -344985,6 +345560,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -345101,6 +345677,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -345217,6 +345794,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -345349,6 +345927,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -345465,6 +346044,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -345581,6 +346161,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -345697,6 +346278,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -345829,6 +346411,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -345945,6 +346528,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -346061,6 +346645,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -346177,6 +346762,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -346309,6 +346895,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -346425,6 +347012,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -346658,6 +347246,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -346774,6 +347363,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -347029,6 +347619,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -347145,6 +347736,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -347372,6 +347964,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -347488,6 +348081,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -347737,6 +348331,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -347853,6 +348448,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -348171,6 +348767,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -348287,6 +348884,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -348633,6 +349231,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -348749,6 +349348,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -348865,6 +349465,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -348981,6 +349582,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -349113,6 +349715,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -349229,6 +349832,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -349456,6 +350060,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -349572,6 +350177,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -349821,6 +350427,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -349937,6 +350544,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -350249,6 +350857,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -350365,6 +350974,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -350705,6 +351315,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -350821,6 +351432,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -350967,6 +351579,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -351083,6 +351696,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -351245,6 +351859,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -351361,6 +351976,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -351545,6 +352161,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -351661,6 +352278,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -351910,6 +352528,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -352026,6 +352645,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -352265,6 +352885,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -352381,6 +353002,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -352630,6 +353252,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -352746,6 +353369,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -352985,6 +353609,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -353101,6 +353726,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -353350,6 +353976,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -353466,6 +354093,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -353705,6 +354333,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -353821,6 +354450,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -353953,6 +354583,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -354069,6 +354700,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -354185,6 +354817,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -354301,6 +354934,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -354433,6 +355067,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -354549,6 +355184,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -354665,6 +355301,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -354781,6 +355418,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -355030,6 +355668,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -355146,6 +355785,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -355935,6 +356575,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -356051,6 +356692,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -356423,6 +357065,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -356539,6 +357182,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -356883,6 +357527,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -356999,6 +357644,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -357371,6 +358017,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -357487,6 +358134,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -357831,6 +358479,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -357947,6 +358596,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -358319,6 +358969,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -358435,6 +359086,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -358779,6 +359431,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -358895,6 +359548,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -359267,6 +359921,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -359383,6 +360038,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -359727,6 +360383,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -359843,6 +360500,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -360215,6 +360873,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -360331,6 +360990,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -360675,6 +361335,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -360791,6 +361452,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -361163,6 +361825,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -361279,6 +361942,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -361623,6 +362287,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -361739,6 +362404,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -362111,6 +362777,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -362227,6 +362894,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -362571,6 +363239,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -362687,6 +363356,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -363059,6 +363729,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -363175,6 +363846,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -363519,6 +364191,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -363635,6 +364308,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -364007,6 +364681,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -364123,6 +364798,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -364239,6 +364915,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
@@ -364355,6 +365032,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     parentTenantId?: string | null
     subscriptionTier?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
@@ -364487,6 +365165,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -364603,6 +365282,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
@@ -365873,6 +366553,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     ipAddress?: string | null
     checksum?: string
@@ -366641,6 +367323,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     checksum?: StringFieldUpdateOperationsInput | string
@@ -366662,6 +367346,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     checksum?: StringFieldUpdateOperationsInput | string
@@ -366682,6 +367368,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     checksum?: StringFieldUpdateOperationsInput | string
@@ -368106,6 +368794,8 @@ export namespace Prisma {
     creditAccount: string
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     actorUserId?: string | null
     ipAddress?: string | null
@@ -368139,6 +368829,7 @@ export namespace Prisma {
     corsAllowedMethods: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders: JsonNullValueInput | InputJsonValue
     taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
     subscriptionTier?: string
   }
 
@@ -368268,6 +368959,7 @@ export namespace Prisma {
     name: string
     type: string
     status?: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -368278,6 +368970,8 @@ export namespace Prisma {
     referenceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -368291,6 +368985,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -370652,6 +371348,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     checksum?: StringFieldUpdateOperationsInput | string
@@ -370672,6 +371370,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
@@ -370692,6 +371392,8 @@ export namespace Prisma {
     creditAccount?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
@@ -370725,6 +371427,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
@@ -370841,6 +371544,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -370957,6 +371661,7 @@ export namespace Prisma {
     corsAllowedMethods?: JsonNullValueInput | InputJsonValue
     corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
     taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
     subscriptionTier?: StringFieldUpdateOperationsInput | string
   }
 
@@ -371330,6 +372035,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     journalEntries?: JournalEntryUpdateManyWithoutAccountNestedInput
@@ -371341,6 +372047,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     journalEntries?: JournalEntryUncheckedUpdateManyWithoutAccountNestedInput
@@ -371352,6 +372059,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -371362,6 +372070,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -371376,6 +372086,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -371390,6 +372102,8 @@ export namespace Prisma {
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -371401,6 +372115,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -371415,6 +372131,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -371427,6 +372145,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -376299,6 +377019,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     tenantId: string
@@ -376310,6 +377032,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -376323,6 +377047,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -376335,6 +377061,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -376347,6 +377075,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     paidOutAmount?: Decimal | DecimalJsLike | number | string | null
     currency?: string
+    exchangeRate?: Decimal | DecimalJsLike | number | string | null
+    baseAmount?: Decimal | DecimalJsLike | number | string | null
     balanceBefore?: Decimal | DecimalJsLike | number | string
     balanceAfter?: Decimal | DecimalJsLike | number | string
     tenantId: string
@@ -376366,6 +377096,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -376379,6 +377111,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -376391,6 +377125,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOutAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
+    exchangeRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tenantId?: StringFieldUpdateOperationsInput | string

@@ -49,8 +49,8 @@ final territoryExpansionManagerDashboardAdapterProvider =
                   'Territory Expansion Manager API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
+                return TerritoryExpansionManagerDashboardViewModel.assemble(
+                  isOffline: true,
                 );
               }
             },
@@ -81,7 +81,7 @@ final territoryExpansionManagerDashboardAdapterProvider =
             );
             return TerritoryExpansionManagerDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return TerritoryExpansionManagerDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

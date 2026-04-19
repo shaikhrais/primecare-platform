@@ -44,9 +44,7 @@ final cfoDashboardAdapterProvider =
                   'Cfo Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return CfoDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final cfoDashboardAdapterProvider =
             );
             return CfoDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return CfoDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

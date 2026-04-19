@@ -49,9 +49,7 @@ final trainingDirectorDashboardAdapterProvider =
                   'Training Director Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return TrainingDirectorDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -81,7 +79,7 @@ final trainingDirectorDashboardAdapterProvider =
             );
             return TrainingDirectorDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return TrainingDirectorDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

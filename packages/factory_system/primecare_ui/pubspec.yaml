@@ -23,6 +23,9 @@ dependencies:
   primecare_adapters:
     path: ../../primecare_adapters
   intl: any
+  pdf: ^3.12.0
+  csv: ^8.0.0
+  printing: ^5.14.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

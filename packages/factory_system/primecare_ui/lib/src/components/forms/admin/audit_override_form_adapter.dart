@@ -1,33 +1,75 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
-// Prisma Load Adapter
 
-class AuditOverrideFormViewModel {
-  final bool isLoading;
-  final dynamic data;
-  AuditOverrideFormViewModel({this.isLoading = false, this.data});
+// --- State Model ---
+class AuditOverrideData {
+  final String name;
+  final String details;
+
+  AuditOverrideData({
+    this.name = '',
+    this.details = '',
+  });
+
+  AuditOverrideData copyWith({
+    String? name,
+    String? details,
+  }) {
+    return AuditOverrideData(
+      name: name ?? this.name,
+      details: details ?? this.details,
+    );
+  }
 }
 
-class AuditOverrideFormAdapter extends Notifier<AuditOverrideFormViewModel> {
+// --- Notifier / Business Logic Adapter ---
+class AuditOverrideFormAdapter extends AsyncNotifier<AuditOverrideData> {
   @override
-  AuditOverrideFormViewModel build() {
-    return AuditOverrideFormViewModel();
+  FutureOr<AuditOverrideData> build() async {
+    // Initial empty state
+    return AuditOverrideData();
   }
 
-  Future<void> loadData() async {
-        state = AuditOverrideFormViewModel(isLoading: true, data: state.data);
-    try {
-      final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/audit-override-form-adapter');
-      state = AuditOverrideFormViewModel(isLoading: false, data: response ?? {});
-    } catch (e) {
-      // Fallback
-      state = AuditOverrideFormViewModel(isLoading: false, data: {});
-    }
+  void updateData({
+    String? name,
+    String? details,
+  }) {
+    final current = state.value ?? AuditOverrideData();
+    state = AsyncData(
+      current.copyWith(
+        name: name,
+        details: details,
+      ),
+    );
+  }
+
+  Future<bool> submit() async {
+    final currentData = state.value;
+    if (currentData == null) return false;
+
+    state = const AsyncLoading();
+
+    final result = await ref.read(domainServiceProvider).requestAuditOverride({
+      'name': currentData.name,
+      'details': currentData.details,
+    });
+
+    return result.fold(
+      (data) {
+        // Reset form
+        state = AsyncData(AuditOverrideData());
+        return true;
+      },
+      (failure) {
+        state = AsyncError(failure.errorMessage, StackTrace.current);
+        return false;
+      },
+    );
   }
 }
 
 final auditOverrideFormAdapterProvider =
-    NotifierProvider<AuditOverrideFormAdapter, AuditOverrideFormViewModel>(() {
-      return AuditOverrideFormAdapter();
-    });
+    AsyncNotifierProvider<AuditOverrideFormAdapter, AuditOverrideData>(
+  () => AuditOverrideFormAdapter(),
+);

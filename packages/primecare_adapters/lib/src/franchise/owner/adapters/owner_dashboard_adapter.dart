@@ -29,9 +29,7 @@ final ownerDashboardAdapterProvider =
 
                 return viewModel;
               } else {
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return OwnerDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -55,7 +53,7 @@ final ownerDashboardAdapterProvider =
             );
             return OwnerDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return OwnerDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

@@ -49,9 +49,7 @@ final headOfBusDevDashboardAdapterProvider =
                   'Head of Bus Dev Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return HeadOfBusDevDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -79,7 +77,7 @@ final headOfBusDevDashboardAdapterProvider =
             );
             return HeadOfBusDevDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return HeadOfBusDevDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

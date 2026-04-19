@@ -31,9 +31,7 @@ final franchiseOwnerAdapterProvider =
 
                 return viewModel;
               } else {
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return FranchiseOwnerDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -60,7 +58,7 @@ final franchiseOwnerAdapterProvider =
             return FranchiseOwnerViewModel.fromJson(snapshot);
           }
 
-          throw e;
+          return FranchiseOwnerViewModel.assemble(isOffline: true);
         },
       );
     });

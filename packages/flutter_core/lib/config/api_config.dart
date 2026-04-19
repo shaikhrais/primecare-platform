@@ -59,5 +59,9 @@ class ApiConfig {
     'supportEscalate': '/support/tickets/escalate',
     'franchiseTerritoryUpdate': '/franchise/territory/update',
     'reportingSummary': '/reporting/summary',
+    'adminStaffProvision': '/admin/provision-staff',
+    'adminAuditOverride': '/admin/audit/override',
+    'adminDepartments': '/admin/departments',
+    'identityRoles': '/identity/roles',
   };
 }

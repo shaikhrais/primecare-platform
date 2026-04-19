@@ -32,7 +32,7 @@ class ScheduleFacilityMaintenanceFormAdapter
       if (response.statusCode == 200) {
         return response.data;
       }
-      throw Exception('API error: ${response.statusCode}');
+        return false;
     });
 
     result.fold(

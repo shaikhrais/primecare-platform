@@ -49,9 +49,7 @@ final operationsManagerDashboardAdapterProvider =
                   'Operations Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return OperationsManagerDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -81,7 +79,7 @@ final operationsManagerDashboardAdapterProvider =
             );
             return OperationsManagerDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return OperationsManagerDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

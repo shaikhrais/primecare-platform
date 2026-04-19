@@ -44,9 +44,7 @@ final ceoDashboardAdapterProvider =
                   'CEO Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return CeoDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final ceoDashboardAdapterProvider =
             );
             return CeoDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return CeoDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

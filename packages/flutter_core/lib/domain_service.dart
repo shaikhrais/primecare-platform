@@ -191,4 +191,66 @@ class DomainService {
       },
     );
   }
+
+  // Admin Domain
+  Future<Result<Map<String, dynamic>>> provisionStaff(
+    Map<String, dynamic> data,
+  ) async {
+    return Result.guardFuture<Map<String, dynamic>>(
+      () async {
+        final response = await _apiClient.post(
+          ApiConfig.endpoints['adminStaffProvision']!,
+          body: data,
+        );
+        _telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Staff provisioned successfully',
+          metadata: {'endpoint': 'adminStaffProvision'},
+        );
+        return response.data;
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to provision staff',
+          error: e,
+          stackTrace: st,
+          metadata: {'endpoint': 'adminStaffProvision'},
+        );
+        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+      },
+    );
+  }
+
+  Future<Result<Map<String, dynamic>>> requestAuditOverride(
+    Map<String, dynamic> data,
+  ) async {
+    return Result.guardFuture<Map<String, dynamic>>(
+      () async {
+        final response = await _apiClient.post(
+          ApiConfig.endpoints['adminAuditOverride']!,
+          body: data,
+        );
+        _telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Audit override requested successfully',
+          metadata: {'endpoint': 'adminAuditOverride'},
+        );
+        return response.data;
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to request audit override',
+          error: e,
+          stackTrace: st,
+          metadata: {'endpoint': 'adminAuditOverride'},
+        );
+        return <String, dynamic>{'error': e.toString(), 'fallback': true};
+      },
+    );
+  }
 }
+
+final domainServiceProvider = Provider((ref) => DomainService(ref));
+

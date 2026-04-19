@@ -49,9 +49,7 @@ final regionalManagerUSADashboardAdapterProvider =
                   'Regional Manager USA API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return RegionalManagerUsaDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -81,7 +79,7 @@ final regionalManagerUSADashboardAdapterProvider =
             );
             return RegionalManagerUsaDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return RegionalManagerUsaDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

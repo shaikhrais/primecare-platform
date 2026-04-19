@@ -78,8 +78,10 @@ class ProviderService {
             response.data as Map<String, dynamic>,
           );
         }
-        throw Exception(
-          'Failed to load active provider profile: ${response.statusCode}',
+        return ProviderProfile(
+          id: 'fallback',
+          fullName: 'Provider (Degraded)',
+          role: ProviderRole.unknown,
         );
       },
       onError: (e, st) {

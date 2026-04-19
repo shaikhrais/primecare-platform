@@ -49,8 +49,8 @@ final schedulerDashboardAdapterProvider =
                   'Scheduler Coordinator API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
+                return SchedulerCoordinatorDashboardViewModel.assemble(
+                  isOffline: true,
                 );
               }
             },
@@ -81,7 +81,7 @@ final schedulerDashboardAdapterProvider =
             );
             return SchedulerCoordinatorDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return SchedulerCoordinatorDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

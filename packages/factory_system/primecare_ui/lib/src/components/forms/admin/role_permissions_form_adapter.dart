@@ -164,7 +164,7 @@ class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return true;
       }
-      throw Exception('Server returned ${response.statusCode}');
+        return false;
     });
 
     return result.fold(

@@ -11,6 +11,7 @@ import 'routes/groups/marketing_routes.dart';
 import 'routes/groups/support_routes.dart';
 import 'routes/groups/common_routes.dart';
 import 'config/api_config.dart';
+import 'network/result.dart';
 import 'telemetry_service.dart';
 
 class AuthState {
@@ -187,43 +188,51 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   Future<void> _loadStoredAuth() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
-    final role = prefs.getString('auth_role');
-    final tenantId = prefs.getString('auth_tenant_id');
-    final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
-    if (token != null && role != null) {
-      state = state.copyWith(
-        isAuthenticated: true,
-        token: token,
-        role: role,
-        tenantId: tenantId,
-        userName: userName,
-      );
-      authListenable.value = true;
-      ref
-          .read(executionGateProvider)
-          .passGate(
+    await Result.guardFuture<void>(() async {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('auth_token');
+      final role = prefs.getString('auth_role');
+      final tenantId = prefs.getString('auth_tenant_id');
+      final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
+      if (token != null && role != null) {
+        state = state.copyWith(
+          isAuthenticated: true,
+          token: token,
+          role: role,
+          tenantId: tenantId,
+          userName: userName,
+        );
+        authListenable.value = true;
+        ref.read(executionGateProvider).passGate(
+              ExecutionGateCategory.auth,
+              'Session restored for active role: $role',
+              metadata: {
+                'tenantId': tenantId,
+                'hasToken': true,
+                'userName': userName,
+              },
+            );
+      } else {
+        ref.read(executionGateProvider).passGate(
+              ExecutionGateCategory.auth,
+              'Initial build: No stored session found',
+            );
+      }
+    }, onError: (e, st) {
+      ref.read(executionGateProvider).failGate(
             ExecutionGateCategory.auth,
-            'Session restored for active role: $role',
-            metadata: {
-              'tenantId': tenantId,
-              'hasToken': true,
-              'userName': userName,
-            },
+            'SharedPreferences restoration failure.',
+            error: e,
+            stackTrace: st,
           );
-    } else {
-      ref
-          .read(executionGateProvider)
-          .passGate(
-            ExecutionGateCategory.auth,
-            'Initial build: No stored session found',
-          );
-    }
+      // Ensure we stay in a safe unauthenticated state
+      state = AuthState();
+      authListenable.value = false;
+    });
   }
 
   Future<bool> login(String email, String password) async {
-    try {
+    final result = await Result.guardFuture<bool>(() async {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
         ApiConfig.endpoints['login']!,
@@ -280,18 +289,14 @@ class AuthNotifier extends Notifier<AuthState> {
           userName: userName,
         );
         authListenable.value = true;
-        ref
-            .read(executionGateProvider)
-            .passGate(
+        ref.read(executionGateProvider).passGate(
               ExecutionGateCategory.auth,
               'API Authentication via Cloudflare successful. Role: $role',
               metadata: {'tenantId': tenantId, 'email': email},
             );
         return true;
       } else {
-        ref
-            .read(executionGateProvider)
-            .failGate(
+        ref.read(executionGateProvider).failGate(
               ExecutionGateCategory.auth,
               'API Authentication declined. Status: ${response.statusCode}',
               metadata: {
@@ -302,10 +307,8 @@ class AuthNotifier extends Notifier<AuthState> {
             );
         return false;
       }
-    } catch (e, st) {
-      ref
-          .read(executionGateProvider)
-          .failGate(
+    }, onError: (e, st) {
+      ref.read(executionGateProvider).failGate(
             ExecutionGateCategory.auth,
             'API Connection Exception during login.',
             error: e,
@@ -313,7 +316,8 @@ class AuthNotifier extends Notifier<AuthState> {
             metadata: {'email': email, 'target': ApiConfig.endpoints['login']},
           );
       return false;
-    }
+    });
+    return result.fold((data) => data, (error) => false);
   }
 
   Future<bool> register(
@@ -323,7 +327,7 @@ class AuthNotifier extends Notifier<AuthState> {
     String lastName,
     String role,
   ) async {
-    try {
+    final result = await Result.guardFuture<bool>(() async {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
         ApiConfig.endpoints['register']!,
@@ -342,10 +346,8 @@ class AuthNotifier extends Notifier<AuthState> {
       } else {
         return false;
       }
-    } catch (e, st) {
-      ref
-          .read(executionGateProvider)
-          .failGate(
+    }, onError: (e, st) {
+      ref.read(executionGateProvider).failGate(
             ExecutionGateCategory.auth,
             'API Connection Exception during registration.',
             error: e,
@@ -356,23 +358,32 @@ class AuthNotifier extends Notifier<AuthState> {
             },
           );
       return false;
-    }
+    });
+    return result.fold((data) => data, (error) => false);
   }
 
   Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('auth_token');
-    await prefs.remove('auth_role');
-    await prefs.remove('auth_tenant_id');
-    await prefs.remove('auth_username');
-    state = AuthState();
-    authListenable.value = false;
-    ref
-        .read(executionGateProvider)
-        .passGate(
-          ExecutionGateCategory.auth,
-          'Explicit Logout: Identity session terminated',
-        );
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('auth_token');
+      await prefs.remove('auth_role');
+      await prefs.remove('auth_tenant_id');
+      await prefs.remove('auth_username');
+    } catch (e, st) {
+      ref.read(executionGateProvider).failGate(
+            ExecutionGateCategory.auth,
+            'SharedPreferences persistence failure during logout.',
+            error: e,
+            stackTrace: st,
+          );
+    } finally {
+      state = AuthState();
+      authListenable.value = false;
+      ref.read(executionGateProvider).passGate(
+            ExecutionGateCategory.auth,
+            'User session cleared successfully.',
+          );
+    }
   }
 }
 

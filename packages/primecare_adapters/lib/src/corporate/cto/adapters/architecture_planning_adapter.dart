@@ -216,9 +216,7 @@ final architecturePlanningAdapterProvider =
               'Architecture Metrics Error: \${response.statusCode}',
               metadata: {'status': response.statusCode},
             );
-            throw Exception(
-              'API error loading verification data: \${response.statusCode}',
-            );
+            return ArchitecturePlanningViewModel.assemble(isOffline: true);
           }
         },
         fallbackBuilder: () {
@@ -246,7 +244,7 @@ final architecturePlanningAdapterProvider =
         );
         return ArchitecturePlanningViewModel.fromJson(snapshot as Map<String, dynamic>, isOffline: true);
       }
-      throw e;
+      return ArchitecturePlanningViewModel.assemble(isOffline: true);
     },
   );
 });

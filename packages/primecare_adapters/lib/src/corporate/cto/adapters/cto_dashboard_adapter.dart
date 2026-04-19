@@ -29,9 +29,7 @@ final ctoDashboardAdapterProvider =
 
                 return viewModel;
               } else {
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return CtoDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -55,7 +53,7 @@ final ctoDashboardAdapterProvider =
             );
             return CtoDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return CtoDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

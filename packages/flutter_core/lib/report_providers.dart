@@ -35,27 +35,35 @@ final reportDataProvider = FutureProvider.family<Result<ReportData>, String>((
           return report;
         },
         (error) {
-          throw error; // fall through to onError
+          telemetry.failGate(
+            ExecutionGateCategory.metricsLayer,
+            'Report API Failure ($reportId): Attempting Logistics Hub fallback',
+            error: error,
+            metadata: {'reportId': reportId},
+          );
+
+          final blueprint = DataLogisticsHub.getReportBlueprint(reportId);
+          if (blueprint != null) {
+            telemetry.passGate(
+              ExecutionGateCategory.metricsLayer,
+              'Report LKG fallback restored: $reportId',
+            );
+            return ReportData.fromJson(blueprint);
+          }
+          // Final fallback to empty state to prevent UI crash
+          return ReportData.empty(id: reportId, isOffline: true);
         },
       );
     },
     onError: (e, st) {
       telemetry.failGate(
         ExecutionGateCategory.metricsLayer,
-        'Report API Failure ($reportId): Attempting Logistics Hub fallback',
+        'Unexpected Provider Exception ($reportId)',
         error: e,
         stackTrace: st,
       );
-
-      final blueprint = DataLogisticsHub.getReportBlueprint(reportId);
-      if (blueprint != null) {
-        telemetry.passGate(
-          ExecutionGateCategory.metricsLayer,
-          'Report LKG fallback restored: $reportId',
-        );
-        return ReportData.fromJson(blueprint);
-      }
-      throw e;
+      // Absolute safety default
+      return ReportData.empty(id: reportId, isOffline: true);
     },
   );
 });

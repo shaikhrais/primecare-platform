@@ -49,9 +49,7 @@ final communityOutreachDashboardAdapterProvider =
                   'Community Outreach API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return CommunityOutreachDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -79,7 +77,7 @@ final communityOutreachDashboardAdapterProvider =
             );
             return CommunityOutreachDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return CommunityOutreachDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

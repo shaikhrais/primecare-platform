@@ -54,7 +54,15 @@ class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
     );
   }
 
-  Future<void> submit({String? patientId}) async {
+  void reset() {
+    state = AsyncData(VitalsData());
+  }
+
+  Future<void> submit({required String patientId}) async {
+    if (patientId.isEmpty) {
+      state = AsyncError('No patient selected for vitals capture.', StackTrace.current);
+      return;
+    }
     final currentData = state.value;
     if (currentData == null) return;
 
@@ -73,15 +81,17 @@ class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
     // 2. Network Telemetry wrapper
     final result = await Result.guardFuture<bool>(
       () async {
-        // Connect safely to the database-driven clinical endpoint
-        final bpParts = currentData.bloodPressure.split('/');
-        final systolic = bpParts.isNotEmpty ? bpParts[0] : null;
-        final diastolic = bpParts.length > 1 ? bpParts[1] : null;
+        // Robust Regex-based BP Parsing (Supports 120/80, 120-80, etc.)
+        final bpRegex = RegExp(r'^(\d+)\s*[/-]\s*(\d+)$');
+        final match = bpRegex.firstMatch(currentData.bloodPressure.trim());
+        
+        final systolic = match?.group(1);
+        final diastolic = match?.group(2);
 
         await ref.read(apiClientProvider).post(
           '/v1/clinical/vitals-capture',
           body: {
-            'patientId': patientId ?? 'PENDING_BINDING', // Use provided ID or fallback for general capture
+            'patientId': patientId,
             'heartRate': currentData.heartRate,
             'systolic': systolic,
             'diastolic': diastolic,
@@ -146,12 +156,26 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {
-    final notifier = ref.read(vitalsCaptureProvider.notifier);
-    notifier.submit(patientId: widget.patientId).then((_) {
-      if (ref.read(vitalsCaptureProvider).hasValue) {
-        widget.onSuccess?.call();
-      }
-    });
+    if (widget.patientId == null || widget.patientId!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a patient first')),
+      );
+      return;
+    }
+
+    if (_formKey.currentState?.validate() ?? false) {
+      final notifier = ref.read(vitalsCaptureProvider.notifier);
+      notifier.submit(patientId: widget.patientId!).then((_) {
+        if (mounted && ref.read(vitalsCaptureProvider).hasValue) {
+          widget.onSuccess?.call();
+        }
+      });
+    }
+  }
+
+  void _clear() {
+    ref.read(vitalsCaptureProvider.notifier).reset();
+    _formKey.currentState?.reset();
   }
 
   @override
@@ -174,7 +198,33 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
       onSubmit: _submit,
       submitText: 'Save Vitals',
       isLoading: asyncState.isLoading,
+      isEnabled: widget.patientId != null && widget.patientId!.isNotEmpty,
       children: [
+        if (widget.patientId == null || widget.patientId!.isEmpty)
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(24 * layout.scaleFactor),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(16 * layout.scaleFactor),
+              border: Border.all(color: theme.colorScheme.outlineVariant),
+            ),
+            child: Column(
+              children: [
+                Icon(Icons.person_search, size: 48 * layout.scaleFactor, color: theme.colorScheme.primary.withOpacity(0.5)),
+                SizedBox(height: 16 * layout.scaleFactor),
+                Text(
+                  'No Patient Context',
+                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8 * layout.scaleFactor),
+                const Text(
+                  'Please select a patient from the clinical list to begin vitals capture.',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
         if (asyncState.hasError)
           Padding(
             padding: EdgeInsets.only(bottom: 16.0 * layout.scaleFactor),
@@ -235,8 +285,12 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
                 onChanged: (val) => ref
                     .read(vitalsCaptureProvider.notifier)
                     .updateData(bloodPressure: val),
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Required' : null,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Required';
+                  final bpRegex = RegExp(r'^\d+\s*[/-]\s*\d+$');
+                  if (!bpRegex.hasMatch(value.trim())) return 'Use Systolic/Diastolic format';
+                  return null;
+                },
               ),
             ),
             ResponsiveGridCol(
@@ -264,6 +318,22 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
                     .updateData(temperature: val),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
+              ),
+            ),
+            ResponsiveGridCol(
+              span: fullSpan,
+              child: Row(
+                children: [
+                  const Spacer(),
+                  TextButton.icon(
+                    onPressed: asyncState.isLoading ? null : _clear,
+                    icon: const Icon(Icons.clear_all),
+                    label: const Text('Clear Form'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: theme.colorScheme.secondary,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

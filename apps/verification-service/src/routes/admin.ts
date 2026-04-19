@@ -1,4 +1,4 @@
-import { AdminService, ProvisionStaffInput } from '@primecare/domain/src/services/AdminService';
+import { AdminService } from '@primecare/domain/src/services/AdminService';
 
 export function registerAdminRoutes(app: any) {
     /**
@@ -6,36 +6,75 @@ export function registerAdminRoutes(app: any) {
      * Onboards a new staff member and assigns their platform role.
      */
     app.post('/v1/admin/provision-staff', async (c: any) => {
-        try {
-            const tenantId = c.req.header('x-tenant-id');
-            const jwtPayload = c.get('jwtPayload');
-
-            if (!tenantId) {
-                return c.json({ success: false, error: 'Missing x-tenant-id header' }, 400);
-            }
-
-            const body = await c.req.json();
-            
-            const input: ProvisionStaffInput = {
-                tenantId: tenantId as string,
-                firstName: body.firstName,
-                lastName: body.lastName,
-                email: body.email,
-                roleId: body.roleId || body.role, // Handle both 'roleId' and legacy 'role' label
-                department: body.department,
-                additionalNotes: body.additionalNotes,
-                actorUserId: jwtPayload?.sub || 'SYSTEM'
-            };
-
-            if (!input.email || !input.firstName || !input.roleId) {
-                return c.json({ success: false, error: 'Missing required fields (email, firstName, roleId)' }, 400);
-            }
-
-            const result = await AdminService.provisionStaff(input);
-            return c.json({ success: true, ...result }, 201);
-        } catch (error: any) {
-            console.error('Provision Staff Error:', error);
-            return c.json({ success: false, error: error.message || 'Internal Server Error' }, 500);
+        const tenantId = c.req.header('x-tenant-id');
+        if (!tenantId) {
+            return c.json({ error: 'Missing x-tenant-id header' }, 400);
         }
+
+        try {
+            const body = await c.req.json();
+            const result = await AdminService.provisionStaff({
+                ...body,
+                tenantId,
+                actorUserId: (c.get('user') as any)?.id || 'SYSTEM'
+            });
+
+            return result.fold(
+                (data) => c.json(data, 201),
+                (error) => c.json({ error }, 400)
+            );
+        } catch (e: any) {
+            return c.json({ error: 'Invalid request body' }, 400);
+        }
+    });
+
+    /**
+     * GET /v1/admin/staff
+     * Lists all staff members for the current tenant.
+     */
+    app.get('/v1/admin/staff', async (c: any) => {
+        const tenantId = c.req.header('x-tenant-id');
+        if (!tenantId) {
+            return c.json({ error: 'Missing x-tenant-id header' }, 400);
+        }
+
+        const result = await AdminService.listStaffMembers(tenantId);
+
+        return result.fold(
+            (data) => c.json(data),
+            (error) => c.json({ error }, 500)
+        );
+    });
+
+    /**
+     * POST /v1/admin/staff/:userId/deactivate
+     * Deactivates a staff member and records the audit log.
+     */
+    app.post('/v1/admin/staff/:userId/deactivate', async (c: any) => {
+        const id = c.req.param('userId');
+        const tenantId = c.req.header('x-tenant-id');
+        if (!tenantId) {
+            return c.json({ error: 'Missing x-tenant-id header' }, 400);
+        }
+
+        const result = await AdminService.deactivateStaff(id, (c.get('user') as any)?.id || 'SYSTEM');
+
+        return result.fold(
+            (data) => c.json(data),
+            (error) => c.json({ error }, 400)
+        );
+    });
+
+    /**
+     * GET /v1/admin/departments
+     * Returns available organizational departments.
+     */
+    app.get('/v1/admin/departments', async (c: any) => {
+        const result = await AdminService.getAvailableDepartments();
+
+        return result.fold(
+            (data: any[]) => c.json({ success: true, data }),
+            (error: string) => c.json({ error }, 500)
+        );
     });
 }

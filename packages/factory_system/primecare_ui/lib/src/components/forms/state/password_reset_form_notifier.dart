@@ -26,7 +26,7 @@ class PasswordResetFormNotifier extends AsyncNotifier<void> {
         await client.post('/api/v1/orchestration/actions', body: payload.data);
       });
       if (result.isFailure) {
-        throw Exception('Failed to submit PasswordResetForm');
+        return false;
       }
     });
 

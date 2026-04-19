@@ -49,9 +49,7 @@ final trainingCoordinatorDashboardAdapterProvider =
                   'Training Coordinator API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return TrainingCoordinatorDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -79,7 +77,7 @@ final trainingCoordinatorDashboardAdapterProvider =
             );
             return TrainingCoordinatorDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return TrainingCoordinatorDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

@@ -34,13 +34,12 @@ export function registerFinanceRoutes(app: any) {
             };
 
             const result = await LedgerService.recordTransaction(input);
-            return c.json(result, 201);
+            return result.fold(
+                (data) => c.json(data, 201),
+                (error) => c.json({ error }, 400)
+            );
         } catch (error: any) {
-            console.error('Ledger Transaction Error:', error);
-            if (error.name === 'LedgerImbalanceError') {
-                return c.json({ error: error.message }, 422);
-            }
-            return c.json({ error: 'Internal Server Error' }, 500);
+            return c.json({ error: 'Invalid request body' }, 400);
         }
     });
 
@@ -63,10 +62,12 @@ export function registerFinanceRoutes(app: any) {
             }
 
             const result = await LedgerService.voidTransaction(transactionId, tenantId as string, payload?.sub);
-            return c.json(result, 200);
+            return result.fold(
+                (data) => c.json(data, 200),
+                (error) => c.json({ error }, 400)
+            );
         } catch (error: any) {
-            console.error('Ledger Void Error:', error);
-            return c.json({ error: error.message }, 400);
+            return c.json({ error: 'Internal Server Error' }, 500);
         }
     });
 
@@ -85,10 +86,12 @@ export function registerFinanceRoutes(app: any) {
             const start = startDate ? new Date(startDate as string) : undefined;
             const end = endDate ? new Date(endDate as string) : undefined;
 
-            const report = await LedgerService.generateTaxFilingReport(tenantId as string, start, end);
-            return c.json(report, 200);
+            const result = await LedgerService.generateTaxFilingReport(tenantId as string, start, end);
+            return result.fold(
+                (data) => c.json(data, 200),
+                (error) => c.json({ error }, 500)
+            );
         } catch (error: any) {
-            console.error('Tax Report Error:', error);
             return c.json({ error: 'Internal Server Error' }, 500);
         }
     });
@@ -112,9 +115,11 @@ export function registerFinanceRoutes(app: any) {
                 tenantId as string
             );
 
-            return c.json(result, 200);
+            return result.fold(
+                (data) => c.json(data, 200),
+                (error) => c.json({ error }, 400)
+            );
         } catch (error: any) {
-            console.error('Currency Conversion Error:', error);
             return c.json({ error: 'Internal Server Error' }, 500);
         }
     });
@@ -131,15 +136,17 @@ export function registerFinanceRoutes(app: any) {
                 return c.json({ error: 'Missing amount or region' }, 400);
             }
 
-            const result = TaxService.calculateTax(
+            const result = await TaxService.calculateTax(
                 parseFloat(amount as string),
                 region as string,
                 inclusive === 'true'
             );
 
-            return c.json(result, 200);
+            return result.fold(
+                (data) => c.json(data, 200),
+                (error) => c.json({ error }, 400)
+            );
         } catch (error: any) {
-            console.error('Tax Calculation Error:', error);
             return c.json({ error: 'Internal Server Error' }, 500);
         }
     });

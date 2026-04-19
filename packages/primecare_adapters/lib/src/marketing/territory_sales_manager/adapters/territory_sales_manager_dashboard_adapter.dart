@@ -49,9 +49,7 @@ final territorySalesManagerDashboardAdapterProvider =
                   'Territory Sales Manager API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return TerritorySalesManagerDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -81,7 +79,7 @@ final territorySalesManagerDashboardAdapterProvider =
             );
             return TerritorySalesManagerDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return TerritorySalesManagerDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

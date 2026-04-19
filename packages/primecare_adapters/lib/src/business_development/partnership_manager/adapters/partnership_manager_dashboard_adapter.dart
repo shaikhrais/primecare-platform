@@ -49,9 +49,7 @@ final partnershipManagerDashboardAdapterProvider =
                   'Partnership Manager API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return PartnershipManagerDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -81,7 +79,7 @@ final partnershipManagerDashboardAdapterProvider =
             );
             return PartnershipManagerDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return PartnershipManagerDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

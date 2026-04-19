@@ -1,66 +1,106 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_core/flutter_core.dart';
+import '../../layouts/responsive_grid_layout.dart';
 import '../base_form.dart';
+import 'audit_override_form_adapter.dart';
 
-class AuditOverrideForm extends StatefulWidget {
-  final Function(Map<String, dynamic>) onSubmit;
-  final bool isLoading;
+class AuditOverrideForm extends ConsumerStatefulWidget {
+  final VoidCallback? onSuccess;
 
-  const AuditOverrideForm({
-    super.key,
-    required this.onSubmit,
-    this.isLoading = false,
-  });
+  const AuditOverrideForm({super.key, this.onSuccess});
 
   @override
-  State<AuditOverrideForm> createState() => _AuditOverrideFormState();
+  ConsumerState<AuditOverrideForm> createState() => _AuditOverrideFormState();
 }
 
-class _AuditOverrideFormState extends State<AuditOverrideForm> {
+class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
   final _formKey = GlobalKey<FormState>();
 
-  void _submit() {
+  Future<void> _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+      final success = await ref.read(auditOverrideFormAdapterProvider.notifier).submit();
+      if (success && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Audit override request submitted successfully.')),
+        );
+        widget.onSuccess?.call();
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final asyncState = ref.watch(auditOverrideFormAdapterProvider);
+    final theme = Theme.of(context);
+    final layout = ref.watch(layoutProvider);
+
+    final data = asyncState.value;
+
     return BaseForm(
       formKey: _formKey,
       title: 'Audit Override',
-      subtitle: 'Override global audit configurations.',
+      subtitle: 'Override global audit configurations for specific compliance needs.',
       onSubmit: _submit,
-      isLoading: widget.isLoading,
+      submitText: 'Request Override',
+      isLoading: asyncState.isLoading,
+      isEnabled: data != null && data.name.isNotEmpty && data.details.isNotEmpty,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
-                ),
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Required' : null,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Details',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
-                ),
-                maxLines: 3,
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Required' : null,
-              ),
-                          ],
+        if (asyncState.hasError)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Text(
+              asyncState.error.toString(),
+              style: TextStyle(color: theme.colorScheme.error),
+            ),
           ),
+        ResponsiveGridRow(
+          spacing: 16 * layout.scaleFactor,
+          runSpacing: 16 * layout.scaleFactor,
+          children: [
+            ResponsiveGridCol(
+              span: layout.totalColumns,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Override Name',
+                  hintText: 'e.g., Data Retention Extension',
+                  labelStyle: TextStyle(color: theme.colorScheme.primary),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                  ),
+                ),
+                key: ValueKey('name_${data?.name}'),
+                initialValue: data?.name,
+                onChanged: (val) => ref
+                    .read(auditOverrideFormAdapterProvider.notifier)
+                    .updateData(name: val),
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Required' : null,
+              ),
+            ),
+            ResponsiveGridCol(
+              span: layout.totalColumns,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Override Details',
+                  hintText: 'Describe why this override is necessary...',
+                  labelStyle: TextStyle(color: theme.colorScheme.primary),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                  ),
+                  alignLabelWithHint: true,
+                ),
+                maxLines: 5,
+                key: ValueKey('details_${data?.details}'),
+                initialValue: data?.details,
+                onChanged: (val) => ref
+                    .read(auditOverrideFormAdapterProvider.notifier)
+                    .updateData(details: val),
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Required' : null,
+              ),
+            ),
+          ],
         ),
       ],
     );

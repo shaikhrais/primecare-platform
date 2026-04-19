@@ -49,9 +49,7 @@ final generalManagerDashboardAdapterProvider =
                   'General Manager Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return GeneralManagerDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -79,7 +77,7 @@ final generalManagerDashboardAdapterProvider =
             );
             return GeneralManagerDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return GeneralManagerDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

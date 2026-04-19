@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'network/result.dart';
 import 'dashboard_service.dart';
 import 'src/models/intelligence_insight.dart';
 
@@ -8,10 +8,11 @@ class IntelligenceService {
   /// In a production environment, this would interface with an LLM (e.g., OpenAI/Gemini)
   /// providing context on institutional KPIs. In this iteration, we utilize a logic-driven
   /// synthesis to ensure resilience and immediate operational feedback.
-  Future<List<IntelligenceInsight>> generateInsights(
+  Future<Result<List<IntelligenceInsight>>> generateInsights(
     String role,
     DashboardMetrics metrics,
   ) async {
+    return Result.guardFuture<List<IntelligenceInsight>>(() async {
     // 1. Simulate institutional analysis delay
     await Future.delayed(const Duration(milliseconds: 800));
 
@@ -90,5 +91,6 @@ class IntelligenceService {
     }
 
     return insights;
+    }, onError: (e, st) => []);
   }
 }

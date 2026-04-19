@@ -44,9 +44,7 @@ final patientDashboardAdapterProvider =
                   'Patient Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return PatientDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final patientDashboardAdapterProvider =
             );
             return PatientDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return PatientDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

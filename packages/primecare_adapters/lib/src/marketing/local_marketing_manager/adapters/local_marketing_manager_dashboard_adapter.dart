@@ -49,8 +49,8 @@ final localMarketingManagerDashboardAdapterProvider =
                   'Local Marketing Manager API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
+                return LocalMarketingManagerDashboardViewModel.assemble(
+                  isOffline: true,
                 );
               }
             },
@@ -81,7 +81,7 @@ final localMarketingManagerDashboardAdapterProvider =
             );
             return LocalMarketingManagerDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return LocalMarketingManagerDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

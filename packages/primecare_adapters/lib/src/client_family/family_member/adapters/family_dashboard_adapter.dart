@@ -44,9 +44,7 @@ final familyDashboardAdapterProvider =
                   'Family API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return FamilyDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final familyDashboardAdapterProvider =
             );
             return FamilyDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return FamilyDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

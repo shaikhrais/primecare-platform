@@ -16,6 +16,7 @@ class BaseForm extends StatelessWidget {
   final VoidCallback? onCancel;
   final String submitText;
   final bool isLoading;
+  final bool isEnabled;
 
   const BaseForm({
     super.key,
@@ -27,6 +28,7 @@ class BaseForm extends StatelessWidget {
     this.onCancel,
     this.submitText = 'Submit',
     this.isLoading = false,
+    this.isEnabled = true,
   });
 
   @override
@@ -40,7 +42,7 @@ class BaseForm extends StatelessWidget {
         actions: <Type, Action<Intent>>{
           SubmitIntent: CallbackAction<SubmitIntent>(
             onInvoke: (SubmitIntent intent) {
-              if (!isLoading && (formKey.currentState?.validate() ?? false)) {
+              if (!isLoading && isEnabled && (formKey.currentState?.validate() ?? false)) {
                 onSubmit();
               }
               return null;
@@ -90,7 +92,7 @@ class BaseForm extends StatelessWidget {
                     ),
                   if (onCancel != null) const SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: isLoading
+                    onPressed: (isLoading || !isEnabled)
                         ? null
                         : () {
                             if (formKey.currentState?.validate() ?? false) {

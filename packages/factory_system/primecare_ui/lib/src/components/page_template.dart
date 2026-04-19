@@ -39,12 +39,14 @@ class PageTemplate extends ConsumerWidget {
     required dynamic provider,
     String? subtitle,
     IconData? icon,
+    Widget? actionButton,
   }) {
     return _OrchestratedPage<T>(
       title: title,
       subtitle: subtitle,
       icon: icon,
       provider: provider,
+      actionButton: actionButton,
     );
   }
 
@@ -129,12 +131,14 @@ class _OrchestratedPage<T> extends ConsumerWidget {
   final String? subtitle;
   final IconData? icon;
   final dynamic provider;
+  final Widget? actionButton;
 
   const _OrchestratedPage({
     required this.title,
     this.subtitle,
     this.icon,
     required this.provider,
+    this.actionButton,
   });
 
   @override
@@ -221,6 +225,7 @@ class _OrchestratedPage<T> extends ConsumerWidget {
           title: title,
           subtitle: subtitle,
           icon: icon,
+          actionButton: actionButton,
           child: AssemblyLine(
             blueprints: blueprints,
             isOfflineFallback: isOffline,

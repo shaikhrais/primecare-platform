@@ -28,17 +28,21 @@ class DynamicScreenAdapter {
       if (response.statusCode == 200) {
         return response.data as Map<String, dynamic>;
       } else {
-        throw Exception('Failed to load screen data: ${response.statusCode}');
-      }
-    } catch (e) {
-      if (DataSourceConfig.currentMode == DataSourceType.hybrid) {
         return {
-          'title': 'Dynamic Screen: $screenId (Fallback)',
+          'title': 'Dynamic Screen: $screenId (Degraded)',
           'status': 'DEGRADED',
           'screenId': screenId,
+          'isOffline': true,
         };
       }
-      rethrow;
+    } catch (e) {
+        return {
+          'title': 'Dynamic Screen: $screenId (Offline)',
+          'status': 'OFFLINE',
+          'screenId': screenId,
+          'isOffline': true,
+          'error': e.toString(),
+        };
     }
   }
 }

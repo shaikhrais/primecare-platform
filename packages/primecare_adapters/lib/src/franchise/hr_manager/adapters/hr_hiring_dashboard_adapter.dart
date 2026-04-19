@@ -44,9 +44,7 @@ final hrHiringDashboardAdapterProvider =
                   'HR Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return HrHiringDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final hrHiringDashboardAdapterProvider =
             );
             return HrHiringDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return HrHiringDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

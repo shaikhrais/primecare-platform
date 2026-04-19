@@ -5,18 +5,49 @@ import { PrismaClient } from '@primecare/database';
 const prisma = new PrismaClient();
 
 describe('IdentityService', () => {
-    let testRole: any;
+    const tenantId = 'tenant-hq'; // Use standard seeder tenant ID
+    const actorId = 'actor-' + Date.now();
+    let testRoleId: string;
 
     beforeAll(async () => {
-        // Setup a test role
-        testRole = await prisma.platformRole.upsert({
-            where: { name: 'TEST_PERM_ROLE' },
-            create: {
-                name: 'TEST_PERM_ROLE',
-                description: 'Role for testing permissions'
+        // Setup Tenant (using standard ID to ensure FK compatibility)
+        await prisma.tenant.upsert({
+            where: { id: tenantId },
+            create: { 
+                id: tenantId, 
+                name: 'Identity Test Tenant',
+                slug: `identity-test-${Date.now()}`,
+                corsAllowedOrigins: JSON.stringify([]),
+                corsAllowedMethods: JSON.stringify([]),
+                corsAllowedHeaders: JSON.stringify([]),
+                allowedVpnRanges: '0.0.0.0/0'
             },
             update: {}
         });
+
+        // Setup Actor
+        await prisma.user.upsert({
+            where: { id: actorId },
+            create: { 
+                id: actorId, 
+                firstName: 'Identity',
+                lastName: 'Actor',
+                email: `actor-${Date.now()}@test.com`,
+                tenantId: tenantId
+            },
+            update: {}
+        });
+
+        // Setup a test role with unique name
+        const roleName = 'TEST_ROLE_' + Date.now();
+        const role = await prisma.platformRole.create({
+            data: {
+                name: roleName,
+                description: 'Role for testing permissions',
+                tenantId: tenantId
+            }
+        });
+        testRoleId = role.id;
 
         // Ensure at least one platform screen exists
         await prisma.platformScreen.upsert({
@@ -25,9 +56,11 @@ describe('IdentityService', () => {
                 id: 'test-admin-screen',
                 name: 'Test Admin',
                 route: '/test/admin',
-                roleId: testRole.id
+                roleId: testRoleId
             },
-            update: {}
+            update: {
+                roleId: testRoleId
+            }
         });
     });
 
@@ -52,9 +85,9 @@ describe('IdentityService', () => {
             }
         ];
 
-        await IdentityService.updateRolePermissions(testRole.id, permissions);
+        await IdentityService.updateRolePermissions(testRoleId, permissions, actorId);
 
-        const savedPerms = await IdentityService.getRolePermissions(testRole.id);
+        const savedPerms = await IdentityService.getRolePermissions(testRoleId);
         const adminPerm = savedPerms.find(p => p.screenRoute === '/test/admin');
 
         expect(adminPerm).toBeDefined();
@@ -71,9 +104,9 @@ describe('IdentityService', () => {
             }
         ];
 
-        await IdentityService.updateRolePermissions(testRole.id, update);
+        await IdentityService.updateRolePermissions(testRoleId, update, actorId);
 
-        const savedPerms = await IdentityService.getRolePermissions(testRole.id);
+        const savedPerms = await IdentityService.getRolePermissions(testRoleId);
         const adminPerm = savedPerms.find(p => p.screenRoute === '/test/admin');
 
         expect(adminPerm?.canWrite).toBe(false);

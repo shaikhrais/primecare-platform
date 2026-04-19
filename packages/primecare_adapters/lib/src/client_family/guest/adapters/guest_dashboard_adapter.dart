@@ -44,9 +44,7 @@ final guestDashboardAdapterProvider =
                   'Guest API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return GuestDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final guestDashboardAdapterProvider =
             );
             return GuestDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return GuestDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

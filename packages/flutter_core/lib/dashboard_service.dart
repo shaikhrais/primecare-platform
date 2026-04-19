@@ -211,6 +211,14 @@ class DashboardMetrics {
     );
   }
 
+  factory DashboardMetrics.empty() {
+    return DashboardMetrics(
+      kpis: [],
+      recentActivity: [],
+      charts: [],
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'kpis': kpis.map((k) => k.toJson()).toList(),
@@ -228,6 +236,13 @@ class ClinicalIntelligenceViewModel {
     required this.blueprints,
     this.isOfflineFallback = false,
   });
+
+  factory ClinicalIntelligenceViewModel.empty({bool isOffline = true}) {
+    return ClinicalIntelligenceViewModel(
+      blueprints: [],
+      isOfflineFallback: isOffline,
+    );
+  }
 }
 
 class DashboardService {
@@ -245,7 +260,7 @@ class DashboardService {
             response.data as Map<String, dynamic>,
           );
         }
-        throw Exception('Failed to load metrics: ${response.statusCode}');
+        return DashboardMetrics.empty();
       },
       onError: (e, st) {
         PrimeLogger.error(
@@ -254,7 +269,8 @@ class DashboardService {
           stackTrace: st,
           tag: 'DashboardService',
         );
-        throw e;
+        // Resilient fallback: Return empty metrics
+        return DashboardMetrics.empty();
       },
     );
   }
@@ -314,9 +330,7 @@ class DashboardService {
           return ClinicalIntelligenceViewModel(blueprints: blueprints);
         }
 
-        throw Exception(
-          'Failed to load clinical intelligence: ${response.statusCode}',
-        );
+        return ClinicalIntelligenceViewModel(blueprints: []);
       },
       onError: (e, st) {
         PrimeLogger.error(
@@ -325,8 +339,8 @@ class DashboardService {
           stackTrace: st,
           tag: 'DashboardService',
         );
-        // Re-throw to trigger resilient fallback in provider
-        throw e;
+        // Resilient fallback: Return empty intelligence state
+        return ClinicalIntelligenceViewModel.empty(isOffline: true);
       },
     );
   }

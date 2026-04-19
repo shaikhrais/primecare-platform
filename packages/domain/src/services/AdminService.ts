@@ -1,5 +1,6 @@
 import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
+import { Result } from '../utils/Result';
 
 const prisma = new PrismaClient();
 
@@ -19,54 +20,171 @@ export class AdminService {
      * Provisions a new staff member by creating a user record and assigning a role.
      * Atomically records the creation in the audit log.
      */
-    static async provisionStaff(input: ProvisionStaffInput) {
-        return prisma.$transaction(async (tx) => {
-            // 1. Look up role by name or ID in PlatformRole first
-            const role = await tx.platformRole.findFirst({
-                where: {
-                    OR: [
-                        { id: input.roleId },
-                        { name: input.roleId }
-                    ]
+    static async provisionStaff(input: ProvisionStaffInput): Promise<Result<{ userId: string; email: string; role: string }>> {
+        return Result.guard(async () => {
+            return prisma.$transaction(async (tx) => {
+                // 1. Check if email already exists
+                const existingUser = await tx.user.findUnique({
+                    where: { email: input.email }
+                });
+
+                if (existingUser) {
+                    throw new Error(`Email already registered: ${input.email}`);
                 }
-            });
 
-            if (!role) {
-                throw new Error(`Role not found: ${input.roleId}`);
-            }
+                // 2. Look up role (Case-insensitive)
+                const role = await tx.platformRole.findFirst({
+                    where: {
+                        OR: [
+                            { id: input.roleId },
+                            { name: { equals: input.roleId, mode: 'insensitive' } }
+                        ]
+                    }
+                });
 
-            // 2. Create User with the identified role
-            const user = await tx.user.create({
-                data: {
+                if (!role) {
+                    throw new Error(`Role not found: ${input.roleId}`);
+                }
+
+                // 3. Create User with the identified role
+                const user = await tx.user.create({
+                    data: {
+                        tenantId: input.tenantId,
+                        firstName: input.firstName,
+                        lastName: input.lastName,
+                        email: input.email,
+                        status: 'active',
+                        roles: role.name,
+                    }
+                });
+
+                // 4. Record Audit Log
+                await AuditService.recordLog({
                     tenantId: input.tenantId,
-                    firstName: input.firstName,
-                    lastName: input.lastName,
-                    email: input.email,
-                    status: 'active',
-                    roles: role.name, // Assigning role name to the roles string field
-                }
+                    actorUserId: input.actorUserId || 'SYSTEM',
+                    action: 'PROVISION_STAFF',
+                    resourceType: 'USER',
+                    resourceId: user.id,
+                    metadata: {
+                        email: input.email,
+                        role: role.name,
+                        department: input.department,
+                        notes: input.additionalNotes
+                    }
+                });
+
+                return {
+                    userId: user.id,
+                    email: user.email,
+                    role: role.name
+                };
+            });
+        });
+    }
+
+    /**
+     * Lists all staff members for a specific tenant.
+     * Includes their role names for UI binding.
+     */
+    static async listStaffMembers(tenantId: string): Promise<Result<any[]>> {
+        return Result.guard(async () => {
+            const users = await prisma.user.findMany({
+                where: {
+                    tenantId,
+                    NOT: { roles: 'client' }
+                },
+                select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                    roles: true,
+                    status: true,
+                    createdAt: true
+                },
+                orderBy: { createdAt: 'desc' }
             });
 
-            // 3. Record Audit Log
-            await AuditService.recordLog({
-                tenantId: input.tenantId,
-                actorUserId: input.actorUserId || 'SYSTEM',
-                action: 'PROVISION_STAFF',
-                resourceType: 'USER',
-                resourceId: user.id,
-                metadata: {
-                    email: input.email,
-                    roleId: input.roleId,
-                    department: input.department,
-                    notes: input.additionalNotes
-                }
-            });
+            return users;
+        });
+    }
 
-            return {
-                success: true,
-                userId: user.id,
-                email: user.email
-            };
+    /**
+     * Deactivates a staff member by setting their status to 'deactivated'.
+     */
+    static async deactivateStaff(userId: string, actorUserId: string): Promise<Result<{ userId: string; status: string }>> {
+        return Result.guard(async () => {
+            return prisma.$transaction(async (tx) => {
+                const user = await tx.user.findUnique({
+                    where: { id: userId }
+                });
+
+                if (!user) {
+                    throw new Error(`User not found: ${userId}`);
+                }
+
+                const updatedUser = await tx.user.update({
+                    where: { id: userId },
+                    data: { status: 'deactivated' }
+                });
+
+                await AuditService.recordLog({
+                    tenantId: user.tenantId,
+                    actorUserId: actorUserId,
+                    action: 'DEACTIVATE_STAFF',
+                    resourceType: 'USER',
+                    resourceId: userId,
+                    metadata: {
+                        previousStatus: user.status,
+                        newStatus: 'deactivated'
+                    }
+                });
+
+                return { userId: updatedUser.id, status: updatedUser.status as string };
+            });
+        });
+    }
+
+    /**
+     * Returns a structured list of available departments for staff provisioning.
+     */
+    static async getAvailableDepartments(): Promise<Result<any[]>> {
+        return Result.guard(async () => {
+            // In a more advanced setup, this would come from a Registry or a Department table.
+            // For now, we normalize it in the domain layer to ensure consistency.
+            return [
+                { id: 'GENERAL', label: 'General / Operations' },
+                { id: 'NURSING', label: 'Nursing' },
+                { id: 'ADMIN', label: 'Administration' },
+                { id: 'SALES', label: 'Sales & Marketing' },
+                { id: 'FINANCE', label: 'Finance' },
+                { id: 'IT', label: 'Information Technology' }
+            ];
+        });
+    }
+
+    /**
+     * Requests an audit override.
+     */
+    static async requestAuditOverride(data: {
+        name: string;
+        details: string;
+        actorUserId: string;
+        tenantId: string;
+    }) {
+        const { name, details, actorUserId, tenantId } = data;
+
+        // Records a high-priority audit log as a 'request'.
+        return await AuditService.recordLog({
+            tenantId,
+            actorUserId,
+            action: 'AUDIT_OVERRIDE_REQUEST',
+            resourceType: 'SYSTEM_CONFIG',
+            metadata: {
+                overrideName: name,
+                overrideDetails: details,
+                timestamp: new Date().toISOString()
+            }
         });
     }
 }

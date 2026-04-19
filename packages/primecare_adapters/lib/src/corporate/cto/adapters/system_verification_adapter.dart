@@ -54,9 +54,7 @@ final systemVerificationAdapterProvider =
                   'Verification Metrics Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading verification data: ${response.statusCode}',
-                );
+                return SystemVerificationViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -84,7 +82,7 @@ final systemVerificationAdapterProvider =
             );
             return SystemVerificationViewModel.fromJson(snapshot);
           }
-          throw e;
+          return SystemVerificationViewModel.assemble(isOffline: true);
         },
       );
     });

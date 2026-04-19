@@ -1,4 +1,5 @@
 import { PrismaClient } from '@primecare/database';
+import { Result } from '../utils/Result';
 
 const prisma = new PrismaClient();
 
@@ -10,63 +11,78 @@ export interface AuditLogFilters {
     endDate?: string;
     limit?: number;
     offset?: number;
+    searchTerm?: string;
 }
 
 export class AuditService {
     /**
      * Lists audit logs for a tenant with filtering and pagination
      */
-    static async listLogs(tenantId: string, filters: AuditLogFilters = {}) {
-        const {
-            actorUserId,
-            action,
-            resourceType,
-            startDate,
-            endDate,
-            limit = 50,
-            offset = 0
-        } = filters;
+    static async listLogs(tenantId: string, filters: AuditLogFilters = {}): Promise<Result<{
+        logs: any[];
+        pagination: { total: number; limit: number; offset: number };
+    }>> {
+        return Result.guard(async () => {
+            const {
+                actorUserId,
+                action,
+                resourceType,
+                startDate,
+                endDate,
+                limit = 50,
+                offset = 0
+            } = filters;
 
-        const where: any = { tenantId };
+            const where: any = { tenantId };
 
-        if (actorUserId) where.actorUserId = actorUserId;
-        if (action) where.action = action;
-        if (resourceType) where.resourceType = resourceType;
-        
-        if (startDate || endDate) {
-            where.createdAt = {};
-            if (startDate) where.createdAt.gte = new Date(startDate);
-            if (endDate) where.createdAt.lte = new Date(endDate);
-        }
+            if (actorUserId) where.actorUserId = actorUserId;
+            if (action) where.action = action;
+            if (resourceType) where.resourceType = resourceType;
+            
+            if (startDate || endDate) {
+                where.createdAt = {};
+                if (startDate) where.createdAt.gte = new Date(startDate);
+                if (endDate) where.createdAt.lte = new Date(endDate);
+            }
 
-        const [logs, total] = await Promise.all([
-            prisma.auditLog.findMany({
-                where,
-                take: limit,
-                skip: offset,
-                orderBy: { createdAt: 'desc' },
-                include: {
-                    actor: {
-                        select: {
-                            id: true,
-                            firstName: true,
-                            lastName: true,
-                            email: true
+            if (filters.searchTerm) {
+                where.OR = [
+                    { action: { contains: filters.searchTerm, mode: 'insensitive' } },
+                    { resourceType: { contains: filters.searchTerm, mode: 'insensitive' } },
+                    { resourceId: { contains: filters.searchTerm, mode: 'insensitive' } },
+                    { metadata: { path: [], array_contains: filters.searchTerm } }, // Basic JSON search
+                ];
+            }
+
+            const [logs, total] = await Promise.all([
+                prisma.auditLog.findMany({
+                    where,
+                    take: limit,
+                    skip: offset,
+                    orderBy: { createdAt: 'desc' },
+                    include: {
+                        actor: {
+                            select: {
+                                id: true,
+                                firstName: true,
+                                lastName: true,
+                                email: true
+                            }
                         }
                     }
-                }
-            }),
-            prisma.auditLog.count({ where })
-        ]);
+                }),
+                prisma.auditLog.count({ where })
+            ]);
 
-        return {
-            logs,
-            pagination: {
-                total,
-                limit,
-                offset
-            }
-        };
+            return {
+                logs,
+                pagination: {
+                    total,
+                    limit,
+                    offset
+                }
+            };
+        });
     }
 
     /**
@@ -81,18 +97,20 @@ export class AuditService {
         metadata?: any;
         ipAddress?: string;
         deviceId?: string;
-    }) {
-        return prisma.auditLog.create({
-            data: {
-                tenantId: data.tenantId,
-                actorUserId: data.actorUserId,
-                action: data.action,
-                resourceType: data.resourceType,
-                resourceId: data.resourceId,
-                metadata: data.metadata,
-                ipAddress: data.ipAddress,
-                deviceId: data.deviceId
-            }
+    }): Promise<Result<any>> {
+        return Result.guard(async () => {
+            return prisma.auditLog.create({
+                data: {
+                    tenantId: data.tenantId,
+                    actorUserId: data.actorUserId,
+                    action: data.action,
+                    resourceType: data.resourceType,
+                    resourceId: data.resourceId,
+                    metadata: data.metadata,
+                    ipAddress: data.ipAddress,
+                    deviceId: data.deviceId
+                }
+            });
         });
     }
 }

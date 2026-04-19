@@ -23,9 +23,10 @@ class _RolePermissionsFormState extends ConsumerState<RolePermissionsForm> {
       title: 'Role Permissions Matrix',
       subtitle: 'Manage granular access control for system roles and screens.',
       onSubmit: () async {
+        final sm = ScaffoldMessenger.of(context);
         final success = await adapter.submit();
         if (success && mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
+          sm.showSnackBar(
             const SnackBar(content: Text('Permissions updated successfully.')),
           );
         }
@@ -34,6 +35,7 @@ class _RolePermissionsFormState extends ConsumerState<RolePermissionsForm> {
       children: [
         // Role Selection
         DropdownButtonFormField<String>(
+          key: ValueKey(state.selectedRoleId),
           value: state.selectedRoleId,
           decoration: const InputDecoration(
             labelText: 'Selected Role',

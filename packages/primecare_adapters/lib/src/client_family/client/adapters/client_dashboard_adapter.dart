@@ -44,9 +44,7 @@ final clientDashboardAdapterProvider =
                   'Client API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return ClientDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final clientDashboardAdapterProvider =
             );
             return ClientDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return ClientDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

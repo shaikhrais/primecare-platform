@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_core/primecare_core.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
+import '../../components/forms/clinical/vitals_capture_form.dart';
+import '../../components/forms/clinical/patient_intake_form.dart';
 
 class ClinicalDashboard extends ConsumerWidget {
   const ClinicalDashboard({super.key});
@@ -13,6 +15,57 @@ class ClinicalDashboard extends ConsumerWidget {
       title: 'Clinical Dashboard',
       subtitle: 'Clinical outcomes and patient care overview',
       provider: clinicDashboardAdapterProvider,
+      actionButton: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          PrimeCareButton(
+            onPressed: () => _showIntake(context),
+            text: 'New Intake',
+            icon: Icons.person_add_rounded,
+          ),
+          const SizedBox(width: 8),
+          PrimeCareButton(
+            onPressed: () => _showVitalsCapture(context),
+            text: 'Capture Vitals',
+            icon: Icons.favorite_rounded,
+            isPrimary: true,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showIntake(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800, maxHeight: 900),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: PatientIntakeForm(
+              onSuccess: () => Navigator.of(context).pop(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showVitalsCapture(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: VitalsCaptureForm(
+              onSuccess: () => Navigator.of(context).pop(),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

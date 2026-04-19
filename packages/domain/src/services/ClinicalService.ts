@@ -1,5 +1,6 @@
 import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
+import { Result } from '../utils/Result';
 
 const prisma = new PrismaClient();
 
@@ -37,96 +38,158 @@ export interface IntakeInput {
 export class ClinicalService {
     /**
      * Records a new set of vitals for a patient.
+     * Persists multiple records to the VitalSign model and records an audit log.
      */
-    static async captureVitals(input: VitalsInput) {
-        // Since the current schema might not have a dedicated Vitals model yet,
-        // we persist this as an Event/Log or in a PatientObservations model if available.
-        // For now, we utilize the Audit Log and a (future proof) Prisma create if it exists.
-        
-        return prisma.$transaction(async (tx) => {
-            // Note: If 'Vitals' model doesn't exist, we fallback to event logging.
-            // Check if patient exists
-            const patient = await tx.user.findFirst({
-                where: { id: input.patientId, tenantId: input.tenantId }
-            });
+    static async captureVitals(input: VitalsInput): Promise<Result<{ success: boolean; capturedAt: Date; patientId: string; count: number }>> {
+        return Result.guard(async () => {
+            return prisma.$transaction(async (tx) => {
+                // 1. Verify ClientProfile exists with correct tenant scoping
+                const client = await tx.clientProfile.findFirst({
+                    where: { 
+                        id: input.patientId,
+                        tenantId: input.tenantId
+                    }
+                });
 
-            if (!patient) {
-                throw new Error('Patient not found');
-            }
-
-            // Record as an Audit Log for now to fulfill the immediate need for persistence
-            await AuditService.recordLog({
-                tenantId: input.tenantId,
-                actorUserId: input.actorUserId,
-                action: 'CAPTURE_VITALS',
-                resourceType: 'USER',
-                resourceId: input.patientId,
-                metadata: {
-                    systolic: input.systolic,
-                    diastolic: input.diastolic,
-                    heartRate: input.heartRate,
-                    temperature: input.temperature,
-                    oxygen: input.oxygenSaturation,
-                    weight: input.weight
+                if (!client) {
+                    throw new Error(`Client profile not found or unauthorized for tenant: ${input.patientId}`);
                 }
-            });
 
-            return {
-                success: true,
-                capturedAt: new Date(),
-                patientId: input.patientId
-            };
+                const vitalsToCreate = [];
+
+                if (input.systolic !== undefined) {
+                    vitalsToCreate.push({ patientId: input.patientId, type: 'BLOOD_PRESSURE_SYSTOLIC', value: Number(input.systolic), unit: 'mmHg' });
+                }
+                if (input.diastolic !== undefined) {
+                    vitalsToCreate.push({ patientId: input.patientId, type: 'BLOOD_PRESSURE_DIASTOLIC', value: Number(input.diastolic), unit: 'mmHg' });
+                }
+                if (input.heartRate !== undefined) {
+                    vitalsToCreate.push({ patientId: input.patientId, type: 'HEART_RATE', value: Number(input.heartRate), unit: 'bpm' });
+                }
+                if (input.temperature !== undefined) {
+                    vitalsToCreate.push({ patientId: input.patientId, type: 'TEMPERATURE', value: Number(input.temperature), unit: 'degC' });
+                }
+                if (input.oxygenSaturation !== undefined) {
+                    vitalsToCreate.push({ patientId: input.patientId, type: 'OXYGEN_SATURATION', value: Number(input.oxygenSaturation), unit: '%' });
+                }
+                if (input.respiratoryRate !== undefined) {
+                    vitalsToCreate.push({ patientId: input.patientId, type: 'RESPIRATORY_RATE', value: Number(input.respiratoryRate), unit: 'breaths/min' });
+                }
+
+                // 2. Batch Persist Vitals
+                if (vitalsToCreate.length > 0) {
+                    await tx.vitalSign.createMany({
+                        data: vitalsToCreate
+                    });
+                }
+
+                // 3. Record Audit Log
+                await AuditService.recordLog({
+                    tenantId: input.tenantId,
+                    actorUserId: input.actorUserId,
+                    action: 'CAPTURE_VITALS',
+                    resourceType: 'CLIENT',
+                    resourceId: input.patientId,
+                    metadata: {
+                        vitalsCaptured: vitalsToCreate.map(v => v.type),
+                        ...input
+                    }
+                });
+
+                return {
+                    success: true,
+                    capturedAt: new Date(),
+                    patientId: input.patientId,
+                    count: vitalsToCreate.length
+                };
+            });
         });
     }
 
     /**
-     * Processes a new patient intake and creates a patient record.
+     * Processes a new patient intake.
+     * Atomically creates both a User account and a ClientProfile.
      */
-    static async processPatientIntake(input: IntakeInput) {
-        return prisma.$transaction(async (tx) => {
-            // 1. Create Patient User (Role: Patient)
-            const patient = await tx.user.create({
-                data: {
-                    tenantId: input.tenantId,
-                    firstName: input.firstName,
-                    lastName: input.lastName,
-                    email: input.email || `${input.firstName.toLowerCase()}.${input.lastName.toLowerCase()}@placeholder.com`,
-                    status: 'active',
+    static async processPatientIntake(input: IntakeInput): Promise<Result<{ patientId: string; userId: string; email: string }>> {
+        return Result.guard(async () => {
+            return prisma.$transaction(async (tx) => {
+                // 1. Check for existing user by email in THIS tenant
+                if (input.email) {
+                    const existing = await tx.user.findFirst({ 
+                        where: { 
+                            email: input.email,
+                            tenantId: input.tenantId
+                        } 
+                    });
+                    if (existing) throw new Error(`User with email ${input.email} already exists in this tenant.`);
                 }
-            });
 
-            // 2. Assign Patient Role (Assuming Role 'PATIENT' exists in PlatformRole)
-            const patientRole = await tx.platformRole.findFirst({
-                where: { name: 'PATIENT' }
-            });
-
-            if (patientRole) {
-                await tx.user.update({
-                    where: { id: patient.id },
-                    data: { roles: patientRole.name }
+                // 2. Standardize Role
+                const role = await tx.platformRole.findFirst({
+                    where: { name: { equals: 'CLIENT', mode: 'insensitive' } }
                 });
-            }
+                const roleName = (role?.name || 'CLIENT').toUpperCase();
 
-            // 3. Record Audit Log
-            await AuditService.recordLog({
-                tenantId: input.tenantId,
-                actorUserId: input.actorUserId,
-                action: 'PATIENT_INTAKE',
-                resourceType: 'USER',
-                resourceId: patient.id,
-                metadata: {
-                    dob: input.dateOfBirth,
-                    gender: input.gender,
-                    insurance: input.insuranceProvider,
-                    emergencyContact: input.emergencyContactName
+                // 3. Create User record
+                const user = await tx.user.create({
+                    data: {
+                        tenantId: input.tenantId,
+                        firstName: input.firstName,
+                        lastName: input.lastName,
+                        email: input.email || `${input.firstName.toLowerCase()}.${input.lastName.toLowerCase()}.${Date.now()}@placeholder.com`,
+                        status: 'active',
+                        roles: roleName
+                    }
+                });
+
+                // 4. Create ClientProfile record
+                const profile = await tx.clientProfile.create({
+                    data: {
+                        id: user.id, // Linking profile ID to user ID for 1:1 parity
+                        userId: user.id,
+                        tenantId: input.tenantId,
+                        fullName: `${input.firstName} ${input.lastName}`,
+                        dob: input.dateOfBirth,
+                        emergencyName: input.emergencyContactName,
+                        emergencyPhone: input.emergencyContactPhone,
+                        preferences: input.medicalHistory ? { medicalHistory: input.medicalHistory } : undefined,
+                    }
+                });
+
+                // 5. Record Audit Log
+                await AuditService.recordLog({
+                    tenantId: input.tenantId,
+                    actorUserId: input.actorUserId,
+                    action: 'PATIENT_INTAKE',
+                    resourceType: 'CLIENT',
+                    resourceId: profile.id,
+                    metadata: {
+                        email: user.email,
+                        role: user.roles
+                    }
+                });
+
+                return {
+                    patientId: profile.id,
+                    userId: user.id,
+                    email: user.email
+                };
+            });
+        });
+    }
+
+    /**
+     * Checks if a patient email is already in use within the tenant.
+     */
+    static async checkPatientEmail(tenantId: string, email: string): Promise<Result<{ available: boolean }>> {
+        return Result.guard(async () => {
+            const existing = await prisma.user.findFirst({
+                where: {
+                    email,
+                    tenantId
                 }
             });
-
-            return {
-                success: true,
-                patientId: patient.id,
-                email: patient.email
-            };
+            return { available: !existing };
         });
     }
 }

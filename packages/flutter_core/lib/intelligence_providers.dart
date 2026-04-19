@@ -26,28 +26,10 @@ final auraInsightsProvider = FutureProvider.family<List<IntelligenceInsight>, St
   );
 
   // 2. Synthesize insights
-  try {
-    final insights = await service.generateInsights(role, metrics);
-
-    // 3. Inject active pulse anomaly if present
-    final activeAnomaly = ref.watch(auraActiveAnomalyProvider);
-    if (activeAnomaly != null) {
-      return [
-        IntelligenceInsight(
-          id: activeAnomaly.id,
-          title: activeAnomaly.title,
-          summary: activeAnomaly.description,
-          impact: activeAnomaly.impact,
-          relatedMetricId: activeAnomaly.metadata?['relatedMetricId'],
-        ),
-        ...insights,
-      ];
-    }
-
-    return insights;
-  } catch (e) {
-    // Fallback: If intelligence computation fails, return an informative error insight
-    return [
+  final insightsResult = await service.generateInsights(role, metrics);
+  final insights = insightsResult.fold(
+    (data) => data,
+    (error) => [
       IntelligenceInsight(
         id: 'error_insight',
         title: 'Aura Synthesis Paused',
@@ -55,6 +37,23 @@ final auraInsightsProvider = FutureProvider.family<List<IntelligenceInsight>, St
             'We encountered an anomaly while synthesizing institutional insights. Operational data remains accessible.',
         impact: InsightImpact.info,
       ),
+    ],
+  );
+
+  // 3. Inject active pulse anomaly if present
+  final activeAnomaly = ref.watch(auraActiveAnomalyProvider);
+  if (activeAnomaly != null) {
+    return [
+      IntelligenceInsight(
+        id: activeAnomaly.id,
+        title: activeAnomaly.title,
+        summary: activeAnomaly.description,
+        impact: activeAnomaly.impact,
+        relatedMetricId: activeAnomaly.metadata?['relatedMetricId'],
+      ),
+      ...insights,
     ];
   }
+
+  return insights;
 });

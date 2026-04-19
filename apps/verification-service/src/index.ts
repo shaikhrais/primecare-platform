@@ -6,6 +6,7 @@ import { registerIdentityRoutes } from './routes/identity';
 import { registerAuditRoutes } from './routes/audit';
 import { registerAdminRoutes } from './routes/admin';
 import { registerClinicalRoutes } from './routes/clinical';
+import { registerComplianceRoutes } from './routes/compliance';
 
 if (!(BigInt.prototype as any).toJSON) {
   (BigInt.prototype as any).toJSON = function() {
@@ -306,6 +307,9 @@ registerAdminRoutes(app);
 
 // Mount the Clinical APIs
 registerClinicalRoutes(app);
+
+// Mount the Compliance Report APIs
+registerComplianceRoutes(app);
 
 // Cron trigger for Automated Sweeps (Task 7)
 export default {

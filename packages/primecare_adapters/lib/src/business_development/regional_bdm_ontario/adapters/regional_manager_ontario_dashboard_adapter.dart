@@ -49,9 +49,7 @@ final regionalManagerOntarioDashboardAdapterProvider =
                   'Regional Manager Ontario API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return RegionalManagerOntarioDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -81,7 +79,7 @@ final regionalManagerOntarioDashboardAdapterProvider =
             );
             return RegionalManagerOntarioDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return RegionalManagerOntarioDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

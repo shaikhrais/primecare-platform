@@ -40,16 +40,24 @@ class AuditSystemLogsFormAdapter
     String? action,
     String? resourceType,
     String? actorUserId,
+    String? searchTerm,
+    DateTime? startDate,
+    DateTime? endDate,
   }) async {
     state = state.copyWith(isLoading: true, error: null);
-    
-    try {
+
+    final result = await Result.guardFuture(() async {
       final client = ref.read(apiClientProvider);
-      
+
       final queryParams = {
-        if (action != null) 'action': action,
-        if (resourceType != null) 'resourceType': resourceType,
-        if (actorUserId != null) 'actorUserId': actorUserId,
+        if (action != null && action.isNotEmpty) 'action': action,
+        if (resourceType != null && resourceType.isNotEmpty)
+          'resourceType': resourceType,
+        if (actorUserId != null && actorUserId.isNotEmpty)
+          'actorUserId': actorUserId,
+        if (searchTerm != null && searchTerm.isNotEmpty) 'q': searchTerm,
+        if (startDate != null) 'startDate': startDate.toIso8601String(),
+        if (endDate != null) 'endDate': endDate.toIso8601String(),
       };
 
       final response = await client.get(
@@ -58,22 +66,22 @@ class AuditSystemLogsFormAdapter
       );
 
       if (response != null && response['success'] == true) {
-        final data = response['data'];
-        state = state.copyWith(
-          isLoading: false,
-          logs: data['logs'] ?? [],
-          total: data['pagination']?['total'] ?? 0,
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response?['error'] ?? 'Failed to load logs',
-        );
+        return response['data'];
       }
-    } catch (e) {
+      return false;
+    });
+
+    if (result.isSuccess) {
+      final data = result.data;
       state = state.copyWith(
         isLoading: false,
-        error: e.toString(),
+        logs: data['logs'] ?? [],
+        total: data['pagination']?['total'] ?? 0,
+      );
+    } else {
+      state = state.copyWith(
+        isLoading: false,
+        error: result.error,
       );
     }
   }

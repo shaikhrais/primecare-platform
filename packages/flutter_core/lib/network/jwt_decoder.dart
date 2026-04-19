@@ -7,14 +7,14 @@ class JwtDecoder {
   static Map<String, dynamic> parseJwt(String token) {
     final parts = token.split('.');
     if (parts.length != 3) {
-      throw const FormatException('Invalid token format');
+      return {};
     }
 
     final payload = _decodeBase64(parts[1]);
     final payloadMap = json.decode(payload);
 
     if (payloadMap is! Map<String, dynamic>) {
-      throw const FormatException('Invalid payload format');
+      return {};
     }
 
     return payloadMap;
@@ -130,7 +130,7 @@ class JwtDecoder {
         output += '=';
         break;
       default:
-        throw Exception('Illegal base64url string!"');
+        return '';
     }
     return utf8.decode(base64Url.decode(output));
   }

@@ -162,6 +162,7 @@ exports.Prisma.TenantScalarFieldEnum = {
   corsAllowedMethods: 'corsAllowedMethods',
   corsAllowedHeaders: 'corsAllowedHeaders',
   taxPercentage: 'taxPercentage',
+  baseCurrency: 'baseCurrency',
   parentTenantId: 'parentTenantId',
   subscriptionTier: 'subscriptionTier'
 };
@@ -1090,6 +1091,7 @@ exports.Prisma.ChartOfAccountScalarFieldEnum = {
   type: 'type',
   status: 'status',
   tenantId: 'tenantId',
+  currency: 'currency',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1100,6 +1102,8 @@ exports.Prisma.FinancialTransactionScalarFieldEnum = {
   referenceId: 'referenceId',
   amount: 'amount',
   currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  baseAmount: 'baseAmount',
   status: 'status',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -1114,6 +1118,8 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   debit: 'debit',
   paidOutAmount: 'paidOutAmount',
   currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  baseAmount: 'baseAmount',
   balanceBefore: 'balanceBefore',
   balanceAfter: 'balanceAfter',
   tenantId: 'tenantId',
@@ -1151,6 +1157,8 @@ exports.Prisma.TransactionLedgerScalarFieldEnum = {
   creditAccount: 'creditAccount',
   amount: 'amount',
   currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  baseAmount: 'baseAmount',
   description: 'description',
   actorUserId: 'actorUserId',
   ipAddress: 'ipAddress',

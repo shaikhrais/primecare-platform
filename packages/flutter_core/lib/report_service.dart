@@ -39,12 +39,14 @@ class ReportData {
   final String title;
   final List<ReportColumn> columns;
   final List<ReportRow> rows;
+  final bool isOffline;
 
   ReportData({
     required this.id,
     required this.title,
     required this.columns,
     required this.rows,
+    this.isOffline = false,
   });
 
   factory ReportData.fromJson(Map<String, dynamic> json) {
@@ -57,6 +59,17 @@ class ReportData {
       rows: (json['rows'] as List)
           .map((i) => ReportRow.fromJson(i as Map<String, dynamic>))
           .toList(),
+      isOffline: json['isOffline'] as bool? ?? false,
+    );
+  }
+
+  factory ReportData.empty({String? id, String? title, bool isOffline = true}) {
+    return ReportData(
+      id: id ?? 'empty',
+      title: title ?? 'No Data Available',
+      columns: [],
+      rows: [],
+      isOffline: isOffline,
     );
   }
 }
@@ -81,9 +94,11 @@ class ReportService {
           );
           return ReportData.fromJson(response.data as Map<String, dynamic>);
         }
-        throw Exception(
-          'Failed to load report $reportId: ${response.statusCode}',
-        );
+          return ReportData.empty(
+            id: reportId,
+            title: 'Report Load Failure (${response.statusCode})',
+            isOffline: true,
+          );
       },
       onError: (e, st) {
         _telemetry.failGate(
@@ -93,8 +108,8 @@ class ReportService {
           stackTrace: st,
           metadata: {'reportId': reportId},
         );
-        // Re-throw to let the provider layer handle fallback
-        throw e;
+        // Resilient fallback: Return an empty shell
+        return ReportData.empty(id: reportId, isOffline: true);
       },
     );
   }

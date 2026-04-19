@@ -45,9 +45,7 @@ final qaDashboardAdapterProvider =
                   'QA API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return QualityAssuranceDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -75,7 +73,7 @@ final qaDashboardAdapterProvider =
             );
             return QualityAssuranceDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return QualityAssuranceDashboardViewModel.assemble(isOffline: true);
         },
       );
     });

@@ -17,9 +17,7 @@ final supportDashboardAdapterProvider =
               ],
             );
           } else {
-            throw Exception(
-              'API error loading dashboard: ${response.statusCode}',
-            );
+            return SupportDashboardViewModel.assemble(isOffline: true);
           }
         },
         fallbackBuilder: () {

@@ -1,101 +1,76 @@
-import { ClinicalService, VitalsInput, IntakeInput } from '@primecare/domain/src/services/ClinicalService';
+import { ClinicalService } from '@primecare/domain/src/services/ClinicalService';
 
 export function registerClinicalRoutes(app: any) {
     /**
-     * POST /v1/clinical/vitals-capture
-     * Records patient vital signs.
+     * POST /v1/clinical/vitals
+     * Captures a new set of vitals.
      */
-    app.post('/v1/clinical/vitals-capture', async (c: any) => {
+    app.post('/v1/clinical/vitals', async (c: any) => {
+        const tenantId = c.req.header('x-tenant-id');
+        if (!tenantId) {
+            return c.json({ error: 'Missing x-tenant-id header' }, 400);
+        }
+
         try {
-            const tenantId = c.req.header('x-tenant-id');
-            const jwtPayload = c.get('jwtPayload');
-
-            if (!tenantId) {
-                return c.json({ success: false, error: 'Missing x-tenant-id header' }, 400);
-            }
-
             const body = await c.req.json();
-            
-            const input: VitalsInput = {
-                tenantId: tenantId as string,
-                patientId: body.patientId,
-                systolic: body.systolic ? parseFloat(body.systolic) : undefined,
-                diastolic: body.diastolic ? parseFloat(body.diastolic) : undefined,
-                heartRate: body.heartRate ? parseFloat(body.heartRate) : undefined,
-                temperature: body.temperature ? parseFloat(body.temperature) : undefined,
-                oxygenSaturation: body.oxygenSaturation ? parseFloat(body.oxygenSaturation) : undefined,
-                weight: body.weight ? parseFloat(body.weight) : undefined,
-                actorUserId: jwtPayload?.sub || 'SYSTEM'
-            };
+            const result = await ClinicalService.captureVitals({
+                ...body,
+                tenantId,
+                actorUserId: (c.get('user') as any)?.id || 'SYSTEM'
+            });
 
-            if (!input.patientId) {
-                return c.json({ success: false, error: 'Missing patientId' }, 400);
-            }
-
-            const result = await ClinicalService.captureVitals(input);
-            return c.json({ success: true, ...result }, 201);
-        } catch (error: any) {
-            console.error('Vitals Capture Error:', error);
-            return c.json({ success: false, error: error.message }, 500);
+            return result.fold(
+                (data) => c.json(data, 201),
+                (error) => c.json({ error }, 400)
+            );
+        } catch (e: any) {
+            return c.json({ error: 'Invalid request body' }, 400);
         }
     });
 
     /**
      * POST /v1/clinical/patient-intake
-     * Processes new patient registrations.
+     * Processes a new patient intake.
      */
     app.post('/v1/clinical/patient-intake', async (c: any) => {
+        const tenantId = c.req.header('x-tenant-id');
+        if (!tenantId) {
+            return c.json({ error: 'Missing x-tenant-id header' }, 400);
+        }
+
         try {
-            const tenantId = c.req.header('x-tenant-id');
-            const jwtPayload = c.get('jwtPayload');
-
-            if (!tenantId) {
-                return c.json({ success: false, error: 'Missing x-tenant-id header' }, 400);
-            }
-
             const body = await c.req.json();
-            
-            const input: IntakeInput = {
-                tenantId: tenantId as string,
-                firstName: body.firstName,
-                lastName: body.lastName,
-                dateOfBirth: new Date(body.dateOfBirth),
-                gender: body.gender,
-                email: body.email,
-                phone: body.phone,
-                address: body.address,
-                insuranceProvider: body.insuranceProvider,
-                insuranceNumber: body.insuranceNumber,
-                emergencyContactName: body.emergencyContactName,
-                emergencyContactPhone: body.emergencyContactPhone,
-                medicalHistory: body.medicalHistory,
-                actorUserId: jwtPayload?.sub || 'SYSTEM'
-            };
+            const result = await ClinicalService.processPatientIntake({
+                ...body,
+                tenantId,
+                actorUserId: (c.get('user') as any)?.id || 'SYSTEM'
+            });
 
-            if (!input.firstName || !input.lastName || isNaN(input.dateOfBirth.getTime())) {
-                return c.json({ success: false, error: 'Missing or invalid required fields (firstName, lastName, dateOfBirth)' }, 400);
-            }
-
-            const result = await ClinicalService.processPatientIntake(input);
-            return c.json({ success: true, ...result }, 201);
-        } catch (error: any) {
-            console.error('Patient Intake Error:', error);
-            return c.json({ success: false, error: error.message }, 500);
+            return result.fold(
+                (data) => c.json(data, 201),
+                (error) => c.json({ error }, 400)
+            );
+        } catch (e: any) {
+            return c.json({ error: 'Invalid request body' }, 400);
         }
     });
 
     /**
-     * GET /v1/clinical/ai-analytics/q3-extrapolations
-     * Port of the original analytical route for AI insights.
+     * GET /v1/clinical/check-email
+     * Checks if an email is available for a patient in the current tenant.
      */
-    app.get('/v1/clinical/ai-analytics/q3-extrapolations', async (c: any) => {
-        return c.json({
-            success: true,
-            insights: [
-                { id: '1', title: 'Adherence Trend', value: '+12%', status: 'good' },
-                { id: '2', title: 'Risk Score Avg', value: '14.2', status: 'neutral' },
-                { id: '3', title: 'Pending Intakes', value: '45', status: 'warning' }
-            ]
-        });
+    app.get('/v1/clinical/check-email', async (c: any) => {
+        const tenantId = c.req.header('x-tenant-id');
+        const email = c.req.query('email');
+        if (!tenantId || !email) {
+            return c.json({ error: 'Missing x-tenant-id header or email query param' }, 400);
+        }
+
+        const result = await ClinicalService.checkPatientEmail(tenantId, email);
+
+        return result.fold(
+            (data) => c.json(data),
+            (error) => c.json({ error }, 400)
+        );
     });
 }

@@ -22,16 +22,29 @@ class AuraPulseService {
       'Aura Heartbeat Service Started',
     );
 
-    // Emit a stable heartbeat every 10 seconds
+    // Emit a stable heartbeat every 15 seconds
     _heartbeatTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
-      if (_random.nextDouble() > 0.7) {
-        _emitAnomaly();
-      } else {
-        telemetry.passGate(
+      if (_controller.isClosed) {
+        timer.cancel();
+        return;
+      }
+      try {
+        if (_random.nextDouble() > 0.7) {
+          _emitAnomaly();
+        } else {
+          telemetry.passGate(
+            ExecutionGateCategory.auraEngine,
+            'Aura Pulse Stable',
+          );
+          _controller.add(AuraEvent.stable());
+        }
+      } catch (e, st) {
+        telemetry.failGate(
           ExecutionGateCategory.auraEngine,
-          'Aura Pulse Stable',
+          'Aura Heartbeat Error',
+          error: e,
+          stackTrace: st,
         );
-        _controller.add(AuraEvent.stable());
       }
     });
 

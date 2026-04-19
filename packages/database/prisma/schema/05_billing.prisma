@@ -7,9 +7,9 @@ model Invoice {
   clientId        String        @map("client_id")
   status          String?       @default("draft")
   currency        String?       @default("CAD")
-  subtotal        Decimal?
-  tax             Decimal?
-  total           Decimal?
+  subtotal        Decimal?      @db.Decimal(20, 4)
+  tax             Decimal?      @db.Decimal(20, 4)
+  total           Decimal?      @db.Decimal(20, 4)
   stripeInvoiceId String?       @map("stripe_invoice_id")
   createdAt       DateTime      @default(now()) @map("created_at")
   updatedAt       DateTime      @updatedAt @map("updated_at")
@@ -27,7 +27,7 @@ model Payment {
   id                    String   @id @default(uuid())
   invoiceId             String   @map("invoice_id")
   stripePaymentIntentId String?  @map("stripe_payment_intent_id")
-  amount                Decimal?
+  amount                Decimal? @db.Decimal(20, 4)
   status                String?
   createdAt             DateTime @default(now()) @map("created_at")
   updatedAt             DateTime @updatedAt @map("updated_at")
@@ -85,7 +85,7 @@ model Payout {
   id          String    @id @default(uuid())
   providerId  String    @map("provider_id")
   tenantId    String    @map("tenant_id")
-  amount      Decimal
+  amount      Decimal   @db.Decimal(20, 4)
   currency    String    @default("CAD")
   status      String    @default("pending") // pending, paid, failed
   notes       String?
@@ -146,10 +146,10 @@ model FinancialTransaction {
   id          String   @id @default(uuid())
   type        String // INVOICE, PAYMENT, PAYROLL, EXPENSE
   referenceId String?  @map("reference_id") // ID of linked document
-  amount      Decimal
+  amount      Decimal  @db.Decimal(20, 4)
   currency     String   @default("CAD")
-  exchangeRate Decimal? @map("exchange_rate")
-  baseAmount   Decimal? @map("base_amount")
+  exchangeRate Decimal? @map("exchange_rate") @db.Decimal(20, 4)
+  baseAmount   Decimal? @map("base_amount") @db.Decimal(20, 4)
   status       String   @default("draft")
   tenantId    String   @map("tenant_id")
   createdAt   DateTime @default(now()) @map("created_at")
@@ -169,13 +169,13 @@ model JournalEntry {
   id            String   @id @default(uuid())
   transactionId String   @map("transaction_id")
   accountId     String   @map("account_id")
-  debit         Decimal  @default(0)
-  paidOutAmount Decimal? @map("paid_out_amount")
+  debit         Decimal  @default(0) @db.Decimal(20, 4)
+  paidOutAmount Decimal? @map("paid_out_amount") @db.Decimal(20, 4)
   currency      String   @default("CAD")
-  exchangeRate  Decimal? @map("exchange_rate")
-  baseAmount    Decimal? @map("base_amount")
-  balanceBefore Decimal  @default(0) @map("balance_before")
-  balanceAfter  Decimal  @default(0) @map("balance_after")
+  exchangeRate  Decimal? @map("exchange_rate") @db.Decimal(20, 4)
+  baseAmount    Decimal? @map("base_amount") @db.Decimal(20, 4)
+  balanceBefore Decimal  @default(0) @map("balance_before") @db.Decimal(20, 4)
+  balanceAfter  Decimal  @default(0) @map("balance_after") @db.Decimal(20, 4)
   tenantId      String   @map("tenant_id")
   createdAt     DateTime @default(now()) @map("created_at")
 
@@ -209,7 +209,7 @@ model BankTransaction {
   id          String   @id @default(uuid())
   bankDate    DateTime @map("bank_date")
   description String
-  amount      Decimal
+  amount      Decimal  @db.Decimal(20, 4)
   currency    String   @default("CAD")
   externalRef String?  @map("external_ref")
   status      String   @default("unreconciled") // unreconciled, reconciled, ignored
@@ -234,10 +234,10 @@ model TransactionLedger {
   referenceId      String   @map("reference_id")
   debitAccount     String   @map("debit_account") // e.g. "accounts_receivable", "cash"
   creditAccount    String   @map("credit_account") // e.g. "revenue", "refund_payable"
-  amount           Decimal
+  amount           Decimal  @db.Decimal(20, 4)
   currency         String   @default("CAD")
-  exchangeRate     Decimal? @map("exchange_rate")
-  baseAmount       Decimal? @map("base_amount")
+  exchangeRate     Decimal? @map("exchange_rate") @db.Decimal(20, 4)
+  baseAmount       Decimal? @map("base_amount") @db.Decimal(20, 4)
   description      String?
   actorUserId      String?  @map("actor_user_id")
   ipAddress        String?  @map("ip_address")

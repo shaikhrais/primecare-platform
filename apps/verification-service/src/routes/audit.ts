@@ -1,4 +1,17 @@
-import { AuditService, AuditLogFilters } from '@primecare/domain/src/services/AuditService';
+import { AuditService } from '@primecare/domain/src/services/AuditService';
+import { z } from 'zod';
+
+const AuditQuerySchema = z.object({
+    tenantId: z.string().default('system-tenant'),
+    actorUserId: z.string().optional(),
+    action: z.string().optional(),
+    resourceType: z.string().optional(),
+    startDate: z.string().datetime().optional(),
+    endDate: z.string().datetime().optional(),
+    limit: z.string().regex(/^\d+$/).transform(Number).default('50'),
+    offset: z.string().regex(/^\d+$/).transform(Number).default('0'),
+    q: z.string().optional(),
+});
 
 export function registerAuditRoutes(app: any) {
     /**
@@ -6,41 +19,44 @@ export function registerAuditRoutes(app: any) {
      * Lists audit logs with filtering and pagination
      */
     app.get('/v1/audit/logs', async (c: any) => {
-        try {
-            // In a real multi-tenant app, tenantId would come from the auth context
-            // For now, we'll allow it as a query param or default to a system tenant
-            const tenantId = c.req.query('tenantId') || 'system-tenant';
-            
-            const filters: AuditLogFilters = {
-                actorUserId: c.req.query('actorUserId'),
-                action: c.req.query('action'),
-                resourceType: c.req.query('resourceType'),
-                startDate: c.req.query('startDate'),
-                endDate: c.req.query('endDate'),
-                limit: c.req.query('limit') ? parseInt(c.req.query('limit')) : 50,
-                offset: c.req.query('offset') ? parseInt(c.req.query('offset')) : 0
-            };
+        const query = c.req.query();
+        const validated = AuditQuerySchema.safeParse(query);
 
-            const result = await AuditService.listLogs(tenantId, filters);
-            return c.json({ success: true, data: result });
-        } catch (error: any) {
-            console.error('List Audit Logs Error:', error);
-            return c.json({ success: false, error: 'Internal Server Error' }, 500);
+        if (!validated.success) {
+            return c.json({ 
+                error: 'INVALID_PARAMETERS',
+                details: validated.error.format()
+            }, 400);
         }
+
+        const { tenantId, q, ...filters } = validated.data;
+        
+        const result = await AuditService.listLogs(tenantId, {
+            ...filters,
+            searchTerm: q
+        });
+
+        return result.fold(
+            (data) => c.json(data),
+            (error) => c.json({ error }, 500)
+        );
     });
 
     /**
      * POST /v1/audit/logs
-     * Records a new audit log entry (for internal systems calling the service)
+     * Records a new audit log entry
      */
     app.post('/v1/audit/logs', async (c: any) => {
         try {
             const body = await c.req.json();
-            const log = await AuditService.recordLog(body);
-            return c.json({ success: true, data: log });
-        } catch (error: any) {
-            console.error('Record Audit Log Error:', error);
-            return c.json({ success: false, error: 'Internal Server Error' }, 500);
+            const result = await AuditService.recordLog(body);
+            
+            return result.fold(
+                (data) => c.json(data, 201),
+                (error: string) => c.json({ error }, 400)
+            );
+        } catch (e: any) {
+            return c.json({ error: 'Invalid request body' }, 400);
         }
     });
 }

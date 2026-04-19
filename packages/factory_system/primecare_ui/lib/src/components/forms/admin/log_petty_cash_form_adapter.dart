@@ -74,7 +74,7 @@ class LogPettyCashFormAdapter extends Notifier<LogPettyCashFormViewModel> {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return true;
       }
-      throw Exception('Server returned ${response.statusCode}: ${response.data}');
+        return false;
     });
 
     return result.fold(

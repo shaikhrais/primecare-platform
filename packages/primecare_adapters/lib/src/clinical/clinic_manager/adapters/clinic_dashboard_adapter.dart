@@ -44,9 +44,7 @@ final clinicDashboardAdapterProvider =
                   'Clinic Metrics API Error: ${response.statusCode}',
                   metadata: {'status': response.statusCode},
                 );
-                throw Exception(
-                  'API error loading dashboard: ${response.statusCode}',
-                );
+                return ClinicDashboardViewModel.assemble(isOffline: true);
               }
             },
             fallbackBuilder: () {
@@ -74,7 +72,7 @@ final clinicDashboardAdapterProvider =
             );
             return ClinicDashboardViewModel.fromJson(snapshot);
           }
-          throw e;
+          return ClinicDashboardViewModel.assemble(isOffline: true);
         },
       );
     });
