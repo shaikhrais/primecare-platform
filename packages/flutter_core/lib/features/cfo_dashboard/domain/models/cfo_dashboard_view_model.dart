@@ -6,6 +6,7 @@ class CfoDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
+    super.forecasting,
   });
 
   factory CfoDashboardViewModel.fromJson(Map<String, dynamic> json) {
@@ -15,17 +16,20 @@ class CfoDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 
   factory CfoDashboardViewModel.fromDashboardMetrics(
     DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
     bool isOffline = false,
   }) {
     return CfoDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
+      forecasting: forecasting,
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
@@ -39,6 +43,8 @@ class CfoDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        if (forecasting != null)
+          AIForecastingBlueprint(dataPayload: forecasting),
         FinancialRailBlueprint(
           dataPayload: [
             FinancialMetric(

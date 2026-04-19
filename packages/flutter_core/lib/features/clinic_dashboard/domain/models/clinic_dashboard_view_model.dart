@@ -1,4 +1,3 @@
-
 import 'package:primecare_core/flutter_core.dart';
 
 class ClinicDashboardViewModel extends PrimeCareDashboardViewModel {
@@ -7,26 +6,41 @@ class ClinicDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
+    super.forecasting,
   });
 
   factory ClinicDashboardViewModel.fromDashboardMetrics(
-    DashboardMetrics metrics,
-  ) {
+    DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
     return ClinicDashboardViewModel(
       isOfflineFallback: false,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
-      blueprints: _buildBlueprints(metrics.kpis, metrics.recentActivity),
+      forecasting: forecasting,
+      blueprints: _buildBlueprints(
+        metrics.kpis,
+        metrics.recentActivity,
+        forecasting,
+      ),
     );
   }
 
   factory ClinicDashboardViewModel.fromJson(Map<String, dynamic> json) {
     final base = PrimeCareDashboardViewModel.fromJson(json);
+    AIAnalyticsForecastingData? forecasting;
+    if (json['forecasting'] != null) {
+      forecasting = AIAnalyticsForecastingData.fromJson(
+        json['forecasting'] as Map<String, dynamic>,
+      );
+    }
+
     return ClinicDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: forecasting,
     );
   }
 
@@ -36,13 +50,14 @@ class ClinicDashboardViewModel extends PrimeCareDashboardViewModel {
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
-      blueprints: _buildBlueprints(metrics.kpis, metrics.recentActivity),
+      blueprints: _buildBlueprints(metrics.kpis, metrics.recentActivity, null),
     );
   }
 
   static List<UIComponentBlueprint> _buildBlueprints(
     List<KpiMetric> kpis,
     List<DashboardActivity> recentActivity,
+    AIAnalyticsForecastingData? forecasting,
   ) {
     final universalKpis = kpis
         .map(
@@ -56,6 +71,7 @@ class ClinicDashboardViewModel extends PrimeCareDashboardViewModel {
         .toList();
 
     return [
+      if (forecasting != null) AIForecastingBlueprint(dataPayload: forecasting),
       StatGridBlueprint(dataPayload: universalKpis),
       const ClinicalMetricBlueprint(
         dataPayload: {

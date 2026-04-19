@@ -443,6 +443,24 @@ final List<ScreenConfig> corporateScreenRegistry = [
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'trainingCoordinatorReports',
   ),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.generalManagerDashboard,
+    titleKey: 'General Manager Dashboard',
+    subtitleKey: 'Resilient operational oversight with AI forecasting.',
+    providerId: 'generalManagerDashboard',
+  ),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalManagerUsaDashboard,
+    titleKey: 'Regional Manager (USA)',
+    subtitleKey: 'International market analytics and predictive forecasting.',
+    providerId: 'regionalManagerUSADashboard',
+  ),
+  ScreenConfig(
+    routePath: BusinessDevelopmentRoutes.regionalManagerOntarioDashboard,
+    titleKey: 'Regional Manager (Ontario)',
+    subtitleKey: 'Provincial performance metrics and resource forecasting.',
+    providerId: 'regionalManagerOntarioDashboard',
+  ),
 ];
 
 final List<RouteBase> corporateRoutes = [

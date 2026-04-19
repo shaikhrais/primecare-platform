@@ -6,16 +6,23 @@ class GeneralManagerDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
+    super.forecasting,
   });
 
   factory GeneralManagerDashboardViewModel.fromDashboardMetrics(
-    DashboardMetrics metrics,
-  ) {
+    DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
     return GeneralManagerDashboardViewModel(
       isOfflineFallback: false,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
-      blueprints: _buildBlueprints(metrics.kpis, metrics.recentActivity),
+      forecasting: forecasting,
+      blueprints: _buildBlueprints(
+        metrics.kpis,
+        metrics.recentActivity,
+        forecasting: forecasting,
+      ),
     );
   }
 
@@ -26,6 +33,7 @@ class GeneralManagerDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 
@@ -41,8 +49,9 @@ class GeneralManagerDashboardViewModel extends PrimeCareDashboardViewModel {
 
   static List<UIComponentBlueprint> _buildBlueprints(
     List<KpiMetric> kpis,
-    List<DashboardActivity> recentActivity,
-  ) {
+    List<DashboardActivity> recentActivity, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
     final universalKpis = kpis
         .map(
           (k) => UniversalKpi(
@@ -56,6 +65,7 @@ class GeneralManagerDashboardViewModel extends PrimeCareDashboardViewModel {
 
     return [
       StatGridBlueprint(dataPayload: universalKpis),
+      if (forecasting != null) AIForecastingBlueprint(dataPayload: forecasting),
       const ManagementActionBlueprint(
         dataPayload: {
           'title': 'Operational Approvals',

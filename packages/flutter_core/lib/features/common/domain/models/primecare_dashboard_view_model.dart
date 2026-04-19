@@ -8,11 +8,14 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
   final List<DashboardActivity> recentActivity;
   final List<UIComponentBlueprint> blueprints;
 
+  final AIAnalyticsForecastingData? forecasting;
+
   const PrimeCareDashboardViewModel({
     this.isOfflineFallback = false,
     this.kpis = const [],
     this.recentActivity = const [],
     this.blueprints = const [],
+    this.forecasting,
   });
 
   Map<String, dynamic> toJson() {
@@ -21,6 +24,7 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
       'kpis': kpis.map((k) => k.toJson()).toList(),
       'recentActivity': recentActivity.map((a) => a.toJson()).toList(),
       'blueprints': blueprints.map((b) => b.toJson()).toList(),
+      'forecasting': forecasting?.toJson(),
     };
   }
 
@@ -46,6 +50,11 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
               )
               .toList() ??
           const [],
+      forecasting: json['forecasting'] != null
+          ? AIAnalyticsForecastingData.fromJson(
+              json['forecasting'] as Map<String, dynamic>,
+            )
+          : null,
     );
   }
 
@@ -60,19 +69,22 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
   }
 
   factory PrimeCareDashboardViewModel.fromDashboardMetrics(
-    DashboardMetrics metrics,
-  ) {
+    DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
     return PrimeCareDashboardViewModel(
       isOfflineFallback: false,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
-      blueprints: _generateBlueprints(metrics),
+      forecasting: forecasting,
+      blueprints: _generateBlueprints(metrics, forecasting: forecasting),
     );
   }
 
   static List<UIComponentBlueprint> _generateBlueprints(
-    DashboardMetrics metrics,
-  ) {
+    DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
     return [
       StatGridBlueprint(
         dataPayload: metrics.kpis
@@ -86,6 +98,7 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
             )
             .toList(),
       ),
+      if (forecasting != null) AIForecastingBlueprint(dataPayload: forecasting),
       if (metrics.recentActivity.isNotEmpty)
         ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
     ];

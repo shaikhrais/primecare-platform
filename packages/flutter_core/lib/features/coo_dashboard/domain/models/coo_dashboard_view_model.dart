@@ -6,6 +6,7 @@ class CooDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
+    super.forecasting,
   });
 
   factory CooDashboardViewModel.fromJson(Map<String, dynamic> json) {
@@ -15,17 +16,20 @@ class CooDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 
   factory CooDashboardViewModel.fromDashboardMetrics(
     DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
     bool isOffline = false,
   }) {
     return CooDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
+      forecasting: forecasting,
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
@@ -39,6 +43,8 @@ class CooDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        if (forecasting != null)
+          AIForecastingBlueprint(dataPayload: forecasting),
         const ManagementActionBlueprint(
           dataPayload: {
             'title': 'Operational Directives',

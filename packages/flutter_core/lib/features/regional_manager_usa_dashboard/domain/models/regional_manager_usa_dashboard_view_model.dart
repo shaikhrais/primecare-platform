@@ -7,6 +7,7 @@ class RegionalManagerUsaDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis = const [],
     super.recentActivity = const [],
     super.blueprints = const [],
+    super.forecasting,
   });
 
   factory RegionalManagerUsaDashboardViewModel.fromJson(
@@ -18,18 +19,24 @@ class RegionalManagerUsaDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 
   factory RegionalManagerUsaDashboardViewModel.fromDashboardMetrics(
-    DashboardMetrics metrics,
-  ) {
-    final base = PrimeCareDashboardViewModel.fromDashboardMetrics(metrics);
+    DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
+    final base = PrimeCareDashboardViewModel.fromDashboardMetrics(
+      metrics,
+      forecasting: forecasting,
+    );
     return RegionalManagerUsaDashboardViewModel(
       isOfflineFallback: base.isOfflineFallback,
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 

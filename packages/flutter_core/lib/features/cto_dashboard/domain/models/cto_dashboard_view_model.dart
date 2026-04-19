@@ -6,6 +6,7 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
+    super.forecasting,
   });
 
   factory CtoDashboardViewModel.fromJson(Map<String, dynamic> json) {
@@ -15,17 +16,20 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 
   factory CtoDashboardViewModel.fromDashboardMetrics(
     DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
     bool isOffline = false,
   }) {
     return CtoDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
+      forecasting: forecasting,
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
@@ -39,6 +43,8 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        if (forecasting != null)
+          AIForecastingBlueprint(dataPayload: forecasting),
         ActivityFeedBlueprint(
           dataPayload: metrics.recentActivity.map((e) => e.toJson()).toList(),
         ),

@@ -6,6 +6,7 @@ class ComplianceManagerDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
+    super.forecasting,
   });
 
   factory ComplianceManagerDashboardViewModel.fromJson(
@@ -17,17 +18,20 @@ class ComplianceManagerDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
+      forecasting: base.forecasting,
     );
   }
 
   factory ComplianceManagerDashboardViewModel.fromDashboardMetrics(
     DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
     bool isOffline = false,
   }) {
     return ComplianceManagerDashboardViewModel(
       isOfflineFallback: isOffline,
       kpis: metrics.kpis,
       recentActivity: metrics.recentActivity,
+      forecasting: forecasting,
       blueprints: [
         StatGridBlueprint(
           dataPayload: metrics.kpis
@@ -41,6 +45,8 @@ class ComplianceManagerDashboardViewModel extends PrimeCareDashboardViewModel {
               )
               .toList(),
         ),
+        if (forecasting != null)
+          AIForecastingBlueprint(dataPayload: forecasting),
         const RiskMonitorBlueprint(
           dataPayload: {
             'status': 'WARNING',
