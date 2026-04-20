@@ -19,7 +19,7 @@ class EtaTrackerWidgetAdapter extends Notifier<EtaTrackerWidgetViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/eta-tracker-widget-adapter');
-      state = EtaTrackerWidgetViewModel(isLoading: false, data: response ?? {});
+      state = EtaTrackerWidgetViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = EtaTrackerWidgetViewModel(isLoading: false, data: {});

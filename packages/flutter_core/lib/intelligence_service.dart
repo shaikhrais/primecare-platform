@@ -42,7 +42,9 @@ class IntelligenceService {
         if (revenueChart.id != 'none' && revenueChart.dataPoints.isNotEmpty) {
           final lastValue = revenueChart.dataPoints.last.value;
           final prevValue = revenueChart.dataPoints.length > 1
-              ? revenueChart.dataPoints[revenueChart.dataPoints.length - 2].value
+              ? revenueChart
+                    .dataPoints[revenueChart.dataPoints.length - 2]
+                    .value
               : lastValue;
 
           if (lastValue > prevValue) {

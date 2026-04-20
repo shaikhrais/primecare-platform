@@ -19,7 +19,7 @@ class ProviderLayoutAdapter extends Notifier<ProviderLayoutViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/provider-layout-adapter');
-      state = ProviderLayoutViewModel(isLoading: false, data: response ?? {});
+      state = ProviderLayoutViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ProviderLayoutViewModel(isLoading: false, data: {});

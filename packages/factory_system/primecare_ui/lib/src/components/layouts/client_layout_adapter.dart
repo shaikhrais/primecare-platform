@@ -19,7 +19,7 @@ class ClientLayoutAdapter extends Notifier<ClientLayoutViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/client-layout-adapter');
-      state = ClientLayoutViewModel(isLoading: false, data: response ?? {});
+      state = ClientLayoutViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ClientLayoutViewModel(isLoading: false, data: {});

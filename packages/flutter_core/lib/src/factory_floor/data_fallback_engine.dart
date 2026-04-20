@@ -1,4 +1,5 @@
 import 'ui_blueprint.dart';
+import '../models/dashboard_models.dart';
 
 /// Universal activity logs for the fallback engine
 class UniversalActivityLog {

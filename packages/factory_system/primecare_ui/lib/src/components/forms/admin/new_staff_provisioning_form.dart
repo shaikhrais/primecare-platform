@@ -1,6 +1,7 @@
+import 'package:primecare_core/flutter_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/flutter_core.dart';
+
 import '../../layouts/responsive_grid_layout.dart';
 import '../base_form.dart';
 import 'new_staff_provisioning_form_adapter.dart';
@@ -136,7 +137,7 @@ class _NewStaffProvisioningFormState
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
                   ),
                 ),
-                value: data?.role.isNotEmpty == true ? data?.role : null,
+                initialValue: data?.role.isNotEmpty == true ? data?.role : null,
                 items: data?.availableRoles.map((role) {
                   return DropdownMenuItem(
                     value: role['id'] as String,
@@ -159,7 +160,7 @@ class _NewStaffProvisioningFormState
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
                   ),
                 ),
-                value: data?.department.isNotEmpty == true ? data?.department : null,
+                initialValue: data?.department.isNotEmpty == true ? data?.department : null,
                 items: data?.availableDepartments.map((dept) {
                   return DropdownMenuItem(
                     value: dept['id'] as String,

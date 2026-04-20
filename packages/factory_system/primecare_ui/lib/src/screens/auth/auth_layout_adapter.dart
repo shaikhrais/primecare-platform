@@ -19,7 +19,7 @@ class AuthLayoutAdapter extends Notifier<AuthLayoutViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/auth-layout-adapter');
-      state = AuthLayoutViewModel(isLoading: false, data: response ?? {});
+      state = AuthLayoutViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = AuthLayoutViewModel(isLoading: false, data: {});

@@ -1,4 +1,4 @@
-import 'package:primecare_core/flutter_core.dart';
+import '../../../../flutter_core.dart';
 
 class CfoDashboardViewModel extends PrimeCareDashboardViewModel {
   const CfoDashboardViewModel({
@@ -6,8 +6,26 @@ class CfoDashboardViewModel extends PrimeCareDashboardViewModel {
     super.kpis,
     super.recentActivity,
     super.blueprints,
-    super.forecasting,
   });
+
+  factory CfoDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+    return CfoDashboardViewModel(
+      isOfflineFallback: false,
+      kpis: metrics.kpis
+          .map(
+            (k) => UniversalKpi(
+              title: k.title,
+              value: k.value,
+              trend:
+                  double.tryParse(k.trend?.replaceAll('%', '') ?? '0') ?? 0.0,
+              status: UniversalKpi.mapStatus(k.status),
+            ),
+          )
+          .toList(),
+      recentActivity: metrics.recentActivity,
+      blueprints: [const StitchBlueprint(screenId: 'cfo_dashboard')],
+    );
+  }
 
   factory CfoDashboardViewModel.fromJson(Map<String, dynamic> json) {
     final base = PrimeCareDashboardViewModel.fromJson(json);
@@ -16,69 +34,35 @@ class CfoDashboardViewModel extends PrimeCareDashboardViewModel {
       kpis: base.kpis,
       recentActivity: base.recentActivity,
       blueprints: base.blueprints,
-      forecasting: base.forecasting,
     );
   }
 
-  factory CfoDashboardViewModel.fromDashboardMetrics(
-    DashboardMetrics metrics, {
-    AIAnalyticsForecastingData? forecasting,
-    bool isOffline = false,
-  }) {
+  factory CfoDashboardViewModel.assemble({required bool isOffline}) {
+    final metrics = DataLogisticsHub.getDashboardMetrics('cfo');
+
+    final universalKpis = metrics.kpis
+        .map(
+          (k) => UniversalKpi(
+            title: k.title,
+            value: k.value,
+            trend: double.tryParse(k.trend?.replaceAll('%', '') ?? '0') ?? 0.0,
+            status: UniversalKpi.mapStatus(k.status),
+          ),
+        )
+        .toList();
+
     return CfoDashboardViewModel(
       isOfflineFallback: isOffline,
-      kpis: metrics.kpis,
+      kpis: universalKpis,
       recentActivity: metrics.recentActivity,
-      forecasting: forecasting,
       blueprints: [
-        StatGridBlueprint(
-          dataPayload: metrics.kpis
-              .map(
-                (kpi) => UniversalKpi(
-                  title: kpi.title,
-                  value: kpi.value,
-                  trend: 0.0,
-                  status: UniversalKpi.mapStatus(kpi.status),
-                ),
-              )
-              .toList(),
-        ),
-        if (forecasting != null)
-          AIForecastingBlueprint(dataPayload: forecasting),
-        FinancialRailBlueprint(
-          dataPayload: [
-            FinancialMetric(
-              label: 'Operating Cash Flow',
-              value: '\$2.4M',
-              status: 'positive',
-              trend: '+5.2%',
-            ),
-            FinancialMetric(
-              label: 'Payroll Liability',
-              value: '\$850K',
-              status: 'warning',
-              trend: '+12%',
-            ),
-            FinancialMetric(
-              label: 'Tax Remittance Account',
-              value: '\$120K',
-              status: 'neutral',
-              trend: '0%',
-            ),
-          ],
-        ),
-        const StitchBlueprint(
-          screenId: '2f3e9b1c8d244705a405113ae8623ec2', // CFO Dashboard
-        ),
+        StatGridBlueprint(dataPayload: universalKpis),
+        const AuraDashboardHudBlueprint(),
+        const StitchBlueprint(screenId: 'cfo_dashboard'),
       ],
     );
   }
 
-  static CfoDashboardViewModel assemble({required bool isOffline}) {
-    final metrics = DataLogisticsHub.getDashboardMetrics('cfo');
-    return CfoDashboardViewModel.fromDashboardMetrics(
-      metrics,
-      isOffline: isOffline,
-    );
-  }
+  factory CfoDashboardViewModel.empty() =>
+      CfoDashboardViewModel.assemble(isOffline: true);
 }

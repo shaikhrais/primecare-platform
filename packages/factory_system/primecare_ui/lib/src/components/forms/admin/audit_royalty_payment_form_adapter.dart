@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class AuditRoyaltyPaymentFormViewModel {
@@ -20,7 +21,7 @@ class AuditRoyaltyPaymentFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/audit-royalty-payment-form-adapter');
-      state = AuditRoyaltyPaymentFormViewModel(isLoading: false, data: response ?? {});
+      state = AuditRoyaltyPaymentFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = AuditRoyaltyPaymentFormViewModel(isLoading: false, data: {});

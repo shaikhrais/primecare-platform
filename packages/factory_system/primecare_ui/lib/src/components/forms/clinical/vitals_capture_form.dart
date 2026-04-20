@@ -1,9 +1,10 @@
+import 'package:primecare_core/flutter_core.dart';
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
-import 'package:primecare_core/flutter_core.dart';
+
 import '../../layouts/responsive_grid_layout.dart';
 import '../base_form.dart';
 
@@ -205,13 +206,13 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
             width: double.infinity,
             padding: EdgeInsets.all(24 * layout.scaleFactor),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(16 * layout.scaleFactor),
               border: Border.all(color: theme.colorScheme.outlineVariant),
             ),
             child: Column(
               children: [
-                Icon(Icons.person_search, size: 48 * layout.scaleFactor, color: theme.colorScheme.primary.withOpacity(0.5)),
+                Icon(Icons.person_search, size: 48 * layout.scaleFactor, color: theme.colorScheme.primary.withValues(alpha: 0.5)),
                 SizedBox(height: 16 * layout.scaleFactor),
                 Text(
                   'No Patient Context',

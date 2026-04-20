@@ -19,7 +19,7 @@ class MasterDetailLayoutAdapter extends Notifier<MasterDetailLayoutViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/master-detail-layout-adapter');
-      state = MasterDetailLayoutViewModel(isLoading: false, data: response ?? {});
+      state = MasterDetailLayoutViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = MasterDetailLayoutViewModel(isLoading: false, data: {});

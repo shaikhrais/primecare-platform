@@ -20,7 +20,7 @@ class PrimecareResponsiveShellAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/primecare-responsive-shell-adapter');
-      state = PrimecareResponsiveShellViewModel(isLoading: false, data: response ?? {});
+      state = PrimecareResponsiveShellViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = PrimecareResponsiveShellViewModel(isLoading: false, data: {});

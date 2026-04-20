@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/flutter_core.dart';
+
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -168,12 +168,6 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
     );
   }
 
-  IconData _getLayerIcon(String name) {
-    if (name.toLowerCase() == 'strategic') return Icons.account_balance;
-    if (name.toLowerCase() == 'infrastructure') return Icons.settings_input_component;
-    if (name.toLowerCase() == 'topographical') return Icons.map_rounded;
-    return Icons.layers;
-  }
 
   void _showComponentsBottomSheet(BuildContext context, C4System system, PrimeCareDesignSystem ds) {
     showModalBottomSheet(

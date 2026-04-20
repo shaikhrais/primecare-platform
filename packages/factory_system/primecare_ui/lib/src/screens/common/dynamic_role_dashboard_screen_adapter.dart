@@ -20,7 +20,7 @@ class DynamicRoleDashboardScreenAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/dynamic-role-dashboard-screen-adapter');
-      state = DynamicRoleDashboardScreenViewModel(isLoading: false, data: response ?? {});
+      state = DynamicRoleDashboardScreenViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = DynamicRoleDashboardScreenViewModel(isLoading: false, data: {});

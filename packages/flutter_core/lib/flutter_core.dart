@@ -22,6 +22,9 @@ export 'src/resilience/provider_ttl.dart';
 export 'verification_service.dart';
 export 'verification_providers.dart';
 
+// Mission-critical symbols for standardized Notifiers and Resilience
+export 'package:flutter_riverpod/flutter_riverpod.dart';
+export 'src/resilience/resilient_notifier_mixin.dart';
 
 export 'providers/portal_providers.dart';
 export 'providers/user_management_provider.dart';
@@ -53,7 +56,8 @@ export 'routes/groups/common_routes.dart';
 export 'theme/app_theme.dart';
 
 export 'features/common/domain/models/primecare_dashboard_view_model.dart';
-export 'features/franchise_owner_dashboard/domain/models/franchise_owner_view_model.dart';
+export 'features/admin_dashboard/domain/models/admin_dashboard_view_model.dart';
+export 'features/franchise_owner_dashboard/domain/models/franchise_owner_dashboard_view_model.dart';
 
 // Auto-scaled adapters
 export 'features/franchise_sales_manager_dashboard/domain/models/franchise_sales_manager_dashboard_view_model.dart';

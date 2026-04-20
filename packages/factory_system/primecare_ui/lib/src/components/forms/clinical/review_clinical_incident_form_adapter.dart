@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class ReviewClinicalIncidentFormViewModel {
@@ -20,7 +21,7 @@ class ReviewClinicalIncidentFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/review-clinical-incident-form-adapter');
-      state = ReviewClinicalIncidentFormViewModel(isLoading: false, data: response ?? {});
+      state = ReviewClinicalIncidentFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ReviewClinicalIncidentFormViewModel(isLoading: false, data: {});

@@ -5,6 +5,7 @@ import 'network/result.dart';
 import 'api_providers.dart';
 import 'telemetry_service.dart';
 import 'src/models/domain_response.dart';
+export 'src/models/domain_response.dart';
 
 class DomainService {
   final Ref _ref;
@@ -17,9 +18,7 @@ class DomainService {
   }
 
   // Intake Domain
-  Future<Result<DomainResponse>> openCase(
-    Map<String, dynamic> data,
-  ) async {
+  Future<Result<DomainResponse>> openCase(Map<String, dynamic> data) async {
     return Result.guardFuture<DomainResponse>(
       () async {
         final response = await _apiClient.post(
@@ -77,6 +76,32 @@ class DomainService {
   }
 
   // Training Domain
+  Future<Result<DomainResponse>> getTrainingMetrics() async {
+    return Result.guardFuture<DomainResponse>(
+      () async {
+        final response = await _apiClient.get(
+          ApiConfig.endpoints['trainingDirectorView']!,
+        );
+        _telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Training metrics fetched successfully',
+          metadata: {'endpoint': 'trainingDirectorView'},
+        );
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to fetch training metrics',
+          error: e,
+          stackTrace: st,
+          metadata: {'endpoint': 'trainingDirectorView'},
+        );
+        return DomainResponse.error(e.toString());
+      },
+    );
+  }
+
   Future<Result<DomainResponse>> completeTrainingCourse(
     Map<String, dynamic> data,
   ) async {
@@ -251,7 +276,91 @@ class DomainService {
       },
     );
   }
+
+  // Business Development Domain
+  Future<Result<DomainResponse>> getPartnershipData() async {
+    return Result.guardFuture<DomainResponse>(
+      () async {
+        final response = await _apiClient.get(
+          ApiConfig.endpoints['officePartnershipLeadsView']!,
+        );
+        _telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Partnership data fetched successfully',
+          metadata: {'endpoint': 'officePartnershipLeadsView'},
+        );
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to fetch partnership data',
+          error: e,
+          stackTrace: st,
+          metadata: {'endpoint': 'officePartnershipLeadsView'},
+        );
+        return DomainResponse.error(e.toString());
+      },
+    );
+  }
+
+  Future<Result<DomainResponse>> getCoordinationMetrics() async {
+    return Result.guardFuture<DomainResponse>(
+      () async {
+        final response = await _apiClient.get(
+          ApiConfig.endpoints['trainingCoordinatorDashboard'] ??
+              '/api/training-coordinator/dashboard',
+        );
+        _telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Coordination metrics fetched successfully',
+          metadata: {'endpoint': 'trainingCoordinatorDashboard'},
+        );
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to fetch coordination metrics',
+          error: e,
+          stackTrace: st,
+          metadata: {'endpoint': 'trainingCoordinatorDashboard'},
+        );
+        return DomainResponse.error(e.toString());
+      },
+    );
+  }
+
+  Future<Result<DomainResponse>> getSupportMetrics() async {
+    return getDomainMetrics('Support');
+  }
+
+  /// Generic metrics fetch for standard dashboard routes using the legacy DashboardService pattern.
+  Future<Result<DomainResponse>> getDomainMetrics(String domain) async {
+    return Result.guardFuture<DomainResponse>(
+      () async {
+        final response = await _apiClient.get(
+          '${ApiConfig.endpoints['providerMetrics']}?route=$domain',
+        );
+        _telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          '$domain metrics fetched successfully',
+          metadata: {'endpoint': 'providerMetrics', 'route': domain},
+        );
+        return DomainResponse.fromJson(response.data as Map<String, dynamic>);
+      },
+      onError: (e, st) {
+        _telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Failed to fetch $domain metrics',
+          error: e,
+          stackTrace: st,
+          metadata: {'endpoint': 'providerMetrics', 'route': domain},
+        );
+        return DomainResponse.error(e.toString());
+      },
+    );
+  }
 }
 
 final domainServiceProvider = Provider((ref) => DomainService(ref));
-

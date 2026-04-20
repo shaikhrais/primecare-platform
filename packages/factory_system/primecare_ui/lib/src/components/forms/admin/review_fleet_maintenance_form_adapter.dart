@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class ReviewFleetMaintenanceFormViewModel {
@@ -20,7 +21,7 @@ class ReviewFleetMaintenanceFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/review-fleet-maintenance-form-adapter');
-      state = ReviewFleetMaintenanceFormViewModel(isLoading: false, data: response ?? {});
+      state = ReviewFleetMaintenanceFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ReviewFleetMaintenanceFormViewModel(isLoading: false, data: {});

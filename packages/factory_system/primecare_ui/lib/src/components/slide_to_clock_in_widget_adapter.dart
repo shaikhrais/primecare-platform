@@ -20,7 +20,7 @@ class SlideToClockInWidgetAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/slide-to-clock-in-widget-adapter');
-      state = SlideToClockInWidgetViewModel(isLoading: false, data: response ?? {});
+      state = SlideToClockInWidgetViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = SlideToClockInWidgetViewModel(isLoading: false, data: {});

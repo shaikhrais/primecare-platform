@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class BaseFormViewModel {
@@ -19,7 +20,7 @@ class BaseFormAdapter extends Notifier<BaseFormViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/base-form-adapter');
-      state = BaseFormViewModel(isLoading: false, data: response ?? {});
+      state = BaseFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = BaseFormViewModel(isLoading: false, data: {});

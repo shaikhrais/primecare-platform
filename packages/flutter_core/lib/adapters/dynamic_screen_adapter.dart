@@ -36,13 +36,13 @@ class DynamicScreenAdapter {
         };
       }
     } catch (e) {
-        return {
-          'title': 'Dynamic Screen: $screenId (Offline)',
-          'status': 'OFFLINE',
-          'screenId': screenId,
-          'isOffline': true,
-          'error': e.toString(),
-        };
+      return {
+        'title': 'Dynamic Screen: $screenId (Offline)',
+        'status': 'OFFLINE',
+        'screenId': screenId,
+        'isOffline': true,
+        'error': e.toString(),
+      };
     }
   }
 }

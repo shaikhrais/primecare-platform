@@ -19,7 +19,7 @@ class AuthSplitLayoutAdapter extends Notifier<AuthSplitLayoutViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/auth-split-layout-adapter');
-      state = AuthSplitLayoutViewModel(isLoading: false, data: response ?? {});
+      state = AuthSplitLayoutViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = AuthSplitLayoutViewModel(isLoading: false, data: {});

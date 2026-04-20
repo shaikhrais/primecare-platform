@@ -19,7 +19,7 @@ class DragAssignWidgetAdapter extends Notifier<DragAssignWidgetViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/drag-assign-widget-adapter');
-      state = DragAssignWidgetViewModel(isLoading: false, data: response ?? {});
+      state = DragAssignWidgetViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = DragAssignWidgetViewModel(isLoading: false, data: {});

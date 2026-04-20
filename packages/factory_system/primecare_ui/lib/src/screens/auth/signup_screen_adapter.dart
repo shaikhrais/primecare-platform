@@ -19,7 +19,7 @@ class SignupScreenAdapter extends Notifier<SignupScreenViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/signup-screen-adapter');
-      state = SignupScreenViewModel(isLoading: false, data: response ?? {});
+      state = SignupScreenViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = SignupScreenViewModel(isLoading: false, data: {});

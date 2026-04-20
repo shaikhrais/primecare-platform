@@ -21,11 +21,7 @@ class DomainResponse {
   }
 
   factory DomainResponse.error(String message) {
-    return DomainResponse(
-      data: {},
-      success: false,
-      error: message,
-    );
+    return DomainResponse(data: {}, success: false, error: message);
   }
 
   Map<String, dynamic> toJson() {

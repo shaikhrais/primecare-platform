@@ -1,4 +1,4 @@
-import '../../dashboard_service.dart';
+import '../models/dashboard_models.dart';
 
 /// A universal blueprint that defines a UI component mapping from data to layout.
 abstract class UIComponentBlueprint {
@@ -87,61 +87,6 @@ class StatGridBlueprint extends UIComponentBlueprint {
   const StatGridBlueprint({required super.dataPayload})
     : super(componentType: 'stat_card_grid');
 }
-
-/// A standard KPI data structure for orchestration.
-class UniversalKpi {
-  final String title;
-  final String value;
-  final double trend;
-  final KpiStatus status;
-
-  const UniversalKpi({
-    required this.title,
-    required this.value,
-    this.trend = 0.0,
-    this.status = KpiStatus.neutral,
-  });
-
-  static KpiStatus mapStatus(String? status) {
-    if (status == null) return KpiStatus.neutral;
-    switch (status.toLowerCase()) {
-      case 'positive':
-      case 'success':
-      case 'up':
-        return KpiStatus.positive;
-      case 'negative':
-      case 'error':
-      case 'down':
-        return KpiStatus.negative;
-      case 'warning':
-        return KpiStatus.warning;
-      case 'critical':
-        return KpiStatus.critical;
-      default:
-        return KpiStatus.neutral;
-    }
-  }
-
-  factory UniversalKpi.fromJson(Map<String, dynamic> json) {
-    return UniversalKpi(
-      title: json['title'] as String? ?? 'Unnamed Metric',
-      value: json['value'] as String? ?? '0',
-      trend: (json['trend'] as num?)?.toDouble() ?? 0.0,
-      status: mapStatus(json['status'] as String?),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'value': value,
-      'trend': trend,
-      'status': status.name,
-    };
-  }
-}
-
-enum KpiStatus { positive, negative, neutral, warning, critical }
 
 /// A blueprint for a live operations feed / recent activity.
 class ActivityFeedBlueprint extends UIComponentBlueprint {

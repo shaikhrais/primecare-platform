@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class ReviewMonthlyExpensesFormViewModel {
@@ -20,7 +21,7 @@ class ReviewMonthlyExpensesFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/review-monthly-expenses-form-adapter');
-      state = ReviewMonthlyExpensesFormViewModel(isLoading: false, data: response ?? {});
+      state = ReviewMonthlyExpensesFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ReviewMonthlyExpensesFormViewModel(isLoading: false, data: {});

@@ -45,6 +45,8 @@ class ApiConfig {
     'officeMessagingHubScreen': '/v1/primecare/office/messaging_hub_screen',
     'officeNotificationCenterScreen':
         '/v1/primecare/office/notification_center_screen',
+    'trainingDirectorView': '/v1/primecare/training/director/view',
+    'trainingCoordinatorDashboard': '/v1/primecare/training/coordinator/view',
 
     'login': '/auth/login',
     'register': '/auth/register',

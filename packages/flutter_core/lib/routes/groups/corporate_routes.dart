@@ -89,7 +89,8 @@ class CorporateRoutes {
   static const String ctoInfrastructure =
       '/offices/corporate/roles/cto/infrastructure';
   static const String ctoReports = '/offices/corporate/roles/cto/reports';
-  static const String ctoVerificationHub = '/offices/corporate/roles/cto/verification-hub';
+  static const String ctoVerificationHub =
+      '/offices/corporate/roles/cto/verification-hub';
   static const String complianceManagerComplianceCases =
       '/offices/corporate/roles/compliance_manager/compliance-cases';
   static const String complianceManagerPolicies =

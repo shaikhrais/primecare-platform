@@ -71,7 +71,6 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(logPettyCashFormAdapterProvider);
-    final theme = Theme.of(context);
 
     return BaseForm(
       formKey: _formKey,
@@ -122,7 +121,7 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField<String>(
-          value: _selectedCategory,
+          initialValue: _selectedCategory,
           decoration: InputDecoration(
             labelText: 'Category',
             prefixIcon: const Icon(Icons.category),

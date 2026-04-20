@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class ApproveRealEstateFormViewModel {
@@ -20,7 +21,7 @@ class ApproveRealEstateFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/approve-real-estate-form-adapter');
-      state = ApproveRealEstateFormViewModel(isLoading: false, data: response ?? {});
+      state = ApproveRealEstateFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ApproveRealEstateFormViewModel(isLoading: false, data: {});

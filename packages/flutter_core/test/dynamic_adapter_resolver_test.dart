@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:primecare_core/adapters/dynamic_adapter_provider.dart';
 import 'package:primecare_core/adapters/dynamic_screen_adapter.dart';

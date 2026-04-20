@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_core/primecare_core.dart';
+
 import 'package:primecare_adapters/primecare_adapters.dart';
 import '../../components/forms/clinical/vitals_capture_form.dart';
 import '../../components/forms/clinical/patient_intake_form.dart';

@@ -1,6 +1,6 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_core/flutter_core.dart';
+
 import '../../screens/dashboard.dart';
 
 class ScreenConfig {

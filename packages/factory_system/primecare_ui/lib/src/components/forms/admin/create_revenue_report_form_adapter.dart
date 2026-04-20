@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class CreateRevenueReportFormViewModel {
@@ -20,7 +21,7 @@ class CreateRevenueReportFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/create-revenue-report-form-adapter');
-      state = CreateRevenueReportFormViewModel(isLoading: false, data: response ?? {});
+      state = CreateRevenueReportFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = CreateRevenueReportFormViewModel(isLoading: false, data: {});

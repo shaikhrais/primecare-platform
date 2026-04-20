@@ -19,7 +19,7 @@ class MfaScreenAdapter extends Notifier<MfaScreenViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/mfa-screen-adapter');
-      state = MfaScreenViewModel(isLoading: false, data: response ?? {});
+      state = MfaScreenViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = MfaScreenViewModel(isLoading: false, data: {});

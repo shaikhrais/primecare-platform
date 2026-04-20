@@ -1,6 +1,7 @@
+import 'package:primecare_core/flutter_core.dart';
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/flutter_core.dart';
+
 
 // --- State Model ---
 class AuditOverrideData {
@@ -47,6 +48,13 @@ class AuditOverrideFormAdapter extends AsyncNotifier<AuditOverrideData> {
   Future<bool> submit() async {
     final currentData = state.value;
     if (currentData == null) return false;
+    
+    // Fast-fail if offline
+    final isOnline = ref.read(isOnlineProvider);
+    if (!isOnline) {
+      state = AsyncError('Device is offline. Please check your connection.', StackTrace.current);
+      return false;
+    }
 
     state = const AsyncLoading();
 

@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class AssignCarePodFormViewModel {
@@ -19,7 +20,7 @@ class AssignCarePodFormAdapter extends Notifier<AssignCarePodFormViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/assign-care-pod-form-adapter');
-      state = AssignCarePodFormViewModel(isLoading: false, data: response ?? {});
+      state = AssignCarePodFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = AssignCarePodFormViewModel(isLoading: false, data: {});

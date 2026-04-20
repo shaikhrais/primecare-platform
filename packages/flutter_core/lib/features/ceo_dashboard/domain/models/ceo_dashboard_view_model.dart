@@ -1,4 +1,4 @@
-import 'package:primecare_core/flutter_core.dart';
+import '../../../../flutter_core.dart';
 
 class CeoDashboardViewModel extends PrimeCareDashboardViewModel {
   const CeoDashboardViewModel({
@@ -11,11 +11,19 @@ class CeoDashboardViewModel extends PrimeCareDashboardViewModel {
   factory CeoDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
     return CeoDashboardViewModel(
       isOfflineFallback: false,
-      kpis: metrics.kpis,
+      kpis: metrics.kpis
+          .map(
+            (k) => UniversalKpi(
+              title: k.title,
+              value: k.value,
+              trend:
+                  double.tryParse(k.trend?.replaceAll('%', '') ?? '0') ?? 0.0,
+              status: UniversalKpi.mapStatus(k.status),
+            ),
+          )
+          .toList(),
       recentActivity: metrics.recentActivity,
-      blueprints: [
-        const StitchBlueprint(screenId: '34b19469e4724705a405113ae8623ec0'),
-      ],
+      blueprints: [const StitchBlueprint(screenId: 'ceo_dashboard')],
     );
   }
 
@@ -32,7 +40,6 @@ class CeoDashboardViewModel extends PrimeCareDashboardViewModel {
   factory CeoDashboardViewModel.assemble({required bool isOffline}) {
     final metrics = DataLogisticsHub.getDashboardMetrics('ceo');
 
-    // Convert KpiMetric to UniversalKpi for the StatGridBlueprint with high-fidelity mapping
     final universalKpis = metrics.kpis
         .map(
           (k) => UniversalKpi(
@@ -46,20 +53,16 @@ class CeoDashboardViewModel extends PrimeCareDashboardViewModel {
 
     return CeoDashboardViewModel(
       isOfflineFallback: isOffline,
-      kpis: metrics.kpis,
+      kpis: universalKpis,
       recentActivity: metrics.recentActivity,
       blueprints: [
         StatGridBlueprint(dataPayload: universalKpis),
         const AuraDashboardHudBlueprint(),
-        const RiskMonitorBlueprint(
-          dataPayload: {
-            'status': 'CRITICAL',
-            'summary':
-                'System-wide monitoring active. Multiple concurrent anomalies detected globally.',
-          },
-        ),
-        const StitchBlueprint(screenId: '34b19469e4724705a405113ae8623ec0'),
+        const StitchBlueprint(screenId: 'ceo_dashboard'),
       ],
     );
   }
+
+  factory CeoDashboardViewModel.empty() =>
+      CeoDashboardViewModel.assemble(isOffline: true);
 }

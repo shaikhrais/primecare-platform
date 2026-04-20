@@ -19,7 +19,7 @@ class SplashScreenAdapter extends Notifier<SplashScreenViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/splash-screen-adapter');
-      state = SplashScreenViewModel(isLoading: false, data: response ?? {});
+      state = SplashScreenViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = SplashScreenViewModel(isLoading: false, data: {});

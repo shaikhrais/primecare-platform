@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/primecare_core.dart';
+
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimePerformanceMetricsCard extends ConsumerWidget {

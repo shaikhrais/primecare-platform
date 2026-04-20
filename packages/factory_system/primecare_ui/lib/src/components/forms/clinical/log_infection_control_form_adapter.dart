@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class LogInfectionControlFormViewModel {
@@ -20,7 +21,7 @@ class LogInfectionControlFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/log-infection-control-form-adapter');
-      state = LogInfectionControlFormViewModel(isLoading: false, data: response ?? {});
+      state = LogInfectionControlFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = LogInfectionControlFormViewModel(isLoading: false, data: {});

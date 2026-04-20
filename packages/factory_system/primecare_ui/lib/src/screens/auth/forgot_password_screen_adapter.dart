@@ -20,7 +20,7 @@ class ForgotPasswordScreenAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/forgot-password-screen-adapter');
-      state = ForgotPasswordScreenViewModel(isLoading: false, data: response ?? {});
+      state = ForgotPasswordScreenViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ForgotPasswordScreenViewModel(isLoading: false, data: {});

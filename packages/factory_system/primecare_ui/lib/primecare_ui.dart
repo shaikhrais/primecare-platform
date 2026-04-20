@@ -8,6 +8,8 @@ export 'forms.dart';
 export 'layouts.dart';
 export 'screens.dart';
 export 'theme.dart';
+export 'adapters.dart';
+export 'package:primecare_core/flutter_core.dart' hide AppTheme;
 
 // UI Discovery Tier (AssemblyLine Metadata)
 export 'src/assembly_line/assembly_line.dart';

@@ -1,6 +1,7 @@
+import 'package:primecare_core/flutter_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/flutter_core.dart';
+
 import '../../layouts/responsive_grid_layout.dart';
 import '../base_form.dart';
 import 'audit_override_form_adapter.dart';
@@ -55,8 +56,8 @@ class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
             ),
           ),
         ResponsiveGridRow(
-          spacing: 16 * layout.scaleFactor,
-          runSpacing: 16 * layout.scaleFactor,
+          spacing: (16 * layout.scaleFactor).toDouble(),
+          runSpacing: (16 * layout.scaleFactor).toDouble(),
           children: [
             ResponsiveGridCol(
               span: layout.totalColumns,
@@ -66,7 +67,7 @@ class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
                   hintText: 'e.g., Data Retention Extension',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular((12 * layout.scaleFactor).toDouble()),
                   ),
                 ),
                 key: ValueKey('name_${data?.name}'),
@@ -86,7 +87,7 @@ class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
                   hintText: 'Describe why this override is necessary...',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular((12 * layout.scaleFactor).toDouble()),
                   ),
                   alignLabelWithHint: true,
                 ),

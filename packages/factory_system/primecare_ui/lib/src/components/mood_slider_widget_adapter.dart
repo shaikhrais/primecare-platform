@@ -19,7 +19,7 @@ class MoodSliderWidgetAdapter extends Notifier<MoodSliderWidgetViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/mood-slider-widget-adapter');
-      state = MoodSliderWidgetViewModel(isLoading: false, data: response ?? {});
+      state = MoodSliderWidgetViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = MoodSliderWidgetViewModel(isLoading: false, data: {});

@@ -96,7 +96,7 @@ class _AuditSystemLogsFormState extends ConsumerState<AuditSystemLogsForm> {
                       : ListView.separated(
                           padding: const EdgeInsets.all(16),
                           itemCount: state.logs.length,
-                          separatorBuilder: (_, __) => const Divider(),
+                          separatorBuilder: (_, _) => const Divider(),
                           itemBuilder: (context, index) {
                             final log = state.logs[index];
                             final actor = log['actor'] != null 

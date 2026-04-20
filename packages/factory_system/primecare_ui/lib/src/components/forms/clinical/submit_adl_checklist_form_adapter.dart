@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class SubmitAdlChecklistFormViewModel {
@@ -20,7 +21,7 @@ class SubmitAdlChecklistFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/submit-adl-checklist-form-adapter');
-      state = SubmitAdlChecklistFormViewModel(isLoading: false, data: response ?? {});
+      state = SubmitAdlChecklistFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = SubmitAdlChecklistFormViewModel(isLoading: false, data: {});

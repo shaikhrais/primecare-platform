@@ -1,0 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'common_forms_data.freezed.dart';
+part 'common_forms_data.g.dart';
+
+@freezed
+abstract class CommonFormsData with _$CommonFormsData {
+  const CommonFormsData._();
+  const factory CommonFormsData({required Map<String, dynamic> metrics}) =
+      _CommonFormsData;
+
+  factory CommonFormsData.fromJson(Map<String, dynamic> json) =>
+      _$CommonFormsDataFromJson(json);
+
+  factory CommonFormsData.mock() => const CommonFormsData(metrics: {});
+}

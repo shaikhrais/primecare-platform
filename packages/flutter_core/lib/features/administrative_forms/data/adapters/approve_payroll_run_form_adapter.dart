@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 import '../dtos/approve_payroll_run_form_dto.dart';
 import '../mappers/approve_payroll_run_form_mapper.dart';
@@ -12,34 +11,46 @@ class ApprovePayrollRunFormAdapter
 
   Future<void> loadData() async {
     state = state.copyWith(isLoading: true);
-    
+
     final telemetry = ref.read(executionGateProvider);
     final apiClient = ref.read(apiClientProvider);
 
-    telemetry.passGate(ExecutionGateCategory.domainApi, 'Starting Payroll Data fetch');
+    telemetry.passGate(
+      ExecutionGateCategory.domainApi,
+      'Starting Payroll Data fetch',
+    );
 
     final result = await Result.guardFuture<ApprovePayrollRunFormDto>(() async {
       final response = await apiClient.get('/api/v1/admin/payroll/latest');
       if (response.statusCode == 200) {
         return ApprovePayrollRunFormDto.fromJson(response.data);
       }
-        return ApprovePayrollRunFormDto(
-          id: 'PRL-FAILED',
-          periodStartDate: DateTime.now().toIso8601String(),
-          periodEndDate: DateTime.now().toIso8601String(),
-          totalPayrollAmount: 0.0,
-          totalEmployees: 0,
-          status: 'Degraded',
-        );
+      return ApprovePayrollRunFormDto(
+        id: 'PRL-FAILED',
+        periodStartDate: DateTime.now().toIso8601String(),
+        periodEndDate: DateTime.now().toIso8601String(),
+        totalPayrollAmount: 0.0,
+        totalEmployees: 0,
+        status: 'Degraded',
+      );
     });
 
     result.fold(
       (dto) {
-        telemetry.passGate(ExecutionGateCategory.domainApi, 'Payroll API fetched successfully');
-        state = ApprovePayrollRunFormMapper.fromDto(dto).copyWith(isLoading: false);
+        telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Payroll API fetched successfully',
+        );
+        state = ApprovePayrollRunFormMapper.fromDto(
+          dto,
+        ).copyWith(isLoading: false);
       },
       (error) {
-        telemetry.failGate(ExecutionGateCategory.domainApi, 'Payroll API failed, falling back to cache/mock', error: error);
+        telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Payroll API failed, falling back to cache/mock',
+          error: error,
+        );
         final mockDto = ApprovePayrollRunFormDto(
           id: 'PRL-2023-11',
           periodStartDate: DateTime.now()
@@ -53,7 +64,7 @@ class ApprovePayrollRunFormAdapter
 
         final viewModel = ApprovePayrollRunFormMapper.fromDto(mockDto);
         state = viewModel.copyWith(isLoading: false);
-      }
+      },
     );
   }
 

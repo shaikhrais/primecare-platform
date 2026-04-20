@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class LogInventorySpoilageFormViewModel {
@@ -20,7 +21,7 @@ class LogInventorySpoilageFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/log-inventory-spoilage-form-adapter');
-      state = LogInventorySpoilageFormViewModel(isLoading: false, data: response ?? {});
+      state = LogInventorySpoilageFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = LogInventorySpoilageFormViewModel(isLoading: false, data: {});

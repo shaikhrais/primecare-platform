@@ -36,7 +36,7 @@ class _RolePermissionsFormState extends ConsumerState<RolePermissionsForm> {
         // Role Selection
         DropdownButtonFormField<String>(
           key: ValueKey(state.selectedRoleId),
-          value: state.selectedRoleId,
+          initialValue: state.selectedRoleId,
           decoration: const InputDecoration(
             labelText: 'Selected Role',
             border: OutlineInputBorder(),

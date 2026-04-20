@@ -10,12 +10,15 @@ final verificationServiceProvider = Provider<VerificationService>((ref) {
   return VerificationService(apiClient, telemetry);
 });
 
-final architecturePurposeProvider = FutureProvider<Result<Map<String, dynamic>>>((ref) async {
-  final service = ref.watch(verificationServiceProvider);
-  return await service.getArchitecturePurposeReport();
-});
+final architecturePurposeProvider =
+    FutureProvider<Result<Map<String, dynamic>>>((ref) async {
+      final service = ref.watch(verificationServiceProvider);
+      return await service.getArchitecturePurposeReport();
+    });
 
-final databaseReportProvider = FutureProvider<Result<Map<String, dynamic>>>((ref) async {
+final databaseReportProvider = FutureProvider<Result<Map<String, dynamic>>>((
+  ref,
+) async {
   final service = ref.watch(verificationServiceProvider);
   return await service.getDatabaseReport();
 });

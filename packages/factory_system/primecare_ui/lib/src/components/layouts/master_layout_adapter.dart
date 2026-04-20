@@ -19,7 +19,7 @@ class MasterLayoutAdapter extends Notifier<MasterLayoutViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/master-layout-adapter');
-      state = MasterLayoutViewModel(isLoading: false, data: response ?? {});
+      state = MasterLayoutViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = MasterLayoutViewModel(isLoading: false, data: {});

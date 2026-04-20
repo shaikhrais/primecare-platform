@@ -23,36 +23,43 @@ class PreferenceService {
 
   /// Toggles a widget ID in the favorites list for a role.
   Future<void> toggleFavorite(String role, String widgetId) async {
-    await Result.guardFuture<void>(() async {
-      final current = getFavorites(role);
-      final isExisting = current.contains(widgetId);
+    await Result.guardFuture<void>(
+      () async {
+        final current = getFavorites(role);
+        final isExisting = current.contains(widgetId);
 
-      if (isExisting) {
-        current.remove(widgetId);
-      } else {
-        current.add(widgetId);
-      }
+        if (isExisting) {
+          current.remove(widgetId);
+        } else {
+          current.add(widgetId);
+        }
 
-      await _prefs.setStringList('$_favoritesPrefix$role', current);
+        await _prefs.setStringList('$_favoritesPrefix$role', current);
 
-      _ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.resource,
-            'Favorite Persistent State Updated: $role',
-            metadata: {
-              'widgetId': widgetId,
-              'action': isExisting ? 'removed' : 'added',
-              'totalCount': current.length,
-            },
-          );
-    }, onError: (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.resource,
-            'Failed to persist favorite toggle: $role',
-            error: e,
-            stackTrace: stack,
-            metadata: {'widgetId': widgetId},
-          );
-    });
+        _ref
+            .read(executionGateProvider)
+            .passGate(
+              ExecutionGateCategory.resource,
+              'Favorite Persistent State Updated: $role',
+              metadata: {
+                'widgetId': widgetId,
+                'action': isExisting ? 'removed' : 'added',
+                'totalCount': current.length,
+              },
+            );
+      },
+      onError: (e, stack) {
+        _ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.resource,
+              'Failed to persist favorite toggle: $role',
+              error: e,
+              stackTrace: stack,
+              metadata: {'widgetId': widgetId},
+            );
+      },
+    );
   }
 
   /// Sets whether a specific component/feature is PIN'd to the top for a role.
@@ -61,21 +68,28 @@ class PreferenceService {
   }
 
   Future<void> setPinned(String role, String componentId, bool pinned) async {
-    await Result.guardFuture<void>(() async {
-      await _prefs.setBool('$_pinPrefix${role}_$componentId', pinned);
-      _ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.resource,
-            'Pin State Persisted: $componentId for $role',
-            metadata: {'pinned': pinned},
-          );
-    }, onError: (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.resource,
-            'Failed to persist pin state',
-            error: e,
-            stackTrace: stack,
-          );
-    });
+    await Result.guardFuture<void>(
+      () async {
+        await _prefs.setBool('$_pinPrefix${role}_$componentId', pinned);
+        _ref
+            .read(executionGateProvider)
+            .passGate(
+              ExecutionGateCategory.resource,
+              'Pin State Persisted: $componentId for $role',
+              metadata: {'pinned': pinned},
+            );
+      },
+      onError: (e, stack) {
+        _ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.resource,
+              'Failed to persist pin state',
+              error: e,
+              stackTrace: stack,
+            );
+      },
+    );
   }
 
   /// Persists custom layout configuration as a JSON string.
@@ -83,56 +97,75 @@ class PreferenceService {
     String role,
     Map<String, dynamic> config,
   ) async {
-    await Result.guardFuture<void>(() async {
-      await _prefs.setString('$_layoutPrefix$role', jsonEncode(config));
-      _ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.resource,
-            'Workspace Layout Saved: $role',
-            metadata: {'configKeys': config.keys.toList()},
-          );
-    }, onError: (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.resource,
-            'Critical: Failed to save layout configuration: $role',
-            error: e,
-            stackTrace: stack,
-          );
-    });
+    await Result.guardFuture<void>(
+      () async {
+        await _prefs.setString('$_layoutPrefix$role', jsonEncode(config));
+        _ref
+            .read(executionGateProvider)
+            .passGate(
+              ExecutionGateCategory.resource,
+              'Workspace Layout Saved: $role',
+              metadata: {'configKeys': config.keys.toList()},
+            );
+      },
+      onError: (e, stack) {
+        _ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.resource,
+              'Critical: Failed to save layout configuration: $role',
+              error: e,
+              stackTrace: stack,
+            );
+      },
+    );
   }
 
   Result<Map<String, dynamic>?> getLayoutConfig(String role) {
-    return Result.guard<Map<String, dynamic>?>(() {
-      final raw = _prefs.getString('$_layoutPrefix$role');
-      if (raw == null) return null;
-      return jsonDecode(raw) as Map<String, dynamic>;
-    }, onError: (e, stack) {
-      _ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.resource,
-            'Memory Corruption: Invalid JSON in layout configuration: $role',
-            error: e,
-            stackTrace: stack,
-          );
-      return null;
-    });
+    return Result.guard<Map<String, dynamic>?>(
+      () {
+        final raw = _prefs.getString('$_layoutPrefix$role');
+        if (raw == null) return null;
+        return jsonDecode(raw) as Map<String, dynamic>;
+      },
+      onError: (e, stack) {
+        _ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.resource,
+              'Memory Corruption: Invalid JSON in layout configuration: $role',
+              error: e,
+              stackTrace: stack,
+            );
+        return null;
+      },
+    );
   }
 
   /// Clears all role-based personalization (e.g., on logout if requested).
   Future<void> clearRolePreferences(String role) async {
-    await Result.guardFuture<void>(() async {
-      await _prefs.remove('$_favoritesPrefix$role');
-      await _prefs.remove('$_layoutPrefix$role');
-      _ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.resource,
-            'Role Preferences Purged: $role',
-          );
-    }, onError: (e, st) {
-      _ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.resource,
-            'Failed to purge role preferences: $role',
-            error: e,
-            stackTrace: st,
-          );
-    });
+    await Result.guardFuture<void>(
+      () async {
+        await _prefs.remove('$_favoritesPrefix$role');
+        await _prefs.remove('$_layoutPrefix$role');
+        _ref
+            .read(executionGateProvider)
+            .passGate(
+              ExecutionGateCategory.resource,
+              'Role Preferences Purged: $role',
+            );
+      },
+      onError: (e, st) {
+        _ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.resource,
+              'Failed to purge role preferences: $role',
+              error: e,
+              stackTrace: st,
+            );
+      },
+    );
   }
 }
 

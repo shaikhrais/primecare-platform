@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 import '../dtos/approve_expense_reimbursement_form_dto.dart';
 import '../mappers/approve_expense_reimbursement_form_mapper.dart';
@@ -16,13 +15,17 @@ class ApproveExpenseReimbursementFormAdapter
     final telemetry = ref.read(executionGateProvider);
     final apiClient = ref.read(apiClientProvider);
 
-    telemetry.passGate(ExecutionGateCategory.domainApi, 'Starting Expense Reimbursement fetch');
+    telemetry.passGate(
+      ExecutionGateCategory.domainApi,
+      'Starting Expense Reimbursement fetch',
+    );
 
-    final result = await Result.guardFuture<ApproveExpenseReimbursementFormDto>(() async {
-      final response = await apiClient.get('/api/v1/admin/expenses/latest');
-      if (response.statusCode == 200) {
-        return ApproveExpenseReimbursementFormDto.fromJson(response.data);
-      }
+    final result = await Result.guardFuture<ApproveExpenseReimbursementFormDto>(
+      () async {
+        final response = await apiClient.get('/api/v1/admin/expenses/latest');
+        if (response.statusCode == 200) {
+          return ApproveExpenseReimbursementFormDto.fromJson(response.data);
+        }
         return ApproveExpenseReimbursementFormDto(
           id: 'EXP-FAILED',
           employeeName: 'System (Offline)',
@@ -31,15 +34,25 @@ class ApproveExpenseReimbursementFormAdapter
           description: 'Failed to load data from server',
           status: 'Degraded',
         );
-    });
+      },
+    );
 
     result.fold(
       (dto) {
-        telemetry.passGate(ExecutionGateCategory.domainApi, 'Expense API fetched successfully');
-        state = ApproveExpenseReimbursementFormMapper.fromDto(dto).copyWith(isLoading: false);
+        telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Expense API fetched successfully',
+        );
+        state = ApproveExpenseReimbursementFormMapper.fromDto(
+          dto,
+        ).copyWith(isLoading: false);
       },
       (error) {
-        telemetry.failGate(ExecutionGateCategory.domainApi, 'Expense API failed, falling back to cache/mock', error: error);
+        telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Expense API failed, falling back to cache/mock',
+          error: error,
+        );
         // Hybrid fallback
         final mockDto = ApproveExpenseReimbursementFormDto(
           id: 'EXP-9921',
@@ -49,8 +62,10 @@ class ApproveExpenseReimbursementFormAdapter
           description: 'Flight to Regional Conference Q3',
           status: 'Pending Finance Approval',
         );
-        state = ApproveExpenseReimbursementFormMapper.fromDto(mockDto).copyWith(isLoading: false);
-      }
+        state = ApproveExpenseReimbursementFormMapper.fromDto(
+          mockDto,
+        ).copyWith(isLoading: false);
+      },
     );
   }
 

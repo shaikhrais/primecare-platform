@@ -19,7 +19,7 @@ class LoginScreenAdapter extends Notifier<LoginScreenViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/login-screen-adapter');
-      state = LoginScreenViewModel(isLoading: false, data: response ?? {});
+      state = LoginScreenViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = LoginScreenViewModel(isLoading: false, data: {});

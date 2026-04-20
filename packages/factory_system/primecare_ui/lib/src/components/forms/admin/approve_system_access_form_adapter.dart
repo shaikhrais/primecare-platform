@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Prisma Load Adapter
 
 class ApproveSystemAccessFormViewModel {
@@ -20,7 +21,7 @@ class ApproveSystemAccessFormAdapter
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/approve-system-access-form-adapter');
-      state = ApproveSystemAccessFormViewModel(isLoading: false, data: response ?? {});
+      state = ApproveSystemAccessFormViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = ApproveSystemAccessFormViewModel(isLoading: false, data: {});

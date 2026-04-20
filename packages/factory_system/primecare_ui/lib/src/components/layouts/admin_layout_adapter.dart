@@ -19,7 +19,7 @@ class AdminLayoutAdapter extends Notifier<AdminLayoutViewModel> {
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/admin-layout-adapter');
-      state = AdminLayoutViewModel(isLoading: false, data: response ?? {});
+      state = AdminLayoutViewModel(isLoading: false, data: response);
     } catch (e) {
       // Fallback
       state = AdminLayoutViewModel(isLoading: false, data: {});

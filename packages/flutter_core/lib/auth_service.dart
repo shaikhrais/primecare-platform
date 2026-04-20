@@ -188,135 +188,157 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   Future<void> _loadStoredAuth() async {
-    await Result.guardFuture<void>(() async {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
-      final role = prefs.getString('auth_role');
-      final tenantId = prefs.getString('auth_tenant_id');
-      final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
-      if (token != null && role != null) {
-        state = state.copyWith(
-          isAuthenticated: true,
-          token: token,
-          role: role,
-          tenantId: tenantId,
-          userName: userName,
-        );
-        authListenable.value = true;
-        ref.read(executionGateProvider).passGate(
-              ExecutionGateCategory.auth,
-              'Session restored for active role: $role',
-              metadata: {
-                'tenantId': tenantId,
-                'hasToken': true,
-                'userName': userName,
-              },
-            );
-      } else {
-        ref.read(executionGateProvider).passGate(
-              ExecutionGateCategory.auth,
-              'Initial build: No stored session found',
-            );
-      }
-    }, onError: (e, st) {
-      ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.auth,
-            'SharedPreferences restoration failure.',
-            error: e,
-            stackTrace: st,
+    await Result.guardFuture<void>(
+      () async {
+        final prefs = await SharedPreferences.getInstance();
+        final token = prefs.getString('auth_token');
+        final role = prefs.getString('auth_role');
+        final tenantId = prefs.getString('auth_tenant_id');
+        final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
+        if (token != null && role != null) {
+          state = state.copyWith(
+            isAuthenticated: true,
+            token: token,
+            role: role,
+            tenantId: tenantId,
+            userName: userName,
           );
-      // Ensure we stay in a safe unauthenticated state
-      state = AuthState();
-      authListenable.value = false;
-    });
+          authListenable.value = true;
+          ref
+              .read(executionGateProvider)
+              .passGate(
+                ExecutionGateCategory.auth,
+                'Session restored for active role: $role',
+                metadata: {
+                  'tenantId': tenantId,
+                  'hasToken': true,
+                  'userName': userName,
+                },
+              );
+        } else {
+          ref
+              .read(executionGateProvider)
+              .passGate(
+                ExecutionGateCategory.auth,
+                'Initial build: No stored session found',
+              );
+        }
+      },
+      onError: (e, st) {
+        ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.auth,
+              'SharedPreferences restoration failure.',
+              error: e,
+              stackTrace: st,
+            );
+        // Ensure we stay in a safe unauthenticated state
+        state = AuthState();
+        authListenable.value = false;
+      },
+    );
   }
 
   Future<bool> login(String email, String password) async {
-    final result = await Result.guardFuture<bool>(() async {
-      final apiClient = ref.read(apiClientProvider);
-      final response = await apiClient.post(
-        ApiConfig.endpoints['login']!,
-        body: {'email': email, 'password': password},
-      );
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-        final token = data['token'] ?? 'mock-token';
-
-        // Deeply unpack role from Worker-API or root
-        String role = 'PSW';
-        final emailLower = email.toLowerCase().trim();
-
-        if (emailLower == 'itpro.mohammed@gmail.com') {
-          role = 'Super Admin';
-        } else if (data['role'] != null) {
-          role = data['role'];
-        } else if (data['user'] != null &&
-            data['user']['roles'] != null &&
-            (data['user']['roles'] as List).isNotEmpty) {
-          role = data['user']['roles'][0];
-        } else if (data['activeRole'] != null) {
-          role = data['activeRole'];
-        } else if (emailLower.endsWith('@primecare.com')) {
-          // Dynamic role mapping for high-fidelity orchestration sandbox
-          role = emailLower.split('@')[0];
-        }
-
-        final prefs = await SharedPreferences.getInstance();
-
-        final tenantId =
-            data['tenantId'] ??
-            (data['user'] != null ? data['user']['tenantId'] : null) ??
-            '00000000-0000-0000-0000-000000000000';
-
-        final firstName =
-            (data['user'] != null ? data['user']['firstName'] : null) ??
-            'Active';
-        final lastName =
-            (data['user'] != null ? data['user']['lastName'] : null) ?? 'User';
-        final userName = '$firstName $lastName';
-
-        await prefs.setString('auth_token', token);
-        await prefs.setString('auth_role', role);
-        await prefs.setString('auth_tenant_id', tenantId);
-        await prefs.setString('auth_username', userName);
-
-        state = state.copyWith(
-          isAuthenticated: true,
-          token: token,
-          role: role,
-          tenantId: tenantId,
-          userName: userName,
+    final result = await Result.guardFuture<bool>(
+      () async {
+        final apiClient = ref.read(apiClientProvider);
+        final response = await apiClient.post(
+          ApiConfig.endpoints['login']!,
+          body: {'email': email, 'password': password},
         );
-        authListenable.value = true;
-        ref.read(executionGateProvider).passGate(
+
+        if (response.statusCode == 200) {
+          final data = response.data;
+          final token = data['token'] ?? 'mock-token';
+
+          // Deeply unpack role from Worker-API or root
+          String role = 'PSW';
+          final emailLower = email.toLowerCase().trim();
+
+          if (emailLower == 'itpro.mohammed@gmail.com') {
+            role = 'Super Admin';
+          } else if (data['role'] != null) {
+            role = data['role'];
+          } else if (data['user'] != null &&
+              data['user']['roles'] != null &&
+              (data['user']['roles'] as List).isNotEmpty) {
+            role = data['user']['roles'][0];
+          } else if (data['activeRole'] != null) {
+            role = data['activeRole'];
+          } else if (emailLower.endsWith('@primecare.com')) {
+            // Dynamic role mapping for high-fidelity orchestration sandbox
+            role = emailLower.split('@')[0];
+          }
+
+          final prefs = await SharedPreferences.getInstance();
+
+          final tenantId =
+              data['tenantId'] ??
+              (data['user'] != null ? data['user']['tenantId'] : null) ??
+              '00000000-0000-0000-0000-000000000000';
+
+          final firstName =
+              (data['user'] != null ? data['user']['firstName'] : null) ??
+              'Active';
+          final lastName =
+              (data['user'] != null ? data['user']['lastName'] : null) ??
+              'User';
+          final userName = '$firstName $lastName';
+
+          await prefs.setString('auth_token', token);
+          await prefs.setString('auth_role', role);
+          await prefs.setString('auth_tenant_id', tenantId);
+          await prefs.setString('auth_username', userName);
+
+          state = state.copyWith(
+            isAuthenticated: true,
+            token: token,
+            role: role,
+            tenantId: tenantId,
+            userName: userName,
+          );
+          authListenable.value = true;
+          ref
+              .read(executionGateProvider)
+              .passGate(
+                ExecutionGateCategory.auth,
+                'API Authentication via Cloudflare successful. Role: $role',
+                metadata: {'tenantId': tenantId, 'email': email},
+              );
+          return true;
+        } else {
+          ref
+              .read(executionGateProvider)
+              .failGate(
+                ExecutionGateCategory.auth,
+                'API Authentication declined. Status: ${response.statusCode}',
+                metadata: {
+                  'email': email,
+                  'statusCode': response.statusCode,
+                  'responseBody': response.data.toString(),
+                },
+              );
+          return false;
+        }
+      },
+      onError: (e, st) {
+        ref
+            .read(executionGateProvider)
+            .failGate(
               ExecutionGateCategory.auth,
-              'API Authentication via Cloudflare successful. Role: $role',
-              metadata: {'tenantId': tenantId, 'email': email},
-            );
-        return true;
-      } else {
-        ref.read(executionGateProvider).failGate(
-              ExecutionGateCategory.auth,
-              'API Authentication declined. Status: ${response.statusCode}',
+              'API Connection Exception during login.',
+              error: e,
+              stackTrace: st,
               metadata: {
                 'email': email,
-                'statusCode': response.statusCode,
-                'responseBody': response.data.toString(),
+                'target': ApiConfig.endpoints['login'],
               },
             );
         return false;
-      }
-    }, onError: (e, st) {
-      ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.auth,
-            'API Connection Exception during login.',
-            error: e,
-            stackTrace: st,
-            metadata: {'email': email, 'target': ApiConfig.endpoints['login']},
-          );
-      return false;
-    });
+      },
+    );
     return result.fold((data) => data, (error) => false);
   }
 
@@ -327,65 +349,79 @@ class AuthNotifier extends Notifier<AuthState> {
     String lastName,
     String role,
   ) async {
-    final result = await Result.guardFuture<bool>(() async {
-      final apiClient = ref.read(apiClientProvider);
-      final response = await apiClient.post(
-        ApiConfig.endpoints['register']!,
-        body: {
-          'email': email,
-          'password': password,
-          'firstName': firstName,
-          'lastName': lastName,
-          'role': role,
-        },
-      );
+    final result = await Result.guardFuture<bool>(
+      () async {
+        final apiClient = ref.read(apiClientProvider);
+        final response = await apiClient.post(
+          ApiConfig.endpoints['register']!,
+          body: {
+            'email': email,
+            'password': password,
+            'firstName': firstName,
+            'lastName': lastName,
+            'role': role,
+          },
+        );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        // Automatically login the user after successful registration
-        return await login(email, password);
-      } else {
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          // Automatically login the user after successful registration
+          return await login(email, password);
+        } else {
+          return false;
+        }
+      },
+      onError: (e, st) {
+        ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.auth,
+              'API Connection Exception during registration.',
+              error: e,
+              stackTrace: st,
+              metadata: {
+                'email': email,
+                'target': ApiConfig.endpoints['register'],
+              },
+            );
         return false;
-      }
-    }, onError: (e, st) {
-      ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.auth,
-            'API Connection Exception during registration.',
-            error: e,
-            stackTrace: st,
-            metadata: {
-              'email': email,
-              'target': ApiConfig.endpoints['register'],
-            },
-          );
-      return false;
-    });
+      },
+    );
     return result.fold((data) => data, (error) => false);
   }
 
   Future<void> logout() async {
-    await Result.guardFuture<void>(() async {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('auth_token');
-      await prefs.remove('auth_role');
-      await prefs.remove('auth_tenant_id');
-      await prefs.remove('auth_username');
-      
-      ref.read(executionGateProvider).passGate(
-            ExecutionGateCategory.auth,
-            'User session persistence cleared successfully.',
-          );
-    }, onError: (e, st) {
-      ref.read(executionGateProvider).failGate(
-            ExecutionGateCategory.auth,
-            'Persistence failure during logout.',
-            error: e,
-            stackTrace: st,
-          );
-    });
+    await Result.guardFuture<void>(
+      () async {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('auth_token');
+        await prefs.remove('auth_role');
+        await prefs.remove('auth_tenant_id');
+        await prefs.remove('auth_username');
+
+        ref
+            .read(executionGateProvider)
+            .passGate(
+              ExecutionGateCategory.auth,
+              'User session persistence cleared successfully.',
+            );
+      },
+      onError: (e, st) {
+        ref
+            .read(executionGateProvider)
+            .failGate(
+              ExecutionGateCategory.auth,
+              'Persistence failure during logout.',
+              error: e,
+              stackTrace: st,
+            );
+      },
+    );
 
     state = AuthState();
     authListenable.value = false;
-    ref.read(executionGateProvider).passGate(
+    ref
+        .read(executionGateProvider)
+        .passGate(
           ExecutionGateCategory.auth,
           'Auth state reset sequence completed.',
         );

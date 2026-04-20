@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_core/providers/portal_providers.dart';
-import 'package:primecare_core/config/screen_breakpoints.dart';
+
+
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

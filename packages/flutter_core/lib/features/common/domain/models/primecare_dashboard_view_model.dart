@@ -1,11 +1,12 @@
-import '../../../../dashboard_service.dart';
 import '../../../../config/offline_fallback_state.dart';
+import '../../../../src/factory_floor/ui_blueprint.dart';
+import '../../../../src/models/dashboard_models.dart';
 
 class PrimeCareDashboardViewModel implements OfflineFallbackState {
   @override
   final bool isOfflineFallback;
-  final List<KpiMetric> kpis;
-  final List<DashboardActivity> recentActivity;
+  final List<UniversalKpi> kpis;
+  final List<dynamic> recentActivity;
   final List<UIComponentBlueprint> blueprints;
 
   final AIAnalyticsForecastingData? forecasting;
@@ -22,7 +23,7 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
     return {
       'isOfflineFallback': isOfflineFallback,
       'kpis': kpis.map((k) => k.toJson()).toList(),
-      'recentActivity': recentActivity.map((a) => a.toJson()).toList(),
+      'recentActivity': recentActivity,
       'blueprints': blueprints.map((b) => b.toJson()).toList(),
       'forecasting': forecasting?.toJson(),
     };
@@ -33,16 +34,10 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
       isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
       kpis:
           (json['kpis'] as List<dynamic>?)
-              ?.map((k) => KpiMetric.fromJson(k as Map<String, dynamic>))
+              ?.map((k) => UniversalKpi.fromJson(k as Map<String, dynamic>))
               .toList() ??
           const [],
-      recentActivity:
-          (json['recentActivity'] as List<dynamic>?)
-              ?.map(
-                (a) => DashboardActivity.fromJson(a as Map<String, dynamic>),
-              )
-              .toList() ??
-          const [],
+      recentActivity: json['recentActivity'] as List<dynamic>? ?? const [],
       blueprints:
           (json['blueprints'] as List<dynamic>?)
               ?.map(
@@ -58,6 +53,27 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
     );
   }
 
+  factory PrimeCareDashboardViewModel.fromDomain(
+    Map<String, dynamic> data, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
+    final kpis =
+        (data['kpis'] as List<dynamic>?)
+            ?.map((k) => UniversalKpi.fromJson(k as Map<String, dynamic>))
+            .toList() ??
+        [];
+
+    final activity = data['recentActivity'] as List<dynamic>? ?? [];
+
+    return PrimeCareDashboardViewModel(
+      isOfflineFallback: false,
+      kpis: kpis,
+      recentActivity: activity,
+      forecasting: forecasting,
+      blueprints: _generateBlueprints(kpis, activity, forecasting: forecasting),
+    );
+  }
+
   factory PrimeCareDashboardViewModel.assemble({required bool isOffline}) {
     return PrimeCareDashboardViewModel(
       isOfflineFallback: isOffline,
@@ -68,39 +84,16 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
     );
   }
 
-  factory PrimeCareDashboardViewModel.fromDashboardMetrics(
-    DashboardMetrics metrics, {
-    AIAnalyticsForecastingData? forecasting,
-  }) {
-    return PrimeCareDashboardViewModel(
-      isOfflineFallback: false,
-      kpis: metrics.kpis,
-      recentActivity: metrics.recentActivity,
-      forecasting: forecasting,
-      blueprints: _generateBlueprints(metrics, forecasting: forecasting),
-    );
-  }
-
   static List<UIComponentBlueprint> _generateBlueprints(
-    DashboardMetrics metrics, {
+    List<UniversalKpi> kpis,
+    List<dynamic> recentActivity, {
     AIAnalyticsForecastingData? forecasting,
   }) {
     return [
-      StatGridBlueprint(
-        dataPayload: metrics.kpis
-            .map(
-              (k) => UniversalKpi(
-                title: k.title,
-                value: k.value,
-                trend: double.tryParse(k.trend ?? '0') ?? 0.0,
-                status: UniversalKpi.mapStatus(k.status),
-              ),
-            )
-            .toList(),
-      ),
+      StatGridBlueprint(dataPayload: kpis),
       if (forecasting != null) AIForecastingBlueprint(dataPayload: forecasting),
-      if (metrics.recentActivity.isNotEmpty)
-        ActivityFeedBlueprint(dataPayload: metrics.recentActivity),
+      if (recentActivity.isNotEmpty)
+        ActivityFeedBlueprint(dataPayload: recentActivity),
     ];
   }
 }
