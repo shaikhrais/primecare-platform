@@ -47,7 +47,7 @@ class ProfileScreen extends ConsumerWidget {
                       style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w900,
-                          color: Colors.white),
+                          color: Colors.white,),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -55,12 +55,12 @@ class ProfileScreen extends ConsumerWidget {
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
-                          color: Colors.white)),
+                          color: Colors.white,),),
                   const SizedBox(height: 4),
                   Text(auth.email,
                       style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.7),
-                          fontSize: 13)),
+                          fontSize: 13,),),
                   const SizedBox(height: 8),
                   Container(
                     padding:
@@ -73,7 +73,7 @@ class ProfileScreen extends ConsumerWidget {
                         style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
-                            fontSize: 11)),
+                            fontSize: 11,),),
                   ),
                 ],
               ),
@@ -82,12 +82,12 @@ class ProfileScreen extends ConsumerWidget {
 
             // Menu items
             _menuCard(
-                context, Icons.person_outline, 'Personal Information', () {}),
+                context, Icons.person_outline, 'Personal Information', () {},),
             _menuCard(context, Icons.school_outlined,
-                'Training & Certifications', () {}),
+                'Training & Certifications', () {},),
             _menuCard(context, Icons.access_time, 'Timesheets', () {}),
             _menuCard(
-                context, Icons.star_outline, 'Performance Reviews', () {}),
+                context, Icons.star_outline, 'Performance Reviews', () {},),
             _menuCard(context, Icons.description_outlined, 'Documents', () {}),
             _menuCard(context, Icons.settings_outlined, 'Settings', () {}),
             const SizedBox(height: 16),
@@ -103,7 +103,7 @@ class ProfileScreen extends ConsumerWidget {
                 },
                 icon: const Icon(Icons.logout, color: AppTheme.error),
                 label: const Text('Sign Out',
-                    style: TextStyle(color: AppTheme.error)),
+                    style: TextStyle(color: AppTheme.error),),
                 style: OutlinedButton.styleFrom(
                   side:
                       BorderSide(color: AppTheme.error.withValues(alpha: 0.3)),
@@ -120,7 +120,7 @@ class ProfileScreen extends ConsumerWidget {
                     color: Theme.of(context)
                         .colorScheme
                         .onSurface
-                        .withValues(alpha: 0.3))),
+                        .withValues(alpha: 0.3),),),
           ],
         ),
       ),
@@ -128,16 +128,16 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _menuCard(
-      BuildContext context, IconData icon, String label, VoidCallback onTap) {
+      BuildContext context, IconData icon, String label, VoidCallback onTap,) {
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
         leading: Icon(icon, color: AppTheme.primary),
         title: Text(label,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),),
         trailing: Icon(Icons.chevron_right,
             color:
-                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3)),
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),),
         onTap: onTap,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),

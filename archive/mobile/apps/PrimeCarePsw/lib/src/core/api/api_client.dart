@@ -21,7 +21,7 @@ class ApiClient {
         'Accept': 'application/json',
         'X-Client': 'PrimeCarePSW-Flutter/1.0',
       },
-    ));
+    ),);
 
     // Request interceptor: attach stored auth token
     _dio.interceptors.add(InterceptorsWrapper(
@@ -40,7 +40,7 @@ class ApiClient {
         }
         handler.next(error);
       },
-    ));
+    ),);
   }
 
   // ── Auth ──
@@ -48,7 +48,7 @@ class ApiClient {
     final response = await _dio.post('/v1/auth/login', data: {
       'email': email,
       'password': password,
-    });
+    },);
     final data = response.data;
 
     // Store token securely
@@ -90,7 +90,7 @@ class ApiClient {
       'latitude': latitude,
       'longitude': longitude,
       'timestamp': DateTime.now().toIso8601String(),
-    });
+    },);
     return response.data;
   }
 
@@ -106,7 +106,7 @@ class ApiClient {
       'longitude': longitude,
       'timestamp': DateTime.now().toIso8601String(),
       'notes': notes,
-    });
+    },);
     return response.data;
   }
 
@@ -128,7 +128,7 @@ class ApiClient {
           ? {'latitude': latitude, 'longitude': longitude}
           : null,
       'timestamp': DateTime.now().toIso8601String(),
-    });
+    },);
     return response.data;
   }
 

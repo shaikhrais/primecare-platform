@@ -22,37 +22,37 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
       'key': 'fall',
       'label': 'Fall / Injury',
       'icon': Icons.personal_injury,
-      'color': AppTheme.error
+      'color': AppTheme.error,
     },
     {
       'key': 'medical',
       'label': 'Medical Emergency',
       'icon': Icons.emergency,
-      'color': const Color(0xFFDC2626)
+      'color': const Color(0xFFDC2626),
     },
     {
       'key': 'behavioral',
       'label': 'Behavioral Crisis',
       'icon': Icons.psychology_alt,
-      'color': AppTheme.warning
+      'color': AppTheme.warning,
     },
     {
       'key': 'safety',
       'label': 'Safety Concern',
       'icon': Icons.shield_outlined,
-      'color': AppTheme.info
+      'color': AppTheme.info,
     },
     {
       'key': 'equipment',
       'label': 'Equipment Failure',
       'icon': Icons.build_circle_outlined,
-      'color': const Color(0xFF7C3AED)
+      'color': const Color(0xFF7C3AED),
     },
     {
       'key': 'other',
       'label': 'Other',
       'icon': Icons.report_problem_outlined,
-      'color': const Color(0xFF6B7280)
+      'color': const Color(0xFF6B7280),
     },
   ];
 
@@ -69,7 +69,7 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text('Please describe what happened'),
-            backgroundColor: AppTheme.warning),
+            backgroundColor: AppTheme.warning,),
       );
       return;
     }
@@ -106,7 +106,7 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
         const SnackBar(
             content:
                 Text('Failed to send report. Please call 911 if emergency.'),
-            backgroundColor: AppTheme.error),
+            backgroundColor: AppTheme.error,),
       );
     } finally {
       setState(() {
@@ -137,7 +137,7 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                   gradient: LinearGradient(
                     colors: [
                       AppTheme.error.withValues(alpha: 0.1),
-                      AppTheme.error.withValues(alpha: 0.02)
+                      AppTheme.error.withValues(alpha: 0.02),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(14),
@@ -154,12 +154,12 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                         children: [
                           Text('If this is a life-threatening emergency',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 14)),
+                                  fontWeight: FontWeight.w700, fontSize: 14,),),
                           Text('Call 911 immediately',
                               style: TextStyle(
                                   color: AppTheme.error,
                                   fontWeight: FontWeight.w800,
-                                  fontSize: 16)),
+                                  fontSize: 16,),),
                         ],
                       ),
                     ),
@@ -173,7 +173,7 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.w700)),
+                      ?.copyWith(fontWeight: FontWeight.w700),),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 10,
@@ -188,7 +188,7 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                             size: 16,
                             color: isSelected
                                 ? Colors.white
-                                : t['color'] as Color),
+                                : t['color'] as Color,),
                         const SizedBox(width: 6),
                         Text(t['label'] as String),
                       ],
@@ -212,7 +212,7 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.w700)),
+                      ?.copyWith(fontWeight: FontWeight.w700),),
               const SizedBox(height: 8),
               TextField(
                 controller: _descriptionController,
@@ -234,10 +234,10 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                           width: 22,
                           height: 22,
                           child: CircularProgressIndicator(
-                              strokeWidth: 2, color: Colors.white))
+                              strokeWidth: 2, color: Colors.white,),)
                       : const Icon(Icons.send),
                   label: const Text('SUBMIT REPORT',
-                      style: TextStyle(letterSpacing: 1)),
+                      style: TextStyle(letterSpacing: 1),),
                   style:
                       ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
                 ),
@@ -266,14 +266,14 @@ class _SOSScreenState extends ConsumerState<SOSScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(Icons.check_circle,
-                      color: AppTheme.success, size: 48),
+                      color: AppTheme.success, size: 48,),
                 ),
                 const SizedBox(height: 24),
                 Text('Report Submitted',
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w800)),
+                        ?.copyWith(fontWeight: FontWeight.w800),),
                 const SizedBox(height: 8),
                 const Text(
                   'Your incident report has been sent to the management team. They will follow up shortly.',

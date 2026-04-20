@@ -31,7 +31,7 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         setState(() =>
-            _error = 'Location services are disabled. Enable GPS to check in.');
+            _error = 'Location services are disabled. Enable GPS to check in.',);
         return null;
       }
 
@@ -40,14 +40,14 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
           setState(() => _error =
-              'Location permission denied. GPS is required for EVV compliance.');
+              'Location permission denied. GPS is required for EVV compliance.',);
           return null;
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
         setState(() => _error =
-            'Location permanently denied. Please enable in system settings.');
+            'Location permanently denied. Please enable in system settings.',);
         return null;
       }
 
@@ -163,7 +163,7 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(Icons.medical_services,
-                                color: AppTheme.primary, size: 24),
+                                color: AppTheme.primary, size: 24,),
                           ),
                           const SizedBox(width: 14),
                           const Expanded(
@@ -173,12 +173,12 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                                 Text('Visit',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w800,
-                                        fontSize: 18)),
+                                        fontSize: 18,),),
                                 SizedBox(height: 2),
                                 Text('Personal Care Assistance',
                                     style: TextStyle(
                                         fontSize: 13,
-                                        color: Color(0xFF6B7280))),
+                                        color: Color(0xFF6B7280),),),
                               ],
                             ),
                           ),
@@ -191,10 +191,10 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                           'Status',
                           _isCheckedIn
                               ? '🟢 Checked In'
-                              : '⏳ Awaiting Check-in'),
+                              : '⏳ Awaiting Check-in',),
                       if (_currentPosition != null)
                         _infoRow('Location',
-                            '${_currentPosition!.latitude.toStringAsFixed(4)}, ${_currentPosition!.longitude.toStringAsFixed(4)}'),
+                            '${_currentPosition!.latitude.toStringAsFixed(4)}, ${_currentPosition!.longitude.toStringAsFixed(4)}',),
                     ],
                   ),
                 ),
@@ -210,17 +210,17 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                     color: AppTheme.error.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                        color: AppTheme.error.withValues(alpha: 0.3)),
+                        color: AppTheme.error.withValues(alpha: 0.3),),
                   ),
                   child: Row(
                     children: [
                       const Icon(Icons.warning_amber,
-                          color: AppTheme.error, size: 20),
+                          color: AppTheme.error, size: 20,),
                       const SizedBox(width: 10),
                       Expanded(
                           child: Text(_error!,
                               style: const TextStyle(
-                                  color: AppTheme.error, fontSize: 13))),
+                                  color: AppTheme.error, fontSize: 13,),),),
                     ],
                   ),
                 ),
@@ -231,7 +231,7 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .titleSmall
-                        ?.copyWith(fontWeight: FontWeight.w700)),
+                        ?.copyWith(fontWeight: FontWeight.w700),),
                 const SizedBox(height: 8),
                 TextField(
                   controller: _notesController,
@@ -257,7 +257,7 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                           width: 20,
                           height: 20,
                           child: CircularProgressIndicator(
-                              strokeWidth: 2, color: Colors.white))
+                              strokeWidth: 2, color: Colors.white,),)
                       : Icon(_isCheckedIn ? Icons.logout : Icons.login),
                   label: Text(_isCheckedIn ? 'CHECK OUT' : 'CHECK IN'),
                   style: ElevatedButton.styleFrom(
@@ -266,7 +266,7 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
                     textStyle: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
-                        letterSpacing: 1),
+                        letterSpacing: 1,),
                   ),
                 ),
               ),
@@ -284,10 +284,10 @@ class _VisitCheckinScreenState extends ConsumerState<VisitCheckinScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label,
-              style: const TextStyle(color: Color(0xFF6B7280), fontSize: 13)),
+              style: const TextStyle(color: Color(0xFF6B7280), fontSize: 13),),
           Text(value,
               style:
-                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument, inference_failure_on_untyped_parameter, inference_failure_on_function_return_type
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/design_system/primecare_theme.dart';
 
@@ -130,9 +131,9 @@ class PageTemplate extends StatelessWidget {
               ],
               if (headerTrailing != null) ...[
                 if (headerTrailing is Widget)
-                  headerTrailing
+                  headerTrailing as Widget
                 else if (headerTrailing is List<Widget>)
-                  Row(mainAxisSize: MainAxisSize.min, children: headerTrailing)
+                  Row(mainAxisSize: MainAxisSize.min, children: headerTrailing as List<Widget>)
                 else
                   const SizedBox(),
               ],

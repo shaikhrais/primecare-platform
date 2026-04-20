@@ -46,7 +46,7 @@ class AIForecastingDashlet extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "AI PREDICTIVE ANALYTICS",
+              'AI PREDICTIVE ANALYTICS',
               style: TextStyle(
                 color: ds.colors.primary,
                 fontSize: 11,
@@ -55,7 +55,7 @@ class AIForecastingDashlet extends StatelessWidget {
               ),
             ),
             Text(
-              "Q3 Clinical & Financial Projections",
+              'Q3 Clinical & Financial Projections',
               style: TextStyle(
                 color: ds.colors.textPrimary,
                 fontSize: 18,
@@ -74,7 +74,7 @@ class AIForecastingDashlet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "EXTRAPOLATED PERFORMANCE TRAJECTORY",
+            'EXTRAPOLATED PERFORMANCE TRAJECTORY',
             style: ds.typography.labelSmall.copyWith(
               color: ds.colors.textSecondary,
               fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class AIForecastingDashlet extends StatelessWidget {
                       reservedSize: 50,
                       getTitlesWidget: (value, meta) {
                         return Text(
-                          "\$${value.toInt()}k",
+                          '\$${value.toInt()}k',
                           style: TextStyle(
                             color: ds.colors.textTertiary,
                             fontSize: 10,
@@ -204,25 +204,25 @@ class AIForecastingDashlet extends StatelessWidget {
     return PrimeResponsiveGrid(
       children: [
         PrimeCareStatCard(
-          title: "Projected Q3 Revenue",
-          value: "\$${(data.kpis.quarterlyRevenue / 1000).toStringAsFixed(1)}M",
+          title: 'Projected Q3 Revenue',
+          value: '\$${(data.kpis.quarterlyRevenue / 1000).toStringAsFixed(1)}M',
           icon: LucideIcons.trendingUp,
           iconColor: ds.colors.success,
         ),
         PrimeCareStatCard(
-          title: "Anticipated Growth",
-          value: "${(data.kpis.projectedGrowth * 100).toStringAsFixed(1)}%",
+          title: 'Anticipated Growth',
+          value: '${(data.kpis.projectedGrowth * 100).toStringAsFixed(1)}%',
           icon: LucideIcons.arrowUpRight,
           iconColor: ds.colors.primary,
         ),
         PrimeCareStatCard(
-          title: "Margin Efficiency",
-          value: "${(data.kpis.marginEfficiency * 100).toStringAsFixed(1)}%",
+          title: 'Margin Efficiency',
+          value: '${(data.kpis.marginEfficiency * 100).toStringAsFixed(1)}%',
           icon: LucideIcons.percent,
           iconColor: ds.colors.warning,
         ),
         PrimeCareStatCard(
-          title: "Projected Patients",
+          title: 'Projected Patients',
           value: data.kpis.projectedAdmissions.toString(),
           icon: LucideIcons.users,
           iconColor: ds.colors.secondary,
@@ -242,7 +242,7 @@ class AIForecastingDashlet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "AI STRATEGIC INSIGHTS",
+                  'AI STRATEGIC INSIGHTS',
                   style: ds.typography.labelSmall.copyWith(
                     color: ds.colors.textSecondary,
                     fontWeight: FontWeight.bold,
@@ -279,7 +279,7 @@ class AIForecastingDashlet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "CONFIDENCE",
+                  'CONFIDENCE',
                   style: ds.typography.labelSmall.copyWith(
                     color: ds.colors.textSecondary,
                     fontWeight: FontWeight.bold,
@@ -305,7 +305,7 @@ class AIForecastingDashlet extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "${(data.confidenceScore * 100).toInt()}%",
+                            '${(data.confidenceScore * 100).toInt()}%',
                             style: TextStyle(
                               color: ds.colors.textPrimary,
                               fontSize: 18,
@@ -316,7 +316,7 @@ class AIForecastingDashlet extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        "Model Reliability",
+                        'Model Reliability',
                         style: TextStyle(color: ds.colors.textTertiary, fontSize: 11),
                       ),
                     ],

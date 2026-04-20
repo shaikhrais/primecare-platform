@@ -79,7 +79,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ],
                     ),
                     child: const Icon(Icons.health_and_safety,
-                        color: Colors.white, size: 40),
+                        color: Colors.white, size: 40,),
                   ),
                   const SizedBox(height: 24),
                   Text(
@@ -124,9 +124,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       suffixIcon: IconButton(
                         icon: Icon(_obscurePassword
                             ? Icons.visibility_off
-                            : Icons.visibility),
+                            : Icons.visibility,),
                         onPressed: () => setState(
-                            () => _obscurePassword = !_obscurePassword),
+                            () => _obscurePassword = !_obscurePassword,),
                       ),
                     ),
                   ),
@@ -144,12 +144,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Row(
                         children: [
                           const Icon(Icons.error_outline,
-                              color: AppTheme.error, size: 18),
+                              color: AppTheme.error, size: 18,),
                           const SizedBox(width: 8),
                           Expanded(
                               child: Text(_error!,
                                   style: const TextStyle(
-                                      color: AppTheme.error, fontSize: 13))),
+                                      color: AppTheme.error, fontSize: 13,),),),
                         ],
                       ),
                     ),
@@ -166,7 +166,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               width: 22,
                               height: 22,
                               child: CircularProgressIndicator(
-                                  strokeWidth: 2, color: Colors.white))
+                                  strokeWidth: 2, color: Colors.white,),)
                           : const Text('Sign In'),
                     ),
                   ),

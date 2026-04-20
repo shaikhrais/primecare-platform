@@ -42,7 +42,7 @@ class MFAScreen extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 maxLength: 6,
                 decoration: InputDecoration(
-                  counterText: "",
+                  counterText: '',
                   hintText: '000000',
                   hintStyle: TextStyle(color: Colors.white30, letterSpacing: 8),
                   border: OutlineInputBorder(

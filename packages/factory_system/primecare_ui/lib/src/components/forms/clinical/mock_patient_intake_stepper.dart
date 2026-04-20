@@ -17,7 +17,7 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
 
   Future<void> _submitAll() async {
     setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
     setState(() => _isLoading = false);
 
     if (mounted) {

@@ -28,14 +28,14 @@ class ScheduleScreen extends ConsumerWidget {
           children: [
             Text('Hello, ${auth.fullName.split(' ').first} 👋',
                 style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
             Text(DateFormat('EEEE, MMMM d').format(now),
                 style: TextStyle(
                     fontSize: 12,
                     color: Theme.of(context)
                         .colorScheme
                         .onSurface
-                        .withValues(alpha: 0.5))),
+                        .withValues(alpha: 0.5),),),
           ],
         ),
         actions: [
@@ -68,21 +68,21 @@ class ScheduleScreen extends ConsumerWidget {
               color: Theme.of(context)
                   .colorScheme
                   .onSurface
-                  .withValues(alpha: 0.2)),
+                  .withValues(alpha: 0.2),),
           const SizedBox(height: 16),
           Text('No shifts today',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Theme.of(context)
                       .colorScheme
                       .onSurface
-                      .withValues(alpha: 0.4))),
+                      .withValues(alpha: 0.4),),),
           const SizedBox(height: 8),
           Text('Enjoy your day off! 🌤️',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context)
                       .colorScheme
                       .onSurface
-                      .withValues(alpha: 0.3))),
+                      .withValues(alpha: 0.3),),),
         ],
       ),
     );
@@ -105,7 +105,7 @@ class ScheduleScreen extends ConsumerWidget {
                     style: Theme.of(context)
                         .textTheme
                         .titleSmall
-                        ?.copyWith(fontWeight: FontWeight.w700)),
+                        ?.copyWith(fontWeight: FontWeight.w700),),
               ],
             ),
           );
@@ -142,13 +142,13 @@ class ScheduleScreen extends ConsumerWidget {
                       children: [
                         Text(startTime.split(' ')[0],
                             style: const TextStyle(
-                                fontWeight: FontWeight.w800, fontSize: 14)),
+                                fontWeight: FontWeight.w800, fontSize: 14,),),
                         Text(
                             startTime.split(' ').length > 1
                                 ? startTime.split(' ')[1]
                                 : '',
                             style: TextStyle(
-                                fontSize: 10, color: AppTheme.primary)),
+                                fontSize: 10, color: AppTheme.primary,),),
                       ],
                     ),
                   ),
@@ -160,7 +160,7 @@ class ScheduleScreen extends ConsumerWidget {
                       children: [
                         Text(clientName,
                             style: const TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 15)),
+                                fontWeight: FontWeight.w700, fontSize: 15,),),
                         const SizedBox(height: 4),
                         Text(serviceName,
                             style: TextStyle(
@@ -168,7 +168,7 @@ class ScheduleScreen extends ConsumerWidget {
                                     .colorScheme
                                     .onSurface
                                     .withValues(alpha: 0.5),
-                                fontSize: 13)),
+                                fontSize: 13,),),
                       ],
                     ),
                   ),
@@ -184,14 +184,14 @@ class ScheduleScreen extends ConsumerWidget {
                         style: TextStyle(
                             color: _statusColor(status),
                             fontSize: 10,
-                            fontWeight: FontWeight.w800)),
+                            fontWeight: FontWeight.w800,),),
                   ),
                   const SizedBox(width: 8),
                   Icon(Icons.chevron_right,
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withValues(alpha: 0.3)),
+                          .withValues(alpha: 0.3),),
                 ],
               ),
             ),

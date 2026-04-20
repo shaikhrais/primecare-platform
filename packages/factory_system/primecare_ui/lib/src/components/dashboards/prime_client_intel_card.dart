@@ -21,7 +21,7 @@ class PrimeClientIntelCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Client Intel",
+          'Client Intel',
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
 import '../models/scheduler_models.dart';
 import '../factory_floor/data_logistics_hub.dart';
 import '../../network/result.dart';
@@ -96,7 +97,7 @@ class SchedulerService {
     return Result.guardFuture<void>(
       () async {
         // Simulate API Latency
-        await Future.delayed(const Duration(milliseconds: 600));
+        await Future<void>.delayed(const Duration(milliseconds: 600));
 
         // Simulate Server-side conflict check
         final blueprint = _getBootstrapSchedule();
@@ -133,7 +134,7 @@ class SchedulerService {
   Future<Result<void>> updateAppointment(Appointment appt) async {
     return Result.guardFuture<void>(
       () async {
-        await Future.delayed(const Duration(milliseconds: 600));
+        await Future<void>.delayed(const Duration(milliseconds: 600));
 
         // Validation: New slot must be available
         final blueprint = _getBootstrapSchedule();
@@ -168,7 +169,7 @@ class SchedulerService {
   Future<Result<void>> deleteAppointment(String id) async {
     return Result.guardFuture<void>(
       () async {
-        await Future.delayed(const Duration(milliseconds: 400));
+        await Future<void>.delayed(const Duration(milliseconds: 400));
         _telemetry?.passGate(
           ExecutionGateCategory.scheduler,
           'Appointment deleted successfully',

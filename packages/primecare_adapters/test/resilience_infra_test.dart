@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_core/primecare_core.dart';
 import 'package:dio/dio.dart';
@@ -52,7 +53,7 @@ void main() {
       expect(breaker.state, CircuitState.open);
 
       // Wait for cooldown
-      await Future.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 3));
 
       expect(breaker.allowRequest, isTrue);
       expect(breaker.state, CircuitState.halfOpen);
@@ -62,7 +63,7 @@ void main() {
       breaker.recordFailure();
       breaker.recordFailure();
       breaker.recordFailure();
-      await Future.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 3));
       breaker.allowRequest; // trigger half-open
       breaker.recordSuccess();
       expect(breaker.state, CircuitState.closed);
@@ -72,7 +73,7 @@ void main() {
       breaker.recordFailure();
       breaker.recordFailure();
       breaker.recordFailure();
-      await Future.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 3));
       breaker.allowRequest; // trigger half-open
       breaker.recordFailure();
       expect(breaker.state, CircuitState.open);

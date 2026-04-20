@@ -19,7 +19,7 @@ class PrimeComplianceTracker extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Compliance Tracker",
+          'Compliance Tracker',
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(

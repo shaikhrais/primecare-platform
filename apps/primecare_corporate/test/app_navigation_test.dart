@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/src/screens/common/global_profile.dart';
 import 'package:primecare_ui/src/screens/common/global_settings.dart';
 import 'package:primecare_ui/src/screens/common/document_vault.dart';

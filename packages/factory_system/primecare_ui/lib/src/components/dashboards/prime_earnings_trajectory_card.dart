@@ -44,7 +44,7 @@ class PrimeEarningsTrajectoryCard extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Total Payout",
+                    'Total Payout',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(

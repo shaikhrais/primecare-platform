@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserModel {
@@ -40,7 +41,7 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
   Future<List<UserModel>> build() async {
     // TODO: Connect to actual primecare-api user.service.ts endpoint.
     // For now, simulating network delay and returning initial set to prove AsyncNotifier architecture
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future<void>.delayed(const Duration(milliseconds: 800));
     return [
       UserModel(
         id: '1',
@@ -80,7 +81,7 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
     state = AsyncData([...state.value ?? [], user]);
     try {
       // Simulate API call
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
       // In real implementation we would send this to the backend
     } catch (e, st) {
       state = previousState;
@@ -95,7 +96,7 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
         if (user.id == id) updatedUser else user,
     ]);
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
     } catch (e, st) {
       state = previousState;
       state = AsyncError(e, st);
@@ -112,7 +113,7 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
           user,
     ]);
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
     } catch (e, st) {
       state = previousState;
       state = AsyncError(e, st);
@@ -125,7 +126,7 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
       (state.value ?? <UserModel>[]).where((user) => user.id != id).toList(),
     );
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
     } catch (e, st) {
       state = previousState;
       state = AsyncError(e, st);

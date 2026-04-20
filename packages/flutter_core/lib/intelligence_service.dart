@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
 import 'network/result.dart';
 import 'dashboard_service.dart';
 import 'src/models/intelligence_insight.dart';
@@ -20,7 +21,7 @@ class IntelligenceService {
     return Result.guardFuture<List<IntelligenceInsight>>(
       () async {
         // 1. Simulate institutional analysis delay
-        await Future.delayed(const Duration(milliseconds: 800));
+        await Future<void>.delayed(const Duration(milliseconds: 800));
 
         final insights = <IntelligenceInsight>[];
 

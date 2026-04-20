@@ -28,7 +28,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     setState(() => _isLoading = true);
 
     // Simulate slight delay for aesthetic UI feeling
-    await Future.delayed(const Duration(milliseconds: 600));
+    await Future<void>.delayed(const Duration(milliseconds: 600));
 
     // Call the true register method securely
     final success = await ref

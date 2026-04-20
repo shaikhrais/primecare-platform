@@ -1,4 +1,20 @@
+
+
 analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
   exclude:
     - "node_modules/**"
     - "**/node_modules/**"
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "archive/**"
+
+linter:
+  rules:
+    - avoid_dynamic_calls
+    - always_declare_return_types
+    - prefer_single_quotes
+    - require_trailing_commas

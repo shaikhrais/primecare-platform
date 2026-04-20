@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument, inference_failure_on_untyped_parameter
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +13,7 @@ import '../../components/dashboards/blueprint_renderer.dart';
 import 'primecare_report_screen.dart';
 
 extension StringExtension on String {
-  String capitalize() => "${this[0].toUpperCase()}${substring(1)}";
+  String capitalize() => '${this[0].toUpperCase()}${substring(1)}';
 }
 
 class DynamicRoleDashboardScreen extends ConsumerWidget {

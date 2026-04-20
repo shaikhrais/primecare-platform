@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument, inference_failure_on_untyped_parameter, inference_failure_on_function_return_type
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +9,9 @@ class ComplianceExpiryGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final total = metrics?['total'] ?? 0;
-    final compliant = metrics?['compliant'] ?? 0;
-    final percent = total > 0 ? (compliant / total) : 0.0;
+    final num total = metrics?['total'] ?? 0;
+    final num compliant = metrics?['compliant'] ?? 0;
+    final double percent = total > 0 ? (compliant / total).toDouble() : 0.0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

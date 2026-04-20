@@ -16,7 +16,7 @@ class PrimeQuickDispatchGrid extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Quick Dispatch",
+          'Quick Dispatch',
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(

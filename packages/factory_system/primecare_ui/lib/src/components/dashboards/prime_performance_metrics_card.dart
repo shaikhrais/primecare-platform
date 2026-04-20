@@ -58,7 +58,7 @@ class PrimePerformanceMetricsCard extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Performance Metrics",
+          'Performance Metrics',
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(
@@ -94,7 +94,7 @@ class PrimePerformanceMetricsCard extends ConsumerWidget {
               ),
               const SizedBox(height: 24),
               const Text(
-                "Weekly Hours Target",
+                'Weekly Hours Target',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: TextStyle(

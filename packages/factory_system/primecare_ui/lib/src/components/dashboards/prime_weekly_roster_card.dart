@@ -12,7 +12,7 @@ class PrimeWeeklyRosterCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Upcoming Roster",
+          'Upcoming Roster',
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(

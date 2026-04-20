@@ -386,7 +386,7 @@ class _InstitutionalBookingDialogState
     });
 
     // Simulate Network Delay
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future<void>.delayed(const Duration(milliseconds: 800));
 
     final newAppt = Appointment(
       id: 'temp_${DateTime.now().millisecondsSinceEpoch}',

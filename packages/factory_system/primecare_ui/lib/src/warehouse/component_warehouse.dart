@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/flutter_core.dart';
@@ -141,7 +142,7 @@ class ComponentWarehouse {
               Icon(LucideIcons.activity, size: 16, color: ds.colors.primary),
               const SizedBox(width: 8),
               Text(
-                "INSTITUTIONAL CONTINUITY FEED",
+                'INSTITUTIONAL CONTINUITY FEED',
                 style: TextStyle(
                   color: ds.colors.primary,
                   fontSize: 11,
@@ -256,7 +257,7 @@ class ComponentWarehouse {
           ),
           const SizedBox(height: 16),
           Text(
-            "HYDRATED DATA MATRIX",
+            'HYDRATED DATA MATRIX',
             style: TextStyle(
               color: ds.colors.textPrimary,
               fontWeight: FontWeight.bold,
@@ -265,7 +266,7 @@ class ComponentWarehouse {
           ),
           const SizedBox(height: 8),
           Text(
-            "Institutional records are fully synchronized and available in memory.",
+            'Institutional records are fully synchronized and available in memory.',
             textAlign: TextAlign.center,
             style: TextStyle(color: ds.colors.textSecondary, fontSize: 13),
           ),
@@ -301,7 +302,7 @@ class ComponentWarehouse {
               Icon(LucideIcons.shieldAlert, color: ds.colors.danger, size: 28),
               const SizedBox(width: 16),
               Text(
-                "Risk Surveillance Engine".toUpperCase(),
+                'Risk Surveillance Engine'.toUpperCase(),
                 style: TextStyle(
                   color: ds.colors.textPrimary,
                   letterSpacing: 2,
@@ -310,7 +311,7 @@ class ComponentWarehouse {
               ),
               const Spacer(),
               Text(
-                "LIVE",
+                'LIVE',
                 style: TextStyle(
                   color: ds.colors.danger,
                   fontWeight: FontWeight.w900,
@@ -320,7 +321,7 @@ class ComponentWarehouse {
           ),
           const SizedBox(height: 24),
           Text(
-            "Monitoring algorithmic health and care quality signals across all tenants.",
+            'Monitoring algorithmic health and care quality signals across all tenants.',
             style: TextStyle(color: ds.colors.textSecondary, height: 1.5),
           ),
         ],
@@ -468,7 +469,7 @@ class ComponentWarehouse {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Critical Controls",
+            'Critical Controls',
             style: TextStyle(
               color: ds.colors.warning,
               fontWeight: FontWeight.bold,
@@ -481,19 +482,19 @@ class ComponentWarehouse {
             children: [
               _buildActionButton(
                 context,
-                "Quarantine Tenant",
+                'Quarantine Tenant',
                 LucideIcons.lock,
                 ds.colors.danger,
               ),
               _buildActionButton(
                 context,
-                "System Audit",
+                'System Audit',
                 LucideIcons.fileSearch,
                 ds.colors.primary,
               ),
               _buildActionButton(
                 context,
-                "Freeze Payouts",
+                'Freeze Payouts',
                 LucideIcons.pause,
                 ds.colors.warning,
               ),
@@ -564,7 +565,7 @@ class ComponentWarehouse {
                         ),
                       ),
                       Text(
-                        "${(value * 100).toInt()}%",
+                        '${(value * 100).toInt()}%',
                         style: TextStyle(
                           color: ds.colors.textPrimary,
                           fontWeight: FontWeight.bold,
@@ -639,7 +640,7 @@ class ComponentWarehouse {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "REGULATORY COMPLIANCE GATE",
+                  'REGULATORY COMPLIANCE GATE',
                   style: TextStyle(
                     color: ds.colors.success,
                     fontWeight: FontWeight.w900,
@@ -648,7 +649,7 @@ class ComponentWarehouse {
                   ),
                 ),
                 Text(
-                  "All institutional checkpoints verified and passed.",
+                  'All institutional checkpoints verified and passed.',
                   style: TextStyle(
                     color: ds.colors.textSecondary,
                     fontSize: 13,

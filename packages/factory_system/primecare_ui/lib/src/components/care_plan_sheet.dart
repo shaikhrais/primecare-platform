@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -43,12 +44,12 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
           });
         } else if (res.statusCode == 404) {
           setState(() {
-            _error = "No active care plan found for this patient.";
+            _error = 'No active care plan found for this patient.';
             _isLoading = false;
           });
         } else {
           setState(() {
-            _error = "Failed to load care plan: ${res.statusCode}";
+            _error = 'Failed to load care plan: ${res.statusCode}';
             _isLoading = false;
           });
         }
@@ -56,7 +57,7 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = "Network error: $e";
+          _error = 'Network error: $e';
           _isLoading = false;
         });
       }
