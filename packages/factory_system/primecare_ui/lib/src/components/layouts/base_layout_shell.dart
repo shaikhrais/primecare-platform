@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../theme/design_system.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../global_top_bar.dart';
 import '../universal_role_sidebar.dart';

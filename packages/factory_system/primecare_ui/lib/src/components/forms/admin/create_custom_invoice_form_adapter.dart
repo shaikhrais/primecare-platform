@@ -1,5 +1,4 @@
 import 'package:primecare_core/flutter_core.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Prisma Load Adapter
 

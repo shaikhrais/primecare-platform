@@ -10,7 +10,6 @@ import '../components/charts/prime_care_line_chart.dart';
 import '../screens/common/primecare_report_screen.dart';
 import '../components/aura/aura_dashboard_hud.dart';
 import '../components/stitch_engine/stitch_engine_renderer.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/design_system.dart';
 import '../components/forms/clinical/patient_intake_form.dart';
 import '../components/forms/clinical/vitals_capture_form.dart';

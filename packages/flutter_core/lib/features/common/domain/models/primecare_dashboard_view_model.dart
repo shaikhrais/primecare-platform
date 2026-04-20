@@ -74,6 +74,35 @@ class PrimeCareDashboardViewModel implements OfflineFallbackState {
     );
   }
 
+  factory PrimeCareDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics, {
+    AIAnalyticsForecastingData? forecasting,
+  }) {
+    final mappedKpis =
+        metrics.kpis.map((k) {
+          return UniversalKpi(
+            title: k.title,
+            value: k.value,
+            status: UniversalKpi.mapStatus(k.status),
+            trend: double.tryParse(k.trend?.replaceAll('%', '') ?? '0') ?? 0.0,
+          );
+        }).toList();
+
+    final activity = metrics.recentActivity.map((a) => a.toJson()).toList();
+
+    return PrimeCareDashboardViewModel(
+      isOfflineFallback: false,
+      kpis: mappedKpis,
+      recentActivity: activity,
+      forecasting: forecasting,
+      blueprints: _generateBlueprints(
+        mappedKpis,
+        activity,
+        forecasting: forecasting,
+      ),
+    );
+  }
+
   factory PrimeCareDashboardViewModel.assemble({required bool isOffline}) {
     return PrimeCareDashboardViewModel(
       isOfflineFallback: isOffline,

@@ -2,7 +2,6 @@ import 'package:primecare_core/flutter_core.dart';
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
 import '../../layouts/responsive_grid_layout.dart';

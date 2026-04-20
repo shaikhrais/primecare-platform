@@ -1,6 +1,5 @@
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/flutter_core.dart';
 import '../../components/scheduler/horizon_grid.dart';
 import '../../components/cards/primecare_aura_card.dart';

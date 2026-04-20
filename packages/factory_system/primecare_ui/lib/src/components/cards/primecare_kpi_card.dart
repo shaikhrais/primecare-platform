@@ -1,6 +1,5 @@
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
 class PrimeCareKpiCard extends ConsumerWidget {

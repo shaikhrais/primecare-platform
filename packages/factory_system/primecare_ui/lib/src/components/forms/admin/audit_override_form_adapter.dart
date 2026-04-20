@@ -1,6 +1,5 @@
 import 'package:primecare_core/flutter_core.dart';
 import 'dart:async';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 // --- State Model ---

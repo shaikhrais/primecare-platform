@@ -1,6 +1,5 @@
 import 'package:primecare_core/flutter_core.dart';
 import 'dart:async';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_core/primecare_core.dart';
 
 
