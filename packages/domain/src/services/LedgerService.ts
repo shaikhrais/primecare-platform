@@ -1,5 +1,5 @@
 import { PrismaClient } from '@primecare/database';
-import { randomBytes, createHash } from 'crypto';
+import { randomBytes, createHash } from 'node:crypto';
 import { CurrencyService } from './CurrencyService';
 import { TaxService } from './TaxService';
 import { Decimal } from '@prisma/client/runtime/library';

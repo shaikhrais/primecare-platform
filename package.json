@@ -27,6 +27,7 @@
     "checkpoint": "powershell -ExecutionPolicy Bypass -File .\\scripts\\checkpoint.ps1",
     "dev:safe:api": "powershell -ExecutionPolicy Bypass -File .\\scripts\\run_safe.ps1 -Target dev:api",
     "dev:safe:web": "powershell -ExecutionPolicy Bypass -File .\\scripts\\run_safe.ps1 -Target dev:web",
+    "pdm:pulse": "python scripts/pdm/pdm_engine.py && python scripts/pdm/pdm_advanced_report.py && npx tsx packages/database/pdm_cloud_sync.ts",
     "prepare": "husky"
   },
   "dependencies": {

@@ -1,8 +1,10 @@
 import json
 import os
 import datetime
+import shutil
 
 PROJECT_ROOT = "C:/Users/Admin2/Documents/GitHub/primecare-platform"
+PROJECT_ARCHIVE = os.path.join(PROJECT_ROOT, "scripts/pdm/archive")
 GLOBAL_REGISTRY = os.path.join(PROJECT_ROOT, "pdm_global_registry.json")
 INTENT_SNAPSHOT = os.path.join(PROJECT_ROOT, "pdm_snapshot.json")
 
@@ -136,6 +138,12 @@ def generate_advanced_report():
     
     with open("pdm_advanced_report.json", "w", encoding='utf-8') as f:
         json.dump(report, f, indent=2)
+        
+    # Archive snapshot
+    timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
+    archive_path = os.path.join(PROJECT_ARCHIVE, f"pdm_snapshot_{timestamp}.json")
+    shutil.copy2("pdm_advanced_report.json", archive_path)
+    print(f"Archive Created: {archive_path}")
         
     # Generate Markdown Insights
     with open("pdm_insights.md", "w", encoding='utf-8') as f:

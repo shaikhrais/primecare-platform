@@ -44,6 +44,26 @@ async function syncPdm() {
     if (count % 50 === 0) console.log(`Processed ${count} sectors...`);
   }
 
+  // --- NEW: History Recording ---
+  const reportPath = path.join(__dirname, '../../pdm_advanced_report.json');
+  if (fs.existsSync(reportPath)) {
+    const report = JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
+    const historyModel = (prisma as any).platformHealthHistory || (prisma as any).platform_health_history;
+    
+    if (historyModel) {
+        console.log('Recording Platform Health History Snapshot...');
+        await historyModel.create({
+            data: {
+                totalFiles: report.summary.total_files,
+                totalLoc: report.summary.total_loc,
+                maturityRatio: report.summary.hardened_count / (report.summary.hardened_count + report.summary.orphan_count),
+                debtCount: report.summary.total_debt || 0,
+                velocityRate: report.summary.total_velocity || 0,
+            }
+        });
+    }
+  }
+
   console.log('--- PDM CLOUD SYNC COMPLETE ---');
   console.log('Status: 100% HEALTH (Verified)');
 }

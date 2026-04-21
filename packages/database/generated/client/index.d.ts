@@ -714,6 +714,11 @@ export type UIIntent = $Result.DefaultSelection<Prisma.$UIIntentPayload>
  */
 export type DataResource = $Result.DefaultSelection<Prisma.$DataResourcePayload>
 /**
+ * Model PlatformHealthHistory
+ * 
+ */
+export type PlatformHealthHistory = $Result.DefaultSelection<Prisma.$PlatformHealthHistoryPayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2538,6 +2543,16 @@ export class PrismaClient<
   get dataResource(): Prisma.DataResourceDelegate<ExtArgs>;
 
   /**
+   * `prisma.platformHealthHistory`: Exposes CRUD operations for the **PlatformHealthHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlatformHealthHistories
+    * const platformHealthHistories = await prisma.platformHealthHistory.findMany()
+    * ```
+    */
+  get platformHealthHistory(): Prisma.PlatformHealthHistoryDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3717,6 +3732,7 @@ export namespace Prisma {
     ApiContract: 'ApiContract',
     UIIntent: 'UIIntent',
     DataResource: 'DataResource',
+    PlatformHealthHistory: 'PlatformHealthHistory',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3792,7 +3808,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -13593,6 +13609,76 @@ export namespace Prisma {
           count: {
             args: Prisma.DataResourceCountArgs<ExtArgs>
             result: $Utils.Optional<DataResourceCountAggregateOutputType> | number
+          }
+        }
+      }
+      PlatformHealthHistory: {
+        payload: Prisma.$PlatformHealthHistoryPayload<ExtArgs>
+        fields: Prisma.PlatformHealthHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlatformHealthHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlatformHealthHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.PlatformHealthHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlatformHealthHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.PlatformHealthHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.PlatformHealthHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.PlatformHealthHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlatformHealthHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.PlatformHealthHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>
+          }
+          update: {
+            args: Prisma.PlatformHealthHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlatformHealthHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlatformHealthHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlatformHealthHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformHealthHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.PlatformHealthHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlatformHealthHistory>
+          }
+          groupBy: {
+            args: Prisma.PlatformHealthHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlatformHealthHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlatformHealthHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<PlatformHealthHistoryCountAggregateOutputType> | number
           }
         }
       }
@@ -167244,6 +167330,958 @@ export namespace Prisma {
 
 
   /**
+   * Model PlatformHealthHistory
+   */
+
+  export type AggregatePlatformHealthHistory = {
+    _count: PlatformHealthHistoryCountAggregateOutputType | null
+    _avg: PlatformHealthHistoryAvgAggregateOutputType | null
+    _sum: PlatformHealthHistorySumAggregateOutputType | null
+    _min: PlatformHealthHistoryMinAggregateOutputType | null
+    _max: PlatformHealthHistoryMaxAggregateOutputType | null
+  }
+
+  export type PlatformHealthHistoryAvgAggregateOutputType = {
+    totalFiles: number | null
+    totalLoc: number | null
+    maturityRatio: number | null
+    debtCount: number | null
+    velocityRate: number | null
+  }
+
+  export type PlatformHealthHistorySumAggregateOutputType = {
+    totalFiles: number | null
+    totalLoc: number | null
+    maturityRatio: number | null
+    debtCount: number | null
+    velocityRate: number | null
+  }
+
+  export type PlatformHealthHistoryMinAggregateOutputType = {
+    id: string | null
+    timestamp: Date | null
+    totalFiles: number | null
+    totalLoc: number | null
+    maturityRatio: number | null
+    debtCount: number | null
+    velocityRate: number | null
+  }
+
+  export type PlatformHealthHistoryMaxAggregateOutputType = {
+    id: string | null
+    timestamp: Date | null
+    totalFiles: number | null
+    totalLoc: number | null
+    maturityRatio: number | null
+    debtCount: number | null
+    velocityRate: number | null
+  }
+
+  export type PlatformHealthHistoryCountAggregateOutputType = {
+    id: number
+    timestamp: number
+    totalFiles: number
+    totalLoc: number
+    maturityRatio: number
+    debtCount: number
+    velocityRate: number
+    _all: number
+  }
+
+
+  export type PlatformHealthHistoryAvgAggregateInputType = {
+    totalFiles?: true
+    totalLoc?: true
+    maturityRatio?: true
+    debtCount?: true
+    velocityRate?: true
+  }
+
+  export type PlatformHealthHistorySumAggregateInputType = {
+    totalFiles?: true
+    totalLoc?: true
+    maturityRatio?: true
+    debtCount?: true
+    velocityRate?: true
+  }
+
+  export type PlatformHealthHistoryMinAggregateInputType = {
+    id?: true
+    timestamp?: true
+    totalFiles?: true
+    totalLoc?: true
+    maturityRatio?: true
+    debtCount?: true
+    velocityRate?: true
+  }
+
+  export type PlatformHealthHistoryMaxAggregateInputType = {
+    id?: true
+    timestamp?: true
+    totalFiles?: true
+    totalLoc?: true
+    maturityRatio?: true
+    debtCount?: true
+    velocityRate?: true
+  }
+
+  export type PlatformHealthHistoryCountAggregateInputType = {
+    id?: true
+    timestamp?: true
+    totalFiles?: true
+    totalLoc?: true
+    maturityRatio?: true
+    debtCount?: true
+    velocityRate?: true
+    _all?: true
+  }
+
+  export type PlatformHealthHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformHealthHistory to aggregate.
+     */
+    where?: PlatformHealthHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformHealthHistories to fetch.
+     */
+    orderBy?: PlatformHealthHistoryOrderByWithRelationInput | PlatformHealthHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlatformHealthHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformHealthHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformHealthHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlatformHealthHistories
+    **/
+    _count?: true | PlatformHealthHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlatformHealthHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlatformHealthHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlatformHealthHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlatformHealthHistoryMaxAggregateInputType
+  }
+
+  export type GetPlatformHealthHistoryAggregateType<T extends PlatformHealthHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlatformHealthHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlatformHealthHistory[P]>
+      : GetScalarType<T[P], AggregatePlatformHealthHistory[P]>
+  }
+
+
+
+
+  export type PlatformHealthHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlatformHealthHistoryWhereInput
+    orderBy?: PlatformHealthHistoryOrderByWithAggregationInput | PlatformHealthHistoryOrderByWithAggregationInput[]
+    by: PlatformHealthHistoryScalarFieldEnum[] | PlatformHealthHistoryScalarFieldEnum
+    having?: PlatformHealthHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlatformHealthHistoryCountAggregateInputType | true
+    _avg?: PlatformHealthHistoryAvgAggregateInputType
+    _sum?: PlatformHealthHistorySumAggregateInputType
+    _min?: PlatformHealthHistoryMinAggregateInputType
+    _max?: PlatformHealthHistoryMaxAggregateInputType
+  }
+
+  export type PlatformHealthHistoryGroupByOutputType = {
+    id: string
+    timestamp: Date
+    totalFiles: number
+    totalLoc: number
+    maturityRatio: number
+    debtCount: number
+    velocityRate: number
+    _count: PlatformHealthHistoryCountAggregateOutputType | null
+    _avg: PlatformHealthHistoryAvgAggregateOutputType | null
+    _sum: PlatformHealthHistorySumAggregateOutputType | null
+    _min: PlatformHealthHistoryMinAggregateOutputType | null
+    _max: PlatformHealthHistoryMaxAggregateOutputType | null
+  }
+
+  type GetPlatformHealthHistoryGroupByPayload<T extends PlatformHealthHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlatformHealthHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlatformHealthHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlatformHealthHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], PlatformHealthHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlatformHealthHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    timestamp?: boolean
+    totalFiles?: boolean
+    totalLoc?: boolean
+    maturityRatio?: boolean
+    debtCount?: boolean
+    velocityRate?: boolean
+  }, ExtArgs["result"]["platformHealthHistory"]>
+
+  export type PlatformHealthHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    timestamp?: boolean
+    totalFiles?: boolean
+    totalLoc?: boolean
+    maturityRatio?: boolean
+    debtCount?: boolean
+    velocityRate?: boolean
+  }, ExtArgs["result"]["platformHealthHistory"]>
+
+  export type PlatformHealthHistorySelectScalar = {
+    id?: boolean
+    timestamp?: boolean
+    totalFiles?: boolean
+    totalLoc?: boolean
+    maturityRatio?: boolean
+    debtCount?: boolean
+    velocityRate?: boolean
+  }
+
+
+  export type $PlatformHealthHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlatformHealthHistory"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      timestamp: Date
+      totalFiles: number
+      totalLoc: number
+      maturityRatio: number
+      debtCount: number
+      velocityRate: number
+    }, ExtArgs["result"]["platformHealthHistory"]>
+    composites: {}
+  }
+
+  type PlatformHealthHistoryGetPayload<S extends boolean | null | undefined | PlatformHealthHistoryDefaultArgs> = $Result.GetResult<Prisma.$PlatformHealthHistoryPayload, S>
+
+  type PlatformHealthHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PlatformHealthHistoryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PlatformHealthHistoryCountAggregateInputType | true
+    }
+
+  export interface PlatformHealthHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlatformHealthHistory'], meta: { name: 'PlatformHealthHistory' } }
+    /**
+     * Find zero or one PlatformHealthHistory that matches the filter.
+     * @param {PlatformHealthHistoryFindUniqueArgs} args - Arguments to find a PlatformHealthHistory
+     * @example
+     * // Get one PlatformHealthHistory
+     * const platformHealthHistory = await prisma.platformHealthHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlatformHealthHistoryFindUniqueArgs>(args: SelectSubset<T, PlatformHealthHistoryFindUniqueArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PlatformHealthHistory that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PlatformHealthHistoryFindUniqueOrThrowArgs} args - Arguments to find a PlatformHealthHistory
+     * @example
+     * // Get one PlatformHealthHistory
+     * const platformHealthHistory = await prisma.platformHealthHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlatformHealthHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, PlatformHealthHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PlatformHealthHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformHealthHistoryFindFirstArgs} args - Arguments to find a PlatformHealthHistory
+     * @example
+     * // Get one PlatformHealthHistory
+     * const platformHealthHistory = await prisma.platformHealthHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlatformHealthHistoryFindFirstArgs>(args?: SelectSubset<T, PlatformHealthHistoryFindFirstArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PlatformHealthHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformHealthHistoryFindFirstOrThrowArgs} args - Arguments to find a PlatformHealthHistory
+     * @example
+     * // Get one PlatformHealthHistory
+     * const platformHealthHistory = await prisma.platformHealthHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlatformHealthHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, PlatformHealthHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PlatformHealthHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformHealthHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlatformHealthHistories
+     * const platformHealthHistories = await prisma.platformHealthHistory.findMany()
+     * 
+     * // Get first 10 PlatformHealthHistories
+     * const platformHealthHistories = await prisma.platformHealthHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const platformHealthHistoryWithIdOnly = await prisma.platformHealthHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlatformHealthHistoryFindManyArgs>(args?: SelectSubset<T, PlatformHealthHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PlatformHealthHistory.
+     * @param {PlatformHealthHistoryCreateArgs} args - Arguments to create a PlatformHealthHistory.
+     * @example
+     * // Create one PlatformHealthHistory
+     * const PlatformHealthHistory = await prisma.platformHealthHistory.create({
+     *   data: {
+     *     // ... data to create a PlatformHealthHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlatformHealthHistoryCreateArgs>(args: SelectSubset<T, PlatformHealthHistoryCreateArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PlatformHealthHistories.
+     * @param {PlatformHealthHistoryCreateManyArgs} args - Arguments to create many PlatformHealthHistories.
+     * @example
+     * // Create many PlatformHealthHistories
+     * const platformHealthHistory = await prisma.platformHealthHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlatformHealthHistoryCreateManyArgs>(args?: SelectSubset<T, PlatformHealthHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlatformHealthHistories and returns the data saved in the database.
+     * @param {PlatformHealthHistoryCreateManyAndReturnArgs} args - Arguments to create many PlatformHealthHistories.
+     * @example
+     * // Create many PlatformHealthHistories
+     * const platformHealthHistory = await prisma.platformHealthHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlatformHealthHistories and only return the `id`
+     * const platformHealthHistoryWithIdOnly = await prisma.platformHealthHistory.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlatformHealthHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, PlatformHealthHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PlatformHealthHistory.
+     * @param {PlatformHealthHistoryDeleteArgs} args - Arguments to delete one PlatformHealthHistory.
+     * @example
+     * // Delete one PlatformHealthHistory
+     * const PlatformHealthHistory = await prisma.platformHealthHistory.delete({
+     *   where: {
+     *     // ... filter to delete one PlatformHealthHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlatformHealthHistoryDeleteArgs>(args: SelectSubset<T, PlatformHealthHistoryDeleteArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PlatformHealthHistory.
+     * @param {PlatformHealthHistoryUpdateArgs} args - Arguments to update one PlatformHealthHistory.
+     * @example
+     * // Update one PlatformHealthHistory
+     * const platformHealthHistory = await prisma.platformHealthHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlatformHealthHistoryUpdateArgs>(args: SelectSubset<T, PlatformHealthHistoryUpdateArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PlatformHealthHistories.
+     * @param {PlatformHealthHistoryDeleteManyArgs} args - Arguments to filter PlatformHealthHistories to delete.
+     * @example
+     * // Delete a few PlatformHealthHistories
+     * const { count } = await prisma.platformHealthHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlatformHealthHistoryDeleteManyArgs>(args?: SelectSubset<T, PlatformHealthHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlatformHealthHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformHealthHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlatformHealthHistories
+     * const platformHealthHistory = await prisma.platformHealthHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlatformHealthHistoryUpdateManyArgs>(args: SelectSubset<T, PlatformHealthHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlatformHealthHistory.
+     * @param {PlatformHealthHistoryUpsertArgs} args - Arguments to update or create a PlatformHealthHistory.
+     * @example
+     * // Update or create a PlatformHealthHistory
+     * const platformHealthHistory = await prisma.platformHealthHistory.upsert({
+     *   create: {
+     *     // ... data to create a PlatformHealthHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlatformHealthHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlatformHealthHistoryUpsertArgs>(args: SelectSubset<T, PlatformHealthHistoryUpsertArgs<ExtArgs>>): Prisma__PlatformHealthHistoryClient<$Result.GetResult<Prisma.$PlatformHealthHistoryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PlatformHealthHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformHealthHistoryCountArgs} args - Arguments to filter PlatformHealthHistories to count.
+     * @example
+     * // Count the number of PlatformHealthHistories
+     * const count = await prisma.platformHealthHistory.count({
+     *   where: {
+     *     // ... the filter for the PlatformHealthHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlatformHealthHistoryCountArgs>(
+      args?: Subset<T, PlatformHealthHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlatformHealthHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlatformHealthHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformHealthHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlatformHealthHistoryAggregateArgs>(args: Subset<T, PlatformHealthHistoryAggregateArgs>): Prisma.PrismaPromise<GetPlatformHealthHistoryAggregateType<T>>
+
+    /**
+     * Group by PlatformHealthHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformHealthHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlatformHealthHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlatformHealthHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: PlatformHealthHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlatformHealthHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlatformHealthHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlatformHealthHistory model
+   */
+  readonly fields: PlatformHealthHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlatformHealthHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlatformHealthHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlatformHealthHistory model
+   */ 
+  interface PlatformHealthHistoryFieldRefs {
+    readonly id: FieldRef<"PlatformHealthHistory", 'String'>
+    readonly timestamp: FieldRef<"PlatformHealthHistory", 'DateTime'>
+    readonly totalFiles: FieldRef<"PlatformHealthHistory", 'Int'>
+    readonly totalLoc: FieldRef<"PlatformHealthHistory", 'Int'>
+    readonly maturityRatio: FieldRef<"PlatformHealthHistory", 'Float'>
+    readonly debtCount: FieldRef<"PlatformHealthHistory", 'Int'>
+    readonly velocityRate: FieldRef<"PlatformHealthHistory", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlatformHealthHistory findUnique
+   */
+  export type PlatformHealthHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * Filter, which PlatformHealthHistory to fetch.
+     */
+    where: PlatformHealthHistoryWhereUniqueInput
+  }
+
+  /**
+   * PlatformHealthHistory findUniqueOrThrow
+   */
+  export type PlatformHealthHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * Filter, which PlatformHealthHistory to fetch.
+     */
+    where: PlatformHealthHistoryWhereUniqueInput
+  }
+
+  /**
+   * PlatformHealthHistory findFirst
+   */
+  export type PlatformHealthHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * Filter, which PlatformHealthHistory to fetch.
+     */
+    where?: PlatformHealthHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformHealthHistories to fetch.
+     */
+    orderBy?: PlatformHealthHistoryOrderByWithRelationInput | PlatformHealthHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformHealthHistories.
+     */
+    cursor?: PlatformHealthHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformHealthHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformHealthHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformHealthHistories.
+     */
+    distinct?: PlatformHealthHistoryScalarFieldEnum | PlatformHealthHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformHealthHistory findFirstOrThrow
+   */
+  export type PlatformHealthHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * Filter, which PlatformHealthHistory to fetch.
+     */
+    where?: PlatformHealthHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformHealthHistories to fetch.
+     */
+    orderBy?: PlatformHealthHistoryOrderByWithRelationInput | PlatformHealthHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformHealthHistories.
+     */
+    cursor?: PlatformHealthHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformHealthHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformHealthHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformHealthHistories.
+     */
+    distinct?: PlatformHealthHistoryScalarFieldEnum | PlatformHealthHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformHealthHistory findMany
+   */
+  export type PlatformHealthHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * Filter, which PlatformHealthHistories to fetch.
+     */
+    where?: PlatformHealthHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformHealthHistories to fetch.
+     */
+    orderBy?: PlatformHealthHistoryOrderByWithRelationInput | PlatformHealthHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlatformHealthHistories.
+     */
+    cursor?: PlatformHealthHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformHealthHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformHealthHistories.
+     */
+    skip?: number
+    distinct?: PlatformHealthHistoryScalarFieldEnum | PlatformHealthHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformHealthHistory create
+   */
+  export type PlatformHealthHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * The data needed to create a PlatformHealthHistory.
+     */
+    data: XOR<PlatformHealthHistoryCreateInput, PlatformHealthHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * PlatformHealthHistory createMany
+   */
+  export type PlatformHealthHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlatformHealthHistories.
+     */
+    data: PlatformHealthHistoryCreateManyInput | PlatformHealthHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlatformHealthHistory createManyAndReturn
+   */
+  export type PlatformHealthHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PlatformHealthHistories.
+     */
+    data: PlatformHealthHistoryCreateManyInput | PlatformHealthHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlatformHealthHistory update
+   */
+  export type PlatformHealthHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * The data needed to update a PlatformHealthHistory.
+     */
+    data: XOR<PlatformHealthHistoryUpdateInput, PlatformHealthHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which PlatformHealthHistory to update.
+     */
+    where: PlatformHealthHistoryWhereUniqueInput
+  }
+
+  /**
+   * PlatformHealthHistory updateMany
+   */
+  export type PlatformHealthHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlatformHealthHistories.
+     */
+    data: XOR<PlatformHealthHistoryUpdateManyMutationInput, PlatformHealthHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which PlatformHealthHistories to update
+     */
+    where?: PlatformHealthHistoryWhereInput
+  }
+
+  /**
+   * PlatformHealthHistory upsert
+   */
+  export type PlatformHealthHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * The filter to search for the PlatformHealthHistory to update in case it exists.
+     */
+    where: PlatformHealthHistoryWhereUniqueInput
+    /**
+     * In case the PlatformHealthHistory found by the `where` argument doesn't exist, create a new PlatformHealthHistory with this data.
+     */
+    create: XOR<PlatformHealthHistoryCreateInput, PlatformHealthHistoryUncheckedCreateInput>
+    /**
+     * In case the PlatformHealthHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlatformHealthHistoryUpdateInput, PlatformHealthHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * PlatformHealthHistory delete
+   */
+  export type PlatformHealthHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+    /**
+     * Filter which PlatformHealthHistory to delete.
+     */
+    where: PlatformHealthHistoryWhereUniqueInput
+  }
+
+  /**
+   * PlatformHealthHistory deleteMany
+   */
+  export type PlatformHealthHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformHealthHistories to delete
+     */
+    where?: PlatformHealthHistoryWhereInput
+  }
+
+  /**
+   * PlatformHealthHistory without action
+   */
+  export type PlatformHealthHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformHealthHistory
+     */
+    select?: PlatformHealthHistorySelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -226303,6 +227341,19 @@ export namespace Prisma {
   export type DataResourceScalarFieldEnum = (typeof DataResourceScalarFieldEnum)[keyof typeof DataResourceScalarFieldEnum]
 
 
+  export const PlatformHealthHistoryScalarFieldEnum: {
+    id: 'id',
+    timestamp: 'timestamp',
+    totalFiles: 'totalFiles',
+    totalLoc: 'totalLoc',
+    maturityRatio: 'maturityRatio',
+    debtCount: 'debtCount',
+    velocityRate: 'velocityRate'
+  };
+
+  export type PlatformHealthHistoryScalarFieldEnum = (typeof PlatformHealthHistoryScalarFieldEnum)[keyof typeof PlatformHealthHistoryScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -239245,6 +240296,70 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"DataResource"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"DataResource"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"DataResource"> | Date | string
+  }
+
+  export type PlatformHealthHistoryWhereInput = {
+    AND?: PlatformHealthHistoryWhereInput | PlatformHealthHistoryWhereInput[]
+    OR?: PlatformHealthHistoryWhereInput[]
+    NOT?: PlatformHealthHistoryWhereInput | PlatformHealthHistoryWhereInput[]
+    id?: StringFilter<"PlatformHealthHistory"> | string
+    timestamp?: DateTimeFilter<"PlatformHealthHistory"> | Date | string
+    totalFiles?: IntFilter<"PlatformHealthHistory"> | number
+    totalLoc?: IntFilter<"PlatformHealthHistory"> | number
+    maturityRatio?: FloatFilter<"PlatformHealthHistory"> | number
+    debtCount?: IntFilter<"PlatformHealthHistory"> | number
+    velocityRate?: IntFilter<"PlatformHealthHistory"> | number
+  }
+
+  export type PlatformHealthHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    totalFiles?: SortOrder
+    totalLoc?: SortOrder
+    maturityRatio?: SortOrder
+    debtCount?: SortOrder
+    velocityRate?: SortOrder
+  }
+
+  export type PlatformHealthHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlatformHealthHistoryWhereInput | PlatformHealthHistoryWhereInput[]
+    OR?: PlatformHealthHistoryWhereInput[]
+    NOT?: PlatformHealthHistoryWhereInput | PlatformHealthHistoryWhereInput[]
+    timestamp?: DateTimeFilter<"PlatformHealthHistory"> | Date | string
+    totalFiles?: IntFilter<"PlatformHealthHistory"> | number
+    totalLoc?: IntFilter<"PlatformHealthHistory"> | number
+    maturityRatio?: FloatFilter<"PlatformHealthHistory"> | number
+    debtCount?: IntFilter<"PlatformHealthHistory"> | number
+    velocityRate?: IntFilter<"PlatformHealthHistory"> | number
+  }, "id">
+
+  export type PlatformHealthHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    totalFiles?: SortOrder
+    totalLoc?: SortOrder
+    maturityRatio?: SortOrder
+    debtCount?: SortOrder
+    velocityRate?: SortOrder
+    _count?: PlatformHealthHistoryCountOrderByAggregateInput
+    _avg?: PlatformHealthHistoryAvgOrderByAggregateInput
+    _max?: PlatformHealthHistoryMaxOrderByAggregateInput
+    _min?: PlatformHealthHistoryMinOrderByAggregateInput
+    _sum?: PlatformHealthHistorySumOrderByAggregateInput
+  }
+
+  export type PlatformHealthHistoryScalarWhereWithAggregatesInput = {
+    AND?: PlatformHealthHistoryScalarWhereWithAggregatesInput | PlatformHealthHistoryScalarWhereWithAggregatesInput[]
+    OR?: PlatformHealthHistoryScalarWhereWithAggregatesInput[]
+    NOT?: PlatformHealthHistoryScalarWhereWithAggregatesInput | PlatformHealthHistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlatformHealthHistory"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"PlatformHealthHistory"> | Date | string
+    totalFiles?: IntWithAggregatesFilter<"PlatformHealthHistory"> | number
+    totalLoc?: IntWithAggregatesFilter<"PlatformHealthHistory"> | number
+    maturityRatio?: FloatWithAggregatesFilter<"PlatformHealthHistory"> | number
+    debtCount?: IntWithAggregatesFilter<"PlatformHealthHistory"> | number
+    velocityRate?: IntWithAggregatesFilter<"PlatformHealthHistory"> | number
   }
 
   export type FamilyAppointmentWhereInput = {
@@ -256427,6 +257542,76 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlatformHealthHistoryCreateInput = {
+    id?: string
+    timestamp?: Date | string
+    totalFiles: number
+    totalLoc: number
+    maturityRatio: number
+    debtCount: number
+    velocityRate: number
+  }
+
+  export type PlatformHealthHistoryUncheckedCreateInput = {
+    id?: string
+    timestamp?: Date | string
+    totalFiles: number
+    totalLoc: number
+    maturityRatio: number
+    debtCount: number
+    velocityRate: number
+  }
+
+  export type PlatformHealthHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalFiles?: IntFieldUpdateOperationsInput | number
+    totalLoc?: IntFieldUpdateOperationsInput | number
+    maturityRatio?: FloatFieldUpdateOperationsInput | number
+    debtCount?: IntFieldUpdateOperationsInput | number
+    velocityRate?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlatformHealthHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalFiles?: IntFieldUpdateOperationsInput | number
+    totalLoc?: IntFieldUpdateOperationsInput | number
+    maturityRatio?: FloatFieldUpdateOperationsInput | number
+    debtCount?: IntFieldUpdateOperationsInput | number
+    velocityRate?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlatformHealthHistoryCreateManyInput = {
+    id?: string
+    timestamp?: Date | string
+    totalFiles: number
+    totalLoc: number
+    maturityRatio: number
+    debtCount: number
+    velocityRate: number
+  }
+
+  export type PlatformHealthHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalFiles?: IntFieldUpdateOperationsInput | number
+    totalLoc?: IntFieldUpdateOperationsInput | number
+    maturityRatio?: FloatFieldUpdateOperationsInput | number
+    debtCount?: IntFieldUpdateOperationsInput | number
+    velocityRate?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlatformHealthHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalFiles?: IntFieldUpdateOperationsInput | number
+    totalLoc?: IntFieldUpdateOperationsInput | number
+    maturityRatio?: FloatFieldUpdateOperationsInput | number
+    debtCount?: IntFieldUpdateOperationsInput | number
+    velocityRate?: IntFieldUpdateOperationsInput | number
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -268918,6 +270103,52 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PlatformHealthHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    totalFiles?: SortOrder
+    totalLoc?: SortOrder
+    maturityRatio?: SortOrder
+    debtCount?: SortOrder
+    velocityRate?: SortOrder
+  }
+
+  export type PlatformHealthHistoryAvgOrderByAggregateInput = {
+    totalFiles?: SortOrder
+    totalLoc?: SortOrder
+    maturityRatio?: SortOrder
+    debtCount?: SortOrder
+    velocityRate?: SortOrder
+  }
+
+  export type PlatformHealthHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    totalFiles?: SortOrder
+    totalLoc?: SortOrder
+    maturityRatio?: SortOrder
+    debtCount?: SortOrder
+    velocityRate?: SortOrder
+  }
+
+  export type PlatformHealthHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    totalFiles?: SortOrder
+    totalLoc?: SortOrder
+    maturityRatio?: SortOrder
+    debtCount?: SortOrder
+    velocityRate?: SortOrder
+  }
+
+  export type PlatformHealthHistorySumOrderByAggregateInput = {
+    totalFiles?: SortOrder
+    totalLoc?: SortOrder
+    maturityRatio?: SortOrder
+    debtCount?: SortOrder
+    velocityRate?: SortOrder
   }
 
   export type FamilyAppointmentCountOrderByAggregateInput = {
@@ -379937,6 +381168,10 @@ export namespace Prisma {
      * @deprecated Use DataResourceDefaultArgs instead
      */
     export type DataResourceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DataResourceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlatformHealthHistoryDefaultArgs instead
+     */
+    export type PlatformHealthHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformHealthHistoryDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

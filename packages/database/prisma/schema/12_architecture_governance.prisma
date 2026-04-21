@@ -149,3 +149,20 @@ model DataResource {
   @@map("data_resources")
 }
 
+// ==========================================
+// PLATFORM VITALITY & HISTORY
+// ==========================================
+
+model PlatformHealthHistory {
+  id            String   @id @default(uuid())
+  timestamp     DateTime @default(now())
+  
+  totalFiles    Int      @map("total_files")
+  totalLoc      Int      @map("total_loc")
+  maturityRatio Float    @map("maturity_ratio") // Hardened / Total Identified
+  debtCount     Int      @map("debt_count")
+  velocityRate  Int      @map("velocity_rate")
+  
+  @@map("platform_health_history")
+}
+

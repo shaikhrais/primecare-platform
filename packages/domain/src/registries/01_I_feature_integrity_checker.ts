@@ -5,10 +5,10 @@
 // Designed to run as part of the Scrum Master Response Bot sweep.
 // ──────────────────────────────────────────────────────────────────────────────
 
-import { PageRegistry, getPageById } from './PageRegistry';
-import { ButtonRegistry, getButtonById } from './ButtonRegistry';
-import { FormRegistry, getFormById } from './FormRegistry';
-import { PageActionRegistry } from './PageActionRegistry';
+import { PageRegistry, getPageById } from './01_I_page_registry';
+import { ButtonRegistry, getButtonById } from './01_I_button_registry';
+import { FormRegistry, getFormById } from './01_I_form_registry';
+import { PageActionRegistry } from './01_I_page_action_registry';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 

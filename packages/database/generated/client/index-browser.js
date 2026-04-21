@@ -1871,6 +1871,16 @@ exports.Prisma.DataResourceScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PlatformHealthHistoryScalarFieldEnum = {
+  id: 'id',
+  timestamp: 'timestamp',
+  totalFiles: 'totalFiles',
+  totalLoc: 'totalLoc',
+  maturityRatio: 'maturityRatio',
+  debtCount: 'debtCount',
+  velocityRate: 'velocityRate'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2731,6 +2741,7 @@ exports.Prisma.ModelName = {
   ApiContract: 'ApiContract',
   UIIntent: 'UIIntent',
   DataResource: 'DataResource',
+  PlatformHealthHistory: 'PlatformHealthHistory',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

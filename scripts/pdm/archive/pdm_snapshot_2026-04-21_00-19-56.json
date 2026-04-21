@@ -1,38 +1,38 @@
 {
   "summary": {
-    "total_files": 5472,
-    "total_loc": 545137,
-    "total_size_mb": 153.7194480895996,
-    "total_debt": 18,
-    "debris_count": 0,
+    "total_files": 5909,
+    "total_loc": 579219,
+    "total_size_mb": 154.5767879486084,
+    "total_debt": 0,
+    "debris_count": 2,
     "hardened_count": 318,
-    "infrastructure_count": 896,
+    "infrastructure_count": 1005,
     "orphan_count": 1150,
     "legacy_cold_count": 0
   },
   "language_distribution": {
     "no-ext": {
-      "count": 42,
-      "size": 83809,
+      "count": 59,
+      "size": 84985,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 2,
       "coupling": 0
     },
     ".yaml": {
-      "count": 22,
-      "size": 11441,
-      "loc": 0,
+      "count": 25,
+      "size": 46112,
+      "loc": 1346,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 27,
       "coupling": 0
     },
     ".json": {
-      "count": 837,
-      "size": 4412296,
+      "count": 1057,
+      "size": 3520879,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 26,
       "coupling": 0
     },
     ".ps1": {
@@ -40,23 +40,23 @@
       "size": 13563,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 7,
       "coupling": 0
     },
     ".ts": {
       "count": 584,
-      "size": 18511869,
-      "loc": 432512,
-      "debt": 3,
-      "velocity": 0,
+      "size": 18462859,
+      "loc": 431257,
+      "debt": 0,
+      "velocity": 400,
       "coupling": 0
     },
     ".js": {
-      "count": 49,
-      "size": 3166339,
-      "loc": 0,
-      "debt": 3,
-      "velocity": 0,
+      "count": 50,
+      "size": 3167560,
+      "loc": 14434,
+      "debt": 0,
+      "velocity": 40,
       "coupling": 0
     },
     ".yml": {
@@ -72,28 +72,60 @@
       "size": 69574,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 1,
       "coupling": 0
     },
     ".py": {
-      "count": 66,
-      "size": 227553,
-      "loc": 5563,
-      "debt": 9,
-      "velocity": 0,
+      "count": 70,
+      "size": 227521,
+      "loc": 5573,
+      "debt": 0,
+      "velocity": 24,
       "coupling": 0
     },
     ".md": {
-      "count": 701,
-      "size": 528461,
-      "loc": 0,
-      "debt": 3,
-      "velocity": 0,
+      "count": 710,
+      "size": 616943,
+      "loc": 11599,
+      "debt": 0,
+      "velocity": 21,
       "coupling": 0
     },
     ".cjs": {
       "count": 10,
       "size": 27988,
+      "loc": 0,
+      "debt": 0,
+      "velocity": 2,
+      "coupling": 0
+    },
+    ".db": {
+      "count": 1,
+      "size": 692224,
+      "loc": 0,
+      "debt": 0,
+      "velocity": 1,
+      "coupling": 0
+    },
+    ".dart": {
+      "count": 2315,
+      "size": 3554021,
+      "loc": 107709,
+      "debt": 0,
+      "velocity": 2579,
+      "coupling": 5
+    },
+    ".sh": {
+      "count": 1,
+      "size": 160,
+      "loc": 0,
+      "debt": 0,
+      "velocity": 0,
+      "coupling": 0
+    },
+    ".zst": {
+      "count": 110,
+      "size": 897922,
       "loc": 0,
       "debt": 0,
       "velocity": 0,
@@ -112,7 +144,7 @@
       "size": 9150604,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 14,
       "coupling": 0
     },
     ".iml": {
@@ -128,13 +160,13 @@
       "size": 279483,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 12,
       "coupling": 0
     },
-    ".dart": {
-      "count": 2310,
-      "size": 3529202,
-      "loc": 107062,
+    ".xml": {
+      "count": 46,
+      "size": 35988,
+      "loc": 0,
       "debt": 0,
       "velocity": 0,
       "coupling": 0
@@ -155,12 +187,20 @@
       "velocity": 0,
       "coupling": 0
     },
+    ".log": {
+      "count": 19,
+      "size": 58184,
+      "loc": 0,
+      "debt": 0,
+      "velocity": 0,
+      "coupling": 0
+    },
     ".toml": {
       "count": 2,
       "size": 383,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 2,
       "coupling": 0
     },
     ".sql": {
@@ -189,10 +229,10 @@
     },
     ".prisma": {
       "count": 22,
-      "size": 261807,
-      "loc": 0,
+      "size": 260731,
+      "loc": 7301,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 13,
       "coupling": 0
     },
     ".css": {
@@ -203,12 +243,20 @@
       "velocity": 0,
       "coupling": 0
     },
+    ".tmp": {
+      "count": 1,
+      "size": 5674,
+      "loc": 0,
+      "debt": 0,
+      "velocity": 0,
+      "coupling": 0
+    },
     ".pyc": {
       "count": 1,
       "size": 8495,
       "loc": 0,
       "debt": 0,
-      "velocity": 0,
+      "velocity": 1,
       "coupling": 0
     },
     ".mts": {
@@ -295,27 +343,27 @@
   "package_allotment": {
     "root": {
       "no-ext": {
-        "count": 9,
-        "size": 4050,
+        "count": 26,
+        "size": 5226,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
         "coupling": 0
       },
       ".yaml": {
-        "count": 2,
-        "size": 3485,
-        "loc": 0,
+        "count": 5,
+        "size": 38156,
+        "loc": 1005,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 5,
         "coupling": 0
       },
       ".json": {
-        "count": 25,
-        "size": 3912207,
+        "count": 245,
+        "size": 3020790,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 7,
         "coupling": 0
       },
       ".ps1": {
@@ -323,7 +371,7 @@
         "size": 9593,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 7,
         "coupling": 0
       },
       ".ts": {
@@ -331,15 +379,15 @@
         "size": 267983,
         "loc": 10124,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 265,
         "coupling": 0
       },
       ".js": {
-        "count": 27,
+        "count": 28,
         "size": 82349,
-        "loc": 0,
-        "debt": 3,
-        "velocity": 0,
+        "loc": 1934,
+        "debt": 0,
+        "velocity": 6,
         "coupling": 0
       },
       ".yml": {
@@ -355,28 +403,60 @@
         "size": 69473,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".py": {
-        "count": 59,
-        "size": 205334,
-        "loc": 5036,
-        "debt": 9,
-        "velocity": 0,
+        "count": 63,
+        "size": 205302,
+        "loc": 5046,
+        "debt": 0,
+        "velocity": 23,
         "coupling": 0
       },
       ".md": {
-        "count": 681,
-        "size": 492085,
-        "loc": 0,
-        "debt": 3,
-        "velocity": 0,
+        "count": 690,
+        "size": 580567,
+        "loc": 10778,
+        "debt": 0,
+        "velocity": 16,
         "coupling": 0
       },
       ".cjs": {
         "count": 8,
         "size": 20304,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 1,
+        "coupling": 0
+      },
+      ".db": {
+        "count": 1,
+        "size": 692224,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 1,
+        "coupling": 0
+      },
+      ".dart": {
+        "count": 17,
+        "size": 63149,
+        "loc": 1736,
+        "debt": 0,
+        "velocity": 6,
+        "coupling": 0
+      },
+      ".sh": {
+        "count": 1,
+        "size": 160,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".zst": {
+        "count": 110,
+        "size": 897922,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -406,20 +486,12 @@
         "velocity": 0,
         "coupling": 0
       },
-      ".dart": {
-        "count": 12,
-        "size": 38330,
-        "loc": 1089,
-        "debt": 0,
-        "velocity": 0,
-        "coupling": 0
-      },
       ".pyc": {
         "count": 1,
         "size": 8495,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".mts": {
@@ -533,9 +605,9 @@
       ".yaml": {
         "count": 2,
         "size": 798,
-        "loc": 0,
+        "loc": 33,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".txt": {
@@ -543,7 +615,7 @@
         "size": 117722,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".json": {
@@ -567,12 +639,20 @@
         "size": 28942,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 2,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 60,
+        "loc": 3,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3854,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -583,7 +663,7 @@
         "size": 11914,
         "loc": 301,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 12,
         "coupling": 0
       },
       ".png": {
@@ -615,6 +695,14 @@
       ".yaml": {
         "count": 2,
         "size": 784,
+        "loc": 33,
+        "debt": 0,
+        "velocity": 1,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 6,
+        "size": 26074,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -641,12 +729,20 @@
         "size": 26390,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 46,
+        "loc": 3,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3798,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -657,7 +753,7 @@
         "size": 4955,
         "loc": 152,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 12,
         "coupling": 0
       },
       ".png": {
@@ -689,15 +785,23 @@
       ".yaml": {
         "count": 2,
         "size": 784,
-        "loc": 0,
+        "loc": 33,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".dart": {
         "count": 18,
         "size": 19390,
         "loc": 642,
+        "debt": 0,
+        "velocity": 44,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 2,
+        "size": 8682,
+        "loc": 0,
         "debt": 0,
         "velocity": 0,
         "coupling": 0
@@ -723,12 +827,20 @@
         "size": 26390,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 46,
+        "loc": 3,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3798,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -763,14 +875,22 @@
       ".yaml": {
         "count": 2,
         "size": 885,
-        "loc": 0,
+        "loc": 38,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 3,
         "coupling": 0
       },
       ".txt": {
         "count": 8,
         "size": 352962,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 2,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 10016,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -789,7 +909,7 @@
         "size": 158171,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 7,
         "coupling": 0
       },
       ".iml": {
@@ -805,12 +925,20 @@
         "size": 27450,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 49,
+        "loc": 3,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3810,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -821,7 +949,7 @@
         "size": 33250,
         "loc": 921,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 34,
         "coupling": 0
       },
       ".png": {
@@ -853,6 +981,14 @@
       ".yaml": {
         "count": 2,
         "size": 787,
+        "loc": 33,
+        "debt": 0,
+        "velocity": 1,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 3,
+        "size": 13022,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -879,12 +1015,20 @@
         "size": 26390,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 49,
+        "loc": 3,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3810,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -895,7 +1039,7 @@
         "size": 12461,
         "loc": 341,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 12,
         "coupling": 0
       },
       ".png": {
@@ -927,9 +1071,9 @@
       ".yaml": {
         "count": 2,
         "size": 787,
-        "loc": 0,
+        "loc": 33,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".json": {
@@ -953,12 +1097,20 @@
         "size": 26390,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 49,
+        "loc": 3,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3810,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -969,7 +1121,7 @@
         "size": 9903,
         "loc": 263,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 12,
         "coupling": 0
       },
       ".png": {
@@ -1001,9 +1153,9 @@
       ".yaml": {
         "count": 2,
         "size": 785,
-        "loc": 0,
+        "loc": 33,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".json": {
@@ -1027,12 +1179,20 @@
         "size": 26390,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 47,
+        "loc": 3,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3802,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -1043,7 +1203,7 @@
         "size": 8859,
         "loc": 240,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 13,
         "coupling": 0
       },
       ".png": {
@@ -1069,15 +1229,15 @@
         "size": 982,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 2,
         "coupling": 0
       },
       ".js": {
         "count": 8,
         "size": 30104,
-        "loc": 0,
+        "loc": 713,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 10,
         "coupling": 0
       },
       ".ts": {
@@ -1085,12 +1245,20 @@
         "size": 34128,
         "loc": 967,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 20,
         "coupling": 0
       },
       ".toml": {
         "count": 1,
         "size": 261,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 2,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 54,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -1103,12 +1271,20 @@
         "size": 970,
         "loc": 36,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".json": {
         "count": 2,
         "size": 479,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 56,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -1126,23 +1302,31 @@
       },
       ".ts": {
         "count": 45,
-        "size": 16953146,
-        "loc": 388545,
-        "debt": 3,
-        "velocity": 0,
+        "size": 16904136,
+        "loc": 387290,
+        "debt": 0,
+        "velocity": 38,
         "coupling": 0
       },
       ".js": {
         "count": 14,
-        "size": 3053886,
-        "loc": 0,
+        "size": 3055107,
+        "loc": 11787,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 24,
         "coupling": 0
       },
       ".json": {
         "count": 3,
         "size": 4028,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 6,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 55,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -1166,10 +1350,10 @@
       },
       ".prisma": {
         "count": 22,
-        "size": 261807,
-        "loc": 0,
+        "size": 260731,
+        "loc": 7301,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 13,
         "coupling": 0
       },
       ".mjs": {
@@ -1201,7 +1385,7 @@
         "size": 519,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       }
     },
@@ -1217,7 +1401,7 @@
       ".md": {
         "count": 6,
         "size": 27403,
-        "loc": 0,
+        "loc": 606,
         "debt": 0,
         "velocity": 0,
         "coupling": 0
@@ -1234,6 +1418,14 @@
         "count": 108,
         "size": 1114091,
         "loc": 29480,
+        "debt": 0,
+        "velocity": 49,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 53,
+        "loc": 0,
         "debt": 0,
         "velocity": 0,
         "coupling": 0
@@ -1261,6 +1453,14 @@
         "size": 7962,
         "loc": 0,
         "debt": 0,
+        "velocity": 1,
+        "coupling": 0
+      },
+      ".tmp": {
+        "count": 1,
+        "size": 5674,
+        "loc": 0,
+        "debt": 0,
         "velocity": 0,
         "coupling": 0
       },
@@ -1269,23 +1469,23 @@
         "size": 288268,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 2,
         "coupling": 0
       },
       ".yaml": {
         "count": 2,
         "size": 773,
-        "loc": 0,
+        "loc": 35,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 2,
         "coupling": 0
       },
       ".md": {
         "count": 3,
         "size": 4729,
-        "loc": 0,
+        "loc": 123,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 3,
         "coupling": 0
       },
       ".py": {
@@ -1293,7 +1493,7 @@
         "size": 16880,
         "loc": 403,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".json": {
@@ -1320,12 +1520,20 @@
         "velocity": 0,
         "coupling": 0
       },
+      ".xml": {
+        "count": 3,
+        "size": 2752,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
       ".dart": {
         "count": 389,
         "size": 1189588,
         "loc": 34030,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 393,
         "coupling": 0
       }
     },
@@ -1341,9 +1549,9 @@
       ".yaml": {
         "count": 2,
         "size": 1035,
-        "loc": 0,
+        "loc": 45,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 6,
         "coupling": 0
       },
       ".txt": {
@@ -1351,7 +1559,7 @@
         "size": 8391652,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 9,
         "coupling": 0
       },
       ".ps1": {
@@ -1367,15 +1575,15 @@
         "size": 1955039,
         "loc": 61985,
         "debt": 0,
-        "velocity": 0,
-        "coupling": 0
+        "velocity": 1874,
+        "coupling": 5
       },
       ".json": {
         "count": 775,
         "size": 321486,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 4,
         "coupling": 0
       },
       ".iml": {
@@ -1391,13 +1599,13 @@
         "size": 34624,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 4,
         "coupling": 0
       },
       ".md": {
         "count": 1,
         "size": 44,
-        "loc": 0,
+        "loc": 3,
         "debt": 0,
         "velocity": 0,
         "coupling": 0
@@ -1409,6 +1617,14 @@
         "debt": 0,
         "velocity": 0,
         "coupling": 0
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3790,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
       }
     },
     "infrastructure": {
@@ -1417,7 +1633,7 @@
         "size": 128232,
         "loc": 2991,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 21,
         "coupling": 0
       },
       ".json": {
@@ -1431,6 +1647,14 @@
       ".md": {
         "count": 1,
         "size": 2510,
+        "loc": 26,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 61,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -1443,12 +1667,20 @@
         "size": 4020,
         "loc": 135,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 2,
         "coupling": 0
       },
       ".json": {
         "count": 2,
         "size": 479,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 56,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
@@ -1461,23 +1693,23 @@
         "size": 7962,
         "loc": 0,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 1,
         "coupling": 0
       },
       ".yaml": {
         "count": 2,
         "size": 538,
-        "loc": 0,
+        "loc": 25,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 5,
         "coupling": 0
       },
       ".md": {
         "count": 2,
         "size": 1344,
-        "loc": 0,
+        "loc": 42,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 2,
         "coupling": 0
       },
       ".json": {
@@ -1504,12 +1736,20 @@
         "velocity": 0,
         "coupling": 0
       },
+      ".xml": {
+        "count": 3,
+        "size": 2764,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
       ".dart": {
         "count": 113,
         "size": 245513,
         "loc": 7098,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 167,
         "coupling": 0
       }
     },
@@ -1519,12 +1759,20 @@
         "size": 9299,
         "loc": 234,
         "debt": 0,
-        "velocity": 0,
+        "velocity": 4,
         "coupling": 0
       },
       ".json": {
         "count": 2,
         "size": 478,
+        "loc": 0,
+        "debt": 0,
+        "velocity": 0,
+        "coupling": 0
+      },
+      ".log": {
+        "count": 1,
+        "size": 55,
         "loc": 0,
         "debt": 0,
         "velocity": 0,
