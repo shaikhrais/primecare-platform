@@ -50,7 +50,8 @@ class PrimeCareTheme {
   static Color get surface => PrimeCareColors.white;
   static Color get outline => PrimeCareColors.slate200;
   static Color get outlineVariant => PrimeCareColors.slate300;
-  static Color get primaryContainer => PrimeCareColors.skyBlue.withValues(alpha: 0.1);
+  static Color get primaryContainer =>
+      PrimeCareColors.skyBlue.withValues(alpha: 0.1);
   static Color get onPrimaryContainer => PrimeCareColors.skyBlue;
   static Color get onSurfaceVariant => PrimeCareColors.slate500;
 
@@ -71,28 +72,24 @@ class PrimeCareTheme {
     fontWeight: FontWeight.bold,
     color: PrimeCareColors.radarDark,
   );
-  
-  static TextStyle get bodyMedium => GoogleFonts.inter(
-    fontSize: 14,
-    color: PrimeCareColors.slate500,
-  );
-  
+
+  static TextStyle get bodyMedium =>
+      GoogleFonts.inter(fontSize: 14, color: PrimeCareColors.slate500);
+
   static TextStyle get titleMedium => GoogleFonts.plusJakartaSans(
     fontSize: 16,
     fontWeight: FontWeight.bold,
     color: PrimeCareColors.radarDark,
   );
-  
+
   static TextStyle get labelMedium => GoogleFonts.inter(
     fontSize: 12,
     color: PrimeCareColors.slate500,
     fontWeight: FontWeight.bold,
   );
-  
-  static TextStyle get labelSmall => GoogleFonts.inter(
-    fontSize: 11,
-    color: PrimeCareColors.slate500,
-  );
+
+  static TextStyle get labelSmall =>
+      GoogleFonts.inter(fontSize: 11, color: PrimeCareColors.slate500);
 
   /// Access the hardened theme data from the current context.
   static PrimeCareThemeData of(BuildContext context) {
@@ -473,58 +470,108 @@ class _PrimeCareColors {
   Color get error => PrimeCareColors.rose;
   Color get warning => PrimeCareColors.amber;
   Color get coralRed => PrimeCareColors.rose;
+  Color get info => PrimeCareColors.info;
 
   // Specific aliases used in dashboards
   Color get emeraldTeal => PrimeCareColors.emerald;
   Color get azureBlue => PrimeCareColors.skyBlue;
-  Color get slateGray => isDark ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
-  Color get borderLight => isDark ? PrimeCareColors.slate700 : PrimeCareColors.slate200;
-  Color get background => isDark ? PrimeCareColors.radarDark : PrimeCareColors.white;
-  Color get surface => isDark ? PrimeCareColors.slate800 : PrimeCareColors.white;
+  Color get slateGray =>
+      isDark ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
+  Color get borderLight =>
+      isDark ? PrimeCareColors.slate700 : PrimeCareColors.slate200;
+  Color get background =>
+      isDark ? PrimeCareColors.radarDark : PrimeCareColors.white;
+  Color get surface =>
+      isDark ? PrimeCareColors.slate800 : PrimeCareColors.white;
 
   // Additional aliases found in dashboards
   Color get roseRed => PrimeCareColors.rose;
   Color get amberWarning => PrimeCareColors.amber;
   Color get tealEmerald => PrimeCareColors.emerald;
-  Color get navyIndigo => PrimeCareColors.skyBlue; // Primary brand color fallback
+  Color get navyIndigo =>
+      PrimeCareColors.skyBlue; // Primary brand color fallback
 
   // Raw Slate access for specific visualization components
   Color get slate800 => PrimeCareColors.slate800;
   Color get slate400 => PrimeCareColors.slate400;
 
   // Surface Containers (M3 Standard)
-  Color get surfaceContainerHighest => isDark ? PrimeCareColors.slate600 : PrimeCareColors.slate100;
-  Color get surfaceContainerHigh => isDark ? PrimeCareColors.slate700 : PrimeCareColors.slate50;
-  Color get surfaceContainerLow => isDark ? PrimeCareColors.slate800 : PrimeCareColors.white;
-  Color get surfaceContainerLowest => isDark ? PrimeCareColors.radarDark : PrimeCareColors.white;
+  Color get surfaceContainerHighest =>
+      isDark ? PrimeCareColors.slate600 : PrimeCareColors.slate100;
+  Color get surfaceContainerHigh =>
+      isDark ? PrimeCareColors.slate700 : PrimeCareColors.slate50;
+  Color get surfaceContainerLow =>
+      isDark ? PrimeCareColors.slate800 : PrimeCareColors.white;
+  Color get surfaceContainerLowest =>
+      isDark ? PrimeCareColors.radarDark : PrimeCareColors.white;
 }
 
 class _PrimeCareTypography {
   final Brightness brightness;
   _PrimeCareTypography(this.brightness);
 
-  Color get _baseColor => brightness == Brightness.dark ? PrimeCareColors.white : PrimeCareColors.radarDark;
-  Color get _mutedColor => brightness == Brightness.dark ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
+  Color get _baseColor => brightness == Brightness.dark
+      ? PrimeCareColors.white
+      : PrimeCareColors.radarDark;
+  Color get _mutedColor => brightness == Brightness.dark
+      ? PrimeCareColors.slate400
+      : PrimeCareColors.slate500;
 
-  TextStyle get h1 => GoogleFonts.plusJakartaSans(fontSize: 32, fontWeight: FontWeight.bold, color: _baseColor);
-  TextStyle get h2 => GoogleFonts.plusJakartaSans(fontSize: 24, fontWeight: FontWeight.bold, color: _baseColor);
-  TextStyle get h3 => GoogleFonts.plusJakartaSans(fontSize: 18, fontWeight: FontWeight.bold, color: _baseColor);
-  
+  TextStyle get h1 => GoogleFonts.plusJakartaSans(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: _baseColor,
+  );
+  TextStyle get h2 => GoogleFonts.plusJakartaSans(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: _baseColor,
+  );
+  TextStyle get h3 => GoogleFonts.plusJakartaSans(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: _baseColor,
+  );
+  TextStyle get h4 => GoogleFonts.plusJakartaSans(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: _baseColor,
+  );
+
   TextStyle get titleLarge => h3;
-  TextStyle get titleMedium => GoogleFonts.plusJakartaSans(fontSize: 16, fontWeight: FontWeight.bold, color: _baseColor);
-  TextStyle get titleSmall => GoogleFonts.plusJakartaSans(fontSize: 14, fontWeight: FontWeight.bold, color: _baseColor);
+  TextStyle get titleMedium => GoogleFonts.plusJakartaSans(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: _baseColor,
+  );
+  TextStyle get titleSmall => GoogleFonts.plusJakartaSans(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: _baseColor,
+  );
 
   TextStyle get body => bodyMedium;
-  TextStyle get bodyBold => GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold, color: _baseColor);
-  
+  TextStyle get bodyBold => GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: _baseColor,
+  );
+
   TextStyle get bodyLarge => GoogleFonts.inter(fontSize: 16, color: _baseColor);
-  TextStyle get bodyMedium => GoogleFonts.inter(fontSize: 14, color: _baseColor);
+  TextStyle get bodyMedium =>
+      GoogleFonts.inter(fontSize: 14, color: _baseColor);
   TextStyle get bodySmall => GoogleFonts.inter(fontSize: 12, color: _baseColor);
-  
+
   TextStyle get label => labelMedium;
-  TextStyle get labelLarge => GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: _baseColor);
-  TextStyle get labelMedium => GoogleFonts.inter(fontSize: 12, color: _mutedColor);
-  TextStyle get labelSmall => GoogleFonts.inter(fontSize: 11, color: _mutedColor);
+  TextStyle get labelLarge => GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: _baseColor,
+  );
+  TextStyle get labelMedium =>
+      GoogleFonts.inter(fontSize: 12, color: _mutedColor);
+  TextStyle get labelSmall =>
+      GoogleFonts.inter(fontSize: 11, color: _mutedColor);
 }
 
 class _PrimeCareSpacing {

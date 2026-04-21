@@ -7,16 +7,23 @@ void main() {
     return;
   }
 
-  final files = directory.listSync().whereType<File>().where((f) => f.path.endsWith('.dart'));
+  final files = directory.listSync().whereType<File>().where(
+    (f) => f.path.endsWith('.dart'),
+  );
 
   int patchedCount = 0;
 
   for (final file in files) {
-    final content = file.readAsStringSync();
+    file.readAsStringSync(); // read to ensure file exists and is readable, though content is generated below
     final fileName = file.uri.pathSegments.last;
-    final className = fileName.split('_').map((s) => s[0].toUpperCase() + s.substring(1)).join('').replaceAll('.dart', '');
+    final className = fileName
+        .split('_')
+        .map((s) => s[0].toUpperCase() + s.substring(1))
+        .join('')
+        .replaceAll('.dart', '');
 
-    final newContent = """
+    final newContent =
+        """
 import '../02_M_dashboard_view_model.dart';
 import '../core/02_M_dashboard_models.dart';
 import '../core/02_M_intelligence_insight.dart';
@@ -71,5 +78,7 @@ class $className extends PrimeCareDashboardViewModel {
     patchedCount++;
   }
 
-  print('\nSuccessfully unified $patchedCount role ViewModels in primecare_adapters.');
+  print(
+    '\nSuccessfully unified $patchedCount role ViewModels in primecare_adapters.',
+  );
 }

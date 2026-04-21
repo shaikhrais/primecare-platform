@@ -10,7 +10,8 @@ class CfoNotifier extends Notifier<AsyncValue<CfoDashboardViewModel>>
     return AsyncValue.data(CfoDashboardViewModel.empty());
   }
 
-  ICfoRepository get _repository => ref.watch(cfoRepositoryProvider);
+  ICfoRepository get _repository =>
+      ref.read<ICfoRepository>(cfoRepositoryProvider);
 
   Future<void> loadData() async {
     state = const AsyncValue.loading();

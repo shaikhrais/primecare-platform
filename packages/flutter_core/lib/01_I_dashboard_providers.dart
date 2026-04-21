@@ -107,3 +107,12 @@ final auraDashboardToggleProvider =
     NotifierProvider<AuraDashboardToggleNotifier, Map<String, bool>>(
       AuraDashboardToggleNotifier.new,
     );
+
+/// Standardized provider for Administrative Oversight metrics.
+final adminDashboardProvider = FutureProvider<DashboardMetrics>((ref) async {
+  final result = await ref.watch(dashboardMetricsProvider('admin').future);
+  return result.fold(
+    (metrics) => metrics,
+    (error) => DataLogisticsHub.getDashboardMetrics('admin'),
+  );
+});

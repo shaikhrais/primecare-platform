@@ -22,10 +22,7 @@ enum ExecutionGateCategory {
 }
 
 /// Status of an individual execution gate.
-enum ExecutionGateStatus {
-  pass,
-  fail,
-}
+enum ExecutionGateStatus { pass, fail }
 
 /// A single record of an execution gate event.
 class ExecutionGate {
@@ -46,7 +43,8 @@ class ExecutionGate {
   });
 
   @override
-  String toString() => '${timestamp.toIso8601String()} [${status.name.toUpperCase()}] [${category.name}] $message';
+  String toString() =>
+      '${timestamp.toIso8601String()} [${status.name.toUpperCase()}] [${category.name}] $message';
 }
 
 /// A centralized service for tracking system-wide execution status and gate triggers.
@@ -58,14 +56,20 @@ class ExecutionGateService extends ChangeNotifier {
   List<ExecutionGate> get allGates => List.unmodifiable(_gates);
 
   /// Records a successful gate passage.
-  void passGate(ExecutionGateCategory category, String message, {Map<String, dynamic>? metadata}) {
-    _gates.add(ExecutionGate(
-      category: category,
-      message: message,
-      status: ExecutionGateStatus.pass,
-      timestamp: DateTime.now(),
-      metadata: metadata,
-    ));
+  void passGate(
+    ExecutionGateCategory category,
+    String message, {
+    Map<String, dynamic>? metadata,
+  }) {
+    _gates.add(
+      ExecutionGate(
+        category: category,
+        message: message,
+        status: ExecutionGateStatus.pass,
+        timestamp: DateTime.now(),
+        metadata: metadata,
+      ),
+    );
     if (kDebugMode) {
       print('[ExecutionGate] PASS [$category]: $message');
     }
@@ -73,15 +77,23 @@ class ExecutionGateService extends ChangeNotifier {
   }
 
   /// Records a failed gate attempt.
-  void failGate(ExecutionGateCategory category, String message, {Object? error, StackTrace? stackTrace, Map<String, dynamic>? metadata}) {
-    _gates.add(ExecutionGate(
-      category: category,
-      message: message,
-      status: ExecutionGateStatus.fail,
-      timestamp: DateTime.now(),
-      error: error,
-      metadata: metadata,
-    ));
+  void failGate(
+    ExecutionGateCategory category,
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, dynamic>? metadata,
+  }) {
+    _gates.add(
+      ExecutionGate(
+        category: category,
+        message: message,
+        status: ExecutionGateStatus.fail,
+        timestamp: DateTime.now(),
+        error: error,
+        metadata: metadata,
+      ),
+    );
     if (kDebugMode) {
       print('[ExecutionGate] FAIL [$category]: $message | Error: $error');
     }
@@ -116,7 +128,7 @@ class ExecutionGateService extends ChangeNotifier {
   /// Placeholder for manual submission logic to a cloud telemetry sink.
   Future<void> manualSubmit() async {
     // In a real implementation, this would POST to a telemetry endpoint.
-    await Future.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(const Duration(seconds: 1));
     if (kDebugMode) {
       print('Manual audit report submitted successfully.');
     }
@@ -125,6 +137,8 @@ class ExecutionGateService extends ChangeNotifier {
 
 /// Global provider for the ExecutionGateService.
 /// Using ChangeNotifierProvider to support legacy ref.read(executionGateProvider).method() access patterns.
-final executionGateProvider = ChangeNotifierProvider<ExecutionGateService>((ref) {
+final executionGateProvider = ChangeNotifierProvider<ExecutionGateService>((
+  ref,
+) {
   return ExecutionGateService();
 });

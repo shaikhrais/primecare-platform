@@ -35,5 +35,10 @@ export 'package:primecare_ui/src/screens/common/05_U_splash_screen.dart';
 export 'package:primecare_ui/src/screens/common/05_U_subscription_upgrade_screen.dart';
 export 'package:primecare_ui/src/screens/common/05_U_primecare_horizon_scheduler_screen.dart';
 export 'package:primecare_ui/src/screens/common/05_U_institutional_scheduler_screen.dart';
+export 'package:primecare_ui/src/components/dashboards/05_U_head_of_marketing_dashboard_screen.dart';
+export 'package:primecare_ui/src/components/dashboards/05_U_customer_support_dashboard_screen.dart';
+export 'package:primecare_ui/src/components/dashboards/05_U_hr_manager_dashboard_screen.dart';
+export 'package:primecare_ui/src/components/dashboards/05_U_operations_manager_dashboard_screen.dart';
+export 'package:primecare_ui/src/components/dashboards/02_M_prime_care_disk_usage_card.dart';
 
 // Developer Samples (Reference Implementations)

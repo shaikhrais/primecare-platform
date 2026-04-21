@@ -19,7 +19,8 @@ export 'src/resilience/01_I_app_error_boundary.dart';
 export 'src/resilience/01_I_connectivity_service.dart';
 export 'src/resilience/01_I_provider_ttl.dart';
 export '01_I_verification_service.dart';
-export '01_I_verification_providers.dart';
+export '01_I_verification_providers.dart'
+    hide architecturePurposeProvider, databaseReportProvider;
 
 // Mission-critical symbols for standardized Notifiers and Resilience
 export 'package:flutter_riverpod/flutter_riverpod.dart';

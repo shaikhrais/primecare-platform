@@ -1,4 +1,3 @@
-
 // Layer: 05_UI_PRESENTATION
 import 'package:flutter/material.dart';
 import 'package:primecare_core/00_B_flutter_core.dart';
@@ -11,9 +10,10 @@ class Authpagesmessagesection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const PrimeCareResponsiveKpiGrid(
-      title: 'authPagesMessageSection',
       children: [
-        PrimeCareCard(child: Text('Operational Sector: authPagesMessageSection')),
+        PrimeCareCard(
+          child: Text('Operational Sector: authPagesMessageSection'),
+        ),
       ],
     );
   }

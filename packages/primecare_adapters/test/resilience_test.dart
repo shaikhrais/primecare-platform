@@ -8,19 +8,25 @@ import 'dart:convert';
 
 class MockApiClient extends ApiClient {
   MockApiClient(super.ref);
-  
+
   Response<dynamic>? mockResponse;
   DioException? mockError;
 
   @override
-  Future<Response<dynamic>> get(String path, {Map<String, dynamic>? query}) async {
+  Future<Response<dynamic>> get(
+    String path, {
+    Map<String, dynamic>? query,
+  }) async {
     if (mockError != null) throw mockError!;
     return mockResponse!;
   }
 
   @override
   Future<Response<dynamic>> post(String path, {dynamic body}) async {
-    return Response(requestOptions: RequestOptions(path: path), statusCode: 200);
+    return Response(
+      requestOptions: RequestOptions(path: path),
+      statusCode: 200,
+    );
   }
 }
 
@@ -37,7 +43,8 @@ class MockSharedPreferences implements SharedPreferences {
   }
 
   @override
-  List<String>? getStringList(String key) => (_data[key] as List?)?.cast<String>();
+  List<String>? getStringList(String key) =>
+      (_data[key] as List?)?.cast<String>();
 
   @override
   Future<bool> setStringList(String key, List<String> value) async {
@@ -74,8 +81,8 @@ class MockSharedPreferences implements SharedPreferences {
 
   @override
   Future<bool> setDouble(String key, double value) async {
-     _data[key] = value;
-     return true;
+    _data[key] = value;
+    return true;
   }
 
   @override
@@ -103,27 +110,40 @@ class MockSharedPreferences implements SharedPreferences {
 class MockResilienceService extends ResilienceService {
   MockResilienceService(super.prefs, super.ref);
   final Map<String, String> _storage = {};
-  
+
   @override
-  Future<void> saveSnapshot(String key, Map<String, dynamic> data) async => _storage[key] = jsonEncode(data);
-  
+  Future<void> saveSnapshot(String key, Map<String, dynamic> data) async =>
+      _storage[key] = jsonEncode(data);
+
   @override
-  Map<String, dynamic>? getSnapshot(String key) => _storage[key] != null ? jsonDecode(_storage[key]!) as Map<String, dynamic>? : null;
+  Map<String, dynamic>? getSnapshot(String key) => _storage[key] != null
+      ? jsonDecode(_storage[key]!) as Map<String, dynamic>?
+      : null;
 }
 
 class MockExecutionGateService extends ExecutionGateService {
   final List<String> logs = [];
-  
+
   @override
-  void passGate(ExecutionGateCategory category, String message, {Map<String, dynamic>? metadata}) {
+  void passGate(
+    ExecutionGateCategory category,
+    String message, {
+    Map<String, dynamic>? metadata,
+  }) {
     logs.add('PASS: ${category.name} - $message');
   }
-  
+
   @override
-  void failGate(ExecutionGateCategory category, String message, {Object? error, StackTrace? stackTrace, Map<String, dynamic>? metadata}) {
+  void failGate(
+    ExecutionGateCategory category,
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, dynamic>? metadata,
+  }) {
     logs.add('FAIL: ${category.name} - $message');
   }
-  
+
   @override
   void reset() => logs.clear();
 }
@@ -135,40 +155,47 @@ void main() {
       final container = ProviderContainer(
         overrides: [
           sharedPreferencesProvider.overrideWithValue(mockPrefs),
-          resilienceServiceProvider.overrideWith((ref) => MockResilienceService(mockPrefs, ref)),
-          executionGateProvider.overrideWith((ref) => MockExecutionGateService()),
+          resilienceServiceProvider.overrideWith(
+            (ref) => MockResilienceService(mockPrefs, ref),
+          ),
+          executionGateProvider.overrideWith(
+            (ref) => MockExecutionGateService(),
+          ),
           apiClientProvider.overrideWith((ref) => MockApiClient(ref)),
         ],
       );
 
       final mockApi = container.read(apiClientProvider) as MockApiClient;
-      final mockTelemetry = container.read(executionGateProvider) as MockExecutionGateService;
+      final mockTelemetry =
+          container.read(executionGateProvider) as MockExecutionGateService;
 
       mockApi.mockResponse = Response(
         data: {
           'kpis': [
-            {'title': 'Revenue', 'value': '10000', 'status': 'Positive'}
+            {'title': 'Revenue', 'value': '10000', 'status': 'Positive'},
           ],
           'recentActivity': <dynamic>[],
           'charts': <dynamic>[],
           'isOfflineFallback': false,
           'performanceIndex': '98.2%',
-          'institutionalHealthScore': 'Optimum'
+          'institutionalHealthScore': 'Optimum',
         },
         statusCode: 200,
         requestOptions: RequestOptions(path: '/api/v1/metrics'),
       );
 
-      final Result<CeoDashboardViewModel> result = await container.read(ceoDashboardAdapterProvider.future);
-      
-      result.fold(
-        (vm) {
-          final viewModel = vm;
-          expect(viewModel.isOfflineFallback, false);
-          expect(mockTelemetry.logs.any((l) => l.contains('Dashboard route hydrated')), isTrue);
-        },
-        (e) => fail('Should have succeeded: $e'),
+      final Result<CeoDashboardViewModel> result = await container.read(
+        ceoDashboardAdapterProvider.future,
       );
+
+      result.fold((vm) {
+        final viewModel = vm;
+        expect(viewModel.isOfflineFallback, false);
+        expect(
+          mockTelemetry.logs.any((l) => l.contains('Dashboard route hydrated')),
+          isTrue,
+        );
+      }, (e) => fail('Should have succeeded: $e'));
       container.dispose();
     });
 
@@ -177,24 +204,30 @@ void main() {
       final container = ProviderContainer(
         overrides: [
           sharedPreferencesProvider.overrideWithValue(mockPrefs),
-          resilienceServiceProvider.overrideWith((ref) => MockResilienceService(mockPrefs, ref)),
-          executionGateProvider.overrideWith((ref) => MockExecutionGateService()),
+          resilienceServiceProvider.overrideWith(
+            (ref) => MockResilienceService(mockPrefs, ref),
+          ),
+          executionGateProvider.overrideWith(
+            (ref) => MockExecutionGateService(),
+          ),
           apiClientProvider.overrideWith((ref) => MockApiClient(ref)),
         ],
       );
 
       final mockApi = container.read(apiClientProvider) as MockApiClient;
-      final mockTelemetry = container.read(executionGateProvider) as MockExecutionGateService;
-      final mockResilience = container.read(resilienceServiceProvider) as MockResilienceService;
+      final mockTelemetry =
+          container.read(executionGateProvider) as MockExecutionGateService;
+      final mockResilience =
+          container.read(resilienceServiceProvider) as MockResilienceService;
 
       // Prime the cache with a nested structure matching ViewModel.toJson()
       await mockResilience.saveSnapshot('ceo_dashboard', {
         'metrics': {
-          'kpis': [],
-          'recentActivity': [],
-          'charts': [],
+          'kpis': <Map<String, dynamic>>[],
+          'recentActivity': <Map<String, dynamic>>[],
+          'charts': <Map<String, dynamic>>[],
           'performanceIndex': '90%',
-          'institutionalHealthScore': 'Good'
+          'institutionalHealthScore': 'Good',
         },
         'isOfflineFallback': true,
       });
@@ -204,16 +237,20 @@ void main() {
         type: DioExceptionType.connectionTimeout,
       );
 
-      final Result<CeoDashboardViewModel> result = await container.read(ceoDashboardAdapterProvider.future);
+      final Result<CeoDashboardViewModel> result = await container.read(
+        ceoDashboardAdapterProvider.future,
+      );
 
       expect(result.isSuccess, isTrue);
-      result.fold(
-        (vm) {
-          expect(vm.isOfflineFallback, isTrue);
-          expect(mockTelemetry.logs.any((l) => l.contains('CEO Metrics Logistics Fallback Triggered')), isTrue);
-        },
-        (e) => fail('Should be Success with fallback vm'),
-      );
+      result.fold((vm) {
+        expect(vm.isOfflineFallback, isTrue);
+        expect(
+          mockTelemetry.logs.any(
+            (l) => l.contains('CEO Metrics Logistics Fallback Triggered'),
+          ),
+          isTrue,
+        );
+      }, (e) => fail('Should be Success with fallback vm'));
       container.dispose();
     });
 
@@ -222,14 +259,19 @@ void main() {
       final container = ProviderContainer(
         overrides: [
           sharedPreferencesProvider.overrideWithValue(mockPrefs),
-          resilienceServiceProvider.overrideWith((ref) => MockResilienceService(mockPrefs, ref)),
-          executionGateProvider.overrideWith((ref) => MockExecutionGateService()),
+          resilienceServiceProvider.overrideWith(
+            (ref) => MockResilienceService(mockPrefs, ref),
+          ),
+          executionGateProvider.overrideWith(
+            (ref) => MockExecutionGateService(),
+          ),
           apiClientProvider.overrideWith((ref) => MockApiClient(ref)),
         ],
       );
 
       final mockApi = container.read(apiClientProvider) as MockApiClient;
-      final mockTelemetry = container.read(executionGateProvider) as MockExecutionGateService;
+      final mockTelemetry =
+          container.read(executionGateProvider) as MockExecutionGateService;
 
       // Force API failure
       mockApi.mockError = DioException(
@@ -237,17 +279,21 @@ void main() {
         type: DioExceptionType.unknown,
       );
 
-      final Result<CeoDashboardViewModel> result = await container.read(ceoDashboardAdapterProvider.future);
+      final Result<CeoDashboardViewModel> result = await container.read(
+        ceoDashboardAdapterProvider.future,
+      );
 
       expect(result.isSuccess, isTrue);
-      result.fold(
-        (vm) {
-          final viewModel = vm;
-          expect(viewModel.isOfflineFallback, isTrue);
-          expect(mockTelemetry.logs.any((l) => l.contains('CEO Metrics Logistics Fallback Triggered')), isTrue);
-        },
-        (e) => fail('Defensive Hub should have returned fallback'),
-      );
+      result.fold((vm) {
+        final viewModel = vm;
+        expect(viewModel.isOfflineFallback, isTrue);
+        expect(
+          mockTelemetry.logs.any(
+            (l) => l.contains('CEO Metrics Logistics Fallback Triggered'),
+          ),
+          isTrue,
+        );
+      }, (e) => fail('Defensive Hub should have returned fallback'));
       container.dispose();
     });
 

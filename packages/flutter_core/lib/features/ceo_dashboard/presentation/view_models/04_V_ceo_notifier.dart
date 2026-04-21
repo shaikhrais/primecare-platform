@@ -1,5 +1,6 @@
 // Layer: 04_VIEW_MODELS
 import '../../../../00_B_flutter_core.dart';
+import '../../domain/repositories/03_D_ceo_repository.dart';
 import '../providers/03_D_providers.dart';
 
 class CeoNotifier extends Notifier<AsyncValue<CeoDashboardViewModel>>
@@ -13,7 +14,7 @@ class CeoNotifier extends Notifier<AsyncValue<CeoDashboardViewModel>>
     state = const AsyncValue.loading();
 
     await guardHydration<CeoDashboardViewModel>(
-      fetch: () => ref.read<CeoRepository>(ceoRepositoryProvider).getCeoData(),
+      fetch: () => ref.read<ICeoRepository>(ceoRepositoryProvider).getCeoData(),
       onSuccess: (CeoDashboardViewModel data) {
         return AsyncValue.data(data);
       },

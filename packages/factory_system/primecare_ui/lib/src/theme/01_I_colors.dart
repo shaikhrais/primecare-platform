@@ -15,15 +15,15 @@ class PrimeCareColors {
   static const Color emerald = Color(0xFF10B981); // Success
   static const Color rose = Color(0xFFE11D48); // Critical / Escalate
   static const Color amber = Color(0xFFF59E0B); // Warnings
+  static const Color info = Color(0xFF3B82F6); // Informational / System
 
   // Mid-tones & Text
   static const Color slate500 = Color(0xFF64748B); // Muted Labels
   static const Color slate400 = Color(0xFF94A3B8); // Standard Subtext
   static const Color slate300 = Color(0xFFCBD5E1); // Heavy Subtext
   static const Color slate200 = Color(0xFFE2E8F0); // Borders
-  static const Color slate100 = Color(0xFFF1F5F9); 
-  static const Color slate50 = Color(0xFFF8FAFC); 
-
+  static const Color slate100 = Color(0xFFF1F5F9);
+  static const Color slate50 = Color(0xFFF8FAFC);
 
   // Absolute
   static const Color white = Color(
