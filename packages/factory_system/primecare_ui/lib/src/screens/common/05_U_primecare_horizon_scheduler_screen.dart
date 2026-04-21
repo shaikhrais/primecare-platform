@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/src/components/scheduler/01_I_horizon_grid.dart';
-import 'package:primecare_ui/src/components/cards/01_I_primecare_aura_card.dart';
 
 class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
   const PrimeCareHorizonSchedulerScreen({super.key});

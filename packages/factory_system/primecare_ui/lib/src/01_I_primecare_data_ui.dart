@@ -2,7 +2,6 @@
 // ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument, inference_failure_on_untyped_parameter, inference_failure_on_function_return_type
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// 1. Universal Async Component Renderer (Industry Standard Smart-mount)
 /// Eliminates localized loading grids, spinner logic, and Try/Catch setState logic from UI nodes.
@@ -149,7 +148,7 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
             if (field['type'] == 'header') {
               return Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 16),
-                child: PrimeCareSectionHeader(title: field['label']),
+                child: PrimeCareSectionHeader(title: field['label'] ?? ''),
               );
             }
 
@@ -189,13 +188,13 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
             return Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: PrimeCareTextField(
-                label: field['label'],
+                label: field['label'] ?? '',
                 controller: _controllers[field['key']],
                 keyboardType: isPhone
                     ? TextInputType.phone
                     : (isNumber ? TextInputType.number : TextInputType.text),
                 validator: field['required'] == true
-                    ? (val) => val == null || val.isEmpty ? 'Required' : null
+                    ? (val) => (val == null || val.isEmpty) ? 'Required' : null
                     : null,
               ),
             );
@@ -204,7 +203,7 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
           const SizedBox(height: 32),
 
           PrimeCareButton(
-            onPressed: _isSaving ? null : _handleSave,
+            onPressed: (_isSaving) ? null : _handleSave,
             text: widget.submitLabel,
             isPrimary: true,
             isLoading: _isSaving,

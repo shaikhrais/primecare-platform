@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument, inference_failure_on_untyped_parameter
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 extension StringExtension on String {
@@ -33,9 +33,15 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
       return specializedAsync.when(
         data: (result) => (result as Result).fold(
           (viewModel) => PageTemplate(
-            title: '${role.split('_').map((s) => s.capitalize()).join(' ')} Workspace',
+            title:
+                '${role.split('_').map((s) => s.capitalize()).join(' ')} Workspace',
             subtitle: 'Real-time metrics and institutional activity feed.',
-            body: _buildDashboardContent(context, ref, viewModel, isResilientFallback: false),
+            body: _buildDashboardContent(
+              context,
+              ref,
+              viewModel,
+              isResilientFallback: false,
+            ),
           ),
           (error) => _buildResilientFallback(context, ref, error.toString()),
         ),
@@ -50,9 +56,15 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
     return metricsAsync.when(
       data: (result) => result.fold(
         (metrics) => PageTemplate(
-          title: '${role.split('_').map((s) => s.capitalize()).join(' ')} Workspace',
+          title:
+              '${role.split('_').map((s) => s.capitalize()).join(' ')} Workspace',
           subtitle: 'Real-time metrics and institutional activity feed.',
-          body: _buildDashboardContent(context, ref, metrics, isResilientFallback: false),
+          body: _buildDashboardContent(
+            context,
+            ref,
+            metrics,
+            isResilientFallback: false,
+          ),
         ),
         (error) => _buildResilientFallback(context, ref, error.toString()),
       ),
@@ -77,7 +89,10 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             Text(
               'Hydration Failure',
-              style: GoogleFonts.outfit(fontSize: 20, fontWeight: FontWeight.bold),
+              style: GoogleFonts.outfit(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
             Text(error, textAlign: TextAlign.center),
@@ -135,27 +150,39 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: 24.0),
               child: PrimeCareAuraCard(
                 insights: insights,
-                onAuraResult: (intent) => _handleAuraIntent(context, telemetry, intent),
+                onAuraResult: (intent) =>
+                    _handleAuraIntent(context, telemetry, intent),
               ),
             ),
-            loading: () => const SizedBox(height: 100, child: Center(child: CircularProgressIndicator())),
+            loading: () => const SizedBox(
+              height: 100,
+              child: Center(child: CircularProgressIndicator()),
+            ),
             error: (_, _) => const SizedBox.shrink(),
           ),
 
           if (blueprints.isNotEmpty) ...[
-            ...blueprints.map((blueprint) => Padding(
-              padding: const EdgeInsets.only(bottom: 24.0),
-              child: ComponentWarehouse.build(context, blueprint),
-            )),
+            ...blueprints.map(
+              (blueprint) => Padding(
+                padding: const EdgeInsets.only(bottom: 24.0),
+                child: ComponentWarehouse.build(context, blueprint),
+              ),
+            ),
           ],
 
           if (blueprints.isEmpty) ...[
             if (kpis.isEmpty)
-              const Center(child: Padding(padding: EdgeInsets.all(32.0), child: Text('No metrics available.')))
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32.0),
+                  child: Text('No metrics available.'),
+                ),
+              )
             else
               PrimeCareResponsiveKpiGrid(
                 children: sortedKpis.map((kpi) {
-                  final isPinned = prefService?.isPinned(role, kpi.title) ?? false;
+                  final isPinned =
+                      prefService?.isPinned(role, kpi.title) ?? false;
                   return PrimeCareKpiCard(
                     title: kpi.title,
                     value: kpi.value,
@@ -175,42 +202,65 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
 
           if (charts.isNotEmpty) ...[
             const SizedBox(height: 32),
-            const Text('Operational Insights', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text(
+              'Operational Insights',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 16),
-            ...charts.map((chart) => Padding(
-              padding: const EdgeInsets.only(bottom: 24.0),
-              child: _buildChart(chart),
-            )),
+            ...charts.map(
+              (chart) => Padding(
+                padding: const EdgeInsets.only(bottom: 24.0),
+                child: _buildChart(chart),
+              ),
+            ),
           ],
         ],
       ),
     );
   }
 
-  void _handleAuraIntent(BuildContext context, ExecutionGateService telemetry, AuraIntent intent) {
+  void _handleAuraIntent(
+    BuildContext context,
+    ExecutionGateService telemetry,
+    AuraIntent intent,
+  ) {
     if (intent.actions.isEmpty) return;
     for (final action in intent.actions) {
       if (action.type == AuraActionType.navigate) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PrimeCareReportScreen(reportId: action.target)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                PrimeCareReportScreen(reportId: action.target),
+          ),
+        );
       } else if (action.type == AuraActionType.filter) {
-        telemetry.passGate(ExecutionGateCategory.auraEngine, 'Aura: Applying filter for ${action.target}');
+        telemetry.passGate(
+          ExecutionGateCategory.auraEngine,
+          'Aura: Applying filter for ${action.target}',
+        );
       }
     }
   }
 
   Widget _buildChart(AnalyticsChart chart) {
     switch (chart.type) {
-      case ChartType.line: return PrimeCareLineChart(chart: chart);
-      case ChartType.bar: return PrimeCareBarChart(chart: chart);
-      case ChartType.pie: return PrimeCarePieChart(chart: chart);
+      case ChartType.line:
+        return PrimeCareLineChart(chart: chart);
+      case ChartType.bar:
+        return PrimeCareBarChart(chart: chart);
+      case ChartType.pie:
+        return PrimeCarePieChart(chart: chart);
     }
   }
 
   IconData _getIconForMetric(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient')) return LucideIcons.users;
-    if (t.contains('claim') || t.contains('revenue')) return LucideIcons.dollarSign;
-    if (t.contains('staff') || t.contains('capacity')) return LucideIcons.userCheck;
+    if (t.contains('claim') || t.contains('revenue'))
+      return LucideIcons.dollarSign;
+    if (t.contains('staff') || t.contains('capacity'))
+      return LucideIcons.userCheck;
     if (t.contains('alert')) return LucideIcons.alertCircle;
     return LucideIcons.activity;
   }

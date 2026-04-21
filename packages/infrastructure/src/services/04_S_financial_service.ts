@@ -4,7 +4,7 @@
  */
 import { Decimal } from 'Decimal.js';
 import type { PrismaClient } from '@primecare/database';
-import { calculateBalance, getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport } from './financial-reporting';
+import { calculateBalance, getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport } from './04_S_financial_reporting_service';
 
 export class FinancialService {
     constructor(private prisma: PrismaClient) { }

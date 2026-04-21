@@ -1,4 +1,4 @@
-import { FinancialService } from './financial.service';
+import { FinancialService } from './04_S_financial_service';
 
 /** Lightweight Decimal for Cloudflare Workers (replaces @prisma/client Decimal) */
 class Decimal {
