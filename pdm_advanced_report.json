@@ -6,6 +6,746 @@
     "orphan_count": 1150,
     "legacy_cold_count": 0
   },
+  "package_allotment": {
+    "root": {
+      "no-ext": {
+        "count": 26,
+        "size": 5226
+      },
+      ".yaml": {
+        "count": 5,
+        "size": 38156
+      },
+      ".json": {
+        "count": 245,
+        "size": 3020790
+      },
+      ".ps1": {
+        "count": 11,
+        "size": 9593
+      },
+      ".ts": {
+        "count": 375,
+        "size": 267983
+      },
+      ".js": {
+        "count": 28,
+        "size": 82349
+      },
+      ".yml": {
+        "count": 1,
+        "size": 1109
+      },
+      ".mjs": {
+        "count": 34,
+        "size": 69473
+      },
+      ".py": {
+        "count": 63,
+        "size": 205302
+      },
+      ".md": {
+        "count": 690,
+        "size": 580567
+      },
+      ".cjs": {
+        "count": 8,
+        "size": 20304
+      },
+      ".db": {
+        "count": 1,
+        "size": 692224
+      },
+      ".dart": {
+        "count": 17,
+        "size": 63149
+      },
+      ".sh": {
+        "count": 1,
+        "size": 160
+      },
+      ".zst": {
+        "count": 110,
+        "size": 897922
+      },
+      ".html": {
+        "count": 5,
+        "size": 92965
+      },
+      ".png": {
+        "count": 206,
+        "size": 85479584
+      },
+      ".sql": {
+        "count": 2,
+        "size": 8842
+      },
+      ".pyc": {
+        "count": 1,
+        "size": 8495
+      },
+      ".mts": {
+        "count": 1,
+        "size": 1598
+      },
+      ".ico": {
+        "count": 2,
+        "size": 30172
+      },
+      ".ttf": {
+        "count": 2,
+        "size": 167388
+      },
+      ".css": {
+        "count": 15,
+        "size": 28945
+      },
+      ".woff2": {
+        "count": 5,
+        "size": 513348
+      },
+      ".svg": {
+        "count": 23,
+        "size": 3657785
+      },
+      ".woff": {
+        "count": 1,
+        "size": 18636
+      },
+      ".jpg": {
+        "count": 137,
+        "size": 5007813
+      },
+      ".gif": {
+        "count": 2,
+        "size": 48296
+      },
+      ".tsx": {
+        "count": 263,
+        "size": 629130
+      },
+      ".scss": {
+        "count": 16,
+        "size": 58070
+      }
+    },
+    "Excel data.xlsx": {
+      ".xlsx": {
+        "count": 1,
+        "size": 12690
+      }
+    },
+    "primecare_business_development": {
+      "no-ext": {
+        "count": 3,
+        "size": 8717
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 798
+      },
+      ".txt": {
+        "count": 2,
+        "size": 117722
+      },
+      ".json": {
+        "count": 2,
+        "size": 1116
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 28942
+      },
+      ".md": {
+        "count": 1,
+        "size": 60
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3854
+      },
+      ".dart": {
+        "count": 4,
+        "size": 11914
+      },
+      ".png": {
+        "count": 5,
+        "size": 41053
+      },
+      ".html": {
+        "count": 1,
+        "size": 1611
+      }
+    },
+    "primecare_client": {
+      "no-ext": {
+        "count": 3,
+        "size": 7547
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 784
+      },
+      ".log": {
+        "count": 6,
+        "size": 26074
+      },
+      ".json": {
+        "count": 2,
+        "size": 1074
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 26390
+      },
+      ".md": {
+        "count": 1,
+        "size": 46
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3798
+      },
+      ".dart": {
+        "count": 4,
+        "size": 4955
+      },
+      ".png": {
+        "count": 5,
+        "size": 41053
+      },
+      ".html": {
+        "count": 1,
+        "size": 1583
+      }
+    },
+    "primecare_clinic": {
+      "no-ext": {
+        "count": 3,
+        "size": 7547
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 784
+      },
+      ".dart": {
+        "count": 18,
+        "size": 19390
+      },
+      ".log": {
+        "count": 2,
+        "size": 8682
+      },
+      ".json": {
+        "count": 2,
+        "size": 1074
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 26390
+      },
+      ".md": {
+        "count": 1,
+        "size": 46
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3798
+      },
+      ".png": {
+        "count": 5,
+        "size": 41053
+      },
+      ".html": {
+        "count": 1,
+        "size": 1583
+      }
+    },
+    "primecare_corporate": {
+      "no-ext": {
+        "count": 3,
+        "size": 7887
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 885
+      },
+      ".txt": {
+        "count": 8,
+        "size": 352962
+      },
+      ".log": {
+        "count": 1,
+        "size": 10016
+      },
+      ".py": {
+        "count": 1,
+        "size": 2054
+      },
+      ".json": {
+        "count": 6,
+        "size": 158171
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 27450
+      },
+      ".md": {
+        "count": 1,
+        "size": 49
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3810
+      },
+      ".dart": {
+        "count": 7,
+        "size": 33250
+      },
+      ".png": {
+        "count": 5,
+        "size": 41053
+      },
+      ".html": {
+        "count": 1,
+        "size": 1589
+      }
+    },
+    "primecare_franchise": {
+      "no-ext": {
+        "count": 3,
+        "size": 7547
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 787
+      },
+      ".log": {
+        "count": 3,
+        "size": 13022
+      },
+      ".json": {
+        "count": 2,
+        "size": 1083
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 26390
+      },
+      ".md": {
+        "count": 1,
+        "size": 49
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3810
+      },
+      ".dart": {
+        "count": 4,
+        "size": 12461
+      },
+      ".png": {
+        "count": 5,
+        "size": 41053
+      },
+      ".html": {
+        "count": 1,
+        "size": 1589
+      }
+    },
+    "primecare_marketing": {
+      "no-ext": {
+        "count": 3,
+        "size": 7547
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 787
+      },
+      ".json": {
+        "count": 2,
+        "size": 1083
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 26390
+      },
+      ".md": {
+        "count": 1,
+        "size": 49
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3810
+      },
+      ".dart": {
+        "count": 4,
+        "size": 9903
+      },
+      ".png": {
+        "count": 5,
+        "size": 41053
+      },
+      ".html": {
+        "count": 1,
+        "size": 1589
+      }
+    },
+    "primecare_support": {
+      "no-ext": {
+        "count": 3,
+        "size": 7547
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 785
+      },
+      ".json": {
+        "count": 2,
+        "size": 1077
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 26390
+      },
+      ".md": {
+        "count": 1,
+        "size": 47
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3802
+      },
+      ".dart": {
+        "count": 4,
+        "size": 8859
+      },
+      ".png": {
+        "count": 5,
+        "size": 41053
+      },
+      ".html": {
+        "count": 1,
+        "size": 1585
+      }
+    },
+    "verification-service": {
+      ".json": {
+        "count": 2,
+        "size": 982
+      },
+      ".js": {
+        "count": 8,
+        "size": 30104
+      },
+      ".ts": {
+        "count": 8,
+        "size": 34128
+      },
+      ".toml": {
+        "count": 1,
+        "size": 261
+      },
+      ".log": {
+        "count": 1,
+        "size": 54
+      }
+    },
+    "contracts": {
+      ".ts": {
+        "count": 3,
+        "size": 970
+      },
+      ".json": {
+        "count": 2,
+        "size": 479
+      },
+      ".log": {
+        "count": 1,
+        "size": 56
+      }
+    },
+    "database": {
+      "no-ext": {
+        "count": 1,
+        "size": 779
+      },
+      ".ts": {
+        "count": 45,
+        "size": 16904136
+      },
+      ".js": {
+        "count": 14,
+        "size": 3055107
+      },
+      ".json": {
+        "count": 3,
+        "size": 4028
+      },
+      ".log": {
+        "count": 1,
+        "size": 55
+      },
+      ".node": {
+        "count": 1,
+        "size": 19261952
+      },
+      ".wasm": {
+        "count": 1,
+        "size": 2130325
+      },
+      ".prisma": {
+        "count": 22,
+        "size": 260731
+      },
+      ".mjs": {
+        "count": 2,
+        "size": 101
+      },
+      ".toml": {
+        "count": 1,
+        "size": 122
+      },
+      ".sql": {
+        "count": 1,
+        "size": 67854
+      },
+      ".cjs": {
+        "count": 1,
+        "size": 519
+      }
+    },
+    "domain": {
+      ".json": {
+        "count": 2,
+        "size": 548
+      },
+      ".md": {
+        "count": 6,
+        "size": 27403
+      },
+      ".cjs": {
+        "count": 1,
+        "size": 7165
+      },
+      ".ts": {
+        "count": 108,
+        "size": 1114091
+      },
+      ".log": {
+        "count": 1,
+        "size": 53
+      },
+      ".png": {
+        "count": 5,
+        "size": 3370694
+      },
+      ".css": {
+        "count": 1,
+        "size": 9197
+      }
+    },
+    "factory_system": {
+      "no-ext": {
+        "count": 4,
+        "size": 7962
+      },
+      ".tmp": {
+        "count": 1,
+        "size": 5674
+      },
+      ".txt": {
+        "count": 5,
+        "size": 288268
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 773
+      },
+      ".md": {
+        "count": 3,
+        "size": 4729
+      },
+      ".py": {
+        "count": 5,
+        "size": 16880
+      },
+      ".json": {
+        "count": 3,
+        "size": 6215
+      },
+      ".iml": {
+        "count": 1,
+        "size": 946
+      },
+      ".lock": {
+        "count": 1,
+        "size": 28278
+      },
+      ".xml": {
+        "count": 3,
+        "size": 2752
+      },
+      ".dart": {
+        "count": 389,
+        "size": 1189588
+      }
+    },
+    "flutter_core": {
+      "no-ext": {
+        "count": 3,
+        "size": 8717
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 1035
+      },
+      ".txt": {
+        "count": 9,
+        "size": 8391652
+      },
+      ".ps1": {
+        "count": 2,
+        "size": 3970
+      },
+      ".dart": {
+        "count": 1751,
+        "size": 1955039
+      },
+      ".json": {
+        "count": 775,
+        "size": 321486
+      },
+      ".iml": {
+        "count": 1,
+        "size": 859
+      },
+      ".lock": {
+        "count": 1,
+        "size": 34624
+      },
+      ".md": {
+        "count": 1,
+        "size": 44
+      },
+      ".py": {
+        "count": 1,
+        "size": 3285
+      },
+      ".xml": {
+        "count": 5,
+        "size": 3790
+      }
+    },
+    "infrastructure": {
+      ".ts": {
+        "count": 37,
+        "size": 128232
+      },
+      ".json": {
+        "count": 2,
+        "size": 603
+      },
+      ".md": {
+        "count": 1,
+        "size": 2510
+      },
+      ".log": {
+        "count": 1,
+        "size": 61
+      }
+    },
+    "messaging": {
+      ".ts": {
+        "count": 3,
+        "size": 4020
+      },
+      ".json": {
+        "count": 2,
+        "size": 479
+      },
+      ".log": {
+        "count": 1,
+        "size": 56
+      }
+    },
+    "primecare_adapters": {
+      "no-ext": {
+        "count": 4,
+        "size": 7962
+      },
+      ".yaml": {
+        "count": 2,
+        "size": 538
+      },
+      ".md": {
+        "count": 2,
+        "size": 1344
+      },
+      ".json": {
+        "count": 1,
+        "size": 113
+      },
+      ".iml": {
+        "count": 1,
+        "size": 946
+      },
+      ".lock": {
+        "count": 1,
+        "size": 28239
+      },
+      ".xml": {
+        "count": 3,
+        "size": 2764
+      },
+      ".dart": {
+        "count": 113,
+        "size": 245513
+      }
+    },
+    "security": {
+      ".ts": {
+        "count": 5,
+        "size": 9299
+      },
+      ".json": {
+        "count": 2,
+        "size": 478
+      },
+      ".log": {
+        "count": 1,
+        "size": 55
+      }
+    }
+  },
   "top_orphans": [
     {
       "path": "apps\\primecare_corporate\\lib\\routes\\groups\\corporate_routes.dart",
