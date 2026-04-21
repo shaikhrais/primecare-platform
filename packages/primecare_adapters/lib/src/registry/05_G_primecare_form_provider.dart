@@ -1,7 +1,5 @@
 // Layer: 05_REGISTRY_GOVERNANCE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../primecare_adapters.dart';
-import '05_G_primecare_form_enum.dart';
 
 /// Central provider that resolves the appropriate hydrated adapter for a given PrimeCareForm.
 /// This allows the UI to simply request a form type and receive the bound data.

@@ -1,5 +1,4 @@
 // Layer: 04_UI_ADAPTERS
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../primecare_adapters.dart';
 
 /// A generic adapter that can build any dashboard screen dynamically

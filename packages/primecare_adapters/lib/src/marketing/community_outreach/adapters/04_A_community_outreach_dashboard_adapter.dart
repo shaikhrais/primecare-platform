@@ -33,7 +33,7 @@ final communityOutreachDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = CommunityOutreachDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = CommunityOutreachDashboardViewModel.fromJson(snapshot);
         return Success(CommunityOutreachDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

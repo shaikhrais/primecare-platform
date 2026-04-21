@@ -35,7 +35,7 @@ final cfoDashboardAdapterProvider = FutureProvider<Result<CfoDashboardViewModel>
       // Resilience Logic: Restore from local snapshot if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = CfoDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = CfoDashboardViewModel.fromJson(snapshot);
         return Success(CfoDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

@@ -21,7 +21,7 @@ class ResilienceService {
       'timestamp': DateTime.now().toIso8601String(),
     });
     
-    await _prefs!.setString('snapshot_$key', jsonString);
+    await _prefs.setString('snapshot_$key', jsonString);
     
     _ref.read(executionGateProvider).passGate(
       ExecutionGateCategory.storage,
@@ -34,7 +34,7 @@ class ResilienceService {
   Map<String, dynamic>? getSnapshot(String key) {
     if (_prefs == null) return null;
     
-    final jsonString = _prefs!.getString('snapshot_$key');
+    final jsonString = _prefs.getString('snapshot_$key');
     if (jsonString == null) return null;
 
     try {
@@ -58,7 +58,7 @@ class ResilienceService {
   /// Clears a specific snapshot.
   Future<void> clearSnapshot(String key) async {
     if (_prefs == null) return;
-    await _prefs!.remove('snapshot_$key');
+    await _prefs.remove('snapshot_$key');
   }
 }
 

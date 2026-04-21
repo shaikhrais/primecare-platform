@@ -31,7 +31,7 @@ final systemVerificationAdapterProvider =
       // Automatic Resilience: Revert to LKG if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = SystemVerificationViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = SystemVerificationViewModel.fromJson(snapshot);
         return Success(SystemVerificationViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

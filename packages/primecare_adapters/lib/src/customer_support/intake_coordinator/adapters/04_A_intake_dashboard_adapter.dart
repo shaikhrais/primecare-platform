@@ -32,7 +32,7 @@ final intakeDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = IntakeDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = IntakeDashboardViewModel.fromJson(snapshot);
         return Success(IntakeDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

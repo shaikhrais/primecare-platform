@@ -1,0 +1,132 @@
+{
+  "summary": {
+    "total_files": 5909,
+    "hardened_count": 318,
+    "infrastructure_count": 1005,
+    "orphan_count": 1150,
+    "legacy_cold_count": 0
+  },
+  "top_orphans": [
+    {
+      "path": "apps\\primecare_corporate\\lib\\routes\\groups\\corporate_routes.dart",
+      "age_days": 0,
+      "size": 19854,
+      "intent_id": null
+    },
+    {
+      "path": "apps\\primecare_franchise\\lib\\routes\\groups\\franchise_routes.dart",
+      "age_days": 0,
+      "size": 11139,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\primecare_adapters\\lib\\src\\models\\core\\02_M_dashboard_models.dart",
+      "age_days": 0,
+      "size": 10669,
+      "intent_id": null
+    },
+    {
+      "path": "apps\\primecare_business_development\\lib\\routes\\groups\\business_development_routes.dart",
+      "age_days": 0,
+      "size": 10582,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\administrative_forms\\domain\\models\\administrative_forms_state.freezed.dart",
+      "age_days": 0,
+      "size": 10365,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\system_verification\\domain\\models\\system_verification_state.freezed.dart",
+      "age_days": 0,
+      "size": 10330,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\intake_coordinator\\domain\\models\\intake_coordinator_state.freezed.dart",
+      "age_days": 0,
+      "size": 10295,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\developer_samples\\domain\\models\\developer_samples_state.freezed.dart",
+      "age_days": 0,
+      "size": 10260,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\quality_assurance\\domain\\models\\quality_assurance_state.freezed.dart",
+      "age_days": 0,
+      "size": 10260,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\physiotherapist\\domain\\models\\physiotherapist_state.freezed.dart",
+      "age_days": 0,
+      "size": 10224,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\franchise_owner\\domain\\models\\franchise_owner_state.freezed.dart",
+      "age_days": 0,
+      "size": 10190,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\local_marketing\\domain\\models\\local_marketing_state.freezed.dart",
+      "age_days": 0,
+      "size": 10190,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\territory_sales\\domain\\models\\territory_sales_state.freezed.dart",
+      "age_days": 0,
+      "size": 10190,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\clinical_forms\\domain\\models\\clinical_forms_state.freezed.dart",
+      "age_days": 0,
+      "size": 10155,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\family_member\\domain\\models\\family_member_state.freezed.dart",
+      "age_days": 0,
+      "size": 10120,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\chiropractor\\domain\\models\\chiropractor_state.freezed.dart",
+      "age_days": 0,
+      "size": 10119,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\common_forms\\domain\\models\\common_forms_state.freezed.dart",
+      "age_days": 0,
+      "size": 10085,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\hr_manager\\domain\\models\\hr_manager_state.freezed.dart",
+      "age_days": 0,
+      "size": 10015,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\crm_forms\\domain\\models\\crm_forms_state.freezed.dart",
+      "age_days": 0,
+      "size": 9980,
+      "intent_id": null
+    },
+    {
+      "path": "packages\\flutter_core\\lib\\features\\hr_forms\\domain\\models\\hr_forms_state.freezed.dart",
+      "age_days": 0,
+      "size": 9945,
+      "intent_id": null
+    }
+  ],
+  "top_legacy_cold": []
+}

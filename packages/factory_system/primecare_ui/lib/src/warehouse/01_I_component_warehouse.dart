@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_core/features/01_I_features_manifest.dart';
+import 'package:primecare_core/features/features_manifest.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_core/00_B_flutter_core.dart';
 

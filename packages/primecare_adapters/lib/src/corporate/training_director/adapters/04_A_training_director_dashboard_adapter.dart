@@ -35,7 +35,7 @@ final trainingDirectorDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              TrainingDirectorDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              TrainingDirectorDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

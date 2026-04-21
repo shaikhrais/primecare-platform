@@ -35,7 +35,7 @@ final operationsManagerDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              OperationsManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              OperationsManagerDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

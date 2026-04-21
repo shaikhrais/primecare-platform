@@ -35,7 +35,7 @@ final regionalManagerOntarioDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              RegionalManagerOntarioDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              RegionalManagerOntarioDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

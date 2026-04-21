@@ -33,7 +33,7 @@ final schedulerDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = SchedulerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = SchedulerDashboardViewModel.fromJson(snapshot);
         return Success(SchedulerDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

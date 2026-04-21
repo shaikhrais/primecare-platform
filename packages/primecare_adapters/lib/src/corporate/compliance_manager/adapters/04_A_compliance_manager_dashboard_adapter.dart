@@ -36,7 +36,7 @@ final complianceManagerDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              ComplianceManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              ComplianceManagerDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

@@ -3,7 +3,6 @@ import 'package:primecare_adapters/primecare_adapters.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // --- Manual Mocks ---
 

@@ -37,7 +37,7 @@ final territoryExpansionManagerDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              TerritoryExpansionManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              TerritoryExpansionManagerDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

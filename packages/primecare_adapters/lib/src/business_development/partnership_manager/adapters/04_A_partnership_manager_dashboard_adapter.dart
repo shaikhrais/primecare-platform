@@ -35,7 +35,7 @@ final partnershipManagerDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              PartnershipManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              PartnershipManagerDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

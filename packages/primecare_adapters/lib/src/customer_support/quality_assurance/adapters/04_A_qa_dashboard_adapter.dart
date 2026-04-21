@@ -32,7 +32,7 @@ final qaDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = QaDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = QaDashboardViewModel.fromJson(snapshot);
         return Success(QaDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

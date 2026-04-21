@@ -37,7 +37,7 @@ final franchiseSalesManagerDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              FranchiseSalesManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              FranchiseSalesManagerDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

@@ -35,7 +35,7 @@ final cooDashboardAdapterProvider = FutureProvider<Result<CooDashboardViewModel>
       // Resilience Logic: Restore from local snapshot if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = CooDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = CooDashboardViewModel.fromJson(snapshot);
         return Success(CooDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

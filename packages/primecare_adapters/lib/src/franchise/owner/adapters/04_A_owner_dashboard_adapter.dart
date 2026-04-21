@@ -32,7 +32,7 @@ final ownerDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = OwnerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = OwnerDashboardViewModel.fromJson(snapshot);
         return Success(OwnerDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

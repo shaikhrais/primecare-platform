@@ -33,7 +33,7 @@ final scrumMasterDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = ScrumMasterDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = ScrumMasterDashboardViewModel.fromJson(snapshot);
         return Success(ScrumMasterDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

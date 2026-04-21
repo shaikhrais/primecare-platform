@@ -1,6 +1,4 @@
 // Layer: 05_REGISTRY_GOVERNANCE
-import 'package:flutter/widgets.dart';
-import '../../primecare_adapters.dart';
 
 /// Registry of all hydrated data-bound adapters on the PrimeCare Platform.
 /// This enum drives the dynamic dashboard orchestration engine.

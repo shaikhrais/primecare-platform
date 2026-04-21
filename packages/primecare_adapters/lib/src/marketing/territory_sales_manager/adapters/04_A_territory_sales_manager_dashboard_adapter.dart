@@ -33,7 +33,7 @@ final territorySalesManagerDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = TerritorySalesManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = TerritorySalesManagerDashboardViewModel.fromJson(snapshot);
         return Success(TerritorySalesManagerDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

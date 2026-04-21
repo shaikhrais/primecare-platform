@@ -32,7 +32,7 @@ final familyDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = FamilyDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = FamilyDashboardViewModel.fromJson(snapshot);
         return Success(FamilyDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

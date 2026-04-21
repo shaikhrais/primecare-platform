@@ -35,7 +35,7 @@ final headOfMarketingDashboardAdapterProvider =
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
             return Success(
-              HeadOfMarketingDashboardViewModel.fromJson(snapshot as Map<String, dynamic>),
+              HeadOfMarketingDashboardViewModel.fromJson(snapshot),
             );
           }
           return Success(

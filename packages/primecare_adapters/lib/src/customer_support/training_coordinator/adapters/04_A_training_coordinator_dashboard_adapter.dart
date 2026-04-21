@@ -33,7 +33,7 @@ final trainingCoordinatorDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = TrainingCoordinatorDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = TrainingCoordinatorDashboardViewModel.fromJson(snapshot);
         return Success(TrainingCoordinatorDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

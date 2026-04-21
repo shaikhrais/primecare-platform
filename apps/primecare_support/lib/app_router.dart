@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
-import 'routes/groups/01_I_support_routes.dart';
+import 'routes/groups/support_routes.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(

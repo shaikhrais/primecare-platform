@@ -33,7 +33,7 @@ final headOfBusDevDashboardAdapterProvider =
           // Fallback: Restore from local resilience cache if infrastructure is unreachable
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
-        final vm = HeadOfBusDevDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = HeadOfBusDevDashboardViewModel.fromJson(snapshot);
         return Success(HeadOfBusDevDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

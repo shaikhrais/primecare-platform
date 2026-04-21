@@ -33,7 +33,7 @@ final generalManagerDashboardAdapterProvider =
           // Fallback: Restore from local resilience cache if infrastructure is unreachable
           final snapshot = resilience.getSnapshot(cacheKey);
           if (snapshot != null) {
-        final vm = GeneralManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = GeneralManagerDashboardViewModel.fromJson(snapshot);
         return Success(GeneralManagerDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

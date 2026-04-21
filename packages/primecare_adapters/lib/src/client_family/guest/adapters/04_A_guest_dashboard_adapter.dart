@@ -32,7 +32,7 @@ final guestDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = GuestDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = GuestDashboardViewModel.fromJson(snapshot);
         return Success(GuestDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

@@ -32,7 +32,7 @@ final hrHiringDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = HrHiringDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = HrHiringDashboardViewModel.fromJson(snapshot);
         return Success(HrHiringDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

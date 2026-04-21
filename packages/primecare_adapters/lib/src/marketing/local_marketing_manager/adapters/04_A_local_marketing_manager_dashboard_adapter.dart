@@ -33,7 +33,7 @@ final localMarketingManagerDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = LocalMarketingManagerDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = LocalMarketingManagerDashboardViewModel.fromJson(snapshot);
         return Success(LocalMarketingManagerDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

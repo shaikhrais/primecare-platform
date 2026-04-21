@@ -35,7 +35,7 @@ final ctoDashboardAdapterProvider = FutureProvider<Result<CtoDashboardViewModel>
       // Resilience Logic: Restore from local snapshot if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = CtoDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = CtoDashboardViewModel.fromJson(snapshot);
         return Success(CtoDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

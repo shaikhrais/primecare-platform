@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});

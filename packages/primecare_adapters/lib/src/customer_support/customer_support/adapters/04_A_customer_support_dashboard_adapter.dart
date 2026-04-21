@@ -33,7 +33,7 @@ final customerSupportDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = CustomerSupportDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = CustomerSupportDashboardViewModel.fromJson(snapshot);
         return Success(CustomerSupportDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,

@@ -32,7 +32,7 @@ final patientDashboardAdapterProvider =
       // Fallback: Restore from local resilience cache if infrastructure is unreachable
       final snapshot = resilience.getSnapshot(cacheKey);
       if (snapshot != null) {
-        final vm = PatientDashboardViewModel.fromJson(snapshot as Map<String, dynamic>);
+        final vm = PatientDashboardViewModel.fromJson(snapshot);
         return Success(PatientDashboardViewModel(
           metrics: vm.metrics,
           insights: vm.insights,
