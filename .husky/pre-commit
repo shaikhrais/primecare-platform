@@ -1,2 +1,3 @@
+node scripts/run_rds.js
 npx lint-staged
 echo "[✅ Shift-Left] Local Checks Passed. Code is clean."
