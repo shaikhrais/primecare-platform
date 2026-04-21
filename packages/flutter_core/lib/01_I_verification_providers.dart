@@ -1,9 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '01_I_verification_service.dart';
 
 import 'package:primecare_adapters/primecare_adapters.dart';
-
 
 final verificationServiceProvider = Provider<VerificationService>((ref) {
   final apiClient = ref.watch(apiClientProvider);

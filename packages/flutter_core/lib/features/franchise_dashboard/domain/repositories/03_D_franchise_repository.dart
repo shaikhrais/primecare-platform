@@ -14,7 +14,8 @@ class FranchiseRepository implements IFranchiseRepository {
   Future<Result<FranchiseDashboardViewModel>> getDashboardMetrics() async {
     final result = await _dashboardService.getMetrics('franchise');
     return result.map(
-      (DomainResponse domainResponse) => FranchiseDashboardViewModel.fromDashboardMetrics(DashboardMetrics.fromJson(domainResponse.data)),
+      (DashboardMetrics metrics) =>
+          FranchiseDashboardViewModel.fromDashboardMetrics(metrics),
     );
   }
 }

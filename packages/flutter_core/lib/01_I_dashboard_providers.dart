@@ -1,5 +1,4 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 import 'src/utils/01_I_prime_logger.dart';
 

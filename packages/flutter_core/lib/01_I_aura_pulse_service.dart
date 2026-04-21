@@ -1,10 +1,8 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'dart:math' as math;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 import 'src/models/02_M_aura_event.dart';
-
 
 class AuraPulseService {
   final Ref _ref;

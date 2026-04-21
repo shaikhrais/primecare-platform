@@ -1,6 +1,5 @@
 // Layer: 04_VIEW_MODELS
 import 'dart:async';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../src/resilience/01_I_resilient_notifier_mixin.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 import '../../domain/models/02_M_physiotherapist_data.dart';

@@ -13,8 +13,9 @@ class SupportRepository implements ISupportRepository {
   @override
   Future<Result<SupportDashboardViewModel>> getDashboardMetrics() async {
     final result = await _dashboardService.getMetrics('support');
-    return result.map((DomainResponse domainResponse) => SupportDashboardViewModel.fromDashboardMetrics(
-      DashboardMetrics.fromJson(domainResponse.data),
-    ));
+    return result.map(
+      (DashboardMetrics metrics) =>
+          SupportDashboardViewModel.fromDashboardMetrics(metrics),
+    );
   }
 }

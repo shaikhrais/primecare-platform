@@ -1,5 +1,4 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 enum ProviderRole { psw, rn, rmt, unknown }
@@ -39,7 +38,8 @@ class ProviderProfile {
   });
 
   factory ProviderProfile.fromJson(Map<String, dynamic> json) {
-    return ProviderProfile(id: (json['provider_id'] as String?) ?? (json['id'] as String?) ?? '',
+    return ProviderProfile(
+      id: (json['provider_id'] as String?) ?? (json['id'] as String?) ?? '',
       fullName: (json['full_name'] as String?) ?? 'Unknown Provider',
       role: _parseRole(json['provider_type'] as String?),
       bio: (json['bio'] as String?) ?? '',

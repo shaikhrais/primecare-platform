@@ -1,5 +1,4 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../01_I_auth_service.dart';
 import '../config/01_I_navigation_registry.dart';
 import '../models/01_I_navigation_item.dart';

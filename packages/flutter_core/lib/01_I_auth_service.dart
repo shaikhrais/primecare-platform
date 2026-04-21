@@ -1,8 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 
 import 'routes/groups/01_I_business_development_routes.dart';
 import 'routes/groups/01_I_client_routes.dart';
@@ -12,7 +10,6 @@ import 'routes/groups/01_I_marketing_routes.dart';
 import 'routes/groups/01_I_support_routes.dart';
 import 'routes/groups/01_I_common_routes.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
-
 
 class AuthState {
   final bool isAuthenticated;
@@ -250,7 +247,8 @@ class AuthNotifier extends Notifier<AuthState> {
         );
 
         if (response.statusCode == 200) {
-          final Map<String, dynamic> data = response.data as Map<String, dynamic>;
+          final Map<String, dynamic> data =
+              response.data as Map<String, dynamic>;
           final token = (data['token'] as String?) ?? 'mock-token';
 
           // Deeply unpack role from Worker-API or root
@@ -281,11 +279,9 @@ class AuthNotifier extends Notifier<AuthState> {
               '00000000-0000-0000-0000-000000000000';
 
           final firstName =
-              (user != null ? user['firstName'] as String? : null) ??
-              'Active';
+              (user != null ? user['firstName'] as String? : null) ?? 'Active';
           final lastName =
-              (user != null ? user['lastName'] as String? : null) ??
-              'User';
+              (user != null ? user['lastName'] as String? : null) ?? 'User';
           final userName = '$firstName $lastName';
 
           await prefs.setString('auth_token', token);

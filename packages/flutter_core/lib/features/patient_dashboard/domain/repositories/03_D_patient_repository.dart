@@ -13,6 +13,8 @@ class PatientRepository implements IPatientRepository {
   @override
   Future<Result<PatientDashboardViewModel>> getDashboardMetrics() async {
     final result = await _dashboardService.getMetrics('patient');
-    return result.map((DomainResponse domainResponse) => PatientDashboardViewModel.fromDashboardMetrics(DashboardMetrics.fromJson(domainResponse.data)));
+    return result.map(
+      (metrics) => PatientDashboardViewModel.fromDashboardMetrics(metrics),
+    );
   }
 }

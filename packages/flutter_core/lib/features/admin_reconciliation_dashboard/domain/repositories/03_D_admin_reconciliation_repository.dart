@@ -15,7 +15,8 @@ class AdminReconciliationRepository implements IAdminReconciliationRepository {
   getDashboardMetrics() async {
     final result = await _dashboardService.getMetrics('admin_reconciliation');
     return result.map(
-      (DomainResponse domainResponse) => AdminReconciliationDashboardViewModel.fromDashboardMetrics(DashboardMetrics.fromJson(domainResponse.data)),
+      (metrics) =>
+          AdminReconciliationDashboardViewModel.fromDashboardMetrics(metrics),
     );
   }
 }

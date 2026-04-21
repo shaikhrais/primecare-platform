@@ -1,10 +1,8 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 import '01_I_aura_pulse_service.dart';
 import '01_I_aura_command_service.dart';
 import 'src/models/02_M_aura_event.dart';
-
 
 final auraPulseServiceProvider = Provider<AuraPulseService>((ref) {
   final service = AuraPulseService(ref);

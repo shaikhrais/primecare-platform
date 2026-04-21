@@ -13,6 +13,8 @@ class OwnerRepository implements IOwnerRepository {
   @override
   Future<Result<OwnerDashboardViewModel>> getOwnerDashboard() async {
     final result = await _dashboardService.getMetrics('owner');
-    return result.map((DomainResponse domainResponse) => OwnerDashboardViewModel.fromDashboardMetrics(DashboardMetrics.fromJson(domainResponse.data)));
+    return result.map(
+      (metrics) => OwnerDashboardViewModel.fromDashboardMetrics(metrics),
+    );
   }
 }

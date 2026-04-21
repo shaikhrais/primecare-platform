@@ -7,11 +7,11 @@ abstract class PrimeCareViewModel extends Equatable {
   final bool isOfflineFallback;
   final String? version;
 
-  const PrimeCareViewModel({
-    this.isOfflineFallback = false,
-    this.version,
-  });
+  const PrimeCareViewModel({this.isOfflineFallback = false, this.version});
 
   @override
   List<Object?> get props => [isOfflineFallback, version];
+
+  /// Data-binding contract for role-based serialization.
+  Map<String, dynamic> toJson();
 }

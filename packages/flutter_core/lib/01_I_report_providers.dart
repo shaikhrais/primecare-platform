@@ -1,8 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '01_I_report_service.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
-
 
 /// Provider for the ReportService instance.
 final reportServiceProvider = Provider<ReportService>((ref) {

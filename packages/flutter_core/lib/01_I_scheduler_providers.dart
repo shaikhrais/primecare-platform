@@ -1,10 +1,8 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 import 'src/services/01_I_scheduler_service.dart';
 import '01_I_aura_providers.dart';
 import 'src/models/02_M_aura_event.dart';
-
 
 final schedulerServiceProvider = Provider<SchedulerService>(
   (ref) => SchedulerService(),

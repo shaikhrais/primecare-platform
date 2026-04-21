@@ -13,6 +13,8 @@ class ClientRepository implements IClientRepository {
   @override
   Future<Result<ClientDashboardViewModel>> getDashboardMetrics() async {
     final result = await _dashboardService.getMetrics('client');
-    return result.map((DomainResponse domainResponse) => ClientDashboardViewModel.fromDashboardMetrics(DashboardMetrics.fromJson(domainResponse.data)));
+    return result.map(
+      (metrics) => ClientDashboardViewModel.fromDashboardMetrics(metrics),
+    );
   }
 }

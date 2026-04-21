@@ -15,7 +15,8 @@ class FranchiseRefundsRepository implements IFranchiseRefundsRepository {
   getDashboardMetrics() async {
     final result = await _dashboardService.getMetrics('franchise_refunds');
     return result.map(
-      (DomainResponse domainResponse) => FranchiseRefundsDashboardViewModel.fromDashboardMetrics(DashboardMetrics.fromJson(domainResponse.data)),
+      (DashboardMetrics metrics) =>
+          FranchiseRefundsDashboardViewModel.fromDashboardMetrics(metrics),
     );
   }
 }

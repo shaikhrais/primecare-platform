@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 /// Tracks device connectivity state to prevent pointless API calls when offline.

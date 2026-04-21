@@ -1,12 +1,13 @@
 // Layer: 00_ENTRY_POINT
 // Master export file for flutter_core.
-export 'package:primecare_adapters/primecare_adapters.dart';
+export 'package:primecare_adapters/primecare_adapters.dart'
+    hide architecturePurposeProvider, databaseReportProvider;
 export 'package:primecare_ui/00_B_primecare_ui.dart' hide AppTheme;
-
 
 export '01_I_adapter_providers.dart';
 export '01_I_auth_service.dart';
-export '01_I_dashboard_providers.dart' hide dashboardServiceProvider, dashboardMetricsProvider;
+export '01_I_dashboard_providers.dart'
+    hide dashboardServiceProvider, dashboardMetricsProvider;
 export '01_I_domain_service.dart';
 export '01_I_dynamic_page_providers.dart';
 export '01_I_dynamic_adapter_resolver.dart';
@@ -52,7 +53,6 @@ export 'routes/groups/01_I_marketing_routes.dart';
 export 'routes/groups/01_I_support_routes.dart';
 export 'routes/groups/01_I_common_routes.dart';
 export 'theme/01_I_app_theme.dart';
-
 
 // Dashboards and ViewModels are now consolidated in primecare_adapters
 // Direct exports from local features have been removed to maintain decoupling.

@@ -1,5 +1,4 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '01_I_intelligence_service.dart';
 import '01_I_aura_providers.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -47,7 +46,8 @@ final auraInsightsProvider =
             title: activeAnomaly.title,
             summary: activeAnomaly.description,
             impact: activeAnomaly.impact,
-            relatedMetricId: activeAnomaly.metadata?['relatedMetricId'] as String?,
+            relatedMetricId:
+                activeAnomaly.metadata?['relatedMetricId'] as String?,
           ),
           ...insights,
         ];

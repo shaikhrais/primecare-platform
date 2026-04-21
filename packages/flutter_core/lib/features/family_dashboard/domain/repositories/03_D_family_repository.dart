@@ -13,6 +13,8 @@ class FamilyRepository implements IFamilyRepository {
   @override
   Future<Result<FamilyDashboardViewModel>> getDashboardMetrics() async {
     final result = await _dashboardService.getMetrics('family');
-    return result.map((DomainResponse domainResponse) => FamilyDashboardViewModel.fromDashboardMetrics(DashboardMetrics.fromJson(domainResponse.data)));
+    return result.map(
+      (metrics) => FamilyDashboardViewModel.fromDashboardMetrics(metrics),
+    );
   }
 }
