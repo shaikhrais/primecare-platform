@@ -11,12 +11,12 @@ class AdminDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final state = ref.watch(adminDashboardProvider);
+    final state = ref.watch<AsyncValue<DashboardMetrics>>(adminDashboardProvider);
 
     return state.when(
       loading: () => const Center(child: DashboardLoadingWidget()),
-      error: (error, _) => Center(child: DashboardErrorWidget(message: error.toString())),
-      data: (metrics) => SingleChildScrollView(
+      error: (Object error, StackTrace _) => Center(child: DashboardErrorWidget(message: error.toString())),
+      data: (DashboardMetrics metrics) => SingleChildScrollView(
         padding: EdgeInsets.all(theme.spacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,15 +70,15 @@ class AdminDashboardScreen extends ConsumerWidget {
           PrimeCareButton(
             label: 'System Logs',
             icon: LucideIcons.fileText,
-            onPressed: () <String, dynamic>{},
+            onPressed: () {},
             type: PrimeCareButtonType.secondary,
           ),
           SizedBox(width: theme.spacing.md),
-          PrimeCareButton(
-            label: 'Global Settings',
-            icon: LucideIcons.settings,
-            onPressed: () <String, dynamic>{},
-            type: PrimeCareButtonType.primary,
+          ClinicalGlassButton(
+            label: 'System Audit',
+            icon: LucideIcons.shieldCheck,
+            onPressed: () {},
+            variant: ClinicalButtonVariant.primary,
           ),
         ],
       ),

@@ -18,7 +18,7 @@ class FamilyDashboardViewModelScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
-            const const SizedBox(height: MetricTokens.spacingL),
+            const SizedBox(height: PrimeCareSpacing.lg),
             Text(
               'familyDashboardViewModel Implementation',
               style: context.textTheme.headlineMedium,

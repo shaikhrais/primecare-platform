@@ -1,8 +1,6 @@
 import { PrismaClient } from '@primecare/database';
 import { Result } from '../utils/Result';
 
-const prisma = new PrismaClient();
-
 export interface AuditLogFilters {
     actorUserId?: string;
     action?: string;
@@ -18,7 +16,7 @@ export class AuditService {
     /**
      * Lists audit logs for a tenant with filtering and pagination
      */
-    static async listLogs(tenantId: string, filters: AuditLogFilters = {}): Promise<Result<{
+    static async listLogs(prisma: any, tenantId: string, filters: AuditLogFilters = {}): Promise<Result<{
         logs: any[];
         pagination: { total: number; limit: number; offset: number };
     }>> {
@@ -88,7 +86,7 @@ export class AuditService {
     /**
      * Records a new audit log entry
      */
-    static async recordLog(data: {
+    static async recordLog(prisma: any, data: {
         tenantId: string;
         actorUserId?: string;
         action: string;

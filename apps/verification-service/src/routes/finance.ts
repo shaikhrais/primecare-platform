@@ -33,7 +33,7 @@ export function registerFinanceRoutes(app: any) {
                 taxIncluded: body.taxIncluded
             };
 
-            const result = await LedgerService.recordTransaction(input);
+            const result = await LedgerService.recordTransaction(c.get('prisma'), input);
             return result.fold(
                 (data) => c.json(data, 201),
                 (error) => c.json({ error }, 400)
@@ -61,7 +61,7 @@ export function registerFinanceRoutes(app: any) {
                 return c.json({ error: 'Missing transactionId parameter' }, 400);
             }
 
-            const result = await LedgerService.voidTransaction(transactionId, tenantId as string, payload?.sub);
+            const result = await LedgerService.voidTransaction(c.get('prisma'), transactionId, tenantId as string, payload?.sub);
             return result.fold(
                 (data) => c.json(data, 200),
                 (error) => c.json({ error }, 400)
@@ -86,7 +86,7 @@ export function registerFinanceRoutes(app: any) {
             const start = startDate ? new Date(startDate as string) : undefined;
             const end = endDate ? new Date(endDate as string) : undefined;
 
-            const result = await LedgerService.generateTaxFilingReport(tenantId as string, start, end);
+            const result = await LedgerService.generateTaxFilingReport(c.get('prisma'), tenantId as string, start, end);
             return result.fold(
                 (data) => c.json(data, 200),
                 (error) => c.json({ error }, 500)
@@ -110,6 +110,7 @@ export function registerFinanceRoutes(app: any) {
             }
 
             const result = await CurrencyService.convertToBase(
+                c.get('prisma'),
                 parseFloat(amount as string),
                 from as string,
                 tenantId as string

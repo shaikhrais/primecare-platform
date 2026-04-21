@@ -1,4 +1,4 @@
-// Layer: 05_UI_PRESENTATION
+﻿// Layer: 05_UI_PRESENTATION
 import 'package:flutter/material.dart';
 import 'package:primecare_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
@@ -6,13 +6,16 @@ import 'package:primecare_ui/00_B_primecare_ui.dart';
 /// High-Fidelity CEO Leadership Dashboard
 /// Focuses on institutional health, revenue growth, and strategic compliance.
 class CeoDashboardScreen extends ConsumerWidget {
-  final dynamic data;
+  final DashboardMetrics? data;
   
   const CeoDashboardScreen({super.key, this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
+    
+    // Fallback to empty if no data provided
+    final metrics = data ?? DashboardMetrics.empty();
     
     return MasterLayout(
       child: SingleChildScrollView(
@@ -24,7 +27,10 @@ class CeoDashboardScreen extends ConsumerWidget {
             SizedBox(height: theme.spacing.xl),
             _buildExecutiveSummary(context, theme),
             SizedBox(height: theme.spacing.xl),
-            _buildKPISection(context, theme),
+            
+            // Modern standardized KPI Grid
+            PrimeCareResponsiveKpiGrid(metrics: metrics),
+            
             SizedBox(height: theme.spacing.xl),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,70 +156,14 @@ class CeoDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildKPISection(BuildContext context, PrimeCareThemeData theme) {
-    return Row(
-      children: [
-        _buildKPICard(theme, 'Network Revenue', PrimeCareFormatters.formatCurrency(4200000, isCompact: true), '+12.4%', LucideIcons.trendingUp, theme.colors.success),
-        SizedBox(width: theme.spacing.lg),
-        _buildKPICard(theme, 'Active Patients', PrimeCareFormatters.formatNumber(4821), '+4.5%', LucideIcons.users, theme.colors.primary),
-        SizedBox(width: theme.spacing.lg),
-        _buildKPICard(theme, 'Institutional NPS', '72', 'Stable', LucideIcons.smile, theme.colors.warning),
-        SizedBox(width: theme.spacing.lg),
-        _buildKPICard(theme, 'Regulatory Score', '98/100', 'Passed', LucideIcons.shieldCheck, theme.colors.success),
-      ],
-    );
-  }
-
-  Widget _buildKPICard(
-    PrimeCareThemeData theme,
-    String label, 
-    String value, 
-    String trend, 
-    IconData icon, 
-    Color color
-  ) {
-    return Expanded(
-      child: PrimeCareCard(
-        padding: EdgeInsets.all(theme.spacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(icon, color: color, size: 20),
-                const Spacer(),
-                Text(
-                  trend,
-                  style: theme.typography.label.copyWith(
-                    color: color, 
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: theme.spacing.md),
-            Text(
-              value,
-              style: theme.typography.h2.copyWith(fontWeight: FontWeight.w900),
-            ),
-            SizedBox(height: theme.spacing.xxs),
-            Text(
-              label,
-              style: theme.typography.label.copyWith(
-                color: theme.colors.slateGray,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildBranchPerformance(BuildContext context, PrimeCareThemeData theme) {
     return PrimeCareCard(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text('Regional Performance', style: theme.typography.titleLarge),
+          SizedBox(height: theme.spacing.md),
           _buildBranchRow(theme, 'Ontario North', 0.88, theme.colors.success),
           _buildBranchRow(theme, 'Toronto Enterprise', 0.94, theme.colors.success),
           _buildBranchRow(theme, 'BC Regional', 0.72, theme.colors.warning),
@@ -236,7 +186,7 @@ class CeoDashboardScreen extends ConsumerWidget {
                 style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.w600),
               ),
               const Spacer(),
-              Text('${PrimeCareFormatters.formatPercentage(progress)} Target', style: theme.typography.label),
+              Text(' Target', style: theme.typography.label),
             ],
           ),
           SizedBox(height: theme.spacing.xs),
@@ -256,7 +206,10 @@ class CeoDashboardScreen extends ConsumerWidget {
     return PrimeCareCard(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text('Strategic Alerts', style: theme.typography.titleLarge),
+          SizedBox(height: theme.spacing.md),
           _buildAlertItem(theme, 'Capacity Warning', 'Ontario North reaching 95% bed capacity by next week.', LucideIcons.alertTriangle, theme.colors.warning),
           const Divider(),
           _buildAlertItem(theme, 'Revenue Opportunity', 'Home Care services in BC can be optimized for 5% margin gain.', LucideIcons.lightbulb, theme.colors.primary),
@@ -297,6 +250,4 @@ class CeoDashboardScreen extends ConsumerWidget {
       ),
     );
   }
-
 }
-

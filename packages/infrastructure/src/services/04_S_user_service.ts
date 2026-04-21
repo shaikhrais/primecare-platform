@@ -1,12 +1,10 @@
-import { PrismaClient, PlatformRole } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { PrismaClient, PlatformRole } from '@primecare/database';
 
 export class UserService {
   /**
    * Retrieves all users.
    */
-  async getAllUsers() {
+  async getAllUsers(prisma: PrismaClient) {
     return prisma.user.findMany({
       include: {
         providerProfile: true,
@@ -19,7 +17,8 @@ export class UserService {
    * Provisions a new user in the system.
    * Handles linking a generic profile if needed.
    */
-  async createUser(payload: {
+  async createUser(prisma: PrismaClient, payload: {
+    tenantId: string;
     email: string;
     firstName: string;
     lastName: string;
@@ -39,18 +38,23 @@ export class UserService {
     return prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
+          tenantId: payload.tenantId,
           email: payload.email,
-          role: payload.role,
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          roles: payload.role.name,
         },
       });
 
       // Create a provider profile as a catch-all to store names unless it's a client.
       await tx.providerProfile.create({
         data: {
+          tenantId: payload.tenantId,
           userId: user.id,
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          title: payload.role.replace(/_/g, ' '),
+          fullName: `${payload.firstName} ${payload.lastName}`,
+          languages: 'English',
+          skills: payload.role.name,
+          serviceAreas: payload.officeName || 'General',
         },
       });
 

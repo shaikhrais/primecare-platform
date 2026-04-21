@@ -2,11 +2,9 @@ import { PrismaClient } from '@primecare/database';
 import { randomBytes, createHash } from 'node:crypto';
 import { CurrencyService } from './CurrencyService';
 import { TaxService } from './TaxService';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@primecare/database';
 import { Result } from '../utils/Result';
 import { AuditService } from './AuditService';
-
-const prisma = new PrismaClient();
 
 export class LedgerImbalanceError extends Error {
     constructor(message: string) {
@@ -49,7 +47,7 @@ export class LedgerService {
      * Enforces the Double-Entry Balance Rule (Debits == Credits).
      * If valid, commits the transaction and ledger to PostgreSQL atomically.
      */
-    static async recordTransaction(input: RecordTransactionInput): Promise<Result<any>> {
+    static async recordTransaction(prisma: any, input: RecordTransactionInput): Promise<Result<any>> {
         return Result.guard(async () => {
             const startTime = Date.now();
             let totalDebit = 0;
@@ -68,6 +66,7 @@ export class LedgerService {
 
             // STEP 0: CURRENCY NORMALIZATION
             const conversionResult = await CurrencyService.convertToBase(
+                prisma,
                 totalDebit,
                 input.currency || 'CAD',
                 input.tenantId
@@ -75,7 +74,7 @@ export class LedgerService {
             const conversion = conversionResult.data;
 
             const exchangeRate = input.exchangeRate || conversion.rate;
-            const baseAmount = new Decimal(totalDebit).mul(exchangeRate);
+            const baseAmount = new Prisma.Decimal(totalDebit).mul(exchangeRate);
 
             // STEP 0.1: TAX LOCALIZATION
             let taxLeg = null;
@@ -126,7 +125,7 @@ export class LedgerService {
                 });
 
                 // Record Audit Log for Transaction Creation
-                await AuditService.recordLog({
+                await AuditService.recordLog(tx, {
                     tenantId: input.tenantId,
                     actorUserId: input.actorUserId,
                     action: 'CREATE_FINANCIAL_TRANSACTION',
@@ -193,7 +192,7 @@ export class LedgerService {
                             paidOutAmount: entryCredit,
                             currency: input.currency || 'CAD',
                             exchangeRate: exchangeRate,
-                            baseAmount: new Decimal(entryDebit + entryCredit).mul(exchangeRate),
+                            baseAmount: new Prisma.Decimal(entryDebit + entryCredit).mul(exchangeRate),
                             balanceBefore: balanceBefore,
                             balanceAfter: balanceAfter
                         }
@@ -226,7 +225,7 @@ export class LedgerService {
                 }
 
                 // Create Immutable Ledger Chain with Tail Lock
-                const tailLock = await tx.$queryRaw`
+                const tailLock: any = await tx.$queryRaw`
                     SELECT id, checksum 
                     FROM transaction_ledger 
                     WHERE tenant_id = ${input.tenantId} 
@@ -243,7 +242,7 @@ export class LedgerService {
                     ts: new Date().toISOString()
                 });
 
-                const checksum = this.generateHash(rawData, previousChecksum);
+                const checksum = LedgerService.generateHash(rawData, previousChecksum);
 
                 const record = await tx.transactionLedger.create({
                     data: {
@@ -284,7 +283,7 @@ export class LedgerService {
     /**
      * Reverses a sealed transaction by building the matching inverse entries.
      */
-    static async voidTransaction(transactionId: string, tenantId: string, actorUserId?: string): Promise<Result<any>> {
+    static async voidTransaction(prisma: any, transactionId: string, tenantId: string, actorUserId?: string): Promise<Result<any>> {
         return Result.guard(async () => {
             return prisma.$transaction(async (tx: any) => {
                 const originalTx = await tx.financialTransaction.findUnique({
@@ -313,7 +312,7 @@ export class LedgerService {
                 });
 
                 // Post Reversal
-                const reversalResult = await LedgerService.recordTransaction({
+                const reversalResult = await LedgerService.recordTransaction(tx, {
                     tenantId: originalTx.tenantId,
                     type: 'REVERSAL',
                     referenceId: originalTx.id,
@@ -344,7 +343,7 @@ export class LedgerService {
                 }
 
                 // Record Audit Log for Void Action
-                await AuditService.recordLog({
+                await AuditService.recordLog(tx, {
                     tenantId: originalTx.tenantId,
                     actorUserId: actorUserId,
                     action: 'VOID_FINANCIAL_TRANSACTION',
@@ -364,7 +363,7 @@ export class LedgerService {
     /**
      * Reports calculated tax liabilities vs collected.
      */
-    static async generateTaxFilingReport(tenantId: string, startDate?: Date, endDate?: Date): Promise<Result<any>> {
+    static async generateTaxFilingReport(prisma: any, tenantId: string, startDate?: Date, endDate?: Date): Promise<Result<any>> {
         return Result.guard(async () => {
             // Find the Sales Tax Payable Account (2100)
             const taxAccount = await prisma.chartOfAccount.findFirst({

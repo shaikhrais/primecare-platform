@@ -2,19 +2,17 @@ import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';
 
-const prisma = new PrismaClient();
-
 export class ComplianceService {
     /**
      * Aggregates audit logs and associated meta-data for institutional reporting
      */
-    static async getAuditReportData(tenantId: string, startDate?: string, endDate?: string): Promise<Result<any[]>> {
+    static async getAuditReportData(prisma: PrismaClient, tenantId: string, startDate?: string, endDate?: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
             const filters: any = { limit: 5000 };
             if (startDate) filters.startDate = startDate;
             if (endDate) filters.endDate = endDate;
 
-            const result = await AuditService.listLogs(tenantId, filters);
+            const result = await AuditService.listLogs(prisma, tenantId, filters);
 
             return result.data.logs.map((log: any) => ({
                 timestamp: log.createdAt.toISOString(),
@@ -31,7 +29,7 @@ export class ComplianceService {
     /**
      * Aggregates clinical metrics (vitals) for compliance oversight
      */
-    static async getClinicalComplianceData(tenantId: string, startDate?: string, endDate?: string): Promise<Result<any[]>> {
+    static async getClinicalComplianceData(prisma: PrismaClient, tenantId: string, startDate?: string, endDate?: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
             const where: any = { 
                 patient: { tenantId } 
@@ -72,7 +70,7 @@ export class ComplianceService {
     /**
      * Aggregates staff provisioning and role activity for HR compliance
      */
-    static async getStaffActivityReport(tenantId: string, startDate?: string, endDate?: string): Promise<Result<any[]>> {
+    static async getStaffActivityReport(prisma: PrismaClient, tenantId: string, startDate?: string, endDate?: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
             const where: any = {
                 tenantId,

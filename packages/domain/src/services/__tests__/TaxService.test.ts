@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { TaxService } from '../TaxService';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@primecare/database';
 
 describe('TaxService', () => {
     it('should resolve correct rates for regions', () => {

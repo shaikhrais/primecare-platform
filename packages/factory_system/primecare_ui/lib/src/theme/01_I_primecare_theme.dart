@@ -488,6 +488,10 @@ class _PrimeCareColors {
   Color get tealEmerald => PrimeCareColors.emerald;
   Color get navyIndigo => PrimeCareColors.skyBlue; // Primary brand color fallback
 
+  // Raw Slate access for specific visualization components
+  Color get slate800 => PrimeCareColors.slate800;
+  Color get slate400 => PrimeCareColors.slate400;
+
   // Surface Containers (M3 Standard)
   Color get surfaceContainerHighest => isDark ? PrimeCareColors.slate600 : PrimeCareColors.slate100;
   Color get surfaceContainerHigh => isDark ? PrimeCareColors.slate700 : PrimeCareColors.slate50;

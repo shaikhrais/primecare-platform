@@ -14,6 +14,7 @@ export function registerComplianceRoutes(app: any) {
         }
 
         const result = await ComplianceService.getAuditReportData(
+            c.get('prisma'),
             tenantId as string,
             startDate,
             endDate
@@ -43,6 +44,7 @@ export function registerComplianceRoutes(app: any) {
         }
 
         const result = await ComplianceService.getClinicalComplianceData(
+            c.get('prisma'),
             tenantId as string,
             startDate,
             endDate
@@ -72,6 +74,7 @@ export function registerComplianceRoutes(app: any) {
         }
 
         const result = await ComplianceService.getStaffActivityReport(
+            c.get('prisma'),
             tenantId as string,
             startDate,
             endDate

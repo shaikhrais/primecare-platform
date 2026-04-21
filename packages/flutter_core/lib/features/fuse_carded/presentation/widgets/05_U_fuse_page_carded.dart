@@ -1,20 +1,16 @@
-
-// Layer: 05_UI_PRESENTATION
+﻿// Layer: 05_UI_PRESENTATION
 import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
 
-/// Hardened fusePageCarded
-class Fusepagecarded extends StatelessWidget {
-  const Fusepagecarded({super.key});
+/// Hardened fuse_page_carded
+class FusePageCarded extends StatelessWidget {
+  const FusePageCarded({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const PrimeCareResponsiveKpiGrid(
-      title: 'fusePageCarded',
-      children: [
-        PrimeCareCard(child: Text('Operational Sector: fusePageCarded')),
-      ],
+    return ClinicalGlassPanel(
+      title: 'fuse_page_carded',
+      child: const PrimeCareCard(child: Text('Operational Sector: fuse_page_carded')),
     );
   }
 }

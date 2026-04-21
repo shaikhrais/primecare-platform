@@ -1,4 +1,4 @@
-import type { ButtonDef } from '../ButtonRegistry';
+import type { ButtonDef } from '../01_I_button_registry';
 import { ApiRegistry } from '../ApiRegistry';
 
 // ── Shared Constants ─────────────────────────────────────────────────────────

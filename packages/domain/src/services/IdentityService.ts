@@ -2,8 +2,6 @@ import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';
 
-const prisma = new PrismaClient();
-
 export interface PermissionUpdate {
     screenRoute: string;
     canRead: boolean;
@@ -14,7 +12,7 @@ export class IdentityService {
     /**
      * Lists all platform roles
      */
-    static async listRoles(): Promise<Result<any[]>> {
+    static async listRoles(prisma: PrismaClient): Promise<Result<any[]>> {
         return Result.guard(async () => {
             return prisma.platformRole.findMany({
                 orderBy: { name: 'asc' },
@@ -31,7 +29,7 @@ export class IdentityService {
     /**
      * Retrieves unique screen routes from the PlatformScreen registry
      */
-    static async getAvailableScreens(): Promise<Result<any[]>> {
+    static async getAvailableScreens(prisma: PrismaClient): Promise<Result<any[]>> {
         return Result.guard(async () => {
             const screens = await prisma.platformScreen.findMany({
                 select: {
@@ -47,7 +45,7 @@ export class IdentityService {
     /**
      * Retrieves permissions for a specific role by name
      */
-    static async getPermissionsForRole(roleName: string): Promise<Result<{ permissions: string[] }>> {
+    static async getPermissionsForRole(prisma: PrismaClient, roleName: string): Promise<Result<{ permissions: string[] }>> {
         return Result.guard(async () => {
             const role = await prisma.platformRole.findFirst({
                 where: { name: { equals: roleName, mode: 'insensitive' } },
@@ -58,14 +56,14 @@ export class IdentityService {
                 return { permissions: [] };
             }
 
-            return { permissions: role.screenAccess.map(sa => sa.screenRoute) };
+            return { permissions: role.screenAccess.map((sa: any) => sa.screenRoute) };
         });
     }
 
     /**
      * Fetches current permissions for a specific role
      */
-    static async getRolePermissions(roleId: string): Promise<Result<any[]>> {
+    static async getRolePermissions(prisma: PrismaClient, roleId: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
             return prisma.roleScreenAccess.findMany({
                 where: { roleId },
@@ -81,14 +79,14 @@ export class IdentityService {
     /**
      * Atomically updates role permissions.
      */
-    static async updateRolePermissions(input: {
+    static async updateRolePermissions(prisma: PrismaClient, input: {
         roleName: string;
         permissions: string[];
         tenantId: string;
         actorUserId: string;
     }): Promise<Result<{ success: boolean; roleName: string; count: number }>> {
         return Result.guard(async () => {
-            return prisma.$transaction(async (tx) => {
+            return (prisma as PrismaClient).$transaction(async (tx: any) => {
                 const role = await tx.platformRole.findFirst({
                     where: { name: { equals: input.roleName, mode: 'insensitive' } }
                 });
@@ -114,7 +112,7 @@ export class IdentityService {
                     });
                 }
 
-                await AuditService.recordLog({
+                await AuditService.recordLog(tx, {
                     tenantId: input.tenantId,
                     actorUserId: input.actorUserId,
                     action: 'UPDATE_ROLE_PERMISSIONS',

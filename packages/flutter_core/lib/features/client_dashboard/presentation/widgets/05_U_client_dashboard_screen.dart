@@ -18,7 +18,7 @@ class ClientDashboardScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
-            const const SizedBox(height: MetricTokens.spacingL),
+            SizedBox(height: context.theme.spacing.lg),
             Text(
               'clientDashboardViewModel Implementation',
               style: context.textTheme.headlineMedium,

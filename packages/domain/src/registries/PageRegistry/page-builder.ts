@@ -1,4 +1,4 @@
-import type { PageEntry, PageType } from '../PageRegistry';
+import type { PageEntry, PageType } from '../01_I_page_registry';
 import { CATEGORY_PREFIXES } from '../01_I_page_registry';
 import { HomeRegistry } from './homes';
 import { ListRegistry } from './lists';

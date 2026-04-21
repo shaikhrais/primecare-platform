@@ -39,6 +39,7 @@ export 'package:primecare_ui/src/components/01_I_primecare_primitives.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_progress_bar.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_quick_actions_grid.dart';
 export 'package:primecare_ui/src/components/dashboards/01_I_prime_care_responsive_kpi_grid.dart';
+export 'package:primecare_ui/src/components/dashboards/01_I_dashboard_state_widgets.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_scheduler.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_stat_card.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_task_row.dart';

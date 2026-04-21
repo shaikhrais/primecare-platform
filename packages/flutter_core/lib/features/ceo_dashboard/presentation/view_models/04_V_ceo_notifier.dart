@@ -13,7 +13,7 @@ class CeoNotifier extends Notifier<AsyncValue<CeoDashboardViewModel>>
     state = const AsyncValue.loading();
 
     await guardHydration<CeoDashboardViewModel>(
-      fetch: () => ref.read(ceoRepositoryProvider).getCeoData(),
+      fetch: () => ref.read<CeoRepository>(ceoRepositoryProvider).getCeoData(),
       onSuccess: (CeoDashboardViewModel data) {
         return AsyncValue.data(data);
       },

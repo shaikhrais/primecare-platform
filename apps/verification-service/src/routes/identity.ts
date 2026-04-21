@@ -6,7 +6,7 @@ export function registerIdentityRoutes(app: any) {
      * Lists all platform roles.
      */
     app.get('/v1/identity/roles', async (c: any) => {
-        const result = await IdentityService.listRoles();
+        const result = await IdentityService.listRoles(c.get('prisma'));
 
         return result.fold(
             (data) => c.json(data),
@@ -19,7 +19,7 @@ export function registerIdentityRoutes(app: any) {
      * Lists unique screen routes from the platform registry.
      */
     app.get('/v1/identity/screens', async (c: any) => {
-        const result = await IdentityService.getAvailableScreens();
+        const result = await IdentityService.getAvailableScreens(c.get('prisma'));
 
         return result.fold(
             (data) => c.json(data),
@@ -33,7 +33,7 @@ export function registerIdentityRoutes(app: any) {
      */
     app.get('/v1/identity/roles/:roleName/permissions', async (c: any) => {
         const roleName = c.req.param('roleName');
-        const result = await IdentityService.getPermissionsForRole(roleName);
+        const result = await IdentityService.getPermissionsForRole(c.get('prisma'), roleName);
 
         return result.fold(
             (data) => c.json(data),
@@ -50,7 +50,7 @@ export function registerIdentityRoutes(app: any) {
         
         try {
             const body = await c.req.json();
-            const result = await IdentityService.updateRolePermissions({
+            const result = await IdentityService.updateRolePermissions(c.get('prisma'), {
                 ...body,
                 tenantId,
                 actorUserId: (c.get('user') as any)?.id || 'SYSTEM'

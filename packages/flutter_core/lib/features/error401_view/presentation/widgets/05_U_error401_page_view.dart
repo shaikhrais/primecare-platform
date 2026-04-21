@@ -11,7 +11,6 @@ class Error401pageview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const PrimeCareResponsiveKpiGrid(
-      title: 'error401PageView',
       children: [
         PrimeCareCard(child: Text('Operational Sector: error401PageView')),
       ],

@@ -67,14 +67,14 @@ class RegionalBdmDashboardScreen extends ConsumerWidget {
           ClinicalGlassButton(
             label: 'Sales Report',
             icon: LucideIcons.fileText,
-            onPressed: () <String, dynamic>{},
+            onPressed: () {},
           ),
           SizedBox(width: theme.spacing.md),
           ClinicalGlassButton(
             label: 'New Opportunity',
             icon: LucideIcons.plusCircle,
-            onPressed: () <String, dynamic>{},
-            isPrimary: true,
+            onPressed: () {},
+            variant: ClinicalButtonVariant.primary,
           ),
         ],
       ),

@@ -1,20 +1,16 @@
-
-// Layer: 05_UI_PRESENTATION
+﻿// Layer: 05_UI_PRESENTATION
 import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
 
-/// Hardened fullScreenToggle
-class Fullscreentoggle extends StatelessWidget {
-  const Fullscreentoggle({super.key});
+/// Hardened full_screen_toggle
+class FullScreenToggle extends StatelessWidget {
+  const FullScreenToggle({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const PrimeCareResponsiveKpiGrid(
-      title: 'fullScreenToggle',
-      children: [
-        PrimeCareCard(child: Text('Operational Sector: fullScreenToggle')),
-      ],
+    return ClinicalGlassPanel(
+      title: 'full_screen_toggle',
+      child: const PrimeCareCard(child: Text('Operational Sector: full_screen_toggle')),
     );
   }
 }

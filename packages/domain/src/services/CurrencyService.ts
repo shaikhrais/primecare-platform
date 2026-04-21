@@ -1,8 +1,6 @@
 import { PrismaClient } from '@primecare/database';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@primecare/database';
 import { Result } from '../utils/Result';
-
-const prisma = new PrismaClient();
 
 // Mock exchange rates for Phase 10 implementation.
 // In production, these should be fetched from an external API or a rates table.
@@ -46,11 +44,12 @@ export class CurrencyService {
 
     /**
      * Converts an amount to the tenant's base currency.
+     * @param prisma The prisma client instance
      * @param amount The original amount
      * @param from The original currency
      * @param tenantId The tenant's ID to look up base currency
      */
-    static async convertToBase(amount: number | Decimal, from: string, tenantId: string): Promise<Result<{ baseAmount: Decimal; rate: number; baseCurrency: string }>> {
+    static async convertToBase(prisma: any, amount: number | Prisma.Decimal, from: string, tenantId: string): Promise<Result<{ baseAmount: Prisma.Decimal; rate: number; baseCurrency: string }>> {
         return Result.guard(async () => {
             const tenant = await prisma.tenant.findUnique({
                 where: { id: tenantId },
@@ -65,7 +64,7 @@ export class CurrencyService {
             const rate = rateResult.data;
             
             const numericAmount = typeof amount === 'number' ? amount : amount.toNumber();
-            const baseAmount = new Decimal(numericAmount).mul(rate);
+            const baseAmount = new Prisma.Decimal(numericAmount).mul(rate);
 
             return {
                 baseAmount,

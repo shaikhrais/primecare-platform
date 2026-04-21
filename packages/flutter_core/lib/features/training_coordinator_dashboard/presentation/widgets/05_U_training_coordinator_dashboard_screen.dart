@@ -1,4 +1,4 @@
-
+﻿
 import 'package:flutter/material.dart';
 import 'package:primecare_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
@@ -9,30 +9,36 @@ class TrainingCoordinatorDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = PrimeCareTheme.of(context);
     final state = ref.watch(trainingCoordinatorDashboardProvider);
 
     return state.when(
       loading: () => const Center(child: DashboardLoadingWidget()),
       error: (error, _) => Center(child: DashboardErrorWidget(message: error.toString())),
       data: (metrics) => SingleChildScrollView(
-        padding: const EdgeInsets.all(MetricTokens.spacingM),
+        padding: EdgeInsets.all(theme.spacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PrimeCareSectionHeader(
+            ClinicalGlassPanel(
               title: 'Training Coordinator Dashboard',
-              subtitle: 'Manage curriculum and coordinate training sessions',
-              trailing: Text(
-                'Last updated: ${DateTime.now().hour}:${DateTime.now().minute.toString().padLeft(2, '0')}',
-                style: const TextStyle(color: PrimeCareColors.slate400),
+              headerTrailing: ClinicalGlassButton(
+                onPressed: () {},
+                label: 'Coordination Mode',
+                variant: ClinicalButtonVariant.outline,
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: theme.spacing.md),
+                child: Text(
+                  'Manage curriculum and coordinate training sessions',
+                  style: theme.typography.bodyMedium.copyWith(color: theme.colors.slateGray),
+                ),
               ),
             ),
-            const SizedBox(height: MetricTokens.spacingL),
-            
-            _buildHighFidelityGrid(context, metrics),
-            
-            const SizedBox(height: MetricTokens.spacingL),
-            _buildActivitySection(context, metrics),
+            SizedBox(height: theme.spacing.xl),
+            _buildHighFidelityGrid(context, metrics.metrics),
+            SizedBox(height: theme.spacing.xl),
+            _buildActivitySection(context, metrics.metrics),
           ],
         ),
       ),
@@ -41,34 +47,37 @@ class TrainingCoordinatorDashboardScreen extends ConsumerWidget {
 
   Widget _buildHighFidelityGrid(BuildContext context, DashboardMetrics metrics) {
     return PrimeCareResponsiveKpiGrid(
-      children: metrics.keyValuePairs.entries.map((MapEntry<String, dynamic> e) {
+      children: metrics.kpis.map((kpi) {
         return PrimeCareKpiCard(
-          title: e.key,
-          value: e.value?.toString() ?? '0', // ignore: avoid_dynamic_calls
-          subtitle: 'Active coordinated sessions',
+          title: kpi.title,
+          value: kpi.value,
+          subtitle: kpi.subtitle ?? 'Active session',
           icon: LucideIcons.bookOpen,
-          onPinToggle: () <String, dynamic>{},
+          onPinToggle: () {},
         );
       }).toList(),
     );
   }
 
   Widget _buildActivitySection(BuildContext context, DashboardMetrics metrics) {
-    return DashboardSection(
+    final theme = PrimeCareTheme.of(context);
+    return ClinicalGlassPanel(
       title: 'Coordination Overview',
+      padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
-        children: itemsFromMetrics(metrics).map((item) => DashboardListItem(item: item)).toList(),
+        children: metrics.kpis.map((kpi) {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: theme.spacing.sm),
+            child: Row(
+              children: [
+                Text(kpi.title, style: theme.typography.bodyMedium),
+                const Spacer(),
+                Text(kpi.value, style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold)),
+              ],
+            ),
+          );
+        }).toList(),
       ),
     );
-  }
-
-  List<DashboardItem> itemsFromMetrics(DashboardMetrics metrics) {
-    return metrics.keyValuePairs.entries.map((MapEntry<String, dynamic> e) {
-      return DashboardItem(
-        title: e.key,
-        value: e.value?.toString() ?? '0', // ignore: avoid_dynamic_calls
-        type: DashboardItemType.info,
-      );
-    }).toList();
   }
 }

@@ -1,20 +1,16 @@
-
-// Layer: 05_UI_PRESENTATION
+﻿// Layer: 05_UI_PRESENTATION
 import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
 
-/// Hardened signOutPageView
-class Signoutpageview extends StatelessWidget {
-  const Signoutpageview({super.key});
+/// Hardened sign_out_page_view
+class SignOutPageView extends StatelessWidget {
+  const SignOutPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const PrimeCareResponsiveKpiGrid(
-      title: 'signOutPageView',
-      children: [
-        PrimeCareCard(child: Text('Operational Sector: signOutPageView')),
-      ],
+    return ClinicalGlassPanel(
+      title: 'sign_out_page_view',
+      child: const PrimeCareCard(child: Text('Operational Sector: sign_out_page_view')),
     );
   }
 }

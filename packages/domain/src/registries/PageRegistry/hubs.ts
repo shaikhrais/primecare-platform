@@ -1,4 +1,4 @@
-import type { HubEntry } from '../PageRegistry';
+import type { HubEntry } from '../01_I_page_registry';
 
 export const HubRegistry: HubEntry[] = [
     { id: 'admin.telehealth', label: 'Telehealth Center', route: '/platform/admin/telehealth/center', owner: 'admin', description: 'Video visits, vital signs, session management', sections: ['Sessions', 'Alerts', 'Vitals'] },

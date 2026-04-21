@@ -31,7 +31,7 @@ export function registerAuditRoutes(app: any) {
 
         const { tenantId, q, ...filters } = validated.data;
         
-        const result = await AuditService.listLogs(tenantId, {
+        const result = await AuditService.listLogs(c.get('prisma'), tenantId, {
             ...filters,
             searchTerm: q
         });
@@ -49,7 +49,7 @@ export function registerAuditRoutes(app: any) {
     app.post('/v1/audit/logs', async (c: any) => {
         try {
             const body = await c.req.json();
-            const result = await AuditService.recordLog(body);
+            const result = await AuditService.recordLog(c.get('prisma'), body);
             
             return result.fold(
                 (data) => c.json(data, 201),

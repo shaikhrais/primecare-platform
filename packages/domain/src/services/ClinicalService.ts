@@ -2,8 +2,6 @@ import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';
 
-const prisma = new PrismaClient();
-
 export interface VitalsInput {
     tenantId: string;
     patientId: string;
@@ -40,7 +38,7 @@ export class ClinicalService {
      * Records a new set of vitals for a patient.
      * Persists multiple records to the VitalSign model and records an audit log.
      */
-    static async captureVitals(input: VitalsInput): Promise<Result<{ success: boolean; capturedAt: Date; patientId: string; count: number }>> {
+    static async captureVitals(prisma: PrismaClient, input: VitalsInput): Promise<Result<{ success: boolean; capturedAt: Date; patientId: string; count: number }>> {
         return Result.guard(async () => {
             return prisma.$transaction(async (tx) => {
                 // 1. Verify ClientProfile exists with correct tenant scoping
@@ -84,7 +82,7 @@ export class ClinicalService {
                 }
 
                 // 3. Record Audit Log
-                await AuditService.recordLog({
+                await AuditService.recordLog(prisma, {
                     tenantId: input.tenantId,
                     actorUserId: input.actorUserId,
                     action: 'CAPTURE_VITALS',
@@ -110,7 +108,7 @@ export class ClinicalService {
      * Processes a new patient intake.
      * Atomically creates both a User account and a ClientProfile.
      */
-    static async processPatientIntake(input: IntakeInput): Promise<Result<{ patientId: string; userId: string; email: string }>> {
+    static async processPatientIntake(prisma: PrismaClient, input: IntakeInput): Promise<Result<{ patientId: string; userId: string; email: string }>> {
         return Result.guard(async () => {
             return prisma.$transaction(async (tx) => {
                 // 1. Check for existing user by email in THIS tenant
@@ -157,7 +155,7 @@ export class ClinicalService {
                 });
 
                 // 5. Record Audit Log
-                await AuditService.recordLog({
+                await AuditService.recordLog(prisma, {
                     tenantId: input.tenantId,
                     actorUserId: input.actorUserId,
                     action: 'PATIENT_INTAKE',
@@ -181,7 +179,7 @@ export class ClinicalService {
     /**
      * Checks if a patient email is already in use within the tenant.
      */
-    static async checkPatientEmail(tenantId: string, email: string): Promise<Result<{ available: boolean }>> {
+    static async checkPatientEmail(prisma: PrismaClient, tenantId: string, email: string): Promise<Result<{ available: boolean }>> {
         return Result.guard(async () => {
             const existing = await prisma.user.findFirst({
                 where: {
@@ -197,7 +195,7 @@ export class ClinicalService {
      * Generates a deterministic synthetic financial forecast for Q3 2026.
      * This fulfills the structural anomaly requirement for AI Analytics.
      */
-    static async getQ3FinancialExtrapolations(tenantId: string): Promise<Result<{ 
+    static async getQ3FinancialExtrapolations(prisma: PrismaClient, tenantId: string): Promise<Result<{ 
         projections: any[]; 
         kpis: any; 
         confidenceScore: number;

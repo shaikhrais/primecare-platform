@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { LedgerService } from '../LedgerService';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@primecare/database';
 
 // Use vi.hoisted to ensure the mock object is available during vi.mock execution
 const { mockPrisma } = vi.hoisted(() => {
@@ -63,9 +63,9 @@ describe('LedgerTaxSync Integration', () => {
 
         // Mock Accounts
         const mockAccounts = {
-            '1100': { id: 'acc-ar', code: '1100', type: 'ASSET', balance: new Decimal(0), currency: 'CAD' },
-            '4100': { id: 'acc-rev', code: '4100', type: 'REVENUE', balance: new Decimal(0), currency: 'CAD' },
-            '2100': { id: 'acc-tax', code: '2100', type: 'LIABILITY', balance: new Decimal(0), currency: 'CAD' }
+            '1100': { id: 'acc-ar', code: '1100', type: 'ASSET', balance: new Prisma.Decimal(0), currency: 'CAD' },
+            '4100': { id: 'acc-rev', code: '4100', type: 'REVENUE', balance: new Prisma.Decimal(0), currency: 'CAD' },
+            '2100': { id: 'acc-tax', code: '2100', type: 'LIABILITY', balance: new Prisma.Decimal(0), currency: 'CAD' }
         };
 
         mockPrisma.chartOfAccount.findUnique.mockImplementation(({ where }: any) => {
@@ -79,7 +79,7 @@ describe('LedgerTaxSync Integration', () => {
 
         mockPrisma.transactionLedger.findFirst.mockResolvedValue({
             id: 'last-ledger-id',
-            balance: new Decimal(1000),
+            balance: new Prisma.Decimal(1000),
             hash: 'last-hash'
         });
 

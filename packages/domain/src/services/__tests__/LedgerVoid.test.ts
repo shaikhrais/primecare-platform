@@ -1,5 +1,5 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@primecare/database';
 
 // Use vi.hoisted to ensure the mock object is available during vi.mock execution
 const { mockPrisma } = vi.hoisted(() => {
@@ -70,15 +70,15 @@ describe('Ledger Reversal (Voiding)', () => {
             { 
                 id: 'je-1', 
                 accountId: 'acc-1100', 
-                debit: new Decimal(113), 
-                paidOutAmount: new Decimal(0),
+                debit: new Prisma.Decimal(113), 
+                paidOutAmount: new Prisma.Decimal(0),
                 account: { code: '1100' }
             },
             { 
                 id: 'je-2', 
                 accountId: 'acc-4100', 
-                debit: new Decimal(0), 
-                paidOutAmount: new Decimal(113),
+                debit: new Prisma.Decimal(0), 
+                paidOutAmount: new Prisma.Decimal(113),
                 account: { code: '4100' }
             },
         ];
@@ -152,14 +152,14 @@ describe('Ledger Reversal (Voiding)', () => {
             journalEntries: [
                 { 
                     accountId: 'acc-1100', 
-                    debit: new Decimal(100), 
-                    paidOutAmount: new Decimal(0),
+                    debit: new Prisma.Decimal(100), 
+                    paidOutAmount: new Prisma.Decimal(0),
                     account: { code: '1100' }
                 },
                 { 
                     accountId: 'acc-4100', 
-                    debit: new Decimal(0), 
-                    paidOutAmount: new Decimal(100),
+                    debit: new Prisma.Decimal(0), 
+                    paidOutAmount: new Prisma.Decimal(100),
                     account: { code: '4100' }
                 }
             ]
@@ -186,9 +186,9 @@ describe('Ledger Reversal (Voiding)', () => {
             currency: 'CAD',
             exchangeRate: 1,
             journalEntries: [
-                { account: { code: '1100' }, accountId: 'acc-1100', debit: new Decimal(113), paidOutAmount: new Decimal(0) },
-                { account: { code: '4100' }, accountId: 'acc-4100', debit: new Decimal(0), paidOutAmount: new Decimal(100) },
-                { account: { code: '2100' }, accountId: 'acc-2100', debit: new Decimal(0), paidOutAmount: new Decimal(13) }
+                { account: { code: '1100' }, accountId: 'acc-1100', debit: new Prisma.Decimal(113), paidOutAmount: new Prisma.Decimal(0) },
+                { account: { code: '4100' }, accountId: 'acc-4100', debit: new Prisma.Decimal(0), paidOutAmount: new Prisma.Decimal(100) },
+                { account: { code: '2100' }, accountId: 'acc-2100', debit: new Prisma.Decimal(0), paidOutAmount: new Prisma.Decimal(13) }
             ]
         };
 

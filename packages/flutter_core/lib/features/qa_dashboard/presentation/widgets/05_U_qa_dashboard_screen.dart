@@ -67,14 +67,14 @@ class QaDashboardScreen extends ConsumerWidget {
           ClinicalGlassButton(
             label: 'New Audit',
             icon: LucideIcons.fileSpreadsheet,
-            onPressed: () <String, dynamic>{},
+            onPressed: () {},
           ),
           SizedBox(width: theme.spacing.md),
           ClinicalGlassButton(
             label: 'Report Incident',
             icon: LucideIcons.alertCircle,
-            onPressed: () <String, dynamic>{},
-            isPrimary: true,
+            onPressed: () {},
+            variant: ClinicalButtonVariant.primary,
           ),
         ],
       ),

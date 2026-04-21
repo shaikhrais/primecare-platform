@@ -1,4 +1,4 @@
-import type { PageActions } from '../PageActionRegistry';
+import type { PageActions } from '../01_I_page_action_registry';
 
 export const TENANCY_ACTIONS: Record<string, PageActions> = {
     // Manager

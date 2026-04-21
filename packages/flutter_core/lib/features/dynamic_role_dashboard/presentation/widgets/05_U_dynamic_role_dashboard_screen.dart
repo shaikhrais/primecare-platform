@@ -1,4 +1,3 @@
-
 // Layer: 05_UI_PRESENTATION
 import 'package:flutter/material.dart';
 import 'package:primecare_core/00_B_flutter_core.dart';
@@ -11,7 +10,21 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
+    
+    // Using a descriptive route key for the dynamic dashboard metrics
+    final metricsAsync = ref.watch(dashboardMetricsProvider('dynamic_role_dashboard'));
 
+    return metricsAsync.when(
+      data: (result) => result.fold(
+        (metrics) => _buildDashboard(context, theme, metrics),
+        (error) => DashboardErrorWidget(message: error.toString()),
+      ),
+      loading: () => const DashboardLoadingWidget(),
+      error: (err, stack) => DashboardErrorWidget(message: err.toString()),
+    );
+  }
+
+  Widget _buildDashboard(BuildContext context, PrimeCareThemeData theme, DashboardMetrics metrics) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
@@ -19,12 +32,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
         children: [
           _buildHeader(context, theme),
           SizedBox(height: theme.spacing.xl),
-          const PrimeCareResponsiveKpiGrid(metrics: {
-            'Performance': '98.5%',
-            'Utility': 'High',
-            'Status': 'Operational',
-            'SLA': '100%',
-          }),
+          PrimeCareResponsiveKpiGrid(metrics: metrics),
           SizedBox(height: theme.spacing.xl),
           _buildMainContent(context, theme),
         ],
@@ -46,7 +54,7 @@ class DynamicRoleDashboardScreen extends ConsumerWidget {
                   style: theme.typography.h2,
                 ),
                 Text(
-                  'Standardized Platform Dashboard • V4 Optimized',
+                  'Standardized Platform Dashboard â€¢ V4 Optimized',
                   style: theme.typography.labelSmall.copyWith(
                     color: theme.colors.slateGray,
                   ),

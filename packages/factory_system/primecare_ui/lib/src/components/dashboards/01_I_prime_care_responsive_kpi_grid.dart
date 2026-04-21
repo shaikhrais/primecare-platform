@@ -1,12 +1,18 @@
-// Layer: 01_INFRASTRUCTURE
+﻿// Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:primecare_core/primecare_core.dart';
 import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
+import 'package:primecare_ui/00_B_primecare_ui.dart';
 
 class PrimeCareResponsiveKpiGrid extends ConsumerStatefulWidget {
   final List<Widget> children;
+  final DashboardMetrics? metrics;
 
-  const PrimeCareResponsiveKpiGrid({super.key, required this.children});
+  const PrimeCareResponsiveKpiGrid({
+    super.key,
+    this.children = const [],
+    this.metrics,
+  });
 
   @override
   ConsumerState<PrimeCareResponsiveKpiGrid> createState() =>
@@ -39,6 +45,8 @@ class _PrimeCareResponsiveKpiGridState
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeCareTheme.of(context);
+    
     ref
         .read(executionGateProvider)
         .passGate(
@@ -61,10 +69,42 @@ class _PrimeCareResponsiveKpiGridState
       }
     }
 
+    final effectiveChildren = [...widget.children];
+    if (widget.metrics != null) {
+      effectiveChildren.addAll(widget.metrics!.kpis.map((kpi) {
+        return ClinicalGlassPanel(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                kpi.value,
+                style: theme.typography.h2.copyWith(fontWeight: FontWeight.w900, color: theme.colors.primary),
+              ),
+              Text(
+                kpi.title,
+                style: theme.typography.labelSmall.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colors.slateGray,
+                ),
+              ),
+              if (kpi.subtitle != null)
+                Text(
+                  kpi.subtitle!,
+                  style: theme.typography.labelSmall.copyWith(
+                    color: theme.colors.slateGray.withValues(alpha: 0.7),
+                  ),
+                ),
+            ],
+          ),
+        );
+      }).toList());
+    }
+
     final grid = ResponsiveGridRow(
       spacing: 16 * layout.scaleFactor,
       runSpacing: 16 * layout.scaleFactor,
-      children: widget.children.map((child) {
+      children: effectiveChildren.map((child) {
         return ResponsiveGridCol(
           span: 4,
           child: AspectRatio(aspectRatio: 1.6, child: child),

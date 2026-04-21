@@ -1,4 +1,4 @@
-import type { ToolEntry } from '../PageRegistry';
+import type { ToolEntry } from '../01_I_page_registry';
 
 export const ToolRegistry: ToolEntry[] = [
     { id: 'admin.search', label: 'Global Search', route: '/platform/admin/search', owner: 'admin', description: 'Platform-wide search' },

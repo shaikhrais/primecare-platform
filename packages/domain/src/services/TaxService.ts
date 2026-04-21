@@ -1,10 +1,10 @@
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@primecare/database';
 import { Result } from '../utils/Result';
 
 export type TaxCalculation = {
-    baseAmount: Decimal;
-    taxAmount: Decimal;
-    totalAmount: Decimal;
+    baseAmount: Prisma.Decimal;
+    taxAmount: Prisma.Decimal;
+    totalAmount: Prisma.Decimal;
     rate: number;
     description: string;
 };
@@ -48,26 +48,26 @@ export class TaxService {
      * @param region The location code (e.g., 'ON').
      * @param inclusive Whether the input amount already includes tax.
      */
-    static async calculateTax(amount: number | Decimal, region: string, inclusive: boolean = false): Promise<Result<TaxCalculation>> {
+    static async calculateTax(amount: number | Prisma.Decimal, region: string, inclusive: boolean = false): Promise<Result<TaxCalculation>> {
         return Result.guard(async () => {
             const rateResult = await this.getRateForRegion(region);
             const { rate, description } = rateResult.data;
             
-            const inputAmount = typeof amount === 'number' ? new Decimal(amount) : amount;
+            const inputAmount = typeof amount === 'number' ? new Prisma.Decimal(amount) : amount;
 
-            let baseAmount: Decimal;
-            let taxAmount: Decimal;
-            let totalAmount: Decimal;
+            let baseAmount: Prisma.Decimal;
+            let taxAmount: Prisma.Decimal;
+            let totalAmount: Prisma.Decimal;
 
             if (inclusive) {
                 // Amount = Base * (1 + rate) -> Base = Amount / (1 + rate)
                 totalAmount = inputAmount;
-                baseAmount = totalAmount.div(1 + rate).toDecimalPlaces(2);
+                baseAmount = totalAmount.div(1 + rate).toPrisma.DecimalPlaces(2);
                 taxAmount = totalAmount.minus(baseAmount);
             } else {
                 // Amount = Base -> Total = Base * (1 + rate)
                 baseAmount = inputAmount;
-                taxAmount = baseAmount.mul(rate).toDecimalPlaces(2);
+                taxAmount = baseAmount.mul(rate).toPrisma.DecimalPlaces(2);
                 totalAmount = baseAmount.plus(taxAmount);
             }
 

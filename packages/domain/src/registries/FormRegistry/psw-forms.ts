@@ -1,4 +1,4 @@
-import type { FormEntry } from '../FormRegistry';
+import type { FormEntry } from '../01_I_form_registry';
 
 export const PSW_FORMS: FormEntry[] = [
     {

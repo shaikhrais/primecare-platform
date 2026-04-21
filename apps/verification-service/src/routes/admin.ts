@@ -13,7 +13,7 @@ export function registerAdminRoutes(app: any) {
 
         try {
             const body = await c.req.json();
-            const result = await AdminService.provisionStaff({
+            const result = await AdminService.provisionStaff(c.get('prisma'), {
                 ...body,
                 tenantId,
                 actorUserId: (c.get('user') as any)?.id || 'SYSTEM'
@@ -38,7 +38,7 @@ export function registerAdminRoutes(app: any) {
             return c.json({ error: 'Missing x-tenant-id header' }, 400);
         }
 
-        const result = await AdminService.listStaffMembers(tenantId);
+        const result = await AdminService.listStaffMembers(c.get('prisma'), tenantId);
 
         return result.fold(
             (data) => c.json(data),
@@ -57,7 +57,7 @@ export function registerAdminRoutes(app: any) {
             return c.json({ error: 'Missing x-tenant-id header' }, 400);
         }
 
-        const result = await AdminService.deactivateStaff(id, (c.get('user') as any)?.id || 'SYSTEM');
+        const result = await AdminService.deactivateStaff(c.get('prisma'), id, (c.get('user') as any)?.id || 'SYSTEM');
 
         return result.fold(
             (data) => c.json(data),
@@ -70,7 +70,7 @@ export function registerAdminRoutes(app: any) {
      * Returns available organizational departments.
      */
     app.get('/v1/admin/departments', async (c: any) => {
-        const result = await AdminService.getAvailableDepartments();
+        const result = await AdminService.getAvailableDepartments(c.get('prisma'));
 
         return result.fold(
             (data: any[]) => c.json({ success: true, data }),

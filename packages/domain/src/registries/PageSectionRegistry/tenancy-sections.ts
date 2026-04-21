@@ -1,4 +1,4 @@
-import type { PageSections } from '../PageSectionRegistry';
+import type { PageSections } from '../01_I_page_section_registry';
 
 export const TENANCY_SECTIONS: Record<string, PageSections> = {
     // ── D7: Manager Home ────────────────────────────────────────────────

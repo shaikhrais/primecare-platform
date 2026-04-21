@@ -13,7 +13,7 @@ export function registerClinicalRoutes(app: any) {
 
         try {
             const body = await c.req.json();
-            const result = await ClinicalService.captureVitals({
+            const result = await ClinicalService.captureVitals(c.get('prisma'), {
                 ...body,
                 tenantId,
                 actorUserId: (c.get('user') as any)?.id || 'SYSTEM'
@@ -40,7 +40,7 @@ export function registerClinicalRoutes(app: any) {
 
         try {
             const body = await c.req.json();
-            const result = await ClinicalService.processPatientIntake({
+            const result = await ClinicalService.processPatientIntake(c.get('prisma'), {
                 ...body,
                 tenantId,
                 actorUserId: (c.get('user') as any)?.id || 'SYSTEM'
@@ -66,7 +66,7 @@ export function registerClinicalRoutes(app: any) {
             return c.json({ error: 'Missing x-tenant-id header or email query param' }, 400);
         }
 
-        const result = await ClinicalService.checkPatientEmail(tenantId, email);
+        const result = await ClinicalService.checkPatientEmail(c.get('prisma'), tenantId, email);
 
         return result.fold(
             (data) => c.json(data),
@@ -84,7 +84,7 @@ export function registerClinicalRoutes(app: any) {
             return c.json({ error: 'Missing x-tenant-id header' }, 400);
         }
 
-        const result = await ClinicalService.getQ3FinancialExtrapolations(tenantId);
+        const result = await ClinicalService.getQ3FinancialExtrapolations(c.get('prisma'), tenantId);
 
         return result.fold(
             (data) => c.json(data),

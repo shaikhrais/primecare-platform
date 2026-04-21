@@ -1,5 +1,4 @@
-
-// Layer: 05_UI_PRESENTATION
+﻿// Layer: 05_UI_PRESENTATION
 import 'package:flutter/material.dart';
 import 'package:primecare_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/00_B_primecare_ui.dart';
@@ -19,12 +18,17 @@ class DemoDashboardScreen extends ConsumerWidget {
         children: [
           _buildHeader(context, theme),
           SizedBox(height: theme.spacing.xl),
-          const PrimeCareResponsiveKpiGrid(metrics: {
-            'Performance': '98.5%',
-            'Utility': 'High',
-            'Status': 'Operational',
-            'SLA': '100%',
-          }),
+          PrimeCareResponsiveKpiGrid(
+            metrics: DashboardMetrics(
+              kpis: [
+                KpiMetric(title: 'Performance', value: '98.5%', status: 'positive'),
+                KpiMetric(title: 'Utility', value: 'High', status: 'positive'),
+                KpiMetric(title: 'Status', value: 'Operational', status: 'positive'),
+                KpiMetric(title: 'SLA', value: '100%', status: 'positive'),
+              ],
+              recentActivity: [],
+            ),
+          ),
           SizedBox(height: theme.spacing.xl),
           _buildMainContent(context, theme),
         ],
@@ -46,7 +50,7 @@ class DemoDashboardScreen extends ConsumerWidget {
                   style: theme.typography.h2,
                 ),
                 Text(
-                  'Standardized Platform Dashboard � V4 Optimized',
+                  'Standardized Platform Dashboard • V4 Optimized',
                   style: theme.typography.labelSmall.copyWith(
                     color: theme.colors.slateGray,
                   ),

@@ -2,8 +2,6 @@ import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';
 
-const prisma = new PrismaClient();
-
 export interface ProvisionStaffInput {
     tenantId: string;
     firstName: string;
@@ -20,9 +18,9 @@ export class AdminService {
      * Provisions a new staff member by creating a user record and assigning a role.
      * Atomically records the creation in the audit log.
      */
-    static async provisionStaff(input: ProvisionStaffInput): Promise<Result<{ userId: string; email: string; role: string }>> {
+    static async provisionStaff(prisma: any, input: ProvisionStaffInput): Promise<Result<{ userId: string; email: string; role: string }>> {
         return Result.guard(async () => {
-            return prisma.$transaction(async (tx) => {
+            return prisma.$transaction(async (tx: any) => {
                 // 1. Check if email already exists
                 const existingUser = await tx.user.findUnique({
                     where: { email: input.email }
@@ -59,7 +57,7 @@ export class AdminService {
                 });
 
                 // 4. Record Audit Log
-                await AuditService.recordLog({
+                await AuditService.recordLog(tx, {
                     tenantId: input.tenantId,
                     actorUserId: input.actorUserId || 'SYSTEM',
                     action: 'PROVISION_STAFF',
@@ -86,7 +84,7 @@ export class AdminService {
      * Lists all staff members for a specific tenant.
      * Includes their role names for UI binding.
      */
-    static async listStaffMembers(tenantId: string): Promise<Result<any[]>> {
+    static async listStaffMembers(prisma: any, tenantId: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
             const users = await prisma.user.findMany({
                 where: {
@@ -112,9 +110,9 @@ export class AdminService {
     /**
      * Deactivates a staff member by setting their status to 'deactivated'.
      */
-    static async deactivateStaff(userId: string, actorUserId: string): Promise<Result<{ userId: string; status: string }>> {
+    static async deactivateStaff(prisma: any, userId: string, actorUserId: string): Promise<Result<{ userId: string; status: string }>> {
         return Result.guard(async () => {
-            return prisma.$transaction(async (tx) => {
+            return prisma.$transaction(async (tx: any) => {
                 const user = await tx.user.findUnique({
                     where: { id: userId }
                 });
@@ -128,7 +126,7 @@ export class AdminService {
                     data: { status: 'deactivated' }
                 });
 
-                await AuditService.recordLog({
+                await AuditService.recordLog(tx, {
                     tenantId: user.tenantId,
                     actorUserId: actorUserId,
                     action: 'DEACTIVATE_STAFF',
@@ -148,7 +146,7 @@ export class AdminService {
     /**
      * Returns a structured list of available departments for staff provisioning.
      */
-    static async getAvailableDepartments(): Promise<Result<any[]>> {
+    static async getAvailableDepartments(prisma: any): Promise<Result<any[]>> {
         return Result.guard(async () => {
             // In a more advanced setup, this would come from a Registry or a Department table.
             // For now, we normalize it in the domain layer to ensure consistency.
@@ -166,7 +164,7 @@ export class AdminService {
     /**
      * Requests an audit override.
      */
-    static async requestAuditOverride(data: {
+    static async requestAuditOverride(prisma: any, data: {
         name: string;
         details: string;
         actorUserId: string;
@@ -175,7 +173,7 @@ export class AdminService {
         const { name, details, actorUserId, tenantId } = data;
 
         // Records a high-priority audit log as a 'request'.
-        return await AuditService.recordLog({
+        return await AuditService.recordLog(prisma, {
             tenantId,
             actorUserId,
             action: 'AUDIT_OVERRIDE_REQUEST',

@@ -2,7 +2,7 @@
 /// Centralized configuration for the PrimeCare API.
 class ApiConfig {
   /// The production-ready base URL for the Cloudflare Worker API.
-  static const String baseUrl = 'https://worker-api.primecare.workers.dev';
+  static const String baseUrl = 'https://primecare-verification-service.itpro-mohammed.workers.dev';
   
   /// Current API version segment.
   static const String version = 'v4';
@@ -12,23 +12,23 @@ class ApiConfig {
 
   /// Standardized API endpoints mapping.
   static const Map<String, String> endpoints = {
-    'login': '/api/v1/auth/login',
-    'register': '/api/v1/auth/register',
-    'verify': '/api/v1/auth/verify',
-    'refresh': '/api/v1/auth/refresh',
-    'telemetry': '/api/v1/telemetry',
-    'events': '/api/v1/events',
-    'intakeCases': '/api/v1/intake/cases',
-    'carePlansUpdate': '/api/v1/clinical/care-plans/update',
-    'trainingDirectorView': '/api/v1/clinical/training/director-view',
-    'trainingComplete': '/api/v1/clinical/training/complete',
-    'supportEscalate': '/api/v1/support/tickets/escalate',
-    'franchiseTerritoryUpdate': '/api/v1/franchise/territory/update',
-    'reportingSummary': '/api/v1/reporting/summary',
-    'adminStaffProvision': '/api/v1/admin/staff/provision',
-    'adminAuditOverride': '/api/v1/admin/audit/override',
-    'officePartnershipLeadsView': '/api/v1/office/partnership/leads',
-    'trainingCoordinatorDashboard': '/api/v1/training-coordinator/dashboard',
-    'providerMetrics': '/api/v1/provider/metrics',
+    'login': '/v1/auth/login',
+    'register': '/v1/auth/register',
+    'verify': '/v1/auth/verify',
+    'refresh': '/v1/auth/refresh',
+    'telemetry': '/v1/telemetry',
+    'events': '/v1/events',
+    'intakeCases': '/v1/intake/cases',
+    'carePlansUpdate': '/v1/clinical/care-plans/update',
+    'trainingDirectorView': '/v1/clinical/training/director-view',
+    'trainingComplete': '/v1/clinical/training/complete',
+    'supportEscalate': '/v1/support/tickets/escalate',
+    'franchiseTerritoryUpdate': '/v1/franchise/territory/update',
+    'reportingSummary': '/v1/reporting/summary',
+    'adminStaffProvision': '/v1/admin/staff/provision',
+    'adminAuditOverride': '/v1/admin/audit/override',
+    'officePartnershipLeadsView': '/v1/office/partnership/leads',
+    'trainingCoordinatorDashboard': '/v1/training-coordinator/dashboard',
+    'providerMetrics': '/v1/provider/metrics',
   };
 }

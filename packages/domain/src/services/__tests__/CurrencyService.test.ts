@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { CurrencyService } from '../CurrencyService';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@primecare/database';
 
 const { mockPrisma } = vi.hoisted(() => {
     return {
