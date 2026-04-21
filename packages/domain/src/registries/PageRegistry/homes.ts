@@ -18,5 +18,6 @@ export const HomeRegistry: HomeEntry[] = [
     { id: 'rn.home', label: 'RN Home', route: '/tenancy/rn', owner: 'rn', statsEndpoints: ['/v1/rn/home/stats'], widgets: ['kpi-card', 'table', 'chart'], icon: '💉' },
     { id: 'coordinator.home', label: 'Coordinator Home', route: '/tenancy/coordinator', owner: 'coordinator', statsEndpoints: ['/v1/coordinator/home/stats'], widgets: ['kpi-card', 'map', 'table'], icon: '📍' },
     { id: 'client.home', label: 'Client Home', route: '/tenancy/client', owner: 'client', statsEndpoints: ['/v1/client/home/stats'], widgets: ['kpi-card', 'calendar', 'feed'], icon: '👤' },
-    { id: 'allied.home', label: 'Allied Health Home', route: '/tenancy/allied-health', owner: 'allied', statsEndpoints: [], widgets: ['kpi-card', 'table'], icon: '🏥' },
+    { id: 'allied.home', label: 'Allied Health Home', route: '/platform/allied-health', owner: 'allied', statsEndpoints: [], widgets: ['kpi-card', 'table'], icon: '🏥' },
+    { id: 'training-director.home', label: 'Training Director Home', route: '/platform/admin/training/home', owner: 'admin', statsEndpoints: ['/v1/admin/training/stats/compliance-overview', '/v1/admin/training/stats/expiring-certs'], widgets: ['kpi-card', 'chart', 'table'], icon: '🎓' },
 ];

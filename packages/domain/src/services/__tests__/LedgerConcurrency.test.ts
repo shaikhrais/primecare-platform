@@ -70,13 +70,13 @@ describe('LedgerService Concurrency Hardening', () => {
         // Fire multiple transactions simultaneously
         const results = await Promise.all(
             Array.from({ length: transactionCount }).map((_, i) =>
-                LedgerService.recordTransaction({
+                LedgerService.recordTransaction(prisma, {
                     tenantId,
                     type: 'SALE',
-                    reference: `SALE-CONC-${i}`,
+                    referenceId: `SALE-CONC-${i}`,
                     entries: [
-                        { accountId: assetAccountId!, accountCode: '1001-TEST-CONC', debit: amountPerTransaction },
-                        { accountId: revenueAccountId!, accountCode: '4001-TEST-CONC', credit: amountPerTransaction }
+                        { accountId: '1001-TEST-CONC', debit: amountPerTransaction },
+                        { accountId: '4001-TEST-CONC', credit: amountPerTransaction }
                     ],
                     actorUserId
                 })

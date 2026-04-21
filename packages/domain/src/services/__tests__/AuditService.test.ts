@@ -41,7 +41,7 @@ describe('AuditService', () => {
     });
 
     it('should record an audit log', async () => {
-        const log = await AuditService.recordLog({
+        const result = await AuditService.recordLog(prisma, {
             tenantId,
             actorUserId: actorId,
             action: 'TEST_ACTION',
@@ -49,29 +49,32 @@ describe('AuditService', () => {
             metadata: { key: 'value' }
         });
 
-        expect(log.id).toBeDefined();
-        expect(log.action).toBe('TEST_ACTION');
+        expect(result.isSuccess).toBe(true);
+        expect(result.data.id).toBeDefined();
+        expect(result.data.action).toBe('TEST_ACTION');
     });
 
     it('should list and filter audit logs', async () => {
         // Record another log with a different action
-        await AuditService.recordLog({
+        await AuditService.recordLog(prisma, {
             tenantId,
             actorUserId: actorId,
             action: 'FILTER_ACTION',
             resourceType: 'FILTER_RESOURCE'
         });
 
-        const result = await AuditService.listLogs(tenantId, { action: 'FILTER_ACTION' });
+        const result = await AuditService.listLogs(prisma, tenantId, { action: 'FILTER_ACTION' });
         
-        expect(result.logs.length).toBe(1);
-        expect(result.logs[0].action).toBe('FILTER_ACTION');
-        expect(result.pagination.total).toBe(1);
+        expect(result.isSuccess).toBe(true);
+        expect(result.data.logs.length).toBe(1);
+        expect(result.data.logs[0].action).toBe('FILTER_ACTION');
+        expect(result.data.pagination.total).toBe(1);
     });
 
     it('should enforce tenant isolation', async () => {
-        const result = await AuditService.listLogs('other-tenant');
-        expect(result.logs.length).toBe(0);
-        expect(result.pagination.total).toBe(0);
+        const result = await AuditService.listLogs(prisma, 'other-tenant');
+        expect(result.isSuccess).toBe(true);
+        expect(result.data.logs.length).toBe(0);
+        expect(result.data.pagination.total).toBe(0);
     });
 });

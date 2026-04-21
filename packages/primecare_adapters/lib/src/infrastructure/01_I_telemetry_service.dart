@@ -19,6 +19,8 @@ enum ExecutionGateCategory {
   auraEngine,
   domainApi,
   aura,
+  compliance,
+  interaction,
 }
 
 /// Status of an individual execution gate.

@@ -42,6 +42,17 @@ class ApiClient {
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
           }
+
+          // Inject Tenant Context for Multi-tenant compliance
+          try {
+            final tenantId = prefs.getString('auth_tenant_id');
+            if (tenantId != null) {
+              options.headers['x-tenant-id'] = tenantId;
+            }
+          } catch (e) {
+            // Silently continue if preference reading fails
+          }
+
           return handler.next(options);
         },
       ),
@@ -51,25 +62,31 @@ class ApiClient {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          _ref.read(executionGateProvider.notifier).passGate(
-            ExecutionGateCategory.network,
-            'Request: ${options.method} ${options.path}',
-          );
+          _ref
+              .read(executionGateProvider.notifier)
+              .passGate(
+                ExecutionGateCategory.network,
+                'Request: ${options.method} ${options.path}',
+              );
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          _ref.read(executionGateProvider.notifier).passGate(
-            ExecutionGateCategory.network,
-            'Response: ${response.statusCode} from ${response.requestOptions.path}',
-          );
+          _ref
+              .read(executionGateProvider.notifier)
+              .passGate(
+                ExecutionGateCategory.network,
+                'Response: ${response.statusCode} from ${response.requestOptions.path}',
+              );
           return handler.next(response);
         },
         onError: (e, handler) {
-          _ref.read(executionGateProvider.notifier).failGate(
-            ExecutionGateCategory.network,
-            'Network Error: ${e.message}',
-            error: e,
-          );
+          _ref
+              .read(executionGateProvider.notifier)
+              .failGate(
+                ExecutionGateCategory.network,
+                'Network Error: ${e.message}',
+                error: e,
+              );
           return handler.next(e);
         },
       ),
@@ -79,7 +96,10 @@ class ApiClient {
     _dio.interceptors.add(RetryInterceptor(dio: _dio));
   }
 
-  Future<Response<dynamic>> get(String path, {Map<String, dynamic>? query}) async {
+  Future<Response<dynamic>> get(
+    String path, {
+    Map<String, dynamic>? query,
+  }) async {
     return _dio.get(path, queryParameters: query);
   }
 

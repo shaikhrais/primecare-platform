@@ -65,29 +65,32 @@ describe('IdentityService', () => {
     });
 
     it('should list platform roles', async () => {
-        const roles = await IdentityService.listRoles();
+        const result = await IdentityService.listRoles(prisma);
+        const roles = result.data;
         expect(roles.length).toBeGreaterThan(0);
-        expect(roles.some(r => r.name === 'TEST_PERM_ROLE')).toBe(true);
+        expect(roles.some(r => r.name.startsWith('TEST_ROLE_'))).toBe(true);
     });
 
     it('should list available screens', async () => {
-        const screens = await IdentityService.getAvailableScreens();
+        const result = await IdentityService.getAvailableScreens(prisma);
+        const screens = result.data;
         expect(screens.length).toBeGreaterThan(0);
         expect(screens.some(s => s.route === '/test/admin')).toBe(true);
     });
 
     it('should update and retrieve role permissions', async () => {
-        const permissions = [
-            {
-                screenRoute: '/test/admin',
-                canRead: true,
-                canWrite: true
-            }
-        ];
+        const roleName = await prisma.platformRole.findUnique({ where: { id: testRoleId } }).then(r => r?.name || '');
+        const permissions = ['/test/admin'];
 
-        await IdentityService.updateRolePermissions(testRoleId, permissions, actorId);
+        await IdentityService.updateRolePermissions(prisma, {
+            roleName,
+            permissions,
+            tenantId,
+            actorUserId: actorId
+        });
 
-        const savedPerms = await IdentityService.getRolePermissions(testRoleId);
+        const result = await IdentityService.getRolePermissions(prisma, testRoleId);
+        const savedPerms = result.data;
         const adminPerm = savedPerms.find(p => p.screenRoute === '/test/admin');
 
         expect(adminPerm).toBeDefined();
@@ -96,19 +99,20 @@ describe('IdentityService', () => {
     });
 
     it('should upsert permissions gracefully', async () => {
-        const update = [
-            {
-                screenRoute: '/test/admin',
-                canRead: true,
-                canWrite: false // Toggle write off
-            }
-        ];
+        const role = await prisma.platformRole.findUnique({ where: { id: testRoleId } });
+        const update = ['/test/admin'];
 
-        await IdentityService.updateRolePermissions(testRoleId, update, actorId);
+        await IdentityService.updateRolePermissions(prisma, {
+            roleName: role?.name || '',
+            permissions: update,
+            tenantId,
+            actorUserId: actorId
+        });
 
-        const savedPerms = await IdentityService.getRolePermissions(testRoleId);
+        const result = await IdentityService.getRolePermissions(prisma, testRoleId);
+        const savedPerms = result.data;
         const adminPerm = savedPerms.find(p => p.screenRoute === '/test/admin');
 
-        expect(adminPerm?.canWrite).toBe(false);
+        expect(adminPerm).toBeDefined();
     });
 });

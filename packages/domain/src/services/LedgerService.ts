@@ -49,6 +49,23 @@ export class LedgerService {
      */
     static async recordTransaction(prisma: any, input: RecordTransactionInput): Promise<Result<any>> {
         return Result.guard(async () => {
+            // STEP -1: PERIOD SEAL CHECK
+            const tenant = await prisma.tenant.findUnique({
+                where: { id: input.tenantId },
+                select: { taxSettings: true }
+            });
+
+            if (tenant?.taxSettings) {
+                const settings = tenant.taxSettings as any;
+                if (settings.closedUntil) {
+                    const closedUntil = new Date(settings.closedUntil);
+                    const now = new Date(); // Or input.transactionDate if we support it
+                    if (now <= closedUntil) {
+                        throw new Error(`Financial period is sealed until ${closedUntil.toLocaleDateString()}. Retroactive entries are prohibited.`);
+                    }
+                }
+            }
+
             const startTime = Date.now();
             let totalDebit = 0;
             let totalCredit = 0;
@@ -92,9 +109,34 @@ export class LedgerService {
 
 
             return prisma.$transaction(async (tx: any) => {
-                // STEP 1: CONCURRENCY CONTROL (Row-Level Locking)
-                const uniqueAccountIds = [...new Set(input.entries.map(e => e.accountId))].sort();
-                
+                // STEP 1: ACCOUNT RESOLUTION & CONCURRENCY LOCKING
+                const resolvedEntries: any[] = [];
+                const accountMap = new Map<string, any>();
+
+                for (const entry of input.entries) {
+                    // Resolve account by ID first (primary key), fallback to Code within tenant
+                    const account = await tx.chartOfAccount.findFirst({
+                        where: {
+                            OR: [
+                                { id: entry.accountId },
+                                { tenantId: input.tenantId, code: entry.accountId }
+                            ]
+                        }
+                    });
+
+                    if (!account) {
+                        throw new Error(`Invalid Account Reference: ${entry.accountId}`);
+                    }
+
+                    accountMap.set(account.id, account);
+                    resolvedEntries.push({
+                        ...entry,
+                        resolvedAccount: account
+                    });
+                }
+
+                // Lock unique primary keys to prevent balance drift
+                const uniqueAccountIds = Array.from(accountMap.keys()).sort();
                 for (const accId of uniqueAccountIds) {
                     await tx.$executeRaw`SELECT id FROM financial_accounts WHERE id = ${accId} FOR UPDATE`;
                 }
@@ -139,24 +181,13 @@ export class LedgerService {
                     }
                 });
 
-                // STEP 2: ACCOUNT RESOLUTION & TAX ADJUSTMENT
+                // STEP 2: JOURNAL ENTRY CREATION & TAX ADJUSTMENT
                 const taxAccount = await tx.chartOfAccount.findFirst({
                     where: { tenantId: input.tenantId, code: '2100' }
                 });
 
-                for (const entry of input.entries) {
-                    const account = await tx.chartOfAccount.findUnique({
-                        where: {
-                            tenantId_code: {
-                                tenantId: input.tenantId,
-                                code: entry.accountId || ''
-                            }
-                        }
-                    });
-
-                    if (!account) {
-                        throw new Error(`Invalid Account Code: ${entry.accountId}`);
-                    }
+                for (const entry of resolvedEntries) {
+                    const account = entry.resolvedAccount;
 
                     let amountAdjustment = 0;
                     let entryDebit = entry.debit || 0;
@@ -406,6 +437,60 @@ export class LedgerService {
                 },
                 status: totalOutputTax - totalInputTaxCredits > 0 ? 'PAYABLE' : 'CREDIT_REFUND'
             };
+        });
+    }
+
+    /**
+     * Seals a ledger period, ensuring all transactions are marked as sealed
+     * and updating the tenant's closedUntil metadata.
+     */
+    static async sealLedgerPeriod(prisma: any, tenantId: string, endDate: Date, actorUserId: string): Promise<Result<any>> {
+        return Result.guard(async () => {
+            return prisma.$transaction(async (tx: any) => {
+                // 1. Mark all transactions in the period as sealed
+                const updateResult = await tx.financialTransaction.updateMany({
+                    where: {
+                        tenantId,
+                        createdAt: { lte: endDate },
+                        status: { not: 'sealed' }
+                    },
+                    data: { status: 'sealed' }
+                });
+
+                // 2. Update Tenant metadata to block future entries
+                const tenant = await tx.tenant.findUnique({ where: { id: tenantId } });
+                const currentSettings = (tenant?.taxSettings as any) || {};
+                
+                await tx.tenant.update({
+                    where: { id: tenantId },
+                    data: {
+                        taxSettings: {
+                            ...currentSettings,
+                            closedUntil: endDate.toISOString(),
+                            lastSealedAt: new Date().toISOString(),
+                            sealedBy: actorUserId
+                        }
+                    }
+                });
+
+                // 3. Log Audit
+                await AuditService.recordLog(tx, {
+                    tenantId,
+                    actorUserId,
+                    action: 'SEAL_LEDGER_PERIOD',
+                    resourceType: 'TENANT',
+                    resourceId: tenantId,
+                    metadata: {
+                        sealedUntil: endDate,
+                        transactionsAffected: updateResult.count
+                    }
+                });
+
+                return {
+                    sealedUntil: endDate,
+                    count: updateResult.count
+                };
+            });
         });
     }
 }

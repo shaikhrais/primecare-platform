@@ -58,6 +58,8 @@ export type InteractiveCategory = 'button' | 'link' | 'submit' | 'tab' | 'naviga
 import { PLATFORM_BUTTONS } from './ButtonRegistry/platform-buttons';
 import { TENANCY_BUTTONS } from './ButtonRegistry/tenancy-buttons';
 import { OPERATIONS_BUTTONS } from './ButtonRegistry/operations-buttons';
+import { FINANCE_BUTTONS } from './ButtonRegistry/finance-buttons';
+import { TRAINING_BUTTONS } from './ButtonRegistry/training-buttons';
 import { BTN, PAGE_CODE_TO_ID } from './ButtonRegistry/btn-constants';
 import type { ButtonId } from './ButtonRegistry/btn-constants';
 
@@ -231,6 +233,8 @@ export const ButtonRegistry: ButtonDef[] = [
     ...PLATFORM_BUTTONS,
     ...TENANCY_BUTTONS,
     ...OPERATIONS_BUTTONS,
+    ...FINANCE_BUTTONS,
+    ...TRAINING_BUTTONS,
     ...LINK_ENTRIES,
     ...INTERACTION_ENTRIES,
     ...TOUCHPOINT_ENTRIES,

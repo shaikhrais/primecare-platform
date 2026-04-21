@@ -1,4 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { cors } from 'hono/cors';
 import { Bindings, Variables } from '@primecare/contracts';
 import { prismaMiddleware } from '@primecare/infrastructure';
 import { registerFinanceRoutes } from './routes/finance';
@@ -14,7 +15,9 @@ if (!(BigInt.prototype as any).toJSON) {
   };
 }
 
-const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>().basePath('/v4');
+
+app.use('*', cors());
 
 // Export OpenAPI JSON (Task 8)
 app.doc('/openapi.json', {
@@ -40,7 +43,7 @@ app.use('*', async (c, next) => {
 });
 
 // Basic health endpoint for the verification service
-app.get('/v1/health', (c) => {
+app.get('/health', (c) => {
     return c.json({ 
         status: 'ok', 
         service: 'primecare-verification-service', 
@@ -50,7 +53,7 @@ app.get('/v1/health', (c) => {
 });
 
 // Missing Plans Discovery Endpoint (Task: Find unimplemented registry components)
-app.get('/v1/verifications/missing-plans', async (c) => {
+app.get('/verifications/missing-plans', async (c) => {
     const prisma = c.get('prisma');
     if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);
 
@@ -79,7 +82,7 @@ app.get('/v1/verifications/missing-plans', async (c) => {
 });
 
 // Cross-Validation & Database Utility Hook (Task 6)
-app.get('/v1/verifications/cross-validate', async (c) => {
+app.get('/verifications/cross-validate', async (c) => {
     const prisma = c.get('prisma');
     if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);
 
@@ -108,7 +111,7 @@ app.get('/v1/verifications/cross-validate', async (c) => {
 });
 
 // Full Database Utility Report (Task: Dynamic Table & Row Count API)
-app.get('/v1/database/report', async (c) => {
+app.get('/database/report', async (c) => {
     const prisma = c.get('prisma');
     if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);
 
@@ -146,7 +149,7 @@ app.get('/v1/database/report', async (c) => {
 });
 
 // Implementation Tracking API (Task 4)
-app.post('/v1/implementations', async (c) => {
+app.post('/implementations', async (c) => {
     const body = await c.req.json();
     const prisma = c.get('prisma');
     
@@ -166,7 +169,7 @@ app.post('/v1/implementations', async (c) => {
 });
 
 // Pre-Flight Verification API (Task 5)
-app.post('/v1/verifications/pre-flight', async (c) => {
+app.post('/verifications/pre-flight', async (c) => {
     const payload = await c.req.json();
     const prisma = c.get('prisma');
     
@@ -183,7 +186,7 @@ app.post('/v1/verifications/pre-flight', async (c) => {
 // Clinical Routes are now mounted via registerClinicalRoutes(app)
 
 // Architectural Audit - Purpose Report
-app.get('/v1/verifications/purpose-report', async (c) => {
+app.get('/verifications/purpose-report', async (c) => {
     const prisma = c.get('prisma');
     if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);
 
@@ -262,7 +265,7 @@ app.get('/v1/verifications/purpose-report', async (c) => {
 });
 
 // Architectural Audit - Ingest Purpose
-app.post('/v1/verifications/audit-purpose', async (c) => {
+app.post('/verifications/audit-purpose', async (c) => {
     const body = await c.req.json();
     const prisma = c.get('prisma');
     if (!prisma) return c.json({ success: false, error: 'DB unavailable' }, 500);

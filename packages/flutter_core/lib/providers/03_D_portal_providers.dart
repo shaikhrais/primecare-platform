@@ -63,12 +63,14 @@ final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
     }
   }
 
-  ref
-      .read<ExecutionGateService>(executionGateProvider)
-      .passGate(
-        ExecutionGateCategory.navigationLayer,
-        'Hydrated ${menu.length} navigation items for role: $role',
-      );
+  Future.microtask(() {
+    ref
+        .read<ExecutionGateService>(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.navigationLayer,
+          'Hydrated ${menu.length} navigation items for role: $role',
+        );
+  });
 
   debugPrint('--- [DEBUG] HYDRATED SIDEBAR MENU FOR ROLE: $role ---');
   for (var item in menu) {

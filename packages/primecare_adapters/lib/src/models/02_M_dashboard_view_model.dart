@@ -26,13 +26,21 @@ class PrimeCareDashboardViewModel extends PrimeCareViewModel {
     return PrimeCareDashboardViewModel(
       isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
       version: json['version'] as String?,
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>,
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
     );
@@ -44,14 +52,23 @@ class PrimeCareDashboardViewModel extends PrimeCareViewModel {
     return PrimeCareDashboardViewModel(metrics: metrics, insights: const []);
   }
 
+  factory PrimeCareDashboardViewModel.empty({bool isOfflineFallback = false}) {
+    return PrimeCareDashboardViewModel(
+      metrics: DashboardMetrics.empty(),
+      insights: const [],
+      blueprints: const [],
+      isOfflineFallback: isOfflineFallback,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-        'isOfflineFallback': isOfflineFallback,
-        'version': version,
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+    'isOfflineFallback': isOfflineFallback,
+    'version': version,
+  };
 
   @override
   List<Object?> get props => [...super.props, kpis, recentActivity, blueprints];

@@ -39,6 +39,8 @@ const FORM_PAGES: { id: string; label: string; route: string; owner: PageEntry['
     { id: 'psw.availability', label: 'Availability', route: '/tenancy/psw/availability', owner: 'psw' },
     { id: 'client.feedback', label: 'Submit Feedback', route: '/tenancy/client/feedback', owner: 'client' },
     { id: 'client.booking-request', label: 'Request Booking', route: '/tenancy/client/request-booking', owner: 'client' },
+    { id: 'assignTrainingModuleForm', label: 'Assign Training Module', route: '/platform/admin/training/assign', owner: 'admin' },
+    { id: 'verifyCertificateForm', label: 'Verify Certificate', route: '/platform/admin/training/verify', owner: 'admin' },
 ];
 
 // ── Build Function ───────────────────────────────────────────────────────────

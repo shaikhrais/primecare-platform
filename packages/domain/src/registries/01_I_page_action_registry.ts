@@ -17,6 +17,8 @@ export interface PageActions {
 
 import { PLATFORM_ACTIONS } from './PageActionRegistry/platform-actions';
 import { TENANCY_ACTIONS } from './PageActionRegistry/tenancy-actions';
+import { FINANCE_ACTIONS } from './PageActionRegistry/finance-actions';
+import { TRAINING_ACTIONS } from './PageActionRegistry/training-actions';
 
 // ── Aggregate Export ─────────────────────────────────────────────────────────
 
@@ -31,4 +33,6 @@ import { TENANCY_ACTIONS } from './PageActionRegistry/tenancy-actions';
 export const PageActionRegistry: Record<string, PageActions> = {
     ...PLATFORM_ACTIONS,
     ...TENANCY_ACTIONS,
+    ...FINANCE_ACTIONS,
+    ...TRAINING_ACTIONS,
 };

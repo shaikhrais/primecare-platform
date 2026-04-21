@@ -15,4 +15,5 @@ export const HubRegistry: HubEntry[] = [
     { id: 'client.family', label: 'Family Hub', route: '/tenancy/client/family-hub', owner: 'client', description: 'Family members, feed, messaging', sections: ['Members', 'Feed', 'Messages'] },
     { id: 'coordinator.sos', label: 'SOS Center', route: '/tenancy/coordinator/sos-center', owner: 'coordinator', description: 'Emergency response, dispatch, acknowledgment', sections: ['Active', 'Dispatch', 'History'] },
     { id: 'superuser.governance', label: 'Governance Hub', route: '/platform/governance', owner: 'superuser', description: 'Platform governance, policies, risk', sections: ['Policies', 'Risk', 'SLA'] },
+    { id: 'training.hub', label: 'Training & Compliance Hub', route: '/platform/admin/training/hub', owner: 'admin', description: 'Curriculum management, cert tracking, audits', sections: ['Curriculum', 'Certificates', 'Compliance'] },
 ];

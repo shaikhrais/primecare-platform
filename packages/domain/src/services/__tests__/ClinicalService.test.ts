@@ -77,7 +77,7 @@ describe('ClinicalService Hardening Tests', () => {
     });
 
     it('should successfully capture vitals with valid patient context', async () => {
-        const result = await ClinicalService.captureVitals({
+        const result = await ClinicalService.captureVitals(prisma, {
             tenantId: testTenantId,
             patientId: testPatientId,
             systolic: 120,
@@ -86,8 +86,8 @@ describe('ClinicalService Hardening Tests', () => {
             actorUserId: testActorId
         });
 
-        expect(result.success).toBe(true);
-        expect(result.count).toBe(3); // Systolic, Diastolic, Heart Rate
+        expect(result.isSuccess).toBe(true);
+        expect(result.data.count).toBe(3); // Systolic, Diastolic, Heart Rate
 
         // Verify database state
         const savedVitals = await prisma.vitalSign.findMany({
@@ -97,18 +97,21 @@ describe('ClinicalService Hardening Tests', () => {
         expect(savedVitals.some(v => v.type === 'BLOOD_PRESSURE_SYSTOLIC' && v.value === 120)).toBe(true);
     });
 
-    it('should throw error if patientId does not exist in the tenant', async () => {
-        await expect(ClinicalService.captureVitals({
+    it('should return failure if patientId does not exist in the tenant', async () => {
+        const result = await ClinicalService.captureVitals(prisma, {
             tenantId: testTenantId,
             patientId: 'NON_EXISTENT_GUID',
             systolic: 120,
             actorUserId: testActorId
-        })).rejects.toThrow(/Client profile not found/);
+        });
+
+        expect(result.isFailure).toBe(true);
+        expect(result.error).toMatch(/Client profile not found/);
     });
 
     it('should successfully process patient intake', async () => {
         const intakeId = `intake-${Date.now()}`;
-        const result = await ClinicalService.processPatientIntake({
+        const result = await ClinicalService.processPatientIntake(prisma, {
             tenantId: testTenantId,
             firstName: 'New',
             lastName: 'Intake',
@@ -118,25 +121,27 @@ describe('ClinicalService Hardening Tests', () => {
             actorUserId: testActorId
         });
 
-        expect(result.success).toBe(true);
-        expect(result.patientId).toBeDefined();
+        expect(result.isSuccess).toBe(true);
+        expect(result.data.patientId).toBeDefined();
 
         // Cleanup the created intake patient
-        await prisma.clientProfile.delete({ where: { id: result.patientId } });
-        await prisma.user.delete({ where: { id: result.userId } });
+        await prisma.clientProfile.delete({ where: { id: result.data.patientId } });
+        await prisma.user.delete({ where: { id: result.data.userId } });
     });
 
     it('should rollback and throw if email already exists', async () => {
-        const duplicateEmail = `patient.${uniqueId}@test.com`;
-
-        await expect(ClinicalService.processPatientIntake({
+        const result = await ClinicalService.processPatientIntake(prisma, {
             tenantId: testTenantId,
             firstName: 'Duplicate',
-            lastName: 'Test',
-            email: duplicateEmail,
+            lastName: 'Patient',
+            email: `patient.${uniqueId}@test.com`,
+            phone: '1234567890',
             dateOfBirth: new Date(),
             gender: 'Other',
             actorUserId: testActorId
-        })).rejects.toThrow(/already exists in this tenant/);
+        });
+
+        expect(result.isFailure).toBe(true);
+        expect(result.error).toMatch(/already exists in this tenant/);
     });
 });

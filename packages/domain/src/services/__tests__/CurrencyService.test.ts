@@ -12,13 +12,16 @@ const { mockPrisma } = vi.hoisted(() => {
     };
 });
 
-vi.mock('@primecare/database', () => {
+vi.mock('@primecare/database', async (importOriginal) => {
+    const actual: any = await importOriginal();
     return {
+        ...actual,
         PrismaClient: class {
             constructor() {
                 return mockPrisma;
             }
-        }
+        },
+        prisma: mockPrisma
     };
 });
 
@@ -28,39 +31,39 @@ describe('CurrencyService', () => {
     });
 
     it('should return 1.0 for same currencies', async () => {
-        const rate = await CurrencyService.getExchangeRate('USD', 'USD');
-        expect(rate).toBe(1.0);
+        const result = await CurrencyService.getExchangeRate('USD', 'USD');
+        expect(result.data).toBe(1.0);
     });
 
     it('should return correct rate for USD to CAD', async () => {
-        const rate = await CurrencyService.getExchangeRate('USD', 'CAD');
-        expect(rate).toBe(1.35);
+        const result = await CurrencyService.getExchangeRate('USD', 'CAD');
+        expect(result.data).toBe(1.35);
     });
 
     it('should return correct rate for CAD to USD', async () => {
-        const rate = await CurrencyService.getExchangeRate('CAD', 'USD');
-        expect(rate).toBe(0.74);
+        const result = await CurrencyService.getExchangeRate('CAD', 'USD');
+        expect(result.data).toBe(0.74);
     });
 
     it('should convert amount to base currency (CAD default)', async () => {
         mockPrisma.tenant.findUnique.mockResolvedValue({ baseCurrency: 'CAD' });
 
         const amount = 100;
-        const result = await CurrencyService.convertToBase(amount, 'USD', 'tenant-123');
+        const result = await CurrencyService.convertToBase(mockPrisma as any, amount, 'USD', 'tenant-123');
 
-        expect(result.rate).toBe(1.35);
-        expect(result.baseAmount.toNumber()).toBe(135);
-        expect(result.baseCurrency).toBe('CAD');
+        expect(result.data.rate).toBe(1.35);
+        expect(result.data.baseAmount.toNumber()).toBe(135);
+        expect(result.data.baseCurrency).toBe('CAD');
     });
 
     it('should convert amount correctly for GBP based tenant', async () => {
         mockPrisma.tenant.findUnique.mockResolvedValue({ baseCurrency: 'GBP' });
 
         const amount = 100;
-        const result = await CurrencyService.convertToBase(amount, 'CAD', 'tenant-789');
+        const result = await CurrencyService.convertToBase(mockPrisma as any, amount, 'CAD', 'tenant-789');
 
-        expect(result.rate).toBe(0.58);
-        expect(result.baseAmount.toNumber()).toBe(58);
-        expect(result.baseCurrency).toBe('GBP');
+        expect(result.data.rate).toBe(0.58);
+        expect(result.data.baseAmount.toNumber()).toBe(58);
+        expect(result.data.baseCurrency).toBe('GBP');
     });
 });

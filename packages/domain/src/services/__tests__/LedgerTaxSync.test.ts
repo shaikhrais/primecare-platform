@@ -36,8 +36,10 @@ const { mockPrisma } = vi.hoisted(() => {
     return { mockPrisma: mock };
 });
 
-vi.mock('@primecare/database', () => {
+vi.mock('@primecare/database', async (importOriginal) => {
+    const actual: any = await importOriginal();
     return {
+        ...actual,
         PrismaClient: class {
             constructor() {
                 return mockPrisma;
@@ -74,7 +76,8 @@ describe('LedgerTaxSync Integration', () => {
         });
 
         mockPrisma.chartOfAccount.findFirst.mockImplementation(({ where }: any) => {
-            return Promise.resolve(mockAccounts[where.code as keyof typeof mockAccounts]);
+            const code = where.code || where.OR?.find((c: any) => c.code)?.code || where.OR?.find((c: any) => c.id)?.id;
+            return Promise.resolve(mockAccounts[code as keyof typeof mockAccounts]);
         });
 
         mockPrisma.transactionLedger.findFirst.mockResolvedValue({
@@ -96,14 +99,14 @@ describe('LedgerTaxSync Integration', () => {
             region: 'ON',
             taxIncluded: true,
             entries: [
-                { accountCode: '1100', debit: 113, credit: 0 },
-                { accountCode: '4100', debit: 0, credit: 113 }
+                { accountId: '1100', debit: 113, credit: 0 },
+                { accountId: '4100', debit: 0, credit: 113 }
             ]
         };
 
-        const result = await LedgerService.recordTransaction(input);
+        const result = await LedgerService.recordTransaction(mockPrisma as any, input);
 
-        expect(result.transactionId).toBe('new-tx-id');
+        expect(result.data.transactionId).toBe('new-tx-id');
 
         // Verify journal entries
         const createCalls = mockPrisma.journalEntry.create.mock.calls;
@@ -129,12 +132,12 @@ describe('LedgerTaxSync Integration', () => {
             description: 'Test Invoice no tax',
             actorUserId,
             entries: [
-                { accountCode: '1100', debit: 100, credit: 0 },
-                { accountCode: '4100', debit: 0, credit: 100 }
+                { accountId: '1100', debit: 100, credit: 0 },
+                { accountId: '4100', debit: 0, credit: 100 }
             ]
         };
 
-        await LedgerService.recordTransaction(input);
+        await LedgerService.recordTransaction(mockPrisma as any, input);
 
         const createCalls = mockPrisma.journalEntry.create.mock.calls;
         // In the first test we had 3 calls, now we adding more? 

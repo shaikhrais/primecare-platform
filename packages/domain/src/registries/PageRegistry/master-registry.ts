@@ -197,4 +197,8 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     L24: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/L16-AuditTrailViewer.tsx',       label: 'Audit Trail Viewer',   type: 'list', owner: 'admin', associates: ['L6', 'T10'] },
     H30: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/franchise/H23-FranchiseManagement.tsx',   label: 'Franchise Management', type: 'hub', owner: 'admin', associates: ['D1'] },
     L25: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/supply-chain/L14-SupplyChainManagement.tsx', label: 'Supply Chain',      type: 'list', owner: 'admin', associates: ['H4'] },
+    D21: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/training/D21-TrainingDirectorHome.tsx', label: 'Training Director Command Center', type: 'home', owner: 'admin', associates: ['H31', 'T68', 'T69'] },
+    H31: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/training/H31-TrainingComplianceHub.tsx', label: 'Training & Compliance Hub', type: 'hub', owner: 'admin', associates: ['D21'] },
+    T68: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/training/T68-CertificateVerifier.tsx',  label: 'Certificate Verifier',   type: 'tool', owner: 'admin', associates: ['D21'] },
+    T69: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/training/T69-CourseArchitect.tsx',     label: 'Course Architect',       type: 'tool', owner: 'admin', associates: ['D21'] },
 };

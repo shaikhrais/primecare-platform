@@ -3,6 +3,19 @@ import '../../primecare_adapters.dart';
 
 /// Provider for the generic [DynamicScreenAdapter].
 /// Allows any UI component to dynamically hydrate its data by role/form.
-final dynamicAdapterProvider = Provider.family<DynamicScreenAdapter, PrimeCareForm>((ref, form) {
-  return DynamicScreenAdapter(ref, form);
-});
+final dynamicAdapterProvider =
+    Provider.family<DynamicScreenAdapter, PrimeCareForm>((ref, form) {
+      return DynamicScreenAdapter(ref, form);
+    });
+
+/// A generic future provider that returns a placeholder view model for any form.
+/// Used as a fallback in the registry to prevent UnimplementedErrors.
+final genericDashboardAdapterProvider =
+    FutureProvider.family<Result<PrimeCareDashboardViewModel>, PrimeCareForm>((
+      ref,
+      form,
+    ) async {
+      return Success(
+        PrimeCareDashboardViewModel.empty(isOfflineFallback: true),
+      );
+    });

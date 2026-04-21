@@ -7,7 +7,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
 
   return GoRouter(
-    initialLocation: CommonRoutes.login,
+    initialLocation: '/',
     refreshListenable: authListenable,
     redirect: (context, state) {
       final isLoggingIn = state.uri.toString() == CommonRoutes.login;

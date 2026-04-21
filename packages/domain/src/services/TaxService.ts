@@ -62,12 +62,12 @@ export class TaxService {
             if (inclusive) {
                 // Amount = Base * (1 + rate) -> Base = Amount / (1 + rate)
                 totalAmount = inputAmount;
-                baseAmount = totalAmount.div(1 + rate).toPrisma.DecimalPlaces(2);
+                baseAmount = totalAmount.div(1 + rate).toDecimalPlaces(2);
                 taxAmount = totalAmount.minus(baseAmount);
             } else {
                 // Amount = Base -> Total = Base * (1 + rate)
                 baseAmount = inputAmount;
-                taxAmount = baseAmount.mul(rate).toPrisma.DecimalPlaces(2);
+                taxAmount = baseAmount.mul(rate).toDecimalPlaces(2);
                 totalAmount = baseAmount.plus(taxAmount);
             }
 

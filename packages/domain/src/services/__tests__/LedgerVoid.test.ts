@@ -35,14 +35,18 @@ const { mockPrisma } = vi.hoisted(() => {
     return { mockPrisma: mock };
 });
 
-vi.mock('@primecare/database', () => ({
-    PrismaClient: class {
-        constructor() {
-            return mockPrisma;
-        }
-    },
-    prisma: mockPrisma
-}));
+vi.mock('@primecare/database', async (importOriginal) => {
+    const actual: any = await importOriginal();
+    return {
+        ...actual,
+        PrismaClient: class {
+            constructor() {
+                return mockPrisma;
+            }
+        },
+        prisma: mockPrisma
+    };
+});
 
 // Now import the service under test
 import { LedgerService } from '../LedgerService';
@@ -61,7 +65,19 @@ describe('Ledger Reversal (Voiding)', () => {
             return { id: `acc-${code}`, code, type: code === '4100' ? 'REVENUE' : 'ASSET' };
         });
 
-        mockPrisma.chartOfAccount.findFirst.mockResolvedValue({ id: 'acc-2100', code: '2100', currency: 'CAD' });
+        mockPrisma.chartOfAccount.findFirst.mockImplementation(({ where }: any) => {
+            // Handle OR queries for ID or Code
+            const idCondition = where.OR?.find((c: any) => c.id)?.id;
+            const codeCondition = where.OR?.find((c: any) => c.code)?.code || where.code;
+            
+            if (idCondition) {
+                const code = idCondition.includes('-') ? idCondition.split('-').pop() : idCondition;
+                return { id: idCondition, code: code, currency: 'CAD', type: code === '4100' ? 'REVENUE' : 'ASSET' };
+            }
+            
+            const code = codeCondition || '2100';
+            return { id: `acc-${code}`, code, currency: 'CAD', type: code === '4100' ? 'REVENUE' : 'ASSET' };
+        });
     });
 
     it('should correctly reverse all journal entries and mark transaction as voided', async () => {
@@ -94,9 +110,9 @@ describe('Ledger Reversal (Voiding)', () => {
         mockPrisma.transactionLedger.findFirst.mockResolvedValue({ id: 'ledger-123', checksum: 'old-sum' });
 
         // Execute void
-        const result = await LedgerService.voidTransaction(transactionId, tenantId, actorUserId);
+        const result = await LedgerService.voidTransaction(mockPrisma as any, transactionId, tenantId, actorUserId);
 
-        expect(result.success).toBe(true);
+        expect(result.isSuccess).toBe(true);
 
         // Assertions
         expect(mockPrisma.financialTransaction.update).toHaveBeenCalledWith({
@@ -138,8 +154,9 @@ describe('Ledger Reversal (Voiding)', () => {
             status: 'voided'
         });
 
-        await expect(LedgerService.voidTransaction('tx-already-voided', tenantId))
-            .rejects.toThrow('Transaction already voided');
+        const result = await LedgerService.voidTransaction(mockPrisma as any, 'tenant-1', 'tx-123', 'admin-1');
+        expect(result.isFailure).toBe(true);
+        expect(result.error).toMatch('Transaction already voided');
     });
 
     it('should preserve currency and exchange rate during reversal', async () => {
@@ -167,7 +184,7 @@ describe('Ledger Reversal (Voiding)', () => {
 
         mockPrisma.financialTransaction.findUnique.mockResolvedValue(originalTx);
 
-        await LedgerService.voidTransaction('tx-usd', tenantId, actorUserId);
+        await LedgerService.voidTransaction(mockPrisma as any, 'tx-usd', tenantId, actorUserId);
 
         // Verify recordTransaction was called with USD
         expect(mockPrisma.financialTransaction.create).toHaveBeenCalledWith(expect.objectContaining({
@@ -194,7 +211,7 @@ describe('Ledger Reversal (Voiding)', () => {
 
         mockPrisma.financialTransaction.findUnique.mockResolvedValue(originalTx);
 
-        await LedgerService.voidTransaction('tx-tax', tenantId, actorUserId);
+        await LedgerService.voidTransaction(mockPrisma as any, 'tx-tax', tenantId, actorUserId);
 
         const createCalls = mockPrisma.journalEntry.create.mock.calls;
         

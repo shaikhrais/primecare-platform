@@ -104,4 +104,8 @@ export const TENANCY_BUTTONS: ButtonDef[] = [
     btn('btn-staff-compliance-scan',  'Run Compliance Scan',       R.STAFF, M.OPS, T.S, A.API,   'Triggers a branch-wide compliance health check.', { api: ApiRegistry.TENANCY.STAFF.COMPLIANCE_SCAN }),
     // Allied Health
     btn('btn-allied-sign-visit',      'Sign Clinical Note',        R.RMT, M.CLIN, T.P, A.SIG,   'Clinical sign-off for Allied Health professionals.'),
+    // Training Director
+    btn('btn-td-training-hub',        'Enter Training Hub',        'training_director', M.OPS, T.P, A.NAV, 'Opens the centralized training and compliance hub.', { routeKey: 'TRAINING.HUB' }),
+    btn('btn-td-cert-verify',         'Verify Certificate',        'training_director', M.OPS, T.S, A.MODAL, 'Launches the automated certificate verification tool.'),
+    btn('btn-td-course-architect',    'Course Architect',         'training_director', M.OPS, T.S, A.NAV, 'Opens the interactive curriculum builder.'),
 ];

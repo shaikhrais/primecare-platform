@@ -27,6 +27,7 @@ export 'src/models/core/02_M_intelligence_insight.dart';
 export 'src/models/core/02_M_scheduler_models.dart';
 export 'src/models/core/02_M_data_logistics_hub.dart';
 export 'src/models/core/02_M_domain_response.dart';
+export 'src/models/corporate/02_M_training_models.dart';
 
 // Layer: 04_ROLE_VIEW_MODELS
 export 'src/models/roles/03_V_admin_dashboard_view_model.dart';
@@ -76,6 +77,8 @@ export 'src/models/roles/03_V_territory_expansion_manager_dashboard_view_model.d
 export 'src/models/roles/03_V_territory_sales_manager_dashboard_view_model.dart';
 export 'src/models/roles/03_V_training_coordinator_dashboard_view_model.dart';
 export 'src/models/roles/03_V_training_director_dashboard_view_model.dart';
+export 'src/models/roles/03_V_training_hub_view_model.dart';
+export 'src/models/roles/03_V_course_architect_view_model.dart';
 export 'src/models/roles/03_V_system_verification_view_model.dart';
 
 // Layer: 05_UI_ADAPTERS
@@ -88,6 +91,9 @@ export 'src/corporate/cto/adapters/04_A_system_verification_adapter.dart';
 export 'src/corporate/coo/adapters/04_A_coo_dashboard_adapter.dart';
 export 'src/corporate/compliance_manager/adapters/04_A_compliance_manager_dashboard_adapter.dart';
 export 'src/corporate/training_director/adapters/04_A_training_director_dashboard_adapter.dart';
+export 'src/corporate/training_director/adapters/04_A_training_director_certificate_adapter.dart';
+export 'src/corporate/training_director/adapters/04_A_training_hub_adapter.dart';
+export 'src/corporate/training_director/adapters/04_A_course_architect_adapter.dart';
 export 'src/corporate/head_of_business_development/adapters/04_A_head_of_bus_dev_dashboard_adapter.dart';
 export 'src/corporate/general_manager/adapters/04_A_general_manager_dashboard_adapter.dart';
 export 'src/corporate/scrum_master/adapters/04_A_scrum_master_dashboard_adapter.dart';
@@ -117,6 +123,7 @@ export 'src/marketing/head_of_marketing/adapters/04_A_head_of_marketing_dashboar
 export 'src/marketing/local_marketing_manager/adapters/04_A_local_marketing_manager_dashboard_adapter.dart';
 export 'src/marketing/territory_sales_manager/adapters/04_A_territory_sales_manager_dashboard_adapter.dart';
 export 'src/generic/04_A_dynamic_screen_adapter.dart';
+export 'src/generic/04_A_dynamic_adapter_provider.dart';
 
 // Unified Form Registry
 export 'src/registry/05_G_primecare_form_enum.dart';

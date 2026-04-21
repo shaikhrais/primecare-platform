@@ -42,4 +42,6 @@ export const ToolRegistry: ToolEntry[] = [
     { id: 'coordinator.dispatch-map', label: 'Dispatch Map', route: '/tenancy/coordinator/dispatch-map', owner: 'coordinator', description: 'Real-time dispatch map' },
     { id: 'coordinator.fleet', label: 'Fleet Tracker', route: '/tenancy/coordinator/fleet', owner: 'coordinator', description: 'Fleet GPS tracking' },
     { id: 'coordinator.shift-swap', label: 'Shift Swap', route: '/tenancy/coordinator/shift-swap', owner: 'coordinator', description: 'Shift swap request management' },
+    { id: 'training.cert-verifier', label: 'Certificate Verifier', route: '/platform/admin/training/verifier', owner: 'admin', description: 'Automated certificate verification engine' },
+    { id: 'training.course-architect', label: 'Course Architect', route: '/platform/admin/training/architect', owner: 'admin', description: 'Interactive course and curriculum builder' },
 ];

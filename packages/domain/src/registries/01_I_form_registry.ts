@@ -40,21 +40,22 @@ export interface FormEntry {
     /** Human-readable form title */
     label: string;
     /** Frontend route where the form lives */
-    route: string;
+    route?: string;
     /** POST/PUT endpoint for form submission */
-    apiEndpoint: string;
+    apiEndpoint?: string;
     /** GET endpoint for editing / pre-fill */
     fetchEndpoint?: string;
-    method: 'POST' | 'PUT' | 'PATCH';
+    method?: 'POST' | 'PUT' | 'PATCH';
     /** data-cy attribute prefix used for testing hooks */
-    dataCyPrefix: string;
+    dataCyPrefix?: string;
     /** Ordered list of form fields */
     fields: FormField[];
     /** Dependencies that need inline creation components */
     dependencies?: FormDependency[];
     /** Category grouping for UI discovery */
     category: 'auth' | 'admin' | 'admin-wizard' | 'client' | 'psw' | 'manager' |
-              'rn' | 'shared' | 'marketing' | 'platform' | 'dam' | 'coordinator';
+              'rn' | 'shared' | 'marketing' | 'platform' | 'dam' | 'coordinator' | 'finance' |
+              'training' | 'compliance' | 'skeleton' | 'dashboard';
 }
 
 // ── Import domain sub-files ──────────────────────────────────────────────────
@@ -69,6 +70,9 @@ import { MANAGER_FORMS } from './FormRegistry/manager-forms';
 import { RN_FORMS } from './FormRegistry/rn-forms';
 import { SHARED_FORMS } from './FormRegistry/shared-forms';
 import { MARKETING_FORMS, PLATFORM_FORMS, COORDINATOR_FORMS } from './FormRegistry/platform-forms';
+import { FINANCE_FORMS } from './FormRegistry/finance-forms';
+import { TRAINING_FORMS } from './FormRegistry/training-forms';
+import { SKELETON_FORMS } from './FormRegistry/skeleton-forms';
 
 // ── Aggregate Export ─────────────────────────────────────────────────────────
 
@@ -85,6 +89,9 @@ export const FormRegistry = [
     ...MARKETING_FORMS,
     ...PLATFORM_FORMS,
     ...COORDINATOR_FORMS,
+    ...FINANCE_FORMS,
+    ...TRAINING_FORMS,
+    ...SKELETON_FORMS,
 ] as const;
 
 // ── Lookup Helpers ───────────────────────────────────────────────────────────

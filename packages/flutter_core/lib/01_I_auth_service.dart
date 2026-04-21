@@ -49,8 +49,7 @@ final authListenable = ValueNotifier<bool>(false);
 class AuthNotifier extends Notifier<AuthState> {
   @override
   AuthState build() {
-    // Initial sync load triggers asynchronously
-    Future.microtask(() => _loadStoredAuth());
+    _loadStoredAuth();
     return AuthState();
   }
 

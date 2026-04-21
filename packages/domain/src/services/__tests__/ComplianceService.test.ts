@@ -91,7 +91,9 @@ describe('ComplianceService', () => {
     });
 
     it('should aggregate audit report data correctly', async () => {
-        const report = await ComplianceService.getAuditReportData(tenantId);
+        const result = await ComplianceService.getAuditReportData(prisma, tenantId);
+        expect(result.isSuccess).toBe(true);
+        const report = result.data;
         expect(report.length).toBeGreaterThanOrEqual(1);
         expect(report.some(log => log.action === 'LOGIN')).toBe(true);
         expect(report[0]).toHaveProperty('timestamp');
@@ -99,7 +101,9 @@ describe('ComplianceService', () => {
     });
 
     it('should aggregate clinical compliance data correctly', async () => {
-        const report = await ComplianceService.getClinicalComplianceData(tenantId);
+        const result = await ComplianceService.getClinicalComplianceData(prisma, tenantId);
+        expect(result.isSuccess).toBe(true);
+        const report = result.data;
         expect(report.length).toBe(1);
         expect(report[0].patient).toBe('John Doe Client');
         expect(report[0].metricType).toBe('heart_rate');
@@ -107,7 +111,9 @@ describe('ComplianceService', () => {
     });
 
     it('should aggregate staff activity reports correctly', async () => {
-        const report = await ComplianceService.getStaffActivityReport(tenantId);
+        const result = await ComplianceService.getStaffActivityReport(prisma, tenantId);
+        expect(result.isSuccess).toBe(true);
+        const report = result.data;
         expect(report.length).toBe(1);
         expect(report[0].action).toBe('PROVISION_STAFF');
         expect(report[0].admin).toBe('Compliance Admin');
