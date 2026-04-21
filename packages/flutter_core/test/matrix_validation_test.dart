@@ -6,7 +6,7 @@ void main() {
     test(
       'Verify all screen matrix 251+ form pages are structured in the enum',
       () {
-        final file = File('lib/adapters/primecare_form_enum.dart');
+        final file = File('../primecare_adapters/lib/src/registry/05_G_primecare_form_enum.dart');
         expect(file.existsSync(), isTrue, reason: 'Enum file must exist.');
 
         final content = file.readAsStringSync();

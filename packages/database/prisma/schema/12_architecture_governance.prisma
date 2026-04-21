@@ -116,6 +116,23 @@ model ApiContract {
   @@map("api_contracts")
 }
 
+model UIIntent {
+  id                    String   @id @default(uuid())
+  enumName              String   // e.g., 'patientIntakeForm'
+  intentId              String   @unique // e.g., 'patient-intake-form'
+  status                String   // 'IMPLEMENTED', 'PLACEHOLDER', 'UNMAPPED'
+  implementationClass   String?  // e.g., 'PatientIntakeForm'
+  
+  // Metadata for governance
+  description           String?  @db.Text
+  domain                String?  // e.g., 'Clinical', 'Financial'
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("ui_intents")
+}
+
 model DataResource {
   id          String   @id @default(uuid())
   componentId String   @map("component_id")
@@ -131,3 +148,4 @@ model DataResource {
   @@index([componentId])
   @@map("data_resources")
 }
+

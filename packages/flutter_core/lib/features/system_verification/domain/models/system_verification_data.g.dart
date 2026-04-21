@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'system_verification_data.dart';
+part of '02_M_system_verification_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

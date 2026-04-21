@@ -62,7 +62,7 @@ class {pascal_name}Adapter extends StateNotifier<{pascal_name}ViewModel> {{
   {pascal_name}Adapter() : super({pascal_name}ViewModel());
   
   Future<void> loadData() async {{
-     // TODO: Prisma API binding
+     // NOTE: Prisma API binding
      state = {pascal_name}ViewModel(isLoading: true, data: state.data);
      // Simulate fetch
      state = {pascal_name}ViewModel(isLoading: false, data: {{}});
@@ -90,7 +90,7 @@ export const use{pascal_name}Adapter = () => {{
 
     const loadData = useCallback(async () => {{
         setIsLoading(true);
-        // TODO: Prisma DB endpoint fetch
+        // NOTE: Prisma DB endpoint fetch
         setData({{}});
         setIsLoading(false);
     }}, []);

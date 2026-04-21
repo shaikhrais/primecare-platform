@@ -3,10 +3,10 @@ const path = require('path');
 
 const screens = [
   { file: 'client_profile.dart', name: 'ClientProfileScreen', title: 'Client Profile', sub: 'View and manage client details.' },
-  { file: 'care_plan.dart', name: 'CarePlanScreen', title: 'Care Plan', sub: 'Review and update client care plans.' },
-  { file: 'history_logs.dart', name: 'HistoryLogsScreen', title: 'History & Logs', sub: 'Audit logs and past interactions.' },
-  { file: 'profile_settings.dart', name: 'ProfileSettingsScreen', title: 'Profile & Settings', sub: 'Manage user preferences.' },
-  { file: 'messaging.dart', name: 'MessagingScreen', title: 'Messaging', sub: 'Secure communications.' },
+  { file: '05_U_care_plan.dart', name: 'CarePlanScreen', title: 'Care Plan', sub: 'Review and update client care plans.' },
+  { file: '05_U_history_logs.dart', name: 'HistoryLogsScreen', title: 'History & Logs', sub: 'Audit logs and past interactions.' },
+  { file: '05_U_profile_settings.dart', name: 'ProfileSettingsScreen', title: 'Profile & Settings', sub: 'Manage user preferences.' },
+  { file: '05_U_messaging.dart', name: 'MessagingScreen', title: 'Messaging', sub: 'Secure communications.' },
   { file: 'incident_report.dart', name: 'IncidentReportScreen', title: 'Incident Report', sub: 'File reports for any incidents.' },
   { file: 'check_in_out.dart', name: 'CheckInOutScreen', title: 'Check-In / Out', sub: 'Log time and attendance.' },
   { file: 'master_app_shell.dart', name: 'MasterAppShellScreen', title: 'Master App Shell', sub: 'Global navigation context.' },
@@ -22,7 +22,7 @@ fs.mkdirSync(dir, { recursive: true });
 screens.forEach(s => {
   const code = `import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/01_I_primecare_ui.dart';
 
 class ${s.name} extends ConsumerWidget {
   const ${s.name}({super.key});

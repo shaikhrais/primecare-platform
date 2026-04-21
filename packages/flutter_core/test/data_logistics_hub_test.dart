@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_core/flutter_core.dart';
+import 'package:primecare_core/00_B_flutter_core.dart';
 
 void main() {
   group('DataLogisticsHub - Fetch-or-Fallback Logic', () {

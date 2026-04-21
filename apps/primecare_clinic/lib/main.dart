@@ -5,10 +5,10 @@ import 'app_router.dart';
 
 void main() {
   AppErrorBoundary.runGuarded(() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
+    WidgetsFlutterBinding.ensureInitialized();
+    final prefs = await SharedPreferences.getInstance();
 
-      runApp(
+    runApp(
       ProviderScope(
         overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
         child: const PrimeCareClinicApp(),

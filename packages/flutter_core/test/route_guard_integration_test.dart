@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_core/routes/route_guard.dart';
+import 'package:primecare_core/00_B_flutter_core.dart';
 
 void main() {
   group('RouteGuard Boundary Enforcement Suite', () {

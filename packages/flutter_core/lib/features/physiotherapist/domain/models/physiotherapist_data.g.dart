@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'physiotherapist_data.dart';
+part of '02_M_physiotherapist_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

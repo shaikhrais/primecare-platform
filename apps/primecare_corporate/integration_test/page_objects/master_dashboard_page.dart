@@ -43,11 +43,16 @@ class MasterDashboardPageObject {
       expect(titleWidget.data?.toLowerCase(), expectedTitle.toLowerCase());
     } else {
       expect(
-          find.byWidgetPredicate((widget) =>
+        find.byWidgetPredicate(
+          (widget) =>
               widget is Text &&
-              (widget.data?.toLowerCase().contains(expectedTitle.toLowerCase()) ??
-                  false)),
-          findsWidgets);
+              (widget.data?.toLowerCase().contains(
+                    expectedTitle.toLowerCase(),
+                  ) ??
+                  false),
+        ),
+        findsWidgets,
+      );
     }
   }
 
@@ -55,14 +60,22 @@ class MasterDashboardPageObject {
     final hasKey = pageSubtitle.evaluate().isNotEmpty;
     if (hasKey) {
       final subtitleWidget = tester.widget<Text>(pageSubtitle);
-      expect(subtitleWidget.data?.toLowerCase(), expectedSubtitle.toLowerCase());
+      expect(
+        subtitleWidget.data?.toLowerCase(),
+        expectedSubtitle.toLowerCase(),
+      );
     } else {
       expect(
-          find.byWidgetPredicate((widget) =>
+        find.byWidgetPredicate(
+          (widget) =>
               widget is Text &&
-              (widget.data?.toLowerCase().contains(expectedSubtitle.toLowerCase()) ??
-                  false)),
-          findsWidgets);
+              (widget.data?.toLowerCase().contains(
+                    expectedSubtitle.toLowerCase(),
+                  ) ??
+                  false),
+        ),
+        findsWidgets,
+      );
     }
   }
 
@@ -85,9 +98,7 @@ class MasterDashboardPageObject {
     // We want the new Adapters to hydrate safely in test environments
     // The DataProviders watch the API but fall back gracefully, but setting this validates the mechanism
     return ProviderScope(
-      child: MaterialApp(
-        home: Scaffold(body: child),
-      ),
+      child: MaterialApp(home: Scaffold(body: child)),
     );
   }
 }

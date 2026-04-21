@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'common_forms_data.dart';
+part of '02_M_common_forms_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

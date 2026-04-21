@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'rpn_data.dart';
+part of '02_M_rpn_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

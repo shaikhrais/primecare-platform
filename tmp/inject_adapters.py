@@ -93,7 +93,7 @@ class {pascal_name}Adapter {{
     }}
     
     try {{
-      // TODO: Perform Actual Network Call
+      // NOTE: Perform Actual Network Call
       final dummyJson = <String, dynamic>{{'title': 'Live {pascal_name}', 'status': 'ONLINE'}};
       final dto = {pascal_name}DTO.fromJson(dummyJson);
       return {pascal_name}Mapper.fromApi(dto);

@@ -1,7 +1,5 @@
-// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_core/flutter_core.dart';
-import 'package:primecare_core/dashboard_service.dart';
+import 'package:primecare_core/00_B_flutter_core.dart';
 
 void main() {
   group('Chart Hydration Tests', () {
@@ -39,7 +37,9 @@ void main() {
         };
 
         // We simulate the hydration logic within DashboardService
-        final blueprints = (mockResponse['blueprints'] as List).map((bp) {
+        final blueprints = (mockResponse['blueprints'] as List)
+            .cast<Map<String, dynamic>>()
+            .map((bp) {
           if (bp['type'] == 'analytics_chart') {
             return ChartBlueprint(
               dataPayload: AnalyticsChart.fromJson(
@@ -47,13 +47,14 @@ void main() {
               ),
             );
           }
-          return const ActivityFeedBlueprint(dataPayload: []);
+          return const ActivityFeedBlueprint(dataPayload: <dynamic>[]);
         }).toList();
 
         expect(blueprints.first, isA<ChartBlueprint>());
         final chartBp = blueprints.first as ChartBlueprint;
-        expect(chartBp.dataPayload.id, equals('response_chart'));
-        expect(chartBp.dataPayload.dataPoints.first.label, equals('A'));
+        final payload = chartBp.dataPayload as AnalyticsChart;
+        expect(payload.id, equals('response_chart'));
+        expect(payload.dataPoints.first.label, equals('A'));
       },
     );
   });

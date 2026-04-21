@@ -1,7 +1,5 @@
-// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/00_B_primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-
 
 class ScreenConfig {
   final String routePath;
@@ -199,7 +197,8 @@ final List<ScreenConfig> businessDevelopmentScreenRegistry = [
     providerId: 'territoryExpansionManagerTerritoryMap',
   ),
   ScreenConfig(
-    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerMarketResearch,
+    routePath:
+        BusinessDevelopmentRoutes.territoryExpansionManagerMarketResearch,
     titleKey: 'Territory Expansion Manager Market Research',
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'territoryExpansionManagerMarketResearch',
@@ -211,13 +210,15 @@ final List<ScreenConfig> businessDevelopmentScreenRegistry = [
     providerId: 'territoryExpansionManagerDemographics',
   ),
   ScreenConfig(
-    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerOpenTerritories,
+    routePath:
+        BusinessDevelopmentRoutes.territoryExpansionManagerOpenTerritories,
     titleKey: 'Territory Expansion Manager Open Territories',
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'territoryExpansionManagerOpenTerritories',
   ),
   ScreenConfig(
-    routePath: BusinessDevelopmentRoutes.territoryExpansionManagerExpansionPlans,
+    routePath:
+        BusinessDevelopmentRoutes.territoryExpansionManagerExpansionPlans,
     titleKey: 'Territory Expansion Manager Expansion Plans',
     subtitleKey: 'Real-time overview fetched natively via API.',
     providerId: 'territoryExpansionManagerExpansionPlans',
@@ -242,13 +243,14 @@ final List<ScreenConfig> businessDevelopmentScreenRegistry = [
   ),
 ];
 
-final List<RouteBase> businessDevelopmentRoutes = businessDevelopmentScreenRegistry.map((config) {
-  return GoRoute(
-    path: config.routePath,
-    builder: (context, state) => PageTemplate.orchestrate(
-      title: config.titleKey,
-      subtitle: config.subtitleKey,
-      provider: genericDashboardProvider(config.providerId),
-    ),
-  );
-}).toList();
+final List<RouteBase> businessDevelopmentRoutes =
+    businessDevelopmentScreenRegistry.map((config) {
+      return GoRoute(
+        path: config.routePath,
+        builder: (context, state) => PageTemplate.orchestrate(
+          title: config.titleKey,
+          subtitle: config.subtitleKey,
+          provider: genericDashboardProvider(config.providerId),
+        ),
+      );
+    }).toList();

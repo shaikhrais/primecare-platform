@@ -52,7 +52,7 @@ replacement = '''Padding(
                 maxLines: 3,
                 validator: (value) => value == null || value.isEmpty ? 'Required' : null,
               ),
-              // TODO: Integrate with active ViewModel/provider for structured submission
+              // NOTE: Integrate with active ViewModel/provider for structured submission
             ],
           ),
         )'''

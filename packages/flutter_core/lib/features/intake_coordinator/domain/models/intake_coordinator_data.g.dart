@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'intake_coordinator_data.dart';
+part of '02_M_intake_coordinator_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

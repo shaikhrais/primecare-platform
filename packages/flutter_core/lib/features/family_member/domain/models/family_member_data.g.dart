@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'family_member_data.dart';
+part of '02_M_family_member_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

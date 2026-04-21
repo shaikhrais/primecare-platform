@@ -4,8 +4,8 @@ import 'app_router.dart';
 
 void main() {
   AppErrorBoundary.runGuarded(() async {
-  WidgetsFlutterBinding.ensureInitialized();
-      runApp(const ProviderScope(child: PrimeCareBusinessDevelopmentApp()));
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(const ProviderScope(child: PrimeCareBusinessDevelopmentApp()));
   });
 }
 

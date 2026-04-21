@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'clinical_forms_data.dart';
+part of '02_M_clinical_forms_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

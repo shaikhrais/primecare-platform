@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'franchise_owner_data.dart';
+part of '02_M_franchise_owner_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

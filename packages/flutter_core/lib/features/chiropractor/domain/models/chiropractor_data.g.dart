@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chiropractor_data.dart';
+part of '02_M_chiropractor_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'territory_sales_data.dart';
+part of '02_M_territory_sales_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

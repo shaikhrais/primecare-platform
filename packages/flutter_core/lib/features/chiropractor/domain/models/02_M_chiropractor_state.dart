@@ -1,0 +1,14 @@
+// Layer: 02_MODELS_FOUNDATION
+import 'package:freezed_annotation/freezed_annotation.dart';
+import '02_M_chiropractor_data.dart';
+
+part 'chiropractor_state.freezed.dart';
+
+@freezed
+abstract class ChiropractorState with _$ChiropractorState {
+  const factory ChiropractorState.initial() = _Initial;
+  const factory ChiropractorState.loading() = _Loading;
+  const factory ChiropractorState.loaded({required ChiropractorData data}) =
+      _Loaded;
+  const factory ChiropractorState.error(String message) = _Error;
+}

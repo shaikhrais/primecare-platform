@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'hr_manager_data.dart';
+part of '02_M_hr_manager_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

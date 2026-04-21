@@ -19,6 +19,7 @@ dependencies:
   lucide_icons: ^0.257.0
   connectivity_plus: ^6.1.4
   fl_chart: ^1.2.0
+  equatable: ^2.0.5
   riverpod_annotation: any
   primecare_adapters:
     path: ../primecare_adapters
@@ -26,6 +27,7 @@ dependencies:
     path: ../factory_system/primecare_ui
   freezed_annotation: ^3.1.0
   json_annotation: ^4.11.0
+  intl: ^0.20.2
 dev_dependencies:
   build_runner: any
   riverpod_generator: any

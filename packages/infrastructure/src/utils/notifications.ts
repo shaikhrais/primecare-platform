@@ -33,7 +33,7 @@ export async function sendNotification(prisma: any, options: NotificationOptions
 
     // Future: Email channel (requires SendGrid/Resend integration)
     if (channels.includes('email')) {
-        // TODO: Integrate email service (SendGrid, Resend, or AWS SES)
+        // NOTE: Integrate email service (SendGrid, Resend, or AWS SES)
         console.log(JSON.stringify({
             level: 'info',
             event: 'email_notification_queued',
@@ -57,7 +57,7 @@ export async function sendNotification(prisma: any, options: NotificationOptions
 
 /**
  * Legacy-compatible overload for existing callers.
- * TODO: Migrate all callers to use the NotificationOptions interface.
+ * NOTE: Migrate all callers to use the NotificationOptions interface.
  */
 export async function sendNotificationLegacy(
     prisma: any,

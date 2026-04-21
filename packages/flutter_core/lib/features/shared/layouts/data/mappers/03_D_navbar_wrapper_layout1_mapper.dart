@@ -1,0 +1,13 @@
+// Layer: 03_DATA_DOMAIN_LOGIC
+import '../../domain/models/02_M_navbar_wrapper_layout1_view_model.dart';
+import '../dtos/02_M_navbar_wrapper_layout1_dto.dart';
+
+class NavbarWrapperLayout1Mapper {
+  static NavbarWrapperLayout1ViewModel fromDto(NavbarWrapperLayout1Dto dto) {
+    return NavbarWrapperLayout1ViewModel(
+      title: dto.raw['title']?.toString() ?? 'navbarWrapperLayout1',
+      metadata: dto.raw,
+    );
+  }
+}
+

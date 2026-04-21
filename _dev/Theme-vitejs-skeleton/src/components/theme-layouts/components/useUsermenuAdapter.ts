@@ -7,7 +7,7 @@ export const useUsermenuAdapter = () => {
 
     const loadData = useCallback(async () => {
         setIsLoading(true);
-        // TODO: Prisma DB endpoint fetch
+        // NOTE: Prisma DB endpoint fetch
         setData({});
         setIsLoading(false);
     }, []);

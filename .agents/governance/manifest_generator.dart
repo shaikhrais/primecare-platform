@@ -51,7 +51,7 @@ void main() {
   buffer.writeln('// Source: .agents/governance/page_inventory.yaml');
   buffer.writeln();
   buffer.writeln("import 'package:lucide_icons/lucide_icons.dart';");
-  buffer.writeln("import 'package:primecare_core/flutter_core.dart';");
+  buffer.writeln("import 'package:primecare_core/00_B_flutter_core.dart';");
   buffer.writeln();
   buffer.writeln('class NavigationRegistry {');
   buffer.writeln('  static final Map<String, List<PrimeCareNavigationItem>> _roleMenus = {');
@@ -122,7 +122,7 @@ void main() {
   }
 }''');
 
-  final outputFile = File('packages/flutter_core/lib/config/navigation_registry.dart');
+  final outputFile = File('packages/flutter_core/lib/config/01_I_navigation_registry.dart');
   outputFile.writeAsStringSync(buffer.toString());
   print('✅ Successfully generated navigation_registry.dart with \${roleMenus.length} roles and \${roleMenus.values.expand((l) => l).length} total route mappings!');
 }

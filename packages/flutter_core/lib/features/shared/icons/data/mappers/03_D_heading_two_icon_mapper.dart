@@ -1,0 +1,13 @@
+// Layer: 03_DATA_DOMAIN_LOGIC
+import '../../domain/models/02_M_heading_two_icon_view_model.dart';
+import '../dtos/02_M_heading_two_icon_dto.dart';
+
+class HeadingTwoIconMapper {
+  static HeadingTwoIconViewModel fromDto(HeadingTwoIconDto dto) {
+    return HeadingTwoIconViewModel(
+      title: dto.raw['title']?.toString() ?? 'headingTwoIcon',
+      metadata: dto.raw,
+    );
+  }
+}
+

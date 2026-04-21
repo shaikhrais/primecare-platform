@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'crm_forms_data.dart';
+part of '02_M_crm_forms_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

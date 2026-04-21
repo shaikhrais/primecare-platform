@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_marketing_data.dart';
+part of '02_M_local_marketing_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

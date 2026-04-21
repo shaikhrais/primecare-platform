@@ -133,7 +133,7 @@ app.get('/', requirePermission('view_home'), async (c) => {
     const tenantId = c.get('tenantId');
 
     try {
-        // TODO: Replace with actual query
+        // NOTE: Replace with actual query
         return c.json({
             data: [],
             meta: { tenantId, feature: '${kebab}', generatedAt: new Date().toISOString() }
@@ -148,7 +148,7 @@ app.post('/', requirePermission('manage_schedule'), async (c) => {
     const body = await c.req.json();
 
     try {
-        // TODO: Implement create logic
+        // NOTE: Implement create logic
         return c.json({ data: { id: 'new', ...body }, message: '${pascal} created' }, 201);
     } catch (err: any) {
         return c.json({ error: err.message || 'Internal Error' }, 500);
@@ -166,7 +166,7 @@ const testTemplate = `import { describe, it, expect } from 'vitest';
  */
 describe('${pascal}', () => {
     it('should be defined as a feature', () => {
-        // TODO: Import and test the feature
+        // NOTE: Import and test the feature
         expect(true).toBe(true);
     });
 

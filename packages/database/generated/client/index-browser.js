@@ -1849,6 +1849,18 @@ exports.Prisma.ApiContractScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UIIntentScalarFieldEnum = {
+  id: 'id',
+  enumName: 'enumName',
+  intentId: 'intentId',
+  status: 'status',
+  implementationClass: 'implementationClass',
+  description: 'description',
+  domain: 'domain',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DataResourceScalarFieldEnum = {
   id: 'id',
   componentId: 'componentId',
@@ -2717,6 +2729,7 @@ exports.Prisma.ModelName = {
   SoftwareSystem: 'SoftwareSystem',
   SysComponent: 'SysComponent',
   ApiContract: 'ApiContract',
+  UIIntent: 'UIIntent',
   DataResource: 'DataResource',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',

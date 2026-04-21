@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'quality_assurance_data.dart';
+part of '02_M_quality_assurance_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
