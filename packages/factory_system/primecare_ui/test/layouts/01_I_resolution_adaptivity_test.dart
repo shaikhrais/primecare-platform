@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   group('Resolution Adaptivity Matrix', () {
@@ -12,9 +11,9 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: BaseLayoutShell(currentPath: '/', child: Text('Content')),
+            home: BaseLayoutShell(currentPath: '/', child: const Text('Content')),
           ),
         ),
       );
@@ -33,9 +32,9 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
-            home: BaseLayoutShell(currentPath: '/', child: Text('Content')),
+            home: BaseLayoutShell(currentPath: '/', child: const Text('Content')),
           ),
         ),
       );
@@ -57,11 +56,11 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
             home: BaseLayoutShell(
               currentPath: '/',
-              child: Text('High Res Content'),
+              child: const Text('High Res Content'),
             ),
           ),
         ),
@@ -91,11 +90,11 @@ void main() {
       tester.view.devicePixelRatio = 1.0; // Logical width 5120
 
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: MaterialApp(
             home: BaseLayoutShell(
               currentPath: '/',
-              child: Text('Mega Content'),
+              child: const Text('Mega Content'),
             ),
           ),
         ),
@@ -128,21 +127,21 @@ void main() {
         WidgetTester tester,
       ) async {
         await tester.pumpWidget(
-          ProviderScope(
-            child: MaterialApp(
-              home: BaseLayoutShell(
-                currentPath: '/',
-                topBarActions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.add),
-                    key: const Key('action_add'),
-                  ),
-                ],
-                child: const Text('Content'),
-              ),
+        ProviderScope(
+          child: MaterialApp(
+            home: BaseLayoutShell(
+              currentPath: '/',
+              topBarActions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.add),
+                  key: const Key('action_add'),
+                ),
+              ],
+              child: const Text('Content'),
             ),
           ),
+        ),
         );
         expect(find.byKey(const Key('action_add')), findsOneWidget);
       });

@@ -108,6 +108,18 @@ export function buildPageEntries(): PageEntry[] {
             categoryCode,
             originalLabel: entry.label,
             label: `[#${srNo} ${categoryCode}] ${entry.label}`,
+            rendering: entry.rendering || {
+                status: 'healthy',
+                isCritical: entry.type === 'home' || entry.type === 'registry',
+                fallbackId: entry.id === 'error.500' ? 'error.404' : 
+                           (entry.type !== 'home' ? 
+                                (entry.owner === 'auth' ? 
+                                    (entry.id === 'auth.login' ? 'error.404' : 'auth.login') : 
+                                 entry.owner === 'shared' ? 
+                                    (entry.id === 'error.404' ? 'error.500' : 'error.404') : 
+                                 `page.${entry.owner}.home`) : 
+                           'error.500'),
+            }
         } as PageEntry;
     });
 

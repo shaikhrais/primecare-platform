@@ -1,4 +1,4 @@
-import 'package:primecare_core/primecare_core.dart';
+import 'package:flutter_core/primecare_core.dart';
 // Prisma Load Adapter
 
 class MasterAppShellViewModel {

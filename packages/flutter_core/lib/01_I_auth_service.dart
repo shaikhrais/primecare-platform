@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'routes/groups/01_I_clinical_routes.dart';
 import 'routes/groups/01_I_business_development_routes.dart';
 import 'routes/groups/01_I_client_routes.dart';
 import 'routes/groups/01_I_corporate_routes.dart';
@@ -54,7 +55,7 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   static String getDashboardRouteForRole(String role) {
-    if (role.isEmpty) return CommonRoutes.clinicDashboard;
+    if (role.isEmpty) return CommonRoutes.clinicalDashboard;
 
     final r = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
 
@@ -63,16 +64,12 @@ class AuthNotifier extends Notifier<AuthState> {
       return CorporateRoutes.ceoDashboard;
     }
     if (r.contains('coo')) return CorporateRoutes.cooDashboard;
-    if (r.contains('cfo') || r.contains('finance')) {
-      return CorporateRoutes.cfoDashboard;
-    }
-    if (r.contains('cto') || r.contains('tech')) {
-      return CorporateRoutes.ctoDashboard;
-    }
+    if (r.contains('cfo')) return CorporateRoutes.cfoDashboard;
+    if (r.contains('cto')) return CorporateRoutes.ctoDashboard;
     if (r.contains('compliance_manager')) {
       return CorporateRoutes.complianceManagerDashboard;
     }
-    if (r.contains('head_of_bus_dev') || r.contains('growth')) {
+    if (r.contains('head_of_bus_dev')) {
       return CorporateRoutes.headOfBusDevDashboard;
     }
     if (r.contains('head_of_marketing')) {
@@ -81,29 +78,32 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('training_director')) {
       return CorporateRoutes.trainingDirectorDashboard;
     }
+    if (r.contains('finance_director')) {
+      return CorporateRoutes.financeDirectorDashboard;
+    }
 
     // Business Development
-    if (r.contains('ontario')) {
+    if (r.contains('regional_manager_ontario')) {
       return BusinessDevelopmentRoutes.regionalManagerOntarioDashboard;
     }
-    if (r.contains('usa')) {
+    if (r.contains('regional_manager_usa')) {
       return BusinessDevelopmentRoutes.regionalManagerUsaDashboard;
     }
-    if (r.contains('franchise_sales')) {
+    if (r.contains('franchise_sales_manager')) {
       return BusinessDevelopmentRoutes.franchiseSalesManagerDashboard;
     }
-    if (r.contains('partnership')) {
+    if (r.contains('partnership_manager')) {
       return BusinessDevelopmentRoutes.partnershipManagerDashboard;
     }
-    if (r.contains('expansion')) {
+    if (r.contains('territory_expansion_manager')) {
       return BusinessDevelopmentRoutes.territoryExpansionManagerDashboard;
     }
-    if (r.contains('general_manager') || r.contains('gm')) {
+    if (r.contains('general_manager')) {
       return BusinessDevelopmentRoutes.generalManagerDashboard;
     }
 
     // Franchise Tier
-    if (r.contains('owner') || r.contains('franchisee')) {
+    if (r.contains('franchise_owner') || r.contains('owner')) {
       return FranchiseRoutes.franchiseOwnerDashboard;
     }
     if (r.contains('operations_manager')) {
@@ -112,45 +112,35 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('scheduler') || r.contains('coordinator')) {
       return FranchiseRoutes.schedulerDashboard;
     }
-    if (r.contains('billing') || r.contains('admin')) {
+    if (r.contains('billing_admin') || r.contains('billing')) {
       return FranchiseRoutes.billingAdminDashboard;
     }
-    if (r.contains('hr') || r.contains('hiring')) {
+    if (r.contains('hr_manager')) {
+      return FranchiseRoutes.hrHiringDashboard;
+    }
+    if (r.contains('hr_hiring')) {
       return FranchiseRoutes.hrHiringDashboard;
     }
 
-    // Clinical Execution
-    if (r == 'rn' || r.contains('registered_nurse')) {
-      return CommonRoutes.clinicDashboard;
-    }
-    if (r == 'rpn') return CommonRoutes.clinicDashboard;
-    if (r == 'rmt') return CommonRoutes.clinicDashboard;
-    if (r == 'psw') return CommonRoutes.clinicDashboard;
-
-    // Allied Health (Clinical Specialties)
-    if (r == 'physio' || r.contains('physiotherapist')) {
-      return CommonRoutes.clinicDashboard;
-    }
-    if (r == 'chiro' || r.contains('chiropractor')) {
-      return CommonRoutes.clinicDashboard;
-    }
-    if (r == 'ot' || r.contains('occupational')) {
-      return CommonRoutes.clinicDashboard;
-    }
-    if (r == 'slp' || r.contains('speech')) {
-      return CommonRoutes.clinicDashboard;
-    }
-
-    // Support & Intake
+    // Support & Institutional
     if (r.contains('customer_support') || r.contains('support')) {
       return SupportRoutes.customerSupportDashboard;
     }
     if (r.contains('intake')) return SupportRoutes.intakeCoordinatorDashboard;
-    if (r.contains('quality') || r.contains('qa')) {
+    if (r.contains('quality_assurance') || r.contains('qa_manager')) {
       return SupportRoutes.qualityAssuranceDashboard;
     }
     if (r.contains('training_coordinator')) {
       return SupportRoutes.trainingCoordinatorDashboard;
+    }
+    if (r.contains('receptionist')) {
+      return CommonRoutes.receptionistDashboard;
+    }
+    if (r.contains('scrum_master')) {
+      return CommonRoutes.scrumMasterDashboard;
+    }
+    if (r.contains('guest')) {
+      return CommonRoutes.guestDashboard;
     }
 
     // Marketing & Growth
@@ -164,23 +154,22 @@ class AuthNotifier extends Notifier<AuthState> {
       return MarketingRoutes.territorySalesManagerDashboard;
     }
 
+    // Clinical Execution
+    if (r.contains('clinical_director')) {
+      return ClinicalRoutes.clinicalDirectorDashboard;
+    }
+    if (r == 'rn' || r == 'rpn' || r == 'rmt' || r == 'psw' || r.contains('clinical')) {
+      return CommonRoutes.clinicalDashboard;
+    }
+
     // Client Side
     if (r == 'client') return ClientRoutes.clientDashboard;
     if (r.contains('family')) return ClientRoutes.familyMemberDashboard;
 
-    // Technical / System
-    // General Roles & Institutional Fallbacks
-    if (r == 'admin') {
-      return FranchiseRoutes.billingAdminDashboard;
-    }
-    if (r == 'receptionist') {
-      return CommonRoutes.receptionistDashboard;
-    }
-    if (r == 'operations_manager' || r == 'ops_manager') {
-      return FranchiseRoutes.operationsManagerDashboard;
-    }
+    // Institutional Fallbacks
+    if (r == 'admin') return FranchiseRoutes.billingAdminDashboard;
 
-    return CommonRoutes.clinicDashboard; // Fallback security
+    return CommonRoutes.clinicalDashboard; // Fallback security
   }
 
   Future<void> _loadStoredAuth() async {

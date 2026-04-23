@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'routes/groups/clinic_routes.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -9,15 +9,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: CommonRoutes.login,
     refreshListenable: authListenable,
     redirect: (context, state) {
-      final isLoggingIn = state.uri.toString() == CommonRoutes.login;
+      final requestedRoute = state.uri.toString();
+      final guard = RouteGuard.verify(
+        requestedRoute: requestedRoute,
+        isLoggedIn: authState.isAuthenticated,
+        userRole: authState.role,
+      );
 
-      if (!authState.isAuthenticated) {
-        return isLoggingIn ? null : CommonRoutes.login;
+      if (!guard.isAllowed && guard.redirectRoute != null) {
+        return guard.redirectRoute;
       }
 
-      if (isLoggingIn || state.uri.toString() == '/') {
-        // Automatically redirect to their specific dashboard based on role
+      final isAtLanding =
+          requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+      if (authState.isAuthenticated && isAtLanding) {
         return AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
+      }
+
+      if (!authState.isAuthenticated && !isAtLanding) {
+        return CommonRoutes.login;
       }
 
       return null;

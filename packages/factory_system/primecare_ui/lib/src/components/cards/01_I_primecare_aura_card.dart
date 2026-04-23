@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimeCareAuraCard extends ConsumerWidget {
   final List<IntelligenceInsight> insights;
@@ -201,6 +200,9 @@ class _AuraPulseIconState extends State<_AuraPulseIcon>
       InsightImpact.caution => const Color(0xFFFBBF24),
       InsightImpact.alert => PrimeCareColors.white,
       InsightImpact.info => PrimeCareColors.white,
+      InsightImpact.growth => const Color(0xFF3B82F6),
+      InsightImpact.warning => const Color(0xFFF59E0B),
+      InsightImpact.critical => const Color(0xFFDC2626),
     };
 
     return AnimatedBuilder(
@@ -244,6 +246,9 @@ class _AuraInsightTile extends StatelessWidget {
       InsightImpact.caution => const Color(0xFFFBBF24),
       InsightImpact.alert => const Color(0xFFEF4444),
       InsightImpact.info => PrimeCareColors.white,
+      InsightImpact.growth => const Color(0xFF3B82F6),
+      InsightImpact.warning => const Color(0xFFF59E0B),
+      InsightImpact.critical => const Color(0xFFDC2626),
     };
 
     return Padding(

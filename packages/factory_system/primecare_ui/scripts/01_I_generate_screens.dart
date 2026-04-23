@@ -100,9 +100,9 @@ void main() async {
         '''import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_core/primecare_core.dart'; // Ensure correct import
-import 'package:primecare_core/01_I_dashboard_service.dart';
-import 'package:primecare_core/01_I_dashboard_providers.dart';
+import 'package:flutter_core/primecare_core.dart'; // Ensure correct import
+import 'package:flutter_core/01_I_dashboard_service.dart';
+import 'package:flutter_core/01_I_dashboard_providers.dart';
 import 'package:primecare_ui/src/components/layouts/01_I_provider_layout.dart';
 import 'package:primecare_ui/src/components/01_I_primecare_stat_card.dart';
 

@@ -52,6 +52,22 @@ enum PrimeCareForm {
   clientDashboard('Client Dashboard'),
   clientLayout('Client Layout'),
   clinicDashboard('Clinic Dashboard'),
+  clinicalDirectorDashboard('Clinical Director Dashboard'),
+  nurseDashboard('Nurse Dashboard'),
+  rnDashboard('RN Dashboard'),
+  rmtDashboard('RMT Dashboard'),
+  physicianDashboard('Physician Dashboard'),
+  pswDashboard('PSW Dashboard'),
+  careGiverDashboard('Caregiver Dashboard'),
+  therapistDashboard('Therapist Dashboard'),
+  socialWorkerDashboard('Social Worker Dashboard'),
+  familyMemberDashboard('Family Member Dashboard'),
+  receptionistDashboard('Receptionist Dashboard'),
+  schedulerDashboard('Scheduler Dashboard'),
+  infrastructureHealth('Infrastructure Health'),
+  systemInfrastructure('System Infrastructure'),
+  intakeCoordinatorDashboard('Intake Coordinator Dashboard'),
+  qualityAssuranceDashboard('Quality Assurance Dashboard'),
   closeIcon('Close Icon'),
   code2Icon('Code2 Icon'),
   codeBlockIcon('Code Block Icon'),
@@ -81,6 +97,7 @@ enum PrimeCareForm {
   dragAssignWidget('Drag Assign Widget'),
   dropdownMenu('Dropdown Menu'),
   dynamicRoleDashboard('Dynamic Role Dashboard'),
+  trainingDirectorDashboard('Training Director Dashboard'),
   error401PageView('Error401 Page View'),
   error404PageView('Error404 Page View'),
   errorBoundary('Error Boundary'),
@@ -107,6 +124,7 @@ enum PrimeCareForm {
   franchiseRefundsDashboard('Franchise Refunds Dashboard'),
   franchiseReportsDashboard('Franchise Reports Dashboard'),
   franchiseSalesManagerDashboard('Franchise Sales Manager Dashboard'),
+  marketingManagerDashboard('Marketing Manager Dashboard'),
   fullScreenToggle('Full Screen Toggle'),
   fuseAuthContext('Fuse Auth Context'),
   fuseAuthorization('Fuse Authorization'),
@@ -180,6 +198,7 @@ enum PrimeCareForm {
   imagePlusIcon('Image Plus Icon'),
   imageUploadButton('Image Upload Button'),
   imageUploadNode('Image Upload Node'),
+  genericDashboard('Generic Dashboard'),
   indexForm('Index Form'),
   initializeFirebase('Initialize Firebase'),
   intakeCoordinator('Intake Coordinator'),
@@ -271,7 +290,9 @@ enum PrimeCareForm {
   radioFormController('Radio Form Controller'),
   redo2Icon('Redo2 Icon'),
   regionalBdmDashboard('Regional Bdm Dashboard'),
+  regionalManagerDashboard('Regional Manager Dashboard'),
   regionalManagerOntarioDashboard('Regional Manager Ontario Dashboard'),
+  regionalManagerUsaDashboard('Regional Manager Usa Dashboard'),
   registerCorporateRiskForm('Register Corporate Risk Form'),
   requestShiftAdjustmentForm('Request Shift Adjustment Form'),
   reviewCarePlanForm('Review Care Plan Form'),
@@ -320,7 +341,9 @@ enum PrimeCareForm {
   sunIcon('Sun Icon'),
   superscriptIcon('Superscript Icon'),
   switchFormController('Switch Form Controller'),
+  territoryExpansionManagerDashboard('Territory Expansion Manager Dashboard'),
   territorySales('Territory Sales'),
+  territorySalesManagerDashboard('Territory Sales Manager Dashboard'),
   textAlignButton('Text Align Button'),
   themePreview('Theme Preview'),
   themeToggle('Theme Toggle'),
@@ -333,7 +356,6 @@ enum PrimeCareForm {
   toolbarTheme('Toolbar Theme'),
   tooltip('Tooltip'),
   trainingCoordinatorDashboard('Training Coordinator Dashboard'),
-  trainingDirectorDashboard('Training Director Dashboard'),
   trainingHub('Training & Compliance Hub'),
   trashIcon('Trash Icon'),
   underlineIcon('Underline Icon'),
@@ -360,6 +382,13 @@ enum PrimeCareForm {
 
   final String label;
   const PrimeCareForm(this.label);
+
+  static PrimeCareForm? fromString(String name) {
+    for (final value in PrimeCareForm.values) {
+      if (value.name == name) return value;
+    }
+    return null;
+  }
 }
 
 extension PrimeCareFormExtension on PrimeCareForm {
@@ -463,6 +492,38 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'CLIENT_LAYOUT';
       case PrimeCareForm.clinicDashboard:
         return 'CLINIC_DASHBOARD';
+      case PrimeCareForm.clinicalDirectorDashboard:
+        return 'CLINICAL_DIRECTOR_DASHBOARD';
+      case PrimeCareForm.nurseDashboard:
+        return 'NURSE_DASHBOARD';
+      case PrimeCareForm.rnDashboard:
+        return 'RN_DASHBOARD';
+      case PrimeCareForm.rmtDashboard:
+        return 'RMT_DASHBOARD';
+      case PrimeCareForm.physicianDashboard:
+        return 'PHYSICIAN_DASHBOARD';
+      case PrimeCareForm.pswDashboard:
+        return 'PSW_DASHBOARD';
+      case PrimeCareForm.careGiverDashboard:
+        return 'CAREGIVER_DASHBOARD';
+      case PrimeCareForm.therapistDashboard:
+        return 'THERAPIST_DASHBOARD';
+      case PrimeCareForm.socialWorkerDashboard:
+        return 'SOCIAL_WORKER_DASHBOARD';
+      case PrimeCareForm.familyMemberDashboard:
+        return 'FAMILY_MEMBER_DASHBOARD';
+      case PrimeCareForm.receptionistDashboard:
+        return 'RECEPTIONIST_DASHBOARD';
+      case PrimeCareForm.schedulerDashboard:
+        return 'SCHEDULER_DASHBOARD';
+      case PrimeCareForm.infrastructureHealth:
+        return 'INFRASTRUCTURE_HEALTH';
+      case PrimeCareForm.systemInfrastructure:
+        return 'SYSTEM_INFRASTRUCTURE';
+      case PrimeCareForm.intakeCoordinatorDashboard:
+        return 'INTAKE_COORDINATOR_DASHBOARD';
+      case PrimeCareForm.qualityAssuranceDashboard:
+        return 'QUALITY_ASSURANCE_DASHBOARD';
       case PrimeCareForm.closeIcon:
         return 'CLOSE_ICON';
       case PrimeCareForm.code2Icon:
@@ -521,6 +582,8 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'DROPDOWN_MENU';
       case PrimeCareForm.dynamicRoleDashboard:
         return 'DYNAMIC_ROLE_DASHBOARD';
+      case PrimeCareForm.trainingDirectorDashboard:
+        return 'TRAINING_DIRECTOR_DASHBOARD';
       case PrimeCareForm.error401PageView:
         return 'ERROR401_PAGE_VIEW';
       case PrimeCareForm.error404PageView:
@@ -573,6 +636,8 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'FRANCHISE_REPORTS_DASHBOARD';
       case PrimeCareForm.franchiseSalesManagerDashboard:
         return 'FRANCHISE_SALES_MANAGER_DASHBOARD';
+      case PrimeCareForm.marketingManagerDashboard:
+        return 'MARKETING_MANAGER_DASHBOARD';
       case PrimeCareForm.fullScreenToggle:
         return 'FULL_SCREEN_TOGGLE';
       case PrimeCareForm.fuseAuthContext:
@@ -719,6 +784,8 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'IMAGE_UPLOAD_BUTTON';
       case PrimeCareForm.imageUploadNode:
         return 'IMAGE_UPLOAD_NODE';
+      case PrimeCareForm.genericDashboard:
+        return 'GENERIC_DASHBOARD';
       case PrimeCareForm.indexForm:
         return 'INDEX_FORM';
       case PrimeCareForm.initializeFirebase:
@@ -901,8 +968,12 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'REDO2_ICON';
       case PrimeCareForm.regionalBdmDashboard:
         return 'REGIONAL_BDM_DASHBOARD';
+      case PrimeCareForm.regionalManagerDashboard:
+        return 'REGIONAL_MANAGER_DASHBOARD';
       case PrimeCareForm.regionalManagerOntarioDashboard:
         return 'REGIONAL_MANAGER_ONTARIO_DASHBOARD';
+      case PrimeCareForm.regionalManagerUsaDashboard:
+        return 'REGIONAL_MANAGER_USA_DASHBOARD';
       case PrimeCareForm.registerCorporateRiskForm:
         return 'REGISTER_CORPORATE_RISK_FORM';
       case PrimeCareForm.requestShiftAdjustmentForm:
@@ -999,8 +1070,12 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'SUPERSCRIPT_ICON';
       case PrimeCareForm.switchFormController:
         return 'SWITCH_FORM_CONTROLLER';
+      case PrimeCareForm.territoryExpansionManagerDashboard:
+        return 'TERRITORY_EXPANSION_MANAGER_DASHBOARD';
       case PrimeCareForm.territorySales:
         return 'TERRITORY_SALES';
+      case PrimeCareForm.territorySalesManagerDashboard:
+        return 'TERRITORY_SALES_MANAGER_DASHBOARD';
       case PrimeCareForm.textAlignButton:
         return 'TEXT_ALIGN_BUTTON';
       case PrimeCareForm.themePreview:
@@ -1025,8 +1100,6 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'TOOLTIP';
       case PrimeCareForm.trainingCoordinatorDashboard:
         return 'TRAINING_COORDINATOR_DASHBOARD';
-      case PrimeCareForm.trainingDirectorDashboard:
-        return 'TRAINING_DIRECTOR_DASHBOARD';
       case PrimeCareForm.trainingHub:
         return 'TRAINING_HUB';
       case PrimeCareForm.trashIcon:
@@ -1074,5 +1147,17 @@ extension PrimeCareFormExtension on PrimeCareForm {
       case PrimeCareForm.withUser:
         return 'WITH_USER';
     }
+  }
+
+  /// Resolve a [PrimeCareForm] from a string key (case-insensitive).
+  static PrimeCareForm? fromString(String? key) {
+    if (key == null) return null;
+    final cleanKey = key.toLowerCase();
+    for (final value in PrimeCareForm.values) {
+      if (value.name.toLowerCase() == cleanKey) {
+        return value;
+      }
+    }
+    return null;
   }
 }

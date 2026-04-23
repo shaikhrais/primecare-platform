@@ -1,5 +1,6 @@
 import { PrismaClient } from '../generated/client';
 import { faker } from '@faker-js/faker';
+import { seedAgentBlueprints } from './seed_agent_blueprints';
 
 const prisma = new PrismaClient();
 
@@ -7,6 +8,9 @@ const pwdHash = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a
 
 export async function main() {
   console.log('🚀 Starting Universal Seed - 38 Roles, All Domain Tables');
+
+  // 0. AI Agent Blueprints (Governance First)
+  await seedAgentBlueprints();
 
   // 1. Core Tenants
   const tenantHQ = await prisma.tenant.upsert({

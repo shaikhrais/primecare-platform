@@ -161,13 +161,54 @@ class AuraCommandService {
     );
   }
 
-  /// Provides suggested queries for the user.
-  List<String> getSuggestions() {
-    return [
-      'Show me finance',
+  /// Provides suggested queries for the user, optionally filtered by context.
+  List<String> getSuggestions({String? context}) {
+    final base = [
       'Snooze alerts',
-      'Check ward occupancy',
-      'Show ICU report',
+      'Show me performance',
+    ];
+
+    if (context == null) {
+      return [
+        ...base,
+        'Show me finance',
+        'Check ward occupancy',
+      ];
+    }
+
+    final lowerContext = context.toLowerCase();
+
+    if (lowerContext.contains('finance') || lowerContext.contains('cfo')) {
+      return [
+        'Analyze revenue leakage',
+        'Show budget variance',
+        'Review ledger audit',
+        ...base,
+      ];
+    }
+
+    if (lowerContext.contains('staff') || lowerContext.contains('coo')) {
+      return [
+        'Review nurse allocation',
+        'Show shift gaps',
+        'Optimize staff efficiency',
+        ...base,
+      ];
+    }
+
+    if (lowerContext.contains('scheduler') ||
+        lowerContext.contains('institutional')) {
+      return [
+        'Check bed occupancy',
+        'Show discharge trends',
+        'Analyze patient flow',
+        ...base,
+      ];
+    }
+
+    return [
+      ...base,
+      'Show me $context details',
     ];
   }
 }

@@ -5,11 +5,10 @@ import '../../../infrastructure/01_I_telemetry_service.dart';
 import '../../../infrastructure/01_I_result.dart';
 import '../../../models/roles/03_V_course_architect_view_model.dart';
 import '../../../models/corporate/02_M_training_models.dart';
-import '../../../models/02_M_dashboard_view_model.dart';
 import '../../../models/core/02_M_dashboard_models.dart';
 
 final courseArchitectAdapterProvider =
-    FutureProvider<Result<PrimeCareDashboardViewModel>>((ref) async {
+    FutureProvider<Result<CourseArchitectViewModel>>((ref) async {
       final telemetry = ref.read(executionGateProvider);
       final modulesResult = await ref.watch(trainingModulesProvider.future);
 

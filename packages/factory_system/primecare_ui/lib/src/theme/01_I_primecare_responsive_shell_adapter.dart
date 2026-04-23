@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
 // Prisma Load Adapter
 
 class PrimecareResponsiveShellViewModel {

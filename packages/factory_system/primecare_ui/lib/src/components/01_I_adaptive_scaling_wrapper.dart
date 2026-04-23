@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
 
 /// A wrapper that dynamically adjusts scaling
 /// to implement "Scaling Up" strategy for high-res and mega displays.

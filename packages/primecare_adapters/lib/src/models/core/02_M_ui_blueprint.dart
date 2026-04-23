@@ -11,7 +11,7 @@ abstract class UIComponentBlueprint {
 
   const UIComponentBlueprint({
     required this.componentType,
-    required this.dataPayload,
+    this.dataPayload,
   });
 
   Map<String, dynamic> toJson() {
@@ -69,10 +69,32 @@ abstract class UIComponentBlueprint {
         return AIForecastingBlueprint(dataPayload: payload);
       case 'stitch_screen':
         return StitchBlueprint(screenId: payload as String);
+      case 'high_fidelity_dashboard':
+        return HighFidelityScreenBlueprint(viewId: payload as String);
+      case 'data_table':
+        return DataTableBlueprint(dataPayload: payload);
+      case 'risk_monitor':
+        return RiskMonitorBlueprint(dataPayload: payload);
+      case 'aura_dashboard_hud':
+        return AuraDashboardHudBlueprint(dataPayload: payload);
+      case 'management_action':
+        return ManagementActionBlueprint(dataPayload: payload);
+      case 'clinical_metric':
+        return ClinicalMetricBlueprint(dataPayload: payload);
+      case 'compliance_gate':
+        return ComplianceGateBlueprint(dataPayload: payload);
       default:
         return StatGridBlueprint(dataPayload: payload);
     }
   }
+}
+
+/// A blueprint for a high-fidelity dashboard pre-built in the ComponentWarehouse.
+class HighFidelityScreenBlueprint extends UIComponentBlueprint {
+  const HighFidelityScreenBlueprint({required String viewId})
+    : super(componentType: 'high_fidelity_dashboard', dataPayload: viewId);
+
+  String get viewId => dataPayload as String;
 }
 
 /// A blueprint for a Stitch-orchestrated screen.

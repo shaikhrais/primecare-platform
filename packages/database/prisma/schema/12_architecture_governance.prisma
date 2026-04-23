@@ -166,3 +166,34 @@ model PlatformHealthHistory {
   @@map("platform_health_history")
 }
 
+// ==========================================
+// AI AGENT GOVERNANCE & BLUEPRINTS
+// ==========================================
+
+model AgentScreenBlueprint {
+  id          String   @id @default(uuid())
+  screenRoute String   @unique // e.g., '/psw/live-visit'
+  description String?  @db.Text
+  reasoning   String?  @db.Text // AI Agent's reasoning for this layout
+  
+  requiredComponents BlueprintComponent[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@map("agent_screen_blueprints")
+}
+
+model BlueprintComponent {
+  id            String   @id @default(uuid())
+  blueprintId   String   @map("blueprint_id")
+  label         String   // e.g., 'Aura HUD'
+  intent        String   // e.g., 'clinical_summary'
+  importance    String   @default("high") // high, critical, optional
+  
+  blueprint     AgentScreenBlueprint @relation(fields: [blueprintId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("blueprint_components")
+}

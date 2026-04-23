@@ -1,10 +1,9 @@
 // Layer: 05_UI_PRESENTATION
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});

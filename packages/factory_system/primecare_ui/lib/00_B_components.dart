@@ -39,6 +39,9 @@ export 'package:primecare_ui/src/components/01_I_primecare_primitives.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_progress_bar.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_quick_actions_grid.dart';
 export 'package:primecare_ui/src/components/dashboards/01_I_prime_care_responsive_kpi_grid.dart';
+export 'package:primecare_ui/src/components/dashboards/01_I_dash_card.dart';
+export 'package:primecare_ui/src/components/dashboards/01_I_dashboard_activity_feed.dart';
+export 'package:primecare_ui/src/components/dashboards/01_I_dashboard_insight_row.dart';
 export 'package:primecare_ui/src/components/dashboards/01_I_dashboard_state_widgets.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_scheduler.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_stat_card.dart';
@@ -66,6 +69,7 @@ export 'package:primecare_ui/src/components/cards/01_I_primecare_chart_card.dart
 export 'package:primecare_ui/src/components/analytics/01_I_ai_forecasting_dashlet.dart';
 export 'package:primecare_ui/src/components/containers/01_I_primecare_card_container.dart';
 export 'package:primecare_ui/src/components/charts/01_I_prime_care_line_chart.dart';
+export 'package:primecare_ui/src/widgets/05_U_primecare_simple_line_chart.dart';
 export 'package:primecare_ui/src/components/charts/01_I_prime_care_pie_chart.dart';
 export 'package:primecare_ui/src/widgets/05_U_primecare_gauge_chart.dart';
 export 'package:primecare_ui/src/widgets/05_U_primecare_funnel_chart.dart';
@@ -85,5 +89,16 @@ export 'package:primecare_ui/src/components/layout/01_I_prime_responsive_grid.da
 export 'package:primecare_ui/src/components/stitch_engine/01_I_stitch_engine_renderer.dart';
 
 export 'package:primecare_ui/src/components/stitch_engine/01_I_stitch_screen_widget.dart';
+export 'package:primecare_ui/src/components/aura/01_I_aura_dashboard_hud.dart';
 
 export 'package:primecare_ui/src/design_system/01_I_clinical_glass.dart';
+
+export 'package:primecare_ui/src/components/01_I_primecare_empty_state.dart';
+export 'package:primecare_ui/src/components/scheduler/01_I_aura_insight_card.dart';
+export 'package:primecare_ui/src/components/aura/01_I_aura_header.dart';
+export 'package:primecare_ui/src/components/aura/01_I_aura_sidebar.dart';
+export 'package:primecare_ui/src/components/aura/01_I_aura_briefing_panel.dart';
+export 'package:primecare_ui/src/components/aura/01_I_aura_trend_indicator.dart';
+export 'package:primecare_ui/src/features/cto_dashboard/presentation/widgets/01_I_cto_briefing_panel.dart';
+export 'package:primecare_ui/src/features/cto_dashboard/presentation/widgets/01_I_system_health_card.dart';
+export 'package:primecare_ui/src/features/cto_dashboard/presentation/widgets/01_I_security_audit_log.dart';

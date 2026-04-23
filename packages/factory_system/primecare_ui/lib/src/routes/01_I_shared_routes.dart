@@ -1,11 +1,19 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:go_router/go_router.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/screens/common/05_U_user_management.dart';
 
 /// Central registry for routes that are available across all PrimeCare portals.
 /// These routes are typically hosted within a ShellRoute.
 final List<RouteBase> sharedCommonRoutes = [
+  GoRoute(
+    path: CommonRoutes.error500,
+    builder: (context, state) => const Error500PageViewScreen(),
+  ),
+  GoRoute(
+    path: CommonRoutes.error404,
+    builder: (context, state) => const Error404PageViewScreen(),
+  ),
   GoRoute(
     path: CommonRoutes.globalProfile,
     builder: (context, state) => const GlobalProfileScreen(),

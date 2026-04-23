@@ -29,7 +29,7 @@ void main(List<String> args) {
 
     // We target specifically the unused import cases
     if (content.contains(
-      "import 'package:primecare_core/primecare_core.dart';",
+      "import 'package:flutter_core/primecare_core.dart';",
     )) {
       if (!content.contains('ExecutionGateCategory') &&
           !content.contains('executionGateProvider') &&
@@ -38,7 +38,7 @@ void main(List<String> args) {
         final lines = content.split('\n');
         lines.removeWhere(
           (line) => line.contains(
-            "import 'package:primecare_core/primecare_core.dart';",
+            "import 'package:flutter_core/primecare_core.dart';",
           ),
         );
 

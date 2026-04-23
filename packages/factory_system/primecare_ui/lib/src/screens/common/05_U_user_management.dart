@@ -1,7 +1,6 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:flutter/material.dart';
 
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 import 'package:primecare_ui/src/components/forms/domain_forms/01_I_create_user_form.dart';
 import 'package:primecare_ui/src/components/forms/domain_forms/01_I_password_reset_form.dart';

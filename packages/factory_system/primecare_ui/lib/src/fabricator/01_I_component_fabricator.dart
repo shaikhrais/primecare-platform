@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class ComponentFabricator {
   /// Dynamically assembles an empty PrimeCare UI component based on the Blueprint type
@@ -9,6 +8,10 @@ class ComponentFabricator {
     // Delegate entirely to the centralized O(1) ComponentWarehouse.
     // This allows components to be securely registered at runtime or mock-time
     // without ever expanding a massive imperative switch statement.
-    return ComponentWarehouse.build(context, blueprint);
+    return ComponentWarehouse.build(
+      blueprint.componentType,
+      context,
+      blueprint.dataPayload,
+    );
   }
 }

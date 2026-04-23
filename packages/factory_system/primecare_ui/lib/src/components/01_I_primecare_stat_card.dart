@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_core/providers/03_D_portal_providers.dart';
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
 
 import 'package:primecare_ui/src/theme/01_I_design_system.dart';
 

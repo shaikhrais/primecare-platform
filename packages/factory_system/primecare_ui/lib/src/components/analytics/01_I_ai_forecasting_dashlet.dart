@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class AIForecastingDashlet extends StatelessWidget {
   final AIAnalyticsForecastingData data;

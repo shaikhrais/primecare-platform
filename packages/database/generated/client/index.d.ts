@@ -719,6 +719,16 @@ export type DataResource = $Result.DefaultSelection<Prisma.$DataResourcePayload>
  */
 export type PlatformHealthHistory = $Result.DefaultSelection<Prisma.$PlatformHealthHistoryPayload>
 /**
+ * Model AgentScreenBlueprint
+ * 
+ */
+export type AgentScreenBlueprint = $Result.DefaultSelection<Prisma.$AgentScreenBlueprintPayload>
+/**
+ * Model BlueprintComponent
+ * 
+ */
+export type BlueprintComponent = $Result.DefaultSelection<Prisma.$BlueprintComponentPayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2553,6 +2563,26 @@ export class PrismaClient<
   get platformHealthHistory(): Prisma.PlatformHealthHistoryDelegate<ExtArgs>;
 
   /**
+   * `prisma.agentScreenBlueprint`: Exposes CRUD operations for the **AgentScreenBlueprint** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AgentScreenBlueprints
+    * const agentScreenBlueprints = await prisma.agentScreenBlueprint.findMany()
+    * ```
+    */
+  get agentScreenBlueprint(): Prisma.AgentScreenBlueprintDelegate<ExtArgs>;
+
+  /**
+   * `prisma.blueprintComponent`: Exposes CRUD operations for the **BlueprintComponent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BlueprintComponents
+    * const blueprintComponents = await prisma.blueprintComponent.findMany()
+    * ```
+    */
+  get blueprintComponent(): Prisma.BlueprintComponentDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3733,6 +3763,8 @@ export namespace Prisma {
     UIIntent: 'UIIntent',
     DataResource: 'DataResource',
     PlatformHealthHistory: 'PlatformHealthHistory',
+    AgentScreenBlueprint: 'AgentScreenBlueprint',
+    BlueprintComponent: 'BlueprintComponent',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3808,7 +3840,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -13682,6 +13714,146 @@ export namespace Prisma {
           }
         }
       }
+      AgentScreenBlueprint: {
+        payload: Prisma.$AgentScreenBlueprintPayload<ExtArgs>
+        fields: Prisma.AgentScreenBlueprintFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AgentScreenBlueprintFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AgentScreenBlueprintFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>
+          }
+          findFirst: {
+            args: Prisma.AgentScreenBlueprintFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AgentScreenBlueprintFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>
+          }
+          findMany: {
+            args: Prisma.AgentScreenBlueprintFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>[]
+          }
+          create: {
+            args: Prisma.AgentScreenBlueprintCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>
+          }
+          createMany: {
+            args: Prisma.AgentScreenBlueprintCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AgentScreenBlueprintCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>[]
+          }
+          delete: {
+            args: Prisma.AgentScreenBlueprintDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>
+          }
+          update: {
+            args: Prisma.AgentScreenBlueprintUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>
+          }
+          deleteMany: {
+            args: Prisma.AgentScreenBlueprintDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AgentScreenBlueprintUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AgentScreenBlueprintUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AgentScreenBlueprintPayload>
+          }
+          aggregate: {
+            args: Prisma.AgentScreenBlueprintAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAgentScreenBlueprint>
+          }
+          groupBy: {
+            args: Prisma.AgentScreenBlueprintGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AgentScreenBlueprintGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AgentScreenBlueprintCountArgs<ExtArgs>
+            result: $Utils.Optional<AgentScreenBlueprintCountAggregateOutputType> | number
+          }
+        }
+      }
+      BlueprintComponent: {
+        payload: Prisma.$BlueprintComponentPayload<ExtArgs>
+        fields: Prisma.BlueprintComponentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BlueprintComponentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BlueprintComponentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>
+          }
+          findFirst: {
+            args: Prisma.BlueprintComponentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BlueprintComponentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>
+          }
+          findMany: {
+            args: Prisma.BlueprintComponentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>[]
+          }
+          create: {
+            args: Prisma.BlueprintComponentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>
+          }
+          createMany: {
+            args: Prisma.BlueprintComponentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BlueprintComponentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>[]
+          }
+          delete: {
+            args: Prisma.BlueprintComponentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>
+          }
+          update: {
+            args: Prisma.BlueprintComponentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>
+          }
+          deleteMany: {
+            args: Prisma.BlueprintComponentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BlueprintComponentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BlueprintComponentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlueprintComponentPayload>
+          }
+          aggregate: {
+            args: Prisma.BlueprintComponentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBlueprintComponent>
+          }
+          groupBy: {
+            args: Prisma.BlueprintComponentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BlueprintComponentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BlueprintComponentCountArgs<ExtArgs>
+            result: $Utils.Optional<BlueprintComponentCountAggregateOutputType> | number
+          }
+        }
+      }
       FamilyAppointment: {
         payload: Prisma.$FamilyAppointmentPayload<ExtArgs>
         fields: Prisma.FamilyAppointmentFieldRefs
@@ -20772,6 +20944,37 @@ export namespace Prisma {
    */
   export type SysComponentCountOutputTypeCountResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DataResourceWhereInput
+  }
+
+
+  /**
+   * Count Type AgentScreenBlueprintCountOutputType
+   */
+
+  export type AgentScreenBlueprintCountOutputType = {
+    requiredComponents: number
+  }
+
+  export type AgentScreenBlueprintCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    requiredComponents?: boolean | AgentScreenBlueprintCountOutputTypeCountRequiredComponentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AgentScreenBlueprintCountOutputType without action
+   */
+  export type AgentScreenBlueprintCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprintCountOutputType
+     */
+    select?: AgentScreenBlueprintCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AgentScreenBlueprintCountOutputType without action
+   */
+  export type AgentScreenBlueprintCountOutputTypeCountRequiredComponentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlueprintComponentWhereInput
   }
 
 
@@ -168282,6 +168485,1923 @@ export namespace Prisma {
 
 
   /**
+   * Model AgentScreenBlueprint
+   */
+
+  export type AggregateAgentScreenBlueprint = {
+    _count: AgentScreenBlueprintCountAggregateOutputType | null
+    _min: AgentScreenBlueprintMinAggregateOutputType | null
+    _max: AgentScreenBlueprintMaxAggregateOutputType | null
+  }
+
+  export type AgentScreenBlueprintMinAggregateOutputType = {
+    id: string | null
+    screenRoute: string | null
+    description: string | null
+    reasoning: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AgentScreenBlueprintMaxAggregateOutputType = {
+    id: string | null
+    screenRoute: string | null
+    description: string | null
+    reasoning: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AgentScreenBlueprintCountAggregateOutputType = {
+    id: number
+    screenRoute: number
+    description: number
+    reasoning: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AgentScreenBlueprintMinAggregateInputType = {
+    id?: true
+    screenRoute?: true
+    description?: true
+    reasoning?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AgentScreenBlueprintMaxAggregateInputType = {
+    id?: true
+    screenRoute?: true
+    description?: true
+    reasoning?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AgentScreenBlueprintCountAggregateInputType = {
+    id?: true
+    screenRoute?: true
+    description?: true
+    reasoning?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AgentScreenBlueprintAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AgentScreenBlueprint to aggregate.
+     */
+    where?: AgentScreenBlueprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AgentScreenBlueprints to fetch.
+     */
+    orderBy?: AgentScreenBlueprintOrderByWithRelationInput | AgentScreenBlueprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AgentScreenBlueprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AgentScreenBlueprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AgentScreenBlueprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AgentScreenBlueprints
+    **/
+    _count?: true | AgentScreenBlueprintCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AgentScreenBlueprintMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AgentScreenBlueprintMaxAggregateInputType
+  }
+
+  export type GetAgentScreenBlueprintAggregateType<T extends AgentScreenBlueprintAggregateArgs> = {
+        [P in keyof T & keyof AggregateAgentScreenBlueprint]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAgentScreenBlueprint[P]>
+      : GetScalarType<T[P], AggregateAgentScreenBlueprint[P]>
+  }
+
+
+
+
+  export type AgentScreenBlueprintGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AgentScreenBlueprintWhereInput
+    orderBy?: AgentScreenBlueprintOrderByWithAggregationInput | AgentScreenBlueprintOrderByWithAggregationInput[]
+    by: AgentScreenBlueprintScalarFieldEnum[] | AgentScreenBlueprintScalarFieldEnum
+    having?: AgentScreenBlueprintScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AgentScreenBlueprintCountAggregateInputType | true
+    _min?: AgentScreenBlueprintMinAggregateInputType
+    _max?: AgentScreenBlueprintMaxAggregateInputType
+  }
+
+  export type AgentScreenBlueprintGroupByOutputType = {
+    id: string
+    screenRoute: string
+    description: string | null
+    reasoning: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AgentScreenBlueprintCountAggregateOutputType | null
+    _min: AgentScreenBlueprintMinAggregateOutputType | null
+    _max: AgentScreenBlueprintMaxAggregateOutputType | null
+  }
+
+  type GetAgentScreenBlueprintGroupByPayload<T extends AgentScreenBlueprintGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AgentScreenBlueprintGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AgentScreenBlueprintGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AgentScreenBlueprintGroupByOutputType[P]>
+            : GetScalarType<T[P], AgentScreenBlueprintGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AgentScreenBlueprintSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    screenRoute?: boolean
+    description?: boolean
+    reasoning?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    requiredComponents?: boolean | AgentScreenBlueprint$requiredComponentsArgs<ExtArgs>
+    _count?: boolean | AgentScreenBlueprintCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["agentScreenBlueprint"]>
+
+  export type AgentScreenBlueprintSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    screenRoute?: boolean
+    description?: boolean
+    reasoning?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["agentScreenBlueprint"]>
+
+  export type AgentScreenBlueprintSelectScalar = {
+    id?: boolean
+    screenRoute?: boolean
+    description?: boolean
+    reasoning?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AgentScreenBlueprintInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    requiredComponents?: boolean | AgentScreenBlueprint$requiredComponentsArgs<ExtArgs>
+    _count?: boolean | AgentScreenBlueprintCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AgentScreenBlueprintIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $AgentScreenBlueprintPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AgentScreenBlueprint"
+    objects: {
+      requiredComponents: Prisma.$BlueprintComponentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      screenRoute: string
+      description: string | null
+      reasoning: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["agentScreenBlueprint"]>
+    composites: {}
+  }
+
+  type AgentScreenBlueprintGetPayload<S extends boolean | null | undefined | AgentScreenBlueprintDefaultArgs> = $Result.GetResult<Prisma.$AgentScreenBlueprintPayload, S>
+
+  type AgentScreenBlueprintCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AgentScreenBlueprintFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AgentScreenBlueprintCountAggregateInputType | true
+    }
+
+  export interface AgentScreenBlueprintDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AgentScreenBlueprint'], meta: { name: 'AgentScreenBlueprint' } }
+    /**
+     * Find zero or one AgentScreenBlueprint that matches the filter.
+     * @param {AgentScreenBlueprintFindUniqueArgs} args - Arguments to find a AgentScreenBlueprint
+     * @example
+     * // Get one AgentScreenBlueprint
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AgentScreenBlueprintFindUniqueArgs>(args: SelectSubset<T, AgentScreenBlueprintFindUniqueArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AgentScreenBlueprint that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AgentScreenBlueprintFindUniqueOrThrowArgs} args - Arguments to find a AgentScreenBlueprint
+     * @example
+     * // Get one AgentScreenBlueprint
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AgentScreenBlueprintFindUniqueOrThrowArgs>(args: SelectSubset<T, AgentScreenBlueprintFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AgentScreenBlueprint that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AgentScreenBlueprintFindFirstArgs} args - Arguments to find a AgentScreenBlueprint
+     * @example
+     * // Get one AgentScreenBlueprint
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AgentScreenBlueprintFindFirstArgs>(args?: SelectSubset<T, AgentScreenBlueprintFindFirstArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AgentScreenBlueprint that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AgentScreenBlueprintFindFirstOrThrowArgs} args - Arguments to find a AgentScreenBlueprint
+     * @example
+     * // Get one AgentScreenBlueprint
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AgentScreenBlueprintFindFirstOrThrowArgs>(args?: SelectSubset<T, AgentScreenBlueprintFindFirstOrThrowArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AgentScreenBlueprints that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AgentScreenBlueprintFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AgentScreenBlueprints
+     * const agentScreenBlueprints = await prisma.agentScreenBlueprint.findMany()
+     * 
+     * // Get first 10 AgentScreenBlueprints
+     * const agentScreenBlueprints = await prisma.agentScreenBlueprint.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const agentScreenBlueprintWithIdOnly = await prisma.agentScreenBlueprint.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AgentScreenBlueprintFindManyArgs>(args?: SelectSubset<T, AgentScreenBlueprintFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AgentScreenBlueprint.
+     * @param {AgentScreenBlueprintCreateArgs} args - Arguments to create a AgentScreenBlueprint.
+     * @example
+     * // Create one AgentScreenBlueprint
+     * const AgentScreenBlueprint = await prisma.agentScreenBlueprint.create({
+     *   data: {
+     *     // ... data to create a AgentScreenBlueprint
+     *   }
+     * })
+     * 
+     */
+    create<T extends AgentScreenBlueprintCreateArgs>(args: SelectSubset<T, AgentScreenBlueprintCreateArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AgentScreenBlueprints.
+     * @param {AgentScreenBlueprintCreateManyArgs} args - Arguments to create many AgentScreenBlueprints.
+     * @example
+     * // Create many AgentScreenBlueprints
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AgentScreenBlueprintCreateManyArgs>(args?: SelectSubset<T, AgentScreenBlueprintCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AgentScreenBlueprints and returns the data saved in the database.
+     * @param {AgentScreenBlueprintCreateManyAndReturnArgs} args - Arguments to create many AgentScreenBlueprints.
+     * @example
+     * // Create many AgentScreenBlueprints
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AgentScreenBlueprints and only return the `id`
+     * const agentScreenBlueprintWithIdOnly = await prisma.agentScreenBlueprint.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AgentScreenBlueprintCreateManyAndReturnArgs>(args?: SelectSubset<T, AgentScreenBlueprintCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AgentScreenBlueprint.
+     * @param {AgentScreenBlueprintDeleteArgs} args - Arguments to delete one AgentScreenBlueprint.
+     * @example
+     * // Delete one AgentScreenBlueprint
+     * const AgentScreenBlueprint = await prisma.agentScreenBlueprint.delete({
+     *   where: {
+     *     // ... filter to delete one AgentScreenBlueprint
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AgentScreenBlueprintDeleteArgs>(args: SelectSubset<T, AgentScreenBlueprintDeleteArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AgentScreenBlueprint.
+     * @param {AgentScreenBlueprintUpdateArgs} args - Arguments to update one AgentScreenBlueprint.
+     * @example
+     * // Update one AgentScreenBlueprint
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AgentScreenBlueprintUpdateArgs>(args: SelectSubset<T, AgentScreenBlueprintUpdateArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AgentScreenBlueprints.
+     * @param {AgentScreenBlueprintDeleteManyArgs} args - Arguments to filter AgentScreenBlueprints to delete.
+     * @example
+     * // Delete a few AgentScreenBlueprints
+     * const { count } = await prisma.agentScreenBlueprint.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AgentScreenBlueprintDeleteManyArgs>(args?: SelectSubset<T, AgentScreenBlueprintDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AgentScreenBlueprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AgentScreenBlueprintUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AgentScreenBlueprints
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AgentScreenBlueprintUpdateManyArgs>(args: SelectSubset<T, AgentScreenBlueprintUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AgentScreenBlueprint.
+     * @param {AgentScreenBlueprintUpsertArgs} args - Arguments to update or create a AgentScreenBlueprint.
+     * @example
+     * // Update or create a AgentScreenBlueprint
+     * const agentScreenBlueprint = await prisma.agentScreenBlueprint.upsert({
+     *   create: {
+     *     // ... data to create a AgentScreenBlueprint
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AgentScreenBlueprint we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AgentScreenBlueprintUpsertArgs>(args: SelectSubset<T, AgentScreenBlueprintUpsertArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AgentScreenBlueprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AgentScreenBlueprintCountArgs} args - Arguments to filter AgentScreenBlueprints to count.
+     * @example
+     * // Count the number of AgentScreenBlueprints
+     * const count = await prisma.agentScreenBlueprint.count({
+     *   where: {
+     *     // ... the filter for the AgentScreenBlueprints we want to count
+     *   }
+     * })
+    **/
+    count<T extends AgentScreenBlueprintCountArgs>(
+      args?: Subset<T, AgentScreenBlueprintCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AgentScreenBlueprintCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AgentScreenBlueprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AgentScreenBlueprintAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AgentScreenBlueprintAggregateArgs>(args: Subset<T, AgentScreenBlueprintAggregateArgs>): Prisma.PrismaPromise<GetAgentScreenBlueprintAggregateType<T>>
+
+    /**
+     * Group by AgentScreenBlueprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AgentScreenBlueprintGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AgentScreenBlueprintGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AgentScreenBlueprintGroupByArgs['orderBy'] }
+        : { orderBy?: AgentScreenBlueprintGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AgentScreenBlueprintGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAgentScreenBlueprintGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AgentScreenBlueprint model
+   */
+  readonly fields: AgentScreenBlueprintFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AgentScreenBlueprint.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AgentScreenBlueprintClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    requiredComponents<T extends AgentScreenBlueprint$requiredComponentsArgs<ExtArgs> = {}>(args?: Subset<T, AgentScreenBlueprint$requiredComponentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AgentScreenBlueprint model
+   */ 
+  interface AgentScreenBlueprintFieldRefs {
+    readonly id: FieldRef<"AgentScreenBlueprint", 'String'>
+    readonly screenRoute: FieldRef<"AgentScreenBlueprint", 'String'>
+    readonly description: FieldRef<"AgentScreenBlueprint", 'String'>
+    readonly reasoning: FieldRef<"AgentScreenBlueprint", 'String'>
+    readonly createdAt: FieldRef<"AgentScreenBlueprint", 'DateTime'>
+    readonly updatedAt: FieldRef<"AgentScreenBlueprint", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AgentScreenBlueprint findUnique
+   */
+  export type AgentScreenBlueprintFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * Filter, which AgentScreenBlueprint to fetch.
+     */
+    where: AgentScreenBlueprintWhereUniqueInput
+  }
+
+  /**
+   * AgentScreenBlueprint findUniqueOrThrow
+   */
+  export type AgentScreenBlueprintFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * Filter, which AgentScreenBlueprint to fetch.
+     */
+    where: AgentScreenBlueprintWhereUniqueInput
+  }
+
+  /**
+   * AgentScreenBlueprint findFirst
+   */
+  export type AgentScreenBlueprintFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * Filter, which AgentScreenBlueprint to fetch.
+     */
+    where?: AgentScreenBlueprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AgentScreenBlueprints to fetch.
+     */
+    orderBy?: AgentScreenBlueprintOrderByWithRelationInput | AgentScreenBlueprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AgentScreenBlueprints.
+     */
+    cursor?: AgentScreenBlueprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AgentScreenBlueprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AgentScreenBlueprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AgentScreenBlueprints.
+     */
+    distinct?: AgentScreenBlueprintScalarFieldEnum | AgentScreenBlueprintScalarFieldEnum[]
+  }
+
+  /**
+   * AgentScreenBlueprint findFirstOrThrow
+   */
+  export type AgentScreenBlueprintFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * Filter, which AgentScreenBlueprint to fetch.
+     */
+    where?: AgentScreenBlueprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AgentScreenBlueprints to fetch.
+     */
+    orderBy?: AgentScreenBlueprintOrderByWithRelationInput | AgentScreenBlueprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AgentScreenBlueprints.
+     */
+    cursor?: AgentScreenBlueprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AgentScreenBlueprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AgentScreenBlueprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AgentScreenBlueprints.
+     */
+    distinct?: AgentScreenBlueprintScalarFieldEnum | AgentScreenBlueprintScalarFieldEnum[]
+  }
+
+  /**
+   * AgentScreenBlueprint findMany
+   */
+  export type AgentScreenBlueprintFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * Filter, which AgentScreenBlueprints to fetch.
+     */
+    where?: AgentScreenBlueprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AgentScreenBlueprints to fetch.
+     */
+    orderBy?: AgentScreenBlueprintOrderByWithRelationInput | AgentScreenBlueprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AgentScreenBlueprints.
+     */
+    cursor?: AgentScreenBlueprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AgentScreenBlueprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AgentScreenBlueprints.
+     */
+    skip?: number
+    distinct?: AgentScreenBlueprintScalarFieldEnum | AgentScreenBlueprintScalarFieldEnum[]
+  }
+
+  /**
+   * AgentScreenBlueprint create
+   */
+  export type AgentScreenBlueprintCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AgentScreenBlueprint.
+     */
+    data: XOR<AgentScreenBlueprintCreateInput, AgentScreenBlueprintUncheckedCreateInput>
+  }
+
+  /**
+   * AgentScreenBlueprint createMany
+   */
+  export type AgentScreenBlueprintCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AgentScreenBlueprints.
+     */
+    data: AgentScreenBlueprintCreateManyInput | AgentScreenBlueprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AgentScreenBlueprint createManyAndReturn
+   */
+  export type AgentScreenBlueprintCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AgentScreenBlueprints.
+     */
+    data: AgentScreenBlueprintCreateManyInput | AgentScreenBlueprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AgentScreenBlueprint update
+   */
+  export type AgentScreenBlueprintUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AgentScreenBlueprint.
+     */
+    data: XOR<AgentScreenBlueprintUpdateInput, AgentScreenBlueprintUncheckedUpdateInput>
+    /**
+     * Choose, which AgentScreenBlueprint to update.
+     */
+    where: AgentScreenBlueprintWhereUniqueInput
+  }
+
+  /**
+   * AgentScreenBlueprint updateMany
+   */
+  export type AgentScreenBlueprintUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AgentScreenBlueprints.
+     */
+    data: XOR<AgentScreenBlueprintUpdateManyMutationInput, AgentScreenBlueprintUncheckedUpdateManyInput>
+    /**
+     * Filter which AgentScreenBlueprints to update
+     */
+    where?: AgentScreenBlueprintWhereInput
+  }
+
+  /**
+   * AgentScreenBlueprint upsert
+   */
+  export type AgentScreenBlueprintUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AgentScreenBlueprint to update in case it exists.
+     */
+    where: AgentScreenBlueprintWhereUniqueInput
+    /**
+     * In case the AgentScreenBlueprint found by the `where` argument doesn't exist, create a new AgentScreenBlueprint with this data.
+     */
+    create: XOR<AgentScreenBlueprintCreateInput, AgentScreenBlueprintUncheckedCreateInput>
+    /**
+     * In case the AgentScreenBlueprint was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AgentScreenBlueprintUpdateInput, AgentScreenBlueprintUncheckedUpdateInput>
+  }
+
+  /**
+   * AgentScreenBlueprint delete
+   */
+  export type AgentScreenBlueprintDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+    /**
+     * Filter which AgentScreenBlueprint to delete.
+     */
+    where: AgentScreenBlueprintWhereUniqueInput
+  }
+
+  /**
+   * AgentScreenBlueprint deleteMany
+   */
+  export type AgentScreenBlueprintDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AgentScreenBlueprints to delete
+     */
+    where?: AgentScreenBlueprintWhereInput
+  }
+
+  /**
+   * AgentScreenBlueprint.requiredComponents
+   */
+  export type AgentScreenBlueprint$requiredComponentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    where?: BlueprintComponentWhereInput
+    orderBy?: BlueprintComponentOrderByWithRelationInput | BlueprintComponentOrderByWithRelationInput[]
+    cursor?: BlueprintComponentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlueprintComponentScalarFieldEnum | BlueprintComponentScalarFieldEnum[]
+  }
+
+  /**
+   * AgentScreenBlueprint without action
+   */
+  export type AgentScreenBlueprintDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AgentScreenBlueprint
+     */
+    select?: AgentScreenBlueprintSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AgentScreenBlueprintInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BlueprintComponent
+   */
+
+  export type AggregateBlueprintComponent = {
+    _count: BlueprintComponentCountAggregateOutputType | null
+    _min: BlueprintComponentMinAggregateOutputType | null
+    _max: BlueprintComponentMaxAggregateOutputType | null
+  }
+
+  export type BlueprintComponentMinAggregateOutputType = {
+    id: string | null
+    blueprintId: string | null
+    label: string | null
+    intent: string | null
+    importance: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BlueprintComponentMaxAggregateOutputType = {
+    id: string | null
+    blueprintId: string | null
+    label: string | null
+    intent: string | null
+    importance: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BlueprintComponentCountAggregateOutputType = {
+    id: number
+    blueprintId: number
+    label: number
+    intent: number
+    importance: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BlueprintComponentMinAggregateInputType = {
+    id?: true
+    blueprintId?: true
+    label?: true
+    intent?: true
+    importance?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BlueprintComponentMaxAggregateInputType = {
+    id?: true
+    blueprintId?: true
+    label?: true
+    intent?: true
+    importance?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BlueprintComponentCountAggregateInputType = {
+    id?: true
+    blueprintId?: true
+    label?: true
+    intent?: true
+    importance?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BlueprintComponentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlueprintComponent to aggregate.
+     */
+    where?: BlueprintComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlueprintComponents to fetch.
+     */
+    orderBy?: BlueprintComponentOrderByWithRelationInput | BlueprintComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BlueprintComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlueprintComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlueprintComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BlueprintComponents
+    **/
+    _count?: true | BlueprintComponentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BlueprintComponentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BlueprintComponentMaxAggregateInputType
+  }
+
+  export type GetBlueprintComponentAggregateType<T extends BlueprintComponentAggregateArgs> = {
+        [P in keyof T & keyof AggregateBlueprintComponent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBlueprintComponent[P]>
+      : GetScalarType<T[P], AggregateBlueprintComponent[P]>
+  }
+
+
+
+
+  export type BlueprintComponentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlueprintComponentWhereInput
+    orderBy?: BlueprintComponentOrderByWithAggregationInput | BlueprintComponentOrderByWithAggregationInput[]
+    by: BlueprintComponentScalarFieldEnum[] | BlueprintComponentScalarFieldEnum
+    having?: BlueprintComponentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BlueprintComponentCountAggregateInputType | true
+    _min?: BlueprintComponentMinAggregateInputType
+    _max?: BlueprintComponentMaxAggregateInputType
+  }
+
+  export type BlueprintComponentGroupByOutputType = {
+    id: string
+    blueprintId: string
+    label: string
+    intent: string
+    importance: string
+    createdAt: Date
+    updatedAt: Date
+    _count: BlueprintComponentCountAggregateOutputType | null
+    _min: BlueprintComponentMinAggregateOutputType | null
+    _max: BlueprintComponentMaxAggregateOutputType | null
+  }
+
+  type GetBlueprintComponentGroupByPayload<T extends BlueprintComponentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BlueprintComponentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BlueprintComponentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BlueprintComponentGroupByOutputType[P]>
+            : GetScalarType<T[P], BlueprintComponentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BlueprintComponentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blueprintId?: boolean
+    label?: boolean
+    intent?: boolean
+    importance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    blueprint?: boolean | AgentScreenBlueprintDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["blueprintComponent"]>
+
+  export type BlueprintComponentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blueprintId?: boolean
+    label?: boolean
+    intent?: boolean
+    importance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    blueprint?: boolean | AgentScreenBlueprintDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["blueprintComponent"]>
+
+  export type BlueprintComponentSelectScalar = {
+    id?: boolean
+    blueprintId?: boolean
+    label?: boolean
+    intent?: boolean
+    importance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BlueprintComponentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blueprint?: boolean | AgentScreenBlueprintDefaultArgs<ExtArgs>
+  }
+  export type BlueprintComponentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blueprint?: boolean | AgentScreenBlueprintDefaultArgs<ExtArgs>
+  }
+
+  export type $BlueprintComponentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BlueprintComponent"
+    objects: {
+      blueprint: Prisma.$AgentScreenBlueprintPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      blueprintId: string
+      label: string
+      intent: string
+      importance: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["blueprintComponent"]>
+    composites: {}
+  }
+
+  type BlueprintComponentGetPayload<S extends boolean | null | undefined | BlueprintComponentDefaultArgs> = $Result.GetResult<Prisma.$BlueprintComponentPayload, S>
+
+  type BlueprintComponentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BlueprintComponentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BlueprintComponentCountAggregateInputType | true
+    }
+
+  export interface BlueprintComponentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BlueprintComponent'], meta: { name: 'BlueprintComponent' } }
+    /**
+     * Find zero or one BlueprintComponent that matches the filter.
+     * @param {BlueprintComponentFindUniqueArgs} args - Arguments to find a BlueprintComponent
+     * @example
+     * // Get one BlueprintComponent
+     * const blueprintComponent = await prisma.blueprintComponent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BlueprintComponentFindUniqueArgs>(args: SelectSubset<T, BlueprintComponentFindUniqueArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BlueprintComponent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BlueprintComponentFindUniqueOrThrowArgs} args - Arguments to find a BlueprintComponent
+     * @example
+     * // Get one BlueprintComponent
+     * const blueprintComponent = await prisma.blueprintComponent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BlueprintComponentFindUniqueOrThrowArgs>(args: SelectSubset<T, BlueprintComponentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BlueprintComponent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlueprintComponentFindFirstArgs} args - Arguments to find a BlueprintComponent
+     * @example
+     * // Get one BlueprintComponent
+     * const blueprintComponent = await prisma.blueprintComponent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BlueprintComponentFindFirstArgs>(args?: SelectSubset<T, BlueprintComponentFindFirstArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BlueprintComponent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlueprintComponentFindFirstOrThrowArgs} args - Arguments to find a BlueprintComponent
+     * @example
+     * // Get one BlueprintComponent
+     * const blueprintComponent = await prisma.blueprintComponent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BlueprintComponentFindFirstOrThrowArgs>(args?: SelectSubset<T, BlueprintComponentFindFirstOrThrowArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BlueprintComponents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlueprintComponentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BlueprintComponents
+     * const blueprintComponents = await prisma.blueprintComponent.findMany()
+     * 
+     * // Get first 10 BlueprintComponents
+     * const blueprintComponents = await prisma.blueprintComponent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const blueprintComponentWithIdOnly = await prisma.blueprintComponent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BlueprintComponentFindManyArgs>(args?: SelectSubset<T, BlueprintComponentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BlueprintComponent.
+     * @param {BlueprintComponentCreateArgs} args - Arguments to create a BlueprintComponent.
+     * @example
+     * // Create one BlueprintComponent
+     * const BlueprintComponent = await prisma.blueprintComponent.create({
+     *   data: {
+     *     // ... data to create a BlueprintComponent
+     *   }
+     * })
+     * 
+     */
+    create<T extends BlueprintComponentCreateArgs>(args: SelectSubset<T, BlueprintComponentCreateArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BlueprintComponents.
+     * @param {BlueprintComponentCreateManyArgs} args - Arguments to create many BlueprintComponents.
+     * @example
+     * // Create many BlueprintComponents
+     * const blueprintComponent = await prisma.blueprintComponent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BlueprintComponentCreateManyArgs>(args?: SelectSubset<T, BlueprintComponentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BlueprintComponents and returns the data saved in the database.
+     * @param {BlueprintComponentCreateManyAndReturnArgs} args - Arguments to create many BlueprintComponents.
+     * @example
+     * // Create many BlueprintComponents
+     * const blueprintComponent = await prisma.blueprintComponent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BlueprintComponents and only return the `id`
+     * const blueprintComponentWithIdOnly = await prisma.blueprintComponent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BlueprintComponentCreateManyAndReturnArgs>(args?: SelectSubset<T, BlueprintComponentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BlueprintComponent.
+     * @param {BlueprintComponentDeleteArgs} args - Arguments to delete one BlueprintComponent.
+     * @example
+     * // Delete one BlueprintComponent
+     * const BlueprintComponent = await prisma.blueprintComponent.delete({
+     *   where: {
+     *     // ... filter to delete one BlueprintComponent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BlueprintComponentDeleteArgs>(args: SelectSubset<T, BlueprintComponentDeleteArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BlueprintComponent.
+     * @param {BlueprintComponentUpdateArgs} args - Arguments to update one BlueprintComponent.
+     * @example
+     * // Update one BlueprintComponent
+     * const blueprintComponent = await prisma.blueprintComponent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BlueprintComponentUpdateArgs>(args: SelectSubset<T, BlueprintComponentUpdateArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BlueprintComponents.
+     * @param {BlueprintComponentDeleteManyArgs} args - Arguments to filter BlueprintComponents to delete.
+     * @example
+     * // Delete a few BlueprintComponents
+     * const { count } = await prisma.blueprintComponent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BlueprintComponentDeleteManyArgs>(args?: SelectSubset<T, BlueprintComponentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BlueprintComponents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlueprintComponentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BlueprintComponents
+     * const blueprintComponent = await prisma.blueprintComponent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BlueprintComponentUpdateManyArgs>(args: SelectSubset<T, BlueprintComponentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BlueprintComponent.
+     * @param {BlueprintComponentUpsertArgs} args - Arguments to update or create a BlueprintComponent.
+     * @example
+     * // Update or create a BlueprintComponent
+     * const blueprintComponent = await prisma.blueprintComponent.upsert({
+     *   create: {
+     *     // ... data to create a BlueprintComponent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BlueprintComponent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BlueprintComponentUpsertArgs>(args: SelectSubset<T, BlueprintComponentUpsertArgs<ExtArgs>>): Prisma__BlueprintComponentClient<$Result.GetResult<Prisma.$BlueprintComponentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BlueprintComponents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlueprintComponentCountArgs} args - Arguments to filter BlueprintComponents to count.
+     * @example
+     * // Count the number of BlueprintComponents
+     * const count = await prisma.blueprintComponent.count({
+     *   where: {
+     *     // ... the filter for the BlueprintComponents we want to count
+     *   }
+     * })
+    **/
+    count<T extends BlueprintComponentCountArgs>(
+      args?: Subset<T, BlueprintComponentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BlueprintComponentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BlueprintComponent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlueprintComponentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BlueprintComponentAggregateArgs>(args: Subset<T, BlueprintComponentAggregateArgs>): Prisma.PrismaPromise<GetBlueprintComponentAggregateType<T>>
+
+    /**
+     * Group by BlueprintComponent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlueprintComponentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BlueprintComponentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BlueprintComponentGroupByArgs['orderBy'] }
+        : { orderBy?: BlueprintComponentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BlueprintComponentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlueprintComponentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BlueprintComponent model
+   */
+  readonly fields: BlueprintComponentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BlueprintComponent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BlueprintComponentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    blueprint<T extends AgentScreenBlueprintDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AgentScreenBlueprintDefaultArgs<ExtArgs>>): Prisma__AgentScreenBlueprintClient<$Result.GetResult<Prisma.$AgentScreenBlueprintPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BlueprintComponent model
+   */ 
+  interface BlueprintComponentFieldRefs {
+    readonly id: FieldRef<"BlueprintComponent", 'String'>
+    readonly blueprintId: FieldRef<"BlueprintComponent", 'String'>
+    readonly label: FieldRef<"BlueprintComponent", 'String'>
+    readonly intent: FieldRef<"BlueprintComponent", 'String'>
+    readonly importance: FieldRef<"BlueprintComponent", 'String'>
+    readonly createdAt: FieldRef<"BlueprintComponent", 'DateTime'>
+    readonly updatedAt: FieldRef<"BlueprintComponent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BlueprintComponent findUnique
+   */
+  export type BlueprintComponentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlueprintComponent to fetch.
+     */
+    where: BlueprintComponentWhereUniqueInput
+  }
+
+  /**
+   * BlueprintComponent findUniqueOrThrow
+   */
+  export type BlueprintComponentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlueprintComponent to fetch.
+     */
+    where: BlueprintComponentWhereUniqueInput
+  }
+
+  /**
+   * BlueprintComponent findFirst
+   */
+  export type BlueprintComponentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlueprintComponent to fetch.
+     */
+    where?: BlueprintComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlueprintComponents to fetch.
+     */
+    orderBy?: BlueprintComponentOrderByWithRelationInput | BlueprintComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlueprintComponents.
+     */
+    cursor?: BlueprintComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlueprintComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlueprintComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlueprintComponents.
+     */
+    distinct?: BlueprintComponentScalarFieldEnum | BlueprintComponentScalarFieldEnum[]
+  }
+
+  /**
+   * BlueprintComponent findFirstOrThrow
+   */
+  export type BlueprintComponentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlueprintComponent to fetch.
+     */
+    where?: BlueprintComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlueprintComponents to fetch.
+     */
+    orderBy?: BlueprintComponentOrderByWithRelationInput | BlueprintComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlueprintComponents.
+     */
+    cursor?: BlueprintComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlueprintComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlueprintComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlueprintComponents.
+     */
+    distinct?: BlueprintComponentScalarFieldEnum | BlueprintComponentScalarFieldEnum[]
+  }
+
+  /**
+   * BlueprintComponent findMany
+   */
+  export type BlueprintComponentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlueprintComponents to fetch.
+     */
+    where?: BlueprintComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlueprintComponents to fetch.
+     */
+    orderBy?: BlueprintComponentOrderByWithRelationInput | BlueprintComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BlueprintComponents.
+     */
+    cursor?: BlueprintComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlueprintComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlueprintComponents.
+     */
+    skip?: number
+    distinct?: BlueprintComponentScalarFieldEnum | BlueprintComponentScalarFieldEnum[]
+  }
+
+  /**
+   * BlueprintComponent create
+   */
+  export type BlueprintComponentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BlueprintComponent.
+     */
+    data: XOR<BlueprintComponentCreateInput, BlueprintComponentUncheckedCreateInput>
+  }
+
+  /**
+   * BlueprintComponent createMany
+   */
+  export type BlueprintComponentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BlueprintComponents.
+     */
+    data: BlueprintComponentCreateManyInput | BlueprintComponentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BlueprintComponent createManyAndReturn
+   */
+  export type BlueprintComponentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BlueprintComponents.
+     */
+    data: BlueprintComponentCreateManyInput | BlueprintComponentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BlueprintComponent update
+   */
+  export type BlueprintComponentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BlueprintComponent.
+     */
+    data: XOR<BlueprintComponentUpdateInput, BlueprintComponentUncheckedUpdateInput>
+    /**
+     * Choose, which BlueprintComponent to update.
+     */
+    where: BlueprintComponentWhereUniqueInput
+  }
+
+  /**
+   * BlueprintComponent updateMany
+   */
+  export type BlueprintComponentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BlueprintComponents.
+     */
+    data: XOR<BlueprintComponentUpdateManyMutationInput, BlueprintComponentUncheckedUpdateManyInput>
+    /**
+     * Filter which BlueprintComponents to update
+     */
+    where?: BlueprintComponentWhereInput
+  }
+
+  /**
+   * BlueprintComponent upsert
+   */
+  export type BlueprintComponentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BlueprintComponent to update in case it exists.
+     */
+    where: BlueprintComponentWhereUniqueInput
+    /**
+     * In case the BlueprintComponent found by the `where` argument doesn't exist, create a new BlueprintComponent with this data.
+     */
+    create: XOR<BlueprintComponentCreateInput, BlueprintComponentUncheckedCreateInput>
+    /**
+     * In case the BlueprintComponent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BlueprintComponentUpdateInput, BlueprintComponentUncheckedUpdateInput>
+  }
+
+  /**
+   * BlueprintComponent delete
+   */
+  export type BlueprintComponentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+    /**
+     * Filter which BlueprintComponent to delete.
+     */
+    where: BlueprintComponentWhereUniqueInput
+  }
+
+  /**
+   * BlueprintComponent deleteMany
+   */
+  export type BlueprintComponentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlueprintComponents to delete
+     */
+    where?: BlueprintComponentWhereInput
+  }
+
+  /**
+   * BlueprintComponent without action
+   */
+  export type BlueprintComponentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlueprintComponent
+     */
+    select?: BlueprintComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlueprintComponentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -227354,6 +229474,31 @@ export namespace Prisma {
   export type PlatformHealthHistoryScalarFieldEnum = (typeof PlatformHealthHistoryScalarFieldEnum)[keyof typeof PlatformHealthHistoryScalarFieldEnum]
 
 
+  export const AgentScreenBlueprintScalarFieldEnum: {
+    id: 'id',
+    screenRoute: 'screenRoute',
+    description: 'description',
+    reasoning: 'reasoning',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AgentScreenBlueprintScalarFieldEnum = (typeof AgentScreenBlueprintScalarFieldEnum)[keyof typeof AgentScreenBlueprintScalarFieldEnum]
+
+
+  export const BlueprintComponentScalarFieldEnum: {
+    id: 'id',
+    blueprintId: 'blueprintId',
+    label: 'label',
+    intent: 'intent',
+    importance: 'importance',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BlueprintComponentScalarFieldEnum = (typeof BlueprintComponentScalarFieldEnum)[keyof typeof BlueprintComponentScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -240360,6 +242505,131 @@ export namespace Prisma {
     maturityRatio?: FloatWithAggregatesFilter<"PlatformHealthHistory"> | number
     debtCount?: IntWithAggregatesFilter<"PlatformHealthHistory"> | number
     velocityRate?: IntWithAggregatesFilter<"PlatformHealthHistory"> | number
+  }
+
+  export type AgentScreenBlueprintWhereInput = {
+    AND?: AgentScreenBlueprintWhereInput | AgentScreenBlueprintWhereInput[]
+    OR?: AgentScreenBlueprintWhereInput[]
+    NOT?: AgentScreenBlueprintWhereInput | AgentScreenBlueprintWhereInput[]
+    id?: StringFilter<"AgentScreenBlueprint"> | string
+    screenRoute?: StringFilter<"AgentScreenBlueprint"> | string
+    description?: StringNullableFilter<"AgentScreenBlueprint"> | string | null
+    reasoning?: StringNullableFilter<"AgentScreenBlueprint"> | string | null
+    createdAt?: DateTimeFilter<"AgentScreenBlueprint"> | Date | string
+    updatedAt?: DateTimeFilter<"AgentScreenBlueprint"> | Date | string
+    requiredComponents?: BlueprintComponentListRelationFilter
+  }
+
+  export type AgentScreenBlueprintOrderByWithRelationInput = {
+    id?: SortOrder
+    screenRoute?: SortOrder
+    description?: SortOrderInput | SortOrder
+    reasoning?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    requiredComponents?: BlueprintComponentOrderByRelationAggregateInput
+  }
+
+  export type AgentScreenBlueprintWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    screenRoute?: string
+    AND?: AgentScreenBlueprintWhereInput | AgentScreenBlueprintWhereInput[]
+    OR?: AgentScreenBlueprintWhereInput[]
+    NOT?: AgentScreenBlueprintWhereInput | AgentScreenBlueprintWhereInput[]
+    description?: StringNullableFilter<"AgentScreenBlueprint"> | string | null
+    reasoning?: StringNullableFilter<"AgentScreenBlueprint"> | string | null
+    createdAt?: DateTimeFilter<"AgentScreenBlueprint"> | Date | string
+    updatedAt?: DateTimeFilter<"AgentScreenBlueprint"> | Date | string
+    requiredComponents?: BlueprintComponentListRelationFilter
+  }, "id" | "screenRoute">
+
+  export type AgentScreenBlueprintOrderByWithAggregationInput = {
+    id?: SortOrder
+    screenRoute?: SortOrder
+    description?: SortOrderInput | SortOrder
+    reasoning?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AgentScreenBlueprintCountOrderByAggregateInput
+    _max?: AgentScreenBlueprintMaxOrderByAggregateInput
+    _min?: AgentScreenBlueprintMinOrderByAggregateInput
+  }
+
+  export type AgentScreenBlueprintScalarWhereWithAggregatesInput = {
+    AND?: AgentScreenBlueprintScalarWhereWithAggregatesInput | AgentScreenBlueprintScalarWhereWithAggregatesInput[]
+    OR?: AgentScreenBlueprintScalarWhereWithAggregatesInput[]
+    NOT?: AgentScreenBlueprintScalarWhereWithAggregatesInput | AgentScreenBlueprintScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AgentScreenBlueprint"> | string
+    screenRoute?: StringWithAggregatesFilter<"AgentScreenBlueprint"> | string
+    description?: StringNullableWithAggregatesFilter<"AgentScreenBlueprint"> | string | null
+    reasoning?: StringNullableWithAggregatesFilter<"AgentScreenBlueprint"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AgentScreenBlueprint"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AgentScreenBlueprint"> | Date | string
+  }
+
+  export type BlueprintComponentWhereInput = {
+    AND?: BlueprintComponentWhereInput | BlueprintComponentWhereInput[]
+    OR?: BlueprintComponentWhereInput[]
+    NOT?: BlueprintComponentWhereInput | BlueprintComponentWhereInput[]
+    id?: StringFilter<"BlueprintComponent"> | string
+    blueprintId?: StringFilter<"BlueprintComponent"> | string
+    label?: StringFilter<"BlueprintComponent"> | string
+    intent?: StringFilter<"BlueprintComponent"> | string
+    importance?: StringFilter<"BlueprintComponent"> | string
+    createdAt?: DateTimeFilter<"BlueprintComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"BlueprintComponent"> | Date | string
+    blueprint?: XOR<AgentScreenBlueprintRelationFilter, AgentScreenBlueprintWhereInput>
+  }
+
+  export type BlueprintComponentOrderByWithRelationInput = {
+    id?: SortOrder
+    blueprintId?: SortOrder
+    label?: SortOrder
+    intent?: SortOrder
+    importance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    blueprint?: AgentScreenBlueprintOrderByWithRelationInput
+  }
+
+  export type BlueprintComponentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BlueprintComponentWhereInput | BlueprintComponentWhereInput[]
+    OR?: BlueprintComponentWhereInput[]
+    NOT?: BlueprintComponentWhereInput | BlueprintComponentWhereInput[]
+    blueprintId?: StringFilter<"BlueprintComponent"> | string
+    label?: StringFilter<"BlueprintComponent"> | string
+    intent?: StringFilter<"BlueprintComponent"> | string
+    importance?: StringFilter<"BlueprintComponent"> | string
+    createdAt?: DateTimeFilter<"BlueprintComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"BlueprintComponent"> | Date | string
+    blueprint?: XOR<AgentScreenBlueprintRelationFilter, AgentScreenBlueprintWhereInput>
+  }, "id">
+
+  export type BlueprintComponentOrderByWithAggregationInput = {
+    id?: SortOrder
+    blueprintId?: SortOrder
+    label?: SortOrder
+    intent?: SortOrder
+    importance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BlueprintComponentCountOrderByAggregateInput
+    _max?: BlueprintComponentMaxOrderByAggregateInput
+    _min?: BlueprintComponentMinOrderByAggregateInput
+  }
+
+  export type BlueprintComponentScalarWhereWithAggregatesInput = {
+    AND?: BlueprintComponentScalarWhereWithAggregatesInput | BlueprintComponentScalarWhereWithAggregatesInput[]
+    OR?: BlueprintComponentScalarWhereWithAggregatesInput[]
+    NOT?: BlueprintComponentScalarWhereWithAggregatesInput | BlueprintComponentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BlueprintComponent"> | string
+    blueprintId?: StringWithAggregatesFilter<"BlueprintComponent"> | string
+    label?: StringWithAggregatesFilter<"BlueprintComponent"> | string
+    intent?: StringWithAggregatesFilter<"BlueprintComponent"> | string
+    importance?: StringWithAggregatesFilter<"BlueprintComponent"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"BlueprintComponent"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BlueprintComponent"> | Date | string
   }
 
   export type FamilyAppointmentWhereInput = {
@@ -257612,6 +259882,142 @@ export namespace Prisma {
     velocityRate?: IntFieldUpdateOperationsInput | number
   }
 
+  export type AgentScreenBlueprintCreateInput = {
+    id?: string
+    screenRoute: string
+    description?: string | null
+    reasoning?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requiredComponents?: BlueprintComponentCreateNestedManyWithoutBlueprintInput
+  }
+
+  export type AgentScreenBlueprintUncheckedCreateInput = {
+    id?: string
+    screenRoute: string
+    description?: string | null
+    reasoning?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requiredComponents?: BlueprintComponentUncheckedCreateNestedManyWithoutBlueprintInput
+  }
+
+  export type AgentScreenBlueprintUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenRoute?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requiredComponents?: BlueprintComponentUpdateManyWithoutBlueprintNestedInput
+  }
+
+  export type AgentScreenBlueprintUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenRoute?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requiredComponents?: BlueprintComponentUncheckedUpdateManyWithoutBlueprintNestedInput
+  }
+
+  export type AgentScreenBlueprintCreateManyInput = {
+    id?: string
+    screenRoute: string
+    description?: string | null
+    reasoning?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AgentScreenBlueprintUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenRoute?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AgentScreenBlueprintUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenRoute?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlueprintComponentCreateInput = {
+    id?: string
+    label: string
+    intent: string
+    importance?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blueprint: AgentScreenBlueprintCreateNestedOneWithoutRequiredComponentsInput
+  }
+
+  export type BlueprintComponentUncheckedCreateInput = {
+    id?: string
+    blueprintId: string
+    label: string
+    intent: string
+    importance?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlueprintComponentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    intent?: StringFieldUpdateOperationsInput | string
+    importance?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blueprint?: AgentScreenBlueprintUpdateOneRequiredWithoutRequiredComponentsNestedInput
+  }
+
+  export type BlueprintComponentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blueprintId?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    intent?: StringFieldUpdateOperationsInput | string
+    importance?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlueprintComponentCreateManyInput = {
+    id?: string
+    blueprintId: string
+    label: string
+    intent: string
+    importance?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlueprintComponentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    intent?: StringFieldUpdateOperationsInput | string
+    importance?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlueprintComponentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blueprintId?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    intent?: StringFieldUpdateOperationsInput | string
+    importance?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -270149,6 +272555,78 @@ export namespace Prisma {
     maturityRatio?: SortOrder
     debtCount?: SortOrder
     velocityRate?: SortOrder
+  }
+
+  export type BlueprintComponentListRelationFilter = {
+    every?: BlueprintComponentWhereInput
+    some?: BlueprintComponentWhereInput
+    none?: BlueprintComponentWhereInput
+  }
+
+  export type BlueprintComponentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AgentScreenBlueprintCountOrderByAggregateInput = {
+    id?: SortOrder
+    screenRoute?: SortOrder
+    description?: SortOrder
+    reasoning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AgentScreenBlueprintMaxOrderByAggregateInput = {
+    id?: SortOrder
+    screenRoute?: SortOrder
+    description?: SortOrder
+    reasoning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AgentScreenBlueprintMinOrderByAggregateInput = {
+    id?: SortOrder
+    screenRoute?: SortOrder
+    description?: SortOrder
+    reasoning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AgentScreenBlueprintRelationFilter = {
+    is?: AgentScreenBlueprintWhereInput
+    isNot?: AgentScreenBlueprintWhereInput
+  }
+
+  export type BlueprintComponentCountOrderByAggregateInput = {
+    id?: SortOrder
+    blueprintId?: SortOrder
+    label?: SortOrder
+    intent?: SortOrder
+    importance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BlueprintComponentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    blueprintId?: SortOrder
+    label?: SortOrder
+    intent?: SortOrder
+    importance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BlueprintComponentMinOrderByAggregateInput = {
+    id?: SortOrder
+    blueprintId?: SortOrder
+    label?: SortOrder
+    intent?: SortOrder
+    importance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type FamilyAppointmentCountOrderByAggregateInput = {
@@ -285558,6 +288036,62 @@ export namespace Prisma {
     upsert?: SysComponentUpsertWithoutResourcesInput
     connect?: SysComponentWhereUniqueInput
     update?: XOR<XOR<SysComponentUpdateToOneWithWhereWithoutResourcesInput, SysComponentUpdateWithoutResourcesInput>, SysComponentUncheckedUpdateWithoutResourcesInput>
+  }
+
+  export type BlueprintComponentCreateNestedManyWithoutBlueprintInput = {
+    create?: XOR<BlueprintComponentCreateWithoutBlueprintInput, BlueprintComponentUncheckedCreateWithoutBlueprintInput> | BlueprintComponentCreateWithoutBlueprintInput[] | BlueprintComponentUncheckedCreateWithoutBlueprintInput[]
+    connectOrCreate?: BlueprintComponentCreateOrConnectWithoutBlueprintInput | BlueprintComponentCreateOrConnectWithoutBlueprintInput[]
+    createMany?: BlueprintComponentCreateManyBlueprintInputEnvelope
+    connect?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+  }
+
+  export type BlueprintComponentUncheckedCreateNestedManyWithoutBlueprintInput = {
+    create?: XOR<BlueprintComponentCreateWithoutBlueprintInput, BlueprintComponentUncheckedCreateWithoutBlueprintInput> | BlueprintComponentCreateWithoutBlueprintInput[] | BlueprintComponentUncheckedCreateWithoutBlueprintInput[]
+    connectOrCreate?: BlueprintComponentCreateOrConnectWithoutBlueprintInput | BlueprintComponentCreateOrConnectWithoutBlueprintInput[]
+    createMany?: BlueprintComponentCreateManyBlueprintInputEnvelope
+    connect?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+  }
+
+  export type BlueprintComponentUpdateManyWithoutBlueprintNestedInput = {
+    create?: XOR<BlueprintComponentCreateWithoutBlueprintInput, BlueprintComponentUncheckedCreateWithoutBlueprintInput> | BlueprintComponentCreateWithoutBlueprintInput[] | BlueprintComponentUncheckedCreateWithoutBlueprintInput[]
+    connectOrCreate?: BlueprintComponentCreateOrConnectWithoutBlueprintInput | BlueprintComponentCreateOrConnectWithoutBlueprintInput[]
+    upsert?: BlueprintComponentUpsertWithWhereUniqueWithoutBlueprintInput | BlueprintComponentUpsertWithWhereUniqueWithoutBlueprintInput[]
+    createMany?: BlueprintComponentCreateManyBlueprintInputEnvelope
+    set?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    disconnect?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    delete?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    connect?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    update?: BlueprintComponentUpdateWithWhereUniqueWithoutBlueprintInput | BlueprintComponentUpdateWithWhereUniqueWithoutBlueprintInput[]
+    updateMany?: BlueprintComponentUpdateManyWithWhereWithoutBlueprintInput | BlueprintComponentUpdateManyWithWhereWithoutBlueprintInput[]
+    deleteMany?: BlueprintComponentScalarWhereInput | BlueprintComponentScalarWhereInput[]
+  }
+
+  export type BlueprintComponentUncheckedUpdateManyWithoutBlueprintNestedInput = {
+    create?: XOR<BlueprintComponentCreateWithoutBlueprintInput, BlueprintComponentUncheckedCreateWithoutBlueprintInput> | BlueprintComponentCreateWithoutBlueprintInput[] | BlueprintComponentUncheckedCreateWithoutBlueprintInput[]
+    connectOrCreate?: BlueprintComponentCreateOrConnectWithoutBlueprintInput | BlueprintComponentCreateOrConnectWithoutBlueprintInput[]
+    upsert?: BlueprintComponentUpsertWithWhereUniqueWithoutBlueprintInput | BlueprintComponentUpsertWithWhereUniqueWithoutBlueprintInput[]
+    createMany?: BlueprintComponentCreateManyBlueprintInputEnvelope
+    set?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    disconnect?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    delete?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    connect?: BlueprintComponentWhereUniqueInput | BlueprintComponentWhereUniqueInput[]
+    update?: BlueprintComponentUpdateWithWhereUniqueWithoutBlueprintInput | BlueprintComponentUpdateWithWhereUniqueWithoutBlueprintInput[]
+    updateMany?: BlueprintComponentUpdateManyWithWhereWithoutBlueprintInput | BlueprintComponentUpdateManyWithWhereWithoutBlueprintInput[]
+    deleteMany?: BlueprintComponentScalarWhereInput | BlueprintComponentScalarWhereInput[]
+  }
+
+  export type AgentScreenBlueprintCreateNestedOneWithoutRequiredComponentsInput = {
+    create?: XOR<AgentScreenBlueprintCreateWithoutRequiredComponentsInput, AgentScreenBlueprintUncheckedCreateWithoutRequiredComponentsInput>
+    connectOrCreate?: AgentScreenBlueprintCreateOrConnectWithoutRequiredComponentsInput
+    connect?: AgentScreenBlueprintWhereUniqueInput
+  }
+
+  export type AgentScreenBlueprintUpdateOneRequiredWithoutRequiredComponentsNestedInput = {
+    create?: XOR<AgentScreenBlueprintCreateWithoutRequiredComponentsInput, AgentScreenBlueprintUncheckedCreateWithoutRequiredComponentsInput>
+    connectOrCreate?: AgentScreenBlueprintCreateOrConnectWithoutRequiredComponentsInput
+    upsert?: AgentScreenBlueprintUpsertWithoutRequiredComponentsInput
+    connect?: AgentScreenBlueprintWhereUniqueInput
+    update?: XOR<XOR<AgentScreenBlueprintUpdateToOneWithWhereWithoutRequiredComponentsInput, AgentScreenBlueprintUpdateWithoutRequiredComponentsInput>, AgentScreenBlueprintUncheckedUpdateWithoutRequiredComponentsInput>
   }
 
   export type PatientCreateNestedManyWithoutClinicInput = {
@@ -368703,6 +371237,115 @@ export namespace Prisma {
     consumedApis?: ApiContractUncheckedUpdateManyWithoutConsumerNestedInput
   }
 
+  export type BlueprintComponentCreateWithoutBlueprintInput = {
+    id?: string
+    label: string
+    intent: string
+    importance?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlueprintComponentUncheckedCreateWithoutBlueprintInput = {
+    id?: string
+    label: string
+    intent: string
+    importance?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlueprintComponentCreateOrConnectWithoutBlueprintInput = {
+    where: BlueprintComponentWhereUniqueInput
+    create: XOR<BlueprintComponentCreateWithoutBlueprintInput, BlueprintComponentUncheckedCreateWithoutBlueprintInput>
+  }
+
+  export type BlueprintComponentCreateManyBlueprintInputEnvelope = {
+    data: BlueprintComponentCreateManyBlueprintInput | BlueprintComponentCreateManyBlueprintInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BlueprintComponentUpsertWithWhereUniqueWithoutBlueprintInput = {
+    where: BlueprintComponentWhereUniqueInput
+    update: XOR<BlueprintComponentUpdateWithoutBlueprintInput, BlueprintComponentUncheckedUpdateWithoutBlueprintInput>
+    create: XOR<BlueprintComponentCreateWithoutBlueprintInput, BlueprintComponentUncheckedCreateWithoutBlueprintInput>
+  }
+
+  export type BlueprintComponentUpdateWithWhereUniqueWithoutBlueprintInput = {
+    where: BlueprintComponentWhereUniqueInput
+    data: XOR<BlueprintComponentUpdateWithoutBlueprintInput, BlueprintComponentUncheckedUpdateWithoutBlueprintInput>
+  }
+
+  export type BlueprintComponentUpdateManyWithWhereWithoutBlueprintInput = {
+    where: BlueprintComponentScalarWhereInput
+    data: XOR<BlueprintComponentUpdateManyMutationInput, BlueprintComponentUncheckedUpdateManyWithoutBlueprintInput>
+  }
+
+  export type BlueprintComponentScalarWhereInput = {
+    AND?: BlueprintComponentScalarWhereInput | BlueprintComponentScalarWhereInput[]
+    OR?: BlueprintComponentScalarWhereInput[]
+    NOT?: BlueprintComponentScalarWhereInput | BlueprintComponentScalarWhereInput[]
+    id?: StringFilter<"BlueprintComponent"> | string
+    blueprintId?: StringFilter<"BlueprintComponent"> | string
+    label?: StringFilter<"BlueprintComponent"> | string
+    intent?: StringFilter<"BlueprintComponent"> | string
+    importance?: StringFilter<"BlueprintComponent"> | string
+    createdAt?: DateTimeFilter<"BlueprintComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"BlueprintComponent"> | Date | string
+  }
+
+  export type AgentScreenBlueprintCreateWithoutRequiredComponentsInput = {
+    id?: string
+    screenRoute: string
+    description?: string | null
+    reasoning?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AgentScreenBlueprintUncheckedCreateWithoutRequiredComponentsInput = {
+    id?: string
+    screenRoute: string
+    description?: string | null
+    reasoning?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AgentScreenBlueprintCreateOrConnectWithoutRequiredComponentsInput = {
+    where: AgentScreenBlueprintWhereUniqueInput
+    create: XOR<AgentScreenBlueprintCreateWithoutRequiredComponentsInput, AgentScreenBlueprintUncheckedCreateWithoutRequiredComponentsInput>
+  }
+
+  export type AgentScreenBlueprintUpsertWithoutRequiredComponentsInput = {
+    update: XOR<AgentScreenBlueprintUpdateWithoutRequiredComponentsInput, AgentScreenBlueprintUncheckedUpdateWithoutRequiredComponentsInput>
+    create: XOR<AgentScreenBlueprintCreateWithoutRequiredComponentsInput, AgentScreenBlueprintUncheckedCreateWithoutRequiredComponentsInput>
+    where?: AgentScreenBlueprintWhereInput
+  }
+
+  export type AgentScreenBlueprintUpdateToOneWithWhereWithoutRequiredComponentsInput = {
+    where?: AgentScreenBlueprintWhereInput
+    data: XOR<AgentScreenBlueprintUpdateWithoutRequiredComponentsInput, AgentScreenBlueprintUncheckedUpdateWithoutRequiredComponentsInput>
+  }
+
+  export type AgentScreenBlueprintUpdateWithoutRequiredComponentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenRoute?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AgentScreenBlueprintUncheckedUpdateWithoutRequiredComponentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenRoute?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PatientCreateWithoutClinicInput = {
     id?: string
     firstName: string
@@ -380419,6 +383062,42 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BlueprintComponentCreateManyBlueprintInput = {
+    id?: string
+    label: string
+    intent: string
+    importance?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlueprintComponentUpdateWithoutBlueprintInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    intent?: StringFieldUpdateOperationsInput | string
+    importance?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlueprintComponentUncheckedUpdateWithoutBlueprintInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    intent?: StringFieldUpdateOperationsInput | string
+    importance?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlueprintComponentUncheckedUpdateManyWithoutBlueprintInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    intent?: StringFieldUpdateOperationsInput | string
+    importance?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PatientCreateManyClinicInput = {
     id?: string
     firstName: string
@@ -380604,6 +383283,10 @@ export namespace Prisma {
      * @deprecated Use SysComponentCountOutputTypeDefaultArgs instead
      */
     export type SysComponentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SysComponentCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AgentScreenBlueprintCountOutputTypeDefaultArgs instead
+     */
+    export type AgentScreenBlueprintCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AgentScreenBlueprintCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ClinicCountOutputTypeDefaultArgs instead
      */
@@ -381172,6 +383855,14 @@ export namespace Prisma {
      * @deprecated Use PlatformHealthHistoryDefaultArgs instead
      */
     export type PlatformHealthHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformHealthHistoryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AgentScreenBlueprintDefaultArgs instead
+     */
+    export type AgentScreenBlueprintArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AgentScreenBlueprintDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BlueprintComponentDefaultArgs instead
+     */
+    export type BlueprintComponentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BlueprintComponentDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

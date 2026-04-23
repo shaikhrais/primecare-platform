@@ -21,6 +21,8 @@ enum ExecutionGateCategory {
   aura,
   compliance,
   interaction,
+  governance,
+  structuralIntegrity,
 }
 
 /// Status of an individual execution gate.

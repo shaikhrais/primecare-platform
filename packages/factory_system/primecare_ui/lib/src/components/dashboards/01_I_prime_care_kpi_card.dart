@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimeCareKpiCard extends ConsumerWidget {
   final String title;
@@ -15,7 +14,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
     required this.title,
     required this.value,
     required this.subtitle,
-    required this.icon,
+    this.icon = LucideIcons.activity,
     this.isPinned = false,
     required this.onPinToggle,
   });

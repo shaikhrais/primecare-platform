@@ -1,0 +1,15 @@
+// Layer: 02_MODELS_FOUNDATION
+import 'package:freezed_annotation/freezed_annotation.dart';
+import '02_M_developer_samples_data.dart';
+
+part '02_M_developer_samples_state.freezed.dart';
+
+@freezed
+abstract class DeveloperSamplesState with _$DeveloperSamplesState {
+  const factory DeveloperSamplesState.initial() = _Initial;
+  const factory DeveloperSamplesState.loading() = _Loading;
+  const factory DeveloperSamplesState.loaded({
+    required DeveloperSamplesData data,
+  }) = _Loaded;
+  const factory DeveloperSamplesState.error(String message) = _Error;
+}

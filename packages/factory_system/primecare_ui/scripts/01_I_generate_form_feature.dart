@@ -57,7 +57,7 @@ String _toCamelCase(String pascalCase) {
 String _generateNotifierContent(String featureName) {
   return '''import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_core/primecare_core.dart'; // Result.guardFuture, AsyncValue, executionGateProvider
+import 'package:flutter_core/primecare_core.dart'; // Result.guardFuture, AsyncValue, executionGateProvider
 
 class ${featureName}Payload {
   final Map<String, dynamic> data;

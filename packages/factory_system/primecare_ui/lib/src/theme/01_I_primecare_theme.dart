@@ -479,10 +479,15 @@ class _PrimeCareColors {
       isDark ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
   Color get borderLight =>
       isDark ? PrimeCareColors.slate700 : PrimeCareColors.slate200;
+  Color get outlineVariant => borderLight;
   Color get background =>
       isDark ? PrimeCareColors.radarDark : PrimeCareColors.white;
   Color get surface =>
       isDark ? PrimeCareColors.slate800 : PrimeCareColors.white;
+  Color get onSurface =>
+      isDark ? PrimeCareColors.white : PrimeCareColors.radarDark;
+  Color get onSurfaceVariant =>
+      isDark ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
 
   // Additional aliases found in dashboards
   Color get roseRed => PrimeCareColors.rose;

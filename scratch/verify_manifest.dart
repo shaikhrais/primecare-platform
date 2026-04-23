@@ -8,7 +8,7 @@ void main() {
   }
 
   final lines = manifestFile.readAsLinesSync();
-  final exportRegex = RegExp(r"export 'package:primecare_core/(.*)';");
+  final exportRegex = RegExp(r"export 'package:flutter_core/(.*)';");
 
   for (final line in lines) {
     final match = exportRegex.firstMatch(line);

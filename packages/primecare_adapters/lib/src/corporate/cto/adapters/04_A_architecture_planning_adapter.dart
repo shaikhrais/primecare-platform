@@ -160,6 +160,40 @@ class ArchitecturePlanningViewModel {
       timestamp: DateTime.now().toIso8601String(),
     );
   }
+
+  DashboardMetrics get metrics => DashboardMetrics(
+        kpis: [
+          KpiMetric(
+            title: 'Linked Layers',
+            value: dbLinkedLayers.length.toString(),
+            status: 'positive',
+            trend: 'stable',
+          ),
+          KpiMetric(
+            title: 'Flagged Functions',
+            value: flaggedFunctionsWithoutAPIs.toString(),
+            status: flaggedFunctionsWithoutAPIs > 0 ? 'warning' : 'positive',
+            trend: flaggedFunctionsWithoutAPIs > 0 ? 'down' : 'stable',
+          ),
+          KpiMetric(
+            title: 'Missing Screens',
+            value: missingComponents.length.toString(),
+            status: missingComponents.isNotEmpty ? 'critical' : 'positive',
+            trend: missingComponents.isNotEmpty ? 'down' : 'stable',
+          ),
+        ],
+        recentActivity: [],
+        insights: [
+          DashboardInsight(
+            type: 'architecture_integrity',
+            title: 'System Stability',
+            description: flaggedFunctionsWithoutAPIs > 0 
+              ? 'Warning: $flaggedFunctionsWithoutAPIs functions are missing API associations.'
+              : 'Architecture integrity is within optimal parameters.',
+            impact: flaggedFunctionsWithoutAPIs > 0 ? InsightImpact.caution : InsightImpact.positive,
+          ),
+        ],
+      );
 }
 
 // --- The Adapter ---

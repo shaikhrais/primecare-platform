@@ -1,8 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class AuraFinancialHud extends StatelessWidget {
   final List<IntelligenceInsight> insights;
@@ -146,10 +145,13 @@ class _FinancialInsightTile extends StatelessWidget {
   Color _getImpactColor(InsightImpact impact) {
     switch (impact) {
       case InsightImpact.positive:
+      case InsightImpact.growth:
         return const Color(0xFF10B981);
       case InsightImpact.caution:
+      case InsightImpact.warning:
         return const Color(0xFFF59E0B);
       case InsightImpact.alert:
+      case InsightImpact.critical:
         return const Color(0xFFEF4444);
       case InsightImpact.info:
         return const Color(0xFF3B82F6);
@@ -159,10 +161,13 @@ class _FinancialInsightTile extends StatelessWidget {
   IconData _getImpactIcon(InsightImpact impact) {
     switch (impact) {
       case InsightImpact.positive:
+      case InsightImpact.growth:
         return LucideIcons.trendingUp;
       case InsightImpact.caution:
+      case InsightImpact.warning:
         return LucideIcons.alertTriangle;
       case InsightImpact.alert:
+      case InsightImpact.critical:
         return LucideIcons.zap;
       case InsightImpact.info:
         return LucideIcons.info;

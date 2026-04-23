@@ -4,6 +4,20 @@ import '01_I_aura_pulse_service.dart';
 import '01_I_aura_command_service.dart';
 import 'src/models/02_M_aura_event.dart';
 
+/// Track the current institutional context (e.g., active office or feature).
+/// This allows Aura to surface screen-specific insights and commands.
+class AuraContextNotifier extends Notifier<String?> {
+  @override
+  String? build() => null;
+
+  void update(String? context) => state = context;
+}
+
+final auraContextProvider =
+    NotifierProvider<AuraContextNotifier, String?>(() {
+      return AuraContextNotifier();
+    });
+
 final auraPulseServiceProvider = Provider<AuraPulseService>((ref) {
   final service = AuraPulseService(ref);
   service.start();
@@ -109,4 +123,11 @@ final auraIntentProvider = Provider.autoDispose((ref) {
       return null;
     },
   );
+});
+
+/// Surfaces contextual suggestions based on the active platform context.
+final auraContextualSuggestionsProvider = Provider<List<String>>((ref) {
+  final context = ref.watch(auraContextProvider);
+  final service = ref.watch(auraCommandServiceProvider);
+  return service.getSuggestions(context: context);
 });

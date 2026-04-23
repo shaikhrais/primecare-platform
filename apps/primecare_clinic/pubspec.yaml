@@ -18,7 +18,7 @@ dependencies:
   easy_localization: ^3.0.8
   lucide_icons: ^0.257.0
   fl_chart: ^1.2.0
-  primecare_core:
+  flutter_core:
     path: ../../packages/flutter_core
   primecare_adapters:
     path: ../../packages/primecare_adapters
@@ -30,3 +30,5 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 flutter:
   uses-material-design: true
+  assets:
+    - assets/data/

@@ -1,4 +1,4 @@
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../screens/dashboard.dart';

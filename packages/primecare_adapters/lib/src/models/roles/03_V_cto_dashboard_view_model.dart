@@ -13,10 +13,21 @@ class CtoDashboardViewModel extends PrimeCareDashboardViewModel {
   });
 
   factory CtoDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
-    return CtoDashboardViewModel(
-      metrics: metrics,
-      insights: [],
-    );
+    try {
+      return CtoDashboardViewModel(
+        metrics: metrics,
+        insights: metrics.insights
+            .map((i) => IntelligenceInsight.fromDashboardInsight(i))
+            .toList(),
+      );
+    } catch (e) {
+      // Return a safe degraded state if mapping fails
+      return CtoDashboardViewModel(
+        metrics: metrics,
+        insights: [],
+        isOfflineFallback: true,
+      );
+    }
   }
 
   factory CtoDashboardViewModel.fromJson(Map<String, dynamic> json) {

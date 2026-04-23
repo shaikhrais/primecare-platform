@@ -1,5 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import '../../theme/01_I_primecare_theme.dart';
 import '../01_I_primecare_skeleton.dart';
 
@@ -104,6 +105,52 @@ class DashboardErrorWidget extends StatelessWidget {
         ),
       ),
     ),
+    );
+  }
+}
+
+/// A premium placeholder widget for dashboards when the Aura pulse is stable and no anomalies are present.
+class AuraEventStableWidget extends StatelessWidget {
+  const AuraEventStableWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = PrimeCareTheme.of(context);
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(theme.spacing.xl),
+      decoration: BoxDecoration(
+        color: theme.colors.primary.withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(theme.radii.lg),
+        border: Border.all(color: theme.colors.primary.withValues(alpha: 0.08)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            LucideIcons.shieldCheck,
+            color: theme.colors.primary.withValues(alpha: 0.4),
+            size: 32,
+          ),
+          SizedBox(height: theme.spacing.md),
+          Text(
+            'SYSTEM STABLE',
+            style: theme.typography.labelMedium.copyWith(
+              color: theme.colors.primary.withValues(alpha: 0.6),
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: theme.spacing.xs),
+          Text(
+            'Aura Pulse monitoring active • No critical anomalies detected',
+            style: theme.typography.bodySmall.copyWith(
+              color: theme.colors.slateGray,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

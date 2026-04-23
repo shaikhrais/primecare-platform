@@ -1,0 +1,18 @@
+// Layer: 02_MODELS_FOUNDATION
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part '02_M_rpn_data.freezed.dart';
+part '02_M_rpn_data.g.dart';
+
+@freezed
+abstract class RpnData with _$RpnData {
+  const factory RpnData({required Map<String, dynamic> metrics}) = _RpnData;
+
+  factory RpnData.fromJson(Map<String, dynamic> json) =>
+      _$RpnDataFromJson(json);
+
+  factory RpnData.fromDomain(Map<String, dynamic> data) =>
+      RpnData(metrics: data);
+
+  factory RpnData.mock() => const RpnData(metrics: {});
+}

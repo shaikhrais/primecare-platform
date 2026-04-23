@@ -1,9 +1,10 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/src/components/layouts/01_I_master_layout.dart';
+import 'package:primecare_ui/src/screens/common/05_U_dynamic_role_dashboard_screen.dart';
 
 void main() {
   late SharedPreferences mockPrefs;

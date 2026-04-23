@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/components/01_I_fallback_state_wrapper.dart';
 
 class AssemblyLine extends StatelessWidget {

@@ -18,7 +18,7 @@ dependencies:
   easy_localization: ^3.0.8
   lucide_icons: ^0.257.0
   fl_chart: ^1.2.0
-  primecare_core:
+  flutter_core:
     path: ../../flutter_core
   primecare_adapters:
     path: ../../primecare_adapters
@@ -26,6 +26,8 @@ dependencies:
   pdf: ^3.12.0
   csv: ^8.0.0
   printing: ^5.14.3
+  freezed_annotation: any
+  equatable: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

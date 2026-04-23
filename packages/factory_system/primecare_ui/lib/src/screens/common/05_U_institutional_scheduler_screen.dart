@@ -1,9 +1,7 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/components/scheduler/01_I_prime_care_multi_staff_grid.dart';
 import 'package:primecare_ui/src/components/scheduler/01_I_institutional_booking_dialog.dart';
-import 'package:primecare_ui/src/components/scheduler/01_I_aura_insight_card.dart';
 
 class InstitutionalSchedulerScreen extends ConsumerStatefulWidget {
   const InstitutionalSchedulerScreen({super.key});
@@ -17,6 +15,14 @@ class _InstitutionalSchedulerScreenState
     extends ConsumerState<InstitutionalSchedulerScreen> {
   DateTime _selectedDate = DateTime.now();
   bool _showResources = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(auraContextProvider.notifier).update('Institutional Scheduler');
+    });
+  }
 
   Future<void> _handleNewAppointment(BuildContext context) async {
     final scheduleAsync = ref.read(horizonScheduleProvider);

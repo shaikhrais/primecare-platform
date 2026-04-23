@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// A floating diagnostic overlay that lets developers/engineers pull the
 /// execution trace of the current session to diagnose dynamic failures.

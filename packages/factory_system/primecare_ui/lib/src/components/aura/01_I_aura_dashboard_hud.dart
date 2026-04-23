@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// A high-fidelity Dashboard HUD that displays real-time intelligence pulses from Aura.
 class AuraDashboardHud extends ConsumerStatefulWidget {
@@ -18,6 +17,11 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
   @override
   void initState() {
     super.initState();
+    
+    // ✅ MECHANICAL STABILITY: Mark the system as stable once the HUD hydrates.
+    // This stops the auto-healing loop from attempting further resets.
+    SystemRecoveryManager.markStable();
+
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
@@ -264,18 +268,22 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           ),
         ),
         const SizedBox(width: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            'VIEW DETAILS',
-            style: TextStyle(
-              color: color,
-              fontSize: 10,
-              fontWeight: FontWeight.w900,
+        InkWell(
+          onTap: () => AuraBriefingPanel.show(context),
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              'VIEW DETAILS',
+              style: TextStyle(
+                color: color,
+                fontSize: 10,
+                fontWeight: FontWeight.w900,
+              ),
             ),
           ),
         ),
@@ -286,12 +294,15 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
   Color _getColor(InsightImpact impact) {
     switch (impact) {
       case InsightImpact.alert:
+      case InsightImpact.critical:
         return const Color(0xFFEF4444); // Red
       case InsightImpact.caution:
+      case InsightImpact.warning:
         return const Color(0xFFF59E0B); // Amber
       case InsightImpact.positive:
+      case InsightImpact.growth:
         return const Color(0xFF10B981); // Emerald
-      default:
+      case InsightImpact.info:
         return const Color(0xFF6366F1); // Indigo
     }
   }

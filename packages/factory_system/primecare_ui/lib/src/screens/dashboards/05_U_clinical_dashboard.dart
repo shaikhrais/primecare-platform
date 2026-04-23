@@ -1,6 +1,5 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:flutter/material.dart';
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 import 'package:primecare_ui/src/components/forms/clinical/01_I_vitals_capture_form.dart';
 import 'package:primecare_ui/src/components/forms/clinical/01_I_patient_intake_form.dart';

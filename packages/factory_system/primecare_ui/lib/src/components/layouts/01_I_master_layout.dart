@@ -1,11 +1,11 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/src/components/layouts/01_I_admin_layout.dart';
 import 'package:primecare_ui/src/components/layouts/01_I_provider_layout.dart';
 import 'package:primecare_ui/src/components/layouts/01_I_client_layout.dart';
 import 'package:primecare_ui/src/components/diagnostic/01_I_execution_gate_overlay.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 
 enum AppShellType { admin, provider, client, none }
 
@@ -29,6 +29,17 @@ class MasterLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 1. Monitor Platform Resilience
+    ref.listen(selfHealingProvider, (previous, next) {
+      if (next.isLockoutActive &&
+          (previous == null || !previous.isLockoutActive)) {
+        // In a real production app, this would trigger an automated Sentry/Telemetry report
+        // with the full hydration stack trace.
+        debugPrint(
+            '[RESILIENCE] Catastrophic hydration failure on: ${next.failingRouteId}');
+      }
+    });
+
     // Generate a strictly local animation for the inner child whenever the page URL changes.
     // This physically prevents the Top Bar and Sidebar from reloading, and smoothly cross-fades the middle content.
     final String currentUri = GoRouterState.of(context).uri.toString();

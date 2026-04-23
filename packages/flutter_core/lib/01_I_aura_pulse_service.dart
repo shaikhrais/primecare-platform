@@ -30,7 +30,9 @@ class AuraPulseService {
         return;
       }
       try {
-        if (_random.nextDouble() > 0.7) {
+        if (_random.nextDouble() > 0.8) {
+          _emitPredictiveEvent();
+        } else if (_random.nextDouble() > 0.6) {
           _emitAnomaly();
         } else {
           telemetry.passGate(
@@ -125,5 +127,42 @@ class AuraPulseService {
 
       _controller.add(event);
     }
+  }
+
+  void _emitPredictiveEvent() {
+    final typeValue = _random.nextDouble();
+    late AuraEvent event;
+
+    if (typeValue > 0.5) {
+      event = AuraEvent(
+        id: 'pred_staff_${DateTime.now().millisecondsSinceEpoch}',
+        type: AuraEventType.predictedStaffingGap,
+        title: 'Anticipated Staffing Gap',
+        description:
+            'Trend analysis predicts a 15% staffing deficit for the upcoming holiday weekend. Mitigation suggested.',
+        impact: InsightImpact.caution,
+        timestamp: DateTime.now(),
+        isPredictive: true,
+      );
+    } else {
+      event = AuraEvent(
+        id: 'pred_budget_${DateTime.now().millisecondsSinceEpoch}',
+        type: AuraEventType.predictedBudgetOverrun,
+        title: 'Projected Budget Overrun',
+        description:
+            'Current spending velocity suggests a potential budget threshold breach in Q3. Recommending audit.',
+        impact: InsightImpact.caution,
+        timestamp: DateTime.now(),
+        isPredictive: true,
+      );
+    }
+
+    _ref.read<ExecutionGateService>(executionGateProvider).passGate(
+      ExecutionGateCategory.aura,
+      'Aura PREDICTIVE Event Emitted: ${event.title}',
+      metadata: {'id': event.id, 'isPredictive': true},
+    );
+
+    _controller.add(event);
   }
 }

@@ -15,4 +15,13 @@ class ClinicalRoutes {
       '/offices/clinical/roles/intake_coordinator/referrals';
   static const String intakeCoordinatorAssessments =
       '/offices/clinical/roles/intake_coordinator/assessments';
+
+  static const String rnDashboard = '/offices/clinical/roles/rn/dashboard';
+  static const String rmtDashboard = '/offices/clinical/roles/rmt/dashboard';
+  static const String nurseDashboard = '/offices/clinical/roles/nurse/dashboard';
+  static const String physicianDashboard = '/offices/clinical/roles/physician/dashboard';
+  static const String pswDashboard = '/offices/clinical/roles/psw/dashboard';
+  static const String careGiverDashboard = '/offices/clinical/roles/caregiver/dashboard';
+  static const String therapistDashboard = '/offices/clinical/roles/therapist/dashboard';
+  static const String socialWorkerDashboard = '/offices/clinical/roles/social_worker/dashboard';
 }

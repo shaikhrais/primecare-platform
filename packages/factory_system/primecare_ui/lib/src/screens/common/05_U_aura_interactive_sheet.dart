@@ -1,9 +1,8 @@
 // Layer: 05_UI_PRESENTATION
 import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class AuraInteractiveSheet extends ConsumerStatefulWidget {
   const AuraInteractiveSheet({super.key});
@@ -58,7 +57,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
   @override
   Widget build(BuildContext context) {
     final auraIntent = ref.watch(auraIntentProvider);
-    final suggestions = ref.read(auraCommandServiceProvider).getSuggestions();
+    final suggestions = ref.watch(auraContextualSuggestionsProvider);
 
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),

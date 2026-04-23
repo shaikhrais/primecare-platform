@@ -60,6 +60,7 @@ class FranchiseRoutes {
       '/offices/franchise/roles/scheduler_coordinator/conflicts';
   static const String schedulerCoordinatorReports =
       '/offices/franchise/roles/scheduler_coordinator/reports';
+  static const String adminDashboard = '/offices/franchise/roles/admin/dashboard';
   static const String adminInvoices = '/offices/franchise/roles/admin/invoices';
   static const String adminPayments = '/offices/franchise/roles/admin/payments';
   static const String adminClaims = '/offices/franchise/roles/admin/claims';

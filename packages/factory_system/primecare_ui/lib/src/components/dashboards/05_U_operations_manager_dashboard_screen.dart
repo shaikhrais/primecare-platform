@@ -1,7 +1,5 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-Fidelity Operations Manager Dashboard
 /// Focuses on facility logistics, supply chain health, and institutional throughput.

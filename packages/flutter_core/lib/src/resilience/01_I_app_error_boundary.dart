@@ -3,12 +3,18 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
+import '../../config/01_I_resilience_config.dart';
+import '01_I_system_recovery_mode.dart';
+import '01_I_system_recovery_manager.dart';
 
 /// Production-grade error boundary that captures all unhandled exceptions
 /// across three vectors: widget build errors, async errors, and platform errors.
 ///
 /// This prevents the grey screen of death and ensures telemetry is always captured.
 class AppErrorBoundary {
+  /// Optional callback to reset the application state or reload the platform.
+  static VoidCallback? onReset;
+
   /// Wraps the entire app entrypoint with full error capture.
   ///
   /// Usage in main.dart:
@@ -24,8 +30,39 @@ class AppErrorBoundary {
   static void runGuarded(Future<void> Function() appRunner) async {
     // Vector 1: Widget build/layout/paint errors
     FlutterError.onError = (FlutterErrorDetails details) {
-      FlutterError.presentError(details);
       _reportFlutterError(details);
+    };
+
+    // Replace the "Grey Screen of Death" with a branded recovery UI
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      // Respect the ResilienceConfig toggle
+      if (!ResilienceConfig.enableRecoveryModeUI) {
+        return ErrorWidget(details.exception);
+      }
+
+      // 🛠️ MECHANICAL FIX ATTEMPT
+      final didTriggerHeal = SystemRecoveryManager.attemptAutoHeal(onReset);
+      if (didTriggerHeal) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SystemHealingPlaceholder(),
+        );
+      }
+
+      // If auto-healing fails or max attempts reached, show the full diagnostic trail
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark(),
+        home: SystemRecoveryMode(
+          error: details.exception,
+          stackTrace: details.stack,
+          onAttemptReset: () {
+            if (onReset != null) {
+              onReset!();
+            }
+          },
+        ),
+      );
     };
 
     // Vector 2: Platform-level errors (and all unhandled async errors in Flutter 3.3+)
@@ -75,7 +112,9 @@ class AppErrorBoundary {
   /// This ensures we never crash while trying to report a crash.
   static void _safeLog(String vector, Object error, StackTrace? stack) {
     try {
-      // Store in a static buffer that the telemetry service can pick up
+      if (_pendingErrors.length > _maxPendingErrors) {
+        _pendingErrors.removeAt(0);
+      }
       _pendingErrors.add(
         _BoundaryError(
           vector: vector,
@@ -84,11 +123,6 @@ class AppErrorBoundary {
           timestamp: DateTime.now(),
         ),
       );
-
-      // Cap the pending error buffer (prevent OOM from error storms)
-      if (_pendingErrors.length > _maxPendingErrors) {
-        _pendingErrors.removeAt(0);
-      }
     } catch (_) {
       // Absolute last resort — never crash while logging
     }
@@ -114,6 +148,45 @@ class AppErrorBoundary {
       );
     }
     _pendingErrors.clear();
+  }
+}
+
+/// A simple, non-crashing placeholder shown during the mechanical fix loop.
+class SystemHealingPlaceholder extends StatelessWidget {
+  const SystemHealingPlaceholder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF0D1117),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.cyanAccent),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'MECHANICAL FIX IN PROGRESS...',
+              style: TextStyle(
+                color: Colors.cyanAccent.withValues(alpha: 0.8),
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2.0,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Attempting to clear system error #${SystemRecoveryManager.healCount}',
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.5),
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

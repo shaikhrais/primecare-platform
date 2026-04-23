@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_router.dart';
 
 void main() {
   AppErrorBoundary.runGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
+
     final prefs = await SharedPreferences.getInstance();
 
     runApp(

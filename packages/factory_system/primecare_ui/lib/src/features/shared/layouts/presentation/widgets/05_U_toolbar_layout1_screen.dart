@@ -1,0 +1,31 @@
+// Layer: 05_UI_PRESENTATION
+import 'package:primecare_ui/primecare_ui.dart';
+
+class ToolbarLayout1Screen extends ConsumerWidget {
+  final dynamic data;
+  
+  const ToolbarLayout1Screen({super.key, this.data});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PrimeCareScaffold(
+      title: 'toolbarLayout1',
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
+            const SizedBox(height: 16),
+            Text(
+              'toolbarLayout1 Implementation',
+              style: context.textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text('This component is part of the shared/layouts module.'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

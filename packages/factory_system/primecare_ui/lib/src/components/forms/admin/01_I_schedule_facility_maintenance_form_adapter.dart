@@ -1,6 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_core/00_B_flutter_core.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 // Prisma Load Adapter
 

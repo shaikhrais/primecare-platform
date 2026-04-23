@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimeCareLineChart extends ConsumerWidget {
   final AnalyticsChart chart;

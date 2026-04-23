@@ -134,4 +134,15 @@ class CorporateRoutes {
       '/offices/corporate/roles/finance_director/dashboard';
   static const String financeDirectorCashFlow =
       '/offices/corporate/roles/finance_director/cashflow';
+
+  static const String volunteerCoordinatorDashboard =
+      '/offices/corporate/roles/volunteer_coordinator/dashboard';
+  static const String courseArchitectDashboard =
+      '/offices/corporate/roles/training_director/course-architect';
+  static const String trainingHubDashboard =
+      '/offices/corporate/roles/training_director/hub';
+  static const String trainingDirectorCertificates =
+      '/offices/corporate/roles/training_director/certificates';
+  static const String systemVerificationDashboard =
+      '/offices/corporate/roles/cto/system-verification';
 }

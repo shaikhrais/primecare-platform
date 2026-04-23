@@ -68,9 +68,9 @@ pages:
     name: "GlobalSettings"
     label: "Global Settings"
     route_var: "CommonRoutes.globalSettings"
-    icon_var: "LucideIcons.settings2"
-    section: "Management"
-    role_allowed: ["Admin"]
+    icon_var: "LucideIcons.settings"
+    section: "Common Tools"
+    role_allowed: ["all"]
     actions: ["view"]
     linked_intent: "navigate_global_settings"
   - id: "user_management"
@@ -543,3 +543,83 @@ pages:
     role_allowed: ["Client"]
     actions: ["view"]
     linked_intent: "navigate_billing"
+  - id: "messaging_hub"
+    route: "/generated/${CommonRoutes.messagingHub}"
+    name: "MessagingHub"
+    label: "Messaging Hub"
+    route_var: "CommonRoutes.messagingHub"
+    icon_var: "LucideIcons.messageSquare"
+    section: "Common Tools"
+    role_allowed: ["all"]
+    actions: ["view"]
+    linked_intent: "navigate_messaging_hub"
+  - id: "document_vault"
+    route: "/generated/${CommonRoutes.documentVault}"
+    name: "DocumentVault"
+    label: "Document Vault"
+    route_var: "CommonRoutes.documentVault"
+    icon_var: "LucideIcons.folder"
+    section: "Common Tools"
+    role_allowed: ["all"]
+    actions: ["view"]
+    linked_intent: "navigate_document_vault"
+  - id: "notification_center"
+    route: "/generated/${CommonRoutes.notificationCenter}"
+    name: "Notifications"
+    label: "Notifications"
+    route_var: "CommonRoutes.notificationCenter"
+    icon_var: "LucideIcons.bell"
+    section: "Common Tools"
+    role_allowed: ["all"]
+    actions: ["view"]
+    linked_intent: "navigate_notifications"
+  - id: "head_of_marketing_dashboard"
+    route: "/generated/${CorporateRoutes.headOfMarketingDashboard}"
+    name: "HeadOfMarketingDashboard"
+    label: "Marketing Dashboard"
+    route_var: "CorporateRoutes.headOfMarketingDashboard"
+    icon_var: "LucideIcons.megaphone"
+    section: "Main"
+    role_allowed: ["Head of Marketing"]
+    actions: ["view"]
+    linked_intent: "navigate_marketing_dashboard"
+  - id: "head_of_bus_dev_dashboard"
+    route: "/generated/${CorporateRoutes.headOfBusDevDashboard}"
+    name: "HeadOfBusDevDashboard"
+    label: "Bus Dev Dashboard"
+    route_var: "CorporateRoutes.headOfBusDevDashboard"
+    icon_var: "LucideIcons.trendingUp"
+    section: "Main"
+    role_allowed: ["Head of Business Development"]
+    actions: ["view"]
+    linked_intent: "navigate_bus_dev_dashboard"
+  - id: "operations_manager_dashboard"
+    route: "/generated/${FranchiseRoutes.operationsManagerDashboard}"
+    name: "OperationsManagerDashboard"
+    label: "Ops Dashboard"
+    route_var: "FranchiseRoutes.operationsManagerDashboard"
+    icon_var: "LucideIcons.activity"
+    section: "Main"
+    role_allowed: ["Operations Manager"]
+    actions: ["view"]
+    linked_intent: "navigate_ops_dashboard"
+  - id: "hr_hiring_dashboard"
+    route: "/generated/${FranchiseRoutes.hrHiringDashboard}"
+    name: "HrHiringDashboard"
+    label: "HR Dashboard"
+    route_var: "FranchiseRoutes.hrHiringDashboard"
+    icon_var: "LucideIcons.userPlus"
+    section: "Main"
+    role_allowed: ["HR Hiring"]
+    actions: ["view"]
+    linked_intent: "navigate_hr_dashboard"
+  - id: "clinical_director_dashboard"
+    route: "/generated/${ClinicalRoutes.clinicalDirectorDashboard}"
+    name: "ClinicalDirectorDashboard"
+    label: "Clinical Director"
+    route_var: "ClinicalRoutes.clinicalDirectorDashboard"
+    icon_var: "LucideIcons.stethoscope"
+    section: "Main"
+    role_allowed: ["Clinical Director"]
+    actions: ["view"]
+    linked_intent: "navigate_clinical_director_dashboard"

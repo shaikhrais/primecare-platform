@@ -1,8 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final List<Widget>? actions;

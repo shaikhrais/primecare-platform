@@ -1,6 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/foundation.dart';
-import 'package:primecare_core/routes/groups/01_I_common_routes.dart';
+import 'package:flutter_core/routes/groups/01_I_common_routes.dart';
 
 /// Represents the decision of the RouteGuard for a given navigation event.
 class GuardResult {
@@ -16,41 +16,58 @@ class RouteGuard {
   /// This acts as our centralized permissions map.
   static Map<String, List<String>> _rolePermissions = {
     // Corporate Leadership
-    'ceo': ['/corporate', '/common'],
-    'founder': ['/corporate', '/common'],
-    'coo': ['/corporate', '/common'],
-    'cfo': ['/corporate', '/common'],
-    'cto': ['/corporate', '/common'],
-    'compliance_manager': ['/corporate', '/common'],
-    'corporate_developer': ['/corporate', '/common'],
+    'ceo': ['/offices/corporate', '/common'],
+    'founder': ['/offices/corporate', '/common'],
+    'coo': ['/offices/corporate', '/common'],
+    'cfo': ['/offices/corporate', '/common'],
+    'cto': ['/offices/corporate', '/common'],
+    'compliance_manager': ['/offices/corporate', '/common'],
+    'corporate_developer': ['/offices/corporate', '/common'],
+    'finance_director': ['/offices/corporate', '/common'],
+    'head_of_bus_dev': ['/offices/corporate', '/common'],
+    'head_of_marketing': ['/offices/corporate', '/common'],
+    'training_director': ['/offices/corporate', '/common'],
 
     // Business Development
-    'regional_manager': ['/bd', '/common'],
-    'franchise_sales': ['/bd', '/common'],
+    'regional_manager_ontario': ['/offices/business_development', '/common'],
+    'regional_manager_usa': ['/offices/business_development', '/common'],
+    'franchise_sales_manager': ['/offices/business_development', '/common'],
+    'partnership_manager': ['/offices/business_development', '/common'],
+    'territory_expansion_manager': ['/offices/business_development', '/common'],
+    'general_manager': ['/offices/business_development', '/common'],
 
     // Franchise Tier
-    'franchise_owner': ['/franchise', '/common'],
-    'operations_manager': ['/franchise', '/common'],
-    'admin': ['/franchise', '/common'],
+    'franchise_owner': ['/offices/franchise', '/common'],
+    'operations_manager': ['/offices/franchise', '/common'],
+    'admin': ['/offices/franchise', '/common'],
+    'billing_admin': ['/offices/franchise', '/common'],
+    'hr_hiring': ['/offices/franchise', '/common'],
+    'scheduler': ['/offices/franchise', '/common'],
+    'coordinator': ['/offices/franchise', '/common'],
 
     // Clinical Execution
-    'clinical_director': ['/clinic', '/common', '/dynamic'],
-    'rn': ['/clinic', '/common', '/dynamic'],
-    'rpn': ['/clinic', '/common', '/dynamic'],
-    'rmt': ['/clinic', '/common', '/dynamic'],
-    'psw': ['/clinic', '/common', '/dynamic'],
-    'physio': ['/clinic', '/common', '/dynamic'],
-    'chiro': ['/clinic', '/common', '/dynamic'],
+    'clinical_director': ['/offices/clinic', '/common', '/dynamic'],
+    'rn': ['/offices/clinic', '/common', '/dynamic'],
+    'rpn': ['/offices/clinic', '/common', '/dynamic'],
+    'rmt': ['/offices/clinic', '/common', '/dynamic'],
+    'psw': ['/offices/clinic', '/common', '/dynamic'],
+    'physio': ['/offices/clinic', '/common', '/dynamic'],
+    'chiro': ['/offices/clinic', '/common', '/dynamic'],
 
-    // Support
-    'customer_support': ['/support', '/dynamic', '/common'],
-    'intake': ['/clinic', '/support', '/dynamic', '/common'],
-    'intake_coordinator': ['/clinic', '/support', '/dynamic', '/common'],
-    'receptionist': ['/dynamic', '/common'],
+    // Support & Institutional
+    'customer_support': ['/offices/support', '/dynamic', '/common'],
+    'intake_coordinator': ['/offices/support', '/dynamic', '/common'],
+    'quality_assurance': ['/offices/support', '/dynamic', '/common'],
+    'receptionist': ['/offices/support', '/dynamic', '/common'],
+
+    // Marketing & Growth
+    'local_marketing': ['/offices/marketing', '/common'],
+    'outreach': ['/offices/marketing', '/common'],
+    'territory_sales': ['/offices/marketing', '/common'],
 
     // Client Side
-    'client': ['/client', '/common'],
-    'family': ['/client', '/common'],
+    'client': ['/offices/client', '/common'],
+    'family': ['/offices/client', '/common'],
   };
 
   /// Dynamically synchronizes permissions from the backend payload.

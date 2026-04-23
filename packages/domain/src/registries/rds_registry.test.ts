@@ -95,4 +95,40 @@ describe('RDS: PrimeCare Registry Integrity Bench', () => {
 
         expect(missingAssociates).toHaveLength(0);
     });
+
+    it('should verify Fallback Integrity and Render Safety', () => {
+        const brokenFallbacks: string[] = [];
+        const criticalPagesWithoutConfigs: string[] = [];
+
+        PageRegistry.forEach(page => {
+            // 1. Ensure config exists (should be handled by builder)
+            if (!page.rendering) {
+                brokenFallbacks.push(`Page "${page.label}" is missing a rendering config.`);
+                return;
+            }
+
+            // 2. Verify fallbackId exists in registry
+            const fallbackExists = PageRegistry.some(p => p.id === page.rendering?.fallbackId);
+            if (!fallbackExists) {
+                brokenFallbacks.push(`Page "${page.label}" (${page.id}) has invalid fallbackId: "${page.rendering.fallbackId}"`);
+            }
+
+            // 3. Prevent self-references
+            if (page.id === page.rendering.fallbackId) {
+                brokenFallbacks.push(`Page "${page.label}" has recursive fallback to itself.`);
+            }
+
+            // 4. Critical check
+            if (page.rendering.isCritical && (page.type === 'home' || page.type === 'registry')) {
+                // Ensure critical pages aren't just using defaults if we wanted custom ones
+                // (This is more of a policy check)
+            }
+        });
+
+        if (brokenFallbacks.length > 0) {
+            console.error('Broken Fallback Routes:', brokenFallbacks);
+        }
+
+        expect(brokenFallbacks).toHaveLength(0);
+    });
 });

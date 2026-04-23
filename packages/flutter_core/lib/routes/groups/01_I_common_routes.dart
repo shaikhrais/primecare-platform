@@ -78,4 +78,6 @@ class CommonRoutes {
   static const String institutionalScheduler = '/institutional/scheduler';
   static const String receptionistDashboard = '/dynamic/receptionistDashboard';
   static const String clinicalDashboard = '/dynamic/clinicalDashboard';
+  static const String error500 = '/error-500';
+  static const String error404 = '/error-404';
 }

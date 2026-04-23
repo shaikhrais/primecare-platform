@@ -1,7 +1,6 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/components/aura/01_I_aura_financial_hud.dart';
 
 class AuraReportToggleNotifier extends Notifier<Map<String, bool>> {

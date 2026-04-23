@@ -1,10 +1,9 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/src/theme/01_I_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_core/providers/03_D_portal_providers.dart';
-import 'package:primecare_ui/src/theme/01_I_design_system.dart';
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+import 'package:primecare_ui/00_B_theme.dart';
 
 enum PrimeCareButtonType { primary, secondary, text, danger }
 

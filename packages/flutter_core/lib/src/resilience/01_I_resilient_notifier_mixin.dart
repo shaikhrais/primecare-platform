@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 import 'dart:async';
 
 mixin ResilientNotifierMixin<S> on Notifier<S> {

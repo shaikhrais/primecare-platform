@@ -1,7 +1,5 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-Fidelity HR Manager Dashboard
 /// Focuses on human capital, recruitment pipeline, and staff retention.

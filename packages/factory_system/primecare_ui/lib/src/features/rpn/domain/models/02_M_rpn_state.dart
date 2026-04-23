@@ -1,0 +1,13 @@
+// Layer: 02_MODELS_FOUNDATION
+import 'package:freezed_annotation/freezed_annotation.dart';
+import '02_M_rpn_data.dart';
+
+part '02_M_rpn_state.freezed.dart';
+
+@freezed
+abstract class RpnState with _$RpnState {
+  const factory RpnState.initial() = _Initial;
+  const factory RpnState.loading() = _Loading;
+  const factory RpnState.loaded({required RpnData data}) = _Loaded;
+  const factory RpnState.error(String message) = _Error;
+}

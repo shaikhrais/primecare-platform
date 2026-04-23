@@ -1,6 +1,5 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:primecare_core/00_B_flutter_core.dart';
-import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';

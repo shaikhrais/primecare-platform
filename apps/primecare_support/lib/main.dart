@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:flutter_core/primecare_core.dart';
 import 'app_router.dart';
 
 void main() {

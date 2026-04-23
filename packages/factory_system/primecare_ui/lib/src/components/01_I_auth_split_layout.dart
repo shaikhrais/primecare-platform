@@ -1,8 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class AuthSplitLayout extends ConsumerWidget {
   final Widget child;

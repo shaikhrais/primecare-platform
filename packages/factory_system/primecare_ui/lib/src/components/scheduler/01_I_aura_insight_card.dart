@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class AuraInsightCard extends ConsumerStatefulWidget {
   final AuraEvent event;
@@ -71,7 +70,11 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
                 decoration: BoxDecoration(
                   color: PrimeCareColors.white.withValues(alpha: 0.7),
                   border: Border.all(
-                    color: impactColor.withValues(alpha: 0.5),
+                    color: widget.event.isPredictive
+                        ? const Color(0xFF6366F1).withValues(
+                            alpha: 0.5 + (0.5 * _pulseController.value),
+                          )
+                        : impactColor.withValues(alpha: 0.5),
                     width: 1.5 * scale,
                   ),
                   borderRadius: BorderRadius.circular(16 * scale),
@@ -96,13 +99,38 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
                         ),
                         SizedBox(width: 10 * scale),
                         Expanded(
-                          child: Text(
-                            widget.event.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14 * scale,
-                              color: const Color(0xFF1E3A8A),
-                            ),
+                          child: Row(
+                            children: [
+                              Text(
+                                widget.event.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14 * scale,
+                                  color: const Color(0xFF1E3A8A),
+                                ),
+                              ),
+                              if (widget.event.isPredictive) ...[
+                                SizedBox(width: 8 * scale),
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 6 * scale,
+                                    vertical: 2 * scale,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF6366F1),
+                                    borderRadius: BorderRadius.circular(4 * scale),
+                                  ),
+                                  child: Text(
+                                    'PREDICTIVE',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 8 * scale,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ],
                           ),
                         ),
                         if (widget.onDismiss != null)
@@ -160,10 +188,13 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
   Color _getImpactColor(InsightImpact impact) {
     switch (impact) {
       case InsightImpact.alert:
+      case InsightImpact.warning:
+      case InsightImpact.critical:
         return PrimeCareColors.rose;
       case InsightImpact.caution:
         return PrimeCareColors.amber;
       case InsightImpact.positive:
+      case InsightImpact.growth:
         return PrimeCareColors.emerald;
       case InsightImpact.info:
         return PrimeCareColors.skyBlue;
@@ -173,10 +204,13 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
   IconData _getImpactIcon(InsightImpact impact) {
     switch (impact) {
       case InsightImpact.alert:
+      case InsightImpact.warning:
+      case InsightImpact.critical:
         return LucideIcons.alertTriangle;
       case InsightImpact.caution:
         return LucideIcons.zap;
       case InsightImpact.positive:
+      case InsightImpact.growth:
         return LucideIcons.trendingUp;
       case InsightImpact.info:
         return LucideIcons.info;

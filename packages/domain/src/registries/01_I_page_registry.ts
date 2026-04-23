@@ -12,6 +12,13 @@ export type PageType =
     | 'detail' | 'settings' | 'report' | 'tool' | 'portal'
     | 'registry' | 'error';
 
+export interface RenderConfig {
+    status: 'healthy' | 'degraded' | 'failing';
+    isCritical: boolean;
+    fallbackId: string; // Must map to another PageEntry ID
+    lastVerified?: string; // ISO Timestamp from RDS
+}
+
 export interface PageEntry {
     srNo: number;
     categoryCode: string;
@@ -27,6 +34,7 @@ export interface PageEntry {
     formRegistryId?: string;
     homeRegistryId?: string;
     associates?: string[];
+    rendering?: RenderConfig;
 }
 
 export const CATEGORY_PREFIXES: Record<PageType, string> = {
@@ -72,6 +80,7 @@ export interface ToolEntry {
 export interface MasterEntry {
     file: string; label: string; type: PageType; owner: PageEntry['owner'];
     associates: string[];
+    rendering?: RenderConfig;
 }
 
 // ── Import + Re-export sub-registries ────────────────────────────────────────

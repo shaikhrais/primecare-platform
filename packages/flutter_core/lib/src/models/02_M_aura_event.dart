@@ -1,5 +1,5 @@
 // Layer: 02_MODELS_FOUNDATION
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 
 enum AuraEventType {
   occupancySpike,
@@ -7,6 +7,21 @@ enum AuraEventType {
   systemAlert,
   workforceEfficiency,
   stableheartbeat,
+  marketingConversion,
+  salesLeadPeak,
+  territoryExpansion,
+  hrPolicyAlert,
+  volunteerMilestone,
+  customerSentimentDip,
+  territoryGrowth,
+  regionalLogisticLag,
+  franchiseSync,
+  operationalRisk,
+  complianceBreach,
+  revenueTarget,
+  criticalAlert,
+  predictedStaffingGap,
+  predictedBudgetOverrun,
 }
 
 class AuraEvent {
@@ -16,6 +31,7 @@ class AuraEvent {
   final String description;
   final InsightImpact impact;
   final DateTime timestamp;
+  final bool isPredictive;
   final Map<String, dynamic>? metadata;
 
   AuraEvent({
@@ -25,6 +41,7 @@ class AuraEvent {
     required this.description,
     required this.impact,
     required this.timestamp,
+    this.isPredictive = false,
     this.metadata,
   });
 

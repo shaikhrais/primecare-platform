@@ -1,7 +1,5 @@
 // Layer: 02_MODULAR_COMPONENTS
-import 'package:flutter/material.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimeCareDiskUsageCard extends ConsumerWidget {
   final int totalSectors;

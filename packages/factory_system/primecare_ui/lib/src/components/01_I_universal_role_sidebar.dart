@@ -1,8 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:math' as math;
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
 
 class UniversalRoleSidebar extends ConsumerWidget {
   final Widget child;
@@ -62,12 +61,6 @@ class UniversalRoleSidebar extends ConsumerWidget {
 
     for (var item in items) {
       String sectionName = item.section ?? 'Main';
-
-      // Normalize common sections slightly
-      if (item.route.startsWith('/common/') &&
-          item.route != CommonRoutes.userManagement) {
-        sectionName = 'Common Tools';
-      }
 
       if (!groupedItems.containsKey(sectionName)) {
         groupedItems[sectionName] = [];

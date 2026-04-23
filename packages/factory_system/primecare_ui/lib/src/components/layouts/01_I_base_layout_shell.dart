@@ -1,8 +1,9 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/src/components/01_I_adaptive_scaling_wrapper.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/00_B_components.dart';
+import 'package:primecare_ui/00_B_theme.dart';
 
 class BaseLayoutShell extends ConsumerWidget {
   final Widget child;
@@ -56,7 +57,7 @@ class BaseLayoutShell extends ConsumerWidget {
               true, // Allow glassmorphism to blur the content
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(72.0 * scale),
-            child: GlobalTopBar(
+            child: AuraHeader(
               actions: topBarActions,
               customLeft: customTopBarLeft,
               customCenter: customTopBarCenter,
@@ -104,7 +105,7 @@ class BaseLayoutShell extends ConsumerWidget {
         extendBodyBehindAppBar: true, // Allow glassmorphism to blur the content
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(72.0 * scale),
-          child: GlobalTopBar(
+          child: AuraHeader(
             actions: topBarActions,
             customLeft: customTopBarLeft,
             customCenter: customTopBarCenter,
@@ -114,7 +115,7 @@ class BaseLayoutShell extends ConsumerWidget {
         drawer: layout.isHidden
             ? UniversalRoleDrawer(currentPath: effectivePath, items: items)
             : null,
-        body: UniversalRoleSidebar(
+        body: AuraSidebar(
           currentPath: effectivePath,
           items: items,
           child: Padding(

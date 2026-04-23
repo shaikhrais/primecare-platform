@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import 'routes/groups/corporate_routes.dart';
-import 'package:primecare_ui/00_B_primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
@@ -10,22 +10,32 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/',
     refreshListenable: authListenable,
     redirect: (context, state) {
-      final isLoggingIn = state.uri.toString() == CommonRoutes.login;
+      final requestedRoute = state.uri.toString();
+      final guard = RouteGuard.verify(
+        requestedRoute: requestedRoute,
+        isLoggedIn: authState.isAuthenticated,
+        userRole: authState.role,
+      );
 
-      if (!authState.isAuthenticated) {
-        return isLoggingIn ? null : CommonRoutes.login;
+      // 1. Enforce Guard Redirections (Security boundaries)
+      if (!guard.isAllowed && guard.redirectRoute != null) {
+        return guard.redirectRoute;
       }
 
-      if (isLoggingIn || state.uri.toString() == '/') {
+      // 2. Dashboard Resolution (Logged in users on home/login)
+      final isAtLanding = requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+      if (authState.isAuthenticated && isAtLanding) {
         final role = authState.role ?? '';
         final destination = AuthNotifier.getDashboardRouteForRole(role);
-
-        // Safety: Allow authorized institutional and enterprise routes.
-        // Block raw /clinic path which is reserved for the clinical app build.
-        if (destination == '/clinic/dashboard') {
-          return CorporateRoutes.ceoDashboard;
-        }
+        
+        // Safety: If for some reason the role isn't corporate, don't trap them in a loop
+        // if they are in the corporate app.
         return destination;
+      }
+
+      // 3. Prevent unauthenticated access to non-public routes (already handled by Guard but as a fallback)
+      if (!authState.isAuthenticated && !isAtLanding) {
+        return CommonRoutes.login;
       }
 
       return null;

@@ -8,43 +8,73 @@ final billingAdminDashboardAdapterProvider =
       const cacheKey = 'billing_admin_dashboard';
       final resilience = ref.read(resilienceServiceProvider);
   final telemetry = ref.read(executionGateProvider);
-      final metricsResult = await ref.watch(dashboardMetricsProvider(route).future);
+  try {
+    final metricsResult = await ref.watch(dashboardMetricsProvider(route).future);
 
-      return metricsResult.fold(
-        (metrics) {
-                    final viewModel = BillingAdminDashboardViewModel.fromDashboardMetrics(
-            metrics,
-          );
-
+    return metricsResult.fold(
+      (metrics) {
+        try {
+          final viewModel = BillingAdminDashboardViewModel.fromDashboardMetrics(metrics);
           // Persist LKG snapshot for offline survival
           unawaited(resilience.saveSnapshot(cacheKey, viewModel.toJson()));
-
-      telemetry.passGate(
-        ExecutionGateCategory.resilience,
-        'Dashboard route hydrated',
-      );
-          return Success(viewModel);
-        },
-        (error) {
-      telemetry.passGate(
-        ExecutionGateCategory.resilience,
-        'BillingAdmin Metrics Logistics Fallback Triggered',
-      );
-          // Fallback: Restore from local resilience cache if infrastructure is unreachable
-          final snapshot = resilience.getSnapshot(cacheKey);
-          if (snapshot != null) {
-        final vm = BillingAdminDashboardViewModel.fromJson(snapshot);
-        return Success(BillingAdminDashboardViewModel(
-          metrics: vm.metrics,
-          insights: vm.insights,
-          blueprints: vm.blueprints,
-          isOfflineFallback: true,
-        ));
-      }
-          return Success(
-            BillingAdminDashboardViewModel.empty(isOfflineFallback: true),
+          
+          // Log successful hydration for telemetry and tests
+          telemetry.passGate(
+            ExecutionGateCategory.governance,
+            'Billing Admin Dashboard route hydrated with production metrics',
           );
-        },
+          
+          return Success(viewModel);
+        } catch (e) {
+          telemetry.failGate(
+            ExecutionGateCategory.structuralIntegrity,
+            'Billing Admin ViewModel mapping failed: $e',
+          );
+          return _handleBillingAdminFallback(resilience, cacheKey, telemetry);
+        }
+      },
+      (error) {
+        telemetry.passGate(
+          ExecutionGateCategory.resilience,
+          'Billing Admin Metrics Logistics Fallback Triggered: $error',
+        );
+        return _handleBillingAdminFallback(resilience, cacheKey, telemetry);
+      },
+    );
+  } catch (e) {
+    telemetry.failGate(
+      ExecutionGateCategory.structuralIntegrity,
+      'Billing Admin Adapter critical failure: $e',
+    );
+    return _handleBillingAdminFallback(resilience, cacheKey, telemetry);
+  }
+});
+
+Result<BillingAdminDashboardViewModel> _handleBillingAdminFallback(
+  ResilienceService resilience,
+  String cacheKey,
+  ExecutionGateService telemetry,
+) {
+  // Fallback: Restore from local resilience cache if infrastructure is unreachable
+  final snapshot = resilience.getSnapshot(cacheKey);
+  if (snapshot != null) {
+    try {
+      final vm = BillingAdminDashboardViewModel.fromJson(snapshot);
+      return Success(BillingAdminDashboardViewModel(
+        metrics: vm.metrics,
+        insights: vm.insights,
+        blueprints: vm.blueprints,
+        isOfflineFallback: true,
+      ));
+    } catch (e) {
+      telemetry.failGate(
+        ExecutionGateCategory.structuralIntegrity,
+        'Billing Admin Cache corruption detected: $e',
       );
-    });
+    }
+  }
+
+  // Final fallback to synthetic skeleton (Smart Mock Injection)
+  return Success(BillingAdminDashboardViewModel.empty(isOfflineFallback: true));
+}
 

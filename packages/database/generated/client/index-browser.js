@@ -1881,6 +1881,25 @@ exports.Prisma.PlatformHealthHistoryScalarFieldEnum = {
   velocityRate: 'velocityRate'
 };
 
+exports.Prisma.AgentScreenBlueprintScalarFieldEnum = {
+  id: 'id',
+  screenRoute: 'screenRoute',
+  description: 'description',
+  reasoning: 'reasoning',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BlueprintComponentScalarFieldEnum = {
+  id: 'id',
+  blueprintId: 'blueprintId',
+  label: 'label',
+  intent: 'intent',
+  importance: 'importance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2742,6 +2761,8 @@ exports.Prisma.ModelName = {
   UIIntent: 'UIIntent',
   DataResource: 'DataResource',
   PlatformHealthHistory: 'PlatformHealthHistory',
+  AgentScreenBlueprint: 'AgentScreenBlueprint',
+  BlueprintComponent: 'BlueprintComponent',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

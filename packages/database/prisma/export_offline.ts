@@ -20,12 +20,24 @@ async function main() {
       console.log('✅ Generated high-fidelity MOCK data.');
   }
 
-  const outputPath = path.join(__dirname, '../../../apps/primecare_corporate/assets/data/offline_seed.json');
-  const dir = path.dirname(outputPath);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const apps = [
+    'primecare_business_development',
+    'primecare_client',
+    'primecare_clinic',
+    'primecare_corporate',
+    'primecare_franchise',
+    'primecare_marketing',
+    'primecare_support'
+  ];
 
-  fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
-  console.log(`🚀 Offline data ready at: ${outputPath}`);
+  for (const app of apps) {
+    const outputPath = path.join(__dirname, `../../../apps/${app}/assets/data/offline_seed.json`);
+    const dir = path.dirname(outputPath);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
+    console.log(`🚀 Offline data ready for ${app} at: ${outputPath}`);
+  }
 }
 
 async function exportFromLiveDb() {

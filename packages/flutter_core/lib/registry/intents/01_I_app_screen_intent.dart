@@ -1,0 +1,121 @@
+// Layer: 01_INFRASTRUCTURE
+import 'package:flutter/material.dart';
+import '../../registry/01_I_platform_role.dart';
+
+/// Defines the recovery strategy for a screen when a critical failure occurs.
+enum ScreenRecoveryStrategy {
+  /// Simple soft reset of the current state.
+  softReset,
+  /// Full route restart, clearing history.
+  routeRestart,
+  /// Redirect to a safe fallback screen.
+  fallbackRedirect,
+  /// Escalate to the global System Recovery Mode.
+  globalEscalation,
+}
+
+/// Defines the behavioral policy for a screen's resilience.
+class ResiliencePolicy {
+  final ScreenRecoveryStrategy strategy;
+  final String? fallbackRoute;
+  final Duration retryDelay;
+  final int maxRetries;
+
+  const ResiliencePolicy({
+    this.strategy = ScreenRecoveryStrategy.softReset,
+    this.fallbackRoute,
+    this.retryDelay = const Duration(seconds: 2),
+    this.maxRetries = 3,
+  });
+}
+
+/// A high-fidelity contract representing a screen's intent, dependencies, and resilience.
+/// This class enables advanced governance by making screen requirements explicit.
+abstract class AppScreenIntent {
+  const AppScreenIntent();
+
+  /// The canonical name for the registry.
+  String get name;
+
+  /// The canonical route or identifier for this screen.
+  String get route => '/\$name';
+
+  /// The human-readable title for the application shell.
+  String get title;
+
+  /// A descriptive subtitle or status message.
+  String get subtitle => 'Governed Portal for \$title';
+
+  /// The required role to access this screen.
+  /// If null, it is considered a public or common screen.
+  PlatformRole? get requiredRole => null;
+
+  /// The primary data provider for this screen (usually an Adapter Provider).
+  dynamic get provider => null;
+
+  /// Explicit list of Riverpod providers this screen requires.
+  /// Used by the Governance system to verify "Hydration Readiness".
+  List<dynamic> get dependencies => provider != null ? [provider!] : [];
+
+  /// The governance policy for resilience and recovery.
+  ResiliencePolicy get resiliencePolicy => const ResiliencePolicy();
+
+  /// Explicit list of high-level UI component labels (e.g. ['Grid', 'Table', 'Chart']).
+  /// Used for structural validation and documentation.
+  List<String> get componentLabels => [];
+
+  /// The global renderer for intents that don't define their own build logic.
+  /// This allows decoupling of data models from the UI engine.
+  static Widget Function(BuildContext context, AppScreenIntent intent)? globalRenderer;
+
+  /// Builds the UI representation of this intent.
+  Widget build(BuildContext context);
+
+  /// Performs a pre-flight check to ensure the system is ready for this screen.
+  /// Returns a [GovernanceHealth] report.
+  GovernanceHealth verifyReady(dynamic ref) {
+    for (final dynamic dep in dependencies) {
+      try {
+        // ignore: argument_type_not_assignable, avoid_dynamic_calls
+        final Object? state = ref.read(dep);
+        if (state == null) {
+          return GovernanceHealth.unhealthy(
+            'Dependency ${dep.runtimeType} is null',
+            componentLabels: componentLabels,
+          );
+        }
+      } catch (e) {
+        return GovernanceHealth.unhealthy(
+          'Dependency ${dep.runtimeType} failed: $e',
+          componentLabels: componentLabels,
+        );
+      }
+    }
+    return GovernanceHealth.healthy(componentLabels: componentLabels);
+  }
+}
+
+/// Represents the health state of a screen's governance.
+class GovernanceHealth {
+  final bool isReady;
+  final String? message;
+  final List<String> componentLabels;
+
+  const GovernanceHealth.healthy({this.componentLabels = const []}) 
+      : isReady = true, 
+        message = null;
+
+  const GovernanceHealth.unhealthy(this.message, {this.componentLabels = const []}) 
+      : isReady = false;
+}
+
+/// Exception thrown when a governed component is accessed before implementation.
+class UnimplementedGovernanceException implements Exception {
+  final String feature;
+  final String component;
+
+  UnimplementedGovernanceException(this.feature, this.component);
+
+  @override
+  String toString() => 'UnimplementedGovernanceException: [$feature] $component has not been developed yet. Please implement the adapter and screen logic.';
+}

@@ -37,4 +37,6 @@ class PrimeCareColors {
   static const Color darkMatrix = Color(0xFF020617); // SCM Home Black
   static const Color darkMatrixCard = Color(0xFF141416); // B2B Home black
   static const Color purple = Color(0xFF8B5CF6); // SCM Identity Code
+  static const Color sapphire = Color(0xFF0F52BA);
+  static const Color navy = Color(0xFF000080);
 }

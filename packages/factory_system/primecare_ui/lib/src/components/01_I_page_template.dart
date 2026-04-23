@@ -1,9 +1,8 @@
 // Layer: 01_INFRASTRUCTURE
 // ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:primecare_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PageTemplate extends ConsumerWidget {
   final String title;
@@ -70,14 +69,15 @@ class PageTemplate extends ConsumerWidget {
     final effectiveKpis = kpiCards ?? kpis;
     final effectiveBody = child ?? body;
     final effectiveSections = bodySections ?? sections;
-    final effectiveActions = actions ?? (actionButton != null ? [actionButton!] : null);
+    final button = actionButton;
+    final effectiveActions = actions ?? (button != null ? [button] : null);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: Text(
           title.tr(),
-          key: Key('page_title_${title.hashCode}'),
+          key: const Key('page_title'),
           style: TextStyle(
             fontSize: PrimeCareSpacing.scaled(20, scale),
             fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class PageTemplate extends ConsumerWidget {
                   ),
                   child: Text(
                     subtitle!.tr(),
-                    key: Key('page_subtitle_${subtitle.hashCode}'),
+                    key: const Key('page_subtitle'),
                     style: GoogleFonts.inter(
                       fontSize: PrimeCareSpacing.scaled(16.0, scale),
                       color: ds.colors.textSecondary,
@@ -117,7 +117,7 @@ class PageTemplate extends ConsumerWidget {
                 ),
               if (effectiveKpis != null && effectiveKpis.isNotEmpty) ...[
                 PrimeResponsiveGrid(
-                  key: Key('kpi_grid_${title.hashCode}'),
+                  key: const Key('kpi_grid'),
                   desktopMainAxisExtent: PrimeCareSpacing.scaled(160, scale),
                   children: effectiveKpis,
                 ),

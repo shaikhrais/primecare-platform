@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:primecare_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'app_router.dart';
 
 void main() {
   AppErrorBoundary.runGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
+
     runApp(const ProviderScope(child: PrimeCareFranchiseApp()));
   });
 }

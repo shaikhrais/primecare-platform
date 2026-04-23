@@ -6,8 +6,6 @@ import '../config/01_I_screen_breakpoints.dart';
 import '../config/01_I_adaptive_scaling_config.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lucide_icons/lucide_icons.dart';
-import '../routes/groups/01_I_common_routes.dart';
 
 /// Provider that supplies the navigation menu items for the current user's role.
 final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
@@ -20,6 +18,7 @@ final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
   // Diagnostic Telemetry: Detect if we fell back to Admin unexpectedly
   if (role != 'Admin' &&
       role != 'CEO' &&
+      menu.length > 0 &&
       menu == NavigationRegistry.getMenuForRole('Admin')) {
     ref
         .read<ExecutionGateService>(executionGateProvider)
@@ -27,40 +26,6 @@ final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {
           ExecutionGateCategory.navigationLayer,
           'navigation_fallback_warning: Fallback to Admin for role $role',
         );
-  }
-
-  // Inject Common Tools for all users dynamically, except for routes they already have.
-  final commonItems = [
-    const PrimeCareNavigationItem(
-      label: 'Messaging Hub',
-      icon: LucideIcons.messageSquare,
-      route: CommonRoutes.messagingHub,
-      section: 'Common Tools',
-    ),
-    const PrimeCareNavigationItem(
-      label: 'Document Vault',
-      icon: LucideIcons.folder,
-      route: CommonRoutes.documentVault,
-      section: 'Common Tools',
-    ),
-    const PrimeCareNavigationItem(
-      label: 'Notifications',
-      icon: LucideIcons.bell,
-      route: CommonRoutes.notificationCenter,
-      section: 'Common Tools',
-    ),
-    const PrimeCareNavigationItem(
-      label: 'Global Settings',
-      icon: LucideIcons.settings,
-      route: CommonRoutes.globalSettings,
-      section: 'Common Tools',
-    ),
-  ];
-
-  for (var commonItem in commonItems) {
-    if (!menu.any((item) => item.route == commonItem.route)) {
-      menu.add(commonItem);
-    }
   }
 
   Future.microtask(() {

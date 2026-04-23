@@ -1,6 +1,9 @@
 // Layer: 02_MODELS_FOUNDATION
 import '02_M_ui_blueprint.dart';
 
+enum InsightImpact { positive, caution, info, alert, growth, warning, critical }
+enum KpiStatus { positive, negative, neutral, warning, critical }
+
 class KpiMetric {
   final String title;
   String get label => title;
@@ -9,7 +12,7 @@ class KpiMetric {
   final String? trend;
   final String status;
 
-  KpiMetric({
+  const KpiMetric({
     required this.title,
     required this.value,
     this.subtitle,
@@ -34,6 +37,48 @@ class KpiMetric {
       'subtitle': subtitle,
       'trend': trend,
       'status': status,
+    };
+  }
+}
+
+class DashboardInsight {
+  final String title;
+  final String description;
+  final String type;
+  final InsightImpact? impact;
+  final Map<String, dynamic>? metadata;
+  String get summary => description;
+
+  DashboardInsight({
+    required this.title,
+    required this.description,
+    required this.type,
+    this.impact,
+    this.metadata,
+  });
+
+  factory DashboardInsight.fromJson(Map<String, dynamic> json) {
+    return DashboardInsight(
+      title: (json['title'] ?? json['label'] ?? 'Untitled Insight').toString(),
+      description: (json['description'] ?? json['summary'] ?? '').toString(),
+      type: (json['type'] ?? 'info').toString(),
+      impact: json['impact'] != null 
+        ? InsightImpact.values.firstWhere(
+            (e) => e.name == json['impact'],
+            orElse: () => InsightImpact.info,
+          )
+        : null,
+      metadata: json['metadata'] as Map<String, dynamic>?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'description': description,
+      'type': type,
+      'impact': impact?.name,
+      'metadata': metadata,
     };
   }
 }
@@ -184,12 +229,32 @@ class DashboardMetrics {
   final List<KpiMetric> kpis;
   final List<DashboardActivity> recentActivity;
   final List<AnalyticsChart> charts;
+  final List<DashboardInsight> insights;
+  final bool isOfflineFallback;
 
-  DashboardMetrics({
+  const DashboardMetrics({
     required this.kpis,
     required this.recentActivity,
     this.charts = const [],
+    this.insights = const [],
+    this.isOfflineFallback = false,
   });
+
+  DashboardMetrics copyWith({
+    List<KpiMetric>? kpis,
+    List<DashboardActivity>? recentActivity,
+    List<AnalyticsChart>? charts,
+    List<DashboardInsight>? insights,
+    bool? isOfflineFallback,
+  }) {
+    return DashboardMetrics(
+      kpis: kpis ?? this.kpis,
+      recentActivity: recentActivity ?? this.recentActivity,
+      charts: charts ?? this.charts,
+      insights: insights ?? this.insights,
+      isOfflineFallback: isOfflineFallback ?? this.isOfflineFallback,
+    );
+  }
 
   factory DashboardMetrics.fromJson(Map<String, dynamic> json) {
     return DashboardMetrics(
@@ -204,11 +269,21 @@ class DashboardMetrics {
                 .map((i) => AnalyticsChart.fromJson(i as Map<String, dynamic>))
                 .toList()
           : [],
+      insights: (json['insights'] as List?)
+          ?.map((i) => DashboardInsight.fromJson(i as Map<String, dynamic>))
+          .toList() ?? [],
+      isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
     );
   }
 
   factory DashboardMetrics.empty() {
-    return DashboardMetrics(kpis: [], recentActivity: [], charts: []);
+    return DashboardMetrics(
+      kpis: [], 
+      recentActivity: [], 
+      charts: [], 
+      insights: [],
+      isOfflineFallback: false,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -216,7 +291,24 @@ class DashboardMetrics {
       'kpis': kpis.map((k) => k.toJson()).toList(),
       'recentActivity': recentActivity.map((a) => a.toJson()).toList(),
       'charts': charts.map((c) => c.toJson()).toList(),
+      'insights': insights.map((i) => i.toJson()).toList(),
+      'isOfflineFallback': isOfflineFallback,
     };
+  }
+}
+
+extension DashboardMetricsX on DashboardMetrics {
+  /// Looks up a KPI value by title. Returns the fallback if not found.
+  String kpiValue(String title, [String fallback = '—']) {
+    try {
+      return kpis
+          .firstWhere(
+            (k) => k.title.toLowerCase().contains(title.toLowerCase()),
+          )
+          .value;
+    } catch (_) {
+      return fallback;
+    }
   }
 }
 
@@ -317,8 +409,6 @@ class ForecastingKPIs {
     };
   }
 }
-
-enum KpiStatus { positive, negative, neutral, warning, critical }
 
 class UniversalKpi extends KpiMetric {
   @override
