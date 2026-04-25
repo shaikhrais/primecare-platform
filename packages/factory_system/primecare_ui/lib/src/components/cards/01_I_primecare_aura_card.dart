@@ -199,7 +199,12 @@ class _AuraPulseIconState extends State<_AuraPulseIcon>
       InsightImpact.positive => const Color(0xFF4ADE80),
       InsightImpact.caution => const Color(0xFFFBBF24),
       InsightImpact.alert => PrimeCareColors.white,
-      InsightImpact.info => PrimeCareColors.white,
+      InsightImpact.info ||
+      InsightImpact.standard ||
+      InsightImpact.success ||
+      InsightImpact.high ||
+      InsightImpact.low ||
+      InsightImpact.medium => PrimeCareColors.white,
       InsightImpact.growth => const Color(0xFF3B82F6),
       InsightImpact.warning => const Color(0xFFF59E0B),
       InsightImpact.critical => const Color(0xFFDC2626),
@@ -245,7 +250,12 @@ class _AuraInsightTile extends StatelessWidget {
       InsightImpact.positive => const Color(0xFF4ADE80),
       InsightImpact.caution => const Color(0xFFFBBF24),
       InsightImpact.alert => const Color(0xFFEF4444),
-      InsightImpact.info => PrimeCareColors.white,
+      InsightImpact.info ||
+      InsightImpact.standard ||
+      InsightImpact.success ||
+      InsightImpact.high ||
+      InsightImpact.low ||
+      InsightImpact.medium => PrimeCareColors.white,
       InsightImpact.growth => const Color(0xFF3B82F6),
       InsightImpact.warning => const Color(0xFFF59E0B),
       InsightImpact.critical => const Color(0xFFDC2626),

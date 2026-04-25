@@ -1,9 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_core/00_B_flutter_core.dart';
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
 
-import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 import 'package:dio/dio.dart';
 
@@ -87,16 +85,16 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
     _emailDebounce?.cancel();
     _emailDebounce = Timer(const Duration(milliseconds: 500), () async {
       final result = await Result.guardFuture<Response<dynamic>>(
-        () => ref.read(apiClientProvider).get('/v1/clinical/check-email', query: {'email': email}),
+        () => ref
+            .read(apiClientProvider)
+            .get('/v1/clinical/check-email', query: {'email': email}),
       );
-      
-      result.fold(
-        (_) => updateData(isEmailAvailable: null),
-        (response) {
-          final data = (response as Response<dynamic>).data as Map<String, dynamic>;
-          updateData(isEmailAvailable: data['available'] as bool?);
-        },
-      );
+
+      result.fold((_) => updateData(isEmailAvailable: null), (response) {
+        final data =
+            (response as Response<dynamic>).data as Map<String, dynamic>;
+        updateData(isEmailAvailable: data['available'] as bool?);
+      });
     });
   }
 
@@ -115,22 +113,22 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
 
     state = const AsyncLoading();
 
-    final result = await Result.guardFuture<bool>(
-      () async {
-        await ref.read(apiClientProvider).post(
-          '/v1/clinical/patient-intake',
-          body: {
-            'firstName': currentData.firstName,
-            'lastName': currentData.lastName,
-            'email': currentData.email,
-            'dateOfBirth': currentData.dateOfBirth?.toIso8601String(),
-            'gender': currentData.gender,
-            'medicalHistory': currentData.details,
-          },
-        );
-        return true;
-      },
-    );
+    final result = await Result.guardFuture<bool>(() async {
+      await ref
+          .read(apiClientProvider)
+          .post(
+            '/v1/clinical/patient-intake',
+            body: {
+              'firstName': currentData.firstName,
+              'lastName': currentData.lastName,
+              'email': currentData.email,
+              'dateOfBirth': currentData.dateOfBirth?.toIso8601String(),
+              'gender': currentData.gender,
+              'medicalHistory': currentData.details,
+            },
+          );
+      return true;
+    });
 
     result.fold(
       (error) {
@@ -145,7 +143,8 @@ class PatientIntakeNotifier extends AsyncNotifier<PatientIntakeData> {
 
 final patientIntakeProvider =
     AsyncNotifierProvider<PatientIntakeNotifier, PatientIntakeData>(
-        PatientIntakeNotifier.new);
+      PatientIntakeNotifier.new,
+    );
 
 // --- Component ---
 class PatientIntakeForm extends ConsumerStatefulWidget {
@@ -166,8 +165,11 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.initialData is Map) {
-        final Map<String, dynamic> data = widget.initialData as Map<String, dynamic>;
-        ref.read(patientIntakeProvider.notifier).updateData(
+        final Map<String, dynamic> data =
+            widget.initialData as Map<String, dynamic>;
+        ref
+            .read(patientIntakeProvider.notifier)
+            .updateData(
               firstName: data['firstName'] as String?,
               lastName: data['lastName'] as String?,
               email: data['email'] as String?,
@@ -205,10 +207,11 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
       onSubmit: _submit,
       submitText: 'Complete Intake',
       isLoading: asyncState.isLoading,
-      isEnabled: currentData.firstName.isNotEmpty && 
-                 currentData.lastName.isNotEmpty && 
-                 currentData.email.isNotEmpty && 
-                 currentData.isEmailAvailable == true,
+      isEnabled:
+          currentData.firstName.isNotEmpty &&
+          currentData.lastName.isNotEmpty &&
+          currentData.email.isNotEmpty &&
+          currentData.isEmailAvailable == true,
       children: [
         if (asyncState.hasError)
           Padding(
@@ -227,7 +230,9 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
               child: TextFormField(
                 decoration: InputDecoration(
                   labelText: 'First Name',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 initialValue: currentData.firstName,
                 onChanged: (val) => ref
@@ -242,7 +247,9 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
               child: TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Last Name',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 initialValue: currentData.lastName,
                 onChanged: (val) => ref
@@ -258,9 +265,9 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
                 onTap: () async {
                   final picked = await showDatePicker(
                     context: context,
-                    initialDate: currentData.dateOfBirth ??
-                        DateTime.now()
-                            .subtract(const Duration(days: 365 * 30)),
+                    initialDate:
+                        currentData.dateOfBirth ??
+                        DateTime.now().subtract(const Duration(days: 365 * 30)),
                     firstDate: DateTime(1900),
                     lastDate: DateTime.now(),
                   );
@@ -275,13 +282,15 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
                     decoration: InputDecoration(
                       labelText: 'Date of Birth',
                       suffixIcon: const Icon(Icons.calendar_today),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     controller: TextEditingController(
-                      text: currentData.dateOfBirth
-                              ?.toLocal()
-                              .toString()
-                              .split(' ')[0] ??
+                      text:
+                          currentData.dateOfBirth?.toLocal().toString().split(
+                            ' ',
+                          )[0] ??
                           '',
                     ),
                     validator: (value) =>
@@ -295,14 +304,16 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: 'Gender',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 initialValue: currentData.gender,
                 items: ['Male', 'Female', 'Non-binary', 'Other']
-                    .map((label) => DropdownMenuItem(
-                          value: label,
-                          child: Text(label),
-                        ))
+                    .map(
+                      (label) =>
+                          DropdownMenuItem(value: label, child: Text(label)),
+                    )
                     .toList(),
                 onChanged: (val) => ref
                     .read(patientIntakeProvider.notifier)
@@ -317,12 +328,14 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
                 decoration: InputDecoration(
                   labelText: 'Primary Email',
                   prefixIcon: const Icon(Icons.email),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   suffixIcon: currentData.isEmailAvailable == null
                       ? null
                       : currentData.isEmailAvailable!
-                          ? const Icon(Icons.check_circle, color: Colors.green)
-                          : const Icon(Icons.error, color: Colors.red),
+                      ? const Icon(Icons.check_circle, color: Colors.green)
+                      : const Icon(Icons.error, color: Colors.red),
                   helperText: currentData.isEmailAvailable == false
                       ? 'Email already registered'
                       : null,
@@ -336,7 +349,8 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
                 validator: (value) {
                   if (value == null || value.isEmpty) return 'Required';
                   if (!value.contains('@')) return 'Invalid email';
-                  if (currentData.isEmailAvailable == false) return 'Email unavailable';
+                  if (currentData.isEmailAvailable == false)
+                    return 'Email unavailable';
                   return null;
                 },
               ),
@@ -346,7 +360,9 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
               child: TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Medical History',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 maxLines: 5,
                 initialValue: currentData.details,

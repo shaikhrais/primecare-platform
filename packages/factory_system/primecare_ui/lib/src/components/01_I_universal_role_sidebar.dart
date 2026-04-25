@@ -1,7 +1,13 @@
-// Layer: 01_INFRASTRUCTURE
 import 'dart:math' as math;
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/00_B_flutter_core.dart';
+
+// Internal granular imports
+import 'package:flutter_core/models/01_I_navigation_item.dart';
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+import 'package:flutter_core/01_I_auth_service.dart';
 
 class UniversalRoleSidebar extends ConsumerWidget {
   final Widget child;
@@ -60,7 +66,7 @@ class UniversalRoleSidebar extends ConsumerWidget {
     final Map<String, List<PrimeCareNavigationItem>> groupedItems = {};
 
     for (var item in items) {
-      String sectionName = item.section ?? 'Main';
+      String sectionName = item.section ?? 'navigation.sections.main';
 
       if (!groupedItems.containsKey(sectionName)) {
         groupedItems[sectionName] = [];
@@ -69,9 +75,11 @@ class UniversalRoleSidebar extends ConsumerWidget {
     }
 
     // Ensure 'Common Tools' is always moved to the very bottom, if it exists
-    if (groupedItems.containsKey('Common Tools')) {
-      final commonItems = groupedItems.remove('Common Tools')!;
-      groupedItems['Common Tools'] = commonItems;
+    if (groupedItems.containsKey('navigation.sections.common_tools')) {
+      final commonItems = groupedItems.remove(
+        'navigation.sections.common_tools',
+      )!;
+      groupedItems['navigation.sections.common_tools'] = commonItems;
     }
 
     return AnimatedContainer(
@@ -217,7 +225,7 @@ class _SidebarGroupState extends State<_SidebarGroup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.title.toUpperCase(),
+                    widget.title.tr().toUpperCase(),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant.withValues(
                         alpha: 0.5,
@@ -358,7 +366,7 @@ class _SidebarMenuItemState extends State<_SidebarMenuItem> {
                 SizedBox(width: 12 * widget.scale),
                 Expanded(
                   child: Text(
-                    widget.item.label,
+                    widget.item.label.tr(),
                     style: TextStyle(
                       color: textColor,
                       fontSize: 15 * widget.scale,

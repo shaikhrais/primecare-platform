@@ -34,35 +34,27 @@ pages:
     role_allowed: ["manager_portal"]
     actions: ["submit"]
     linked_intent: "create_shift"
-    implementation_status: "pending"
-  
-  - id: "create_shift_form"
-    route: "/admin/create-shift"
-    name: "CreateShiftForm"
-    role_allowed: ["manager_portal"]
-    actions: ["submit"]
-    linked_intent: "create_shift"
-    implementation_status: "pending"
+    implementation_status: "verified"
   - id: "system_dashboard"
-    route: "/generated/${CorporateRoutes.ceoDashboard}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/ceo/dashboard"
     name: "SystemDashboard"
     label: "System Dashboard"
-    route_var: "CorporateRoutes.ceoDashboard"
     icon_var: "LucideIcons.layoutDashboard"
     section: "Main"
     role_allowed: ["Admin", "CEO"]
     actions: ["view"]
     linked_intent: "navigate_system_dashboard"
+    implementation_status: "verified"
   - id: "compliance_hub"
-    route: "/generated/${CorporateRoutes.complianceManagerDashboard}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/compliance_manager/dashboard"
     name: "ComplianceHub"
     label: "Compliance Hub"
-    route_var: "CorporateRoutes.complianceManagerDashboard"
     icon_var: "LucideIcons.shieldCheck"
     section: "Management"
     role_allowed: ["Admin", "Compliance Manager"]
     actions: ["view"]
     linked_intent: "navigate_compliance_hub"
+    implementation_status: "verified"
   - id: "global_settings"
     route: "/generated/${CommonRoutes.globalSettings}" # Placeholder since we don't know literal route string
     name: "GlobalSettings"
@@ -74,35 +66,35 @@ pages:
     actions: ["view"]
     linked_intent: "navigate_global_settings"
   - id: "user_management"
-    route: "/generated/${CommonRoutes.userManagement}" # Placeholder since we don't know literal route string
+    route: "/offices/common/roles/admin/user-management"
     name: "UserManagement"
     label: "User Management"
-    route_var: "CommonRoutes.userManagement"
     icon_var: "LucideIcons.users"
     section: "Management"
     role_allowed: ["Admin", "CEO"]
     actions: ["view", "deactivate", "delete"]
     linked_intent: "user_management.view_users"
+    implementation_status: "verified"
   - id: "enterprise_overview"
-    route: "/generated/${CorporateRoutes.ceoEnterpriseOverview}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/ceo/enterprise-overview"
     name: "EnterpriseOverview"
     label: "Enterprise Overview"
-    route_var: "CorporateRoutes.ceoEnterpriseOverview"
     icon_var: "LucideIcons.globe"
     section: "Main"
     role_allowed: ["CEO"]
     actions: ["view"]
     linked_intent: "navigate_enterprise_overview"
+    implementation_status: "verified"
   - id: "strategic_kpis"
-    route: "/generated/${CorporateRoutes.ceoStrategicKpis}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/ceo/strategic-kpis"
     name: "StrategicKPIs"
     label: "Strategic KPIs"
-    route_var: "CorporateRoutes.ceoStrategicKpis"
-    icon_var: "LucideIcons.barChart3"
+    icon_var: "LucideIcons.trendingUp"
     section: "Main"
     role_allowed: ["CEO"]
     actions: ["view"]
     linked_intent: "navigate_strategic_kpis"
+    implementation_status: "verified"
   - id: "growth_pipeline"
     route: "/generated/${CorporateRoutes.ceoGrowthPipeline}" # Placeholder since we don't know literal route string
     name: "GrowthPipeline"
@@ -134,25 +126,25 @@ pages:
     actions: ["view"]
     linked_intent: "navigate_leadership_reports"
   - id: "cfo_dashboard"
-    route: "/generated/${CorporateRoutes.cfoDashboard}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/cfo/dashboard"
     name: "CFODashboard"
     label: "CFO Dashboard"
-    route_var: "CorporateRoutes.cfoDashboard"
     icon_var: "LucideIcons.layoutDashboard"
     section: "Main"
     role_allowed: ["CFO"]
     actions: ["view"]
     linked_intent: "navigate_cfo_dashboard"
+    implementation_status: "verified"
   - id: "financial_overview"
-    route: "/generated/${CorporateRoutes.cfoFinancialOverview}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/cfo/financial-overview"
     name: "FinancialOverview"
     label: "Financial Overview"
-    route_var: "CorporateRoutes.cfoFinancialOverview"
-    icon_var: "LucideIcons.wallet"
+    icon_var: "LucideIcons.barChart"
     section: "Main"
     role_allowed: ["CFO"]
     actions: ["view"]
     linked_intent: "navigate_financial_overview"
+    implementation_status: "verified"
   - id: "revenue_tracker"
     route: "/generated/${CorporateRoutes.cfoRevenue}" # Placeholder since we don't know literal route string
     name: "RevenueTracker"
@@ -184,25 +176,25 @@ pages:
     actions: ["view"]
     linked_intent: "navigate_tax_remittance"
   - id: "coo_dashboard"
-    route: "/generated/${CorporateRoutes.cooDashboard}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/coo/dashboard"
     name: "COODashboard"
     label: "COO Dashboard"
-    route_var: "CorporateRoutes.cooDashboard"
     icon_var: "LucideIcons.layoutDashboard"
     section: "Main"
     role_allowed: ["COO"]
     actions: ["view"]
     linked_intent: "navigate_coo_dashboard"
+    implementation_status: "verified"
   - id: "operations_board"
-    route: "/generated/${CorporateRoutes.cooOperationsOverview}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/coo/operations-overview"
     name: "OperationsBoard"
     label: "Operations Board"
-    route_var: "CorporateRoutes.cooOperationsOverview"
     icon_var: "LucideIcons.activity"
     section: "Main"
     role_allowed: ["COO"]
     actions: ["view"]
     linked_intent: "navigate_operations_board"
+    implementation_status: "verified"
   - id: "branch_operations"
     route: "/generated/${CorporateRoutes.cooBranchOperations}" # Placeholder since we don't know literal route string
     name: "BranchOperations"
@@ -234,25 +226,25 @@ pages:
     actions: ["view"]
     linked_intent: "navigate_incident_reviews"
   - id: "cto_dashboard"
-    route: "/generated/${CorporateRoutes.ctoDashboard}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/cto/dashboard"
     name: "CTODashboard"
     label: "CTO Dashboard"
-    route_var: "CorporateRoutes.ctoDashboard"
     icon_var: "LucideIcons.layoutDashboard"
     section: "Main"
     role_allowed: ["CTO"]
     actions: ["view"]
     linked_intent: "navigate_cto_dashboard"
+    implementation_status: "verified"
   - id: "system_health"
-    route: "/generated/${CorporateRoutes.ctoSystemHealth}" # Placeholder since we don't know literal route string
+    route: "/offices/corporate/roles/cto/system-health"
     name: "SystemHealth"
     label: "System Health"
-    route_var: "CorporateRoutes.ctoSystemHealth"
-    icon_var: "LucideIcons.hardDrive"
+    icon_var: "LucideIcons.heartPulse"
     section: "Main"
-    role_allowed: ["CTO", "Corporate Developer"]
+    role_allowed: ["CTO"]
     actions: ["view"]
     linked_intent: "navigate_system_health"
+    implementation_status: "verified"
   - id: "platform_usage"
     route: "/generated/${CorporateRoutes.ctoPlatformUsage}" # Placeholder since we don't know literal route string
     name: "PlatformUsage"

@@ -1,8 +1,11 @@
-// Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/src/components/01_I_primecare_button.dart';
+import 'package:primecare_ui/src/theme/aura/01_I_aura_role_theme.dart';
+import 'package:primecare_ui/src/components/aura/01_I_aura_briefing_panel.dart';
 
 class AuraHeader extends ConsumerStatefulWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
@@ -27,7 +30,8 @@ class AuraHeader extends ConsumerStatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(72.0);
 }
 
-class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProviderStateMixin {
+class _AuraHeaderState extends ConsumerState<AuraHeader>
+    with SingleTickerProviderStateMixin {
   late AnimationController _searchController;
   late Animation<double> _searchWidth;
   bool _isSearchFocused = false;
@@ -88,7 +92,15 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
               child: Row(
                 children: [
                   // Left: Aura Logo & Branding
-                  widget.customLeft ?? _buildLeftSection(context, theme, layout, scale, isMobile, auraTheme),
+                  widget.customLeft ??
+                      _buildLeftSection(
+                        context,
+                        theme,
+                        layout,
+                        scale,
+                        isMobile,
+                        auraTheme,
+                      ),
 
                   // Center: Search (Animated Expansion)
                   if (!isMobile && !isTablet)
@@ -99,9 +111,17 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
                           builder: (context, child) {
                             return ConstrainedBox(
                               constraints: BoxConstraints(
-                                maxWidth: (300 + (200 * _searchWidth.value)) * scale,
+                                maxWidth:
+                                    (300 + (200 * _searchWidth.value)) * scale,
                               ),
-                              child: widget.customCenter ?? _buildAuraSearchBox(theme, layout, scale, auraTheme),
+                              child:
+                                  widget.customCenter ??
+                                  _buildAuraSearchBox(
+                                    theme,
+                                    layout,
+                                    scale,
+                                    auraTheme,
+                                  ),
                             );
                           },
                         ),
@@ -158,8 +178,12 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
                 scale,
                 onPressed: () {
                   final current = ref.read(sidebarModeProvider);
-                  ref.read(sidebarOverrideProvider.notifier).setMode(
-                        current == SidebarMode.extended ? SidebarMode.minimal : SidebarMode.extended,
+                  ref
+                      .read(sidebarOverrideProvider.notifier)
+                      .setMode(
+                        current == SidebarMode.extended
+                            ? SidebarMode.minimal
+                            : SidebarMode.extended,
                       );
                 },
               ),
@@ -257,7 +281,12 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
     );
   }
 
-  Widget _buildAuraSearchBox(ThemeData theme, LayoutConfig layout, double scale, AuraRoleTheme auraTheme) {
+  Widget _buildAuraSearchBox(
+    ThemeData theme,
+    LayoutConfig layout,
+    double scale,
+    AuraRoleTheme auraTheme,
+  ) {
     return Focus(
       onFocusChange: (hasFocus) {
         setState(() => _isSearchFocused = hasFocus);
@@ -273,7 +302,9 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
         decoration: BoxDecoration(
           color: _isSearchFocused
               ? theme.colorScheme.surface
-              : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+              : theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.4,
+                ),
           borderRadius: BorderRadius.circular(16 * scale),
           border: Border.all(
             color: _isSearchFocused
@@ -287,13 +318,13 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
                     color: theme.colorScheme.primary.withValues(alpha: 0.1),
                     blurRadius: 15 * scale,
                     spreadRadius: 2 * scale,
-                  )
+                  ),
                 ]
               : [],
         ),
         child: TextField(
           decoration: InputDecoration(
-            hintText: 'Ask Aura anything...',
+            hintText: 'aura.search_hint'.tr(),
             hintStyle: TextStyle(
               fontSize: 14 * scale,
               color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
@@ -301,10 +332,16 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
             prefixIcon: Icon(
               LucideIcons.sparkles,
               size: 18 * scale,
-              color: _isSearchFocused ? auraTheme.accentColor : theme.colorScheme.onSurfaceVariant,
+              color: _isSearchFocused
+                  ? auraTheme.accentColor
+                  : theme.colorScheme.onSurfaceVariant,
             ),
             suffixIcon: _isSearchFocused
-                ? Icon(LucideIcons.command, size: 14 * scale, color: theme.colorScheme.onSurfaceVariant)
+                ? Icon(
+                    LucideIcons.command,
+                    size: 14 * scale,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  )
                 : null,
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(vertical: 12 * scale),
@@ -338,14 +375,18 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
     );
   }
 
-  Widget _buildIntelligencePulse(ThemeData theme, double scale, AuraRoleTheme auraTheme) {
+  Widget _buildIntelligencePulse(
+    ThemeData theme,
+    double scale,
+    AuraRoleTheme auraTheme,
+  ) {
     final activeAnomaly = ref.watch(auraActiveAnomalyProvider);
     final pulseEvent = ref.watch(auraPulseProvider).value;
-    
+
     // Determine pulse intensity and color based on telemetry
     Color pulseColor = auraTheme.pulseColor;
     Duration pulseDuration = const Duration(seconds: 2);
-    
+
     if (activeAnomaly != null) {
       if (activeAnomaly.impact == InsightImpact.alert) {
         pulseColor = theme.colorScheme.error;
@@ -354,7 +395,8 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
         pulseColor = Colors.orange;
         pulseDuration = const Duration(milliseconds: 1200);
       }
-    } else if (pulseEvent != null && pulseEvent.impact == InsightImpact.positive) {
+    } else if (pulseEvent != null &&
+        pulseEvent.impact == InsightImpact.positive) {
       pulseColor = Colors.greenAccent;
       pulseDuration = const Duration(seconds: 1);
     }
@@ -362,8 +404,8 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
     return Stack(
       children: [
         _buildAuraIconButton(
-          context, 
-          activeAnomaly != null ? LucideIcons.zap : LucideIcons.zap, 
+          context,
+          activeAnomaly != null ? LucideIcons.zap : LucideIcons.zap,
           scale,
           onPressed: () => _showAuraBriefing(context, scale),
         ),
@@ -371,7 +413,7 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
           top: 8 * scale,
           right: 8 * scale,
           child: _PulseIndicator(
-            color: pulseColor, 
+            color: pulseColor,
             scale: scale,
             duration: pulseDuration,
           ),
@@ -400,7 +442,9 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
           width: 44 * scale,
           height: 44 * scale,
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
             borderRadius: BorderRadius.circular(14 * scale),
             border: Border.all(
               color: theme.colorScheme.outlineVariant.withValues(alpha: 0.2),
@@ -426,7 +470,9 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
     final authState = ref.watch(authProvider);
     final userName = authState.userName ?? 'User';
     final role = authState.role ?? 'Platform Admin';
-    final initials = userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
+    final initials = userName.isNotEmpty
+        ? userName.substring(0, 1).toUpperCase()
+        : 'U';
 
     return InkWell(
       onTap: () => _showAuraMenu(context, scale),
@@ -434,7 +480,9 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
       child: Container(
         padding: EdgeInsets.all(4 * scale),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.3,
+          ),
           borderRadius: BorderRadius.circular(16 * scale),
           border: Border.all(
             color: theme.colorScheme.outlineVariant.withValues(alpha: 0.2),
@@ -452,7 +500,10 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
                   end: Alignment.topRight,
                 ),
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 2),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  width: 2,
+                ),
               ),
               child: Center(
                 child: Text(
@@ -491,7 +542,11 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
                 ],
               ),
               SizedBox(width: 8 * scale),
-              Icon(LucideIcons.chevronDown, size: 14 * scale, color: theme.colorScheme.onSurfaceVariant),
+              Icon(
+                LucideIcons.chevronDown,
+                size: 14 * scale,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
               SizedBox(width: 4 * scale),
             ],
           ],
@@ -510,7 +565,9 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
       surfaceTintColor: theme.colorScheme.primary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16 * scale),
-        side: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.2)),
+        side: BorderSide(
+          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.2),
+        ),
       ),
       items: <PopupMenuEntry<String>>[
         PopupMenuItem<String>(
@@ -519,7 +576,7 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
             children: [
               Icon(LucideIcons.user, size: 18 * scale),
               SizedBox(width: 12 * scale),
-              const Text('Aura Profile'),
+              Text('aura.profile'.tr()),
             ],
           ),
         ),
@@ -529,7 +586,7 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
             children: [
               Icon(LucideIcons.settings, size: 18 * scale),
               SizedBox(width: 12 * scale),
-              const Text('System Preferences'),
+              Text('aura.system_preferences'.tr()),
             ],
           ),
         ),
@@ -538,9 +595,16 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
           value: 'logout',
           child: Row(
             children: [
-              Icon(LucideIcons.logOut, size: 18 * scale, color: theme.colorScheme.error),
+              Icon(
+                LucideIcons.logOut,
+                size: 18 * scale,
+                color: theme.colorScheme.error,
+              ),
               SizedBox(width: 12 * scale),
-              Text('Sign Out', style: TextStyle(color: theme.colorScheme.error)),
+              Text(
+                'aura.sign_out'.tr(),
+                style: TextStyle(color: theme.colorScheme.error),
+              ),
             ],
           ),
         ),
@@ -564,20 +628,25 @@ class _AuraHeaderState extends ConsumerState<AuraHeader> with SingleTickerProvid
             surfaceTintColor: Colors.transparent,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20 * scale),
-              side: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.2)),
+              side: BorderSide(
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.2),
+              ),
             ),
             title: Text(
-              'Confirm Departure',
-              style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800, fontSize: 20 * scale),
+              'aura.confirm_departure'.tr(),
+              style: GoogleFonts.plusJakartaSans(
+                fontWeight: FontWeight.w800,
+                fontSize: 20 * scale,
+              ),
             ),
-            content: const Text('Are you sure you want to exit the Aura secure session?'),
+            content: Text('aura.exit_message'.tr()),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
-                child: const Text('Stay'),
+                child: Text('aura.stay'.tr()),
               ),
               PrimeCareButton(
-                label: 'Exit Session',
+                label: 'aura.exit_session'.tr(),
                 type: PrimeCareButtonType.danger,
                 onPressed: () {
                   Navigator.pop(ctx);
@@ -607,16 +676,15 @@ class _PulseIndicator extends StatefulWidget {
   State<_PulseIndicator> createState() => _PulseIndicatorState();
 }
 
-class _PulseIndicatorState extends State<_PulseIndicator> with SingleTickerProviderStateMixin {
+class _PulseIndicatorState extends State<_PulseIndicator>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    )..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.duration)
+      ..repeat();
   }
 
   @override
@@ -649,7 +717,9 @@ class _PulseIndicatorState extends State<_PulseIndicator> with SingleTickerProvi
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: widget.color.withValues(alpha: 0.6 * (1 - _controller.value)),
+                color: widget.color.withValues(
+                  alpha: 0.6 * (1 - _controller.value),
+                ),
                 blurRadius: 8 * widget.scale * _controller.value,
                 spreadRadius: 4 * widget.scale * _controller.value,
               ),

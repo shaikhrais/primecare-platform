@@ -3,6 +3,8 @@ class CorporateRoutes {
   const CorporateRoutes._();
 
   static const String ceoDashboard = '/offices/corporate/roles/ceo/dashboard';
+  static const String ownerDashboard =
+      '/offices/corporate/roles/owner/dashboard';
   static const String cooDashboard = '/offices/corporate/roles/coo/dashboard';
   static const String cfoDashboard = '/offices/corporate/roles/cfo/dashboard';
   static const String ctoDashboard = '/offices/corporate/roles/cto/dashboard';
@@ -145,4 +147,14 @@ class CorporateRoutes {
       '/offices/corporate/roles/training_director/certificates';
   static const String systemVerificationDashboard =
       '/offices/corporate/roles/cto/system-verification';
+  static const String hrManagerDashboard =
+      '/offices/corporate/roles/hr_manager/dashboard';
+  static const String hrHiringDashboard =
+      '/offices/corporate/roles/hr_hiring/dashboard';
+  static const String hrDirectorDashboard =
+      '/offices/corporate/roles/hr_director/dashboard';
+  static const String cxDirectorDashboard =
+      '/offices/corporate/roles/cx_director/dashboard';
+  static const String itAdminDashboard =
+      '/offices/corporate/roles/it_admin/dashboard';
 }

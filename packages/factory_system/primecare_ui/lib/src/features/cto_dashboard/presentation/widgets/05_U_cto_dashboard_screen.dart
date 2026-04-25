@@ -9,14 +9,8 @@ class CtoDashboardScreen extends ConsumerWidget {
     final theme = context.theme;
     final state = ref.watch(ctoDashboardAdapterProvider);
 
-    return state.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildContent(context, theme, viewModel),
-        (err) => DashboardErrorWidget(
-          message: 'Domain Logistics Failure: $err',
-          onRetry: () => ref.refresh(ctoDashboardAdapterProvider),
-        ),
-      ),
+    return state.whenResult(
+      (viewModel) => _buildContent(context, theme, viewModel),
       loading: () => const DashboardLoadingWidget(),
       error: (Object e, StackTrace st) => DashboardErrorWidget(
         message: 'Governance Exception: $e',
@@ -33,7 +27,9 @@ class CtoDashboardScreen extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth > 1200;
-        final horizontalPadding = isDesktop ? theme.spacing.xl : theme.spacing.lg;
+        final horizontalPadding = isDesktop
+            ? theme.spacing.xl
+            : theme.spacing.lg;
 
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(
@@ -45,7 +41,7 @@ class CtoDashboardScreen extends ConsumerWidget {
             children: [
               _buildHeader(context, theme),
               SizedBox(height: theme.spacing.xl),
-              
+
               // 16-Column Command Horizon Grid (Simulated via LayoutBuilder)
               if (isDesktop)
                 _buildDesktopGrid(context, theme, vm)
@@ -146,7 +142,7 @@ class CtoDashboardScreen extends ConsumerWidget {
           ],
         ),
         SizedBox(height: theme.spacing.xl),
-        
+
         // Bottom Row: System Health Details & Audit
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +166,9 @@ class CtoDashboardScreen extends ConsumerWidget {
                     children: [
                       Text('ARCHITECTURAL LOAD', style: theme.typography.label),
                       const Spacer(),
-                      const Center(child: Text('Load Distribution Graph Placeholder')),
+                      const Center(
+                        child: Text('Load Distribution Graph Placeholder'),
+                      ),
                       const Spacer(),
                     ],
                   ),

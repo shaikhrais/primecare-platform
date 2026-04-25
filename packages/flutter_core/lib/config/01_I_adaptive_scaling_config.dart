@@ -91,8 +91,25 @@ class AdaptiveScalingConfig {
         return 320.0;
       case ResolutionTier.threeK:
         return 280.0;
+      case ResolutionTier.twoK:
+      case ResolutionTier.oneK:
+        return 260.0;
       default:
         return 260.0;
+    }
+  }
+
+  /// Returns the fixed pixel width for a minimal (collapsed) sidebar.
+  static double getMinimalSidebarWidth(ResolutionTier tier) {
+    switch (tier) {
+      case ResolutionTier.mega:
+        return 120.0;
+      case ResolutionTier.fourK:
+        return 100.0;
+      case ResolutionTier.threeK:
+        return 90.0;
+      default:
+        return 80.0;
     }
   }
 }

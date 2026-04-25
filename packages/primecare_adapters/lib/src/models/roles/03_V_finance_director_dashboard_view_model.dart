@@ -12,28 +12,39 @@ class FinanceDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
     super.isOfflineFallback,
   });
 
-  factory FinanceDirectorDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+  factory FinanceDirectorDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
+    return FinanceDirectorDashboardViewModel(metrics: metrics, insights: []);
+  }
+
+  factory FinanceDirectorDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return FinanceDirectorDashboardViewModel(
-      metrics: metrics,
-      insights: [],
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
     );
   }
 
-  factory FinanceDirectorDashboardViewModel.fromJson(Map<String, dynamic> json) {
-    return FinanceDirectorDashboardViewModel(
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
-  }
-
-  factory FinanceDirectorDashboardViewModel.empty({bool isOfflineFallback = false}) {
+  factory FinanceDirectorDashboardViewModel.empty({
+    bool isOfflineFallback = false,
+  }) {
     return FinanceDirectorDashboardViewModel(
       metrics: DashboardMetrics.empty(),
       insights: [],
@@ -43,8 +54,22 @@ class FinanceDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
 
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+  };
+
+  FinanceDirectorDashboardViewModel copyWith({
+    DashboardMetrics? metrics,
+    List<IntelligenceInsight>? insights,
+    List<UIComponentBlueprint>? blueprints,
+    bool? isOfflineFallback,
+  }) {
+    return FinanceDirectorDashboardViewModel(
+      metrics: metrics ?? this.metrics,
+      insights: insights ?? this.insights,
+      blueprints: blueprints ?? this.blueprints,
+      isOfflineFallback: isOfflineFallback ?? this.isOfflineFallback,
+    );
+  }
 }

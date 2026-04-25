@@ -10,41 +10,78 @@ class SupportDashboardScreen extends ConsumerWidget {
     final state = ref.watch(supportDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(supportDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(supportDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(supportDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, SupportDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    SupportDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Support Command Center', style: theme.typography.h2),
+          Row(
+            children: [
+              Text('Support Command Center', style: theme.typography.h2),
+              const Spacer(),
+              if (vm.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareCard(
-            padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 2, child: _buildOperationDetails(theme)),
+              SizedBox(width: theme.spacing.xl),
+              Expanded(child: _buildAuraInsightsColumn(theme, vm.insights)),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildOperationDetails(PrimeCareThemeData theme) {
+    return PrimeCareCard(
+      padding: EdgeInsets.all(theme.spacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Operational Volume', style: theme.typography.h4),
+          SizedBox(height: theme.spacing.lg),
+          const Center(
+            child: Text('Support Queue Visualization - Active Tickets'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

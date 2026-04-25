@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 /// The high-fidelity rendering engine for data-driven screens.
 /// It interprets the [PrimeCareScreen] and assembles the UI components.
@@ -20,7 +21,8 @@ class UniversalScreenEngine extends ConsumerWidget {
     final selfHealingNotifier = ref.read(selfHealingProvider.notifier);
 
     // 0. Handle Safety Lockout
-    if (selfHealing.isLockoutActive && selfHealing.failingRouteId == screen.route) {
+    if (selfHealing.isLockoutActive &&
+        selfHealing.failingRouteId == screen.route) {
       if (screen.resiliencePolicy.fallbackRoute != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           context.go(screen.resiliencePolicy.fallbackRoute!);
@@ -33,10 +35,18 @@ class UniversalScreenEngine extends ConsumerWidget {
       'UniversalScreenEngine: Hydrating ${screen.title} (${screen.route})',
     );
 
+    // ✅ GOVERNANCE: Update institutional context so Aura knows where we are.
+    // Use a microtask to avoid building during build phase.
+    Future.microtask(() {
+      if (ref.read(auraContextProvider) != screen.route) {
+        ref.read(auraContextProvider.notifier).update(screen.route);
+      }
+    });
+
     // 1. Resolve Data
-    final data = screen.provider != null 
+    final data = screen.provider != null
         // ignore: argument_type_not_assignable, inference_failure_on_function_invocation
-        ? ref.watch(screen.provider as dynamic) 
+        ? ref.watch(screen.provider as dynamic)
         : null;
 
     // 2. Failure Reporting Hook
@@ -51,15 +61,19 @@ class UniversalScreenEngine extends ConsumerWidget {
                   selfHealingNotifier.resetRetryCount(screen.route);
                 } else {
                   selfHealingNotifier.recordFailure(
-                    screen.route, 
-                    isCritical: screen.resiliencePolicy.strategy == ScreenRecoveryStrategy.globalEscalation,
+                    screen.route,
+                    isCritical:
+                        screen.resiliencePolicy.strategy ==
+                        ScreenRecoveryStrategy.globalEscalation,
                   );
                 }
               }
             },
             error: (e, st) => selfHealingNotifier.recordFailure(
-              screen.route, 
-              isCritical: screen.resiliencePolicy.strategy == ScreenRecoveryStrategy.globalEscalation,
+              screen.route,
+              isCritical:
+                  screen.resiliencePolicy.strategy ==
+                  ScreenRecoveryStrategy.globalEscalation,
             ),
             loading: () {},
           );
@@ -72,8 +86,10 @@ class UniversalScreenEngine extends ConsumerWidget {
     if (data is AsyncValue) {
       body = data.when(
         data: (resolvedData) => _buildBody(context, ref, resolvedData),
-        loading: () => const Center(child: PrimeCareSkeleton(width: 300, height: 200)),
-        error: (err, stack) => _buildResilientFallback(context, ref, err.toString()),
+        loading: () =>
+            const Center(child: PrimeCareSkeleton(width: 300, height: 200)),
+        error: (err, stack) =>
+            _buildResilientFallback(context, ref, err.toString()),
       );
     } else {
       body = _buildBody(context, ref, data);
@@ -92,8 +108,14 @@ class UniversalScreenEngine extends ConsumerWidget {
 
     // 5. Wrap in Layout Shell (only if explicitly requested, as MasterLayout usually handles this)
     if (useShell) {
-      return BaseLayoutShell(
-        currentPath: screen.route,
+      body = BaseLayoutShell(currentPath: screen.route, child: body);
+    }
+
+    // 6. GOVERNANCE: Apply Global Modulation
+    // This automatically dims/disables the screen or shows a fallback if the underlying subsystem is degraded.
+    if (screen.primarySubsystem != null) {
+      return WidgetModulationGovernor(
+        subsystem: screen.primarySubsystem!,
         child: body,
       );
     }
@@ -101,7 +123,11 @@ class UniversalScreenEngine extends ConsumerWidget {
     return body;
   }
 
-  Widget _buildResilientFallback(BuildContext context, WidgetRef ref, String error) {
+  Widget _buildResilientFallback(
+    BuildContext context,
+    WidgetRef ref,
+    String error,
+  ) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +154,7 @@ class UniversalScreenEngine extends ConsumerWidget {
 
   Widget _buildBody(BuildContext context, WidgetRef ref, dynamic data) {
     final theme = PrimeCareTheme.of(context);
-    
+
     DashboardMetrics? metrics;
     dynamic unwrappedData = data;
 
@@ -137,7 +163,11 @@ class UniversalScreenEngine extends ConsumerWidget {
       if (unwrappedData is Success) {
         unwrappedData = unwrappedData.data;
       } else if (unwrappedData is Failure) {
-        return _buildResilientFallback(context, ref, unwrappedData.error.toString());
+        return _buildResilientFallback(
+          context,
+          ref,
+          unwrappedData.error.toString(),
+        );
       }
     }
 
@@ -150,7 +180,8 @@ class UniversalScreenEngine extends ConsumerWidget {
     }
 
     return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(), // Required for RefreshIndicator
+      physics:
+          const AlwaysScrollableScrollPhysics(), // Required for RefreshIndicator
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,7 +199,7 @@ class UniversalScreenEngine extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          screen.title,
+          screen.title.tr(),
           style: theme.typography.h1.copyWith(
             fontWeight: FontWeight.w900,
             letterSpacing: -1.0,
@@ -177,8 +208,10 @@ class UniversalScreenEngine extends ConsumerWidget {
         if (screen.subtitle.isNotEmpty) ...[
           const SizedBox(height: 4),
           Text(
-            screen.subtitle,
-            style: theme.typography.bodyLarge.copyWith(color: theme.colors.slateGray),
+            screen.subtitle.tr(),
+            style: theme.typography.bodyLarge.copyWith(
+              color: theme.colors.slateGray,
+            ),
           ),
         ],
       ],
@@ -186,24 +219,33 @@ class UniversalScreenEngine extends ConsumerWidget {
   }
 
   List<Widget> _renderBlueprints(
-    BuildContext context, 
+    BuildContext context,
     WidgetRef ref,
     DashboardMetrics? metrics,
   ) {
     if (screen.blueprints.isEmpty && metrics != null) {
       return [
-        _mapBlueprintToWidget(context, ref, const StatGridBlueprint(dataPayload: <Object?>[]), metrics),
+        _mapBlueprintToWidget(
+          context,
+          ref,
+          const StatGridBlueprint(dataPayload: <Object?>[]),
+          metrics,
+        ),
       ];
     }
 
-    return screen.blueprints.map((bp) => Padding(
-      padding: const EdgeInsets.only(bottom: 32),
-      child: _mapBlueprintToWidget(context, ref, bp, metrics),
-    )).toList();
+    return screen.blueprints
+        .map(
+          (bp) => Padding(
+            padding: const EdgeInsets.only(bottom: 32),
+            child: _mapBlueprintToWidget(context, ref, bp, metrics),
+          ),
+        )
+        .toList();
   }
 
   Widget _mapBlueprintToWidget(
-    BuildContext context, 
+    BuildContext context,
     WidgetRef ref,
     UIComponentBlueprint blueprint,
     DashboardMetrics? metrics,
@@ -214,15 +256,17 @@ class UniversalScreenEngine extends ConsumerWidget {
       case 'aura_dashboard_hud':
         return const AuraDashboardHud();
       case 'stat_card_grid':
-        List<KpiMetric> kpis = blueprint.dataPayload is List 
+        List<KpiMetric> kpis = blueprint.dataPayload is List
             ? (blueprint.dataPayload as List).cast<KpiMetric>()
             : metrics?.kpis ?? <KpiMetric>[];
-        
+
         // Apply Pinning Logic
         final sortedKpis = List<KpiMetric>.from(kpis)
           ..sort((a, b) {
-            final aPinned = prefService?.isPinned(screen.name, a.title) ?? false;
-            final bPinned = prefService?.isPinned(screen.name, b.title) ?? false;
+            final aPinned =
+                prefService?.isPinned(screen.name, a.title) ?? false;
+            final bPinned =
+                prefService?.isPinned(screen.name, b.title) ?? false;
             if (aPinned && !bPinned) return -1;
             if (!aPinned && bPinned) return 1;
             return 0;
@@ -230,7 +274,8 @@ class UniversalScreenEngine extends ConsumerWidget {
 
         return PrimeCareResponsiveKpiGrid(
           children: sortedKpis.map((kpi) {
-            final isPinned = prefService?.isPinned(screen.name, kpi.title) ?? false;
+            final isPinned =
+                prefService?.isPinned(screen.name, kpi.title) ?? false;
             return PrimeCareKpiCard(
               title: kpi.title,
               value: kpi.value,
@@ -252,15 +297,17 @@ class UniversalScreenEngine extends ConsumerWidget {
       case 'high_fidelity_dashboard':
         final hf = blueprint as HighFidelityScreenBlueprint;
         final builder = ComponentWarehouse.getBuilder(hf.viewId);
-        return builder?.call(context, blueprint.dataPayload) ?? 
-            Center(child: Text('High-Fidelity Component not found: ${hf.viewId}'));
+        return builder?.call(context, blueprint.dataPayload) ??
+            Center(
+              child: Text('High-Fidelity Component not found: ${hf.viewId}'),
+            );
       case 'analytics_chart':
         final builder = ComponentWarehouse.getBuilder('primeCareLineChart');
-        return builder?.call(context, blueprint.dataPayload) ?? 
+        return builder?.call(context, blueprint.dataPayload) ??
             const Center(child: Text('Line Chart Component not found'));
       case 'ai_forecasting':
         final builder = ComponentWarehouse.getBuilder('aiForecastingDashlet');
-        return builder?.call(context, blueprint.dataPayload) ?? 
+        return builder?.call(context, blueprint.dataPayload) ??
             const Center(child: Text('AI Forecasting Component not found'));
       default:
         // Try to find a builder matching the componentType directly in the warehouse
@@ -268,8 +315,9 @@ class UniversalScreenEngine extends ConsumerWidget {
         if (builder != null) {
           return builder(context, blueprint.dataPayload);
         }
-        return Center(child: Text('Unknown Component: ${blueprint.componentType}'));
+        return Center(
+          child: Text('Unknown Component: ${blueprint.componentType}'),
+        );
     }
   }
 }
-

@@ -5,14 +5,26 @@ import 'lib/cache_manager.dart';
 void main(List<String> args) async {
   final force = args.contains('--force');
   final watch = args.contains('--watch');
-  final gracePeriod = int.tryParse(
-    args.firstWhere((a) => a.startsWith('--grace='), orElse: () => '--grace=60')
-    .split('=')[1]
-  ) ?? 60;
-  final repeats = int.tryParse(
-    args.firstWhere((a) => a.startsWith('--repeats='), orElse: () => '--repeats=-1')
-    .split('=')[1]
-  ) ?? -1;
+  final gracePeriod =
+      int.tryParse(
+        args
+            .firstWhere(
+              (a) => a.startsWith('--grace='),
+              orElse: () => '--grace=60',
+            )
+            .split('=')[1],
+      ) ??
+      60;
+  final repeats =
+      int.tryParse(
+        args
+            .firstWhere(
+              (a) => a.startsWith('--repeats='),
+              orElse: () => '--repeats=-1',
+            )
+            .split('=')[1],
+      ) ??
+      -1;
 
   final cache = CacheManager();
   int currentRepeat = 0;
@@ -71,9 +83,8 @@ void main(List<String> args) async {
       final hash = HashUtils.getDirectoryHash(m.path);
       currentHashes[m.name] = hash;
 
-      final cachedHash = cache.data['milestones']?[m.name]?['hash'];
       bool needsRun = force || !cache.isHashMatch(m.name, hash);
-      
+
       // 2. Cascading Dependency Check
       if (!needsRun) {
         for (final dep in m.dependencies) {
@@ -86,7 +97,9 @@ void main(List<String> args) async {
 
       // 3. Fast Temporal Check (Grace Period)
       // Only skip if it was PASS recently AND doesn't need a run due to hash or dependencies
-      if (!needsRun && !force && cache.wasRecentlyChecked(m.name, gracePeriod)) {
+      if (!needsRun &&
+          !force &&
+          cache.wasRecentlyChecked(m.name, gracePeriod)) {
         print('[RECENT] ${m.description} (Checked < ${gracePeriod}s ago)');
         skipCount++;
         continue;
@@ -98,7 +111,7 @@ void main(List<String> args) async {
         final stopwatch = Stopwatch()..start();
         final result = await _runCommand(m.command, m.path);
         stopwatch.stop();
-        
+
         if (result.exitCode == 0) {
           print(' [PASS] ${m.name} (${stopwatch.elapsed.inSeconds}s)');
           cache.updateMilestone(m.name, hash, 'PASS');
@@ -108,7 +121,7 @@ void main(List<String> args) async {
           print(result.stderr);
           cache.updateMilestone(m.name, hash, 'FAIL');
           anyFailure = true;
-          break; 
+          break;
         }
       } else {
         print('[CACHED] ${m.description}');
@@ -121,7 +134,10 @@ void main(List<String> args) async {
     if (!anyFailure) {
       print('\n==========================================');
       print(' SUCCESS: Platform Integrity Verified.');
-      if (skipCount > 0) print(' Saved significant time by skipping $skipCount redundant steps.');
+      if (skipCount > 0)
+        print(
+          ' Saved significant time by skipping $skipCount redundant steps.',
+        );
       print('==========================================');
     } else {
       print('\n==========================================');
@@ -131,8 +147,10 @@ void main(List<String> args) async {
     }
 
     if (watch && (repeats == -1 || currentRepeat < repeats)) {
-      print('\n[WATCH] Waiting 10 seconds for changes (Run $currentRepeat of ${repeats == -1 ? "∞" : repeats})...');
-      await Future.delayed(const Duration(seconds: 10));
+      print(
+        '\n[WATCH] Waiting 10 seconds for changes (Run $currentRepeat of ${repeats == -1 ? "∞" : repeats})...',
+      );
+      await Future<void>.delayed(const Duration(seconds: 10));
     } else {
       break;
     }

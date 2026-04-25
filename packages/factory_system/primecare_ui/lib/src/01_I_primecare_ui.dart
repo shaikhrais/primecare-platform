@@ -1,6 +1,10 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 
+export 'components/01_I_primecare_banner.dart';
+export 'components/01_I_primecare_chip.dart';
+export 'components/01_I_primecare_data_table.dart';
+
 /// Standard PrimeCare Input Configuration
 /// Overrides localized generic InputDecorations securely.
 class PrimeCareTextField extends StatelessWidget {

@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:flutter_core/00_B_flutter_core.dart';
-import '../../theme/01_I_primecare_theme.dart';
+import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
 
 /// A standard row widget for displaying dashboard insights with type indicators.
 class DashboardInsightRow extends StatelessWidget {
@@ -19,7 +19,7 @@ class DashboardInsightRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeCareTheme.of(context);
-    
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: theme.spacing.sm),
       child: Row(
@@ -40,12 +40,16 @@ class DashboardInsightRow extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.typography.bodyMedium.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   description,
-                  style: theme.typography.bodySmall.copyWith(color: Colors.grey),
+                  style: theme.typography.bodySmall.copyWith(
+                    color: Colors.grey,
+                  ),
                 ),
               ],
             ),

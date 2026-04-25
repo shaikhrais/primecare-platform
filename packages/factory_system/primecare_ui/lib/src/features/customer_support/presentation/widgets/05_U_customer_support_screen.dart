@@ -7,26 +7,35 @@ class CustomerSupportScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final adapterState = ref.watch(customerSupportDashboardAdapterProvider);
+    final metricsState = ref.watch(customerSupportMetricsProvider);
+    final insightsState = ref.watch(customerSupportInsightsProvider);
 
-    return adapterState.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildDashboard(context, viewModel),
-        (error) => SystemRecoveryMode(
-          error: error,
-          onAttemptReset: () => ref.refresh(customerSupportDashboardAdapterProvider),
-        ),
-      ),
+    return metricsState.when(
+      data: (metrics) {
+        return insightsState.when(
+          data: (insights) => _buildDashboard(context, metrics, insights),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (err, stack) => SystemRecoveryMode(
+            error: err,
+            stackTrace: stack,
+            onAttemptReset: () => ref.refresh(customerSupportInsightsProvider),
+          ),
+        );
+      },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => SystemRecoveryMode(
         error: err,
         stackTrace: stack,
-        onAttemptReset: () => ref.refresh(customerSupportDashboardAdapterProvider),
+        onAttemptReset: () => ref.refresh(customerSupportMetricsProvider),
       ),
     );
   }
 
-  Widget _buildDashboard(BuildContext context, CustomerSupportDashboardViewModel vm) {
+  Widget _buildDashboard(
+    BuildContext context,
+    DashboardMetrics metrics,
+    List<IntelligenceInsight> insights,
+  ) {
     return Scaffold(
       backgroundColor: const Color(0xFFF1F5F9),
       body: CustomScrollView(
@@ -38,19 +47,16 @@ class CustomerSupportScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSupportKPIs(vm),
+                  _buildSupportKPIs(metrics),
                   const SizedBox(height: 32),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: _buildTicketFlow(vm),
-                      ),
+                      Expanded(flex: 2, child: _buildTicketFlow(metrics)),
                       const SizedBox(width: 24),
                       Expanded(
                         flex: 1,
-                        child: _buildSupportIntelligence(vm),
+                        child: _buildSupportIntelligence(insights),
                       ),
                     ],
                   ),
@@ -76,7 +82,11 @@ class CustomerSupportScreen extends ConsumerWidget {
           const SizedBox(width: 12),
           const Text(
             'Support Center',
-            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ],
       ),
@@ -95,15 +105,15 @@ class CustomerSupportScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSupportKPIs(CustomerSupportDashboardViewModel vm) {
+  Widget _buildSupportKPIs(DashboardMetrics metrics) {
     return Wrap(
       spacing: 16,
       runSpacing: 16,
-      children: vm.metrics.kpis.map((kpi) => _StatCard(kpi: kpi)).toList(),
+      children: metrics.kpis.map((kpi) => _StatCard(kpi: kpi)).toList(),
     );
   }
 
-  Widget _buildTicketFlow(CustomerSupportDashboardViewModel vm) {
+  Widget _buildTicketFlow(DashboardMetrics metrics) {
     return _buildCard(
       title: 'Real-time Ticket Velocity',
       child: Container(
@@ -112,12 +122,14 @@ class CustomerSupportScreen extends ConsumerWidget {
           color: Colors.blue[50]?.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Center(child: Icon(Icons.bubble_chart, size: 64, color: Colors.blue)),
+        child: const Center(
+          child: Icon(Icons.bubble_chart, size: 64, color: Colors.blue),
+        ),
       ),
     );
   }
 
-  Widget _buildSupportIntelligence(CustomerSupportDashboardViewModel vm) {
+  Widget _buildSupportIntelligence(List<IntelligenceInsight> insights) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -131,17 +143,28 @@ class CustomerSupportScreen extends ConsumerWidget {
             children: [
               Icon(Icons.auto_awesome, color: Colors.blueAccent, size: 20),
               SizedBox(width: 8),
-              Text('Resolution AI', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              Text(
+                'Resolution AI',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 20),
-          ...vm.insights.map((insight) => Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(
-              insight.summary,
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 13),
+          ...insights.map(
+            (insight) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text(
+                insight.summary,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.8),
+                  fontSize: 13,
+                ),
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -158,7 +181,10 @@ class CustomerSupportScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 24),
           child,
         ],
@@ -184,12 +210,17 @@ class _StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(kpi.title, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+          Text(
+            kpi.title,
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           const SizedBox(height: 8),
-          Text(kpi.value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+          Text(
+            kpi.value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
         ],
       ),
     );
   }
 }
-

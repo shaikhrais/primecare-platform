@@ -10,34 +10,34 @@ class TerritoryExpansionManagerDashboardScreen extends ConsumerWidget {
     final state = ref.watch(territoryExpansionManagerDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(territoryExpansionManagerDashboardAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel.metrics),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(territoryExpansionManagerDashboardAdapterProvider),
+          onRetry: () =>
+              ref.refresh(territoryExpansionManagerDashboardAdapterProvider),
         ),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, TerritoryExpansionManagerDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    DashboardMetrics vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Territory Expansion Manager Command Center', style: theme.typography.h2),
+          Text(
+            'Territory Expansion Manager Command Center',
+            style: theme.typography.h2,
+          ),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
+          PrimeCareResponsiveKpiGrid(metrics: vm),
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),

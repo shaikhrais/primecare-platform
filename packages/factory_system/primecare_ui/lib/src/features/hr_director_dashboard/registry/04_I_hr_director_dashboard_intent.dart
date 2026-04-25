@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_hr_director_dashboard_screen.dart';
 
 class HrDirectorDashboardIntent extends AppScreenIntent {
-  const HrDirectorDashboardIntent();
+  HrDirectorDashboardIntent();
 
   @override
   String get name => 'hr_director_dashboard';
@@ -18,9 +18,8 @@ class HrDirectorDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.hrDirector;
 
   @override
-  dynamic get provider => humanResourcesDirectorDashboardAdapterProvider;
+  dynamic get provider => hrDirectorMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const HrDirectorDashboardScreen();
 }
-

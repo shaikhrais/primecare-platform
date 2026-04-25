@@ -12,19 +12,9 @@ class HrHiringDashboardScreen extends ConsumerWidget {
     final state = ref.watch(hrHiringDashboardAdapterProvider);
 
     return MasterLayout(
-      child: state.when(
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(hrHiringDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(hrHiringDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(hrHiringDashboardAdapterProvider),
       ),
     );
   }
@@ -34,74 +24,59 @@ class HrHiringDashboardScreen extends ConsumerWidget {
     PrimeCareThemeData theme,
     HrHiringDashboardViewModel viewModel,
   ) {
-    final metrics = viewModel.metrics;
-
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, theme),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'HR Human Capital Dashboard',
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    'Human capital, recruitment pipeline, and staff retention telemetry',
+                    style: theme.typography.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (viewModel.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
+
           _buildHumanCapitalSummary(context, theme),
           SizedBox(height: theme.spacing.xl),
 
           // Standardized KPI Grid (Headcount, Openings, Retention, Time-to-Fill)
-          PrimeCareResponsiveKpiGrid(metrics: metrics),
+          PrimeCareResponsiveKpiGrid(metrics: viewModel.metrics),
 
           SizedBox(height: theme.spacing.xl),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 3,
-                child: _buildRecruitmentPipeline(context, theme),
-              ),
-              SizedBox(width: theme.spacing.xl),
-              Expanded(
                 flex: 2,
-                child: _buildAdministrativeQueue(context, theme),
+                child: Column(
+                  children: [
+                    _buildRecruitmentPipeline(context, theme),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildAdministrativeQueue(context, theme),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context, PrimeCareThemeData theme) {
-    return PrimeCareCard(
-      padding: EdgeInsets.symmetric(
-        horizontal: theme.spacing.lg,
-        vertical: theme.spacing.md,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('HR Human Capital Dashboard', style: theme.typography.h2),
-                Text(
-                  'Recruitment • Q2 2026 • HR Department',
-                  style: theme.typography.label.copyWith(
-                    color: theme.colors.slateGray,
-                  ),
+              if (viewModel.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(
+                  child: _buildAuraInsightsColumn(theme, viewModel.insights),
                 ),
               ],
-            ),
-          ),
-          PrimeCareButton(
-            label: 'Post New Job',
-            icon: LucideIcons.plus,
-            onPressed: () {},
-          ),
-          SizedBox(width: theme.spacing.sm),
-          PrimeCareButton(
-            label: 'Staff List',
-            icon: LucideIcons.users,
-            onPressed: () {},
-            type: PrimeCareButtonType.secondary,
+            ],
           ),
         ],
       ),
@@ -330,6 +305,25 @@ class HrHiringDashboardScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

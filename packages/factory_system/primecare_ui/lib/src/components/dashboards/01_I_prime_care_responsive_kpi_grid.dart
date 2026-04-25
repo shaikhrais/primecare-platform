@@ -1,6 +1,14 @@
-// Layer: 01_INFRASTRUCTURE
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Internal granular imports
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+import 'package:flutter_core/01_I_aura_providers.dart';
+import 'package:primecare_adapters/src/infrastructure/01_I_telemetry_service.dart';
+import 'package:primecare_adapters/src/models/core/02_M_dashboard_models.dart';
 import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
+import 'package:primecare_ui/src/design_system/01_I_clinical_glass.dart';
 
 class PrimeCareResponsiveKpiGrid extends ConsumerStatefulWidget {
   final List<Widget> children;
@@ -44,7 +52,7 @@ class _PrimeCareResponsiveKpiGridState
   @override
   Widget build(BuildContext context) {
     final theme = PrimeCareTheme.of(context);
-    
+
     ref
         .read(executionGateProvider)
         .passGate(
@@ -69,34 +77,39 @@ class _PrimeCareResponsiveKpiGridState
 
     final effectiveChildren = [...widget.children];
     if (widget.metrics != null) {
-      effectiveChildren.addAll(widget.metrics!.kpis.map((kpi) {
-        return ClinicalGlassPanel(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                kpi.value,
-                style: theme.typography.h2.copyWith(fontWeight: FontWeight.w900, color: theme.colors.primary),
-              ),
-              Text(
-                kpi.title,
-                style: theme.typography.labelSmall.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colors.slateGray,
-                ),
-              ),
-              if (kpi.subtitle != null)
+      effectiveChildren.addAll(
+        widget.metrics!.kpis.map((kpi) {
+          return ClinicalGlassPanel(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  kpi.subtitle!,
-                  style: theme.typography.labelSmall.copyWith(
-                    color: theme.colors.slateGray.withValues(alpha: 0.7),
+                  kpi.value,
+                  style: theme.typography.h2.copyWith(
+                    fontWeight: FontWeight.w900,
+                    color: theme.colors.primary,
                   ),
                 ),
-            ],
-          ),
-        );
-      }).toList());
+                Text(
+                  kpi.title,
+                  style: theme.typography.labelSmall.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colors.slateGray,
+                  ),
+                ),
+                if (kpi.subtitle != null)
+                  Text(
+                    kpi.subtitle!,
+                    style: theme.typography.labelSmall.copyWith(
+                      color: theme.colors.slateGray.withValues(alpha: 0.7),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        }).toList(),
+      );
     }
 
     final grid = ResponsiveGridRow(

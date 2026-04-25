@@ -24,7 +24,7 @@ final primecareFormProvider =
         case PrimeCareForm.trainingDirectorDashboard:
           return trainingDirectorDashboardAdapterProvider;
         case PrimeCareForm.trainingHub:
-          return trainingHubAdapterProvider;
+          return trainingHubDashboardAdapterProvider;
         case PrimeCareForm.courseArchitectTool:
           return courseArchitectAdapterProvider;
         case PrimeCareForm.generalManagerDashboard:
@@ -43,6 +43,8 @@ final primecareFormProvider =
           return intakeDashboardAdapterProvider;
         case PrimeCareForm.qaDashboard:
           return qaDashboardAdapterProvider;
+        case PrimeCareForm.architecturePlanningDashboard:
+          return architecturePlanningDashboardAdapterProvider;
         case PrimeCareForm.customerSupportDashboard:
           return customerSupportDashboardAdapterProvider;
         case PrimeCareForm.trainingCoordinatorDashboard:
@@ -62,7 +64,13 @@ final primecareFormProvider =
         case PrimeCareForm.localMarketingManagerDashboard:
           return localMarketingManagerDashboardAdapterProvider;
         case PrimeCareForm.verifyCertificateForm:
-          return verifyCertificateFormAdapterProvider;
+          return genericDashboardAdapterProvider(
+            PrimeCareForm.verifyCertificateForm,
+          );
+        case PrimeCareForm.clinicalDirectorDashboard:
+          return clinicalDirectorDashboardAdapterProvider;
+        case PrimeCareForm.infectionControlDashboard:
+          return infectionControlDashboardAdapterProvider;
         default:
           // Fallback to generic dashboard adapter for remaining forms (e.g. specialized screens)
           return genericDashboardAdapterProvider(form);

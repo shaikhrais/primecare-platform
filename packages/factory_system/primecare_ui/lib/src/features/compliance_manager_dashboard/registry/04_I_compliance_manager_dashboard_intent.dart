@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_compliance_manager_dashboard_screen.dart';
 
 class ComplianceManagerDashboardIntent extends AppScreenIntent {
-  const ComplianceManagerDashboardIntent();
+  ComplianceManagerDashboardIntent();
 
   @override
   String get name => 'compliance_manager_dashboard';
@@ -21,9 +21,13 @@ class ComplianceManagerDashboardIntent extends AppScreenIntent {
   dynamic get provider => complianceManagerDashboardAdapterProvider;
 
   @override
-  List<String> get componentLabels => ['Registry Integrity Score', 'Anomaly Heatmap', 'Execution Gate Logs'];
+  List<String> get componentLabels => [
+    'Registry Integrity Score',
+    'Anomaly Heatmap',
+    'Execution Gate Logs',
+  ];
 
   @override
-  Widget build(BuildContext context) => const ComplianceManagerDashboardScreen();
+  Widget build(BuildContext context) =>
+      const ComplianceManagerDashboardScreen();
 }
-

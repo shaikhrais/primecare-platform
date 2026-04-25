@@ -1,6 +1,10 @@
-// Layer: 01_INFRASTRUCTURE
-
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_adapters/src/infrastructure/01_I_telemetry_service.dart';
+import 'package:primecare_adapters/src/models/core/02_M_dashboard_models.dart';
+import 'package:primecare_ui/src/theme/01_I_colors.dart';
+import 'package:primecare_ui/src/components/01_I_primecare_card.dart';
+import 'package:primecare_ui/src/components/charts/01_I_prime_care_line_chart.dart';
 
 class PrimeEarningsTrajectoryCard extends ConsumerWidget {
   final String title;

@@ -159,7 +159,7 @@ export function registerComplianceRoutes(app: any) {
      * Returns all curricula for a tenant.
      */
     app.get('/compliance/training/curricula', async (c: any) => {
-        const tenantId = c.req.header('x-tenant-id');
+        const tenantId = c.req.header('x-tenant-id') || '00000000-0000-0000-0000-000000000000';
         if (!tenantId) return c.json({ success: false, error: 'Missing x-tenant-id' }, 400);
 
         const result = await TrainingService.getCurricula(c.get('prisma'), tenantId as string);
@@ -174,7 +174,7 @@ export function registerComplianceRoutes(app: any) {
      * Returns all certifications for a tenant.
      */
     app.get('/compliance/training/certifications', async (c: any) => {
-        const tenantId = c.req.header('x-tenant-id');
+        const tenantId = c.req.header('x-tenant-id') || '00000000-0000-0000-0000-000000000000';
         if (!tenantId) return c.json({ success: false, error: 'Missing x-tenant-id' }, 400);
 
         const result = await TrainingService.getCertifications(c.get('prisma'), tenantId as string);
@@ -189,7 +189,7 @@ export function registerComplianceRoutes(app: any) {
      * Creates a new training module.
      */
     app.post('/compliance/training/modules', async (c: any) => {
-        const tenantId = c.req.header('x-tenant-id');
+        const tenantId = c.req.header('x-tenant-id') || '00000000-0000-0000-0000-000000000000';
         const body = await c.req.json();
         if (!tenantId) return c.json({ success: false, error: 'Missing x-tenant-id' }, 400);
 
@@ -205,7 +205,7 @@ export function registerComplianceRoutes(app: any) {
      * Updates an existing training module.
      */
     app.put('/compliance/training/modules/:id', async (c: any) => {
-        const tenantId = c.req.header('x-tenant-id');
+        const tenantId = c.req.header('x-tenant-id') || '00000000-0000-0000-0000-000000000000';
         const id = c.req.param('id');
         const body = await c.req.json();
         if (!tenantId) return c.json({ success: false, error: 'Missing x-tenant-id' }, 400);

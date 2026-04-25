@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_intake_dashboard_screen.dart';
 
 class IntakeDashboardIntent extends AppScreenIntent {
-  const IntakeDashboardIntent();
+  IntakeDashboardIntent();
 
   @override
   String get name => 'intake_dashboard';
@@ -18,9 +18,8 @@ class IntakeDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.intake;
 
   @override
-  dynamic get provider => intakeDashboardAdapterProvider;
+  dynamic get provider => intakeMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const IntakeDashboardScreen();
 }
-

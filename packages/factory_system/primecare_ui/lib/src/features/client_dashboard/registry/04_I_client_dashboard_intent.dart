@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_client_dashboard_screen.dart';
 
 class ClientDashboardIntent extends AppScreenIntent {
-  const ClientDashboardIntent();
+  ClientDashboardIntent();
 
   @override
   String get name => 'client_dashboard';
@@ -23,4 +23,3 @@ class ClientDashboardIntent extends AppScreenIntent {
   @override
   Widget build(BuildContext context) => const ClientDashboardScreen();
 }
-

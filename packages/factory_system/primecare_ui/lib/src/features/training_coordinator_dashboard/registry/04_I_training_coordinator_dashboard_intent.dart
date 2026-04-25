@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_training_coordinator_dashboard_screen.dart';
 
 class TrainingCoordinatorDashboardIntent extends AppScreenIntent {
-  const TrainingCoordinatorDashboardIntent();
+  TrainingCoordinatorDashboardIntent();
 
   @override
   String get name => 'training_coordinator_dashboard';
@@ -18,9 +18,9 @@ class TrainingCoordinatorDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.trainingCoordinator;
 
   @override
-  dynamic get provider => trainingCoordinatorDashboardAdapterProvider;
+  dynamic get provider => trainingCoordMetricsProvider;
 
   @override
-  Widget build(BuildContext context) => const TrainingCoordinatorDashboardScreen();
+  Widget build(BuildContext context) =>
+      const TrainingCoordinatorDashboardScreen();
 }
-

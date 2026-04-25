@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_course_architect_dashboard_screen.dart';
 
 class CourseArchitectDashboardIntent extends AppScreenIntent {
-  const CourseArchitectDashboardIntent();
+  CourseArchitectDashboardIntent();
 
   @override
   String get name => 'course_architect_dashboard';
@@ -23,4 +23,3 @@ class CourseArchitectDashboardIntent extends AppScreenIntent {
   @override
   Widget build(BuildContext context) => const CourseArchitectDashboardScreen();
 }
-

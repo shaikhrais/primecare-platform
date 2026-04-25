@@ -7,44 +7,128 @@ class HrDirectorDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final state = ref.watch(humanResourcesDirectorDashboardAdapterProvider);
+    final state = ref.watch(hrDirectorDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (Result<HumanResourcesDirectorDashboardViewModel> result) => result.fold(
-          (HumanResourcesDirectorDashboardViewModel viewModel) => _buildContent(context, theme, viewModel),
-          (Object err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(humanResourcesDirectorDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(humanResourcesDirectorDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(hrDirectorDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, HumanResourcesDirectorDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    HumanResourcesDirectorDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Hr Director Command Center', style: theme.typography.h2),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Workforce Intelligence Hub',
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    'Workforce stability, clinical turnover, and hiring velocity telemetry',
+                    style: theme.typography.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (vm.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
+
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareCard(
-            padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildWorkforceStability(theme),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildRetentionCharts(theme, vm),
+                  ],
+                ),
+              ),
+              if (vm.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(child: _buildAuraInsightsColumn(theme, vm.insights)),
+              ],
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildWorkforceStability(PrimeCareThemeData theme) {
+    return PrimeCareCard(
+      padding: EdgeInsets.all(theme.spacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Workforce Stability Matrix', style: theme.typography.h4),
+          SizedBox(height: theme.spacing.lg),
+          const Center(
+            child: Text(
+              'Regional Stability Surveillance Active',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRetentionCharts(
+    PrimeCareThemeData theme,
+    HumanResourcesDirectorDashboardViewModel vm,
+  ) {
+    return Column(
+      children: [
+        PrimeCareChartCard(
+          title: 'Clinical Retention Trend',
+          chart: PrimeCareLineChart(
+            chart: vm.metrics.charts.firstWhere(
+              (c) => c.id == 'retention-trend',
+              orElse: () => AnalyticsChart.empty(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

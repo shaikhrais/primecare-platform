@@ -10,41 +10,122 @@ class ScrumMasterDashboardScreen extends ConsumerWidget {
     final state = ref.watch(scrumMasterDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(scrumMasterDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(scrumMasterDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(scrumMasterDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, ScrumMasterDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    ScrumMasterDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Scrum Master Command Center', style: theme.typography.h2),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Agile Command Center', style: theme.typography.h2),
+                  Text(
+                    'Sprint velocity, burndown telemetry, and delivery risk analysis',
+                    style: theme.typography.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (vm.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
+
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareCard(
-            padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildAgileVelocityCard(theme),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildDeliveryCharts(theme, vm),
+                  ],
+                ),
+              ),
+              if (vm.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(child: _buildAuraInsightsColumn(theme, vm.insights)),
+              ],
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAgileVelocityCard(PrimeCareThemeData theme) {
+    return PrimeCareCard(
+      padding: EdgeInsets.all(theme.spacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Sprint Burndown - Active Cycle', style: theme.typography.h4),
+          SizedBox(height: theme.spacing.lg),
+          const Center(
+            child: Text(
+              'Dynamic Agile Engine Initialized',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDeliveryCharts(
+    PrimeCareThemeData theme,
+    ScrumMasterDashboardViewModel vm,
+  ) {
+    return Column(
+      children: [
+        PrimeCareChartCard(
+          title: 'Sprint Velocity Trend',
+          chart: PrimeCareLineChart(
+            chart: vm.metrics.charts.firstWhere(
+              (c) => c.id == 'sprint-velocity',
+              orElse: () => AnalyticsChart.empty(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

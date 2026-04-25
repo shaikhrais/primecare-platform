@@ -1,6 +1,9 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
-
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+import '../theme/01_I_design_system.dart';
+import '01_I_responsive_layout_manager.dart';
 
 class DesktopPaneWrapper extends ConsumerWidget {
   final Widget child;

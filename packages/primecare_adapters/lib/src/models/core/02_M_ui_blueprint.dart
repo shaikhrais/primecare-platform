@@ -9,10 +9,7 @@ abstract class UIComponentBlueprint {
   /// The abstract payload of data.
   final dynamic dataPayload;
 
-  const UIComponentBlueprint({
-    required this.componentType,
-    this.dataPayload,
-  });
+  const UIComponentBlueprint({required this.componentType, this.dataPayload});
 
   Map<String, dynamic> toJson() {
     return {
@@ -83,10 +80,26 @@ abstract class UIComponentBlueprint {
         return ClinicalMetricBlueprint(dataPayload: payload);
       case 'compliance_gate':
         return ComplianceGateBlueprint(dataPayload: payload);
+      case 'certification_expiry_table':
+        return CertificationExpiryTableBlueprint(dataPayload: payload);
+      case 'staff_competency_map':
+        return StaffCompetencyMapBlueprint(dataPayload: payload);
       default:
         return StatGridBlueprint(dataPayload: payload);
     }
   }
+}
+
+/// A blueprint for a table showing certification expiry dates.
+class CertificationExpiryTableBlueprint extends UIComponentBlueprint {
+  const CertificationExpiryTableBlueprint({required super.dataPayload})
+    : super(componentType: 'certification_expiry_table');
+}
+
+/// A blueprint for a heat map or grid showing staff competencies.
+class StaffCompetencyMapBlueprint extends UIComponentBlueprint {
+  const StaffCompetencyMapBlueprint({required super.dataPayload})
+    : super(componentType: 'staff_competency_map');
 }
 
 /// A blueprint for a high-fidelity dashboard pre-built in the ComponentWarehouse.

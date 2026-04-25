@@ -10,41 +10,125 @@ class GeneralManagerDashboardScreen extends ConsumerWidget {
     final state = ref.watch(generalManagerDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(generalManagerDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(generalManagerDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(generalManagerDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, GeneralManagerDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    GeneralManagerDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('General Manager Command Center', style: theme.typography.h2),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Operations Command Center', style: theme.typography.h2),
+                  Text(
+                    'Strategic P&L velocity, capital allocation, and regional operational telemetry',
+                    style: theme.typography.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (vm.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
+
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareCard(
-            padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildStrategicPAndL(theme),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildOperationalCharts(theme, vm),
+                  ],
+                ),
+              ),
+              if (vm.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(child: _buildAuraInsightsColumn(theme, vm.insights)),
+              ],
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildStrategicPAndL(PrimeCareThemeData theme) {
+    return PrimeCareCard(
+      padding: EdgeInsets.all(theme.spacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Regional Operational Velocity Matrix',
+            style: theme.typography.h4,
+          ),
+          SizedBox(height: theme.spacing.lg),
+          const Center(
+            child: Text(
+              'Strategic Allocation Engine Initialized',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOperationalCharts(
+    PrimeCareThemeData theme,
+    GeneralManagerDashboardViewModel vm,
+  ) {
+    return Column(
+      children: [
+        PrimeCareChartCard(
+          title: 'Regional P&L Overperformance Trend',
+          chart: PrimeCareLineChart(
+            chart: vm.metrics.charts.firstWhere(
+              (c) => c.id == 'pl-performance',
+              orElse: () => AnalyticsChart.empty(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

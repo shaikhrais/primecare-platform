@@ -1,5 +1,5 @@
 // Layer: 05_USER_INTERFACE
-import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-fidelity Intake Coordinator Dashboard.
 class IntakeCoordinatorScreen extends ConsumerWidget {
@@ -9,19 +9,12 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final adapterState = ref.watch(intakeDashboardAdapterProvider);
 
-    return adapterState.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildDashboard(context, viewModel),
-        (error) => SystemRecoveryMode(
-          error: error,
-          onAttemptReset: () => ref.refresh(intakeDashboardAdapterProvider),
-        ),
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => SystemRecoveryMode(
-        error: err,
-        stackTrace: stack,
-        onAttemptReset: () => ref.refresh(intakeDashboardAdapterProvider),
+    return adapterState.whenResult(
+      (viewModel) => _buildDashboard(context, viewModel),
+      loading: () => const DashboardLoadingWidget(),
+      error: (err, stack) => DashboardErrorWidget(
+        message: 'Intake Telemetry Exception: $err',
+        onRetry: () => ref.refresh(intakeDashboardAdapterProvider),
       ),
     );
   }
@@ -43,15 +36,9 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: _buildRecentApplications(vm),
-                      ),
+                      Expanded(flex: 2, child: _buildRecentApplications(vm)),
                       const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: _buildIntakeIntelligence(vm),
-                      ),
+                      Expanded(flex: 1, child: _buildIntakeIntelligence(vm)),
                     ],
                   ),
                 ],
@@ -76,7 +63,11 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
           const SizedBox(width: 12),
           const Text(
             'Intake Hub',
-            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ],
       ),
@@ -98,7 +89,9 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF0284C7),
             foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
         ),
         const SizedBox(width: 24),
@@ -119,9 +112,21 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
       title: 'Active Intake Pipeline',
       child: Column(
         children: [
-          _ApplicationTile(name: 'Sarah Connor', status: 'Verification', time: '2h ago'),
-          _ApplicationTile(name: 'James Smith', status: 'Eligibility Check', time: '4h ago'),
-          _ApplicationTile(name: 'Maria Garcia', status: 'Document Pending', time: '1d ago'),
+          _ApplicationTile(
+            name: 'Sarah Connor',
+            status: 'Verification',
+            time: '2h ago',
+          ),
+          _ApplicationTile(
+            name: 'James Smith',
+            status: 'Eligibility Check',
+            time: '4h ago',
+          ),
+          _ApplicationTile(
+            name: 'Maria Garcia',
+            status: 'Document Pending',
+            time: '1d ago',
+          ),
         ],
       ),
     );
@@ -141,17 +146,28 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
             children: [
               Icon(Icons.auto_awesome, color: Colors.blueAccent, size: 18),
               SizedBox(width: 8),
-              Text('Pipeline AI', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              Text(
+                'Pipeline AI',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 20),
-          ...vm.insights.map((insight) => Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Text(
-              insight.summary,
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 13),
+          ...vm.insights.map(
+            (insight) => Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                insight.summary,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 13,
+                ),
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -168,7 +184,10 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 24),
           child,
         ],
@@ -194,9 +213,15 @@ class _StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(kpi.title, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+          Text(
+            kpi.title,
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           const SizedBox(height: 8),
-          Text(kpi.value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+          Text(
+            kpi.value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+          ),
         ],
       ),
     );
@@ -208,7 +233,11 @@ class _ApplicationTile extends StatelessWidget {
   final String status;
   final String time;
 
-  const _ApplicationTile({required this.name, required this.status, required this.time});
+  const _ApplicationTile({
+    required this.name,
+    required this.status,
+    required this.time,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -223,14 +252,19 @@ class _ApplicationTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text(status, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+                Text(
+                  status,
+                  style: const TextStyle(color: Colors.black54, fontSize: 12),
+                ),
               ],
             ),
           ),
-          Text(time, style: const TextStyle(color: Colors.black38, fontSize: 11)),
+          Text(
+            time,
+            style: const TextStyle(color: Colors.black38, fontSize: 11),
+          ),
         ],
       ),
     );
   }
 }
-

@@ -1,5 +1,6 @@
-// Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:primecare_ui/src/theme/01_I_colors.dart';
+import 'package:primecare_ui/src/components/01_I_primecare_card.dart';
 
 class PrimeClientIntelCard extends StatelessWidget {
   final String clientName;

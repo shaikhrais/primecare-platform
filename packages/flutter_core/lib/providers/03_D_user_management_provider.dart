@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserModel {
   final String id;
-  final String name;
+  final String firstName;
+  final String lastName;
   final String email;
   final String role;
   final String status;
@@ -11,15 +12,19 @@ class UserModel {
 
   UserModel({
     required this.id,
-    required this.name,
+    required this.firstName,
+    required this.lastName,
     required this.email,
     required this.role,
     required this.status,
     required this.office,
   });
 
+  String get name => '$firstName $lastName';
+
   UserModel copyWith({
-    String? name,
+    String? firstName,
+    String? lastName,
     String? email,
     String? role,
     String? status,
@@ -27,7 +32,8 @@ class UserModel {
   }) {
     return UserModel(
       id: id,
-      name: name ?? this.name,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
       email: email ?? this.email,
       role: role ?? this.role,
       status: status ?? this.status,
@@ -45,7 +51,8 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
     return [
       UserModel(
         id: '1',
-        name: 'Mohammed',
+        firstName: 'Mohammed',
+        lastName: 'Admin',
         email: 'itpro.mohammed@gmail.com',
         role: 'SYSTEM_ADMIN_TIER_1',
         status: 'Active',
@@ -53,7 +60,8 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
       ),
       UserModel(
         id: '2',
-        name: 'Sarah CEO',
+        firstName: 'Sarah',
+        lastName: 'CEO',
         email: 'ceo@primecare.com',
         role: 'FINANCE_DIRECTOR_TIER_3',
         status: 'Active',
@@ -61,7 +69,8 @@ class UserManagementNotifier extends AsyncNotifier<List<UserModel>> {
       ),
       UserModel(
         id: '3',
-        name: 'Alex Clinical',
+        firstName: 'Alex',
+        lastName: 'Clinical',
         email: 'clinician@primecare.com',
         role: 'PSW_HUB_MANAGER_TIER_4',
         status: 'Inactive',

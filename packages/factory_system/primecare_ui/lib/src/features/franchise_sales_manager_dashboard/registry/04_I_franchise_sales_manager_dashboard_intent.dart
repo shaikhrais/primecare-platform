@@ -3,13 +3,14 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_franchise_sales_manager_dashboard_screen.dart';
 
 class FranchiseSalesManagerDashboardIntent extends AppScreenIntent {
-  const FranchiseSalesManagerDashboardIntent();
+  FranchiseSalesManagerDashboardIntent();
 
   @override
   String get name => 'franchise_sales_manager_dashboard';
 
   @override
-  String get route => '/offices/corporate/roles/franchise_sales_manager/dashboard';
+  String get route =>
+      '/offices/corporate/roles/franchise_sales_manager/dashboard';
 
   @override
   String get title => 'Franchise Sales Manager Dashboard';
@@ -21,6 +22,6 @@ class FranchiseSalesManagerDashboardIntent extends AppScreenIntent {
   dynamic get provider => franchiseSalesManagerDashboardAdapterProvider;
 
   @override
-  Widget build(BuildContext context) => const FranchiseSalesManagerDashboardScreen();
+  Widget build(BuildContext context) =>
+      const FranchiseSalesManagerDashboardScreen();
 }
-

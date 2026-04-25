@@ -1,15 +1,19 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
 import '../../registry/01_I_platform_role.dart';
 
 /// Defines the recovery strategy for a screen when a critical failure occurs.
 enum ScreenRecoveryStrategy {
   /// Simple soft reset of the current state.
   softReset,
+
   /// Full route restart, clearing history.
   routeRestart,
+
   /// Redirect to a safe fallback screen.
   fallbackRedirect,
+
   /// Escalate to the global System Recovery Mode.
   globalEscalation,
 }
@@ -60,13 +64,23 @@ abstract class AppScreenIntent {
   /// The governance policy for resilience and recovery.
   ResiliencePolicy get resiliencePolicy => const ResiliencePolicy();
 
+  /// The primary subsystem this screen relies on.
+  /// If provided, the UI will automatically modulate based on this subsystem's health.
+  PlatformSubsystem? get primarySubsystem => null;
+
   /// Explicit list of high-level UI component labels (e.g. ['Grid', 'Table', 'Chart']).
   /// Used for structural validation and documentation.
   List<String> get componentLabels => [];
 
+  /// A detailed description of the intended screen structure.
+  /// Used for architectural transparency and developer auditing.
+  String get structuralPlan =>
+      'Standard Governed Layout: ${componentLabels.join(", ")}';
+
   /// The global renderer for intents that don't define their own build logic.
   /// This allows decoupling of data models from the UI engine.
-  static Widget Function(BuildContext context, AppScreenIntent intent)? globalRenderer;
+  static Widget Function(BuildContext context, AppScreenIntent intent)?
+  globalRenderer;
 
   /// Builds the UI representation of this intent.
   Widget build(BuildContext context);
@@ -101,12 +115,14 @@ class GovernanceHealth {
   final String? message;
   final List<String> componentLabels;
 
-  const GovernanceHealth.healthy({this.componentLabels = const []}) 
-      : isReady = true, 
-        message = null;
+  const GovernanceHealth.healthy({this.componentLabels = const []})
+    : isReady = true,
+      message = null;
 
-  const GovernanceHealth.unhealthy(this.message, {this.componentLabels = const []}) 
-      : isReady = false;
+  const GovernanceHealth.unhealthy(
+    this.message, {
+    this.componentLabels = const [],
+  }) : isReady = false;
 }
 
 /// Exception thrown when a governed component is accessed before implementation.
@@ -117,5 +133,6 @@ class UnimplementedGovernanceException implements Exception {
   UnimplementedGovernanceException(this.feature, this.component);
 
   @override
-  String toString() => 'UnimplementedGovernanceException: [$feature] $component has not been developed yet. Please implement the adapter and screen logic.';
+  String toString() =>
+      'UnimplementedGovernanceException: [$feature] $component has not been developed yet. Please implement the adapter and screen logic.';
 }

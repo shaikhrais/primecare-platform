@@ -10,16 +10,8 @@ class RnDashboardScreen extends ConsumerWidget {
     final state = ref.watch(rnDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(rnDashboardAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
@@ -29,7 +21,11 @@ class RnDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, RnDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    RnDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(

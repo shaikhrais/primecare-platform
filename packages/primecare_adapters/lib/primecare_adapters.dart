@@ -12,9 +12,13 @@ export 'src/infrastructure/01_I_api_config.dart';
 export 'src/infrastructure/01_I_resilience_service.dart';
 export 'src/infrastructure/01_I_dashboard_service.dart';
 export 'src/infrastructure/01_I_dashboard_providers.dart';
+export 'src/infrastructure/01_I_legacy_bridge.dart';
 export 'src/infrastructure/01_I_storage_providers.dart';
 export 'src/infrastructure/01_I_retry_interceptor.dart';
 export 'src/infrastructure/01_I_circuit_breaker.dart';
+export 'src/infrastructure/01_I_modulation_governance_registry.dart';
+export 'src/infrastructure/01_I_adapter_modulation_governor.dart';
+export 'src/infrastructure/01_I_governance_policies.dart';
 
 // Layer: 02_MODELS_FOUNDATION
 export 'src/models/02_M_view_model.dart';
@@ -40,6 +44,7 @@ export 'src/models/roles/03_V_cfo_dashboard_view_model.dart';
 export 'src/models/roles/03_V_finance_director_dashboard_view_model.dart';
 export 'src/models/roles/03_V_client_dashboard_view_model.dart';
 export 'src/models/roles/03_V_clinical_lead_dashboard_view_model.dart';
+export 'src/models/roles/03_V_clinical_director_dashboard_view_model.dart';
 export 'src/models/roles/03_V_clinic_dashboard_view_model.dart';
 export 'src/models/roles/03_V_community_outreach_dashboard_view_model.dart';
 export 'src/models/roles/03_V_compliance_manager_dashboard_view_model.dart';
@@ -80,11 +85,20 @@ export 'src/models/roles/03_V_territory_sales_manager_dashboard_view_model.dart'
 export 'src/models/roles/03_V_training_coordinator_dashboard_view_model.dart';
 export 'src/models/roles/03_V_training_director_dashboard_view_model.dart';
 export 'src/models/roles/03_V_training_hub_view_model.dart';
+export 'src/models/roles/03_V_training_director_certificate_dashboard_view_model.dart';
+export 'src/models/roles/03_V_infection_control_dashboard_view_model.dart';
+export 'src/models/roles/03_V_social_worker_dashboard_view_model.dart';
 export 'src/models/roles/03_V_course_architect_view_model.dart';
 export 'src/models/roles/03_V_system_verification_view_model.dart';
 export 'src/models/roles/03_V_hr_director_dashboard_view_model.dart';
 export 'src/models/roles/03_V_cx_director_dashboard_view_model.dart';
 export 'src/models/roles/03_V_volunteer_coordinator_dashboard_view_model.dart';
+export 'src/models/roles/03_V_family_member_dashboard_view_model.dart';
+export 'src/models/roles/03_V_architecture_planning_view_model.dart';
+export 'src/governance_generated/models/03_V_quality_assurance_dashboard_view_model.dart';
+export 'src/governance_generated/models/03_V_intake_coordinator_dashboard_view_model.dart';
+export 'src/models/roles/03_V_it_security_dashboard_view_model.dart';
+export 'src/governance_generated/models/03_V_rmt_dashboard_view_model.dart';
 
 // Layer: 05_UI_ADAPTERS
 export 'src/corporate/ceo/adapters/04_A_ceo_dashboard_adapter.dart';
@@ -106,9 +120,14 @@ export 'src/corporate/hr_director/adapters/04_A_hr_director_dashboard_adapter.da
 export 'src/corporate/cx_director/adapters/04_A_cx_director_dashboard_adapter.dart';
 export 'src/corporate/volunteer_coordinator/adapters/04_A_volunteer_coordinator_dashboard_adapter.dart';
 export 'src/clinical/clinic_manager/adapters/04_A_clinic_dashboard_adapter.dart';
+export 'src/clinical/clinical_director/adapters/04_A_clinical_director_dashboard_adapter.dart';
 export 'src/clinical/patient/adapters/04_A_patient_dashboard_adapter.dart';
+export 'src/clinical/social_worker/adapters/04_A_social_worker_dashboard_adapter.dart';
+export 'src/clinical/infection_control/adapters/04_A_infection_control_dashboard_adapter.dart';
+export 'src/clinical/intake_coordinator/adapters/04_A_intake_coordinator_dashboard_adapter.dart';
 export 'src/client_family/client/adapters/04_A_client_dashboard_adapter.dart';
 export 'src/client_family/family_member/adapters/04_A_family_dashboard_adapter.dart';
+export 'src/client_family/family_member/adapters/04_A_family_member_dashboard_adapter.dart';
 export 'src/client_family/guest/adapters/04_A_guest_dashboard_adapter.dart';
 export 'src/customer_support/customer_support/adapters/04_A_customer_support_dashboard_adapter.dart';
 export 'src/customer_support/intake_coordinator/adapters/04_A_intake_dashboard_adapter.dart';
@@ -133,22 +152,18 @@ export 'src/marketing/local_marketing_manager/adapters/04_A_local_marketing_mana
 export 'src/marketing/territory_sales_manager/adapters/04_A_territory_sales_manager_dashboard_adapter.dart';
 export 'src/generic/04_A_dynamic_screen_adapter.dart';
 export 'src/generic/04_A_dynamic_adapter_provider.dart';
+export 'src/governance/corporate_governance/adapters/04_A_corporate_governance_dashboard_adapter.dart';
+export 'src/infrastructure/it_security/adapters/04_A_it_security_dashboard_adapter.dart';
+export 'src/clinical/rn/adapters/04_A_rn_dashboard_adapter.dart';
+export 'src/clinical/rmt/adapters/04_A_rmt_dashboard_adapter.dart';
+export 'src/clinical/psw/adapters/04_A_psw_dashboard_adapter.dart';
+export 'src/customer_support/receptionist/adapters/04_A_receptionist_dashboard_adapter.dart';
+export 'src/governance/quality_assurance/adapters/04_A_quality_assurance_dashboard_adapter.dart';
+export 'src/governance_generated/adapters/04_A_clinical_director_dashboard_adapter.dart';
 
 // Unified Form Registry
 export 'src/registry/05_G_primecare_form_enum.dart';
 export 'src/registry/05_G_primecare_form_provider.dart';
 export 'src/utils/05_G_primecare_formatters.dart';
 
-export 'src/governance_generated/adapters/04_A_clinical_director_dashboard_adapter.dart';
-export 'src/governance_generated/models/03_V_clinical_director_dashboard_view_model.dart';
-export 'src/governance_generated/adapters/04_A_intake_coordinator_dashboard_adapter.dart';
-export 'src/governance_generated/models/03_V_intake_coordinator_dashboard_view_model.dart';
-export 'src/governance_generated/adapters/04_A_quality_assurance_dashboard_adapter.dart';
-export 'src/governance_generated/models/03_V_quality_assurance_dashboard_view_model.dart';
-export 'src/governance_generated/adapters/04_A_receptionist_dashboard_adapter.dart';
-export 'src/governance_generated/adapters/04_A_psw_dashboard_adapter.dart';
-export 'src/governance_generated/adapters/04_A_rn_dashboard_adapter.dart';
-export 'src/governance_generated/adapters/04_A_rmt_dashboard_adapter.dart';
-export 'src/governance_generated/models/03_V_rmt_dashboard_view_model.dart';
-export 'src/governance_generated/adapters/04_A_family_member_dashboard_adapter.dart';
-export 'src/governance_generated/models/03_V_family_member_dashboard_view_model.dart';
+// Legacy Registry

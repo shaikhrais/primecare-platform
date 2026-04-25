@@ -5,5 +5,6 @@ class FamilyMemberDashboardViewModel extends PrimeCareDashboardViewModel {
     required super.metrics,
     required super.insights,
     super.blueprints,
+    super.isOfflineFallback,
   });
 }

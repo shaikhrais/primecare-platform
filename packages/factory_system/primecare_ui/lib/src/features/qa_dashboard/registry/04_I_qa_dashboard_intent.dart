@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_qa_dashboard_screen.dart';
 
 class QaDashboardIntent extends AppScreenIntent {
-  const QaDashboardIntent();
+  QaDashboardIntent();
 
   @override
   String get name => 'qa_dashboard';
@@ -18,9 +18,8 @@ class QaDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.qa;
 
   @override
-  dynamic get provider => qaDashboardAdapterProvider;
+  dynamic get provider => qaMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const QaDashboardScreen();
 }
-

@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_quality_assurance_dashboard_screen.dart';
 
 class QualityAssuranceDashboardIntent extends AppScreenIntent {
-  const QualityAssuranceDashboardIntent();
+  QualityAssuranceDashboardIntent();
 
   @override
   String get name => 'quality_assurance_dashboard';
@@ -23,4 +23,3 @@ class QualityAssuranceDashboardIntent extends AppScreenIntent {
   @override
   Widget build(BuildContext context) => const QualityAssuranceDashboardScreen();
 }
-

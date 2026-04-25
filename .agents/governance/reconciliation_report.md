@@ -12,6 +12,9 @@
 | Field ID | Page | API Endpoint | DB Table | Status |
 |----------|------|--------------|----------|--------|
 | `create_user_first_name_input` | `create_user_form` | `POST /api/v1/users` | `User` | `verified` |
+| REC-UM-001 | User Management Table | Display all platform users | User | VERIFIED |
+| REC-UM-002 | Create User Form | Form to onboard new users | User | VERIFIED |
+| REC-CS-001 | Create Shift Form | Form to schedule care shifts | Shift | VERIFIED |
 | `create_user_last_name_input` | `create_user_form` | `POST /api/v1/users` | `User` | `verified` |
 | `create_user_email_input` | `create_user_form` | `POST /api/v1/users` | `User` | `verified` |
 | `create_user_role_select` | `create_user_form` | `POST /api/v1/users` | `User` | `verified` |

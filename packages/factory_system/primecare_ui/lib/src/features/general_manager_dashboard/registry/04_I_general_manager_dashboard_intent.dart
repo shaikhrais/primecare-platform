@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_general_manager_dashboard_screen.dart';
 
 class GeneralManagerDashboardIntent extends AppScreenIntent {
-  const GeneralManagerDashboardIntent();
+  GeneralManagerDashboardIntent();
 
   @override
   String get name => 'general_manager_dashboard';
@@ -18,9 +18,8 @@ class GeneralManagerDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.generalManager;
 
   @override
-  dynamic get provider => generalManagerDashboardAdapterProvider;
+  dynamic get provider => generalManagerMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const GeneralManagerDashboardScreen();
 }
-

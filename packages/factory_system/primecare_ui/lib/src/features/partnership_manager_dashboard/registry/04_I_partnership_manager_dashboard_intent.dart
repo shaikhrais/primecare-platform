@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_partnership_manager_dashboard_screen.dart';
 
 class PartnershipManagerDashboardIntent extends AppScreenIntent {
-  const PartnershipManagerDashboardIntent();
+  PartnershipManagerDashboardIntent();
 
   @override
   String get name => 'partnership_manager_dashboard';
@@ -21,6 +21,6 @@ class PartnershipManagerDashboardIntent extends AppScreenIntent {
   dynamic get provider => partnershipManagerDashboardAdapterProvider;
 
   @override
-  Widget build(BuildContext context) => const PartnershipManagerDashboardScreen();
+  Widget build(BuildContext context) =>
+      const PartnershipManagerDashboardScreen();
 }
-

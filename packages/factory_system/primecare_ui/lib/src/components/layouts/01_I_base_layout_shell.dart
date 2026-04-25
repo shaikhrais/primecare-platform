@@ -1,9 +1,14 @@
-// Layer: 01_INFRASTRUCTURE
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+
 import 'package:primecare_ui/src/components/01_I_adaptive_scaling_wrapper.dart';
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/00_B_components.dart';
-import 'package:primecare_ui/00_B_theme.dart';
+import 'package:primecare_ui/src/components/aura/01_I_aura_header.dart';
+import 'package:primecare_ui/src/components/aura/01_I_aura_sidebar.dart';
+import 'package:primecare_ui/src/components/01_I_universal_role_sidebar.dart';
+import 'package:primecare_ui/src/theme/01_I_theme_tokens.dart';
 
 class BaseLayoutShell extends ConsumerWidget {
   final Widget child;

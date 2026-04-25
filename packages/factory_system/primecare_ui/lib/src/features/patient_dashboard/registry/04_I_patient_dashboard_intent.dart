@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_patient_dashboard_screen.dart';
 
 class PatientDashboardIntent extends AppScreenIntent {
-  const PatientDashboardIntent();
+  PatientDashboardIntent();
 
   @override
   String get name => 'patient_dashboard';
@@ -23,4 +23,3 @@ class PatientDashboardIntent extends AppScreenIntent {
   @override
   Widget build(BuildContext context) => const PatientDashboardScreen();
 }
-

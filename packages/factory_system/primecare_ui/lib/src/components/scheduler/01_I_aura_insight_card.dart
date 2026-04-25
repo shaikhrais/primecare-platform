@@ -1,12 +1,25 @@
-// Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:flutter_core/src/models/02_M_aura_event.dart';
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+import 'package:primecare_ui/src/theme/01_I_colors.dart';
+import 'package:primecare_adapters/src/models/core/02_M_dashboard_models.dart';
 
 class AuraInsightCard extends ConsumerStatefulWidget {
   final AuraEvent event;
   final VoidCallback? onDismiss;
+  final String? actionLabel;
+  final VoidCallback? onAction;
 
-  const AuraInsightCard({super.key, required this.event, this.onDismiss});
+  const AuraInsightCard({
+    super.key,
+    required this.event,
+    this.onDismiss,
+    this.actionLabel,
+    this.onAction,
+  });
 
   @override
   ConsumerState<AuraInsightCard> createState() => _AuraInsightCardState();
@@ -118,7 +131,9 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
                                   ),
                                   decoration: BoxDecoration(
                                     color: const Color(0xFF6366F1),
-                                    borderRadius: BorderRadius.circular(4 * scale),
+                                    borderRadius: BorderRadius.circular(
+                                      4 * scale,
+                                    ),
                                   ),
                                   child: Text(
                                     'PREDICTIVE',
@@ -175,6 +190,31 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
                         ),
                       ],
                     ),
+                    if (widget.actionLabel != null) ...[
+                      SizedBox(height: 16 * scale),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: widget.onAction,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: impactColor,
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            padding: EdgeInsets.symmetric(vertical: 8 * scale),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8 * scale),
+                            ),
+                          ),
+                          child: Text(
+                            widget.actionLabel!,
+                            style: TextStyle(
+                              fontSize: 12 * scale,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -197,6 +237,11 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
       case InsightImpact.growth:
         return PrimeCareColors.emerald;
       case InsightImpact.info:
+      case InsightImpact.standard:
+      case InsightImpact.success:
+      case InsightImpact.high:
+      case InsightImpact.low:
+      case InsightImpact.medium:
         return PrimeCareColors.skyBlue;
     }
   }
@@ -213,6 +258,11 @@ class _AuraInsightCardState extends ConsumerState<AuraInsightCard>
       case InsightImpact.growth:
         return LucideIcons.trendingUp;
       case InsightImpact.info:
+      case InsightImpact.standard:
+      case InsightImpact.success:
+      case InsightImpact.high:
+      case InsightImpact.low:
+      case InsightImpact.medium:
         return LucideIcons.info;
     }
   }

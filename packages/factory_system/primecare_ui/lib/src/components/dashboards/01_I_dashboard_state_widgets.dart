@@ -1,8 +1,8 @@
-// Layer: 01_INFRASTRUCTURE
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../../theme/01_I_primecare_theme.dart';
-import '../01_I_primecare_skeleton.dart';
+import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
+import 'package:primecare_ui/src/components/01_I_primecare_skeleton.dart';
 
 /// Standard loading state for high-fidelity dashboards.
 class DashboardLoadingWidget extends StatelessWidget {
@@ -50,61 +50,189 @@ class DashboardLoadingWidget extends StatelessWidget {
 }
 
 /// Standard error state for high-fidelity dashboards.
-class DashboardErrorWidget extends StatelessWidget {
+class DashboardErrorWidget extends StatefulWidget {
   final String message;
   final VoidCallback? onRetry;
+  final Object? error;
+  final StackTrace? stackTrace;
+  final Map<String, dynamic>? metadata;
 
   const DashboardErrorWidget({
     super.key,
     required this.message,
     this.onRetry,
+    this.error,
+    this.stackTrace,
+    this.metadata,
   });
+
+  @override
+  State<DashboardErrorWidget> createState() => _DashboardErrorWidgetState();
+}
+
+class _DashboardErrorWidgetState extends State<DashboardErrorWidget> {
+  bool _showDetails = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = PrimeCareTheme.of(context);
     return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400),
-        child: Container(
-          padding: EdgeInsets.all(theme.spacing.xl),
-          decoration: BoxDecoration(
-            color: theme.colors.error.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: theme.colors.error.withValues(alpha: 0.2)),
-          ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.error_outline, size: 48, color: theme.colors.error),
-            SizedBox(height: theme.spacing.lg),
-            Text(
-              'Dashboard Sync Failure',
-              style: theme.typography.h3.copyWith(color: theme.colors.error),
-            ),
-            SizedBox(height: theme.spacing.sm),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: theme.typography.bodyMedium.copyWith(color: theme.colors.error),
-            ),
-             if (onRetry != null) ...[
-              SizedBox(height: theme.spacing.xl),
-              ElevatedButton(
-                onPressed: onRetry,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.colors.error,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                ),
-                child: const Text('Retry Synchronization'),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(theme.spacing.xl),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Container(
+            padding: EdgeInsets.all(theme.spacing.xl),
+            decoration: BoxDecoration(
+              color: theme.colors.error.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: theme.colors.error.withValues(alpha: 0.2),
               ),
-            ],
-          ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  LucideIcons.shieldAlert,
+                  size: 48,
+                  color: theme.colors.error,
+                ),
+                SizedBox(height: theme.spacing.lg),
+                Text(
+                  'Dashboard Sync Failure',
+                  style: theme.typography.h3.copyWith(
+                    color: theme.colors.error,
+                  ),
+                ),
+                SizedBox(height: theme.spacing.sm),
+                Text(
+                  widget.message,
+                  textAlign: TextAlign.center,
+                  style: theme.typography.bodyMedium.copyWith(
+                    color: theme.colors.error,
+                  ),
+                ),
+                if (kDebugMode &&
+                    (widget.error != null || widget.metadata != null)) ...[
+                  SizedBox(height: theme.spacing.lg),
+                  TextButton.icon(
+                    onPressed: () =>
+                        setState(() => _showDetails = !_showDetails),
+                    icon: Icon(
+                      _showDetails
+                          ? LucideIcons.chevronUp
+                          : LucideIcons.chevronDown,
+                      size: 16,
+                    ),
+                    label: const Text('DEVELOPER DIAGNOSTICS'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: theme.colors.error,
+                    ),
+                  ),
+                  if (_showDetails) ...[
+                    SizedBox(height: theme.spacing.md),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: theme.colors.error.withValues(alpha: 0.1),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (widget.metadata != null) ...[
+                            Text(
+                              'METADATA',
+                              style: theme.typography.labelSmall.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            ...widget.metadata!.entries.map(
+                              (e) => Text(
+                                '${e.key}: ${e.value}',
+                                style: const TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                          if (widget.error != null) ...[
+                            Text(
+                              'ERROR',
+                              style: theme.typography.labelSmall.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            SelectableText(
+                              widget.error.toString(),
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                          if (widget.stackTrace != null) ...[
+                            Text(
+                              'STACK TRACE',
+                              style: theme.typography.labelSmall.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(maxHeight: 200),
+                              child: SingleChildScrollView(
+                                child: SelectableText(
+                                  widget.stackTrace.toString(),
+                                  style: const TextStyle(
+                                    fontFamily: 'monospace',
+                                    fontSize: 10,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ],
+                if (widget.onRetry != null) ...[
+                  SizedBox(height: theme.spacing.xl),
+                  ElevatedButton.icon(
+                    onPressed: widget.onRetry,
+                    icon: const Icon(LucideIcons.refreshCw, size: 18),
+                    label: const Text('Retry Synchronization'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: theme.colors.error,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 32,
+                        vertical: 16,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
       ),
-    ),
     );
   }
 }

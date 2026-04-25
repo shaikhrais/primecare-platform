@@ -1,4 +1,5 @@
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import '../theme/01_I_design_system.dart';
 
 /// Phase 87: Absolute Primitive Encapsulation
 /// The Executive mandate demands 0 explicit references to flutter/material primitives globally.

@@ -23,11 +23,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       }
 
       // 2. Dashboard Resolution (Logged in users on home/login)
-      final isAtLanding = requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+      final isAtLanding =
+          requestedRoute == '/' || requestedRoute == CommonRoutes.login;
       if (authState.isAuthenticated && isAtLanding) {
         final role = authState.role ?? '';
         final destination = AuthNotifier.getDashboardRouteForRole(role);
-        
+
         // Safety: If for some reason the role isn't corporate, don't trap them in a loop
         // if they are in the corporate app.
         return destination;
@@ -42,9 +43,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     errorBuilder: (context, state) => MasterLayout(
       shellType: AppShellType.admin,
+      overrideUri: state.uri.toString(),
       child: NotFoundScreen(message: state.error?.message),
     ),
     routes: [
+      GoRoute(
+        path: CommonRoutes.splash,
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: CommonRoutes.login,
         builder: (context, state) => const LoginScreen(),

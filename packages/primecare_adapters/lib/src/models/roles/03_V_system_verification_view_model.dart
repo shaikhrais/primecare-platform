@@ -4,47 +4,72 @@ import '../core/02_M_dashboard_models.dart';
 import '../core/02_M_intelligence_insight.dart';
 import '../core/02_M_ui_blueprint.dart';
 
-class SystemVerificationViewModel extends PrimeCareDashboardViewModel {
-  SystemVerificationViewModel({
+class SystemVerificationDashboardViewModel extends PrimeCareDashboardViewModel {
+  SystemVerificationDashboardViewModel({
     required super.metrics,
     required super.insights,
     super.blueprints,
     super.isOfflineFallback,
   });
 
-  factory SystemVerificationViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
-    return SystemVerificationViewModel(
-      metrics: metrics,
-      insights: [],
+  factory SystemVerificationDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
+    return SystemVerificationDashboardViewModel(metrics: metrics, insights: []);
+  }
+
+  factory SystemVerificationDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    return SystemVerificationDashboardViewModel(
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
     );
   }
 
-  factory SystemVerificationViewModel.fromJson(Map<String, dynamic> json) {
-    return SystemVerificationViewModel(
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
-  }
-
-  factory SystemVerificationViewModel.empty({bool isOfflineFallback = false}) {
-    return SystemVerificationViewModel(
+  factory SystemVerificationDashboardViewModel.empty({
+    bool isOfflineFallback = false,
+  }) {
+    return SystemVerificationDashboardViewModel(
       metrics: DashboardMetrics.empty(),
       insights: [],
       isOfflineFallback: isOfflineFallback,
     );
   }
 
+  SystemVerificationDashboardViewModel copyWith({
+    DashboardMetrics? metrics,
+    List<IntelligenceInsight>? insights,
+    List<UIComponentBlueprint>? blueprints,
+    bool? isOfflineFallback,
+  }) {
+    return SystemVerificationDashboardViewModel(
+      metrics: metrics ?? this.metrics,
+      insights: insights ?? this.insights,
+      blueprints: blueprints ?? this.blueprints,
+      isOfflineFallback: isOfflineFallback ?? this.isOfflineFallback,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+  };
 }

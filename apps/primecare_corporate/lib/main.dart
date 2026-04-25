@@ -10,8 +10,10 @@ void main() {
     WidgetsFlutterBinding.ensureInitialized();
 
     AppErrorBoundary.onReset = () {
-      debugPrint('PRIMECARE_RECOVERY: 🛠️ Critical failure detected. Initiating Mechanical Fix...');
-      
+      debugPrint(
+        'PRIMECARE_RECOVERY: 🛠️ Critical failure detected. Initiating Mechanical Fix...',
+      );
+
       MechanicalRepairKit.performDeepFlush(
         onCustomFlush: () {
           // Flush the UI component registry
@@ -26,30 +28,35 @@ void main() {
       }
 
       if (kIsWeb) {
-         debugPrint('PRIMECARE_RECOVERY: Web state invalidated. Reloading recommended.');
+        debugPrint(
+          'PRIMECARE_RECOVERY: Web state invalidated. Reloading recommended.',
+        );
       }
     };
 
     await EasyLocalization.ensureInitialized();
     final sharedPreferences = await SharedPreferences.getInstance();
-    
+
     // Explicitly hydrate offline data integrity before proceeding
     // Errors are logged internally by the Logistics Hub
     await DataLogisticsHub.ensureOfflineDataLoaded();
+
+    // Bootstrap Governance Registry early for structural integrity
+    GovernanceBootstrapper.bootstrap();
 
     runApp(
       RestartWrapper(
         key: _rootKey,
         child: EasyLocalization(
           supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
-          path: 'assets/translations',
+          path: 'packages/flutter_core/assets/translations',
           fallbackLocale: const Locale('en'),
           useOnlyLangCode: true,
           child: ProviderScope(
             overrides: [
               sharedPreferencesProvider.overrideWithValue(sharedPreferences),
             ],
-            child: const PrimeCareCorporateApp(),
+            child: const BoundaryTelemetryDrain(child: PrimeCareCorporateApp()),
           ),
         ),
       ),
@@ -62,39 +69,8 @@ final GlobalKey _rootKey = GlobalKey();
 class PrimeCareCorporateApp extends ConsumerWidget {
   const PrimeCareCorporateApp({super.key});
 
-  static bool _auditPerformed = false;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final telemetry = ref.read(executionGateProvider);
-    AppErrorBoundary.drainToTelemetry(telemetry);
-    
-    // Perform Structural Integrity Audit during boot
-    if (!_auditPerformed) {
-      _auditPerformed = true;
-      try {
-        final audit = PlatformGovernanceAudit.performAudit(ref);
-      if (audit.blueprintAudit.any((b) => !b.isCompliant)) {
-        telemetry.failGate(
-          ExecutionGateCategory.structuralIntegrity,
-          'Structural Mismatch Detected: ${audit.blueprintAudit.where((b) => !b.isCompliant).length} failures',
-          metadata: {'audit_summary': audit.toString()},
-        );
-      } else {
-        telemetry.passGate(
-          ExecutionGateCategory.structuralIntegrity,
-          'Full Platform Structural Compliance Confirmed',
-        );
-      }
-    } catch (e, stack) {
-      telemetry.failGate(
-        ExecutionGateCategory.governance,
-        'Platform Governance Audit Failed to Execute',
-        error: e,
-        stackTrace: stack,
-      );
-    }
-
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: 'PrimeCare Corporate',

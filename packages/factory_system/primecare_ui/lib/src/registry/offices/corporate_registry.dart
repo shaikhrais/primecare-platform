@@ -5,131 +5,317 @@ import 'base_office_registry.dart';
 class CorporateRegistry extends OfficeScreenRegistry {
   @override
   void bootstrap() {
-    registerRoute(CorporateRoutes.ceoDashboard, PrimeCareForm.ceoDashboard);
-    registerRoute(CorporateRoutes.cooDashboard, PrimeCareForm.cooDashboard);
-    registerRoute(CorporateRoutes.cfoDashboard, PrimeCareForm.cfoDashboard);
+    registerRoute(
+      CorporateRoutes.ceoDashboard,
+      PrimeCareForm.ceoDashboard,
+      provider: ceoDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Enterprise Growth)',
+        'Global KPI Metrics',
+        'Region Comparison',
+        'Strategic Initiatives',
+      ],
+      structuralPlan:
+          'Strategic Command Center: Aura HUD with enterprise growth telemetry. Features a global KPI grid and region performance heatmaps.',
+    );
+    registerRoute(
+      CorporateRoutes.cooDashboard,
+      PrimeCareForm.cooDashboard,
+      provider: cooDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Operational MTTR)',
+        'Operational KPI Grid',
+        'Branch Efficiency Table',
+        'Service Quality Log',
+      ],
+      structuralPlan:
+          'Operations Command: Aura HUD with operational MTTR telemetry. Main dashboard features efficiency metrics across branches.',
+    );
+    registerRoute(
+      CorporateRoutes.cfoDashboard,
+      PrimeCareForm.cfoDashboard,
+      provider: cfoDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Capital Liquidity)',
+        'Liquidity Index',
+        'Burn Rate Analysis',
+        'Capital Allocation',
+      ],
+      structuralPlan:
+          'Financial Oversight Hub: Aura HUD with capital liquidity telemetry. Includes burn rate analytics and capital allocation visualization.',
+    );
     // CTO Dashboard is handled via specialized CtoDashboardIntent in GovernanceRegistry
-    registerRoute(CorporateRoutes.complianceManagerDashboard, PrimeCareForm.complianceManagerDashboard);
-    registerRoute(CorporateRoutes.trainingDirectorDashboard, PrimeCareForm.trainingDirectorDashboard);
-    registerRoute(CorporateRoutes.financeDirectorDashboard, PrimeCareForm.financeDirectorDashboard);
-    registerRoute(CorporateRoutes.headOfBusDevDashboard, PrimeCareForm.headOfBusDevDashboard);
-    registerRoute(CorporateRoutes.headOfMarketingDashboard, PrimeCareForm.headOfMarketingDashboard);
+    registerRoute(
+      CorporateRoutes.complianceManagerDashboard,
+      PrimeCareForm.complianceManagerDashboard,
+      provider: complianceManagerDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Compliance Drift)',
+        'Registry Integrity Score',
+        'Anomaly Heatmap',
+        'Execution Gate Logs',
+      ],
+      structuralPlan:
+          'Compliance Command: Aura HUD with compliance drift telemetry. Features an anomaly heatmap for identifying procedural drift.',
+    );
+    registerRoute(
+      CorporateRoutes.trainingDirectorDashboard,
+      PrimeCareForm.trainingDirectorDashboard,
+      provider: trainingDirectorDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Certification Compliance)',
+        'Certification Heatmap',
+        'Active Course Enrollment',
+        'Competency Drift Alert',
+      ],
+      structuralPlan:
+          'LMS Governance Portal: Aura HUD with certification compliance telemetry. Middle tier handles active enrollment telemetry.',
+    );
+    registerRoute(
+      CorporateRoutes.financeDirectorDashboard,
+      PrimeCareForm.financeDirectorDashboard,
+      provider: financeDirectorDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Cash Flow)',
+        'Financial Summary Grid',
+        'Cash Flow Forecast',
+        'Budget Distribution',
+      ],
+      structuralPlan:
+          'Finance Operations: Aura HUD with cash flow telemetry. Dashboard provides a summary of receivables/payables and budget distribution.',
+    );
+    registerRoute(
+      CorporateRoutes.headOfBusDevDashboard,
+      PrimeCareForm.headOfBusDevDashboard,
+      provider: headOfBusDevDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Pipeline Velocity)',
+        'Pipeline Velocity Chart',
+        'Expansion Roadmap Heatmap',
+        'Partner Synergy Matrix',
+      ],
+      structuralPlan:
+          'Ecosystem Expansion Hub: Aura HUD with pipeline velocity telemetry. Features an expansion roadmap heatmap and a partner synergy matrix.',
+    );
+    registerRoute(
+      CorporateRoutes.headOfMarketingDashboard,
+      PrimeCareForm.headOfMarketingDashboard,
+      provider: headOfMarketingDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Lead Velocity)',
+        'Global Campaign Heatmap',
+        'Funnel Conversion Grid',
+        'Brand Awareness Index',
+      ],
+      structuralPlan:
+          'Growth Governance Console: Aura HUD with lead-generation velocity. Features a global campaign heatmap and multi-stage funnel conversion grids.',
+    );
+    registerRoute(
+      CorporateRoutes.hrManagerDashboard,
+      PrimeCareForm.hrManagerDashboard,
+      provider: hrHiringDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD',
+        'Operational Metrics',
+        'HR Action Hub',
+        'Staffing Velocity',
+        'Compliance Audit',
+      ],
+      structuralPlan:
+          'HR Management Hub: Governance alignment and audit ready. Tracks hiring velocity, turnover, and compliance.',
+    );
+    registerRoute(
+      CorporateRoutes.hrHiringDashboard,
+      PrimeCareForm.hrHiringDashboard,
+      provider: hrHiringDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD',
+        'Hiring Analytics',
+        'Pipeline Saturation',
+        'Human Capital Intelligence',
+        'Administrative Queue',
+      ],
+      structuralPlan:
+          'Recruitment HUB: Manages candidate pipeline, conversion rates, and role-specific saturation.',
+    );
 
-    // Specialized Corporate Sub-screens
-    final subScreens = [
-      {'path': CorporateRoutes.ceoEnterpriseOverview, 'title': 'Enterprise Overview', 'pid': 'ceoEnterpriseOverview'},
-      {'path': CorporateRoutes.ceoFranchiseOverview, 'title': 'Franchise Overview', 'pid': 'ceoFranchiseOverview'},
-      {'path': CorporateRoutes.ceoRegionPerformance, 'title': 'Region Performance', 'pid': 'ceoRegionPerformance'},
-      {'path': CorporateRoutes.ceoRevenueSummary, 'title': 'Revenue Summary', 'pid': 'ceoRevenueSummary'},
-      {'path': CorporateRoutes.cooOperationsOverview, 'title': 'Operations Overview', 'pid': 'cooOperationsOverview'},
-      {'path': CorporateRoutes.cooBranchOperations, 'title': 'Branch Operations', 'pid': 'cooBranchOperations'},
-      {'path': CorporateRoutes.cfoFinancialOverview, 'title': 'Financial Overview', 'pid': 'cfoFinancialOverview'},
-      {'path': CorporateRoutes.cfoRevenue, 'title': 'Revenue Analytics', 'pid': 'cfoRevenue'},
-      {'path': CorporateRoutes.ctoSystemHealth, 'title': 'System Health', 'pid': 'ctoSystemHealth'},
-      {'path': CorporateRoutes.ctoPlatformUsage, 'title': 'Platform Usage', 'pid': 'ctoPlatformUsage'},
+    // Missing Corporate Dashboards
+    registerRoute(
+      CorporateRoutes.hrDirectorDashboard,
+      PrimeCareForm.hrDirectorDashboard,
+      provider: hrDirectorDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Talent Retention)',
+        'Succession Planning',
+        'Workforce Diversity',
+        'Global Compensation',
+      ],
+      structuralPlan:
+          'Talent Governance: Strategic HR oversight for the entire enterprise.',
+    );
+    registerRoute(
+      CorporateRoutes.cxDirectorDashboard,
+      PrimeCareForm.cxDirectorDashboard,
+      provider: cxDirectorDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (Experience Velocity)',
+        'Sentiment Scorecard',
+        'Retention Analysis',
+        'Customer Journey Drift',
+      ],
+      structuralPlan:
+          'Experience Governance: Tracking customer experience velocity and brand loyalty.',
+    );
+    registerRoute(
+      CorporateRoutes.itAdminDashboard,
+      PrimeCareForm.itAdminDashboard,
+      provider: ctoDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD (System Uptime)',
+        'Resource Allocation',
+        'Maintenance Queue',
+        'System Logs',
+      ],
+      structuralPlan:
+          'IT Administration: Day-to-day management of system infrastructure and resources.',
+    );
+
+    final List<Map<String, dynamic>> subScreens = [
+      {
+        'path': CorporateRoutes.ceoEnterpriseOverview,
+        'title': 'corporate.ceo.enterprise_overview.title',
+        'pid': 'ceoEnterpriseOverview',
+        'labels': [
+          'Aura HUD (Enterprise Health)',
+          'Global Branch Heatmap',
+          'Cross-Region KPI Grid',
+        ],
+        'plan':
+            'Enterprise Macro-View: Aura HUD with global health telemetry. Features a geographic heatmap and a cross-region KPI grid.',
+      },
+      {
+        'path': CorporateRoutes.ceoRevenueSummary,
+        'title': 'corporate.ceo.revenue_summary.title',
+        'pid': 'ceoRevenueSummary',
+        'labels': [
+          'Aura HUD (Revenue Growth)',
+          'Revenue Waterfall',
+          'Segment Growth Chart',
+        ],
+        'plan':
+            'Financial Growth Engine: Aura HUD with revenue-velocity telemetry. Optimized for analyzing revenue streams through waterfall charts.',
+      },
+      {
+        'path': CorporateRoutes.cooOperationsOverview,
+        'title': 'corporate.coo.operations_overview.title',
+        'pid': 'cooOperationsOverview',
+        'labels': [
+          'Aura HUD (Operational MTTR)',
+          'Incident Summary',
+          'Resource Efficiency Table',
+        ],
+        'plan':
+            'Operational Command Center: Aura HUD with platform-wide incident telemetry. Centered around operational issue logs and efficiency tables.',
+      },
+      {
+        'path': CorporateRoutes.cfoFinancialOverview,
+        'title': 'corporate.cfo.financial_overview.title',
+        'pid': 'cfoFinancialOverview',
+        'labels': [
+          'Aura HUD (Capital Liquidity)',
+          'Capital Stack Grid',
+          'Tax Liability Forecast',
+        ],
+        'plan':
+            'Fiscal Governance Portal: Aura HUD with cash-reserve telemetry. Focused on capital stack visualization and tax liability modeling.',
+      },
+      {
+        'path': CorporateRoutes.ctoSystemHealth,
+        'title': 'corporate.cto.system_health.title',
+        'pid': 'ctoSystemHealth',
+        'labels': [
+          'Aura HUD (System Uptime)',
+          'Server Uptime Graph',
+          'API Latency Monitor',
+          'Error Density Heatmap',
+        ],
+        'plan':
+            'Infrastructure Command: Aura HUD with real-time cluster health telemetry. Features latency monitoring and error density heatmaps.',
+      },
     ];
 
-    for (final s in subScreens) {
-      registerCustomDashboard(s['path']!, s['title']!, s['pid']!);
+    for (final screen in subScreens) {
+      registerRoute(
+        screen['path'] as String,
+        PrimeCareForm.genericDashboard,
+        titleKey: screen['title'] as String,
+        componentLabels: screen['labels'] as List<String>,
+        structuralPlan: screen['plan'] as String,
+      );
     }
   }
 
   @override
   Map<String, Map<String, dynamic>> get registryJson => {
-        'ceo': {
-          'title': 'Global Platform Overview',
-          'subtitle': 'Real-time metrics across all PrimeCare franchise locations and clinical nodes.',
-          'route': CorporateRoutes.ceoDashboard,
-          'componentLabels': ['Aura HUD', 'Enterprise KPI Grid', 'Revenue Forecast Chart', 'Global Activity Log'],
-          'rendering': {
-            'status': 'healthy',
-            'isCritical': true,
-            'fallbackId': '/error-500',
-          },
-          'kpis': [
-            {
-              'title': 'Active Patients',
-              'value': '14,239',
-              'deltaSuffix': '+12% this month',
-              'icon': 'users',
-              'iconColor': 'blue',
-            },
-          ],
-        },
-        'training_director': {
-          'title': 'Training Compliance Gateway',
-          'subtitle': 'Manage certifications, renewals, and staff competencies.',
-          'route': CorporateRoutes.trainingDirectorDashboard,
-          'componentLabels': ['Aura HUD', 'Compliance Stat Grid', 'Certification Expiry Table', 'Staff Competency Map'],
-          'kpis': [
-            {
-              'title': 'Cert. Compliance',
-              'value': '94%',
-              'deltaSuffix': '+2% increase',
-              'icon': 'graduationCap',
-              'iconColor': 'teal',
-            },
-          ],
-        },
-        'coo': {
-          'title': 'Operations Strategy',
-          'subtitle': 'System-wide operational efficiency and service quality.',
-          'route': CorporateRoutes.cooDashboard,
-          'componentLabels': ['Aura HUD', 'Operational KPI Grid', 'Branch Efficiency Table', 'Service Quality Log'],
-          'kpis': [
-            {
-              'title': 'Ops Efficiency',
-              'value': '94.2%',
-              'deltaSuffix': 'Service uptime',
-              'icon': 'barChart',
-              'iconColor': 'blue',
-            },
-          ],
-        },
-        'cfo': {
-          'title': 'Global Treasury',
-          'subtitle': 'Financial ledger oversight and fiscal compliance.',
-          'route': CorporateRoutes.cfoDashboard,
-          'componentLabels': ['Aura HUD', 'Financial KPI Grid', 'Cash Flow Projection', 'Expense Audit Table'],
-          'kpis': [
-            {
-              'title': 'Net Liquidity',
-              'value': r'$1.8M',
-              'deltaSuffix': 'Cash on hand',
-              'icon': 'barChart',
-              'iconColor': 'amber',
-            },
-          ],
-        },
-        'compliance_manager': {
-          'title': 'Compliance & Policy Hub',
-          'subtitle': 'Regulatory Oversight • Audit Management',
-          'route': CorporateRoutes.complianceManagerDashboard,
-          'componentLabels': ['Aura HUD', 'Compliance Stat Grid', 'Audit Calendar', 'Policy Revision Status'],
-          'kpis': [
-            {
-              'title': 'Pending Audits',
-              'value': '3',
-              'deltaSuffix': 'Next 7 days',
-              'icon': 'shieldCheck',
-              'iconColor': 'blue',
-            },
-          ],
-        },
-        'finance_director': {
-          'title': 'Finance & Treasury Operations',
-          'subtitle': 'Institutional Ledger Control • Finance Director',
-          'route': CorporateRoutes.financeDirectorDashboard,
-          'componentLabels': ['Aura HUD', 'Finance KPI Grid', 'Accounts Receivable Ledger', 'Tax Remittance Status'],
-          'kpis': [
-            {
-              'title': 'Accounts Receivable',
-              'value': r'$1.2M',
-              'deltaSuffix': 'Pending Payors',
-              'icon': 'dollarSign',
-              'iconColor': 'green',
-            },
-          ],
-        },
-      };
+    'ceo_dashboard': {
+      'path': CorporateRoutes.ceoDashboard,
+      'title': 'corporate.ceo.dashboard.title',
+      'form': PrimeCareForm.ceoDashboard.name,
+    },
+    'coo_dashboard': {
+      'path': CorporateRoutes.cooDashboard,
+      'title': 'corporate.coo.dashboard.title',
+      'form': PrimeCareForm.cooDashboard.name,
+    },
+    'cfo_dashboard': {
+      'path': CorporateRoutes.cfoDashboard,
+      'title': 'corporate.cfo.dashboard.title',
+      'form': PrimeCareForm.cfoDashboard.name,
+    },
+    'compliance_manager': {
+      'path': CorporateRoutes.complianceManagerDashboard,
+      'title': 'corporate.compliance_manager.dashboard.title',
+      'form': PrimeCareForm.complianceManagerDashboard.name,
+    },
+    'training_director': {
+      'path': CorporateRoutes.trainingDirectorDashboard,
+      'title': 'corporate.training_director.dashboard.title',
+      'form': PrimeCareForm.trainingDirectorDashboard.name,
+    },
+    'finance_director': {
+      'path': CorporateRoutes.financeDirectorDashboard,
+      'title': 'corporate.finance_director.dashboard.title',
+      'form': PrimeCareForm.financeDirectorDashboard.name,
+    },
+    'head_of_bus_dev': {
+      'path': CorporateRoutes.headOfBusDevDashboard,
+      'title': 'corporate.head_of_business_development.dashboard.title',
+      'form': PrimeCareForm.headOfBusDevDashboard.name,
+    },
+    'head_of_marketing': {
+      'path': CorporateRoutes.headOfMarketingDashboard,
+      'title': 'corporate.head_of_marketing.dashboard.title',
+      'form': PrimeCareForm.headOfMarketingDashboard.name,
+    },
+    'hr_manager': {
+      'path': CorporateRoutes.hrManagerDashboard,
+      'title': 'corporate.hr_manager.dashboard.title',
+      'form': PrimeCareForm.hrManagerDashboard.name,
+    },
+    'hr_director': {
+      'path': CorporateRoutes.hrDirectorDashboard,
+      'title': 'corporate.hr_director.dashboard.title',
+      'form': PrimeCareForm.hrDirectorDashboard.name,
+    },
+    'cx_director': {
+      'path': CorporateRoutes.cxDirectorDashboard,
+      'title': 'corporate.cx_director.dashboard.title',
+      'form': PrimeCareForm.cxDirectorDashboard.name,
+    },
+    'it_admin': {
+      'path': CorporateRoutes.itAdminDashboard,
+      'title': 'corporate.it_admin.dashboard.title',
+      'form': PrimeCareForm.itAdminDashboard.name,
+    },
+  };
 }

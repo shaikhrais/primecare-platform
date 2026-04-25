@@ -12,19 +12,9 @@ class OperationsManagerDashboardScreen extends ConsumerWidget {
     final state = ref.watch(operationsManagerDashboardAdapterProvider);
 
     return MasterLayout(
-      child: state.when(
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(operationsManagerDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(operationsManagerDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(operationsManagerDashboardAdapterProvider),
       ),
     );
   }
@@ -34,74 +24,58 @@ class OperationsManagerDashboardScreen extends ConsumerWidget {
     PrimeCareThemeData theme,
     OperationsManagerDashboardViewModel viewModel,
   ) {
-    final metrics = viewModel.metrics;
-
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, theme),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Institutional Operations Hub',
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    'Facility logistics, supply chain health, and institutional throughput telemetry',
+                    style: theme.typography.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (viewModel.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
+
           _buildOpsContinuitySummary(context, theme),
           SizedBox(height: theme.spacing.xl),
 
-          // Standardized KPI Grid (Facility Cap, Supply health, Ops Efficiency, Alerts)
-          PrimeCareResponsiveKpiGrid(metrics: metrics),
-
+          PrimeCareResponsiveKpiGrid(metrics: viewModel.metrics),
           SizedBox(height: theme.spacing.xl),
+
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 3,
-                child: _buildInventoryDistribution(context, theme),
-              ),
-              SizedBox(width: theme.spacing.xl),
-              Expanded(flex: 2, child: _buildMaintenanceLog(context, theme)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context, PrimeCareThemeData theme) {
-    return PrimeCareCard(
-      padding: EdgeInsets.symmetric(
-        horizontal: theme.spacing.lg,
-        vertical: theme.spacing.md,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Institutional Operations Dashboard',
-                  style: theme.typography.h2,
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildInventoryDistribution(context, theme),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildMaintenanceLog(context, theme),
+                  ],
                 ),
-                Text(
-                  'Logistics • Q2 2026 • Operations Office',
-                  style: theme.typography.label.copyWith(
-                    color: theme.colors.slateGray,
-                  ),
+              ),
+              if (viewModel.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(
+                  child: _buildAuraInsightsColumn(theme, viewModel.insights),
                 ),
               ],
-            ),
-          ),
-          PrimeCareButton(
-            label: 'Inventory Audit',
-            icon: LucideIcons.packageCheck,
-            onPressed: () {},
-          ),
-          SizedBox(width: theme.spacing.sm),
-          PrimeCareButton(
-            label: 'Facility Map',
-            icon: LucideIcons.map,
-            onPressed: () {},
-            type: PrimeCareButtonType.secondary,
+            ],
           ),
         ],
       ),
@@ -340,6 +314,25 @@ class OperationsManagerDashboardScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

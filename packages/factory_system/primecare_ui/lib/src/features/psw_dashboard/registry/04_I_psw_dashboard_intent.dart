@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_psw_dashboard_screen.dart';
 
 class PswDashboardIntent extends AppScreenIntent {
-  const PswDashboardIntent();
+  PswDashboardIntent();
 
   @override
   String get name => 'psw_dashboard';
@@ -21,9 +21,13 @@ class PswDashboardIntent extends AppScreenIntent {
   dynamic get provider => pswDashboardAdapterProvider;
 
   @override
-  List<String> get componentLabels => ['Aura HUD', 'Clinical Summary', 'Care Plan Checklist', 'Incident Quick-Report'];
+  List<String> get componentLabels => [
+    'Aura HUD',
+    'Clinical Summary',
+    'Care Plan Checklist',
+    'Incident Quick-Report',
+  ];
 
   @override
   Widget build(BuildContext context) => const PswDashboardScreen();
 }
-

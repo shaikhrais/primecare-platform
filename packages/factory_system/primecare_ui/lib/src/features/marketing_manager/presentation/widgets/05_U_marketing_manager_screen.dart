@@ -1,5 +1,5 @@
 // Layer: 05_USER_INTERFACE
-import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-fidelity Marketing Manager Dashboard.
 class MarketingManagerScreen extends ConsumerWidget {
@@ -9,24 +9,21 @@ class MarketingManagerScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final adapterState = ref.watch(headOfMarketingDashboardAdapterProvider);
 
-    return adapterState.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildDashboard(context, viewModel),
-        (error) => SystemRecoveryMode(
-          error: error,
-          onAttemptReset: () => ref.refresh(headOfMarketingDashboardAdapterProvider),
-        ),
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => SystemRecoveryMode(
-        error: err,
-        stackTrace: stack,
-        onAttemptReset: () => ref.refresh(headOfMarketingDashboardAdapterProvider),
+    return adapterState.whenResult(
+      (HeadOfMarketingDashboardViewModel viewModel) =>
+          _buildDashboard(context, viewModel),
+      loading: () => const DashboardLoadingWidget(),
+      error: (err, stack) => DashboardErrorWidget(
+        message: 'Marketing Intelligence Failure: $err',
+        onRetry: () => ref.refresh(headOfMarketingDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildDashboard(BuildContext context, HeadOfMarketingDashboardViewModel vm) {
+  Widget _buildDashboard(
+    BuildContext context,
+    HeadOfMarketingDashboardViewModel vm,
+  ) {
     return Scaffold(
       backgroundColor: const Color(0xFFFDF2F8),
       body: CustomScrollView(
@@ -43,15 +40,9 @@ class MarketingManagerScreen extends ConsumerWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: _buildCampaignFunnel(vm),
-                      ),
+                      Expanded(flex: 2, child: _buildCampaignFunnel(vm)),
                       const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: _buildMarketingIntelligence(vm),
-                      ),
+                      Expanded(flex: 1, child: _buildMarketingIntelligence(vm)),
                     ],
                   ),
                 ],
@@ -76,7 +67,11 @@ class MarketingManagerScreen extends ConsumerWidget {
           const SizedBox(width: 12),
           const Text(
             'Growth & Branding',
-            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ],
       ),
@@ -108,10 +103,30 @@ class MarketingManagerScreen extends ConsumerWidget {
       title: 'Campaign Conversion Funnel',
       child: Column(
         children: [
-          _FunnelStage(label: 'Awareness', value: '1.2M', percentage: 100, color: Colors.pink[100]!),
-          _FunnelStage(label: 'Interest', value: '450K', percentage: 37, color: Colors.pink[200]!),
-          _FunnelStage(label: 'Consideration', value: '120K', percentage: 10, color: Colors.pink[400]!),
-          _FunnelStage(label: 'Conversion', value: '12.5K', percentage: 1, color: Colors.pink[700]!),
+          _FunnelStage(
+            label: 'Awareness',
+            value: '1.2M',
+            percentage: 100,
+            color: Colors.pink[100]!,
+          ),
+          _FunnelStage(
+            label: 'Interest',
+            value: '450K',
+            percentage: 37,
+            color: Colors.pink[200]!,
+          ),
+          _FunnelStage(
+            label: 'Consideration',
+            value: '120K',
+            percentage: 10,
+            color: Colors.pink[400]!,
+          ),
+          _FunnelStage(
+            label: 'Conversion',
+            value: '12.5K',
+            percentage: 1,
+            color: Colors.pink[700]!,
+          ),
         ],
       ),
     );
@@ -135,17 +150,28 @@ class MarketingManagerScreen extends ConsumerWidget {
             children: [
               Icon(Icons.auto_graph, color: Colors.white, size: 20),
               SizedBox(width: 8),
-              Text('Brand Intelligence', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              Text(
+                'Brand Intelligence',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 20),
-          ...vm.insights.map((insight) => Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(
-              insight.summary,
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13),
+          ...vm.insights.map(
+            (insight) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text(
+                insight.summary,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -158,13 +184,20 @@ class MarketingManagerScreen extends ConsumerWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.pink.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: Colors.pink.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 24),
           child,
         ],
@@ -190,9 +223,19 @@ class _StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(kpi.title, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+          Text(
+            kpi.title,
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           const SizedBox(height: 8),
-          Text(kpi.value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Color(0xFF831843))),
+          Text(
+            kpi.value,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Color(0xFF831843),
+            ),
+          ),
         ],
       ),
     );
@@ -205,7 +248,12 @@ class _FunnelStage extends StatelessWidget {
   final double percentage;
   final Color color;
 
-  const _FunnelStage({required this.label, required this.value, required this.percentage, required this.color});
+  const _FunnelStage({
+    required this.label,
+    required this.value,
+    required this.percentage,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -216,19 +264,39 @@ class _FunnelStage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-              Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
           Container(
             height: 12,
             width: double.infinity,
-            decoration: BoxDecoration(color: Colors.grey[100], borderRadius: BorderRadius.circular(6)),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(6),
+            ),
             child: FractionallySizedBox(
               alignment: Alignment.centerLeft,
               widthFactor: percentage / 100,
-              child: Container(decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(6))),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              ),
             ),
           ),
         ],
@@ -236,4 +304,3 @@ class _FunnelStage extends StatelessWidget {
     );
   }
 }
-

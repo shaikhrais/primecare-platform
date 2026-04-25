@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_support_dashboard_screen.dart';
 
 class SupportDashboardIntent extends AppScreenIntent {
-  const SupportDashboardIntent();
+  SupportDashboardIntent();
 
   @override
   String get name => 'support_dashboard';
@@ -18,9 +18,8 @@ class SupportDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.support;
 
   @override
-  dynamic get provider => supportDashboardAdapterProvider;
+  dynamic get provider => supportMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const SupportDashboardScreen();
 }
-

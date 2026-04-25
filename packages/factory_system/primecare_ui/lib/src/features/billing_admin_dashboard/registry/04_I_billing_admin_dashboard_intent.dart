@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_billing_admin_dashboard_screen.dart';
 
 class BillingAdminDashboardIntent extends AppScreenIntent {
-  const BillingAdminDashboardIntent();
+  BillingAdminDashboardIntent();
 
   @override
   String get name => 'billing_admin_dashboard';
@@ -18,12 +18,15 @@ class BillingAdminDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.billingAdmin;
 
   @override
-  dynamic get provider => billingAdminDashboardAdapterProvider;
+  dynamic get provider => billingAdminMetricsProvider;
 
   @override
-  List<String> get componentLabels => ['Aging Accounts Grid', 'Pending Claims Queue', 'Remittance Breakdown'];
+  List<String> get componentLabels => [
+    'Aging Accounts Grid',
+    'Pending Claims Queue',
+    'Remittance Breakdown',
+  ];
 
   @override
   Widget build(BuildContext context) => const BillingAdminDashboardScreen();
 }
-

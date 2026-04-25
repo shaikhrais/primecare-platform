@@ -10,34 +10,34 @@ class TrainingCoordinatorDashboardScreen extends ConsumerWidget {
     final state = ref.watch(trainingCoordinatorDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(trainingCoordinatorDashboardAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel.metrics),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(trainingCoordinatorDashboardAdapterProvider),
+          onRetry: () =>
+              ref.refresh(trainingCoordinatorDashboardAdapterProvider),
         ),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, TrainingCoordinatorDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    DashboardMetrics vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Training Coordinator Command Center', style: theme.typography.h2),
+          Text(
+            'Training Coordinator Command Center',
+            style: theme.typography.h2,
+          ),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
+          PrimeCareResponsiveKpiGrid(metrics: vm),
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),

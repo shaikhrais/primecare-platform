@@ -12,38 +12,64 @@ class OperationsManagerDashboardViewModel extends PrimeCareDashboardViewModel {
     super.isOfflineFallback,
   });
 
-  factory OperationsManagerDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+  factory OperationsManagerDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
+    return OperationsManagerDashboardViewModel(metrics: metrics, insights: []);
+  }
+
+  factory OperationsManagerDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return OperationsManagerDashboardViewModel(
-      metrics: metrics,
-      insights: [],
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
     );
   }
 
-  factory OperationsManagerDashboardViewModel.fromJson(Map<String, dynamic> json) {
-    return OperationsManagerDashboardViewModel(
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
-  }
-
-  factory OperationsManagerDashboardViewModel.empty({bool isOfflineFallback = false}) {
+  factory OperationsManagerDashboardViewModel.empty({
+    bool isOfflineFallback = false,
+  }) {
     return OperationsManagerDashboardViewModel(
       metrics: DashboardMetrics.empty(),
-      insights: [],      isOfflineFallback: isOfflineFallback,
+      insights: [],
+      isOfflineFallback: isOfflineFallback,
+    );
+  }
+
+  OperationsManagerDashboardViewModel copyWith({
+    DashboardMetrics? metrics,
+    List<IntelligenceInsight>? insights,
+    List<UIComponentBlueprint>? blueprints,
+    bool? isOfflineFallback,
+  }) {
+    return OperationsManagerDashboardViewModel(
+      metrics: metrics ?? this.metrics,
+      insights: insights ?? this.insights,
+      blueprints: blueprints ?? this.blueprints,
+      isOfflineFallback: isOfflineFallback ?? this.isOfflineFallback,
     );
   }
 
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+  };
 }

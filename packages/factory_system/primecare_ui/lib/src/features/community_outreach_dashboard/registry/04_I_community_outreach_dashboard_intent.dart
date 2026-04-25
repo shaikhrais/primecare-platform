@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_community_outreach_dashboard_screen.dart';
 
 class CommunityOutreachDashboardIntent extends AppScreenIntent {
-  const CommunityOutreachDashboardIntent();
+  CommunityOutreachDashboardIntent();
 
   @override
   String get name => 'community_outreach_dashboard';
@@ -21,6 +21,6 @@ class CommunityOutreachDashboardIntent extends AppScreenIntent {
   dynamic get provider => communityOutreachDashboardAdapterProvider;
 
   @override
-  Widget build(BuildContext context) => const CommunityOutreachDashboardScreen();
+  Widget build(BuildContext context) =>
+      const CommunityOutreachDashboardScreen();
 }
-

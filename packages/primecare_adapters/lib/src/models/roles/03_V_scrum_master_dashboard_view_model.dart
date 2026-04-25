@@ -12,38 +12,62 @@ class ScrumMasterDashboardViewModel extends PrimeCareDashboardViewModel {
     super.isOfflineFallback,
   });
 
-  factory ScrumMasterDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
-    return ScrumMasterDashboardViewModel(
-      metrics: metrics,
-      insights: [],
-    );
+  factory ScrumMasterDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
+    return ScrumMasterDashboardViewModel(metrics: metrics, insights: []);
   }
 
   factory ScrumMasterDashboardViewModel.fromJson(Map<String, dynamic> json) {
     return ScrumMasterDashboardViewModel(
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
     );
   }
 
-  factory ScrumMasterDashboardViewModel.empty({bool isOfflineFallback = false}) {
+  factory ScrumMasterDashboardViewModel.empty({
+    bool isOfflineFallback = false,
+  }) {
     return ScrumMasterDashboardViewModel(
       metrics: DashboardMetrics.empty(),
-      insights: [],      isOfflineFallback: isOfflineFallback,
+      insights: [],
+      isOfflineFallback: isOfflineFallback,
+    );
+  }
+
+  ScrumMasterDashboardViewModel copyWith({
+    DashboardMetrics? metrics,
+    List<IntelligenceInsight>? insights,
+    List<UIComponentBlueprint>? blueprints,
+    bool? isOfflineFallback,
+  }) {
+    return ScrumMasterDashboardViewModel(
+      metrics: metrics ?? this.metrics,
+      insights: insights ?? this.insights,
+      blueprints: blueprints ?? this.blueprints,
+      isOfflineFallback: isOfflineFallback ?? this.isOfflineFallback,
     );
   }
 
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+  };
 }

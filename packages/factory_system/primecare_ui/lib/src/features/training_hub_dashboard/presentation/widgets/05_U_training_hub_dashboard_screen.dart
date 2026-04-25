@@ -7,29 +7,25 @@ class TrainingHubDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final state = ref.watch(trainingHubAdapterProvider);
+    final state = ref.watch(trainingHubDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (Result<PrimeCareDashboardViewModel> result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel as TrainingHubViewModel),
-          (Object err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(trainingHubAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(trainingHubAdapterProvider),
+          onRetry: () => ref.refresh(trainingHubDashboardAdapterProvider),
         ),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, TrainingHubViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    TrainingHubViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(

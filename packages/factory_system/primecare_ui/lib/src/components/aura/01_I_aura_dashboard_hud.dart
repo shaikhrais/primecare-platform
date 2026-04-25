@@ -1,5 +1,12 @@
-// Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_adapters/src/models/core/02_M_dashboard_models.dart';
+import 'package:primecare_ui/src/theme/01_I_colors.dart';
+import 'package:primecare_ui/src/components/aura/01_I_aura_briefing_panel.dart';
+import 'package:flutter_core/src/resilience/01_I_system_recovery_manager.dart';
+import 'package:flutter_core/01_I_aura_providers.dart';
+import 'package:flutter_core/src/models/02_M_aura_event.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 /// A high-fidelity Dashboard HUD that displays real-time intelligence pulses from Aura.
 class AuraDashboardHud extends ConsumerStatefulWidget {
@@ -17,7 +24,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
   @override
   void initState() {
     super.initState();
-    
+
     // ✅ MECHANICAL STABILITY: Mark the system as stable once the HUD hydrates.
     // This stops the auto-healing loop from attempting further resets.
     SystemRecoveryManager.markStable();
@@ -103,10 +110,12 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
   }
 
   Widget _buildHudContent(BuildContext context, AuraEvent event) {
+    final isDrift = event.type == AuraEventType.architecturalDrift;
     final isAnomaly =
         event.impact == InsightImpact.alert ||
-        event.impact == InsightImpact.caution;
-    final color = _getColor(event.impact);
+        event.impact == InsightImpact.caution ||
+        isDrift;
+    final color = isDrift ? const Color(0xFFA855F7) : _getColor(event.impact);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -125,7 +134,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
       ),
       child: Row(
         children: [
-          _buildPulseIcon(color, isAnomaly),
+          _buildPulseIcon(color, isAnomaly, isDrift),
           const SizedBox(width: 20),
           Expanded(
             child: Column(
@@ -135,7 +144,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                 Row(
                   children: [
                     Text(
-                      event.title.toUpperCase(),
+                      isDrift ? 'GOVERNANCE ALERT' : event.title.toUpperCase(),
                       style: TextStyle(
                         color: color,
                         fontSize: 12,
@@ -175,7 +184,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
     );
   }
 
-  Widget _buildPulseIcon(Color color, bool isAnomaly) {
+  Widget _buildPulseIcon(Color color, bool isAnomaly, bool isDrift) {
     return AnimatedBuilder(
       animation: _glowAnimation,
       builder: (context, child) {
@@ -194,7 +203,11 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
             ],
           ),
           child: Icon(
-            isAnomaly ? LucideIcons.alertTriangle : LucideIcons.activity,
+            isDrift
+                ? LucideIcons.shieldAlert
+                : (isAnomaly
+                      ? LucideIcons.alertTriangle
+                      : LucideIcons.activity),
             color: color,
             size: 24,
           ),
@@ -303,6 +316,11 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
       case InsightImpact.growth:
         return const Color(0xFF10B981); // Emerald
       case InsightImpact.info:
+      case InsightImpact.standard:
+      case InsightImpact.success:
+      case InsightImpact.high:
+      case InsightImpact.low:
+      case InsightImpact.medium:
         return const Color(0xFF6366F1); // Indigo
     }
   }

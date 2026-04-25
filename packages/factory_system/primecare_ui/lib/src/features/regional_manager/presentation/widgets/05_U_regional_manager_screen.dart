@@ -1,5 +1,5 @@
 // Layer: 05_USER_INTERFACE
-import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-fidelity Regional Manager Dashboard.
 class RegionalManagerScreen extends ConsumerWidget {
@@ -7,26 +7,26 @@ class RegionalManagerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final adapterState = ref.watch(regionalManagerOntarioDashboardAdapterProvider);
+    final adapterState = ref.watch(
+      regionalManagerOntarioDashboardAdapterProvider,
+    );
 
-    return adapterState.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildDashboard(context, viewModel),
-        (error) => SystemRecoveryMode(
-          error: error,
-          onAttemptReset: () => ref.refresh(regionalManagerOntarioDashboardAdapterProvider),
-        ),
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => SystemRecoveryMode(
-        error: err,
-        stackTrace: stack,
-        onAttemptReset: () => ref.refresh(regionalManagerOntarioDashboardAdapterProvider),
+    return adapterState.whenResult(
+      (RegionalManagerOntarioDashboardViewModel viewModel) =>
+          _buildDashboard(context, viewModel),
+      loading: () => const DashboardLoadingWidget(),
+      error: (err, stack) => DashboardErrorWidget(
+        message: 'Regional Telemetry Failure: $err',
+        onRetry: () =>
+            ref.refresh(regionalManagerOntarioDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildDashboard(BuildContext context, RegionalManagerOntarioDashboardViewModel vm) {
+  Widget _buildDashboard(
+    BuildContext context,
+    RegionalManagerOntarioDashboardViewModel vm,
+  ) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       body: CustomScrollView(
@@ -47,15 +47,9 @@ class RegionalManagerScreen extends ConsumerWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: _buildGrowthMap(vm),
-                      ),
+                      Expanded(flex: 2, child: _buildGrowthMap(vm)),
                       const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: _buildRegionalAlerts(vm),
-                      ),
+                      Expanded(flex: 1, child: _buildRegionalAlerts(vm)),
                     ],
                   ),
                 ],
@@ -80,12 +74,19 @@ class RegionalManagerScreen extends ConsumerWidget {
           const SizedBox(width: 12),
           const Text(
             'Regional Oversight',
-            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ],
       ),
       actions: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_none)),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.notifications_none),
+        ),
         const SizedBox(width: 12),
         ElevatedButton.icon(
           onPressed: () {},
@@ -110,7 +111,10 @@ class RegionalManagerScreen extends ConsumerWidget {
   }
 
   Widget _buildSectionHeader(String title) {
-    return Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18));
+    return Text(
+      title,
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    );
   }
 
   Widget _buildFranchiseGrid(RegionalManagerOntarioDashboardViewModel vm) {
@@ -137,7 +141,9 @@ class RegionalManagerScreen extends ConsumerWidget {
           color: Colors.blueGrey[50],
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Center(child: Icon(Icons.public, size: 64, color: Colors.blueGrey)),
+        child: const Center(
+          child: Icon(Icons.public, size: 64, color: Colors.blueGrey),
+        ),
       ),
     );
   }
@@ -157,7 +163,13 @@ class RegionalManagerScreen extends ConsumerWidget {
             children: [
               Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 20),
               SizedBox(width: 8),
-              Text('Operational Risks', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange)),
+              Text(
+                'Operational Risks',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 20),
@@ -180,7 +192,10 @@ class RegionalManagerScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 24),
           child,
         ],
@@ -206,9 +221,15 @@ class _KpiCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(kpi.title, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+          Text(
+            kpi.title,
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           const SizedBox(height: 8),
-          Text(kpi.value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          Text(
+            kpi.value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
         ],
       ),
     );
@@ -230,14 +251,27 @@ class _FranchiseCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const CircleAvatar(backgroundColor: Color(0xFF1E293B), child: Icon(Icons.business, color: Colors.white, size: 16)),
+          const CircleAvatar(
+            backgroundColor: Color(0xFF1E293B),
+            child: Icon(Icons.business, color: Colors.white, size: 16),
+          ),
           const SizedBox(width: 12),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Franchise #${100 + index}', style: const TextStyle(fontWeight: FontWeight.bold)),
-              const Text('Active • 98% CSAT', style: TextStyle(color: Colors.green, fontSize: 11, fontWeight: FontWeight.bold)),
+              Text(
+                'Franchise #${100 + index}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                'Active • 98% CSAT',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ],
@@ -262,12 +296,21 @@ class _RiskTile extends StatelessWidget {
           Expanded(child: Text(title, style: const TextStyle(fontSize: 13))),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(color: Colors.orange[50], borderRadius: BorderRadius.circular(4)),
-            child: Text(level, style: const TextStyle(color: Colors.orange, fontSize: 10, fontWeight: FontWeight.bold)),
+            decoration: BoxDecoration(
+              color: Colors.orange[50],
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              level,
+              style: const TextStyle(
+                color: Colors.orange,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 }
-

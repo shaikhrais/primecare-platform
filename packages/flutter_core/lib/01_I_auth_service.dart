@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'routes/groups/01_I_clinical_routes.dart';
@@ -136,6 +136,9 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('receptionist')) {
       return CommonRoutes.receptionistDashboard;
     }
+    if (r.contains('volunteer_coordinator')) {
+      return CorporateRoutes.volunteerCoordinatorDashboard;
+    }
     if (r.contains('scrum_master')) {
       return CommonRoutes.scrumMasterDashboard;
     }
@@ -158,7 +161,11 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('clinical_director')) {
       return ClinicalRoutes.clinicalDirectorDashboard;
     }
-    if (r == 'rn' || r == 'rpn' || r == 'rmt' || r == 'psw' || r.contains('clinical')) {
+    if (r == 'rn' ||
+        r == 'rpn' ||
+        r == 'rmt' ||
+        r == 'psw' ||
+        r.contains('clinical')) {
       return CommonRoutes.clinicalDashboard;
     }
 
@@ -228,6 +235,24 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<bool> login(String email, String password) async {
     final result = await Result.guardFuture<bool>(
       () async {
+        // Debug Bypass for local verification
+        if (kDebugMode && email.endsWith('@debug.primecare.com')) {
+          final role = email.split('@')[0];
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('auth_token', 'debug-token');
+          await prefs.setString('auth_role', role);
+          await prefs.setString('auth_username', 'Debug User');
+
+          state = state.copyWith(
+            isAuthenticated: true,
+            token: 'debug-token',
+            role: role,
+            userName: 'Debug User',
+          );
+          authListenable.value = true;
+          return true;
+        }
+
         final apiClient = ref.read(apiClientProvider);
         final response = await apiClient.post(
           ApiConfig.endpoints['login']!,

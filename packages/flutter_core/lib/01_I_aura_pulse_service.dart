@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:primecare_adapters/primecare_adapters.dart';
 import 'src/models/02_M_aura_event.dart';
+import 'registry/01_I_governance_registry.dart';
 
 class AuraPulseService {
   final Ref _ref;
@@ -32,7 +33,9 @@ class AuraPulseService {
       try {
         if (_random.nextDouble() > 0.8) {
           _emitPredictiveEvent();
-        } else if (_random.nextDouble() > 0.6) {
+        } else if (_random.nextDouble() > 0.7) {
+          _checkGovernanceDrift();
+        } else if (_random.nextDouble() > 0.5) {
           _emitAnomaly();
         } else {
           telemetry.passGate(
@@ -157,12 +160,46 @@ class AuraPulseService {
       );
     }
 
-    _ref.read<ExecutionGateService>(executionGateProvider).passGate(
-      ExecutionGateCategory.aura,
-      'Aura PREDICTIVE Event Emitted: ${event.title}',
-      metadata: {'id': event.id, 'isPredictive': true},
-    );
+    _ref
+        .read<ExecutionGateService>(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.aura,
+          'Aura PREDICTIVE Event Emitted: ${event.title}',
+          metadata: {'id': event.id, 'isPredictive': true},
+        );
 
     _controller.add(event);
+  }
+
+  void _checkGovernanceDrift() {
+    final auditResults = GovernanceRegistry.performBlueprintAudit();
+    final nonCompliant = auditResults.where((r) => !r.isCompliant).toList();
+
+    if (nonCompliant.isNotEmpty) {
+      final drift = nonCompliant.first;
+      final event = AuraEvent(
+        id: 'drift_${DateTime.now().millisecondsSinceEpoch}',
+        type: AuraEventType.architecturalDrift,
+        title: 'Architectural Drift Detected',
+        description:
+            'Screen [${drift.route}] has drifted from Auditor Blueprint. Missing: ${drift.criticalMismatches.join(", ")}',
+        impact: InsightImpact.alert,
+        timestamp: DateTime.now(),
+        metadata: {
+          'route': drift.route,
+          'missing': drift.missingLabels,
+          'critical': drift.criticalMismatches,
+        },
+      );
+
+      _ref
+          .read<ExecutionGateService>(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.aura,
+            'Governance Drift Detected: ${drift.route}',
+          );
+
+      _controller.add(event);
+    }
   }
 }

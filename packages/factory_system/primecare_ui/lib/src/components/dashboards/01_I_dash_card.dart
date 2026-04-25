@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
-import '../01_I_primecare_card.dart';
-import '../../theme/01_I_primecare_theme.dart';
+import 'package:primecare_ui/src/components/01_I_primecare_card.dart';
+import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
 
 /// A specialized card for dashboard layout, providing built-in header support.
 class DashCard extends StatelessWidget {
@@ -35,13 +35,17 @@ class DashCard extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: theme.typography.h4.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.typography.h4.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     if (subtitle != null) ...[
                       const SizedBox(height: 4),
                       Text(
                         subtitle!,
-                        style: theme.typography.bodySmall.copyWith(color: Colors.grey),
+                        style: theme.typography.bodySmall.copyWith(
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ],

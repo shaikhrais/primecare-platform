@@ -10,16 +10,8 @@ class QualityAssuranceDashboardScreen extends ConsumerWidget {
     final state = ref.watch(qualityAssuranceDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(qualityAssuranceDashboardAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
@@ -29,7 +21,11 @@ class QualityAssuranceDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, QualityAssuranceDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    QualityAssuranceDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(

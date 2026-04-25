@@ -1,7 +1,7 @@
-// Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import '../../theme/01_I_colors.dart';
 
 class AuraFinancialHud extends StatelessWidget {
   final List<IntelligenceInsight> insights;
@@ -154,6 +154,11 @@ class _FinancialInsightTile extends StatelessWidget {
       case InsightImpact.critical:
         return const Color(0xFFEF4444);
       case InsightImpact.info:
+      case InsightImpact.standard:
+      case InsightImpact.success:
+      case InsightImpact.high:
+      case InsightImpact.low:
+      case InsightImpact.medium:
         return const Color(0xFF3B82F6);
     }
   }
@@ -170,6 +175,11 @@ class _FinancialInsightTile extends StatelessWidget {
       case InsightImpact.critical:
         return LucideIcons.zap;
       case InsightImpact.info:
+      case InsightImpact.standard:
+      case InsightImpact.success:
+      case InsightImpact.high:
+      case InsightImpact.low:
+      case InsightImpact.medium:
         return LucideIcons.info;
     }
   }

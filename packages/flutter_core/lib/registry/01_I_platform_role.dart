@@ -48,6 +48,7 @@ enum PlatformRole {
   psw,
   rn,
   rmt,
+  socialWorker,
   clinic,
   patient,
   customerSupport,
@@ -71,7 +72,7 @@ enum PlatformRole {
   // Infrastructure
   admin,
   system,
-  
+
   // Base/Category Roles (for grouping access)
   corporate,
   franchise,
@@ -80,12 +81,15 @@ enum PlatformRole {
   portal,
   infrastructure,
   businessDevelopment,
-  
+
   unknown;
 
   /// Returns the canonical snake_case string for the role.
-  String get nameSnake => name.replaceAllMapped(RegExp(r'([A-Z])'), (m) => '_\${m[1]!.toLowerCase()}');
-  
+  String get nameSnake => name.replaceAllMapped(
+    RegExp(r'([A-Z])'),
+    (m) => '_\${m[1]!.toLowerCase()}',
+  );
+
   /// Returns the human-readable display name.
   String get displayName {
     final words = name.split(RegExp(r'(?=[A-Z])'));

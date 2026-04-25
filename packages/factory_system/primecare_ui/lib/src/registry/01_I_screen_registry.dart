@@ -1,12 +1,13 @@
-// Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/00_B_flutter_core.dart';
+
 import '../engine/02_I_screen_engine.dart';
 import '../components/dashboards/01_I_dashboard_state_widgets.dart';
 import '02_I_governance_bootstrapper.dart';
+import '../components/01_I_governance_blueprint_hud.dart';
 
 import 'offices/corporate_registry.dart';
 import 'offices/franchise_registry.dart';
-import 'offices/support_registry.dart';
+
 import 'offices/clinical_registry.dart';
 import 'offices/business_development_registry.dart';
 import 'offices/client_portal_registry.dart';
@@ -118,10 +119,9 @@ class DashboardConfig {
               ?.map((kpi) => KpiConfig.fromJson(kpi as Map<String, dynamic>))
               .toList() ??
           [],
-      rendering:
-          json['rendering'] != null
-              ? RenderConfig.fromJson(json['rendering'] as Map<String, dynamic>)
-              : const RenderConfig(),
+      rendering: json['rendering'] != null
+          ? RenderConfig.fromJson(json['rendering'] as Map<String, dynamic>)
+          : const RenderConfig(),
     );
   }
 }
@@ -148,19 +148,21 @@ class ScreenRegistry {
 
     // Ensure Governance System is primed
     GovernanceBootstrapper.bootstrap();
-    
+
     // Initialize the global renderer bridge
     AppScreenIntent.globalRenderer = (context, intent) {
       if (intent is PrimeCareScreen) {
         return UniversalScreenEngine(screen: intent);
       }
-      return Center(child: Text('Unsupported Intent Type: ${intent.runtimeType}'));
+      return Center(
+        child: Text('Unsupported Intent Type: ${intent.runtimeType}'),
+      );
     };
 
     final registries = [
       CorporateRegistry(),
       FranchiseRegistry(),
-      SupportRegistry(),
+
       ClinicalRegistry(),
       BusinessDevelopmentRegistry(),
       ClientPortalRegistry(),
@@ -175,14 +177,14 @@ class ScreenRegistry {
 
     // 2. Specialized Multi-Blueprint Screens (Dynamic Dashboards)
     _registerDynamicDashboards();
-    
+
     _isBootstrapped = true;
   }
 
   static void _registerDynamicDashboards() {
     registryJson.forEach((role, config) {
       final String route = config['route'] as String;
-      final List<Map<String, dynamic>> kpis = 
+      final List<Map<String, dynamic>> kpis =
           (config['kpis'] as List?)?.cast<Map<String, dynamic>>() ?? [];
 
       final String? hfViewId = config['highFidelityViewId'] as String?;
@@ -197,25 +199,32 @@ class ScreenRegistry {
           provider: genericDashboardAdapterProvider(
             PrimeCareForm.fromString(role) ?? PrimeCareForm.genericDashboard,
           ),
-          blueprints: hfViewId != null 
-            ? <UIComponentBlueprint>[
-                const AuraDashboardHudBlueprint(),
-                HighFidelityScreenBlueprint(viewId: hfViewId),
-              ]
-            : <UIComponentBlueprint>[
-                const AuraDashboardHudBlueprint(),
-                StatGridBlueprint(
-                  dataPayload: kpis.map((k) => KpiMetric(
-                    title: k['title'] as String? ?? 'Stat',
-                    value: k['value'] as String? ?? '0',
-                    subtitle: k['deltaSuffix'] as String? ?? '',
-                    status: 'neutral',
-                  )).toList(),
-                ),
-              ],
-          componentLabels: (config['componentLabels'] as List?)?.cast<String>() ?? (hfViewId != null 
-            ? ['Aura HUD', 'High-Fidelity View ($hfViewId)'] 
-            : ['Aura HUD', 'KPI Stat Grid']),
+          blueprints: hfViewId != null
+              ? <UIComponentBlueprint>[
+                  const AuraDashboardHudBlueprint(),
+                  HighFidelityScreenBlueprint(viewId: hfViewId),
+                ]
+              : <UIComponentBlueprint>[
+                  const AuraDashboardHudBlueprint(),
+                  StatGridBlueprint(
+                    dataPayload: kpis
+                        .map(
+                          (k) => KpiMetric(
+                            title: k['title'] as String? ?? 'Stat',
+                            value: k['value'] as String? ?? '0',
+                            subtitle: k['deltaSuffix'] as String? ?? '',
+                            status: 'neutral',
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
+          componentLabels:
+              (config['componentLabels'] as List?)?.cast<String>() ??
+              (hfViewId != null
+                  ? ['Aura HUD', 'High-Fidelity View ($hfViewId)']
+                  : ['Aura HUD', 'KPI Stat Grid']),
+          structuralPlan: config['structuralPlan'] as String?,
         ),
       );
     });
@@ -235,40 +244,85 @@ class ScreenRegistry {
     // Fallback to GovernanceRegistry for specialized intents
     AppScreenIntent? intent = GovernanceRegistry.getIntentByRoute(route);
     intent ??= GovernanceRegistry.getIntentByRole(route);
-    
+
     if (intent is PrimeCareScreen) {
       return intent;
     }
 
     // 2. Name match (if route is 'receptionist' instead of '/receptionist')
-    final byName = _objectRegistry.values.where((s) => s.name == route || s.route.endsWith('/$route')).firstOrNull;
+    final byName = _objectRegistry.values
+        .where((s) => s.name == route || s.route.endsWith('/$route'))
+        .firstOrNull;
     if (byName != null) return byName;
 
     // 3. Role match
-    final byRole = _objectRegistry.values.where((s) => s.requiredRole?.toString().split('.').last == route).firstOrNull;
+    final byRole = _objectRegistry.values
+        .where((s) => s.requiredRole?.toString().split('.').last == route)
+        .firstOrNull;
     if (byRole != null) return byRole;
 
     return null;
   }
 
-  static Widget buildScreen(BuildContext context, String key) {
+  static Widget buildScreen(
+    BuildContext context,
+    String key, {
+    WidgetRef? ref,
+  }) {
     final screen = getScreen(key);
-    if (screen != null) {
-      return screen.build(context);
+
+    // 1. Telemetry: Capture Mount Event
+    if (ref != null) {
+      ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
+            eventType: 'screen_mount',
+            route: key,
+            metadata: {
+              'is_registered': screen != null,
+              'timestamp': DateTime.now().toIso8601String(),
+            },
+          );
     }
-    
+
+    if (screen != null) {
+      // 2. Governance: Programmatic Validation Hook
+      if (ref != null) {
+        final blueprint = BlueprintRegistry.getBlueprint(screen.route);
+        if (blueprint != null) {
+          final compliance = blueprint.audit(screen.componentLabels);
+          ref
+              .read(auraBehavioralTelemetryProvider)
+              .logValidationResult(
+                route: screen.route,
+                isCompliant: compliance.isCompliant,
+                details: compliance.toString(),
+              );
+        }
+      }
+
+      // 3. Integration: Wrap with Architectural HUD for real-time verification
+      return GovernanceBlueprintHUD(
+        intent: screen,
+        child: screen.build(context),
+      );
+    }
+
     // Fallback to recovery UI
     return const DashboardLoadingWidget();
   }
 
-  static DashboardConfig getDashboardForRoute(String route, BuildContext context) {
+  static DashboardConfig getDashboardForRoute(
+    String route,
+    BuildContext context,
+  ) {
     final screen = getScreen(route);
 
     if (screen != null) {
       return DashboardConfig(
         title: screen.title,
         subtitle: screen.subtitle,
-        kpis: [], 
+        kpis: [],
         customView: screen.build(context),
       );
     }
@@ -314,38 +368,57 @@ class ScreenRegistry {
   /// Used by the Pre-Deployment Integrity Guardian.
   static List<RegistryAuditReport> auditRegistry() {
     if (!_isBootstrapped) bootstrap();
-    
+
     final List<RegistryAuditReport> reports = [];
-    
+
     // Audit static registry
     _objectRegistry.forEach((route, screen) {
       final issues = <String>[];
-      if (screen.title.isEmpty) issues.add('Missing title');
-      if (screen.name.isEmpty) issues.add('Missing name');
-      
-      reports.add(RegistryAuditReport(
-        route: route,
-        isHealthy: issues.isEmpty,
-        message: issues.join(', '),
-        componentLabels: screen.componentLabels,
-      ));
+      final blueprint = BlueprintRegistry.getBlueprint(route);
+      final compliance = blueprint?.audit(screen.componentLabels);
+      if (compliance != null && !compliance.isCompliant) {
+        issues.add(
+          'Blueprint Mismatch: ${compliance.criticalMismatches.join(", ")}',
+        );
+      }
+
+      reports.add(
+        RegistryAuditReport(
+          route: route,
+          isHealthy: issues.isEmpty,
+          message: issues.join(', '),
+          componentLabels: screen.componentLabels,
+          compliance: compliance,
+        ),
+      );
     });
-    
+
     // Audit Governance intents
     final intents = GovernanceRegistry.getAllIntents();
     for (final intent in intents) {
       final issues = <String>[];
       if (intent.title.isEmpty) issues.add('Missing title');
       if (intent.route.isEmpty) issues.add('Missing route');
-      
-      reports.add(RegistryAuditReport(
-        route: intent.route,
-        isHealthy: issues.isEmpty,
-        message: issues.join(', '),
-        componentLabels: intent.componentLabels,
-      ));
+
+      final blueprint = BlueprintRegistry.getBlueprint(intent.route);
+      final compliance = blueprint?.audit(intent.componentLabels);
+      if (compliance != null && !compliance.isCompliant) {
+        issues.add(
+          'Blueprint Mismatch: ${compliance.criticalMismatches.join(", ")}',
+        );
+      }
+
+      reports.add(
+        RegistryAuditReport(
+          route: intent.route,
+          isHealthy: issues.isEmpty,
+          message: issues.join(', '),
+          componentLabels: intent.componentLabels,
+          compliance: compliance,
+        ),
+      );
     }
-    
+
     return reports;
   }
 }
@@ -355,11 +428,13 @@ class RegistryAuditReport {
   final bool isHealthy;
   final String message;
   final List<String> componentLabels;
+  final BlueprintCompliance? compliance;
 
   RegistryAuditReport({
     required this.route,
     required this.isHealthy,
     this.message = '',
     this.componentLabels = const [],
+    this.compliance,
   });
 }

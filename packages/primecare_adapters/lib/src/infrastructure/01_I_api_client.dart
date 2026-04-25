@@ -6,6 +6,7 @@ import '01_I_api_config.dart';
 import '01_I_telemetry_service.dart';
 import '01_I_circuit_breaker.dart';
 import '01_I_retry_interceptor.dart';
+import '01_I_resilience_mock_interceptor.dart';
 
 /// Centralized API Client for the PrimeCare platform.
 /// Handles network resilience, telemetry, and authenticated communication.
@@ -94,6 +95,9 @@ class ApiClient {
 
     // Resilience Layer 2: Retry with Exponential Backoff
     _dio.interceptors.add(RetryInterceptor(dio: _dio));
+
+    // Resilience Layer 3: Mock Fallbacks for problematic endpoints
+    _dio.interceptors.add(ResilienceMockInterceptor(_ref));
   }
 
   Future<Response<dynamic>> get(

@@ -10,41 +10,125 @@ class QaDashboardScreen extends ConsumerWidget {
     final state = ref.watch(qaDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(qaDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(qaDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(qaDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, QaDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    QaDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Qa Command Center', style: theme.typography.h2),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Quality Assurance Hub', style: theme.typography.h2),
+                  Text(
+                    'Regulatory compliance, audit telemetry, and clinical incident surveillance',
+                    style: theme.typography.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (vm.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
+
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareCard(
-            padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildComplianceDetails(theme),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildComplianceCharts(theme, vm),
+                  ],
+                ),
+              ),
+              if (vm.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(child: _buildAuraInsightsColumn(theme, vm.insights)),
+              ],
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildComplianceDetails(PrimeCareThemeData theme) {
+    return PrimeCareCard(
+      padding: EdgeInsets.all(theme.spacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Audit Coverage Heatmap - Active Units',
+            style: theme.typography.h4,
+          ),
+          SizedBox(height: theme.spacing.lg),
+          const Center(
+            child: Text(
+              'QA Compliance Engine Initialized',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildComplianceCharts(
+    PrimeCareThemeData theme,
+    QaDashboardViewModel vm,
+  ) {
+    return Column(
+      children: [
+        PrimeCareChartCard(
+          title: 'Regulatory Compliance Trend',
+          chart: PrimeCareLineChart(
+            chart: vm.metrics.charts.firstWhere(
+              (c) => c.id == 'compliance-trend',
+              orElse: () => AnalyticsChart.empty(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -4,10 +4,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 class CtoBriefingPanel extends StatelessWidget {
   final List<IntelligenceInsight> insights;
 
-  const CtoBriefingPanel({
-    super.key,
-    required this.insights,
-  });
+  const CtoBriefingPanel({super.key, required this.insights});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +19,7 @@ class CtoBriefingPanel extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                LucideIcons.sparkles,
-                color: theme.colors.primary,
-                size: 20,
-              ),
+              Icon(LucideIcons.sparkles, color: theme.colors.primary, size: 20),
               SizedBox(width: theme.spacing.sm),
               Text(
                 'EXECUTIVE BRIEFING • AURA AI',
@@ -54,7 +47,10 @@ class CtoBriefingPanel extends StatelessWidget {
     );
   }
 
-  Widget _buildInsightItem(PrimeCareThemeData theme, IntelligenceInsight insight) {
+  Widget _buildInsightItem(
+    PrimeCareThemeData theme,
+    IntelligenceInsight insight,
+  ) {
     return Padding(
       padding: EdgeInsets.only(bottom: theme.spacing.md),
       child: Row(
@@ -103,6 +99,11 @@ class CtoBriefingPanel extends StatelessWidget {
       case InsightImpact.positive:
         return theme.colors.success;
       case InsightImpact.info:
+      case InsightImpact.standard:
+      case InsightImpact.success:
+      case InsightImpact.high:
+      case InsightImpact.low:
+      case InsightImpact.medium:
         return theme.colors.info;
       case InsightImpact.growth:
         return theme.colors.success;

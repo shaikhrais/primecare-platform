@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_cx_director_dashboard_screen.dart';
 
 class CxDirectorDashboardIntent extends AppScreenIntent {
-  const CxDirectorDashboardIntent();
+  CxDirectorDashboardIntent();
 
   @override
   String get name => 'cx_director_dashboard';
@@ -18,9 +18,8 @@ class CxDirectorDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.cxDirector;
 
   @override
-  dynamic get provider => customerExperienceDirectorDashboardAdapterProvider;
+  dynamic get provider => cxDirectorMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const CxDirectorDashboardScreen();
 }
-

@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_family_dashboard_screen.dart';
 
 class FamilyDashboardIntent extends AppScreenIntent {
-  const FamilyDashboardIntent();
+  FamilyDashboardIntent();
 
   @override
   String get name => 'family_dashboard';
@@ -23,4 +23,3 @@ class FamilyDashboardIntent extends AppScreenIntent {
   @override
   Widget build(BuildContext context) => const FamilyDashboardScreen();
 }
-

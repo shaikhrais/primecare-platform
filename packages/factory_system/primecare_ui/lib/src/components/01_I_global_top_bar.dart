@@ -1,7 +1,14 @@
-// Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+import 'package:flutter_core/01_I_auth_service.dart';
+import 'package:flutter_core/routes/groups/01_I_common_routes.dart';
+import 'package:primecare_ui/src/theme/01_I_design_system.dart';
+import 'package:primecare_ui/src/components/01_I_primecare_button.dart';
+import 'package:flutter_core/config/01_I_screen_breakpoints.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final List<Widget>? actions;

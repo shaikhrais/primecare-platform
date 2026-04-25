@@ -1,9 +1,14 @@
 // Layer: 01_INFRASTRUCTURE
 /// Centralized configuration for the PrimeCare API.
 class ApiConfig {
+  /// Flag to toggle between production and local/mock endpoints.
+  static const bool isDevMode = true;
+
   /// The production-ready base URL for the Cloudflare Worker API.
-  static const String baseUrl = 'https://primecare-verification-service.itpro-mohammed.workers.dev';
-  
+  static const String baseUrl = isDevMode
+      ? 'http://localhost:8787'
+      : 'https://primecare-verification-service.itpro-mohammed.workers.dev';
+
   /// Current API version segment.
   static const String version = 'v4';
 

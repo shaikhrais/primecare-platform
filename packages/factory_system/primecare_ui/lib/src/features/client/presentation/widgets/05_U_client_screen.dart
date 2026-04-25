@@ -1,5 +1,5 @@
 // Layer: 05_USER_INTERFACE
-import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-fidelity Client Care Portal.
 class ClientScreen extends ConsumerWidget {
@@ -9,19 +9,12 @@ class ClientScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final adapterState = ref.watch(clientDashboardAdapterProvider);
 
-    return adapterState.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildDashboard(context, viewModel),
-        (error) => SystemRecoveryMode(
-          error: error,
-          onAttemptReset: () => ref.refresh(clientDashboardAdapterProvider),
-        ),
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => SystemRecoveryMode(
-        error: err,
-        stackTrace: stack,
-        onAttemptReset: () => ref.refresh(clientDashboardAdapterProvider),
+    return adapterState.whenResult(
+      (viewModel) => _buildDashboard(context, viewModel),
+      loading: () => const DashboardLoadingWidget(),
+      error: (err, stack) => DashboardErrorWidget(
+        message: 'Client Portal Hydration Failed: $err',
+        onRetry: () => ref.refresh(clientDashboardAdapterProvider),
       ),
     );
   }
@@ -66,7 +59,10 @@ class ClientScreen extends ConsumerWidget {
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
       ),
       actions: [
-        CircleAvatar(backgroundColor: Colors.blue[100], child: const Icon(Icons.person, color: Colors.blue)),
+        CircleAvatar(
+          backgroundColor: Colors.blue[100],
+          child: const Icon(Icons.person, color: Colors.blue),
+        ),
         const SizedBox(width: 24),
       ],
     );
@@ -76,8 +72,14 @@ class ClientScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Good Morning,', style: TextStyle(fontSize: 16, color: Colors.black54)),
-        const Text('Johnathan Doe', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+        const Text(
+          'Good Morning,',
+          style: TextStyle(fontSize: 16, color: Colors.black54),
+        ),
+        const Text(
+          'Johnathan Doe',
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.all(20),
@@ -92,7 +94,10 @@ class ClientScreen extends ConsumerWidget {
               const Expanded(
                 child: Text(
                   'Your wellness score is up 12% this week. Keep it up!',
-                  style: TextStyle(fontWeight: FontWeight.w500, color: Colors.blue),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue,
+                  ),
                 ),
               ),
             ],
@@ -106,14 +111,32 @@ class ClientScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Daily Wellness', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        const Text(
+          'Daily Wellness',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
         const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _WellnessCard(label: 'Vitals', value: 'Normal', icon: Icons.monitor_heart, color: Colors.green),
-            _WellnessCard(label: 'Sleep', value: '7.5h', icon: Icons.bedtime, color: Colors.indigo),
-            _WellnessCard(label: 'Mood', value: 'Great', icon: Icons.sentiment_very_satisfied, color: Colors.orange),
+            _WellnessCard(
+              label: 'Vitals',
+              value: 'Normal',
+              icon: Icons.monitor_heart,
+              color: Colors.green,
+            ),
+            _WellnessCard(
+              label: 'Sleep',
+              value: '7.5h',
+              icon: Icons.bedtime,
+              color: Colors.indigo,
+            ),
+            _WellnessCard(
+              label: 'Mood',
+              value: 'Great',
+              icon: Icons.sentiment_very_satisfied,
+              color: Colors.orange,
+            ),
           ],
         ),
       ],
@@ -125,8 +148,16 @@ class ClientScreen extends ConsumerWidget {
       title: 'Upcoming Care Visits',
       child: Column(
         children: [
-          _CareVisitTile(title: 'Physical Therapy', time: 'Today, 2:00 PM', provider: 'Dr. Sarah Wilson'),
-          _CareVisitTile(title: 'Medication Delivery', time: 'Tomorrow, 10:00 AM', provider: 'Pharmacy Express'),
+          _CareVisitTile(
+            title: 'Physical Therapy',
+            time: 'Today, 2:00 PM',
+            provider: 'Dr. Sarah Wilson',
+          ),
+          _CareVisitTile(
+            title: 'Medication Delivery',
+            time: 'Tomorrow, 10:00 AM',
+            provider: 'Pharmacy Express',
+          ),
         ],
       ),
     );
@@ -136,7 +167,10 @@ class ClientScreen extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _QuickAction(icon: Icons.chat_bubble_outline, label: 'Message Care Team'),
+        _QuickAction(
+          icon: Icons.chat_bubble_outline,
+          label: 'Message Care Team',
+        ),
         _QuickAction(icon: Icons.medication_outlined, label: 'Request Refill'),
         _QuickAction(icon: Icons.help_outline, label: 'Help Center'),
       ],
@@ -153,7 +187,10 @@ class ClientScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 24),
           child,
         ],
@@ -168,20 +205,35 @@ class _WellnessCard extends StatelessWidget {
   final IconData icon;
   final Color color;
 
-  const _WellnessCard({required this.label, required this.value, required this.icon, required this.color});
+  const _WellnessCard({
+    required this.label,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 100,
       padding: const EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(16), border: Border.all(color: color.withValues(alpha: 0.1))),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: 0.1)),
+      ),
       child: Column(
         children: [
           Icon(icon, color: color, size: 24),
           const SizedBox(height: 8),
-          Text(label, style: const TextStyle(fontSize: 11, color: Colors.black54)),
-          Text(value, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 11, color: Colors.black54),
+          ),
+          Text(
+            value,
+            style: TextStyle(fontWeight: FontWeight.bold, color: color),
+          ),
         ],
       ),
     );
@@ -193,7 +245,11 @@ class _CareVisitTile extends StatelessWidget {
   final String time;
   final String provider;
 
-  const _CareVisitTile({required this.title, required this.time, required this.provider});
+  const _CareVisitTile({
+    required this.title,
+    required this.time,
+    required this.provider,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -201,14 +257,27 @@ class _CareVisitTile extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Row(
         children: [
-          Container(width: 4, height: 40, decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(2))),
+          Container(
+            width: 4,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text('$time • $provider', style: const TextStyle(color: Colors.black54, fontSize: 12)),
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  '$time • $provider',
+                  style: const TextStyle(color: Colors.black54, fontSize: 12),
+                ),
               ],
             ),
           ),
@@ -231,13 +300,19 @@ class _QuickAction extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(color: Colors.grey[50], shape: BoxShape.circle, border: Border.all(color: Colors.grey[100]!)),
+          decoration: BoxDecoration(
+            color: Colors.grey[50],
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.grey[100]!),
+          ),
           child: Icon(icon, color: Colors.black87),
         ),
         const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+        ),
       ],
     );
   }
 }
-

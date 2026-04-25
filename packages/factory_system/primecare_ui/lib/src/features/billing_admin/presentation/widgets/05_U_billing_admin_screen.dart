@@ -1,5 +1,5 @@
 // Layer: 05_USER_INTERFACE
-import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-fidelity Revenue Cycle Management Dashboard for Billing Administrators.
 class BillingAdminScreen extends ConsumerWidget {
@@ -9,26 +9,23 @@ class BillingAdminScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final adapterState = ref.watch(billingAdminDashboardAdapterProvider);
 
-    return adapterState.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildDashboard(context, viewModel),
-        (error) => SystemRecoveryMode(
-          error: error,
-          onAttemptReset: () => ref.refresh(billingAdminDashboardAdapterProvider),
-        ),
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => SystemRecoveryMode(
-        error: err,
-        stackTrace: stack,
-        onAttemptReset: () => ref.refresh(billingAdminDashboardAdapterProvider),
+    return adapterState.whenResult(
+      (viewModel) => _buildDashboard(context, viewModel),
+      loading: () => const DashboardLoadingWidget(),
+      error: (err, stack) => DashboardErrorWidget(
+        message: 'Revenue Hydration Failed: $err',
+        onRetry: () => ref.refresh(billingAdminDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildDashboard(BuildContext context, BillingAdminDashboardViewModel vm) {
+  Widget _buildDashboard(
+    BuildContext context,
+    BillingAdminDashboardViewModel vm,
+  ) {
+    final theme = context.theme;
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FB),
+      backgroundColor: theme.colors.background,
       body: CustomScrollView(
         slivers: [
           _buildAppBar(context, vm),
@@ -43,15 +40,9 @@ class BillingAdminScreen extends ConsumerWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: _buildMainCharts(vm),
-                      ),
+                      Expanded(flex: 2, child: _buildMainCharts(vm)),
                       const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: _buildSidePanel(vm),
-                      ),
+                      Expanded(flex: 1, child: _buildSidePanel(vm)),
                     ],
                   ),
                 ],
@@ -64,19 +55,23 @@ class BillingAdminScreen extends ConsumerWidget {
   }
 
   Widget _buildAppBar(BuildContext context, BillingAdminDashboardViewModel vm) {
+    final theme = context.theme;
     return SliverAppBar(
       floating: true,
       pinned: true,
       expandedHeight: 80,
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colors.surface,
       elevation: 0,
       title: Row(
         children: [
-          const Icon(Icons.account_balance_wallet, color: Color(0xFF0D47A1)),
-          const SizedBox(width: 12),
-          const Text(
+          PrimeCareIcon(
+            Icons.account_balance_wallet,
+            color: theme.colors.primary,
+          ),
+          SizedBox(width: 12),
+          Text(
             'Revenue Cycle Management',
-            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 20),
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
         ],
       ),
@@ -111,12 +106,14 @@ class BillingAdminScreen extends ConsumerWidget {
           title: 'Claims Aging Status',
           subtitle: 'Distribution of outstanding balances by days',
           child: Container(
-            height: 300, 
+            height: 300,
             decoration: BoxDecoration(
               color: Colors.grey[50],
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Center(child: Icon(Icons.bar_chart, size: 48, color: Colors.black12)),
+            child: const Center(
+              child: Icon(Icons.bar_chart, size: 48, color: Colors.black12),
+            ),
           ),
         ),
         const SizedBox(height: 24),
@@ -124,12 +121,14 @@ class BillingAdminScreen extends ConsumerWidget {
           title: 'Revenue Forecasting',
           subtitle: 'AI-driven projections for next 90 days',
           child: Container(
-            height: 300, 
+            height: 300,
             decoration: BoxDecoration(
               color: Colors.grey[50],
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Center(child: Icon(Icons.show_chart, size: 48, color: Colors.black12)),
+            child: const Center(
+              child: Icon(Icons.show_chart, size: 48, color: Colors.black12),
+            ),
           ),
         ),
       ],
@@ -146,7 +145,11 @@ class BillingAdminScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildChartCard({required String title, required String subtitle, required Widget child}) {
+  Widget _buildChartCard({
+    required String title,
+    required String subtitle,
+    required Widget child,
+  }) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -163,9 +166,15 @@ class BillingAdminScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 4),
-          Text(subtitle, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+          Text(
+            subtitle,
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           const SizedBox(height: 24),
           child,
         ],
@@ -191,11 +200,20 @@ class BillingAdminScreen extends ConsumerWidget {
             children: [
               const Icon(Icons.auto_awesome, color: Colors.white, size: 20),
               const SizedBox(width: 8),
-              const Text('Intelligence Insights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+              const Text(
+                'Intelligence Insights',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          ...vm.metrics.insights.map((insight) => _InsightTile(insight: insight)),
+          ...vm.metrics.insights.map(
+            (insight) => _InsightTile(insight: insight),
+          ),
         ],
       ),
     );
@@ -211,9 +229,14 @@ class BillingAdminScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Recent Activity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const Text(
+            'Recent Activity',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
           const SizedBox(height: 16),
-          ...vm.metrics.recentActivity.map((activity) => _ActivityTile(activity: activity)),
+          ...vm.metrics.recentActivity.map(
+            (activity) => _ActivityTile(activity: activity),
+          ),
         ],
       ),
     );
@@ -238,21 +261,33 @@ class _KpiCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(kpi.title, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+          Text(
+            kpi.title,
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           const SizedBox(height: 8),
-          Text(kpi.value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+          Text(
+            kpi.value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
               Icon(
-                kpi.trend?.contains('+') ?? true ? Icons.trending_up : Icons.trending_down,
+                kpi.trend?.contains('+') ?? true
+                    ? Icons.trending_up
+                    : Icons.trending_down,
                 size: 14,
                 color: statusColor,
               ),
               const SizedBox(width: 4),
               Text(
                 kpi.trend ?? '',
-                style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 12),
+                style: TextStyle(
+                  color: statusColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
               const Spacer(),
               Text(
@@ -268,10 +303,14 @@ class _KpiCard extends StatelessWidget {
 
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case 'positive': return Colors.green[600]!;
-      case 'negative': return Colors.red[600]!;
-      case 'warning': return Colors.orange[600]!;
-      default: return Colors.blue[600]!;
+      case 'positive':
+        return Colors.green[600]!;
+      case 'negative':
+        return Colors.red[600]!;
+      case 'warning':
+        return Colors.orange[600]!;
+      default:
+        return Colors.blue[600]!;
     }
   }
 }
@@ -293,15 +332,32 @@ class _InsightTile extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.info_outline, color: Colors.white, size: 14),
+            child: const Icon(
+              Icons.info_outline,
+              color: Colors.white,
+              size: 14,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(insight.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
-                Text(insight.summary, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 11)),
+                Text(
+                  insight.title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  insight.summary,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 11,
+                  ),
+                ),
               ],
             ),
           ),
@@ -328,19 +384,35 @@ class _ActivityTile extends StatelessWidget {
               color: _parseColor(activity.color).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(Icons.history, color: _parseColor(activity.color), size: 16),
+            child: Icon(
+              Icons.history,
+              color: _parseColor(activity.color),
+              size: 16,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(activity.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                Text(activity.subtitle, style: const TextStyle(color: Colors.black54, fontSize: 11)),
+                Text(
+                  activity.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  activity.subtitle,
+                  style: const TextStyle(color: Colors.black54, fontSize: 11),
+                ),
               ],
             ),
           ),
-          Text(activity.timestamp, style: const TextStyle(color: Colors.black38, fontSize: 10)),
+          Text(
+            activity.timestamp,
+            style: const TextStyle(color: Colors.black38, fontSize: 10),
+          ),
         ],
       ),
     );
@@ -354,4 +426,3 @@ class _ActivityTile extends StatelessWidget {
     }
   }
 }
-

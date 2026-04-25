@@ -1,7 +1,8 @@
-// Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
+import 'package:flutter_core/00_B_flutter_core.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import '../theme/01_I_colors.dart';
+import '../theme/01_I_design_system.dart';
 
 class AuthSplitLayout extends ConsumerWidget {
   final Widget child;
@@ -193,5 +194,3 @@ class AuthSplitLayout extends ConsumerWidget {
     );
   }
 }
-
-// Using dynamicPageProvider and ViewModel pattern for data binding.

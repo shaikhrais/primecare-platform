@@ -292,7 +292,15 @@ export class TrainingService {
             } catch (error: any) {
                  if (error.message?.includes('Accelerate') || error.message?.includes('prisma')) {
                     return [
-                        { id: 'cert1', certName: 'CPR Certification', staffName: 'Any Staff', expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), status: 'Active' }
+                        { 
+                            id: 'cert1', 
+                            certName: 'CPR Certification', 
+                            staffName: 'Any Staff', 
+                            clinicalRole: 'Registered Nurse',
+                            tenantId: tenantId,
+                            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), 
+                            status: 'Active' 
+                        }
                     ];
                  }
                  throw error;

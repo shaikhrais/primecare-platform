@@ -60,7 +60,8 @@ final class Success<S> extends Result<S> {
   const Success(this.data);
 
   @override
-  T fold<T>(T Function(S data) onSuccess, T Function(Object error) onFailure) => onSuccess(data);
+  T fold<T>(T Function(S data) onSuccess, T Function(Object error) onFailure) =>
+      onSuccess(data);
 
   @override
   Result<T> map<T>(T Function(S data) transform) => Success(transform(data));
@@ -79,7 +80,8 @@ final class Failure<S> extends Result<S> {
   const Failure(this.error, [this.stackTrace]);
 
   @override
-  T fold<T>(T Function(S data) onSuccess, T Function(Object error) onFailure) => onFailure(error);
+  T fold<T>(T Function(S data) onSuccess, T Function(Object error) onFailure) =>
+      onFailure(error);
 
   @override
   Result<T> map<T>(T Function(S data) transform) => Failure(error, stackTrace);
@@ -97,4 +99,12 @@ extension ResultExtensions<S> on Result<S> {
 
   /// Returns the failure error if this is a failure, or null otherwise.
   Object? get errorOrNull => fold((data) => null, (error) => error);
+
+  /// Legacy compatibility for older adapters
+  S get asSuccess => fold(
+    (data) => data,
+    (error) => throw StateError('Result is a failure: $error'),
+  );
+  Object get asFailure =>
+      fold((data) => throw StateError('Result is a success'), (error) => error);
 }

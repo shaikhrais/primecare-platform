@@ -1,8 +1,9 @@
-// Layer: 01_INFRASTRUCTURE
 import 'dart:ui';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/src/theme/aura/01_I_aura_role_theme.dart';
 
 class AuraSidebar extends ConsumerWidget {
   final Widget child;
@@ -37,10 +38,7 @@ class AuraSidebar extends ConsumerWidget {
           auraTheme,
         ),
         Expanded(
-          child: Container(
-            color: theme.colorScheme.surface,
-            child: child,
-          ),
+          child: Container(color: theme.colorScheme.surface, child: child),
         ),
       ],
     );
@@ -62,13 +60,15 @@ class AuraSidebar extends ConsumerWidget {
 
     final Map<String, List<PrimeCareNavigationItem>> groupedItems = {};
     for (var item in items) {
-      String sectionName = item.section ?? 'Main';
+      String sectionName = item.section ?? 'navigation.sections.main';
       groupedItems.putIfAbsent(sectionName, () => []).add(item);
     }
 
-    if (groupedItems.containsKey('Common Tools')) {
-      final commonItems = groupedItems.remove('Common Tools')!;
-      groupedItems['Common Tools'] = commonItems;
+    if (groupedItems.containsKey('navigation.sections.common_tools')) {
+      final commonItems = groupedItems.remove(
+        'navigation.sections.common_tools',
+      )!;
+      groupedItems['navigation.sections.common_tools'] = commonItems;
     }
 
     return AnimatedContainer(
@@ -88,7 +88,7 @@ class AuraSidebar extends ConsumerWidget {
         children: [
           // Background Glow for selected item tracking (Advanced UI trick)
           _SidebarGlowBackground(auraTheme: auraTheme),
-          
+
           Column(
             children: [
               SizedBox(height: 16 * scale),
@@ -116,7 +116,11 @@ class AuraSidebar extends ConsumerWidget {
               ),
 
               // Footer: Aura Identity Card
-              _AuraSidebarFooter(isExtended: isExtended, scale: scale, auraTheme: auraTheme),
+              _AuraSidebarFooter(
+                isExtended: isExtended,
+                scale: scale,
+                auraTheme: auraTheme,
+              ),
             ],
           ),
         ],
@@ -177,9 +181,11 @@ class _AuraSidebarGroupState extends State<_AuraSidebarGroup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.title.toUpperCase(),
+                    widget.title.tr().toUpperCase(),
                     style: theme.textTheme.labelSmall?.copyWith(
-                      color: widget.auraTheme.accentColor.withValues(alpha: 0.6),
+                      color: widget.auraTheme.accentColor.withValues(
+                        alpha: 0.6,
+                      ),
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.5 * widget.scale,
                       fontSize: 9 * widget.scale,
@@ -191,7 +197,9 @@ class _AuraSidebarGroupState extends State<_AuraSidebarGroup> {
                     child: Icon(
                       LucideIcons.chevronRight,
                       size: 14 * widget.scale,
-                      color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+                      color: theme.colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.4,
+                      ),
                     ),
                   ),
                 ],
@@ -208,10 +216,10 @@ class _AuraSidebarGroupState extends State<_AuraSidebarGroup> {
                 item: item,
                 isSelected: isSelected,
                 isExtended: widget.isExtended,
-                 scale: widget.scale,
-                 onTap: () => widget.onTap(item),
-                 auraTheme: widget.auraTheme,
-               );
+                scale: widget.scale,
+                onTap: () => widget.onTap(item),
+                auraTheme: widget.auraTheme,
+              );
             }).toList(),
           ),
           crossFadeState: (widget.isExtended && !_isExpanded)
@@ -230,18 +238,18 @@ class _AuraSidebarMenuItem extends StatefulWidget {
   final PrimeCareNavigationItem item;
   final bool isSelected;
   final bool isExtended;
-   final double scale;
-   final VoidCallback onTap;
-   final AuraRoleTheme auraTheme;
+  final double scale;
+  final VoidCallback onTap;
+  final AuraRoleTheme auraTheme;
 
-   const _AuraSidebarMenuItem({
-     required this.item,
-     required this.isSelected,
-     required this.isExtended,
-     required this.scale,
-     required this.onTap,
-     required this.auraTheme,
-   });
+  const _AuraSidebarMenuItem({
+    required this.item,
+    required this.isSelected,
+    required this.isExtended,
+    required this.scale,
+    required this.onTap,
+    required this.auraTheme,
+  });
 
   @override
   State<_AuraSidebarMenuItem> createState() => _AuraSidebarMenuItemState();
@@ -278,15 +286,21 @@ class _AuraSidebarMenuItemState extends State<_AuraSidebarMenuItem> {
                 : (_isHovered
                       ? LinearGradient(
                           colors: [
-                            widget.auraTheme.accentColor.withValues(alpha: 0.08),
-                            widget.auraTheme.accentColor.withValues(alpha: 0.02),
+                            widget.auraTheme.accentColor.withValues(
+                              alpha: 0.08,
+                            ),
+                            widget.auraTheme.accentColor.withValues(
+                              alpha: 0.02,
+                            ),
                           ],
                         )
-                    : null),
+                      : null),
             boxShadow: widget.isSelected
                 ? [
                     BoxShadow(
-                      color: widget.auraTheme.accentColor.withValues(alpha: 0.3),
+                      color: widget.auraTheme.accentColor.withValues(
+                        alpha: 0.3,
+                      ),
                       blurRadius: 12 * widget.scale,
                       offset: Offset(0, 4 * widget.scale),
                     ),
@@ -294,22 +308,36 @@ class _AuraSidebarMenuItemState extends State<_AuraSidebarMenuItem> {
                 : [],
           ),
           child: Row(
-            mainAxisAlignment: widget.isExtended ? MainAxisAlignment.start : MainAxisAlignment.center,
+            mainAxisAlignment: widget.isExtended
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.center,
             children: [
               Icon(
-                widget.isSelected && widget.item.activeIcon != null ? widget.item.activeIcon : widget.item.icon,
+                widget.isSelected && widget.item.activeIcon != null
+                    ? widget.item.activeIcon
+                    : widget.item.icon,
                 size: 20 * widget.scale,
-                color: widget.isSelected ? Colors.white : ( _isHovered ? widget.auraTheme.accentColor : theme.colorScheme.onSurfaceVariant),
+                color: widget.isSelected
+                    ? Colors.white
+                    : (_isHovered
+                          ? widget.auraTheme.accentColor
+                          : theme.colorScheme.onSurfaceVariant),
               ),
               if (widget.isExtended) ...[
                 SizedBox(width: 14 * widget.scale),
                 Expanded(
                   child: Text(
-                    widget.item.label,
+                    widget.item.label.tr(),
                     style: GoogleFonts.plusJakartaSans(
-                      color: widget.isSelected ? Colors.white : (_isHovered ? theme.colorScheme.onSurface : theme.colorScheme.onSurfaceVariant),
+                      color: widget.isSelected
+                          ? Colors.white
+                          : (_isHovered
+                                ? theme.colorScheme.onSurface
+                                : theme.colorScheme.onSurfaceVariant),
                       fontSize: 14 * widget.scale,
-                      fontWeight: widget.isSelected ? FontWeight.w700 : FontWeight.w600,
+                      fontWeight: widget.isSelected
+                          ? FontWeight.w700
+                          : FontWeight.w600,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -338,7 +366,11 @@ class _AuraSidebarFooter extends ConsumerWidget {
   final double scale;
   final AuraRoleTheme auraTheme;
 
-  const _AuraSidebarFooter({required this.isExtended, required this.scale, required this.auraTheme});
+  const _AuraSidebarFooter({
+    required this.isExtended,
+    required this.scale,
+    required this.auraTheme,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -346,7 +378,9 @@ class _AuraSidebarFooter extends ConsumerWidget {
     final authState = ref.watch(authProvider);
     final userName = authState.userName ?? 'User';
     final role = authState.role ?? 'Administrator';
-    final initials = userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
+    final initials = userName.isNotEmpty
+        ? userName.substring(0, 1).toUpperCase()
+        : 'U';
 
     return Container(
       padding: EdgeInsets.all(isExtended ? 16 * scale : 10 * scale),
@@ -363,22 +397,28 @@ class _AuraSidebarFooter extends ConsumerWidget {
         padding: EdgeInsets.all(isExtended ? 12 * scale : 0),
         decoration: isExtended
             ? BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.4,
+                ),
                 borderRadius: BorderRadius.circular(16 * scale),
-                border: Border.all(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.1)),
+                border: Border.all(
+                  color: theme.colorScheme.outlineVariant.withValues(
+                    alpha: 0.1,
+                  ),
+                ),
               )
             : null,
         child: Row(
-          mainAxisAlignment: isExtended ? MainAxisAlignment.start : MainAxisAlignment.center,
+          mainAxisAlignment: isExtended
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
           children: [
             // User Avatar with Aura Glow
             Container(
               width: 44 * scale,
               height: 44 * scale,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: auraTheme.primaryGradient,
-                ),
+                gradient: LinearGradient(colors: auraTheme.primaryGradient),
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
@@ -390,7 +430,10 @@ class _AuraSidebarFooter extends ConsumerWidget {
               alignment: Alignment.center,
               child: Text(
                 initials,
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             if (isExtended) ...[

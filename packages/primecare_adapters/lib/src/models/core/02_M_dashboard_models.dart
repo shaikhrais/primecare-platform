@@ -1,8 +1,31 @@
 // Layer: 02_MODELS_FOUNDATION
 import '02_M_ui_blueprint.dart';
 
-enum InsightImpact { positive, caution, info, alert, growth, warning, critical }
-enum KpiStatus { positive, negative, neutral, warning, critical }
+enum InsightImpact {
+  positive,
+  caution,
+  info,
+  alert,
+  growth,
+  warning,
+  critical,
+  standard,
+  success,
+  high,
+  medium,
+  low,
+}
+
+enum KpiStatus {
+  positive,
+  negative,
+  neutral,
+  warning,
+  critical,
+  success,
+  healthy,
+  error,
+}
 
 class KpiMetric {
   final String title;
@@ -49,7 +72,7 @@ class DashboardInsight {
   final Map<String, dynamic>? metadata;
   String get summary => description;
 
-  DashboardInsight({
+  const DashboardInsight({
     required this.title,
     required this.description,
     required this.type,
@@ -62,12 +85,12 @@ class DashboardInsight {
       title: (json['title'] ?? json['label'] ?? 'Untitled Insight').toString(),
       description: (json['description'] ?? json['summary'] ?? '').toString(),
       type: (json['type'] ?? 'info').toString(),
-      impact: json['impact'] != null 
-        ? InsightImpact.values.firstWhere(
-            (e) => e.name == json['impact'],
-            orElse: () => InsightImpact.info,
-          )
-        : null,
+      impact: json['impact'] != null
+          ? InsightImpact.values.firstWhere(
+              (e) => e.name == json['impact'],
+              orElse: () => InsightImpact.info,
+            )
+          : null,
       metadata: json['metadata'] as Map<String, dynamic>?,
     );
   }
@@ -90,7 +113,7 @@ class DashboardActivity {
   final String icon;
   final String color;
 
-  DashboardActivity({
+  const DashboardActivity({
     required this.title,
     required this.subtitle,
     required this.timestamp,
@@ -125,7 +148,7 @@ class FinancialMetric {
   final String status;
   final String? trend;
 
-  FinancialMetric({
+  const FinancialMetric({
     required this.label,
     required this.value,
     required this.status,
@@ -153,7 +176,7 @@ class ChartDataPoint {
   final double value;
   final String? color;
 
-  ChartDataPoint({required this.label, required this.value, this.color});
+  const ChartDataPoint({required this.label, required this.value, this.color});
 
   factory ChartDataPoint.fromJson(Map<String, dynamic> json) {
     return ChartDataPoint(
@@ -168,29 +191,76 @@ class ChartDataPoint {
   }
 }
 
+class AnalyticsChartDataset {
+  final String label;
+  final List<double> data;
+  final String? color;
+
+  const AnalyticsChartDataset({
+    required this.label,
+    required this.data,
+    this.color,
+  });
+
+  factory AnalyticsChartDataset.fromJson(Map<String, dynamic> json) {
+    return AnalyticsChartDataset(
+      label: json['label'] as String? ?? '',
+      data:
+          (json['data'] as List<dynamic>?)
+              ?.map((e) => (e as num).toDouble())
+              .toList() ??
+          [],
+      color: json['color'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'label': label, 'data': data, 'color': color};
+  }
+}
+
 class AnalyticsChart {
   final String id;
   final String title;
   final ChartType type;
   final List<ChartDataPoint> dataPoints;
+  final List<String> labels;
+  final List<AnalyticsChartDataset> datasets;
   final List<ChartDataPoint>? forecastDataPoints;
   final String? reportId;
 
-  AnalyticsChart({
+  const AnalyticsChart({
     required this.id,
     required this.title,
     required this.type,
-    required this.dataPoints,
+    this.dataPoints = const [],
+    this.labels = const [],
+    this.datasets = const [],
     this.forecastDataPoints,
     this.reportId,
   });
 
+  factory AnalyticsChart.empty() {
+    return AnalyticsChart(
+      id: 'empty_${DateTime.now().millisecondsSinceEpoch}',
+      title: '',
+      type: ChartType.bar,
+      dataPoints: [],
+      labels: [],
+      datasets: [],
+    );
+  }
+
   factory AnalyticsChart.fromJson(Map<String, dynamic> json) {
     final dataPointsRaw =
-        json['dataPoints'] ?? json['data_points'] as List<dynamic>? ?? <dynamic>[];
+        json['dataPoints'] ??
+        json['data_points'] as List<dynamic>? ??
+        <dynamic>[];
     final forecastRaw =
         json['forecastDataPoints'] ??
         json['forecast_data_points'] as List<dynamic>?;
+    final labelsRaw = json['labels'] as List<dynamic>? ?? [];
+    final datasetsRaw = json['datasets'] as List<dynamic>? ?? [];
 
     return AnalyticsChart(
       id:
@@ -203,6 +273,10 @@ class AnalyticsChart {
       ),
       dataPoints: (dataPointsRaw as List)
           .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
+          .toList(),
+      labels: labelsRaw.map((e) => e.toString()).toList(),
+      datasets: datasetsRaw
+          .map((i) => AnalyticsChartDataset.fromJson(i as Map<String, dynamic>))
           .toList(),
       forecastDataPoints: forecastRaw != null
           ? (forecastRaw as List)
@@ -219,6 +293,8 @@ class AnalyticsChart {
       'title': title,
       'type': type.name,
       'dataPoints': dataPoints.map((p) => p.toJson()).toList(),
+      'labels': labels,
+      'datasets': datasets.map((d) => d.toJson()).toList(),
       'forecastDataPoints': forecastDataPoints?.map((p) => p.toJson()).toList(),
       'reportId': reportId,
     };
@@ -258,29 +334,37 @@ class DashboardMetrics {
 
   factory DashboardMetrics.fromJson(Map<String, dynamic> json) {
     return DashboardMetrics(
-      kpis: (json['kpis'] as List?)
-          ?.map((i) => KpiMetric.fromJson(i as Map<String, dynamic>))
-          .toList() ?? [],
-      recentActivity: (json['recentActivity'] as List?)
-          ?.map((i) => DashboardActivity.fromJson(i as Map<String, dynamic>))
-          .toList() ?? [],
+      kpis:
+          (json['kpis'] as List?)
+              ?.map((i) => KpiMetric.fromJson(i as Map<String, dynamic>))
+              .toList() ??
+          [],
+      recentActivity:
+          (json['recentActivity'] as List?)
+              ?.map(
+                (i) => DashboardActivity.fromJson(i as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
       charts: json['charts'] != null
           ? (json['charts'] as List)
                 .map((i) => AnalyticsChart.fromJson(i as Map<String, dynamic>))
                 .toList()
           : [],
-      insights: (json['insights'] as List?)
-          ?.map((i) => DashboardInsight.fromJson(i as Map<String, dynamic>))
-          .toList() ?? [],
+      insights:
+          (json['insights'] as List?)
+              ?.map((i) => DashboardInsight.fromJson(i as Map<String, dynamic>))
+              .toList() ??
+          [],
       isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
     );
   }
 
   factory DashboardMetrics.empty() {
     return DashboardMetrics(
-      kpis: [], 
-      recentActivity: [], 
-      charts: [], 
+      kpis: [],
+      recentActivity: [],
+      charts: [],
       insights: [],
       isOfflineFallback: false,
     );
@@ -425,11 +509,7 @@ class UniversalKpi extends KpiMetric {
     this.trendValue = 0.0,
     required KpiStatus status,
   }) : status = status.name,
-       super(
-         title: title,
-         value: value,
-         status: status.name,
-       );
+       super(title: title, value: value, status: status.name);
 
   factory UniversalKpi.fromJson(Map<String, dynamic> json) {
     return UniversalKpi(
@@ -468,7 +548,7 @@ class UniversalKpi extends KpiMetric {
       default:
         return KpiStatus.neutral;
     }
-}
+  }
 }
 
 class ClinicalIntelligenceViewModel {

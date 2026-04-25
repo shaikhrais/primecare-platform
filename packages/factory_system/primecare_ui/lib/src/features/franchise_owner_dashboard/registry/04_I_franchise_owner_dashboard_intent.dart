@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_franchise_owner_dashboard_screen.dart';
 
 class FranchiseOwnerDashboardIntent extends AppScreenIntent {
-  const FranchiseOwnerDashboardIntent();
+  FranchiseOwnerDashboardIntent();
 
   @override
   String get name => 'franchise_owner_dashboard';
@@ -18,9 +18,8 @@ class FranchiseOwnerDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.franchiseOwner;
 
   @override
-  dynamic get provider => franchiseOwnerAdapterProvider;
+  dynamic get provider => franchiseOwnerMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const FranchiseOwnerDashboardScreen();
 }
-

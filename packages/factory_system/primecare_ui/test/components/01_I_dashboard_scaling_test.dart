@@ -2,7 +2,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -21,8 +20,10 @@ void main() {
           LayoutConfig(
             tier: tier,
             scaleFactor: scaleFactor,
-            sidebarWidth: 280 * scaleFactor,
-            spacingMultiplier: scaleFactor,
+            sidebarWidth: AdaptiveScalingConfig.getSidebarWidth(tier),
+            spacingMultiplier: AdaptiveScalingConfig.getSpacingMultiplier(tier),
+            totalColumns: AdaptiveScalingConfig.getGridColumns(tier),
+            sidebarColumns: AdaptiveScalingConfig.getSidebarSpan(tier),
           ),
         ),
       ],
@@ -133,13 +134,82 @@ void main() {
       // Child width calculation in grid: (maxWidth - (spacing * (activeCols - 1))) / activeCols
       double expectedWidth = (7680 - (spacing * 5)) / 6;
 
-      final firstStat = find
-          .byType(SizedBox)
-          .at(1); // The first child SizedBox wrapping the child
-      final sizeBox = tester.widget<SizedBox>(firstStat);
-      expect(sizeBox.width, closeTo(expectedWidth, 0.1));
+      final firstStatCard = find.byType(PrimeCareStatCard).first;
+      final sizeBoxes = tester.widgetList<SizedBox>(
+        find.ancestor(of: firstStatCard, matching: find.byType(SizedBox)),
+      );
+      final colBox = sizeBoxes.firstWhere((sb) => sb.width != null);
+      expect(colBox.width, closeTo(expectedWidth, 0.1));
 
       addTearDown(tester.view.resetPhysicalSize);
     });
+
+    testWidgets(
+      'ResponsiveGridRow accurately respects centralized sidebar widths (OneK Parity)',
+      (tester) async {
+        // Simulate 1064px width (oneK tier)
+        const double totalWidth = 1064.0;
+        tester.view.physicalSize = const Size(totalWidth, 1000);
+        tester.view.devicePixelRatio = 1.0;
+
+        final tier = ResolutionTier.oneK;
+        final expectedSidebarWidth = AdaptiveScalingConfig.getSidebarWidth(
+          tier,
+        ); // 260.0
+
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              layoutProvider.overrideWithValue(
+                LayoutConfig(
+                  tier: tier,
+                  scaleFactor: 1.0,
+                  sidebarWidth: expectedSidebarWidth,
+                  spacingMultiplier: 1.0,
+                ),
+              ),
+            ],
+            child: MaterialApp(
+              home: Scaffold(
+                body: LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Simulate being inside the body of ResponsiveShell
+                    final bodyWidth =
+                        totalWidth - expectedSidebarWidth; // 804.0
+                    return SizedBox(
+                      width: bodyWidth,
+                      child: ResponsiveGridRow(
+                        children: [
+                          ResponsiveGridCol(
+                            span: 12, // Full width for 12-col grid (oneK)
+                            child: const SizedBox(
+                              height: 100,
+                              key: Key('grid_child'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Verify the ResponsiveGridRow's child width
+        // It should be exactly bodyWidth (804.0) after our math fixes
+        final gridChildFinder = find.byKey(const Key('grid_child'));
+        final colBoxFinder = find
+            .ancestor(of: gridChildFinder, matching: find.byType(SizedBox))
+            .first;
+        final sizeBox = tester.widget<SizedBox>(colBoxFinder);
+
+        // Expected: (804.0 * 100).floor() / 100 = 804.0
+        expect(sizeBox.width, equals(804.0));
+
+        addTearDown(tester.view.resetPhysicalSize);
+      },
+    );
   });
 }

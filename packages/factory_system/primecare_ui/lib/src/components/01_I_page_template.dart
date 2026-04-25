@@ -1,8 +1,23 @@
 // Layer: 01_INFRASTRUCTURE
 // ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+
+// Internal granular imports
+import 'package:flutter_core/providers/03_D_portal_providers.dart';
+import 'package:primecare_ui/src/theme/01_I_design_system.dart';
+import 'package:primecare_ui/src/theme/01_I_colors.dart';
+import 'package:primecare_ui/src/components/layout/01_I_prime_responsive_grid.dart';
+import 'package:primecare_ui/src/assembly_line/01_I_assembly_line.dart';
+
+// Adapters - Granular Imports
+import 'package:primecare_adapters/src/models/02_M_dashboard_view_model.dart';
+import 'package:primecare_adapters/src/models/core/02_M_dashboard_models.dart';
+import 'package:primecare_adapters/src/models/core/02_M_ui_blueprint.dart';
+import 'package:primecare_adapters/src/infrastructure/01_I_result.dart';
+import 'package:primecare_adapters/src/infrastructure/01_I_telemetry_service.dart';
 
 class PageTemplate extends ConsumerWidget {
   final String title;
@@ -158,8 +173,14 @@ class _OrchestratedPage extends ConsumerWidget {
     final layout = ref.watch(layoutProvider);
     final scale = layout.scaleFactor;
     final ds = PrimeCareDesignSystem.of(context);
+    final telemetry = ref.read(executionGateProvider);
 
     if (asyncValue is! AsyncValue) {
+      telemetry.failGate(
+        ExecutionGateCategory.ui,
+        'Aura Orchestration Failure: $title',
+        error: 'Expected AsyncValue, got ${asyncValue.runtimeType}',
+      );
       return Center(
         child: Text(
           'Aura Orchestration Failure: Expected AsyncValue, got ${asyncValue.runtimeType}',
@@ -182,6 +203,11 @@ class _OrchestratedPage extends ConsumerWidget {
         if (unwrappedData == null) {
           if (data is Failure) {
             debugPrint('[PageTemplate] Error in Result: ${data.error}');
+            telemetry.failGate(
+              ExecutionGateCategory.ui,
+              'Dashboard Null Data Failure: $title',
+              error: data.error,
+            );
           }
 
           return PageTemplate(
@@ -196,22 +222,38 @@ class _OrchestratedPage extends ConsumerWidget {
           blueprints = unwrappedData.blueprints;
           isOffline = unwrappedData.isOfflineFallback;
         } else if (unwrappedData is DashboardMetrics) {
-          final vm = PrimeCareDashboardViewModel.fromDashboardMetrics(unwrappedData);
+          final vm = PrimeCareDashboardViewModel.fromDashboardMetrics(
+            unwrappedData,
+          );
           blueprints = vm.blueprints;
           isOffline = vm.isOfflineFallback;
         } else if (unwrappedData is ClinicalIntelligenceViewModel) {
           blueprints = unwrappedData.blueprints;
           isOffline = unwrappedData.isOfflineFallback;
         } else if (unwrappedData is Map) {
-          blueprints = (unwrappedData['blueprints'] as List?)?.cast<UIComponentBlueprint>() ?? [];
+          blueprints =
+              (unwrappedData['blueprints'] as List?)
+                  ?.cast<UIComponentBlueprint>() ??
+              [];
           isOffline = (unwrappedData['isOfflineFallback'] as bool?) ?? false;
         } else {
           try {
             final dynamic d = unwrappedData;
-            blueprints = (d.blueprints as List?)?.cast<UIComponentBlueprint>() ?? [];
+            blueprints =
+                (d.blueprints as List?)?.cast<UIComponentBlueprint>() ?? [];
             isOffline = (d.isOfflineFallback as bool?) ?? false;
           } catch (_) {}
         }
+
+        telemetry.passGate(
+          ExecutionGateCategory.ui,
+          'Dashboard Hydration Successful: $title',
+          metadata: {
+            'isOffline': isOffline,
+            'blueprintCount': blueprints.length,
+            'dataType': unwrappedData.runtimeType.toString(),
+          },
+        );
 
         return PageTemplate(
           title: title,
@@ -224,32 +266,49 @@ class _OrchestratedPage extends ConsumerWidget {
           ),
         );
       },
-      loading: () => Center(
-        child: Padding(
-          padding: EdgeInsets.all(PrimeCareSpacing.scaled(80.0, scale)),
-          child: CircularProgressIndicator(color: ds.colors.primary, strokeWidth: 3 * scale),
-        ),
-      ),
-      error: (err, stack) => Center(
-        child: Padding(
-          padding: EdgeInsets.all(PrimeCareSpacing.scaled(40.0, scale)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.error_outline, color: ds.colors.error, size: PrimeCareSpacing.scaled(48, scale)),
-              SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
-              Text(
-                'Orchestration Error: $err',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
-                  color: ds.colors.textSecondary,
-                  fontSize: PrimeCareSpacing.scaled(14, scale),
-                ),
-              ),
-            ],
+      loading: () {
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.all(PrimeCareSpacing.scaled(80.0, scale)),
+            child: CircularProgressIndicator(
+              color: ds.colors.primary,
+              strokeWidth: 3 * scale,
+            ),
           ),
-        ),
-      ),
+        );
+      },
+      error: (err, stack) {
+        telemetry.failGate(
+          ExecutionGateCategory.ui,
+          'Dashboard Orchestration Error: $title',
+          error: err,
+          stackTrace: stack,
+        );
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.all(PrimeCareSpacing.scaled(40.0, scale)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  color: ds.colors.error,
+                  size: PrimeCareSpacing.scaled(48, scale),
+                ),
+                SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
+                Text(
+                  'Orchestration Error: $err',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    color: ds.colors.textSecondary,
+                    fontSize: PrimeCareSpacing.scaled(14, scale),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

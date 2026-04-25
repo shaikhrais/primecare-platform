@@ -3,13 +3,14 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_regional_manager_ontario_dashboard_screen.dart';
 
 class RegionalManagerOntarioDashboardIntent extends AppScreenIntent {
-  const RegionalManagerOntarioDashboardIntent();
+  RegionalManagerOntarioDashboardIntent();
 
   @override
   String get name => 'regional_manager_ontario_dashboard';
 
   @override
-  String get route => '/offices/corporate/roles/regional_manager_ontario/dashboard';
+  String get route =>
+      '/offices/corporate/roles/regional_manager_ontario/dashboard';
 
   @override
   String get title => 'Regional Manager Ontario Dashboard';
@@ -18,9 +19,9 @@ class RegionalManagerOntarioDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.regionalManagerOntario;
 
   @override
-  dynamic get provider => regionalManagerOntarioDashboardAdapterProvider;
+  dynamic get provider => regionalManagerOntarioMetricsProvider;
 
   @override
-  Widget build(BuildContext context) => const RegionalManagerOntarioDashboardScreen();
+  Widget build(BuildContext context) =>
+      const RegionalManagerOntarioDashboardScreen();
 }
-

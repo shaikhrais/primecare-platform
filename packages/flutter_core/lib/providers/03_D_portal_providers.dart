@@ -117,12 +117,15 @@ class LayoutConfig {
       sidebarCols = AdaptiveScalingConfig.getMinimalSidebarSpan(tier);
     }
 
-    // Default width for mobile/tablet drawers
-    double calculatedSidebarWidth = AdaptiveScalingConfig.getSidebarWidth(tier);
-
-    if (sidebarCols > 0) {
-      calculatedSidebarWidth = (width / totalCols) * sidebarCols;
-    } else if (mode == SidebarMode.hidden) {
+    // Force fixed pixel width to match the ResponsiveShell's rendering
+    double calculatedSidebarWidth = 0;
+    if (mode == SidebarMode.extended) {
+      calculatedSidebarWidth = AdaptiveScalingConfig.getSidebarWidth(tier);
+    } else if (mode == SidebarMode.minimal) {
+      calculatedSidebarWidth = AdaptiveScalingConfig.getMinimalSidebarWidth(
+        tier,
+      );
+    } else {
       calculatedSidebarWidth = 0;
     }
 

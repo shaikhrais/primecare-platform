@@ -10,32 +10,32 @@ class RegionalManagerUsaDashboardScreen extends ConsumerWidget {
     final state = ref.watch(regionalManagerUsaDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(regionalManagerUsaDashboardAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(regionalManagerUsaDashboardAdapterProvider),
+          onRetry: () =>
+              ref.refresh(regionalManagerUsaDashboardAdapterProvider),
         ),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, RegionalManagerUsaDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    RegionalManagerUsaDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Regional Manager Usa Command Center', style: theme.typography.h2),
+          Text(
+            'Regional Manager Usa Command Center',
+            style: theme.typography.h2,
+          ),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),

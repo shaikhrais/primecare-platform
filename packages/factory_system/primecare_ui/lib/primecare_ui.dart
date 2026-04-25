@@ -10,6 +10,8 @@ export 'package:primecare_ui/00_B_layouts.dart';
 export 'package:primecare_ui/00_B_screens.dart';
 export 'package:primecare_ui/00_B_theme.dart';
 export 'package:primecare_ui/00_B_adapters.dart';
+export 'package:primecare_adapters/primecare_adapters.dart'
+    hide isOnlineProvider, ProviderTTL;
 export 'package:flutter_core/00_B_flutter_core.dart' hide AppTheme;
 
 // UI Discovery Tier (AssemblyLine Metadata)
@@ -35,6 +37,7 @@ export 'package:primecare_ui/src/screens/common/05_U_splash_screen.dart';
 export 'package:primecare_ui/src/screens/common/05_U_subscription_upgrade_screen.dart';
 export 'package:primecare_ui/src/screens/common/05_U_primecare_horizon_scheduler_screen.dart';
 export 'package:primecare_ui/src/screens/common/05_U_institutional_scheduler_screen.dart';
+export 'package:primecare_ui/src/components/01_I_governance_blueprint_hud.dart';
 
 export 'package:primecare_ui/src/components/dashboards/02_M_prime_care_disk_usage_card.dart';
 
@@ -46,3 +49,5 @@ export 'package:primecare_ui/src/registry/01_I_dynamic_adapter_resolver.dart';
 export 'package:primecare_ui/src/registry/02_I_governance_bootstrapper.dart';
 export 'package:primecare_ui/src/registry/04_I_platform_governance_audit.dart';
 export 'package:primecare_ui/src/registry/01_I_screen_registry.dart';
+export 'package:primecare_ui/src/registry/05_I_blueprint_seeder.dart';
+export 'package:primecare_ui/src/utils/01_I_async_result_extension.dart';

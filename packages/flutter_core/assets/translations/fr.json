@@ -1,264 +1,4206 @@
 {
-  "auth": {
-    "title_curator": "Bienvenue chez PrimeCare",
-    "curator_subtitle": "Portail d'Accès Entreprise",
-    "welcome_back": "Ravi de vous revoir",
-    "login_instructions": "Connectez-vous à votre compte",
-    "email": "Adresse Courriel",
-    "password": "Mot de passe",
-    "forgot_password": "Mot de passe oublié ?",
-    "sign_in": "Se connecter",
-    "language_system": "Langue",
-    "security_notice_short": "Accès Sécurisé",
-    "encryption_active": "Chiffrement de bout en bout activé",
-    "enter_credentials_to_continue": "Veuillez entrer vos identifiants pour continuer.",
-    "authentication_failed": "Échec de l'authentification. Veuillez vérifier vos identifiants."
+  "clinical": {
+    "clinic": {
+      "clinic_care_plan_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Develop and monitor patient care plans.",
+            "subtitle": "Title"
+          },
+          "description": "Develop and monitor patient care plans.",
+          "subtitle": "Clinic Care Plan Screen"
+        },
+        "description": "Develop and monitor patient care plans.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "clinic_check_in_out_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Clinic Check In Out Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "clinic_client_profile_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Clinic Client Profile Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "clinic_daily_notes_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Clinic Daily Notes Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "clinic_incident_report_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Clinic Incident Report Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "clinic_my_shifts_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Clinic My Shifts Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "clinic_shift_details_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Clinic Shift Details Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "clinic_dashboard": {
+        "clinic_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Clinic Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "clinic_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Clinic Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      }
+    },
+    "intake_coordinator": {
+      "intake_coordinator_client_assignment_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Coordinator Client Assignment Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "intake_coordinator_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Coordinator Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "intake_coordinator_eligibility_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Coordinator Eligibility Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "intake_coordinator_intake_forms_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Coordinator Intake Forms Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "intake_coordinator_new_intakes_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Coordinator New Intakes Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "intake_coordinator_scheduling_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Coordinator Scheduling Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "intakeCoordinator": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Intake Coordinator Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "intake_coordinator_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Coordinator Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      }
+    },
+    "intake": {
+      "intake_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "intake_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Intake Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "intake_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Intake Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "intake_forms_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Forms Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Intake Tableau de Bord"
+        },
+        "description": "View top-level system dashboard.",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      },
+      "intake_pipeline": "Intake Pipeline"
+    },
+    "quality_assurance": {
+      "quality_assurance_audits_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Perform and review scheduled compliancy audits.",
+            "subtitle": "Title"
+          },
+          "description": "Perform and review scheduled compliancy audits.",
+          "subtitle": "Quality Assurance Audits Screen"
+        },
+        "description": "Perform and review scheduled compliancy audits.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "quality_assurance_complaints_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Quality Assurance Complaints Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "quality_assurance_compliance_checks_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Quality Assurance Compliance Checks Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "quality_assurance_corrective_actions_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Quality Assurance Corrective Actions Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "quality_assurance_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Quality Assurance Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "quality_assurance_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Quality Assurance Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "quality_assurance_reviews_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Quality Assurance Reviews Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "quality_assurance_scorecards_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Quality Assurance Scorecards Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "qualityAssurance": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Qualityassurance Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      }
+    },
+    "training_coordinator": {
+      "training_coordinator_attendance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Attendance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_coordinator_courses_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Courses Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_coordinator_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "training_coordinator_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Training Coordinator Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "training_coordinator_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Training Coordinator Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "training_coordinator_materials_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Materials Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_coordinator_progress_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Progress Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_coordinator_training_schedule_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Training Schedule Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_coordinator_workshops_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Workshops Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "trainingCoordinator": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Training Coordinator Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "training_coordinator_certifications_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Certifications Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_coordinator_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Coordinator Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      }
+    },
+    "psw": {
+      "dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Psw Tableau de Bord"
+        },
+        "description": "View top-level system dashboard.",
+        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      },
+      "psw_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Psw Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      }
+    },
+    "patient": {
+      "patient_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Patient Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "patient_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Patient Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "patient_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Patient Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      }
+    },
+    "clinical_director": {
+      "clinical_director_dashboard": {
+        "title": "Clinical Director Dashboard",
+        "description": "Oversee clinical quality metrics and provider performance.",
+        "subtitle": "Clinical Director"
+      }
+    }
   },
   "corporate": {
     "ceo": {
+      "ceo_dashboard": {
+        "ceo_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Ceo Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "ceo_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Ceo Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        },
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
       "dashboard": {
-        "title": "Ceo Tableau de Bord",
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Tableau de Bord"
+        },
+        "description": "View top-level system dashboard.",
         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      },
+      "ceo_alerts_and_risks_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Alerts And Risks Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_approvals_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Approvals Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_enterprise_overview_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "View an enterprise-wide status.",
+            "subtitle": "Title"
+          },
+          "description": "View an enterprise-wide status.",
+          "subtitle": "Ceo Enterprise Overview Screen"
+        },
+        "description": "View an enterprise-wide status.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_franchise_overview_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Franchise Overview Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_growth_pipeline_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Monitor prospective new business targets.",
+            "subtitle": "Title"
+          },
+          "description": "Monitor prospective new business targets.",
+          "subtitle": "Ceo Growth Pipeline Screen"
+        },
+        "description": "Monitor prospective new business targets.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_leadership_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Access executive leadership reports.",
+            "subtitle": "Title"
+          },
+          "description": "Access executive leadership reports.",
+          "subtitle": "Ceo Leadership Reports Screen"
+        },
+        "description": "Access executive leadership reports.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_organization_map_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Organization Map Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_region_performance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Analyze operational performance by geographic region.",
+            "subtitle": "Title"
+          },
+          "description": "Analyze operational performance by geographic region.",
+          "subtitle": "Ceo Region Performance Screen"
+        },
+        "description": "Analyze operational performance by geographic region.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_revenue_summary_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ceo Revenue Summary Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ceo_strategic_kpis_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Monitor high-level strategic key performance indicators.",
+            "subtitle": "Title"
+          },
+          "description": "Monitor high-level strategic key performance indicators.",
+          "subtitle": "Ceo Strategic Kpis Screen"
+        },
+        "description": "Monitor high-level strategic key performance indicators.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "cto": {
-      "dashboard": {
-        "title": "Cto Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "compliance_manager": {
+      "compliance_manager_dashboard": {
+        "compliance_manager_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Compliance Manager Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "compliance_manager_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Compliance Manager Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        },
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "complianceManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Compliance Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "compliance_manager_audits_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Perform and review scheduled compliancy audits.",
+            "subtitle": "Title"
+          },
+          "description": "Perform and review scheduled compliancy audits.",
+          "subtitle": "Compliance Manager Audits Screen"
+        },
+        "description": "Perform and review scheduled compliancy audits.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_compliance_cases_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Manage complex cases and escalations.",
+            "subtitle": "Title"
+          },
+          "description": "Manage complex cases and escalations.",
+          "subtitle": "Compliance Manager Compliance Cases Screen"
+        },
+        "description": "Manage complex cases and escalations.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_corrective_actions_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Corrective Actions Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_credential_tracking_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Credential Tracking Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_document_expiry_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Document Expiry Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_incident_review_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Incident Review Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_policies_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Policies Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_risk_register_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Document and track institutional risk.",
+            "subtitle": "Title"
+          },
+          "description": "Document and track institutional risk.",
+          "subtitle": "Compliance Manager Risk Register Screen"
+        },
+        "description": "Document and track institutional risk.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "compliance_manager_training_compliance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Compliance Manager Training Compliance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      }
+    },
+    "head_of_bus_dev": {
+      "head_of_bus_dev_dashboard": {
+        "title": "Head Of Bus Dev Dashboard",
+        "description": "Monitor business development pipeline and partnership growth.",
+        "subtitle": "Bus Dev Dashboard"
       }
     },
     "cfo": {
       "dashboard": {
-        "title": "Cfo Tableau de Bord",
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Tableau de Bord"
+        },
+        "description": "View the chief financial officer command center.",
         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "complianceManager": {
-      "dashboard": {
-        "title": "Compliance Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      },
+      "cfo_accounts_payable_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Accounts Payable Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_accounts_receivable_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Accounts Receivable Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_dashboard": {
+        "title": "Cfo Dashboard",
+        "description": "View the chief financial officer command center.",
+        "subtitle": "CFO Dashboard"
+      },
+      "cfo_expenses_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Expenses Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_financial_overview_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "View aggregate financial data.",
+            "subtitle": "Title"
+          },
+          "description": "View aggregate financial data.",
+          "subtitle": "Cfo Financial Overview Screen"
+        },
+        "description": "View aggregate financial data.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_franchise_financials_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Franchise Financials Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_invoices_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "View and process operational invoices.",
+            "subtitle": "Title"
+          },
+          "description": "View and process operational invoices.",
+          "subtitle": "Cfo Invoices Screen"
+        },
+        "description": "View and process operational invoices.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_payroll_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Payroll Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_profitability_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Analyze company profitability.",
+            "subtitle": "Title"
+          },
+          "description": "Analyze company profitability.",
+          "subtitle": "Cfo Profitability Screen"
+        },
+        "description": "Analyze company profitability.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_revenue_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Revenue Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cfo_tax_and_remittance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cfo Tax And Remittance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
     "coo": {
       "dashboard": {
-        "title": "Coo Tableau de Bord",
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Tableau de Bord"
+        },
+        "description": "View the chief operating officer command center.",
         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      },
+      "coo_compliance_view": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Compliance View"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_branch_comparison_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Compare branch-level metrics side-by-side.",
+            "subtitle": "Title"
+          },
+          "description": "Compare branch-level metrics side-by-side.",
+          "subtitle": "Coo Branch Comparison Screen"
+        },
+        "description": "Compare branch-level metrics side-by-side.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_branch_operations_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "View health metrics for specific branches.",
+            "subtitle": "Title"
+          },
+          "description": "View health metrics for specific branches.",
+          "subtitle": "Coo Branch Operations Screen"
+        },
+        "description": "View health metrics for specific branches.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_compliance_view_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Compliance View Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_dashboard": {
+        "title": "Coo Dashboard",
+        "description": "View the chief operating officer command center.",
+        "subtitle": "COO Dashboard"
+      },
+      "coo_issue_escalations_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Issue Escalations Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_operations_overview_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Operations Overview Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_scheduling_health_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Ensure overall staff scheduling health.",
+            "subtitle": "Title"
+          },
+          "description": "Ensure overall staff scheduling health.",
+          "subtitle": "Coo Scheduling Health Screen"
+        },
+        "description": "Ensure overall staff scheduling health.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_service_delivery_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Service Delivery Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_staffing_efficiency_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Staffing Efficiency Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "coo_workflow_performance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Coo Workflow Performance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "trainingDirector": {
+    "cto": {
       "dashboard": {
-        "title": "Training Director Tableau de Bord",
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Tableau de Bord"
+        },
+        "description": "View the chief technology officer command center.",
         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    }
-  },
-  "business_development": {
-    "franchiseSalesManager": {
-      "dashboard": {
-        "title": "Franchisesales Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      },
+      "cto_access_control_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Access Control Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_api_monitoring_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Observe API request flows and latency.",
+            "subtitle": "Title"
+          },
+          "description": "Observe API request flows and latency.",
+          "subtitle": "Cto Api Monitoring Screen"
+        },
+        "description": "Observe API request flows and latency.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_audit_logs_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Investigate unified system audit logs.",
+            "subtitle": "Title"
+          },
+          "description": "Investigate unified system audit logs.",
+          "subtitle": "Cto Audit Logs Screen"
+        },
+        "description": "Investigate unified system audit logs.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_dashboard": {
+        "title": "Cto Dashboard",
+        "description": "View the chief technology officer command center.",
+        "subtitle": "CTO Dashboard"
+      },
+      "cto_feature_adoption_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Feature Adoption Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_infrastructure_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Infrastructure Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_integrations_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Integrations Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_issue_tracking_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Issue Tracking Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_platform_usage_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Track resource usage across the entire platform.",
+            "subtitle": "Title"
+          },
+          "description": "Track resource usage across the entire platform.",
+          "subtitle": "Cto Platform Usage Screen"
+        },
+        "description": "Track resource usage across the entire platform.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_release_management_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Release Management Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Cto Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "cto_system_health_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Monitor platform and infrastructure health.",
+            "subtitle": "Title"
+          },
+          "description": "Monitor platform and infrastructure health.",
+          "subtitle": "Cto System Health Screen"
+        },
+        "description": "Monitor platform and infrastructure health.",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "generalManager": {
-      "dashboard": {
-        "title": "General Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "training_director": {
+      "trainingDirector": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Training Director Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "training_director_assessments_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Assessments Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_director_certifications_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Certifications Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_director_compliance_training_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Compliance Training Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_director_course_library_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Course Library Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_director_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "training_director_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Training Director Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "training_director_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Training Director Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "training_director_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_director_staff_training_matrix_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Staff Training Matrix Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_director_trainer_assignments_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Trainer Assignments Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "training_director_training_programs_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Training Director Training Programs Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "partnershipManager": {
-      "dashboard": {
-        "title": "Partnership Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "scrum_master": {
+      "scrum_master_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scrum Master Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "scrum_master_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Scrum Master Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "scrum_master_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Scrum Master Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
       }
     },
-    "regionalManagerOntario": {
-      "dashboard": {
-        "title": "Regional Managerontario Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "regionalManagerUsa": {
-      "dashboard": {
-        "title": "Regional Managerusa Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "territoryExpansionManager": {
-      "dashboard": {
-        "title": "Territoryexpansion Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    }
-  },
-  "client": {
-    "familyMember": {
-      "dashboard": {
-        "title": "Familymember Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "patient": {
-      "dashboard": {
-        "title": "Patient Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "head_of_marketing": {
+      "headOfMarketing": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Headofmarketing Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "head_of_marketing_brand_assets_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Head Of Marketing Brand Assets Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "head_of_marketing_campaigns_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Head Of Marketing Campaigns Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "head_of_marketing_content_approval_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Head Of Marketing Content Approval Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "head_of_marketing_dashboard": {
+        "title": "Head Of Marketing Dashboard",
+        "description": "Monitor marketing campaign performance and lead generation.",
+        "subtitle": "Marketing Dashboard"
+      },
+      "head_of_marketing_funnel_analytics_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Head Of Marketing Funnel Analytics Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "head_of_marketing_leads_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Head Of Marketing Leads Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "head_of_marketing_performance_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Head Of Marketing Performance Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "head_of_marketing_regional_campaigns_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Head Of Marketing Regional Campaigns Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     }
   },
   "franchise": {
-    "billingAdmin": {
-      "dashboard": {
-        "title": "Billingadmin Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "franchise_owner": {
+      "franchise": {
+        "owner": {
+          "owner_dashboard": {
+            "owner_dashboard_screen": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Owner Dashboard Screen"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "sections": {
+              "owner_kpi_section": {
+                "title": {
+                  "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                  },
+                  "subtitle": "Owner Kpi Section"
+                },
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+              }
+            }
+          }
+        }
+      },
+      "franchise_owner_dashboard": {
+        "franchise_owner_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Franchise Owner Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "franchise_owner_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Franchise Owner Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        },
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchiseOwner": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Franchiseowner Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "franchise_owner_appointments_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Appointments Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_owner_branch_overview_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Branch Overview Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_owner_clients_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Clients Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_owner_compliance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Compliance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_owner_financial_snapshot_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Financial Snapshot Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_owner_hiring_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Hiring Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_owner_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_owner_staff_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Owner Staff Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "billing": {
-      "dashboard": {
-        "title": "Billing Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "franchiseOwner": {
-      "dashboard": {
-        "title": "Franchiseowner Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "hr": {
-      "dashboard": {
-        "title": "Hr Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "hrHiring": {
-      "dashboard": {
-        "title": "Hrhiring Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "operationsManager": {
-      "dashboard": {
-        "title": "Operations Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "opsManager": {
-      "dashboard": {
-        "title": "Ops Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
+    "billing_admin": {
+      "billing_admin_dashboard": {
+        "billing_admin_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "description": "Allow clients and administrators to manage billing and payment history.",
+              "subtitle": "Title"
+            },
+            "subtitle": "Billing Admin Dashboard Screen",
+            "description": "Allow clients and administrators to manage billing and payment history."
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+          "description": "Allow clients and administrators to manage billing and payment history."
+        },
+        "sections": {
+          "billing_admin_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "description": "Allow clients and administrators to manage billing and payment history.",
+                "subtitle": "Title"
+              },
+              "subtitle": "Billing Admin Kpi Section",
+              "description": "Allow clients and administrators to manage billing and payment history."
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+            "description": "Allow clients and administrators to manage billing and payment history."
+          }
+        },
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Allow clients and administrators to manage billing and payment history.",
+            "subtitle": "Title"
+          },
+          "subtitle": "Billing Admin Dashboard",
+          "description": "Allow clients and administrators to manage billing and payment history."
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "description": "Allow clients and administrators to manage billing and payment history."
+      },
+      "billing": "Billing",
+      "billingAdmin": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "description": "Allow clients and administrators to manage billing and payment history.",
+              "subtitle": "Title"
+            },
+            "subtitle": "Billingadmin Tableau de Bord",
+            "description": "Allow clients and administrators to manage billing and payment history."
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API.",
+          "description": "Allow clients and administrators to manage billing and payment history."
+        }
+      },
+      "billing_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "description": "Allow clients and administrators to manage billing and payment history.",
+            "subtitle": "Title"
+          },
+          "subtitle": "Billing Dashboard",
+          "description": "Allow clients and administrators to manage billing and payment history."
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "description": "Allow clients and administrators to manage billing and payment history."
+      },
+      "billing_console": "Billing Console"
     },
     "scheduler": {
+      "scheduling_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduling Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_coordinator_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
       "dashboard": {
-        "title": "Scheduler Tableau de Bord",
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Tableau de Bord"
+        },
+        "description": "View top-level system dashboard.",
         "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      },
+      "scheduling": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Scheduling Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "scheduler_coordinator_appointment_calendar_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Appointment Calendar Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_coordinator_assignments_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Assignments Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_coordinator_booking_requests_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Booking Requests Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_coordinator_conflicts_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Conflicts Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_coordinator_open_shifts_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Open Shifts Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_coordinator_provider_availability_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Provider Availability Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_coordinator_shift_calendar_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Coordinator Shift Calendar Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduler_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduler Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "scheduler_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Scheduler Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "scheduler_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Scheduler Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "schedule_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Schedule Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduling_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Scheduling Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "scheduling_health": "Scheduling Health"
+    },
+    "hr_hiring": {
+      "hr": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Hr Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "hrHiring": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Hrhiring Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "hr_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_applicants_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Applicants Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_credentials_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Credentials Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_dashboard": {
+        "title": "Hr Hiring Dashboard",
+        "description": "Manage recruitment, onboarding, and staff credentials.",
+        "subtitle": "HR Dashboard"
+      },
+      "hr_hiring_interviews_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Interviews Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_offers_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Offers Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_onboarding_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Onboarding Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_staff_documents_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Staff Documents Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "hr_hiring_training_status_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Hr Hiring Training Status Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "scheduling": {
-      "dashboard": {
-        "title": "Scheduling Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "operations_manager": {
+      "operationsManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Operations Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "opsManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Ops Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "operations_manager_attendance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Attendance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "operations_manager_daily_operations_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Daily Operations Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "operations_manager_dashboard": {
+        "title": "Operations Manager Dashboard",
+        "description": "Monitor daily franchise operations and logistics efficiency.",
+        "subtitle": "Ops Dashboard"
+      },
+      "operations_manager_issues_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Issues Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "operations_manager_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "operations_manager_schedule_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Schedule Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "operations_manager_service_quality_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Service Quality Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "operations_manager_shifts_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Shifts Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "operations_manager_staff_coordination_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Operations Manager Staff Coordination Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "ops_manager_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Ops Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     }
   },
   "marketing": {
-    "communityOutreach": {
-      "dashboard": {
-        "title": "Communityoutreach Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "territory_sales_manager": {
+      "territory_map_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Map Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territorySales": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Territorysales Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "territorySalesManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Territorysales Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "territory_area_performance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Area Performance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_competitors_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Competitors Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_conversions_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Conversions Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_field_activity_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Field Activity Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_leads_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Leads Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_pipeline_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Pipeline Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_manager_area_performance_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Area Performance Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_manager_competitors_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Competitors Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_manager_conversions_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Conversions Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_manager_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "territory_sales_manager_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Territory Sales Manager Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "territory_sales_manager_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Territory Sales Manager Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "territory_sales_manager_field_activity_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Field Activity Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_manager_leads_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Leads Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_manager_pipeline_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Pipeline Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_sales_manager_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Sales Manager Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "headOfMarketing": {
-      "dashboard": {
-        "title": "Headofmarketing Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "community_outreach": {
+      "community_outreach_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "communityOutreach": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Communityoutreach Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "community_outreach_contacts_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Contacts Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "community_outreach_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "community_outreach_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Community Outreach Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "community_outreach_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Community Outreach Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "community_outreach_events_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Events Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "community_outreach_follow_ups_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Follow Ups Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "community_outreach_partnerships_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Partnerships Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "community_outreach_programs_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Programs Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "community_outreach_volunteers_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Community Outreach Volunteers Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "localMarketing": {
-      "dashboard": {
-        "title": "Localmarketing Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "local_marketing_manager": {
+      "localMarketing": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Localmarketing Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "localMarketingManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Localmarketing Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "local_assets_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Assets Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_budget_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Budget Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_campaigns_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Campaigns Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_content_calendar_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Content Calendar Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_events_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Events Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_leads_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Leads Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_manager_assets_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Assets Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_manager_budget_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Budget Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_manager_campaigns_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Campaigns Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_manager_content_calendar_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Content Calendar Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_manager_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "local_marketing_manager_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Local Marketing Manager Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "local_marketing_manager_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Local Marketing Manager Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "local_marketing_manager_events_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Events Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_manager_leads_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Leads Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_marketing_manager_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Marketing Manager Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "local_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Local Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      }
+    }
+  },
+  "business_development": {
+    "franchise_sales_manager": {
+      "franchiseSalesManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Franchisesales Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "franchise_sales_manager_contracts_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Contracts Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_sales_manager_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "franchise_sales_manager_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Franchise Sales Manager Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "franchise_sales_manager_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Franchise Sales Manager Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "franchise_sales_manager_discovery_calls_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Discovery Calls Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_sales_manager_follow_ups_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Follow Ups Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_sales_manager_leads_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Leads Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_sales_manager_proposals_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Proposals Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_sales_manager_prospects_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Prospects Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_sales_manager_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "franchise_sales_manager_sales_pipeline_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Franchise Sales Manager Sales Pipeline Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "localMarketingManager": {
-      "dashboard": {
-        "title": "Localmarketing Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "general_manager": {
+      "generalManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "General Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "general_manager_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "General Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "general_manager_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "General Manager Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "general_manager_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "General Manager Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
       }
     },
-    "territorySales": {
-      "dashboard": {
-        "title": "Territorysales Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "partnership_manager": {
+      "partnershipManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Partnership Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "partnership_manager_active_deals_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Partnership Manager Active Deals Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "partnership_manager_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Partnership Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "partnership_manager_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Partnership Manager Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "partnership_manager_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Partnership Manager Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "partnership_manager_outreach_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Partnership Manager Outreach Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "partnership_manager_partners_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Partnership Manager Partners Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "partnership_manager_proposals_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Partnership Manager Proposals Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "partnership_manager_renewals_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Partnership Manager Renewals Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "partnership_manager_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Partnership Manager Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     },
-    "territorySalesManager": {
-      "dashboard": {
-        "title": "Territorysales Manager Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+    "regional_manager_ontario": {
+      "regionalManagerOntario": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Regional Managerontario Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "regional_manager_ontario_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Manager Ontario Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "regional_manager_ontario_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Regional Manager Ontario Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "regional_manager_ontario_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Regional Manager Ontario Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      }
+    },
+    "regional_manager_usa": {
+      "regionalManagerUsa": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Regional Managerusa Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "regional_manager_usa_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Manager Usa Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "regional_manager_usa_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Regional Manager Usa Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "regional_manager_usa_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Regional Manager Usa Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      }
+    },
+    "territory_expansion_manager": {
+      "territoryExpansionManager": {
+        "dashboard": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Territoryexpansion Manager Tableau de Bord"
+          },
+          "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+        }
+      },
+      "territory_expansion_manager_dashboard": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Dashboard"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+        "territory_expansion_manager_dashboard_screen": {
+          "title": {
+            "value": {
+              "title": "Value",
+              "subtitle": "Title"
+            },
+            "subtitle": "Territory Expansion Manager Dashboard Screen"
+          },
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "sections": {
+          "territory_expansion_manager_kpi_section": {
+            "title": {
+              "value": {
+                "title": "Value",
+                "subtitle": "Title"
+              },
+              "subtitle": "Territory Expansion Manager Kpi Section"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+          }
+        }
+      },
+      "territory_expansion_manager_demographics_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Demographics Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_expansion_manager_expansion_plans_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Expansion Plans Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_expansion_manager_forecast_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Forecast Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_expansion_manager_market_research_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Market Research Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_expansion_manager_open_territories_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Open Territories Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_expansion_manager_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_expansion_manager_site_selection_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Site Selection Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "territory_expansion_manager_territory_map_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Territory Expansion Manager Territory Map Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      }
+    },
+    "regional_bdm": {
+      "regional_bdm_competitor_notes_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Competitor Notes Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_deal_tracker_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Deal Tracker Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_franchise_pipeline_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Franchise Pipeline Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_leads_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Leads Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_meetings_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Meetings Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_partners_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Partners Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_reports_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Reports Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_tasks_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Tasks Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "regional_bdm_territory_growth_screen": {
+        "title": {
+          "value": {
+            "title": "Value",
+            "subtitle": "Title"
+          },
+          "subtitle": "Regional Bdm Territory Growth Screen"
+        },
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
       }
     }
   },
   "support": {
-    "customerSupport": {
-      "dashboard": {
-        "title": "Customersupport Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "intakeCoordinator": {
-      "dashboard": {
-        "title": "Intake Coordinator Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "intake": {
-      "dashboard": {
-        "title": "Intake Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "qa": {
-      "dashboard": {
-        "title": "Qa Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "qualityAssurance": {
-      "dashboard": {
-        "title": "Qualityassurance Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
     "support": {
-      "dashboard": {
-        "title": "Support Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-      }
-    },
-    "trainingCoordinator": {
-      "dashboard": {
-        "title": "Training Coordinator Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      "support": {
+        "support": {
+          "customer_support": {
+            "customer_support_dashboard": {
+              "customer_support_dashboard_screen": {
+                "title": {
+                  "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                  },
+                  "subtitle": "Customer Support Dashboard Screen"
+                },
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+              },
+              "sections": {
+                "customer_support_kpi_section": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Customer Support Kpi Section"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                }
+              },
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Customer Support Dashboard"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "customer_support_escalations_screen": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Customer Support Escalations Screen"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "customer_support_issue_categories_screen": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Customer Support Issue Categories Screen"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "customer_support_reports_screen": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Customer Support Reports Screen"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "customer_support_templates_screen": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Customer Support Templates Screen"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "customer_support_tickets_screen": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Customer Support Tickets Screen"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "support_dashboard": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Support Dashboard"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+              "support_dashboard_screen": {
+                "title": {
+                  "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                  },
+                  "subtitle": "Support Dashboard Screen"
+                },
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+              },
+              "sections": {
+                "support_kpi_section": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Support Kpi Section"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                }
+              }
+            },
+            "customerSupport": {
+              "dashboard": {
+                "title": {
+                  "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                  },
+                  "subtitle": "Customersupport Tableau de Bord"
+                },
+                "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+              }
+            }
+          },
+          "qa": {
+            "qa_dashboard": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Qa Dashboard"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+              "qa_dashboard_screen": {
+                "title": {
+                  "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                  },
+                  "subtitle": "Qa Dashboard Screen"
+                },
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+              },
+              "sections": {
+                "qa_kpi_section": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Qa Kpi Section"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                }
+              }
+            },
+            "dashboard": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Qa Tableau de Bord"
+              },
+              "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+            }
+          },
+          "support": {
+            "support_reports_screen": {
+              "title": {
+                "value": {
+                  "title": "Value",
+                  "subtitle": "Title"
+                },
+                "subtitle": "Support Reports Screen"
+              },
+              "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            }
+          }
+        }
       }
     }
   },
-  "admin": {
+  "admin_infrastructure": {
     "admin": {
-      "dashboard": {
-        "title": "Admin Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+      "admin": {
+        "admin": {
+          "admin": {
+            "admin_infrastructure": {
+              "admin": {
+                "admin": {
+                  "dashboard": {
+                    "title": {
+                      "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                      },
+                      "subtitle": "Admin Tableau de Bord"
+                    },
+                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+                  }
+                },
+                "admin_dashboard": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Admin Dashboard"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "admin_claims_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Admin Claims Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "admin_invoices_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "description": "View and process operational invoices.",
+                      "subtitle": "Title"
+                    },
+                    "description": "View and process operational invoices.",
+                    "subtitle": "Admin Invoices Screen"
+                  },
+                  "description": "View and process operational invoices.",
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "admin_outstanding_balances_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Admin Outstanding Balances Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "admin_payments_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Admin Payments Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "admin_reconciliation_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Admin Reconciliation Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "admin_refunds_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Admin Refunds Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "admin_reports_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Admin Reports Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                }
+              }
+            }
+          }
+        },
+        "system": {
+          "system_dashboard": {
+            "title": "System Dashboard",
+            "description": "View top-level system dashboard.",
+            "subtitle": "System Dashboard"
+          },
+          "system_health": "System Health"
+        }
       }
     }
   },
-  "clinical": {
-    "psw": {
-      "dashboard": {
-        "title": "Psw Tableau de Bord",
-        "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+  "client_portal": {
+    "client": {
+      "client": {
+        "client": {
+          "client": {
+            "client_portal": {
+              "client": {
+                "familyMember": {
+                  "dashboard": {
+                    "title": {
+                      "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                      },
+                      "subtitle": "Familymember Tableau de Bord"
+                    },
+                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+                  }
+                },
+                "patient": {
+                  "dashboard": {
+                    "title": {
+                      "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                      },
+                      "subtitle": "Patient Tableau de Bord"
+                    },
+                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+                  }
+                },
+                "book_appointment_view": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Book Appointment View"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "care_team_view": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Care Team View"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "care_updates_view": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Care Updates View"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "client_book_appointment_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Client Book Appointment Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "client_care_team_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Client Care Team Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "client_my_appointments_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Client My Appointments Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "client_payments_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Client Payments Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "client_profile_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Client Profile Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "client_treatment_history_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Client Treatment History Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "emergency_contacts_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Emergency Contacts Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "family_billing_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "description": "Allow clients and administrators to manage billing and payment history.",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Billing Screen",
+                    "description": "Allow clients and administrators to manage billing and payment history."
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                  "description": "Allow clients and administrators to manage billing and payment history."
+                },
+                "family_member_billing_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "description": "Allow clients and administrators to manage billing and payment history.",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Member Billing Screen",
+                    "description": "Allow clients and administrators to manage billing and payment history."
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                  "description": "Allow clients and administrators to manage billing and payment history."
+                },
+                "family_member_care_updates_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Member Care Updates Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "family_member_dashboard": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Member Dashboard"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "family_member_emergency_contacts_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Member Emergency Contacts Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "family_member_loved_one_schedule_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Member Loved One Schedule Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "family_member_profile_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Member Profile Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "family_profile_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Family Profile Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "loved_one_schedule_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Loved One Schedule Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "my_appointments_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "My Appointments Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "patient_dashboard": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Patient Dashboard"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "treatment_history_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Treatment History Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                },
+                "client_dashboard": {
+                  "client_dashboard_screen": {
+                    "title": {
+                      "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                      },
+                      "subtitle": "Client Dashboard Screen"
+                    },
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                  },
+                  "sections": {
+                    "client_kpi_section": {
+                      "title": {
+                        "value": {
+                          "title": "Value",
+                          "subtitle": "Title"
+                        },
+                        "subtitle": "Client Kpi Section"
+                      },
+                      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    }
+                  }
+                },
+                "family_dashboard": {
+                  "family_dashboard_screen": {
+                    "title": {
+                      "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                      },
+                      "subtitle": "Family Dashboard Screen"
+                    },
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                  },
+                  "sections": {
+                    "family_kpi_section": {
+                      "title": {
+                        "value": {
+                          "title": "Value",
+                          "subtitle": "Title"
+                        },
+                        "subtitle": "Family Kpi Section"
+                      },
+                      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    }
+                  }
+                },
+                "client_assignment_screen": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Client Assignment Screen"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                }
+              },
+              "guest": {
+                "guest_dashboard": {
+                  "title": {
+                    "value": {
+                      "title": "Value",
+                      "subtitle": "Title"
+                    },
+                    "subtitle": "Guest Dashboard"
+                  },
+                  "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                  "guest_dashboard_screen": {
+                    "title": {
+                      "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                      },
+                      "subtitle": "Guest Dashboard Screen"
+                    },
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                  },
+                  "sections": {
+                    "guest_kpi_section": {
+                      "title": {
+                        "value": {
+                          "title": "Value",
+                          "subtitle": "Title"
+                        },
+                        "subtitle": "Guest Kpi Section"
+                      },
+                      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
-  "TAX_HUB_TITLE": "Centre de Versement Fiscale",
-  "TAX_HUB_SUBTITLE": "Clarté financière souveraine et vérification de conformité.",
-  "GENERATE_REPORT": "Générer le Rapport"
+  "common": {
+    "auth.title_curator": "Bienvenue chez PrimeCare",
+    "auth.curator_subtitle": "Portail d'Accès Entreprise",
+    "auth.welcome_back": "Ravi de vous revoir",
+    "auth.login_instructions": "Connectez-vous à votre compte",
+    "auth.email": "Adresse Courriel",
+    "auth.password": "Mot de passe",
+    "auth.forgot_password": "Mot de passe oublié ?",
+    "auth.sign_in": "Se connecter",
+    "auth.language_system": "Langue",
+    "auth.security_notice_short": "Accès Sécurisé",
+    "auth.encryption_active": "Chiffrement de bout en bout activé",
+    "auth.enter_credentials_to_continue": "Veuillez entrer vos identifiants pour continuer.",
+    "auth.authentication_failed": "Échec de l'authentification. Veuillez vérifier vos identifiants.",
+    "auth.account_recovery": "Account Recovery",
+    "auth.already_have_account": "Already Have Account",
+    "auth.back_to_login": "Back To Login",
+    "auth.create_account": "Create Account",
+    "auth.enter_institutional_email": "Enter Institutional Email",
+    "auth.first_name": "First Name",
+    "auth.hydrating_registries": "Hydrating Registries",
+    "auth.join_clinical_atelier": "Join Clinical Atelier",
+    "auth.last_name": "Last Name",
+    "auth.login": "Login",
+    "auth.provision_workspace": "Provision Workspace",
+    "auth.recovery_link_sent": "Recovery Link Sent",
+    "auth.recovery_subtitle": "Recovery Subtitle",
+    "auth.register": "Register",
+    "auth.reset_password": "Reset Password",
+    "auth.role": "Role",
+    "auth.send_again": "Send Again",
+    "auth.send_recovery_link": "Send Recovery Link",
+    "auth.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "auth.zero_trust_platform": "Zero Trust Platform",
+    "messaging.title": "Secure Messaging Hub",
+    "messaging.subtitle": "Unified communication layer for clinical and corporate stakeholders.",
+    "TAX_HUB_TITLE": "Centre de Versement Fiscale",
+    "TAX_HUB_SUBTITLE": "Clarté financière souveraine et vérification de conformité.",
+    "GENERATE_REPORT": "Générer le Rapport",
+    "attendance_screen.title": "Attendance Screen",
+    "attendance_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "audits_screen.title": "Audits Screen",
+    "audits_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "certifications_screen.title": "Certifications Screen",
+    "certifications_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "complaints_screen.title": "Complaints Screen",
+    "complaints_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "compliance_checks_screen.title": "Compliance Checks Screen",
+    "compliance_checks_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "corrective_actions_screen.title": "Corrective Actions Screen",
+    "corrective_actions_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "courses_screen.title": "Courses Screen",
+    "courses_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "eligibility_screen.title": "Eligibility Screen",
+    "eligibility_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "escalations_screen.title": "Escalations Screen",
+    "escalations_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "issue_categories_screen.title": "Issue Categories Screen",
+    "issue_categories_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "materials_screen.title": "Materials Screen",
+    "materials_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "new_intakes_screen.title": "New Intakes Screen",
+    "new_intakes_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "progress_screen.title": "Progress Screen",
+    "progress_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "reviews_screen.title": "Reviews Screen",
+    "reviews_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "scorecards_screen.title": "Scorecards Screen",
+    "scorecards_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "templates_screen.title": "Templates Screen",
+    "templates_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "tickets_view.title": "Tickets View",
+    "tickets_view.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "training_schedule_screen.title": "Training Schedule Screen",
+    "training_schedule_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "workshops_screen.title": "Workshops Screen",
+    "workshops_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "dashboard.title": "Support Tableau de Bord",
+    "dashboard.subtitle": "Aperçu en temps réel récupéré nativement via l'API.",
+    "deal_tracker_screen.title": "Deal Tracker Screen",
+    "deal_tracker_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "compliance_cases_screen.title": "Compliance Cases Screen",
+    "compliance_cases_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "compliance_reports_screen.title": "Compliance Reports Screen",
+    "compliance_reports_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "compliance_training_screen.title": "Compliance Training Screen",
+    "compliance_training_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "course_library_screen.title": "Course Library Screen",
+    "course_library_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "staff_training_matrix_screen.title": "Staff Training Matrix Screen",
+    "staff_training_matrix_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "trainer_assignments_screen.title": "Trainer Assignments Screen",
+    "trainer_assignments_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "training_programs_screen.title": "Training Programs Screen",
+    "training_programs_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "training_reports_screen.title": "Training Reports Screen",
+    "training_reports_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "applicants_screen.title": "Applicants Screen",
+    "applicants_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "appointments_screen.title": "Appointments Screen",
+    "appointments_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "appointment_calendar_screen.title": "Appointment Calendar Screen",
+    "appointment_calendar_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "assignments_screen.title": "Assignments Screen",
+    "assignments_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "booking_requests_screen.title": "Booking Requests Screen",
+    "booking_requests_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "branch_overview_screen.title": "Branch Overview Screen",
+    "branch_overview_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "clients_screen.title": "Clients Screen",
+    "clients_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "compliance_screen.title": "Compliance Screen",
+    "compliance_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "conflicts_screen.title": "Conflicts Screen",
+    "conflicts_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "credentials_screen.title": "Credentials Screen",
+    "credentials_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "daily_operations_screen.title": "Daily Operations Screen",
+    "daily_operations_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "financial_snapshot_screen.title": "Financial Snapshot Screen",
+    "financial_snapshot_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "franchise_claims_screen.title": "Franchise Claims Screen",
+    "franchise_claims_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "franchise_invoices_screen.title": "Franchise Invoices Screen",
+    "franchise_invoices_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "franchise_outstanding_balances_screen.title": "Franchise Outstanding Balances Screen",
+    "franchise_outstanding_balances_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "franchise_payments_screen.title": "Franchise Payments Screen",
+    "franchise_payments_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "franchise_reconciliation_screen.title": "Franchise Reconciliation Screen",
+    "franchise_reconciliation_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "franchise_refunds_screen.title": "Franchise Refunds Screen",
+    "franchise_refunds_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "franchise_reports_screen.title": "Franchise Reports Screen",
+    "franchise_reports_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "hiring_screen.title": "Hiring Screen",
+    "hiring_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "interviews_screen.title": "Interviews Screen",
+    "interviews_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "issues_screen.title": "Issues Screen",
+    "issues_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "offers_screen.title": "Offers Screen",
+    "offers_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "onboarding_screen.title": "Onboarding Screen",
+    "onboarding_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "open_shifts_screen.title": "Open Shifts Screen",
+    "open_shifts_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "provider_availability_screen.title": "Provider Availability Screen",
+    "provider_availability_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "service_quality_screen.title": "Service Quality Screen",
+    "service_quality_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "shifts_screen.title": "Shifts Screen",
+    "shifts_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "shift_calendar_screen.title": "Shift Calendar Screen",
+    "shift_calendar_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "staff_coordination_screen.title": "Staff Coordination Screen",
+    "staff_coordination_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "staff_documents_screen.title": "Staff Documents Screen",
+    "staff_documents_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "staff_screen.title": "Staff Screen",
+    "staff_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "training_status_screen.title": "Training Status Screen",
+    "training_status_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "brand_assets_screen.title": "Brand Assets Screen",
+    "brand_assets_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "campaigns_screen.title": "Campaigns Screen",
+    "campaigns_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "contacts_screen.title": "Contacts Screen",
+    "contacts_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "content_approval_screen.title": "Content Approval Screen",
+    "content_approval_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "events_screen.title": "Events Screen",
+    "events_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "funnel_analytics_screen.title": "Funnel Analytics Screen",
+    "funnel_analytics_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "partnerships_screen.title": "Partnerships Screen",
+    "partnerships_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "performance_reports_screen.title": "Performance Reports Screen",
+    "performance_reports_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "programs_screen.title": "Programs Screen",
+    "programs_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "regional_campaigns_screen.title": "Regional Campaigns Screen",
+    "regional_campaigns_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "volunteers_screen.title": "Volunteers Screen",
+    "volunteers_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+    "navigation.items.compliance_hub": "Compliance Hub",
+    "navigation.items.global_settings": "Global Settings",
+    "navigation.items.user_management": "User Management",
+    "navigation.items.enterprise_overview": "Enterprise Overview",
+    "navigation.items.strategic_kpis": "Strategic KPIs",
+    "navigation.items.growth_pipeline": "Growth Pipeline",
+    "navigation.items.region_performance": "Region Performance",
+    "navigation.items.leadership_reports": "Leadership Reports",
+    "navigation.items.financial_overview": "Financial Overview",
+    "navigation.items.revenue_tracker": "Revenue Tracker",
+    "navigation.items.profitability": "Profitability",
+    "navigation.items.tax_remittance": "Tax & Remittance",
+    "navigation.items.operations_board": "Operations Board",
+    "navigation.items.branch_operations": "Branch Operations",
+    "navigation.items.incident_reviews": "Incident Reviews",
+    "navigation.items.platform_usage": "Platform Usage",
+    "navigation.items.api_monitoring": "API Monitoring",
+    "navigation.items.audit_logs": "Audit Logs",
+    "navigation.items.cases": "Cases",
+    "navigation.items.policy_manager": "Policy Manager",
+    "navigation.items.audits": "Audits",
+    "navigation.items.risk_register": "Risk Register",
+    "navigation.items.curriculum_hub": "Curriculum Hub",
+    "navigation.items.skill_matrix": "Skill Matrix",
+    "navigation.items.region_dashboard": "Region Dashboard",
+    "navigation.items.branch_comparison": "Branch Comparison",
+    "navigation.items.ledger_command": "Ledger Command",
+    "navigation.items.cash_flow": "Cash Flow",
+    "navigation.items.referrals": "Referrals",
+    "navigation.items.pending_assessments": "Pending assessments",
+    "navigation.items.invoices": "Invoices",
+    "navigation.items.marketing_hub": "Marketing Hub",
+    "navigation.items.campaign_analytics": "Campaign Analytics",
+    "navigation.items.business_overview": "Business Overview",
+    "navigation.items.financial_performance": "Financial Performance",
+    "navigation.items.compliance_status": "Compliance Status",
+    "navigation.items.clinical_dashboard": "Clinical Dashboard",
+    "navigation.items.shift_tracker": "Shift Tracker",
+    "navigation.items.messages": "Messages",
+    "navigation.items.family_home": "Family Home",
+    "navigation.items.care_plan": "Care Plan",
+    "navigation.items.messaging_hub": "Messaging Hub",
+    "navigation.items.document_vault": "Document Vault",
+    "navigation.items.notification_center": "Notifications",
+    "navigation.sections.main": "Main",
+    "navigation.sections.management": "Management",
+    "navigation.sections.common_tools": "Common Tools",
+    "navigation.sections.strategic": "Strategic",
+    "navigation.sections.workflows": "Workflows",
+    "navigation.sections.operations": "Operations",
+    "navigation.sections.finance": "Finance",
+    "navigation.sections.clinical": "Clinical",
+    "navigation.sections.growth": "Growth",
+    "Institutional Dashboard": "Institutional Dashboard",
+    "Global Metrics scaling test": "Global Metrics scaling test"
+  }
 }

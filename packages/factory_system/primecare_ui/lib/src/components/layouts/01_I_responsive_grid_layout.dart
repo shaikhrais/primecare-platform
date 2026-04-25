@@ -47,15 +47,18 @@ class ResponsiveGridRow extends ConsumerWidget {
                 (effectiveSpacing * (targetSpan - 1));
 
             // Fix rounding errors that could cause overflow to next line
-            if (colWidth > rowWidth - 0.5) colWidth = rowWidth;
+            if (colWidth > rowWidth - 0.01) colWidth = rowWidth;
 
-            // Slight bounded float safety for Wrap breaking
-            colWidth = colWidth - 0.1;
+            // Use precision-safe rounding to stay within physical constraints
+            // without using brittle manual subtractions.
+            colWidth = (colWidth * 100).floorToDouble() / 100;
 
-            return Container(
-              width: colWidth < 0 ? 0 : colWidth,
-              padding: col.padding,
-              child: col.child,
+            return SizedBox(
+              width: colWidth.clamp(0.0, rowWidth),
+              child: Padding(
+                padding: col.padding ?? EdgeInsets.zero,
+                child: col.child,
+              ),
             );
           }).toList(),
         );

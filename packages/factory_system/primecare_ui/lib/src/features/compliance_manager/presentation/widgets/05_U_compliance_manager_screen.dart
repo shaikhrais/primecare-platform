@@ -1,5 +1,5 @@
 // Layer: 05_USER_INTERFACE
-import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// High-fidelity Compliance & Regulatory Dashboard.
 class ComplianceManagerScreen extends ConsumerWidget {
@@ -9,24 +9,20 @@ class ComplianceManagerScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final adapterState = ref.watch(complianceManagerDashboardAdapterProvider);
 
-    return adapterState.when(
-      data: (result) => result.fold(
-        (viewModel) => _buildDashboard(context, viewModel),
-        (error) => SystemRecoveryMode(
-          error: error,
-          onAttemptReset: () => ref.refresh(complianceManagerDashboardAdapterProvider),
-        ),
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => SystemRecoveryMode(
-        error: err,
-        stackTrace: stack,
-        onAttemptReset: () => ref.refresh(complianceManagerDashboardAdapterProvider),
+    return adapterState.whenResult(
+      (viewModel) => _buildDashboard(context, viewModel),
+      loading: () => const DashboardLoadingWidget(),
+      error: (err, stack) => DashboardErrorWidget(
+        message: 'Compliance Hydration Failed: $err',
+        onRetry: () => ref.refresh(complianceManagerDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildDashboard(BuildContext context, ComplianceManagerDashboardViewModel vm) {
+  Widget _buildDashboard(
+    BuildContext context,
+    ComplianceManagerDashboardViewModel vm,
+  ) {
     return Scaffold(
       backgroundColor: const Color(0xFFF0F2F5),
       body: CustomScrollView(
@@ -47,15 +43,9 @@ class ComplianceManagerScreen extends ConsumerWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: _buildAuditTimeline(vm),
-                      ),
+                      Expanded(flex: 2, child: _buildAuditTimeline(vm)),
                       const SizedBox(width: 24),
-                      Expanded(
-                        flex: 1,
-                        child: _buildComplianceInsights(vm),
-                      ),
+                      Expanded(flex: 1, child: _buildComplianceInsights(vm)),
                     ],
                   ),
                 ],
@@ -80,7 +70,11 @@ class ComplianceManagerScreen extends ConsumerWidget {
           const SizedBox(width: 12),
           const Text(
             'Compliance & Regulatory',
-            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ],
       ),
@@ -92,7 +86,9 @@ class ComplianceManagerScreen extends ConsumerWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF6A1B9A),
             foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
         ),
         const SizedBox(width: 24),
@@ -111,7 +107,11 @@ class ComplianceManagerScreen extends ConsumerWidget {
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black87),
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87,
+      ),
     );
   }
 
@@ -131,7 +131,10 @@ class ComplianceManagerScreen extends ConsumerWidget {
           final insight = vm.metrics.insights[index];
           return ListTile(
             leading: Icon(Icons.warning_amber_rounded, color: Colors.red[700]),
-            title: Text(insight.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(
+              insight.title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             subtitle: Text(insight.summary),
             trailing: const Icon(Icons.chevron_right),
           );
@@ -149,7 +152,9 @@ class ComplianceManagerScreen extends ConsumerWidget {
           color: Colors.grey[50],
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Center(child: Icon(Icons.timeline, size: 48, color: Colors.black12)),
+        child: const Center(
+          child: Icon(Icons.timeline, size: 48, color: Colors.black12),
+        ),
       ),
     );
   }
@@ -172,11 +177,20 @@ class ComplianceManagerScreen extends ConsumerWidget {
             children: [
               const Icon(Icons.auto_awesome, color: Colors.white, size: 20),
               const SizedBox(width: 8),
-              const Text('Quality Insights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+              const Text(
+                'Quality Insights',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
-          ...vm.metrics.insights.map((insight) => _InsightTile(insight: insight)),
+          ...vm.metrics.insights.map(
+            (insight) => _InsightTile(insight: insight),
+          ),
         ],
       ),
     );
@@ -199,7 +213,10 @@ class ComplianceManagerScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 24),
           child,
         ],
@@ -226,21 +243,33 @@ class _KpiCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(kpi.title, style: const TextStyle(color: Colors.black54, fontSize: 12)),
+          Text(
+            kpi.title,
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           const SizedBox(height: 8),
-          Text(kpi.value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+          Text(
+            kpi.value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
               Icon(
-                kpi.trend?.contains('+') ?? true ? Icons.arrow_upward : Icons.arrow_downward,
+                kpi.trend?.contains('+') ?? true
+                    ? Icons.arrow_upward
+                    : Icons.arrow_downward,
                 size: 14,
                 color: statusColor,
               ),
               const SizedBox(width: 4),
               Text(
                 kpi.trend ?? '',
-                style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 12),
+                style: TextStyle(
+                  color: statusColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -251,10 +280,14 @@ class _KpiCard extends StatelessWidget {
 
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case 'positive': return Colors.green[600]!;
-      case 'negative': return Colors.red[600]!;
-      case 'warning': return Colors.orange[600]!;
-      default: return Colors.blue[600]!;
+      case 'positive':
+        return Colors.green[600]!;
+      case 'negative':
+        return Colors.red[600]!;
+      case 'warning':
+        return Colors.orange[600]!;
+      default:
+        return Colors.blue[600]!;
     }
   }
 }
@@ -276,8 +309,21 @@ class _InsightTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(insight.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
-                Text(insight.summary, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 11)),
+                Text(
+                  insight.title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  insight.summary,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 11,
+                  ),
+                ),
               ],
             ),
           ),
@@ -286,4 +332,3 @@ class _InsightTile extends StatelessWidget {
     );
   }
 }
-

@@ -3,13 +3,14 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_local_marketing_manager_dashboard_screen.dart';
 
 class LocalMarketingManagerDashboardIntent extends AppScreenIntent {
-  const LocalMarketingManagerDashboardIntent();
+  LocalMarketingManagerDashboardIntent();
 
   @override
   String get name => 'local_marketing_manager_dashboard';
 
   @override
-  String get route => '/offices/corporate/roles/local_marketing_manager/dashboard';
+  String get route =>
+      '/offices/corporate/roles/local_marketing_manager/dashboard';
 
   @override
   String get title => 'Local Marketing Manager Dashboard';
@@ -21,6 +22,6 @@ class LocalMarketingManagerDashboardIntent extends AppScreenIntent {
   dynamic get provider => localMarketingManagerDashboardAdapterProvider;
 
   @override
-  Widget build(BuildContext context) => const LocalMarketingManagerDashboardScreen();
+  Widget build(BuildContext context) =>
+      const LocalMarketingManagerDashboardScreen();
 }
-

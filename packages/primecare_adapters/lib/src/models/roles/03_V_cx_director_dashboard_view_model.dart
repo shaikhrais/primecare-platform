@@ -4,10 +4,10 @@ import '../core/02_M_dashboard_models.dart';
 import '../core/02_M_intelligence_insight.dart';
 import '../core/02_M_ui_blueprint.dart';
 
-class CustomerExperienceDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
+class CXDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
   final String title;
 
-  CustomerExperienceDirectorDashboardViewModel({
+  CXDirectorDashboardViewModel({
     required this.title,
     required super.metrics,
     required super.insights,
@@ -15,26 +15,59 @@ class CustomerExperienceDirectorDashboardViewModel extends PrimeCareDashboardVie
     super.isOfflineFallback,
   });
 
-  factory CustomerExperienceDirectorDashboardViewModel.fromJson(Map<String, dynamic> json) {
-    return CustomerExperienceDirectorDashboardViewModel(
+  factory CXDirectorDashboardViewModel.fromJson(Map<String, dynamic> json) {
+    return CXDirectorDashboardViewModel(
       title: json['title'] as String? ?? 'CX Director Dashboard',
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
     );
   }
 
+  factory CXDirectorDashboardViewModel.empty({bool isOfflineFallback = false}) {
+    return CXDirectorDashboardViewModel(
+      title: 'CX Director Dashboard',
+      metrics: DashboardMetrics.empty(),
+      insights: [],
+      isOfflineFallback: isOfflineFallback,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
-        'title': title,
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'title': title,
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+  };
+
+  CXDirectorDashboardViewModel copyWith({
+    String? title,
+    DashboardMetrics? metrics,
+    List<IntelligenceInsight>? insights,
+    List<UIComponentBlueprint>? blueprints,
+    bool? isOfflineFallback,
+  }) {
+    return CXDirectorDashboardViewModel(
+      title: title ?? this.title,
+      metrics: metrics ?? this.metrics,
+      insights: insights ?? this.insights,
+      blueprints: blueprints ?? this.blueprints,
+      isOfflineFallback: isOfflineFallback ?? this.isOfflineFallback,
+    );
+  }
 }

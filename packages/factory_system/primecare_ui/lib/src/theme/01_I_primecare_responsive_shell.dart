@@ -3,6 +3,8 @@ import 'package:primecare_ui/src/theme/01_I_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:primecare_ui/src/theme/01_I_design_system.dart';
+import 'package:flutter_core/config/01_I_screen_breakpoints.dart';
+import 'package:flutter_core/config/01_I_adaptive_scaling_config.dart';
 
 class ResponsiveNavigationData {
   final String label;
@@ -40,7 +42,13 @@ class ResponsiveShell extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth >= 1024) {
+        final tier = ScreenBreakpoints.getTier(constraints.maxWidth);
+        final sidebarWidth = AdaptiveScalingConfig.getSidebarWidth(tier);
+        final miniSidebarWidth = AdaptiveScalingConfig.getMinimalSidebarWidth(
+          tier,
+        );
+
+        if (tier != ResolutionTier.mob && tier != ResolutionTier.tab) {
           // ENTERPRISE DESKTOP (macOS, Windows, Web HD)
           return Scaffold(
             backgroundColor: PrimeCareDesignSystem.surfaceElevated,
@@ -48,7 +56,7 @@ class ResponsiveShell extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const SizedBox(width: 260),
+                    SizedBox(width: sidebarWidth),
                     Expanded(child: body),
                   ],
                 ),
@@ -56,19 +64,20 @@ class ResponsiveShell extends StatelessWidget {
                   left: 0,
                   top: 0,
                   bottom: 0,
-                  width: 260,
+                  width: sidebarWidth,
                   child: _DesktopSidebar(
                     currentIndex: currentIndex,
                     destinations: destinations,
                     onNavigate: onNavigate,
                     activeIndicatorColor: activeIndicatorColor,
                     activeIconColor: activeIconColor,
+                    width: sidebarWidth,
                   ),
                 ),
               ],
             ),
           );
-        } else if (constraints.maxWidth >= 600) {
+        } else if (tier == ResolutionTier.tab) {
           // ENTERPRISE TABLET (iPadOS, Android Tab, Foldables)
           return Scaffold(
             backgroundColor: PrimeCareDesignSystem.surfaceElevated,
@@ -76,7 +85,7 @@ class ResponsiveShell extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const SizedBox(width: 80),
+                    SizedBox(width: miniSidebarWidth),
                     Expanded(child: body),
                   ],
                 ),
@@ -84,7 +93,7 @@ class ResponsiveShell extends StatelessWidget {
                   left: 0,
                   top: 0,
                   bottom: 0,
-                  width: 80,
+                  width: miniSidebarWidth,
                   child: _TabletNavRail(
                     currentIndex: currentIndex,
                     destinations: destinations,
@@ -118,6 +127,7 @@ class _DesktopSidebar extends StatelessWidget {
   final int currentIndex;
   final List<ResponsiveNavigationData> destinations;
   final ValueChanged<int> onNavigate;
+  final double width;
   final Color? activeIndicatorColor;
   final Color? activeIconColor;
 
@@ -127,6 +137,7 @@ class _DesktopSidebar extends StatelessWidget {
     required this.onNavigate,
     this.activeIndicatorColor,
     this.activeIconColor,
+    required this.width,
   });
 
   @override
@@ -136,7 +147,7 @@ class _DesktopSidebar extends StatelessWidget {
         activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
 
     return Container(
-      width: 260,
+      width: width,
       decoration: BoxDecoration(
         color: PrimeCareDesignSystem.surfaceElevated,
         boxShadow: [

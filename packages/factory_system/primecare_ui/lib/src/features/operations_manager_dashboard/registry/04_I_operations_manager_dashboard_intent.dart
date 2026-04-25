@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_operations_manager_dashboard_screen.dart';
 
 class OperationsManagerDashboardIntent extends AppScreenIntent {
-  const OperationsManagerDashboardIntent();
+  OperationsManagerDashboardIntent();
 
   @override
   String get name => 'operations_manager_dashboard';
@@ -18,9 +18,9 @@ class OperationsManagerDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.operationsManager;
 
   @override
-  dynamic get provider => operationsManagerDashboardAdapterProvider;
+  dynamic get provider => operationsMetricsProvider;
 
   @override
-  Widget build(BuildContext context) => const OperationsManagerDashboardScreen();
+  Widget build(BuildContext context) =>
+      const OperationsManagerDashboardScreen();
 }
-

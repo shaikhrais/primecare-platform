@@ -1,4 +1,3 @@
-// Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/primecare_ui.dart';
 
 abstract class OfficeScreenRegistry {
@@ -9,36 +8,55 @@ abstract class OfficeScreenRegistry {
   Map<String, Map<String, dynamic>> get registryJson;
 
   /// Helper to register screen using generic blueprint and form
-  void registerRoute(String route, PrimeCareForm form, {List<String>? componentLabels}) {
-    final roleName = route
+  /// Helper to register screen using generic blueprint and form
+  void registerRoute(
+    String route,
+    PrimeCareForm form, {
+    dynamic provider,
+    List<String>? componentLabels,
+    String? structuralPlan,
+    String? titleKey,
+  }) {
+    final roleName =
+        route
             .split('/')
-            .where((s) =>
-                s.isNotEmpty &&
-                s != 'offices' &&
-                s != 'roles' &&
-                s != 'dashboard' &&
-                s != 'infrastructure')
+            .where(
+              (s) =>
+                  s.isNotEmpty &&
+                  s != 'offices' &&
+                  s != 'roles' &&
+                  s != 'dashboard' &&
+                  s != 'infrastructure',
+            )
             .firstOrNull ??
         'guest';
 
     ScreenRegistry.registerScreen(
       PrimeCareScreen(
         name: roleName,
-        title: form.label,
+        title: titleKey ?? form.label,
         route: route,
         requiredRole: PlatformRole.fromRoute(route),
-        provider: genericDashboardAdapterProvider(form),
+        provider: provider ?? genericDashboardAdapterProvider(form),
         blueprints: const <UIComponentBlueprint>[
           AuraDashboardHudBlueprint(),
           StatGridBlueprint(dataPayload: <dynamic>[]),
         ],
         componentLabels: componentLabels ?? ['Aura HUD', 'KPI Stat Grid'],
+        structuralPlan: structuralPlan,
       ),
     );
   }
 
   /// Helper to register customized high-fidelity dashboards
-  void registerCustomDashboard(String route, String title, String pid, {List<String>? componentLabels}) {
+  void registerCustomDashboard(
+    String route,
+    String title,
+    String pid, {
+    List<String>? componentLabels,
+    List<UIComponentBlueprint>? blueprints,
+    String? structuralPlan,
+  }) {
     ScreenRegistry.registerScreen(
       PrimeCareScreen(
         name: pid,
@@ -47,11 +65,14 @@ abstract class OfficeScreenRegistry {
         provider: genericDashboardAdapterProvider(
           PrimeCareForm.fromString(pid) ?? PrimeCareForm.genericDashboard,
         ),
-        blueprints: const <UIComponentBlueprint>[
-          AuraDashboardHudBlueprint(),
-          StatGridBlueprint(dataPayload: <dynamic>[]),
-        ],
+        blueprints:
+            blueprints ??
+            const <UIComponentBlueprint>[
+              AuraDashboardHudBlueprint(),
+              StatGridBlueprint(dataPayload: <dynamic>[]),
+            ],
         componentLabels: componentLabels ?? ['Aura HUD', 'Custom Stat Grid'],
+        structuralPlan: structuralPlan,
       ),
     );
   }

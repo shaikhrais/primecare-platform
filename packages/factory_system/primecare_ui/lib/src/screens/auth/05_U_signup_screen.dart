@@ -120,7 +120,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             items: _roles.map((role) {
               return DropdownMenuItem(
                 value: role,
-                child: Text(role.replaceAll('_', ' ')),
+                child: Text('auth.roles.$role'.tr()),
               );
             }).toList(),
             onChanged: (val) {

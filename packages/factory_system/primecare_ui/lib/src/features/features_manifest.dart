@@ -8,6 +8,8 @@ export 'billing_admin_dashboard/presentation/widgets/05_U_billing_admin_dashboar
 export 'billing_admin_dashboard/registry/04_I_billing_admin_dashboard_intent.dart';
 export 'ceo_dashboard/presentation/widgets/05_U_ceo_dashboard_screen.dart';
 export 'ceo_dashboard/registry/04_I_ceo_dashboard_intent.dart';
+export 'corporate_governance_dashboard/presentation/widgets/05_U_corporate_governance_dashboard_screen.dart';
+export 'corporate_governance_dashboard/registry/04_I_corporate_governance_dashboard_intent.dart';
 export 'cfo_dashboard/presentation/widgets/05_U_cfo_dashboard_screen.dart';
 export 'cfo_dashboard/registry/04_I_cfo_dashboard_intent.dart';
 export 'client/presentation/widgets/05_U_client_screen.dart';
@@ -228,6 +230,8 @@ export 'common_ui/presentation/widgets/05_U_use_user_screen.dart';
 export 'common_ui/presentation/widgets/05_U_user_menu_screen.dart';
 export 'common_ui/presentation/widgets/05_U_with_router_screen.dart';
 export 'common_ui/presentation/widgets/05_U_with_user_screen.dart';
+export 'infection_control_dashboard/presentation/widgets/05_U_infection_control_dashboard_screen.dart';
+export 'infection_control_dashboard/presentation/widgets/05_U_infection_widgets.dart';
 export 'community_outreach_dashboard/presentation/widgets/05_U_community_outreach_dashboard_screen.dart';
 export 'community_outreach_dashboard/registry/04_I_community_outreach_dashboard_intent.dart';
 export 'compliance_manager/presentation/widgets/05_U_compliance_manager_screen.dart';
@@ -284,6 +288,8 @@ export 'head_of_marketing_dashboard/presentation/widgets/05_U_head_of_marketing_
 export 'head_of_marketing_dashboard/registry/04_I_head_of_marketing_dashboard_intent.dart';
 export 'hr_director_dashboard/presentation/widgets/05_U_hr_director_dashboard_screen.dart';
 export 'hr_director_dashboard/registry/04_I_hr_director_dashboard_intent.dart';
+export 'hr_manager_dashboard/presentation/widgets/05_U_hr_manager_dashboard_screen.dart';
+export 'hr_manager_dashboard/registry/04_I_hr_manager_dashboard_intent.dart';
 export 'hr_forms/presentation/widgets/05_U_approve_leave_request_form_screen.dart';
 export 'hr_forms/presentation/widgets/05_U_log_employee_grievance_form_screen.dart';
 export 'hr_forms/presentation/widgets/05_U_new_employee_onboarding_form_screen.dart';
@@ -424,3 +430,5 @@ export 'training_hub_dashboard/presentation/widgets/05_U_training_hub_dashboard_
 export 'training_hub_dashboard/registry/04_I_training_hub_dashboard_intent.dart';
 export 'volunteer_coordinator_dashboard/presentation/widgets/05_U_volunteer_coordinator_dashboard_screen.dart';
 export 'volunteer_coordinator_dashboard/registry/04_I_volunteer_coordinator_dashboard_intent.dart';
+export 'auditor_hud/presentation/widgets/05_U_auditor_hud_overlay.dart';
+export 'auditor_hud/presentation/widgets/05_U_governed_widget.dart';

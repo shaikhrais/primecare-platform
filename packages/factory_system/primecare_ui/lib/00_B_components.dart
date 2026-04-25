@@ -33,6 +33,7 @@ export 'package:primecare_ui/src/components/01_I_primecare_app_bar.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_avatar.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_button.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_card.dart';
+export 'package:primecare_ui/src/components/01_I_primecare_chip.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_skeleton.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_data_table.dart';
 export 'package:primecare_ui/src/components/01_I_primecare_primitives.dart';
@@ -102,3 +103,9 @@ export 'package:primecare_ui/src/components/aura/01_I_aura_trend_indicator.dart'
 export 'package:primecare_ui/src/features/cto_dashboard/presentation/widgets/01_I_cto_briefing_panel.dart';
 export 'package:primecare_ui/src/features/cto_dashboard/presentation/widgets/01_I_system_health_card.dart';
 export 'package:primecare_ui/src/features/cto_dashboard/presentation/widgets/01_I_security_audit_log.dart';
+export 'package:primecare_ui/src/components/telemetry/01_I_telemetry_hud.dart';
+export 'package:primecare_ui/src/components/01_I_primecare_banner.dart';
+export 'package:primecare_ui/src/components/dashboards/01_I_intelligence_insight_card.dart';
+export 'package:primecare_ui/src/components/dashboards/01_I_shimmer_intelligence_panel.dart';
+
+export 'package:primecare_ui/src/components/01_I_offline_status_chip.dart';

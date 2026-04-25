@@ -1,4 +1,5 @@
 // Layer: 05_UI_PRESENTATION
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_ui/src/theme/01_I_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +9,14 @@ class MFAScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PrimeCareColors.black.withValues(alpha: 0.87),
+      backgroundColor: PrimeCareColors.radarDark,
       body: Center(
         child: Container(
           width: 400,
-          padding: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(40),
           decoration: BoxDecoration(
-            color: PrimeCareColors.white.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(16),
+            color: PrimeCareColors.slate800,
+            borderRadius: BorderRadius.circular(24),
             border: Border.all(
               color: PrimeCareColors.white.withValues(alpha: 0.1),
             ),
@@ -24,20 +25,20 @@ class MFAScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Two-Factor Authentication',
+                'auth.mfa.title'.tr(),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: PrimeCareColors.white,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Text(
-                'Please enter the 6-digit code sent to your device.',
+                'auth.mfa.subtitle'.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: PrimeCareColors.white.withValues(alpha: 0.7),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               TextField(
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
@@ -45,7 +46,10 @@ class MFAScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   counterText: '',
                   hintText: '000000',
-                  hintStyle: TextStyle(color: Colors.white30, letterSpacing: 8),
+                  hintStyle: const TextStyle(
+                    color: Colors.white30,
+                    letterSpacing: 8,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class AuraInteractiveSheet extends ConsumerStatefulWidget {
@@ -111,7 +112,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       ),
                       const SizedBox(width: 16),
                       Text(
-                        'Ask Aura',
+                        'common.aura.title'.tr(),
                         style: GoogleFonts.inter(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -122,7 +123,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Conversational institutional synthesis at your fingertips.',
+                    'common.aura.subtitle'.tr(),
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       color: PrimeCareColors.white.withValues(alpha: 0.6),
@@ -139,7 +140,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       color: PrimeCareColors.white,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Search or ask a question...',
+                      hintText: 'common.aura.search_placeholder'.tr(),
                       hintStyle: TextStyle(
                         color: PrimeCareColors.white.withValues(alpha: 0.6),
                       ),
@@ -172,7 +173,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                   const SizedBox(height: 24),
                   if (_textController.text.isEmpty) ...[
                     Text(
-                      'Suggestions',
+                      'common.aura.suggestions_label'.tr(),
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -202,7 +203,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                   const Spacer(),
                   Center(
                     child: Text(
-                      'Aura uses institutional context to generate actionable summaries.',
+                      'common.aura.disclaimer'.tr(),
                       style: GoogleFonts.inter(
                         fontSize: 11,
                         color: PrimeCareColors.white.withValues(alpha: 0.6),
@@ -375,7 +376,7 @@ class _IntentResultCard extends StatelessWidget {
                   ),
                   elevation: 0,
                 ),
-                child: const Text('Execute Action'),
+                child: Text('common.aura.execute_action'.tr()),
               ),
             ),
           ],

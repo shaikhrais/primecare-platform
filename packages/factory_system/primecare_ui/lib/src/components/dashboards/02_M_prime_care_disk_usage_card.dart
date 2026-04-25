@@ -1,5 +1,7 @@
-// Layer: 02_MODULAR_COMPONENTS
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
+import 'package:primecare_ui/src/components/01_I_primecare_card.dart';
 
 class PrimeCareDiskUsageCard extends ConsumerWidget {
   final int totalSectors;
@@ -29,16 +31,24 @@ class PrimeCareDiskUsageCard extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('System File Table (SFT)', style: theme.typography.titleLarge),
+                  Text(
+                    'System File Table (SFT)',
+                    style: theme.typography.titleLarge,
+                  ),
                   Text(
                     'Codebase Maturity & Allotment Map',
-                    style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray),
+                    style: theme.typography.labelSmall.copyWith(
+                      color: theme.colors.slateGray,
+                    ),
                   ),
                 ],
               ),
               const Spacer(),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: theme.spacing.sm, vertical: theme.spacing.xs),
+                padding: EdgeInsets.symmetric(
+                  horizontal: theme.spacing.sm,
+                  vertical: theme.spacing.xs,
+                ),
                 decoration: BoxDecoration(
                   color: theme.colors.success.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(theme.spacing.xs),
@@ -63,7 +73,7 @@ class PrimeCareDiskUsageCard extends ConsumerWidget {
   }
 
   Widget _buildSectorGrid(PrimeCareThemeData theme) {
-    // We want a dense grid of sectors. 
+    // We want a dense grid of sectors.
     // For 337 sectors, a 20x17 grid approx.
     return Container(
       height: 120,

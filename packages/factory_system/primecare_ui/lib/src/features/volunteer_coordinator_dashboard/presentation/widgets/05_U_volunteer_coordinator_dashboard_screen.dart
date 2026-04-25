@@ -10,41 +10,112 @@ class VolunteerCoordinatorDashboardScreen extends ConsumerWidget {
     final state = ref.watch(volunteerCoordinatorDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(volunteerCoordinatorDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(volunteerCoordinatorDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () =>
+            ref.refresh(volunteerCoordinatorDashboardAdapterProvider),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, VolunteerCoordinatorDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    VolunteerCoordinatorDashboardViewModel vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Volunteer Coordinator Command Center', style: theme.typography.h2),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Volunteer Command Center', style: theme.typography.h2),
+                  Text(
+                    'Active volunteer counts, shift coverage, and engagement trends',
+                    style: theme.typography.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (vm.isOfflineFallback) const OfflineStatusChip(),
+            ],
+          ),
           SizedBox(height: theme.spacing.xl),
+
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareCard(
-            padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    PrimeCareCard(
+                      padding: EdgeInsets.all(theme.spacing.xl),
+                      child: const Center(
+                        child: Text(
+                          'Volunteer Engagement Insights Unified',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildEngagementCharts(theme, vm),
+                  ],
+                ),
+              ),
+              if (vm.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(child: _buildAuraInsightsColumn(theme, vm.insights)),
+              ],
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildEngagementCharts(
+    PrimeCareThemeData theme,
+    VolunteerCoordinatorDashboardViewModel vm,
+  ) {
+    return Column(
+      children: [
+        PrimeCareChartCard(
+          title: 'Volunteer Retention Trend',
+          chart: PrimeCareLineChart(
+            chart: vm.metrics.charts.firstWhere(
+              (c) => c.id == 'retention-trend',
+              orElse: () => AnalyticsChart.empty(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

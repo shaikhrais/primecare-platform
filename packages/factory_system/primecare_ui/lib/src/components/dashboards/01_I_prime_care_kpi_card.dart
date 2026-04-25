@@ -1,5 +1,11 @@
-// Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+// Telemetry and Infrastructure
+import 'package:primecare_adapters/src/infrastructure/01_I_telemetry_service.dart';
+import '../../theme/01_I_colors.dart';
 
 class PrimeCareKpiCard extends ConsumerWidget {
   final String title;
@@ -90,7 +96,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    title.tr(),
                     style: const TextStyle(
                       color: Color(0xFF64748B),
                       fontSize: 14,
@@ -116,7 +122,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
                       const SizedBox(width: 8),
                       Flexible(
                         child: Text(
-                          subtitle,
+                          subtitle.tr(),
                           style: const TextStyle(
                             color: Color(0xFF10B981),
                             fontSize: 12,

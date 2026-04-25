@@ -12,19 +12,9 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
     final state = ref.watch(headOfMarketingDashboardAdapterProvider);
 
     return MasterLayout(
-      child: state.when(
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(headOfMarketingDashboardAdapterProvider),
-          ),
-        ),
-        loading: () => const DashboardLoadingWidget(),
-        error: (Object e, StackTrace st) => DashboardErrorWidget(
-          message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(headOfMarketingDashboardAdapterProvider),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel),
+        onRetry: () => ref.refresh(headOfMarketingDashboardAdapterProvider),
       ),
     );
   }
@@ -32,33 +22,38 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
   Widget _buildContent(
     BuildContext context,
     PrimeCareThemeData theme,
-    HeadOfMarketingDashboardViewModel viewModel,
+    HeadOfMarketingDashboardViewModel vm,
   ) {
-    final metrics = viewModel.metrics;
-
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, theme),
+          _buildHeader(context, theme, vm),
           SizedBox(height: theme.spacing.xl),
           _buildGrowthSummary(context, theme),
           SizedBox(height: theme.spacing.xl),
 
-          // Standardized KPI Grid (ROI, Leads, Conversion, CAC)
-          PrimeCareResponsiveKpiGrid(metrics: metrics),
-
+          PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
+
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 3,
-                child: _buildCampaignROIChart(context, theme),
+                flex: 2,
+                child: Column(
+                  children: [
+                    _buildCampaignROIChart(context, theme),
+                    SizedBox(height: theme.spacing.xl),
+                    _buildLeadFunnel(context, theme),
+                  ],
+                ),
               ),
-              SizedBox(width: theme.spacing.xl),
-              Expanded(flex: 2, child: _buildLeadFunnel(context, theme)),
+              if (vm.insights.isNotEmpty) ...[
+                SizedBox(width: theme.spacing.xl),
+                Expanded(child: _buildAuraInsightsColumn(theme, vm.insights)),
+              ],
             ],
           ),
         ],
@@ -66,7 +61,11 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context, PrimeCareThemeData theme) {
+  Widget _buildHeader(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    HeadOfMarketingDashboardViewModel vm,
+  ) {
     return PrimeCareCard(
       padding: EdgeInsets.symmetric(
         horizontal: theme.spacing.lg,
@@ -83,14 +82,16 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
                   style: theme.typography.h2,
                 ),
                 Text(
-                  'Brand Strategy • Q2 2026 • Marketing Office',
-                  style: theme.typography.label.copyWith(
-                    color: theme.colors.slateGray,
-                  ),
+                  'Lead generation, CAC, and ROI trajectory telemetry',
+                  style: theme.typography.labelMedium,
                 ),
               ],
             ),
           ),
+          if (vm.isOfflineFallback) ...[
+            const OfflineStatusChip(),
+            SizedBox(width: theme.spacing.md),
+          ],
           PrimeCareButton(
             label: 'Campaign Report',
             icon: LucideIcons.barChart,
@@ -324,6 +325,25 @@ class HeadOfMarketingDashboardScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAuraInsightsColumn(
+    PrimeCareThemeData theme,
+    List<IntelligenceInsight> insights,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Aura Intelligence', style: theme.typography.h4),
+        SizedBox(height: theme.spacing.lg),
+        ...insights.map(
+          (insight) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: IntelligenceInsightCard(insight: insight),
+          ),
+        ),
+      ],
     );
   }
 }

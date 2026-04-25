@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_head_of_bus_dev_dashboard_screen.dart';
 
 class HeadOfBusDevDashboardIntent extends AppScreenIntent {
-  const HeadOfBusDevDashboardIntent();
+  HeadOfBusDevDashboardIntent();
 
   @override
   String get name => 'head_of_bus_dev_dashboard';
@@ -18,9 +18,8 @@ class HeadOfBusDevDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.headOfBusDev;
 
   @override
-  dynamic get provider => headOfBusDevDashboardAdapterProvider;
+  dynamic get provider => busDevMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const HeadOfBusDevDashboardScreen();
 }
-

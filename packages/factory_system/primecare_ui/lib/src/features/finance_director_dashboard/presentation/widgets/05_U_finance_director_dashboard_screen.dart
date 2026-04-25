@@ -13,14 +13,8 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
 
     return MasterLayout(
       shellType: AppShellType.admin,
-      child: state.when(
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel, ref),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(financeDirectorDashboardAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel, ref),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
@@ -57,7 +51,10 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(PrimeCareThemeData theme, FinanceDirectorDashboardViewModel vm) {
+  Widget _buildHeader(
+    PrimeCareThemeData theme,
+    FinanceDirectorDashboardViewModel vm,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -80,14 +77,14 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildInsightsSection(PrimeCareThemeData theme, FinanceDirectorDashboardViewModel vm) {
+  Widget _buildInsightsSection(
+    PrimeCareThemeData theme,
+    FinanceDirectorDashboardViewModel vm,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Financial Intelligence',
-          style: theme.typography.h3,
-        ),
+        Text('Financial Intelligence', style: theme.typography.h3),
         SizedBox(height: theme.spacing.lg),
         PrimeCareCard(
           backgroundColor: theme.colors.surfaceContainerLow,
@@ -99,17 +96,21 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
                     const Center(
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Text('AI is analyzing your ledger. No critical anomalies detected.'),
+                        child: Text(
+                          'AI is analyzing your ledger. No critical anomalies detected.',
+                        ),
                       ),
-                    )
+                    ),
                   ]
                 : vm.insights
-                    .map((insight) => DashboardInsightRow(
+                      .map(
+                        (insight) => DashboardInsightRow(
                           title: insight.title,
                           description: insight.summary,
                           type: insight.type.name,
-                        ))
-                    .toList(),
+                        ),
+                      )
+                      .toList(),
           ),
         ),
       ],
@@ -127,10 +128,7 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Executive Actions',
-          style: theme.typography.h3,
-        ),
+        Text('Executive Actions', style: theme.typography.h3),
         SizedBox(height: theme.spacing.lg),
         Wrap(
           spacing: theme.spacing.md,
@@ -162,7 +160,9 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
           SizedBox(width: theme.spacing.sm),
           Text(
             'Viewing LKG Snapshot. Some metrics may be stale.',
-            style: theme.typography.bodySmall.copyWith(color: theme.colors.error),
+            style: theme.typography.bodySmall.copyWith(
+              color: theme.colors.error,
+            ),
           ),
         ],
       ),

@@ -1,6 +1,17 @@
 import '02_M_dashboard_models.dart';
 
-enum InsightType { alert, growth, risk, optimization }
+enum InsightType {
+  alert,
+  growth,
+  risk,
+  optimization,
+  compliance,
+  efficiency,
+  info,
+  standard,
+  financial,
+  analysis,
+}
 
 class IntelligenceInsight {
   final String id;
@@ -12,7 +23,7 @@ class IntelligenceInsight {
   final String? category;
   final String? relatedMetricId;
 
-  IntelligenceInsight({
+  const IntelligenceInsight({
     required this.id,
     required this.title,
     required this.summary,

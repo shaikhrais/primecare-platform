@@ -1,6 +1,8 @@
-// Layer: 01_INFRASTRUCTURE
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_adapters/src/infrastructure/01_I_telemetry_service.dart';
+import '../../theme/01_I_colors.dart';
 
 /// A floating diagnostic overlay that lets developers/engineers pull the
 /// execution trace of the current session to diagnose dynamic failures.
@@ -34,7 +36,7 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
   Future<void> _manualSubmitReport(BuildContext context) async {
     setState(() => _isSubmitting = true);
     try {
-      await ref.read(executionGateProvider).manualSubmit();
+      await ref.read(executionGateProvider).submitToCloudWatch();
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Report submitted successfully')),

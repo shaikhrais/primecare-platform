@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_dynamic_screen_dashboard_screen.dart';
 
 class DynamicScreenDashboardIntent extends AppScreenIntent {
-  const DynamicScreenDashboardIntent();
+  DynamicScreenDashboardIntent();
 
   @override
   String get name => 'dynamic_screen_dashboard';
@@ -23,4 +23,3 @@ class DynamicScreenDashboardIntent extends AppScreenIntent {
   @override
   Widget build(BuildContext context) => const DynamicScreenDashboardScreen();
 }
-

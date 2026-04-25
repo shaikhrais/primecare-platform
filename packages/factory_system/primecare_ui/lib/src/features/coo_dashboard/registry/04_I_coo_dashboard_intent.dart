@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_coo_dashboard_screen.dart';
 
 class CooDashboardIntent extends AppScreenIntent {
-  const CooDashboardIntent();
+  CooDashboardIntent();
 
   @override
   String get name => 'coo_dashboard';
@@ -18,7 +18,7 @@ class CooDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.coo;
 
   @override
-  dynamic get provider => cooDashboardAdapterProvider;
+  dynamic get provider => cooMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const CooDashboardScreen();

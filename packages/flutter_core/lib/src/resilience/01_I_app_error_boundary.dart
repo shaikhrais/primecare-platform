@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 import '../../config/01_I_resilience_config.dart';
+import '../../registry/01_I_governance_registry.dart';
 import '01_I_system_recovery_mode.dart';
 import '01_I_system_recovery_manager.dart';
 
@@ -213,9 +214,77 @@ class BoundaryTelemetryDrain extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Drain any errors caught before the provider scope was ready
+    // 1. Drain any errors caught before the provider scope was ready
     final telemetry = ref.read<ExecutionGateService>(executionGateProvider);
     AppErrorBoundary.drainToTelemetry(telemetry);
+
+    // 2. Trigger Structural Governance Audit
+    Future.microtask(() => _triggerStructuralAudit(ref, telemetry));
+
     return child;
+  }
+
+  void _triggerStructuralAudit(WidgetRef ref, ExecutionGateService telemetry) {
+    try {
+      final auditResults = GovernanceRegistry.performBlueprintAudit();
+      final healthReports = GovernanceRegistry.performHealthSweep(ref);
+      final domainAudit = GovernanceRegistry.performDomainAudit();
+
+      // 1. Report Structural Blueprint Compliance
+      final totalBlueprints = auditResults.length;
+      final compliantBlueprints = auditResults
+          .where((r) => r.isCompliant)
+          .length;
+
+      if (totalBlueprints > 0) {
+        telemetry.passGate(
+          ExecutionGateCategory.structuralIntegrity,
+          'Blueprint Audit: $compliantBlueprints/$totalBlueprints compliant.',
+          metadata: {
+            'total': totalBlueprints,
+            'compliant': compliantBlueprints,
+            'results': auditResults.map((r) => r.toString()).toList(),
+          },
+        );
+      }
+
+      // 2. Report Domain Implementation Integrity
+      telemetry.passGate(
+        ExecutionGateCategory.governance,
+        domainAudit.toString(),
+        metadata: {
+          'realizedCount': domainAudit.realized.length,
+          'pendingCount': domainAudit.pending.length,
+          'realized': domainAudit.realized.map((r) => r.name).toList(),
+          'pending': domainAudit.pending.map((r) => r.name).toList(),
+        },
+      );
+
+      // 3. Report Screen Health
+      final unhealthyScreens = healthReports
+          .where((r) => !r.isHealthy)
+          .toList();
+      if (unhealthyScreens.isNotEmpty) {
+        for (final screen in unhealthyScreens) {
+          telemetry.failGate(
+            ExecutionGateCategory.governance,
+            'Screen Health Failure: ${screen.route}',
+            error: screen.message,
+          );
+        }
+      } else if (healthReports.isNotEmpty) {
+        telemetry.passGate(
+          ExecutionGateCategory.governance,
+          'All ${healthReports.length} registered screens passed health check.',
+        );
+      }
+    } catch (e, stack) {
+      telemetry.failGate(
+        ExecutionGateCategory.governance,
+        'Structural Audit Crash',
+        error: e,
+        stackTrace: stack,
+      );
+    }
   }
 }

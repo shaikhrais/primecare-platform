@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
 
-import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 // --- State Model ---
@@ -58,7 +57,10 @@ class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
 
   Future<void> submit({required String patientId}) async {
     if (patientId.isEmpty) {
-      state = AsyncError('No patient selected for vitals capture.', StackTrace.current);
+      state = AsyncError(
+        'No patient selected for vitals capture.',
+        StackTrace.current,
+      );
       return;
     }
     final currentData = state.value;
@@ -82,20 +84,22 @@ class VitalsCaptureNotifier extends AsyncNotifier<VitalsData> {
         // Robust Regex-based BP Parsing (Supports 120/80, 120-80, etc.)
         final bpRegex = RegExp(r'^(\d+)\s*[/-]\s*(\d+)$');
         final match = bpRegex.firstMatch(currentData.bloodPressure.trim());
-        
+
         final systolic = match?.group(1);
         final diastolic = match?.group(2);
 
-        await ref.read(apiClientProvider).post(
-          '/v1/clinical/vitals-capture',
-          body: {
-            'patientId': patientId,
-            'heartRate': currentData.heartRate,
-            'systolic': systolic,
-            'diastolic': diastolic,
-            'temperature': currentData.temperature,
-          },
-        );
+        await ref
+            .read(apiClientProvider)
+            .post(
+              '/v1/clinical/vitals-capture',
+              body: {
+                'patientId': patientId,
+                'heartRate': currentData.heartRate,
+                'systolic': systolic,
+                'diastolic': diastolic,
+                'temperature': currentData.temperature,
+              },
+            );
 
         ref
             .read(executionGateProvider)
@@ -203,17 +207,25 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
             width: double.infinity,
             padding: EdgeInsets.all(24 * layout.scaleFactor),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.3,
+              ),
               borderRadius: BorderRadius.circular(16 * layout.scaleFactor),
               border: Border.all(color: theme.colorScheme.outlineVariant),
             ),
             child: Column(
               children: [
-                Icon(Icons.person_search, size: 48 * layout.scaleFactor, color: theme.colorScheme.primary.withValues(alpha: 0.5)),
+                Icon(
+                  Icons.person_search,
+                  size: 48 * layout.scaleFactor,
+                  color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                ),
                 SizedBox(height: 16 * layout.scaleFactor),
                 Text(
                   'No Patient Context',
-                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 SizedBox(height: 8 * layout.scaleFactor),
                 const Text(
@@ -286,7 +298,8 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
                 validator: (value) {
                   if (value == null || value.isEmpty) return 'Required';
                   final bpRegex = RegExp(r'^\d+\s*[/-]\s*\d+$');
-                  if (!bpRegex.hasMatch(value.trim())) return 'Use Systolic/Diastolic format';
+                  if (!bpRegex.hasMatch(value.trim()))
+                    return 'Use Systolic/Diastolic format';
                   return null;
                 },
               ),

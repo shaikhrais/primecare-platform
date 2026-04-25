@@ -22,6 +22,7 @@ enum AuraEventType {
   criticalAlert,
   predictedStaffingGap,
   predictedBudgetOverrun,
+  architecturalDrift,
 }
 
 class AuraEvent {

@@ -10,34 +10,34 @@ class FranchiseSalesManagerDashboardScreen extends ConsumerWidget {
     final state = ref.watch(franchiseSalesManagerDashboardAdapterProvider);
 
     return MasterLayout(
-      
-      child: state.when(
-        
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
-          (err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(franchiseSalesManagerDashboardAdapterProvider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel.metrics),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(franchiseSalesManagerDashboardAdapterProvider),
+          onRetry: () =>
+              ref.refresh(franchiseSalesManagerDashboardAdapterProvider),
         ),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, FranchiseSalesManagerDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    DashboardMetrics metrics,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Franchise Sales Manager Command Center', style: theme.typography.h2),
+          Text(
+            'Franchise Sales Manager Command Center',
+            style: theme.typography.h2,
+          ),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
+          PrimeCareResponsiveKpiGrid(metrics: metrics),
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),

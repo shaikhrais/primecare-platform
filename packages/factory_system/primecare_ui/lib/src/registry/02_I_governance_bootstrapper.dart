@@ -7,59 +7,166 @@ import '05_I_blueprint_seeder.dart';
 class GovernanceBootstrapper {
   static void bootstrap() {
     BlueprintSeeder.seed();
-    GovernanceRegistry.register(const ArchitecturePlanningDashboardIntent(), role: 'architecture_planning');
-    GovernanceRegistry.register(const BillingAdminDashboardIntent(), role: 'billing_admin');
-    GovernanceRegistry.register(const CeoDashboardIntent(), role: 'ceo');
-    GovernanceRegistry.register(const CfoDashboardIntent(), role: 'cfo');
-    GovernanceRegistry.register(const ClientDashboardIntent(), role: 'client');
-    GovernanceRegistry.register(const ClinicDashboardIntent(), role: 'clinic');
-    GovernanceRegistry.register(const ClinicalDirectorDashboardIntent(), role: 'clinical_director');
-    GovernanceRegistry.register(const CommunityOutreachDashboardIntent(), role: 'community_outreach');
-    GovernanceRegistry.register(const ComplianceManagerDashboardIntent(), role: 'compliance_manager');
-    GovernanceRegistry.register(const CooDashboardIntent(), role: 'coo');
-    GovernanceRegistry.register(const CourseArchitectDashboardIntent(), role: 'course_architect');
+    GovernanceRegistry.register(
+      ArchitecturePlanningDashboardIntent(),
+      role: 'architecture_planning',
+    );
+    GovernanceRegistry.register(
+      BillingAdminDashboardIntent(),
+      role: 'billing_admin',
+    );
+    GovernanceRegistry.register(CeoDashboardIntent(), role: 'ceo');
+    GovernanceRegistry.register(CfoDashboardIntent(), role: 'cfo');
+    GovernanceRegistry.register(ClientDashboardIntent(), role: 'client');
+    GovernanceRegistry.register(ClinicDashboardIntent(), role: 'clinic');
+    GovernanceRegistry.register(
+      ClinicalDirectorDashboardIntent(),
+      role: 'clinical_director',
+    );
+    GovernanceRegistry.register(
+      CommunityOutreachDashboardIntent(),
+      role: 'community_outreach',
+    );
+    GovernanceRegistry.register(
+      ComplianceManagerDashboardIntent(),
+      role: 'compliance_manager',
+    );
+    GovernanceRegistry.register(CooDashboardIntent(), role: 'coo');
+    GovernanceRegistry.register(
+      CourseArchitectDashboardIntent(),
+      role: 'course_architect',
+    );
     GovernanceRegistry.register(CtoDashboardIntent(), role: 'cto');
-    GovernanceRegistry.register(const CustomerSupportDashboardIntent(), role: 'customer_support');
-    GovernanceRegistry.register(const CxDirectorDashboardIntent(), role: 'cx_director');
-    GovernanceRegistry.register(const DynamicScreenDashboardIntent(), role: 'dynamic_screen');
-    GovernanceRegistry.register(const FamilyDashboardIntent(), role: 'family');
-    GovernanceRegistry.register(const FamilyMemberDashboardIntent(), role: 'family_member');
-    GovernanceRegistry.register(const FinanceDirectorDashboardIntent(), role: 'finance_director');
-    GovernanceRegistry.register(const FranchiseOwnerDashboardIntent(), role: 'franchise_owner');
-    GovernanceRegistry.register(const FranchiseSalesManagerDashboardIntent(), role: 'franchise_sales_manager');
-    GovernanceRegistry.register(const GeneralManagerDashboardIntent(), role: 'general_manager');
-    GovernanceRegistry.register(const GuestDashboardIntent(), role: 'guest');
-    GovernanceRegistry.register(const HeadOfBusDevDashboardIntent(), role: 'head_of_bus_dev');
-    GovernanceRegistry.register(const HeadOfMarketingDashboardIntent(), role: 'head_of_marketing');
-    GovernanceRegistry.register(const HrDirectorDashboardIntent(), role: 'hr_director');
-    GovernanceRegistry.register(const HrHiringDashboardIntent(), role: 'hr_hiring');
-    GovernanceRegistry.register(const IntakeCoordinatorDashboardIntent(), role: 'intake_coordinator');
-    GovernanceRegistry.register(const IntakeDashboardIntent(), role: 'intake');
-    GovernanceRegistry.register(const LocalMarketingManagerDashboardIntent(), role: 'local_marketing_manager');
-    GovernanceRegistry.register(const OperationsManagerDashboardIntent(), role: 'operations_manager');
-    GovernanceRegistry.register(const OwnerDashboardIntent(), role: 'owner');
-    GovernanceRegistry.register(const PartnershipManagerDashboardIntent(), role: 'partnership_manager');
-    GovernanceRegistry.register(const PatientDashboardIntent(), role: 'patient');
-    GovernanceRegistry.register(const PswDashboardIntent(), role: 'psw');
-    GovernanceRegistry.register(const QaDashboardIntent(), role: 'qa');
-    GovernanceRegistry.register(const QualityAssuranceDashboardIntent(), role: 'quality_assurance');
-    GovernanceRegistry.register(const ReceptionistDashboardIntent(), role: 'receptionist');
-    GovernanceRegistry.register(const RegionalBdmDashboardIntent(), role: 'regional_bdm');
-    GovernanceRegistry.register(const RegionalManagerOntarioDashboardIntent(), role: 'regional_manager_ontario');
-    GovernanceRegistry.register(const RegionalManagerUsaDashboardIntent(), role: 'regional_manager_usa');
-    GovernanceRegistry.register(const RmtDashboardIntent(), role: 'rmt');
-    GovernanceRegistry.register(const RnDashboardIntent(), role: 'rn');
-    GovernanceRegistry.register(const SchedulerDashboardIntent(), role: 'scheduler');
-    GovernanceRegistry.register(const ScrumMasterDashboardIntent(), role: 'scrum_master');
-    GovernanceRegistry.register(const SupportDashboardIntent(), role: 'support');
-    GovernanceRegistry.register(const SystemVerificationDashboardIntent(), role: 'system_verification');
-    GovernanceRegistry.register(const TerritoryExpansionManagerDashboardIntent(), role: 'territory_expansion_manager');
-    GovernanceRegistry.register(const TerritorySalesManagerDashboardIntent(), role: 'territory_sales_manager');
-    GovernanceRegistry.register(const TrainingCoordinatorDashboardIntent(), role: 'training_coordinator');
-    GovernanceRegistry.register(const TrainingDirectorCertificateDashboardIntent(), role: 'training_director_certificate');
-    GovernanceRegistry.register(const TrainingDirectorDashboardIntent(), role: 'training_director');
-    GovernanceRegistry.register(const TrainingHubDashboardIntent(), role: 'training_hub');
-    GovernanceRegistry.register(const VolunteerCoordinatorDashboardIntent(), role: 'volunteer_coordinator');
+    GovernanceRegistry.register(
+      CustomerSupportDashboardIntent(),
+      role: 'customer_support',
+    );
+    GovernanceRegistry.register(
+      CxDirectorDashboardIntent(),
+      role: 'cx_director',
+    );
+    GovernanceRegistry.register(
+      DynamicScreenDashboardIntent(),
+      role: 'dynamic_screen',
+    );
+    GovernanceRegistry.register(FamilyDashboardIntent(), role: 'family');
+    GovernanceRegistry.register(
+      FamilyMemberDashboardIntent(),
+      role: 'family_member',
+    );
+    GovernanceRegistry.register(
+      FinanceDirectorDashboardIntent(),
+      role: 'finance_director',
+    );
+    GovernanceRegistry.register(
+      FranchiseOwnerDashboardIntent(),
+      role: 'franchise_owner',
+    );
+    GovernanceRegistry.register(
+      FranchiseSalesManagerDashboardIntent(),
+      role: 'franchise_sales_manager',
+    );
+    GovernanceRegistry.register(
+      GeneralManagerDashboardIntent(),
+      role: 'general_manager',
+    );
+    GovernanceRegistry.register(GuestDashboardIntent(), role: 'guest');
+    GovernanceRegistry.register(
+      HeadOfBusDevDashboardIntent(),
+      role: 'head_of_bus_dev',
+    );
+    GovernanceRegistry.register(
+      HeadOfMarketingDashboardIntent(),
+      role: 'head_of_marketing',
+    );
+    GovernanceRegistry.register(
+      HrDirectorDashboardIntent(),
+      role: 'hr_director',
+    );
+    GovernanceRegistry.register(HrHiringDashboardIntent(), role: 'hr_hiring');
+    GovernanceRegistry.register(
+      IntakeCoordinatorDashboardIntent(),
+      role: 'intake_coordinator',
+    );
+    GovernanceRegistry.register(IntakeDashboardIntent(), role: 'intake');
+    GovernanceRegistry.register(
+      LocalMarketingManagerDashboardIntent(),
+      role: 'local_marketing_manager',
+    );
+    GovernanceRegistry.register(
+      OperationsManagerDashboardIntent(),
+      role: 'operations_manager',
+    );
+    GovernanceRegistry.register(OwnerDashboardIntent(), role: 'owner');
+    GovernanceRegistry.register(
+      PartnershipManagerDashboardIntent(),
+      role: 'partnership_manager',
+    );
+    GovernanceRegistry.register(PatientDashboardIntent(), role: 'patient');
+    GovernanceRegistry.register(PswDashboardIntent(), role: 'psw');
+    GovernanceRegistry.register(QaDashboardIntent(), role: 'qa');
+    GovernanceRegistry.register(
+      QualityAssuranceDashboardIntent(),
+      role: 'quality_assurance',
+    );
+    GovernanceRegistry.register(
+      ReceptionistDashboardIntent(),
+      role: 'receptionist',
+    );
+    GovernanceRegistry.register(
+      RegionalBdmDashboardIntent(),
+      role: 'regional_bdm',
+    );
+    GovernanceRegistry.register(
+      RegionalManagerOntarioDashboardIntent(),
+      role: 'regional_manager_ontario',
+    );
+    GovernanceRegistry.register(
+      RegionalManagerUsaDashboardIntent(),
+      role: 'regional_manager_usa',
+    );
+    GovernanceRegistry.register(RmtDashboardIntent(), role: 'rmt');
+    GovernanceRegistry.register(RnDashboardIntent(), role: 'rn');
+    GovernanceRegistry.register(SchedulerDashboardIntent(), role: 'scheduler');
+    GovernanceRegistry.register(
+      ScrumMasterDashboardIntent(),
+      role: 'scrum_master',
+    );
+    GovernanceRegistry.register(SupportDashboardIntent(), role: 'support');
+    GovernanceRegistry.register(
+      SystemVerificationDashboardIntent(),
+      role: 'system_verification',
+    );
+    GovernanceRegistry.register(
+      TerritoryExpansionManagerDashboardIntent(),
+      role: 'territory_expansion_manager',
+    );
+    GovernanceRegistry.register(
+      TerritorySalesManagerDashboardIntent(),
+      role: 'territory_sales_manager',
+    );
+    GovernanceRegistry.register(
+      TrainingCoordinatorDashboardIntent(),
+      role: 'training_coordinator',
+    );
+    GovernanceRegistry.register(
+      TrainingDirectorCertificateDashboardIntent(),
+      role: 'training_director_certificate',
+    );
+    GovernanceRegistry.register(
+      TrainingDirectorDashboardIntent(),
+      role: 'training_director',
+    );
+    GovernanceRegistry.register(
+      TrainingHubDashboardIntent(),
+      role: 'training_hub',
+    );
+    GovernanceRegistry.register(
+      VolunteerCoordinatorDashboardIntent(),
+      role: 'volunteer_coordinator',
+    );
+
+    // MOCK ORPHAN FOR VERIFICATION (Registered without role mapping)
+    GovernanceRegistry.register(SystemVerificationDashboardIntent());
   }
 }
-

@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_intake_coordinator_dashboard_screen.dart';
 
 class IntakeCoordinatorDashboardIntent extends AppScreenIntent {
-  const IntakeCoordinatorDashboardIntent();
+  IntakeCoordinatorDashboardIntent();
 
   @override
   String get name => 'intake_coordinator_dashboard';
@@ -21,6 +21,6 @@ class IntakeCoordinatorDashboardIntent extends AppScreenIntent {
   dynamic get provider => intakeCoordinatorDashboardAdapterProvider;
 
   @override
-  Widget build(BuildContext context) => const IntakeCoordinatorDashboardScreen();
+  Widget build(BuildContext context) =>
+      const IntakeCoordinatorDashboardScreen();
 }
-

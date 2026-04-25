@@ -187,7 +187,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                     ],
                   ),
                   child: PopupMenuButton<String>(
-                    tooltip: 'Change Language',
+                    tooltip: 'common.tooltips.change_language'.tr(),
                     offset: const Offset(0, 48),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -215,27 +215,22 @@ class _AuthLayoutState extends State<AuthLayout> {
                       ),
                     ),
                     onSelected: (String result) {
-                      if (result == 'EN') context.setLocale(const Locale('en'));
-                      if (result == 'FR') context.setLocale(const Locale('fr'));
-                      if (result == 'ES') context.setLocale(const Locale('es'));
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Language changed to $result')),
-                      );
+                      final localeCode = result.toLowerCase();
+                      context.setLocale(Locale(localeCode));
                     },
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<String>>[
-                          const PopupMenuItem<String>(
-                            value: 'EN',
-                            child: Text('English'),
+                          PopupMenuItem<String>(
+                            value: 'en',
+                            child: Text('common.languages.en'.tr()),
                           ),
-                          const PopupMenuItem<String>(
-                            value: 'FR',
-                            child: Text('Français'),
+                          PopupMenuItem<String>(
+                            value: 'fr',
+                            child: Text('common.languages.fr'.tr()),
                           ),
-                          const PopupMenuItem<String>(
-                            value: 'ES',
-                            child: Text('Español'),
+                          PopupMenuItem<String>(
+                            value: 'es',
+                            child: Text('common.languages.es'.tr()),
                           ),
                         ],
                   ),

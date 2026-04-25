@@ -143,4 +143,8 @@ final List<RouteBase> clinicRoutes = [
     path: CommonRoutes.institutionalScheduler,
     builder: (context, state) => const InstitutionalSchedulerScreen(),
   ),
+  GoRoute(
+    path: '/offices/system-verification',
+    builder: (context, state) => const SystemVerificationDashboardScreen(),
+  ),
 ];

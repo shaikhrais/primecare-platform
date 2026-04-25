@@ -11,12 +11,63 @@ class AuraBehavioralTelemetry {
 
   AuraBehavioralTelemetry(this._ref);
 
+  /// Logs a structural event (e.g., screen mount, layout change) for auditing.
+  void logStructuralEvent({
+    required String route,
+    required String eventType,
+    Map<String, dynamic> metadata = const {},
+  }) {
+    final telemetry = _ref.read<ExecutionGateService>(executionGateProvider);
+
+    final log = {
+      'route': route,
+      'eventType': eventType,
+      'timestamp': DateTime.now().toIso8601String(),
+      ...metadata,
+    };
+
+    _interactionLogs.add(log);
+
+    telemetry.passGate(
+      ExecutionGateCategory.governance,
+      'Structural UI Event Logged',
+      metadata: log,
+    );
+  }
+
+  /// Logs a validation result against a structural blueprint.
+  void logValidationResult({
+    required String route,
+    required bool isCompliant,
+    required String details,
+  }) {
+    final telemetry = _ref.read<ExecutionGateService>(executionGateProvider);
+
+    final log = {
+      'route': route,
+      'isCompliant': isCompliant,
+      'details': details,
+      'timestamp': DateTime.now().toIso8601String(),
+    };
+
+    _interactionLogs.add(log);
+
+    telemetry.passGate(
+      ExecutionGateCategory.governance,
+      isCompliant
+          ? 'Structural Compliance Verified'
+          : 'Structural Drift Detected',
+      metadata: log,
+    );
+  }
+
   /// Logs an interaction with a specific Aura event.
   void logEventInteraction(AuraEvent event, String actionType) {
     final telemetry = _ref.read<ExecutionGateService>(executionGateProvider);
-    
-    _interactionCounts[event.type.name] = (_interactionCounts[event.type.name] ?? 0) + 1;
-    
+
+    _interactionCounts[event.type.name] =
+        (_interactionCounts[event.type.name] ?? 0) + 1;
+
     final log = {
       'eventId': event.id,
       'eventType': event.type.name,
@@ -24,7 +75,7 @@ class AuraBehavioralTelemetry {
       'timestamp': DateTime.now().toIso8601String(),
       'isPredictive': event.isPredictive,
     };
-    
+
     _interactionLogs.add(log);
 
     telemetry.passGate(
@@ -37,14 +88,14 @@ class AuraBehavioralTelemetry {
   /// Logs an interaction with a contextual suggestion.
   void logSuggestionClick(String suggestion, String? context) {
     final telemetry = _ref.read<ExecutionGateService>(executionGateProvider);
-    
+
     final log = {
       'suggestion': suggestion,
       'context': context,
       'actionType': 'suggestion_click',
       'timestamp': DateTime.now().toIso8601String(),
     };
-    
+
     _interactionLogs.add(log);
 
     telemetry.passGate(
@@ -58,6 +109,8 @@ class AuraBehavioralTelemetry {
   Map<String, int> get topInteractions => Map.from(_interactionCounts);
 }
 
-final auraBehavioralTelemetryProvider = Provider<AuraBehavioralTelemetry>((ref) {
+final auraBehavioralTelemetryProvider = Provider<AuraBehavioralTelemetry>((
+  ref,
+) {
   return AuraBehavioralTelemetry(ref);
 });

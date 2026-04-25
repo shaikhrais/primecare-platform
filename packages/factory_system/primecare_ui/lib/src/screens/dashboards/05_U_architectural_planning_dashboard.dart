@@ -10,21 +10,33 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
     final PrimeCareDesignSystem ds = PrimeCareDesignSystem.of(context);
     final layout = ref.watch(layoutProvider);
     final double scale = layout.scaleFactor;
-    
-    final asyncData = ref.watch(architecturePlanningAdapterProvider);
+
+    final asyncData = ref.watch(architecturePlanningMetricsProvider);
 
     return PageTemplate(
       title: 'Architectural Governance',
-      subtitle: 'Real-time telemetry of the platform\'s strategic mapping across Layers.',
+      subtitle:
+          'Real-time telemetry of the platform\'s strategic mapping across Layers.',
       body: asyncData.when(
-        data: (result) {
-          final data = result.fold((s) => s, (f) => null);
-          if (data == null) {
-            return const Center(child: Text('Architecture data unavailable'));
-          }
-
-          final bool hasAnomalies = data.flaggedFunctionsWithoutAPIs > 0;
-          final Color statusColor = hasAnomalies ? ds.colors.warning : ds.colors.success;
+        data: (metrics) {
+          final int flaggedGaps =
+              int.tryParse(
+                metrics.kpis
+                    .firstWhere(
+                      (k) => k.title == 'Flagged Gaps',
+                      orElse: () => const KpiMetric(
+                        title: '',
+                        value: '0',
+                        status: 'neutral',
+                      ),
+                    )
+                    .value,
+              ) ??
+              0;
+          final bool hasAnomalies = flaggedGaps > 0;
+          final Color statusColor = hasAnomalies
+              ? ds.colors.warning
+              : ds.colors.success;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +52,9 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
                 child: Row(
                   children: [
                     Icon(
-                      hasAnomalies ? Icons.warning_amber_rounded : Icons.check_circle,
+                      hasAnomalies
+                          ? Icons.warning_amber_rounded
+                          : Icons.check_circle,
                       color: statusColor,
                       size: PrimeCareSpacing.scaled(24, scale),
                     ),
@@ -49,182 +63,130 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          hasAnomalies 
-                              ? 'IMPLEMENTATION CONCERNS OBSERVED' 
+                          hasAnomalies
+                              ? 'IMPLEMENTATION CONCERNS OBSERVED'
                               : 'STRUCTURAL PARITY MAINTAINED',
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: statusColor,
-                            fontWeight: FontWeight.bold
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                color: statusColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         if (hasAnomalies)
                           Text(
-                            '${data.flaggedFunctionsWithoutAPIs} capabilities lack native API implementation',
+                            '$flaggedGaps capabilities lack native API implementation',
                             style: Theme.of(context).textTheme.bodyMedium,
-                          )
+                          ),
                       ],
                     ),
-                    if (data.isOffline) ...[
+                    if (metrics.isOfflineFallback) ...[
                       const Spacer(),
                       const Chip(
                         label: Text('OFFLINE CACHE'),
                         backgroundColor: PrimeCareColors.amber,
-                        labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ],
                 ),
               ),
-              if (hasAnomalies && data.missingComponents.isNotEmpty) ...[
-                SizedBox(height: PrimeCareSpacing.scaled(24, scale)),
-                Text('Pending Implementation Plans', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: statusColor)),
-                SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
-                for (final missing in data.missingComponents)
-                  Card(
-                    color: PrimeCareColors.slate800,
-                    margin: EdgeInsets.only(bottom: PrimeCareSpacing.scaled(12, scale)),
-                    child: ListTile(
-                      leading: Icon(Icons.code_off, color: statusColor),
-                      title: Text(missing.title, style: Theme.of(context).textTheme.titleMedium?.copyWith(color: PrimeCareColors.white)),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 4),
-                          Text('Screen: ${missing.screenName} | Route: ${missing.route}', style: Theme.of(context).textTheme.bodySmall?.copyWith(color: PrimeCareColors.amber)),
-                          const SizedBox(height: 4),
-                          Text(missing.justification, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: PrimeCareColors.slate300)),
-                        ],
-                      ),
-                      isThreeLine: true,
-                    ),
-                  ),
-              ],
               SizedBox(height: PrimeCareSpacing.scaled(32, scale)),
-              Text('C4 Enterprise Topology', style: Theme.of(context).textTheme.headlineSmall),
+              Text(
+                'Architecture Metrics',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
-              
-              // Map the C4 Domains
-              for (final domain in data.c4Topology) ...[
-                Card(
-                  margin: EdgeInsets.only(bottom: PrimeCareSpacing.scaled(16, scale)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+              Wrap(
+                spacing: PrimeCareSpacing.scaled(16, scale),
+                runSpacing: PrimeCareSpacing.scaled(16, scale),
+                children: metrics.kpis.map((kpi) {
+                  return Container(
+                    width: PrimeCareSpacing.scaled(200, scale),
+                    padding: EdgeInsets.all(PrimeCareSpacing.scaled(16, scale)),
+                    decoration: BoxDecoration(
+                      color: PrimeCareColors.slate800,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Icon(Icons.domain, color: ds.colors.primary, size: 28),
-                            SizedBox(width: PrimeCareSpacing.scaled(16, scale)),
-                            Text(
-                              domain.name.toUpperCase(),
-                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: ds.colors.primary,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          kpi.title,
+                          style: Theme.of(context).textTheme.titleSmall
+                              ?.copyWith(color: PrimeCareColors.slate300),
                         ),
-                        if (domain.description.isNotEmpty) ...[
-                          const SizedBox(height: 8),
-                          Text(
-                            domain.description,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: PrimeCareColors.slate300
-                            ),
-                          ),
-                        ],
-                        const Divider(height: 32),
-                        Text('Software Systems:', style: Theme.of(context).textTheme.titleSmall?.copyWith(color: PrimeCareColors.slate400)),
-                        const SizedBox(height: 12),
-                        Wrap(
-                          spacing: 8.0,
-                          runSpacing: 8.0,
-                          children: domain.systems.map((C4System sys) => ActionChip(
-                            label: Text('${sys.name} (${sys.componentsCount} components)'),
-                            backgroundColor: PrimeCareColors.slate800,
-                            labelStyle: const TextStyle(color: Colors.white),
-                            avatar: const Icon(Icons.dns, size: 16, color: PrimeCareColors.white),
-                            onPressed: () => _showComponentsBottomSheet(context, sys, ds),
-                          )).toList(),
-                        )
+                        const SizedBox(height: 8),
+                        Text(
+                          kpi.value,
+                          style: Theme.of(context).textTheme.headlineSmall
+                              ?.copyWith(
+                                color: kpi.status == 'success'
+                                    ? ds.colors.success
+                                    : (kpi.status == 'warning'
+                                          ? ds.colors.warning
+                                          : PrimeCareColors.white),
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
                       ],
+                    ),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: PrimeCareSpacing.scaled(32, scale)),
+              Text(
+                'Recent Activities & Insights',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              SizedBox(height: PrimeCareSpacing.scaled(16, scale)),
+              for (final activity in metrics.recentActivity)
+                Card(
+                  color: PrimeCareColors.slate800,
+                  margin: EdgeInsets.only(
+                    bottom: PrimeCareSpacing.scaled(12, scale),
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.info_outline,
+                      color: activity.color == 'green'
+                          ? ds.colors.success
+                          : ds.colors.warning,
+                    ),
+                    title: Text(
+                      activity.title,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: PrimeCareColors.white,
+                      ),
+                    ),
+                    subtitle: Text(
+                      activity.subtitle,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: PrimeCareColors.slate300,
+                      ),
+                    ),
+                    trailing: Text(
+                      activity.timestamp,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: PrimeCareColors.slate400,
+                      ),
                     ),
                   ),
                 ),
-              ],
             ],
           );
         },
-        loading: () => Center(
-          child: CircularProgressIndicator(color: ds.colors.primary),
-        ),
+        loading: () =>
+            Center(child: CircularProgressIndicator(color: ds.colors.primary)),
         error: (err, _) => Center(
-          child: Text('Error loading architecture planning data: $err', style: TextStyle(color: ds.colors.error)),
+          child: Text(
+            'Error loading architecture planning data: $err',
+            style: TextStyle(color: ds.colors.error),
+          ),
         ),
       ),
-    );
-  }
-
-
-  void _showComponentsBottomSheet(BuildContext context, C4System system, PrimeCareDesignSystem ds) {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: ds.colors.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24.0)),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.dns, color: ds.colors.primary, size: 32),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Text(
-                      system.name,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              const Divider(height: 32),
-              if (system.components.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text('No topographical components recorded for this system.', style: TextStyle(color: PrimeCareColors.slate400)),
-                )
-              else
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: system.components.length,
-                    itemBuilder: (context, i) {
-                      final comp = system.components[i];
-                      return Card(
-                        color: PrimeCareColors.slate800,
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        child: ListTile(
-                          leading: const Icon(Icons.extension, color: PrimeCareColors.white),
-                          title: Text(comp.name, style: const TextStyle(color: PrimeCareColors.white, fontWeight: FontWeight.bold)),
-                          subtitle: Text('Status: ${comp.status}', style: const TextStyle(color: PrimeCareColors.amber)),
-                          trailing: comp.repoPath != null 
-                             ? Icon(Icons.code, color: ds.colors.primary) 
-                             : null,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

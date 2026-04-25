@@ -479,6 +479,7 @@ class _PrimeCareColors {
       isDark ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
   Color get borderLight =>
       isDark ? PrimeCareColors.slate700 : PrimeCareColors.slate200;
+  Color get border => borderLight;
   Color get outlineVariant => borderLight;
   Color get background =>
       isDark ? PrimeCareColors.radarDark : PrimeCareColors.white;
@@ -488,6 +489,7 @@ class _PrimeCareColors {
       isDark ? PrimeCareColors.white : PrimeCareColors.radarDark;
   Color get onSurfaceVariant =>
       isDark ? PrimeCareColors.slate400 : PrimeCareColors.slate500;
+  Color get textSecondary => onSurfaceVariant;
 
   // Additional aliases found in dashboards
   Color get roseRed => PrimeCareColors.rose;
@@ -575,8 +577,10 @@ class _PrimeCareTypography {
   );
   TextStyle get labelMedium =>
       GoogleFonts.inter(fontSize: 12, color: _mutedColor);
+  TextStyle get labelBold => labelMedium.copyWith(fontWeight: FontWeight.bold);
   TextStyle get labelSmall =>
       GoogleFonts.inter(fontSize: 11, color: _mutedColor);
+  TextStyle get caption => labelSmall;
 }
 
 class _PrimeCareSpacing {
@@ -586,6 +590,7 @@ class _PrimeCareSpacing {
   double get md => PrimeCareSpacing.md;
   double get lg => PrimeCareSpacing.lg;
   double get xl => PrimeCareSpacing.xl;
+  double get xxl => PrimeCareSpacing.xxl;
   double get spacing5 => PrimeCareSpacing.xl; // Legacy bridging
   double get spacing6 => PrimeCareSpacing.xxl; // Legacy bridging
 }
@@ -594,6 +599,7 @@ class _PrimeCareRadii {
   double get sm => PrimeCareRadii.sm;
   double get md => PrimeCareRadii.md;
   double get lg => PrimeCareRadii.lg;
+  double get xl => PrimeCareRadii.xl;
   double get radiusSm => PrimeCareRadii.sm; // Legacy bridging
 }
 

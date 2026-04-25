@@ -4,7 +4,9 @@ export 'package:flutter/material.dart';
 export 'package:primecare_adapters/primecare_adapters.dart'
     hide
         architecturePurposeProvider,
-        databaseReportProvider;
+        databaseReportProvider,
+        isOnlineProvider,
+        ProviderTTL;
 // export 'package:primecare_ui/primecare_ui.dart' hide AppTheme;
 
 export '01_I_adapter_providers.dart';
@@ -30,6 +32,8 @@ export 'src/resilience/01_I_mechanical_repair_kit.dart';
 export 'src/resilience/01_I_restart_wrapper.dart';
 export 'src/resilience/01_I_connectivity_service.dart';
 export 'src/resilience/01_I_provider_ttl.dart';
+export 'src/resilience/01_I_service_modulation_governor.dart';
+export 'src/resilience/01_I_widget_modulation_governor.dart';
 export 'config/01_I_resilience_config.dart';
 export '01_I_verification_service.dart';
 export '01_I_verification_providers.dart'
@@ -90,3 +94,4 @@ export 'src/models/02_M_aura_event.dart';
 // Direct exports from local features have been removed to maintain decoupling.
 
 export 'src/utils/01_I_prime_logger.dart';
+export '01_I_aura_behavioral_telemetry.dart';

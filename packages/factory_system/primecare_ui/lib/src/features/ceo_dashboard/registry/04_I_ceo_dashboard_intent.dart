@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_ceo_dashboard_screen.dart';
 
 class CeoDashboardIntent extends AppScreenIntent {
-  const CeoDashboardIntent();
+  CeoDashboardIntent();
 
   @override
   String get name => 'ceo_dashboard';
@@ -21,9 +21,12 @@ class CeoDashboardIntent extends AppScreenIntent {
   dynamic get provider => ceoDashboardAdapterProvider;
 
   @override
-  List<String> get componentLabels => ['Global KPI Metrics', 'Region Comparison', 'Strategic Initiatives'];
+  List<String> get componentLabels => [
+    'Global KPI Metrics',
+    'Region Comparison',
+    'Strategic Initiatives',
+  ];
 
   @override
   Widget build(BuildContext context) => const CeoDashboardScreen();
 }
-

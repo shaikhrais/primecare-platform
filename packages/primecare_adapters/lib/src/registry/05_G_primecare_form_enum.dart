@@ -82,7 +82,11 @@ enum PrimeCareForm {
   createRevenueReportForm('Create Revenue Report Form'),
   createSupplyOrderForm('Create Supply Order Form'),
   ctoDashboard('Cto Dashboard'),
+  systemVerificationDashboard('System Verification Dashboard'),
+  systemHealthDashboard('System Health Dashboard'),
+  itSecurityDashboard('IT Security Dashboard'),
   courseArchitectTool('Course Architect Tool'),
+  architecturePlanningDashboard('Architecture Planning Dashboard'),
   customerSupportDashboard('Customer Support Dashboard'),
   dailyVitalsCardForm('Daily Vitals Card Form'),
   dataTable('Data Table'),
@@ -98,6 +102,7 @@ enum PrimeCareForm {
   dropdownMenu('Dropdown Menu'),
   dynamicRoleDashboard('Dynamic Role Dashboard'),
   trainingDirectorDashboard('Training Director Dashboard'),
+  infectionControlDashboard('Infection Control Dashboard'),
   error401PageView('Error401 Page View'),
   error404PageView('Error404 Page View'),
   errorBoundary('Error Boundary'),
@@ -136,6 +141,7 @@ enum PrimeCareForm {
   fuseLayout('Fuse Layout'),
   fuseLayoutConfig('Fuse Layout Config'),
   fuseLayoutConfigs('Fuse Layout Configs'),
+  systemDashboard('System Dashboard'),
   fuseLayoutSettingsContext('Fuse Layout Settings Context'),
   fuseLoading('Fuse Loading'),
   fuseNavBadge('Fuse Nav Badge'),
@@ -177,6 +183,7 @@ enum PrimeCareForm {
   fuseThemeSelector('Fuse Theme Selector'),
   generalManagerDashboard('General Manager Dashboard'),
   goToDocBox('Go To Doc Box'),
+  governanceComplianceDashboard('Governance Compliance Dashboard'),
   greetingHeaderWidget('Greeting Header Widget'),
   guestDashboard('Guest Dashboard'),
   headOfBusDevDashboard('Head Of Bus Dev Dashboard'),
@@ -193,6 +200,10 @@ enum PrimeCareForm {
   highlightPopover('Highlight Popover'),
   highlighterIcon('Highlighter Icon'),
   hrHiringDashboard('Hr Hiring Dashboard'),
+  hrDirectorDashboard('HR Director Dashboard'),
+  hrManagerDashboard('HR Manager Dashboard'),
+  cxDirectorDashboard('CX Director Dashboard'),
+  itAdminDashboard('IT Admin Dashboard'),
   hrManager('Hr Manager'),
   i18nContext('I18N Context'),
   imagePlusIcon('Image Plus Icon'),
@@ -378,7 +389,28 @@ enum PrimeCareForm {
   userMenu('User Menu'),
   verifyCertificateForm('Verify Certificate Form'),
   withRouter('With Router'),
-  withUser('With User');
+  withUser('With User'),
+
+  // Executive & Corporate
+  ceoEnterpriseOverview('CEO Enterprise Overview'),
+  ceoRevenueSummary('CEO Revenue Summary'),
+  cooOperationsOverview('COO Operations Overview'),
+  cfoFinancialOverview('CFO Financial Overview'),
+  ctoSystemHealth('CTO System Health'),
+  certifications('Certifications'),
+
+  // Franchise Operations
+  financialSnapshot('Financial Snapshot'),
+  onboardingWizard('Onboarding Wizard'),
+  invoiceManagement('Invoice Management'),
+
+  // Clinical Operations
+  referralManagement('Referral Management'),
+  intakeAssessment('Intake Assessment'),
+  qualityMetrics('Quality Metrics'),
+
+  // Infrastructure
+  scrumMasterDashboard('Scrum Master Dashboard');
 
   final String label;
   const PrimeCareForm(this.label);
@@ -552,8 +584,12 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'CREATE_SUPPLY_ORDER_FORM';
       case PrimeCareForm.ctoDashboard:
         return 'CTO_DASHBOARD';
+      case PrimeCareForm.itSecurityDashboard:
+        return 'IT_SECURITY_DASHBOARD';
       case PrimeCareForm.courseArchitectTool:
         return 'COURSE_ARCHITECT_TOOL';
+      case PrimeCareForm.architecturePlanningDashboard:
+        return 'ARCHITECTURE_PLANNING_DASHBOARD';
       case PrimeCareForm.customerSupportDashboard:
         return 'CUSTOMER_SUPPORT_DASHBOARD';
       case PrimeCareForm.dailyVitalsCardForm:
@@ -584,6 +620,8 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'DYNAMIC_ROLE_DASHBOARD';
       case PrimeCareForm.trainingDirectorDashboard:
         return 'TRAINING_DIRECTOR_DASHBOARD';
+      case PrimeCareForm.infectionControlDashboard:
+        return 'INFECTION_CONTROL_DASHBOARD';
       case PrimeCareForm.error401PageView:
         return 'ERROR401_PAGE_VIEW';
       case PrimeCareForm.error404PageView:
@@ -742,6 +780,8 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'GENERAL_MANAGER_DASHBOARD';
       case PrimeCareForm.goToDocBox:
         return 'GO_TO_DOC_BOX';
+      case PrimeCareForm.governanceComplianceDashboard:
+        return 'GOVERNANCE_COMPLIANCE_DASHBOARD';
       case PrimeCareForm.greetingHeaderWidget:
         return 'GREETING_HEADER_WIDGET';
       case PrimeCareForm.guestDashboard:
@@ -774,6 +814,10 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'HIGHLIGHTER_ICON';
       case PrimeCareForm.hrHiringDashboard:
         return 'HR_HIRING_DASHBOARD';
+      case PrimeCareForm.hrDirectorDashboard:
+        return 'HR_DIRECTOR_DASHBOARD';
+      case PrimeCareForm.hrManagerDashboard:
+        return 'HR_MANAGER_DASHBOARD';
       case PrimeCareForm.hrManager:
         return 'HR_MANAGER';
       case PrimeCareForm.i18nContext:
@@ -1138,6 +1182,15 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'USE_PATHNAME';
       case PrimeCareForm.useUser:
         return 'USE_USER';
+      case PrimeCareForm.systemDashboard:
+        return 'SYSTEM_DASHBOARD';
+      case PrimeCareForm.systemVerificationDashboard:
+        return 'SYSTEM_VERIFICATION_DASHBOARD';
+
+      case PrimeCareForm.systemHealthDashboard:
+        return 'SYSTEM_HEALTH_DASHBOARD';
+      case PrimeCareForm.scrumMasterDashboard:
+        return 'SCRUM_MASTER_DASHBOARD';
       case PrimeCareForm.userMenu:
         return 'USER_MENU';
       case PrimeCareForm.verifyCertificateForm:
@@ -1146,6 +1199,36 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'WITH_ROUTER';
       case PrimeCareForm.withUser:
         return 'WITH_USER';
+
+      case PrimeCareForm.ceoEnterpriseOverview:
+        return 'CEO_ENTERPRISE_OVERVIEW';
+      case PrimeCareForm.ceoRevenueSummary:
+        return 'CEO_REVENUE_SUMMARY';
+      case PrimeCareForm.cooOperationsOverview:
+        return 'COO_OPERATIONS_OVERVIEW';
+      case PrimeCareForm.cfoFinancialOverview:
+        return 'CFO_FINANCIAL_OVERVIEW';
+      case PrimeCareForm.ctoSystemHealth:
+        return 'CTO_SYSTEM_HEALTH';
+      case PrimeCareForm.certifications:
+        return 'CERTIFICATIONS';
+      case PrimeCareForm.financialSnapshot:
+        return 'FINANCIAL_SNAPSHOT';
+      case PrimeCareForm.onboardingWizard:
+        return 'ONBOARDING_WIZARD';
+      case PrimeCareForm.invoiceManagement:
+        return 'INVOICE_MANAGEMENT';
+      case PrimeCareForm.referralManagement:
+        return 'REFERRAL_MANAGEMENT';
+      case PrimeCareForm.intakeAssessment:
+        return 'INTAKE_ASSESSMENT';
+      case PrimeCareForm.qualityMetrics:
+        return 'QUALITY_METRICS';
+
+      case PrimeCareForm.cxDirectorDashboard:
+        return 'CX_DIRECTOR_DASHBOARD';
+      case PrimeCareForm.itAdminDashboard:
+        return 'IT_ADMIN_DASHBOARD';
     }
   }
 

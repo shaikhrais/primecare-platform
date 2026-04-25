@@ -3,7 +3,7 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import '../presentation/widgets/05_U_head_of_marketing_dashboard_screen.dart';
 
 class HeadOfMarketingDashboardIntent extends AppScreenIntent {
-  const HeadOfMarketingDashboardIntent();
+  HeadOfMarketingDashboardIntent();
 
   @override
   String get name => 'head_of_marketing_dashboard';
@@ -18,9 +18,8 @@ class HeadOfMarketingDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.headOfMarketing;
 
   @override
-  dynamic get provider => headOfMarketingDashboardAdapterProvider;
+  dynamic get provider => marketingMetricsProvider;
 
   @override
   Widget build(BuildContext context) => const HeadOfMarketingDashboardScreen();
 }
-

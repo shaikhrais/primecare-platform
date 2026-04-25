@@ -88,7 +88,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             decoration: AuthInputDecoration.get(
               'auth.email'.tr(),
               LucideIcons.mail,
-              hintText: 'name@primecare.com',
+              hintText: 'auth.email_placeholder'.tr(),
             ),
           ),
           const SizedBox(height: 24),
@@ -216,7 +216,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Access is restricted to authorized PrimeCare medical personnel. Unauthorized attempts are monitored.',
+                    'auth.security_notice_long'.tr(),
                     style: GoogleFonts.inter(
                       fontSize: 12,
                       color: const Color(0xFF64748B),

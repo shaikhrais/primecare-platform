@@ -1,4 +1,3 @@
-
 import 'package:primecare_ui/primecare_ui.dart';
 
 class DynamicScreenDashboardScreen extends ConsumerWidget {
@@ -7,28 +6,28 @@ class DynamicScreenDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final provider = ref.watch(primecareFormProvider(PrimeCareForm.genericDashboard));
-    final asyncValue = ref.watch(provider);
+    final subProvider = ref.watch(
+      primecareFormProvider(PrimeCareForm.genericDashboard),
+    );
+    final state = ref.watch(subProvider);
 
     return MasterLayout(
-      child: asyncValue.when(
-        data: (Result<PrimeCareDashboardViewModel> result) => result.fold(
-          (PrimeCareDashboardViewModel viewModel) => _buildContent(context, theme, viewModel),
-          (Object err) => DashboardErrorWidget(
-            message: 'Domain Logistics Failure: $err',
-            onRetry: () => ref.refresh(provider),
-          ),
-        ),
+      child: state.whenResult(
+        (viewModel) => _buildContent(context, theme, viewModel.metrics),
         loading: () => const DashboardLoadingWidget(),
         error: (Object e, StackTrace st) => DashboardErrorWidget(
           message: 'Governance Exception: $e',
-          onRetry: () => ref.refresh(dynamicAdapterProvider(PrimeCareForm.genericDashboard)),
+          onRetry: () => ref.refresh(subProvider),
         ),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, PrimeCareThemeData theme, PrimeCareDashboardViewModel vm) {
+  Widget _buildContent(
+    BuildContext context,
+    PrimeCareThemeData theme,
+    DashboardMetrics vm,
+  ) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
@@ -36,7 +35,7 @@ class DynamicScreenDashboardScreen extends ConsumerWidget {
         children: [
           Text('Dynamic Screen Command Center', style: theme.typography.h2),
           SizedBox(height: theme.spacing.xl),
-          PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
+          PrimeCareResponsiveKpiGrid(metrics: vm),
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),

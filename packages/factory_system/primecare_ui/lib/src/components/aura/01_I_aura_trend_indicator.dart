@@ -1,6 +1,7 @@
-// Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:primecare_ui/src/theme/01_I_colors.dart';
 
 /// A high-fidelity Aura annotation component for data visualizations.
 /// Surfaces intelligent trends and AI-driven insights directly in-line with charts.
@@ -24,7 +25,7 @@ class AuraTrendIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final isPositive = value >= 0;
     final isGood = isPositiveBetter ? isPositive : !isPositive;
-    
+
     final color = isGood ? const Color(0xFF4ADE80) : const Color(0xFFF87171);
     final icon = isPositive ? LucideIcons.trendingUp : LucideIcons.trendingDown;
 
