@@ -20,7 +20,8 @@ $apps = @(
     "primecare_corporate",
     "primecare_franchise",
     "primecare_marketing",
-    "primecare_support"
+    "primecare_support",
+    "primecare_governance"
 )
 foreach ($app in $apps) {
     # Convert underscores to hyphens for Cloudflare project name

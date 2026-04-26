@@ -47,5 +47,14 @@ services:
       - worker-api
     restart: unless-stopped
 
+  governance-service:
+    build:
+      context: ./services/governance_service
+      dockerfile: Dockerfile
+    container_name: primecare-governance-api
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
 volumes:
   pgdata:

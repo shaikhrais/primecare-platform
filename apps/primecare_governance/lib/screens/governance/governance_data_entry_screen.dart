@@ -1,0 +1,110 @@
+import 'package:flutter/material.dart';
+import 'app_entry_form.dart';
+import 'role_entry_form.dart';
+import 'module_entry_form.dart';
+import 'feature_entry_form.dart';
+import 'screen_entry_form.dart';
+import 'route_entry_form.dart';
+import 'api_entry_form.dart';
+import 'permission_entry_form.dart';
+import 'language_entry_form.dart';
+import 'status_entry_form.dart';
+
+class GovernanceDataEntryScreen extends StatefulWidget {
+  const GovernanceDataEntryScreen({super.key});
+
+  @override
+  State<GovernanceDataEntryScreen> createState() =>
+      _GovernanceDataEntryScreenState();
+}
+
+class _GovernanceDataEntryScreenState extends State<GovernanceDataEntryScreen> {
+  String _selectedForm = 'Feature Entry';
+
+  Widget _buildSelectedForm() {
+    switch (_selectedForm) {
+      case 'App Entry':
+        return const AppEntryForm();
+      case 'Role Entry':
+        return const RoleEntryForm();
+      case 'Module Entry':
+        return const ModuleEntryForm();
+      case 'Feature Entry':
+        return const FeatureEntryForm();
+      case 'Screen Entry':
+        return const ScreenEntryForm();
+      case 'Route Entry':
+        return const RouteEntryForm();
+      case 'API Entry':
+        return const ApiEntryForm();
+      case 'Permission Entry':
+        return const PermissionEntryForm();
+      case 'Language Entry':
+        return const LanguageEntryForm();
+      case 'Status Entry':
+        return const StatusEntryForm();
+      default:
+        return const FeatureEntryForm();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: Color(0xFFe5e7eb)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'PrimeCare Control Data Entry System',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children:
+                    [
+                          'App Entry',
+                          'Role Entry',
+                          'Module Entry',
+                          'Feature Entry',
+                          'Screen Entry',
+                          'Route Entry',
+                          'API Entry',
+                          'Permission Entry',
+                          'Language Entry',
+                          'Status Entry',
+                        ]
+                        .map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: ChoiceChip(
+                              label: Text(e),
+                              selected: _selectedForm == e,
+                              onSelected: (selected) {
+                                if (selected) {
+                                  setState(() => _selectedForm = e);
+                                }
+                              },
+                            ),
+                          ),
+                        )
+                        .toList(),
+              ),
+            ),
+            const SizedBox(height: 24),
+            _buildSelectedForm(),
+          ],
+        ),
+      ),
+    );
+  }
+}

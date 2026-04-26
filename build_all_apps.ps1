@@ -5,7 +5,8 @@ $apps = @(
     "primecare_corporate",
     "primecare_franchise",
     "primecare_marketing",
-    "primecare_support"
+    "primecare_support",
+    "primecare_governance"
 )
 
 $rootDir = Get-Location
