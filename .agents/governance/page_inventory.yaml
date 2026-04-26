@@ -636,75 +636,78 @@ pages:
     actions: ["view"]
     linked_intent: "navigate_shareholder_dashboard"
 
-  - id: " common_dashboard_labels\
- name: \CommonDashboardLabels\
- label: \Common Labels\
- section: \Common\
- role_allowed: [\all\]
- labels:
- operational_insights: \Operational Insights Unified\
- aura_intelligence: \Aura Intelligence\
- operational_volume: \Operational Volume\
- burn_rate_analysis: \Burn Rate Analysis\
- real_time_telemetry_feed: \Real-Time Telemetry Feed\
- active_tickets: \Active Tickets\
- linked_intent: \view_common_labels\
+  - id: "common_dashboard_labels"
+    name: "CommonDashboardLabels"
+    label: "Common Labels"
+    section: "Common"
+    role_allowed: ["all"]
+    labels:
+      operational_insights: "Operational Insights Unified"
+      aura_intelligence: "Aura Intelligence"
+      operational_volume: "Operational Volume"
+      burn_rate_analysis: "Burn Rate Analysis"
+      real_time_telemetry_feed: "Real-Time Telemetry Feed"
+      active_tickets: "Active Tickets"
+    linked_intent: "view_common_labels"
 
-  - id: " regional_manager_labels\
- labels:
- performance_matrix: \Regional Performance Matrix\
- comparative_metrics: \Site-to-site comparative operational metrics\
- health_scorecard: \Territory Health Scorecard\
- health_indices: \Operational health indices across regional territories\
- section: \Regional\
- - id: \clinical_director_labels\
- labels:
- staffing_matrix: \Staffing Coverage Matrix\
- staffing_variance: \Real-time variance between required and actual staff\
- compliance_log: \Protocol Compliance Log\
- audit_adherence: \Automated auditing of clinical workflow adherence\
- incident_trends: \Incident Trends 30 \
- incident_criticality: \Criticality breakdown of reported clinical events\
- section: \Clinical\
+  - id: "regional_manager_labels"
+    section: "Regional"
+    labels:
+      performance_matrix: "Regional Performance Matrix"
+      comparative_metrics: "Site-to-site comparative operational metrics"
+      health_scorecard: "Territory Health Scorecard"
+      health_indices: "Operational health indices across regional territories"
 
-  - id: " command_center_labels\
- labels:
- training_center: \Training Command Center\
- curriculum_compliance: \Regional Curriculum Compliance\
- training_hub_center: \Training Hub Command Center\
- volunteer_center: \Volunteer Command Center\
- business_dev_center: \Business Dev Command Center\
- clinical_center: \Clinical Command Center\
- corporate_center: \Corporate Command Center\
- franchise_center: \Franchise Command Center\
- marketing_center: \Marketing Command Center\
- operational_center: \Operational Command Center\
- support_center: \Support Command Center\
- section: \Core\
+  - id: "clinical_director_labels"
+    section: "Clinical"
+    labels:
+      staffing_matrix: "Staffing Coverage Matrix"
+      staffing_variance: "Real-time variance between required and actual staff"
+      compliance_log: "Protocol Compliance Log"
+      audit_adherence: "Automated auditing of clinical workflow adherence"
+      incident_trends: "Incident Trends 30"
+      incident_criticality: "Criticality breakdown of reported clinical events"
 
-  - id: " cto_dashboard_labels\
- labels:
- global_uptime: \Global Uptime\
- api_latency: \Avg API Latency\
- error_rate: \Error Rate\
- deploys_day: \Deploys/Day\
- infra_optimization: \Infrastructure Optimization\
- security_posture: \Security Posture: Critical\
- devops_velocity: \DevOps Velocity\
- section: \Corporate\
- - id: \ceo_dashboard_labels\
- labels:
- strategic_growth: \Strategic Growth\
- revenue_growth: \Revenue Growth\
- operational_efficiency: \Operational Efficiency\
- market_expansion: \Market Expansion\
- section: \Corporate\
- - id: \clinical_labels\
- labels:
- staffing_matrix: \Staffing Coverage Matrix\
- compliance_log: \Protocol Compliance Log\
- incident_trends: \Incident Trends 30 \
- section: \Clinical\
+  - id: "command_center_labels"
+    section: "Core"
+    labels:
+      training_center: "Training Command Center"
+      curriculum_compliance: "Regional Curriculum Compliance"
+      training_hub_center: "Training Hub Command Center"
+      volunteer_center: "Volunteer Command Center"
+      business_dev_center: "Business Dev Command Center"
+      clinical_center: "Clinical Command Center"
+      corporate_center: "Corporate Command Center"
+      franchise_center: "Franchise Command Center"
+      marketing_center: "Marketing Command Center"
+      operational_center: "Operational Command Center"
+      support_center: "Support Command Center"
+
+  - id: "cto_dashboard_labels"
+    section: "Corporate"
+    labels:
+      global_uptime: "Global Uptime"
+      api_latency: "Avg API Latency"
+      error_rate: "Error Rate"
+      deploys_day: "Deploys/Day"
+      infra_optimization: "Infrastructure Optimization"
+      security_posture: "Security Posture: Critical"
+      devops_velocity: "DevOps Velocity"
+
+  - id: "ceo_dashboard_labels"
+    section: "Corporate"
+    labels:
+      strategic_growth: "Strategic Growth"
+      revenue_growth: "Revenue Growth"
+      operational_efficiency: "Operational Efficiency"
+      market_expansion: "Market Expansion"
+
+  - id: "clinical_labels"
+    section: "Clinical"
+    labels:
+      staffing_matrix: "Staffing Coverage Matrix"
+      compliance_log: "Protocol Compliance Log"
+      incident_trends: "Incident Trends 30"
 
   - id: "cfo_dashboard_labels"
     labels:

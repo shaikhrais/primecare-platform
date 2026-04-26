@@ -50,3 +50,6 @@ export 'package:primecare_ui/src/registry/04_I_platform_governance_audit.dart';
 export 'package:primecare_ui/src/registry/01_I_screen_registry.dart';
 export 'package:primecare_ui/src/registry/05_I_blueprint_seeder.dart';
 export 'package:primecare_ui/src/utils/01_I_async_result_extension.dart';
+
+// Layer: 06_NEW_FRAMEWORK
+export 'src/features/dashboard/dynamic_dashboard.dart';
