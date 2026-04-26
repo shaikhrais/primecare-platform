@@ -6,9 +6,9 @@ class CampaignAnalytics extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'CampaignAnalytics',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.campaign_analytics'.tr(),
+      subtitle: 'navigation.items.campaign_analytics'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

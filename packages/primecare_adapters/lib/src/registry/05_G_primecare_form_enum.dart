@@ -205,7 +205,7 @@ enum PrimeCareForm {
   cxDirectorDashboard('CX Director Dashboard'),
   itAdminDashboard('IT Admin Dashboard'),
   hrManager('Hr Manager'),
-  i18nContext('I18N Context'),
+
   imagePlusIcon('Image Plus Icon'),
   imageUploadButton('Image Upload Button'),
   imageUploadNode('Image Upload Node'),
@@ -379,7 +379,7 @@ enum PrimeCareForm {
   useFuseLayoutSettings('Use Fuse Layout Settings'),
   useFuseRouteParameter('Use Fuse Route Parameter'),
   useFuseSettings('Use Fuse Settings'),
-  useI18n('Use I18N'),
+
   useJwtAuth('Use Jwt Auth'),
   useLocalStorage('Use Local Storage'),
   useNavigate('Use Navigate'),
@@ -820,8 +820,7 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'HR_MANAGER_DASHBOARD';
       case PrimeCareForm.hrManager:
         return 'HR_MANAGER';
-      case PrimeCareForm.i18nContext:
-        return 'I18N_CONTEXT';
+
       case PrimeCareForm.imagePlusIcon:
         return 'IMAGE_PLUS_ICON';
       case PrimeCareForm.imageUploadButton:
@@ -1168,8 +1167,7 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'USE_FUSE_ROUTE_PARAMETER';
       case PrimeCareForm.useFuseSettings:
         return 'USE_FUSE_SETTINGS';
-      case PrimeCareForm.useI18n:
-        return 'USE_I18N';
+
       case PrimeCareForm.useJwtAuth:
         return 'USE_JWT_AUTH';
       case PrimeCareForm.useLocalStorage:

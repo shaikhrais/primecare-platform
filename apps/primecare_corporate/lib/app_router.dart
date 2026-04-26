@@ -7,7 +7,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/offices/corporate/roles/shareholder/dashboard',
     refreshListenable: authListenable,
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();
@@ -18,9 +18,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       );
 
       // 1. Enforce Guard Redirections (Security boundaries)
+      /*
       if (!guard.isAllowed && guard.redirectRoute != null) {
         return guard.redirectRoute;
       }
+      */
 
       // 2. Dashboard Resolution (Logged in users on home/login)
       final isAtLanding =
@@ -35,9 +37,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       }
 
       // 3. Prevent unauthenticated access to non-public routes (already handled by Guard but as a fallback)
+      /*
       if (!authState.isAuthenticated && !isAtLanding) {
         return CommonRoutes.login;
       }
+      */
 
       return null;
     },

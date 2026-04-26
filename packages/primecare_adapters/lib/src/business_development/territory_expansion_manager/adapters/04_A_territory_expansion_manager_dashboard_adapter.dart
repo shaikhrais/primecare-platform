@@ -96,7 +96,7 @@ final territoryExpansionInsightsProvider = FutureProvider<List<IntelligenceInsig
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'exp_1',
       title: 'Geographic Density Alert',
       summary:
@@ -107,7 +107,7 @@ final territoryExpansionInsightsProvider = FutureProvider<List<IntelligenceInsig
       recommendation:
           'Prioritize marketing spend in Zip Codes 90210-90215 to increase cluster density and reduce travel-time overhead.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'exp_2',
       title: 'Optimal Launch Window',
       summary:

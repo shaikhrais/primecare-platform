@@ -12,7 +12,7 @@ class CeoDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/ceo/dashboard';
 
   @override
-  String get title => 'Ceo Dashboard';
+  String get title => 'dashboards.ceo.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.ceo;
@@ -22,9 +22,9 @@ class CeoDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Global KPI Metrics',
-    'Region Comparison',
-    'Strategic Initiatives',
+    'dashboards.ceo.labels.global_kpi_metrics',
+    'dashboards.ceo.labels.region_comparison',
+    'dashboards.ceo.labels.strategic_initiatives',
   ];
 
   @override

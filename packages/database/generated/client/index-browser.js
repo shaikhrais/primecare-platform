@@ -137,7 +137,8 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   tenantId: 'tenantId',
-  roles: 'roles'
+  roles: 'roles',
+  preferredLanguage: 'preferredLanguage'
 };
 
 exports.Prisma.TenantScalarFieldEnum = {

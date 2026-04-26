@@ -44,7 +44,7 @@ final qaInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>>
   await Future<void>.delayed(const Duration(milliseconds: 1800));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'qa_01',
       title: 'Regulatory Drift Risk',
       summary: '3 units are approaching quarterly audit expiry in < 14 days.',
@@ -54,7 +54,7 @@ final qaInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>>
       recommendation:
           'Auto-schedule "Compliance Refresher" for Unit Leads in affected zones.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'qa_02',
       title: 'Safety Achievement',
       summary:
@@ -65,7 +65,7 @@ final qaInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>>
       recommendation:
           'Highlight "Medication Protocol Alpha" as the new standard for all regions.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'qa_03',
       title: 'Documentation Gap',
       summary: 'Digital charting completeness dropped by 8% in Sector 4.',

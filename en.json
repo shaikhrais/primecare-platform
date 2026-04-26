@@ -1,0 +1,386 @@
+{
+  "navigation": {
+    "sections": {
+      "main": "Main",
+      "management": "Management",
+      "common_tools": "Common Tools",
+      "strategic": "Strategic",
+      "workflows": "Workflows",
+      "operations": "Operations",
+      "finance": "Finance",
+      "clinical": "Clinical",
+      "growth": "Growth",
+      "master_directory": "Master Directory"
+    },
+    "items": {
+      "system_dashboard": "System Dashboard",
+      "compliance_hub": "Compliance Hub",
+      "global_settings": "Global Settings",
+      "user_management": "User Management",
+      "enterprise_overview": "Enterprise Overview",
+      "strategic_kpis": "Strategic KPIs",
+      "growth_pipeline": "Growth Pipeline",
+      "region_performance": "Region Performance",
+      "leadership_reports": "Leadership Reports",
+      "cfo_dashboard": "CFO Dashboard",
+      "financial_overview": "Financial Overview",
+      "revenue_tracker": "Revenue Tracker",
+      "profitability": "Profitability",
+      "tax_&_remittance": "Tax & Remittance",
+      "coo_dashboard": "COO Dashboard",
+      "operations_board": "Operations Board",
+      "branch_operations": "Branch Operations",
+      "scheduling_health": "Scheduling Health",
+      "incident_reviews": "Incident Reviews",
+      "cto_dashboard": "CTO Dashboard",
+      "system_health": "System Health",
+      "platform_usage": "Platform Usage",
+      "api_monitoring": "API Monitoring",
+      "audit_logs": "Audit Logs",
+      "cases": "Cases",
+      "policy_manager": "Policy Manager",
+      "audits": "Audits",
+      "risk_register": "Risk Register",
+      "curriculum_hub": "Curriculum Hub",
+      "skill_matrix": "Skill Matrix",
+      "region_dashboard": "Region Dashboard",
+      "branch_comparison": "Branch Comparison",
+      "ledger_command": "Ledger Command",
+      "cash_flow": "Cash Flow",
+      "intake_pipeline": "Intake Pipeline",
+      "referrals": "Referrals",
+      "pending_assessments": "Pending Assessments",
+      "billing_console": "Billing Console",
+      "invoices": "Invoices",
+      "marketing_hub": "Marketing Hub",
+      "campaign_analytics": "Campaign Analytics",
+      "business_overview": "Business Overview",
+      "financial_performance": "Financial Performance",
+      "compliance_status": "Compliance Status",
+      "clinical_dashboard": "Clinical Dashboard",
+      "shift_tracker": "Shift Tracker",
+      "messages": "Messages",
+      "family_home": "Family Home",
+      "care_plan": "Care Plan",
+      "billing": "Billing",
+      "messaging_hub": "Messaging Hub",
+      "document_vault": "Document Vault",
+      "notification_center": "Notifications",
+      "head_of_marketing_dashboard": "Marketing Dashboard",
+      "head_of_bus_dev_dashboard": "Bus Dev Dashboard",
+      "operations_manager_dashboard": "Ops Dashboard",
+      "hr_hiring_dashboard": "HR Dashboard",
+      "clinical_director_dashboard": "Clinical Director",
+      "shareholder_dashboard": "Shareholder Dashboard",
+      "dashboard": "Dashboard",
+      "notifications": "Notifications",
+      "marketing_dashboard": "Marketing Dashboard",
+      "bus_dev_dashboard": "Bus Dev Dashboard",
+      "ops_dashboard": "Ops Dashboard",
+      "hr_dashboard": "Hr Dashboard",
+      "clinical_director": "Clinical Director"
+    },
+    "footer": {
+      "language": "Language"
+    }
+  },
+  "dashboards": {
+    "architecture_planning": {
+      "title": "Architecture Planning",
+      "subtitle": "Access metrics."
+    },
+    "billing_admin": {
+      "title": "Billing Admin",
+      "subtitle": "Access metrics."
+    },
+    "ceo": {
+      "title": "Ceo",
+      "subtitle": "Access metrics."
+    },
+    "corporate_governance": {
+      "title": "Corporate Governance",
+      "subtitle": "Access metrics."
+    },
+    "cfo": {
+      "title": "Cfo",
+      "subtitle": "Access metrics."
+    },
+    "client": {
+      "title": "Client",
+      "subtitle": "Access metrics."
+    },
+    "clinic": {
+      "title": "Clinic",
+      "subtitle": "Access metrics."
+    },
+    "clinical_director": {
+      "title": "Clinical Director",
+      "subtitle": "Access metrics."
+    },
+    "community_outreach": {
+      "title": "Community Outreach",
+      "subtitle": "Access metrics."
+    },
+    "compliance_manager": {
+      "title": "Compliance Manager",
+      "subtitle": "Access metrics."
+    },
+    "coo": {
+      "title": "Coo",
+      "subtitle": "Access metrics."
+    },
+    "course_architect": {
+      "title": "Course Architect",
+      "subtitle": "Access metrics."
+    },
+    "cto": {
+      "title": "Cto",
+      "subtitle": "Access metrics."
+    },
+    "customer_support": {
+      "title": "Customer Support",
+      "subtitle": "Access metrics."
+    },
+    "cx_director": {
+      "title": "Cx Director",
+      "subtitle": "Access metrics."
+    },
+    "dynamic_screen": {
+      "title": "Dynamic Screen",
+      "subtitle": "Access metrics."
+    },
+    "family": {
+      "title": "Family",
+      "subtitle": "Access metrics."
+    },
+    "family_member": {
+      "title": "Family Member",
+      "subtitle": "Access metrics."
+    },
+    "finance_director": {
+      "title": "Finance Director",
+      "subtitle": "Access metrics."
+    },
+    "franchise_owner": {
+      "title": "Franchise Owner",
+      "subtitle": "Access metrics."
+    },
+    "franchise_sales_manager": {
+      "title": "Franchise Sales Manager",
+      "subtitle": "Access metrics."
+    },
+    "general_manager": {
+      "title": "General Manager",
+      "subtitle": "Access metrics."
+    },
+    "guest": {
+      "title": "Guest",
+      "subtitle": "Access metrics."
+    },
+    "head_of_bus_dev": {
+      "title": "Head Of Bus Dev",
+      "subtitle": "Access metrics."
+    },
+    "head_of_marketing": {
+      "title": "Head Of Marketing",
+      "subtitle": "Access metrics."
+    },
+    "hr_director": {
+      "title": "Hr Director",
+      "subtitle": "Access metrics."
+    },
+    "hr_manager": {
+      "title": "Hr Manager",
+      "subtitle": "Access metrics."
+    },
+    "hr_hiring": {
+      "title": "Hr Hiring",
+      "subtitle": "Access metrics."
+    },
+    "intake_coordinator": {
+      "title": "Intake Coordinator",
+      "subtitle": "Access metrics."
+    },
+    "intake": {
+      "title": "Intake",
+      "subtitle": "Access metrics."
+    },
+    "local_marketing_manager": {
+      "title": "Local Marketing Manager",
+      "subtitle": "Access metrics."
+    },
+    "operations_manager": {
+      "title": "Operations Manager",
+      "subtitle": "Access metrics."
+    },
+    "owner": {
+      "title": "Owner",
+      "subtitle": "Access metrics."
+    },
+    "partnership_manager": {
+      "title": "Partnership Manager",
+      "subtitle": "Access metrics."
+    },
+    "patient": {
+      "title": "Patient",
+      "subtitle": "Access metrics."
+    },
+    "psw": {
+      "title": "Psw",
+      "subtitle": "Access metrics."
+    },
+    "qa": {
+      "title": "Qa",
+      "subtitle": "Access metrics."
+    },
+    "quality_assurance": {
+      "title": "Quality Assurance",
+      "subtitle": "Access metrics."
+    },
+    "receptionist": {
+      "title": "Receptionist",
+      "subtitle": "Access metrics."
+    },
+    "regional_bdm": {
+      "title": "Regional Bdm",
+      "subtitle": "Access metrics."
+    },
+    "regional_manager_ontario": {
+      "title": "Regional Manager Ontario",
+      "subtitle": "Access metrics."
+    },
+    "regional_manager_usa": {
+      "title": "Regional Manager Usa",
+      "subtitle": "Access metrics."
+    },
+    "rmt": {
+      "title": "Rmt",
+      "subtitle": "Access metrics."
+    },
+    "rn": {
+      "title": "Rn",
+      "subtitle": "Access metrics."
+    },
+    "scheduler": {
+      "title": "Scheduler",
+      "subtitle": "Access metrics."
+    },
+    "scrum_master": {
+      "title": "Scrum Master",
+      "subtitle": "Access metrics."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Access metrics."
+    },
+    "system_verification": {
+      "title": "System Verification",
+      "subtitle": "Access metrics."
+    },
+    "territory_expansion_manager": {
+      "title": "Territory Expansion Manager",
+      "subtitle": "Access metrics."
+    },
+    "territory_sales_manager": {
+      "title": "Territory Sales Manager",
+      "subtitle": "Access metrics."
+    },
+    "training_coordinator": {
+      "title": "Training Coordinator",
+      "subtitle": "Access metrics."
+    },
+    "training_director_certificate": {
+      "title": "Training Director Certificate",
+      "subtitle": "Access metrics."
+    },
+    "training_director": {
+      "title": "Training Director",
+      "subtitle": "Access metrics."
+    },
+    "training_hub": {
+      "title": "Training Hub",
+      "subtitle": "Access metrics."
+    },
+    "volunteer_coordinator": {
+      "title": "Volunteer Coordinator",
+      "subtitle": "Access metrics."
+    },
+    "infection_control": {
+      "title": "Infection Control",
+      "subtitle": "Access metrics."
+    },
+    "shareholder_intelligence": {
+      "title": "Shareholder Intelligence",
+      "subtitle": "Access metrics."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "language": {
+      "en": "English",
+      "fr": "French",
+      "es": "Spanish"
+    }
+  },
+  "auth": {
+    "title_curator": "Welcome to PrimeCare",
+    "curator_subtitle": "Enterprise Access Portal",
+    "welcome_back": "Welcome Back",
+    "login_instructions": "Sign in to your account",
+    "email": "Email Address",
+    "email_placeholder": "Enter your email",
+    "password": "Password",
+    "forgot_password": "Forgot Password?",
+    "sign_in": "Sign In",
+    "security_notice_long": "This system is restricted to authorized personnel.",
+    "authentication_failed": "Authentication failed.",
+    "enter_credentials_to_continue": "Please enter credentials."
+  },
+  "aura": {
+    "search_hint": "Search Aura...",
+    "sign_out": "Sign Out",
+    "intelligence": "Aura Intelligence",
+    "daily_briefing": "Daily Briefing: {}",
+    "executive_overview": "EXECUTIVE OVERVIEW",
+    "operational_summary": "Systems are currently operating within nominal parameters. No critical deviations detected in core service registries.",
+    "critical_insights": "CRITICAL INSIGHTS",
+    "staff_retention_alert": "Staff Retention Alert",
+    "staff_retention_desc": "Regional turnover in Ontario South has increased by 12% this month. Recommend HR intervention.",
+    "view_retention_plan": "VIEW RETENTION PLAN",
+    "marketing_roi_surge": "Marketing ROI Surge",
+    "marketing_roi_desc": "Ad campaign 'CommunityCare' has achieved a 4.2x ROI, exceeding forecasts by 15%.",
+    "adjust_budget": "ADJUST BUDGET",
+    "supply_chain_sync": "Supply Chain Sync",
+    "supply_chain_desc": "Inventory levels across 14 franchises synchronized successfully with central logistics.",
+    "see_report": "SEE REPORT",
+    "governance_alert": "GOVERNANCE ALERT",
+    "real_time_intelligence": "REAL-TIME INTELLIGENCE",
+    "view_details": "VIEW DETAILS",
+    "synchronizing": "Synchronizing Aura IQ...",
+    "offline": "Aura Offline",
+    "snoozed": "Aura Alerts Snoozed",
+    "resume": "RESUME",
+    "auditors_blueprint": "AUDITOR'S BLUEPRINT",
+    "structural_contract": "STRUCTURAL CONTRACT",
+    "verified_components": "VERIFIED COMPONENTS",
+    "full_system_audit": "Full System Audit",
+    "events": {
+      "stable_title": "System Stable",
+      "stable_desc": "Institutional heartbeat is nominal.",
+      "critical_occupancy_title": "Critical Occupancy Spike",
+      "critical_occupancy_desc": "Facility at 98% capacity. Immediate discharge planning and staffing reallocation required.",
+      "revenue_variance_title": "Revenue Variance Detected",
+      "revenue_variance_desc": "Detected a 12% dip in projected daily billing. Auditing transaction logs...",
+      "efficiency_opt_title": "Efficiency Optimization",
+      "efficiency_opt_desc": "Shift change documentation cycle completed 4 minutes faster than institutional baseline.",
+      "staffing_gap_title": "Anticipated Staffing Gap",
+      "staffing_gap_desc": "Trend analysis predicts a 15% staffing deficit for the upcoming holiday weekend. Mitigation suggested.",
+      "budget_overrun_title": "Projected Budget Overrun",
+      "budget_overrun_desc": "Current spending velocity suggests a potential budget threshold breach in Q3. Recommending audit.",
+      "architectural_drift_title": "Architectural Drift Detected",
+      "architectural_drift_desc": "Screen [{}] has drifted from Auditor Blueprint. Missing: {}"
+    }
+  }
+}

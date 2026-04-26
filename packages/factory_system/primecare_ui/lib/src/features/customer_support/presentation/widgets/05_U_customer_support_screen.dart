@@ -56,7 +56,7 @@ class CustomerSupportScreen extends ConsumerWidget {
                       const SizedBox(width: 24),
                       Expanded(
                         flex: 1,
-                        child: _buildSupportIntelligence(insights),
+                        child: _buildSupportIntelligence(context, insights),
                       ),
                     ],
                   ),
@@ -129,7 +129,7 @@ class CustomerSupportScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSupportIntelligence(List<IntelligenceInsight> insights) {
+  Widget _buildSupportIntelligence(BuildContext context, List<IntelligenceInsight> insights) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -157,7 +157,7 @@ class CustomerSupportScreen extends ConsumerWidget {
             (insight) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: Text(
-                insight.summary,
+                insight.summary.translate(context),
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 13,

@@ -6,9 +6,9 @@ class RevenueTracker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'RevenueTracker',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.revenue_tracker'.tr(),
+      subtitle: 'navigation.items.revenue_tracker'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

@@ -12,7 +12,7 @@ class SchedulerDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/scheduler/dashboard';
 
   @override
-  String get title => 'Scheduler Dashboard';
+  String get title => 'dashboards.scheduler.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.scheduler;

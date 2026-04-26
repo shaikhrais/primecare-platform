@@ -6,9 +6,9 @@ class CashFlow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'CashFlow',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.cash_flow'.tr(),
+      subtitle: 'navigation.items.cash_flow'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

@@ -160,10 +160,12 @@ export 'src/clinical/psw/adapters/04_A_psw_dashboard_adapter.dart';
 export 'src/customer_support/receptionist/adapters/04_A_receptionist_dashboard_adapter.dart';
 export 'src/governance/quality_assurance/adapters/04_A_quality_assurance_dashboard_adapter.dart';
 export 'src/governance_generated/adapters/04_A_clinical_director_dashboard_adapter.dart';
+export 'src/corporate/shareholder/adapters/04_A_shareholder_intelligence_adapter.dart';
 
 // Unified Form Registry
 export 'src/registry/05_G_primecare_form_enum.dart';
 export 'src/registry/05_G_primecare_form_provider.dart';
 export 'src/utils/05_G_primecare_formatters.dart';
+export 'src/config/00_I_locale_keys.dart';
 
 // Legacy Registry

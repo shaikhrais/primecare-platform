@@ -12,7 +12,7 @@ class RegionalBdmDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/regional_bdm/dashboard';
 
   @override
-  String get title => 'Regional Bdm Dashboard';
+  String get title => 'dashboards.regionalbdm.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.regionalBdm;

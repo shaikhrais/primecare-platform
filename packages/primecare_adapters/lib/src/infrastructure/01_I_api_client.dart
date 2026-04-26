@@ -68,6 +68,7 @@ class ApiClient {
               .passGate(
                 ExecutionGateCategory.network,
                 'Request: ${options.method} ${options.path}',
+                silent: true,
               );
           return handler.next(options);
         },
@@ -77,6 +78,7 @@ class ApiClient {
               .passGate(
                 ExecutionGateCategory.network,
                 'Response: ${response.statusCode} from ${response.requestOptions.path}',
+                silent: true,
               );
           return handler.next(response);
         },
@@ -87,6 +89,7 @@ class ApiClient {
                 ExecutionGateCategory.network,
                 'Network Error: ${e.message}',
                 error: e,
+                silent: true,
               );
           return handler.next(e);
         },

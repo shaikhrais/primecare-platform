@@ -81,7 +81,7 @@ final regionalManagerUsaInsightsProvider = FutureProvider<List<IntelligenceInsig
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'reg_usa_01',
       title: 'Interstate Mobility Optimization',
       summary:
@@ -92,7 +92,7 @@ final regionalManagerUsaInsightsProvider = FutureProvider<List<IntelligenceInsig
       recommendation:
           'Fast-track reciprocal licensing for NJ-based RNs to cover NY surges.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'reg_usa_02',
       title: 'Market Saturation Warning: CA',
       summary:
@@ -103,7 +103,7 @@ final regionalManagerUsaInsightsProvider = FutureProvider<List<IntelligenceInsig
       recommendation:
           'Pause new patient intake in San Francisco until 3 more PSWs are onboarded.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'reg_usa_03',
       title: 'Texas Growth Corridor',
       summary:

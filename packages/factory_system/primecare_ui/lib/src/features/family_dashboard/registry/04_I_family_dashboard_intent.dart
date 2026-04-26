@@ -12,7 +12,7 @@ class FamilyDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/family/dashboard';
 
   @override
-  String get title => 'Family Dashboard';
+  String get title => 'dashboards.family.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.familyMember;

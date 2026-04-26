@@ -12,7 +12,7 @@ class ScrumMasterDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/scrum_master/dashboard';
 
   @override
-  String get title => 'Scrum Master Dashboard';
+  String get title => 'dashboards.scrummaster.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.scrumMaster;

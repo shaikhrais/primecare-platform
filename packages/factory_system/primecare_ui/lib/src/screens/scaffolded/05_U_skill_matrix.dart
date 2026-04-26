@@ -6,9 +6,9 @@ class SkillMatrix extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'SkillMatrix',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.skill_matrix'.tr(),
+      subtitle: 'navigation.items.skill_matrix'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

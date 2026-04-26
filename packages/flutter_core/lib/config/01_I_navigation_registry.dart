@@ -17,19 +17,19 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'navigation.items.system_dashboard',
         icon: LucideIcons.layoutDashboard,
-        route: CorporateRoutes.ceoDashboard,
+        route: '/offices/corporate/roles/ceo/dashboard',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.compliance_hub',
         icon: LucideIcons.shieldCheck,
-        route: CorporateRoutes.complianceManagerDashboard,
+        route: '/offices/corporate/roles/compliance_manager/dashboard',
         section: 'navigation.sections.management',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.user_management',
         icon: LucideIcons.users,
-        route: CommonRoutes.userManagement,
+        route: '/offices/common/roles/admin/user-management',
         section: 'navigation.sections.management',
       ),
       const PrimeCareNavigationItem(
@@ -61,25 +61,25 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'navigation.items.system_dashboard',
         icon: LucideIcons.layoutDashboard,
-        route: CorporateRoutes.ceoDashboard,
+        route: '/offices/corporate/roles/ceo/dashboard',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.user_management',
         icon: LucideIcons.users,
-        route: CommonRoutes.userManagement,
+        route: '/offices/common/roles/admin/user-management',
         section: 'navigation.sections.management',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.enterprise_overview',
         icon: LucideIcons.globe,
-        route: CorporateRoutes.ceoEnterpriseOverview,
+        route: '/offices/corporate/roles/ceo/enterprise-overview',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.strategic_kpis',
-        icon: LucideIcons.barChart3,
-        route: CorporateRoutes.ceoStrategicKpis,
+        icon: LucideIcons.trendingUp,
+        route: '/offices/corporate/roles/ceo/strategic-kpis',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
@@ -129,7 +129,7 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'navigation.items.compliance_hub',
         icon: LucideIcons.shieldCheck,
-        route: CorporateRoutes.complianceManagerDashboard,
+        route: '/offices/corporate/roles/compliance_manager/dashboard',
         section: 'navigation.sections.management',
       ),
       const PrimeCareNavigationItem(
@@ -185,13 +185,13 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'navigation.items.cfo_dashboard',
         icon: LucideIcons.layoutDashboard,
-        route: CorporateRoutes.cfoDashboard,
+        route: '/offices/corporate/roles/cfo/dashboard',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.financial_overview',
-        icon: LucideIcons.wallet,
-        route: CorporateRoutes.cfoFinancialOverview,
+        icon: LucideIcons.barChart,
+        route: '/offices/corporate/roles/cfo/financial-overview',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
@@ -207,7 +207,7 @@ class NavigationRegistry {
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
-        label: 'navigation.items.tax_&_remittance',
+        label: 'navigation.items.tax_remittance',
         icon: LucideIcons.landmark,
         route: CorporateRoutes.cfoTaxAndRemittance,
         section: 'navigation.sections.main',
@@ -241,13 +241,13 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'navigation.items.coo_dashboard',
         icon: LucideIcons.layoutDashboard,
-        route: CorporateRoutes.cooDashboard,
+        route: '/offices/corporate/roles/coo/dashboard',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.operations_board',
         icon: LucideIcons.activity,
-        route: CorporateRoutes.cooOperationsOverview,
+        route: '/offices/corporate/roles/coo/operations-overview',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
@@ -297,13 +297,13 @@ class NavigationRegistry {
       const PrimeCareNavigationItem(
         label: 'navigation.items.cto_dashboard',
         icon: LucideIcons.layoutDashboard,
-        route: CorporateRoutes.ctoDashboard,
+        route: '/offices/corporate/roles/cto/dashboard',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.system_health',
-        icon: LucideIcons.hardDrive,
-        route: CorporateRoutes.ctoSystemHealth,
+        icon: LucideIcons.heartPulse,
+        route: '/offices/corporate/roles/cto/system-health',
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
@@ -350,12 +350,6 @@ class NavigationRegistry {
       ),
     ],
     'Corporate Developer': [
-      const PrimeCareNavigationItem(
-        label: 'navigation.items.system_health',
-        icon: LucideIcons.hardDrive,
-        route: CorporateRoutes.ctoSystemHealth,
-        section: 'navigation.sections.main',
-      ),
       const PrimeCareNavigationItem(
         label: 'navigation.items.platform_usage',
         icon: LucideIcons.fingerprint,
@@ -892,6 +886,38 @@ class NavigationRegistry {
         label: 'navigation.items.clinical_director',
         icon: LucideIcons.stethoscope,
         route: ClinicalRoutes.clinicalDirectorDashboard,
+        section: 'navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.global_settings',
+        icon: LucideIcons.settings,
+        route: CommonRoutes.globalSettings,
+        section: 'navigation.sections.common_tools',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.messaging_hub',
+        icon: LucideIcons.messageSquare,
+        route: CommonRoutes.messagingHub,
+        section: 'navigation.sections.common_tools',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.document_vault',
+        icon: LucideIcons.folder,
+        route: CommonRoutes.documentVault,
+        section: 'navigation.sections.common_tools',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.notifications',
+        icon: LucideIcons.bell,
+        route: CommonRoutes.notificationCenter,
+        section: 'navigation.sections.common_tools',
+      ),
+    ],
+    'Shareholder': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.shareholder_dashboard',
+        icon: LucideIcons.layoutDashboard,
+        route: CorporateRoutes.shareholderIntelligenceDashboard,
         section: 'navigation.sections.main',
       ),
       const PrimeCareNavigationItem(

@@ -2,7 +2,6 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   /// Defines a fallback route if the dynamic role-based route is not determined.
@@ -84,6 +83,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
           const SizedBox(height: 8),
           TextField(
+            key: const Key('email_field'),
             controller: _emailController,
             decoration: AuthInputDecoration.get(
               'auth.email'.tr(),
@@ -124,6 +124,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ],
           ),
           TextField(
+            key: const Key('password_field'),
             controller: _passwordController,
             obscureText: _obscurePassword,
             decoration: InputDecoration(
@@ -169,6 +170,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             width: double.infinity,
             height: 56,
             child: ElevatedButton(
+              key: const Key('login_button'),
               onPressed: _isLoading ? null : _handleLogin,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0F172A),

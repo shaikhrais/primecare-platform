@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_core/00_B_flutter_core.dart';
@@ -113,6 +112,13 @@ class AuraSidebar extends ConsumerWidget {
                     }),
                   ],
                 ),
+              ),
+
+              // Language Switcher (New)
+              _AuraLanguageSwitcher(
+                isExtended: isExtended,
+                scale: scale,
+                auraTheme: auraTheme,
               ),
 
               // Footer: Aura Identity Card
@@ -468,6 +474,116 @@ class _AuraSidebarFooter extends ConsumerWidget {
               ),
             ],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AuraLanguageSwitcher extends ConsumerWidget {
+  final bool isExtended;
+  final double scale;
+  final AuraRoleTheme auraTheme;
+
+  const _AuraLanguageSwitcher({
+    required this.isExtended,
+    required this.scale,
+    required this.auraTheme,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final currentLang = ref.watch(languageProvider);
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: isExtended ? 16 * scale : 8 * scale,
+        vertical: 8 * scale,
+      ),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: isExtended ? 48 * scale : 120 * scale,
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surfaceContainerLowest.withValues(alpha: 0.5),
+          borderRadius: BorderRadius.circular(12 * scale),
+          border: Border.all(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.1),
+          ),
+        ),
+        child: isExtended
+            ? Row(
+                children: [
+                  _LangButton(
+                    label: 'EN',
+                    isSelected: currentLang == 'en',
+                    scale: scale,
+                    onTap: () => ref.read(languageProvider.notifier).setLanguage('en'),
+                  ),
+                  _LangButton(
+                    label: 'FR',
+                    isSelected: currentLang == 'fr',
+                    scale: scale,
+                    onTap: () => ref.read(languageProvider.notifier).setLanguage('fr'),
+                  ),
+                ],
+              )
+            : Column(
+                children: [
+                  _LangButton(
+                    label: 'EN',
+                    isSelected: currentLang == 'en',
+                    scale: scale,
+                    onTap: () => ref.read(languageProvider.notifier).setLanguage('en'),
+                  ),
+                  _LangButton(
+                    label: 'FR',
+                    isSelected: currentLang == 'fr',
+                    scale: scale,
+                    onTap: () => ref.read(languageProvider.notifier).setLanguage('fr'),
+                  ),
+                ],
+              ),
+      ),
+    );
+  }
+}
+
+class _LangButton extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final double scale;
+  final VoidCallback onTap;
+
+  const _LangButton({
+    required this.label,
+    required this.isSelected,
+    required this.scale,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          margin: EdgeInsets.all(4 * scale),
+          decoration: BoxDecoration(
+            color: isSelected ? theme.colorScheme.primary : Colors.transparent,
+            borderRadius: BorderRadius.circular(8 * scale),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: GoogleFonts.plusJakartaSans(
+              color: isSelected ? Colors.white : theme.colorScheme.onSurfaceVariant,
+              fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
+              fontSize: 12 * scale,
+            ),
+          ),
         ),
       ),
     );

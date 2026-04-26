@@ -7,6 +7,7 @@ export 'package:primecare_adapters/primecare_adapters.dart'
         databaseReportProvider,
         isOnlineProvider,
         ProviderTTL;
+export 'package:easy_localization/easy_localization.dart';
 // export 'package:primecare_ui/primecare_ui.dart' hide AppTheme;
 
 export '01_I_adapter_providers.dart';
@@ -25,6 +26,7 @@ export 'registry/01_I_platform_role.dart';
 export 'registry/intents/01_I_app_screen_intent.dart';
 export 'registry/widgets/01_I_governance_skeleton.dart';
 
+export 'src/localization/01_B_language_provider.dart';
 export 'src/resilience/01_I_app_error_boundary.dart';
 export 'src/resilience/01_I_system_recovery_mode.dart';
 export 'src/resilience/01_I_system_recovery_manager.dart';

@@ -97,8 +97,8 @@ class IntakeVolumeChart extends StatelessWidget {
 }
 
 /// Action hub for Intake Coordinator oversight.
-class IntakeActionHub extends StatelessWidget {
-  const IntakeActionHub({super.key});
+class IntakeCoordinatorActionHub extends StatelessWidget {
+  const IntakeCoordinatorActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {

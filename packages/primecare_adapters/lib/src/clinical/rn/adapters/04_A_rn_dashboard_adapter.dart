@@ -57,7 +57,7 @@ final rnDashboardAdapterProvider = FutureProvider<Result<RnDashboardViewModel>>(
     );
 
     final insights = [
-      const IntelligenceInsight(
+      IntelligenceInsight(
         id: 'rn_1',
         title: 'Deterioration Early Warning',
         summary:
@@ -67,7 +67,7 @@ final rnDashboardAdapterProvider = FutureProvider<Result<RnDashboardViewModel>>(
         category: 'Clinical',
         recommendation: 'Assess patient immediately and notify physician.',
       ),
-      const IntelligenceInsight(
+      IntelligenceInsight(
         id: 'rn_2',
         title: 'Medication Safety Streak',
         summary:

@@ -12,7 +12,7 @@ class ClientDashboardIntent extends AppScreenIntent {
   String get route => '/portals/client/dashboard';
 
   @override
-  String get title => 'Client Dashboard';
+  String get title => 'dashboards.client.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.client;

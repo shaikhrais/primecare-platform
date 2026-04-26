@@ -45,8 +45,8 @@ class PartnerSynergyMatrix extends StatelessWidget {
 }
 
 /// A high-density grid showing lead conversion status.
-class LeadConversionGrid extends StatelessWidget {
-  const LeadConversionGrid({super.key});
+class PartnershipLeadConversionGrid extends StatelessWidget {
+  const PartnershipLeadConversionGrid({super.key});
 
   @override
   Widget build(BuildContext context) {

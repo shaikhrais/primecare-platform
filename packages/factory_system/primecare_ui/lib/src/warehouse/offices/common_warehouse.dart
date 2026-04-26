@@ -74,8 +74,6 @@ class CommonComponentWarehouse extends BaseOfficeWarehouse {
     'error404PageView': (context, payload) => Error404pageviewPlaceholder(data: payload),
     'errorBoundary': (context, payload) => ErrorboundaryPlaceholder(data: payload),
 
-    'i18nContext': (context, payload) => I18ncontextPlaceholder(data: payload),
-    'i18nProvider': (context, payload) => I18nproviderPlaceholder(data: payload),
 
     'app': (context, payload) => AppscreenPlaceholder(data: payload),
     'authentication': (context, payload) => AuthenticationscreenPlaceholder(data: payload),

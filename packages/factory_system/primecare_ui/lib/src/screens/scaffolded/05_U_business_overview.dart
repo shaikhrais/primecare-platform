@@ -6,9 +6,9 @@ class BusinessOverview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'BusinessOverview',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.business_overview'.tr(),
+      subtitle: 'navigation.items.business_overview'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

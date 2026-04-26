@@ -12,7 +12,7 @@ class CooDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/coo/dashboard';
 
   @override
-  String get title => 'Coo Dashboard';
+  String get title => 'dashboards.coo.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.coo;

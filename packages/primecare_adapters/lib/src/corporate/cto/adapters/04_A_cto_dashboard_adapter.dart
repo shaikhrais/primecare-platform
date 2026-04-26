@@ -1,5 +1,5 @@
-// Layer: 04_UI_ADAPTERS
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 // -----------------------------------------------------------------------------
@@ -30,29 +30,29 @@ final ctoMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
       // Add role-specific KPIs if empty or override for high-fidelity UI
       final enrichedKpis = metrics.kpis.isEmpty
           ? [
-              const KpiMetric(
-                title: 'Global Uptime',
+              KpiMetric(
+                title: LocaleKeys.cto_dashboard_labels_global_uptime.tr(),
                 value: '99.99%',
                 subtitle: '+0.01%',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Avg API Latency',
+              KpiMetric(
+                title: LocaleKeys.cto_dashboard_labels_api_latency.tr(),
                 value: '142ms',
                 subtitle: '-12.0ms',
                 trend: 'down',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Error Rate',
+              KpiMetric(
+                title: LocaleKeys.cto_dashboard_labels_error_rate.tr(),
                 value: '0.04%',
                 subtitle: '-0.02%',
                 trend: 'down',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Deploys/Day',
+              KpiMetric(
+                title: LocaleKeys.cto_dashboard_labels_deploys_day.tr(),
                 value: '12',
                 subtitle: '+2.0',
                 trend: 'up',
@@ -81,9 +81,9 @@ final ctoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cto_mock_1',
-      title: 'Infrastructure Optimization',
+      title: LocaleKeys.cto_dashboard_labels_infra_optimization.tr(),
       summary:
           'Edge-compute migration for clinical adapters reduced latency by 152ms across US-East nodes.',
       impact: InsightImpact.positive,
@@ -92,9 +92,9 @@ final ctoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Expand edge-caching to Asia-Pacific regions for global clinical parity.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cto_mock_2',
-      title: 'Security Posture: Critical',
+      title: LocaleKeys.cto_dashboard_labels_security_posture.tr(),
       summary:
           'Zero-day vulnerability patched in legacy auth-handler. No data exfiltration detected.',
       impact: InsightImpact.warning,
@@ -103,9 +103,9 @@ final ctoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Rotate internal service mesh certificates within 48 hours.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cto_mock_3',
-      title: 'DevOps Velocity',
+      title: LocaleKeys.cto_dashboard_labels_devops_velocity.tr(),
       summary:
           'Automated regression suite execution time improved by 40% via parallel runner orchestration.',
       impact: InsightImpact.info,

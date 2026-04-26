@@ -41,7 +41,7 @@ final financeDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'finance_01',
       title: 'Revenue Velocity Alert',
       summary:
@@ -52,7 +52,7 @@ final financeDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>
       recommendation:
           'Maintain current collection cadence; explore early-payment discounts for preferred corporate accounts.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'finance_02',
       title: 'EBITDA Margin Sensitivity',
       summary:
@@ -63,7 +63,7 @@ final financeDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>
       recommendation:
           'Initiate variance analysis on overtime expenditure in the GTA cluster.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'finance_03',
       title: 'Double-Entry Integrity Audit',
       summary:

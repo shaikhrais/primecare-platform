@@ -6,9 +6,9 @@ class Profitability extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'Profitability',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.profitability'.tr(),
+      subtitle: 'navigation.items.profitability'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

@@ -6,9 +6,9 @@ class FamilyHome extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'FamilyHome',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.family_home'.tr(),
+      subtitle: 'navigation.items.family_home'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

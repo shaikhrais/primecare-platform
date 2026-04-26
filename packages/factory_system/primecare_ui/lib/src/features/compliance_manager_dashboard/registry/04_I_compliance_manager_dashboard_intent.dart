@@ -12,7 +12,7 @@ class ComplianceManagerDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/compliance_manager/dashboard';
 
   @override
-  String get title => 'Compliance Manager Dashboard';
+  String get title => 'dashboards.compliancemanager.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.complianceManager;
@@ -22,9 +22,9 @@ class ComplianceManagerDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Registry Integrity Score',
-    'Anomaly Heatmap',
-    'Execution Gate Logs',
+    'dashboards.compliancemanager.labels.registry_integrity_score',
+    'dashboards.compliancemanager.labels.anomaly_heatmap',
+    'dashboards.compliancemanager.labels.execution_gate_logs',
   ];
 
   @override

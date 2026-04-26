@@ -35,7 +35,7 @@ final trainingDirectorCertInsightsProvider = FutureProvider<List<IntelligenceIns
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'td_cert_1',
       title: 'Compliance Anomaly Detected',
       summary:
@@ -46,7 +46,7 @@ final trainingDirectorCertInsightsProvider = FutureProvider<List<IntelligenceIns
       recommendation:
           'Review Eastern Region Compliance Report and adjust automated escalation thresholds.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'td_cert_2',
       title: 'Regulatory Optimization',
       summary:

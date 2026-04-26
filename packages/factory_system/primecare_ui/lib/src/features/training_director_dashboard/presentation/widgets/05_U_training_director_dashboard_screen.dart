@@ -32,7 +32,7 @@ class TrainingDirectorDashboardScreen extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Training Command Center', style: theme.typography.h2),
+                  Text(LocaleKeys.command_center_labels_training_center.tr(), style: theme.typography.h2),
                   Text(
                     'Completion rates, compliance status, and certification velocity telemetry',
                     style: theme.typography.labelMedium,
@@ -78,7 +78,7 @@ class TrainingDirectorDashboardScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Regional Curriculum Compliance', style: theme.typography.h4),
+          Text(LocaleKeys.command_center_labels_curriculum_compliance.tr(), style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
           const Center(
             child: Text(
@@ -117,7 +117,7 @@ class TrainingDirectorDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Aura Intelligence', style: theme.typography.h4),
+        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

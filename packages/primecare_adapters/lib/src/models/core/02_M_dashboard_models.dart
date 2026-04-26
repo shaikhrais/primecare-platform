@@ -1,6 +1,41 @@
 // Layer: 02_MODELS_FOUNDATION
 import '02_M_ui_blueprint.dart';
 
+class PrimeCareLabel {
+  final String en;
+  final String? fr;
+  final String? es;
+
+  const PrimeCareLabel(this.en, {this.fr, this.es});
+
+  factory PrimeCareLabel.fromJson(Map<String, dynamic> json) {
+    return PrimeCareLabel(
+      json['en'] as String? ?? '',
+      fr: json['fr'] as String?,
+      es: json['es'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'en': en,
+      if (fr != null) 'fr': fr,
+      if (es != null) 'es': es,
+    };
+  }
+
+  String get(String langCode) {
+    switch (langCode.toLowerCase()) {
+      case 'fr':
+        return fr ?? en;
+      case 'es':
+        return es ?? en;
+      default:
+        return en;
+    }
+  }
+}
+
 enum InsightImpact {
   positive,
   caution,
@@ -45,11 +80,11 @@ class KpiMetric {
 
   factory KpiMetric.fromJson(Map<String, dynamic> json) {
     return KpiMetric(
-      title: json['title'] as String,
-      value: json['value'] as String,
-      subtitle: json['subtitle'] as String?,
-      trend: json['trend'] as String?,
-      status: json['status'] as String,
+      title: (json['title'] ?? '').toString(),
+      value: (json['value'] ?? '').toString(),
+      subtitle: json['subtitle']?.toString(),
+      trend: json['trend']?.toString(),
+      status: (json['status'] ?? 'neutral').toString(),
     );
   }
 
@@ -123,11 +158,11 @@ class DashboardActivity {
 
   factory DashboardActivity.fromJson(Map<String, dynamic> json) {
     return DashboardActivity(
-      title: json['title'] as String,
-      subtitle: json['subtitle'] as String,
-      timestamp: json['timestamp'] as String,
-      icon: json['icon'] as String,
-      color: json['color'] as String,
+      title: (json['title'] ?? '').toString(),
+      subtitle: (json['subtitle'] ?? '').toString(),
+      timestamp: (json['timestamp'] ?? '').toString(),
+      icon: (json['icon'] ?? 'info').toString(),
+      color: (json['color'] ?? 'blue').toString(),
     );
   }
 
@@ -157,10 +192,10 @@ class FinancialMetric {
 
   factory FinancialMetric.fromJson(Map<String, dynamic> json) {
     return FinancialMetric(
-      label: json['label'] as String,
-      value: json['value'] as String,
-      status: json['status'] as String,
-      trend: json['trend'] as String?,
+      label: (json['label'] ?? '').toString(),
+      value: (json['value'] ?? '').toString(),
+      status: (json['status'] ?? 'neutral').toString(),
+      trend: json['trend']?.toString(),
     );
   }
 
@@ -180,9 +215,9 @@ class ChartDataPoint {
 
   factory ChartDataPoint.fromJson(Map<String, dynamic> json) {
     return ChartDataPoint(
-      label: json['label'] as String,
-      value: (json['value'] as num).toDouble(),
-      color: json['color'] as String?,
+      label: (json['label'] ?? '').toString(),
+      value: (json['value'] as num?)?.toDouble() ?? 0.0,
+      color: json['color']?.toString(),
     );
   }
 
@@ -271,13 +306,15 @@ class AnalyticsChart {
         (e) => e.name == (json['type'] as String? ?? 'bar').toLowerCase(),
         orElse: () => ChartType.bar,
       ),
-      dataPoints: (dataPointsRaw as List)
-          .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      dataPoints: (json['dataPoints'] as List?)
+              ?.map((e) => ChartDataPoint.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       labels: labelsRaw.map((e) => e.toString()).toList(),
-      datasets: datasetsRaw
-          .map((i) => AnalyticsChartDataset.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      datasets: (json['datasets'] as List?)
+              ?.map((e) => AnalyticsChartDataset.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       forecastDataPoints: forecastRaw != null
           ? (forecastRaw as List)
                 .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))
@@ -445,10 +482,10 @@ class ForecastingProjection {
 
   factory ForecastingProjection.fromJson(Map<String, dynamic> json) {
     return ForecastingProjection(
-      month: json['month'] as String,
-      revenue: (json['revenue'] as num).toDouble(),
-      costs: (json['costs'] as num).toDouble(),
-      patients: json['patients'] as int,
+      month: (json['month'] ?? '').toString(),
+      revenue: (json['revenue'] as num?)?.toDouble() ?? 0.0,
+      costs: (json['costs'] as num?)?.toDouble() ?? 0.0,
+      patients: (json['patients'] as num?)?.toInt() ?? 0,
     );
   }
 
@@ -477,10 +514,10 @@ class ForecastingKPIs {
 
   factory ForecastingKPIs.fromJson(Map<String, dynamic> json) {
     return ForecastingKPIs(
-      quarterlyRevenue: (json['quarterlyRevenue'] as num).toDouble(),
-      projectedGrowth: (json['projectedGrowth'] as num).toDouble(),
-      marginEfficiency: (json['marginEfficiency'] as num).toDouble(),
-      projectedAdmissions: json['projectedAdmissions'] as int,
+      quarterlyRevenue: (json['quarterlyRevenue'] as num?)?.toDouble() ?? 0.0,
+      projectedGrowth: (json['projectedGrowth'] as num?)?.toDouble() ?? 0.0,
+      marginEfficiency: (json['marginEfficiency'] as num?)?.toDouble() ?? 0.0,
+      projectedAdmissions: (json['projectedAdmissions'] as num?)?.toInt() ?? 0,
     );
   }
 

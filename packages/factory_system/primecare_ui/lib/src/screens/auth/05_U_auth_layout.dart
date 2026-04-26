@@ -1,11 +1,9 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:primecare_ui/src/theme/01_I_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/src/theme/01_I_colors.dart';
 
-class AuthLayout extends StatefulWidget {
+class AuthLayout extends ConsumerStatefulWidget {
   final Widget child;
   final String heroTitle;
   final String heroSubtitle;
@@ -18,10 +16,10 @@ class AuthLayout extends StatefulWidget {
   });
 
   @override
-  State<AuthLayout> createState() => _AuthLayoutState();
+  ConsumerState<AuthLayout> createState() => _AuthLayoutState();
 }
 
-class _AuthLayoutState extends State<AuthLayout> {
+class _AuthLayoutState extends ConsumerState<AuthLayout> {
   // null represents 'Native' - letting the real device constraints dictate.
   double? _overriddenWidth;
 
@@ -120,6 +118,7 @@ class _AuthLayoutState extends State<AuthLayout> {
             top: 16,
             right: 16,
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 // Screen Size Controller
                 Container(
@@ -215,8 +214,9 @@ class _AuthLayoutState extends State<AuthLayout> {
                       ),
                     ),
                     onSelected: (String result) {
-                      final localeCode = result.toLowerCase();
-                      context.setLocale(Locale(localeCode));
+                      ref
+                          .read(languageProvider.notifier)
+                          .setLanguage(result.toLowerCase());
                     },
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<String>>[
@@ -231,6 +231,10 @@ class _AuthLayoutState extends State<AuthLayout> {
                           PopupMenuItem<String>(
                             value: 'es',
                             child: Text('common.languages.es'.tr()),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'ar',
+                            child: Text('common.languages.ar'.tr()),
                           ),
                         ],
                   ),

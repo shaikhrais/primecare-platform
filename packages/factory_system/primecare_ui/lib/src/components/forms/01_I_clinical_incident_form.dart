@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,7 +93,7 @@ class _ClinicalIncidentFormState extends ConsumerState<ClinicalIncidentForm> {
                   vertical: 8.0,
                 ),
                 child: DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(labelText: 'Status'),
+                  decoration: InputDecoration(labelText: 'common.status'.tr()),
                   items: const [
                     DropdownMenuItem(value: 'draft', child: Text('Draft')),
                     DropdownMenuItem(value: 'publish', child: Text('Publish')),

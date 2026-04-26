@@ -1,5 +1,5 @@
-// Layer: 04_UI_ADAPTERS
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 /// High-fidelity telemetry stream for the Support Dashboard.
@@ -41,9 +41,9 @@ final supportInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'supp_01',
-      title: 'Common Pain Point',
+      title: LocaleKeys.support_dashboard_labels_common_pain_point.tr(),
       summary:
           '60% of current open tickets relate to "Credential Expiry" notifications.',
       impact: InsightImpact.info,
@@ -52,9 +52,9 @@ final supportInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Update automated email templates to provide clearer renewal steps and reduce helpdesk load.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'supp_02',
-      title: 'Resolution Efficiency',
+      title: LocaleKeys.support_dashboard_labels_resolution_efficiency.tr(),
       summary:
           'Knowledge base articles on "Sync Errors" reduced ticket count by 22%.',
       impact: InsightImpact.positive,
@@ -63,9 +63,9 @@ final supportInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Expand Knowledge Base to cover "Mobile Offline Mode" common synchronization issues.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'supp_03',
-      title: 'SLA Breach Risk',
+      title: LocaleKeys.support_dashboard_labels_sla_breach_risk.tr(),
       summary:
           'High volume of "Tier 2 Technical" tickets is approaching SLA limit for Sector 7.',
       impact: InsightImpact.warning,

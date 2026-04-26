@@ -20,14 +20,8 @@ class RegionalPerformanceCenter extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Regional Performance Matrix',
-                    style: theme.typography.h3,
-                  ),
-                  Text(
-                    'Site-to-site comparative operational metrics',
-                    style: theme.typography.labelMedium,
-                  ),
+                  Text(LocaleKeys.regional_manager_labels_performance_matrix.tr(), style: theme.typography.h3),
+                  Text(LocaleKeys.regional_manager_labels_comparative_metrics.tr(), style: theme.typography.labelMedium),
                 ],
               ),
               const Spacer(),
@@ -59,11 +53,8 @@ class TerritoryHealthScorecard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Territory Health Scorecard', style: theme.typography.h3),
-          Text(
-            'Operational health indices across regional territories',
-            style: theme.typography.labelMedium,
-          ),
+          Text(LocaleKeys.regional_manager_labels_health_scorecard.tr(), style: theme.typography.h3),
+          Text(LocaleKeys.regional_manager_labels_health_indices.tr(), style: theme.typography.labelMedium),
           SizedBox(height: theme.spacing.lg),
           PrimeCareDataTable<Map<String, String>>(
             columns: const ['Territory', 'Score', 'Status', 'Trend'],

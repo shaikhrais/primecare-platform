@@ -6,9 +6,9 @@ class SystemHealth extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'SystemHealth',
-      subtitle: 'Auto-scaffolded health monitor',
+    return PageTemplate(
+      title: 'navigation.items.system_health'.tr(),
+      subtitle: 'navigation.items.system_health'.tr(),
       body: Center(child: Text('Provisioning...')),
     );
   }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/theme/01_I_design_system.dart';
 import 'package:flutter_core/config/01_I_screen_breakpoints.dart';
 import 'package:flutter_core/config/01_I_adaptive_scaling_config.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ResponsiveNavigationData {
   final String label;
@@ -168,7 +169,7 @@ class _DesktopSidebar extends StatelessWidget {
                 Icon(Icons.monitor_heart_rounded, color: primaryIcon, size: 32),
                 const SizedBox(width: PrimeCareSpacing.sm),
                 Text(
-                  'PrimeCare',
+                  'common.app_name'.tr(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -222,7 +223,7 @@ class _DesktopSidebar extends StatelessWidget {
                           ),
                           const SizedBox(width: PrimeCareSpacing.md),
                           Text(
-                            d.label,
+                            d.label.tr(),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
@@ -306,7 +307,7 @@ class _TabletNavRail extends StatelessWidget {
               (d) => NavigationRailDestination(
                 icon: Icon(d.icon),
                 selectedIcon: Icon(d.selectedIcon),
-                label: Text(d.label),
+                label: Text(d.label.tr()),
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             )
@@ -347,7 +348,7 @@ class _MobileBottomBar extends StatelessWidget {
             (d) => NavigationDestination(
               icon: Icon(d.icon, color: PrimeCareDesignSystem.textMuted),
               selectedIcon: Icon(d.selectedIcon, color: primaryIcon),
-              label: d.label,
+              label: d.label.tr(),
             ),
           )
           .toList(),

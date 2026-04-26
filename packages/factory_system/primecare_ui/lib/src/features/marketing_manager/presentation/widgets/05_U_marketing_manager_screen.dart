@@ -42,7 +42,7 @@ class MarketingManagerScreen extends ConsumerWidget {
                     children: [
                       Expanded(flex: 2, child: _buildCampaignFunnel(vm)),
                       const SizedBox(width: 24),
-                      Expanded(flex: 1, child: _buildMarketingIntelligence(vm)),
+                      Expanded(flex: 1, child: _buildMarketingIntelligence(context, vm)),
                     ],
                   ),
                 ],
@@ -132,7 +132,7 @@ class MarketingManagerScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildMarketingIntelligence(HeadOfMarketingDashboardViewModel vm) {
+  Widget _buildMarketingIntelligence(BuildContext context, HeadOfMarketingDashboardViewModel vm) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -164,7 +164,7 @@ class MarketingManagerScreen extends ConsumerWidget {
             (insight) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: Text(
-                insight.summary,
+                insight.summary.translate(context),
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.9),
                   fontSize: 13,

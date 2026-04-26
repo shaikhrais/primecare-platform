@@ -38,7 +38,7 @@ final ownerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsigh
   await Future<void>.delayed(const Duration(seconds: 1));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'own_01',
       title: 'M&A Opportunity: GTA North',
       summary:
@@ -48,7 +48,7 @@ final ownerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsigh
       category: 'Strategy',
       recommendation: 'Initiate non-binding inquiry via legal counsel by EOM.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'own_02',
       title: 'Regulatory Change: Bill 124 Impact',
       summary:
@@ -59,7 +59,7 @@ final ownerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsigh
       recommendation:
           'Review private-pay pricing schedule to maintain EBITDA margins.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'own_03',
       title: 'AI Operational Efficiency',
       summary:

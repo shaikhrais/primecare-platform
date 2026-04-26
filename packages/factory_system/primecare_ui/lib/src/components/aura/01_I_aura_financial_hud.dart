@@ -118,7 +118,7 @@ class _FinancialInsightTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  insight.title,
+                  insight.title.translate(context),
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
@@ -127,7 +127,7 @@ class _FinancialInsightTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  insight.summary,
+                  insight.summary.translate(context),
                   style: GoogleFonts.inter(
                     fontSize: 13,
                     height: 1.5,

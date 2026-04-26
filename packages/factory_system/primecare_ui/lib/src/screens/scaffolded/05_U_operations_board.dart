@@ -6,9 +6,9 @@ class OperationsBoard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'OperationsBoard',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.operations_board'.tr(),
+      subtitle: 'navigation.items.operations_board'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

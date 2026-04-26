@@ -39,7 +39,7 @@ final cxDirectorInsightsProvider = FutureProvider.autoDispose<List<IntelligenceI
   await Future<void>.delayed(const Duration(seconds: 1));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cx_01',
       title: 'Sentiment Surge Detected',
       summary:
@@ -50,7 +50,7 @@ final cxDirectorInsightsProvider = FutureProvider.autoDispose<List<IntelligenceI
       recommendation:
           'Highlight portal engagement features in the next stakeholder report.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cx_02',
       title: 'Churn Risk Volatility',
       summary:
@@ -61,7 +61,7 @@ final cxDirectorInsightsProvider = FutureProvider.autoDispose<List<IntelligenceI
       recommendation:
           'Trigger personalized Concierge outreach for families in the bottom 10th percentile of engagement.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cx_03',
       title: 'Response Latency Optimization',
       summary:

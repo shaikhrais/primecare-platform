@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
@@ -44,7 +45,7 @@ class _AuditSecurityComplianceFormState
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Name',
+                  labelText: 'common.name'.tr(),
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   border: const OutlineInputBorder(),
                 ),
@@ -54,7 +55,7 @@ class _AuditSecurityComplianceFormState
               const SizedBox(height: 16),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Details',
+                  labelText: 'common.details'.tr(),
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   border: const OutlineInputBorder(),
                 ),

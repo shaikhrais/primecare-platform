@@ -6,9 +6,9 @@ class RiskRegister extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'RiskRegister',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.risk_register'.tr(),
+      subtitle: 'navigation.items.risk_register'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

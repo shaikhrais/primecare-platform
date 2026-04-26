@@ -46,37 +46,50 @@ final intakeInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
   await Future<void>.delayed(const Duration(milliseconds: 1600));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'intake_01',
-      title: 'Referral Velocity Spike',
-      summary:
-          'Referral volume from North Hospital is 2.5x the rolling average.',
+      title: PrimeCareLabel('Referral Velocity Spike', fr: 'Pic de Vitesse de Référence'),
+      summary: PrimeCareLabel(
+        'Referral volume from North Hospital is 2.5x the rolling average.',
+        fr: 'Le volume de références de l\'Hôpital Nord est de 2,5x la moyenne mobile.',
+      ),
       impact: InsightImpact.warning,
       type: InsightType.risk,
       category: 'Pipeline Load',
-      recommendation:
-          'Check capacity levels in North Sector before accepting new admits.',
+      recommendation: PrimeCareLabel(
+        'Check capacity levels in North Sector before accepting new admits.',
+        fr: 'Vérifiez les niveaux de capacité dans le secteur nord avant d\'accepter de nouvelles admissions.',
+      ),
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'intake_02',
-      title: 'Waitlist SLA Breach Risk',
-      summary: 'Average wait time for Sector 4 is nearing the 24h SLA limit.',
+      title: PrimeCareLabel('Waitlist SLA Breach Risk', fr: 'Risque de Violation de SLA de Liste d\'Attente'),
+      summary: PrimeCareLabel(
+        'Average wait time for Sector 4 is nearing the 24h SLA limit.',
+        fr: 'Le temps d\'attente moyen pour le secteur 4 s\'approche de la limite SLA de 24h.',
+      ),
       impact: InsightImpact.alert,
       type: InsightType.alert,
       category: 'SLA Compliance',
-      recommendation:
-          'Escalate pending triage cases in Sector 4 to Senior Coordinator.',
+      recommendation: PrimeCareLabel(
+        'Escalate pending triage cases in Sector 4 to Senior Coordinator.',
+        fr: 'Faire remonter les cas de triage en attente dans le secteur 4 au coordinateur principal.',
+      ),
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'intake_03',
-      title: 'Documentation Efficiency',
-      summary:
-          'Automated pre-screen forms reduced intake cycle time by 18 minutes per case.',
+      title: PrimeCareLabel('Documentation Efficiency', fr: 'Efficacité de la Documentation'),
+      summary: PrimeCareLabel(
+        'Automated pre-screen forms reduced intake cycle time by 18 minutes per case.',
+        fr: 'Les formulaires de pré-sélection automatisés ont réduit le temps de cycle d\'admission de 18 minutes par cas.',
+      ),
       impact: InsightImpact.positive,
       type: InsightType.efficiency,
       category: 'Process Optimization',
-      recommendation:
-          'Expand pre-screen digital enrollment to all referring clinics.',
+      recommendation: PrimeCareLabel(
+        'Expand pre-screen digital enrollment to all referring clinics.',
+        fr: 'Étendre l\'inscription numérique de pré-sélection à toutes les cliniques référentes.',
+      ),
     ),
   ];
 });

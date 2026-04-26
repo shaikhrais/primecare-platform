@@ -12,7 +12,7 @@ class CourseArchitectDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/course_architect/dashboard';
 
   @override
-  String get title => 'Course Architect Dashboard';
+  String get title => 'dashboards.coursearchitect.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.courseArchitect;

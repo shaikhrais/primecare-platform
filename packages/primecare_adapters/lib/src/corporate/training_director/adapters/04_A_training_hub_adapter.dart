@@ -40,7 +40,7 @@ final trainingHubInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'th_1',
       title: 'High Engagement in Clinical Safety',
       summary:
@@ -51,7 +51,7 @@ final trainingHubInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Expand Clinical Safety Track and allocate additional virtual classroom seats.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'th_2',
       title: 'Resource Bottleneck Predicted',
       summary:

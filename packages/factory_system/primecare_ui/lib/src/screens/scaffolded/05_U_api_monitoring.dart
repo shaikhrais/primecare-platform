@@ -6,9 +6,9 @@ class ApiMonitoring extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'ApiMonitoring',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.api_monitoring'.tr(),
+      subtitle: 'navigation.items.api_monitoring'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

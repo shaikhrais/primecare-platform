@@ -12,7 +12,7 @@ class GeneralManagerDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/general_manager/dashboard';
 
   @override
-  String get title => 'General Manager Dashboard';
+  String get title => 'dashboards.generalmanager.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.generalManager;

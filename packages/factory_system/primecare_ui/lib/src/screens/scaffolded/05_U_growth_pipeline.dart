@@ -6,9 +6,9 @@ class GrowthPipeline extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'GrowthPipeline',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.growth_pipeline'.tr(),
+      subtitle: 'navigation.items.growth_pipeline'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

@@ -12,7 +12,7 @@ class HeadOfMarketingDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/head_of_marketing/dashboard';
 
   @override
-  String get title => 'Head Of Marketing Dashboard';
+  String get title => 'dashboards.headofmarketing.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.headOfMarketing;

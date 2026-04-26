@@ -281,7 +281,7 @@ class _AuraInsightTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  insight.title,
+                  insight.title.translate(context),
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -290,7 +290,7 @@ class _AuraInsightTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  insight.summary,
+                  insight.summary.translate(context),
                   style: GoogleFonts.inter(
                     fontSize: 13,
                     color: PrimeCareColors.white.withValues(alpha: 0.9),

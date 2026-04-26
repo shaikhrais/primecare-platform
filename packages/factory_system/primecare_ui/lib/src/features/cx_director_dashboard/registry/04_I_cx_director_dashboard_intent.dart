@@ -12,7 +12,7 @@ class CxDirectorDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/cx_director/dashboard';
 
   @override
-  String get title => 'Cx Director Dashboard';
+  String get title => 'dashboards.cxdirector.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.cxDirector;

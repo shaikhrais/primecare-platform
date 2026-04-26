@@ -6,9 +6,9 @@ class FinancialOverview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'FinancialOverview',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.financial_overview'.tr(),
+      subtitle: 'navigation.items.financial_overview'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

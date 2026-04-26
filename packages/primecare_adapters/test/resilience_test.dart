@@ -129,6 +129,7 @@ class MockExecutionGateService extends ExecutionGateService {
     ExecutionGateCategory category,
     String message, {
     Map<String, dynamic>? metadata,
+    bool silent = false,
   }) {
     logs.add('PASS: ${category.name} - $message');
   }
@@ -140,6 +141,7 @@ class MockExecutionGateService extends ExecutionGateService {
     Object? error,
     StackTrace? stackTrace,
     Map<String, dynamic>? metadata,
+    bool silent = false,
   }) {
     logs.add('FAIL: ${category.name} - $message');
   }

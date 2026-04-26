@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
@@ -53,19 +54,19 @@ class _NewEmployeeOnboardingFormState extends State<NewEmployeeOnboardingForm> {
       children: [
         TextFormField(
           controller: _firstNameController,
-          decoration: const InputDecoration(labelText: 'First Name'),
+          decoration: InputDecoration(labelText: 'forms.first_name'.tr()),
           validator: (val) => val == null || val.isEmpty ? 'Required' : null,
         ),
         const SizedBox(height: 16),
         TextFormField(
           controller: _lastNameController,
-          decoration: const InputDecoration(labelText: 'Last Name'),
+          decoration: InputDecoration(labelText: 'forms.last_name'.tr()),
           validator: (val) => val == null || val.isEmpty ? 'Required' : null,
         ),
         const SizedBox(height: 16),
         TextFormField(
           controller: _emailController,
-          decoration: const InputDecoration(labelText: 'Email Address'),
+          decoration: InputDecoration(labelText: 'Email Address'),
           validator: (val) {
             if (val == null || val.isEmpty) return 'Required';
             if (!val.contains('@')) return 'Invalid email';
@@ -75,7 +76,7 @@ class _NewEmployeeOnboardingFormState extends State<NewEmployeeOnboardingForm> {
         const SizedBox(height: 16),
         TextFormField(
           controller: _roleController,
-          decoration: const InputDecoration(labelText: 'Assigned Role'),
+          decoration: InputDecoration(labelText: 'Assigned Role'),
           validator: (val) => val == null || val.isEmpty ? 'Required' : null,
         ),
       ],

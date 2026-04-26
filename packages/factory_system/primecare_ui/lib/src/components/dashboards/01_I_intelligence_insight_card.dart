@@ -55,7 +55,7 @@ class IntelligenceInsightCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      insight.title,
+                      insight.title.translate(context),
                       style: theme.typography.bodyMedium.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -72,7 +72,7 @@ class IntelligenceInsightCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text(insight.summary, style: theme.typography.bodySmall),
+          Text(insight.summary.translate(context), style: theme.typography.bodySmall),
           if (insight.recommendation != null) ...[
             const SizedBox(height: 12),
             Container(
@@ -91,7 +91,7 @@ class IntelligenceInsightCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      insight.recommendation!,
+                      insight.recommendation!.translate(context),
                       style: theme.typography.bodySmall.copyWith(
                         color: theme.colors.primary,
                         fontStyle: FontStyle.italic,

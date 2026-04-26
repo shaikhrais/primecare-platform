@@ -1,13 +1,9 @@
 import 'dart:math' as math;
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:primecare_ui/src/theme/01_I_design_system.dart';
 
-// Internal granular imports
-import 'package:flutter_core/models/01_I_navigation_item.dart';
-import 'package:flutter_core/providers/03_D_portal_providers.dart';
-import 'package:flutter_core/01_I_auth_service.dart';
+
 
 class UniversalRoleSidebar extends ConsumerWidget {
   final Widget child;
@@ -28,6 +24,8 @@ class UniversalRoleSidebar extends ConsumerWidget {
 
     final theme = Theme.of(context);
     final layout = ref.watch(layoutProvider);
+    // Watch languageProvider to trigger rebuild when locale changes
+    ref.watch(languageProvider);
 
     // Tablet and Desktop layouts (Sidebar)
     return Row(
@@ -122,7 +120,7 @@ class UniversalRoleSidebar extends ConsumerWidget {
             ),
           ),
 
-          // Footer (User Card)
+          // Footer (User Card & Language)
           _SidebarFooter(isExtended: isExtended, scale: scale),
         ],
       ),
@@ -146,6 +144,8 @@ class UniversalRoleDrawer extends ConsumerWidget {
     if (currentIndex == -1) currentIndex = 0;
 
     final layout = ref.watch(layoutProvider);
+    // Watch languageProvider to trigger rebuild when locale changes
+    ref.watch(languageProvider);
     final drawerLayout = LayoutConfig(
       tier: layout.tier,
       scaleFactor: layout.scaleFactor,
@@ -400,9 +400,10 @@ class _SidebarFooter extends ConsumerWidget {
     final role = authState.role ?? 'Administrator';
 
     final userName = authState.userName ?? 'PrimeCare User';
-    final initials = userName.isNotEmpty
-        ? userName.substring(0, 1).toUpperCase()
-        : 'U';
+    final initials =
+        userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
+
+    final currentLang = ref.watch(languageProvider);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -417,70 +418,165 @@ class _SidebarFooter extends ConsumerWidget {
           ),
         ),
       ),
-      child: Container(
-        padding: EdgeInsets.all(isExtended ? 12 * scale : 0),
-        decoration: isExtended
-            ? BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(14 * scale),
-              )
-            : null,
-        child: Row(
-          mainAxisAlignment: isExtended
-              ? MainAxisAlignment.start
-              : MainAxisAlignment.center,
-          children: [
-            // Avatar
-            Container(
-              width: 44 * scale,
-              height: 44 * scale,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primary,
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                initials.toUpperCase(),
-                style: TextStyle(
-                  color: theme.colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14 * scale,
-                ),
-              ),
-            ),
-            if (isExtended) ...[
-              SizedBox(width: 12 * scale),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      userName,
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14 * scale,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.all(isExtended ? 12 * scale : 0),
+            decoration: isExtended
+                ? BoxDecoration(
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(14 * scale),
+                  )
+                : null,
+            child: Row(
+              mainAxisAlignment: isExtended
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                // Avatar
+                Container(
+                  width: 44 * scale,
+                  height: 44 * scale,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    initials.toUpperCase(),
+                    style: TextStyle(
+                      color: theme.colorScheme.onPrimary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14 * scale,
                     ),
-                    Text(
-                      role,
-                      style: theme.textTheme.labelSmall?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant.withValues(
-                          alpha: 0.6,
+                  ),
+                ),
+                if (isExtended) ...[
+                  SizedBox(width: 12 * scale),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          userName,
+                          style: theme.textTheme.labelLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14 * scale,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        fontSize: 12 * scale,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                        Text(
+                          role,
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant
+                                .withValues(alpha: 0.6),
+                            fontSize: 12 * scale,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              ],
+            ),
+          ),
+          if (isExtended) ...[
+            SizedBox(height: 12 * scale),
+            _buildLanguageRow(context, ref, theme, currentLang, scale),
           ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLanguageRow(
+    BuildContext context,
+    WidgetRef ref,
+    ThemeData theme,
+    String currentLang,
+    double scale,
+  ) {
+    final ds = PrimeCareDesignSystem.of(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'navigation.footer.language'.tr(),
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+            fontSize: 11 * scale,
+          ),
         ),
+        PopupMenuButton<String>(
+          onSelected: (String langCode) {
+            ref.read(languageProvider.notifier).setLanguage(langCode);
+            context.setLocale(Locale(langCode));
+          },
+          itemBuilder:
+              (context) => [
+                _buildLanguageItem('en', 'common.language.en'.tr(), scale, ds),
+                _buildLanguageItem('fr', 'common.language.fr'.tr(), scale, ds),
+                _buildLanguageItem('es', 'common.language.es'.tr(), scale, ds),
+              ],
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 8 * scale,
+              vertical: 4 * scale,
+            ),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(6 * scale),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  currentLang.toUpperCase(),
+                  style: TextStyle(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12 * scale,
+                  ),
+                ),
+                Icon(
+                  Icons.arrow_drop_down,
+                  size: 16 * scale,
+                  color: theme.colorScheme.primary,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  PopupMenuItem<String> _buildLanguageItem(
+    String code,
+    String label,
+    double scale,
+    PrimeCareDesignSystem ds,
+  ) {
+    return PopupMenuItem<String>(
+      value: code,
+      child: Row(
+        children: [
+          Text(
+            code.toUpperCase(),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12 * scale,
+              color: ds.colors.textSecondary,
+            ),
+          ),
+          SizedBox(width: 8 * scale),
+          Text(label, style: TextStyle(fontSize: 13 * scale)),
+        ],
       ),
     );
   }

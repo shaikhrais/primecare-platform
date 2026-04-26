@@ -12,7 +12,7 @@ class BillingAdminDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/billing_admin/dashboard';
 
   @override
-  String get title => 'Billing Admin Dashboard';
+  String get title => 'dashboards.billingadmin.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.billingAdmin;
@@ -22,9 +22,9 @@ class BillingAdminDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Aging Accounts Grid',
-    'Pending Claims Queue',
-    'Remittance Breakdown',
+    'dashboards.billingadmin.labels.aging_accounts_grid',
+    'dashboards.billingadmin.labels.pending_claims_queue',
+    'dashboards.billingadmin.labels.remittance_breakdown',
   ];
 
   @override

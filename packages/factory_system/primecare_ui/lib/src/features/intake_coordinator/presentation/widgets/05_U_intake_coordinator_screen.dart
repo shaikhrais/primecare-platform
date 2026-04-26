@@ -38,7 +38,7 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
                     children: [
                       Expanded(flex: 2, child: _buildRecentApplications(vm)),
                       const SizedBox(width: 24),
-                      Expanded(flex: 1, child: _buildIntakeIntelligence(vm)),
+                      Expanded(flex: 1, child: _buildIntakeIntelligence(context, vm)),
                     ],
                   ),
                 ],
@@ -132,7 +132,7 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildIntakeIntelligence(IntakeDashboardViewModel vm) {
+  Widget _buildIntakeIntelligence(BuildContext context, IntakeDashboardViewModel vm) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -160,7 +160,7 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
             (insight) => Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: Text(
-                insight.summary,
+                insight.summary.translate(context),
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.7),
                   fontSize: 13,

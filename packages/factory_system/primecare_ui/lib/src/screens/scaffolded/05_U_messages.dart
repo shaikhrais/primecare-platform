@@ -6,9 +6,9 @@ class Messages extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'Messages',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.messages'.tr(),
+      subtitle: 'navigation.items.messages'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

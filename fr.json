@@ -1,0 +1,345 @@
+{
+  "navigation": {
+    "sections": {
+      "main": "Navigation Principale",
+      "management": "Gestion",
+      "common_tools": "Outils Communs",
+      "strategic": "Stratégique",
+      "workflows": "Flux de Travail",
+      "operations": "Opérations",
+      "finance": "Finance",
+      "clinical": "Clinique",
+      "growth": "Croissance",
+      "master_directory": "Répertoire Principal"
+    },
+    "items": {
+      "system_dashboard": "Tableau de bord système",
+      "compliance_hub": "Centre de conformité",
+      "global_settings": "Paramètres globaux",
+      "user_management": "Gestion des utilisateurs",
+      "enterprise_overview": "Aperçu de l'entreprise",
+      "strategic_kpis": "Indicateurs stratégiques",
+      "growth_pipeline": "Pipeline de croissance",
+      "region_performance": "Performance régionale",
+      "leadership_reports": "Rapports de direction",
+      "cfo_dashboard": "Tableau de bord du CFO",
+      "financial_overview": "Aperçu financier",
+      "revenue_tracker": "Suivi des revenus",
+      "profitability": "Rentabilité",
+      "tax_&_remittance": "Impôts et versements",
+      "coo_dashboard": "Tableau de bord du COO",
+      "operations_board": "Tableau des opérations",
+      "branch_operations": "Opérations des succursales",
+      "scheduling_health": "Santé des horaires",
+      "incident_reviews": "Revues d'incidents",
+      "cto_dashboard": "Tableau de bord du CTO",
+      "system_health": "Santé du système",
+      "platform_usage": "Utilisation de la plateforme",
+      "api_monitoring": "Surveillance de l'API",
+      "audit_logs": "Journaux d'audit",
+      "cases": "Dossiers",
+      "policy_manager": "Gestionnaire de politiques",
+      "audits": "Audits",
+      "risk_register": "Registre des risques",
+      "curriculum_hub": "Centre de formation",
+      "skill_matrix": "Matrice des compétences",
+      "region_dashboard": "Tableau de bord régional",
+      "branch_comparison": "Comparaison des succursales",
+      "ledger_command": "Commande du grand livre",
+      "cash_flow": "Flux de trésorerie",
+      "intake_pipeline": "Pipeline d'admission",
+      "referrals": "Références",
+      "pending_assessments": "Évaluations en attente",
+      "billing_console": "Console de facturation",
+      "invoices": "Factures",
+      "marketing_hub": "Centre de marketing",
+      "campaign_analytics": "Analyses de campagne",
+      "business_overview": "Aperçu de l'activité",
+      "financial_performance": "Performance financière",
+      "compliance_status": "État de conformité",
+      "clinical_dashboard": "Tableau de bord clinique",
+      "shift_tracker": "Suivi des quarts",
+      "messages": "Messages",
+      "family_home": "Accueil famille",
+      "care_plan": "Plan de soins",
+      "billing": "Facturation",
+      "messaging_hub": "Centre de messagerie",
+      "document_vault": "Coffre-fort de documents",
+      "notification_center": "Centre de notifications",
+      "head_of_marketing_dashboard": "Tableau de bord marketing",
+      "head_of_bus_dev_dashboard": "Tableau de bord Bus Dev",
+      "operations_manager_dashboard": "Tableau de bord des opérations",
+      "hr_hiring_dashboard": "Tableau de bord RH",
+      "clinical_director_dashboard": "Directeur clinique",
+      "shareholder_dashboard": "Tableau de bord des actionnaires",
+      "dashboard": "Tableau de bord",
+      "notifications": "Notifications",
+      "marketing_dashboard": "Tableau de bord marketing",
+      "bus_dev_dashboard": "Tableau de bord Bus Dev",
+      "ops_dashboard": "Tableau de bord des opérations",
+      "hr_dashboard": "Tableau de bord RH",
+      "clinical_director": "Directeur clinique"
+    },
+    "footer": {
+      "language": "Langue"
+    }
+  },
+  "dashboards": {
+    "architecture_planning": {
+      "title": "Architecture Planning",
+      "subtitle": "Accès aux métriques."
+    },
+    "billing_admin": {
+      "title": "Billing Admin",
+      "subtitle": "Accès aux métriques."
+    },
+    "ceo": {
+      "title": "Ceo",
+      "subtitle": "Accès aux métriques."
+    },
+    "corporate_governance": {
+      "title": "Corporate Governance",
+      "subtitle": "Accès aux métriques."
+    },
+    "cfo": {
+      "title": "Cfo",
+      "subtitle": "Accès aux métriques."
+    },
+    "client": {
+      "title": "Client",
+      "subtitle": "Accès aux métriques."
+    },
+    "clinic": {
+      "title": "Clinic",
+      "subtitle": "Accès aux métriques."
+    },
+    "clinical_director": {
+      "title": "Clinical Director",
+      "subtitle": "Accès aux métriques."
+    },
+    "community_outreach": {
+      "title": "Community Outreach",
+      "subtitle": "Accès aux métriques."
+    },
+    "compliance_manager": {
+      "title": "Compliance Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "coo": {
+      "title": "Coo",
+      "subtitle": "Accès aux métriques."
+    },
+    "course_architect": {
+      "title": "Course Architect",
+      "subtitle": "Accès aux métriques."
+    },
+    "cto": {
+      "title": "Cto",
+      "subtitle": "Accès aux métriques."
+    },
+    "customer_support": {
+      "title": "Customer Support",
+      "subtitle": "Accès aux métriques."
+    },
+    "cx_director": {
+      "title": "Cx Director",
+      "subtitle": "Accès aux métriques."
+    },
+    "dynamic_screen": {
+      "title": "Dynamic Screen",
+      "subtitle": "Accès aux métriques."
+    },
+    "family": {
+      "title": "Family",
+      "subtitle": "Accès aux métriques."
+    },
+    "family_member": {
+      "title": "Family Member",
+      "subtitle": "Accès aux métriques."
+    },
+    "finance_director": {
+      "title": "Finance Director",
+      "subtitle": "Accès aux métriques."
+    },
+    "franchise_owner": {
+      "title": "Franchise Owner",
+      "subtitle": "Accès aux métriques."
+    },
+    "franchise_sales_manager": {
+      "title": "Franchise Sales Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "general_manager": {
+      "title": "General Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "guest": {
+      "title": "Guest",
+      "subtitle": "Accès aux métriques."
+    },
+    "head_of_bus_dev": {
+      "title": "Head Of Bus Dev",
+      "subtitle": "Accès aux métriques."
+    },
+    "head_of_marketing": {
+      "title": "Head Of Marketing",
+      "subtitle": "Accès aux métriques."
+    },
+    "hr_director": {
+      "title": "Hr Director",
+      "subtitle": "Accès aux métriques."
+    },
+    "hr_manager": {
+      "title": "Hr Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "hr_hiring": {
+      "title": "Hr Hiring",
+      "subtitle": "Accès aux métriques."
+    },
+    "intake_coordinator": {
+      "title": "Intake Coordinator",
+      "subtitle": "Accès aux métriques."
+    },
+    "intake": {
+      "title": "Intake",
+      "subtitle": "Accès aux métriques."
+    },
+    "local_marketing_manager": {
+      "title": "Local Marketing Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "operations_manager": {
+      "title": "Operations Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "owner": {
+      "title": "Owner",
+      "subtitle": "Accès aux métriques."
+    },
+    "partnership_manager": {
+      "title": "Partnership Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "patient": {
+      "title": "Patient",
+      "subtitle": "Accès aux métriques."
+    },
+    "psw": {
+      "title": "Psw",
+      "subtitle": "Accès aux métriques."
+    },
+    "qa": {
+      "title": "Qa",
+      "subtitle": "Accès aux métriques."
+    },
+    "quality_assurance": {
+      "title": "Quality Assurance",
+      "subtitle": "Accès aux métriques."
+    },
+    "receptionist": {
+      "title": "Receptionist",
+      "subtitle": "Accès aux métriques."
+    },
+    "regional_bdm": {
+      "title": "Regional Bdm",
+      "subtitle": "Accès aux métriques."
+    },
+    "regional_manager_ontario": {
+      "title": "Regional Manager Ontario",
+      "subtitle": "Accès aux métriques."
+    },
+    "regional_manager_usa": {
+      "title": "Regional Manager Usa",
+      "subtitle": "Accès aux métriques."
+    },
+    "rmt": {
+      "title": "Rmt",
+      "subtitle": "Accès aux métriques."
+    },
+    "rn": {
+      "title": "Rn",
+      "subtitle": "Accès aux métriques."
+    },
+    "scheduler": {
+      "title": "Scheduler",
+      "subtitle": "Accès aux métriques."
+    },
+    "scrum_master": {
+      "title": "Scrum Master",
+      "subtitle": "Accès aux métriques."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Accès aux métriques."
+    },
+    "system_verification": {
+      "title": "System Verification",
+      "subtitle": "Accès aux métriques."
+    },
+    "territory_expansion_manager": {
+      "title": "Territory Expansion Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "territory_sales_manager": {
+      "title": "Territory Sales Manager",
+      "subtitle": "Accès aux métriques."
+    },
+    "training_coordinator": {
+      "title": "Training Coordinator",
+      "subtitle": "Accès aux métriques."
+    },
+    "training_director_certificate": {
+      "title": "Training Director Certificate",
+      "subtitle": "Accès aux métriques."
+    },
+    "training_director": {
+      "title": "Training Director",
+      "subtitle": "Accès aux métriques."
+    },
+    "training_hub": {
+      "title": "Training Hub",
+      "subtitle": "Accès aux métriques."
+    },
+    "volunteer_coordinator": {
+      "title": "Volunteer Coordinator",
+      "subtitle": "Accès aux métriques."
+    },
+    "infection_control": {
+      "title": "Infection Control",
+      "subtitle": "Accès aux métriques."
+    },
+    "shareholder_intelligence": {
+      "title": "Shareholder Intelligence",
+      "subtitle": "Accès aux métriques."
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "language": {
+      "en": "Anglais",
+      "fr": "Français",
+      "es": "Espagnol"
+    }
+  },
+  "auth": {
+    "title_curator": "Bienvenue chez PrimeCare",
+    "curator_subtitle": "Portail d'Accès Entreprise",
+    "welcome_back": "Ravi de vous revoir",
+    "login_instructions": "Connectez-vous à votre compte",
+    "email": "Adresse Courriel",
+    "email_placeholder": "Entrez votre courriel",
+    "password": "Mot de passe",
+    "forgot_password": "Mot de passe oublié ?",
+    "sign_in": "Se connecter",
+    "security_notice_long": "Ce système est réservé au personnel autorisé.",
+    "authentication_failed": "Échec de l'authentification.",
+    "enter_credentials_to_continue": "Veuillez entrer vos identifiants."
+  },
+  "aura": {
+    "search_hint": "Rechercher...",
+    "sign_out": "Se déconnecter"
+  }
+}

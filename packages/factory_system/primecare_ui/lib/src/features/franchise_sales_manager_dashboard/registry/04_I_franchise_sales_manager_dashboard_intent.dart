@@ -13,7 +13,7 @@ class FranchiseSalesManagerDashboardIntent extends AppScreenIntent {
       '/offices/corporate/roles/franchise_sales_manager/dashboard';
 
   @override
-  String get title => 'Franchise Sales Manager Dashboard';
+  String get title => 'dashboards.franchisesalesmanager.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.franchiseSalesManager;

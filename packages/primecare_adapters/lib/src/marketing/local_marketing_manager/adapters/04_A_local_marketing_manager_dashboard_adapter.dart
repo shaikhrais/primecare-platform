@@ -40,7 +40,7 @@ final localMarketingInsightsProvider =
 
 List<IntelligenceInsight> _getSmartMarketingMocks() {
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'mkt_01',
       title: 'Conversion Rate Surge',
       summary:
@@ -50,7 +50,7 @@ List<IntelligenceInsight> _getSmartMarketingMocks() {
       recommendation:
           'Increase ad spend for the upcoming "North Sector Open House" campaign.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'mkt_02',
       title: 'Lead Attrition Alert',
       summary:
@@ -60,7 +60,7 @@ List<IntelligenceInsight> _getSmartMarketingMocks() {
       recommendation:
           'Trigger immediate follow-up tasks for the local sales outreach team.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'mkt_03',
       title: 'Market Expansion Opportunity',
       summary:

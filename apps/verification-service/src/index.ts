@@ -8,6 +8,8 @@ import { registerAuditRoutes } from './routes/audit';
 import { registerAdminRoutes } from './routes/admin';
 import { registerClinicalRoutes } from './routes/clinical';
 import { registerComplianceRoutes } from './routes/compliance';
+import { registerUserRoutes } from './routes/user';
+import { registerAuthRoutes } from './routes/auth';
 
 if (!(BigInt.prototype as any).toJSON) {
   (BigInt.prototype as any).toJSON = function() {
@@ -313,6 +315,12 @@ registerClinicalRoutes(app);
 
 // Mount the Compliance Report APIs
 registerComplianceRoutes(app);
+
+// Mount the User APIs
+registerUserRoutes(app);
+
+// Mount the Auth APIs
+registerAuthRoutes(app);
 
 // Cron trigger for Automated Sweeps (Task 7)
 export default {

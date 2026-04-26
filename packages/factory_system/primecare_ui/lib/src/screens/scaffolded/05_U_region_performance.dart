@@ -6,9 +6,9 @@ class RegionPerformance extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'RegionPerformance',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.region_performance'.tr(),
+      subtitle: 'navigation.items.region_performance'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

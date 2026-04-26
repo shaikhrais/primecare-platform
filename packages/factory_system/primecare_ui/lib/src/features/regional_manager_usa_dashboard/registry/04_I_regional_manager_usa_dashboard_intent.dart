@@ -12,7 +12,7 @@ class RegionalManagerUsaDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/regional_manager_usa/dashboard';
 
   @override
-  String get title => 'Regional Manager Usa Dashboard';
+  String get title => 'dashboards.regionalmanagerusa.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.regionalManagerUsa;

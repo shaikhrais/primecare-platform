@@ -6,9 +6,9 @@ class ShiftTracker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'ShiftTracker',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.shift_tracker'.tr(),
+      subtitle: 'navigation.items.shift_tracker'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

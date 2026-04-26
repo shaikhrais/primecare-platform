@@ -32,7 +32,7 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Franchise Command Center', style: theme.typography.h2),
+                  Text(LocaleKeys.command_center_labels_franchise_center.tr(), style: theme.typography.h2),
                   Text(
                     'Unit profitability, royalty compliance, and operational growth telemetry',
                     style: theme.typography.labelMedium,
@@ -117,7 +117,7 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Aura Intelligence', style: theme.typography.h4),
+        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

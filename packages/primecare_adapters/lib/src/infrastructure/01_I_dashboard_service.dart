@@ -19,6 +19,7 @@ class DashboardService {
         _telemetry.passGate(
           ExecutionGateCategory.metricsLayer,
           'Dashboard metrics fetched for route: $route',
+          silent: true,
         );
         return DashboardMetrics.fromJson(response.data as Map<String, dynamic>);
       }
@@ -37,6 +38,7 @@ class DashboardService {
     _telemetry.passGate(
       ExecutionGateCategory.clinical,
       'Fetching clinical intelligence',
+      silent: true,
     );
     return Result.guardFuture<ClinicalIntelligenceViewModel>(() async {
       final response = await _apiClient.get(
@@ -85,6 +87,7 @@ class DashboardService {
         _telemetry.passGate(
           ExecutionGateCategory.metricsLayer,
           'Clinical intelligence blueprints hydrated: ${blueprints.length}',
+          silent: true,
         );
         return ClinicalIntelligenceViewModel(blueprints: blueprints);
       }
@@ -102,6 +105,7 @@ class DashboardService {
         _telemetry.passGate(
           ExecutionGateCategory.metricsLayer,
           'AI Analytics forecasting data fetched',
+          silent: true,
         );
         return AIAnalyticsForecastingData.fromJson(
           response.data as Map<String, dynamic>,

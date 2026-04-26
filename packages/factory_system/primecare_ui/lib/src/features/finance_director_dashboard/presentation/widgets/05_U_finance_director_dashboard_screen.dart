@@ -39,7 +39,7 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
-          _buildInsightsSection(theme, vm),
+          _buildInsightsSection(context, theme, vm),
           SizedBox(height: theme.spacing.xl),
           _buildActionGrid(theme),
           if (vm.isOfflineFallback) ...[
@@ -78,6 +78,7 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
   }
 
   Widget _buildInsightsSection(
+    BuildContext context,
     PrimeCareThemeData theme,
     FinanceDirectorDashboardViewModel vm,
   ) {
@@ -105,8 +106,8 @@ class FinanceDirectorDashboardScreen extends ConsumerWidget {
                 : vm.insights
                       .map(
                         (insight) => DashboardInsightRow(
-                          title: insight.title,
-                          description: insight.summary,
+                          title: insight.title.translate(context),
+                          description: insight.summary.translate(context),
                           type: insight.type.name,
                         ),
                       )

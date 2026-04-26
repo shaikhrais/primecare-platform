@@ -98,8 +98,8 @@ class ReferralSourceMatrix extends StatelessWidget {
 }
 
 /// Intake action hub for the Intake Coordinator.
-class IntakeActionHub extends StatelessWidget {
-  const IntakeActionHub({super.key});
+class IntakeDashboardActionHub extends StatelessWidget {
+  const IntakeDashboardActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {

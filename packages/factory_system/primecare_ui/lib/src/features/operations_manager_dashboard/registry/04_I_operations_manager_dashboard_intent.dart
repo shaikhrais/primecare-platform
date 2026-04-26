@@ -12,7 +12,7 @@ class OperationsManagerDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/operations_manager/dashboard';
 
   @override
-  String get title => 'Operations Manager Dashboard';
+  String get title => 'dashboards.operationsmanager.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.operationsManager;

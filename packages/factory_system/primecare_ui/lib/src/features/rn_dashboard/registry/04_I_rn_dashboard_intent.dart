@@ -12,7 +12,7 @@ class RnDashboardIntent extends AppScreenIntent {
   String get route => '/offices/clinical/roles/rn/dashboard';
 
   @override
-  String get title => 'Rn Dashboard';
+  String get title => 'dashboards.rn.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.rn;

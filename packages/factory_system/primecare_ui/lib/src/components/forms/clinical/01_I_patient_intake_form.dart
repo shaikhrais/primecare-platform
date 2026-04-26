@@ -229,7 +229,7 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
               span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'First Name',
+                  labelText: 'forms.first_name'.tr(),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -246,7 +246,7 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
               span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Last Name',
+                  labelText: 'forms.last_name'.tr(),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -359,7 +359,7 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
               span: fullSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Medical History',
+                  labelText: 'clinical.medical_history'.tr(),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

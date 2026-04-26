@@ -149,7 +149,7 @@ final architecturePlanningInsightsProvider =
       await Future<void>.delayed(const Duration(seconds: 1));
 
       return [
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'arch_1',
           title: 'Infrastructure Gap',
           summary:

@@ -18,6 +18,9 @@ class AuthState {
   final String? role;
   final String? tenantId;
   final String? userName;
+  final String? userId;
+
+  final String? preferredLanguage;
 
   AuthState({
     this.isAuthenticated = false,
@@ -25,6 +28,8 @@ class AuthState {
     this.role,
     this.tenantId,
     this.userName,
+    this.userId,
+    this.preferredLanguage,
   });
 
   AuthState copyWith({
@@ -33,6 +38,8 @@ class AuthState {
     String? role,
     String? tenantId,
     String? userName,
+    String? userId,
+    String? preferredLanguage,
   }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
@@ -40,6 +47,8 @@ class AuthState {
       role: role ?? this.role,
       tenantId: tenantId ?? this.tenantId,
       userName: userName ?? this.userName,
+      userId: userId ?? this.userId,
+      preferredLanguage: preferredLanguage ?? this.preferredLanguage,
     );
   }
 }
@@ -62,6 +71,9 @@ class AuthNotifier extends Notifier<AuthState> {
     // Corporate Leadership
     if (r.contains('ceo') || r.contains('founder')) {
       return CorporateRoutes.ceoDashboard;
+    }
+    if (r.contains('shareholder')) {
+      return CorporateRoutes.shareholderIntelligenceDashboard;
     }
     if (r.contains('coo')) return CorporateRoutes.cooDashboard;
     if (r.contains('cfo')) return CorporateRoutes.cfoDashboard;
@@ -187,13 +199,18 @@ class AuthNotifier extends Notifier<AuthState> {
         final role = prefs.getString('auth_role');
         final tenantId = prefs.getString('auth_tenant_id');
         final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
+        final userId = prefs.getString('auth_user_id');
+        final preferredLanguage = prefs.getString('auth_preferred_language') ?? 'en';
+
         if (token != null && role != null) {
           state = state.copyWith(
             isAuthenticated: true,
             token: token,
             role: role,
-            tenantId: tenantId,
             userName: userName,
+            tenantId: tenantId,
+            userId: userId,
+            preferredLanguage: preferredLanguage,
           );
           authListenable.value = true;
           ref
@@ -235,6 +252,7 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<bool> login(String email, String password) async {
     final result = await Result.guardFuture<bool>(
       () async {
+        /*
         // Debug Bypass for local verification
         if (kDebugMode && email.endsWith('@debug.primecare.com')) {
           final role = email.split('@')[0];
@@ -248,10 +266,12 @@ class AuthNotifier extends Notifier<AuthState> {
             token: 'debug-token',
             role: role,
             userName: 'Debug User',
+            preferredLanguage: 'en',
           );
           authListenable.value = true;
           return true;
         }
+        */
 
         final apiClient = ref.read(apiClientProvider);
         final response = await apiClient.post(
@@ -297,10 +317,15 @@ class AuthNotifier extends Notifier<AuthState> {
               (user != null ? user['lastName'] as String? : null) ?? 'User';
           final userName = '$firstName $lastName';
 
+          final userId = (user != null ? user['id'] as String? : null) ?? 'unknown';
+          final preferredLanguage = (user != null ? user['preferredLanguage'] as String? : null) ?? state.preferredLanguage ?? 'en';
+
           await prefs.setString('auth_token', token);
           await prefs.setString('auth_role', role);
           await prefs.setString('auth_tenant_id', tenantId);
           await prefs.setString('auth_username', userName);
+          await prefs.setString('auth_user_id', userId);
+          await prefs.setString('auth_preferred_language', preferredLanguage);
 
           state = state.copyWith(
             isAuthenticated: true,
@@ -308,6 +333,8 @@ class AuthNotifier extends Notifier<AuthState> {
             role: role,
             tenantId: tenantId,
             userName: userName,
+            userId: userId,
+            preferredLanguage: preferredLanguage,
           );
           authListenable.value = true;
           ref
@@ -407,6 +434,8 @@ class AuthNotifier extends Notifier<AuthState> {
         await prefs.remove('auth_role');
         await prefs.remove('auth_tenant_id');
         await prefs.remove('auth_username');
+        await prefs.remove('auth_user_id');
+        await prefs.remove('auth_preferred_language');
 
         ref
             .read<ExecutionGateService>(executionGateProvider)
@@ -435,6 +464,27 @@ class AuthNotifier extends Notifier<AuthState> {
           ExecutionGateCategory.auth,
           'Auth state reset sequence completed.',
         );
+  }
+
+  Future<void> updatePreferredLanguage(String lang) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_preferred_language', lang);
+    state = state.copyWith(preferredLanguage: lang);
+
+    if (state.isAuthenticated) {
+      final apiClient = ref.read(apiClientProvider);
+      try {
+        await apiClient.post(
+          '/v1/user/preferences',
+          body: {
+            'userId': state.userId,
+            'preferredLanguage': lang,
+          },
+        );
+      } catch (e) {
+        // Resilience: Fail silently
+      }
+    }
   }
 }
 

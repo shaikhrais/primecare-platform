@@ -1,14 +1,8 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons/lucide_icons.dart';
-import 'package:flutter_core/providers/03_D_portal_providers.dart';
-import 'package:flutter_core/01_I_auth_service.dart';
-import 'package:flutter_core/routes/groups/01_I_common_routes.dart';
+import 'package:flutter_core/00_B_flutter_core.dart';
 import 'package:primecare_ui/src/theme/01_I_design_system.dart';
 import 'package:primecare_ui/src/components/01_I_primecare_button.dart';
-import 'package:flutter_core/config/01_I_screen_breakpoints.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
@@ -29,6 +23,8 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final layout = ref.watch(layoutProvider);
+    // Watch languageProvider to trigger rebuild when locale changes
+    ref.watch(languageProvider);
     final theme = Theme.of(context);
     final scale = layout.scaleFactor;
     final isMobile = layout.tier == ResolutionTier.mob;
@@ -233,7 +229,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
       ),
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Search institutional workspace...',
+          hintText: 'navigation.search_hint'.tr(),
           hintStyle: TextStyle(
             fontSize: 14 * scale,
             color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
@@ -263,7 +259,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
       children: [
         if (extraActions != null) ...extraActions,
         if (!isMobile) ...[
-          _buildIconButton(theme, LucideIcons.globe, scale),
+          _buildLanguageSelector(context, ref, theme, scale),
           SizedBox(width: 14 * scale),
           _buildIconButton(theme, LucideIcons.messageSquare, scale),
           SizedBox(width: 14 * scale),
@@ -280,6 +276,95 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
       ],
     );
   }
+
+  Widget _buildLanguageSelector(
+    BuildContext context,
+    WidgetRef ref,
+    ThemeData theme,
+    double scale,
+  ) {
+    final currentLang = ref.watch(languageProvider);
+
+    return PopupMenuButton<String>(
+      onSelected: (String langCode) {
+        ref.read(languageProvider.notifier).setLanguage(langCode);
+        context.setLocale(Locale(langCode));
+      },
+      itemBuilder:
+          (context) {
+            final ds = PrimeCareDesignSystem.of(context);
+            return [
+              _buildLanguageItem('en', 'common.language.en'.tr(), scale, ds),
+              _buildLanguageItem('fr', 'common.language.fr'.tr(), scale, ds),
+              _buildLanguageItem('es', 'common.language.es'.tr(), scale, ds),
+            ];
+          },
+
+      child: Container(
+        width: 42 * scale,
+        height: 42 * scale,
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(10 * scale),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Icon(
+              LucideIcons.globe,
+              size: 18 * scale,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+            Positioned(
+              bottom: 4 * scale,
+              right: 4 * scale,
+              child: Container(
+                padding: EdgeInsets.all(2 * scale),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary,
+                  borderRadius: BorderRadius.circular(4 * scale),
+                ),
+                child: Text(
+                  currentLang.toUpperCase(),
+                  style: TextStyle(
+                    color: theme.colorScheme.onPrimary,
+                    fontSize: 8 * scale,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  PopupMenuItem<String> _buildLanguageItem(
+    String code,
+    String label,
+    double scale,
+    PrimeCareDesignSystem ds,
+  ) {
+    return PopupMenuItem<String>(
+      value: code,
+      child: Row(
+        children: [
+          Text(
+            code.toUpperCase(),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12 * scale,
+              color: ds.colors.textSecondary,
+            ),
+          ),
+          SizedBox(width: 12 * scale),
+          Text(label, style: TextStyle(fontSize: 14 * scale)),
+        ],
+      ),
+    );
+  }
+
 
   Widget _buildIconButton(
     ThemeData theme,
@@ -333,9 +418,8 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     final authState = ref.watch(authProvider);
     final userName = authState.userName ?? 'PrimeCare User';
     final role = authState.role ?? 'Administrator';
-    final initials = userName.isNotEmpty
-        ? userName.substring(0, 1).toUpperCase()
-        : 'U';
+    final initials =
+        userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
 
     return InkWell(
       onTap: () => _showAccountMenu(context, ref, scale),
@@ -454,5 +538,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(72.0); // Updated to match HTML height
+  Size get preferredSize =>
+      const Size.fromHeight(72.0); // Updated to match HTML height
 }
+

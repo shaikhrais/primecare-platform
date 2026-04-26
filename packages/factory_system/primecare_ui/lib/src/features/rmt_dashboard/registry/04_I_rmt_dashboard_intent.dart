@@ -12,7 +12,7 @@ class RmtDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/rmt/dashboard';
 
   @override
-  String get title => 'Rmt Dashboard';
+  String get title => 'dashboards.rmt.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.rmt;

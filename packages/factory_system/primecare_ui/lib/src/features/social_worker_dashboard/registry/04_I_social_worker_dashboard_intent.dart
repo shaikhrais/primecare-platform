@@ -1,6 +1,5 @@
 // Layer: 04_REGISTRY_INTENT
 import 'package:primecare_ui/primecare_ui.dart';
-import '../presentation/widgets/05_U_social_worker_dashboard_screen.dart';
 
 /// High-fidelity screen intent for the Social Worker.
 /// Enforces the 'Social Care Command HUD' structural blueprint.

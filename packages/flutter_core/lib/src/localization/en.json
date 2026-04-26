@@ -1,0 +1,90 @@
+{
+  "common": {
+    "languages": "English",
+    "language": "English",
+    "aura": {
+      "execute_action": "Execute Action",
+      "search_placeholder": "Search commands or ask Aura...",
+      "disclaimer": "Aura AI may provide inaccurate information. Verify critical data.",
+      "title": "Aura Intelligence",
+      "subtitle": "Your enterprise AI co-pilot",
+      "suggestions_label": "Suggested for you"
+    },
+    "tooltips": {
+      "change_language": "Change Language"
+    }
+  },
+  "auth": {
+    "title_curator": "PrimeCare Curator",
+    "curator_subtitle": "Enterprise Health Operations Registry",
+    "welcome_back": "Welcome Back",
+    "login_instructions": "Please enter your institutional credentials to access your workspace.",
+    "email": "Email Address",
+    "email_placeholder": "name@institution.com",
+    "password": "Password",
+    "forgot_password": "Forgot Password?",
+    "sign_in": "Sign In",
+    "register": "Register",
+    "create_account": "Create Account",
+    "already_have_account": "Already have an account?",
+    "back_to_login": "Back to Login",
+    "authentication_failed": "Authentication failed. Please check your credentials.",
+    "enter_credentials_to_continue": "Please enter your email and password to continue.",
+    "security_notice_long": "This system is restricted to authorized PrimeCare personnel and partners. All access and activities are monitored, recorded, and audited to ensure compliance with global health data regulations (HIPAA/GDPR). Unauthorized access attempts or misuse of this platform is strictly prohibited and will be prosecuted to the fullest extent of the law. By proceeding, you acknowledge and consent to these terms.",
+    "security_notice_short": "Authorized Access Only",
+    "zero_trust_platform": "Zero Trust Platform",
+    "encryption_active": "End-to-End Encryption Active",
+    "provision_workspace": "Provisioning Workspace...",
+    "hydrating_registries": "Hydrating Platform Registries...",
+    "account_recovery": "Account Recovery",
+    "recovery_subtitle": "Enter your email to receive a recovery link.",
+    "send_recovery_link": "Send Recovery Link",
+    "recovery_link_sent": "Recovery link has been sent to your email.",
+    "reset_password": "Reset Password",
+    "reset_password_page": {
+      "title": "Create New Password",
+      "new_password": "New Password",
+      "confirm_password": "Confirm New Password",
+      "update_password": "Update Password"
+    },
+    "mfa": {
+      "title": "Multi-Factor Authentication",
+      "subtitle": "Enter the verification code sent to your device."
+    },
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "role": "Platform Role",
+    "language_system": "Language System",
+    "join_clinical_atelier": "Join Clinical Atelier",
+    "send_again": "Send Again"
+  },
+  "aura": {
+    "adjust_budget": "Adjust Budget",
+    "marketing_roi_surge": "Marketing ROI Surge",
+    "critical_insights": "Critical Insights",
+    "system_preferences": "System Preferences",
+    "operational_summary": "Operational Summary",
+    "intelligence": "Intelligence",
+    "stay": "Stay",
+    "view_retention_plan": "View Retention Plan",
+    "exit_message": "Are you sure you want to exit the session?",
+    "marketing_roi_desc": "ROI has increased by 24% this quarter.",
+    "sign_out": "Sign Out",
+    "executive_overview": "Executive Overview",
+    "see_report": "See Report",
+    "staff_retention_desc": "Staff retention is at an all-time high of 98%.",
+    "confirm_departure": "Confirm Departure",
+    "daily_briefing": "Daily Briefing",
+    "profile": "User Profile",
+    "supply_chain_sync": "Supply Chain Sync",
+    "exit_session": "Exit Session",
+    "staff_retention_alert": "Staff Retention Alert",
+    "search_hint": "Type '/' for commands",
+    "supply_chain_desc": "All nodes are synchronized."
+  },
+  "navigation": {
+    "footer": {
+      "language": "Language"
+    }
+  }
+}

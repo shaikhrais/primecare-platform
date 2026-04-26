@@ -4201,6 +4201,92 @@
     "navigation.sections.clinical": "Clinical",
     "navigation.sections.growth": "Growth",
     "Institutional Dashboard": "Institutional Dashboard",
-    "Global Metrics scaling test": "Global Metrics scaling test"
+    "Global Metrics scaling test": "Global Metrics scaling test",
+    "languages": "Français",
+    "language": "Français",
+    "aura": {
+      "execute_action": "Exécuter l'action",
+      "search_placeholder": "Rechercher des commandes ou demander à Aura...",
+      "disclaimer": "Aura AI peut fournir des informations inexactes. Vérifiez les données critiques.",
+      "title": "Intelligence Aura",
+      "subtitle": "Votre co-pilote IA d'entreprise",
+      "suggestions_label": "Suggéré pour vous"
+    },
+    "tooltips": {
+      "change_language": "Changer de langue"
+    }
+  },
+  "auth": {
+    "title_curator": "Conservateur PrimeCare",
+    "curator_subtitle": "Registre des opérations de santé d'entreprise",
+    "welcome_back": "Bon retour",
+    "login_instructions": "Veuillez saisir vos identifiants institutionnels pour accéder à votre espace de travail.",
+    "email": "Adresse e-mail",
+    "email_placeholder": "nom@institution.com",
+    "password": "Mot de passe",
+    "forgot_password": "Mot de passe oublié ?",
+    "sign_in": "Se connecter",
+    "register": "S'inscrire",
+    "create_account": "Créer un compte",
+    "already_have_account": "Vous avez déjà un compte ?",
+    "back_to_login": "Retour à la connexion",
+    "authentication_failed": "Échec de l'authentification. Veuillez vérifier vos identifiants.",
+    "enter_credentials_to_continue": "Veuillez saisir votre e-mail et votre mot de passe pour continuer.",
+    "security_notice_long": "Ce système est réservé au personnel et aux partenaires autorisés de PrimeCare. Tous les accès et activités sont surveillés, enregistrés et audités pour garantir la conformité aux réglementations mondiales sur les données de santé (HIPAA/RGPD). Les tentatives d'accès non autorisées ou l'utilisation abusive de cette plateforme sont strictement interdites et seront poursuivies dans toute la mesure de la loi. En continuant, vous reconnaissez et acceptez ces conditions.",
+    "security_notice_short": "Accès autorisé uniquement",
+    "zero_trust_platform": "Plateforme Zero Trust",
+    "encryption_active": "Chiffrement de bout en bout actif",
+    "provision_workspace": "Provisionnement de l'espace de travail...",
+    "hydrating_registries": "Hydratation des registres de plateforme...",
+    "account_recovery": "Récupération de compte",
+    "recovery_subtitle": "Entrez votre e-mail pour recevoir un lien de récupération.",
+    "send_recovery_link": "Envoyer le lien de récupération",
+    "recovery_link_sent": "Le lien de récupération a été envoyé à votre e-mail.",
+    "reset_password": "Réinitialiser le mot de passe",
+    "reset_password_page": {
+      "title": "Créer un nouveau mot de passe",
+      "new_password": "Nouveau mot de passe",
+      "confirm_password": "Confirmer le nouveau mot de passe",
+      "update_password": "Mettre à jour le mot de passe"
+    },
+    "mfa": {
+      "title": "Authentification multifactorielle",
+      "subtitle": "Entrez le code de vérification envoyé à votre appareil."
+    },
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "role": "Rôle de plateforme",
+    "language_system": "Système de langue",
+    "join_clinical_atelier": "Rejoindre l'Atelier Clinique",
+    "send_again": "Renvoyer"
+  },
+  "aura": {
+    "adjust_budget": "Ajuster le budget",
+    "marketing_roi_surge": "Augmentation du ROI marketing",
+    "critical_insights": "Aperçus critiques",
+    "system_preferences": "Préférences système",
+    "operational_summary": "Résumé opérationnel",
+    "intelligence": "Intelligence",
+    "stay": "Rester",
+    "view_retention_plan": "Voir le plan de rétention",
+    "exit_message": "Êtes-vous sûr de vouloir quitter la session ?",
+    "marketing_roi_desc": "Le ROI a augmenté de 24 % ce trimestre.",
+    "sign_out": "Déconnexion",
+    "executive_overview": "Aperçu exécutif",
+    "see_report": "Voir le rapport",
+    "staff_retention_desc": "La rétention du personnel est à un niveau record de 98 %.",
+    "confirm_departure": "Confirmer le départ",
+    "daily_briefing": "Briefing quotidien",
+    "profile": "Profil utilisateur",
+    "supply_chain_sync": "Sync de la chaîne d'approvisionnement",
+    "exit_session": "Quitter la session",
+    "staff_retention_alert": "Alerte de rétention du personnel",
+    "search_hint": "Tapez '/' pour les commandes",
+    "supply_chain_desc": "Tous les nœuds sont synchronisés."
+  },
+  "navigation": {
+    "footer": {
+      "language": "Langue"
+    }
   }
 }

@@ -41,13 +41,14 @@ class CtoBriefingPanel extends StatelessWidget {
               ),
             )
           else
-            ...insights.map((insight) => _buildInsightItem(theme, insight)),
+            ...insights.map((insight) => _buildInsightItem(context, theme, insight)),
         ],
       ),
     );
   }
 
   Widget _buildInsightItem(
+    BuildContext context,
     PrimeCareThemeData theme,
     IntelligenceInsight insight,
   ) {
@@ -71,13 +72,13 @@ class CtoBriefingPanel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  insight.title,
+                  insight.title.translate(context),
                   style: theme.typography.bodyLarge.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  insight.summary,
+                  insight.summary.translate(context),
                   style: theme.typography.bodyMedium.copyWith(
                     color: theme.colors.onSurfaceVariant,
                   ),

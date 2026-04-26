@@ -7,6 +7,7 @@ import 'package:flutter_core/src/resilience/01_I_system_recovery_manager.dart';
 import 'package:flutter_core/01_I_aura_providers.dart';
 import 'package:flutter_core/src/models/02_M_aura_event.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 /// A high-fidelity Dashboard HUD that displays real-time intelligence pulses from Aura.
 class AuraDashboardHud extends ConsumerStatefulWidget {
@@ -56,11 +57,11 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
       data: (event) => _buildHudContent(context, event),
       loading: () => _buildStablePulse(
         context,
-        'Synchronizing Aura IQ...',
+        'aura.synchronizing'.tr(),
         isSyncing: true,
       ),
       error: (err, stack) =>
-          _buildStablePulse(context, 'Aura Offline', isDimmed: true),
+          _buildStablePulse(context, 'aura.offline'.tr(), isDimmed: true),
     );
   }
 
@@ -83,7 +84,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           ),
           const SizedBox(width: 16),
           Text(
-            'Aura Alerts Snoozed',
+            'aura.snoozed'.tr(),
             style: TextStyle(
               color: PrimeCareColors.white.withValues(alpha: 0.4),
               fontSize: 13,
@@ -95,9 +96,9 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
           TextButton(
             onPressed: () =>
                 ref.read(auraSnoozeProvider.notifier).update(false),
-            child: const Text(
-              'RESUME',
-              style: TextStyle(
+            child: Text(
+              'aura.resume'.tr(),
+              style: const TextStyle(
                 color: Color(0xFF6366F1),
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
@@ -144,7 +145,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                 Row(
                   children: [
                     Text(
-                      isDrift ? 'GOVERNANCE ALERT' : event.title.toUpperCase(),
+                      isDrift ? 'aura.governance_alert'.tr() : event.title.tr().toUpperCase(),
                       style: TextStyle(
                         color: color,
                         fontSize: 12,
@@ -154,7 +155,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                     ),
                     const Spacer(),
                     Text(
-                      'REAL-TIME INTELLIGENCE',
+                      'aura.real_time_intelligence'.tr(),
                       style: TextStyle(
                         color: PrimeCareColors.white.withValues(alpha: 0.3),
                         fontSize: 10,
@@ -165,7 +166,13 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  event.description,
+                  isDrift
+                      ? 'aura.events.architectural_drift_desc'.tr(args: <String>[
+                          (event.metadata?['route']?.toString() ?? 'Unknown'),
+                          (event.metadata?['critical'] as List?)?.join(', ') ??
+                              'None'
+                        ])
+                      : event.description.tr(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -291,7 +298,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              'VIEW DETAILS',
+              'aura.view_details'.tr(),
               style: TextStyle(
                 color: color,
                 fontSize: 10,

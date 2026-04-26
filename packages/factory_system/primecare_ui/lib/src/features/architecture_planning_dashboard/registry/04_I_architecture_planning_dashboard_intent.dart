@@ -13,7 +13,7 @@ class ArchitecturePlanningDashboardIntent extends AppScreenIntent {
       '/offices/corporate/roles/architecture_planning/dashboard';
 
   @override
-  String get title => 'Architecture Planning Dashboard';
+  String get title => 'dashboards.architectureplanning.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.architecturePlanning;
@@ -23,10 +23,10 @@ class ArchitecturePlanningDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Aura HUD',
-    'Architecture Roadmap',
-    'System Health Grid',
-    'Project Timeline',
+    'dashboards.architectureplanning.labels.aura_hud',
+    'dashboards.architectureplanning.labels.architecture_roadmap',
+    'dashboards.architectureplanning.labels.system_health_grid',
+    'dashboards.architectureplanning.labels.project_timeline',
   ];
 
   @override

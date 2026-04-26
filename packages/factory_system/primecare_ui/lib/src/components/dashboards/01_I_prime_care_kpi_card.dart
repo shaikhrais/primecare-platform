@@ -96,9 +96,13 @@ class PrimeCareKpiCard extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title.tr(),
-                    style: const TextStyle(
-                      color: Color(0xFF64748B),
+                    (title.contains(' ') && !title.contains('.'))
+                        ? '⚠️ GOVERNANCE VIOLATION: $title'
+                        : title.tr(),
+                    style: TextStyle(
+                      color: (title.contains(' ') && !title.contains('.'))
+                          ? Colors.red
+                          : const Color(0xFF64748B),
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),

@@ -42,7 +42,7 @@ final systemVerificationInsightsProvider = FutureProvider<List<IntelligenceInsig
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sys_1',
       title: 'Infrastructure Optimization',
       summary:
@@ -53,7 +53,7 @@ final systemVerificationInsightsProvider = FutureProvider<List<IntelligenceInsig
       recommendation:
           'Redistribute load balancing to edge proxies in the EU region to reduce origin latency.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sys_2',
       title: 'Security Compliance',
       summary:

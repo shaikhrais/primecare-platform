@@ -72,7 +72,7 @@ final clinicalDirectorInsightsProvider =
         return const [];
       }
       return [
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'insight_staffing',
           title: 'Staffing Optimization',
           summary: 'Afternoon shift coverage in West Wing is at 85%.',
@@ -81,7 +81,7 @@ final clinicalDirectorInsightsProvider =
           recommendation: 'Recommend floating one nurse from ICU to West Wing.',
           category: 'Clinical Operations',
         ),
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'insight_compliance',
           title: 'Compliance Peak',
           summary: 'Hand hygiene compliance reached an all-time high of 99.8%.',

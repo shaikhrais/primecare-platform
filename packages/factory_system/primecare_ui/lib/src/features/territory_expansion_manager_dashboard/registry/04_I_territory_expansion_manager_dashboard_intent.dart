@@ -13,7 +13,7 @@ class TerritoryExpansionManagerDashboardIntent extends AppScreenIntent {
       '/offices/corporate/roles/territory_expansion_manager/dashboard';
 
   @override
-  String get title => 'Territory Expansion Manager Dashboard';
+  String get title => 'dashboards.territoryexpansionmanager.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.territoryExpansionManager;

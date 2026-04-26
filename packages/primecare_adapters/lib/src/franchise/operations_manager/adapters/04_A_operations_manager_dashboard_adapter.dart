@@ -41,7 +41,7 @@ final operationsInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ops_01',
       title: 'Predictive Staffing Gap',
       summary:
@@ -52,7 +52,7 @@ final operationsInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Pre-authorize 2 additional support staff hours for the 2PM-6PM window.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ops_02',
       title: 'Operational Cost Saving',
       summary:
@@ -63,7 +63,7 @@ final operationsInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Roll out "Green-Care" automation across all Level 2 facilities by EOM.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ops_03',
       title: 'Facility Maintenance Trigger',
       summary:

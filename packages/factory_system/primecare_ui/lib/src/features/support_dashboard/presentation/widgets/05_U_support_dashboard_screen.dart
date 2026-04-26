@@ -29,7 +29,7 @@ class SupportDashboardScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Text('Support Command Center', style: theme.typography.h2),
+              Text(LocaleKeys.dashboards_support_title.tr(), style: theme.typography.h2),
               const Spacer(),
               if (vm.isOfflineFallback) const OfflineStatusChip(),
             ],
@@ -56,7 +56,7 @@ class SupportDashboardScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Operational Volume', style: theme.typography.h4),
+          Text(LocaleKeys.dashboards_support_labels_operational_volume.tr(), style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
           const Center(
             child: Text('Support Queue Visualization - Active Tickets'),
@@ -73,7 +73,7 @@ class SupportDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Aura Intelligence', style: theme.typography.h4),
+        Text(LocaleKeys.dashboards_support_labels_aura_intelligence.tr(), style: theme.typography.h4),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

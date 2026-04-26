@@ -20,10 +20,10 @@ class CorporateGovernanceDashboardIntent extends PrimeCareScreen {
 
   @override
   List<String> get componentLabels => [
-    'compliance-hero',
-    'violation-logs',
-    'remediation-controls',
-    'aura-briefing',
+    'dashboards.corporategovernance.labels.compliance_hero',
+    'dashboards.corporategovernance.labels.violation_logs',
+    'dashboards.corporategovernance.labels.remediation_controls',
+    'dashboards.corporategovernance.labels.aura_briefing',
   ];
 
   @override

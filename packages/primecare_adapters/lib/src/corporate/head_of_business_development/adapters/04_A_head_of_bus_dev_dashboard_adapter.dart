@@ -41,7 +41,7 @@ final busDevInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
   await Future<void>.delayed(const Duration(seconds: 1));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'bd_01',
       title: 'Territory Saturation Alert',
       summary:
@@ -52,7 +52,7 @@ final busDevInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
       recommendation:
           'Pivot expansion resources to the emerging Northern Corridor hubs.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'bd_02',
       title: 'Strategic Partnership Velocity',
       summary:

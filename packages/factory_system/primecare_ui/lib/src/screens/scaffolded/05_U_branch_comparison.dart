@@ -6,9 +6,9 @@ class BranchComparison extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'BranchComparison',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.branch_comparison'.tr(),
+      subtitle: 'navigation.items.branch_comparison'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

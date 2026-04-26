@@ -9,6 +9,11 @@ export const USER_METADATA = {
         description: 'Update user profile information.',
         tags: ['User Profile'],
     },
+    UPDATE_PREFERENCES: {
+        summary: 'Update User Preferences',
+        description: 'Update user preferences such as language.',
+        tags: ['User Preferences'],
+    },
 };
 
 export const MANAGER_METADATA = {

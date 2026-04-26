@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_core/00_B_flutter_core.dart';

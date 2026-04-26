@@ -12,13 +12,13 @@ class DynamicScreenDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/dynamic_screen/dashboard';
 
   @override
-  String get title => 'Dynamic Screen Dashboard';
+  String get title => 'dashboards.dynamicscreen.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.dynamicScreen;
 
   @override
-  dynamic get provider => dynamicAdapterProvider;
+  dynamic get provider => dynamicAdapterProvider(PrimeCareForm.genericDashboard);
 
   @override
   Widget build(BuildContext context) => const DynamicScreenDashboardScreen();

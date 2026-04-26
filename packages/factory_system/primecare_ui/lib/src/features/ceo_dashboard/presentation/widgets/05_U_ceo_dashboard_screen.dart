@@ -30,13 +30,13 @@ class CeoDashboardScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Ceo Command Center', style: theme.typography.h2),
+          Text(LocaleKeys.dashboards_ceo_title.tr(), style: theme.typography.h2),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+            child: Center(child: Text(LocaleKeys.dashboards_ceo_labels_real_time_telemetry_feed.tr())),
           ),
         ],
       ),

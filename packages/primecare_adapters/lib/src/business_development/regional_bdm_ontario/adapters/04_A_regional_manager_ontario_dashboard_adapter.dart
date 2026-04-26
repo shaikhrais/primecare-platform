@@ -46,7 +46,7 @@ final regionalManagerOntarioInsightsProvider =
       await Future<void>.delayed(const Duration(seconds: 1));
 
       return [
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'reg_ont_01',
           title: 'LHIN Resource Allocation',
           summary:
@@ -57,7 +57,7 @@ final regionalManagerOntarioInsightsProvider =
           recommendation:
               'Submit utilization surplus report to MOH by Friday to secure carry-over.',
         ),
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'reg_ont_02',
           title: 'Waitlist Saturation: York',
           summary:
@@ -68,7 +68,7 @@ final regionalManagerOntarioInsightsProvider =
           recommendation:
               'Reassign 2 float nurses from Durham to York for the next 14 days.',
         ),
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'reg_ont_03',
           title: 'Digital Health Opportunity',
           summary:

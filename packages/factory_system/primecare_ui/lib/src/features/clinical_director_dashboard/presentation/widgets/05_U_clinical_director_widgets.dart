@@ -20,11 +20,8 @@ class StaffingHeatmap extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Staffing Coverage Matrix', style: theme.typography.h3),
-                  Text(
-                    'Real-time variance between required and actual staff',
-                    style: theme.typography.labelMedium,
-                  ),
+                  Text(LocaleKeys.clinical_director_labels_staffing_matrix.tr(), style: theme.typography.h3),
+                  Text(LocaleKeys.clinical_director_labels_staffing_variance.tr(), style: theme.typography.labelMedium),
                 ],
               ),
               const Spacer(),
@@ -54,11 +51,8 @@ class ProtocolComplianceLog extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Protocol Compliance Log', style: theme.typography.h3),
-          Text(
-            'Automated auditing of clinical workflow adherence',
-            style: theme.typography.labelMedium,
-          ),
+          Text(LocaleKeys.clinical_director_labels_compliance_log.tr(), style: theme.typography.h3),
+          Text(LocaleKeys.clinical_director_labels_audit_adherence.tr(), style: theme.typography.labelMedium),
           SizedBox(height: theme.spacing.lg),
           PrimeCareDataTable<Map<String, String>>(
             columns: const ['Protocol', 'Auditor', 'Timestamp', 'Status'],
@@ -110,11 +104,8 @@ class IncidentTrendChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Incident Trends (30D)', style: theme.typography.h3),
-          Text(
-            'Criticality breakdown of reported clinical events',
-            style: theme.typography.labelMedium,
-          ),
+          Text(LocaleKeys.clinical_director_labels_incident_trends.tr(), style: theme.typography.h3),
+          Text(LocaleKeys.clinical_director_labels_incident_criticality.tr(), style: theme.typography.labelMedium),
           SizedBox(height: theme.spacing.lg),
           SizedBox(height: 250, child: PrimeCareLineChart(chart: chart)),
         ],

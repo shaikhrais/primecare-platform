@@ -6,9 +6,9 @@ class SchedulingHealth extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'SchedulingHealth',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.scheduling_health'.tr(),
+      subtitle: 'navigation.items.scheduling_health'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

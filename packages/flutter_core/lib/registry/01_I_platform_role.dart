@@ -17,6 +17,7 @@ enum PlatformRole {
   scrumMaster,
   hrDirector,
   cxDirector,
+  shareholder,
 
   // Business Development
   regionalManagerOntario,
@@ -87,7 +88,7 @@ enum PlatformRole {
   /// Returns the canonical snake_case string for the role.
   String get nameSnake => name.replaceAllMapped(
     RegExp(r'([A-Z])'),
-    (m) => '_\${m[1]!.toLowerCase()}',
+    (m) => '_${m[1]!.toLowerCase()}',
   );
 
   /// Returns the human-readable display name.

@@ -57,7 +57,7 @@ final rmtDashboardAdapterProvider = FutureProvider<Result<RmtDashboardViewModel>
     );
 
     final insights = [
-      const IntelligenceInsight(
+      IntelligenceInsight(
         id: 'rmt_1',
         title: 'Therapeutic Strategy Alert',
         summary:
@@ -67,7 +67,7 @@ final rmtDashboardAdapterProvider = FutureProvider<Result<RmtDashboardViewModel>
         category: 'Clinical',
         recommendation: 'Review therapy protocols.',
       ),
-      const IntelligenceInsight(
+      IntelligenceInsight(
         id: 'rmt_2',
         title: 'Fatigue Trend Detection',
         summary:

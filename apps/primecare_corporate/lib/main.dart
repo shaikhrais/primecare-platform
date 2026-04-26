@@ -1,11 +1,15 @@
 import 'package:primecare_ui/primecare_ui.dart';
+// Triggering hot reload to refresh assets.
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_driver/driver_extension.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_router.dart';
 
 void main() {
+  enableFlutterDriverExtension();
   AppErrorBoundary.runGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -48,8 +52,13 @@ void main() {
       RestartWrapper(
         key: _rootKey,
         child: EasyLocalization(
-          supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
-          path: 'packages/flutter_core/assets/translations',
+          supportedLocales: const [
+            Locale('en'),
+            Locale('fr'),
+            Locale('es'),
+            Locale('ar'),
+          ],
+          path: 'assets/translations',
           fallbackLocale: const Locale('en'),
           useOnlyLangCode: true,
           child: ProviderScope(
@@ -71,6 +80,15 @@ class PrimeCareCorporateApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Watch languageProvider to sync with EasyLocalization
+    final langCode = ref.watch(languageProvider);
+    
+    // Sync EasyLocalization if it differs from the provider's state
+    // This handles initial load and cross-component updates
+    if (context.locale.languageCode != langCode) {
+      Future.microtask(() => context.setLocale(Locale(langCode)));
+    }
+
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: 'PrimeCare Corporate',
@@ -81,3 +99,4 @@ class PrimeCareCorporateApp extends ConsumerWidget {
     );
   }
 }
+

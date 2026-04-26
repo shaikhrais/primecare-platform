@@ -13,7 +13,7 @@ class RegionalManagerOntarioDashboardIntent extends AppScreenIntent {
       '/offices/corporate/roles/regional_manager_ontario/dashboard';
 
   @override
-  String get title => 'Regional Manager Ontario Dashboard';
+  String get title => 'dashboards.regionalmanagerontario.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.regionalManagerOntario;

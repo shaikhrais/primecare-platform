@@ -12,7 +12,7 @@ class ClinicalDirectorDashboardIntent extends AppScreenIntent {
   String get route => '/offices/clinical/roles/clinical_director/dashboard';
 
   @override
-  String get title => 'Clinical Director Dashboard';
+  String get title => 'dashboards.clinicaldirector.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.clinicalDirector;
@@ -22,9 +22,9 @@ class ClinicalDirectorDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Clinical Safety Score',
-    'Staffing Heatmap',
-    'Protocol Compliance',
+    'dashboards.clinicaldirector.labels.clinical_safety_score',
+    'dashboards.clinicaldirector.labels.staffing_heatmap',
+    'dashboards.clinicaldirector.labels.protocol_compliance',
   ];
 
   @override

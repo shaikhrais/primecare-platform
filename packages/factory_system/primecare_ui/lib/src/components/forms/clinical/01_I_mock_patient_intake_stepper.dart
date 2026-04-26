@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_stepper_base_form.dart';
@@ -52,14 +53,14 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'First Name',
+                      decoration: InputDecoration(
+                        labelText: 'forms.first_name'.tr(),
                       ),
                       validator: (v) =>
                           v!.isEmpty ? 'First name required' : null,
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Last Name'),
+                      decoration: InputDecoration(labelText: 'forms.last_name'.tr()),
                       validator: (v) =>
                           v!.isEmpty ? 'Last name required' : null,
                     ),
@@ -76,8 +77,8 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Chief Complaint',
+                      decoration: InputDecoration(
+                        labelText: 'clinical.chief_complaint'.tr(),
                       ),
                       validator: (v) =>
                           v!.isEmpty ? 'Complaint required' : null,

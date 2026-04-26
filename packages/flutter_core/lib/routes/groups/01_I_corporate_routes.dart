@@ -16,6 +16,8 @@ class CorporateRoutes {
       '/offices/corporate/roles/head_of_marketing/dashboard';
   static const String trainingDirectorDashboard =
       '/offices/corporate/roles/training_director/dashboard';
+  static const String shareholderIntelligenceDashboard =
+      '/offices/corporate/roles/shareholder/dashboard';
   static const String ceoEnterpriseOverview =
       '/offices/corporate/roles/ceo/enterprise-overview';
   static const String ceoFranchiseOverview =

@@ -12,7 +12,7 @@ class SystemVerificationDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/system_verification/dashboard';
 
   @override
-  String get title => 'System Verification Dashboard';
+  String get title => 'dashboards.systemverification.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.systemVerification;

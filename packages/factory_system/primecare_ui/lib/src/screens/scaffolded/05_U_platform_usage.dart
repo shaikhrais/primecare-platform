@@ -6,9 +6,9 @@ class PlatformUsage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'PlatformUsage',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.platform_usage'.tr(),
+      subtitle: 'navigation.items.platform_usage'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

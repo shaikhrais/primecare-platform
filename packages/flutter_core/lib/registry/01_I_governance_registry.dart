@@ -13,8 +13,10 @@ class GovernanceRegistry {
   /// Registers a screen intent with the governance system.
   static void register(AppScreenIntent intent, {String? role}) {
     _intentsByRoute[intent.route] = intent;
-    if (role != null) {
-      _intentsByRole[role] = intent;
+    
+    final effectiveRole = role ?? intent.requiredRole?.nameSnake;
+    if (effectiveRole != null) {
+      _intentsByRole[effectiveRole] = intent;
     }
   }
 

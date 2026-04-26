@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class ClinicalInterventionFormGroup extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                hintText: 'Enter structured clinical notes...',
+                hintText: 'clinical.notes_hint'.tr(),
               ),
             ),
           ],

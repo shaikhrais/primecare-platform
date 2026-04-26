@@ -6,9 +6,9 @@ class ComplianceStatus extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'ComplianceStatus',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.compliance_status'.tr(),
+      subtitle: 'navigation.items.compliance_status'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

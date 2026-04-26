@@ -41,7 +41,7 @@ final receptionistInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'rec_01',
       title: 'Appointment Density Spike',
       summary:
@@ -52,7 +52,7 @@ final receptionistInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Pre-print intake forms for the next 5 arrivals to reduce bottleneck.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'rec_02',
       title: 'Wait Time Optimization',
       summary:
@@ -63,7 +63,7 @@ final receptionistInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Enable standard SMS reminders for all afternoon appointments.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'rec_03',
       title: 'Documentation Delay Risk',
       summary:

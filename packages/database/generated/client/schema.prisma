@@ -75,6 +75,7 @@ model User {
   infectionLogs              InfectionControlChecklist[] @relation("UserInfectionControl")
   narrativeNotes             NarrativeProgressNote[]     @relation("UserNarrativeNotes")
   carePlanFollowUps          CarePlanFollowUp[]          @relation("UserCarePlanFollowUp")
+  preferredLanguage          String                      @default("en") @map("preferred_language")
 
   @@index([tenantId])
   @@map("users")

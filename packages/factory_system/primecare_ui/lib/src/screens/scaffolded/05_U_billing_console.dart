@@ -6,9 +6,9 @@ class BillingConsole extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'BillingConsole',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.billing_console'.tr(),
+      subtitle: 'navigation.items.billing_console'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

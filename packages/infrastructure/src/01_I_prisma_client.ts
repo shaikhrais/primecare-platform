@@ -28,14 +28,16 @@ export const prismaMiddleware = () => {
         }
 
         if (!prismaInstance) {
-            const dbUrl = c.env.DATABASE_URL;
+            const dbUrl = c.env.PRISMA_DATABASE_URL || c.env.DATABASE_URL;
 
             try {
                 let edgeUri = dbUrl;
                 
                 if (!edgeUri) {
-                    throw new Error("CRITICAL STARTUP FAILURE: DATABASE_URL is utterly undefined in the Cloudflare Edge scope. Prisma cannot evaluate routing without an active secret key.");
+                    throw new Error("CRITICAL STARTUP FAILURE: DATABASE_URL is utterly undefined.");
                 }
+
+                console.log(`[PRISMA_INIT] Initializing with URL type: ${edgeUri.split(':')[0]}`);
 
                 if (edgeUri.includes('db.prisma.io') && edgeUri.startsWith('postgres://')) {
                     const urlObj = new URL(edgeUri);
@@ -43,17 +45,15 @@ export const prismaMiddleware = () => {
                     edgeUri = `prisma://accelerate.prisma-data.net/?api_key=${apiKey}`;
                 }
 
-                if (edgeUri.startsWith('prisma://') || edgeUri.startsWith('prisma+postgres://')) {
-                    const baseClient = new PrismaClient({ datasourceUrl: edgeUri });
-                    prismaInstance = baseClient.$extends(withAccelerate());
-                } else {
-                    prismaInstance = new PrismaClient({ datasourceUrl: edgeUri }).$extends(withAccelerate());
-                }
+                const baseClient = new PrismaClient({ datasourceUrl: edgeUri });
+                
+                // Explicitly apply withAccelerate
+                prismaInstance = baseClient.$extends(withAccelerate());
+                
+                console.log('[PRISMA_INIT] Extended with Accelerate successfully.');
             } catch (err: any) {
-                // We must store the error so we can return it if init fails
                 c.set('prismaError' as any, err.message);
                 console.error('[PRISMA_INIT_ERROR]', err.message);
-                // DON'T throw — let route handlers handle null prisma gracefully OR fail here
             }
         }
 

@@ -1,5 +1,5 @@
-// Layer: 04_UI_ADAPTERS
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 /// Command Row action handler for the Head of Marketing.
@@ -40,9 +40,9 @@ final marketingInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'marketing_insight_1',
-      title: 'Campaign ROI Peak',
+      title: LocaleKeys.marketing_dashboard_labels_campaign_roi_peak.tr(),
       summary:
           'Q2 Clinical Growth campaign is delivering a 4.2x ROI, exceeding the 3.5x baseline.',
       impact: InsightImpact.positive,
@@ -51,9 +51,9 @@ final marketingInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Reallocate 15% of the underperforming LinkedIn budget to Meta Video Ads.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'marketing_insight_2',
-      title: 'CAC Volatility Detected',
+      title: LocaleKeys.marketing_dashboard_labels_cac_volatility.tr(),
       summary:
           'Customer Acquisition Cost spiked in Western regions due to increased competitor bidding.',
       impact: InsightImpact.warning,

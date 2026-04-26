@@ -6,9 +6,9 @@ class IncidentReviews extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'IncidentReviews',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.incident_reviews'.tr(),
+      subtitle: 'navigation.items.incident_reviews'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

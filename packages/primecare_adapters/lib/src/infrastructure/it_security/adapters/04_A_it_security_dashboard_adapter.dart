@@ -67,7 +67,7 @@ final itSecurityInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sec_1',
       title: 'Threat Intel',
       summary:
@@ -75,7 +75,7 @@ final itSecurityInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       impact: InsightImpact.info,
       type: InsightType.compliance,
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sec_2',
       title: 'Compliance',
       summary:

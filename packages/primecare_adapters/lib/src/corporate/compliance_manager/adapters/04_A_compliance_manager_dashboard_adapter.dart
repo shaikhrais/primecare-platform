@@ -82,7 +82,7 @@ final complianceInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'compliance_insight_1',
       title: 'High Compliance: US-North',
       summary:
@@ -93,7 +93,7 @@ final complianceInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Document and scale US-North documentation protocols to underperforming regions.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'compliance_insight_2',
       title: 'Documentation Lag Detected',
       summary:
@@ -104,7 +104,7 @@ final complianceInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Initiate a 15-minute training refresher on the "Fast-Sign" mobile workflow for Unit 3B staff.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'compliance_insight_3',
       title: 'Pending Policy Updates',
       summary:

@@ -13,7 +13,7 @@ class LocalMarketingManagerDashboardIntent extends AppScreenIntent {
       '/offices/corporate/roles/local_marketing_manager/dashboard';
 
   @override
-  String get title => 'Local Marketing Manager Dashboard';
+  String get title => 'dashboards.localmarketingmanager.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.localMarketingManager;

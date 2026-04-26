@@ -12,7 +12,7 @@ class HrDirectorDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/hr_director/dashboard';
 
   @override
-  String get title => 'Hr Director Dashboard';
+  String get title => 'dashboards.hrdirector.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.hrDirector;

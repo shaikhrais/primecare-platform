@@ -12,7 +12,7 @@ class PswDashboardIntent extends AppScreenIntent {
   String get route => '/offices/clinical/roles/psw/dashboard';
 
   @override
-  String get title => 'Psw Dashboard';
+  String get title => 'dashboards.psw.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.psw;
@@ -22,10 +22,10 @@ class PswDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Aura HUD',
-    'Clinical Summary',
-    'Care Plan Checklist',
-    'Incident Quick-Report',
+    'dashboards.psw.labels.aura_hud',
+    'dashboards.psw.labels.clinical_summary',
+    'dashboards.psw.labels.care_plan_checklist',
+    'dashboards.psw.labels.incident_quick_report',
   ];
 
   @override

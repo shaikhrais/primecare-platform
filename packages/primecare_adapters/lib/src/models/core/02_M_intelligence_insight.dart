@@ -15,30 +15,38 @@ enum InsightType {
 
 class IntelligenceInsight {
   final String id;
-  final String title;
-  final String summary;
+  final PrimeCareLabel title;
+  final PrimeCareLabel summary;
   final InsightImpact impact;
   final InsightType type;
-  final String? recommendation;
+  final PrimeCareLabel? recommendation;
   final String? category;
   final String? relatedMetricId;
 
-  const IntelligenceInsight({
+  IntelligenceInsight({
     required this.id,
-    required this.title,
-    required this.summary,
+    required dynamic title,
+    required dynamic summary,
     required this.impact,
     this.type = InsightType.optimization,
-    this.recommendation,
+    dynamic recommendation,
     this.category,
     this.relatedMetricId,
-  });
+  }) : title = title is PrimeCareLabel ? title : PrimeCareLabel(title as String),
+       summary = summary is PrimeCareLabel ? summary : PrimeCareLabel(summary as String),
+       recommendation = recommendation == null 
+           ? null 
+           : (recommendation is PrimeCareLabel ? recommendation : PrimeCareLabel(recommendation as String));
 
   factory IntelligenceInsight.fromJson(Map<String, dynamic> json) {
     return IntelligenceInsight(
       id: json['id'] as String,
-      title: json['title'] as String,
-      summary: json['summary'] as String,
+      title: json['title'] is Map 
+          ? PrimeCareLabel.fromJson(json['title'] as Map<String, dynamic>)
+          : PrimeCareLabel(json['title'] as String? ?? ''),
+      summary: json['summary'] is Map
+          ? PrimeCareLabel.fromJson(json['summary'] as Map<String, dynamic>)
+          : PrimeCareLabel(json['summary'] as String? ?? ''),
       impact: InsightImpact.values.firstWhere(
         (e) => e.name == json['impact'],
         orElse: () => InsightImpact.info,
@@ -47,7 +55,11 @@ class IntelligenceInsight {
         (e) => e.name == json['type'],
         orElse: () => InsightType.optimization,
       ),
-      recommendation: json['recommendation'] as String?,
+      recommendation: json['recommendation'] == null 
+          ? null 
+          : (json['recommendation'] is Map
+              ? PrimeCareLabel.fromJson(json['recommendation'] as Map<String, dynamic>)
+              : PrimeCareLabel(json['recommendation'] as String)),
       category: json['category'] as String?,
       relatedMetricId: json['relatedMetricId'] as String?,
     );
@@ -56,11 +68,13 @@ class IntelligenceInsight {
   factory IntelligenceInsight.fromDashboardInsight(DashboardInsight insight) {
     return IntelligenceInsight(
       id: 'insight_${insight.title.hashCode}',
-      title: insight.title,
-      summary: insight.description,
+      title: PrimeCareLabel(insight.title),
+      summary: PrimeCareLabel(insight.description),
       impact: insight.impact ?? InsightImpact.info,
       type: _mapType(insight.type),
-      recommendation: insight.metadata?['recommendation'] as String?,
+      recommendation: insight.metadata?['recommendation'] != null 
+          ? PrimeCareLabel(insight.metadata!['recommendation'] as String) 
+          : null,
       category: insight.type,
     );
   }
@@ -84,11 +98,11 @@ class IntelligenceInsight {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'title': title,
-      'summary': summary,
+      'title': title.toJson(),
+      'summary': summary.toJson(),
       'impact': impact.name,
       'type': type.name,
-      'recommendation': recommendation,
+      'recommendation': recommendation?.toJson(),
       'category': category,
       'relatedMetricId': relatedMetricId,
     };

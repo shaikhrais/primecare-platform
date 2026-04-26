@@ -2,7 +2,6 @@
 import 'dart:ui';
 import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class AuraInteractiveSheet extends ConsumerStatefulWidget {

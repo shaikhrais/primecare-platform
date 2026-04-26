@@ -41,6 +41,7 @@ class AuraPulseService {
           telemetry.passGate(
             ExecutionGateCategory.auraEngine,
             'Aura Pulse Stable',
+            silent: true,
           );
           _controller.add(AuraEvent.stable());
         }
@@ -71,9 +72,8 @@ class AuraPulseService {
       final event = AuraEvent(
         id: 'crit_${DateTime.now().millisecondsSinceEpoch}',
         type: AuraEventType.occupancySpike,
-        title: 'Critical Occupancy Spike',
-        description:
-            'Facility at 98% capacity. Immediate discharge planning and staffing reallocation required.',
+        title: 'aura.events.critical_occupancy_title',
+        description: 'aura.events.critical_occupancy_desc',
         impact: InsightImpact.alert,
         timestamp: DateTime.now(),
       );
@@ -92,9 +92,8 @@ class AuraPulseService {
       final event = AuraEvent(
         id: 'caut_${DateTime.now().millisecondsSinceEpoch}',
         type: AuraEventType.revenueDip,
-        title: 'Revenue Variance Detected',
-        description:
-            'Detected a 12% dip in projected daily billing. Auditing transaction logs...',
+        title: 'aura.events.revenue_variance_title',
+        description: 'aura.events.revenue_variance_desc',
         impact: InsightImpact.caution,
         timestamp: DateTime.now(),
       );
@@ -113,9 +112,8 @@ class AuraPulseService {
       final event = AuraEvent(
         id: 'info_${DateTime.now().millisecondsSinceEpoch}',
         type: AuraEventType.workforceEfficiency,
-        title: 'Efficiency Optimization',
-        description:
-            'Shift change documentation cycle completed 4 minutes faster than institutional baseline.',
+        title: 'aura.events.efficiency_opt_title',
+        description: 'aura.events.efficiency_opt_desc',
         impact: InsightImpact.positive,
         timestamp: DateTime.now(),
       );
@@ -140,9 +138,8 @@ class AuraPulseService {
       event = AuraEvent(
         id: 'pred_staff_${DateTime.now().millisecondsSinceEpoch}',
         type: AuraEventType.predictedStaffingGap,
-        title: 'Anticipated Staffing Gap',
-        description:
-            'Trend analysis predicts a 15% staffing deficit for the upcoming holiday weekend. Mitigation suggested.',
+        title: 'aura.events.staffing_gap_title',
+        description: 'aura.events.staffing_gap_desc',
         impact: InsightImpact.caution,
         timestamp: DateTime.now(),
         isPredictive: true,
@@ -151,9 +148,8 @@ class AuraPulseService {
       event = AuraEvent(
         id: 'pred_budget_${DateTime.now().millisecondsSinceEpoch}',
         type: AuraEventType.predictedBudgetOverrun,
-        title: 'Projected Budget Overrun',
-        description:
-            'Current spending velocity suggests a potential budget threshold breach in Q3. Recommending audit.',
+        title: 'aura.events.budget_overrun_title',
+        description: 'aura.events.budget_overrun_desc',
         impact: InsightImpact.caution,
         timestamp: DateTime.now(),
         isPredictive: true,
@@ -180,9 +176,8 @@ class AuraPulseService {
       final event = AuraEvent(
         id: 'drift_${DateTime.now().millisecondsSinceEpoch}',
         type: AuraEventType.architecturalDrift,
-        title: 'Architectural Drift Detected',
-        description:
-            'Screen [${drift.route}] has drifted from Auditor Blueprint. Missing: ${drift.criticalMismatches.join(", ")}',
+        title: 'aura.events.architectural_drift_title',
+        description: 'aura.events.architectural_drift_desc',
         impact: InsightImpact.alert,
         timestamp: DateTime.now(),
         metadata: {

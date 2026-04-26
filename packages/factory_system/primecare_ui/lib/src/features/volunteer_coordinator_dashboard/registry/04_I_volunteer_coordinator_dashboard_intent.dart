@@ -13,7 +13,7 @@ class VolunteerCoordinatorDashboardIntent extends AppScreenIntent {
       '/offices/corporate/roles/volunteer_coordinator/dashboard';
 
   @override
-  String get title => 'Volunteer Coordinator Dashboard';
+  String get title => 'dashboards.volunteercoordinator.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.volunteerCoordinator;

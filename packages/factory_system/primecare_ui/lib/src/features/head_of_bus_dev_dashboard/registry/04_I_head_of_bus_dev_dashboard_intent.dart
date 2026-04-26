@@ -12,7 +12,7 @@ class HeadOfBusDevDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/head_of_bus_dev/dashboard';
 
   @override
-  String get title => 'Head Of Bus Dev Dashboard';
+  String get title => 'dashboards.headofbusdev.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.headOfBusDev;

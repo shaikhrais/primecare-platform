@@ -127,7 +127,7 @@ final franchiseSalesManagerDashboardAdapterProvider =
 
 List<IntelligenceInsight> _getSmartFranchiseSalesMocks() {
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'fsm_01',
       title: 'Territory Saturation Alert',
       summary:
@@ -138,7 +138,7 @@ List<IntelligenceInsight> _getSmartFranchiseSalesMocks() {
       recommendation:
           'Pause new applications for Toronto West and pivot to Peel Region.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'fsm_02',
       title: 'Conversion Velocity High',
       summary:

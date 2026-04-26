@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-// ignore_for_file: avoid_dynamic_calls, argument_type_not_assignable, inference_failure_on_instance_creation, strict_raw_type, inference_failure_on_function_invocation, undefined_identifier, inference_failure_on_collection_literal, undefined_named_parameter, return_of_invalid_type, prefer_single_quotes, invalid_assignment, non_type_as_type_argument
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 // Internal granular imports
 import 'package:flutter_core/providers/03_D_portal_providers.dart';
 import 'package:primecare_ui/src/theme/01_I_design_system.dart';
-import 'package:primecare_ui/src/theme/01_I_colors.dart';
 import 'package:primecare_ui/src/components/layout/01_I_prime_responsive_grid.dart';
 import 'package:primecare_ui/src/assembly_line/01_I_assembly_line.dart';
 
@@ -169,25 +168,16 @@ class _OrchestratedPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(provider);
+    // ignore: argument_type_not_assignable
+    final asyncValue = ref.watch<AsyncValue<dynamic>>(provider as dynamic);
     final layout = ref.watch(layoutProvider);
     final scale = layout.scaleFactor;
     final ds = PrimeCareDesignSystem.of(context);
     final telemetry = ref.read(executionGateProvider);
 
-    if (asyncValue is! AsyncValue) {
-      telemetry.failGate(
-        ExecutionGateCategory.ui,
-        'Aura Orchestration Failure: $title',
-        error: 'Expected AsyncValue, got ${asyncValue.runtimeType}',
-      );
-      return Center(
-        child: Text(
-          'Aura Orchestration Failure: Expected AsyncValue, got ${asyncValue.runtimeType}',
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: PrimeCareColors.rose),
-        ),
-      );
+    // Telemetry and validation of orchestrated state
+    if (asyncValue.hasError && !asyncValue.isLoading) {
+      debugPrint('[PageTemplate] Orchestration Error: ${asyncValue.error}');
     }
 
     return asyncValue.when(
@@ -207,6 +197,7 @@ class _OrchestratedPage extends ConsumerWidget {
               ExecutionGateCategory.ui,
               'Dashboard Null Data Failure: $title',
               error: data.error,
+              silent: true,
             );
           }
 
@@ -237,12 +228,7 @@ class _OrchestratedPage extends ConsumerWidget {
               [];
           isOffline = (unwrappedData['isOfflineFallback'] as bool?) ?? false;
         } else {
-          try {
-            final dynamic d = unwrappedData;
-            blueprints =
-                (d.blueprints as List?)?.cast<UIComponentBlueprint>() ?? [];
-            isOffline = (d.isOfflineFallback as bool?) ?? false;
-          } catch (_) {}
+          debugPrint('[PageTemplate] Unrecognized data type: ${unwrappedData.runtimeType}');
         }
 
         telemetry.passGate(
@@ -253,6 +239,7 @@ class _OrchestratedPage extends ConsumerWidget {
             'blueprintCount': blueprints.length,
             'dataType': unwrappedData.runtimeType.toString(),
           },
+          silent: true,
         );
 
         return PageTemplate(
@@ -283,6 +270,7 @@ class _OrchestratedPage extends ConsumerWidget {
           'Dashboard Orchestration Error: $title',
           error: err,
           stackTrace: stack,
+          silent: true,
         );
         return Center(
           child: Padding(

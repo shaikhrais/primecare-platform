@@ -12,7 +12,7 @@ class CfoDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/cfo/dashboard';
 
   @override
-  String get title => 'Cfo Dashboard';
+  String get title => 'dashboards.cfo.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.cfo;
@@ -22,9 +22,9 @@ class CfoDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Liquidity Index',
-    'Burn Rate Analysis',
-    'Capital Allocation',
+    'dashboards.cfo.labels.liquidity_index',
+    'dashboards.cfo.labels.burn_rate_analysis',
+    'dashboards.cfo.labels.capital_allocation',
   ];
 
   @override

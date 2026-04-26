@@ -13,7 +13,7 @@ class TrainingDirectorCertificateDashboardIntent extends AppScreenIntent {
       '/offices/corporate/roles/training_director_certificate/dashboard';
 
   @override
-  String get title => 'Training Director Certificate Dashboard';
+  String get title => 'dashboards.trainingdirectorcertificate.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.trainingDirectorCertificate;

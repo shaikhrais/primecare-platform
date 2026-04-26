@@ -6,9 +6,9 @@ class PolicyManager extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'PolicyManager',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.policy_manager'.tr(),
+      subtitle: 'navigation.items.policy_manager'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

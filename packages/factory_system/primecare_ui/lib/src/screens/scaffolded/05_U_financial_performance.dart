@@ -6,9 +6,9 @@ class FinancialPerformance extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'FinancialPerformance',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.financial_performance'.tr(),
+      subtitle: 'navigation.items.financial_performance'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

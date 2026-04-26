@@ -45,7 +45,7 @@ final schedulerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
   await Future<void>.delayed(const Duration(milliseconds: 1500));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sched_01',
       title: 'Overtime Prevention Alert',
       summary:
@@ -56,7 +56,7 @@ final schedulerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
       recommendation:
           'Reassign night shifts for Sector 4 to prevent overtime payouts.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sched_02',
       title: 'Travel Optimization Opportunity',
       summary:
@@ -67,7 +67,7 @@ final schedulerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
       recommendation:
           'Apply Logistics Cluster Filter to the current shift roster.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sched_03',
       title: 'Shift Coverage Gap',
       summary:

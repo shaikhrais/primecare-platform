@@ -41,6 +41,9 @@ abstract class AppScreenIntent {
   /// The canonical name for the registry.
   String get name;
 
+  /// The global intent identifier matching the Prisma UIIntent database schema.
+  String get intentId => name.replaceAll('_', '-');
+
   /// The canonical route or identifier for this screen.
   String get route => '/\$name';
 

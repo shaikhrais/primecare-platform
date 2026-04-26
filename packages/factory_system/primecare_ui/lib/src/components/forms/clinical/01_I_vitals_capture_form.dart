@@ -253,7 +253,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
               span: itemSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Heart Rate (bpm)',
+                  labelText: 'clinical.heart_rate'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
@@ -278,7 +278,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
               span: itemSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Blood Pressure',
+                  labelText: 'clinical.blood_pressure'.tr(),
                   hintText: '120/80',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
@@ -308,7 +308,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
               span: itemSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Temperature (°C)',
+                  labelText: 'clinical.temperature'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(

@@ -6,9 +6,9 @@ class StrategicKpis extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'StrategicKpis',
-      subtitle: 'Auto-scaffolded strategic module',
+    return PageTemplate(
+      title: 'navigation.items.strategic_kpis'.tr(),
+      subtitle: 'navigation.items.strategic_kpis'.tr(),
       body: Center(child: Text('Provisioning...')),
     );
   }

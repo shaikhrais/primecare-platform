@@ -41,7 +41,7 @@ final trainingCoordInsightsProvider = FutureProvider<List<IntelligenceInsight>>(
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'tc_1',
       title: 'Course Efficiency Warning',
       summary:
@@ -52,7 +52,7 @@ final trainingCoordInsightsProvider = FutureProvider<List<IntelligenceInsight>>(
       recommendation:
           'Review Module 3 assessment complexity or technical video playback issues.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'tc_2',
       title: 'Credentialing Velocity',
       summary:
@@ -63,7 +63,7 @@ final trainingCoordInsightsProvider = FutureProvider<List<IntelligenceInsight>>(
       recommendation:
           'Enable auto-renew notifications for all secondary certifications.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'tc_3',
       title: 'Compliance Expiry Risk',
       summary:

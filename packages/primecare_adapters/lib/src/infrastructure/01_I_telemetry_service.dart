@@ -1,7 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import '01_I_modulation_governance_registry.dart';
@@ -35,7 +33,7 @@ enum ExecutionGateCategory {
 class CloudWatchStreamSink {
   static void streamEvent(ExecutionGate gate) {
     // In production, this pushes the event to AWS CloudWatch or Datadog via Kinesis/HTTPS
-    if (kDebugMode) {
+    if (kDebugMode && gate.status == ExecutionGateStatus.fail) {
       print('[CloudWatch Stream] -> ${gate.toString()}');
     }
   }
@@ -100,12 +98,22 @@ class ExecutionGateService extends ChangeNotifier {
   /// Returns the most recent gate recorded, or null if none.
   ExecutionGate? get lastGate => _gates.isEmpty ? null : _gates.last;
 
-  /// Records a successful gate passage.
+  /// Records a successful execution gate pass.
+  ///
+  /// If [silent] is true, we don't notify listeners unless a previous failure for this
+  /// category/reason was resolved. This prevents "100s of logs" from triggering
+  /// infinite rebuild loops when used inside build methods.
   void passGate(
     ExecutionGateCategory category,
     String message, {
     Map<String, dynamic>? metadata,
+    bool silent = false,
   }) {
+    final last = _gates.isEmpty ? null : _gates.last;
+    final wasFailing = _gates.any(
+      (g) => g.category == category && g.status == ExecutionGateStatus.fail,
+    );
+
     final gate = ExecutionGate(
       category: category,
       message: message,
@@ -113,34 +121,81 @@ class ExecutionGateService extends ChangeNotifier {
       timestamp: DateTime.now(),
       metadata: metadata,
     );
+
+    // Truly skip adding to the list if silent and duplicate to prevent "100s of logs"
+    if (silent &&
+        last != null &&
+        last.category == category &&
+        last.message == message &&
+        last.status == ExecutionGateStatus.pass) {
+      // Still stream to CloudWatch but don't store locally
+      CloudWatchStreamSink.streamEvent(gate);
+      return;
+    }
+
     _gates.add(gate);
 
     CloudWatchStreamSink.streamEvent(gate);
 
-    if (kDebugMode) {
+    if (kDebugMode && !silent) {
       print('[ExecutionGate] PASS [$category]: $message');
     }
 
     final subsystem = _mapCategoryToSubsystem(category);
     if (subsystem != null) {
-      final wasFailing = (_consecutiveFailures[subsystem] ?? 0) > 0;
-      if (wasFailing) {
+      final isSubsystemFailing = (_consecutiveFailures[subsystem] ?? 0) > 0;
+      if (isSubsystemFailing) {
         _consecutiveFailures[subsystem] = 0;
         // Auto-restore healthy state on successful execution gate
         if (_ref != null) {
-          _ref
-              .read(modulationGovernanceProvider.notifier)
-              .modulateSubsystem(subsystem, ModulationState.healthy);
+          Future.microtask(() {
+            _ref
+                .read(modulationGovernanceProvider.notifier)
+                .modulateSubsystem(subsystem, ModulationState.healthy);
+          });
         }
       }
     }
 
-    _safeNotify();
+    _safeNotify(silent: silent, wasFailing: wasFailing);
   }
 
   /// Legacy alias for passGate
   void track(ExecutionGateCategory category, String message) =>
       passGate(category, message);
+
+  /// Tracks when a specific UI intent is hydrated or accessed by a user.
+  /// This bridges the frontend to the Prisma UIIntent database for Shareholder reporting.
+  void trackIntent(dynamic intent) {
+    // We use dynamic to avoid tight coupling if the class is unavailable,
+    // but typically this receives an AppScreenIntent.
+    try {
+      // ignore: avoid_dynamic_calls
+      final String intentId = intent.intentId?.toString() ?? 'unknown-intent';
+      passGate(
+        ExecutionGateCategory.ui,
+        'Intent Hydrated: $intentId',
+        metadata: {'intentId': intentId},
+      );
+    } catch (e) {
+      if (kDebugMode) print('Could not track intent: $e');
+    }
+  }
+
+  /// High-level event logger that maps to the navigation category.
+  /// Defaults to 'silent' to prevent UI rebuild spam.
+  void logStructuralEvent(
+    String event, {
+    Map<String, dynamic>? metadata,
+    bool silent = true,
+  }) {
+    passGate(
+      ExecutionGateCategory.navigationLayer,
+      'EVENT: $event',
+      metadata: metadata,
+      silent: silent,
+    );
+  }
 
   /// Records a failed gate attempt.
   void failGate(
@@ -149,7 +204,9 @@ class ExecutionGateService extends ChangeNotifier {
     Object? error,
     StackTrace? stackTrace,
     Map<String, dynamic>? metadata,
+    bool silent = false,
   }) {
+    final last = _gates.isEmpty ? null : _gates.last;
     final gate = ExecutionGate(
       category: category,
       message: message,
@@ -158,6 +215,17 @@ class ExecutionGateService extends ChangeNotifier {
       error: error,
       metadata: metadata,
     );
+
+    // Truly skip adding to the list if silent and duplicate
+    if (silent &&
+        last != null &&
+        last.category == category &&
+        last.message == message &&
+        last.status == ExecutionGateStatus.fail) {
+      CloudWatchStreamSink.streamEvent(gate);
+      return;
+    }
+
     _gates.add(gate);
 
     CloudWatchStreamSink.streamEvent(gate);
@@ -173,9 +241,11 @@ class ExecutionGateService extends ChangeNotifier {
 
       if (currentFailures >= 3) {
         if (_ref != null) {
-          _ref
-              .read(modulationGovernanceProvider.notifier)
-              .modulateSubsystem(subsystem, ModulationState.degraded);
+          Future.microtask(() {
+            _ref
+                .read(modulationGovernanceProvider.notifier)
+                .modulateSubsystem(subsystem, ModulationState.degraded);
+          });
         }
         if (kDebugMode) {
           print(
@@ -185,7 +255,7 @@ class ExecutionGateService extends ChangeNotifier {
       }
     }
 
-    _safeNotify();
+    _safeNotify(silent: silent);
   }
 
   /// Clears the gate history.
@@ -249,7 +319,7 @@ class ExecutionGateService extends ChangeNotifier {
   }
 
   /// Submits the Global Governance Report to the CloudWatch telemetry sink.
-  Future<void> submitToCloudWatch() async {
+  Future<void> submitToCloudWatch({String? currentIntentId}) async {
     final report = generateGlobalGovernanceReport();
     if (kDebugMode) {
       print('Initiating CloudWatch Telemetry Stream...');
@@ -263,6 +333,7 @@ class ExecutionGateService extends ChangeNotifier {
           '/telemetry/cloudwatch',
           body: {
             'report': report,
+            if (currentIntentId != null) 'intentId': currentIntentId,
             'timestamp': DateTime.now().toIso8601String(),
           },
         );
@@ -285,15 +356,20 @@ class ExecutionGateService extends ChangeNotifier {
     }
   }
 
-  void _safeNotify() {
-    // If we are in the middle of a build, defer notification to the next frame
-    // to avoid "Tried to modify a provider while the widget tree was building" errors.
-    if (WidgetsBinding.instance.schedulerPhase ==
-        SchedulerPhase.persistentCallbacks) {
-      Future.microtask(() => notifyListeners());
-    } else {
-      notifyListeners();
+  void _safeNotify({bool silent = false, bool wasFailing = false}) {
+    // Always defer notification to the microtask queue
+    // to avoid "Tried to modify a provider while the widget tree was building"
+    // and "Providers are not allowed to modify other providers during their initialization" errors.
+    // If silent and no failure was resolved, we avoid notifying listeners to prevent loops.
+    if (silent && !wasFailing) {
+      return;
     }
+
+    Future.microtask(() {
+      if (hasListeners) {
+        notifyListeners();
+      }
+    });
   }
 }
 

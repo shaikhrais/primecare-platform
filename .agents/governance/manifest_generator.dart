@@ -19,16 +19,17 @@ void main() {
 
     final labelMatch = RegExp(r'label:\s*"([^"]+)"').firstMatch(block);
     final routeVarMatch = RegExp(r'route_var:\s*"([^"]+)"').firstMatch(block);
+    final routeMatch = RegExp(r'route:\s*"([^"]+)"').firstMatch(block);
     final iconVarMatch = RegExp(r'icon_var:\s*"([^"]+)"').firstMatch(block);
     final sectionMatch = RegExp(r'section:\s*"([^"]+)"').firstMatch(block);
     final rolesMatch = RegExp(r'role_allowed:\s*\[(.*?)\]').firstMatch(block);
 
     if (labelMatch != null &&
-        routeVarMatch != null &&
+        (routeVarMatch != null || routeMatch != null) &&
         iconVarMatch != null &&
         rolesMatch != null) {
       final label = labelMatch.group(1)!;
-      final routeVar = routeVarMatch.group(1)!;
+      final routeVar = routeVarMatch?.group(1) ?? "'${routeMatch!.group(1)!}'";
       final iconVar = iconVarMatch.group(1)!;
       final section = sectionMatch?.group(1) ?? 'Main';
 

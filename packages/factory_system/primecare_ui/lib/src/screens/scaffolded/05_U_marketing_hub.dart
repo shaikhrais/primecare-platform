@@ -6,9 +6,9 @@ class MarketingHub extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'MarketingHub',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.marketing_hub'.tr(),
+      subtitle: 'navigation.items.marketing_hub'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

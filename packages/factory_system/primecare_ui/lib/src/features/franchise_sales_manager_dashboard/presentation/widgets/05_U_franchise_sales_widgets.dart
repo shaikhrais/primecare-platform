@@ -45,8 +45,8 @@ class SalesFunnelHeatmap extends StatelessWidget {
 }
 
 /// A grid showing detailed lead conversion metrics and status.
-class LeadConversionGrid extends StatelessWidget {
-  const LeadConversionGrid({super.key});
+class FranchiseSalesLeadConversionGrid extends StatelessWidget {
+  const FranchiseSalesLeadConversionGrid({super.key});
 
   @override
   Widget build(BuildContext context) {

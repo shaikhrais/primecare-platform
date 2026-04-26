@@ -50,7 +50,7 @@ final partnershipManagerInsightsProvider =
 
 List<IntelligenceInsight> _getSmartPartnershipMocks() {
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ptnr_01',
       title: 'Partner Referral Drop',
       summary:
@@ -60,7 +60,7 @@ List<IntelligenceInsight> _getSmartPartnershipMocks() {
       recommendation:
           'Schedule a quarterly review meeting with the Clinic Group Director.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ptnr_02',
       title: 'High-Value Pipeline',
       summary:
@@ -70,7 +70,7 @@ List<IntelligenceInsight> _getSmartPartnershipMocks() {
       recommendation:
           'Accelerate onboarding for the "South Sector Hub" to capture Q2 volume.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ptnr_03',
       title: 'Synergy Optimization',
       summary:

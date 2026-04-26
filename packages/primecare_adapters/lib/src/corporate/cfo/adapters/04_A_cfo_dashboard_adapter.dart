@@ -1,5 +1,5 @@
-// Layer: 04_UI_ADAPTERS
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 // -----------------------------------------------------------------------------
@@ -30,29 +30,29 @@ final cfoMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
       // Add role-specific KPIs if empty or override for high-fidelity UI
       final enrichedKpis = metrics.kpis.isEmpty
           ? [
-              const KpiMetric(
-                title: 'EBITDA (TTM)',
+              KpiMetric(
+                title: LocaleKeys.cfo_dashboard_labels_ebitda_ttm.tr(),
                 value: '\$1.24M',
                 subtitle: '+4.2',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Cash on Hand',
+              KpiMetric(
+                title: LocaleKeys.cfo_dashboard_labels_cash_on_hand.tr(),
                 value: '\$842.5K',
                 subtitle: '+2.1',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Net Margin',
+              KpiMetric(
+                title: LocaleKeys.cfo_dashboard_labels_net_margin.tr(),
                 value: '24.2%',
                 subtitle: '+1.5',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Operational Burn',
+              KpiMetric(
+                title: LocaleKeys.cfo_dashboard_labels_operational_burn.tr(),
                 value: '\$118K/mo',
                 subtitle: '-2.1',
                 trend: 'down',
@@ -81,9 +81,9 @@ final cfoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cfo_insight_1',
-      title: 'Tax Optimization Opportunity',
+      title: LocaleKeys.cfo_dashboard_labels_tax_optimization.tr(),
       summary:
           'Potential \$24K saving identified via SR&ED credit for new AI logistics module.',
       impact: InsightImpact.positive,
@@ -91,9 +91,9 @@ final cfoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       category: 'Finance',
       recommendation: 'Contact tax consultant to finalize SR&ED claim.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cfo_insight_2',
-      title: 'Accounts Receivable Alert',
+      title: LocaleKeys.cfo_dashboard_labels_ar_alert.tr(),
       summary: 'DSO increased to 42 days in US West region (+5 days).',
       impact: InsightImpact.warning,
       type: InsightType.risk,
@@ -101,9 +101,9 @@ final cfoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Trigger automated dunning workflow for accounts >30 days.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'cfo_insight_3',
-      title: 'Capital Allocation Efficiency',
+      title: LocaleKeys.cfo_dashboard_labels_capital_efficiency.tr(),
       summary:
           'Reallocating unused marketing reserves to infrastructure could improve EBITDA by 0.5%.',
       impact: InsightImpact.info,

@@ -6,9 +6,9 @@ class LedgerCommand extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'LedgerCommand',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.ledger_command'.tr(),
+      subtitle: 'navigation.items.ledger_command'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

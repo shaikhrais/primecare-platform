@@ -1,0 +1,90 @@
+{
+  "common": {
+    "languages": "Español",
+    "language": "Español",
+    "aura": {
+      "execute_action": "Ejecutar acción",
+      "search_placeholder": "Buscar comandos o preguntar a Aura...",
+      "disclaimer": "Aura AI puede proporcionar información inexacta. Verifique los datos críticos.",
+      "title": "Inteligencia Aura",
+      "subtitle": "Su copiloto de IA empresarial",
+      "suggestions_label": "Sugerido para ti"
+    },
+    "tooltips": {
+      "change_language": "Cambiar idioma"
+    }
+  },
+  "auth": {
+    "title_curator": "Curador de PrimeCare",
+    "curator_subtitle": "Registro de operaciones de salud empresarial",
+    "welcome_back": "Bienvenido de nuevo",
+    "login_instructions": "Ingrese sus credenciales institucionales para acceder a su espacio de trabajo.",
+    "email": "Correo electrónico",
+    "email_placeholder": "nombre@institucion.com",
+    "password": "Contraseña",
+    "forgot_password": "¿Olvidó su contraseña?",
+    "sign_in": "Iniciar sesión",
+    "register": "Registrarse",
+    "create_account": "Crear cuenta",
+    "already_have_account": "¿Ya tienes una cuenta?",
+    "back_to_login": "Volver al inicio de sesión",
+    "authentication_failed": "Error de autenticación. Por favor, compruebe sus credenciales.",
+    "enter_credentials_to_continue": "Por favor, introduzca su correo electrónico y contraseña para continuar.",
+    "security_notice_long": "Este sistema está restringido al personal y socios autorizados de PrimeCare. Todos los accesos y actividades son monitoreados, registrados y auditados para garantizar el cumplimiento de las regulaciones mundiales de datos de salud (HIPAA/GDPR). Los intentos de acceso no autorizados o el uso indebido de esta plataforma están estrictamente prohibidos y serán procesados con todo el rigor de la ley. Al continuar, usted reconoce y acepta estos términos.",
+    "security_notice_short": "Solo acceso autorizado",
+    "zero_trust_platform": "Plataforma Zero Trust",
+    "encryption_active": "Cifrado de extremo a extremo activo",
+    "provision_workspace": "Aprovisionando espacio de trabajo...",
+    "hydrating_registries": "Hidratando registros de plataforma...",
+    "account_recovery": "Recuperación de cuenta",
+    "recovery_subtitle": "Ingrese su correo electrónico para recibir un enlace de recuperación.",
+    "send_recovery_link": "Enviar enlace de recuperación",
+    "recovery_link_sent": "Se ha enviado el enlace de recuperación a su correo electrónico.",
+    "reset_password": "Restablecer contraseña",
+    "reset_password_page": {
+      "title": "Crear nueva contraseña",
+      "new_password": "Nueva contraseña",
+      "confirm_password": "Confirmar nueva contraseña",
+      "update_password": "Actualizar contraseña"
+    },
+    "mfa": {
+      "title": "Autenticación de múltiples factores",
+      "subtitle": "Ingrese el código de verificación enviado a su dispositivo."
+    },
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "role": "Rol de plataforma",
+    "language_system": "Sistema de idiomas",
+    "join_clinical_atelier": "Unirse al Taller Clínico",
+    "send_again": "Enviar de nuevo"
+  },
+  "aura": {
+    "adjust_budget": "Ajustar presupuesto",
+    "marketing_roi_surge": "Aumento del ROI de marketing",
+    "critical_insights": "Información crítica",
+    "system_preferences": "Preferencias del sistema",
+    "operational_summary": "Resumen operativo",
+    "intelligence": "Inteligencia",
+    "stay": "Quedarse",
+    "view_retention_plan": "Ver plan de retención",
+    "exit_message": "¿Está seguro de que desea salir de la sesión?",
+    "marketing_roi_desc": "El ROI ha aumentado un 24% este trimestre.",
+    "sign_out": "Cerrar sesión",
+    "executive_overview": "Resumen ejecutivo",
+    "see_report": "Ver informe",
+    "staff_retention_desc": "La retención de personal está en un máximo histórico del 98%.",
+    "confirm_departure": "Confirmar salida",
+    "daily_briefing": "Informe diario",
+    "profile": "Perfil de usuario",
+    "supply_chain_sync": "Sincronización de la cadena de suministro",
+    "exit_session": "Salir de la sesión",
+    "staff_retention_alert": "Alerta de retención de personal",
+    "search_hint": "Escriba '/' para comandos",
+    "supply_chain_desc": "Todos los nodos están sincronizados."
+  },
+  "navigation": {
+    "footer": {
+      "language": "Idioma"
+    }
+  }
+}

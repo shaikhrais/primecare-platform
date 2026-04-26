@@ -86,7 +86,7 @@ class CorporateGovernanceDashboardAdapter
           ],
         ),
         insights: [
-          const IntelligenceInsight(
+          IntelligenceInsight(
             id: 'integrity-001',
             title: 'Blueprint Mismatch Detected',
             summary:
@@ -96,7 +96,7 @@ class CorporateGovernanceDashboardAdapter
                 'Run global remediation script to re-align registries.',
             impact: InsightImpact.warning,
           ),
-          const IntelligenceInsight(
+          IntelligenceInsight(
             id: 'arch-001',
             title: 'Execution Gate Optimization',
             summary:

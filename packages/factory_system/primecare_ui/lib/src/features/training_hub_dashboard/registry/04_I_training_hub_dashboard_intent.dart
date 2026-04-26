@@ -12,7 +12,7 @@ class TrainingHubDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/training_hub/dashboard';
 
   @override
-  String get title => 'Training Hub Dashboard';
+  String get title => 'dashboards.traininghub.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.trainingHub;

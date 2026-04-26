@@ -1,0 +1,523 @@
+{
+  "navigation": {
+    "sections": {
+      "clinical": "Clinique",
+      "common_tools": "Outils Communs",
+      "corporate": "Corporate",
+      "finance": "Finance",
+      "growth": "Croissance",
+      "main": "Principale",
+      "management": "Gestion",
+      "operations": "Opérations",
+      "strategic": "Stratégique",
+      "workflows": "Flux de Travail",
+      "master_directory": "Répertoire Principal"
+    },
+    "items": {
+      "create_user_form": "Create Utilisateur Form",
+      "password_reset_form": "Password Reset Form",
+      "live_dispatch_map": "Live Dispatch Map",
+      "auth_layout": "Auth Layout",
+      "create_shift_form": "Create Shift Form",
+      "system_dashboard": "Système Tableau de bord",
+      "compliance_hub": "Conformité Hub",
+      "global_settings": "Global Paramètres",
+      "user_management": "Utilisateur Gestion",
+      "enterprise_overview": "Entreprise Aperçu",
+      "strategic_kpis": "Stratégique Kpis",
+      "customer_support_dashboard": "Support Tableau de bord",
+      "growth_pipeline": "Croissance Pipeline",
+      "region_performance": "Région Performance",
+      "leadership_reports": "Leadership Rapports",
+      "cfo_dashboard": "Cfo Tableau de bord",
+      "financial_overview": "Financier Aperçu",
+      "revenue_tracker": "Revenu Tracker",
+      "profitability": "Rentabilité",
+      "tax_remittance": "Taxe Remise",
+      "coo_dashboard": "Coo Tableau de bord",
+      "operations_board": "Opérations Board",
+      "branch_operations": "Branch Opérations",
+      "scheduling_health": "Planification Santé",
+      "incident_reviews": "Incident Reviews",
+      "cto_dashboard": "Cto Tableau de bord",
+      "system_health": "Système Santé",
+      "platform_usage": "Platform Utilisation",
+      "api_monitoring": "Api Surveillance",
+      "audit_logs": "Audit Journaux",
+      "cases": "Cases",
+      "policy_manager": "Politique Manager",
+      "audits": "Audits",
+      "risk_register": "Risque Registre",
+      "curriculum_hub": "Curriculum Hub",
+      "skill_matrix": "Skill Matrice",
+      "region_dashboard": "Région Tableau de bord",
+      "branch_comparison": "Branch Comparison",
+      "ledger_command": "Ledger Command",
+      "cash_flow": "Cash Flow",
+      "intake_pipeline": "Intake Pipeline",
+      "referrals": "Referrals",
+      "pending_assessments": "Pending Assessments",
+      "billing_console": "Billing Console",
+      "invoices": "Invoices",
+      "marketing_hub": "Marketing Hub",
+      "campaign_analytics": "Campaign Analytics",
+      "business_overview": "Business Aperçu",
+      "financial_performance": "Financier Performance",
+      "compliance_status": "Conformité Status",
+      "clinical_dashboard": "Clinical Tableau de bord",
+      "shift_tracker": "Shift Tracker",
+      "messages": "Messages",
+      "family_home": "Family Home",
+      "care_plan": "Care Plan",
+      "billing": "Billing",
+      "messaging_hub": "Messaging Hub",
+      "document_vault": "Document Vault",
+      "notification_center": "Notifications",
+      "head_of_marketing_dashboard": "Marketing Tableau de bord",
+      "head_of_bus_dev_dashboard": "Bus Dev Tableau de bord",
+      "operations_manager_dashboard": "Ops Tableau de bord",
+      "hr_hiring_dashboard": "Hr Tableau de bord",
+      "clinical_director_dashboard": "Clinical Director",
+      "shareholder_dashboard": "Shareholder Tableau de bord",
+      "cfo_dashboard_labels": "Cfo Tableau de bord Labels",
+      "support_dashboard_labels": "Support Tableau de bord Labels",
+      "marketing_dashboard_labels": "Marketing Tableau de bord Labels"
+    },
+    "footer": {
+      "language": "Language"
+    }
+  },
+  "dashboards": {
+    "architectureplanning": {
+      "title": "Architectureplanning Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "aura_hud": "Aura Hud",
+        "architecture_roadmap": "Architecture Roadmap",
+        "system_health_grid": "Système Santé Grid",
+        "project_timeline": "Project Timeline"
+      }
+    },
+    "billingadmin": {
+      "title": "Billingadmin Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "aging_accounts_grid": "Aging Accounts Grid",
+        "pending_claims_queue": "Pending Claims Queue",
+        "remittance_breakdown": "Remise Breakdown"
+      }
+    },
+    "ceo": {
+      "title": "Ceo Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "global_kpi_metrics": "Global Kpi Metrics",
+        "region_comparison": "Région Comparison",
+        "strategic_initiatives": "Stratégique Initiatives",
+        "real_time_telemetry_feed": "Real Time Telemetry Feed"
+      }
+    },
+    "cfo": {
+      "title": "Cfo Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "liquidity_index": "Liquidity Index",
+        "burn_rate_analysis": "Burn Rate Analysis",
+        "capital_allocation": "Capital Allocation"
+      }
+    },
+    "client": {
+      "title": "Client Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "clinicaldirector": {
+      "title": "Clinicaldirector Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "clinical_safety_score": "Clinical Safety Score",
+        "staffing_heatmap": "Effectif Heatmap",
+        "protocol_compliance": "Protocole Conformité"
+      }
+    },
+    "clinic": {
+      "title": "Clinic Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "communityoutreach": {
+      "title": "Communityoutreach Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "compliancemanager": {
+      "title": "Compliancemanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "registry_integrity_score": "Registry Integrity Score",
+        "anomaly_heatmap": "Anomaly Heatmap",
+        "execution_gate_logs": "Execution Gate Journaux"
+      }
+    },
+    "coo": {
+      "title": "Coo Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "coursearchitect": {
+      "title": "Coursearchitect Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "customersupport": {
+      "title": "Customersupport Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "cxdirector": {
+      "title": "Cxdirector Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "dynamicscreen": {
+      "title": "Dynamicscreen Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "family": {
+      "title": "Family Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "familymember": {
+      "title": "Familymember Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "financedirector": {
+      "title": "Financedirector Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "aura_hud": "Aura Hud",
+        "financial_summary_grid": "Financier Summary Grid",
+        "cash_flow_forecast": "Cash Flow Forecast",
+        "budget_distribution": "Budget Distribution"
+      }
+    },
+    "franchiseowner": {
+      "title": "Franchiseowner Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "franchisesalesmanager": {
+      "title": "Franchisesalesmanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "generalmanager": {
+      "title": "Generalmanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "guest": {
+      "title": "Guest Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "headofbusdev": {
+      "title": "Headofbusdev Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "headofmarketing": {
+      "title": "Headofmarketing Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "hrdirector": {
+      "title": "Hrdirector Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "hrhiring": {
+      "title": "Hrhiring Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "aura_hud": "Aura Hud",
+        "candidate_pipeline": "Candidate Pipeline",
+        "interview_scheduler": "Interview Scheduler",
+        "hiring_analytics": "Hiring Analytics"
+      }
+    },
+    "intakecoordinator": {
+      "title": "Intakecoordinator Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "intake": {
+      "title": "Intake Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "localmarketingmanager": {
+      "title": "Localmarketingmanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "operationsmanager": {
+      "title": "Operationsmanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "owner": {
+      "title": "Owner Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "partnershipmanager": {
+      "title": "Partnershipmanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "patient": {
+      "title": "Patient Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "psw": {
+      "title": "Psw Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "aura_hud": "Aura Hud",
+        "clinical_summary": "Clinical Summary",
+        "care_plan_checklist": "Care Plan Checklist",
+        "incident_quick_report": "Incident Quick Report"
+      }
+    },
+    "qa": {
+      "title": "Qa Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "qualityassurance": {
+      "title": "Qualityassurance Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "receptionist": {
+      "title": "Receptionist Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "regionalbdm": {
+      "title": "Regionalbdm Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "regionalmanagerontario": {
+      "title": "Regionalmanagerontario Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "regionalmanagerusa": {
+      "title": "Regionalmanagerusa Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "rmt": {
+      "title": "Rmt Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "rn": {
+      "title": "Rn Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "scheduler": {
+      "title": "Scheduler Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "scrummaster": {
+      "title": "Scrummaster Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "shareholderintelligence": {
+      "title": "Shareholderintelligence Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "global_governance_header": "Global Governance Header",
+        "feature_pipeline_kanban": "Feature Pipeline Kanban",
+        "real_time_telemetry_feed": "Real Time Telemetry Feed",
+        "shareholder_roi_matrix": "Shareholder Roi Matrice",
+        "feature_request_fab": "Feature Request Fab"
+      }
+    },
+    "support": {
+      "title": "Support Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "operational_volume": "Opérationnel Volume",
+        "aura_intelligence": "Aura Intelligence"
+      }
+    },
+    "systemverification": {
+      "title": "Systemverification Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "territoryexpansionmanager": {
+      "title": "Territoryexpansionmanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "territorysalesmanager": {
+      "title": "Territorysalesmanager Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "trainingcoordinator": {
+      "title": "Trainingcoordinator Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "trainingdirectorcertificate": {
+      "title": "Trainingdirectorcertificate Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "trainingdirector": {
+      "title": "Trainingdirector Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "traininghub": {
+      "title": "Traininghub Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "volunteercoordinator": {
+      "title": "Volunteercoordinator Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {}
+    },
+    "common": {
+      "title": "Common Tableau de bord",
+      "subtitle": "Accéder aux indicateurs.",
+      "labels": {
+        "aura_intelligence": "Aura Intelligence",
+        "operational_insights": "Opérationnel Insights"
+      }
+    }
+  },
+  "common": {
+    "app_name": "PrimeCare",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "language": {
+      "en": "Anglais",
+      "fr": "Français",
+      "es": "Espagnol"
+    }
+  },
+  "auth": {
+    "title_curator": "Bienvenue chez PrimeCare",
+    "curator_subtitle": "Portail d'Accès Entreprise",
+    "welcome_back": "Bon retour",
+    "login_instructions": "Connectez-vous à votre compte",
+    "email": "Adresse Courriel",
+    "email_placeholder": "Entrez votre courriel",
+    "password": "Mot de passe",
+    "forgot_password": "Mot de passe oublié?",
+    "sign_in": "Se connecter",
+    "security_notice_long": "This system is restricted to authorized personnel.",
+    "authentication_failed": "Authentication failed.",
+    "enter_credentials_to_continue": "Please enter credentials."
+  },
+  "aura": {
+    "search_hint": "Search Aura...",
+    "sign_out": "Sign Out",
+    "intelligence": "Aura Intelligence",
+    "daily_briefing": "Daily Briefing: {}",
+    "executive_overview": "EXECUTIVE OVERVIEW",
+    "operational_summary": "Systems are currently operating within nominal parameters.",
+    "critical_insights": "CRITICAL INSIGHTS",
+    "staff_retention_alert": "Staff Retention Alert",
+    "staff_retention_desc": "Regional turnover in Ontario South has increased by 12% this month.",
+    "view_retention_plan": "VIEW RETENTION PLAN",
+    "marketing_roi_surge": "Marketing ROI Surge",
+    "marketing_roi_desc": "Ad campaign 'CommunityCare' has achieved a 4.2x ROI.",
+    "adjust_budget": "ADJUST BUDGET",
+    "supply_chain_sync": "Supply Chain Sync",
+    "supply_chain_desc": "Inventory levels across 14 franchises synchronized successfully.",
+    "see_report": "SEE REPORT",
+    "governance_alert": "GOVERNANCE ALERT",
+    "real_time_intelligence": "REAL-TIME INTELLIGENCE",
+    "view_details": "VIEW DETAILS",
+    "synchronizing": "Synchronizing Aura IQ...",
+    "offline": "Aura Offline",
+    "snoozed": "Aura Alerts Snoozed",
+    "resume": "RESUME",
+    "auditors_blueprint": "AUDITOR'S BLUEPRINT",
+    "structural_contract": "STRUCTURAL CONTRACT",
+    "verified_components": "VERIFIED COMPONENTS",
+    "full_system_audit": "Full System Audit",
+    "events": {
+      "stable_title": "System Stable",
+      "stable_desc": "Institutional heartbeat is nominal.",
+      "critical_occupancy_title": "Critical Occupancy Spike",
+      "critical_occupancy_desc": "Facility at 98% capacity.",
+      "revenue_variance_title": "Revenue Variance Detected",
+      "revenue_variance_desc": "Detected a 12% dip in projected daily billing.",
+      "efficiency_opt_title": "Efficiency Optimization",
+      "efficiency_opt_desc": "Shift change documentation cycle completed 4 minutes faster.",
+      "staffing_gap_title": "Anticipated Staffing Gap",
+      "staffing_gap_desc": "Trend analysis predicts a 15% staffing deficit.",
+      "budget_overrun_title": "Projected Budget Overrun",
+      "budget_overrun_desc": "Current spending velocity suggests a potential budget threshold breach.",
+      "architectural_drift_title": "Architectural Drift Detected",
+      "architectural_drift_desc": "Screen [{}] has drifted from Auditor Blueprint. Missing: {}"
+    }
+  },
+  "ceo_dashboard_labels_strategic_growth": "Growth",
+  "ceo_dashboard_labels_revenue_growth": "Growth",
+  "ceo_dashboard_labels_market_expansion": "Expansion",
+  "cfo_dashboard_labels_ebitda_ttm": "Ttm",
+  "cfo_dashboard_labels_cash_on_hand": "Hand",
+  "cfo_dashboard_labels_net_margin": "Margin",
+  "cfo_dashboard_labels_operational_burn": "Burn",
+  "cfo_dashboard_labels_tax_optimization": "Optimization",
+  "cfo_dashboard_labels_ar_alert": "Alert",
+  "cfo_dashboard_labels_capital_efficiency": "Efficiency",
+  "cto_dashboard_labels_global_uptime": "Uptime",
+  "cto_dashboard_labels_api_latency": "Latency",
+  "cto_dashboard_labels_error_rate": "Rate",
+  "cto_dashboard_labels_deploys_day": "Day",
+  "cto_dashboard_labels_infra_optimization": "Optimization",
+  "cto_dashboard_labels_security_posture": "Posture",
+  "cto_dashboard_labels_devops_velocity": "Velocity",
+  "support_dashboard_labels_common_pain_point": "Point",
+  "support_dashboard_labels_resolution_efficiency": "Efficiency",
+  "support_dashboard_labels_sla_breach_risk": "Risk",
+  "marketing_dashboard_labels_campaign_roi_peak": "Peak",
+  "marketing_dashboard_labels_cac_volatility": "Volatility",
+  "clinical_director_labels_staffing_matrix": "Matrix",
+  "clinical_director_labels_staffing_variance": "Variance",
+  "clinical_director_labels_compliance_log": "Log",
+  "clinical_director_labels_audit_adherence": "Adherence",
+  "clinical_director_labels_incident_trends": "Trends",
+  "clinical_director_labels_incident_criticality": "Criticality",
+  "command_center_labels_franchise_center": "Center",
+  "command_center_labels_marketing_center": "Center",
+  "regional_manager_labels_performance_matrix": "Matrix",
+  "regional_manager_labels_comparative_metrics": "Metrics",
+  "regional_manager_labels_health_scorecard": "Scorecard",
+  "regional_manager_labels_health_indices": "Indices",
+  "command_center_labels_training_center": "Center",
+  "command_center_labels_curriculum_compliance": "Compliance",
+  "command_center_labels_training_hub_center": "Center",
+  "command_center_labels_volunteer_center": "Center"
+}

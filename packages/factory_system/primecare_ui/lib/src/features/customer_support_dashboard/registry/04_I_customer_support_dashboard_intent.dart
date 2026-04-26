@@ -12,7 +12,7 @@ class CustomerSupportDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/customer_support/dashboard';
 
   @override
-  String get title => 'Customer Support Dashboard';
+  String get title => 'dashboards.customersupport.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.customerSupport;

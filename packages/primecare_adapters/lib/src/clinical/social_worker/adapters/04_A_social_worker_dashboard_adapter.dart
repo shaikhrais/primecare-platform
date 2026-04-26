@@ -82,7 +82,7 @@ final socialWorkerInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sw_01',
       title: 'Psychosocial Crisis Detection',
       summary:
@@ -93,7 +93,7 @@ final socialWorkerInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Coordinate with local community services and update care plan immediately.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sw_02',
       title: 'Regulatory Funding Opportunity',
       summary:

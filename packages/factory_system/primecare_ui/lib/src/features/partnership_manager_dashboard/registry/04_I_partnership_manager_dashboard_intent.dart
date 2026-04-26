@@ -12,7 +12,7 @@ class PartnershipManagerDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/partnership_manager/dashboard';
 
   @override
-  String get title => 'Partnership Manager Dashboard';
+  String get title => 'dashboards.partnershipmanager.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.partnershipManager;

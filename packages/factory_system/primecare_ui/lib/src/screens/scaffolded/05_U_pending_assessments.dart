@@ -6,9 +6,9 @@ class PendingAssessments extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'PendingAssessments',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.pending_assessments'.tr(),
+      subtitle: 'navigation.items.pending_assessments'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

@@ -40,7 +40,7 @@ final territorySalesInsightsProvider = FutureProvider<List<IntelligenceInsight>>
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'tsm_1',
       title: 'Territory Reallocation Suggestion',
       summary:
@@ -51,7 +51,7 @@ final territorySalesInsightsProvider = FutureProvider<List<IntelligenceInsight>>
       recommendation:
           'Review geographic lead distribution for the next quarterly planning to optimize representative coverage.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'tsm_2',
       title: 'Ad Spend Optimization',
       summary:

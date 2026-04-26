@@ -82,4 +82,14 @@ export class UserService {
     console.log(`Toggling status for user ${userId} to ${isActive}`);
     return { success: true };
   }
+
+  /**
+   * Updates the preferred language for a user.
+   */
+  async updatePreferredLanguage(prisma: PrismaClient, userId: string, language: string) {
+    return prisma.user.update({
+      where: { id: userId },
+      data: { preferredLanguage: language },
+    });
+  }
 }

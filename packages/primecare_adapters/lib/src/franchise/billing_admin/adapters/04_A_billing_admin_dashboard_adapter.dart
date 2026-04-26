@@ -45,7 +45,7 @@ final billingAdminInsightsProvider = FutureProvider.autoDispose<List<Intelligenc
   await Future<void>.delayed(const Duration(milliseconds: 1500));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'billing_01',
       title: 'High Aging Alert',
       summary:
@@ -56,7 +56,7 @@ final billingAdminInsightsProvider = FutureProvider.autoDispose<List<Intelligenc
       recommendation:
           'Initiate automated collection sequence for 12 accounts with overdue balances exceeding \$500.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'billing_02',
       title: 'Revenue Acceleration',
       summary:
@@ -67,7 +67,7 @@ final billingAdminInsightsProvider = FutureProvider.autoDispose<List<Intelligenc
       recommendation:
           'Monitor retention rates for the new Tier 3 clinical plan to ensure long-term LTV stability.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'billing_03',
       title: 'Invoice Error Pattern',
       summary:

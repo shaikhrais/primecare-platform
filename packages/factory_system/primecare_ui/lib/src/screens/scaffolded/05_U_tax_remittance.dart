@@ -6,9 +6,9 @@ class TaxRemittance extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'TaxRemittance',
-      subtitle: 'Auto-scaffolded financial monitor',
+    return PageTemplate(
+      title: 'navigation.items.tax_remittance'.tr(),
+      subtitle: 'navigation.items.tax_remittance'.tr(),
       body: Center(child: Text('Provisioning...')),
     );
   }

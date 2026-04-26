@@ -12,7 +12,7 @@ class FinanceDirectorDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/finance_director/dashboard';
 
   @override
-  String get title => 'Finance Director Dashboard';
+  String get title => 'dashboards.financedirector.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.financeDirector;
@@ -22,10 +22,10 @@ class FinanceDirectorDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Aura HUD',
-    'Financial Summary Grid',
-    'Cash Flow Forecast',
-    'Budget Distribution',
+    'dashboards.financedirector.labels.aura_hud',
+    'dashboards.financedirector.labels.financial_summary_grid',
+    'dashboards.financedirector.labels.cash_flow_forecast',
+    'dashboards.financedirector.labels.budget_distribution',
   ];
 
   @override

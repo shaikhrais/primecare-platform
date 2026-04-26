@@ -87,7 +87,7 @@ class _NewStaffProvisioningFormState
               span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'First Name',
+                  labelText: 'forms.first_name'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
@@ -106,7 +106,7 @@ class _NewStaffProvisioningFormState
               span: layout.tier == ResolutionTier.mob ? fullSpan : halfSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Last Name',
+                  labelText: 'forms.last_name'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
@@ -125,7 +125,7 @@ class _NewStaffProvisioningFormState
               span: fullSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Corporate Email',
+                  labelText: 'forms.corporate_email'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
@@ -149,7 +149,7 @@ class _NewStaffProvisioningFormState
               span: layout.tier == ResolutionTier.mob ? fullSpan : thirdSpan,
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: 'Role',
+                  labelText: 'common.role'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
@@ -172,7 +172,7 @@ class _NewStaffProvisioningFormState
               span: layout.tier == ResolutionTier.mob ? fullSpan : twoThirdsSpan,
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: 'Department',
+                  labelText: 'common.department'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
@@ -195,7 +195,7 @@ class _NewStaffProvisioningFormState
               span: fullSpan,
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Additional Notes / Clearances',
+                  labelText: 'forms.notes'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12 * layout.scaleFactor),

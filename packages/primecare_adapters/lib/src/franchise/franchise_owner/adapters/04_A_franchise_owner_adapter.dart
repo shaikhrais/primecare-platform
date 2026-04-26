@@ -40,7 +40,7 @@ final franchiseOwnerInsightsProvider = FutureProvider<List<IntelligenceInsight>>
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'fra_own_01',
       title: 'Territory Expansion Opportunity',
       summary:
@@ -51,7 +51,7 @@ final franchiseOwnerInsightsProvider = FutureProvider<List<IntelligenceInsight>>
       recommendation:
           'Inquire with Corporate about sub-territory licensing for Richmond Hill South.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'fra_own_02',
       title: 'Retention Risk: Night Shift',
       summary:
@@ -62,7 +62,7 @@ final franchiseOwnerInsightsProvider = FutureProvider<List<IntelligenceInsight>>
       recommendation:
           'Implement night-shift differential bonus to stabilize staffing levels.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'fra_own_03',
       title: 'Referral Pipeline Strength',
       summary:

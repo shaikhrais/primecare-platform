@@ -6,9 +6,9 @@ class Cases extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'Cases',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.cases'.tr(),
+      subtitle: 'navigation.items.cases'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

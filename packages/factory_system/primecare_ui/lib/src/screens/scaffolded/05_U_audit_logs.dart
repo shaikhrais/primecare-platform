@@ -6,9 +6,9 @@ class AuditLogs extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'AuditLogs',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.audit_logs'.tr(),
+      subtitle: 'navigation.items.audit_logs'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

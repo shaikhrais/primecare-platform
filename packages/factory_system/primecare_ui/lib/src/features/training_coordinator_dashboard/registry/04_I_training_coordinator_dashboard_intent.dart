@@ -12,7 +12,7 @@ class TrainingCoordinatorDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/training_coordinator/dashboard';
 
   @override
-  String get title => 'Training Coordinator Dashboard';
+  String get title => 'dashboards.trainingcoordinator.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.trainingCoordinator;

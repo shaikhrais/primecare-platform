@@ -38,7 +38,7 @@ final scrumMasterInsightsProvider = FutureProvider.autoDispose<List<Intelligence
   await Future<void>.delayed(const Duration(seconds: 1));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sm_01',
       title: 'Velocity Dropping',
       summary:
@@ -49,7 +49,7 @@ final scrumMasterInsightsProvider = FutureProvider.autoDispose<List<Intelligence
       recommendation:
           'Allocate 20% of next sprint capacity exclusively to tech debt resolution.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'sm_02',
       title: 'Blocker Resolved Early',
       summary:

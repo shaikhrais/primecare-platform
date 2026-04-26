@@ -1,5 +1,4 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import '../presentation/widgets/05_U_it_security_dashboard_screen.dart';
 
 /// The IT Security Dashboard Intent.
 /// Defines the route, required roles, and telemetry provider for the Security HUD.
@@ -20,10 +19,10 @@ class ITSecurityDashboardIntent extends PrimeCareScreen {
 
   @override
   List<String> get componentLabels => [
-    'threat-hero',
-    'block-velocity-chart',
-    'lockdown-controls',
-    'security-audit-trail',
+    'dashboards.itsecurity.labels.threat_hero',
+    'dashboards.itsecurity.labels.block_velocity_chart',
+    'dashboards.itsecurity.labels.lockdown_controls',
+    'dashboards.itsecurity.labels.security_audit_trail',
   ];
 
   @override

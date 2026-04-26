@@ -37,7 +37,7 @@ class RnDashboardScreen extends ConsumerWidget {
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),
-            child: const Center(child: Text('Operational Insights Unified')),
+            child: Center(child: Text(LocaleKeys.dashboards_common_labels_operational_insights.tr())),
           ),
         ],
       ),

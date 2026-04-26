@@ -37,7 +37,7 @@ final customerSupportInsightsProvider = FutureProvider.autoDispose<List<Intellig
   await Future<void>.delayed(const Duration(seconds: 1));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'support_insight_1',
       title: 'High Resolution Velocity',
       summary:
@@ -47,7 +47,7 @@ final customerSupportInsightsProvider = FutureProvider.autoDispose<List<Intellig
       category: 'Efficiency',
       recommendation: 'Enable auto-closure for low-complexity tier-1 requests.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'support_insight_2',
       title: 'Volume Surge Predicted',
       summary:
@@ -58,7 +58,7 @@ final customerSupportInsightsProvider = FutureProvider.autoDispose<List<Intellig
       recommendation:
           'Increase staffing for the finance-support queue during peak hours (10 AM - 2 PM).',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'support_insight_3',
       title: 'CSAT Sentiment Analysis',
       summary:

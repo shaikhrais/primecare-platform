@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 /// The high-fidelity rendering engine for data-driven screens.
 /// It interprets the [PrimeCareScreen] and assembles the UI components.
@@ -186,7 +185,7 @@ class UniversalScreenEngine extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(theme),
+          _buildHeader(context, theme),
           const SizedBox(height: 32),
           ..._renderBlueprints(context, ref, metrics),
         ],
@@ -194,21 +193,37 @@ class UniversalScreenEngine extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(PrimeCareThemeData theme) {
+  Widget _buildHeader(BuildContext context, PrimeCareThemeData theme) {
+    final String localizedTitle = screen.title.tr();
+    final String localizedSubtitle = screen.subtitle.tr();
+
+    // GOVERNANCE CHECK: Detect "Loose Text" bypasses in debug mode
+    bool isGovernanceViolation = false;
+    assert(() {
+      if (screen.title.contains(' ') && !screen.title.contains('.')) {
+        isGovernanceViolation = true;
+      }
+      return true;
+    }());
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          screen.title.tr(),
-          style: theme.typography.h1.copyWith(
-            fontWeight: FontWeight.w900,
-            letterSpacing: -1.0,
-          ),
+        Row(
+          children: [
+            Text(
+              isGovernanceViolation ? '⚠️ GOVERNANCE VIOLATION: ${screen.title}' : localizedTitle,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: isGovernanceViolation ? Colors.red : null,
+              ),
+            ),
+          ],
         ),
         if (screen.subtitle.isNotEmpty) ...[
           const SizedBox(height: 4),
           Text(
-            screen.subtitle.tr(),
+            localizedSubtitle,
             style: theme.typography.bodyLarge.copyWith(
               color: theme.colors.slateGray,
             ),

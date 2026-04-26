@@ -12,7 +12,7 @@ class CommunityOutreachDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/community_outreach/dashboard';
 
   @override
-  String get title => 'Community Outreach Dashboard';
+  String get title => 'dashboards.communityoutreach.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.communityOutreach;

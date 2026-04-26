@@ -58,6 +58,7 @@ class _PrimeCareResponsiveKpiGridState
         .passGate(
           ExecutionGateCategory.auraEngine,
           'Rendering KPI Grid (V2 Snapping Enabled)',
+          silent: true,
         );
     final auraActive = ref.watch(auraActiveVisualizationProvider);
     final layout = ref.watch(layoutProvider);

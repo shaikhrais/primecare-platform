@@ -37,7 +37,7 @@ final cooInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>
   await Future<void>.delayed(const Duration(milliseconds: 900));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'coo_insight_1',
       title: 'Supply Chain Optimization',
       summary:
@@ -47,7 +47,7 @@ final cooInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>
       category: 'Logistics',
       recommendation: 'Initiate vendor review for Q3 procurement cycle.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'coo_insight_2',
       title: 'Staffing Capacity Risk',
       summary:
@@ -58,7 +58,7 @@ final cooInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>
       recommendation:
           'Implement dynamic shift bridging for weekend high-load windows.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'coo_insight_3',
       title: 'Facility Expansion Velocity',
       summary:

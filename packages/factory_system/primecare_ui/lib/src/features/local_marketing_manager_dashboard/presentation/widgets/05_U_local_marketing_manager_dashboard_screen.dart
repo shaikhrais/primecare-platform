@@ -33,7 +33,7 @@ class LocalMarketingManagerDashboardScreen extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Marketing Command Center', style: theme.typography.h2),
+                  Text(LocaleKeys.command_center_labels_marketing_center.tr(), style: theme.typography.h2),
                   Text(
                     'Growth telemetry, campaign ROI, and lead conversion velocity',
                     style: theme.typography.labelMedium,
@@ -205,7 +205,7 @@ class LocalMarketingManagerDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Aura Intelligence', style: theme.typography.h4),
+        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

@@ -6,9 +6,9 @@ class LeadershipReports extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'LeadershipReports',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.leadership_reports'.tr(),
+      subtitle: 'navigation.items.leadership_reports'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

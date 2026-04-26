@@ -6,9 +6,9 @@ class Referrals extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'Referrals',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.referrals'.tr(),
+      subtitle: 'navigation.items.referrals'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

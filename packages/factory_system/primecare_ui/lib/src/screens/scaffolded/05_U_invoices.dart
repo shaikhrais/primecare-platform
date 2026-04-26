@@ -6,9 +6,9 @@ class Invoices extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'Invoices',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.invoices'.tr(),
+      subtitle: 'navigation.items.invoices'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

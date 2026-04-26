@@ -21039,6 +21039,7 @@ export namespace Prisma {
     updatedAt: Date | null
     tenantId: string | null
     roles: string | null
+    preferredLanguage: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -21057,6 +21058,7 @@ export namespace Prisma {
     updatedAt: Date | null
     tenantId: string | null
     roles: string | null
+    preferredLanguage: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -21075,6 +21077,7 @@ export namespace Prisma {
     updatedAt: number
     tenantId: number
     roles: number
+    preferredLanguage: number
     _all: number
   }
 
@@ -21095,6 +21098,7 @@ export namespace Prisma {
     updatedAt?: true
     tenantId?: true
     roles?: true
+    preferredLanguage?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -21113,6 +21117,7 @@ export namespace Prisma {
     updatedAt?: true
     tenantId?: true
     roles?: true
+    preferredLanguage?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -21131,6 +21136,7 @@ export namespace Prisma {
     updatedAt?: true
     tenantId?: true
     roles?: true
+    preferredLanguage?: true
     _all?: true
   }
 
@@ -21222,6 +21228,7 @@ export namespace Prisma {
     updatedAt: Date
     tenantId: string
     roles: string
+    preferredLanguage: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -21257,6 +21264,7 @@ export namespace Prisma {
     updatedAt?: boolean
     tenantId?: boolean
     roles?: boolean
+    preferredLanguage?: boolean
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     blogPosts?: boolean | User$blogPostsArgs<ExtArgs>
     clientProfile?: boolean | User$clientProfileArgs<ExtArgs>
@@ -21316,6 +21324,7 @@ export namespace Prisma {
     updatedAt?: boolean
     tenantId?: boolean
     roles?: boolean
+    preferredLanguage?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -21335,6 +21344,7 @@ export namespace Prisma {
     updatedAt?: boolean
     tenantId?: boolean
     roles?: boolean
+    preferredLanguage?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21444,6 +21454,7 @@ export namespace Prisma {
       updatedAt: Date
       tenantId: string
       roles: string
+      preferredLanguage: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -21892,6 +21903,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly tenantId: FieldRef<"User", 'String'>
     readonly roles: FieldRef<"User", 'String'>
+    readonly preferredLanguage: FieldRef<"User", 'String'>
   }
     
 
@@ -227307,7 +227319,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     tenantId: 'tenantId',
-    roles: 'roles'
+    roles: 'roles',
+    preferredLanguage: 'preferredLanguage'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -230526,6 +230539,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tenantId?: StringFilter<"User"> | string
     roles?: StringFilter<"User"> | string
+    preferredLanguage?: StringFilter<"User"> | string
     auditLogs?: AuditLogListRelationFilter
     blogPosts?: BlogPostListRelationFilter
     clientProfile?: XOR<ClientProfileNullableRelationFilter, ClientProfileWhereInput> | null
@@ -230584,6 +230598,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tenantId?: SortOrder
     roles?: SortOrder
+    preferredLanguage?: SortOrder
     auditLogs?: AuditLogOrderByRelationAggregateInput
     blogPosts?: BlogPostOrderByRelationAggregateInput
     clientProfile?: ClientProfileOrderByWithRelationInput
@@ -230645,6 +230660,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tenantId?: StringFilter<"User"> | string
     roles?: StringFilter<"User"> | string
+    preferredLanguage?: StringFilter<"User"> | string
     auditLogs?: AuditLogListRelationFilter
     blogPosts?: BlogPostListRelationFilter
     clientProfile?: XOR<ClientProfileNullableRelationFilter, ClientProfileWhereInput> | null
@@ -230703,6 +230719,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tenantId?: SortOrder
     roles?: SortOrder
+    preferredLanguage?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -230727,6 +230744,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     tenantId?: StringWithAggregatesFilter<"User"> | string
     roles?: StringWithAggregatesFilter<"User"> | string
+    preferredLanguage?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type TenantWhereInput = {
@@ -246897,6 +246915,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -246955,6 +246974,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -247011,6 +247031,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -247069,6 +247090,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -247126,6 +247148,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -247143,6 +247166,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -247161,6 +247185,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
   }
 
   export type TenantCreateInput = {
@@ -265275,6 +265300,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tenantId?: SortOrder
     roles?: SortOrder
+    preferredLanguage?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -265293,6 +265319,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tenantId?: SortOrder
     roles?: SortOrder
+    preferredLanguage?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -265311,6 +265338,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tenantId?: SortOrder
     roles?: SortOrder
+    preferredLanguage?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -292504,6 +292532,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -292560,6 +292589,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -296095,6 +296125,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tenantId?: StringFilter<"User"> | string
     roles?: StringFilter<"User"> | string
+    preferredLanguage?: StringFilter<"User"> | string
   }
 
   export type VisitCheckEventUpsertWithWhereUniqueWithoutTenantInput = {
@@ -299361,6 +299392,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
@@ -299418,6 +299450,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
@@ -299728,6 +299761,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
@@ -299785,6 +299819,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
@@ -300324,6 +300359,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -300381,6 +300417,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -300697,6 +300734,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -300754,6 +300792,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -301293,6 +301332,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -301350,6 +301390,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -301421,6 +301462,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -301478,6 +301520,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -302933,6 +302976,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -302990,6 +303034,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -303084,6 +303129,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -303141,6 +303187,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -304107,6 +304154,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -304164,6 +304212,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -304235,6 +304284,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -304292,6 +304342,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -305335,6 +305386,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
@@ -305392,6 +305444,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
@@ -306919,6 +306972,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
@@ -306976,6 +307030,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
@@ -307937,6 +307992,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -307994,6 +308050,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -308877,6 +308934,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -308934,6 +308992,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -311511,6 +311570,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -311568,6 +311628,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -312048,6 +312109,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -312105,6 +312167,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -313291,6 +313354,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -313348,6 +313412,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -313408,6 +313473,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -313465,6 +313531,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -313866,6 +313933,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -313923,6 +313991,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -313989,6 +314058,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -314046,6 +314116,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -314554,6 +314625,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -314611,6 +314683,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -315129,6 +315202,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -315186,6 +315260,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -317134,6 +317209,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -317191,6 +317267,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -317347,6 +317424,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -317404,6 +317482,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -318398,6 +318477,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -318455,6 +318535,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -318866,6 +318947,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -318923,6 +319005,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -322855,6 +322938,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -322912,6 +322996,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -323259,6 +323344,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -323316,6 +323402,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -323972,6 +324059,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -324029,6 +324117,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -324131,6 +324220,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -324188,6 +324278,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -325469,6 +325560,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -325526,6 +325618,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -325959,6 +326052,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -326016,6 +326110,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -326666,6 +326761,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -326723,6 +326819,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -327150,6 +327247,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -327207,6 +327305,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -327618,6 +327717,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -327675,6 +327775,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -328102,6 +328203,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -328159,6 +328261,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -328538,6 +328641,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -328595,6 +328699,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -328990,6 +329095,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -329047,6 +329153,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -333867,6 +333974,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -333924,6 +334032,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -334325,6 +334434,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -334382,6 +334492,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -334779,6 +334890,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -334836,6 +334948,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -335146,6 +335259,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -335203,6 +335317,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -342079,6 +342194,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -342136,6 +342252,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -342452,6 +342569,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -342509,6 +342627,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -342564,6 +342683,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
@@ -342621,6 +342741,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
@@ -342692,6 +342813,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
@@ -342749,6 +342871,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
@@ -349084,6 +349207,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -349141,6 +349265,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -349574,6 +349699,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -349631,6 +349757,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -352106,6 +352233,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -352163,6 +352291,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -352473,6 +352602,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -352530,6 +352660,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -355717,6 +355848,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -355774,6 +355906,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -356169,6 +356302,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -356226,6 +356360,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -357377,6 +357512,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -357434,6 +357570,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -357750,6 +357887,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -357807,6 +357945,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -358101,6 +358240,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -358158,6 +358298,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -358474,6 +358615,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -358531,6 +358673,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -358825,6 +358968,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -358882,6 +359026,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -359198,6 +359343,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -359255,6 +359401,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -360517,6 +360664,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -360574,6 +360722,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -360890,6 +361039,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -360947,6 +361097,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -361324,6 +361475,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -361381,6 +361533,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -361802,6 +361955,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -361859,6 +362013,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -362276,6 +362431,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -362333,6 +362489,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -362754,6 +362911,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -362811,6 +362969,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -363228,6 +363387,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -363285,6 +363445,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -363706,6 +363867,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -363763,6 +363925,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -364180,6 +364343,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -364237,6 +364401,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -364658,6 +364823,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -364715,6 +364881,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -365132,6 +365299,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -365189,6 +365357,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -365610,6 +365779,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -365667,6 +365837,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -366084,6 +366255,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -366141,6 +366313,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -366562,6 +366735,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -366619,6 +366793,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -367036,6 +367211,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -367093,6 +367269,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -367514,6 +367691,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -367571,6 +367749,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -367988,6 +368167,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -368045,6 +368225,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -368466,6 +368647,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -368523,6 +368705,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -368940,6 +369123,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
@@ -368997,6 +369181,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     roles?: string
+    preferredLanguage?: string
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
@@ -369418,6 +369603,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -369475,6 +369661,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -373479,6 +373666,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: string
+    preferredLanguage?: string
   }
 
   export type VisitCheckEventCreateManyTenantInput = {
@@ -375093,6 +375281,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
@@ -375149,6 +375338,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -375205,6 +375395,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: StringFieldUpdateOperationsInput | string
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
   }
 
   export type VisitCheckEventUpdateWithoutTenantInput = {

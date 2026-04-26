@@ -12,7 +12,7 @@ class HrHiringDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/hr_hiring/dashboard';
 
   @override
-  String get title => 'Hr Hiring Dashboard';
+  String get title => 'dashboards.hrhiring.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.hrHiring;
@@ -22,10 +22,10 @@ class HrHiringDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'Aura HUD',
-    'Candidate Pipeline',
-    'Interview Scheduler',
-    'Hiring Analytics',
+    'dashboards.hrhiring.labels.aura_hud',
+    'dashboards.hrhiring.labels.candidate_pipeline',
+    'dashboards.hrhiring.labels.interview_scheduler',
+    'dashboards.hrhiring.labels.hiring_analytics',
   ];
 
   @override

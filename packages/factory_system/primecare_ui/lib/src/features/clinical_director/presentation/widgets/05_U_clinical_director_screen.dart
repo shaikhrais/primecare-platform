@@ -38,7 +38,7 @@ class ClinicalDirectorScreen extends ConsumerWidget {
                     children: [
                       Expanded(flex: 2, child: _buildPatientOutcomes(vm)),
                       const SizedBox(width: 24),
-                      Expanded(flex: 1, child: _buildClinicalInsights(vm)),
+                      Expanded(flex: 1, child: _buildClinicalInsights(context, vm)),
                     ],
                   ),
                 ],
@@ -116,7 +116,7 @@ class ClinicalDirectorScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildClinicalInsights(ClinicDashboardViewModel vm) {
+  Widget _buildClinicalInsights(BuildContext context, ClinicDashboardViewModel vm) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -144,7 +144,7 @@ class ClinicalDirectorScreen extends ConsumerWidget {
             (insight) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: Text(
-                insight.summary,
+                insight.summary.translate(context),
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 13,

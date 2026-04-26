@@ -10,39 +10,36 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.ceoDashboard,
       provider: ceoDashboardAdapterProvider,
       componentLabels: [
-        'Aura HUD (Enterprise Growth)',
-        'Global KPI Metrics',
-        'Region Comparison',
-        'Strategic Initiatives',
+        'corporate.ceo.labels.aura_hud',
+        'corporate.ceo.labels.global_kpi',
+        'corporate.ceo.labels.region_comparison',
+        'corporate.ceo.labels.strategic_initiatives',
       ],
-      structuralPlan:
-          'Strategic Command Center: Aura HUD with enterprise growth telemetry. Features a global KPI grid and region performance heatmaps.',
+      structuralPlan: 'corporate.ceo.structural_plan',
     );
     registerRoute(
       CorporateRoutes.cooDashboard,
       PrimeCareForm.cooDashboard,
       provider: cooDashboardAdapterProvider,
       componentLabels: [
-        'Aura HUD (Operational MTTR)',
-        'Operational KPI Grid',
-        'Branch Efficiency Table',
-        'Service Quality Log',
+        'corporate.coo.labels.aura_hud',
+        'corporate.coo.labels.operational_kpi',
+        'corporate.coo.labels.branch_efficiency',
+        'corporate.coo.labels.service_quality',
       ],
-      structuralPlan:
-          'Operations Command: Aura HUD with operational MTTR telemetry. Main dashboard features efficiency metrics across branches.',
+      structuralPlan: 'corporate.coo.structural_plan',
     );
     registerRoute(
       CorporateRoutes.cfoDashboard,
       PrimeCareForm.cfoDashboard,
       provider: cfoDashboardAdapterProvider,
       componentLabels: [
-        'Aura HUD (Capital Liquidity)',
-        'Liquidity Index',
-        'Burn Rate Analysis',
-        'Capital Allocation',
+        'corporate.cfo.labels.aura_hud',
+        'corporate.cfo.labels.liquidity_index',
+        'corporate.cfo.labels.burn_rate',
+        'corporate.cfo.labels.capital_allocation',
       ],
-      structuralPlan:
-          'Financial Oversight Hub: Aura HUD with capital liquidity telemetry. Includes burn rate analytics and capital allocation visualization.',
+      structuralPlan: 'corporate.cfo.structural_plan',
     );
     // CTO Dashboard is handled via specialized CtoDashboardIntent in GovernanceRegistry
     registerRoute(
@@ -102,13 +99,12 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.headOfMarketingDashboard,
       provider: headOfMarketingDashboardAdapterProvider,
       componentLabels: [
-        'Aura HUD (Lead Velocity)',
-        'Global Campaign Heatmap',
-        'Funnel Conversion Grid',
-        'Brand Awareness Index',
+        'corporate.head_of_marketing.labels.aura_hud',
+        'corporate.head_of_marketing.labels.campaign_heatmap',
+        'corporate.head_of_marketing.labels.funnel_grid',
+        'corporate.head_of_marketing.labels.brand_awareness',
       ],
-      structuralPlan:
-          'Growth Governance Console: Aura HUD with lead-generation velocity. Features a global campaign heatmap and multi-stage funnel conversion grids.',
+      structuralPlan: 'corporate.head_of_marketing.structural_plan',
     );
     registerRoute(
       CorporateRoutes.hrManagerDashboard,
@@ -210,12 +206,11 @@ class CorporateRegistry extends OfficeScreenRegistry {
         'title': 'corporate.coo.operations_overview.title',
         'pid': 'cooOperationsOverview',
         'labels': [
-          'Aura HUD (Operational MTTR)',
-          'Incident Summary',
-          'Resource Efficiency Table',
+          'corporate.coo.operations_overview.labels.aura_hud',
+          'corporate.coo.operations_overview.labels.incident_summary',
+          'corporate.coo.operations_overview.labels.resource_efficiency',
         ],
-        'plan':
-            'Operational Command Center: Aura HUD with platform-wide incident telemetry. Centered around operational issue logs and efficiency tables.',
+        'plan': 'corporate.coo.operations_overview.structural_plan',
       },
       {
         'path': CorporateRoutes.cfoFinancialOverview,
@@ -253,6 +248,23 @@ class CorporateRegistry extends OfficeScreenRegistry {
         structuralPlan: screen['plan'] as String,
       );
     }
+
+    registerRoute(
+      CorporateRoutes.shareholderIntelligenceDashboard,
+      PrimeCareForm.genericDashboard,
+      provider: shareholderIntelligenceAdapterProvider,
+      titleKey: 'corporate.shareholder.dashboard.title',
+      componentLabels: [
+        'Global Header',
+        'Stage 1: Initial',
+        'Stage 2: In Processing',
+        'Stage 3: Implemented',
+        'Stage 4: Tested & Done',
+        'Telemetry Table',
+      ],
+      structuralPlan:
+          'Shareholder Operations: Tracks platform-wide zero-error compliance, feature pipelines, and real-time intent telemetry for high-level governance visibility.',
+    );
   }
 
   @override
@@ -316,6 +328,11 @@ class CorporateRegistry extends OfficeScreenRegistry {
       'path': CorporateRoutes.itAdminDashboard,
       'title': 'corporate.it_admin.dashboard.title',
       'form': PrimeCareForm.itAdminDashboard.name,
+    },
+    'shareholder': {
+      'path': CorporateRoutes.shareholderIntelligenceDashboard,
+      'title': 'corporate.shareholder.dashboard.title',
+      'form': PrimeCareForm.genericDashboard.name,
     },
   };
 }

@@ -4,7 +4,17 @@ import 'app_router.dart';
 void main() {
   AppErrorBoundary.runGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    runApp(const ProviderScope(child: PrimeCareMarketingApp()));
+    await EasyLocalization.ensureInitialized();
+    
+    runApp(
+      EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
+        path: 'packages/flutter_core/assets/translations',
+        fallbackLocale: const Locale('en'),
+        useOnlyLangCode: true,
+        child: const ProviderScope(child: PrimeCareMarketingApp()),
+      ),
+    );
   });
 }
 
@@ -14,10 +24,21 @@ class PrimeCareMarketingApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
+    
+    // Sync languageProvider with EasyLocalization
+    final langCode = ref.watch(languageProvider);
+    if (context.locale.languageCode != langCode) {
+      Future.microtask(() => context.setLocale(Locale(langCode)));
+    }
+
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: 'PrimeCare Marketing',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       routerConfig: router,
     );
   }
 }
+

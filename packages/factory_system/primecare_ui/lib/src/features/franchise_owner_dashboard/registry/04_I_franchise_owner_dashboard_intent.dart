@@ -12,7 +12,7 @@ class FranchiseOwnerDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/franchise_owner/dashboard';
 
   @override
-  String get title => 'Franchise Owner Dashboard';
+  String get title => 'dashboards.franchiseowner.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.franchiseOwner;

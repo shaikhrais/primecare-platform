@@ -12,7 +12,7 @@ class GuestDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/guest/dashboard';
 
   @override
-  String get title => 'Guest Dashboard';
+  String get title => 'dashboards.guest.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.guest;

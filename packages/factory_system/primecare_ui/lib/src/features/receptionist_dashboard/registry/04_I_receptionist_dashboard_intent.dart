@@ -12,7 +12,7 @@ class ReceptionistDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/receptionist/dashboard';
 
   @override
-  String get title => 'Receptionist Dashboard';
+  String get title => 'dashboards.receptionist.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.receptionist;

@@ -40,7 +40,7 @@ final volunteerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
   await Future<void>.delayed(const Duration(seconds: 1));
 
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'vc_01',
       title: 'Shift Coverage Gap',
       summary:
@@ -51,7 +51,7 @@ final volunteerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
       recommendation:
           'Launch targeted recruitment campaign emphasizing weekend availability.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'vc_02',
       title: 'High Retention Rate Detected',
       summary:

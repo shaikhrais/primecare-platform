@@ -1,5 +1,5 @@
-// Layer: 04_UI_ADAPTERS
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 // -----------------------------------------------------------------------------
@@ -30,29 +30,29 @@ final ceoMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
       // Add role-specific KPIs if empty or override for high-fidelity UI
       final enrichedKpis = metrics.kpis.isEmpty
           ? [
-              const KpiMetric(
-                title: 'Enterprise Value',
+              KpiMetric(
+                title: LocaleKeys.ceo_dashboard_labels_strategic_growth.tr(),
                 value: '\$84.2M',
                 subtitle: '+14.8',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
+              KpiMetric(
                 title: 'Global NPS',
                 value: '78',
                 subtitle: '+3.0',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Revenue Growth',
+              KpiMetric(
+                title: LocaleKeys.ceo_dashboard_labels_revenue_growth.tr(),
                 value: '22.4%',
                 subtitle: '+5.2',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Expansion Units',
+              KpiMetric(
+                title: LocaleKeys.ceo_dashboard_labels_market_expansion.tr(),
                 value: '18',
                 subtitle: '+2.0',
                 trend: 'up',
@@ -81,7 +81,7 @@ final ceoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ceo_1',
       title: 'M&A Pipeline Velocity',
       summary:
@@ -92,7 +92,7 @@ final ceoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Authorize Phase 2 financial audit; prepare Letter of Intent for board review by EOW.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ceo_2',
       title: 'Regional Margin Sensitivity',
       summary:
@@ -103,7 +103,7 @@ final ceoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Consolidate regional compliance functions to reduce per-unit overhead and restore margin targets.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'ceo_3',
       title: 'Stakeholder Sentiment Surge',
       summary:

@@ -61,5 +61,5 @@ export 'package:primecare_ui/src/components/placeholders/common/settings_placeho
 export 'package:primecare_ui/src/components/placeholders/common/widget_placeholders.dart';
 export 'package:primecare_ui/src/components/placeholders/common/form_placeholders.dart' hide LogfranchiseevettingcallformPlaceholder, LoginfectioncontrolformPlaceholder, NurturelocalizedleadformPlaceholder, PatientintakeformPlaceholder, ReviewleadconversionformPlaceholder, SubmitmarketingbudgetformPlaceholder;
 export 'package:primecare_ui/src/components/placeholders/common/fuse_placeholders.dart' hide UsefuselayoutsettingsPlaceholder;
-export 'package:primecare_ui/src/components/placeholders/common/i18n_placeholders.dart';
+
 export 'package:primecare_ui/src/components/placeholders/common/error_placeholders.dart';

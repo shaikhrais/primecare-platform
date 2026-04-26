@@ -40,7 +40,7 @@ final hrInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'hr_01',
       title: 'Interview Bottleneck Detected',
       summary:
@@ -51,7 +51,7 @@ final hrInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Enable automated scheduling for Tier 2 interviews to reduce dwell time by 30%.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'hr_02',
       title: 'Offer Strategy Success',
       summary:
@@ -62,7 +62,7 @@ final hrInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Highlight the "Flexible Care" perk in all external LinkedIn postings.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'hr_03',
       title: 'Candidate Drop-off Alert',
       summary:

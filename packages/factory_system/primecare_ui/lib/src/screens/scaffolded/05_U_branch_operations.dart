@@ -6,9 +6,9 @@ class BranchOperations extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'BranchOperations',
-      subtitle: 'Auto-scaffolded module',
+    return PageTemplate(
+      title: 'navigation.items.branch_operations'.tr(),
+      subtitle: 'navigation.items.branch_operations'.tr(),
       
       body: Center(child: Text('Provisioning...')),
     );

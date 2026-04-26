@@ -12,7 +12,7 @@ class QaDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/qa/dashboard';
 
   @override
-  String get title => 'Qa Dashboard';
+  String get title => 'dashboards.qa.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.qa;

@@ -50,8 +50,8 @@ class AuraEvent {
     return AuraEvent(
       id: 'stable_${DateTime.now().millisecondsSinceEpoch}',
       type: AuraEventType.stableheartbeat,
-      title: 'System Stable',
-      description: 'Institutional heartbeat is nominal.',
+      title: 'aura.events.stable_title',
+      description: 'aura.events.stable_desc',
       impact: InsightImpact.info,
       timestamp: DateTime.now(),
     );

@@ -12,7 +12,7 @@ class QualityAssuranceDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/quality_assurance/dashboard';
 
   @override
-  String get title => 'Quality Assurance Dashboard';
+  String get title => 'dashboards.qualityassurance.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.qualityAssurance;

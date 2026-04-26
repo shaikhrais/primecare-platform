@@ -3,7 +3,6 @@ import 'package:primecare_ui/src/registry/01_I_screen_registry.dart';
 import 'package:primecare_ui/src/components/01_I_primecare_button.dart';
 import 'package:primecare_ui/src/components/scheduler/01_I_aura_insight_card.dart';
 import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class AuraBriefingPanel extends ConsumerWidget {
   const AuraBriefingPanel({super.key});
@@ -104,7 +103,7 @@ class AuraBriefingPanel extends ConsumerWidget {
             ),
             SizedBox(width: theme.spacing.sm),
             Text(
-              'AUDITOR\'S BLUEPRINT',
+              'aura.auditors_blueprint'.tr(),
               style: theme.typography.labelMedium.copyWith(
                 color: theme.colors.success,
                 letterSpacing: 1.2,
@@ -127,7 +126,7 @@ class AuraBriefingPanel extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'STRUCTURAL CONTRACT',
+                'aura.structural_contract'.tr(),
                 style: theme.typography.labelSmall.copyWith(
                   color: theme.colors.success.withValues(alpha: 0.7),
                   fontWeight: FontWeight.bold,
@@ -143,7 +142,7 @@ class AuraBriefingPanel extends ConsumerWidget {
               ),
               SizedBox(height: theme.spacing.lg),
               Text(
-                'VERIFIED COMPONENTS',
+                'aura.verified_components'.tr(),
                 style: theme.typography.labelSmall.copyWith(
                   color: theme.colors.success.withValues(alpha: 0.7),
                   fontWeight: FontWeight.bold,
@@ -327,7 +326,7 @@ class AuraBriefingPanel extends ConsumerWidget {
         ),
       ),
       child: PrimeCareButton(
-        label: 'Full System Audit',
+        label: 'aura.full_system_audit'.tr(),
         onPressed: () {},
         type: PrimeCareButtonType.primary,
         icon: LucideIcons.shieldCheck,

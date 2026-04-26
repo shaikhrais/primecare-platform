@@ -88,12 +88,22 @@ pages:
   - id: "strategic_kpis"
     route: "/offices/corporate/roles/ceo/strategic-kpis"
     name: "StrategicKPIs"
-    label: "Strategic KPIs"
+    label: "Strategic Kpis"
     icon_var: "LucideIcons.trendingUp"
     section: "Main"
     role_allowed: ["CEO"]
     actions: ["view"]
     linked_intent: "navigate_strategic_kpis"
+    implementation_status: "verified"
+  - id: "customer_support_dashboard"
+    route: "/offices/support/roles/customer_support/dashboard"
+    name: "CustomerSupportDashboard"
+    label: "Support Dashboard"
+    icon_var: "LucideIcons.layoutDashboard"
+    section: "Main"
+    role_allowed: ["Customer Support"]
+    actions: ["view"]
+    linked_intent: "navigate_support_dashboard"
     implementation_status: "verified"
   - id: "growth_pipeline"
     route: "/generated/${CorporateRoutes.ceoGrowthPipeline}" # Placeholder since we don't know literal route string
@@ -128,7 +138,7 @@ pages:
   - id: "cfo_dashboard"
     route: "/offices/corporate/roles/cfo/dashboard"
     name: "CFODashboard"
-    label: "CFO Dashboard"
+    label: "Cfo Dashboard"
     icon_var: "LucideIcons.layoutDashboard"
     section: "Main"
     role_allowed: ["CFO"]
@@ -168,7 +178,7 @@ pages:
   - id: "tax_remittance"
     route: "/generated/${CorporateRoutes.cfoTaxAndRemittance}" # Placeholder since we don't know literal route string
     name: "Tax&Remittance"
-    label: "Tax & Remittance"
+    label: "Tax Remittance"
     route_var: "CorporateRoutes.cfoTaxAndRemittance"
     icon_var: "LucideIcons.landmark"
     section: "Main"
@@ -178,7 +188,7 @@ pages:
   - id: "coo_dashboard"
     route: "/offices/corporate/roles/coo/dashboard"
     name: "COODashboard"
-    label: "COO Dashboard"
+    label: "Coo Dashboard"
     icon_var: "LucideIcons.layoutDashboard"
     section: "Main"
     role_allowed: ["COO"]
@@ -228,7 +238,7 @@ pages:
   - id: "cto_dashboard"
     route: "/offices/corporate/roles/cto/dashboard"
     name: "CTODashboard"
-    label: "CTO Dashboard"
+    label: "Cto Dashboard"
     icon_var: "LucideIcons.layoutDashboard"
     section: "Main"
     role_allowed: ["CTO"]
@@ -258,7 +268,7 @@ pages:
   - id: "api_monitoring"
     route: "/generated/${CorporateRoutes.ctoApiMonitoring}" # Placeholder since we don't know literal route string
     name: "APIMonitoring"
-    label: "API Monitoring"
+    label: "Api Monitoring"
     route_var: "CorporateRoutes.ctoApiMonitoring"
     icon_var: "LucideIcons.cpu"
     section: "Main"
@@ -398,7 +408,7 @@ pages:
   - id: "pending_assessments"
     route: "/generated/${ClinicalRoutes.intakeCoordinatorAssessments}" # Placeholder since we don't know literal route string
     name: "Pendingassessments"
-    label: "Pending assessments"
+    label: "Pending Assessments"
     route_var: "ClinicalRoutes.intakeCoordinatorAssessments"
     icon_var: "LucideIcons.clipboardList"
     section: "Workflows"
@@ -598,7 +608,7 @@ pages:
   - id: "hr_hiring_dashboard"
     route: "/generated/${FranchiseRoutes.hrHiringDashboard}"
     name: "HrHiringDashboard"
-    label: "HR Dashboard"
+    label: "Hr Dashboard"
     route_var: "FranchiseRoutes.hrHiringDashboard"
     icon_var: "LucideIcons.userPlus"
     section: "Main"
@@ -615,3 +625,111 @@ pages:
     role_allowed: ["Clinical Director"]
     actions: ["view"]
     linked_intent: "navigate_clinical_director_dashboard"
+  - id: "shareholder_dashboard"
+    route: "/generated/${CorporateRoutes.shareholderIntelligenceDashboard}"
+    name: "ShareholderDashboard"
+    label: "Shareholder Dashboard"
+    route_var: "CorporateRoutes.shareholderIntelligenceDashboard"
+    icon_var: "LucideIcons.layoutDashboard"
+    section: "Main"
+    role_allowed: ["Shareholder"]
+    actions: ["view"]
+    linked_intent: "navigate_shareholder_dashboard"
+
+  - id: " common_dashboard_labels\
+ name: \CommonDashboardLabels\
+ label: \Common Labels\
+ section: \Common\
+ role_allowed: [\all\]
+ labels:
+ operational_insights: \Operational Insights Unified\
+ aura_intelligence: \Aura Intelligence\
+ operational_volume: \Operational Volume\
+ burn_rate_analysis: \Burn Rate Analysis\
+ real_time_telemetry_feed: \Real-Time Telemetry Feed\
+ active_tickets: \Active Tickets\
+ linked_intent: \view_common_labels\
+
+  - id: " regional_manager_labels\
+ labels:
+ performance_matrix: \Regional Performance Matrix\
+ comparative_metrics: \Site-to-site comparative operational metrics\
+ health_scorecard: \Territory Health Scorecard\
+ health_indices: \Operational health indices across regional territories\
+ section: \Regional\
+ - id: \clinical_director_labels\
+ labels:
+ staffing_matrix: \Staffing Coverage Matrix\
+ staffing_variance: \Real-time variance between required and actual staff\
+ compliance_log: \Protocol Compliance Log\
+ audit_adherence: \Automated auditing of clinical workflow adherence\
+ incident_trends: \Incident Trends 30 \
+ incident_criticality: \Criticality breakdown of reported clinical events\
+ section: \Clinical\
+
+  - id: " command_center_labels\
+ labels:
+ training_center: \Training Command Center\
+ curriculum_compliance: \Regional Curriculum Compliance\
+ training_hub_center: \Training Hub Command Center\
+ volunteer_center: \Volunteer Command Center\
+ business_dev_center: \Business Dev Command Center\
+ clinical_center: \Clinical Command Center\
+ corporate_center: \Corporate Command Center\
+ franchise_center: \Franchise Command Center\
+ marketing_center: \Marketing Command Center\
+ operational_center: \Operational Command Center\
+ support_center: \Support Command Center\
+ section: \Core\
+
+  - id: " cto_dashboard_labels\
+ labels:
+ global_uptime: \Global Uptime\
+ api_latency: \Avg API Latency\
+ error_rate: \Error Rate\
+ deploys_day: \Deploys/Day\
+ infra_optimization: \Infrastructure Optimization\
+ security_posture: \Security Posture: Critical\
+ devops_velocity: \DevOps Velocity\
+ section: \Corporate\
+ - id: \ceo_dashboard_labels\
+ labels:
+ strategic_growth: \Strategic Growth\
+ revenue_growth: \Revenue Growth\
+ operational_efficiency: \Operational Efficiency\
+ market_expansion: \Market Expansion\
+ section: \Corporate\
+ - id: \clinical_labels\
+ labels:
+ staffing_matrix: \Staffing Coverage Matrix\
+ compliance_log: \Protocol Compliance Log\
+ incident_trends: \Incident Trends 30 \
+ section: \Clinical\
+
+  - id: "cfo_dashboard_labels"
+    labels:
+      ebitda_ttm: "EBITDA (TTM)"
+      cash_on_hand: "Cash on Hand"
+      net_margin: "Net Margin"
+      operational_burn: "Operational Burn"
+      tax_optimization: "Tax Optimization Opportunity"
+      ar_alert: "Accounts Receivable Alert"
+      capital_efficiency: "Capital Allocation Efficiency"
+    section: "Corporate"
+
+  - id: "support_dashboard_labels"
+    labels:
+      open_tickets: "Open Tickets"
+      avg_response_time: "Avg Response Time"
+      satisfaction_score: "Satisfaction Score"
+      active_sessions: "Active Sessions"
+      common_pain_point: "Common Pain Point"
+      resolution_efficiency: "Resolution Efficiency"
+      sla_breach_risk: "SLA Breach Risk"
+    section: "Corporate"
+
+  - id: "marketing_dashboard_labels"
+    labels:
+      campaign_roi_peak: "Campaign ROI Peak"
+      cac_volatility: "CAC Volatility Detected"
+    section: "Corporate"

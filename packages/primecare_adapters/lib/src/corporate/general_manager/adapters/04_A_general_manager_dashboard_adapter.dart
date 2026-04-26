@@ -36,7 +36,7 @@ final generalManagerInsightsProvider =
       await Future<void>.delayed(const Duration(seconds: 1));
 
       return [
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'gm_01',
           title: 'Capital Inefficiency Detected',
           summary:
@@ -46,7 +46,7 @@ final generalManagerInsightsProvider =
           category: 'Operations',
           recommendation: 'Initiate asset reallocation audit for Facility B.',
         ),
-        const IntelligenceInsight(
+        IntelligenceInsight(
           id: 'gm_02',
           title: 'Regional P&L Overperformance',
           summary:

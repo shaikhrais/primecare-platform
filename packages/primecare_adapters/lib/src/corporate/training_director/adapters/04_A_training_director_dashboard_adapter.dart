@@ -40,7 +40,7 @@ final trainingInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     return const [];
   }
   return [
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'td_01',
       title: 'Compliance Risk in Southwest',
       summary:
@@ -51,7 +51,7 @@ final trainingInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
       recommendation:
           'Initiate mandatory recertification sprint for Southwest staff.',
     ),
-    const IntelligenceInsight(
+    IntelligenceInsight(
       id: 'td_02',
       title: 'New Curriculum Opportunity',
       summary:

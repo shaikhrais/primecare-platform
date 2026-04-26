@@ -12,7 +12,7 @@ class PatientDashboardIntent extends AppScreenIntent {
   String get route => '/offices/corporate/roles/patient/dashboard';
 
   @override
-  String get title => 'Patient Dashboard';
+  String get title => 'dashboards.patient.title';
 
   @override
   PlatformRole get requiredRole => PlatformRole.patient;

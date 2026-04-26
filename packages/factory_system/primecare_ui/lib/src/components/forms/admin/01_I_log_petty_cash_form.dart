@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 import 'package:primecare_ui/src/components/forms/admin/01_I_log_petty_cash_form_adapter.dart';
 
@@ -88,7 +88,7 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
               child: TextFormField(
                 controller: _amountController,
                 decoration: InputDecoration(
-                  labelText: 'Amount',
+                  labelText: 'common.amount'.tr(),
                   prefixIcon: const Icon(Icons.attach_money),
                   hintText: '0.00',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -109,7 +109,7 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
                 borderRadius: BorderRadius.circular(12),
                 child: InputDecorator(
                   decoration: InputDecoration(
-                    labelText: 'Date',
+                    labelText: 'common.date'.tr(),
                     prefixIcon: const Icon(Icons.calendar_today),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                     filled: true,
@@ -124,7 +124,7 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
         DropdownButtonFormField<String>(
           initialValue: _selectedCategory,
           decoration: InputDecoration(
-            labelText: 'Category',
+            labelText: 'common.category'.tr(),
             prefixIcon: const Icon(Icons.category),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
             filled: true,

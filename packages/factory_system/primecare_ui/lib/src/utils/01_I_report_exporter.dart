@@ -5,7 +5,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:intl/intl.dart';
 
 enum ReportFormat { csv, pdf }
 

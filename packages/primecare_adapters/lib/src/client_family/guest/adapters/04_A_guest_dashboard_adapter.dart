@@ -56,7 +56,7 @@ final guestDashboardAdapterProvider = FutureProvider<Result<GuestDashboardViewMo
       final viewModel = GuestDashboardViewModel(
         metrics: activeMetrics,
         insights: [
-          const IntelligenceInsight(
+          IntelligenceInsight(
             id: 'guest_1',
             title: 'Personalized Recommendation',
             summary:
@@ -67,7 +67,7 @@ final guestDashboardAdapterProvider = FutureProvider<Result<GuestDashboardViewMo
                 'Join the "Garden Walk" group on Wednesdays at 3PM.',
             category: 'Wellness',
           ),
-          const IntelligenceInsight(
+          IntelligenceInsight(
             id: 'guest_2',
             title: 'Dining Update',
             summary:
