@@ -9,7 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_core:
+    path: ../../packages/flutter_core
   http: ^1.6.0
+  primecare_ui:
+    path: ../../packages/factory_system/primecare_ui
 
 dev_dependencies:
   flutter_test:

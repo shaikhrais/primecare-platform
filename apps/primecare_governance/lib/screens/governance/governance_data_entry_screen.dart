@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'app_entry_form.dart';
 import 'role_entry_form.dart';
 import 'module_entry_form.dart';
@@ -61,11 +61,11 @@ class _GovernanceDataEntryScreenState extends State<GovernanceDataEntryScreen> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: PrimeCareColors.white,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.grey.shade300),
+        side: const BorderSide(color: PrimeCareColors.slate300),
       ),
       child: Padding(
         padding: const EdgeInsets.all(24.0),

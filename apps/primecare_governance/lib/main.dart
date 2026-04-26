@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'screens/governance/governance_data_entry_screen.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   runApp(const GovernanceApp());
@@ -13,12 +13,7 @@ class GovernanceApp extends StatelessWidget {
     return MaterialApp(
       title: 'PrimeCare Governance',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
-        scaffoldBackgroundColor: Colors.grey,
-        fontFamily: 'Roboto',
-      ),
+      theme: AppTheme.lightTheme,
       home: const DashboardScreen(),
     );
   }
@@ -44,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // SIDEBAR
           Container(
             width: 280,
-            color: Colors.grey,
+            color: PrimeCareColors.slate800,
             padding: const EdgeInsets.all(22),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +47,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 const Text(
                   'PrimeCare',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: PrimeCareColors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
                   ),
@@ -60,7 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 const SizedBox(height: 4),
                 const Text(
                   'Governance Control Center',
-                  style: TextStyle(color: Colors.grey, fontSize: 13),
+                  style: TextStyle(color: Colors.white70, fontSize: 13),
                 ),
                 const SizedBox(height: 28),
                 _buildNavTitle('Control'),
@@ -95,10 +90,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: Colors.grey),
+                      border: Border.all(color: PrimeCareColors.slate200),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withValues(alpha: 0.04),
+                          color: Colors.black.withValues(alpha: 0.04),
                           blurRadius: 24,
                           offset: const Offset(0, 8),
                         ),
@@ -133,13 +128,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             vertical: 10,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate700,
                             borderRadius: BorderRadius.circular(999),
                           ),
                           child: const Text(
                             'CTO / Governance Admin',
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -158,7 +153,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '6',
                           '2 Active',
                           '4 Parked',
-                          Colors.blue,
+                          PrimeCareColors.skyBlue,
                           Colors.grey,
                           onTap: () => setState(() => _activeTab = 'App Entry'),
                         ),
@@ -170,8 +165,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '58',
                           '4 Active',
                           '54 Parked',
-                          Colors.green,
-                          Colors.orange,
+                          PrimeCareColors.emerald,
+                          PrimeCareColors.amber,
                           onTap: () =>
                               setState(() => _activeTab = 'Role Entry'),
                         ),
@@ -183,8 +178,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '8',
                           '3 Healthy',
                           '5 Unknown',
-                          Colors.green,
-                          Colors.red,
+                          PrimeCareColors.emerald,
+                          PrimeCareColors.rose,
                           onTap: () => setState(() => _activeTab = 'API Entry'),
                         ),
                       ),
@@ -195,8 +190,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '12',
                           '5 Review',
                           '2 Approved',
-                          Colors.purple,
-                          Colors.green,
+                          PrimeCareColors.purple,
+                          PrimeCareColors.emerald,
                           onTap: () =>
                               setState(() => _activeTab = 'Feature Entry'),
                         ),
@@ -227,7 +222,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Text(
                           '→',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate800,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -235,7 +230,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Text(
                           '→',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate800,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -243,7 +238,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Text(
                           '→',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate800,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -251,7 +246,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Text(
                           '→',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate800,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -259,7 +254,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Text(
                           '→',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate800,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -267,7 +262,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Text(
                           '→',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate800,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -275,7 +270,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Text(
                           '→',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: PrimeCareColors.slate800,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -298,7 +293,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
                         headingTextStyle: TextStyle(
-                          color: Colors.grey,
+                          color: PrimeCareColors.slate800,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
@@ -313,53 +308,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         rows: [
                           DataRow(
                             cells: [
-                              const DataCell(Text('APP-001')),
-                              const DataCell(Text('App')),
-                              const DataCell(Text('Corporate Admin App')),
-                              const DataCell(Text('apps/corporate_admin_app/')),
+                              DataCell(Text('APP-001')),
+                              DataCell(Text('App')),
+                              DataCell(Text('Corporate Admin App')),
+                              DataCell(Text('apps/corporate_admin_app/')),
                               DataCell(
                                 Row(
                                   children: [
-                                    _buildBadge('CTO', Colors.blue),
+                                    _buildBadge('CTO', PrimeCareColors.skyBlue),
                                     const SizedBox(width: 4),
-                                    _buildBadge('Admin', Colors.blue),
+                                    _buildBadge(
+                                      'Admin',
+                                      PrimeCareColors.skyBlue,
+                                    ),
                                   ],
                                 ),
                               ),
-                              DataCell(_buildBadge('Active', Colors.green)),
+                              DataCell(
+                                _buildBadge('Active', PrimeCareColors.emerald),
+                              ),
                             ],
                           ),
                           DataRow(
                             cells: [
-                              const DataCell(Text('SCR-PSW-001')),
-                              const DataCell(Text('Screen')),
-                              const DataCell(Text('PSW Check-In Screen')),
-                              const DataCell(
+                              DataCell(Text('SCR-PSW-001')),
+                              DataCell(Text('Screen')),
+                              DataCell(Text('PSW Check-In Screen')),
+                              DataCell(
                                 Text('screens/psw/psw_checkin_screen.dart'),
                               ),
-                              DataCell(_buildBadge('PSW', Colors.blue)),
-                              DataCell(_buildBadge('Planned', Colors.orange)),
-                            ],
-                          ),
-                          DataRow(
-                            cells: [
-                              const DataCell(Text('RTE-PSW-001')),
-                              const DataCell(Text('Route')),
-                              const DataCell(Text('Check-In Route')),
-                              const DataCell(Text('/psw/check-in')),
-                              DataCell(_buildBadge('PSW', Colors.blue)),
-                              DataCell(_buildBadge('Planned', Colors.orange)),
-                            ],
-                          ),
-                          DataRow(
-                            cells: [
-                              const DataCell(Text('API-CHK-001')),
-                              const DataCell(Text('API')),
-                              const DataCell(Text('Create Check-In')),
-                              const DataCell(Text('POST /api/checkins')),
-                              DataCell(_buildBadge('PSW', Colors.blue)),
                               DataCell(
-                                _buildBadge('Not Connected', Colors.red),
+                                _buildBadge('PSW', PrimeCareColors.skyBlue),
+                              ),
+                              DataCell(
+                                _buildBadge('Planned', PrimeCareColors.amber),
+                              ),
+                            ],
+                          ),
+                          DataRow(
+                            cells: [
+                              DataCell(Text('RTE-PSW-001')),
+                              DataCell(Text('Route')),
+                              DataCell(Text('Check-In Route')),
+                              DataCell(Text('/psw/check-in')),
+                              DataCell(
+                                _buildBadge('PSW', PrimeCareColors.skyBlue),
+                              ),
+                              DataCell(
+                                _buildBadge('Planned', PrimeCareColors.amber),
+                              ),
+                            ],
+                          ),
+                          DataRow(
+                            cells: [
+                              DataCell(Text('API-CHK-001')),
+                              DataCell(Text('API')),
+                              DataCell(Text('Create Check-In')),
+                              DataCell(Text('POST /api/checkins')),
+                              DataCell(
+                                _buildBadge('PSW', PrimeCareColors.skyBlue),
+                              ),
+                              DataCell(
+                                _buildBadge(
+                                  'Not Connected',
+                                  PrimeCareColors.rose,
+                                ),
                               ),
                             ],
                           ),
@@ -421,7 +434,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ├── api_contract_registry.dart
     └── release_status_registry.dart''',
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: PrimeCareColors.slate700,
                                 fontSize: 13,
                                 height: 1.6,
                                 fontFamily: 'monospace',
@@ -438,7 +451,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             scrollDirection: Axis.horizontal,
                             child: DataTable(
                               headingTextStyle: TextStyle(
-                                color: Colors.grey,
+                                color: PrimeCareColors.slate700,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -450,43 +463,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               rows: [
                                 DataRow(
                                   cells: [
-                                    const DataCell(
-                                      Text('apps/corporate_admin_app'),
-                                    ),
-                                    const DataCell(Text('Admin UI Team')),
+                                    DataCell(Text('apps/corporate_admin_app')),
+                                    DataCell(Text('Admin UI Team')),
                                     DataCell(
-                                      _buildBadge('Active', Colors.green),
+                                      _buildBadge(
+                                        'Active',
+                                        PrimeCareColors.emerald,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
-                                    const DataCell(Text('apps/psw_mobile_app')),
-                                    const DataCell(Text('Mobile Team')),
+                                    DataCell(Text('apps/psw_mobile_app')),
+                                    DataCell(Text('Mobile Team')),
                                     DataCell(
-                                      _buildBadge('Active', Colors.green),
+                                      _buildBadge(
+                                        'Active',
+                                        PrimeCareColors.emerald,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
-                                    const DataCell(
-                                      Text('services/auth_service'),
-                                    ),
-                                    const DataCell(Text('Backend Team')),
+                                    DataCell(Text('services/auth_service')),
+                                    DataCell(Text('Backend Team')),
                                     DataCell(
-                                      _buildBadge('Healthy', Colors.green),
+                                      _buildBadge(
+                                        'Healthy',
+                                        PrimeCareColors.emerald,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
-                                    const DataCell(
-                                      Text('services/checkin_service'),
-                                    ),
-                                    const DataCell(Text('Backend Team')),
+                                    DataCell(Text('services/checkin_service')),
+                                    DataCell(Text('Backend Team')),
                                     DataCell(
-                                      _buildBadge('Unknown', Colors.red),
+                                      _buildBadge(
+                                        'Unknown',
+                                        PrimeCareColors.rose,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -553,7 +572,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
                         headingTextStyle: TextStyle(
-                          color: Colors.grey,
+                          color: PrimeCareColors.slate800,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
@@ -566,100 +585,86 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         rows: [
                           DataRow(
                             cells: [
-                              const DataCell(Text('Every screen has route')),
+                              DataCell(Text('Every screen has route')),
                               DataCell(
                                 Text(
                                   'Warning',
                                   style: TextStyle(
-                                    color: Colors.orange,
+                                    color: PrimeCareColors.amber,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              const DataCell(Text('2 screens missing routes')),
-                              const DataCell(Text('Add to route registry')),
+                              DataCell(Text('2 screens missing routes')),
+                              DataCell(Text('Add to route registry')),
                             ],
                           ),
                           DataRow(
                             cells: [
-                              const DataCell(
-                                Text('Every route has permission'),
-                              ),
+                              DataCell(Text('Every route has permission')),
                               DataCell(
                                 Text(
                                   'Failed',
                                   style: TextStyle(
-                                    color: Colors.red,
+                                    color: PrimeCareColors.rose,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              const DataCell(
-                                Text('/admin/reports has no role rule'),
-                              ),
-                              const DataCell(
-                                Text('Add permission registry entry'),
-                              ),
+                              DataCell(Text('/admin/reports has no role rule')),
+                              DataCell(Text('Add permission registry entry')),
                             ],
                           ),
                           DataRow(
                             cells: [
-                              const DataCell(
-                                Text('Every API has health check'),
-                              ),
+                              DataCell(Text('Every API has health check')),
                               DataCell(
                                 Text(
                                   'Failed',
                                   style: TextStyle(
-                                    color: Colors.red,
+                                    color: PrimeCareColors.rose,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              const DataCell(
-                                Text('checkin_service health unknown'),
-                              ),
-                              const DataCell(Text('Add GET /health')),
+                              DataCell(Text('checkin_service health unknown')),
+                              DataCell(Text('Add GET /health')),
                             ],
                           ),
                           DataRow(
                             cells: [
-                              const DataCell(
-                                Text('Every screen has language keys'),
-                              ),
+                              DataCell(Text('Every screen has language keys')),
                               DataCell(
                                 Text(
                                   'Warning',
                                   style: TextStyle(
-                                    color: Colors.orange,
+                                    color: PrimeCareColors.amber,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              const DataCell(
+                              DataCell(
                                 Text('PSW Check-In missing French keys'),
                               ),
-                              const DataCell(
-                                Text('Add language registry keys'),
-                              ),
+                              DataCell(Text('Add language registry keys')),
                             ],
                           ),
                           DataRow(
                             cells: [
-                              const DataCell(Text('Auth role parser active')),
+                              DataCell(Text('Auth role parser active')),
                               DataCell(
                                 Text(
                                   'Passed',
                                   style: TextStyle(
-                                    color: Colors.green,
+                                    color: PrimeCareColors.emerald,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              const DataCell(
+                              DataCell(
                                 Text('API role string converts to enum'),
                               ),
-                              const DataCell(Text('No action')),
+                              DataCell(Text('No action')),
                             ],
                           ),
                         ],
@@ -682,7 +687,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       padding: const EdgeInsets.only(top: 22, bottom: 8),
       child: Text(
         title.toUpperCase(),
-        style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1.2),
+        style: TextStyle(
+          color: Colors.white54,
+          fontSize: 12,
+          letterSpacing: 1.2,
+        ),
       ),
     );
   }
@@ -694,13 +703,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
         margin: const EdgeInsets.only(bottom: 6),
         decoration: BoxDecoration(
-          color: isActive ? Colors.grey : Colors.transparent,
+          color: isActive ? PrimeCareColors.slate700 : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           title,
           style: TextStyle(
-            color: isActive ? Colors.white : Colors.grey,
+            color: isActive ? Colors.white : Colors.white70,
             fontSize: 14,
           ),
         ),
@@ -722,7 +731,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: Colors.grey, fontSize: 14)),
+          Text(
+            title,
+            style: TextStyle(color: PrimeCareColors.slate700, fontSize: 14),
+          ),
           const SizedBox(height: 6),
           Text(
             value,
@@ -763,6 +775,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildCard(String title, Widget child, {VoidCallback? onTap}) {
     return Card(
       margin: EdgeInsets.zero,
+      elevation: 4,
+      shadowColor: Colors.black.withValues(alpha: 0.2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: PrimeCareColors.slate200),
+      ),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
@@ -790,13 +808,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: PrimeCareColors.slate50,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: PrimeCareColors.slate200),
       ),
       child: Text(
         text,
         style: TextStyle(
-          color: Colors.grey,
+          color: PrimeCareColors.slate800,
           fontWeight: FontWeight.w800,
           fontSize: 13,
         ),
@@ -810,9 +829,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       constraints: const BoxConstraints(minHeight: 180),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: PrimeCareColors.slate50,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey, style: BorderStyle.solid),
+        border: Border.all(
+          color: PrimeCareColors.slate200,
+          style: BorderStyle.solid,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -826,7 +848,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
+                border: Border.all(color: PrimeCareColors.slate200),
               ),
               child: Text(task, style: TextStyle(fontSize: 13)),
             ),
