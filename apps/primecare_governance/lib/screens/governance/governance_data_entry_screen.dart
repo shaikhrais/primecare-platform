@@ -11,7 +11,8 @@ import 'language_entry_form.dart';
 import 'status_entry_form.dart';
 
 class GovernanceDataEntryScreen extends StatefulWidget {
-  const GovernanceDataEntryScreen({super.key});
+  final String? initialForm;
+  const GovernanceDataEntryScreen({super.key, this.initialForm});
 
   @override
   State<GovernanceDataEntryScreen> createState() =>
@@ -19,7 +20,16 @@ class GovernanceDataEntryScreen extends StatefulWidget {
 }
 
 class _GovernanceDataEntryScreenState extends State<GovernanceDataEntryScreen> {
-  String _selectedForm = 'Feature Entry';
+  late String _selectedForm;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedForm = widget.initialForm ?? 'Feature Entry';
+    if (_selectedForm == 'Data Entry' || _selectedForm == 'Feature Intake') {
+      _selectedForm = 'Feature Entry';
+    }
+  }
 
   Widget _buildSelectedForm() {
     switch (_selectedForm) {
@@ -55,7 +65,7 @@ class _GovernanceDataEntryScreenState extends State<GovernanceDataEntryScreen> {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(color: Color(0xFFe5e7eb)),
+        side: BorderSide(color: Colors.grey.shade300),
       ),
       child: Padding(
         padding: const EdgeInsets.all(24.0),

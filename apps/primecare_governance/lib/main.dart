@@ -15,8 +15,8 @@ class GovernanceApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2563eb)),
-        scaffoldBackgroundColor: const Color(0xFFf5f7fb),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+        scaffoldBackgroundColor: Colors.grey,
         fontFamily: 'Roboto',
       ),
       home: const DashboardScreen(),
@@ -44,7 +44,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // SIDEBAR
           Container(
             width: 280,
-            color: const Color(0xFF111827),
+            color: Colors.grey,
             padding: const EdgeInsets.all(22),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 const SizedBox(height: 4),
                 const Text(
                   'Governance Control Center',
-                  style: TextStyle(color: Color(0xFFcbd5e1), fontSize: 13),
+                  style: TextStyle(color: Colors.grey, fontSize: 13),
                 ),
                 const SizedBox(height: 28),
                 _buildNavTitle('Control'),
@@ -95,10 +95,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: const Color(0xFFe5e7eb)),
+                      border: Border.all(color: Colors.grey),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF0F1722).withValues(alpha: 0.04),
+                          color: Colors.grey.withValues(alpha: 0.04),
                           blurRadius: 24,
                           offset: const Offset(0, 8),
                         ),
@@ -122,7 +122,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               'Data Entry & Governance control for apps, roles, screens, APIs.',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Color(0xFF6b7280),
+                                color: Colors.grey,
                               ),
                             ),
                           ],
@@ -133,13 +133,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             vertical: 10,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFeff6ff),
+                            color: Colors.grey,
                             borderRadius: BorderRadius.circular(999),
                           ),
                           child: const Text(
                             'CTO / Governance Admin',
                             style: TextStyle(
-                              color: Color(0xFF1d4ed8),
+                              color: Colors.grey,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -160,6 +160,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '4 Parked',
                           Colors.blue,
                           Colors.grey,
+                          onTap: () => setState(() => _activeTab = 'App Entry'),
                         ),
                       ),
                       const SizedBox(width: 18),
@@ -171,6 +172,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '54 Parked',
                           Colors.green,
                           Colors.orange,
+                          onTap: () =>
+                              setState(() => _activeTab = 'Role Entry'),
                         ),
                       ),
                       const SizedBox(width: 18),
@@ -182,6 +185,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '5 Unknown',
                           Colors.green,
                           Colors.red,
+                          onTap: () => setState(() => _activeTab = 'API Entry'),
                         ),
                       ),
                       const SizedBox(width: 18),
@@ -193,6 +197,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           '2 Approved',
                           Colors.purple,
                           Colors.green,
+                          onTap: () =>
+                              setState(() => _activeTab = 'Feature Entry'),
                         ),
                       ),
                     ],
@@ -291,8 +297,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
-                        headingTextStyle: const TextStyle(
-                          color: Color(0xFF374151),
+                        headingTextStyle: TextStyle(
+                          color: Colors.grey,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
@@ -379,7 +385,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Container(
                             padding: const EdgeInsets.all(18),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF0f172a),
+                              color: Colors.grey,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Text(
@@ -415,7 +421,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ├── api_contract_registry.dart
     └── release_status_registry.dart''',
                               style: TextStyle(
-                                color: Color(0xFFd1d5db),
+                                color: Colors.grey,
                                 fontSize: 13,
                                 height: 1.6,
                                 fontFamily: 'monospace',
@@ -431,8 +437,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: DataTable(
-                              headingTextStyle: const TextStyle(
-                                color: Color(0xFF374151),
+                              headingTextStyle: TextStyle(
+                                color: Colors.grey,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -546,8 +552,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
-                        headingTextStyle: const TextStyle(
-                          color: Color(0xFF374151),
+                        headingTextStyle: TextStyle(
+                          color: Colors.grey,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
@@ -676,11 +682,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       padding: const EdgeInsets.only(top: 22, bottom: 8),
       child: Text(
         title.toUpperCase(),
-        style: const TextStyle(
-          color: Color(0xFF9ca3af),
-          fontSize: 12,
-          letterSpacing: 1.2,
-        ),
+        style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1.2),
       ),
     );
   }
@@ -692,13 +694,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
         margin: const EdgeInsets.only(bottom: 6),
         decoration: BoxDecoration(
-          color: isActive ? const Color(0xFF1f2937) : Colors.transparent,
+          color: isActive ? Colors.grey : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           title,
           style: TextStyle(
-            color: isActive ? Colors.white : const Color(0xFFe5e7eb),
+            color: isActive ? Colors.white : Colors.grey,
             fontSize: 14,
           ),
         ),
@@ -712,21 +714,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
     String badge1,
     String badge2,
     Color color1,
-    Color color2,
-  ) {
+    Color color2, {
+    VoidCallback? onTap,
+  }) {
     return _buildCard(
       '',
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(color: Color(0xFF6b7280), fontSize: 14),
-          ),
+          Text(title, style: TextStyle(color: Colors.grey, fontSize: 14)),
           const SizedBox(height: 6),
           Text(
             value,
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 6),
           Row(
@@ -738,6 +738,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
+      onTap: onTap,
     );
   }
 
@@ -759,42 +760,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildCard(String title, Widget child) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFFe5e7eb)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (title.isNotEmpty) ...[
-            Text(
-              title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-          ],
-          child,
-        ],
+  Widget _buildCard(String title, Widget child, {VoidCallback? onTap}) {
+    return Card(
+      margin: EdgeInsets.zero,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title.isNotEmpty) ...[
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 12),
+              ],
+              child,
+            ],
+          ),
+        ),
       ),
     );
   }
-
 
   Widget _buildFlowStep(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFFeff6ff),
+        color: Colors.grey,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          color: Color(0xFF1d4ed8),
+        style: TextStyle(
+          color: Colors.grey,
           fontWeight: FontWeight.w800,
           fontSize: 13,
         ),
@@ -808,17 +810,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
       constraints: const BoxConstraints(minHeight: 180),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFf9fafb),
+        color: Colors.grey,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFFd1d5db),
-          style: BorderStyle.solid,
-        ),
+        border: Border.all(color: Colors.grey, style: BorderStyle.solid),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           ...tasks.map(
             (task) => Container(
@@ -827,9 +826,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xFFe5e7eb)),
+                border: Border.all(color: Colors.grey),
               ),
-              child: Text(task, style: const TextStyle(fontSize: 13)),
+              child: Text(task, style: TextStyle(fontSize: 13)),
             ),
           ),
         ],
