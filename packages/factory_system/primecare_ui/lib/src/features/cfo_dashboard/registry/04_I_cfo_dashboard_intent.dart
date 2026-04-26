@@ -22,9 +22,9 @@ class CfoDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.cfo.labels.liquidity_index',
-    'dashboards.cfo.labels.burn_rate_analysis',
-    'dashboards.cfo.labels.capital_allocation',
+    'dashboards.cfo.labels.dashboards_cfo_labels_liquidity_index',
+    'dashboards.cfo.labels.dashboards_cfo_labels_burn_rate_analysis',
+    'dashboards.cfo.labels.dashboards_cfo_labels_capital_allocation',
   ];
 
   @override

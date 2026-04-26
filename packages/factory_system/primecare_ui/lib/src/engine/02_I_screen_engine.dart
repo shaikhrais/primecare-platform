@@ -180,13 +180,13 @@ class UniversalScreenEngine extends ConsumerWidget {
 
     return SingleChildScrollView(
       physics:
-          const AlwaysScrollableScrollPhysics(), // Required for RefreshIndicator
+          AlwaysScrollableScrollPhysics(), // Required for RefreshIndicator
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(context, theme),
-          const SizedBox(height: 32),
+          SizedBox(height: 32),
           ..._renderBlueprints(context, ref, metrics),
         ],
       ),
@@ -212,7 +212,9 @@ class UniversalScreenEngine extends ConsumerWidget {
         Row(
           children: [
             Text(
-              isGovernanceViolation ? '⚠️ GOVERNANCE VIOLATION: ${screen.title}' : localizedTitle,
+              isGovernanceViolation
+                  ? '⚠️ GOVERNANCE VIOLATION: ${screen.title}'
+                  : localizedTitle,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: isGovernanceViolation ? Colors.red : null,
@@ -314,16 +316,32 @@ class UniversalScreenEngine extends ConsumerWidget {
         final builder = ComponentWarehouse.getBuilder(hf.viewId);
         return builder?.call(context, blueprint.dataPayload) ??
             Center(
-              child: Text('High-Fidelity Component not found: ${hf.viewId}'),
+              child: Text(
+                LocaleKeys
+                    .dashboards_common_labels_high_fidelity_component_not_found____hf_viewid
+                    .tr(),
+              ),
             );
       case 'analytics_chart':
         final builder = ComponentWarehouse.getBuilder('primeCareLineChart');
         return builder?.call(context, blueprint.dataPayload) ??
-            const Center(child: Text('Line Chart Component not found'));
+            Center(
+              child: Text(
+                LocaleKeys
+                    .dashboards_common_labels_line_chart_component_not_found
+                    .tr(),
+              ),
+            );
       case 'ai_forecasting':
         final builder = ComponentWarehouse.getBuilder('aiForecastingDashlet');
         return builder?.call(context, blueprint.dataPayload) ??
-            const Center(child: Text('AI Forecasting Component not found'));
+            Center(
+              child: Text(
+                LocaleKeys
+                    .dashboards_common_labels_ai_forecasting_component_not_found
+                    .tr(),
+              ),
+            );
       default:
         // Try to find a builder matching the componentType directly in the warehouse
         final builder = ComponentWarehouse.getBuilder(blueprint.componentType);
@@ -331,7 +349,11 @@ class UniversalScreenEngine extends ConsumerWidget {
           return builder(context, blueprint.dataPayload);
         }
         return Center(
-          child: Text('Unknown Component: ${blueprint.componentType}'),
+          child: Text(
+            LocaleKeys
+                .dashboards_common_labels_unknown_component____blueprint_componenttype
+                .tr(),
+          ),
         );
     }
   }

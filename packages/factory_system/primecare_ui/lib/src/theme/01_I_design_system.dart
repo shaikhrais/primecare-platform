@@ -163,18 +163,14 @@ class _DarkTokens implements PrimeCareColorTokens {
 
 class PrimeCareTypographyTokens {
   TextStyle get labelSmall => GoogleFonts.inter(
-        fontSize: 11,
-        fontWeight: FontWeight.w900,
-        letterSpacing: 1.5,
-      );
+    fontSize: 11,
+    fontWeight: FontWeight.w900,
+    letterSpacing: 1.5,
+  );
 
-  TextStyle get bodySmall => GoogleFonts.inter(
-        fontSize: 12,
-        color: PrimeCareColors.slate500,
-      );
+  TextStyle get bodySmall =>
+      GoogleFonts.inter(fontSize: 12, color: PrimeCareColors.slate500);
 
-  TextStyle get headingSmall => GoogleFonts.plusJakartaSans(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      );
+  TextStyle get headingSmall =>
+      GoogleFonts.plusJakartaSans(fontSize: 18, fontWeight: FontWeight.bold);
 }

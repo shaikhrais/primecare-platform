@@ -15,11 +15,14 @@ class AdminLayoutAdapter extends Notifier<AdminLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-        state = AdminLayoutViewModel(isLoading: true, data: state.data);
+    state = AdminLayoutViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/admin-layout-adapter');
-      state = AdminLayoutViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = AdminLayoutViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
       state = AdminLayoutViewModel(isLoading: false, data: <String, dynamic>{});

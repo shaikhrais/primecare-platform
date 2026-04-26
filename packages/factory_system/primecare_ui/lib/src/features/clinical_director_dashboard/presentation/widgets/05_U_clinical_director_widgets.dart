@@ -5,7 +5,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 class StaffingHeatmap extends StatelessWidget {
   final AnalyticsChart chart;
 
-  const StaffingHeatmap({super.key, required this.chart});
+  StaffingHeatmap({super.key, required this.chart});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,14 @@ class StaffingHeatmap extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(LocaleKeys.clinical_director_labels_staffing_matrix.tr(), style: theme.typography.h3),
-                  Text(LocaleKeys.clinical_director_labels_staffing_variance.tr(), style: theme.typography.labelMedium),
+                  Text(
+                    LocaleKeys.clinical_director_labels_staffing_matrix.tr(),
+                    style: theme.typography.h3,
+                  ),
+                  Text(
+                    LocaleKeys.clinical_director_labels_staffing_variance.tr(),
+                    style: theme.typography.labelMedium,
+                  ),
                 ],
               ),
               const Spacer(),
@@ -41,7 +47,7 @@ class StaffingHeatmap extends StatelessWidget {
 
 /// A log tracking compliance with clinical protocols.
 class ProtocolComplianceLog extends StatelessWidget {
-  const ProtocolComplianceLog({super.key});
+  ProtocolComplianceLog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +57,14 @@ class ProtocolComplianceLog extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.clinical_director_labels_compliance_log.tr(), style: theme.typography.h3),
-          Text(LocaleKeys.clinical_director_labels_audit_adherence.tr(), style: theme.typography.labelMedium),
+          Text(
+            LocaleKeys.clinical_director_labels_compliance_log.tr(),
+            style: theme.typography.h3,
+          ),
+          Text(
+            LocaleKeys.clinical_director_labels_audit_adherence.tr(),
+            style: theme.typography.labelMedium,
+          ),
           SizedBox(height: theme.spacing.lg),
           PrimeCareDataTable<Map<String, String>>(
             columns: const ['Protocol', 'Auditor', 'Timestamp', 'Status'],
@@ -94,7 +106,7 @@ class ProtocolComplianceLog extends StatelessWidget {
 class IncidentTrendChart extends StatelessWidget {
   final AnalyticsChart chart;
 
-  const IncidentTrendChart({super.key, required this.chart});
+  IncidentTrendChart({super.key, required this.chart});
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +116,14 @@ class IncidentTrendChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.clinical_director_labels_incident_trends.tr(), style: theme.typography.h3),
-          Text(LocaleKeys.clinical_director_labels_incident_criticality.tr(), style: theme.typography.labelMedium),
+          Text(
+            LocaleKeys.clinical_director_labels_incident_trends.tr(),
+            style: theme.typography.h3,
+          ),
+          Text(
+            LocaleKeys.clinical_director_labels_incident_criticality.tr(),
+            style: theme.typography.labelMedium,
+          ),
           SizedBox(height: theme.spacing.lg),
           SizedBox(height: 250, child: PrimeCareLineChart(chart: chart)),
         ],
@@ -116,29 +134,29 @@ class IncidentTrendChart extends StatelessWidget {
 
 /// Action hub for Clinical Director oversight.
 class ClinicalDirectorActionHub extends StatelessWidget {
-  const ClinicalDirectorActionHub({super.key});
+  ClinicalDirectorActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Review Audits',
+          title: LocaleKeys.dashboards_common_labels_review_audits.tr(),
           icon: LucideIcons.checkSquare,
           route: '/clinical/audits',
         ),
         PrimeCareActionItem(
-          title: 'Staffing Plan',
+          title: LocaleKeys.dashboards_common_labels_staffing_plan.tr(),
           icon: LucideIcons.users,
           route: '/clinical/staffing',
         ),
         PrimeCareActionItem(
-          title: 'Protocol Config',
+          title: LocaleKeys.dashboards_common_labels_protocol_config.tr(),
           icon: LucideIcons.settings,
           route: '/clinical/protocols',
         ),
         PrimeCareActionItem(
-          title: 'Incident Report',
+          title: LocaleKeys.dashboards_common_labels_incident_report.tr(),
           icon: LucideIcons.fileText,
           route: '/clinical/incidents',
         ),

@@ -10,4 +10,3 @@ class FooterLayout3Mapper {
     );
   }
 }
-

@@ -12,4 +12,3 @@ class FuseNavVerticalLayout2Dto {
     );
   }
 }
-

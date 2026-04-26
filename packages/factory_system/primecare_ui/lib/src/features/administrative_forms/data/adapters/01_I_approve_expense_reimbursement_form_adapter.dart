@@ -26,7 +26,9 @@ class ApproveExpenseReimbursementFormAdapter
       () async {
         final response = await apiClient.get('/api/v1/admin/expenses/latest');
         if (response.statusCode == 200) {
-          return ApproveExpenseReimbursementFormDto.fromJson(response.data as Map<String, dynamic>);
+          return ApproveExpenseReimbursementFormDto.fromJson(
+            response.data as Map<String, dynamic>,
+          );
         }
         return ApproveExpenseReimbursementFormDto(
           id: 'EXP-FAILED',

@@ -6,10 +6,6 @@ class NodeButtonDto {
   NodeButtonDto({required this.id, required this.raw});
 
   factory NodeButtonDto.fromJson(Map<String, dynamic> json) {
-    return NodeButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NodeButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -11,7 +11,8 @@ import 'offices/infrastructure_warehouse.dart';
 import 'offices/common_warehouse.dart';
 
 /// A function signature for building a specific component from a blueprint payload.
-typedef ComponentBuilder = Widget Function(BuildContext context, dynamic dataPayload);
+typedef ComponentBuilder =
+    Widget Function(BuildContext context, dynamic dataPayload);
 
 /// A centralized registry to securely map component string types to their respective Builders.
 /// This replaces large switch statements and is O(1) time complexity.

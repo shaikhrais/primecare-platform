@@ -6,10 +6,6 @@ class HighlightPopoverDto {
   HighlightPopoverDto({required this.id, required this.raw});
 
   factory HighlightPopoverDto.fromJson(Map<String, dynamic> json) {
-    return HighlightPopoverDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return HighlightPopoverDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

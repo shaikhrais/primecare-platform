@@ -38,13 +38,17 @@ class _SubscriptionUpgradeScreenState
         _isApplying = false;
 
         final responseData = response.data as Map<String, dynamic>?;
-        if (response.statusCode == 200 && responseData != null && responseData['success'] == true) {
+        if (response.statusCode == 200 &&
+            responseData != null &&
+            responseData['success'] == true) {
           _isSuccess = true;
           _applyMessage =
-              (responseData['message'] as String?) ?? 'Subscription successfully upgraded!';
+              (responseData['message'] as String?) ??
+              'Subscription successfully upgraded!';
         } else {
           _isSuccess = false;
-          _applyMessage = (responseData?['error'] as String?) ?? 'API rejected the code.';
+          _applyMessage =
+              (responseData?['error'] as String?) ?? 'API rejected the code.';
         }
       });
     } catch (e) {

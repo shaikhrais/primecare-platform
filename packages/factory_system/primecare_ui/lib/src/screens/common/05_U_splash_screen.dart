@@ -95,13 +95,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           ),
                         ],
                       ),
-                      child: const Icon(
+                      child: Icon(
                         LucideIcons.shieldCheck,
                         size: 72,
                         color: Color(0xFF38BDF8),
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    SizedBox(height: 32),
                     // Typography
                     Text(
                       'PRIMECARE',
@@ -112,7 +112,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         color: PrimeCareColors.white,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     Text(
                       'auth.zero_trust_platform'.tr(),
                       style: GoogleFonts.inter(
@@ -122,19 +122,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         color: PrimeCareColors.white.withValues(alpha: 0.7),
                       ),
                     ),
-                    const SizedBox(height: 64),
+                    SizedBox(height: 64),
                     // Loading Indication
                     SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        backgroundColor: const Color(0xFF1E293B),
+                        backgroundColor: Color(0xFF1E293B),
                         valueColor: const AlwaysStoppedAnimation<Color>(
                           Color(0xFF38BDF8),
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     Text(
                       'auth.hydrating_registries'.tr(),
                       style: GoogleFonts.inter(

@@ -6,10 +6,6 @@ class MoonStarIconDto {
   MoonStarIconDto({required this.id, required this.raw});
 
   factory MoonStarIconDto.fromJson(Map<String, dynamic> json) {
-    return MoonStarIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return MoonStarIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

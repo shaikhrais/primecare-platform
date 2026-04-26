@@ -6,10 +6,6 @@ class SignOutPageViewDto {
   SignOutPageViewDto({required this.id, required this.raw});
 
   factory SignOutPageViewDto.fromJson(Map<String, dynamic> json) {
-    return SignOutPageViewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SignOutPageViewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

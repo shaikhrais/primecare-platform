@@ -98,29 +98,29 @@ class FranchisePipelineOverview extends StatelessWidget {
 
 /// Strategic action hub for the Head of Business Development.
 class StrategicActionHub extends StatelessWidget {
-  const StrategicActionHub({super.key});
+  StrategicActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Add Franchise',
+          title: LocaleKeys.dashboards_common_labels_add_franchise.tr(),
           icon: LucideIcons.plusCircle,
           route: '/onboarding/franchise',
         ),
         PrimeCareActionItem(
-          title: 'Growth Audit',
+          title: LocaleKeys.dashboards_common_labels_growth_audit.tr(),
           icon: LucideIcons.trendingUp,
           route: '/audit/growth',
         ),
         PrimeCareActionItem(
-          title: 'Market Analysis',
+          title: LocaleKeys.dashboards_common_labels_market_analysis.tr(),
           icon: LucideIcons.barChart4,
           route: '/reports/market',
         ),
         PrimeCareActionItem(
-          title: 'Legal Review',
+          title: LocaleKeys.dashboards_common_labels_legal_review.tr(),
           icon: LucideIcons.gavel,
           route: '/audit/legal',
         ),

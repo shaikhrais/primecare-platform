@@ -6,7 +6,6 @@ part '02_M_franchise_owner_data.g.dart';
 
 @freezed
 abstract class FranchiseOwnerData with _$FranchiseOwnerData {
-
   const factory FranchiseOwnerData({required Map<String, dynamic> metrics}) =
       _FranchiseOwnerData;
 

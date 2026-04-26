@@ -3,13 +3,19 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 /// Hardened full_screen_toggle
 class FullScreenToggle extends StatelessWidget {
-  const FullScreenToggle({super.key});
+  FullScreenToggle({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ClinicalGlassPanel(
-      title: 'full_screen_toggle',
-      child: const PrimeCareCard(child: Text('Operational Sector: full_screen_toggle')),
+      title: LocaleKeys.dashboards_common_labels_full_screen_toggle.tr(),
+      child: PrimeCareCard(
+        child: Text(
+          LocaleKeys
+              .dashboards_common_labels_operational_sector__full_screen_toggle
+              .tr(),
+        ),
+      ),
     );
   }
 }

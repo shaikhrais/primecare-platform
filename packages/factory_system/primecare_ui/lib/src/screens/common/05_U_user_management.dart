@@ -18,7 +18,7 @@ class _UserManagementScreenState extends ConsumerState<UserManagementScreen> {
     showDialog<void>(
       context: context,
       builder: (ctx) =>
-          const Dialog(child: SizedBox(width: 800, child: CreateUserForm())),
+          Dialog(child: SizedBox(width: 800, child: CreateUserForm())),
     );
   }
 
@@ -36,12 +36,20 @@ class _UserManagementScreenState extends ConsumerState<UserManagementScreen> {
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          title: const Text('Delete User'),
-          content: Text('Are you sure you want to delete ${user.name}?'),
+          title: Text(
+            LocaleKeys.dashboards_common_labels_delete_user.tr(),
+          ),
+          content: Text(
+            LocaleKeys
+                .dashboards_common_labels_are_you_sure_you_want_to_delete___user_name
+                .tr(),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Cancel'),
+              child: Text(
+                LocaleKeys.dashboards_common_labels_cancel.tr(),
+              ),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -69,7 +77,7 @@ class _UserManagementScreenState extends ConsumerState<UserManagementScreen> {
     final users = ref.watch(userManagementProvider);
 
     return PageTemplate(
-      title: 'User Management',
+      title: LocaleKeys.dashboards_common_labels_user_management.tr(),
       subtitle:
           'Manage roles, offices, and access settings for all PrimeCare personnel.',
       actions: [
@@ -114,12 +122,25 @@ class _UserManagementScreenState extends ConsumerState<UserManagementScreen> {
                 ),
               ),
               columnSpacing: 40 * layout.scaleFactor,
-              columns: const [
-                DataColumn(label: Text('User')),
-                DataColumn(label: Text('Role')),
-                DataColumn(label: Text('Office / Department')),
-                DataColumn(label: Text('Status')),
-                DataColumn(label: Text('Actions')),
+              columns: [
+                DataColumn(
+                  label: Text(LocaleKeys.dashboards_common_labels_user.tr()),
+                ),
+                DataColumn(
+                  label: Text(LocaleKeys.dashboards_common_labels_role.tr()),
+                ),
+                DataColumn(
+                  label: Text(
+                    LocaleKeys.dashboards_common_labels_office___department
+                        .tr(),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(LocaleKeys.dashboards_common_labels_status.tr()),
+                ),
+                DataColumn(
+                  label: Text(LocaleKeys.dashboards_common_labels_actions.tr()),
+                ),
               ],
               rows: userList.map((user) {
                 final isActive = user.status == 'Active';

@@ -6,10 +6,6 @@ class SwitchFormControllerDto {
   SwitchFormControllerDto({required this.id, required this.raw});
 
   factory SwitchFormControllerDto.fromJson(Map<String, dynamic> json) {
-    return SwitchFormControllerDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SwitchFormControllerDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

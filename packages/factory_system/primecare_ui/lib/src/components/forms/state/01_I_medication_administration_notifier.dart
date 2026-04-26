@@ -2,7 +2,6 @@
 import 'package:flutter_core/00_B_flutter_core.dart';
 import 'dart:async';
 
-
 class MedicationAdministrationPayload {
   final Map<String, dynamic> data;
 

@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 class SubmitAdlChecklistForm extends StatefulWidget {
@@ -22,8 +21,19 @@ class _SubmitAdlChecklistFormState extends State<SubmitAdlChecklistForm> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+      widget.onSubmit({
+        'status': 'submitted',
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys
+                .dashboards_common_labels_successfully_tracked_and_submitted
+                .tr(),
+          ),
+        ),
+      );
     }
   }
 
@@ -31,8 +41,10 @@ class _SubmitAdlChecklistFormState extends State<SubmitAdlChecklistForm> {
   Widget build(BuildContext context) {
     return BaseForm(
       formKey: _formKey,
-      title: 'Submit ADL Checklist',
-      subtitle: 'Submit Activities of Daily Living checklist.',
+      title: LocaleKeys.dashboards_common_labels_submit_adl_checklist.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_submit_activities_of_daily_living_checklist
+          .tr(),
       onSubmit: _submit,
       isLoading: widget.isLoading,
       children: [
@@ -45,12 +57,12 @@ class _SubmitAdlChecklistFormState extends State<SubmitAdlChecklistForm> {
                 decoration: InputDecoration(
                   labelText: 'common.name'.tr(),
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'common.details'.tr(),
@@ -61,7 +73,7 @@ class _SubmitAdlChecklistFormState extends State<SubmitAdlChecklistForm> {
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-                          ],
+            ],
           ),
         ),
       ],

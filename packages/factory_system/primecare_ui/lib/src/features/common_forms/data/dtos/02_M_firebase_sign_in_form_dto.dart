@@ -6,10 +6,6 @@ class FirebaseSignInFormDto {
   FirebaseSignInFormDto({required this.id, required this.raw});
 
   factory FirebaseSignInFormDto.fromJson(Map<String, dynamic> json) {
-    return FirebaseSignInFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FirebaseSignInFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

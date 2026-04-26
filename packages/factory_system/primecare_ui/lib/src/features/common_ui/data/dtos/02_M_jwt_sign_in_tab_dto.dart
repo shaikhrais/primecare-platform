@@ -6,10 +6,6 @@ class JwtSignInTabDto {
   JwtSignInTabDto({required this.id, required this.raw});
 
   factory JwtSignInTabDto.fromJson(Map<String, dynamic> json) {
-    return JwtSignInTabDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return JwtSignInTabDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

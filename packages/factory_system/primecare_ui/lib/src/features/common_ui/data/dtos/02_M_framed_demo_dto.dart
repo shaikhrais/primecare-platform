@@ -6,10 +6,6 @@ class FramedDemoDto {
   FramedDemoDto({required this.id, required this.raw});
 
   factory FramedDemoDto.fromJson(Map<String, dynamic> json) {
-    return FramedDemoDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FramedDemoDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

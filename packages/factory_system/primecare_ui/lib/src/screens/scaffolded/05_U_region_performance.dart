@@ -2,15 +2,17 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RegionPerformance extends ConsumerWidget {
-  const RegionPerformance({super.key});
+  RegionPerformance({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'navigation.items.region_performance'.tr(),
       subtitle: 'navigation.items.region_performance'.tr(),
-      
-      body: Center(child: Text('Provisioning...')),
+
+      body: Center(
+        child: Text(LocaleKeys.dashboards_common_labels_provisioning.tr()),
+      ),
     );
   }
 }

@@ -48,8 +48,10 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
             _buildSidebar(context, ref, schedule),
           ],
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, st) => Center(child: Text('Error: $err')),
+        loading: () => Center(child: CircularProgressIndicator()),
+        error: (err, st) => Center(
+          child: Text(LocaleKeys.dashboards_common_labels_error___err.tr()),
+        ),
       ),
     );
   }
@@ -121,7 +123,7 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
                   );
               Navigator.of(ctx).pop();
             },
-            child: const Text('Confirm'),
+            child: Text(LocaleKeys.dashboards_common_labels_confirm.tr()),
           ),
         ],
       ),
@@ -286,7 +288,7 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
       width: 320,
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor.withValues(alpha: 0.4),
-        border: const Border(left: BorderSide(color: Colors.white10)),
+        border: Border(left: BorderSide(color: Colors.white10)),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -297,13 +299,16 @@ class PrimeCareHorizonSchedulerScreen extends ConsumerWidget {
               insights: [
                 IntelligenceInsight(
                   id: 'res_cap_1',
-                  title: 'Resource Optimization',
+                  title: LocaleKeys
+                      .dashboards_common_labels_resource_optimization
+                      .tr(),
                   summary: 'Laser Alpha is idle. Room 102 available soon.',
                   impact: InsightImpact.info,
                 ),
                 IntelligenceInsight(
                   id: 'staff_1_p',
-                  title: 'High Pressure Alert',
+                  title: LocaleKeys.dashboards_common_labels_high_pressure_alert
+                      .tr(),
                   summary: 'Dr. Shaikh is over capacity.',
                   impact: InsightImpact.caution,
                 ),

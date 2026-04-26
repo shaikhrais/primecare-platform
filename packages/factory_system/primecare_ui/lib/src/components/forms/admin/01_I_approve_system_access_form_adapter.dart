@@ -17,14 +17,22 @@ class ApproveSystemAccessFormAdapter
   }
 
   Future<void> loadData() async {
-        state = ApproveSystemAccessFormViewModel(isLoading: true, data: state.data);
+    state = ApproveSystemAccessFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/approve-system-access-form-adapter');
-      state = ApproveSystemAccessFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/approve-system-access-form-adapter',
+      );
+      state = ApproveSystemAccessFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = ApproveSystemAccessFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = ApproveSystemAccessFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

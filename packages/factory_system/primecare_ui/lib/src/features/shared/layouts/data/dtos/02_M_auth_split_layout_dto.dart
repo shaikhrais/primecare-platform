@@ -6,10 +6,6 @@ class AuthSplitLayoutDto {
   AuthSplitLayoutDto({required this.id, required this.raw});
 
   factory AuthSplitLayoutDto.fromJson(Map<String, dynamic> json) {
-    return AuthSplitLayoutDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AuthSplitLayoutDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

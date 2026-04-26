@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/00_B_flutter_core.dart';
 
-
 class RolePermission {
   final String route;
   final String name;
@@ -15,10 +14,7 @@ class RolePermission {
     this.canWrite = false,
   });
 
-  RolePermission copyWith({
-    bool? canRead,
-    bool? canWrite,
-  }) {
+  RolePermission copyWith({bool? canRead, bool? canWrite}) {
     return RolePermission(
       route: route,
       name: name,
@@ -64,7 +60,8 @@ class RolePermissionsFormViewModel {
   }
 }
 
-class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> {
+class RolePermissionsFormAdapter
+    extends Notifier<RolePermissionsFormViewModel> {
   @override
   RolePermissionsFormViewModel build() {
     // Proactively load global roles/screens on build
@@ -82,29 +79,43 @@ class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> 
 
       state = state.copyWith(
         isLoading: false,
-        roles: ((rolesRes.data as Map<String, dynamic>)['data'] as List<dynamic>?) ?? [],
-        screens: ((screensRes.data as Map<String, dynamic>)['data'] as List<dynamic>?) ?? [],
+        roles:
+            ((rolesRes.data as Map<String, dynamic>)['data']
+                as List<dynamic>?) ??
+            [],
+        screens:
+            ((screensRes.data as Map<String, dynamic>)['data']
+                as List<dynamic>?) ??
+            [],
       );
     } catch (e) {
-      state = state.copyWith(isLoading: false, status: 'Error loading metadata');
+      state = state.copyWith(
+        isLoading: false,
+        status: 'Error loading metadata',
+      );
     }
   }
 
   Future<void> loadPermissions(String roleId) async {
-    state = state.copyWith(isLoading: true, selectedRoleId: roleId, status: null);
+    state = state.copyWith(
+      isLoading: true,
+      selectedRoleId: roleId,
+      status: null,
+    );
     final client = ref.read(apiClientProvider);
 
     try {
       final res = await client.get('/v1/identity/roles/$roleId/permissions');
-      final List<dynamic> permsData = ((res.data as Map<String, dynamic>)['data'] as List<dynamic>?) ?? [];
-      
+      final List<dynamic> permsData =
+          ((res.data as Map<String, dynamic>)['data'] as List<dynamic>?) ?? [];
+
       // Map base screens to state, overlaying existing permissions
       final Map<String, RolePermission> permsMap = {};
       for (var screen in state.screens) {
         final dScreen = screen as Map<String, dynamic>;
         final route = dScreen['route'] as String;
         final name = dScreen['name'] as String;
-        final existing = permsData.cast<Map<String,dynamic>>().firstWhere(
+        final existing = permsData.cast<Map<String, dynamic>>().firstWhere(
           (p) => p['screenRoute'] == route,
           orElse: () => <String, dynamic>{},
         );
@@ -119,7 +130,10 @@ class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> 
 
       state = state.copyWith(isLoading: false, permissions: permsMap);
     } catch (e) {
-      state = state.copyWith(isLoading: false, status: 'Error loading permissions');
+      state = state.copyWith(
+        isLoading: false,
+        status: 'Error loading permissions',
+      );
     }
   }
 
@@ -154,29 +168,43 @@ class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> 
 
     final result = await Result.guardFuture<bool>(() async {
       final payload = {
-        'permissions': state.permissions.values.map((p) => {
-          'screenRoute': p.route,
-          'canRead': p.canRead,
-          'canWrite': p.canWrite,
-        }).toList(),
+        'permissions': state.permissions.values
+            .map(
+              (p) => {
+                'screenRoute': p.route,
+                'canRead': p.canRead,
+                'canWrite': p.canWrite,
+              },
+            )
+            .toList(),
       };
 
-      final response = await client.post('/v1/identity/roles/${state.selectedRoleId}/permissions', body: payload);
-      
+      final response = await client.post(
+        '/v1/identity/roles/${state.selectedRoleId}/permissions',
+        body: payload,
+      );
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         return true;
       }
-        return false;
+      return false;
     });
 
     return result.fold(
       (success) {
-        telemetry.passGate(ExecutionGateCategory.domainApi, 'Permissions updated successfully');
+        telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Permissions updated successfully',
+        );
         state = state.copyWith(isLoading: false, status: 'Success');
         return true;
       },
       (error) {
-        telemetry.failGate(ExecutionGateCategory.domainApi, 'Permission update failed', error: error);
+        telemetry.failGate(
+          ExecutionGateCategory.domainApi,
+          'Permission update failed',
+          error: error,
+        );
         state = state.copyWith(isLoading: false, status: 'Error');
         return false;
       },
@@ -185,6 +213,8 @@ class RolePermissionsFormAdapter extends Notifier<RolePermissionsFormViewModel> 
 }
 
 final rolePermissionsFormAdapterProvider =
-    NotifierProvider<RolePermissionsFormAdapter, RolePermissionsFormViewModel>(() {
-  return RolePermissionsFormAdapter();
-});
+    NotifierProvider<RolePermissionsFormAdapter, RolePermissionsFormViewModel>(
+      () {
+        return RolePermissionsFormAdapter();
+      },
+    );

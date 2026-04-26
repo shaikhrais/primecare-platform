@@ -6,10 +6,6 @@ class FirebaseAuthContextDto {
   FirebaseAuthContextDto({required this.id, required this.raw});
 
   factory FirebaseAuthContextDto.fromJson(Map<String, dynamic> json) {
-    return FirebaseAuthContextDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FirebaseAuthContextDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

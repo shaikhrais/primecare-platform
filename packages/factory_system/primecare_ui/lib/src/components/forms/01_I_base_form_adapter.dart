@@ -16,11 +16,14 @@ class BaseFormAdapter extends Notifier<BaseFormViewModel> {
   }
 
   Future<void> loadData() async {
-        state = BaseFormViewModel(isLoading: true, data: state.data);
+    state = BaseFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/base-form-adapter');
-      state = BaseFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = BaseFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
       state = BaseFormViewModel(isLoading: false, data: <String, dynamic>{});

@@ -6,10 +6,6 @@ class MasterDetailLayoutDto {
   MasterDetailLayoutDto({required this.id, required this.raw});
 
   factory MasterDetailLayoutDto.fromJson(Map<String, dynamic> json) {
-    return MasterDetailLayoutDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return MasterDetailLayoutDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

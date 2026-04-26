@@ -10,4 +10,3 @@ class ToolbarLayout1Mapper {
     );
   }
 }
-

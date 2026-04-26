@@ -41,7 +41,9 @@ class CtoBriefingPanel extends StatelessWidget {
               ),
             )
           else
-            ...insights.map((insight) => _buildInsightItem(context, theme, insight)),
+            ...insights.map(
+              (insight) => _buildInsightItem(context, theme, insight),
+            ),
         ],
       ),
     );

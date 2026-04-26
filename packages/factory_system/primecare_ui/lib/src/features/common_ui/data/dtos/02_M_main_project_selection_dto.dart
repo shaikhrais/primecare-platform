@@ -6,10 +6,6 @@ class MainProjectSelectionDto {
   MainProjectSelectionDto({required this.id, required this.raw});
 
   factory MainProjectSelectionDto.fromJson(Map<String, dynamic> json) {
-    return MainProjectSelectionDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return MainProjectSelectionDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

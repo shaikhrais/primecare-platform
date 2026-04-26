@@ -3,29 +3,36 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 class Code2IconScreen extends ConsumerWidget {
   final dynamic data;
-  
-  const Code2IconScreen({super.key, this.data});
+
+  Code2IconScreen({super.key, this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PrimeCareScaffold(
-      title: 'code2Icon',
+      title: LocaleKeys.dashboards_common_labels_code2icon.tr(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
-            const SizedBox(height: 16),
+            Icon(
+              LucideIcons.component,
+              size: 64,
+              color: context.theme.colors.primary,
+            ),
+            SizedBox(height: 16),
             Text(
               'code2Icon Implementation',
               style: context.textTheme.headlineMedium,
             ),
-            const SizedBox(height: 8),
-            Text('This component is part of the shared/icons module.'),
+            SizedBox(height: 8),
+            Text(
+              LocaleKeys
+                  .dashboards_common_labels_this_component_is_part_of_the_shared_icons_module
+                  .tr(),
+            ),
           ],
         ),
       ),
     );
   }
 }
-

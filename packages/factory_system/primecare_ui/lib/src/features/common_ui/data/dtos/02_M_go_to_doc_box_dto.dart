@@ -6,10 +6,6 @@ class GoToDocBoxDto {
   GoToDocBoxDto({required this.id, required this.raw});
 
   factory GoToDocBoxDto.fromJson(Map<String, dynamic> json) {
-    return GoToDocBoxDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return GoToDocBoxDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

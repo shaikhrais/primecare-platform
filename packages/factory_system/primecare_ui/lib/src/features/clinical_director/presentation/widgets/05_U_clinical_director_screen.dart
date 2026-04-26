@@ -38,7 +38,10 @@ class ClinicalDirectorScreen extends ConsumerWidget {
                     children: [
                       Expanded(flex: 2, child: _buildPatientOutcomes(vm)),
                       const SizedBox(width: 24),
-                      Expanded(flex: 1, child: _buildClinicalInsights(context, vm)),
+                      Expanded(
+                        flex: 1,
+                        child: _buildClinicalInsights(context, vm),
+                      ),
                     ],
                   ),
                 ],
@@ -59,9 +62,9 @@ class ClinicalDirectorScreen extends ConsumerWidget {
       elevation: 0,
       title: Row(
         children: [
-          const Icon(Icons.medical_services_outlined, color: Color(0xFF0D9488)),
-          const SizedBox(width: 12),
-          const Text(
+          Icon(Icons.medical_services_outlined, color: Color(0xFF0D9488)),
+          SizedBox(width: 12),
+          Text(
             'Clinical Operations',
             style: TextStyle(
               color: Colors.black87,
@@ -74,20 +77,21 @@ class ClinicalDirectorScreen extends ConsumerWidget {
       actions: [
         TextButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.file_download_outlined),
-          label: const Text('REPORTS'),
+          icon: Icon(Icons.file_download_outlined),
+          label: Text(LocaleKeys.dashboards_common_labels_reports.tr()),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: 12),
         ElevatedButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.add_task),
-          label: const Text('QUICK REVIEW'),
+          icon: Icon(Icons.add_task),
+          label: Text(LocaleKeys.dashboards_common_labels_quick_review.tr(),
+          ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF0D9488),
+            backgroundColor: Color(0xFF0D9488),
             foregroundColor: Colors.white,
           ),
         ),
-        const SizedBox(width: 24),
+        SizedBox(width: 24),
       ],
     );
   }
@@ -102,7 +106,7 @@ class ClinicalDirectorScreen extends ConsumerWidget {
 
   Widget _buildPatientOutcomes(ClinicDashboardViewModel vm) {
     return _buildCard(
-      title: 'Patient Outcome Trends',
+      title: LocaleKeys.dashboards_common_labels_patient_outcome_trends.tr(),
       child: Container(
         height: 300,
         decoration: BoxDecoration(
@@ -116,7 +120,10 @@ class ClinicalDirectorScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildClinicalInsights(BuildContext context, ClinicDashboardViewModel vm) {
+  Widget _buildClinicalInsights(
+    BuildContext context,
+    ClinicDashboardViewModel vm,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(

@@ -5,10 +5,7 @@ class ToolbarLayout1ViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ToolbarLayout1ViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ToolbarLayout1ViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

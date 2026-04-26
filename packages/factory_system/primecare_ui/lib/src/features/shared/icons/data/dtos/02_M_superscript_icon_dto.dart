@@ -6,10 +6,6 @@ class SuperscriptIconDto {
   SuperscriptIconDto({required this.id, required this.raw});
 
   factory SuperscriptIconDto.fromJson(Map<String, dynamic> json) {
-    return SuperscriptIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SuperscriptIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

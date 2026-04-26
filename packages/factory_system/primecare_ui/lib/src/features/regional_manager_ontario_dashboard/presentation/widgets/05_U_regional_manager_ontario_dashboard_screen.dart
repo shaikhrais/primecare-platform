@@ -94,7 +94,8 @@ class RegionalManagerOntarioDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Regional OHIP Velocity',
+          title: LocaleKeys.dashboards_common_labels_regional_ohip_velocity
+              .tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'ohip-velocity',
@@ -113,7 +114,10 @@ class RegionalManagerOntarioDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

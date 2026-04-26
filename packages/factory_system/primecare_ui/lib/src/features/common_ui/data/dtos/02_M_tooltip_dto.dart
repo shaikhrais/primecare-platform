@@ -6,10 +6,6 @@ class TooltipDto {
   TooltipDto({required this.id, required this.raw});
 
   factory TooltipDto.fromJson(Map<String, dynamic> json) {
-    return TooltipDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return TooltipDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

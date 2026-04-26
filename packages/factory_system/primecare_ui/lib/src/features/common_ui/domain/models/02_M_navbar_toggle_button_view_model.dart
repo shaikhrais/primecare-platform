@@ -5,10 +5,7 @@ class NavbarToggleButtonViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  NavbarToggleButtonViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  NavbarToggleButtonViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -30,29 +30,29 @@ class ResetPasswordScreen extends StatelessWidget {
                   color: PrimeCareColors.white,
                 ),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'auth.reset_password_page.new_password'.tr(),
-                  prefixIcon: const Icon(Icons.lock_outline),
+                  prefixIcon: Icon(Icons.lock_outline),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'auth.reset_password_page.confirm_password'.tr(),
-                  prefixIcon: const Icon(Icons.lock_outline),
+                  prefixIcon: Icon(Icons.lock_outline),
                 ),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: PrimeCareColors.skyBlue,
                   foregroundColor: PrimeCareColors.white,
-                  minimumSize: const Size(double.infinity, 56),
+                  minimumSize: Size(double.infinity, 56),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

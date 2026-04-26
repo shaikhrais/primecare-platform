@@ -2,15 +2,17 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class MarketingHub extends ConsumerWidget {
-  const MarketingHub({super.key});
+  MarketingHub({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'navigation.items.marketing_hub'.tr(),
       subtitle: 'navigation.items.marketing_hub'.tr(),
-      
-      body: Center(child: Text('Provisioning...')),
+
+      body: Center(
+        child: Text(LocaleKeys.dashboards_common_labels_provisioning.tr()),
+      ),
     );
   }
 }

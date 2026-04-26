@@ -5,10 +5,7 @@ class UseFirebaseAuthViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  UseFirebaseAuthViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  UseFirebaseAuthViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

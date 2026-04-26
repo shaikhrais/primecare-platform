@@ -2,15 +2,17 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SkillMatrix extends ConsumerWidget {
-  const SkillMatrix({super.key});
+  SkillMatrix({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'navigation.items.skill_matrix'.tr(),
       subtitle: 'navigation.items.skill_matrix'.tr(),
-      
-      body: Center(child: Text('Provisioning...')),
+
+      body: Center(
+        child: Text(LocaleKeys.dashboards_common_labels_provisioning.tr()),
+      ),
     );
   }
 }

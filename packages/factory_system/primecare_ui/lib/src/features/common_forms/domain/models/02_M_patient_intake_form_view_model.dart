@@ -5,10 +5,7 @@ class PatientIntakeFormViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  PatientIntakeFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  PatientIntakeFormViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

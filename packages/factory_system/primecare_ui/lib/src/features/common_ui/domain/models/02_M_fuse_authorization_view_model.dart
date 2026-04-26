@@ -5,10 +5,7 @@ class FuseAuthorizationViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseAuthorizationViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseAuthorizationViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

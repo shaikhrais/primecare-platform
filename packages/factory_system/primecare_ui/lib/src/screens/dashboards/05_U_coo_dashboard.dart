@@ -2,15 +2,17 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class COODashboard extends ConsumerWidget {
-  const COODashboard({super.key});
+  COODashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(cooMetricsProvider);
 
     return PageTemplate(
-      title: 'COO Dashboard',
-      subtitle: 'Logistics and operational execution overview',
+      title: LocaleKeys.dashboards_common_labels_coo_dashboard.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_logistics_and_operational_execution_overview
+          .tr(),
       body: asyncData.when(
         data: (metrics) => PrimeCareResponsiveKpiGrid(metrics: metrics),
         loading: () => const PrimeCareSkeleton(),

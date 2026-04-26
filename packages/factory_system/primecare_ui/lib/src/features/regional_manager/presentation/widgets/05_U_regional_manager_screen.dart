@@ -72,7 +72,7 @@ class RegionalManagerScreen extends ConsumerWidget {
         children: [
           const Icon(Icons.map_outlined, color: Color(0xFF1E293B)),
           const SizedBox(width: 12),
-          const Text(
+          Text(
             'Regional Oversight',
             style: TextStyle(
               color: Colors.black87,
@@ -85,13 +85,14 @@ class RegionalManagerScreen extends ConsumerWidget {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.notifications_none),
+          icon: Icon(Icons.notifications_none),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: 12),
         ElevatedButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.analytics_outlined),
-          label: const Text('EXPANSION PLAN'),
+          icon: Icon(Icons.analytics_outlined),
+          label: Text(LocaleKeys.dashboards_common_labels_expansion_plan.tr(),
+          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF1E293B),
             foregroundColor: Colors.white,
@@ -120,8 +121,8 @@ class RegionalManagerScreen extends ConsumerWidget {
   Widget _buildFranchiseGrid(RegionalManagerOntarioDashboardViewModel vm) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
@@ -134,7 +135,7 @@ class RegionalManagerScreen extends ConsumerWidget {
 
   Widget _buildGrowthMap(RegionalManagerOntarioDashboardViewModel vm) {
     return _buildCard(
-      title: 'Territory Growth Map',
+      title: LocaleKeys.dashboards_common_labels_territory_growth_map.tr(),
       child: Container(
         height: 300,
         decoration: BoxDecoration(
@@ -159,7 +160,7 @@ class RegionalManagerScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 20),
               SizedBox(width: 8),
@@ -172,10 +173,23 @@ class RegionalManagerScreen extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          _RiskTile(title: 'Hiring Gap: Toronto North', level: 'High'),
-          _RiskTile(title: 'Compliance Audit: Ottawa', level: 'Medium'),
-          _RiskTile(title: 'Margin Compression: London', level: 'Low'),
+          SizedBox(height: 20),
+          _RiskTile(
+            title: LocaleKeys.dashboards_common_labels_hiring_gap__toronto_north
+                .tr(),
+            level: 'High',
+          ),
+          _RiskTile(
+            title: LocaleKeys.dashboards_common_labels_compliance_audit__ottawa
+                .tr(),
+            level: 'Medium',
+          ),
+          _RiskTile(
+            title: LocaleKeys
+                .dashboards_common_labels_margin_compression__london
+                .tr(),
+            level: 'Low',
+          ),
         ],
       ),
     );

@@ -6,10 +6,6 @@ class SignOutPageTitleDto {
   SignOutPageTitleDto({required this.id, required this.raw});
 
   factory SignOutPageTitleDto.fromJson(Map<String, dynamic> json) {
-    return SignOutPageTitleDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SignOutPageTitleDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

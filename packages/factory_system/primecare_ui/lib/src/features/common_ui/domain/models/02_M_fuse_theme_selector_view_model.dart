@@ -5,10 +5,7 @@ class FuseThemeSelectorViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseThemeSelectorViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseThemeSelectorViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

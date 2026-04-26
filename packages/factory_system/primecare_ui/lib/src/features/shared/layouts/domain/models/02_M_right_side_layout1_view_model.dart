@@ -5,10 +5,7 @@ class RightSideLayout1ViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  RightSideLayout1ViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  RightSideLayout1ViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

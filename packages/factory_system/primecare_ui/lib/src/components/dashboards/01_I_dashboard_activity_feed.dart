@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
-import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
-import 'package:primecare_ui/src/components/01_I_primecare_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// A standard activity feed for dashboards, consuming DashboardActivity models.
 class DashboardActivityFeed extends StatelessWidget {
   final List<DashboardActivity> activities;
 
-  const DashboardActivityFeed({super.key, required this.activities});
+  DashboardActivityFeed({super.key, required this.activities});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +18,13 @@ class DashboardActivityFeed extends StatelessWidget {
             'Activity Stream',
             style: theme.typography.h4.copyWith(fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           if (activities.isEmpty)
-            const Center(child: Text('No recent activity'))
+            Center(
+              child: Text(
+                LocaleKeys.dashboards_common_labels_no_recent_activity.tr(),
+              ),
+            )
           else
             ListView.separated(
               shrinkWrap: true,

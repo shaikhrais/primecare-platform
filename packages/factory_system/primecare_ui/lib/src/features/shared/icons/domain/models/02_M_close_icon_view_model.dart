@@ -5,10 +5,7 @@ class CloseIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  CloseIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  CloseIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -5,10 +5,7 @@ class SignOutPageTitleViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  SignOutPageTitleViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  SignOutPageTitleViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

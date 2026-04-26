@@ -5,10 +5,7 @@ class UnderlineIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  UnderlineIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  UnderlineIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

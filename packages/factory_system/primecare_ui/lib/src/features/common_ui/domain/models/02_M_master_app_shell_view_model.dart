@@ -5,10 +5,7 @@ class MasterAppShellViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  MasterAppShellViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  MasterAppShellViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

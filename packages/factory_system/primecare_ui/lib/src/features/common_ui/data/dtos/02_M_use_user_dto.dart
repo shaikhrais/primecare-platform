@@ -6,10 +6,6 @@ class UseUserDto {
   UseUserDto({required this.id, required this.raw});
 
   factory UseUserDto.fromJson(Map<String, dynamic> json) {
-    return UseUserDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UseUserDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -17,14 +17,22 @@ class ApproveRealEstateFormAdapter
   }
 
   Future<void> loadData() async {
-        state = ApproveRealEstateFormViewModel(isLoading: true, data: state.data);
+    state = ApproveRealEstateFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/approve-real-estate-form-adapter');
-      state = ApproveRealEstateFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/approve-real-estate-form-adapter',
+      );
+      state = ApproveRealEstateFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = ApproveRealEstateFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = ApproveRealEstateFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

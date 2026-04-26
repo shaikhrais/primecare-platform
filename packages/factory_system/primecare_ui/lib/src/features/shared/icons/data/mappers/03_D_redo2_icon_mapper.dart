@@ -10,4 +10,3 @@ class Redo2IconMapper {
     );
   }
 }
-

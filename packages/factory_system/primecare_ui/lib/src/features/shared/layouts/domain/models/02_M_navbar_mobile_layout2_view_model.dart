@@ -5,10 +5,7 @@ class NavbarMobileLayout2ViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  NavbarMobileLayout2ViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  NavbarMobileLayout2ViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

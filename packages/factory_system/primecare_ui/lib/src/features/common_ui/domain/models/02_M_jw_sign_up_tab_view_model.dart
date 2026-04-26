@@ -5,10 +5,7 @@ class JwSignUpTabViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  JwSignUpTabViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  JwSignUpTabViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

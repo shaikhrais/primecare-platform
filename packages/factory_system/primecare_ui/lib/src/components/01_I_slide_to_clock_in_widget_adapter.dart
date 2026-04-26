@@ -16,14 +16,22 @@ class SlideToClockInWidgetAdapter
   }
 
   Future<void> loadData() async {
-        state = SlideToClockInWidgetViewModel(isLoading: true, data: state.data);
+    state = SlideToClockInWidgetViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/slide-to-clock-in-widget-adapter');
-      state = SlideToClockInWidgetViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/slide-to-clock-in-widget-adapter',
+      );
+      state = SlideToClockInWidgetViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = SlideToClockInWidgetViewModel(isLoading: false, data: <String, dynamic>{});
+      state = SlideToClockInWidgetViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

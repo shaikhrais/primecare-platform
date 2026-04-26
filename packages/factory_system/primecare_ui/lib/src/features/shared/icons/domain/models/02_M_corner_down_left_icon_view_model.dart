@@ -5,10 +5,7 @@ class CornerDownLeftIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  CornerDownLeftIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  CornerDownLeftIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

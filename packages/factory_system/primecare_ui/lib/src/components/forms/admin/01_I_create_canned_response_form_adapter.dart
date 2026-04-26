@@ -17,14 +17,25 @@ class CreateCannedResponseFormAdapter
   }
 
   Future<void> loadData() async {
-        state = CreateCannedResponseFormViewModel(isLoading: true, data: state.data);
+    state = CreateCannedResponseFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/create-canned-response-form-adapter');
-      state = CreateCannedResponseFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/create-canned-response-form-adapter',
+      );
+      state = CreateCannedResponseFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = CreateCannedResponseFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = CreateCannedResponseFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

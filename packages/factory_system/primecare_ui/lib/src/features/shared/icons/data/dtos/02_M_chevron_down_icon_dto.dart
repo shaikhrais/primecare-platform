@@ -6,10 +6,6 @@ class ChevronDownIconDto {
   ChevronDownIconDto({required this.id, required this.raw});
 
   factory ChevronDownIconDto.fromJson(Map<String, dynamic> json) {
-    return ChevronDownIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ChevronDownIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

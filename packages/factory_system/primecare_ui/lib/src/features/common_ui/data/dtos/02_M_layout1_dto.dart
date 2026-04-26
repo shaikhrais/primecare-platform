@@ -6,10 +6,6 @@ class Layout1Dto {
   Layout1Dto({required this.id, required this.raw});
 
   factory Layout1Dto.fromJson(Map<String, dynamic> json) {
-    return Layout1Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return Layout1Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

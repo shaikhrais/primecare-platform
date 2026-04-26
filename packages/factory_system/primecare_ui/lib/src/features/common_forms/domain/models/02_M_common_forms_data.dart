@@ -6,7 +6,6 @@ part '02_M_common_forms_data.g.dart';
 
 @freezed
 abstract class CommonFormsData with _$CommonFormsData {
-
   const factory CommonFormsData({required Map<String, dynamic> metrics}) =
       _CommonFormsData;
 

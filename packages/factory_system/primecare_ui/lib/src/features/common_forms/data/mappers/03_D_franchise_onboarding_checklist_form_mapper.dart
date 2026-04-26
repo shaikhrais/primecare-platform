@@ -3,11 +3,12 @@ import '../../domain/models/02_M_franchise_onboarding_checklist_form_view_model.
 import '../dtos/02_M_franchise_onboarding_checklist_form_dto.dart';
 
 class FranchiseOnboardingChecklistFormMapper {
-  static FranchiseOnboardingChecklistFormViewModel fromDto(FranchiseOnboardingChecklistFormDto dto) {
+  static FranchiseOnboardingChecklistFormViewModel fromDto(
+    FranchiseOnboardingChecklistFormDto dto,
+  ) {
     return FranchiseOnboardingChecklistFormViewModel(
       title: dto.raw['title']?.toString() ?? 'franchiseOnboardingChecklistForm',
       metadata: dto.raw,
     );
   }
 }
-

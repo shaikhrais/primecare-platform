@@ -5,10 +5,7 @@ class TextAlignButtonViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  TextAlignButtonViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  TextAlignButtonViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

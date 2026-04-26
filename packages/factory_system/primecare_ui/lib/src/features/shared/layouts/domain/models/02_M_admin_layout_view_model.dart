@@ -5,10 +5,7 @@ class AdminLayoutViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  AdminLayoutViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  AdminLayoutViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

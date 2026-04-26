@@ -5,10 +5,7 @@ class ThemeToggleViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ThemeToggleViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ThemeToggleViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

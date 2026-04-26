@@ -1,8 +1,4 @@
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/src/registry/01_I_screen_registry.dart';
-import 'package:primecare_ui/src/components/01_I_primecare_button.dart';
-import 'package:primecare_ui/src/components/scheduler/01_I_aura_insight_card.dart';
-import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class AuraBriefingPanel extends ConsumerWidget {
   const AuraBriefingPanel({super.key});
@@ -227,10 +223,10 @@ class AuraBriefingPanel extends ConsumerWidget {
               ),
             ],
           ),
-          const Spacer(),
+          Spacer(),
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(LucideIcons.x),
+            icon: Icon(LucideIcons.x),
           ),
         ],
       ),

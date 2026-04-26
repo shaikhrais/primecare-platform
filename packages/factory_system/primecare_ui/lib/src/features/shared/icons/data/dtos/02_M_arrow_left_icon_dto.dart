@@ -6,10 +6,6 @@ class ArrowLeftIconDto {
   ArrowLeftIconDto({required this.id, required this.raw});
 
   factory ArrowLeftIconDto.fromJson(Map<String, dynamic> json) {
-    return ArrowLeftIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ArrowLeftIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -5,10 +5,7 @@ class PoweredByLinksViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  PoweredByLinksViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  PoweredByLinksViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

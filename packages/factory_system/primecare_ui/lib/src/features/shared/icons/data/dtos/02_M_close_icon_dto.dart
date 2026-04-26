@@ -6,10 +6,6 @@ class CloseIconDto {
   CloseIconDto({required this.id, required this.raw});
 
   factory CloseIconDto.fromJson(Map<String, dynamic> json) {
-    return CloseIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return CloseIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

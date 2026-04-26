@@ -6,10 +6,6 @@ class AlignCenterIconDto {
   AlignCenterIconDto({required this.id, required this.raw});
 
   factory AlignCenterIconDto.fromJson(Map<String, dynamic> json) {
-    return AlignCenterIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AlignCenterIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

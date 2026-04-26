@@ -17,14 +17,22 @@ class LogInfectionControlFormAdapter
   }
 
   Future<void> loadData() async {
-        state = LogInfectionControlFormViewModel(isLoading: true, data: state.data);
+    state = LogInfectionControlFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/log-infection-control-form-adapter');
-      state = LogInfectionControlFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/log-infection-control-form-adapter',
+      );
+      state = LogInfectionControlFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = LogInfectionControlFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = LogInfectionControlFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

@@ -25,8 +25,14 @@ class AuraRoleTheme {
       case 'finance director':
       case 'finance_director':
         return const AuraRoleTheme(
-          primaryGradient: [Color(0xFFFFD700), Color(0xFFDAA520)], // Gold / Goldenrod
-          secondaryGradient: [Color(0xFFB8860B), Color(0xFF8B4513)], // Dark Gold / Saddle Brown
+          primaryGradient: [
+            Color(0xFFFFD700),
+            Color(0xFFDAA520),
+          ], // Gold / Goldenrod
+          secondaryGradient: [
+            Color(0xFFB8860B),
+            Color(0xFF8B4513),
+          ], // Dark Gold / Saddle Brown
           accentColor: Color(0xFFFFD700),
           pulseColor: Color(0xFFFFD700),
           auraLabel: 'FINANCE INTELLIGENCE',
@@ -34,8 +40,14 @@ class AuraRoleTheme {
       case 'operations manager':
       case 'operations_manager':
         return const AuraRoleTheme(
-          primaryGradient: [Color(0xFF00BFFF), Color(0xFF1E90FF)], // DeepSkyBlue / DodgerBlue
-          secondaryGradient: [Color(0xFF4169E1), Color(0xFF00008B)], // RoyalBlue / DarkBlue
+          primaryGradient: [
+            Color(0xFF00BFFF),
+            Color(0xFF1E90FF),
+          ], // DeepSkyBlue / DodgerBlue
+          secondaryGradient: [
+            Color(0xFF4169E1),
+            Color(0xFF00008B),
+          ], // RoyalBlue / DarkBlue
           accentColor: Color(0xFF00BFFF),
           pulseColor: Color(0xFF00BFFF),
           auraLabel: 'OPS OPTIMIZATION',
@@ -43,8 +55,14 @@ class AuraRoleTheme {
       case 'clinical director':
       case 'clinical_director':
         return const AuraRoleTheme(
-          primaryGradient: [Color(0xFF00FA9A), Color(0xFF3CB371)], // MediumSpringGreen / MediumSeaGreen
-          secondaryGradient: [Color(0xFF2E8B57), Color(0xFF006400)], // SeaGreen / DarkGreen
+          primaryGradient: [
+            Color(0xFF00FA9A),
+            Color(0xFF3CB371),
+          ], // MediumSpringGreen / MediumSeaGreen
+          secondaryGradient: [
+            Color(0xFF2E8B57),
+            Color(0xFF006400),
+          ], // SeaGreen / DarkGreen
           accentColor: Color(0xFF00FA9A),
           pulseColor: Color(0xFF00FA9A),
           auraLabel: 'CLINICAL INSIGHTS',
@@ -52,8 +70,14 @@ class AuraRoleTheme {
       case 'training director':
       case 'training_director':
         return const AuraRoleTheme(
-          primaryGradient: [Color(0xFFFF69B4), Color(0xFFFF1493)], // HotPink / DeepPink
-          secondaryGradient: [Color(0xFFC71585), Color(0xFF800080)], // MediumVioletRed / Purple
+          primaryGradient: [
+            Color(0xFFFF69B4),
+            Color(0xFFFF1493),
+          ], // HotPink / DeepPink
+          secondaryGradient: [
+            Color(0xFFC71585),
+            Color(0xFF800080),
+          ], // MediumVioletRed / Purple
           accentColor: Color(0xFFFF69B4),
           pulseColor: Color(0xFFFF69B4),
           auraLabel: 'ACADEMY ANALYTICS',
@@ -61,8 +85,14 @@ class AuraRoleTheme {
       case 'cto':
       case 'chief technology officer':
         return const AuraRoleTheme(
-          primaryGradient: [Color(0xFF00FFCC), Color(0xFF0099FF)], // Neon Cyan / Electric Blue
-          secondaryGradient: [Color(0xFF0B1325), Color(0xFF1C2541)], // Obsidian / Dark Navy
+          primaryGradient: [
+            Color(0xFF00FFCC),
+            Color(0xFF0099FF),
+          ], // Neon Cyan / Electric Blue
+          secondaryGradient: [
+            Color(0xFF0B1325),
+            Color(0xFF1C2541),
+          ], // Obsidian / Dark Navy
           accentColor: Color(0xFF00FFCC),
           pulseColor: Color(0xFF00FFCC),
           auraLabel: 'COMMAND HORIZON',

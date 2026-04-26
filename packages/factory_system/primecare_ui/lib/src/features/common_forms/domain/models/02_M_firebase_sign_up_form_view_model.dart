@@ -5,10 +5,7 @@ class FirebaseSignUpFormViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FirebaseSignUpFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FirebaseSignUpFormViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -5,10 +5,7 @@ class ClientLayoutViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ClientLayoutViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ClientLayoutViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -5,10 +5,7 @@ class FuseSvgIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseSvgIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseSvgIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

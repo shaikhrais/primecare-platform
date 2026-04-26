@@ -5,10 +5,7 @@ class SectionPreviewViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  SectionPreviewViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  SectionPreviewViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

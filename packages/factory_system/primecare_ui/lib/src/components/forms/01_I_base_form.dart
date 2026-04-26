@@ -1,5 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SubmitIntent extends Intent {
@@ -43,7 +43,9 @@ class BaseForm extends StatelessWidget {
         actions: <Type, Action<Intent>>{
           SubmitIntent: CallbackAction<SubmitIntent>(
             onInvoke: (SubmitIntent intent) {
-              if (!isLoading && isEnabled && (formKey.currentState?.validate() ?? false)) {
+              if (!isLoading &&
+                  isEnabled &&
+                  (formKey.currentState?.validate() ?? false)) {
                 onSubmit();
               }
               return null;
@@ -71,7 +73,7 @@ class BaseForm extends StatelessWidget {
                   ),
                 ),
               ],
-              const SizedBox(height: 24),
+              SizedBox(height: 24),
               AbsorbPointer(
                 absorbing: isLoading,
                 child: Opacity(
@@ -82,14 +84,15 @@ class BaseForm extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   if (onCancel != null)
                     TextButton(
                       onPressed: isLoading ? null : onCancel,
-                      child: const Text('Cancel'),
+                      child: Text(LocaleKeys.dashboards_common_labels_cancel.tr(),
+                      ),
                     ),
                   if (onCancel != null) const SizedBox(width: 16),
                   ElevatedButton(

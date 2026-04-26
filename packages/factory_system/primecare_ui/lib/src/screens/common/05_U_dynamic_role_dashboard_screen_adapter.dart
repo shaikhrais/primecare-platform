@@ -16,14 +16,25 @@ class DynamicRoleDashboardScreenAdapter
   }
 
   Future<void> loadData() async {
-        state = DynamicRoleDashboardScreenViewModel(isLoading: true, data: state.data);
+    state = DynamicRoleDashboardScreenViewModel(
+      isLoading: true,
+      data: state.data,
+    );
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/dynamic-role-dashboard-screen-adapter');
-      state = DynamicRoleDashboardScreenViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/dynamic-role-dashboard-screen-adapter',
+      );
+      state = DynamicRoleDashboardScreenViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = DynamicRoleDashboardScreenViewModel(isLoading: false, data: <String, dynamic>{});
+      state = DynamicRoleDashboardScreenViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

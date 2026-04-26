@@ -2,7 +2,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class VerificationHub extends ConsumerWidget {
-  const VerificationHub({super.key});
+  VerificationHub({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,8 +13,10 @@ class VerificationHub extends ConsumerWidget {
     final asyncVerification = ref.watch(systemVerificationMetricsProvider);
 
     return PageTemplate(
-      title: 'Verification Hub',
-      subtitle: 'System integrity and macro-reconciliation telemetry logs',
+      title: LocaleKeys.dashboards_common_labels_verification_hub.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_system_integrity_and_macro_reconciliation_telemetry_logs
+          .tr(),
       body: asyncVerification.when(
         data: (metrics) {
           final statusColor = !metrics.isOfflineFallback
@@ -48,9 +50,12 @@ class VerificationHub extends ConsumerWidget {
                       ).textTheme.titleLarge?.copyWith(color: statusColor),
                     ),
                     if (metrics.isOfflineFallback) ...[
-                      const Spacer(),
-                      const Chip(
-                        label: Text('OFFLINE FALLBACK'),
+                      Spacer(),
+                      Chip(
+                        label: Text(
+                          LocaleKeys.dashboards_common_labels_offline_fallback
+                              .tr(),
+                        ),
                         backgroundColor: PrimeCareColors.amber,
                         labelStyle: TextStyle(
                           color: Colors.white,

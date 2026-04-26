@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/00_B_flutter_core.dart';
 
-
 class AuditSystemLogsFormViewModel {
   final bool isLoading;
   final List<dynamic> logs;
@@ -61,10 +60,7 @@ class AuditSystemLogsFormAdapter
         if (endDate != null) 'endDate': endDate.toIso8601String(),
       };
 
-      final response = await client.get(
-        '/v1/audit/logs',
-        query: queryParams,
-      );
+      final response = await client.get('/v1/audit/logs', query: queryParams);
 
       final responseData = response.data as Map<String, dynamic>?;
       if (responseData != null && responseData['success'] == true) {
@@ -77,15 +73,16 @@ class AuditSystemLogsFormAdapter
       (data) {
         state = state.copyWith(
           isLoading: false,
-          logs: ((data as Map<String, dynamic>)['logs'] as List<dynamic>?) ?? [],
-          total: ((data['pagination'] as Map<String, dynamic>?)?['total'] as num?)?.toInt() ?? 0,
+          logs:
+              ((data as Map<String, dynamic>)['logs'] as List<dynamic>?) ?? [],
+          total:
+              ((data['pagination'] as Map<String, dynamic>?)?['total'] as num?)
+                  ?.toInt() ??
+              0,
         );
       },
       (error) {
-        state = state.copyWith(
-          isLoading: false,
-          error: error.toString(),
-        );
+        state = state.copyWith(isLoading: false, error: error.toString());
       },
     );
   }

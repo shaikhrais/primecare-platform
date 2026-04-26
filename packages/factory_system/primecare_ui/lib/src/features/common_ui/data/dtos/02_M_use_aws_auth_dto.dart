@@ -6,10 +6,6 @@ class UseAwsAuthDto {
   UseAwsAuthDto({required this.id, required this.raw});
 
   factory UseAwsAuthDto.fromJson(Map<String, dynamic> json) {
-    return UseAwsAuthDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UseAwsAuthDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

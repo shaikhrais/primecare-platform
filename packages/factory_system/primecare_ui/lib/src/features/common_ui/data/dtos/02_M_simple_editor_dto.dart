@@ -6,10 +6,6 @@ class SimpleEditorDto {
   SimpleEditorDto({required this.id, required this.raw});
 
   factory SimpleEditorDto.fromJson(Map<String, dynamic> json) {
-    return SimpleEditorDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SimpleEditorDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -6,10 +6,6 @@ class FirebaseSignUpTabDto {
   FirebaseSignUpTabDto({required this.id, required this.raw});
 
   factory FirebaseSignUpTabDto.fromJson(Map<String, dynamic> json) {
-    return FirebaseSignUpTabDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FirebaseSignUpTabDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -15,14 +15,20 @@ class SplashScreenAdapter extends Notifier<SplashScreenViewModel> {
   }
 
   Future<void> loadData() async {
-        state = SplashScreenViewModel(isLoading: true, data: state.data);
+    state = SplashScreenViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/splash-screen-adapter');
-      state = SplashScreenViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = SplashScreenViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = SplashScreenViewModel(isLoading: false, data: <String, dynamic>{});
+      state = SplashScreenViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

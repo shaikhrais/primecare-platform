@@ -22,10 +22,10 @@ class HrHiringDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.hrhiring.labels.aura_hud',
-    'dashboards.hrhiring.labels.candidate_pipeline',
-    'dashboards.hrhiring.labels.interview_scheduler',
-    'dashboards.hrhiring.labels.hiring_analytics',
+    'dashboards.hrhiring.labels.dashboards_hrhiring_labels_aura_hud',
+    'dashboards.hrhiring.labels.dashboards_hrhiring_labels_candidate_pipeline',
+    'dashboards.hrhiring.labels.dashboards_hrhiring_labels_interview_scheduler',
+    'dashboards.hrhiring.labels.dashboards_hrhiring_labels_hiring_analytics',
   ];
 
   @override

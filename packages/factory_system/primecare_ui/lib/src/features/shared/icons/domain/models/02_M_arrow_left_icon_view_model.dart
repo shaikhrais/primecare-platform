@@ -5,10 +5,7 @@ class ArrowLeftIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ArrowLeftIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ArrowLeftIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

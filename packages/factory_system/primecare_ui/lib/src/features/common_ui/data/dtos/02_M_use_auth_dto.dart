@@ -6,10 +6,6 @@ class UseAuthDto {
   UseAuthDto({required this.id, required this.raw});
 
   factory UseAuthDto.fromJson(Map<String, dynamic> json) {
-    return UseAuthDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UseAuthDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

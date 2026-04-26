@@ -6,10 +6,6 @@ class ThemeToggleDto {
   ThemeToggleDto({required this.id, required this.raw});
 
   factory ThemeToggleDto.fromJson(Map<String, dynamic> json) {
-    return ThemeToggleDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ThemeToggleDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -32,7 +32,10 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(LocaleKeys.command_center_labels_franchise_center.tr(), style: theme.typography.h2),
+                  Text(
+                    LocaleKeys.command_center_labels_franchise_center.tr(),
+                    style: theme.typography.h2,
+                  ),
                   Text(
                     'Unit profitability, royalty compliance, and operational growth telemetry',
                     style: theme.typography.labelMedium,
@@ -80,7 +83,7 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
         children: [
           Text('Regional Growth Matrix', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Business Intelligence Engine Initialized',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -98,7 +101,8 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Unit Profitability Trend',
+          title: LocaleKeys.dashboards_common_labels_unit_profitability_trend
+              .tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'profitability-trend',
@@ -117,7 +121,10 @@ class FranchiseOwnerDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

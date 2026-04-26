@@ -115,29 +115,29 @@ class MultiOfficePerformanceGrid extends StatelessWidget {
 
 /// Strategic action hub for the CEO.
 class CeoActionHub extends StatelessWidget {
-  const CeoActionHub({super.key});
+  CeoActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Board Report',
+          title: LocaleKeys.dashboards_common_labels_board_report.tr(),
           icon: LucideIcons.presentation,
           route: '/reports/board',
         ),
         PrimeCareActionItem(
-          title: 'Global Audit',
+          title: LocaleKeys.dashboards_common_labels_global_audit.tr(),
           icon: LucideIcons.shieldCheck,
           route: '/audit/global',
         ),
         PrimeCareActionItem(
-          title: 'Strategic Plan',
+          title: LocaleKeys.dashboards_common_labels_strategic_plan.tr(),
           icon: LucideIcons.target,
           route: '/strategy/plan',
         ),
         PrimeCareActionItem(
-          title: 'Capital Request',
+          title: LocaleKeys.dashboards_common_labels_capital_request.tr(),
           icon: LucideIcons.banknote,
           route: '/finance/capital',
         ),

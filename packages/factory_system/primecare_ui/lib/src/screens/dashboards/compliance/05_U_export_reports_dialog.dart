@@ -28,7 +28,7 @@ class _ExportReportsDialogState extends State<ExportReportsDialog> {
     setState(() => _isExporting = true);
     try {
       final exporter = ref.read(reportExporterProvider);
-      
+
       switch (_selectedReportType) {
         case 'Audit':
           await exporter.exportAuditReport(
@@ -52,12 +52,16 @@ class _ExportReportsDialogState extends State<ExportReportsDialog> {
           );
           break;
       }
-      
+
       if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('$_selectedReportType report exported successfully as ${_selectedFormat.name.toUpperCase()}'),
+            content: Text(
+              LocaleKeys
+                  .dashboards_common_labels_selectedreporttype_report_exported_successfully_as____selectedformat_name_touppercase
+                  .tr(),
+            ),
             backgroundColor: Colors.green,
           ),
         );
@@ -66,7 +70,9 @@ class _ExportReportsDialogState extends State<ExportReportsDialog> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Export failed: $e'),
+            content: Text(
+              LocaleKeys.dashboards_common_labels_export_failed___e.tr(),
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -81,54 +87,72 @@ class _ExportReportsDialogState extends State<ExportReportsDialog> {
     return Consumer(
       builder: (context, ref, _) {
         return AlertDialog(
-          title: const Text('Institutional Compliance Export'),
+          title: Text(
+            LocaleKeys.dashboards_common_labels_institutional_compliance_export
+                .tr(),
+          ),
           content: SizedBox(
             width: 400,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Select Report Type'),
-                const SizedBox(height: 8),
+                Text(
+                  LocaleKeys.dashboards_common_labels_select_report_type.tr(),
+                ),
+                SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   initialValue: _selectedReportType,
                   items: _reportTypes
                       .map((t) => DropdownMenuItem(value: t, child: Text(t)))
                       .toList(),
-                  onChanged: (val) => setState(() => _selectedReportType = val!),
-                  decoration: const InputDecoration(border: OutlineInputBorder()),
+                  onChanged: (val) =>
+                      setState(() => _selectedReportType = val!),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-                const SizedBox(height: 16),
-                const Text('Report Format'),
-                const SizedBox(height: 8),
+                SizedBox(height: 16),
+                Text(
+                  LocaleKeys.dashboards_common_labels_report_format.tr(),
+                ),
+                SizedBox(height: 8),
                 Row(
                   children: [
                     Expanded(
                       // ignore: deprecated_member_use
                       child: RadioListTile<ReportFormat>(
-                        title: const Text('PDF'),
+                        title: Text(
+                          LocaleKeys.dashboards_common_labels_pdf.tr(),
+                        ),
                         value: ReportFormat.pdf,
                         // ignore: deprecated_member_use
                         groupValue: _selectedFormat,
                         // ignore: deprecated_member_use
-                        onChanged: (val) => setState(() => _selectedFormat = val!),
+                        onChanged: (val) =>
+                            setState(() => _selectedFormat = val!),
                       ),
                     ),
                     Expanded(
                       // ignore: deprecated_member_use
                       child: RadioListTile<ReportFormat>(
-                        title: const Text('CSV'),
+                        title: Text(
+                          LocaleKeys.dashboards_common_labels_csv.tr(),
+                        ),
                         value: ReportFormat.csv,
                         // ignore: deprecated_member_use
                         groupValue: _selectedFormat,
                         // ignore: deprecated_member_use
-                        onChanged: (val) => setState(() => _selectedFormat = val!),
+                        onChanged: (val) =>
+                            setState(() => _selectedFormat = val!),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                const Text('Date Range (Optional)'),
+                SizedBox(height: 16),
+                Text(
+                  LocaleKeys.dashboards_common_labels_date_range__optional.tr(),
+                ),
                 const SizedBox(height: 8),
                 OutlinedButton.icon(
                   onPressed: () async {
@@ -137,9 +161,10 @@ class _ExportReportsDialogState extends State<ExportReportsDialog> {
                       firstDate: DateTime(2020),
                       lastDate: DateTime.now(),
                     );
-                    if (range != null) setState(() => _selectedDateRange = range);
+                    if (range != null)
+                      setState(() => _selectedDateRange = range);
                   },
-                  icon: const Icon(Icons.date_range),
+                  icon: Icon(Icons.date_range),
                   label: Text(
                     _selectedDateRange == null
                         ? 'Selected: All Time'
@@ -151,8 +176,12 @@ class _ExportReportsDialogState extends State<ExportReportsDialog> {
           ),
           actions: [
             TextButton(
-              onPressed: _isExporting ? null : () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              onPressed: _isExporting
+                  ? null
+                  : () => Navigator.of(context).pop(),
+              child: Text(
+                LocaleKeys.dashboards_common_labels_cancel.tr(),
+              ),
             ),
             PrimeCareButton(
               onPressed: _isExporting ? null : () => _handleExport(ref),

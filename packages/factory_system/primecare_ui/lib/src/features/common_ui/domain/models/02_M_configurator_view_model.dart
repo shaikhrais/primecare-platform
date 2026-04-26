@@ -5,10 +5,7 @@ class ConfiguratorViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ConfiguratorViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ConfiguratorViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

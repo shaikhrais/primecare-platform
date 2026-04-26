@@ -10,4 +10,3 @@ class Undo2IconMapper {
     );
   }
 }
-

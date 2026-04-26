@@ -5,10 +5,7 @@ class TooltipViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  TooltipViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  TooltipViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

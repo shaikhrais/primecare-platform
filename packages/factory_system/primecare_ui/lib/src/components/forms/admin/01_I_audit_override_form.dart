@@ -1,14 +1,12 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_core/00_B_flutter_core.dart';
 
-import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
-import '01_I_audit_override_form_adapter.dart';
 
 class AuditOverrideForm extends ConsumerStatefulWidget {
   final VoidCallback? onSuccess;
 
-  const AuditOverrideForm({super.key, this.onSuccess});
+  AuditOverrideForm({super.key, this.onSuccess});
 
   @override
   ConsumerState<AuditOverrideForm> createState() => _AuditOverrideFormState();
@@ -19,10 +17,18 @@ class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
 
   Future<void> _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final success = await ref.read(auditOverrideFormAdapterProvider.notifier).submit();
+      final success = await ref
+          .read(auditOverrideFormAdapterProvider.notifier)
+          .submit();
       if (success && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Audit override request submitted successfully.')),
+          SnackBar(
+            content: Text(
+              LocaleKeys
+                  .dashboards_common_labels_audit_override_request_submitted_successfully
+                  .tr(),
+            ),
+          ),
         );
         widget.onSuccess?.call();
       }
@@ -39,12 +45,15 @@ class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
 
     return BaseForm(
       formKey: _formKey,
-      title: 'Audit Override',
-      subtitle: 'Override global audit configurations for specific compliance needs.',
+      title: LocaleKeys.dashboards_common_labels_audit_override.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_override_global_audit_configurations_for_specific_compliance_needs
+          .tr(),
       onSubmit: _submit,
       submitText: 'Request Override',
       isLoading: asyncState.isLoading,
-      isEnabled: data != null && data.name.isNotEmpty && data.details.isNotEmpty,
+      isEnabled:
+          data != null && data.name.isNotEmpty && data.details.isNotEmpty,
       children: [
         if (asyncState.hasError)
           Padding(
@@ -66,7 +75,9 @@ class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
                   hintText: 'e.g., Data Retention Extension',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular((12 * layout.scaleFactor).toDouble()),
+                    borderRadius: BorderRadius.circular(
+                      (12 * layout.scaleFactor).toDouble(),
+                    ),
                   ),
                 ),
                 key: ValueKey('name_${data?.name}'),
@@ -86,7 +97,9 @@ class _AuditOverrideFormState extends ConsumerState<AuditOverrideForm> {
                   hintText: 'Describe why this override is necessary...',
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular((12 * layout.scaleFactor).toDouble()),
+                    borderRadius: BorderRadius.circular(
+                      (12 * layout.scaleFactor).toDouble(),
+                    ),
                   ),
                   alignLabelWithHint: true,
                 ),

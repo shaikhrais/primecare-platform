@@ -6,10 +6,6 @@ class RouteDto {
   RouteDto({required this.id, required this.raw});
 
   factory RouteDto.fromJson(Map<String, dynamic> json) {
-    return RouteDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return RouteDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

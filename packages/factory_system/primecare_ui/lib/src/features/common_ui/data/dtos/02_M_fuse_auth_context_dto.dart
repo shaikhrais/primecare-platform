@@ -6,10 +6,6 @@ class FuseAuthContextDto {
   FuseAuthContextDto({required this.id, required this.raw});
 
   factory FuseAuthContextDto.fromJson(Map<String, dynamic> json) {
-    return FuseAuthContextDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseAuthContextDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

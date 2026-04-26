@@ -15,14 +15,20 @@ class AuthSplitLayoutAdapter extends Notifier<AuthSplitLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-        state = AuthSplitLayoutViewModel(isLoading: true, data: state.data);
+    state = AuthSplitLayoutViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/auth-split-layout-adapter');
-      state = AuthSplitLayoutViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = AuthSplitLayoutViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = AuthSplitLayoutViewModel(isLoading: false, data: <String, dynamic>{});
+      state = AuthSplitLayoutViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

@@ -6,10 +6,6 @@ class HeadingButtonDto {
   HeadingButtonDto({required this.id, required this.raw});
 
   factory HeadingButtonDto.fromJson(Map<String, dynamic> json) {
-    return HeadingButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return HeadingButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

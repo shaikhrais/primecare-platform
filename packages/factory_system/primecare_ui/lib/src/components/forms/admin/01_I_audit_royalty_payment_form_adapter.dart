@@ -17,14 +17,22 @@ class AuditRoyaltyPaymentFormAdapter
   }
 
   Future<void> loadData() async {
-        state = AuditRoyaltyPaymentFormViewModel(isLoading: true, data: state.data);
+    state = AuditRoyaltyPaymentFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/audit-royalty-payment-form-adapter');
-      state = AuditRoyaltyPaymentFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/audit-royalty-payment-form-adapter',
+      );
+      state = AuditRoyaltyPaymentFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = AuditRoyaltyPaymentFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = AuditRoyaltyPaymentFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

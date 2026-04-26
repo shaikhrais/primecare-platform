@@ -6,10 +6,6 @@ class FuseScrollbarsDto {
   FuseScrollbarsDto({required this.id, required this.raw});
 
   factory FuseScrollbarsDto.fromJson(Map<String, dynamic> json) {
-    return FuseScrollbarsDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseScrollbarsDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

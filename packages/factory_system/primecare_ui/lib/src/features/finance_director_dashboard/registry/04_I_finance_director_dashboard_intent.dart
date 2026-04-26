@@ -22,10 +22,10 @@ class FinanceDirectorDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.financedirector.labels.aura_hud',
-    'dashboards.financedirector.labels.financial_summary_grid',
-    'dashboards.financedirector.labels.cash_flow_forecast',
-    'dashboards.financedirector.labels.budget_distribution',
+    'dashboards.financedirector.labels.dashboards_financedirector_labels_aura_hud',
+    'dashboards.financedirector.labels.dashboards_financedirector_labels_financial_summary_grid',
+    'dashboards.financedirector.labels.dashboards_financedirector_labels_cash_flow_forecast',
+    'dashboards.financedirector.labels.dashboards_financedirector_labels_budget_distribution',
   ];
 
   @override

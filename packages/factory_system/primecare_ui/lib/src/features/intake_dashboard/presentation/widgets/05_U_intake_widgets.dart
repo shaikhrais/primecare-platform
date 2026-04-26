@@ -99,29 +99,29 @@ class ReferralSourceMatrix extends StatelessWidget {
 
 /// Intake action hub for the Intake Coordinator.
 class IntakeDashboardActionHub extends StatelessWidget {
-  const IntakeDashboardActionHub({super.key});
+  IntakeDashboardActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'New Intake',
+          title: LocaleKeys.dashboards_common_labels_new_intake.tr(),
           icon: LucideIcons.userPlus,
           route: '/intake/new',
         ),
         PrimeCareActionItem(
-          title: 'Schedule',
+          title: LocaleKeys.dashboards_common_labels_schedule.tr(),
           icon: LucideIcons.calendar,
           route: '/intake/schedule',
         ),
         PrimeCareActionItem(
-          title: 'Assessments',
+          title: LocaleKeys.dashboards_common_labels_assessments.tr(),
           icon: LucideIcons.clipboardList,
           route: '/intake/assessments',
         ),
         PrimeCareActionItem(
-          title: 'Referrals',
+          title: LocaleKeys.dashboards_common_labels_referrals.tr(),
           icon: LucideIcons.share2,
           route: '/intake/referrals',
         ),

@@ -111,15 +111,22 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
               ),
             )
           else if (_carePlan != null)
-            Expanded(child: ListView(
+            Expanded(
+              child: ListView(
                 children: [
                   _buildSection(
                     'Patient',
-                    ((_carePlan!['client'] as Map<String, dynamic>?)?['fullName'] as String?) ?? 'Unknown',
+                    ((_carePlan!['client']
+                                as Map<String, dynamic>?)?['fullName']
+                            as String?) ??
+                        'Unknown',
                   ),
                   _buildSection(
                     'Authored By (RN)',
-                    ((_carePlan!['author'] as Map<String, dynamic>?)?['fullName'] as String?) ?? 'System Generated',
+                    ((_carePlan!['author']
+                                as Map<String, dynamic>?)?['fullName']
+                            as String?) ??
+                        'System Generated',
                   ),
                   _buildSection(
                     'Last Reviewed',
@@ -128,14 +135,19 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
                         : 'Never',
                   ),
                   const SizedBox(height: 16),
-                  _buildCard('Primary Diagnoses',
+                  _buildCard(
+                    'Primary Diagnoses',
                     (_carePlan!['diagnoses'] as String?) ?? 'None documented',
                   ),
-                  _buildCard('Clinical Goals',
-                    (_carePlan!['clinicalGoals'] as String?) ?? 'No specific goals',
+                  _buildCard(
+                    'Clinical Goals',
+                    (_carePlan!['clinicalGoals'] as String?) ??
+                        'No specific goals',
                   ),
-                  _buildCard('Required Interventions',
-                    (_carePlan!['interventions'] as String?) ?? 'Standard ADL care',
+                  _buildCard(
+                    'Required Interventions',
+                    (_carePlan!['interventions'] as String?) ??
+                        'Standard ADL care',
                   ),
                 ],
               ),

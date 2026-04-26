@@ -6,10 +6,6 @@ class FuseNavVerticalGroupDto {
   FuseNavVerticalGroupDto({required this.id, required this.raw});
 
   factory FuseNavVerticalGroupDto.fromJson(Map<String, dynamic> json) {
-    return FuseNavVerticalGroupDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseNavVerticalGroupDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

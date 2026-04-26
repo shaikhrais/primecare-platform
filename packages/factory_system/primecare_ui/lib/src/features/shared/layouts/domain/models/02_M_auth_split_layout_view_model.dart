@@ -5,10 +5,7 @@ class AuthSplitLayoutViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  AuthSplitLayoutViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  AuthSplitLayoutViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

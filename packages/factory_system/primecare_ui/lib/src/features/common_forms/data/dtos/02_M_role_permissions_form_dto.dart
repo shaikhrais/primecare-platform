@@ -6,10 +6,6 @@ class RolePermissionsFormDto {
   RolePermissionsFormDto({required this.id, required this.raw});
 
   factory RolePermissionsFormDto.fromJson(Map<String, dynamic> json) {
-    return RolePermissionsFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return RolePermissionsFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

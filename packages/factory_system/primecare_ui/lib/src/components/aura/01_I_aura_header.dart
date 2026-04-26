@@ -1,10 +1,7 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:ui';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/src/components/01_I_primecare_button.dart';
-import 'package:primecare_ui/src/theme/aura/01_I_aura_role_theme.dart';
-import 'package:primecare_ui/src/components/aura/01_I_aura_briefing_panel.dart';
 
 class AuraHeader extends ConsumerStatefulWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
@@ -589,7 +586,7 @@ class _AuraHeaderState extends ConsumerState<AuraHeader>
             ],
           ),
         ),
-        const PopupMenuDivider(),
+        PopupMenuDivider(),
         PopupMenuItem<String>(
           value: 'logout',
           child: Row(

@@ -6,10 +6,6 @@ class Undo2IconDto {
   Undo2IconDto({required this.id, required this.raw});
 
   factory Undo2IconDto.fromJson(Map<String, dynamic> json) {
-    return Undo2IconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return Undo2IconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

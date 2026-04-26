@@ -5,10 +5,7 @@ class FuseHighlightViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseHighlightViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseHighlightViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

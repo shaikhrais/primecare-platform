@@ -6,10 +6,6 @@ class ImagePlusIconDto {
   ImagePlusIconDto({required this.id, required this.raw});
 
   factory ImagePlusIconDto.fromJson(Map<String, dynamic> json) {
-    return ImagePlusIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ImagePlusIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

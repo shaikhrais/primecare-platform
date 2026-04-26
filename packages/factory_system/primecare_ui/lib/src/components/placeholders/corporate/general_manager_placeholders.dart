@@ -22,6 +22,8 @@ class GeneralmanagerdashboardmapperPlaceholder extends BasePlaceholder {
 }
 
 class GeneralmanagerdashboardmapperadapterPlaceholder extends BasePlaceholder {
-  const GeneralmanagerdashboardmapperadapterPlaceholder({super.key, dynamic data})
-    : super(name: 'Generalmanagerdashboardmapperadapter', data: data);
+  const GeneralmanagerdashboardmapperadapterPlaceholder({
+    super.key,
+    dynamic data,
+  }) : super(name: 'Generalmanagerdashboardmapperadapter', data: data);
 }

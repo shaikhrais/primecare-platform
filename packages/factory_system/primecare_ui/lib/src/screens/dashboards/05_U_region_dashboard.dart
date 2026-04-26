@@ -2,15 +2,17 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RegionDashboard extends ConsumerWidget {
-  const RegionDashboard({super.key});
+  RegionDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(regionalManagerOntarioMetricsProvider);
 
     return PageTemplate(
-      title: 'Regional Dashboard',
-      subtitle: 'Regional performance overview',
+      title: LocaleKeys.dashboards_common_labels_regional_dashboard.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_regional_performance_overview
+          .tr(),
       body: asyncData.when(
         data: (metrics) => PrimeCareResponsiveKpiGrid(metrics: metrics),
         loading: () => const PrimeCareSkeleton(),

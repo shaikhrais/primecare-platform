@@ -7,7 +7,7 @@ class SocialWorkerDashboardIntent extends PrimeCareScreen {
   SocialWorkerDashboardIntent()
     : super(
         name: 'social_worker_dashboard',
-        title: 'Social Care Command HUD',
+        title: LocaleKeys.dashboards_common_labels_social_care_command_hud.tr(),
         subtitle:
             'Caseload Tracking, Crisis Intervention & Community Alignment',
         route: ClinicalRoutes.socialWorkerDashboard,
@@ -33,5 +33,5 @@ class SocialWorkerDashboardIntent extends PrimeCareScreen {
       );
 
   @override
-  Widget build(BuildContext context) => const SocialWorkerDashboardScreen();
+  Widget build(BuildContext context) => SocialWorkerDashboardScreen();
 }

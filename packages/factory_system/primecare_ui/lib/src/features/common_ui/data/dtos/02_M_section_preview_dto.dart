@@ -6,10 +6,6 @@ class SectionPreviewDto {
   SectionPreviewDto({required this.id, required this.raw});
 
   factory SectionPreviewDto.fromJson(Map<String, dynamic> json) {
-    return SectionPreviewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SectionPreviewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

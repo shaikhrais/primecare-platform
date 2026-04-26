@@ -187,7 +187,7 @@ class _AuthLayoutState extends ConsumerState<AuthLayout> {
                   ),
                   child: PopupMenuButton<String>(
                     tooltip: 'common.tooltips.change_language'.tr(),
-                    offset: const Offset(0, 48),
+                    offset: Offset(0, 48),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -196,15 +196,15 @@ class _AuthLayoutState extends ConsumerState<AuthLayout> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.language,
                             color: Color(0xFF006948),
                             size: 20,
                           ),
-                          const SizedBox(width: 6),
+                          SizedBox(width: 6),
                           Text(
                             'auth.language_system'.tr(),
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Color(0xFF006948),
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Inter',
@@ -309,21 +309,21 @@ class _AuthLayoutState extends ConsumerState<AuthLayout> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
+                color: Color(0xFF38BDF8).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: const Color(0xFF38BDF8).withValues(alpha: 0.2),
+                  color: Color(0xFF38BDF8).withValues(alpha: 0.2),
                 ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     LucideIcons.lock,
                     color: Color(0xFF38BDF8),
                     size: 16,
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

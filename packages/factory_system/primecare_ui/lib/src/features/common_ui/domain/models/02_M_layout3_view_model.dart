@@ -5,10 +5,7 @@ class Layout3ViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  Layout3ViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  Layout3ViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

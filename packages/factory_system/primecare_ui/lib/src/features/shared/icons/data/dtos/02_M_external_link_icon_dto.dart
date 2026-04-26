@@ -6,10 +6,6 @@ class ExternalLinkIconDto {
   ExternalLinkIconDto({required this.id, required this.raw});
 
   factory ExternalLinkIconDto.fromJson(Map<String, dynamic> json) {
-    return ExternalLinkIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ExternalLinkIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

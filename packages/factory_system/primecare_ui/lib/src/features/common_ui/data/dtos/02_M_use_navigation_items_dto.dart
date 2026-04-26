@@ -6,10 +6,6 @@ class UseNavigationItemsDto {
   UseNavigationItemsDto({required this.id, required this.raw});
 
   factory UseNavigationItemsDto.fromJson(Map<String, dynamic> json) {
-    return UseNavigationItemsDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UseNavigationItemsDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

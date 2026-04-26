@@ -5,10 +5,7 @@ class AlignCenterIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  AlignCenterIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  AlignCenterIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

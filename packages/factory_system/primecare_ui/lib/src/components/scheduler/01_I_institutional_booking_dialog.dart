@@ -200,9 +200,13 @@ class _InstitutionalBookingDialogState
                             // ignore: deprecated_member_use
                             value: _selectedResource,
                             items: [
-                              const DropdownMenuItem(
+                              DropdownMenuItem(
                                 value: null,
-                                child: Text('No Resource'),
+                                child: Text(
+                                  LocaleKeys
+                                      .dashboards_common_labels_no_resource
+                                      .tr(),
+                                ),
                               ),
                               ...widget.schedule.resources.map(
                                 (r) => DropdownMenuItem(
@@ -325,17 +329,19 @@ class _InstitutionalBookingDialogState
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Appointment?'),
-        content: const Text('This action cannot be undone.'),
+        title: Text(LocaleKeys.dashboards_common_labels_delete_appointment.tr(),
+        ),
+        content: Text(LocaleKeys.dashboards_common_labels_this_action_cannot_be_undone.tr(),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(LocaleKeys.dashboards_common_labels_cancel.tr()),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: PrimeCareColors.rose),
-            child: const Text('Delete'),
+            child: Text(LocaleKeys.dashboards_common_labels_delete.tr()),
           ),
         ],
       ),

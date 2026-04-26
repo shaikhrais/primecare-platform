@@ -1,8 +1,8 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 
 class MedicationFrequencyPicker extends StatelessWidget {
-  const MedicationFrequencyPicker({super.key});
+  MedicationFrequencyPicker({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,13 +10,22 @@ class MedicationFrequencyPicker extends StatelessWidget {
       spacing: 8,
       children: [
         ChoiceChip(
-          label: const Text('PRN'),
+          label: Text(LocaleKeys.dashboards_common_labels_prn.tr()),
           selected: true,
           selectedColor: Theme.of(context).primaryColorLight,
         ),
-        const ChoiceChip(label: Text('Daily'), selected: false),
-        const ChoiceChip(label: Text('BID'), selected: false),
-        const ChoiceChip(label: Text('TID'), selected: false),
+        ChoiceChip(
+          label: Text(LocaleKeys.dashboards_common_labels_daily.tr()),
+          selected: false,
+        ),
+        ChoiceChip(
+          label: Text(LocaleKeys.dashboards_common_labels_bid.tr()),
+          selected: false,
+        ),
+        ChoiceChip(
+          label: Text(LocaleKeys.dashboards_common_labels_tid.tr()),
+          selected: false,
+        ),
       ],
     );
   }

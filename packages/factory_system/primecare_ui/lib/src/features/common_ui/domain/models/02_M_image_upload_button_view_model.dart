@@ -5,10 +5,7 @@ class ImageUploadButtonViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ImageUploadButtonViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ImageUploadButtonViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -3,29 +3,33 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 class AppScreen extends ConsumerWidget {
   final dynamic data;
-  
-  const AppScreen({super.key, this.data});
+
+  AppScreen({super.key, this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PrimeCareScaffold(
-      title: 'app',
+      title: LocaleKeys.dashboards_common_labels_app.tr(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
-            const SizedBox(height: 16),
-            Text(
-              'app Implementation',
-              style: context.textTheme.headlineMedium,
+            Icon(
+              LucideIcons.component,
+              size: 64,
+              color: context.theme.colors.primary,
             ),
-            const SizedBox(height: 8),
-            Text('This component is part of the common_ui module.'),
+            SizedBox(height: 16),
+            Text('app Implementation', style: context.textTheme.headlineMedium),
+            SizedBox(height: 8),
+            Text(
+              LocaleKeys
+                  .dashboards_common_labels_this_component_is_part_of_the_common_ui_module
+                  .tr(),
+            ),
           ],
         ),
       ),
     );
   }
 }
-

@@ -66,9 +66,9 @@ class ComplianceManagerScreen extends ConsumerWidget {
       elevation: 0,
       title: Row(
         children: [
-          const Icon(Icons.verified_user, color: Color(0xFF6A1B9A)),
-          const SizedBox(width: 12),
-          const Text(
+          Icon(Icons.verified_user, color: Color(0xFF6A1B9A)),
+          SizedBox(width: 12),
+          Text(
             'Compliance & Regulatory',
             style: TextStyle(
               color: Colors.black87,
@@ -81,8 +81,8 @@ class ComplianceManagerScreen extends ConsumerWidget {
       actions: [
         ElevatedButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.add_chart, size: 16),
-          label: const Text('NEW AUDIT'),
+          icon: Icon(Icons.add_chart, size: 16),
+          label: Text(LocaleKeys.dashboards_common_labels_new_audit.tr()),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF6A1B9A),
             foregroundColor: Colors.white,
@@ -126,17 +126,17 @@ class ComplianceManagerScreen extends ConsumerWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: vm.metrics.insights.length,
-        separatorBuilder: (_, __) => const Divider(height: 1),
+        separatorBuilder: (_, __) => Divider(height: 1),
         itemBuilder: (context, index) {
           final insight = vm.metrics.insights[index];
           return ListTile(
             leading: Icon(Icons.warning_amber_rounded, color: Colors.red[700]),
             title: Text(
               insight.title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Text(insight.summary),
-            trailing: const Icon(Icons.chevron_right),
+            trailing: Icon(Icons.chevron_right),
           );
         },
       ),
@@ -145,7 +145,7 @@ class ComplianceManagerScreen extends ConsumerWidget {
 
   Widget _buildAuditTimeline(ComplianceManagerDashboardViewModel vm) {
     return _buildCard(
-      title: 'Audit & Review Timeline',
+      title: LocaleKeys.dashboards_common_labels_audit___review_timeline.tr(),
       child: Container(
         height: 300,
         decoration: BoxDecoration(

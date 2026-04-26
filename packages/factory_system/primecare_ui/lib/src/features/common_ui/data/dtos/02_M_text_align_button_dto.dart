@@ -6,10 +6,6 @@ class TextAlignButtonDto {
   TextAlignButtonDto({required this.id, required this.raw});
 
   factory TextAlignButtonDto.fromJson(Map<String, dynamic> json) {
-    return TextAlignButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return TextAlignButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -3,7 +3,6 @@ import 'package:flutter_core/00_B_flutter_core.dart';
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
 
-
 // --- State Model ---
 class StaffProvisionData {
   final String firstName;
@@ -57,14 +56,24 @@ class StaffProvisioningFormAdapter extends AsyncNotifier<StaffProvisionData> {
       // Parallel fetch for optimized loading
       final futures = await Future.wait([
         ref.read(apiClientProvider).get(ApiConfig.endpoints['identityRoles']!),
-        ref.read(apiClientProvider).get(ApiConfig.endpoints['adminDepartments']!),
+        ref
+            .read(apiClientProvider)
+            .get(ApiConfig.endpoints['adminDepartments']!),
       ]);
 
       final rolesResponse = futures[0];
       final deptsResponse = futures[1];
 
-      final List<Map<String, dynamic>> roles = List<Map<String, dynamic>>.from(((rolesResponse.data as Map<String, dynamic>)['data'] as List<dynamic>?) ?? []);
-      final List<Map<String, dynamic>> depts = List<Map<String, dynamic>>.from(((deptsResponse.data as Map<String, dynamic>)['data'] as List<dynamic>?) ?? []);
+      final List<Map<String, dynamic>> roles = List<Map<String, dynamic>>.from(
+        ((rolesResponse.data as Map<String, dynamic>)['data']
+                as List<dynamic>?) ??
+            [],
+      );
+      final List<Map<String, dynamic>> depts = List<Map<String, dynamic>>.from(
+        ((deptsResponse.data as Map<String, dynamic>)['data']
+                as List<dynamic>?) ??
+            [],
+      );
 
       return StaffProvisionData(
         availableRoles: roles,
@@ -125,12 +134,18 @@ class StaffProvisioningFormAdapter extends AsyncNotifier<StaffProvisionData> {
       (data) {
         // Reset form but preserve metadata
         final current = state.value;
-        state = AsyncData(StaffProvisionData(
-          availableRoles: current?.availableRoles ?? [],
-          availableDepartments: current?.availableDepartments ?? [],
-          role: current?.availableRoles.isNotEmpty == true ? current?.availableRoles.first['id'] as String : '',
-          department: current?.availableDepartments.isNotEmpty == true ? current?.availableDepartments.first['id'] as String : '',
-        ));
+        state = AsyncData(
+          StaffProvisionData(
+            availableRoles: current?.availableRoles ?? [],
+            availableDepartments: current?.availableDepartments ?? [],
+            role: current?.availableRoles.isNotEmpty == true
+                ? current?.availableRoles.first['id'] as String
+                : '',
+            department: current?.availableDepartments.isNotEmpty == true
+                ? current?.availableDepartments.first['id'] as String
+                : '',
+          ),
+        );
         return true;
       },
       (failure) {

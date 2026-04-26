@@ -6,10 +6,6 @@ class SignUpPageTitleDto {
   SignUpPageTitleDto({required this.id, required this.raw});
 
   factory SignUpPageTitleDto.fromJson(Map<String, dynamic> json) {
-    return SignUpPageTitleDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SignUpPageTitleDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -5,10 +5,7 @@ class MarkButtonViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  MarkButtonViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  MarkButtonViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

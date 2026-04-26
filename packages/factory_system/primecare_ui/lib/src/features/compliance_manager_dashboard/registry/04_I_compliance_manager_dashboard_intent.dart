@@ -22,9 +22,9 @@ class ComplianceManagerDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.compliancemanager.labels.registry_integrity_score',
-    'dashboards.compliancemanager.labels.anomaly_heatmap',
-    'dashboards.compliancemanager.labels.execution_gate_logs',
+    'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_registry_integrity_score',
+    'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_anomaly_heatmap',
+    'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_execution_gate_logs',
   ];
 
   @override

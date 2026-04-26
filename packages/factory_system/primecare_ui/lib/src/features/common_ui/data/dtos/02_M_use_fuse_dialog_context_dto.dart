@@ -6,10 +6,6 @@ class UseFuseDialogContextDto {
   UseFuseDialogContextDto({required this.id, required this.raw});
 
   factory UseFuseDialogContextDto.fromJson(Map<String, dynamic> json) {
-    return UseFuseDialogContextDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UseFuseDialogContextDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

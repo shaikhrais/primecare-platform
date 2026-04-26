@@ -5,11 +5,12 @@ class ScheduleFacilityMaintenanceFormDto {
 
   ScheduleFacilityMaintenanceFormDto({required this.id, required this.raw});
 
-  factory ScheduleFacilityMaintenanceFormDto.fromJson(Map<String, dynamic> json) {
+  factory ScheduleFacilityMaintenanceFormDto.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return ScheduleFacilityMaintenanceFormDto(
       id: json['id']?.toString() ?? '',
       raw: json,
     );
   }
 }
-

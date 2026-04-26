@@ -6,10 +6,6 @@ class InitializeFirebaseDto {
   InitializeFirebaseDto({required this.id, required this.raw});
 
   factory InitializeFirebaseDto.fromJson(Map<String, dynamic> json) {
-    return InitializeFirebaseDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return InitializeFirebaseDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

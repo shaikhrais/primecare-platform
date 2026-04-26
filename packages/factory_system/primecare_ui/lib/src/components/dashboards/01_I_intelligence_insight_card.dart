@@ -72,7 +72,10 @@ class IntelligenceInsightCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text(insight.summary.translate(context), style: theme.typography.bodySmall),
+          Text(
+            insight.summary.translate(context),
+            style: theme.typography.bodySmall,
+          ),
           if (insight.recommendation != null) ...[
             const SizedBox(height: 12),
             Container(

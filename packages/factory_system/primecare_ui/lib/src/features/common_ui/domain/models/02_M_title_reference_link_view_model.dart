@@ -5,10 +5,7 @@ class TitleReferenceLinkViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  TitleReferenceLinkViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  TitleReferenceLinkViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

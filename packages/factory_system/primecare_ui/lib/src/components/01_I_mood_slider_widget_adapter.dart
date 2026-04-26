@@ -15,14 +15,20 @@ class MoodSliderWidgetAdapter extends Notifier<MoodSliderWidgetViewModel> {
   }
 
   Future<void> loadData() async {
-        state = MoodSliderWidgetViewModel(isLoading: true, data: state.data);
+    state = MoodSliderWidgetViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/mood-slider-widget-adapter');
-      state = MoodSliderWidgetViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = MoodSliderWidgetViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = MoodSliderWidgetViewModel(isLoading: false, data: <String, dynamic>{});
+      state = MoodSliderWidgetViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

@@ -22,10 +22,10 @@ class PswDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.psw.labels.aura_hud',
-    'dashboards.psw.labels.clinical_summary',
-    'dashboards.psw.labels.care_plan_checklist',
-    'dashboards.psw.labels.incident_quick_report',
+    'dashboards.psw.labels.dashboards_psw_labels_aura_hud',
+    'dashboards.psw.labels.dashboards_psw_labels_clinical_summary',
+    'dashboards.psw.labels.dashboards_psw_labels_care_plan_checklist',
+    'dashboards.psw.labels.dashboards_psw_labels_incident_quick_report',
   ];
 
   @override

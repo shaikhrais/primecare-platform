@@ -18,7 +18,8 @@ class DynamicScreenDashboardIntent extends AppScreenIntent {
   PlatformRole get requiredRole => PlatformRole.dynamicScreen;
 
   @override
-  dynamic get provider => dynamicAdapterProvider(PrimeCareForm.genericDashboard);
+  dynamic get provider =>
+      dynamicAdapterProvider(PrimeCareForm.genericDashboard);
 
   @override
   Widget build(BuildContext context) => const DynamicScreenDashboardScreen();

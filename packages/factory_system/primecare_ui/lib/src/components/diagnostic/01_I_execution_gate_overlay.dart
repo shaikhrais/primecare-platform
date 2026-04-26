@@ -1,15 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_adapters/src/infrastructure/01_I_telemetry_service.dart';
-import '../../theme/01_I_colors.dart';
 
 /// A floating diagnostic overlay that lets developers/engineers pull the
 /// execution trace of the current session to diagnose dynamic failures.
 class ExecutionGateOverlay extends ConsumerStatefulWidget {
   final Widget child;
 
-  const ExecutionGateOverlay({super.key, required this.child});
+  ExecutionGateOverlay({super.key, required this.child});
 
   @override
   ConsumerState<ExecutionGateOverlay> createState() =>
@@ -26,8 +23,12 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
     Clipboard.setData(ClipboardData(text: report));
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Session Audit Report copied to clipboard'),
+      SnackBar(
+        content: Text(
+          LocaleKeys
+              .dashboards_common_labels_session_audit_report_copied_to_clipboard
+              .tr(),
+        ),
         duration: Duration(seconds: 2),
       ),
     );
@@ -39,7 +40,12 @@ class _ExecutionGateOverlayState extends ConsumerState<ExecutionGateOverlay> {
       await ref.read(executionGateProvider).submitToCloudWatch();
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Report submitted successfully')),
+          SnackBar(
+            content: Text(
+              LocaleKeys.dashboards_common_labels_report_submitted_successfully
+                  .tr(),
+            ),
+          ),
         );
       }
     } finally {

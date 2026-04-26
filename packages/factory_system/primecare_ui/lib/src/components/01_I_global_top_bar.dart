@@ -1,8 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:ui';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/src/theme/01_I_design_system.dart';
-import 'package:primecare_ui/src/components/01_I_primecare_button.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
@@ -290,15 +288,14 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
         ref.read(languageProvider.notifier).setLanguage(langCode);
         context.setLocale(Locale(langCode));
       },
-      itemBuilder:
-          (context) {
-            final ds = PrimeCareDesignSystem.of(context);
-            return [
-              _buildLanguageItem('en', 'common.language.en'.tr(), scale, ds),
-              _buildLanguageItem('fr', 'common.language.fr'.tr(), scale, ds),
-              _buildLanguageItem('es', 'common.language.es'.tr(), scale, ds),
-            ];
-          },
+      itemBuilder: (context) {
+        final ds = PrimeCareDesignSystem.of(context);
+        return [
+          _buildLanguageItem('en', 'common.language.en'.tr(), scale, ds),
+          _buildLanguageItem('fr', 'common.language.fr'.tr(), scale, ds),
+          _buildLanguageItem('es', 'common.language.es'.tr(), scale, ds),
+        ];
+      },
 
       child: Container(
         width: 42 * scale,
@@ -365,7 +362,6 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     );
   }
 
-
   Widget _buildIconButton(
     ThemeData theme,
     IconData icon,
@@ -418,8 +414,9 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     final authState = ref.watch(authProvider);
     final userName = authState.userName ?? 'PrimeCare User';
     final role = authState.role ?? 'Administrator';
-    final initials =
-        userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
+    final initials = userName.isNotEmpty
+        ? userName.substring(0, 1).toUpperCase()
+        : 'U';
 
     return InkWell(
       onTap: () => _showAccountMenu(context, ref, scale),
@@ -482,9 +479,9 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
         borderRadius: BorderRadius.circular(12 * scale),
       ),
       items: <PopupMenuEntry<String>>[
-        const PopupMenuItem<String>(
+        PopupMenuItem<String>(
           value: 'profile',
-          child: Text('User Profile'),
+          child: Text(LocaleKeys.dashboards_common_labels_user_profile.tr()),
         ),
         const PopupMenuDivider(),
         PopupMenuItem<String>(
@@ -522,7 +519,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(LocaleKeys.dashboards_common_labels_cancel.tr()),
           ),
           PrimeCareButton(
             label: 'Sign Out',
@@ -538,7 +535,5 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize =>
-      const Size.fromHeight(72.0); // Updated to match HTML height
+  Size get preferredSize => const Size.fromHeight(72.0); // Updated to match HTML height
 }
-

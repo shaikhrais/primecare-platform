@@ -6,10 +6,6 @@ class FooterThemeDto {
   FooterThemeDto({required this.id, required this.raw});
 
   factory FooterThemeDto.fromJson(Map<String, dynamic> json) {
-    return FooterThemeDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FooterThemeDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

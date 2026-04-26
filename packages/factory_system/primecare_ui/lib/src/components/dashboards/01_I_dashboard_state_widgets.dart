@@ -1,8 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_ui/src/theme/01_I_primecare_theme.dart';
-import 'package:primecare_ui/src/components/01_I_primecare_skeleton.dart';
 
 /// Standard loading state for high-fidelity dashboards.
 class DashboardLoadingWidget extends StatelessWidget {
@@ -125,7 +122,9 @@ class _DashboardErrorWidgetState extends State<DashboardErrorWidget> {
                           : LucideIcons.chevronDown,
                       size: 16,
                     ),
-                    label: const Text('DEVELOPER DIAGNOSTICS'),
+                    label: Text(LocaleKeys.dashboards_common_labels_developer_diagnostics
+                          .tr(),
+                    ),
                     style: TextButton.styleFrom(
                       foregroundColor: theme.colors.error,
                     ),
@@ -195,7 +194,7 @@ class _DashboardErrorWidgetState extends State<DashboardErrorWidget> {
                               child: SingleChildScrollView(
                                 child: SelectableText(
                                   widget.stackTrace.toString(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'monospace',
                                     fontSize: 10,
                                     color: Colors.black54,
@@ -213,8 +212,10 @@ class _DashboardErrorWidgetState extends State<DashboardErrorWidget> {
                   SizedBox(height: theme.spacing.xl),
                   ElevatedButton.icon(
                     onPressed: widget.onRetry,
-                    icon: const Icon(LucideIcons.refreshCw, size: 18),
-                    label: const Text('Retry Synchronization'),
+                    icon: Icon(LucideIcons.refreshCw, size: 18),
+                    label: Text(LocaleKeys.dashboards_common_labels_retry_synchronization
+                          .tr(),
+                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.colors.error,
                       foregroundColor: Colors.white,

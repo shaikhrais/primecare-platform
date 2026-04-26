@@ -10,4 +10,3 @@ class NavbarMobileLayout2Mapper {
     );
   }
 }
-

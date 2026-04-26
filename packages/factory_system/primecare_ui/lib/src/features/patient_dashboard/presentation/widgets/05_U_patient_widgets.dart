@@ -97,29 +97,29 @@ class CarePlanProgressGrid extends StatelessWidget {
 
 /// Patient action hub for the Patient.
 class PatientActionHub extends StatelessWidget {
-  const PatientActionHub({super.key});
+  PatientActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Request Meds',
+          title: LocaleKeys.dashboards_common_labels_request_meds.tr(),
           icon: LucideIcons.pill,
           route: '/patient/meds/request',
         ),
         PrimeCareActionItem(
-          title: 'Message Nurse',
+          title: LocaleKeys.dashboards_common_labels_message_nurse.tr(),
           icon: LucideIcons.messageSquare,
           route: '/patient/messages',
         ),
         PrimeCareActionItem(
-          title: 'Care Plan',
+          title: LocaleKeys.dashboards_common_labels_care_plan.tr(),
           icon: LucideIcons.fileText,
           route: '/patient/care-plan',
         ),
         PrimeCareActionItem(
-          title: 'Vitals Log',
+          title: LocaleKeys.dashboards_common_labels_vitals_log.tr(),
           icon: LucideIcons.activity,
           route: '/patient/vitals',
         ),

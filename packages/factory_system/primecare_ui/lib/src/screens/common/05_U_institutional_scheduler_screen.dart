@@ -43,8 +43,10 @@ class _InstitutionalSchedulerScreenState
               .addAppointment(result);
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Appointment Created'),
+              SnackBar(
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_appointment_created.tr(),
+                ),
                 backgroundColor: PrimeCareColors.emerald,
               ),
             );
@@ -53,7 +55,9 @@ class _InstitutionalSchedulerScreenState
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Creation Failed: $e'),
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_creation_failed___e.tr(),
+                ),
                 backgroundColor: PrimeCareColors.rose,
               ),
             );
@@ -85,8 +89,10 @@ class _InstitutionalSchedulerScreenState
               .deleteAppointment(appt.id);
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Appointment deleted'),
+              SnackBar(
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_appointment_deleted.tr(),
+                ),
                 backgroundColor: PrimeCareColors.rose,
               ),
             );
@@ -95,7 +101,9 @@ class _InstitutionalSchedulerScreenState
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Error: $e'),
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_error___e.tr(),
+                ),
                 backgroundColor: PrimeCareColors.rose,
               ),
             );
@@ -109,8 +117,10 @@ class _InstitutionalSchedulerScreenState
               .updateAppointment(updated);
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Appointment updated'),
+              SnackBar(
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_appointment_updated.tr(),
+                ),
                 backgroundColor: PrimeCareColors.emerald,
               ),
             );
@@ -119,7 +129,9 @@ class _InstitutionalSchedulerScreenState
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Error: $e'),
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_error___e.tr(),
+                ),
                 backgroundColor: PrimeCareColors.rose,
               ),
             );
@@ -155,7 +167,9 @@ class _InstitutionalSchedulerScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Move Failed: $e'),
+            content: Text(
+              LocaleKeys.dashboards_common_labels_move_failed___e.tr(),
+            ),
             backgroundColor: PrimeCareColors.rose,
           ),
         );
@@ -183,8 +197,10 @@ class _InstitutionalSchedulerScreenState
               .addAppointment(result);
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Appointment Created'),
+              SnackBar(
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_appointment_created.tr(),
+                ),
                 backgroundColor: PrimeCareColors.emerald,
               ),
             );
@@ -193,7 +209,9 @@ class _InstitutionalSchedulerScreenState
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Creation Failed: $e'),
+                content: Text(
+                  LocaleKeys.dashboards_common_labels_creation_failed___e.tr(),
+                ),
                 backgroundColor: PrimeCareColors.rose,
               ),
             );
@@ -210,13 +228,17 @@ class _InstitutionalSchedulerScreenState
     final scale = layout.scaleFactor;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       body: Stack(
         children: [
           scheduleAsync.when(
             data: (schedule) => _buildBody(context, schedule, scale),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, s) => Center(child: Text('Scheduler Error: $e')),
+            loading: () => Center(child: CircularProgressIndicator()),
+            error: (e, s) => Center(
+              child: Text(
+                LocaleKeys.dashboards_common_labels_scheduler_error___e.tr(),
+              ),
+            ),
           ),
           // Aura AI HUD Overlay
           Positioned(
@@ -250,7 +272,9 @@ class _InstitutionalSchedulerScreenState
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _handleNewAppointment(context),
-        label: const Text('New Appointment'),
+        label: Text(
+          LocaleKeys.dashboards_common_labels_new_appointment.tr(),
+        ),
         icon: const Icon(LucideIcons.plus),
         backgroundColor: PrimeCareDesignSystem.primaryBrand,
       ),

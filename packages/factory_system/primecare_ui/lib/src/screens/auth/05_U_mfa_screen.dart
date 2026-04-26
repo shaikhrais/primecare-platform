@@ -1,7 +1,5 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:easy_localization/easy_localization.dart';
-import 'package:primecare_ui/src/theme/01_I_colors.dart';
-import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class MFAScreen extends StatelessWidget {
   const MFAScreen({super.key});
@@ -30,7 +28,7 @@ class MFAScreen extends StatelessWidget {
                   color: PrimeCareColors.white,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               Text(
                 'auth.mfa.subtitle'.tr(),
                 textAlign: TextAlign.center,
@@ -54,19 +52,21 @@ class MFAScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   color: PrimeCareColors.white,
                   fontSize: 24,
                   letterSpacing: 8,
                 ),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
+                  minimumSize: Size(double.infinity, 50),
                 ),
-                child: const Text('Verify Code'),
+                child: Text(
+                  LocaleKeys.dashboards_common_labels_verify_code.tr(),
+                ),
               ),
             ],
           ),

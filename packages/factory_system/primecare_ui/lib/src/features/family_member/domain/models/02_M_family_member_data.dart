@@ -6,7 +6,6 @@ part '02_M_family_member_data.g.dart';
 
 @freezed
 abstract class FamilyMemberData with _$FamilyMemberData {
-
   const factory FamilyMemberData({required Map<String, dynamic> metrics}) =
       _FamilyMemberData;
 

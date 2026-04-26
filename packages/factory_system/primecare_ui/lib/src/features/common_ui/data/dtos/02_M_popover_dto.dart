@@ -6,10 +6,6 @@ class PopoverDto {
   PopoverDto({required this.id, required this.raw});
 
   factory PopoverDto.fromJson(Map<String, dynamic> json) {
-    return PopoverDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PopoverDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

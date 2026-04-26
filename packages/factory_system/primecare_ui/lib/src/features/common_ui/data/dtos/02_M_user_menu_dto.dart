@@ -6,10 +6,6 @@ class UserMenuDto {
   UserMenuDto({required this.id, required this.raw});
 
   factory UserMenuDto.fromJson(Map<String, dynamic> json) {
-    return UserMenuDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UserMenuDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

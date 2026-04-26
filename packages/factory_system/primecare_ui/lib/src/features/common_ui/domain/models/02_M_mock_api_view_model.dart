@@ -5,10 +5,7 @@ class MockApiViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  MockApiViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  MockApiViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

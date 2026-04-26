@@ -5,10 +5,7 @@ class AWSAuthContextViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  AWSAuthContextViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  AWSAuthContextViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

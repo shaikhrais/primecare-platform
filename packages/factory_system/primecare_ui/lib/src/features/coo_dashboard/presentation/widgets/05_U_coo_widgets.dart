@@ -115,29 +115,29 @@ class StaffingCapacityGrid extends StatelessWidget {
 
 /// Operational action hub for the COO.
 class CooActionHub extends StatelessWidget {
-  const CooActionHub({super.key});
+  CooActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Dispatch Supplies',
+          title: LocaleKeys.dashboards_common_labels_dispatch_supplies.tr(),
           icon: LucideIcons.truck,
           route: '/logistics/dispatch',
         ),
         PrimeCareActionItem(
-          title: 'Capacity Audit',
+          title: LocaleKeys.dashboards_common_labels_capacity_audit.tr(),
           icon: LucideIcons.clipboardCheck,
           route: '/audit/capacity',
         ),
         PrimeCareActionItem(
-          title: 'Incident Logs',
+          title: LocaleKeys.dashboards_common_labels_incident_logs.tr(),
           icon: LucideIcons.alertTriangle,
           route: '/operations/incidents',
         ),
         PrimeCareActionItem(
-          title: 'Facility Status',
+          title: LocaleKeys.dashboards_common_labels_facility_status.tr(),
           icon: LucideIcons.building,
           route: '/facilities/status',
         ),

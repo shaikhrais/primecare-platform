@@ -6,10 +6,6 @@ class LeaveRequestFormDto {
   LeaveRequestFormDto({required this.id, required this.raw});
 
   factory LeaveRequestFormDto.fromJson(Map<String, dynamic> json) {
-    return LeaveRequestFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return LeaveRequestFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -4,13 +4,13 @@ import 'package:flutter_core/routes/01_I_safe_navigation.dart';
 
 class Error500PageViewScreen extends ConsumerWidget {
   final dynamic data;
-  
-  const Error500PageViewScreen({super.key, this.data});
+
+  Error500PageViewScreen({super.key, this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PrimeCareScaffold(
-      title: 'Internal Server Error',
+      title: LocaleKeys.dashboards_common_labels_internal_server_error.tr(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -61,33 +61,44 @@ class Error500PageViewScreen extends ConsumerWidget {
                   'The self-healing registry has detected a hydration failure in a critical component. Our systems are actively rerouting services to maintain stability.',
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyLarge?.copyWith(
-                    color: context.theme.colors.slateGray.withValues(alpha: 0.7),
+                    color: context.theme.colors.slateGray.withValues(
+                      alpha: 0.7,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 48),
+              SizedBox(height: 48),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () => context.goSafe(AppRoute(CommonRoutes.clinicDashboard)),
-                    icon: const Icon(LucideIcons.home),
-                    label: const Text('Return to Safety'),
+                    onPressed: () =>
+                        context.goSafe(AppRoute(CommonRoutes.clinicDashboard)),
+                    icon: Icon(LucideIcons.home),
+                    label: Text(LocaleKeys.dashboards_common_labels_return_to_safety.tr(),
+                    ),
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 32,
+                        vertical: 20,
+                      ),
                       backgroundColor: context.theme.colors.primary,
                       foregroundColor: context.theme.colors.surface,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16),
                   OutlinedButton.icon(
                     onPressed: () {
                       // Trigger manual telemetry ping
                     },
-                    icon: const Icon(LucideIcons.refreshCw),
-                    label: const Text('Retry Hydration'),
+                    icon: Icon(LucideIcons.refreshCw),
+                    label: Text(LocaleKeys.dashboards_common_labels_retry_hydration.tr(),
+                    ),
                     style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 32,
+                        vertical: 20,
+                      ),
                     ),
                   ),
                 ],

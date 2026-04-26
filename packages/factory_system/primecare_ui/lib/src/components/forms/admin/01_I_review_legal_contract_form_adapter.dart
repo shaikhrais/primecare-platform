@@ -17,14 +17,22 @@ class ReviewLegalContractFormAdapter
   }
 
   Future<void> loadData() async {
-        state = ReviewLegalContractFormViewModel(isLoading: true, data: state.data);
+    state = ReviewLegalContractFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/review-legal-contract-form-adapter');
-      state = ReviewLegalContractFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/review-legal-contract-form-adapter',
+      );
+      state = ReviewLegalContractFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = ReviewLegalContractFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = ReviewLegalContractFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

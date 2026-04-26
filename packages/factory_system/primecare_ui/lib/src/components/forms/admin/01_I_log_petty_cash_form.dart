@@ -1,9 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
-import 'package:primecare_ui/src/components/forms/admin/01_I_log_petty_cash_form_adapter.dart';
 
 class LogPettyCashForm extends ConsumerStatefulWidget {
   const LogPettyCashForm({super.key});
@@ -48,8 +45,12 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
 
       if (mounted && success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Petty cash expenditure successfully logged.'),
+          SnackBar(
+            content: Text(
+              LocaleKeys
+                  .dashboards_common_labels_petty_cash_expenditure_successfully_logged
+                  .tr(),
+            ),
             backgroundColor: Colors.green,
           ),
         );
@@ -75,8 +76,10 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
 
     return BaseForm(
       formKey: _formKey,
-      title: 'Log Petty Cash',
-      subtitle: 'Record and categorize localized petty cash expenditure.',
+      title: LocaleKeys.dashboards_common_labels_log_petty_cash.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_record_and_categorize_localized_petty_cash_expenditure
+          .tr(),
       onSubmit: _submit,
       isLoading: viewModel.isLoading,
       submitText: 'Record Expenditure',
@@ -91,10 +94,14 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
                   labelText: 'common.amount'.tr(),
                   prefixIcon: const Icon(Icons.attach_money),
                   hintText: '0.00',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   filled: true,
                 ),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) return 'Required';
                   if (double.tryParse(value) == null) return 'Invalid amount';
@@ -102,7 +109,7 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
                 },
               ),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16),
             Expanded(
               child: InkWell(
                 onTap: _selectDate,
@@ -110,8 +117,10 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
                 child: InputDecorator(
                   decoration: InputDecoration(
                     labelText: 'common.date'.tr(),
-                    prefixIcon: const Icon(Icons.calendar_today),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    prefixIcon: Icon(Icons.calendar_today),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     filled: true,
                   ),
                   child: Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
@@ -120,7 +129,7 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 16),
         DropdownButtonFormField<String>(
           initialValue: _selectedCategory,
           decoration: InputDecoration(
@@ -146,7 +155,8 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
             filled: true,
           ),
-          validator: (value) => value == null || value.isEmpty ? 'Required' : null,
+          validator: (value) =>
+              value == null || value.isEmpty ? 'Required' : null,
         ),
         const SizedBox(height: 16),
         TextFormField(
@@ -158,7 +168,8 @@ class _LogPettyCashFormState extends ConsumerState<LogPettyCashForm> {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
             filled: true,
           ),
-          validator: (value) => value == null || value.isEmpty ? 'Required' : null,
+          validator: (value) =>
+              value == null || value.isEmpty ? 'Required' : null,
         ),
       ],
     );

@@ -22,9 +22,9 @@ class CeoDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.ceo.labels.global_kpi_metrics',
-    'dashboards.ceo.labels.region_comparison',
-    'dashboards.ceo.labels.strategic_initiatives',
+    'dashboards.ceo.labels.dashboards_ceo_labels_global_kpi_metrics',
+    'dashboards.ceo.labels.dashboards_ceo_labels_region_comparison',
+    'dashboards.ceo.labels.dashboards_ceo_labels_strategic_initiatives',
   ];
 
   @override

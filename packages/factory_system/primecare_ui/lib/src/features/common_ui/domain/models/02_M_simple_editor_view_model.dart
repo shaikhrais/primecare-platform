@@ -5,10 +5,7 @@ class SimpleEditorViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  SimpleEditorViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  SimpleEditorViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

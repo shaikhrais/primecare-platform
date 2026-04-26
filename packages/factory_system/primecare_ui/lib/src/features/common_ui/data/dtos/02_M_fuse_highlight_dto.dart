@@ -6,10 +6,6 @@ class FuseHighlightDto {
   FuseHighlightDto({required this.id, required this.raw});
 
   factory FuseHighlightDto.fromJson(Map<String, dynamic> json) {
-    return FuseHighlightDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseHighlightDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

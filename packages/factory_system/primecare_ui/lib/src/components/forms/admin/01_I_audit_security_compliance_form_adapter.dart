@@ -17,14 +17,25 @@ class AuditSecurityComplianceFormAdapter
   }
 
   Future<void> loadData() async {
-        state = AuditSecurityComplianceFormViewModel(isLoading: true, data: state.data);
+    state = AuditSecurityComplianceFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/audit-security-compliance-form-adapter');
-      state = AuditSecurityComplianceFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/audit-security-compliance-form-adapter',
+      );
+      state = AuditSecurityComplianceFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = AuditSecurityComplianceFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = AuditSecurityComplianceFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

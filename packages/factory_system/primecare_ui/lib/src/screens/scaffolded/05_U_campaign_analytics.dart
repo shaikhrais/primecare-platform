@@ -2,15 +2,17 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CampaignAnalytics extends ConsumerWidget {
-  const CampaignAnalytics({super.key});
+  CampaignAnalytics({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'navigation.items.campaign_analytics'.tr(),
       subtitle: 'navigation.items.campaign_analytics'.tr(),
-      
-      body: Center(child: Text('Provisioning...')),
+
+      body: Center(
+        child: Text(LocaleKeys.dashboards_common_labels_provisioning.tr()),
+      ),
     );
   }
 }

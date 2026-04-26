@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 class NewEmployeeOnboardingForm extends StatefulWidget {
@@ -47,8 +46,10 @@ class _NewEmployeeOnboardingFormState extends State<NewEmployeeOnboardingForm> {
   Widget build(BuildContext context) {
     return BaseForm(
       formKey: _formKey,
-      title: 'New Employee Onboarding',
-      subtitle: 'Enter the details of the new hire.',
+      title: LocaleKeys.dashboards_common_labels_new_employee_onboarding.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_enter_the_details_of_the_new_hire
+          .tr(),
       onSubmit: _submit,
       isLoading: widget.isLoading,
       children: [
@@ -57,7 +58,7 @@ class _NewEmployeeOnboardingFormState extends State<NewEmployeeOnboardingForm> {
           decoration: InputDecoration(labelText: 'forms.first_name'.tr()),
           validator: (val) => val == null || val.isEmpty ? 'Required' : null,
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 16),
         TextFormField(
           controller: _lastNameController,
           decoration: InputDecoration(labelText: 'forms.last_name'.tr()),

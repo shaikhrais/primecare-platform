@@ -3,14 +3,18 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 /// Hardened authPagesMessageSection
 class Authpagesmessagesection extends StatelessWidget {
-  const Authpagesmessagesection({super.key});
+  Authpagesmessagesection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const PrimeCareResponsiveKpiGrid(
+    return PrimeCareResponsiveKpiGrid(
       children: [
         PrimeCareCard(
-          child: Text('Operational Sector: authPagesMessageSection'),
+          child: Text(
+            LocaleKeys
+                .dashboards_common_labels_operational_sector__authpagesmessagesection
+                .tr(),
+          ),
         ),
       ],
     );

@@ -6,10 +6,6 @@ class MarkButtonDto {
   MarkButtonDto({required this.id, required this.raw});
 
   factory MarkButtonDto.fromJson(Map<String, dynamic> json) {
-    return MarkButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return MarkButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

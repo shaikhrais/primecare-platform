@@ -6,10 +6,6 @@ class StrikeIconDto {
   StrikeIconDto({required this.id, required this.raw});
 
   factory StrikeIconDto.fromJson(Map<String, dynamic> json) {
-    return StrikeIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return StrikeIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

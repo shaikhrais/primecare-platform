@@ -5,10 +5,7 @@ class SunIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  SunIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  SunIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

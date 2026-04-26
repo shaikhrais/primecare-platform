@@ -6,10 +6,6 @@ class ListOrderedIconDto {
   ListOrderedIconDto({required this.id, required this.raw});
 
   factory ListOrderedIconDto.fromJson(Map<String, dynamic> json) {
-    return ListOrderedIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ListOrderedIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

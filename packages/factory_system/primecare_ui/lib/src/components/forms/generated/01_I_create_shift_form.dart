@@ -56,10 +56,15 @@ class _CreateShiftFormState extends ConsumerState<CreateShiftForm> {
   Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       // Logic for submitting shift would go here
-      await Future<void>.delayed(const Duration(milliseconds: 1000));
+      await Future<void>.delayed(Duration(milliseconds: 1000));
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Shift created successfully')),
+          SnackBar(
+            content: Text(
+              LocaleKeys.dashboards_common_labels_shift_created_successfully
+                  .tr(),
+            ),
+          ),
         );
         Navigator.of(context).pop();
       }
@@ -69,8 +74,10 @@ class _CreateShiftFormState extends ConsumerState<CreateShiftForm> {
   @override
   Widget build(BuildContext context) {
     return BaseForm(
-      title: 'Create Shift',
-      subtitle: 'Schedule a new care session for a client.',
+      title: LocaleKeys.dashboards_common_labels_create_shift.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_schedule_a_new_care_session_for_a_client
+          .tr(),
       isLoading: false,
       formKey: _formKey,
       onSubmit: _submit,
@@ -119,20 +126,30 @@ class _CreateShiftFormState extends ConsumerState<CreateShiftForm> {
                   vertical: 8.0,
                 ),
                 child: DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Assign Provider',
                     prefixIcon: Icon(LucideIcons.user),
                   ),
                   initialValue: _selectedProvider,
-                  items: const [
+                  items: [
                     DropdownMenuItem(
                       value: '1',
-                      child: Text('John Smith (RN)'),
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_john_smith__rn.tr(),
+                      ),
                     ),
-                    DropdownMenuItem(value: '2', child: Text('Jane Doe (PSW)')),
+                    DropdownMenuItem(
+                      value: '2',
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_jane_doe__psw.tr(),
+                      ),
+                    ),
                     DropdownMenuItem(
                       value: '3',
-                      child: Text('Alex Johnson (RPN)'),
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_alex_johnson__rpn
+                            .tr(),
+                      ),
                     ),
                   ],
                   onChanged: (v) => setState(() => _selectedProvider = v),

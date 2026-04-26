@@ -98,29 +98,29 @@ class IntakeVolumeChart extends StatelessWidget {
 
 /// Action hub for Intake Coordinator oversight.
 class IntakeCoordinatorActionHub extends StatelessWidget {
-  const IntakeCoordinatorActionHub({super.key});
+  IntakeCoordinatorActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Add Referral',
+          title: LocaleKeys.dashboards_common_labels_add_referral.tr(),
           icon: LucideIcons.userPlus,
           route: '/intake/referral/new',
         ),
         PrimeCareActionItem(
-          title: 'Waitlist Mgmt',
+          title: LocaleKeys.dashboards_common_labels_waitlist_mgmt.tr(),
           icon: LucideIcons.list,
           route: '/intake/waitlist',
         ),
         PrimeCareActionItem(
-          title: 'Assign Staff',
+          title: LocaleKeys.dashboards_common_labels_assign_staff.tr(),
           icon: LucideIcons.users,
           route: '/intake/staffing',
         ),
         PrimeCareActionItem(
-          title: 'Intake Reports',
+          title: LocaleKeys.dashboards_common_labels_intake_reports.tr(),
           icon: LucideIcons.barChart,
           route: '/intake/reports',
         ),

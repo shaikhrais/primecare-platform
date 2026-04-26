@@ -1,7 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
 
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 import 'package:primecare_ui/src/components/forms/state/01_I_create_user_form_notifier.dart';
@@ -48,9 +46,13 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
       await ref.read(createUserFormProvider.notifier).submit(payload);
 
       if (mounted && !ref.read(createUserFormProvider).hasError) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Successfully submitted')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              LocaleKeys.dashboards_common_labels_successfully_submitted.tr(),
+            ),
+          ),
+        );
       }
     }
   }
@@ -60,8 +62,10 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
     final state = ref.watch(createUserFormProvider);
 
     return BaseForm(
-      title: 'Create User',
-      subtitle: 'Add a new administrative user to the platform.',
+      title: LocaleKeys.dashboards_common_labels_create_user.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_add_a_new_administrative_user_to_the_platform
+          .tr(),
       isLoading: state.isLoading,
       formKey: _formKey,
       onSubmit: _submit,
@@ -117,25 +121,37 @@ class _CreateUserFormState extends ConsumerState<CreateUserForm> {
                   vertical: 8.0,
                 ),
                 child: DropdownButtonFormField<String>(
-                  key: const Key('create_user_role_select'),
-                  decoration: const InputDecoration(labelText: 'Platform Role'),
+                  key: Key('create_user_role_select'),
+                  decoration: InputDecoration(labelText: 'Platform Role'),
                   initialValue: _selectedRole,
-                  items: const [
+                  items: [
                     DropdownMenuItem(
                       value: 'SYSTEM_ADMIN_TIER_1',
-                      child: Text('System Administrator'),
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_system_administrator
+                            .tr(),
+                      ),
                     ),
                     DropdownMenuItem(
                       value: 'FINANCE_DIRECTOR_TIER_3',
-                      child: Text('Finance Director'),
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_finance_director
+                            .tr(),
+                      ),
                     ),
                     DropdownMenuItem(
                       value: 'LOGISTICS_MANAGER_TIER_3',
-                      child: Text('Logistics Manager'),
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_logistics_manager
+                            .tr(),
+                      ),
                     ),
                     DropdownMenuItem(
                       value: 'PSW_HUB_MANAGER_TIER_4',
-                      child: Text('PSW Hub Manager'),
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_psw_hub_manager
+                            .tr(),
+                      ),
                     ),
                   ],
                   onChanged: (v) {

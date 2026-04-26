@@ -6,10 +6,6 @@ class SpacerDto {
   SpacerDto({required this.id, required this.raw});
 
   factory SpacerDto.fromJson(Map<String, dynamic> json) {
-    return SpacerDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SpacerDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

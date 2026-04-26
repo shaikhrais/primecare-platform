@@ -6,10 +6,6 @@ class DocumentationButtonDto {
   DocumentationButtonDto({required this.id, required this.raw});
 
   factory DocumentationButtonDto.fromJson(Map<String, dynamic> json) {
-    return DocumentationButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DocumentationButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

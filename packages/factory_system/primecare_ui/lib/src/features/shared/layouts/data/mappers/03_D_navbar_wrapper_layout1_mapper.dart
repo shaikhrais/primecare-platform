@@ -10,4 +10,3 @@ class NavbarWrapperLayout1Mapper {
     );
   }
 }
-

@@ -6,10 +6,6 @@ class AuthLayoutDto {
   AuthLayoutDto({required this.id, required this.raw});
 
   factory AuthLayoutDto.fromJson(Map<String, dynamic> json) {
-    return AuthLayoutDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AuthLayoutDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

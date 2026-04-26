@@ -10,4 +10,3 @@ class NavbarLayout3Mapper {
     );
   }
 }
-

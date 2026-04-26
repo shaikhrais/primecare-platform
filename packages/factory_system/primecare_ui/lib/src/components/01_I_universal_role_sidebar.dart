@@ -1,9 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:math' as math;
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/src/theme/01_I_design_system.dart';
-
-
 
 class UniversalRoleSidebar extends ConsumerWidget {
   final Widget child;
@@ -400,8 +397,9 @@ class _SidebarFooter extends ConsumerWidget {
     final role = authState.role ?? 'Administrator';
 
     final userName = authState.userName ?? 'PrimeCare User';
-    final initials =
-        userName.isNotEmpty ? userName.substring(0, 1).toUpperCase() : 'U';
+    final initials = userName.isNotEmpty
+        ? userName.substring(0, 1).toUpperCase()
+        : 'U';
 
     final currentLang = ref.watch(languageProvider);
 
@@ -517,12 +515,11 @@ class _SidebarFooter extends ConsumerWidget {
             ref.read(languageProvider.notifier).setLanguage(langCode);
             context.setLocale(Locale(langCode));
           },
-          itemBuilder:
-              (context) => [
-                _buildLanguageItem('en', 'common.language.en'.tr(), scale, ds),
-                _buildLanguageItem('fr', 'common.language.fr'.tr(), scale, ds),
-                _buildLanguageItem('es', 'common.language.es'.tr(), scale, ds),
-              ],
+          itemBuilder: (context) => [
+            _buildLanguageItem('en', 'common.language.en'.tr(), scale, ds),
+            _buildLanguageItem('fr', 'common.language.fr'.tr(), scale, ds),
+            _buildLanguageItem('es', 'common.language.es'.tr(), scale, ds),
+          ],
           child: Container(
             padding: EdgeInsets.symmetric(
               horizontal: 8 * scale,

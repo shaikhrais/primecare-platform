@@ -11,48 +11,82 @@ import 'package:primecare_ui/src/components/forms/01_I_medication_administration
 class ClinicalComponentWarehouse extends BaseOfficeWarehouse {
   @override
   Map<String, ComponentBuilder> get builders => {
-    'clinicDashboardAdapter': (context, payload) => ClinicdashboardadapterPlaceholder(data: payload),
-    'clinicDashboardDto': (context, payload) => ClinicdashboarddtoPlaceholder(data: payload),
-    'clinicDashboardDtoAdapter': (context, payload) => ClinicdashboarddtoadapterPlaceholder(data: payload),
-    'clinicDashboardMapper': (context, payload) => ClinicdashboardmapperPlaceholder(data: payload),
-    'clinicDashboardMapperAdapter': (context, payload) => ClinicdashboardmapperadapterPlaceholder(data: payload),
+    'clinicDashboardAdapter': (context, payload) =>
+        ClinicdashboardadapterPlaceholder(data: payload),
+    'clinicDashboardDto': (context, payload) =>
+        ClinicdashboarddtoPlaceholder(data: payload),
+    'clinicDashboardDtoAdapter': (context, payload) =>
+        ClinicdashboarddtoadapterPlaceholder(data: payload),
+    'clinicDashboardMapper': (context, payload) =>
+        ClinicdashboardmapperPlaceholder(data: payload),
+    'clinicDashboardMapperAdapter': (context, payload) =>
+        ClinicdashboardmapperadapterPlaceholder(data: payload),
     'clinicDashboardViewModel': (context, payload) =>
         const ClinicaldirectordashboardscreenPlaceholder(),
-    'clinicDashboardViewModelAdapter': (context, payload) => ClinicdashboardviewmodeladapterPlaceholder(data: payload),
+    'clinicDashboardViewModelAdapter': (context, payload) =>
+        ClinicdashboardviewmodeladapterPlaceholder(data: payload),
 
-    'clinicalIncidentForm': (context, payload) => const ClinicalIncidentForm(),
-    'intakeDashboardAdapter': (context, payload) => IntakedashboardadapterPlaceholder(data: payload),
-    'intakeDashboardDto': (context, payload) => IntakedashboarddtoPlaceholder(data: payload),
-    'intakeDashboardDtoAdapter': (context, payload) => IntakedashboarddtoadapterPlaceholder(data: payload),
-    'intakeDashboardMapper': (context, payload) => IntakedashboardmapperPlaceholder(data: payload),
-    'intakeDashboardMapperAdapter': (context, payload) => IntakedashboardmapperadapterPlaceholder(data: payload),
-    'intakeDashboardViewModel': (context, payload) => const IntakeDashboardScreen(),
-    'intakeDashboardViewModelAdapter': (context, payload) => IntakedashboardviewmodeladapterPlaceholder(data: payload),
+    'clinicalIncidentForm': (context, payload) => ClinicalIncidentForm(),
+    'intakeDashboardAdapter': (context, payload) =>
+        IntakedashboardadapterPlaceholder(data: payload),
+    'intakeDashboardDto': (context, payload) =>
+        IntakedashboarddtoPlaceholder(data: payload),
+    'intakeDashboardDtoAdapter': (context, payload) =>
+        IntakedashboarddtoadapterPlaceholder(data: payload),
+    'intakeDashboardMapper': (context, payload) =>
+        IntakedashboardmapperPlaceholder(data: payload),
+    'intakeDashboardMapperAdapter': (context, payload) =>
+        IntakedashboardmapperadapterPlaceholder(data: payload),
+    'intakeDashboardViewModel': (context, payload) =>
+        IntakeDashboardScreen(),
+    'intakeDashboardViewModelAdapter': (context, payload) =>
+        IntakedashboardviewmodeladapterPlaceholder(data: payload),
 
-    'patientIntakeForm': (context, payload) => const PatientIntakeForm(),
-    'vitalsCaptureForm': (context, payload) => const VitalsCaptureForm(),
-    'medicationAdministrationForm': (context, payload) => const MedicationAdministrationForm(),
-    
-    'logClinicalIncidentForm': (context, payload) => LogclinicalincidentformPlaceholder(data: payload),
-    'logInfectionControlForm': (context, payload) => LoginfectioncontrolformPlaceholder(data: payload),
-    'carePlanEvaluationForm': (context, payload) => CareplanevaluationformPlaceholder(data: payload),
-    'dailyVitalsCardForm': (context, payload) => DailyvitalscardformPlaceholder(data: payload),
+    'patientIntakeForm': (context, payload) => PatientIntakeForm(),
+    'vitalsCaptureForm': (context, payload) => VitalsCaptureForm(),
+    'medicationAdministrationForm': (context, payload) =>
+        MedicationAdministrationForm(),
 
-    'qaManagerDashboardAdapter': (context, payload) => QadashboardadapterPlaceholder(data: payload),
-    'qaManagerDashboardDto': (context, payload) => QadashboarddtoPlaceholder(data: payload),
-    'qaManagerDashboardMapper': (context, payload) => QadashboardmapperPlaceholder(data: payload),
-    'qaManagerDashboardViewModel': (context, payload) => const QaDashboardScreen(),
-    'qaManagerDashboardViewModelAdapter': (context, payload) => QadashboardadapterPlaceholder(data: payload),
+    'logClinicalIncidentForm': (context, payload) =>
+        LogclinicalincidentformPlaceholder(data: payload),
+    'logInfectionControlForm': (context, payload) =>
+        LoginfectioncontrolformPlaceholder(data: payload),
+    'carePlanEvaluationForm': (context, payload) =>
+        CareplanevaluationformPlaceholder(data: payload),
+    'dailyVitalsCardForm': (context, payload) =>
+        DailyvitalscardformPlaceholder(data: payload),
 
-    'complianceManagerDashboardAdapter': (context, payload) => CompliancemanagerdashboardadapterPlaceholder(data: payload),
-    'complianceManagerDashboardDto': (context, payload) => CompliancemanagerdashboarddtoPlaceholder(data: payload),
-    'complianceManagerDashboardDtoAdapter': (context, payload) => CompliancemanagerdashboarddtoadapterPlaceholder(data: payload),
-    'complianceManagerDashboardMapper': (context, payload) => CompliancemanagerdashboardmapperPlaceholder(data: payload),
-    'complianceManagerDashboardViewModel': (context, payload) => const ComplianceManagerDashboardScreen(),
+    'qaManagerDashboardAdapter': (context, payload) =>
+        QadashboardadapterPlaceholder(data: payload),
+    'qaManagerDashboardDto': (context, payload) =>
+        QadashboarddtoPlaceholder(data: payload),
+    'qaManagerDashboardMapper': (context, payload) =>
+        QadashboardmapperPlaceholder(data: payload),
+    'qaManagerDashboardViewModel': (context, payload) =>
+        QaDashboardScreen(),
+    'qaManagerDashboardViewModelAdapter': (context, payload) =>
+        QadashboardadapterPlaceholder(data: payload),
 
-    'infectionControlDashboardAdapter': (context, payload) => BasePlaceholder(name: 'InfectionControlDashboardAdapter', data: payload),
-    'infectionControlDashboardDto': (context, payload) => BasePlaceholder(name: 'InfectionControlDashboardDto', data: payload),
-    'infectionControlDashboardMapper': (context, payload) => BasePlaceholder(name: 'InfectionControlDashboardMapper', data: payload),
-    'infectionControlDashboardViewModel': (context, payload) => const DynamicScreenDashboardScreen(),
+    'complianceManagerDashboardAdapter': (context, payload) =>
+        CompliancemanagerdashboardadapterPlaceholder(data: payload),
+    'complianceManagerDashboardDto': (context, payload) =>
+        CompliancemanagerdashboarddtoPlaceholder(data: payload),
+    'complianceManagerDashboardDtoAdapter': (context, payload) =>
+        CompliancemanagerdashboarddtoadapterPlaceholder(data: payload),
+    'complianceManagerDashboardMapper': (context, payload) =>
+        CompliancemanagerdashboardmapperPlaceholder(data: payload),
+    'complianceManagerDashboardViewModel': (context, payload) =>
+        ComplianceManagerDashboardScreen(),
+
+    'infectionControlDashboardAdapter': (context, payload) => BasePlaceholder(
+      name: 'InfectionControlDashboardAdapter',
+      data: payload,
+    ),
+    'infectionControlDashboardDto': (context, payload) =>
+        BasePlaceholder(name: 'InfectionControlDashboardDto', data: payload),
+    'infectionControlDashboardMapper': (context, payload) =>
+        BasePlaceholder(name: 'InfectionControlDashboardMapper', data: payload),
+    'infectionControlDashboardViewModel': (context, payload) =>
+        DynamicScreenDashboardScreen(),
   };
 }

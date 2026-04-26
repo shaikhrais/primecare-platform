@@ -6,10 +6,6 @@ class QuickPanelDto {
   QuickPanelDto({required this.id, required this.raw});
 
   factory QuickPanelDto.fromJson(Map<String, dynamic> json) {
-    return QuickPanelDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return QuickPanelDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

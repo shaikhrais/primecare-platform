@@ -6,10 +6,6 @@ class FuseSuspenseDto {
   FuseSuspenseDto({required this.id, required this.raw});
 
   factory FuseSuspenseDto.fromJson(Map<String, dynamic> json) {
-    return FuseSuspenseDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseSuspenseDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

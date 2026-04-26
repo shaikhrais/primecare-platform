@@ -15,5 +15,10 @@ class ClinicalDirectorViewModel extends Equatable {
   });
 
   @override
-  List<Object?> get props => [directorName, activePatients, qualityScore, criticalAlerts];
+  List<Object?> get props => [
+    directorName,
+    activePatients,
+    qualityScore,
+    criticalAlerts,
+  ];
 }

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 05_USER_INTERFACE
 import 'package:flutter_core/00_B_flutter_core.dart';
 
@@ -78,9 +79,9 @@ class CustomerSupportScreen extends ConsumerWidget {
       elevation: 0,
       title: Row(
         children: [
-          const Icon(Icons.support_agent, color: Color(0xFF0F172A)),
-          const SizedBox(width: 12),
-          const Text(
+          Icon(Icons.support_agent, color: Color(0xFF0F172A)),
+          SizedBox(width: 12),
+          Text(
             'Support Center',
             style: TextStyle(
               color: Colors.black87,
@@ -93,14 +94,15 @@ class CustomerSupportScreen extends ConsumerWidget {
       actions: [
         ElevatedButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.add_task),
-          label: const Text('CREATE TICKET'),
+          icon: Icon(Icons.add_task),
+          label: Text(LocaleKeys.dashboards_common_labels_create_ticket.tr(),
+          ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF0F172A),
+            backgroundColor: Color(0xFF0F172A),
             foregroundColor: Colors.white,
           ),
         ),
-        const SizedBox(width: 24),
+        SizedBox(width: 24),
       ],
     );
   }
@@ -115,7 +117,7 @@ class CustomerSupportScreen extends ConsumerWidget {
 
   Widget _buildTicketFlow(DashboardMetrics metrics) {
     return _buildCard(
-      title: 'Real-time Ticket Velocity',
+      title: LocaleKeys.dashboards_common_labels_real_time_ticket_velocity.tr(),
       child: Container(
         height: 300,
         decoration: BoxDecoration(
@@ -129,7 +131,10 @@ class CustomerSupportScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSupportIntelligence(BuildContext context, List<IntelligenceInsight> insights) {
+  Widget _buildSupportIntelligence(
+    BuildContext context,
+    List<IntelligenceInsight> insights,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(

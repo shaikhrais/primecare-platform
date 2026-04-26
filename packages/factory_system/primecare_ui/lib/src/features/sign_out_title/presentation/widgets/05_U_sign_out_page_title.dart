@@ -3,13 +3,19 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 /// Hardened sign_out_page_title
 class SignOutPageTitle extends StatelessWidget {
-  const SignOutPageTitle({super.key});
+  SignOutPageTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ClinicalGlassPanel(
-      title: 'sign_out_page_title',
-      child: const PrimeCareCard(child: Text('Operational Sector: sign_out_page_title')),
+      title: LocaleKeys.dashboards_common_labels_sign_out_page_title.tr(),
+      child: PrimeCareCard(
+        child: Text(
+          LocaleKeys
+              .dashboards_common_labels_operational_sector__sign_out_page_title
+              .tr(),
+        ),
+      ),
     );
   }
 }

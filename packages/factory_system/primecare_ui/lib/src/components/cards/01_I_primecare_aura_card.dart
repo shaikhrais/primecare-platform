@@ -145,8 +145,11 @@ class PrimeCareAuraCard extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                icon: const Icon(LucideIcons.shieldAlert, size: 16),
-                label: const Text('Investigate Potential Risks'),
+                icon: Icon(LucideIcons.shieldAlert, size: 16),
+                label: Text(LocaleKeys
+                      .dashboards_common_labels_investigate_potential_risks
+                      .tr(),
+                ),
               ),
             ),
         ],

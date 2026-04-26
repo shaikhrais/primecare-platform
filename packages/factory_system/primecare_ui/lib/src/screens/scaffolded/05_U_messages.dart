@@ -2,15 +2,17 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class Messages extends ConsumerWidget {
-  const Messages({super.key});
+  Messages({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'navigation.items.messages'.tr(),
       subtitle: 'navigation.items.messages'.tr(),
-      
-      body: Center(child: Text('Provisioning...')),
+
+      body: Center(
+        child: Text(LocaleKeys.dashboards_common_labels_provisioning.tr()),
+      ),
     );
   }
 }

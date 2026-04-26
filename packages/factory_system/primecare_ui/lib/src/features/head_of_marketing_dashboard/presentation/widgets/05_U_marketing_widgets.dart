@@ -127,29 +127,29 @@ class LeadAcquisitionFunnel extends StatelessWidget {
 
 /// Marketing action hub for the Head of Marketing.
 class MarketingActionHub extends StatelessWidget {
-  const MarketingActionHub({super.key});
+  MarketingActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'New Campaign',
+          title: LocaleKeys.dashboards_common_labels_new_campaign.tr(),
           icon: LucideIcons.plusCircle,
           route: '/marketing/campaigns/new',
         ),
         PrimeCareActionItem(
-          title: 'Brand Assets',
+          title: LocaleKeys.dashboards_common_labels_brand_assets.tr(),
           icon: LucideIcons.image,
           route: '/marketing/assets',
         ),
         PrimeCareActionItem(
-          title: 'Analytics',
+          title: LocaleKeys.dashboards_common_labels_analytics.tr(),
           icon: LucideIcons.pieChart,
           route: '/marketing/analytics',
         ),
         PrimeCareActionItem(
-          title: 'Lead Gen',
+          title: LocaleKeys.dashboards_common_labels_lead_gen.tr(),
           icon: LucideIcons.userPlus,
           route: '/marketing/leads',
         ),

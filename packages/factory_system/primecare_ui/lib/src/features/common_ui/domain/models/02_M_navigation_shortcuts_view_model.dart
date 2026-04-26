@@ -5,10 +5,7 @@ class NavigationShortcutsViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  NavigationShortcutsViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  NavigationShortcutsViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -6,10 +6,6 @@ class ImageUploadButtonDto {
   ImageUploadButtonDto({required this.id, required this.raw});
 
   factory ImageUploadButtonDto.fromJson(Map<String, dynamic> json) {
-    return ImageUploadButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ImageUploadButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

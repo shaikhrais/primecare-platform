@@ -16,14 +16,22 @@ class GreetingHeaderWidgetAdapter
   }
 
   Future<void> loadData() async {
-        state = GreetingHeaderWidgetViewModel(isLoading: true, data: state.data);
+    state = GreetingHeaderWidgetViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/greeting-header-widget-adapter');
-      state = GreetingHeaderWidgetViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/greeting-header-widget-adapter',
+      );
+      state = GreetingHeaderWidgetViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = GreetingHeaderWidgetViewModel(isLoading: false, data: <String, dynamic>{});
+      state = GreetingHeaderWidgetViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

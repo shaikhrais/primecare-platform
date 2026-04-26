@@ -2,14 +2,16 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class TaxRemittance extends ConsumerWidget {
-  const TaxRemittance({super.key});
+  TaxRemittance({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageTemplate(
       title: 'navigation.items.tax_remittance'.tr(),
       subtitle: 'navigation.items.tax_remittance'.tr(),
-      body: Center(child: Text('Provisioning...')),
+      body: Center(
+        child: Text(LocaleKeys.dashboards_common_labels_provisioning.tr()),
+      ),
     );
   }
 }

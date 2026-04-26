@@ -202,8 +202,10 @@ class _PatientIntakeFormState extends ConsumerState<PatientIntakeForm> {
 
     return BaseForm(
       formKey: _formKey,
-      title: 'Patient Intake',
-      subtitle: 'Perform a comprehensive clinical intake for new patients.',
+      title: LocaleKeys.dashboards_common_labels_patient_intake.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_perform_a_comprehensive_clinical_intake_for_new_patients
+          .tr(),
       onSubmit: _submit,
       submitText: 'Complete Intake',
       isLoading: asyncState.isLoading,

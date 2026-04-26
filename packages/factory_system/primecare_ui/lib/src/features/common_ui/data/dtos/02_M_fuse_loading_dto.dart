@@ -6,10 +6,6 @@ class FuseLoadingDto {
   FuseLoadingDto({required this.id, required this.raw});
 
   factory FuseLoadingDto.fromJson(Map<String, dynamic> json) {
-    return FuseLoadingDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseLoadingDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

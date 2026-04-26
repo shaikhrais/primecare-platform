@@ -137,12 +137,14 @@ class PrimeCareReportScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
 
               // Visualization Segment
               if (reportId == 'revenue_log') ...[
                 PrimeCareChartCard(
-                  title: 'Revenue Velocity - 30 Day View',
+                  title: LocaleKeys
+                      .dashboards_common_labels_revenue_velocity___30_day_view
+                      .tr(),
                   isAuraSupported: true,
                   isAuraActive: isAuraActive,
                   onAuraToggle: () => ref

@@ -5,10 +5,7 @@ class Redo2IconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  Redo2IconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  Redo2IconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -5,10 +5,7 @@ class UseLocalStorageViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  UseLocalStorageViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  UseLocalStorageViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

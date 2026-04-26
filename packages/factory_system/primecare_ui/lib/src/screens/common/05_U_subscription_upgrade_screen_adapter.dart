@@ -16,14 +16,25 @@ class SubscriptionUpgradeScreenAdapter
   }
 
   Future<void> loadData() async {
-        state = SubscriptionUpgradeScreenViewModel(isLoading: true, data: state.data);
+    state = SubscriptionUpgradeScreenViewModel(
+      isLoading: true,
+      data: state.data,
+    );
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/subscription-upgrade-screen-adapter');
-      state = SubscriptionUpgradeScreenViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/subscription-upgrade-screen-adapter',
+      );
+      state = SubscriptionUpgradeScreenViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = SubscriptionUpgradeScreenViewModel(isLoading: false, data: <String, dynamic>{});
+      state = SubscriptionUpgradeScreenViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

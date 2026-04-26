@@ -1,4 +1,6 @@
 // Layer: 05_UI_WIDGETS
+import 'dart:ui' as ui;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -23,7 +25,7 @@ class _AuditorHudOverlayState extends ConsumerState<AuditorHudOverlay> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.ltr,
+      textDirection: ui.TextDirection.ltr,
       child: Stack(
         children: [
           // Main Application Content
@@ -113,18 +115,19 @@ class _AuditorHudPanel extends ConsumerWidget {
             );
           }).toList(),
 
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.green,
-                side: const BorderSide(color: Colors.green),
+                side: BorderSide(color: Colors.green),
               ),
               onPressed: () {
                 ref.read(modulationGovernanceProvider.notifier).restoreAll();
               },
-              child: const Text('Restore All Healthy'),
+              child: Text(LocaleKeys.dashboards_common_labels_restore_all_healthy.tr(),
+              ),
             ),
           ),
         ],

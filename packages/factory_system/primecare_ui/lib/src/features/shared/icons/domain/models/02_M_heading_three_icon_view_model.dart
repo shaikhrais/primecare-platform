@@ -5,10 +5,7 @@ class HeadingThreeIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  HeadingThreeIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  HeadingThreeIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

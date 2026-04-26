@@ -6,10 +6,6 @@ class JwtAuthContextDto {
   JwtAuthContextDto({required this.id, required this.raw});
 
   factory JwtAuthContextDto.fromJson(Map<String, dynamic> json) {
-    return JwtAuthContextDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return JwtAuthContextDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

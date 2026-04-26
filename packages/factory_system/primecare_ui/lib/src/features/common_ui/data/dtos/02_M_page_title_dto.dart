@@ -6,10 +6,6 @@ class PageTitleDto {
   PageTitleDto({required this.id, required this.raw});
 
   factory PageTitleDto.fromJson(Map<String, dynamic> json) {
-    return PageTitleDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PageTitleDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

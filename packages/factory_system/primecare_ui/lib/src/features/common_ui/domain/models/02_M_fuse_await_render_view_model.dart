@@ -5,10 +5,7 @@ class FuseAwaitRenderViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseAwaitRenderViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseAwaitRenderViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

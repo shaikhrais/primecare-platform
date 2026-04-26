@@ -5,7 +5,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 /// High-fidelity dashboard for the Social Worker.
 /// Hydrates real-time field intelligence and Aura AI psychosocial modeling.
 class SocialWorkerDashboardScreen extends ConsumerWidget {
-  const SocialWorkerDashboardScreen({super.key});
+  SocialWorkerDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +16,7 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
     return PrimeCareScaffold(
       backgroundColor: theme.colors.background,
       appBar: PrimeCareAppBar(
-        title: 'Social Care Command HUD',
+        title: LocaleKeys.dashboards_common_labels_social_care_command_hud.tr(),
         actions: [
           IconButton(
             icon: const Icon(LucideIcons.fileText),
@@ -161,14 +161,16 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
       (c) => c.id == 'intervention-dynamics',
       orElse: () => AnalyticsChart(
         id: 'placeholder',
-        title: 'Intervention Impact Analysis',
+        title: LocaleKeys.dashboards_common_labels_intervention_impact_analysis
+            .tr(),
         type: ChartType.line,
         dataPoints: [],
       ),
     );
 
     return PrimeCareChartCard(
-      title: 'Intervention Stability Vector',
+      title: LocaleKeys.dashboards_common_labels_intervention_stability_vector
+          .tr(),
       chart: PrimeCareLineChart(chart: chart),
     );
   }
@@ -210,8 +212,10 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
 
   Widget _buildEventLedger(PrimeCareThemeData theme, DashboardMetrics metrics) {
     return PrimeCareCard(
-      title: 'Social Event Ledger',
-      subtitle: 'Real-time feed of patient interactions and linkage events',
+      title: LocaleKeys.dashboards_common_labels_social_event_ledger.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_real_time_feed_of_patient_interactions_and_linkage_events
+          .tr(),
       padding: EdgeInsets.zero,
       child: Column(
         children: [

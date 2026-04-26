@@ -6,10 +6,6 @@ class FirebaseSignUpFormDto {
   FirebaseSignUpFormDto({required this.id, required this.raw});
 
   factory FirebaseSignUpFormDto.fromJson(Map<String, dynamic> json) {
-    return FirebaseSignUpFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FirebaseSignUpFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

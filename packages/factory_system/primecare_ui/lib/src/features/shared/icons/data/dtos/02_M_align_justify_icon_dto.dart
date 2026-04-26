@@ -6,10 +6,6 @@ class AlignJustifyIconDto {
   AlignJustifyIconDto({required this.id, required this.raw});
 
   factory AlignJustifyIconDto.fromJson(Map<String, dynamic> json) {
-    return AlignJustifyIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AlignJustifyIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

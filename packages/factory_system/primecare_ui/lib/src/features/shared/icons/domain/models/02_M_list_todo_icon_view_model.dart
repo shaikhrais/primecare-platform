@@ -5,10 +5,7 @@ class ListTodoIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ListTodoIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ListTodoIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

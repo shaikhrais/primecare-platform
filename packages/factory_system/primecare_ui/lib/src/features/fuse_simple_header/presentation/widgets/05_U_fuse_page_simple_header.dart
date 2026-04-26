@@ -3,13 +3,19 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 /// Hardened fuse_page_simple_header
 class FusePageSimpleHeader extends StatelessWidget {
-  const FusePageSimpleHeader({super.key});
+  FusePageSimpleHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ClinicalGlassPanel(
-      title: 'fuse_page_simple_header',
-      child: const PrimeCareCard(child: Text('Operational Sector: fuse_page_simple_header')),
+      title: LocaleKeys.dashboards_common_labels_fuse_page_simple_header.tr(),
+      child: PrimeCareCard(
+        child: Text(
+          LocaleKeys
+              .dashboards_common_labels_operational_sector__fuse_page_simple_header
+              .tr(),
+        ),
+      ),
     );
   }
 }

@@ -5,16 +5,17 @@ import 'package:primecare_ui/primecare_ui.dart';
 class StaffingTurnoverCard extends StatelessWidget {
   final List<ChartDataPoint> data;
 
-  const StaffingTurnoverCard({super.key, required this.data});
+  StaffingTurnoverCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareChartCard(
-      title: 'Human Capital Velocity',
+      title: LocaleKeys.dashboards_common_labels_human_capital_velocity.tr(),
       chart: PrimeCareLineChart(
         chart: AnalyticsChart(
           id: 'hr-velocity',
-          title: 'Human Capital Velocity',
+          title: LocaleKeys.dashboards_common_labels_human_capital_velocity
+              .tr(),
           type: ChartType.line,
           dataPoints: data,
         ),
@@ -92,29 +93,29 @@ class TrainingComplianceGrid extends StatelessWidget {
 
 /// HR-specific action hub.
 class HrActionHub extends StatelessWidget {
-  const HrActionHub({super.key});
+  HrActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Post Job',
+          title: LocaleKeys.dashboards_common_labels_post_job.tr(),
           icon: LucideIcons.briefcase,
           route: '/hr/jobs/new',
         ),
         PrimeCareActionItem(
-          title: 'Approve Leave',
+          title: LocaleKeys.dashboards_common_labels_approve_leave.tr(),
           icon: LucideIcons.calendarX,
           route: '/hr/leave',
         ),
         PrimeCareActionItem(
-          title: 'Run Payroll',
+          title: LocaleKeys.dashboards_common_labels_run_payroll.tr(),
           icon: LucideIcons.banknote,
           route: '/hr/payroll',
         ),
         PrimeCareActionItem(
-          title: 'Audit Training',
+          title: LocaleKeys.dashboards_common_labels_audit_training.tr(),
           icon: LucideIcons.graduationCap,
           route: '/hr/training',
         ),

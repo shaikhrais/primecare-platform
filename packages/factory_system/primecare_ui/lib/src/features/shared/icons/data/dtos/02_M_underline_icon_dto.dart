@@ -6,10 +6,6 @@ class UnderlineIconDto {
   UnderlineIconDto({required this.id, required this.raw});
 
   factory UnderlineIconDto.fromJson(Map<String, dynamic> json) {
-    return UnderlineIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UnderlineIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

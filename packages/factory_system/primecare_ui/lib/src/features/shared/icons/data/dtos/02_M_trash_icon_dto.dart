@@ -6,10 +6,6 @@ class TrashIconDto {
   TrashIconDto({required this.id, required this.raw});
 
   factory TrashIconDto.fromJson(Map<String, dynamic> json) {
-    return TrashIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return TrashIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

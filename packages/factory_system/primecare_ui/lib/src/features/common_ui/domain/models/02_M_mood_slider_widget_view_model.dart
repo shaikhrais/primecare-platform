@@ -5,10 +5,7 @@ class MoodSliderWidgetViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  MoodSliderWidgetViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  MoodSliderWidgetViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

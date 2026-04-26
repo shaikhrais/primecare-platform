@@ -27,18 +27,18 @@ class ShareholderIntelligenceDashboardIntent extends AppScreenIntent {
 
   @override
   ResiliencePolicy get resiliencePolicy => const ResiliencePolicy(
-        strategy: ScreenRecoveryStrategy.fallbackRedirect,
-        fallbackRoute: '/corporate/error-fallback',
-      );
+    strategy: ScreenRecoveryStrategy.fallbackRedirect,
+    fallbackRoute: '/corporate/error-fallback',
+  );
 
   @override
   List<String> get componentLabels => [
-        'dashboards.shareholderintelligence.labels.global_governance_header',
-        'dashboards.shareholderintelligence.labels.feature_pipeline_kanban',
-        'dashboards.shareholderintelligence.labels.real_time_telemetry_feed',
-        'dashboards.shareholderintelligence.labels.shareholder_roi_matrix',
-        'dashboards.shareholderintelligence.labels.feature_request_fab',
-      ];
+    'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_global_governance_header',
+    'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_feature_pipeline_kanban',
+    'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_real_time_telemetry_feed',
+    'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_shareholder_roi_matrix',
+    'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_feature_request_fab',
+  ];
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 // Layer: 05_UI_PRESENTATION
-import 'package:primecare_ui/src/theme/01_I_colors.dart';
-import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -41,15 +40,17 @@ class ForgotPasswordScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                style: const TextStyle(color: PrimeCareColors.white),
+                style: TextStyle(color: PrimeCareColors.white),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
+                  minimumSize: Size(double.infinity, 50),
                 ),
-                child: const Text('Send Reset Link'),
+                child: Text(
+                  LocaleKeys.dashboards_common_labels_send_reset_link.tr(),
+                ),
               ),
             ],
           ),

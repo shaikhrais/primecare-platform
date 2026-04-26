@@ -100,29 +100,29 @@ class ClinicalComplianceMatrix extends StatelessWidget {
 
 /// Clinical action hub for the Clinical Director.
 class ClinicalActionHub extends StatelessWidget {
-  const ClinicalActionHub({super.key});
+  ClinicalActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Review Incident',
+          title: LocaleKeys.dashboards_common_labels_review_incident.tr(),
           icon: LucideIcons.alertTriangle,
           route: '/clinical/incidents',
         ),
         PrimeCareActionItem(
-          title: 'Evaluate Plan',
+          title: LocaleKeys.dashboards_common_labels_evaluate_plan.tr(),
           icon: LucideIcons.fileSearch,
           route: '/clinical/care-plans',
         ),
         PrimeCareActionItem(
-          title: 'Staff Audit',
+          title: LocaleKeys.dashboards_common_labels_staff_audit.tr(),
           icon: LucideIcons.userCheck,
           route: '/clinical/staff-audit',
         ),
         PrimeCareActionItem(
-          title: 'Quality Review',
+          title: LocaleKeys.dashboards_common_labels_quality_review.tr(),
           icon: LucideIcons.shieldCheck,
           route: '/clinical/quality',
         ),

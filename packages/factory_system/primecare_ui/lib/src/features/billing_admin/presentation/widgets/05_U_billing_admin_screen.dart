@@ -86,7 +86,7 @@ class BillingAdminScreen extends ConsumerWidget {
           onPressed: () {},
           tooltip: 'Download 835 ERAs',
         ),
-        const SizedBox(width: 24),
+        SizedBox(width: 24),
       ],
     );
   }
@@ -103,23 +103,27 @@ class BillingAdminScreen extends ConsumerWidget {
     return Column(
       children: [
         _buildChartCard(
-          title: 'Claims Aging Status',
-          subtitle: 'Distribution of outstanding balances by days',
+          title: LocaleKeys.dashboards_common_labels_claims_aging_status.tr(),
+          subtitle: LocaleKeys
+              .dashboards_common_labels_distribution_of_outstanding_balances_by_days
+              .tr(),
           child: Container(
             height: 300,
             decoration: BoxDecoration(
               color: Colors.grey[50],
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Center(
+            child: Center(
               child: Icon(Icons.bar_chart, size: 48, color: Colors.black12),
             ),
           ),
         ),
-        const SizedBox(height: 24),
+        SizedBox(height: 24),
         _buildChartCard(
-          title: 'Revenue Forecasting',
-          subtitle: 'AI-driven projections for next 90 days',
+          title: LocaleKeys.dashboards_common_labels_revenue_forecasting.tr(),
+          subtitle: LocaleKeys
+              .dashboards_common_labels_ai_driven_projections_for_next_90_days
+              .tr(),
           child: Container(
             height: 300,
             decoration: BoxDecoration(

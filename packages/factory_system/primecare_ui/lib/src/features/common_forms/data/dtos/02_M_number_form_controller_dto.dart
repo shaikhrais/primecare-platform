@@ -6,10 +6,6 @@ class NumberFormControllerDto {
   NumberFormControllerDto({required this.id, required this.raw});
 
   factory NumberFormControllerDto.fromJson(Map<String, dynamic> json) {
-    return NumberFormControllerDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NumberFormControllerDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

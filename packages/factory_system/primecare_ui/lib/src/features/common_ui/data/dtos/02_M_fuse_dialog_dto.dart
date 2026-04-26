@@ -6,10 +6,6 @@ class FuseDialogDto {
   FuseDialogDto({required this.id, required this.raw});
 
   factory FuseDialogDto.fromJson(Map<String, dynamic> json) {
-    return FuseDialogDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseDialogDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

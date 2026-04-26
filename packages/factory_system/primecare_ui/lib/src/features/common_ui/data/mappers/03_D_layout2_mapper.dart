@@ -10,4 +10,3 @@ class Layout2Mapper {
     );
   }
 }
-

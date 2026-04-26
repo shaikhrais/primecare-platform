@@ -102,7 +102,7 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
         children: [
           Text('Regulatory Risk Matrix', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Risk Heatmap Synchronization Complete',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -120,7 +120,10 @@ class ComplianceManagerDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

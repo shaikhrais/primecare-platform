@@ -6,10 +6,6 @@ class ListButtonDto {
   ListButtonDto({required this.id, required this.raw});
 
   factory ListButtonDto.fromJson(Map<String, dynamic> json) {
-    return ListButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ListButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

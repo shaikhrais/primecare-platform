@@ -6,10 +6,6 @@ class WithRouterDto {
   WithRouterDto({required this.id, required this.raw});
 
   factory WithRouterDto.fromJson(Map<String, dynamic> json) {
-    return WithRouterDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return WithRouterDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

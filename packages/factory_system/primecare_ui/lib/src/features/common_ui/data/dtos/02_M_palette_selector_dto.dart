@@ -6,10 +6,6 @@ class PaletteSelectorDto {
   PaletteSelectorDto({required this.id, required this.raw});
 
   factory PaletteSelectorDto.fromJson(Map<String, dynamic> json) {
-    return PaletteSelectorDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PaletteSelectorDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

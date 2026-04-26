@@ -5,10 +5,7 @@ class UseJwtAuthViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  UseJwtAuthViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  UseJwtAuthViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

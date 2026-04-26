@@ -6,10 +6,6 @@ class ThemePreviewDto {
   ThemePreviewDto({required this.id, required this.raw});
 
   factory ThemePreviewDto.fromJson(Map<String, dynamic> json) {
-    return ThemePreviewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ThemePreviewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

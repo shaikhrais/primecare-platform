@@ -155,7 +155,11 @@ class ScreenRegistry {
         return UniversalScreenEngine(screen: intent);
       }
       return Center(
-        child: Text('Unsupported Intent Type: ${intent.runtimeType}'),
+        child: Text(
+          LocaleKeys
+              .dashboards_common_labels_unsupported_intent_type____intent_runtimetype
+              .tr(),
+        ),
       );
     };
 
@@ -357,8 +361,11 @@ class ScreenRegistry {
 
     // 3. Fallback: Systematic Route Recovery
     return DashboardConfig(
-      title: 'Institutional Route Recovery',
-      subtitle: 'The system is verifying your security context for: $route',
+      title: LocaleKeys.dashboards_common_labels_institutional_route_recovery
+          .tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_the_system_is_verifying_your_security_context_for___route
+          .tr(),
       kpis: [],
       customView: const DashboardLoadingWidget(),
     );

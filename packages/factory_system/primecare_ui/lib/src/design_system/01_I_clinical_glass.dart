@@ -57,8 +57,7 @@ class ClinicalGlassPanel extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (title != null)
-                    Text(title!, style: theme.typography.h3),
+                  if (title != null) Text(title!, style: theme.typography.h3),
                   if (headerTrailing != null) headerTrailing!,
                 ],
               ),
@@ -93,11 +92,11 @@ class ClinicalGlassButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeCareTheme.of(context);
-    
+
     // Handle variants
     Color backgroundColor;
     Color foregroundColor;
-    
+
     switch (variant) {
       case ClinicalButtonVariant.ghost:
         backgroundColor = Colors.transparent;
@@ -132,7 +131,7 @@ class ClinicalGlassButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           Icon(icon, size: 20),
+          Icon(icon, size: 20),
           const SizedBox(width: 8),
           buttonContent,
         ],
@@ -145,9 +144,9 @@ class ClinicalGlassButton extends StatelessWidget {
         foregroundColor: foregroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: variant == ClinicalButtonVariant.outline 
-            ? BorderSide(color: theme.outlineVariant)
-            : BorderSide.none,
+          side: variant == ClinicalButtonVariant.outline
+              ? BorderSide(color: theme.outlineVariant)
+              : BorderSide.none,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         elevation: 0,
@@ -162,18 +161,14 @@ class ClinicalGlassButton extends StatelessWidget {
   }
 }
 
-enum ClinicalButtonVariant {
-  primary,
-  ghost,
-  outline,
-}
+enum ClinicalButtonVariant { primary, ghost, outline }
 
 class ClinicalSearchTextField extends StatelessWidget {
   final String hintText;
   final double width;
 
   const ClinicalSearchTextField({
-    super.key, 
+    super.key,
     required this.hintText,
     this.width = 300,
   });

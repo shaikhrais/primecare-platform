@@ -3,7 +3,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ArchitecturalPlanningDashboard extends ConsumerWidget {
-  const ArchitecturalPlanningDashboard({super.key});
+  ArchitecturalPlanningDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,7 +14,7 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
     final asyncData = ref.watch(architecturePlanningMetricsProvider);
 
     return PageTemplate(
-      title: 'Architectural Governance',
+      title: LocaleKeys.dashboards_common_labels_architectural_governance.tr(),
       subtitle:
           'Real-time telemetry of the platform\'s strategic mapping across Layers.',
       body: asyncData.when(
@@ -24,7 +24,7 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
                 metrics.kpis
                     .firstWhere(
                       (k) => k.title == 'Flagged Gaps',
-                      orElse: () => const KpiMetric(
+                      orElse: () => KpiMetric(
                         title: '',
                         value: '0',
                         status: 'neutral',
@@ -80,9 +80,12 @@ class ArchitecturalPlanningDashboard extends ConsumerWidget {
                       ],
                     ),
                     if (metrics.isOfflineFallback) ...[
-                      const Spacer(),
-                      const Chip(
-                        label: Text('OFFLINE CACHE'),
+                      Spacer(),
+                      Chip(
+                        label: Text(
+                          LocaleKeys.dashboards_common_labels_offline_cache
+                              .tr(),
+                        ),
                         backgroundColor: PrimeCareColors.amber,
                         labelStyle: TextStyle(
                           color: Colors.white,

@@ -3,11 +3,12 @@ import '../../domain/models/02_M_review_onboarding_status_form_view_model.dart';
 import '../dtos/02_M_review_onboarding_status_form_dto.dart';
 
 class ReviewOnboardingStatusFormMapper {
-  static ReviewOnboardingStatusFormViewModel fromDto(ReviewOnboardingStatusFormDto dto) {
+  static ReviewOnboardingStatusFormViewModel fromDto(
+    ReviewOnboardingStatusFormDto dto,
+  ) {
     return ReviewOnboardingStatusFormViewModel(
       title: dto.raw['title']?.toString() ?? 'reviewOnboardingStatusForm',
       metadata: dto.raw,
     );
   }
 }
-

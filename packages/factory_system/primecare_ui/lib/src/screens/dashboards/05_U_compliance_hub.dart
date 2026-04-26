@@ -2,15 +2,22 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ComplianceHub extends ConsumerWidget {
-  const ComplianceHub({super.key});
+  ComplianceHub({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const PageTemplate(
-      title: 'Compliance Hub',
-      subtitle: 'Regulatory and standard compliance status',
+    return PageTemplate(
+      title: LocaleKeys.dashboards_common_labels_compliance_hub.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_regulatory_and_standard_compliance_status
+          .tr(),
       kpis: [],
-      body: Center(child: Text('Compliance Interface Provisioning...')),
+      body: Center(
+        child: Text(
+          LocaleKeys.dashboards_common_labels_compliance_interface_provisioning
+              .tr(),
+        ),
+      ),
     );
   }
 }

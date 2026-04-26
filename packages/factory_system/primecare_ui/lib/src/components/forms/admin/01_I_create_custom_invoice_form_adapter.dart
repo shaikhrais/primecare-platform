@@ -17,14 +17,22 @@ class CreateCustomInvoiceFormAdapter
   }
 
   Future<void> loadData() async {
-        state = CreateCustomInvoiceFormViewModel(isLoading: true, data: state.data);
+    state = CreateCustomInvoiceFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/create-custom-invoice-form-adapter');
-      state = CreateCustomInvoiceFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/create-custom-invoice-form-adapter',
+      );
+      state = CreateCustomInvoiceFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = CreateCustomInvoiceFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = CreateCustomInvoiceFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

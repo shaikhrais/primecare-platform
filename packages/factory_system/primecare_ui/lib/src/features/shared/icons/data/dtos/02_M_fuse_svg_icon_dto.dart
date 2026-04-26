@@ -6,10 +6,6 @@ class FuseSvgIconDto {
   FuseSvgIconDto({required this.id, required this.raw});
 
   factory FuseSvgIconDto.fromJson(Map<String, dynamic> json) {
-    return FuseSvgIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseSvgIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

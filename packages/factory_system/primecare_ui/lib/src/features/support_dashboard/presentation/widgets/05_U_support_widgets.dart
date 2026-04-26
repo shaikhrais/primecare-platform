@@ -95,29 +95,29 @@ class SatisfactionMatrixGrid extends StatelessWidget {
 
 /// Support action hub for the Support Manager.
 class SupportActionHub extends StatelessWidget {
-  const SupportActionHub({super.key});
+  SupportActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Review Queue',
+          title: LocaleKeys.dashboards_common_labels_review_queue.tr(),
           icon: LucideIcons.list,
           route: '/support/queue',
         ),
         PrimeCareActionItem(
-          title: 'Log Ticket',
+          title: LocaleKeys.dashboards_common_labels_log_ticket.tr(),
           icon: LucideIcons.plusCircle,
           route: '/support/ticket/new',
         ),
         PrimeCareActionItem(
-          title: 'CSAT Report',
+          title: LocaleKeys.dashboards_common_labels_csat_report.tr(),
           icon: LucideIcons.star,
           route: '/support/csat',
         ),
         PrimeCareActionItem(
-          title: 'SLA Tracking',
+          title: LocaleKeys.dashboards_common_labels_sla_tracking.tr(),
           icon: LucideIcons.clock,
           route: '/support/sla',
         ),

@@ -69,21 +69,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             style: GoogleFonts.outfit(
               fontSize: 36,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF0F172A),
+              color: Color(0xFF0F172A),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Text(
             'auth.login_instructions'.tr(),
             style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF0F172A),
+              color: Color(0xFF0F172A),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           TextField(
-            key: const Key('email_field'),
+            key: Key('email_field'),
             controller: _emailController,
             decoration: AuthInputDecoration.get(
               'auth.email'.tr(),
@@ -91,7 +91,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               hintText: 'auth.email_placeholder'.tr(),
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
 
           // Password Field
           Row(
@@ -103,7 +103,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF0F172A),
+                    color: Color(0xFF0F172A),
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -173,7 +173,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               key: const Key('login_button'),
               onPressed: _isLoading ? null : _handleLogin,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF0F172A),
+                backgroundColor: Color(0xFF0F172A),
                 foregroundColor: PrimeCareColors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -181,7 +181,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
               child: _isLoading
-                  ? const SizedBox(
+                  ? SizedBox(
                       height: 24,
                       width: 24,
                       child: CircularProgressIndicator(
@@ -204,18 +204,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFFF8FAFC),
+              color: Color(0xFFF8FAFC),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE2E8F0)),
+              border: Border.all(color: Color(0xFFE2E8F0)),
             ),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   LucideIcons.info,
                   color: Color(0xFF64748B),
                   size: 20,
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     'auth.security_notice_long'.tr(),

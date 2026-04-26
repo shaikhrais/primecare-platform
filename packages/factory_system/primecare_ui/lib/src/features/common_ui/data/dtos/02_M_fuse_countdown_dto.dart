@@ -6,10 +6,6 @@ class FuseCountdownDto {
   FuseCountdownDto({required this.id, required this.raw});
 
   factory FuseCountdownDto.fromJson(Map<String, dynamic> json) {
-    return FuseCountdownDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseCountdownDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

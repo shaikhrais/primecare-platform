@@ -102,29 +102,29 @@ class SiteLogisticsGrid extends StatelessWidget {
 
 /// General action hub for the General Manager.
 class GmActionHub extends StatelessWidget {
-  const GmActionHub({super.key});
+  GmActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Site Visit',
+          title: LocaleKeys.dashboards_common_labels_site_visit.tr(),
           icon: LucideIcons.mapPin,
           route: '/gm/visits/new',
         ),
         PrimeCareActionItem(
-          title: 'Review Metrics',
+          title: LocaleKeys.dashboards_common_labels_review_metrics.tr(),
           icon: LucideIcons.lineChart,
           route: '/gm/metrics',
         ),
         PrimeCareActionItem(
-          title: 'Incident Log',
+          title: LocaleKeys.dashboards_common_labels_incident_log.tr(),
           icon: LucideIcons.alertCircle,
           route: '/gm/incidents',
         ),
         PrimeCareActionItem(
-          title: 'Staff Meeting',
+          title: LocaleKeys.dashboards_common_labels_staff_meeting.tr(),
           icon: LucideIcons.users,
           route: '/gm/meetings',
         ),

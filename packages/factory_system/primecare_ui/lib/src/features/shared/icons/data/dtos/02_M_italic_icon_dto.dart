@@ -6,10 +6,6 @@ class ItalicIconDto {
   ItalicIconDto({required this.id, required this.raw});
 
   factory ItalicIconDto.fromJson(Map<String, dynamic> json) {
-    return ItalicIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ItalicIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

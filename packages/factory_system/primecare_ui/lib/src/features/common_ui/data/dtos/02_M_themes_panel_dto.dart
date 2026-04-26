@@ -6,10 +6,6 @@ class ThemesPanelDto {
   ThemesPanelDto({required this.id, required this.raw});
 
   factory ThemesPanelDto.fromJson(Map<String, dynamic> json) {
-    return ThemesPanelDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ThemesPanelDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

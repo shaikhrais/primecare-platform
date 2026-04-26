@@ -6,10 +6,6 @@ class BoldIconDto {
   BoldIconDto({required this.id, required this.raw});
 
   factory BoldIconDto.fromJson(Map<String, dynamic> json) {
-    return BoldIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return BoldIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

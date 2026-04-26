@@ -28,9 +28,10 @@ class PrimeCareAvatar extends ConsumerWidget {
     final layout = ref.watch(layoutProvider);
     final scale = layout.scaleFactor;
     final ds = PrimeCareDesignSystem.of(context);
-    
+
     final scaledRadius = radius * scale;
-    final fallbackBg = backgroundColor ?? ds.colors.primary.withValues(alpha: 0.1);
+    final fallbackBg =
+        backgroundColor ?? ds.colors.primary.withValues(alpha: 0.1);
     final textColor = ds.colors.primary;
 
     return Stack(

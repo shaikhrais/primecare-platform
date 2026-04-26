@@ -6,8 +6,10 @@ class ITSecurityDashboardIntent extends PrimeCareScreen {
   ITSecurityDashboardIntent()
     : super(
         name: 'it_security',
-        title: 'IT Security HUD',
-        subtitle: 'Cyber-Shield intelligence and threat-management console.',
+        title: LocaleKeys.dashboards_common_labels_it_security_hud.tr(),
+        subtitle: LocaleKeys
+            .dashboards_common_labels_cyber_shield_intelligence_and_threat_management_console
+            .tr(),
         requiredRole: PlatformRole.admin,
         route: InfrastructureRoutes.securityDashboard,
         provider: itSecurityDashboardAdapterProvider,
@@ -19,10 +21,10 @@ class ITSecurityDashboardIntent extends PrimeCareScreen {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.itsecurity.labels.threat_hero',
-    'dashboards.itsecurity.labels.block_velocity_chart',
-    'dashboards.itsecurity.labels.lockdown_controls',
-    'dashboards.itsecurity.labels.security_audit_trail',
+    'dashboards.itsecurity.labels.dashboards_itsecurity_labels_threat_hero',
+    'dashboards.itsecurity.labels.dashboards_itsecurity_labels_block_velocity_chart',
+    'dashboards.itsecurity.labels.dashboards_itsecurity_labels_lockdown_controls',
+    'dashboards.itsecurity.labels.dashboards_itsecurity_labels_security_audit_trail',
   ];
 
   @override

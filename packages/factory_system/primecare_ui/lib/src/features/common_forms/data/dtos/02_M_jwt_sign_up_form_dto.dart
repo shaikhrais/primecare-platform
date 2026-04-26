@@ -6,10 +6,6 @@ class JwtSignUpFormDto {
   JwtSignUpFormDto({required this.id, required this.raw});
 
   factory JwtSignUpFormDto.fromJson(Map<String, dynamic> json) {
-    return JwtSignUpFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return JwtSignUpFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

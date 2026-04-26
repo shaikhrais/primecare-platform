@@ -86,7 +86,7 @@ class CommunityImpactGrid extends StatelessWidget {
         DataCell(Text(partner)),
         DataCell(Text(type)),
         DataCell(
-          Text(leads, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(leads, style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         DataCell(PrimeCareStatusBadge(label: conversion, type: BadgeType.info)),
       ],
@@ -96,24 +96,24 @@ class CommunityImpactGrid extends StatelessWidget {
 
 /// Quick action hub for Outreach Coordinators.
 class OutreachActionHub extends StatelessWidget {
-  const OutreachActionHub({super.key});
+  OutreachActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Schedule Event',
+          title: LocaleKeys.dashboards_common_labels_schedule_event.tr(),
           icon: LucideIcons.calendarPlus,
           route: '/events/new',
         ),
         PrimeCareActionItem(
-          title: 'Log Lead',
+          title: LocaleKeys.dashboards_common_labels_log_lead.tr(),
           icon: LucideIcons.userPlus,
           route: '/leads/log',
         ),
         PrimeCareActionItem(
-          title: 'Impact Report',
+          title: LocaleKeys.dashboards_common_labels_impact_report.tr(),
           icon: LucideIcons.fileBarChart,
           route: '/reports/impact',
         ),

@@ -5,10 +5,7 @@ class NavbarLayout3ViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  NavbarLayout3ViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  NavbarLayout3ViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

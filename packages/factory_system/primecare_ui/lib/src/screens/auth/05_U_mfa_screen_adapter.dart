@@ -15,11 +15,14 @@ class MfaScreenAdapter extends Notifier<MfaScreenViewModel> {
   }
 
   Future<void> loadData() async {
-        state = MfaScreenViewModel(isLoading: true, data: state.data);
+    state = MfaScreenViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/mfa-screen-adapter');
-      state = MfaScreenViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = MfaScreenViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
       state = MfaScreenViewModel(isLoading: false, data: <String, dynamic>{});

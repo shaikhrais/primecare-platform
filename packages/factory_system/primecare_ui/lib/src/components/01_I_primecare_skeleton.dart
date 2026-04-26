@@ -31,8 +31,8 @@ class PrimeCareSkeleton extends ConsumerWidget {
       height: height != null ? height! * scale : null,
       decoration: BoxDecoration(
         shape: shape,
-        borderRadius: shape == BoxShape.rectangle 
-            ? BorderRadius.circular(borderRadius * scale) 
+        borderRadius: shape == BoxShape.rectangle
+            ? BorderRadius.circular(borderRadius * scale)
             : null,
         gradient: LinearGradient(
           colors: [

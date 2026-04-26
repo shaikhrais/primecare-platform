@@ -6,10 +6,6 @@ class BanIconDto {
   BanIconDto({required this.id, required this.raw});
 
   factory BanIconDto.fromJson(Map<String, dynamic> json) {
-    return BanIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return BanIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

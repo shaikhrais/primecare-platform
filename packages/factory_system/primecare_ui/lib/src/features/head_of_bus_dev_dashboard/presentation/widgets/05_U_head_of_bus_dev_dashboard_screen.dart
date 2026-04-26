@@ -83,7 +83,7 @@ class HeadOfBusDevDashboardScreen extends ConsumerWidget {
             style: theme.typography.h4,
           ),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Growth Analysis Engine Initialized',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -101,7 +101,9 @@ class HeadOfBusDevDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Pipeline Conversion Velocity',
+          title: LocaleKeys
+              .dashboards_common_labels_pipeline_conversion_velocity
+              .tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'conversion-velocity',
@@ -120,7 +122,10 @@ class HeadOfBusDevDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

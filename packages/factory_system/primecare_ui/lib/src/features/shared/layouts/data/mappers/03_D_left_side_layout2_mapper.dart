@@ -10,4 +10,3 @@ class LeftSideLayout2Mapper {
     );
   }
 }
-

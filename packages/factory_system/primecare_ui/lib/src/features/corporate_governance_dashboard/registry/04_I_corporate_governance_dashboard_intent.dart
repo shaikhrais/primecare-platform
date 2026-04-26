@@ -7,8 +7,11 @@ class CorporateGovernanceDashboardIntent extends PrimeCareScreen {
   CorporateGovernanceDashboardIntent()
     : super(
         name: 'corporate_governance',
-        title: 'Corporate Governance HUD',
-        subtitle: 'Institutional integrity and architectural compliance audit.',
+        title: LocaleKeys.dashboards_common_labels_corporate_governance_hud
+            .tr(),
+        subtitle: LocaleKeys
+            .dashboards_common_labels_institutional_integrity_and_architectural_compliance_audit
+            .tr(),
         requiredRole: PlatformRole.admin,
         route: InfrastructureRoutes.governanceMonitor,
         provider: corporateGovernanceDashboardAdapterProvider,
@@ -20,10 +23,10 @@ class CorporateGovernanceDashboardIntent extends PrimeCareScreen {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.corporategovernance.labels.compliance_hero',
-    'dashboards.corporategovernance.labels.violation_logs',
-    'dashboards.corporategovernance.labels.remediation_controls',
-    'dashboards.corporategovernance.labels.aura_briefing',
+    'dashboards.corporategovernance.labels.dashboards_corporategovernance_labels_compliance_hero',
+    'dashboards.corporategovernance.labels.dashboards_corporategovernance_labels_violation_logs',
+    'dashboards.corporategovernance.labels.dashboards_corporategovernance_labels_remediation_controls',
+    'dashboards.corporategovernance.labels.dashboards_corporategovernance_labels_aura_briefing',
   ];
 
   @override

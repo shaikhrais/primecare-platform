@@ -1,7 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
 
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 import 'package:primecare_ui/src/components/forms/state/01_I_password_reset_form_notifier.dart';
@@ -43,7 +41,12 @@ class _PasswordResetFormState extends ConsumerState<PasswordResetForm> {
 
       if (mounted && !ref.read(passwordResetFormProvider).hasError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Password successfully reset')),
+          SnackBar(
+            content: Text(
+              LocaleKeys.dashboards_common_labels_password_successfully_reset
+                  .tr(),
+            ),
+          ),
         );
       }
     }
@@ -54,8 +57,10 @@ class _PasswordResetFormState extends ConsumerState<PasswordResetForm> {
     final state = ref.watch(passwordResetFormProvider);
 
     return BaseForm(
-      title: 'Reset Password',
-      subtitle: 'Force a password reset for this user.',
+      title: LocaleKeys.dashboards_common_labels_reset_password.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_force_a_password_reset_for_this_user
+          .tr(),
       isLoading: state.isLoading,
       formKey: _formKey,
       onSubmit: _submit,

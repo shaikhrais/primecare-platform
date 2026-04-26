@@ -6,10 +6,6 @@ class PalettePreviewDto {
   PalettePreviewDto({required this.id, required this.raw});
 
   factory PalettePreviewDto.fromJson(Map<String, dynamic> json) {
-    return PalettePreviewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PalettePreviewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

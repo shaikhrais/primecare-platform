@@ -91,7 +91,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
                 ),
                 child: Icon(icon, color: PrimeCareColors.skyBlue, size: 24),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -107,7 +107,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  SizedBox(height: 2),
                   Row(
                     textBaseline: TextBaseline.alphabetic,
                     crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -115,7 +115,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
                       Flexible(
                         child: Text(
                           value,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color(0xFF1E3A8A),
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -123,7 +123,7 @@ class PrimeCareKpiCard extends ConsumerWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8),
                       Flexible(
                         child: Text(
                           subtitle.tr(),

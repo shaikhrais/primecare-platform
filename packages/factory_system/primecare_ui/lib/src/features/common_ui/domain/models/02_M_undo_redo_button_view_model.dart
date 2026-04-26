@@ -5,10 +5,7 @@ class UndoRedoButtonViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  UndoRedoButtonViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  UndoRedoButtonViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

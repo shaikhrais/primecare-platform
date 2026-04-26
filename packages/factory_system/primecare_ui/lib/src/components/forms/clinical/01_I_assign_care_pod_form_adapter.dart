@@ -16,14 +16,20 @@ class AssignCarePodFormAdapter extends Notifier<AssignCarePodFormViewModel> {
   }
 
   Future<void> loadData() async {
-        state = AssignCarePodFormViewModel(isLoading: true, data: state.data);
+    state = AssignCarePodFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/assign-care-pod-form-adapter');
-      state = AssignCarePodFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = AssignCarePodFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = AssignCarePodFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = AssignCarePodFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

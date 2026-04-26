@@ -6,10 +6,6 @@ class HeadingOneIconDto {
   HeadingOneIconDto({required this.id, required this.raw});
 
   factory HeadingOneIconDto.fromJson(Map<String, dynamic> json) {
-    return HeadingOneIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return HeadingOneIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

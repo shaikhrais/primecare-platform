@@ -6,10 +6,6 @@ class ListTodoIconDto {
   ListTodoIconDto({required this.id, required this.raw});
 
   factory ListTodoIconDto.fromJson(Map<String, dynamic> json) {
-    return ListTodoIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ListTodoIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

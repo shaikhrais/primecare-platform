@@ -10,4 +10,3 @@ class RightSideLayout2Mapper {
     );
   }
 }
-

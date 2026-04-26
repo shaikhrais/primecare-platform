@@ -6,10 +6,6 @@ class NavbarStyle1Dto {
   NavbarStyle1Dto({required this.id, required this.raw});
 
   factory NavbarStyle1Dto.fromJson(Map<String, dynamic> json) {
-    return NavbarStyle1Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NavbarStyle1Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

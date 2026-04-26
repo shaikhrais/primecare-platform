@@ -6,10 +6,6 @@ class BlockQuoteIconDto {
   BlockQuoteIconDto({required this.id, required this.raw});
 
   factory BlockQuoteIconDto.fromJson(Map<String, dynamic> json) {
-    return BlockQuoteIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return BlockQuoteIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

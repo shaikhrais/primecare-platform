@@ -6,10 +6,6 @@ class FuseSettingsContextDto {
   FuseSettingsContextDto({required this.id, required this.raw});
 
   factory FuseSettingsContextDto.fromJson(Map<String, dynamic> json) {
-    return FuseSettingsContextDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseSettingsContextDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

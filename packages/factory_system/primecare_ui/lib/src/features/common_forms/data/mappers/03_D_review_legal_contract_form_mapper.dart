@@ -3,11 +3,12 @@ import '../../domain/models/02_M_review_legal_contract_form_view_model.dart';
 import '../dtos/02_M_review_legal_contract_form_dto.dart';
 
 class ReviewLegalContractFormMapper {
-  static ReviewLegalContractFormViewModel fromDto(ReviewLegalContractFormDto dto) {
+  static ReviewLegalContractFormViewModel fromDto(
+    ReviewLegalContractFormDto dto,
+  ) {
     return ReviewLegalContractFormViewModel(
       title: dto.raw['title']?.toString() ?? 'reviewLegalContractForm',
       metadata: dto.raw,
     );
   }
 }
-

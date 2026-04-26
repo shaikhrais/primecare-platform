@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_stepper_base_form.dart';
 
 class MockPatientIntakeStepper extends StatefulWidget {
@@ -19,12 +18,16 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
 
   Future<void> _submitAll() async {
     setState(() => _isLoading = true);
-    await Future<void>.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(Duration(seconds: 2));
     setState(() => _isLoading = false);
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Patient Intake Completed!')),
+        SnackBar(
+          content: Text(
+            LocaleKeys.dashboards_common_labels_patient_intake_completed.tr(),
+          ),
+        ),
       );
     }
   }
@@ -32,12 +35,17 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Patient Intake')),
+      appBar: AppBar(
+        title: Text(LocaleKeys.dashboards_common_labels_patient_intake.tr(),
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: StepperBaseForm(
-          title: 'Comprehensive Intake',
-          subtitle: 'Please complete all steps to register the patient.',
+          title: LocaleKeys.dashboards_common_labels_comprehensive_intake.tr(),
+          subtitle: LocaleKeys
+              .dashboards_common_labels_please_complete_all_steps_to_register_the_patient
+              .tr(),
           isLoading: _isLoading,
           onSubmit: _submitAll,
           onCancel: () {
@@ -45,8 +53,8 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
           },
           steps: [
             FormStep(
-              title: 'Basic Info',
-              subtitle: 'Name and Dob',
+              title: LocaleKeys.dashboards_common_labels_basic_info.tr(),
+              subtitle: LocaleKeys.dashboards_common_labels_name_and_dob.tr(),
               validate: () => _step1Key.currentState?.validate() ?? false,
               content: Form(
                 key: _step1Key,
@@ -60,7 +68,9 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
                           v!.isEmpty ? 'First name required' : null,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'forms.last_name'.tr()),
+                      decoration: InputDecoration(
+                        labelText: 'forms.last_name'.tr(),
+                      ),
                       validator: (v) =>
                           v!.isEmpty ? 'Last name required' : null,
                     ),
@@ -69,8 +79,9 @@ class _MockPatientIntakeStepperState extends State<MockPatientIntakeStepper> {
               ),
             ),
             FormStep(
-              title: 'Clinical Details',
-              subtitle: 'Reason for visit',
+              title: LocaleKeys.dashboards_common_labels_clinical_details.tr(),
+              subtitle: LocaleKeys.dashboards_common_labels_reason_for_visit
+                  .tr(),
               validate: () => _step2Key.currentState?.validate() ?? false,
               content: Form(
                 key: _step2Key,

@@ -1,9 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/src/components/01_I_audit_log_tile.dart';
-import 'package:primecare_ui/src/theme/01_I_colors.dart';
-import 'package:primecare_ui/src/components/forms/admin/01_I_audit_system_logs_form_adapter.dart';
 
 class AuditSystemLogsForm extends ConsumerStatefulWidget {
   const AuditSystemLogsForm({super.key});
@@ -62,7 +58,7 @@ class _AuditSystemLogsFormState extends ConsumerState<AuditSystemLogsForm> {
               Expanded(
                 child: TextField(
                   controller: _searchController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Search resource type...',
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(),
@@ -70,10 +66,10 @@ class _AuditSystemLogsFormState extends ConsumerState<AuditSystemLogsForm> {
                   onSubmitted: (_) => _onFilterChanged(),
                 ),
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: 16),
               DropdownButton<String>(
                 value: _selectedAction,
-                hint: const Text('All Actions'),
+                hint: Text(LocaleKeys.dashboards_common_labels_all_actions.tr()),
                 items: ['VOID_TRANSACTION', 'UPDATE_PERMISSIONS', 'LOGIN', 'LOGOUT']
                     .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
@@ -89,15 +85,15 @@ class _AuditSystemLogsFormState extends ConsumerState<AuditSystemLogsForm> {
         // Logs List
         Expanded(
           child: state.isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? Center(child: CircularProgressIndicator())
               : state.error != null
-                  ? Center(child: Text('Error: ${state.error}'))
+                  ? Center(child: Text(LocaleKeys.dashboards_common_labels_error____state_error.tr()))
                   : state.logs.isEmpty
-                      ? const Center(child: Text('No audit logs found.'))
+                      ? Center(child: Text(LocaleKeys.dashboards_common_labels_no_audit_logs_found.tr()))
                       : ListView.separated(
                           padding: const EdgeInsets.all(16),
                           itemCount: state.logs.length,
-                          separatorBuilder: (_, _) => const Divider(),
+                          separatorBuilder: (_, _) => Divider(),
                           itemBuilder: (context, index) {
                             final log = state.logs[index] as Map<String, dynamic>;
                             final actorData = log['actor'] as Map<String, dynamic>?;
@@ -105,7 +101,8 @@ class _AuditSystemLogsFormState extends ConsumerState<AuditSystemLogsForm> {
                                 ? actorData['name'] ?? actorData['email'] 
                                 : 'System';
                             
-                            return AuditLogTile(title: (log['action'] as String?) ?? 'Unknown Action',
+                            return AuditLogTile(
+                              title: (log['action'] as String?) ?? 'Unknown Action',
                               subtitle: '$actor performed ${log['action']} on ${log['resourceType']}',
                               timestamp: log['createdAt']?.toString().split('T').first ?? '',
                               icon: _getIconForAction((log['action'] as String?) ?? ''),

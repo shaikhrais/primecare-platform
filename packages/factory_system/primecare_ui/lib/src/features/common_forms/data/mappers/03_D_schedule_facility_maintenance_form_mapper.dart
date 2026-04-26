@@ -3,11 +3,12 @@ import '../../domain/models/02_M_schedule_facility_maintenance_form_view_model.d
 import '../dtos/02_M_schedule_facility_maintenance_form_dto.dart';
 
 class ScheduleFacilityMaintenanceFormMapper {
-  static ScheduleFacilityMaintenanceFormViewModel fromDto(ScheduleFacilityMaintenanceFormDto dto) {
+  static ScheduleFacilityMaintenanceFormViewModel fromDto(
+    ScheduleFacilityMaintenanceFormDto dto,
+  ) {
     return ScheduleFacilityMaintenanceFormViewModel(
       title: dto.raw['title']?.toString() ?? 'scheduleFacilityMaintenanceForm',
       metadata: dto.raw,
     );
   }
 }
-

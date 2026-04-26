@@ -6,10 +6,6 @@ class HeadingTwoIconDto {
   HeadingTwoIconDto({required this.id, required this.raw});
 
   factory HeadingTwoIconDto.fromJson(Map<String, dynamic> json) {
-    return HeadingTwoIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return HeadingTwoIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -15,14 +15,20 @@ class DragAssignWidgetAdapter extends Notifier<DragAssignWidgetViewModel> {
   }
 
   Future<void> loadData() async {
-        state = DragAssignWidgetViewModel(isLoading: true, data: state.data);
+    state = DragAssignWidgetViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/drag-assign-widget-adapter');
-      state = DragAssignWidgetViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = DragAssignWidgetViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = DragAssignWidgetViewModel(isLoading: false, data: <String, dynamic>{});
+      state = DragAssignWidgetViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

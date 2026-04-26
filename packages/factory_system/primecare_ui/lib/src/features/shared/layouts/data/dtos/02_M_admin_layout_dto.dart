@@ -6,10 +6,6 @@ class AdminLayoutDto {
   AdminLayoutDto({required this.id, required this.raw});
 
   factory AdminLayoutDto.fromJson(Map<String, dynamic> json) {
-    return AdminLayoutDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AdminLayoutDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

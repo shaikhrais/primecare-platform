@@ -6,7 +6,6 @@ part '02_M_intake_coordinator_data.g.dart';
 
 @freezed
 abstract class IntakeCoordinatorData with _$IntakeCoordinatorData {
-
   const factory IntakeCoordinatorData({required Map<String, dynamic> metrics}) =
       _IntakeCoordinatorData;
 

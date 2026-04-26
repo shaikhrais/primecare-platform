@@ -6,10 +6,6 @@ class HighlighterIconDto {
   HighlighterIconDto({required this.id, required this.raw});
 
   factory HighlighterIconDto.fromJson(Map<String, dynamic> json) {
-    return HighlighterIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return HighlighterIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

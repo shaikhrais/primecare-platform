@@ -16,10 +16,6 @@ class PrimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeCareCard(
-      padding: padding,
-      isFlat: isFlat,
-      child: child,
-    );
+    return PrimeCareCard(padding: padding, isFlat: isFlat, child: child);
   }
 }

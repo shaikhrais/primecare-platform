@@ -6,10 +6,6 @@ class FuseThemeDto {
   FuseThemeDto({required this.id, required this.raw});
 
   factory FuseThemeDto.fromJson(Map<String, dynamic> json) {
-    return FuseThemeDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseThemeDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

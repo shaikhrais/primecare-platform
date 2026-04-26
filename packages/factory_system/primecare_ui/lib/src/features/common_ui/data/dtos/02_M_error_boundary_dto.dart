@@ -6,10 +6,6 @@ class ErrorBoundaryDto {
   ErrorBoundaryDto({required this.id, required this.raw});
 
   factory ErrorBoundaryDto.fromJson(Map<String, dynamic> json) {
-    return ErrorBoundaryDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ErrorBoundaryDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -5,10 +5,7 @@ class RadioFormControllerViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  RadioFormControllerViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  RadioFormControllerViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

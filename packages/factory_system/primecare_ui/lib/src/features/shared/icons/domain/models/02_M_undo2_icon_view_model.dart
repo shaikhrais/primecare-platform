@@ -5,10 +5,7 @@ class Undo2IconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  Undo2IconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  Undo2IconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

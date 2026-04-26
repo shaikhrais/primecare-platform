@@ -155,7 +155,7 @@ class _DesktopSidebar extends StatelessWidget {
           BoxShadow(
             color: PrimeCareColors.black.withValues(alpha: 0.35),
             blurRadius: 24,
-            offset: const Offset(8, 0),
+            offset: Offset(8, 0),
           ),
         ],
       ),
@@ -167,7 +167,7 @@ class _DesktopSidebar extends StatelessWidget {
             child: Row(
               children: [
                 Icon(Icons.monitor_heart_rounded, color: primaryIcon, size: 32),
-                const SizedBox(width: PrimeCareSpacing.sm),
+                SizedBox(width: PrimeCareSpacing.sm),
                 Text(
                   'common.app_name'.tr(),
                   overflow: TextOverflow.ellipsis,
@@ -208,7 +208,7 @@ class _DesktopSidebar extends StatelessWidget {
                                 BoxShadow(
                                   color: primaryIcon.withValues(alpha: 0.25),
                                   blurRadius: 12,
-                                  offset: const Offset(0, 4),
+                                  offset: Offset(0, 4),
                                 ),
                               ]
                             : [],
@@ -221,7 +221,7 @@ class _DesktopSidebar extends StatelessWidget {
                                 ? primaryIcon
                                 : PrimeCareDesignSystem.textMuted,
                           ),
-                          const SizedBox(width: PrimeCareSpacing.md),
+                          SizedBox(width: PrimeCareSpacing.md),
                           Text(
                             d.label.tr(),
                             overflow: TextOverflow.ellipsis,

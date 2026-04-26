@@ -6,10 +6,6 @@ class DemoContentDto {
   DemoContentDto({required this.id, required this.raw});
 
   factory DemoContentDto.fromJson(Map<String, dynamic> json) {
-    return DemoContentDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DemoContentDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -6,10 +6,6 @@ class AuditSystemLogsFormDto {
   AuditSystemLogsFormDto({required this.id, required this.raw});
 
   factory AuditSystemLogsFormDto.fromJson(Map<String, dynamic> json) {
-    return AuditSystemLogsFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AuditSystemLogsFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -6,10 +6,6 @@ class LinkIconDto {
   LinkIconDto({required this.id, required this.raw});
 
   factory LinkIconDto.fromJson(Map<String, dynamic> json) {
-    return LinkIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return LinkIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

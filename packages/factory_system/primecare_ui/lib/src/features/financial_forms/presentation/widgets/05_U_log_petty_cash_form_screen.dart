@@ -3,29 +3,36 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 class LogPettyCashFormScreen extends ConsumerWidget {
   final dynamic data;
-  
-  const LogPettyCashFormScreen({super.key, this.data});
+
+  LogPettyCashFormScreen({super.key, this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PrimeCareScaffold(
-      title: 'logPettyCashForm',
+      title: LocaleKeys.dashboards_common_labels_logpettycashform.tr(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
-            const SizedBox(height: 16),
+            Icon(
+              LucideIcons.component,
+              size: 64,
+              color: context.theme.colors.primary,
+            ),
+            SizedBox(height: 16),
             Text(
               'logPettyCashForm Implementation',
               style: context.textTheme.headlineMedium,
             ),
-            const SizedBox(height: 8),
-            Text('This component is part of the financial_forms module.'),
+            SizedBox(height: 8),
+            Text(
+              LocaleKeys
+                  .dashboards_common_labels_this_component_is_part_of_the_financial_forms_module
+                  .tr(),
+            ),
           ],
         ),
       ),
     );
   }
 }
-

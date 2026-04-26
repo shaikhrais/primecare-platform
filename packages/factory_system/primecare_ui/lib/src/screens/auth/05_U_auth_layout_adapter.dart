@@ -15,11 +15,14 @@ class AuthLayoutAdapter extends Notifier<AuthLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-        state = AuthLayoutViewModel(isLoading: true, data: state.data);
+    state = AuthLayoutViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/auth-layout-adapter');
-      state = AuthLayoutViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = AuthLayoutViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
       state = AuthLayoutViewModel(isLoading: false, data: <String, dynamic>{});

@@ -5,10 +5,7 @@ class MasterLayoutViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  MasterLayoutViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  MasterLayoutViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

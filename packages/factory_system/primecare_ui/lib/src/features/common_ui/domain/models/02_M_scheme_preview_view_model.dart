@@ -5,10 +5,7 @@ class SchemePreviewViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  SchemePreviewViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  SchemePreviewViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

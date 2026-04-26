@@ -80,7 +80,7 @@ class ScrumMasterDashboardScreen extends ConsumerWidget {
         children: [
           Text('Sprint Burndown - Active Cycle', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Dynamic Agile Engine Initialized',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -98,7 +98,7 @@ class ScrumMasterDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Sprint Velocity Trend',
+          title: LocaleKeys.dashboards_common_labels_sprint_velocity_trend.tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'sprint-velocity',
@@ -117,7 +117,10 @@ class ScrumMasterDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

@@ -63,7 +63,10 @@ class AIForecastingDashlet extends StatelessWidget {
     );
   }
 
-  Widget _buildProjectionsChart(BuildContext context, PrimeCareDesignSystem ds) {
+  Widget _buildProjectionsChart(
+    BuildContext context,
+    PrimeCareDesignSystem ds,
+  ) {
     return PrimeCareCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +82,12 @@ class AIForecastingDashlet extends StatelessWidget {
           const SizedBox(height: 16),
           Container(
             height: 300,
-            padding: const EdgeInsets.only(top: 24, right: 24, left: 0, bottom: 0),
+            padding: const EdgeInsets.only(
+              top: 24,
+              right: 24,
+              left: 0,
+              bottom: 0,
+            ),
             child: LineChart(
               LineChartData(
                 lineTouchData: LineTouchData(
@@ -91,7 +99,9 @@ class AIForecastingDashlet extends StatelessWidget {
                         return LineTooltipItem(
                           "${isRevenue ? 'Revenue' : 'Costs'}: \$${spot.y.toStringAsFixed(0)}k",
                           TextStyle(
-                            color: isRevenue ? ds.colors.primary : ds.colors.danger,
+                            color: isRevenue
+                                ? ds.colors.primary
+                                : ds.colors.danger,
                             fontWeight: FontWeight.bold,
                           ),
                         );
@@ -147,8 +157,12 @@ class AIForecastingDashlet extends StatelessWidget {
                       },
                     ),
                   ),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
                 ),
                 borderData: FlBorderData(show: false),
                 lineBarsData: [
@@ -184,7 +198,7 @@ class AIForecastingDashlet extends StatelessWidget {
                     barWidth: 3,
                     dashArray: [5, 5],
                     isStrokeCapRound: true,
-                    dotData: const FlDotData(show: false),
+                    dotData: FlDotData(show: false),
                   ),
                 ],
               ),
@@ -199,25 +213,25 @@ class AIForecastingDashlet extends StatelessWidget {
     return PrimeResponsiveGrid(
       children: [
         PrimeCareStatCard(
-          title: 'Projected Q3 Revenue',
+          title: LocaleKeys.dashboards_common_labels_projected_q3_revenue.tr(),
           value: '\$${(data.kpis.quarterlyRevenue / 1000).toStringAsFixed(1)}M',
           icon: LucideIcons.trendingUp,
           iconColor: ds.colors.success,
         ),
         PrimeCareStatCard(
-          title: 'Anticipated Growth',
+          title: LocaleKeys.dashboards_common_labels_anticipated_growth.tr(),
           value: '${(data.kpis.projectedGrowth * 100).toStringAsFixed(1)}%',
           icon: LucideIcons.arrowUpRight,
           iconColor: ds.colors.primary,
         ),
         PrimeCareStatCard(
-          title: 'Margin Efficiency',
+          title: LocaleKeys.dashboards_common_labels_margin_efficiency.tr(),
           value: '${(data.kpis.marginEfficiency * 100).toStringAsFixed(1)}%',
           icon: LucideIcons.percent,
           iconColor: ds.colors.warning,
         ),
         PrimeCareStatCard(
-          title: 'Projected Patients',
+          title: LocaleKeys.dashboards_common_labels_projected_patients.tr(),
           value: data.kpis.projectedAdmissions.toString(),
           icon: LucideIcons.users,
           iconColor: ds.colors.secondary,
@@ -226,7 +240,10 @@ class AIForecastingDashlet extends StatelessWidget {
     );
   }
 
-  Widget _buildInsightsAndConfidence(BuildContext context, PrimeCareDesignSystem ds) {
+  Widget _buildInsightsAndConfidence(
+    BuildContext context,
+    PrimeCareDesignSystem ds,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -251,12 +268,19 @@ class AIForecastingDashlet extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(LucideIcons.checkCircle2, color: ds.colors.success, size: 16),
+                        Icon(
+                          LucideIcons.checkCircle2,
+                          color: ds.colors.success,
+                          size: 16,
+                        ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             insight,
-                            style: TextStyle(color: ds.colors.textSecondary, fontSize: 13),
+                            style: TextStyle(
+                              color: ds.colors.textSecondary,
+                              fontSize: 13,
+                            ),
                           ),
                         ),
                       ],
@@ -296,7 +320,10 @@ class AIForecastingDashlet extends StatelessWidget {
                               value: data.confidenceScore,
                               strokeWidth: 8,
                               backgroundColor: ds.colors.borderSubtle,
-                              color: _getConfidenceColor(ds, data.confidenceScore),
+                              color: _getConfidenceColor(
+                                ds,
+                                data.confidenceScore,
+                              ),
                             ),
                           ),
                           Text(
@@ -312,7 +339,10 @@ class AIForecastingDashlet extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         'Model Reliability',
-                        style: TextStyle(color: ds.colors.textTertiary, fontSize: 11),
+                        style: TextStyle(
+                          color: ds.colors.textTertiary,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),

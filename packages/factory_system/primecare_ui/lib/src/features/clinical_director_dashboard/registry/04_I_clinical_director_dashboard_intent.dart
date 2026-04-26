@@ -22,9 +22,9 @@ class ClinicalDirectorDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.clinicaldirector.labels.clinical_safety_score',
-    'dashboards.clinicaldirector.labels.staffing_heatmap',
-    'dashboards.clinicaldirector.labels.protocol_compliance',
+    'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_clinical_safety_score',
+    'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_staffing_heatmap',
+    'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_protocol_compliance',
   ];
 
   @override

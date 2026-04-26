@@ -6,10 +6,6 @@ class FusePageSimpleHeaderDto {
   FusePageSimpleHeaderDto({required this.id, required this.raw});
 
   factory FusePageSimpleHeaderDto.fromJson(Map<String, dynamic> json) {
-    return FusePageSimpleHeaderDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FusePageSimpleHeaderDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -6,10 +6,6 @@ class HeadingFourIconDto {
   HeadingFourIconDto({required this.id, required this.raw});
 
   factory HeadingFourIconDto.fromJson(Map<String, dynamic> json) {
-    return HeadingFourIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return HeadingFourIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

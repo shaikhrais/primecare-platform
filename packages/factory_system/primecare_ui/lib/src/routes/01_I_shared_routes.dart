@@ -8,38 +8,38 @@ import 'package:primecare_ui/src/screens/common/05_U_user_management.dart';
 final List<RouteBase> sharedCommonRoutes = [
   GoRoute(
     path: CommonRoutes.error500,
-    builder: (context, state) => const Error500PageViewScreen(),
+    builder: (context, state) => Error500PageViewScreen(),
   ),
   GoRoute(
     path: CommonRoutes.error404,
-    builder: (context, state) => const Error404PageViewScreen(),
+    builder: (context, state) => Error404PageViewScreen(),
   ),
   GoRoute(
     path: CommonRoutes.globalProfile,
-    builder: (context, state) => const GlobalProfileScreen(),
+    builder: (context, state) => GlobalProfileScreen(),
   ),
   GoRoute(
     path: CommonRoutes.globalSettings,
-    builder: (context, state) => const GlobalSettingsScreen(),
+    builder: (context, state) => GlobalSettingsScreen(),
   ),
   GoRoute(
     path: CommonRoutes.notificationCenter,
-    builder: (context, state) => const NotificationCenterScreen(),
+    builder: (context, state) => NotificationCenterScreen(),
   ),
   GoRoute(
     path: CommonRoutes.messagingHub,
-    builder: (context, state) => const MessagingHubScreen(),
+    builder: (context, state) => MessagingHubScreen(),
   ),
   GoRoute(
     path: CommonRoutes.documentVault,
-    builder: (context, state) => const DocumentVaultScreen(),
+    builder: (context, state) => DocumentVaultScreen(),
   ),
   GoRoute(
     path: CommonRoutes.userManagement,
-    builder: (context, state) => const UserManagementScreen(),
+    builder: (context, state) => UserManagementScreen(),
   ),
   GoRoute(
     path: CommonRoutes.architecturalPlanning,
-    builder: (context, state) => const ArchitecturalPlanningDashboard(),
+    builder: (context, state) => ArchitecturalPlanningDashboard(),
   ),
 ];

@@ -85,7 +85,7 @@ class CustomerSupportDashboardScreen extends ConsumerWidget {
         children: [
           Text('Incident Resolution Velocity', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Global Support Surveillance Active',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -103,7 +103,7 @@ class CustomerSupportDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Ticket Volume Trend',
+          title: LocaleKeys.dashboards_common_labels_ticket_volume_trend.tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'ticket-volume',
@@ -122,7 +122,10 @@ class CustomerSupportDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

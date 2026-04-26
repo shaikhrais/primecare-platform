@@ -10,4 +10,3 @@ class NavbarStyle2Mapper {
     );
   }
 }
-

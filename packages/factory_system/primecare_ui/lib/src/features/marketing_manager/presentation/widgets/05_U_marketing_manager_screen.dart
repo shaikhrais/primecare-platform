@@ -42,7 +42,10 @@ class MarketingManagerScreen extends ConsumerWidget {
                     children: [
                       Expanded(flex: 2, child: _buildCampaignFunnel(vm)),
                       const SizedBox(width: 24),
-                      Expanded(flex: 1, child: _buildMarketingIntelligence(context, vm)),
+                      Expanded(
+                        flex: 1,
+                        child: _buildMarketingIntelligence(context, vm),
+                      ),
                     ],
                   ),
                 ],
@@ -63,9 +66,9 @@ class MarketingManagerScreen extends ConsumerWidget {
       elevation: 0,
       title: Row(
         children: [
-          const Icon(Icons.campaign_outlined, color: Color(0xFFBE185D)),
-          const SizedBox(width: 12),
-          const Text(
+          Icon(Icons.campaign_outlined, color: Color(0xFFBE185D)),
+          SizedBox(width: 12),
+          Text(
             'Growth & Branding',
             style: TextStyle(
               color: Colors.black87,
@@ -78,14 +81,15 @@ class MarketingManagerScreen extends ConsumerWidget {
       actions: [
         ElevatedButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.add),
-          label: const Text('NEW CAMPAIGN'),
+          icon: Icon(Icons.add),
+          label: Text(LocaleKeys.dashboards_common_labels_new_campaign.tr(),
+          ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFBE185D),
+            backgroundColor: Color(0xFFBE185D),
             foregroundColor: Colors.white,
           ),
         ),
-        const SizedBox(width: 24),
+        SizedBox(width: 24),
       ],
     );
   }
@@ -100,7 +104,8 @@ class MarketingManagerScreen extends ConsumerWidget {
 
   Widget _buildCampaignFunnel(HeadOfMarketingDashboardViewModel vm) {
     return _buildCard(
-      title: 'Campaign Conversion Funnel',
+      title: LocaleKeys.dashboards_common_labels_campaign_conversion_funnel
+          .tr(),
       child: Column(
         children: [
           _FunnelStage(
@@ -132,7 +137,10 @@ class MarketingManagerScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildMarketingIntelligence(BuildContext context, HeadOfMarketingDashboardViewModel vm) {
+  Widget _buildMarketingIntelligence(
+    BuildContext context,
+    HeadOfMarketingDashboardViewModel vm,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(

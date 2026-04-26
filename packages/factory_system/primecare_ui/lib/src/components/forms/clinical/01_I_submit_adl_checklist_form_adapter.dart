@@ -17,14 +17,22 @@ class SubmitAdlChecklistFormAdapter
   }
 
   Future<void> loadData() async {
-        state = SubmitAdlChecklistFormViewModel(isLoading: true, data: state.data);
+    state = SubmitAdlChecklistFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/submit-adl-checklist-form-adapter');
-      state = SubmitAdlChecklistFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/submit-adl-checklist-form-adapter',
+      );
+      state = SubmitAdlChecklistFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = SubmitAdlChecklistFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = SubmitAdlChecklistFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

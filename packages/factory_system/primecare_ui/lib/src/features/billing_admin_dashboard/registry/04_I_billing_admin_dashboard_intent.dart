@@ -22,9 +22,9 @@ class BillingAdminDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.billingadmin.labels.aging_accounts_grid',
-    'dashboards.billingadmin.labels.pending_claims_queue',
-    'dashboards.billingadmin.labels.remittance_breakdown',
+    'dashboards.billingadmin.labels.dashboards_billingadmin_labels_aging_accounts_grid',
+    'dashboards.billingadmin.labels.dashboards_billingadmin_labels_pending_claims_queue',
+    'dashboards.billingadmin.labels.dashboards_billingadmin_labels_remittance_breakdown',
   ];
 
   @override

@@ -6,10 +6,6 @@ class UseJwtAuthDto {
   UseJwtAuthDto({required this.id, required this.raw});
 
   factory UseJwtAuthDto.fromJson(Map<String, dynamic> json) {
-    return UseJwtAuthDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UseJwtAuthDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

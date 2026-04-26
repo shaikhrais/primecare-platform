@@ -83,7 +83,7 @@ class SchedulerScreen extends ConsumerWidget {
           onPressed: () {},
           tooltip: 'Coverage Alerts',
         ),
-        const SizedBox(width: 24),
+        SizedBox(width: 24),
       ],
     );
   }
@@ -100,37 +100,52 @@ class SchedulerScreen extends ConsumerWidget {
     return Column(
       children: [
         _buildSectionCard(
-          title: 'Shift Coverage Optimization',
-          subtitle: 'Real-time staffing density across service regions',
+          title: LocaleKeys.dashboards_common_labels_shift_coverage_optimization
+              .tr(),
+          subtitle: LocaleKeys
+              .dashboards_common_labels_real_time_staffing_density_across_service_regions
+              .tr(),
           child: Container(
             height: 400,
             decoration: BoxDecoration(
               color: Colors.grey[50],
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Center(
+            child: Center(
               child: Icon(Icons.view_quilt, size: 48, color: Colors.black12),
             ),
           ),
         ),
-        const SizedBox(height: 24),
+        SizedBox(height: 24),
         _buildSectionCard(
-          title: 'Pending Fulfillment Requests',
-          subtitle: 'Critical shifts requiring immediate assignment',
+          title: LocaleKeys
+              .dashboards_common_labels_pending_fulfillment_requests
+              .tr(),
+          subtitle: LocaleKeys
+              .dashboards_common_labels_critical_shifts_requiring_immediate_assignment
+              .tr(),
           child: ListView.builder(
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            physics: NeverScrollableScrollPhysics(),
             itemCount: 3,
             itemBuilder: (context, index) => ListTile(
-              leading: const CircleAvatar(
+              leading: CircleAvatar(
                 backgroundColor: Colors.redAccent,
                 child: Icon(Icons.warning, color: Colors.white, size: 16),
               ),
-              title: Text('RN Shift - Region ${index + 1}'),
-              subtitle: const Text('Priority: High • Gap: 2 Hours'),
+              title: Text(
+                LocaleKeys
+                    .dashboards_common_labels_rn_shift___region___index___1
+                    .tr(),
+              ),
+              subtitle: Text(LocaleKeys
+                    .dashboards_common_labels_priority__high___gap__2_hours
+                    .tr(),
+              ),
               trailing: TextButton(
                 onPressed: () {},
-                child: const Text('ASSIGN'),
+                child: Text(LocaleKeys.dashboards_common_labels_assign.tr(),
+                ),
               ),
             ),
           ),

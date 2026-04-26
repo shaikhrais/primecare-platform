@@ -108,29 +108,29 @@ class DividendDistributionGrid extends StatelessWidget {
 
 /// Ownership action hub for the Entity Owner.
 class OwnerActionHub extends StatelessWidget {
-  const OwnerActionHub({super.key});
+  OwnerActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Equity Report',
+          title: LocaleKeys.dashboards_common_labels_equity_report.tr(),
           icon: LucideIcons.pieChart,
           route: '/owner/equity',
         ),
         PrimeCareActionItem(
-          title: 'Distribution',
+          title: LocaleKeys.dashboards_common_labels_distribution.tr(),
           icon: LucideIcons.banknote,
           route: '/owner/distribution',
         ),
         PrimeCareActionItem(
-          title: 'Board Resolutions',
+          title: LocaleKeys.dashboards_common_labels_board_resolutions.tr(),
           icon: LucideIcons.fileText,
           route: '/owner/resolutions',
         ),
         PrimeCareActionItem(
-          title: 'Tax Planning',
+          title: LocaleKeys.dashboards_common_labels_tax_planning.tr(),
           icon: LucideIcons.calculator,
           route: '/owner/tax',
         ),

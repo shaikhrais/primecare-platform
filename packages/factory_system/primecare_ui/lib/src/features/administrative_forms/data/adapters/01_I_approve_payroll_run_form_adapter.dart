@@ -25,7 +25,9 @@ class ApprovePayrollRunFormAdapter
     final result = await Result.guardFuture<ApprovePayrollRunFormDto>(() async {
       final response = await apiClient.get('/api/v1/admin/payroll/latest');
       if (response.statusCode == 200) {
-        return ApprovePayrollRunFormDto.fromJson(response.data as Map<String, dynamic>);
+        return ApprovePayrollRunFormDto.fromJson(
+          response.data as Map<String, dynamic>,
+        );
       }
       return ApprovePayrollRunFormDto(
         id: 'PRL-FAILED',

@@ -6,10 +6,6 @@ class FuseExampleDto {
   FuseExampleDto({required this.id, required this.raw});
 
   factory FuseExampleDto.fromJson(Map<String, dynamic> json) {
-    return FuseExampleDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseExampleDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

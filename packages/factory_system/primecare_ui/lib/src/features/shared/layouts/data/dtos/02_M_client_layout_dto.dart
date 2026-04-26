@@ -6,10 +6,6 @@ class ClientLayoutDto {
   ClientLayoutDto({required this.id, required this.raw});
 
   factory ClientLayoutDto.fromJson(Map<String, dynamic> json) {
-    return ClientLayoutDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ClientLayoutDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

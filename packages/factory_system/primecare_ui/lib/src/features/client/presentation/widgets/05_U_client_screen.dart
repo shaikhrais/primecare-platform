@@ -145,16 +145,16 @@ class ClientScreen extends ConsumerWidget {
 
   Widget _buildUpcomingCare(ClientDashboardViewModel vm) {
     return _buildCard(
-      title: 'Upcoming Care Visits',
+      title: LocaleKeys.dashboards_common_labels_upcoming_care_visits.tr(),
       child: Column(
         children: [
           _CareVisitTile(
-            title: 'Physical Therapy',
+            title: LocaleKeys.dashboards_common_labels_physical_therapy.tr(),
             time: 'Today, 2:00 PM',
             provider: 'Dr. Sarah Wilson',
           ),
           _CareVisitTile(
-            title: 'Medication Delivery',
+            title: LocaleKeys.dashboards_common_labels_medication_delivery.tr(),
             time: 'Tomorrow, 10:00 AM',
             provider: 'Pharmacy Express',
           ),

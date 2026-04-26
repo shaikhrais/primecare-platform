@@ -44,7 +44,7 @@ class ReportExporter {
       );
     } else {
       await _generateAndDownloadPdf(
-        title: 'Institutional Audit Report',
+        title: LocaleKeys.dashboards_common_labels_institutional_audit_report.tr(),
         subtitle: 'Period: ${startDate?.toLocal() ?? "All Time"} - ${endDate?.toLocal() ?? "Present"}',
         headers: ['Timestamp', 'Actor', 'Action', 'Entity'],
         rows: rawData.map((e) {
@@ -92,7 +92,7 @@ class ReportExporter {
       );
     } else {
       await _generateAndDownloadPdf(
-        title: 'Clinical Vitals Compliance Report',
+        title: LocaleKeys.dashboards_common_labels_clinical_vitals_compliance_report.tr(),
         subtitle: 'Generated: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now())}',
         headers: ['Patient', 'Metric', 'Value', 'Recorded At'],
         rows: rawData.map((e) {
@@ -139,8 +139,8 @@ class ReportExporter {
       );
     } else {
       await _generateAndDownloadPdf(
-        title: 'Staff Provisioning & Role Activity Report',
-        subtitle: 'HR Compliance Documentation',
+        title: LocaleKeys.dashboards_common_labels_staff_provisioning___role_activity_report.tr(),
+        subtitle: LocaleKeys.dashboards_common_labels_hr_compliance_documentation.tr(),
         headers: ['Timestamp', 'Action', 'Staff Email', 'Role'],
         rows: rawData.map((e) {
           final d = e as Map<String, dynamic>;

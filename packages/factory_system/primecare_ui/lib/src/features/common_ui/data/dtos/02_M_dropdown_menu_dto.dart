@@ -6,10 +6,6 @@ class DropdownMenuDto {
   DropdownMenuDto({required this.id, required this.raw});
 
   factory DropdownMenuDto.fromJson(Map<String, dynamic> json) {
-    return DropdownMenuDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DropdownMenuDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

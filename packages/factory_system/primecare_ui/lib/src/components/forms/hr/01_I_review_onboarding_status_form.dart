@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 class ReviewOnboardingStatusForm extends StatefulWidget {
@@ -24,8 +23,19 @@ class _ReviewOnboardingStatusFormState
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+      widget.onSubmit({
+        'status': 'submitted',
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys
+                .dashboards_common_labels_successfully_tracked_and_submitted
+                .tr(),
+          ),
+        ),
+      );
     }
   }
 
@@ -33,8 +43,10 @@ class _ReviewOnboardingStatusFormState
   Widget build(BuildContext context) {
     return BaseForm(
       formKey: _formKey,
-      title: 'Review Onboarding Status',
-      subtitle: 'Review status of pending new hires.',
+      title: LocaleKeys.dashboards_common_labels_review_onboarding_status.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_review_status_of_pending_new_hires
+          .tr(),
       onSubmit: _submit,
       isLoading: widget.isLoading,
       children: [
@@ -47,12 +59,12 @@ class _ReviewOnboardingStatusFormState
                 decoration: InputDecoration(
                   labelText: 'common.name'.tr(),
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'common.details'.tr(),
@@ -63,7 +75,7 @@ class _ReviewOnboardingStatusFormState
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-                          ],
+            ],
           ),
         ),
       ],

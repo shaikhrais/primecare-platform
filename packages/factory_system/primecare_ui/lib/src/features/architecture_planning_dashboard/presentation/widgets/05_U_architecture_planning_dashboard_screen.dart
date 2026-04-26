@@ -59,7 +59,9 @@ class ArchitecturePlanningDashboardScreen extends ConsumerWidget {
                   ),
                 SizedBox(height: theme.spacing.xl),
                 PrimeCareCard(
-                  title: 'Topology Verification Feed',
+                  title: LocaleKeys
+                      .dashboards_common_labels_topology_verification_feed
+                      .tr(),
                   child: Column(
                     children: vm.metrics.recentActivity
                         .map(

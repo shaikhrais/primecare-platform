@@ -5,10 +5,7 @@ class FooterLayout1ViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FooterLayout1ViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FooterLayout1ViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

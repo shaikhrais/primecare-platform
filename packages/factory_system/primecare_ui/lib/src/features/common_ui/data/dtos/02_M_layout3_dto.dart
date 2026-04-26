@@ -6,10 +6,6 @@ class Layout3Dto {
   Layout3Dto({required this.id, required this.raw});
 
   factory Layout3Dto.fromJson(Map<String, dynamic> json) {
-    return Layout3Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return Layout3Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -51,7 +51,9 @@ class LiveDispatchMap extends StatelessWidget {
         decoration: BoxDecoration(
           color: PrimeCareColors.slate400.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: PrimeCareColors.slate400.withValues(alpha: 0.3)),
+          border: Border.all(
+            color: PrimeCareColors.slate400.withValues(alpha: 0.3),
+          ),
         ),
         child: Stack(
           children: [

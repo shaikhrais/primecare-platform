@@ -6,10 +6,6 @@ class ToolbarThemeDto {
   ToolbarThemeDto({required this.id, required this.raw});
 
   factory ToolbarThemeDto.fromJson(Map<String, dynamic> json) {
-    return ToolbarThemeDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ToolbarThemeDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

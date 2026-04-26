@@ -23,10 +23,10 @@ class ArchitecturePlanningDashboardIntent extends AppScreenIntent {
 
   @override
   List<String> get componentLabels => [
-    'dashboards.architectureplanning.labels.aura_hud',
-    'dashboards.architectureplanning.labels.architecture_roadmap',
-    'dashboards.architectureplanning.labels.system_health_grid',
-    'dashboards.architectureplanning.labels.project_timeline',
+    'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_aura_hud',
+    'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_architecture_roadmap',
+    'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_system_health_grid',
+    'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_project_timeline',
   ];
 
   @override

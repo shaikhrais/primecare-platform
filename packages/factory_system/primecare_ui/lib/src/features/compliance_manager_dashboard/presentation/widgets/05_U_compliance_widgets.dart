@@ -102,29 +102,29 @@ class ComplianceEnforcementGrid extends StatelessWidget {
 
 /// Compliance action hub for the Compliance Manager.
 class ComplianceActionHub extends StatelessWidget {
-  const ComplianceActionHub({super.key});
+  ComplianceActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Review Policy',
+          title: LocaleKeys.dashboards_common_labels_review_policy.tr(),
           icon: LucideIcons.fileText,
           route: '/compliance/policy',
         ),
         PrimeCareActionItem(
-          title: 'Log Finding',
+          title: LocaleKeys.dashboards_common_labels_log_finding.tr(),
           icon: LucideIcons.alertCircle,
           route: '/compliance/finding/new',
         ),
         PrimeCareActionItem(
-          title: 'Regulatory Audit',
+          title: LocaleKeys.dashboards_common_labels_regulatory_audit.tr(),
           icon: LucideIcons.shieldCheck,
           route: '/compliance/audit',
         ),
         PrimeCareActionItem(
-          title: 'Enforcement',
+          title: LocaleKeys.dashboards_common_labels_enforcement.tr(),
           icon: LucideIcons.gavel,
           route: '/compliance/enforcement',
         ),

@@ -6,10 +6,6 @@ class ExampleViewDto {
   ExampleViewDto({required this.id, required this.raw});
 
   factory ExampleViewDto.fromJson(Map<String, dynamic> json) {
-    return ExampleViewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ExampleViewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

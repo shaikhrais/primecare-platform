@@ -228,7 +228,9 @@ class _OrchestratedPage extends ConsumerWidget {
               [];
           isOffline = (unwrappedData['isOfflineFallback'] as bool?) ?? false;
         } else {
-          debugPrint('[PageTemplate] Unrecognized data type: ${unwrappedData.runtimeType}');
+          debugPrint(
+            '[PageTemplate] Unrecognized data type: ${unwrappedData.runtimeType}',
+          );
         }
 
         telemetry.passGate(

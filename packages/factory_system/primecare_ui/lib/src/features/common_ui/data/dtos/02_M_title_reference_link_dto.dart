@@ -6,10 +6,6 @@ class TitleReferenceLinkDto {
   TitleReferenceLinkDto({required this.id, required this.raw});
 
   factory TitleReferenceLinkDto.fromJson(Map<String, dynamic> json) {
-    return TitleReferenceLinkDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return TitleReferenceLinkDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

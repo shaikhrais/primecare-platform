@@ -5,10 +5,7 @@ class IndexFormViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  IndexFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  IndexFormViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

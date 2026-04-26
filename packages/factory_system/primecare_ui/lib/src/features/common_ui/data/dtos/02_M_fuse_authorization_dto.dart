@@ -6,10 +6,6 @@ class FuseAuthorizationDto {
   FuseAuthorizationDto({required this.id, required this.raw});
 
   factory FuseAuthorizationDto.fromJson(Map<String, dynamic> json) {
-    return FuseAuthorizationDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseAuthorizationDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

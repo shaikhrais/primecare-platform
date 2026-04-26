@@ -3,29 +3,36 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 class ApprovePayrollRunFormScreen extends ConsumerWidget {
   final dynamic data;
-  
-  const ApprovePayrollRunFormScreen({super.key, this.data});
+
+  ApprovePayrollRunFormScreen({super.key, this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PrimeCareScaffold(
-      title: 'approvePayrollRunForm',
+      title: LocaleKeys.dashboards_common_labels_approvepayrollrunform.tr(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
-            const SizedBox(height: 16),
+            Icon(
+              LucideIcons.component,
+              size: 64,
+              color: context.theme.colors.primary,
+            ),
+            SizedBox(height: 16),
             Text(
               'approvePayrollRunForm Implementation',
               style: context.textTheme.headlineMedium,
             ),
-            const SizedBox(height: 8),
-            Text('This component is part of the financial_forms module.'),
+            SizedBox(height: 8),
+            Text(
+              LocaleKeys
+                  .dashboards_common_labels_this_component_is_part_of_the_financial_forms_module
+                  .tr(),
+            ),
           ],
         ),
       ),
     );
   }
 }
-

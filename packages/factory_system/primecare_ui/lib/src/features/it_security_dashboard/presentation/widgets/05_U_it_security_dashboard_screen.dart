@@ -76,11 +76,15 @@ class ITSecurityDashboardScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     PrimeCareChartCard(
-                      title: 'Security Matrix: Block Velocity',
+                      title: LocaleKeys
+                          .dashboards_common_labels_security_matrix__block_velocity
+                          .tr(),
                       chart: PrimeCareLineChart(
                         chart: AnalyticsChart(
                           id: 'block-velocity',
-                          title: 'Block Velocity',
+                          title: LocaleKeys
+                              .dashboards_common_labels_block_velocity
+                              .tr(),
                           type: ChartType.line,
                           dataPoints: [
                             ChartDataPoint(label: '00:00', value: 45),
@@ -96,7 +100,11 @@ class ITSecurityDashboardScreen extends ConsumerWidget {
                       ),
                     ),
                     SizedBox(height: theme.spacing.xl),
-                    const PrimeCareSectionHeader(title: 'Security Audit Trail'),
+                    PrimeCareSectionHeader(
+                      title: LocaleKeys
+                          .dashboards_common_labels_security_audit_trail
+                          .tr(),
+                    ),
                     SizedBox(height: theme.spacing.md),
                     PrimeCareDataTable<dynamic>(
                       columns: const ['Timestamp', 'Event', 'Origin', 'Status'],
@@ -157,7 +165,10 @@ class ITSecurityDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

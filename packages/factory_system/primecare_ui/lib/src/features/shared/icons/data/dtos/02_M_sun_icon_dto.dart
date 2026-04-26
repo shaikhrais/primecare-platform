@@ -6,10 +6,6 @@ class SunIconDto {
   SunIconDto({required this.id, required this.raw});
 
   factory SunIconDto.fromJson(Map<String, dynamic> json) {
-    return SunIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SunIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

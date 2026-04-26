@@ -37,7 +37,11 @@ class ClientDashboardScreen extends ConsumerWidget {
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),
-            child: Center(child: Text(LocaleKeys.dashboards_common_labels_operational_insights.tr())),
+            child: Center(
+              child: Text(
+                LocaleKeys.dashboards_common_labels_operational_insights.tr(),
+              ),
+            ),
           ),
         ],
       ),

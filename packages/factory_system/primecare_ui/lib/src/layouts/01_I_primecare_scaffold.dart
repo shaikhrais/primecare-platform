@@ -32,14 +32,18 @@ class PrimeCareScaffold extends StatelessWidget {
     final ds = PrimeCareDesignSystem.of(context);
     return Scaffold(
       backgroundColor: backgroundColor ?? PrimeCareDesignSystem.surfaceElevated,
-      appBar: appBar ?? (title != null ? AppBar(
-        title: Text(title!),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        titleTextStyle: ds.typography.headingSmall.copyWith(
-          color: ds.colors.textPrimary,
-        ),
-      ) : null),
+      appBar:
+          appBar ??
+          (title != null
+              ? AppBar(
+                  title: Text(title!),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  titleTextStyle: ds.typography.headingSmall.copyWith(
+                    color: ds.colors.textPrimary,
+                  ),
+                )
+              : null),
       body: safeArea ? SafeArea(child: body) : body,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,

@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 class AuditPayrollDiscrepancyForm extends StatefulWidget {
@@ -24,8 +23,19 @@ class _AuditPayrollDiscrepancyFormState
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+      widget.onSubmit({
+        'status': 'submitted',
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys
+                .dashboards_common_labels_successfully_tracked_and_submitted
+                .tr(),
+          ),
+        ),
+      );
     }
   }
 
@@ -33,8 +43,10 @@ class _AuditPayrollDiscrepancyFormState
   Widget build(BuildContext context) {
     return BaseForm(
       formKey: _formKey,
-      title: 'Audit Payroll Discrepancy',
-      subtitle: 'Review flagged time-sheet anomalies.',
+      title: LocaleKeys.dashboards_common_labels_audit_payroll_discrepancy.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_review_flagged_time_sheet_anomalies
+          .tr(),
       onSubmit: _submit,
       isLoading: widget.isLoading,
       children: [
@@ -47,12 +59,12 @@ class _AuditPayrollDiscrepancyFormState
                 decoration: InputDecoration(
                   labelText: 'common.name'.tr(),
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'common.details'.tr(),
@@ -63,7 +75,7 @@ class _AuditPayrollDiscrepancyFormState
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-                          ],
+            ],
           ),
         ),
       ],

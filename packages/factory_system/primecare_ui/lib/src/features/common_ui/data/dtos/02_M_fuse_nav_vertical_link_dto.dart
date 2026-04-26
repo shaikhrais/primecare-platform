@@ -6,10 +6,6 @@ class FuseNavVerticalLinkDto {
   FuseNavVerticalLinkDto({required this.id, required this.raw});
 
   factory FuseNavVerticalLinkDto.fromJson(Map<String, dynamic> json) {
-    return FuseNavVerticalLinkDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseNavVerticalLinkDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

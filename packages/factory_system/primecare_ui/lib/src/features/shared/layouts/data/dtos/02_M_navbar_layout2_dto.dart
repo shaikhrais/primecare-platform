@@ -6,10 +6,6 @@ class NavbarLayout2Dto {
   NavbarLayout2Dto({required this.id, required this.raw});
 
   factory NavbarLayout2Dto.fromJson(Map<String, dynamic> json) {
-    return NavbarLayout2Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NavbarLayout2Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

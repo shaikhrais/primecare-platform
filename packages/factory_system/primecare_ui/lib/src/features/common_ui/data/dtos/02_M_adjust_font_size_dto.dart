@@ -6,10 +6,6 @@ class AdjustFontSizeDto {
   AdjustFontSizeDto({required this.id, required this.raw});
 
   factory AdjustFontSizeDto.fromJson(Map<String, dynamic> json) {
-    return AdjustFontSizeDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AdjustFontSizeDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -183,8 +183,10 @@ class OperationsmanagerdashboarddtoPlaceholder extends BasePlaceholder {
 }
 
 class OperationsmanagerdashboarddtoadapterPlaceholder extends BasePlaceholder {
-  const OperationsmanagerdashboarddtoadapterPlaceholder({super.key, dynamic data})
-    : super(name: 'Operationsmanagerdashboarddtoadapter', data: data);
+  const OperationsmanagerdashboarddtoadapterPlaceholder({
+    super.key,
+    dynamic data,
+  }) : super(name: 'Operationsmanagerdashboarddtoadapter', data: data);
 }
 
 class OperationsmanagerdashboardmapperPlaceholder extends BasePlaceholder {

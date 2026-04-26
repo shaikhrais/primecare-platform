@@ -6,10 +6,6 @@ class ReviewCarePlanFormDto {
   ReviewCarePlanFormDto({required this.id, required this.raw});
 
   factory ReviewCarePlanFormDto.fromJson(Map<String, dynamic> json) {
-    return ReviewCarePlanFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ReviewCarePlanFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

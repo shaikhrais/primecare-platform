@@ -5,10 +5,7 @@ class DropdownMenuViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  DropdownMenuViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  DropdownMenuViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

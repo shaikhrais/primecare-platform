@@ -1,8 +1,7 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:ui';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/src/theme/aura/01_I_aura_role_theme.dart';
 
 class AuraSidebar extends ConsumerWidget {
   final Widget child;
@@ -505,7 +504,9 @@ class _AuraLanguageSwitcher extends ConsumerWidget {
         duration: const Duration(milliseconds: 300),
         height: isExtended ? 48 * scale : 120 * scale,
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerLowest.withValues(alpha: 0.5),
+          color: theme.colorScheme.surfaceContainerLowest.withValues(
+            alpha: 0.5,
+          ),
           borderRadius: BorderRadius.circular(12 * scale),
           border: Border.all(
             color: theme.colorScheme.outlineVariant.withValues(alpha: 0.1),
@@ -518,13 +519,15 @@ class _AuraLanguageSwitcher extends ConsumerWidget {
                     label: 'EN',
                     isSelected: currentLang == 'en',
                     scale: scale,
-                    onTap: () => ref.read(languageProvider.notifier).setLanguage('en'),
+                    onTap: () =>
+                        ref.read(languageProvider.notifier).setLanguage('en'),
                   ),
                   _LangButton(
                     label: 'FR',
                     isSelected: currentLang == 'fr',
                     scale: scale,
-                    onTap: () => ref.read(languageProvider.notifier).setLanguage('fr'),
+                    onTap: () =>
+                        ref.read(languageProvider.notifier).setLanguage('fr'),
                   ),
                 ],
               )
@@ -534,13 +537,15 @@ class _AuraLanguageSwitcher extends ConsumerWidget {
                     label: 'EN',
                     isSelected: currentLang == 'en',
                     scale: scale,
-                    onTap: () => ref.read(languageProvider.notifier).setLanguage('en'),
+                    onTap: () =>
+                        ref.read(languageProvider.notifier).setLanguage('en'),
                   ),
                   _LangButton(
                     label: 'FR',
                     isSelected: currentLang == 'fr',
                     scale: scale,
-                    onTap: () => ref.read(languageProvider.notifier).setLanguage('fr'),
+                    onTap: () =>
+                        ref.read(languageProvider.notifier).setLanguage('fr'),
                   ),
                 ],
               ),
@@ -579,7 +584,9 @@ class _LangButton extends StatelessWidget {
           child: Text(
             label,
             style: GoogleFonts.plusJakartaSans(
-              color: isSelected ? Colors.white : theme.colorScheme.onSurfaceVariant,
+              color: isSelected
+                  ? Colors.white
+                  : theme.colorScheme.onSurfaceVariant,
               fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
               fontSize: 12 * scale,
             ),

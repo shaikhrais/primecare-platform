@@ -10,8 +10,7 @@ export 'package:primecare_ui/00_B_layouts.dart';
 export 'package:primecare_ui/00_B_screens.dart';
 export 'package:primecare_ui/00_B_theme.dart';
 export 'package:primecare_ui/00_B_adapters.dart';
-export 'package:primecare_adapters/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+export 'package:primecare_adapters/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 export 'package:flutter_core/00_B_flutter_core.dart' hide AppTheme;
 
 // UI Discovery Tier (AssemblyLine Metadata)

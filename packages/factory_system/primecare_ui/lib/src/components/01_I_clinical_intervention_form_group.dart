@@ -9,17 +9,17 @@ class ClinicalInterventionFormGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 800),
+        constraints: BoxConstraints(maxWidth: 800),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Intervention Notes',
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             TextField(
               maxLines: 4,
               decoration: InputDecoration(

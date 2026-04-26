@@ -6,10 +6,6 @@ class LeftSideLayout3Dto {
   LeftSideLayout3Dto({required this.id, required this.raw});
 
   factory LeftSideLayout3Dto.fromJson(Map<String, dynamic> json) {
-    return LeftSideLayout3Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return LeftSideLayout3Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

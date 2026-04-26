@@ -14,6 +14,9 @@ class RpnRepository implements IRpnRepository {
   @override
   Future<Result<RpnData>> getRpnData() async {
     final response = await _domainService.getDomainMetrics('RPN');
-    return response.map((DomainResponse domainResponse) => RpnData.fromDomain(domainResponse.data));
+    return response.map(
+      (DomainResponse domainResponse) =>
+          RpnData.fromDomain(domainResponse.data),
+    );
   }
 }

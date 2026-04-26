@@ -17,14 +17,25 @@ class AuditGlobalEducationFormAdapter
   }
 
   Future<void> loadData() async {
-        state = AuditGlobalEducationFormViewModel(isLoading: true, data: state.data);
+    state = AuditGlobalEducationFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/audit-global-education-form-adapter');
-      state = AuditGlobalEducationFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/audit-global-education-form-adapter',
+      );
+      state = AuditGlobalEducationFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = AuditGlobalEducationFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = AuditGlobalEducationFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

@@ -5,10 +5,7 @@ class DemoFrameViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  DemoFrameViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  DemoFrameViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

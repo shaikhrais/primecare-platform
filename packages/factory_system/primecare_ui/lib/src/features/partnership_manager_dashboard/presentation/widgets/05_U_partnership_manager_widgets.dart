@@ -117,24 +117,24 @@ class PartnershipLeadConversionGrid extends StatelessWidget {
 
 /// Quick action hub for the Partnership Manager.
 class PartnerActionHub extends StatelessWidget {
-  const PartnerActionHub({super.key});
+  PartnerActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'New Partner',
+          title: LocaleKeys.dashboards_common_labels_new_partner.tr(),
           icon: LucideIcons.userPlus,
           route: '/onboarding/partner',
         ),
         PrimeCareActionItem(
-          title: 'Referral Log',
+          title: LocaleKeys.dashboards_common_labels_referral_log.tr(),
           icon: LucideIcons.fileText,
           route: '/reports/referrals',
         ),
         PrimeCareActionItem(
-          title: 'Synergy Audit',
+          title: LocaleKeys.dashboards_common_labels_synergy_audit.tr(),
           icon: LucideIcons.shieldCheck,
           route: '/audit/synergy',
         ),

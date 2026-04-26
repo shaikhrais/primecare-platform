@@ -42,8 +42,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
     if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Registration failed. Please check network.'),
+        SnackBar(
+          content: Text(
+            LocaleKeys
+                .dashboards_common_labels_registration_failed__please_check_network
+                .tr(),
+          ),
         ),
       );
     } else {
@@ -65,18 +69,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             style: GoogleFonts.outfit(
               fontSize: 36,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF0F172A),
+              color: Color(0xFF0F172A),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Text(
             'auth.subtitle'.tr(),
             style: GoogleFonts.inter(
               fontSize: 16,
-              color: const Color(0xFF64748B),
+              color: Color(0xFF64748B),
             ),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32),
           Row(
             children: [
               Expanded(
@@ -88,7 +92,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   ),
                 ),
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: 16),
               Expanded(
                 child: TextField(
                   controller: _lastNameController,
@@ -100,7 +104,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           TextField(
             controller: _emailController,
             decoration: AuthInputDecoration.get(
@@ -109,7 +113,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             ),
             keyboardType: TextInputType.emailAddress,
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           DropdownButtonFormField<String>(
             initialValue: _selectedRole,
             decoration: AuthInputDecoration.get(
@@ -126,7 +130,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               if (val != null) setState(() => _selectedRole = val);
             },
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           TextField(
             controller: _passwordController,
             decoration: AuthInputDecoration.get(
@@ -143,7 +147,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               key: const Key('data-status-id=shared-global-signup-action-2'),
               onPressed: _isLoading ? null : _signup,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF0F172A),
+                backgroundColor: Color(0xFF0F172A),
                 foregroundColor: PrimeCareColors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -151,7 +155,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ),
               ),
               child: _isLoading
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
@@ -168,19 +172,19 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     ),
             ),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'auth.already_have_account'.tr(),
-                style: GoogleFonts.inter(color: const Color(0xFF64748B)),
+                style: GoogleFonts.inter(color: Color(0xFF64748B)),
               ),
               TextButton(
-                key: const Key('data-status-id=shared-global-signup-action-3'),
+                key: Key('data-status-id=shared-global-signup-action-3'),
                 onPressed: () => context.go('/login'),
                 style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF38BDF8),
+                  foregroundColor: Color(0xFF38BDF8),
                 ),
                 child: Text(
                   'auth.login'.tr(),

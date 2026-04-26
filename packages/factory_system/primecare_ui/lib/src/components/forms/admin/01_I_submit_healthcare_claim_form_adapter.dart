@@ -17,14 +17,25 @@ class SubmitHealthcareClaimFormAdapter
   }
 
   Future<void> loadData() async {
-        state = SubmitHealthcareClaimFormViewModel(isLoading: true, data: state.data);
+    state = SubmitHealthcareClaimFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/submit-healthcare-claim-form-adapter');
-      state = SubmitHealthcareClaimFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/submit-healthcare-claim-form-adapter',
+      );
+      state = SubmitHealthcareClaimFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = SubmitHealthcareClaimFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = SubmitHealthcareClaimFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

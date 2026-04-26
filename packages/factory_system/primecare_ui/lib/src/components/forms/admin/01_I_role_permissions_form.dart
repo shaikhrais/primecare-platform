@@ -1,14 +1,13 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/src/components/forms/admin/01_I_role_permissions_form_adapter.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 class RolePermissionsForm extends ConsumerStatefulWidget {
-  const RolePermissionsForm({super.key});
+  RolePermissionsForm({super.key});
 
   @override
-  ConsumerState<RolePermissionsForm> createState() => _RolePermissionsFormState();
+  ConsumerState<RolePermissionsForm> createState() =>
+      _RolePermissionsFormState();
 }
 
 class _RolePermissionsFormState extends ConsumerState<RolePermissionsForm> {
@@ -21,14 +20,22 @@ class _RolePermissionsFormState extends ConsumerState<RolePermissionsForm> {
 
     return BaseForm(
       formKey: _formKey,
-      title: 'Role Permissions Matrix',
-      subtitle: 'Manage granular access control for system roles and screens.',
+      title: LocaleKeys.dashboards_common_labels_role_permissions_matrix.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_manage_granular_access_control_for_system_roles_and_screens
+          .tr(),
       onSubmit: () async {
         final sm = ScaffoldMessenger.of(context);
         final success = await adapter.submit();
         if (success && mounted) {
           sm.showSnackBar(
-            const SnackBar(content: Text('Permissions updated successfully.')),
+            SnackBar(
+              content: Text(
+                LocaleKeys
+                    .dashboards_common_labels_permissions_updated_successfully
+                    .tr(),
+              ),
+            ),
           );
         }
       },
@@ -97,18 +104,26 @@ class _RolePermissionsFormState extends ConsumerState<RolePermissionsForm> {
                     ),
                     Expanded(
                       child: CheckboxListTile(
-                        title: const Text('Read', style: TextStyle(fontSize: 14)),
+                        title: const Text(
+                          'Read',
+                          style: TextStyle(fontSize: 14),
+                        ),
                         value: perm.canRead,
                         dense: true,
-                        onChanged: (val) => adapter.toggleRead(route, val ?? false),
+                        onChanged: (val) =>
+                            adapter.toggleRead(route, val ?? false),
                       ),
                     ),
                     Expanded(
                       child: CheckboxListTile(
-                        title: const Text('Write', style: TextStyle(fontSize: 14)),
+                        title: const Text(
+                          'Write',
+                          style: TextStyle(fontSize: 14),
+                        ),
                         value: perm.canWrite,
                         dense: true,
-                        onChanged: (val) => adapter.toggleWrite(route, val ?? false),
+                        onChanged: (val) =>
+                            adapter.toggleWrite(route, val ?? false),
                       ),
                     ),
                   ],
@@ -117,10 +132,14 @@ class _RolePermissionsFormState extends ConsumerState<RolePermissionsForm> {
             },
           ),
         ] else
-          const Center(
+          Center(
             child: Padding(
               padding: EdgeInsets.all(32.0),
-              child: Text('Select a role to modify permissions'),
+              child: Text(
+                LocaleKeys
+                    .dashboards_common_labels_select_a_role_to_modify_permissions
+                    .tr(),
+              ),
             ),
           ),
       ],

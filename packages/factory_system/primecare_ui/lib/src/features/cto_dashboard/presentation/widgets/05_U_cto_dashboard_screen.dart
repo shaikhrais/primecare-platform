@@ -165,9 +165,13 @@ class CtoDashboardScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('ARCHITECTURAL LOAD', style: theme.typography.label),
-                      const Spacer(),
-                      const Center(
-                        child: Text('Load Distribution Graph Placeholder'),
+                      Spacer(),
+                      Center(
+                        child: Text(
+                          LocaleKeys
+                              .dashboards_common_labels_load_distribution_graph_placeholder
+                              .tr(),
+                        ),
                       ),
                       const Spacer(),
                     ],

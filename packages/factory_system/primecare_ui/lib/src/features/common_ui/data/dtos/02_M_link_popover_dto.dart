@@ -6,10 +6,6 @@ class LinkPopoverDto {
   LinkPopoverDto({required this.id, required this.raw});
 
   factory LinkPopoverDto.fromJson(Map<String, dynamic> json) {
-    return LinkPopoverDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return LinkPopoverDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

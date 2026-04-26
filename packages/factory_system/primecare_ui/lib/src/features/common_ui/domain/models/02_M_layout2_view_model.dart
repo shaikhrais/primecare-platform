@@ -5,10 +5,7 @@ class Layout2ViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  Layout2ViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  Layout2ViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

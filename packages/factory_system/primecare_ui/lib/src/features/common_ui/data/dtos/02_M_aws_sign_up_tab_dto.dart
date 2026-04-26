@@ -6,10 +6,6 @@ class AwsSignUpTabDto {
   AwsSignUpTabDto({required this.id, required this.raw});
 
   factory AwsSignUpTabDto.fromJson(Map<String, dynamic> json) {
-    return AwsSignUpTabDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AwsSignUpTabDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -6,10 +6,6 @@ class SignInPageFormDto {
   SignInPageFormDto({required this.id, required this.raw});
 
   factory SignInPageFormDto.fromJson(Map<String, dynamic> json) {
-    return SignInPageFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SignInPageFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

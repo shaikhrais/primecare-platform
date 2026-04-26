@@ -5,10 +5,7 @@ class BlockQuoteIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  BlockQuoteIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  BlockQuoteIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

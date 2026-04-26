@@ -105,29 +105,29 @@ class FacilityUtilizationGrid extends StatelessWidget {
 
 /// Operational action hub for the Operations Manager.
 class OperationsActionHub extends StatelessWidget {
-  const OperationsActionHub({super.key});
+  OperationsActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Manage Fleet',
+          title: LocaleKeys.dashboards_common_labels_manage_fleet.tr(),
           icon: LucideIcons.truck,
           route: '/fleet/manage',
         ),
         PrimeCareActionItem(
-          title: 'Inventory Audit',
+          title: LocaleKeys.dashboards_common_labels_inventory_audit.tr(),
           icon: LucideIcons.box,
           route: '/inventory/audit',
         ),
         PrimeCareActionItem(
-          title: 'Facility Maintenance',
+          title: LocaleKeys.dashboards_common_labels_facility_maintenance.tr(),
           icon: LucideIcons.wrench,
           route: '/facilities/maintenance',
         ),
         PrimeCareActionItem(
-          title: 'Supply Order',
+          title: LocaleKeys.dashboards_common_labels_supply_order.tr(),
           icon: LucideIcons.shoppingCart,
           route: '/supply/order',
         ),

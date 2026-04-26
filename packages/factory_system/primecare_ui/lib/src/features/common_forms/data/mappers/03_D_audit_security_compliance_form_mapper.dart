@@ -3,11 +3,12 @@ import '../../domain/models/02_M_audit_security_compliance_form_view_model.dart'
 import '../dtos/02_M_audit_security_compliance_form_dto.dart';
 
 class AuditSecurityComplianceFormMapper {
-  static AuditSecurityComplianceFormViewModel fromDto(AuditSecurityComplianceFormDto dto) {
+  static AuditSecurityComplianceFormViewModel fromDto(
+    AuditSecurityComplianceFormDto dto,
+  ) {
     return AuditSecurityComplianceFormViewModel(
       title: dto.raw['title']?.toString() ?? 'auditSecurityComplianceForm',
       metadata: dto.raw,
     );
   }
 }
-

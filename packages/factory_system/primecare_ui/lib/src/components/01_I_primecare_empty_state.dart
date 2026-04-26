@@ -21,7 +21,7 @@ class PrimeCareEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeCareTheme.of(context);
-    
+
     return Center(
       child: Padding(
         padding: EdgeInsets.all(theme.spacing.xl),
@@ -32,14 +32,12 @@ class PrimeCareEmptyState extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(theme.spacing.lg),
               decoration: BoxDecoration(
-                color: theme.colors.surfaceContainerHighest.withValues(alpha: 0.5),
+                color: theme.colors.surfaceContainerHighest.withValues(
+                  alpha: 0.5,
+                ),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                icon,
-                size: 48,
-                color: theme.colors.slate400,
-              ),
+              child: Icon(icon, size: 48, color: theme.colors.slate400),
             ),
             SizedBox(height: theme.spacing.lg),
             if (title != null) ...[

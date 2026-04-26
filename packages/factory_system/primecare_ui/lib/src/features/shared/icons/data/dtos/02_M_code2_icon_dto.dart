@@ -6,10 +6,6 @@ class Code2IconDto {
   Code2IconDto({required this.id, required this.raw});
 
   factory Code2IconDto.fromJson(Map<String, dynamic> json) {
-    return Code2IconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return Code2IconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

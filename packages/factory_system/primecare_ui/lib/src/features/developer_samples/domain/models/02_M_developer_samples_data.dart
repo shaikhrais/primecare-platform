@@ -6,7 +6,6 @@ part '02_M_developer_samples_data.g.dart';
 
 @freezed
 abstract class DeveloperSamplesData with _$DeveloperSamplesData {
-
   const factory DeveloperSamplesData({required Map<String, dynamic> metrics}) =
       _DeveloperSamplesData;
 

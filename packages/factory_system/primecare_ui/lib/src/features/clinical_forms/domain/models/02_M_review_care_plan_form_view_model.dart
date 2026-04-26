@@ -5,10 +5,7 @@ class ReviewCarePlanFormViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ReviewCarePlanFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ReviewCarePlanFormViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

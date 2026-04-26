@@ -105,29 +105,29 @@ class AuditResolutionGrid extends StatelessWidget {
 
 /// Quality assurance action hub for the QA Manager.
 class QaActionHub extends StatelessWidget {
-  const QaActionHub({super.key});
+  QaActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Start Audit',
+          title: LocaleKeys.dashboards_common_labels_start_audit.tr(),
           icon: LucideIcons.clipboardCheck,
           route: '/qa/audit/new',
         ),
         PrimeCareActionItem(
-          title: 'Log Incident',
+          title: LocaleKeys.dashboards_common_labels_log_incident.tr(),
           icon: LucideIcons.alertCircle,
           route: '/qa/incident/new',
         ),
         PrimeCareActionItem(
-          title: 'Quality Report',
+          title: LocaleKeys.dashboards_common_labels_quality_report.tr(),
           icon: LucideIcons.fileText,
           route: '/qa/reports',
         ),
         PrimeCareActionItem(
-          title: 'Root Cause',
+          title: LocaleKeys.dashboards_common_labels_root_cause.tr(),
           icon: LucideIcons.search,
           route: '/qa/rca',
         ),

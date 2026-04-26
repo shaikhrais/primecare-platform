@@ -17,14 +17,25 @@ class ScheduleClinicalAuditFormAdapter
   }
 
   Future<void> loadData() async {
-        state = ScheduleClinicalAuditFormViewModel(isLoading: true, data: state.data);
+    state = ScheduleClinicalAuditFormViewModel(
+      isLoading: true,
+      data: state.data,
+    );
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/schedule-clinical-audit-form-adapter');
-      state = ScheduleClinicalAuditFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/schedule-clinical-audit-form-adapter',
+      );
+      state = ScheduleClinicalAuditFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = ScheduleClinicalAuditFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = ScheduleClinicalAuditFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

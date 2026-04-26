@@ -162,29 +162,29 @@ class TaxComplianceTracker extends StatelessWidget {
 
 /// Fiscal action hub for the CFO.
 class CfoActionHub extends StatelessWidget {
-  const CfoActionHub({super.key});
+  CfoActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Approve Budget',
+          title: LocaleKeys.dashboards_common_labels_approve_budget.tr(),
           icon: LucideIcons.checkSquare,
           route: '/finance/budget',
         ),
         PrimeCareActionItem(
-          title: 'Reconcile',
+          title: LocaleKeys.dashboards_common_labels_reconcile.tr(),
           icon: LucideIcons.refreshCw,
           route: '/finance/reconcile',
         ),
         PrimeCareActionItem(
-          title: 'Tax Filing',
+          title: LocaleKeys.dashboards_common_labels_tax_filing.tr(),
           icon: LucideIcons.fileText,
           route: '/finance/tax',
         ),
         PrimeCareActionItem(
-          title: 'Capital Plan',
+          title: LocaleKeys.dashboards_common_labels_capital_plan.tr(),
           icon: LucideIcons.trendingUp,
           route: '/finance/capital',
         ),

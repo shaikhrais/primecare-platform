@@ -6,10 +6,6 @@ class FusePageCardedDto {
   FusePageCardedDto({required this.id, required this.raw});
 
   factory FusePageCardedDto.fromJson(Map<String, dynamic> json) {
-    return FusePageCardedDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FusePageCardedDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -71,7 +71,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF0F172A).withValues(alpha: 0.4),
+        color: Color(0xFF0F172A).withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: color.withValues(alpha: 0.1)),
       ),
@@ -82,7 +82,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
             color: color.withValues(alpha: 0.5),
             size: 18,
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16),
           Text(
             'aura.snoozed'.tr(),
             style: TextStyle(
@@ -92,7 +92,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
               letterSpacing: 0.5,
             ),
           ),
-          const Spacer(),
+          Spacer(),
           TextButton(
             onPressed: () =>
                 ref.read(auraSnoozeProvider.notifier).update(false),
@@ -136,7 +136,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
       child: Row(
         children: [
           _buildPulseIcon(color, isAnomaly, isDrift),
-          const SizedBox(width: 20),
+          SizedBox(width: 20),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +145,9 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                 Row(
                   children: [
                     Text(
-                      isDrift ? 'aura.governance_alert'.tr() : event.title.tr().toUpperCase(),
+                      isDrift
+                          ? 'aura.governance_alert'.tr()
+                          : event.title.tr().toUpperCase(),
                       style: TextStyle(
                         color: color,
                         fontSize: 12,
@@ -153,7 +155,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                         letterSpacing: 1.5,
                       ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     Text(
                       'aura.real_time_intelligence'.tr(),
                       style: TextStyle(
@@ -164,14 +166,18 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 Text(
                   isDrift
-                      ? 'aura.events.architectural_drift_desc'.tr(args: <String>[
-                          (event.metadata?['route']?.toString() ?? 'Unknown'),
-                          (event.metadata?['critical'] as List?)?.join(', ') ??
-                              'None'
-                        ])
+                      ? 'aura.events.architectural_drift_desc'.tr(
+                          args: <String>[
+                            (event.metadata?['route']?.toString() ?? 'Unknown'),
+                            (event.metadata?['critical'] as List?)?.join(
+                                  ', ',
+                                ) ??
+                                'None',
+                          ],
+                        )
                       : event.description.tr(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -287,7 +293,7 @@ class _AuraDashboardHudState extends ConsumerState<AuraDashboardHud>
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8),
         InkWell(
           onTap: () => AuraBriefingPanel.show(context),
           borderRadius: BorderRadius.circular(12),

@@ -6,10 +6,6 @@ class PageBreadcrumbDto {
   PageBreadcrumbDto({required this.id, required this.raw});
 
   factory PageBreadcrumbDto.fromJson(Map<String, dynamic> json) {
-    return PageBreadcrumbDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PageBreadcrumbDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -6,10 +6,6 @@ class NavbarMobileLayout3Dto {
   NavbarMobileLayout3Dto({required this.id, required this.raw});
 
   factory NavbarMobileLayout3Dto.fromJson(Map<String, dynamic> json) {
-    return NavbarMobileLayout3Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NavbarMobileLayout3Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

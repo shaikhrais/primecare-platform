@@ -6,10 +6,6 @@ class CornerDownLeftIconDto {
   CornerDownLeftIconDto({required this.id, required this.raw});
 
   factory CornerDownLeftIconDto.fromJson(Map<String, dynamic> json) {
-    return CornerDownLeftIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return CornerDownLeftIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

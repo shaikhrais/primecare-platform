@@ -6,10 +6,6 @@ class GreetingHeaderWidgetDto {
   GreetingHeaderWidgetDto({required this.id, required this.raw});
 
   factory GreetingHeaderWidgetDto.fromJson(Map<String, dynamic> json) {
-    return GreetingHeaderWidgetDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return GreetingHeaderWidgetDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

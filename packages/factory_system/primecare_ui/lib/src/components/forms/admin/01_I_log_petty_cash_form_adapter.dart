@@ -1,20 +1,13 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/00_B_flutter_core.dart';
 
-
 class LogPettyCashFormViewModel {
   final bool isLoading;
   final String? status;
 
-  LogPettyCashFormViewModel({
-    this.isLoading = false,
-    this.status,
-  });
+  LogPettyCashFormViewModel({this.isLoading = false, this.status});
 
-  LogPettyCashFormViewModel copyWith({
-    bool? isLoading,
-    String? status,
-  }) {
+  LogPettyCashFormViewModel copyWith({bool? isLoading, String? status}) {
     return LogPettyCashFormViewModel(
       isLoading: isLoading ?? this.isLoading,
       status: status ?? this.status,
@@ -55,32 +48,38 @@ class LogPettyCashFormAdapter extends Notifier<LogPettyCashFormViewModel> {
           {
             'accountCode': categoryCode, // Debit Expense
             'debit': amount,
-            'description': 'Expense: $merchant'
+            'description': 'Expense: $merchant',
           },
           {
             'accountCode': '1010', // Credit Petty Cash Asset
             'credit': amount,
-            'description': 'Credit from Petty Cash'
-          }
+            'description': 'Credit from Petty Cash',
+          },
         ],
         'metadata': {
           'merchant': merchant,
           'date': date.toIso8601String(),
-          'details': details
-        }
+          'details': details,
+        },
       };
 
-      final response = await client.post('/v1/finance/ledger/transaction', body: payload);
-      
+      final response = await client.post(
+        '/v1/finance/ledger/transaction',
+        body: payload,
+      );
+
       if (response.statusCode == 201 || response.statusCode == 200) {
         return true;
       }
-        return false;
+      return false;
     });
 
     return result.fold(
       (success) {
-        telemetry.passGate(ExecutionGateCategory.domainApi, 'Petty Cash logged successfully');
+        telemetry.passGate(
+          ExecutionGateCategory.domainApi,
+          'Petty Cash logged successfully',
+        );
         state = state.copyWith(isLoading: false, status: 'Success');
         return true;
       },
@@ -99,6 +98,5 @@ class LogPettyCashFormAdapter extends Notifier<LogPettyCashFormViewModel> {
 
 final logPettyCashFormAdapterProvider =
     NotifierProvider<LogPettyCashFormAdapter, LogPettyCashFormViewModel>(() {
-  return LogPettyCashFormAdapter();
-});
-
+      return LogPettyCashFormAdapter();
+    });

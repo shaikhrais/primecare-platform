@@ -6,7 +6,6 @@ part '02_M_crm_forms_data.g.dart';
 
 @freezed
 abstract class CrmFormsData with _$CrmFormsData {
-
   const factory CrmFormsData({required Map<String, dynamic> metrics}) =
       _CrmFormsData;
 

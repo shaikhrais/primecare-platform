@@ -6,10 +6,6 @@ class ConfiguratorDto {
   ConfiguratorDto({required this.id, required this.raw});
 
   factory ConfiguratorDto.fromJson(Map<String, dynamic> json) {
-    return ConfiguratorDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ConfiguratorDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

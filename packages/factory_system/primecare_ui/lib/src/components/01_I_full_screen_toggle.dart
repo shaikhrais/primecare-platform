@@ -15,7 +15,7 @@ class PrimeCareFullScreenToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    
+
     return IconButton(
       icon: Icon(
         isFullScreen ? LucideIcons.minimize2 : LucideIcons.maximize2,

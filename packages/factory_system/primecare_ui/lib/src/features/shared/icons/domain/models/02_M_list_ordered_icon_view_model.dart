@@ -5,10 +5,7 @@ class ListOrderedIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ListOrderedIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ListOrderedIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -1,22 +1,23 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/src/theme/01_I_colors.dart';
-import 'package:flutter/material.dart';
 
 class TimesheetDiscrepancyTable extends StatelessWidget {
-  const TimesheetDiscrepancyTable({super.key});
+  TimesheetDiscrepancyTable({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DataTable(
       headingRowHeight: 40,
-      columns: const [
-        DataColumn(label: Text('Staff')),
-        DataColumn(label: Text('Variance')),
+      columns: [
+        DataColumn(label: Text(LocaleKeys.dashboards_common_labels_staff.tr())),
+        DataColumn(
+          label: Text(LocaleKeys.dashboards_common_labels_variance.tr()),
+        ),
       ],
-      rows: const [
+      rows: [
         DataRow(
           cells: [
-            DataCell(Text('J. Doe')),
+            DataCell(Text(LocaleKeys.dashboards_common_labels_j__doe.tr())),
             DataCell(
               Text(
                 '+45 mins',
@@ -29,7 +30,7 @@ class TimesheetDiscrepancyTable extends StatelessWidget {
         ),
         DataRow(
           cells: [
-            DataCell(Text('A. Smith')),
+            DataCell(Text(LocaleKeys.dashboards_common_labels_a__smith.tr())),
             DataCell(
               Text(
                 '-15 mins',

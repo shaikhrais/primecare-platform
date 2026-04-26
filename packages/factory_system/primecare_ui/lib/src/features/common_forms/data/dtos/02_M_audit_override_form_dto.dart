@@ -6,10 +6,6 @@ class AuditOverrideFormDto {
   AuditOverrideFormDto({required this.id, required this.raw});
 
   factory AuditOverrideFormDto.fromJson(Map<String, dynamic> json) {
-    return AuditOverrideFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AuditOverrideFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

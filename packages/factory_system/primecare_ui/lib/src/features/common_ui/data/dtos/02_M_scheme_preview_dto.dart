@@ -6,10 +6,6 @@ class SchemePreviewDto {
   SchemePreviewDto({required this.id, required this.raw});
 
   factory SchemePreviewDto.fromJson(Map<String, dynamic> json) {
-    return SchemePreviewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SchemePreviewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

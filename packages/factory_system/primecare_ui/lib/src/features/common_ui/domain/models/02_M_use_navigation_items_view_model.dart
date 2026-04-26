@@ -5,10 +5,7 @@ class UseNavigationItemsViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  UseNavigationItemsViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  UseNavigationItemsViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

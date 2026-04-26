@@ -5,11 +5,12 @@ class FranchiseOnboardingChecklistFormDto {
 
   FranchiseOnboardingChecklistFormDto({required this.id, required this.raw});
 
-  factory FranchiseOnboardingChecklistFormDto.fromJson(Map<String, dynamic> json) {
+  factory FranchiseOnboardingChecklistFormDto.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return FranchiseOnboardingChecklistFormDto(
       id: json['id']?.toString() ?? '',
       raw: json,
     );
   }
 }
-

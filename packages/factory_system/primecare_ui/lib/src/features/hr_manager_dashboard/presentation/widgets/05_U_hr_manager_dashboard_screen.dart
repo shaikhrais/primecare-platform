@@ -57,9 +57,9 @@ class HrManagerDashboardScreen extends ConsumerWidget {
                   children: [
                     _buildStaffingVelocity(theme),
                     SizedBox(height: theme.spacing.xl),
-                    const HiringFunnelGrid(),
+                    HiringFunnelGrid(),
                     SizedBox(height: theme.spacing.xl),
-                    const HrActionHub(),
+                    HrActionHub(),
                   ],
                 ),
               ),
@@ -76,11 +76,11 @@ class HrManagerDashboardScreen extends ConsumerWidget {
 
   Widget _buildStaffingVelocity(PrimeCareThemeData theme) {
     return PrimeCareChartCard(
-      title: 'Staffing Velocity Matrix',
+      title: LocaleKeys.dashboards_common_labels_staffing_velocity_matrix.tr(),
       chart: PrimeCareLineChart(
         chart: AnalyticsChart(
           id: 'hiring_trend',
-          title: 'Velocity Score',
+          title: LocaleKeys.dashboards_common_labels_velocity_score.tr(),
           type: ChartType.line,
           dataPoints: [
             ChartDataPoint(label: 'Jan', value: 42),
@@ -120,8 +120,13 @@ class HrManagerDashboardScreen extends ConsumerWidget {
 }
 
 class HiringFunnelGrid extends StatelessWidget {
-  const HiringFunnelGrid({super.key});
+  HiringFunnelGrid({super.key});
   @override
-  Widget build(BuildContext context) =>
-      const PrimeCareCard(child: Center(child: Text('Active Hiring Funnel')));
+  Widget build(BuildContext context) => PrimeCareCard(
+    child: Center(
+      child: Text(
+        LocaleKeys.dashboards_common_labels_active_hiring_funnel.tr(),
+      ),
+    ),
+  );
 }

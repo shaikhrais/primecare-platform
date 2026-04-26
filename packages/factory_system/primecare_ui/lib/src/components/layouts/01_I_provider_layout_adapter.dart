@@ -15,14 +15,20 @@ class ProviderLayoutAdapter extends Notifier<ProviderLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-        state = ProviderLayoutViewModel(isLoading: true, data: state.data);
+    state = ProviderLayoutViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/provider-layout-adapter');
-      state = ProviderLayoutViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = ProviderLayoutViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = ProviderLayoutViewModel(isLoading: false, data: <String, dynamic>{});
+      state = ProviderLayoutViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

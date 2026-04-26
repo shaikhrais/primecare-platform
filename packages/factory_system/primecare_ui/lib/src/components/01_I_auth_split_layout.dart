@@ -4,7 +4,6 @@ import 'package:primecare_ui/src/theme/01_I_colors.dart';
 import 'package:primecare_ui/src/theme/01_I_design_system.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class AuthSplitLayout extends ConsumerWidget {
   final Widget child;
   final String title;

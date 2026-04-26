@@ -6,10 +6,6 @@ class FuseShortcutsDto {
   FuseShortcutsDto({required this.id, required this.raw});
 
   factory FuseShortcutsDto.fromJson(Map<String, dynamic> json) {
-    return FuseShortcutsDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseShortcutsDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

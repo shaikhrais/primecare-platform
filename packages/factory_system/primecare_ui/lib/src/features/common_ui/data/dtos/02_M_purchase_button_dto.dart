@@ -6,10 +6,6 @@ class PurchaseButtonDto {
   PurchaseButtonDto({required this.id, required this.raw});
 
   factory PurchaseButtonDto.fromJson(Map<String, dynamic> json) {
-    return PurchaseButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PurchaseButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

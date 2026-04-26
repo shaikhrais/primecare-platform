@@ -3,29 +3,36 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 class FuseNavVerticalLinkScreen extends ConsumerWidget {
   final dynamic data;
-  
-  const FuseNavVerticalLinkScreen({super.key, this.data});
+
+  FuseNavVerticalLinkScreen({super.key, this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PrimeCareScaffold(
-      title: 'fuseNavVerticalLink',
+      title: LocaleKeys.dashboards_common_labels_fusenavverticallink.tr(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(LucideIcons.component, size: 64, color: context.theme.colors.primary),
-            const SizedBox(height: 16),
+            Icon(
+              LucideIcons.component,
+              size: 64,
+              color: context.theme.colors.primary,
+            ),
+            SizedBox(height: 16),
             Text(
               'fuseNavVerticalLink Implementation',
               style: context.textTheme.headlineMedium,
             ),
-            const SizedBox(height: 8),
-            Text('This component is part of the common_ui module.'),
+            SizedBox(height: 8),
+            Text(
+              LocaleKeys
+                  .dashboards_common_labels_this_component_is_part_of_the_common_ui_module
+                  .tr(),
+            ),
           ],
         ),
       ),
     );
   }
 }
-

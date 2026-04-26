@@ -5,10 +5,7 @@ class PurchaseButtonViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  PurchaseButtonViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  PurchaseButtonViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -6,10 +6,6 @@ class ProviderLayoutDto {
   ProviderLayoutDto({required this.id, required this.raw});
 
   factory ProviderLayoutDto.fromJson(Map<String, dynamic> json) {
-    return ProviderLayoutDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ProviderLayoutDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 class ScheduleClinicalAuditForm extends StatefulWidget {
@@ -23,8 +22,19 @@ class _ScheduleClinicalAuditFormState extends State<ScheduleClinicalAuditForm> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+      widget.onSubmit({
+        'status': 'submitted',
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys
+                .dashboards_common_labels_successfully_tracked_and_submitted
+                .tr(),
+          ),
+        ),
+      );
     }
   }
 
@@ -32,8 +42,10 @@ class _ScheduleClinicalAuditFormState extends State<ScheduleClinicalAuditForm> {
   Widget build(BuildContext context) {
     return BaseForm(
       formKey: _formKey,
-      title: 'Schedule Clinical Audit',
-      subtitle: 'Schedule internal/external compliance audit.',
+      title: LocaleKeys.dashboards_common_labels_schedule_clinical_audit.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_schedule_internal_external_compliance_audit
+          .tr(),
       onSubmit: _submit,
       isLoading: widget.isLoading,
       children: [
@@ -46,12 +58,12 @@ class _ScheduleClinicalAuditFormState extends State<ScheduleClinicalAuditForm> {
                 decoration: InputDecoration(
                   labelText: 'common.name'.tr(),
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'common.details'.tr(),
@@ -62,7 +74,7 @@ class _ScheduleClinicalAuditFormState extends State<ScheduleClinicalAuditForm> {
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-                          ],
+            ],
           ),
         ),
       ],

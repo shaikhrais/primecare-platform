@@ -6,10 +6,6 @@ class MasterAppShellDto {
   MasterAppShellDto({required this.id, required this.raw});
 
   factory MasterAppShellDto.fromJson(Map<String, dynamic> json) {
-    return MasterAppShellDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return MasterAppShellDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

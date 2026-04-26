@@ -89,8 +89,10 @@ class ApproverealestateformPlaceholder extends BasePlaceholder {
 }
 
 class FranchisesalesmanagerdashboardmapperPlaceholder extends BasePlaceholder {
-  const FranchisesalesmanagerdashboardmapperPlaceholder({super.key, dynamic data})
-    : super(name: 'Franchisesalesmanagerdashboardmapper', data: data);
+  const FranchisesalesmanagerdashboardmapperPlaceholder({
+    super.key,
+    dynamic data,
+  }) : super(name: 'Franchisesalesmanagerdashboardmapper', data: data);
 }
 
 class FranchiseonboardingchecklistformPlaceholder extends BasePlaceholder {
@@ -104,8 +106,10 @@ class AddfranchiseleadformPlaceholder extends BasePlaceholder {
 }
 
 class FranchisereconciliationdashboarddtoPlaceholder extends BasePlaceholder {
-  const FranchisereconciliationdashboarddtoPlaceholder({super.key, dynamic data})
-    : super(name: 'Franchisereconciliationdashboarddto', data: data);
+  const FranchisereconciliationdashboarddtoPlaceholder({
+    super.key,
+    dynamic data,
+  }) : super(name: 'Franchisereconciliationdashboarddto', data: data);
 }
 
 class FranchiserefundsdashboardadapterPlaceholder extends BasePlaceholder {
@@ -119,8 +123,10 @@ class FranchiserefundsdashboarddtoPlaceholder extends BasePlaceholder {
 }
 
 class FranchiserefundsdashboarddtoadapterPlaceholder extends BasePlaceholder {
-  const FranchiserefundsdashboarddtoadapterPlaceholder({super.key, dynamic data})
-    : super(name: 'Franchiserefundsdashboarddtoadapter', data: data);
+  const FranchiserefundsdashboarddtoadapterPlaceholder({
+    super.key,
+    dynamic data,
+  }) : super(name: 'Franchiserefundsdashboarddtoadapter', data: data);
 }
 
 class FranchiserefundsdashboardmapperPlaceholder extends BasePlaceholder {
@@ -139,8 +145,10 @@ class FranchisereportsdashboarddtoPlaceholder extends BasePlaceholder {
 }
 
 class FranchisereportsdashboarddtoadapterPlaceholder extends BasePlaceholder {
-  const FranchisereportsdashboarddtoadapterPlaceholder({super.key, dynamic data})
-    : super(name: 'Franchisereportsdashboarddtoadapter', data: data);
+  const FranchisereportsdashboarddtoadapterPlaceholder({
+    super.key,
+    dynamic data,
+  }) : super(name: 'Franchisereportsdashboarddtoadapter', data: data);
 }
 
 class FranchisereportsdashboardmapperPlaceholder extends BasePlaceholder {

@@ -6,7 +6,6 @@ part '02_M_administrative_forms_data.g.dart';
 
 @freezed
 abstract class AdministrativeFormsData with _$AdministrativeFormsData {
-
   const factory AdministrativeFormsData({
     required Map<String, dynamic> metrics,
   }) = _AdministrativeFormsData;

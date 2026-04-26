@@ -6,10 +6,6 @@ class NavbarToggleFabDto {
   NavbarToggleFabDto({required this.id, required this.raw});
 
   factory NavbarToggleFabDto.fromJson(Map<String, dynamic> json) {
-    return NavbarToggleFabDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NavbarToggleFabDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

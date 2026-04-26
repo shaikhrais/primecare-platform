@@ -6,10 +6,6 @@ class DemoSidebarContentDto {
   DemoSidebarContentDto({required this.id, required this.raw});
 
   factory DemoSidebarContentDto.fromJson(Map<String, dynamic> json) {
-    return DemoSidebarContentDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DemoSidebarContentDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

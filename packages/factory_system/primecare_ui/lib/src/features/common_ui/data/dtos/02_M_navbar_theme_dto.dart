@@ -6,10 +6,6 @@ class NavbarThemeDto {
   NavbarThemeDto({required this.id, required this.raw});
 
   factory NavbarThemeDto.fromJson(Map<String, dynamic> json) {
-    return NavbarThemeDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NavbarThemeDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

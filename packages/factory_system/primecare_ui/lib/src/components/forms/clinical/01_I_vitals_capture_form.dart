@@ -148,7 +148,7 @@ class VitalsCaptureForm extends ConsumerStatefulWidget {
   final String? patientId;
   final VoidCallback? onSuccess;
 
-  const VitalsCaptureForm({super.key, this.patientId, this.onSuccess});
+  VitalsCaptureForm({super.key, this.patientId, this.onSuccess});
 
   @override
   ConsumerState<VitalsCaptureForm> createState() => _VitalsCaptureFormState();
@@ -160,7 +160,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
   void _submit() {
     if (widget.patientId == null || widget.patientId!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select a patient first')),
+        SnackBar(content: Text(LocaleKeys.dashboards_common_labels_please_select_a_patient_first.tr())),
       );
       return;
     }
@@ -195,7 +195,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
 
     return BaseForm(
       formKey: _formKey,
-      title: 'Capture Vitals',
+      title: LocaleKeys.dashboards_common_labels_capture_vitals.tr(),
       subtitle: 'Record the patient\'s current vitals.',
       onSubmit: _submit,
       submitText: 'Save Vitals',
@@ -260,7 +260,7 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
                       12 * layout.scaleFactor,
                     ),
                   ),
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.favorite,
                     color: PrimeCareColors.rose,
                   ),
@@ -335,11 +335,11 @@ class _VitalsCaptureFormState extends ConsumerState<VitalsCaptureForm> {
               span: fullSpan,
               child: Row(
                 children: [
-                  const Spacer(),
+                  Spacer(),
                   TextButton.icon(
                     onPressed: asyncState.isLoading ? null : _clear,
-                    icon: const Icon(Icons.clear_all),
-                    label: const Text('Clear Form'),
+                    icon: Icon(Icons.clear_all),
+                    label: Text(LocaleKeys.dashboards_common_labels_clear_form.tr()),
                     style: TextButton.styleFrom(
                       foregroundColor: theme.colorScheme.secondary,
                     ),

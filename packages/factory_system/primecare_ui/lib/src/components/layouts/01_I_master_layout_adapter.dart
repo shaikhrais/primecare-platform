@@ -15,14 +15,20 @@ class MasterLayoutAdapter extends Notifier<MasterLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-        state = MasterLayoutViewModel(isLoading: true, data: state.data);
+    state = MasterLayoutViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/master-layout-adapter');
-      state = MasterLayoutViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = MasterLayoutViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = MasterLayoutViewModel(isLoading: false, data: <String, dynamic>{});
+      state = MasterLayoutViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

@@ -6,10 +6,6 @@ class BaseFormDto {
   BaseFormDto({required this.id, required this.raw});
 
   factory BaseFormDto.fromJson(Map<String, dynamic> json) {
-    return BaseFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return BaseFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

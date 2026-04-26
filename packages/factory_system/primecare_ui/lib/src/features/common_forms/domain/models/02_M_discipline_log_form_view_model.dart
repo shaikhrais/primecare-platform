@@ -5,10 +5,7 @@ class DisciplineLogFormViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  DisciplineLogFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  DisciplineLogFormViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

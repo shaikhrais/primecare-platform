@@ -6,10 +6,6 @@ class DataTableTopToolbarDto {
   DataTableTopToolbarDto({required this.id, required this.raw});
 
   factory DataTableTopToolbarDto.fromJson(Map<String, dynamic> json) {
-    return DataTableTopToolbarDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DataTableTopToolbarDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

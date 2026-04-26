@@ -6,10 +6,6 @@ class DataTableDto {
   DataTableDto({required this.id, required this.raw});
 
   factory DataTableDto.fromJson(Map<String, dynamic> json) {
-    return DataTableDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DataTableDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

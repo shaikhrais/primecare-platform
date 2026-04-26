@@ -6,10 +6,6 @@ class UseFuseSettingsDto {
   UseFuseSettingsDto({required this.id, required this.raw});
 
   factory UseFuseSettingsDto.fromJson(Map<String, dynamic> json) {
-    return UseFuseSettingsDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UseFuseSettingsDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

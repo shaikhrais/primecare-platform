@@ -6,10 +6,6 @@ class AWSAuthContextDto {
   AWSAuthContextDto({required this.id, required this.raw});
 
   factory AWSAuthContextDto.fromJson(Map<String, dynamic> json) {
-    return AWSAuthContextDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AWSAuthContextDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

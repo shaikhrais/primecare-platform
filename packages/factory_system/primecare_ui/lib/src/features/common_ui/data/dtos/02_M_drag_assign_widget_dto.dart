@@ -6,10 +6,6 @@ class DragAssignWidgetDto {
   DragAssignWidgetDto({required this.id, required this.raw});
 
   factory DragAssignWidgetDto.fromJson(Map<String, dynamic> json) {
-    return DragAssignWidgetDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DragAssignWidgetDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

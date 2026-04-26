@@ -15,14 +15,20 @@ class ClientLayoutAdapter extends Notifier<ClientLayoutViewModel> {
   }
 
   Future<void> loadData() async {
-        state = ClientLayoutViewModel(isLoading: true, data: state.data);
+    state = ClientLayoutViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
       final response = await client.get('/api/v1/client-layout-adapter');
-      state = ClientLayoutViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      state = ClientLayoutViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = ClientLayoutViewModel(isLoading: false, data: <String, dynamic>{});
+      state = ClientLayoutViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

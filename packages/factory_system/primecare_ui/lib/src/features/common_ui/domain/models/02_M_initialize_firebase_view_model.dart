@@ -5,10 +5,7 @@ class InitializeFirebaseViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  InitializeFirebaseViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  InitializeFirebaseViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

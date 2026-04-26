@@ -38,7 +38,10 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
                     children: [
                       Expanded(flex: 2, child: _buildRecentApplications(vm)),
                       const SizedBox(width: 24),
-                      Expanded(flex: 1, child: _buildIntakeIntelligence(context, vm)),
+                      Expanded(
+                        flex: 1,
+                        child: _buildIntakeIntelligence(context, vm),
+                      ),
                     ],
                   ),
                 ],
@@ -59,9 +62,9 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
       elevation: 0,
       title: Row(
         children: [
-          const Icon(Icons.assignment_ind, color: Color(0xFF0284C7)),
-          const SizedBox(width: 12),
-          const Text(
+          Icon(Icons.assignment_ind, color: Color(0xFF0284C7)),
+          SizedBox(width: 12),
+          Text(
             'Intake Hub',
             style: TextStyle(
               color: Colors.black87,
@@ -74,18 +77,19 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
       actions: [
         OutlinedButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.filter_list),
-          label: const Text('FILTER'),
+          icon: Icon(Icons.filter_list),
+          label: Text(LocaleKeys.dashboards_common_labels_filter.tr()),
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Color(0xFFE2E8F0)),
+            side: BorderSide(color: Color(0xFFE2E8F0)),
             foregroundColor: Colors.black54,
           ),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: 12),
         ElevatedButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.add),
-          label: const Text('NEW CANDIDATE'),
+          icon: Icon(Icons.add),
+          label: Text(LocaleKeys.dashboards_common_labels_new_candidate.tr(),
+          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF0284C7),
             foregroundColor: Colors.white,
@@ -94,7 +98,7 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
             ),
           ),
         ),
-        const SizedBox(width: 24),
+        SizedBox(width: 24),
       ],
     );
   }
@@ -109,7 +113,7 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
 
   Widget _buildRecentApplications(IntakeDashboardViewModel vm) {
     return _buildCard(
-      title: 'Active Intake Pipeline',
+      title: LocaleKeys.dashboards_common_labels_active_intake_pipeline.tr(),
       child: Column(
         children: [
           _ApplicationTile(
@@ -132,7 +136,10 @@ class IntakeCoordinatorScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildIntakeIntelligence(BuildContext context, IntakeDashboardViewModel vm) {
+  Widget _buildIntakeIntelligence(
+    BuildContext context,
+    IntakeDashboardViewModel vm,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(

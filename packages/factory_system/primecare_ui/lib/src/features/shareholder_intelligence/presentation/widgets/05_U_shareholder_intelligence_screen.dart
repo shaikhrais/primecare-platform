@@ -30,8 +30,10 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Shareholder Intelligence & Feature Tracker',
-                      style: theme.typography.h2),
+                  Text(
+                    'Shareholder Intelligence & Feature Tracker',
+                    style: theme.typography.h2,
+                  ),
                   Text(
                     'Real-time Telemetry & Governance Pipeline',
                     style: theme.typography.labelMedium,
@@ -59,9 +61,7 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
                 ),
               ),
               SizedBox(width: theme.spacing.xl),
-              Expanded(
-                child: _buildRoiMatrix(theme),
-              ),
+              Expanded(child: _buildRoiMatrix(theme)),
             ],
           ),
         ],
@@ -88,14 +88,18 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
           SizedBox(height: theme.spacing.lg),
           Row(
             children: [
-              _buildKanbanColumn(
-                  theme, 'Initial', ['new-franchise-analytics'], Colors.blue),
-              _buildKanbanColumn(
-                  theme, 'In Processing', ['intake-coordinator-v2'], Colors.orange),
-              _buildKanbanColumn(
-                  theme, 'Implemented', ['billing-admin-export'], Colors.teal),
-              _buildKanbanColumn(
-                  theme, 'Done', ['regional-manager-ontario'], Colors.green),
+              _buildKanbanColumn(theme, 'Initial', [
+                'new-franchise-analytics',
+              ], Colors.blue),
+              _buildKanbanColumn(theme, 'In Processing', [
+                'intake-coordinator-v2',
+              ], Colors.orange),
+              _buildKanbanColumn(theme, 'Implemented', [
+                'billing-admin-export',
+              ], Colors.teal),
+              _buildKanbanColumn(theme, 'Done', [
+                'regional-manager-ontario',
+              ], Colors.green),
             ],
           ),
         ],
@@ -120,21 +124,28 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
         ),
         child: Column(
           children: [
-            Text(title,
-                style: theme.typography.labelSmall
-                    .copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              title,
+              style: theme.typography.labelSmall.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(height: theme.spacing.md),
-            ...intents.map((id) => Container(
-                  margin: EdgeInsets.only(bottom: theme.spacing.sm),
-                  padding: EdgeInsets.all(theme.spacing.sm),
-                  decoration: BoxDecoration(
-                    color: theme.colors.surface,
-                    borderRadius: BorderRadius.circular(theme.radii.sm),
-                  ),
-                  child: Text(id,
-                      style: theme.typography.bodySmall,
-                      textAlign: TextAlign.center),
-                )),
+            ...intents.map(
+              (id) => Container(
+                margin: EdgeInsets.only(bottom: theme.spacing.sm),
+                padding: EdgeInsets.all(theme.spacing.sm),
+                decoration: BoxDecoration(
+                  color: theme.colors.surface,
+                  borderRadius: BorderRadius.circular(theme.radii.sm),
+                ),
+                child: Text(
+                  id,
+                  style: theme.typography.bodySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -150,16 +161,28 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
           Text('Real-Time Intent Telemetry', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
           _buildTelemetryItem(
-              theme, 'intake-coordinator-dashboard', 'ExecutionGateService', 'PASS'),
+            theme,
+            'intake-coordinator-dashboard',
+            'ExecutionGateService',
+            'PASS',
+          ),
           _buildTelemetryItem(
-              theme, 'regional-manager-ontario-dashboard', 'ExecutionGateService', 'PASS'),
+            theme,
+            'regional-manager-ontario-dashboard',
+            'ExecutionGateService',
+            'PASS',
+          ),
         ],
       ),
     );
   }
 
   Widget _buildTelemetryItem(
-      PrimeCareThemeData theme, String intent, String source, String status) {
+    PrimeCareThemeData theme,
+    String intent,
+    String source,
+    String status,
+  ) {
     return Padding(
       padding: EdgeInsets.only(bottom: theme.spacing.md),
       child: Row(
@@ -181,8 +204,10 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
               color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(theme.radii.sm),
             ),
-            child: Text(status,
-                style: theme.typography.labelSmall.copyWith(color: Colors.green)),
+            child: Text(
+              status,
+              style: theme.typography.labelSmall.copyWith(color: Colors.green),
+            ),
           ),
         ],
       ),
@@ -191,7 +216,7 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
 
   Widget _buildRoiMatrix(PrimeCareThemeData theme) {
     return PrimeCareCard(
-      title: 'Platform ROI & Savings',
+      title: LocaleKeys.dashboards_common_labels_platform_roi___savings.tr(),
       child: Column(
         children: [
           _buildRoiRow(theme, 'Zero-Error Savings', '\$124k', Colors.blue),
@@ -210,7 +235,11 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
   }
 
   Widget _buildRoiRow(
-      PrimeCareThemeData theme, String label, String value, Color color) {
+    PrimeCareThemeData theme,
+    String label,
+    String value,
+    Color color,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: theme.spacing.sm),
       child: Row(
@@ -223,8 +252,7 @@ class ShareholderIntelligenceScreen extends ConsumerWidget {
           SizedBox(width: theme.spacing.md),
           Text(label, style: theme.typography.bodyMedium),
           const Spacer(),
-          Text(value,
-              style: theme.typography.bodyBold.copyWith(color: color)),
+          Text(value, style: theme.typography.bodyBold.copyWith(color: color)),
         ],
       ),
     );

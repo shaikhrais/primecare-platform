@@ -83,7 +83,7 @@ class GeneralManagerDashboardScreen extends ConsumerWidget {
             style: theme.typography.h4,
           ),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Strategic Allocation Engine Initialized',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -101,7 +101,9 @@ class GeneralManagerDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Regional P&L Overperformance Trend',
+          title: LocaleKeys
+              .dashboards_common_labels_regional_p_l_overperformance_trend
+              .tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'pl-performance',
@@ -120,7 +122,10 @@ class GeneralManagerDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

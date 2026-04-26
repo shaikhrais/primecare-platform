@@ -80,7 +80,7 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
         children: [
           Text('Revenue Aging Matrix', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Global Financial Surveillance Active',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -98,7 +98,8 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Invoice Velocity Trend',
+          title: LocaleKeys.dashboards_common_labels_invoice_velocity_trend
+              .tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'invoice-velocity',
@@ -117,7 +118,10 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

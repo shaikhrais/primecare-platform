@@ -5,10 +5,7 @@ class PopoverViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  PopoverViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  PopoverViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

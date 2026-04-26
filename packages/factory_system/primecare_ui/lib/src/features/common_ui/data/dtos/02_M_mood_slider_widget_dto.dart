@@ -6,10 +6,6 @@ class MoodSliderWidgetDto {
   MoodSliderWidgetDto({required this.id, required this.raw});
 
   factory MoodSliderWidgetDto.fromJson(Map<String, dynamic> json) {
-    return MoodSliderWidgetDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return MoodSliderWidgetDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

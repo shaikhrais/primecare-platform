@@ -6,10 +6,6 @@ class ListDropdownMenuDto {
   ListDropdownMenuDto({required this.id, required this.raw});
 
   factory ListDropdownMenuDto.fromJson(Map<String, dynamic> json) {
-    return ListDropdownMenuDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ListDropdownMenuDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

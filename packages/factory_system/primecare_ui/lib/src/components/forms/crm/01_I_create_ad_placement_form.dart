@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 
 class CreateAdPlacementForm extends StatefulWidget {
@@ -22,8 +21,19 @@ class _CreateAdPlacementFormState extends State<CreateAdPlacementForm> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSubmit({'status': 'submitted', 'timestamp': DateTime.now().toIso8601String()});
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully tracked and submitted.')));
+      widget.onSubmit({
+        'status': 'submitted',
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys
+                .dashboards_common_labels_successfully_tracked_and_submitted
+                .tr(),
+          ),
+        ),
+      );
     }
   }
 
@@ -31,8 +41,10 @@ class _CreateAdPlacementFormState extends State<CreateAdPlacementForm> {
   Widget build(BuildContext context) {
     return BaseForm(
       formKey: _formKey,
-      title: 'Create Ad Placement',
-      subtitle: 'Create hyper-local geo-fenced ad.',
+      title: LocaleKeys.dashboards_common_labels_create_ad_placement.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_create_hyper_local_geo_fenced_ad
+          .tr(),
       onSubmit: _submit,
       isLoading: widget.isLoading,
       children: [
@@ -45,12 +57,12 @@ class _CreateAdPlacementFormState extends State<CreateAdPlacementForm> {
                 decoration: InputDecoration(
                   labelText: 'common.name'.tr(),
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'common.details'.tr(),
@@ -61,7 +73,7 @@ class _CreateAdPlacementFormState extends State<CreateAdPlacementForm> {
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Required' : null,
               ),
-                          ],
+            ],
           ),
         ),
       ],

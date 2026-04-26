@@ -6,10 +6,6 @@ class DisciplineLogFormDto {
   DisciplineLogFormDto({required this.id, required this.raw});
 
   factory DisciplineLogFormDto.fromJson(Map<String, dynamic> json) {
-    return DisciplineLogFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return DisciplineLogFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

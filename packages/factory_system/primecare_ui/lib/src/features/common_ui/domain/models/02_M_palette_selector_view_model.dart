@@ -5,10 +5,7 @@ class PaletteSelectorViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  PaletteSelectorViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  PaletteSelectorViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

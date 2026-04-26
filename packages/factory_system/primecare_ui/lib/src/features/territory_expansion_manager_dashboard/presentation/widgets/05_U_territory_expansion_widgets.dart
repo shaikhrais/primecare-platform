@@ -114,29 +114,29 @@ class TerritoryOpportunityGrid extends StatelessWidget {
 
 /// Expansion action hub for the Territory Expansion Manager.
 class ExpansionActionHub extends StatelessWidget {
-  const ExpansionActionHub({super.key});
+  ExpansionActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Analyze Market',
+          title: LocaleKeys.dashboards_common_labels_analyze_market.tr(),
           icon: LucideIcons.search,
           route: '/expansion/analyze',
         ),
         PrimeCareActionItem(
-          title: 'Launch Territory',
+          title: LocaleKeys.dashboards_common_labels_launch_territory.tr(),
           icon: LucideIcons.rocket,
           route: '/expansion/launch',
         ),
         PrimeCareActionItem(
-          title: 'Growth Report',
+          title: LocaleKeys.dashboards_common_labels_growth_report.tr(),
           icon: LucideIcons.trendingUp,
           route: '/expansion/reports',
         ),
         PrimeCareActionItem(
-          title: 'Scout Location',
+          title: LocaleKeys.dashboards_common_labels_scout_location.tr(),
           icon: LucideIcons.mapPin,
           route: '/expansion/scout',
         ),

@@ -116,7 +116,7 @@ class FamilyMemberScreen extends ConsumerWidget {
               color: Colors.white.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(Icons.favorite, color: Colors.white),
+            child: Icon(Icons.favorite, color: Colors.white),
           ),
         ],
       ),
@@ -125,7 +125,7 @@ class FamilyMemberScreen extends ConsumerWidget {
 
   Widget _buildDailyActivity(FamilyDashboardViewModel vm) {
     return _buildCard(
-      title: 'Today\'s Activity',
+      title: '${LocaleKeys.dashboards_common_labels_today.tr()}\'s Activity',
       child: Column(
         children: [
           _ActivityItem(

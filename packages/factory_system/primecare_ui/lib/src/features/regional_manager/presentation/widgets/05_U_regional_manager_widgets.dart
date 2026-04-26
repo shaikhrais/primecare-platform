@@ -5,7 +5,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 class RegionalPerformanceCenter extends StatelessWidget {
   final AnalyticsChart chart;
 
-  const RegionalPerformanceCenter({super.key, required this.chart});
+  RegionalPerformanceCenter({super.key, required this.chart});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,14 @@ class RegionalPerformanceCenter extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(LocaleKeys.regional_manager_labels_performance_matrix.tr(), style: theme.typography.h3),
-                  Text(LocaleKeys.regional_manager_labels_comparative_metrics.tr(), style: theme.typography.labelMedium),
+                  Text(
+                    LocaleKeys.regional_manager_labels_performance_matrix.tr(),
+                    style: theme.typography.h3,
+                  ),
+                  Text(
+                    LocaleKeys.regional_manager_labels_comparative_metrics.tr(),
+                    style: theme.typography.labelMedium,
+                  ),
                 ],
               ),
               const Spacer(),
@@ -43,7 +49,7 @@ class RegionalPerformanceCenter extends StatelessWidget {
 
 /// A scorecard for territory health and operational status.
 class TerritoryHealthScorecard extends StatelessWidget {
-  const TerritoryHealthScorecard({super.key});
+  TerritoryHealthScorecard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +59,14 @@ class TerritoryHealthScorecard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.regional_manager_labels_health_scorecard.tr(), style: theme.typography.h3),
-          Text(LocaleKeys.regional_manager_labels_health_indices.tr(), style: theme.typography.labelMedium),
+          Text(
+            LocaleKeys.regional_manager_labels_health_scorecard.tr(),
+            style: theme.typography.h3,
+          ),
+          Text(
+            LocaleKeys.regional_manager_labels_health_indices.tr(),
+            style: theme.typography.labelMedium,
+          ),
           SizedBox(height: theme.spacing.lg),
           PrimeCareDataTable<Map<String, String>>(
             columns: const ['Territory', 'Score', 'Status', 'Trend'],
@@ -110,29 +122,29 @@ class TerritoryHealthScorecard extends StatelessWidget {
 
 /// Regional action hub for the Regional Manager.
 class RegionalActionHub extends StatelessWidget {
-  const RegionalActionHub({super.key});
+  RegionalActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Site Audit',
+          title: LocaleKeys.dashboards_common_labels_site_audit.tr(),
           icon: LucideIcons.clipboardCheck,
           route: '/regional/audit',
         ),
         PrimeCareActionItem(
-          title: 'Review Perf',
+          title: LocaleKeys.dashboards_common_labels_review_perf.tr(),
           icon: LucideIcons.barChart,
           route: '/regional/performance',
         ),
         PrimeCareActionItem(
-          title: 'Manage Staff',
+          title: LocaleKeys.dashboards_common_labels_manage_staff.tr(),
           icon: LucideIcons.users,
           route: '/regional/staff',
         ),
         PrimeCareActionItem(
-          title: 'Territory Plan',
+          title: LocaleKeys.dashboards_common_labels_territory_plan.tr(),
           icon: LucideIcons.map,
           route: '/regional/territory',
         ),

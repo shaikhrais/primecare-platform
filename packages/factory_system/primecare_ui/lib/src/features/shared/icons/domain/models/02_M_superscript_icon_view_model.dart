@@ -5,10 +5,7 @@ class SuperscriptIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  SuperscriptIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  SuperscriptIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

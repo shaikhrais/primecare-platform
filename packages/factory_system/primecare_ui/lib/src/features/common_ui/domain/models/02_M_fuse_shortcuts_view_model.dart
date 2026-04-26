@@ -5,10 +5,7 @@ class FuseShortcutsViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseShortcutsViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseShortcutsViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

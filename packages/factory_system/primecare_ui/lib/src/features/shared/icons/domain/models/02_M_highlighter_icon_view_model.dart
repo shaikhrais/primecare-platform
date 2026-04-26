@@ -5,10 +5,7 @@ class HighlighterIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  HighlighterIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  HighlighterIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

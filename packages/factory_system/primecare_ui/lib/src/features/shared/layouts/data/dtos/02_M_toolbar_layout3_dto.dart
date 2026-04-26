@@ -6,10 +6,6 @@ class ToolbarLayout3Dto {
   ToolbarLayout3Dto({required this.id, required this.raw});
 
   factory ToolbarLayout3Dto.fromJson(Map<String, dynamic> json) {
-    return ToolbarLayout3Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return ToolbarLayout3Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

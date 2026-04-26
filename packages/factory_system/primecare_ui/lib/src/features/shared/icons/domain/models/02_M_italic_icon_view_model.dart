@@ -5,10 +5,7 @@ class ItalicIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ItalicIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ItalicIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

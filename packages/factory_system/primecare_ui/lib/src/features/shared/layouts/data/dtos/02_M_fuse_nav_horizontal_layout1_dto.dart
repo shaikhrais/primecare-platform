@@ -12,4 +12,3 @@ class FuseNavHorizontalLayout1Dto {
     );
   }
 }
-

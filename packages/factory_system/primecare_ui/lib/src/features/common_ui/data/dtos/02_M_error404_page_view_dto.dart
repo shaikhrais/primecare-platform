@@ -6,10 +6,6 @@ class Error404PageViewDto {
   Error404PageViewDto({required this.id, required this.raw});
 
   factory Error404PageViewDto.fromJson(Map<String, dynamic> json) {
-    return Error404PageViewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return Error404PageViewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

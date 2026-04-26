@@ -6,10 +6,6 @@ class FooterLayout3Dto {
   FooterLayout3Dto({required this.id, required this.raw});
 
   factory FooterLayout3Dto.fromJson(Map<String, dynamic> json) {
-    return FooterLayout3Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FooterLayout3Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

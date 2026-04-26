@@ -6,10 +6,6 @@ class SignUpPageViewDto {
   SignUpPageViewDto({required this.id, required this.raw});
 
   factory SignUpPageViewDto.fromJson(Map<String, dynamic> json) {
-    return SignUpPageViewDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SignUpPageViewDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -95,29 +95,29 @@ class FranchiseSalesLeadConversionGrid extends StatelessWidget {
 
 /// Sales action hub for the Franchise Sales Manager.
 class SalesActionHub extends StatelessWidget {
-  const SalesActionHub({super.key});
+  SalesActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Add Lead',
+          title: LocaleKeys.dashboards_common_labels_add_lead.tr(),
           icon: LucideIcons.userPlus,
           route: '/sales/leads/new',
         ),
         PrimeCareActionItem(
-          title: 'Discovery Call',
+          title: LocaleKeys.dashboards_common_labels_discovery_call.tr(),
           icon: LucideIcons.phoneCall,
           route: '/sales/discovery',
         ),
         PrimeCareActionItem(
-          title: 'Pipeline Report',
+          title: LocaleKeys.dashboards_common_labels_pipeline_report.tr(),
           icon: LucideIcons.barChart,
           route: '/sales/reports/pipeline',
         ),
         PrimeCareActionItem(
-          title: 'Closing Desk',
+          title: LocaleKeys.dashboards_common_labels_closing_desk.tr(),
           icon: LucideIcons.checkCircle,
           route: '/sales/closing',
         ),

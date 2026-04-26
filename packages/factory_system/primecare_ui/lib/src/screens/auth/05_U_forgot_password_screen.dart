@@ -23,7 +23,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     setState(() => _isLoading = true);
 
     // Simulate network delay for UI feel
-    await Future<void>.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(Duration(seconds: 1));
 
     if (!mounted) return;
     setState(() {
@@ -46,21 +46,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             style: GoogleFonts.outfit(
               fontSize: 36,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF0F172A),
+              color: Color(0xFF0F172A),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           Text(
             _isSent
                 ? 'auth.recovery_link_sent'.tr()
                 : 'auth.enter_institutional_email'.tr(),
             style: GoogleFonts.inter(
               fontSize: 16,
-              color: const Color(0xFF64748B),
+              color: Color(0xFF64748B),
               height: 1.5,
             ),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32),
           if (!_isSent) ...[
             TextField(
               controller: _emailController,
@@ -78,7 +78,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 key: const Key('data-status-id=shared-global-forgot-action-1'),
                 onPressed: _isLoading ? null : _resetPassword,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0F172A),
+                  backgroundColor: Color(0xFF0F172A),
                   foregroundColor: PrimeCareColors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -86,7 +86,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 ),
                 child: _isLoading
-                    ? const SizedBox(
+                    ? SizedBox(
                         width: 24,
                         height: 24,
                         child: CircularProgressIndicator(
@@ -110,16 +110,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               width: double.infinity,
               height: 56,
               child: ElevatedButton(
-                key: const Key('data-status-id=shared-global-forgot-action-2'),
+                key: Key('data-status-id=shared-global-forgot-action-2'),
                 onPressed: () => setState(() {
                   _isSent = false;
                   _emailController.clear();
                 }),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(
+                  backgroundColor: Color(
                     0xFF38BDF8,
                   ).withValues(alpha: 0.1),
-                  foregroundColor: const Color(0xFF38BDF8),
+                  foregroundColor: Color(0xFF38BDF8),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -135,10 +135,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
             ),
           ],
-          const SizedBox(height: 48),
+          SizedBox(height: 48),
           TextButton.icon(
             onPressed: () => context.go('/login'),
-            icon: const Icon(LucideIcons.arrowLeft, size: 20),
+            icon: Icon(LucideIcons.arrowLeft, size: 20),
             label: Text(
               'auth.back_to_login'.tr(),
               style: GoogleFonts.inter(fontWeight: FontWeight.w600),

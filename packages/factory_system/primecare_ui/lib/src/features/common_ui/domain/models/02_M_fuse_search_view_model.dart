@@ -5,10 +5,7 @@ class FuseSearchViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseSearchViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseSearchViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

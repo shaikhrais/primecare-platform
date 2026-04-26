@@ -6,10 +6,6 @@ class AWSAuthenticatorDto {
   AWSAuthenticatorDto({required this.id, required this.raw});
 
   factory AWSAuthenticatorDto.fromJson(Map<String, dynamic> json) {
-    return AWSAuthenticatorDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AWSAuthenticatorDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

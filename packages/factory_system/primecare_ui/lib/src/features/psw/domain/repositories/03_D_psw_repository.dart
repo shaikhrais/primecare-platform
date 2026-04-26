@@ -14,6 +14,9 @@ class PswRepository implements IPswRepository {
   @override
   Future<Result<PswData>> getPswData() async {
     final response = await _domainService.getDomainMetrics('PSW');
-    return response.map((DomainResponse domainResponse) => PswData.fromDomain(domainResponse.data));
+    return response.map(
+      (DomainResponse domainResponse) =>
+          PswData.fromDomain(domainResponse.data),
+    );
   }
 }

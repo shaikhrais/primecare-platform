@@ -6,7 +6,6 @@ part '02_M_clinical_forms_data.g.dart';
 
 @freezed
 abstract class ClinicalFormsData with _$ClinicalFormsData {
-
   const factory ClinicalFormsData({required Map<String, dynamic> metrics}) =
       _ClinicalFormsData;
 

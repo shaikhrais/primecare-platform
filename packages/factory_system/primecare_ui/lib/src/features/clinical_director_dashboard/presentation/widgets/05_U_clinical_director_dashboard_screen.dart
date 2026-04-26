@@ -83,7 +83,7 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
         children: [
           Text('Clinical Quality Performance', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Patient Outcomes Surveillance Active',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -99,7 +99,7 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
     ClinicalDirectorDashboardViewModel vm,
   ) {
     return PrimeCareChartCard(
-      title: 'Safety Incident Velocity',
+      title: LocaleKeys.dashboards_common_labels_safety_incident_velocity.tr(),
       chart: PrimeCareLineChart(
         chart: vm.metrics.charts.firstWhere(
           (c) => c.id == 'incident-trends',
@@ -116,7 +116,10 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

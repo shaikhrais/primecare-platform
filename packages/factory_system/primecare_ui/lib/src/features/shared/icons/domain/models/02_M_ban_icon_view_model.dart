@@ -5,10 +5,7 @@ class BanIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  BanIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  BanIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

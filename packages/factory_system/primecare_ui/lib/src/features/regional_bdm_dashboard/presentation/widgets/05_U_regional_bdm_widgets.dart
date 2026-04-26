@@ -119,24 +119,24 @@ class RegionalSynergyScorecard extends StatelessWidget {
 
 /// Action hub for Regional Business Development Managers.
 class BdmActionHub extends StatelessWidget {
-  const BdmActionHub({super.key});
+  BdmActionHub({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareQuickActionsGrid(
-      actions: const [
+      actions: [
         PrimeCareActionItem(
-          title: 'Log Visit',
+          title: LocaleKeys.dashboards_common_labels_log_visit.tr(),
           icon: LucideIcons.mapPin,
           route: '/activity/log-visit',
         ),
         PrimeCareActionItem(
-          title: 'Sync Data',
+          title: LocaleKeys.dashboards_common_labels_sync_data.tr(),
           icon: LucideIcons.refreshCw,
           route: '/system/sync',
         ),
         PrimeCareActionItem(
-          title: 'Regional Audit',
+          title: LocaleKeys.dashboards_common_labels_regional_audit.tr(),
           icon: LucideIcons.fileSearch,
           route: '/audit/regional',
         ),

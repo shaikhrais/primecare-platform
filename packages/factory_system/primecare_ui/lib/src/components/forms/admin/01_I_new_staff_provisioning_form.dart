@@ -1,9 +1,7 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_core/00_B_flutter_core.dart';
 
-import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
-import '01_I_new_staff_provisioning_form_adapter.dart';
 
 class NewStaffProvisioningForm extends ConsumerStatefulWidget {
   final VoidCallback? onSuccess;
@@ -26,7 +24,9 @@ class _NewStaffProvisioningFormState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.initialData is Map) {
         final data = widget.initialData as Map<String, dynamic>;
-        ref.read(staffProvisioningFormAdapterProvider.notifier).updateData(
+        ref
+            .read(staffProvisioningFormAdapterProvider.notifier)
+            .updateData(
               firstName: data['firstName']?.toString(),
               lastName: data['lastName']?.toString(),
               email: data['email']?.toString(),
@@ -40,7 +40,9 @@ class _NewStaffProvisioningFormState
 
   Future<void> _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final success = await ref.read(staffProvisioningFormAdapterProvider.notifier).submit();
+      final success = await ref
+          .read(staffProvisioningFormAdapterProvider.notifier)
+          .submit();
       if (success && mounted) {
         widget.onSuccess?.call();
       }
@@ -63,8 +65,10 @@ class _NewStaffProvisioningFormState
 
     return BaseForm(
       formKey: _formKey,
-      title: 'Provision New Staff',
-      subtitle: 'Onboard a new staff member and assign their role.',
+      title: LocaleKeys.dashboards_common_labels_provision_new_staff.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_onboard_a_new_staff_member_and_assign_their_role
+          .tr(),
       onSubmit: _submit,
       submitText: 'Provision Staff',
       isLoading: asyncState.isLoading,
@@ -90,7 +94,9 @@ class _NewStaffProvisioningFormState
                   labelText: 'forms.first_name'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
                   ),
                 ),
                 key: ValueKey('firstName_${data?.firstName}'),
@@ -109,7 +115,9 @@ class _NewStaffProvisioningFormState
                   labelText: 'forms.last_name'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
                   ),
                 ),
                 key: ValueKey('lastName_${data?.lastName}'),
@@ -128,9 +136,11 @@ class _NewStaffProvisioningFormState
                   labelText: 'forms.corporate_email'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
                   ),
-                  prefixIcon: const Icon(Icons.email),
+                  prefixIcon: Icon(Icons.email),
                 ),
                 key: ValueKey('email_${data?.email}'),
                 keyboardType: TextInputType.emailAddress,
@@ -152,7 +162,9 @@ class _NewStaffProvisioningFormState
                   labelText: 'common.role'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
                   ),
                 ),
                 initialValue: data?.role.isNotEmpty == true ? data?.role : null,
@@ -169,17 +181,25 @@ class _NewStaffProvisioningFormState
               ),
             ),
             ResponsiveGridCol(
-              span: layout.tier == ResolutionTier.mob ? fullSpan : twoThirdsSpan,
+              span: layout.tier == ResolutionTier.mob
+                  ? fullSpan
+                  : twoThirdsSpan,
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: 'common.department'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
                   ),
                 ),
-                initialValue: data?.department.isNotEmpty == true ? data?.department : null,
-                items: data?.availableDepartments.map((Map<String, dynamic> dept) {
+                initialValue: data?.department.isNotEmpty == true
+                    ? data?.department
+                    : null,
+                items: data?.availableDepartments.map((
+                  Map<String, dynamic> dept,
+                ) {
                   return DropdownMenuItem(
                     value: dept['id'] as String,
                     child: Text(dept['label'] as String),
@@ -198,7 +218,9 @@ class _NewStaffProvisioningFormState
                   labelText: 'forms.notes'.tr(),
                   labelStyle: TextStyle(color: theme.colorScheme.primary),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12 * layout.scaleFactor),
+                    borderRadius: BorderRadius.circular(
+                      12 * layout.scaleFactor,
+                    ),
                   ),
                   alignLabelWithHint: true,
                 ),

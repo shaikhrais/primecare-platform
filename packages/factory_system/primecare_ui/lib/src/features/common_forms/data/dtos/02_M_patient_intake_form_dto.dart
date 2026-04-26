@@ -6,10 +6,6 @@ class PatientIntakeFormDto {
   PatientIntakeFormDto({required this.id, required this.raw});
 
   factory PatientIntakeFormDto.fromJson(Map<String, dynamic> json) {
-    return PatientIntakeFormDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PatientIntakeFormDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

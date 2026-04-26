@@ -5,10 +5,7 @@ class Error404PageViewViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  Error404PageViewViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  Error404PageViewViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

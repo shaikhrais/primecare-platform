@@ -5,10 +5,7 @@ class DataTableTopToolbarViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  DataTableTopToolbarViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  DataTableTopToolbarViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

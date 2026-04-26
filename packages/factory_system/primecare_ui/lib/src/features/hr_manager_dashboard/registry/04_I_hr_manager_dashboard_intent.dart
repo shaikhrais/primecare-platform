@@ -5,8 +5,10 @@ class HrManagerDashboardIntent extends PrimeCareScreen {
   HrManagerDashboardIntent()
     : super(
         name: 'hr_manager_dashboard',
-        title: 'Human Capital Command',
-        subtitle: 'Governance, Recruitment Velocity & Talent Intelligence',
+        title: LocaleKeys.dashboards_common_labels_human_capital_command.tr(),
+        subtitle: LocaleKeys
+            .dashboards_common_labels_governance__recruitment_velocity___talent_intelligence
+            .tr(),
         route: FranchiseRoutes.hrHiringDashboard,
         requiredRole: PlatformRole.hrHiring,
         provider: hrMetricsProvider,

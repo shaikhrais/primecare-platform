@@ -5,10 +5,7 @@ class NodeButtonViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  NodeButtonViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  NodeButtonViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

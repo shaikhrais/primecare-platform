@@ -1,27 +1,32 @@
 // Layer: 05_UI_PRESENTATION
 import 'package:primecare_ui/primecare_ui.dart';
 
-
 class CTODashboard extends ConsumerWidget {
-  const CTODashboard({super.key});
+  CTODashboard({super.key});
 
-      @override
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(ctoDashboardAdapterProvider);
-    
+
     return PageTemplate(
-      title: 'CTO Dashboard',
-      subtitle: 'Technical operations overview',
+      title: LocaleKeys.dashboards_common_labels_cto_dashboard.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_technical_operations_overview
+          .tr(),
       body: asyncData.when(
         data: (result) => result.fold(
           (data) => PrimeCareResponsiveKpiGrid(
-            children: data.kpis.map((kpi) => PrimeCareKpiCard(
-              title: kpi.title,
-              value: kpi.value,
-              subtitle: kpi.subtitle ?? '',
-              icon: _getIconForMetric(kpi.title),
-              onPinToggle: () {},
-            )).toList(),
+            children: data.kpis
+                .map(
+                  (kpi) => PrimeCareKpiCard(
+                    title: kpi.title,
+                    value: kpi.value,
+                    subtitle: kpi.subtitle ?? '',
+                    icon: _getIconForMetric(kpi.title),
+                    onPinToggle: () {},
+                  ),
+                )
+                .toList(),
           ),
           (error) => Center(child: Text(error.toString())),
         ),
@@ -31,18 +36,21 @@ class CTODashboard extends ConsumerWidget {
     );
   }
 
-
-
-
   IconData _getIconForMetric(String title) {
     final t = title.toLowerCase();
     if (t.contains('patient')) return Icons.people_outline;
-    if (t.contains('claim') || t.contains('revenue') || t.contains('price')) return Icons.payments_outlined;
-    if (t.contains('staff') || t.contains('capacity')) return Icons.badge_outlined;
-    if (t.contains('alert') || t.contains('incident')) return Icons.notification_important_outlined;
-    if (t.contains('task') || t.contains('todo')) return Icons.assignment_outlined;
-    if (t.contains('message') || t.contains('chat')) return Icons.forum_outlined;
-    if (t.contains('file') || t.contains('doc') || t.contains('vault')) return Icons.inventory_2_outlined;
+    if (t.contains('claim') || t.contains('revenue') || t.contains('price'))
+      return Icons.payments_outlined;
+    if (t.contains('staff') || t.contains('capacity'))
+      return Icons.badge_outlined;
+    if (t.contains('alert') || t.contains('incident'))
+      return Icons.notification_important_outlined;
+    if (t.contains('task') || t.contains('todo'))
+      return Icons.assignment_outlined;
+    if (t.contains('message') || t.contains('chat'))
+      return Icons.forum_outlined;
+    if (t.contains('file') || t.contains('doc') || t.contains('vault'))
+      return Icons.inventory_2_outlined;
     return Icons.analytics_outlined;
   }
 }

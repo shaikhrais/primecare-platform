@@ -6,10 +6,6 @@ class FuseLayoutConfigsDto {
   FuseLayoutConfigsDto({required this.id, required this.raw});
 
   factory FuseLayoutConfigsDto.fromJson(Map<String, dynamic> json) {
-    return FuseLayoutConfigsDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseLayoutConfigsDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

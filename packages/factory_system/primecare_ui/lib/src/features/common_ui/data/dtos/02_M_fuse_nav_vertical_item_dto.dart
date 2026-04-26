@@ -6,10 +6,6 @@ class FuseNavVerticalItemDto {
   FuseNavVerticalItemDto({required this.id, required this.raw});
 
   factory FuseNavVerticalItemDto.fromJson(Map<String, dynamic> json) {
-    return FuseNavVerticalItemDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseNavVerticalItemDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

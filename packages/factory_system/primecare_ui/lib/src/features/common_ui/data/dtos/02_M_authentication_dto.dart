@@ -6,10 +6,6 @@ class AuthenticationDto {
   AuthenticationDto({required this.id, required this.raw});
 
   factory AuthenticationDto.fromJson(Map<String, dynamic> json) {
-    return AuthenticationDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return AuthenticationDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

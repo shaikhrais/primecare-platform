@@ -5,10 +5,7 @@ class FuseSettingsViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FuseSettingsViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FuseSettingsViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

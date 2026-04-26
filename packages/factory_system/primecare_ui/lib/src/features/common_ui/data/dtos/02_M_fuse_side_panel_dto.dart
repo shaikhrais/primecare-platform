@@ -6,10 +6,6 @@ class FuseSidePanelDto {
   FuseSidePanelDto({required this.id, required this.raw});
 
   factory FuseSidePanelDto.fromJson(Map<String, dynamic> json) {
-    return FuseSidePanelDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return FuseSidePanelDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

@@ -5,10 +5,7 @@ class ThemePreviewViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ThemePreviewViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ThemePreviewViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

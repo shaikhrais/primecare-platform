@@ -101,15 +101,15 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       ),
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         LucideIcons.sparkles,
                         color: PrimeCareColors.white,
                         size: 28,
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16),
                       Text(
                         'common.aura.title'.tr(),
                         style: GoogleFonts.inter(
@@ -120,7 +120,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
                   Text(
                     'common.aura.subtitle'.tr(),
                     style: GoogleFonts.inter(
@@ -128,7 +128,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       color: PrimeCareColors.white.withValues(alpha: 0.6),
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32),
                   TextField(
                     controller: _textController,
                     focusNode: _focusNode,
@@ -169,7 +169,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24),
                   if (_textController.text.isEmpty) ...[
                     Text(
                       'common.aura.suggestions_label'.tr(),
@@ -199,7 +199,7 @@ class _AuraInteractiveSheetState extends ConsumerState<AuraInteractiveSheet>
                   ] else if (auraIntent != null) ...[
                     _IntentResultCard(intent: auraIntent),
                   ],
-                  const Spacer(),
+                  Spacer(),
                   Center(
                     child: Text(
                       'common.aura.disclaimer'.tr(),
@@ -362,14 +362,14 @@ class _IntentResultCard extends StatelessWidget {
             ),
           ),
           if (hasActions) ...[
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context, intent),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4ADE80),
-                  foregroundColor: const Color(0xFF1E293B),
+                  backgroundColor: Color(0xFF4ADE80),
+                  foregroundColor: Color(0xFF1E293B),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

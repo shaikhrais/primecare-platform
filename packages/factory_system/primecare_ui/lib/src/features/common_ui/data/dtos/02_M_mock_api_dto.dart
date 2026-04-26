@@ -6,10 +6,6 @@ class MockApiDto {
   MockApiDto({required this.id, required this.raw});
 
   factory MockApiDto.fromJson(Map<String, dynamic> json) {
-    return MockApiDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return MockApiDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

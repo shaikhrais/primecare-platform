@@ -6,10 +6,6 @@ class NavigationSearchDto {
   NavigationSearchDto({required this.id, required this.raw});
 
   factory NavigationSearchDto.fromJson(Map<String, dynamic> json) {
-    return NavigationSearchDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return NavigationSearchDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

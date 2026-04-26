@@ -17,14 +17,22 @@ class CreateRevenueReportFormAdapter
   }
 
   Future<void> loadData() async {
-        state = CreateRevenueReportFormViewModel(isLoading: true, data: state.data);
+    state = CreateRevenueReportFormViewModel(isLoading: true, data: state.data);
     try {
       final client = ref.read(apiClientProvider);
-      final response = await client.get('/api/v1/create-revenue-report-form-adapter');
-      state = CreateRevenueReportFormViewModel(isLoading: false, data: response.data as Map<String, dynamic>?);
+      final response = await client.get(
+        '/api/v1/create-revenue-report-form-adapter',
+      );
+      state = CreateRevenueReportFormViewModel(
+        isLoading: false,
+        data: response.data as Map<String, dynamic>?,
+      );
     } catch (e) {
       // Fallback
-      state = CreateRevenueReportFormViewModel(isLoading: false, data: <String, dynamic>{});
+      state = CreateRevenueReportFormViewModel(
+        isLoading: false,
+        data: <String, dynamic>{},
+      );
     }
   }
 }

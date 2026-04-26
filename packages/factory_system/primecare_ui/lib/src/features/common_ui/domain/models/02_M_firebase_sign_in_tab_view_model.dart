@@ -5,10 +5,7 @@ class FirebaseSignInTabViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  FirebaseSignInTabViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  FirebaseSignInTabViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

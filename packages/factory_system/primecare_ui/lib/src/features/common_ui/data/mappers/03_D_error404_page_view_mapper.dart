@@ -10,4 +10,3 @@ class Error404PageViewMapper {
     );
   }
 }
-

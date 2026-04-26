@@ -1,8 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/src/components/layouts/01_I_responsive_grid_layout.dart';
 
 import 'package:primecare_ui/src/components/forms/01_I_base_form.dart';
 import 'package:primecare_ui/src/components/forms/state/01_I_employee_timesheet_notifier.dart';
@@ -50,9 +47,13 @@ class _EmployeeTimesheetFormState extends ConsumerState<EmployeeTimesheetForm> {
       await ref.read(employeeTimesheetProvider.notifier).submit(payload);
 
       if (mounted && !ref.read(employeeTimesheetProvider).hasError) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Successfully submitted')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              LocaleKeys.dashboards_common_labels_successfully_submitted.tr(),
+            ),
+          ),
+        );
       }
     }
   }
@@ -62,8 +63,10 @@ class _EmployeeTimesheetFormState extends ConsumerState<EmployeeTimesheetForm> {
     final state = ref.watch(employeeTimesheetProvider);
 
     return BaseForm(
-      title: 'EmployeeTimesheet Details',
-      subtitle: 'Complete the form to submit EmployeeTimesheet information.',
+      title: LocaleKeys.dashboards_common_labels_employeetimesheet_details.tr(),
+      subtitle: LocaleKeys
+          .dashboards_common_labels_complete_the_form_to_submit_employeetimesheet_information
+          .tr(),
       isLoading: state.isLoading,
       formKey: _formKey,
       onSubmit: _submit,
@@ -94,9 +97,19 @@ class _EmployeeTimesheetFormState extends ConsumerState<EmployeeTimesheetForm> {
                 ),
                 child: DropdownButtonFormField<String>(
                   decoration: InputDecoration(labelText: 'common.status'.tr()),
-                  items: const [
-                    DropdownMenuItem(value: 'draft', child: Text('Draft')),
-                    DropdownMenuItem(value: 'publish', child: Text('Publish')),
+                  items: [
+                    DropdownMenuItem(
+                      value: 'draft',
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_draft.tr(),
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: 'publish',
+                      child: Text(
+                        LocaleKeys.dashboards_common_labels_publish.tr(),
+                      ),
+                    ),
                   ],
                   onChanged: (v) {},
                   validator: (v) => v == null ? 'Required' : null,

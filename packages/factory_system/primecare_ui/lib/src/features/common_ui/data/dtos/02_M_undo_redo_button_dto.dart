@@ -6,10 +6,6 @@ class UndoRedoButtonDto {
   UndoRedoButtonDto({required this.id, required this.raw});
 
   factory UndoRedoButtonDto.fromJson(Map<String, dynamic> json) {
-    return UndoRedoButtonDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return UndoRedoButtonDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

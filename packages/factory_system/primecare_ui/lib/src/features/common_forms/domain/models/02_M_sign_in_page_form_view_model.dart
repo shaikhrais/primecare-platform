@@ -5,10 +5,7 @@ class SignInPageFormViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  SignInPageFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  SignInPageFormViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

@@ -6,10 +6,6 @@ class RightSideLayout2Dto {
   RightSideLayout2Dto({required this.id, required this.raw});
 
   factory RightSideLayout2Dto.fromJson(Map<String, dynamic> json) {
-    return RightSideLayout2Dto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return RightSideLayout2Dto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

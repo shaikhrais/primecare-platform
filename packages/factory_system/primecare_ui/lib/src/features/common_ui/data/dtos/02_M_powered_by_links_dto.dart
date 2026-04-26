@@ -6,10 +6,6 @@ class PoweredByLinksDto {
   PoweredByLinksDto({required this.id, required this.raw});
 
   factory PoweredByLinksDto.fromJson(Map<String, dynamic> json) {
-    return PoweredByLinksDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return PoweredByLinksDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

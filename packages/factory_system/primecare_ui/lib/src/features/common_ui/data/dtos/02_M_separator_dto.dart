@@ -6,10 +6,6 @@ class SeparatorDto {
   SeparatorDto({required this.id, required this.raw});
 
   factory SeparatorDto.fromJson(Map<String, dynamic> json) {
-    return SeparatorDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SeparatorDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

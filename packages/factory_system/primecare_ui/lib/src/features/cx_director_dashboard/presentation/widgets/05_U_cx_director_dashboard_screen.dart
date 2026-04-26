@@ -83,7 +83,7 @@ class CxDirectorDashboardScreen extends ConsumerWidget {
         children: [
           Text('Sentiment Velocity Heatmap', style: theme.typography.h4),
           SizedBox(height: theme.spacing.lg),
-          const Center(
+          Center(
             child: Text(
               'Global Experience Surveillance Active',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -101,7 +101,8 @@ class CxDirectorDashboardScreen extends ConsumerWidget {
     return Column(
       children: [
         PrimeCareChartCard(
-          title: 'Sentiment Velocity Trend',
+          title: LocaleKeys.dashboards_common_labels_sentiment_velocity_trend
+              .tr(),
           chart: PrimeCareLineChart(
             chart: vm.metrics.charts.firstWhere(
               (c) => c.id == 'sentiment-trend',
@@ -120,7 +121,10 @@ class CxDirectorDashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LocaleKeys.dashboards_common_labels_aura_intelligence.tr(), style: theme.typography.h4),
+        Text(
+          LocaleKeys.dashboards_common_labels_aura_intelligence.tr(),
+          style: theme.typography.h4,
+        ),
         SizedBox(height: theme.spacing.lg),
         ...insights.map(
           (insight) => Padding(

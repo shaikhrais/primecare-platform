@@ -6,10 +6,6 @@ class SettingsPanelDto {
   SettingsPanelDto({required this.id, required this.raw});
 
   factory SettingsPanelDto.fromJson(Map<String, dynamic> json) {
-    return SettingsPanelDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return SettingsPanelDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

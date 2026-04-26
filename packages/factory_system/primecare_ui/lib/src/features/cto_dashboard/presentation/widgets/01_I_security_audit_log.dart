@@ -4,10 +4,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 class SecurityAuditLog extends StatelessWidget {
   final List<DashboardActivity> activities;
 
-  const SecurityAuditLog({
-    super.key,
-    required this.activities,
-  });
+  const SecurityAuditLog({super.key, required this.activities});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +18,11 @@ class SecurityAuditLog extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.shieldCheck, color: theme.colors.success, size: 20),
+              Icon(
+                LucideIcons.shieldCheck,
+                color: theme.colors.success,
+                size: 20,
+              ),
               SizedBox(width: theme.spacing.sm),
               Text(
                 'SECURITY AUDIT TRAIL',

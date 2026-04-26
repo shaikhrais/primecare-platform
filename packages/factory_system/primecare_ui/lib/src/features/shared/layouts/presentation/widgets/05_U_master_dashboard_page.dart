@@ -9,7 +9,7 @@ class MasterDashboardPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    
+
     // In a real scenario, this would use role-based routing.
     // For now, it acts as the PDM-valid shell for the main dashboard intent.
     return Scaffold(
@@ -17,10 +17,17 @@ class MasterDashboardPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(LucideIcons.layoutDashboard, size: 48, color: theme.colors.primary),
+            Icon(
+              LucideIcons.layoutDashboard,
+              size: 48,
+              color: theme.colors.primary,
+            ),
             SizedBox(height: theme.spacing.lg),
             Text('PrimeCare Master Dashboard', style: theme.typography.h2),
-            Text('Select a role-based workspace from the sidebar.', style: theme.typography.bodyLarge),
+            Text(
+              'Select a role-based workspace from the sidebar.',
+              style: theme.typography.bodyLarge,
+            ),
           ],
         ),
       ),

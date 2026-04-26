@@ -5,10 +5,7 @@ class ImagePlusIconViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  ImagePlusIconViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  ImagePlusIconViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];

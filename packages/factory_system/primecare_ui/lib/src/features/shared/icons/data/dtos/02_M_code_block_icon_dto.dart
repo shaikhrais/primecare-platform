@@ -6,10 +6,6 @@ class CodeBlockIconDto {
   CodeBlockIconDto({required this.id, required this.raw});
 
   factory CodeBlockIconDto.fromJson(Map<String, dynamic> json) {
-    return CodeBlockIconDto(
-      id: json['id']?.toString() ?? '',
-      raw: json,
-    );
+    return CodeBlockIconDto(id: json['id']?.toString() ?? '', raw: json);
   }
 }
-

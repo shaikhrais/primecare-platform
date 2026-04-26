@@ -31,13 +31,20 @@ class TrainingHubDashboardScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.command_center_labels_training_hub_center.tr(), style: theme.typography.h2),
+          Text(
+            LocaleKeys.command_center_labels_training_hub_center.tr(),
+            style: theme.typography.h2,
+          ),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: vm.metrics),
           SizedBox(height: theme.spacing.xl),
           PrimeCareCard(
             padding: EdgeInsets.all(theme.spacing.xl),
-            child: Center(child: Text(LocaleKeys.dashboards_common_labels_operational_insights.tr())),
+            child: Center(
+              child: Text(
+                LocaleKeys.dashboards_common_labels_operational_insights.tr(),
+              ),
+            ),
           ),
         ],
       ),

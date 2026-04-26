@@ -5,10 +5,7 @@ class BaseFormViewModel extends PrimeCareViewModel {
   final String title;
   final Map<String, dynamic> metadata;
 
-  BaseFormViewModel({
-    required this.title,
-    this.metadata = const {},
-  });
+  BaseFormViewModel({required this.title, this.metadata = const {}});
 
   @override
   List<Object?> get props => [title, metadata];
