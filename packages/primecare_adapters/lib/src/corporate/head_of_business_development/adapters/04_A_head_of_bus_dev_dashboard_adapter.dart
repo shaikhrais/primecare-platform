@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -43,7 +44,9 @@ final busDevInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
   return [
     IntelligenceInsight(
       id: 'bd_01',
-      title: 'Territory Saturation Alert',
+      title: LocaleKeys
+          .dashboards_headofbusdev_labels_territory_saturation_alert
+          .tr(),
       summary:
           'Market penetration in the South-East sector has reached 88%. Diminishing returns expected on further franchise allocation.',
       impact: InsightImpact.warning,
@@ -54,7 +57,9 @@ final busDevInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
     ),
     IntelligenceInsight(
       id: 'bd_02',
-      title: 'Strategic Partnership Velocity',
+      title: LocaleKeys
+          .dashboards_headofbusdev_labels_strategic_partnership_velocity
+          .tr(),
       summary:
           'New B2B partnership pipeline has grown by \$4.2M this month. Healthcare provider integrations are driving the surge.',
       impact: InsightImpact.positive,

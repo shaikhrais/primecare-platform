@@ -48,7 +48,10 @@ final intakeInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
   return [
     IntelligenceInsight(
       id: 'intake_01',
-      title: PrimeCareLabel('Referral Velocity Spike', fr: 'Pic de Vitesse de Référence'),
+      title: PrimeCareLabel(
+        'Referral Velocity Spike',
+        fr: 'Pic de Vitesse de Référence',
+      ),
       summary: PrimeCareLabel(
         'Referral volume from North Hospital is 2.5x the rolling average.',
         fr: 'Le volume de références de l\'Hôpital Nord est de 2,5x la moyenne mobile.',
@@ -63,7 +66,10 @@ final intakeInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
     ),
     IntelligenceInsight(
       id: 'intake_02',
-      title: PrimeCareLabel('Waitlist SLA Breach Risk', fr: 'Risque de Violation de SLA de Liste d\'Attente'),
+      title: PrimeCareLabel(
+        'Waitlist SLA Breach Risk',
+        fr: 'Risque de Violation de SLA de Liste d\'Attente',
+      ),
       summary: PrimeCareLabel(
         'Average wait time for Sector 4 is nearing the 24h SLA limit.',
         fr: 'Le temps d\'attente moyen pour le secteur 4 s\'approche de la limite SLA de 24h.',
@@ -78,7 +84,10 @@ final intakeInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsig
     ),
     IntelligenceInsight(
       id: 'intake_03',
-      title: PrimeCareLabel('Documentation Efficiency', fr: 'Efficacité de la Documentation'),
+      title: PrimeCareLabel(
+        'Documentation Efficiency',
+        fr: 'Efficacité de la Documentation',
+      ),
       summary: PrimeCareLabel(
         'Automated pre-screen forms reduced intake cycle time by 18 minutes per case.',
         fr: 'Les formulaires de pré-sélection automatisés ont réduit le temps de cycle d\'admission de 18 minutes par cas.',

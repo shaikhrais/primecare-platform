@@ -1,8 +1,6 @@
+import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 03_VIEW_MODELS
-import '../02_M_dashboard_view_model.dart';
-import '../core/02_M_dashboard_models.dart';
-import '../core/02_M_intelligence_insight.dart';
-import '../core/02_M_ui_blueprint.dart';
 
 class HumanResourcesDirectorDashboardViewModel
     extends PrimeCareDashboardViewModel {
@@ -45,7 +43,7 @@ class HumanResourcesDirectorDashboardViewModel
     bool isOfflineFallback = false,
   }) {
     return HumanResourcesDirectorDashboardViewModel(
-      title: 'HR Director Dashboard',
+      title: LocaleKeys.dashboards_common_labels_hr_director_dashboard.tr(),
       metrics: DashboardMetrics.empty(),
       insights: [],
       isOfflineFallback: isOfflineFallback,

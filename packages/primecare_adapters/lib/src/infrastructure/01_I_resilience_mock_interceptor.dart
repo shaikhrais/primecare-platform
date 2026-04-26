@@ -16,7 +16,10 @@ class ResilienceMockInterceptor extends Interceptor {
     final statusCode = err.response?.statusCode;
 
     // Resolve 404/400 bottlenecks for key dashboard endpoints, or connection errors when backend is offline
-    if (statusCode == 404 || statusCode == 400 || statusCode == null || err.type == DioExceptionType.connectionError) {
+    if (statusCode == 404 ||
+        statusCode == 400 ||
+        statusCode == null ||
+        err.type == DioExceptionType.connectionError) {
       if (path.contains('/dashboard-metrics')) {
         return handler.resolve(_mockDashboardMetrics(err.requestOptions));
       }
@@ -189,7 +192,7 @@ class ResilienceMockInterceptor extends Interceptor {
 
   Response<dynamic> _mockLogin(RequestOptions options) {
     _logRepair('Resilience Mock: /v1/auth/login (Bypass)');
-    
+
     String email = 'admin@debug.primecare.com';
     String role = 'Admin';
     String firstName = 'Debug';

@@ -200,7 +200,8 @@ class AuthNotifier extends Notifier<AuthState> {
         final tenantId = prefs.getString('auth_tenant_id');
         final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
         final userId = prefs.getString('auth_user_id');
-        final preferredLanguage = prefs.getString('auth_preferred_language') ?? 'en';
+        final preferredLanguage =
+            prefs.getString('auth_preferred_language') ?? 'en';
 
         if (token != null && role != null) {
           state = state.copyWith(
@@ -317,8 +318,12 @@ class AuthNotifier extends Notifier<AuthState> {
               (user != null ? user['lastName'] as String? : null) ?? 'User';
           final userName = '$firstName $lastName';
 
-          final userId = (user != null ? user['id'] as String? : null) ?? 'unknown';
-          final preferredLanguage = (user != null ? user['preferredLanguage'] as String? : null) ?? state.preferredLanguage ?? 'en';
+          final userId =
+              (user != null ? user['id'] as String? : null) ?? 'unknown';
+          final preferredLanguage =
+              (user != null ? user['preferredLanguage'] as String? : null) ??
+              state.preferredLanguage ??
+              'en';
 
           await prefs.setString('auth_token', token);
           await prefs.setString('auth_role', role);
@@ -476,10 +481,7 @@ class AuthNotifier extends Notifier<AuthState> {
       try {
         await apiClient.post(
           '/v1/user/preferences',
-          body: {
-            'userId': state.userId,
-            'preferredLanguage': lang,
-          },
+          body: {'userId': state.userId, 'preferredLanguage': lang},
         );
       } catch (e) {
         // Resilience: Fail silently

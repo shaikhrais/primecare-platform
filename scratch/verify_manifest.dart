@@ -1,7 +1,9 @@
 import 'dart:io';
 
 void main() {
-  final manifestFile = File('packages/flutter_core/lib/features/01_I_features_manifest.dart');
+  final manifestFile = File(
+    'packages/flutter_core/lib/features/01_I_features_manifest.dart',
+  );
   if (!manifestFile.existsSync()) {
     print('Manifest file not found');
     return;

@@ -11,7 +11,7 @@ void main() {
   }
 
   final files = featureDir.listSync(recursive: true).whereType<File>().toList();
-  
+
   int deletedCount = 0;
 
   // Group files by their parent directory to find duplicates within a feature
@@ -23,9 +23,16 @@ void main() {
 
   dirMap.forEach((parent, featureFiles) {
     // Check for Intents
-    final intentFiles = featureFiles.where((f) => f.path.endsWith('_intent.dart')).toList();
+    final intentFiles = featureFiles
+        .where((f) => f.path.endsWith('_intent.dart'))
+        .toList();
     if (intentFiles.length > 1) {
-      final prefixed = intentFiles.where((f) => f.path.split(Platform.pathSeparator).last.startsWith('04_I_')).toList();
+      final prefixed = intentFiles
+          .where(
+            (f) =>
+                f.path.split(Platform.pathSeparator).last.startsWith('04_I_'),
+          )
+          .toList();
       if (prefixed.isNotEmpty) {
         for (final f in intentFiles) {
           if (!f.path.split(Platform.pathSeparator).last.startsWith('04_I_')) {
@@ -38,9 +45,16 @@ void main() {
     }
 
     // Check for Screens
-    final screenFiles = featureFiles.where((f) => f.path.endsWith('_screen.dart')).toList();
+    final screenFiles = featureFiles
+        .where((f) => f.path.endsWith('_screen.dart'))
+        .toList();
     if (screenFiles.length > 1) {
-      final prefixed = screenFiles.where((f) => f.path.split(Platform.pathSeparator).last.startsWith('05_U_')).toList();
+      final prefixed = screenFiles
+          .where(
+            (f) =>
+                f.path.split(Platform.pathSeparator).last.startsWith('05_U_'),
+          )
+          .toList();
       if (prefixed.isNotEmpty) {
         for (final f in screenFiles) {
           if (!f.path.split(Platform.pathSeparator).last.startsWith('05_U_')) {

@@ -8,19 +8,23 @@ import '../../registry/01_I_governance_registry.dart';
 /// This is used during the Self-Healing Loop to clear corrupted registries and caches.
 class MechanicalRepairKit {
   /// Performs a deep flush of all platform-level registries and caches.
-  /// 
+  ///
   /// [onCustomFlush] allows apps to provide their own cleanup logic (e.g. clearing primecare_ui warehouses).
   static void performDeepFlush({VoidCallback? onCustomFlush}) {
-    debugPrint('PRIMECARE_REPAIR: 🧼 Initiating Deep Flush of platform registries...');
-    
+    debugPrint(
+      'PRIMECARE_REPAIR: 🧼 Initiating Deep Flush of platform registries...',
+    );
+
     // 1. Flush Governance Intents
     GovernanceRegistry.flush();
-    
+
     // 2. Clear any custom app-level state
     if (onCustomFlush != null) {
       onCustomFlush();
     }
-    
-    debugPrint('PRIMECARE_REPAIR: ✅ Deep Flush complete. Ready for re-bootstrap.');
+
+    debugPrint(
+      'PRIMECARE_REPAIR: ✅ Deep Flush complete. Ready for re-bootstrap.',
+    );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:primecare_ui/primecare_ui.dart';
 
 void main() async {
@@ -19,7 +18,7 @@ void main() async {
   for (final result in auditResults) {
     final status = result.isCompliant ? 'PASS' : 'FAIL';
     print('\n[ $status ] Route: ${result.route}');
-    
+
     if (!result.isCompliant) {
       overallCompliant = false;
       print('  Missing Components: ${result.missingLabels.join(", ")}');
@@ -29,7 +28,9 @@ void main() async {
   }
 
   if (auditResults.isEmpty) {
-    print('\n[ WARNING ] No audit results generated. Check if routes in blueprints match registered intents.');
+    print(
+      '\n[ WARNING ] No audit results generated. Check if routes in blueprints match registered intents.',
+    );
   } else if (overallCompliant) {
     print('\n[ SUCCESS ] All structural integrity checks passed.');
   } else {

@@ -14,16 +14,24 @@ void main() {
     var f = File(file);
     if (!f.existsSync()) continue;
     var lines = f.readAsLinesSync();
-    
+
     for (var i = 0; i < lines.length; i++) {
-       if (lines[i].trim() == 'insight.summary,' || lines[i].trim() == 'insight.summary') {
-           lines[i] = lines[i].replaceFirst('insight.summary', 'insight.summary.get(Localizations.localeOf(context).languageCode)');
-       }
-       if (lines[i].trim() == 'insight.title,' || lines[i].trim() == 'insight.title') {
-           lines[i] = lines[i].replaceFirst('insight.title', 'insight.title.get(Localizations.localeOf(context).languageCode)');
-       }
+      if (lines[i].trim() == 'insight.summary,' ||
+          lines[i].trim() == 'insight.summary') {
+        lines[i] = lines[i].replaceFirst(
+          'insight.summary',
+          'insight.summary.get(Localizations.localeOf(context).languageCode)',
+        );
+      }
+      if (lines[i].trim() == 'insight.title,' ||
+          lines[i].trim() == 'insight.title') {
+        lines[i] = lines[i].replaceFirst(
+          'insight.title',
+          'insight.title.get(Localizations.localeOf(context).languageCode)',
+        );
+      }
     }
-    
+
     f.writeAsStringSync(lines.join('\\n') + '\\n');
     print('Updated \$file');
   }

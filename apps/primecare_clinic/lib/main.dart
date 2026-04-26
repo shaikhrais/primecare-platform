@@ -1,6 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'app_router.dart';
 
 void main() {
@@ -48,4 +47,3 @@ class PrimeCareClinicApp extends ConsumerWidget {
     );
   }
 }
-

@@ -13,7 +13,8 @@ class ApiErrorAdapter {
         return 'Access denied. You do not have permission.';
       }
       if (error.response?.statusCode == 400) {
-        return (error.response?.data as Map?)?['message']?.toString() ?? 'Invalid request submitted.';
+        return (error.response?.data as Map?)?['message']?.toString() ??
+            'Invalid request submitted.';
       }
       if (error.response?.statusCode == 404) {
         return 'The requested resource could not be found.';

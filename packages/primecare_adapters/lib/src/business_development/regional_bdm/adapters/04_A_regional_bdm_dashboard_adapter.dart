@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -48,7 +49,8 @@ List<IntelligenceInsight> _getSmartRegionalBdmMocks() {
   return [
     IntelligenceInsight(
       id: 'rbdm_01',
-      title: 'Market Penetration High',
+      title: LocaleKeys.dashboards_regionalbdm_labels_market_penetration_high
+          .tr(),
       summary:
           'Referral capture in the Greater Area has exceeded target by 15%.',
       impact: InsightImpact.positive,
@@ -58,7 +60,7 @@ List<IntelligenceInsight> _getSmartRegionalBdmMocks() {
     ),
     IntelligenceInsight(
       id: 'rbdm_02',
-      title: 'Lead Velocity Decay',
+      title: LocaleKeys.dashboards_regionalbdm_labels_lead_velocity_decay.tr(),
       summary: 'Initial lead response times have increased to 4.2 hours.',
       impact: InsightImpact.warning,
       type: InsightType.efficiency,

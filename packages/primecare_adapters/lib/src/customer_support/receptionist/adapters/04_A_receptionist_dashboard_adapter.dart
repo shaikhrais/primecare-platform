@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -43,7 +44,8 @@ final receptionistInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'rec_01',
-      title: 'Appointment Density Spike',
+      title: LocaleKeys.dashboards_receptionist_labels_appointment_density_spike
+          .tr(),
       summary:
           'High volume of arrivals expected between 10:00 AM and 11:30 AM.',
       impact: InsightImpact.warning,
@@ -54,7 +56,8 @@ final receptionistInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'rec_02',
-      title: 'Wait Time Optimization',
+      title: LocaleKeys.dashboards_receptionist_labels_wait_time_optimization
+          .tr(),
       summary:
           'Automated SMS check-in reminders reduced no-shows by 12% today.',
       impact: InsightImpact.positive,
@@ -65,7 +68,8 @@ final receptionistInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'rec_03',
-      title: 'Documentation Delay Risk',
+      title: LocaleKeys.dashboards_receptionist_labels_documentation_delay_risk
+          .tr(),
       summary:
           '3 patients currently in the waiting room have missing insurance details.',
       impact: InsightImpact.caution,

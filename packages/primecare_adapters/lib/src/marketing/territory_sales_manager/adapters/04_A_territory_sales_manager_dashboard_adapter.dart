@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -42,7 +43,9 @@ final territorySalesInsightsProvider = FutureProvider<List<IntelligenceInsight>>
   return [
     IntelligenceInsight(
       id: 'tsm_1',
-      title: 'Territory Reallocation Suggestion',
+      title: LocaleKeys
+          .dashboards_territorysalesmanager_labels_territory_reallocation_suggestion
+          .tr(),
       summary:
           'East territory is over-performing; potential to split into East-North and East-South clusters.',
       impact: InsightImpact.positive,
@@ -53,7 +56,9 @@ final territorySalesInsightsProvider = FutureProvider<List<IntelligenceInsight>>
     ),
     IntelligenceInsight(
       id: 'tsm_2',
-      title: 'Ad Spend Optimization',
+      title: LocaleKeys
+          .dashboards_territorysalesmanager_labels_ad_spend_optimization
+          .tr(),
       summary:
           'OOH billboard performance in the West is yielding 40% lower ROI than localized digital channels.',
       impact: InsightImpact.warning,

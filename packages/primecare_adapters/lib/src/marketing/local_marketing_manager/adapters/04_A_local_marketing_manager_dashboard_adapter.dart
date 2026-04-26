@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -42,7 +43,9 @@ List<IntelligenceInsight> _getSmartMarketingMocks() {
   return [
     IntelligenceInsight(
       id: 'mkt_01',
-      title: 'Conversion Rate Surge',
+      title: LocaleKeys
+          .dashboards_localmarketingmanager_labels_conversion_rate_surge
+          .tr(),
       summary:
           'Local referral conversion from "Senior Living" events is up 35%.',
       impact: InsightImpact.positive,
@@ -52,7 +55,9 @@ List<IntelligenceInsight> _getSmartMarketingMocks() {
     ),
     IntelligenceInsight(
       id: 'mkt_02',
-      title: 'Lead Attrition Alert',
+      title: LocaleKeys
+          .dashboards_localmarketingmanager_labels_lead_attrition_alert
+          .tr(),
       summary:
           '12 high-intent leads in the "Qualified" stage have not been contacted in 48h.',
       impact: InsightImpact.warning,
@@ -62,7 +67,9 @@ List<IntelligenceInsight> _getSmartMarketingMocks() {
     ),
     IntelligenceInsight(
       id: 'mkt_03',
-      title: 'Market Expansion Opportunity',
+      title: LocaleKeys
+          .dashboards_localmarketingmanager_labels_market_expansion_opportunity
+          .tr(),
       summary:
           'High demand for specialized pediatric care identified in the West District.',
       impact: InsightImpact.growth,

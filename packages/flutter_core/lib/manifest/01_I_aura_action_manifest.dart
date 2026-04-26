@@ -35,25 +35,27 @@ class AuraActionManifest {
         break;
       case 'understaffing':
         // Deep link to Staffing Efficiency Office
-        Navigator.of(context).pushNamed(
-          '/offices/corporate/roles/coo/staffing-efficiency',
-        );
+        Navigator.of(
+          context,
+        ).pushNamed('/offices/corporate/roles/coo/staffing-efficiency');
         break;
       case 'ledger_discrepancy':
         // Deep link to Ledger Audit
-        Navigator.of(context).pushNamed(
-          '/offices/corporate/roles/cfo/financial-overview',
-        );
+        Navigator.of(
+          context,
+        ).pushNamed('/offices/corporate/roles/cfo/financial-overview');
         break;
       case 'predictive_staffing':
         // Action Chain: Navigate -> Show Suggestion
         _executeActionChain(context, [
-          () => Navigator.of(context).pushNamed('/offices/corporate/roles/coo/staffing-efficiency'),
+          () => Navigator.of(
+            context,
+          ).pushNamed('/offices/corporate/roles/coo/staffing-efficiency'),
           () => _showMitigationDialog(
-                context,
-                'Anticipated Gap Mitigation',
-                'Aura predicts a staffing deficit. Initiating automated shift posting for the holiday weekend?',
-              ),
+            context,
+            'Anticipated Gap Mitigation',
+            'Aura predicts a staffing deficit. Initiating automated shift posting for the holiday weekend?',
+          ),
         ]);
         break;
       default:
@@ -61,7 +63,10 @@ class AuraActionManifest {
     }
   }
 
-  static void _executeActionChain(BuildContext context, List<VoidCallback> actions) {
+  static void _executeActionChain(
+    BuildContext context,
+    List<VoidCallback> actions,
+  ) {
     for (final action in actions) {
       action();
     }
@@ -74,51 +79,50 @@ class AuraActionManifest {
   ) {
     showDialog<void>(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            backgroundColor: const Color(0xFF1E293B),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-              side: const BorderSide(color: Colors.white10),
-            ),
-            title: Row(
-              children: [
-                const Icon(LucideIcons.sparkles, color: Color(0xFF818CF8)),
-                const SizedBox(width: 12),
-                Text(
-                  title,
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            content: Text(
-              description,
-              style: GoogleFonts.inter(color: Colors.white70),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(
-                  'DISMISS',
-                  style: GoogleFonts.inter(color: Colors.white38),
-                ),
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF1E293B),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+          side: const BorderSide(color: Colors.white10),
+        ),
+        title: Row(
+          children: [
+            const Icon(LucideIcons.sparkles, color: Color(0xFF818CF8)),
+            const SizedBox(width: 12),
+            Text(
+              title,
+              style: GoogleFonts.inter(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF818CF8),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text('EXECUTE MITIGATION'),
-              ),
-            ],
+            ),
+          ],
+        ),
+        content: Text(
+          description,
+          style: GoogleFonts.inter(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'DISMISS',
+              style: GoogleFonts.inter(color: Colors.white38),
+            ),
           ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF818CF8),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: const Text('EXECUTE MITIGATION'),
+          ),
+        ],
+      ),
     );
   }
 

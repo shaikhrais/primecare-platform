@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'package:primecare_adapters/primecare_adapters.dart';
 import 'dart:async';
@@ -31,26 +32,34 @@ final regionalManagerUsaMetricsProvider = StreamProvider<DashboardMetrics>((
     return metricsResult.fold((metrics) {
       final enrichedKpis = metrics.kpis.isEmpty
           ? [
-              const KpiMetric(
-                title: 'Market Reach',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_regionalmanagerusa_labels_market_reach
+                    .tr(),
                 value: '28.2%',
                 trend: '+3.1%',
                 status: 'positive',
               ),
-              const KpiMetric(
-                title: 'Revenue Velocity',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_regionalmanagerusa_labels_revenue_velocity
+                    .tr(),
                 value: '1.4x',
                 trend: '+12.0%',
                 status: 'positive',
               ),
-              const KpiMetric(
-                title: 'Compliance Rating',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_regionalmanagerusa_labels_compliance_rating
+                    .tr(),
                 value: '99.8%',
                 trend: '+0.5%',
                 status: 'positive',
               ),
-              const KpiMetric(
-                title: 'Regional Retention',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_regionalmanagerusa_labels_regional_retention
+                    .tr(),
                 value: '92%',
                 trend: '+1.5%',
                 status: 'positive',
@@ -83,7 +92,9 @@ final regionalManagerUsaInsightsProvider = FutureProvider<List<IntelligenceInsig
   return [
     IntelligenceInsight(
       id: 'reg_usa_01',
-      title: 'Interstate Mobility Optimization',
+      title: LocaleKeys
+          .dashboards_regionalmanagerusa_labels_interstate_mobility_optimization
+          .tr(),
       summary:
           'Cross-state nursing mobility trend detected in the Tri-State area. Reciprocal licensing potential identified.',
       impact: InsightImpact.positive,
@@ -94,7 +105,9 @@ final regionalManagerUsaInsightsProvider = FutureProvider<List<IntelligenceInsig
     ),
     IntelligenceInsight(
       id: 'reg_usa_02',
-      title: 'Market Saturation Warning: CA',
+      title: LocaleKeys
+          .dashboards_regionalmanagerusa_labels_market_saturation_warning__ca
+          .tr(),
       summary:
           'CSAT scores in California showing slight decline due to capacity limits. Predicted churn up 0.4%.',
       impact: InsightImpact.warning,
@@ -105,7 +118,9 @@ final regionalManagerUsaInsightsProvider = FutureProvider<List<IntelligenceInsig
     ),
     IntelligenceInsight(
       id: 'reg_usa_03',
-      title: 'Texas Growth Corridor',
+      title: LocaleKeys
+          .dashboards_regionalmanagerusa_labels_texas_growth_corridor
+          .tr(),
       summary:
           'Inquiry volume in the Dallas-Fort Worth cluster has exceeded projections by 22%.',
       impact: InsightImpact.info,

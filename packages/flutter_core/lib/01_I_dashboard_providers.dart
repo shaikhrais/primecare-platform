@@ -45,56 +45,57 @@ final clinicIntelligenceProvider =
 // Using a family provider to support fetching distinct metrics per route/role with resilient hydration
 final dashboardMetricsProvider =
     FutureProvider.family<Result<DashboardMetrics>, String>((ref, route) async {
-  final service = ref.watch(dashboardServiceProvider);
-  final telemetry = ref.read<ExecutionGateService>(executionGateProvider);
-  final resilience = ref.read(resilienceServiceProvider);
+      final service = ref.watch(dashboardServiceProvider);
+      final telemetry = ref.read<ExecutionGateService>(executionGateProvider);
+      final resilience = ref.read(resilienceServiceProvider);
 
-  final serviceResult = await service.getMetrics(route);
-  return serviceResult.fold(
-    (DashboardMetrics metrics) {
-      telemetry.passGate(
-        ExecutionGateCategory.metricsLayer,
-        'Dashboard route hydrated: $route',
-        metadata: {
-          'charts': metrics.charts.length,
-          'activities': metrics.recentActivity.length,
+      final serviceResult = await service.getMetrics(route);
+      return serviceResult.fold(
+        (DashboardMetrics metrics) {
+          telemetry.passGate(
+            ExecutionGateCategory.metricsLayer,
+            'Dashboard route hydrated: $route',
+            metadata: {
+              'charts': metrics.charts.length,
+              'activities': metrics.recentActivity.length,
+            },
+          );
+          // Persist the latest good data as a snapshot
+          resilience.saveSnapshot('dashboard_metrics_$route', metrics.toJson());
+          return Success<DashboardMetrics>(metrics);
+        },
+        (Object error) async {
+          telemetry.failGate(
+            ExecutionGateCategory.metricsLayer,
+            'Dashboard route hydration failed: $route',
+            error: error,
+          );
+
+          // Attempt LKG Restoration
+          final snapshot = await resilience.getSnapshot(
+            'dashboard_metrics_$route',
+          );
+          if (snapshot != null) {
+            PrimeLogger.warning(
+              'Falling back to LKG snapshot for route: $route',
+              tag: 'DashboardMetricsProvider',
+            );
+            return Success<DashboardMetrics>(
+              DashboardMetrics.fromJson(
+                snapshot,
+              ).copyWith(isOfflineFallback: true),
+            );
+          }
+
+          PrimeLogger.error(
+            'Failed to fetch dashboard metrics and no LKG found for route: $route',
+            error: error,
+            tag: 'DashboardMetricsProvider',
+          );
+          return Failure<DashboardMetrics>(error);
         },
       );
-      // Persist the latest good data as a snapshot
-      resilience.saveSnapshot(
-        'dashboard_metrics_$route',
-        metrics.toJson(),
-      );
-      return Success<DashboardMetrics>(metrics);
-    },
-    (Object error) async {
-      telemetry.failGate(
-        ExecutionGateCategory.metricsLayer,
-        'Dashboard route hydration failed: $route',
-        error: error,
-      );
-
-      // Attempt LKG Restoration
-      final snapshot = await resilience.getSnapshot('dashboard_metrics_$route');
-      if (snapshot != null) {
-        PrimeLogger.warning(
-          'Falling back to LKG snapshot for route: $route',
-          tag: 'DashboardMetricsProvider',
-        );
-        return Success<DashboardMetrics>(
-          DashboardMetrics.fromJson(snapshot).copyWith(isOfflineFallback: true),
-        );
-      }
-
-      PrimeLogger.error(
-        'Failed to fetch dashboard metrics and no LKG found for route: $route',
-        error: error,
-        tag: 'DashboardMetricsProvider',
-      );
-      return Failure<DashboardMetrics>(error);
-    },
-  );
-});
+    });
 
 final aiAnalyticsForecastingProvider =
     FutureProvider<Result<AIAnalyticsForecastingData>>((ref) async {

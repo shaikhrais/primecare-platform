@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -27,26 +28,34 @@ final clinicalDirectorMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
     return result.fold((metrics) {
       final enrichedKpis = metrics.kpis.isEmpty
           ? [
-              const KpiMetric(
-                title: 'Clinical Safety Score',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_clinicaldirector_labels_clinical_safety_score
+                    .tr(),
                 value: '94/100',
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Staffing Coverage',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_clinicaldirector_labels_staffing_coverage
+                    .tr(),
                 value: '98.2%',
                 trend: 'down',
                 status: 'warning',
               ),
-              const KpiMetric(
-                title: 'Open Incidents',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_clinicaldirector_labels_open_incidents
+                    .tr(),
                 value: '3',
                 trend: 'stable',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Protocol Compliance',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_clinicaldirector_labels_protocol_compliance
+                    .tr(),
                 value: '99.5%',
                 trend: 'up',
                 status: 'success',
@@ -74,7 +83,9 @@ final clinicalDirectorInsightsProvider =
       return [
         IntelligenceInsight(
           id: 'insight_staffing',
-          title: 'Staffing Optimization',
+          title: LocaleKeys
+              .dashboards_clinicaldirector_labels_staffing_optimization
+              .tr(),
           summary: 'Afternoon shift coverage in West Wing is at 85%.',
           type: InsightType.risk,
           impact: InsightImpact.warning,
@@ -83,7 +94,8 @@ final clinicalDirectorInsightsProvider =
         ),
         IntelligenceInsight(
           id: 'insight_compliance',
-          title: 'Compliance Peak',
+          title: LocaleKeys.dashboards_clinicaldirector_labels_compliance_peak
+              .tr(),
           summary: 'Hand hygiene compliance reached an all-time high of 99.8%.',
           type: InsightType.compliance,
           impact: InsightImpact.positive,

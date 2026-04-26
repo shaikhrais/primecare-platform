@@ -15,42 +15,48 @@ class ResilienceService {
   /// Saves a JSON snapshot for a given cache key.
   Future<void> saveSnapshot(String key, Map<String, dynamic> data) async {
     if (_prefs == null) return;
-    
+
     final jsonString = json.encode({
       'data': data,
       'timestamp': DateTime.now().toIso8601String(),
     });
-    
+
     await _prefs.setString('snapshot_$key', jsonString);
-    
-    _ref.read(executionGateProvider).passGate(
-      ExecutionGateCategory.storage,
-      'Snapshot saved for key: $key',
-      metadata: {'key': key},
-    );
+
+    _ref
+        .read(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.storage,
+          'Snapshot saved for key: $key',
+          metadata: {'key': key},
+        );
   }
 
   /// Retrieves a previously saved snapshot or null if unavailable.
   Map<String, dynamic>? getSnapshot(String key) {
     if (_prefs == null) return null;
-    
+
     final jsonString = _prefs.getString('snapshot_$key');
     if (jsonString == null) return null;
 
     try {
       final decoded = json.decode(jsonString) as Map<String, dynamic>;
-      _ref.read(executionGateProvider).passGate(
-        ExecutionGateCategory.storage,
-        'Snapshot restored for key: $key',
-        metadata: {'key': key, 'age': decoded['timestamp']},
-      );
+      _ref
+          .read(executionGateProvider)
+          .passGate(
+            ExecutionGateCategory.storage,
+            'Snapshot restored for key: $key',
+            metadata: {'key': key, 'age': decoded['timestamp']},
+          );
       return decoded['data'] as Map<String, dynamic>;
     } catch (e) {
-       _ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.storage,
-        'Failed to decode snapshot for key: $key',
-        error: e,
-      );
+      _ref
+          .read(executionGateProvider)
+          .failGate(
+            ExecutionGateCategory.storage,
+            'Failed to decode snapshot for key: $key',
+            error: e,
+          );
       return null;
     }
   }

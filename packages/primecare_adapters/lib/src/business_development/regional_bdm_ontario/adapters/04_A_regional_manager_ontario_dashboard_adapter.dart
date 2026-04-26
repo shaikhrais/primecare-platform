@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -48,7 +49,9 @@ final regionalManagerOntarioInsightsProvider =
       return [
         IntelligenceInsight(
           id: 'reg_ont_01',
-          title: 'LHIN Resource Allocation',
+          title: LocaleKeys
+              .dashboards_regionalmanagerontario_labels_lhin_resource_allocation
+              .tr(),
           summary:
               'Potential for funding reallocation detected in the Toronto Central LHIN based on Q1 utilization.',
           impact: InsightImpact.positive,
@@ -59,7 +62,9 @@ final regionalManagerOntarioInsightsProvider =
         ),
         IntelligenceInsight(
           id: 'reg_ont_02',
-          title: 'Waitlist Saturation: York',
+          title: LocaleKeys
+              .dashboards_regionalmanagerontario_labels_waitlist_saturation__york
+              .tr(),
           summary:
               'York Region waitlists for specialized care have exceeded the 15-day SLA.',
           impact: InsightImpact.warning,
@@ -70,7 +75,9 @@ final regionalManagerOntarioInsightsProvider =
         ),
         IntelligenceInsight(
           id: 'reg_ont_03',
-          title: 'Digital Health Opportunity',
+          title: LocaleKeys
+              .dashboards_regionalmanagerontario_labels_digital_health_opportunity
+              .tr(),
           summary:
               'A 40% increase in virtual care inquiries from Northern Ontario clusters observed.',
           impact: InsightImpact.info,

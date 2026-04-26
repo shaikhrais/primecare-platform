@@ -2,13 +2,13 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   final container = ProviderContainer();
-  
+
   print('=========================================');
   print('PRIMECARE PLATFORM GOVERNANCE AUDIT');
   print('=========================================');
-  
+
   final result = PlatformGovernanceAudit.performAudit(container);
-  
+
   print(result.toString());
   print('=========================================');
   print('REALIZED ROLES:');
@@ -17,7 +17,7 @@ void main() {
     final healthIcon = health?.isReady == true ? '✅' : '❌';
     print(' $healthIcon $role');
   }
-  
+
   print('\nPENDING ROLES:');
   for (final role in result.pendingRoles) {
     print(' ⏳ $role');

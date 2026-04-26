@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 /// High-fidelity telemetry stream for the Support Dashboard.

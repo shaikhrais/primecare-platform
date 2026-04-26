@@ -14,20 +14,20 @@ void main() {
     var f = File(file);
     if (!f.existsSync()) continue;
     var content = f.readAsStringSync();
-    
+
     // Replace 'insight.summary,' with 'insight.summary.get(Localizations.localeOf(context).languageCode),'
     // if preceded by whitespace and followed by newline
-    
+
     content = content.replaceAll(
       'insight.summary,\n',
-      'insight.summary.get(Localizations.localeOf(context).languageCode),\n'
+      'insight.summary.get(Localizations.localeOf(context).languageCode),\n',
     );
-    
+
     content = content.replaceAll(
       'insight.title,\n',
-      'insight.title.get(Localizations.localeOf(context).languageCode),\n'
+      'insight.title.get(Localizations.localeOf(context).languageCode),\n',
     );
-    
+
     f.writeAsStringSync(content);
     print('Updated \$file');
   }

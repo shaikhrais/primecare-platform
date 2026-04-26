@@ -11,11 +11,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     refreshListenable: authListenable,
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();
+      /*
       final guard = RouteGuard.verify(
         requestedRoute: requestedRoute,
         isLoggedIn: authState.isAuthenticated,
         userRole: authState.role,
       );
+      */
 
       // 1. Enforce Guard Redirections (Security boundaries)
       /*

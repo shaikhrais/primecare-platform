@@ -1,8 +1,11 @@
 import 'dart:io';
 
 void main() async {
-  final process = await Process.start('dart', ['analyze', 'packages/flutter_core']);
-  
+  final process = await Process.start('dart', [
+    'analyze',
+    'packages/flutter_core',
+  ]);
+
   int errors = 0;
   int warnings = 0;
 

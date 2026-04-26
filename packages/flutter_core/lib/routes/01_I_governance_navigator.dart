@@ -18,17 +18,18 @@ class GovernanceNavigator {
   void navigateTo(AppScreenIntent intent) {
     // 1. Audit Dependency Health
     final health = intent.verifyReady(ref);
-    
+
     if (!health.isReady) {
       debugPrint('Governance Block: ${health.message}');
-      
+
       // Apply Resilience Policy: Redirect if unhealthy
-      if (intent.resiliencePolicy.strategy == ScreenRecoveryStrategy.fallbackRedirect && 
+      if (intent.resiliencePolicy.strategy ==
+              ScreenRecoveryStrategy.fallbackRedirect &&
           intent.resiliencePolicy.fallbackRoute != null) {
         context.go(intent.resiliencePolicy.fallbackRoute!);
         return;
       }
-      
+
       // Fallback: Show system recovery or a simple snackbar in debug
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -52,6 +53,7 @@ class GovernanceNavigator {
 }
 
 /// Provider for the GovernanceNavigator.
-final governanceNavigatorProvider = Provider.family<GovernanceNavigator, BuildContext>((ref, context) {
-  return GovernanceNavigator(ref, context);
-});
+final governanceNavigatorProvider =
+    Provider.family<GovernanceNavigator, BuildContext>((ref, context) {
+      return GovernanceNavigator(ref, context);
+    });

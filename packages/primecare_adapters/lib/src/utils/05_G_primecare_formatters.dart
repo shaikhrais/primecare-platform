@@ -5,11 +5,21 @@ import 'package:intl/intl.dart';
 /// Ensures that currency, dates, and timestamps are consistent across all dashboards.
 class PrimeCareFormatters {
   /// Formats a double into a currency string (e.g., $1,234.56).
-  static String formatCurrency(double amount, {String symbol = '\$', bool isCompact = false}) {
+  static String formatCurrency(
+    double amount, {
+    String symbol = '\$',
+    bool isCompact = false,
+  }) {
     if (isCompact) {
-      return NumberFormat.compactCurrency(symbol: symbol, decimalDigits: 1).format(amount);
+      return NumberFormat.compactCurrency(
+        symbol: symbol,
+        decimalDigits: 1,
+      ).format(amount);
     }
-    return NumberFormat.currency(symbol: symbol, decimalDigits: 2).format(amount);
+    return NumberFormat.currency(
+      symbol: symbol,
+      decimalDigits: 2,
+    ).format(amount);
   }
 
   /// Formats a double into a percentage string (e.g., 99.9%).
@@ -47,8 +57,10 @@ class PrimeCareFormatters {
     final now = DateTime.now();
     final difference = now.difference(timestamp);
 
-    if (difference.inDays > 365) return '${(difference.inDays / 365).floor()}y ago';
-    if (difference.inDays > 30) return '${(difference.inDays / 30).floor()}mo ago';
+    if (difference.inDays > 365)
+      return '${(difference.inDays / 365).floor()}y ago';
+    if (difference.inDays > 30)
+      return '${(difference.inDays / 30).floor()}mo ago';
     if (difference.inDays > 0) return '${difference.inDays}d ago';
     if (difference.inHours > 0) return '${difference.inHours}h ago';
     if (difference.inMinutes > 0) return '${difference.inMinutes}m ago';

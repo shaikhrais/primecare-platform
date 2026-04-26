@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 final intakeCoordinatorDashboardAdapterProvider =
@@ -9,20 +10,25 @@ final intakeCoordinatorDashboardAdapterProvider =
 
       final metrics = DashboardMetrics(
         kpis: [
-          const KpiMetric(
-            title: 'Active Referrals',
+          KpiMetric(
+            title: LocaleKeys
+                .dashboards_intakecoordinator_labels_active_referrals
+                .tr(),
             value: '42',
             trend: '+12%',
             status: 'warning',
           ),
-          const KpiMetric(
-            title: 'Avg. Intake Time',
+          KpiMetric(
+            title: LocaleKeys
+                .dashboards_intakecoordinator_labels_avg__intake_time
+                .tr(),
             value: '18m',
             trend: '-2m',
             status: 'positive',
           ),
-          const KpiMetric(
-            title: 'Waitlist Depth',
+          KpiMetric(
+            title: LocaleKeys.dashboards_intakecoordinator_labels_waitlist_depth
+                .tr(),
             value: '156',
             trend: '+5',
             status: 'neutral',
@@ -30,15 +36,22 @@ final intakeCoordinatorDashboardAdapterProvider =
         ],
         recentActivity: [
           DashboardActivity(
-            title: 'New Referral',
-            subtitle: 'John Doe - North General Hospital',
+            title: LocaleKeys.dashboards_intakecoordinator_labels_new_referral
+                .tr(),
+            subtitle: LocaleKeys
+                .dashboards_intakecoordinator_labels_john_doe___north_general_hospital
+                .tr(),
             timestamp: '10m ago',
             icon: 'user_plus',
             color: 'blue',
           ),
           DashboardActivity(
-            title: 'Intake Completed',
-            subtitle: 'Jane Smith - Sector 4',
+            title: LocaleKeys
+                .dashboards_intakecoordinator_labels_intake_completed
+                .tr(),
+            subtitle: LocaleKeys
+                .dashboards_intakecoordinator_labels_jane_smith___sector_4
+                .tr(),
             timestamp: '45m ago',
             icon: 'check_circle',
             color: 'green',
@@ -47,7 +60,9 @@ final intakeCoordinatorDashboardAdapterProvider =
         charts: [
           AnalyticsChart(
             id: 'referral_volume',
-            title: 'Referral Volume (7d)',
+            title: LocaleKeys
+                .dashboards_intakecoordinator_labels_referral_volume__7d
+                .tr(),
             type: ChartType.line,
             dataPoints: [
               ChartDataPoint(label: 'Mon', value: 12),
@@ -62,7 +77,9 @@ final intakeCoordinatorDashboardAdapterProvider =
         ],
         insights: [
           DashboardInsight(
-            title: 'Capacity Bottleneck',
+            title: LocaleKeys
+                .dashboards_intakecoordinator_labels_capacity_bottleneck
+                .tr(),
             description:
                 'Waitlist in Sector B exceeds 20% of target. Additional review needed.',
             type: 'CAPACITY',

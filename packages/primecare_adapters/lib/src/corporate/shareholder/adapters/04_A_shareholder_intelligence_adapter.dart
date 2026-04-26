@@ -1,8 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
-import '../../../infrastructure/01_I_adapter_modulation_governor.dart';
-import '../../../infrastructure/01_I_modulation_governance_registry.dart';
-import '../../../models/core/02_M_dashboard_models.dart';
+import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ShareholderIntelligenceViewModel {
   final DashboardMetrics metrics;
@@ -17,41 +14,57 @@ class ShareholderIntelligenceViewModel {
       ShareholderIntelligenceViewModel(metrics: DashboardMetrics.empty());
 }
 
-class ShareholderIntelligenceNotifier extends StateNotifier<ShareholderIntelligenceViewModel> {
+class ShareholderIntelligenceNotifier
+    extends StateNotifier<ShareholderIntelligenceViewModel> {
   final Ref ref;
 
-  ShareholderIntelligenceNotifier(this.ref) : super(ShareholderIntelligenceViewModel.empty()) {
+  ShareholderIntelligenceNotifier(this.ref)
+    : super(ShareholderIntelligenceViewModel.empty()) {
     _hydrateData();
   }
 
   Future<void> _hydrateData() async {
-    state = ShareholderIntelligenceViewModel(metrics: state.metrics, isLoading: true);
-    
+    state = ShareholderIntelligenceViewModel(
+      metrics: state.metrics,
+      isLoading: true,
+    );
+
     // Simulate fetching pipeline and telemetry metrics
     await Future<void>.delayed(const Duration(milliseconds: 1500));
 
     state = ShareholderIntelligenceViewModel(
       metrics: DashboardMetrics(
         kpis: [
-          const KpiMetric(
-            title: 'Zero-Error Compliance',
+          KpiMetric(
+            title: LocaleKeys
+                .dashboards_shareholderintelligence_labels_zero_error_compliance
+                .tr(),
             value: '99%',
             status: 'success',
             trend: 'up',
-            subtitle: '+1.2%',
+            subtitle: LocaleKeys.dashboards_shareholderintelligence_labels_1_2
+                .tr(),
           ),
-          const KpiMetric(
-            title: 'Features in Pipeline',
+          KpiMetric(
+            title: LocaleKeys
+                .dashboards_shareholderintelligence_labels_features_in_pipeline
+                .tr(),
             value: '15',
             status: 'info',
             trend: 'up',
-            subtitle: 'Active development',
+            subtitle: LocaleKeys
+                .dashboards_shareholderintelligence_labels_active_development
+                .tr(),
           ),
         ],
         recentActivity: [
-          const DashboardActivity(
-            title: 'Telemetry Hydrated',
-            subtitle: 'regional-manager-ontario-dashboard',
+          DashboardActivity(
+            title: LocaleKeys
+                .dashboards_shareholderintelligence_labels_telemetry_hydrated
+                .tr(),
+            subtitle: LocaleKeys
+                .dashboards_shareholderintelligence_labels_regional_manager_ontario_dashboard
+                .tr(),
             timestamp: 'Just now',
             icon: 'bolt',
             color: 'orange',
@@ -63,11 +76,14 @@ class ShareholderIntelligenceNotifier extends StateNotifier<ShareholderIntellige
   }
 }
 
-final shareholderIntelligenceAdapterProvider = StateNotifierProvider<
-    ShareholderIntelligenceNotifier, ShareholderIntelligenceViewModel>((ref) {
-  // 1. Mandatory Governance Gate
-  AdapterModulationGovernor.canExecute(ref, PlatformSubsystem.metrics);
+final shareholderIntelligenceAdapterProvider =
+    StateNotifierProvider<
+      ShareholderIntelligenceNotifier,
+      ShareholderIntelligenceViewModel
+    >((ref) {
+      // 1. Mandatory Governance Gate
+      AdapterModulationGovernor.canExecute(ref, PlatformSubsystem.metrics);
 
-  // 2. Instantiate and return notifier
-  return ShareholderIntelligenceNotifier(ref);
-});
+      // 2. Instantiate and return notifier
+      return ShareholderIntelligenceNotifier(ref);
+    });

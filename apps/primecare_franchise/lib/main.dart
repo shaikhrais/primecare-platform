@@ -1,5 +1,4 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'app_router.dart';
 
 void main() {
@@ -25,7 +24,7 @@ class PrimeCareFranchiseApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
-    
+
     // Sync languageProvider with EasyLocalization
     final langCode = ref.watch(languageProvider);
     if (context.locale.languageCode != langCode) {
@@ -42,4 +41,3 @@ class PrimeCareFranchiseApp extends ConsumerWidget {
     );
   }
 }
-

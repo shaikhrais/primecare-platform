@@ -26,7 +26,9 @@ void main() async {
       final parts = line.split(':');
       if (parts.length >= 3) {
         final path = parts[0].split(' - ').last.trim();
-        final match = RegExp(r"The field '(.+?)' is never used").firstMatch(line);
+        final match = RegExp(
+          r"The field '(.+?)' is never used",
+        ).firstMatch(line);
         if (match != null) {
           unusedFields.putIfAbsent(path, () => {}).add(match.group(1)!);
         }
@@ -35,7 +37,9 @@ void main() async {
       final parts = line.split(':');
       if (parts.length >= 3) {
         final path = parts[0].split(' - ').last.trim();
-        final match = RegExp(r"The value of the local variable '(.+?)' isn't used").firstMatch(line);
+        final match = RegExp(
+          r"The value of the local variable '(.+?)' isn't used",
+        ).firstMatch(line);
         if (match != null) {
           unusedLocals.putIfAbsent(path, () => {}).add(match.group(1)!);
         }

@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 // Important Core Imports for Mocking
 
@@ -24,7 +23,7 @@ void main() {
 
   group('E2E Global Utility Validation', () {
     testWidgets('Verify Global Settings hydrations via POM', (tester) async {
-      await tester.pumpWidget(wrapWithMocks(const GlobalSettingsScreen()));
+      await tester.pumpWidget(wrapWithMocks(GlobalSettingsScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
       await dashboard.verifyTitle('common.globalSettings.title');
@@ -32,7 +31,7 @@ void main() {
     });
 
     testWidgets('Verify Global Profile hydrations via POM', (tester) async {
-      await tester.pumpWidget(wrapWithMocks(const GlobalProfileScreen()));
+      await tester.pumpWidget(wrapWithMocks(GlobalProfileScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
       await dashboard.verifyTitle('common.globalProfile.title');
@@ -40,14 +39,14 @@ void main() {
     });
 
     testWidgets('Verify Document Vault hydrations via POM', (tester) async {
-      await tester.pumpWidget(wrapWithMocks(const DocumentVaultScreen()));
+      await tester.pumpWidget(wrapWithMocks(DocumentVaultScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
       await dashboard.verifyTitle('common.documentVault.title');
     });
 
     testWidgets('Verify Messaging Hub hydrations via POM', (tester) async {
-      await tester.pumpWidget(wrapWithMocks(const MessagingHubScreen()));
+      await tester.pumpWidget(wrapWithMocks(MessagingHubScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
       await dashboard.verifyTitle('common.messagingHub.title');
@@ -56,7 +55,7 @@ void main() {
     testWidgets('Verify Notification Center hydrations via POM', (
       tester,
     ) async {
-      await tester.pumpWidget(wrapWithMocks(const NotificationCenterScreen()));
+      await tester.pumpWidget(wrapWithMocks(NotificationCenterScreen()));
       final dashboard = MasterDashboardPageObject(tester);
       await dashboard.waitForHydration();
       await dashboard.verifyTitle('common.notificationCenter.title');

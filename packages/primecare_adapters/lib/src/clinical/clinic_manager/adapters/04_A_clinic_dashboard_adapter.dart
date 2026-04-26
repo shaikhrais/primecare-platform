@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -46,26 +47,26 @@ final clinicDashboardAdapterProvider =
 DashboardMetrics _enhanceClinicMetrics(DashboardMetrics original) {
   return DashboardMetrics(
     kpis: [
-      const KpiMetric(
-        title: 'Safety Score',
+      KpiMetric(
+        title: LocaleKeys.dashboards_clinic_labels_safety_score.tr(),
         value: '98.2',
         trend: '+1.5%',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Occupancy',
+      KpiMetric(
+        title: LocaleKeys.dashboards_clinic_labels_occupancy.tr(),
         value: '92%',
         trend: '+4%',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Compliance Rate',
+      KpiMetric(
+        title: LocaleKeys.dashboards_clinic_labels_compliance_rate.tr(),
         value: '99.8%',
         trend: 'Stable',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Incident Rate',
+      KpiMetric(
+        title: LocaleKeys.dashboards_clinic_labels_incident_rate.tr(),
         value: '0.4%',
         trend: '-0.2%',
         status: 'positive',
@@ -73,15 +74,19 @@ DashboardMetrics _enhanceClinicMetrics(DashboardMetrics original) {
     ],
     recentActivity: [
       DashboardActivity(
-        title: 'Safety Audit Complete',
-        subtitle: 'Floor 3 clinical audit passed with 100% compliance',
+        title: LocaleKeys.dashboards_clinic_labels_safety_audit_complete.tr(),
+        subtitle: LocaleKeys
+            .dashboards_clinic_labels_floor_3_clinical_audit_passed_with_100__compliance
+            .tr(),
         timestamp: '2h ago',
         icon: 'shield_check',
         color: 'green',
       ),
       DashboardActivity(
-        title: 'Incident Resolved',
-        subtitle: 'Medication discrepancy in Room 402 investigated and closed',
+        title: LocaleKeys.dashboards_clinic_labels_incident_resolved.tr(),
+        subtitle: LocaleKeys
+            .dashboards_clinic_labels_medication_discrepancy_in_room_402_investigated_and_closed
+            .tr(),
         timestamp: '5h ago',
         icon: 'check_circle',
         color: 'blue',
@@ -90,7 +95,7 @@ DashboardMetrics _enhanceClinicMetrics(DashboardMetrics original) {
     charts: [
       AnalyticsChart(
         id: 'clinical_safety',
-        title: 'Safety Velocity (4w)',
+        title: LocaleKeys.dashboards_clinic_labels_safety_velocity__4w.tr(),
         type: ChartType.bar,
         labels: ['W1', 'W2', 'W3', 'W4'],
         datasets: [
@@ -109,7 +114,7 @@ List<IntelligenceInsight> _generateClinicInsights() {
   return [
     IntelligenceInsight(
       id: 'clinic_insight_1',
-      title: 'Medication Optimization',
+      title: LocaleKeys.dashboards_clinic_labels_medication_optimization.tr(),
       summary:
           'Automation of Floor 2 medication cart could reduce distribution time by 15%.',
       type: InsightType.optimization,
@@ -119,7 +124,7 @@ List<IntelligenceInsight> _generateClinicInsights() {
     ),
     IntelligenceInsight(
       id: 'clinic_insight_2',
-      title: 'Compliance Alert',
+      title: LocaleKeys.dashboards_clinic_labels_compliance_alert.tr(),
       summary:
           'Upcoming RPN certification renewals required for 4 staff members in 14 days.',
       type: InsightType.compliance,

@@ -7,29 +7,35 @@ void main() {
   final coreFeaturesRoot = '$projectRoot/packages/flutter_core/lib/features';
 
   // 1. Get all ViewModels from Domain
-  final viewModels = _scanForPattern(Directory(adaptersRoot), '_view_model.dart')
-      .map((p) => _normalize(p, '_view_model.dart'))
-      .toSet();
+  final viewModels = _scanForPattern(
+    Directory(adaptersRoot),
+    '_view_model.dart',
+  ).map((p) => _normalize(p, '_view_model.dart')).toSet();
 
   // 2. Get all Adapters from Domain
-  final adapters = _scanForPattern(Directory(adaptersRoot), '_adapter.dart')
-      .map((p) => _normalize(p, '_adapter.dart'))
-      .toSet();
+  final adapters = _scanForPattern(
+    Directory(adaptersRoot),
+    '_adapter.dart',
+  ).map((p) => _normalize(p, '_adapter.dart')).toSet();
 
   // 3. Get all Intents from Core
-  final intents = _scanForPattern(Directory(coreFeaturesRoot), '_intent.dart')
-      .map((p) => _normalize(p, '_intent.dart'))
-      .toSet();
+  final intents = _scanForPattern(
+    Directory(coreFeaturesRoot),
+    '_intent.dart',
+  ).map((p) => _normalize(p, '_intent.dart')).toSet();
 
   // 4. Get all Screens from Core
-  final screens = _scanForPattern(Directory(coreFeaturesRoot), '_screen.dart')
-      .map((p) => _normalize(p, '_screen.dart'))
-      .toSet();
+  final screens = _scanForPattern(
+    Directory(coreFeaturesRoot),
+    '_screen.dart',
+  ).map((p) => _normalize(p, '_screen.dart')).toSet();
 
   final allRoles = {...viewModels, ...adapters, ...intents, ...screens};
 
   print('# PrimeCare Platform Realization Matrix');
-  print('| Feature/Role | Domain Model | Domain Adapter | Core Intent | Core Screen | Status |');
+  print(
+    '| Feature/Role | Domain Model | Domain Adapter | Core Intent | Core Screen | Status |',
+  );
   print('| :--- | :---: | :---: | :---: | :---: | :--- |');
 
   final sortedRoles = allRoles.toList()..sort();
@@ -41,8 +47,10 @@ void main() {
     final hasScreen = screens.contains(role);
 
     final status = _calculateStatus(hasVM, hasAdapter, hasIntent, hasScreen);
-    
-    print('| $role | ${hasVM ? "✅" : "❌"} | ${hasAdapter ? "✅" : "❌"} | ${hasIntent ? "✅" : "❌"} | ${hasScreen ? "✅" : "❌"} | $status |');
+
+    print(
+      '| $role | ${hasVM ? "✅" : "❌"} | ${hasAdapter ? "✅" : "❌"} | ${hasIntent ? "✅" : "❌"} | ${hasScreen ? "✅" : "❌"} | $status |',
+    );
   }
 }
 

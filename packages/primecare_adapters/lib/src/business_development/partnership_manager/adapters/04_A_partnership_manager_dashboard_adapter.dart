@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'package:primecare_adapters/primecare_adapters.dart';
 import 'dart:async';
@@ -52,7 +53,9 @@ List<IntelligenceInsight> _getSmartPartnershipMocks() {
   return [
     IntelligenceInsight(
       id: 'ptnr_01',
-      title: 'Partner Referral Drop',
+      title: LocaleKeys
+          .dashboards_partnershipmanager_labels_partner_referral_drop
+          .tr(),
       summary:
           'Referrals from "Central Clinic Group" have decreased by 20% this month.',
       impact: InsightImpact.warning,
@@ -62,7 +65,8 @@ List<IntelligenceInsight> _getSmartPartnershipMocks() {
     ),
     IntelligenceInsight(
       id: 'ptnr_02',
-      title: 'High-Value Pipeline',
+      title: LocaleKeys.dashboards_partnershipmanager_labels_high_value_pipeline
+          .tr(),
       summary:
           '3 new medical centers in the South Sector have expressed interest in partnership.',
       impact: InsightImpact.growth,
@@ -72,7 +76,9 @@ List<IntelligenceInsight> _getSmartPartnershipMocks() {
     ),
     IntelligenceInsight(
       id: 'ptnr_03',
-      title: 'Synergy Optimization',
+      title: LocaleKeys
+          .dashboards_partnershipmanager_labels_synergy_optimization
+          .tr(),
       summary:
           'Cross-referral potential identified between "East Care" and "West Med".',
       impact: InsightImpact.info,

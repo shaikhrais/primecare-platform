@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -10,26 +11,34 @@ final territoryExpansionMetricsProvider = StreamProvider<DashboardMetrics>((
   return Stream.periodic(const Duration(seconds: 30), (count) {
     return DashboardMetrics(
       kpis: [
-        const KpiMetric(
-          title: 'Market Maturity',
+        KpiMetric(
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_market_maturity
+              .tr(),
           value: '85%',
           trend: '+5%',
           status: 'success',
         ),
-        const KpiMetric(
-          title: 'Site Acquisition',
+        KpiMetric(
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_site_acquisition
+              .tr(),
           value: '12',
           trend: '+2',
           status: 'success',
         ),
-        const KpiMetric(
-          title: 'Regulatory Speed',
+        KpiMetric(
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_regulatory_speed
+              .tr(),
           value: '14d',
           trend: '-2d',
           status: 'success',
         ),
-        const KpiMetric(
-          title: 'Projected ROI',
+        KpiMetric(
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_projected_roi
+              .tr(),
           value: '22%',
           trend: '+1.5%',
           status: 'success',
@@ -38,35 +47,47 @@ final territoryExpansionMetricsProvider = StreamProvider<DashboardMetrics>((
       charts: [
         AnalyticsChart(
           id: 'expansion-pipeline',
-          title: 'Site Acquisition Pipeline',
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_site_acquisition_pipeline
+              .tr(),
           type: ChartType.bar,
           dataPoints: [
-            const ChartDataPoint(label: 'Identified', value: 25),
-            const ChartDataPoint(label: 'Negotiation', value: 12),
-            const ChartDataPoint(label: 'Due Diligence', value: 8),
-            const ChartDataPoint(label: 'Closed', value: 3),
+            ChartDataPoint(label: 'Identified', value: 25),
+            ChartDataPoint(label: 'Negotiation', value: 12),
+            ChartDataPoint(label: 'Due Diligence', value: 8),
+            ChartDataPoint(label: 'Closed', value: 3),
           ],
         ),
       ],
       recentActivity: [
         DashboardActivity(
-          title: 'New Site Identified',
-          subtitle: 'Potential location in Vancouver North cluster',
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_new_site_identified
+              .tr(),
+          subtitle: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_potential_location_in_vancouver_north_cluster
+              .tr(),
           timestamp: '2h ago',
           icon: 'map-pin',
           color: 'green',
         ),
         DashboardActivity(
-          title: 'Contract Signed',
-          subtitle: 'Lease finalized for Ottawa East hub',
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_contract_signed
+              .tr(),
+          subtitle: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_lease_finalized_for_ottawa_east_hub
+              .tr(),
           timestamp: '5h ago',
           icon: 'file-signature',
           color: 'blue',
         ),
       ],
       insights: [
-        const DashboardInsight(
-          title: 'Regulatory Pulse',
+        DashboardInsight(
+          title: LocaleKeys
+              .dashboards_territoryexpansionmanager_labels_regulatory_pulse
+              .tr(),
           description:
               'Quebec licensing board showing 15% faster processing this month.',
           type: 'REGULATORY',
@@ -98,7 +119,9 @@ final territoryExpansionInsightsProvider = FutureProvider<List<IntelligenceInsig
   return [
     IntelligenceInsight(
       id: 'exp_1',
-      title: 'Geographic Density Alert',
+      title: LocaleKeys
+          .dashboards_territoryexpansionmanager_labels_geographic_density_alert
+          .tr(),
       summary:
           'Central Region service density is 30% below the profitability threshold for current overhead.',
       impact: InsightImpact.warning,
@@ -109,7 +132,9 @@ final territoryExpansionInsightsProvider = FutureProvider<List<IntelligenceInsig
     ),
     IntelligenceInsight(
       id: 'exp_2',
-      title: 'Optimal Launch Window',
+      title: LocaleKeys
+          .dashboards_territoryexpansionmanager_labels_optimal_launch_window
+          .tr(),
       summary:
           'Predictive models show Q3 as the lowest-cost period for new site staffing in the Ontario corridor.',
       impact: InsightImpact.positive,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -47,7 +48,7 @@ final billingAdminInsightsProvider = FutureProvider.autoDispose<List<Intelligenc
   return [
     IntelligenceInsight(
       id: 'billing_01',
-      title: 'High Aging Alert',
+      title: LocaleKeys.dashboards_billingadmin_labels_high_aging_alert.tr(),
       summary:
           '\$10.5k is overdue by 90+ days. This represents 7.3% of total AR.',
       impact: InsightImpact.critical,
@@ -58,7 +59,8 @@ final billingAdminInsightsProvider = FutureProvider.autoDispose<List<Intelligenc
     ),
     IntelligenceInsight(
       id: 'billing_02',
-      title: 'Revenue Acceleration',
+      title: LocaleKeys.dashboards_billingadmin_labels_revenue_acceleration
+          .tr(),
       summary:
           'Revenue velocity has increased by 5% following the new subscription model launch.',
       impact: InsightImpact.positive,
@@ -69,7 +71,8 @@ final billingAdminInsightsProvider = FutureProvider.autoDispose<List<Intelligenc
     ),
     IntelligenceInsight(
       id: 'billing_03',
-      title: 'Invoice Error Pattern',
+      title: LocaleKeys.dashboards_billingadmin_labels_invoice_error_pattern
+          .tr(),
       summary:
           '3% of invoices rejected in Ontario North cluster due to missing ICD-10 codes.',
       impact: InsightImpact.warning,

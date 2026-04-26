@@ -2,10 +2,10 @@ import 'dart:io';
 
 void main() {
   final projectRoot = Directory.current.path;
-  final featuresRoot = projectRoot.endsWith('primecare_ui') 
-      ? '$projectRoot/lib/src/features' 
+  final featuresRoot = projectRoot.endsWith('primecare_ui')
+      ? '$projectRoot/lib/src/features'
       : '$projectRoot/packages/factory_system/primecare_ui/lib/src/features';
-  final bootstrapperFile = projectRoot.endsWith('primecare_ui') 
+  final bootstrapperFile = projectRoot.endsWith('primecare_ui')
       ? '$projectRoot/lib/src/registry/02_I_governance_bootstrapper.dart'
       : '$projectRoot/packages/factory_system/primecare_ui/lib/src/registry/02_I_governance_bootstrapper.dart';
 
@@ -17,7 +17,9 @@ void main() {
   final intents = <String>[];
   for (final file in intentFiles) {
     final content = File(file.path).readAsStringSync();
-    final match = RegExp(r'class (\w+) extends (AppScreenIntent|PrimeCareScreen)').firstMatch(content);
+    final match = RegExp(
+      r'class (\w+) extends (AppScreenIntent|PrimeCareScreen)',
+    ).firstMatch(content);
     if (match != null) {
       intents.add(match.group(1)!);
     }

@@ -1,12 +1,11 @@
 import 'package:flutter_core/primecare_core.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'app_router.dart';
 
 void main() {
   AppErrorBoundary.runGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
-    
+
     runApp(
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
@@ -25,7 +24,7 @@ class PrimeCareClientApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
-    
+
     // Sync languageProvider with EasyLocalization
     final langCode = ref.watch(languageProvider);
     if (context.locale.languageCode != langCode) {
@@ -42,4 +41,3 @@ class PrimeCareClientApp extends ConsumerWidget {
     );
   }
 }
-

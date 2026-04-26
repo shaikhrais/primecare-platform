@@ -13,7 +13,10 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           child: MaterialApp(
-            home: BaseLayoutShell(currentPath: '/', child: const Text('Content')),
+            home: BaseLayoutShell(
+              currentPath: '/',
+              child: const Text('Content'),
+            ),
           ),
         ),
       );
@@ -34,7 +37,10 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           child: MaterialApp(
-            home: BaseLayoutShell(currentPath: '/', child: const Text('Content')),
+            home: BaseLayoutShell(
+              currentPath: '/',
+              child: const Text('Content'),
+            ),
           ),
         ),
       );
@@ -127,21 +133,21 @@ void main() {
         WidgetTester tester,
       ) async {
         await tester.pumpWidget(
-        ProviderScope(
-          child: MaterialApp(
-            home: BaseLayoutShell(
-              currentPath: '/',
-              topBarActions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.add),
-                  key: const Key('action_add'),
-                ),
-              ],
-              child: const Text('Content'),
+          ProviderScope(
+            child: MaterialApp(
+              home: BaseLayoutShell(
+                currentPath: '/',
+                topBarActions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.add),
+                    key: const Key('action_add'),
+                  ),
+                ],
+                child: const Text('Content'),
+              ),
             ),
           ),
-        ),
         );
         expect(find.byKey(const Key('action_add')), findsOneWidget);
       });

@@ -12,22 +12,29 @@ class GuestDashboardViewModel extends PrimeCareDashboardViewModel {
     super.isOfflineFallback,
   });
 
-  factory GuestDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
-    return GuestDashboardViewModel(
-      metrics: metrics,
-      insights: [],
-    );
+  factory GuestDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
+    return GuestDashboardViewModel(metrics: metrics, insights: []);
   }
 
   factory GuestDashboardViewModel.fromJson(Map<String, dynamic> json) {
     return GuestDashboardViewModel(
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           [],
     );
@@ -36,14 +43,15 @@ class GuestDashboardViewModel extends PrimeCareDashboardViewModel {
   factory GuestDashboardViewModel.empty({bool isOfflineFallback = false}) {
     return GuestDashboardViewModel(
       metrics: DashboardMetrics.empty(),
-      insights: [],      isOfflineFallback: isOfflineFallback,
+      insights: [],
+      isOfflineFallback: isOfflineFallback,
     );
   }
 
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+  };
 }

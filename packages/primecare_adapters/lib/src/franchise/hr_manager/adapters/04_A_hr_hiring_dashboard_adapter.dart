@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -42,7 +43,8 @@ final hrInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'hr_01',
-      title: 'Interview Bottleneck Detected',
+      title: LocaleKeys.dashboards_hrhiring_labels_interview_bottleneck_detected
+          .tr(),
       summary:
           'Candidate dwell time in the "Interview" stage exceeded 14 days for Clinical roles.',
       impact: InsightImpact.warning,
@@ -53,7 +55,7 @@ final hrInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'hr_02',
-      title: 'Offer Strategy Success',
+      title: LocaleKeys.dashboards_hrhiring_labels_offer_strategy_success.tr(),
       summary:
           'Flexible-schedule benefits improved offer acceptance rate by 15% this quarter.',
       impact: InsightImpact.positive,
@@ -64,7 +66,8 @@ final hrInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'hr_03',
-      title: 'Candidate Drop-off Alert',
+      title: LocaleKeys.dashboards_hrhiring_labels_candidate_drop_off_alert
+          .tr(),
       summary:
           'High drop-off rate (22%) detected during the "Background Check" phase.',
       impact: InsightImpact.warning,

@@ -2,7 +2,7 @@
 import 'package:flutter/foundation.dart';
 import '../../config/01_I_resilience_config.dart';
 
-/// Mechanical problem solver that attempts to clear application errors 
+/// Mechanical problem solver that attempts to clear application errors
 /// by resetting state in a loop before giving up.
 ///
 /// This implements the "Self-Healing Loop" requested to minimize downtime.
@@ -16,42 +16,50 @@ class SystemRecoveryManager {
     if (!ResilienceConfig.enableAutoHealing) return false;
 
     final now = DateTime.now();
-    
-    // Safety Valve: If we are crashing more than once every 5 seconds, 
+
+    // Safety Valve: If we are crashing more than once every 5 seconds,
     // it's a structural logic bug, not a state glitch. Stop the loop.
     if (_lastHealAttempt != null) {
       final diff = now.difference(_lastHealAttempt!);
       if (diff.inSeconds < 5) {
-        debugPrint('PRIMECARE_HEALER: Crash velocity too high. Stopping mechanical loop.');
-        return false; 
+        debugPrint(
+          'PRIMECARE_HEALER: Crash velocity too high. Stopping mechanical loop.',
+        );
+        return false;
       }
     }
 
     if (_healCount < ResilienceConfig.maxAutoResets) {
       _healCount++;
       _lastHealAttempt = now;
-      
-      debugPrint('PRIMECARE_HEALER: 🛠️ Mechanical fix attempt #$_healCount initiated...');
-      
+
+      debugPrint(
+        'PRIMECARE_HEALER: 🛠️ Mechanical fix attempt #$_healCount initiated...',
+      );
+
       // We use a small delay to allow the stack to clear before triggering reset
       Future.delayed(const Duration(milliseconds: 500), () {
         if (onReset != null) {
           onReset();
         }
       });
-      
+
       return true;
     }
 
-    debugPrint('PRIMECARE_HEALER: ⚠️ Max mechanical attempts reached. Requiring agent intervention.');
+    debugPrint(
+      'PRIMECARE_HEALER: ⚠️ Max mechanical attempts reached. Requiring agent intervention.',
+    );
     return false;
   }
-  
+
   /// Call this when the app reaches a stable state (e.g. Dashboard loaded).
   /// This resets the counter so the next random crash can be auto-healed.
   static void markStable() {
     if (_healCount > 0) {
-      debugPrint('PRIMECARE_HEALER: ✅ System stable. Resetting mechanical fix counter.');
+      debugPrint(
+        'PRIMECARE_HEALER: ✅ System stable. Resetting mechanical fix counter.',
+      );
       _healCount = 0;
       _lastHealAttempt = null;
     }

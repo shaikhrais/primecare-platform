@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -62,7 +63,7 @@ List<IntelligenceInsight> _getSmartPatientMocks() {
   return [
     IntelligenceInsight(
       id: 'pat_01',
-      title: 'Vitals Deviation Alert',
+      title: LocaleKeys.dashboards_patient_labels_vitals_deviation_alert.tr(),
       summary:
           'Systolic blood pressure has trended upward (+15 mmHg) over the last 3 readings.',
       impact: InsightImpact.warning,
@@ -72,7 +73,7 @@ List<IntelligenceInsight> _getSmartPatientMocks() {
     ),
     IntelligenceInsight(
       id: 'pat_02',
-      title: 'Care Plan Milestone',
+      title: LocaleKeys.dashboards_patient_labels_care_plan_milestone.tr(),
       summary:
           'You have completed 85% of your rehabilitation goals for this cycle.',
       impact: InsightImpact.positive,

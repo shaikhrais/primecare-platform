@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -72,7 +73,7 @@ List<IntelligenceInsight> _getSmartPswMocks() {
   return [
     IntelligenceInsight(
       id: 'psw_01',
-      title: 'Schedule Density Alert',
+      title: LocaleKeys.dashboards_psw_labels_schedule_density_alert.tr(),
       summary:
           'High travel time detected between visits 3 and 4. Optimization available.',
       impact: InsightImpact.warning,
@@ -82,7 +83,7 @@ List<IntelligenceInsight> _getSmartPswMocks() {
     ),
     IntelligenceInsight(
       id: 'psw_02',
-      title: 'Clinical Priority',
+      title: LocaleKeys.dashboards_psw_labels_clinical_priority.tr(),
       summary:
           'Patient John Doe (Visit 2) requires immediate vitals check due to recent medication change.',
       impact: InsightImpact.critical,

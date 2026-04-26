@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -43,7 +44,8 @@ final hrDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'hr_insight_1',
-      title: 'Retention Alert: US-East',
+      title: LocaleKeys.dashboards_hrdirector_labels_retention_alert__us_east
+          .tr(),
       summary:
           'Turnover risk increased by 12% in the US-East clinical cluster. Burnout telemetry identified.',
       impact: InsightImpact.warning,
@@ -54,7 +56,9 @@ final hrDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'hr_insight_2',
-      title: 'Hiring Pipeline Optimization',
+      title: LocaleKeys
+          .dashboards_hrdirector_labels_hiring_pipeline_optimization
+          .tr(),
       summary:
           'AI-screening reduced time-to-first-interview by 48 hours for Admin roles.',
       impact: InsightImpact.positive,
@@ -65,7 +69,9 @@ final hrDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'hr_insight_3',
-      title: 'Training Compliance Milestone',
+      title: LocaleKeys
+          .dashboards_hrdirector_labels_training_compliance_milestone
+          .tr(),
       summary:
           '99% of staff completed the annual HIPAA certification 2 weeks ahead of schedule.',
       impact: InsightImpact.info,
@@ -91,7 +97,9 @@ final hrDirectorDashboardAdapterProvider =
         final insights = await ref.watch(hrDirectorInsightsProvider.future);
 
         final viewModel = HumanResourcesDirectorDashboardViewModel(
-          title: 'HR Director Command Center',
+          title: LocaleKeys
+              .dashboards_hrdirector_labels_hr_director_command_center
+              .tr(),
           metrics: metrics,
           insights: insights,
           isOfflineFallback: false,

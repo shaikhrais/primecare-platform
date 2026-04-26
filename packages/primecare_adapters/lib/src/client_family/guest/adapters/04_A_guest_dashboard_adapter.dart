@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -19,29 +20,33 @@ final guestDashboardAdapterProvider = FutureProvider<Result<GuestDashboardViewMo
       final charts = [
         AnalyticsChart(
           id: 'visit-frequency',
-          title: 'Your Visits (Monthly)',
+          title: LocaleKeys.dashboards_guest_labels_your_visits__monthly.tr(),
           type: ChartType.line,
           dataPoints: [
-            const ChartDataPoint(label: 'Jan', value: 2),
-            const ChartDataPoint(label: 'Feb', value: 4),
-            const ChartDataPoint(label: 'Mar', value: 3),
-            const ChartDataPoint(label: 'Apr', value: 5),
+            ChartDataPoint(label: 'Jan', value: 2),
+            ChartDataPoint(label: 'Feb', value: 4),
+            ChartDataPoint(label: 'Mar', value: 3),
+            ChartDataPoint(label: 'Apr', value: 5),
           ],
         ),
       ];
 
       // Inject Recent Guest Activities
       final activities = [
-        const DashboardActivity(
-          title: 'Check-in Success',
-          subtitle: 'Main Lobby - Guest ID #4421',
+        DashboardActivity(
+          title: LocaleKeys.dashboards_guest_labels_check_in_success.tr(),
+          subtitle: LocaleKeys
+              .dashboards_guest_labels_main_lobby___guest_id__4421
+              .tr(),
           timestamp: 'Just now',
           icon: 'login',
           color: 'green',
         ),
-        const DashboardActivity(
-          title: 'Feedback Submitted',
-          subtitle: 'Q1 Dining Experience Survey',
+        DashboardActivity(
+          title: LocaleKeys.dashboards_guest_labels_feedback_submitted.tr(),
+          subtitle: LocaleKeys
+              .dashboards_guest_labels_q1_dining_experience_survey
+              .tr(),
           timestamp: '2d ago',
           icon: 'rate_review',
           color: 'blue',
@@ -58,7 +63,9 @@ final guestDashboardAdapterProvider = FutureProvider<Result<GuestDashboardViewMo
         insights: [
           IntelligenceInsight(
             id: 'guest_1',
-            title: 'Personalized Recommendation',
+            title: LocaleKeys
+                .dashboards_guest_labels_personalized_recommendation
+                .tr(),
             summary:
                 'We noticed you enjoy afternoon walks. Check out the new South Path.',
             type: InsightType.standard,
@@ -69,7 +76,7 @@ final guestDashboardAdapterProvider = FutureProvider<Result<GuestDashboardViewMo
           ),
           IntelligenceInsight(
             id: 'guest_2',
-            title: 'Dining Update',
+            title: LocaleKeys.dashboards_guest_labels_dining_update.tr(),
             summary:
                 'The Bistro is featuring a Seasonal Harvest menu this weekend.',
             type: InsightType.standard,

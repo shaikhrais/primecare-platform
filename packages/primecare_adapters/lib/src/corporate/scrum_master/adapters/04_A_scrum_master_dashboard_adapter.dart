@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -40,7 +41,7 @@ final scrumMasterInsightsProvider = FutureProvider.autoDispose<List<Intelligence
   return [
     IntelligenceInsight(
       id: 'sm_01',
-      title: 'Velocity Dropping',
+      title: LocaleKeys.dashboards_scrummaster_labels_velocity_dropping.tr(),
       summary:
           'Team Alpha velocity has dropped by 15% this sprint due to lingering tech debt.',
       impact: InsightImpact.warning,
@@ -51,7 +52,8 @@ final scrumMasterInsightsProvider = FutureProvider.autoDispose<List<Intelligence
     ),
     IntelligenceInsight(
       id: 'sm_02',
-      title: 'Blocker Resolved Early',
+      title: LocaleKeys.dashboards_scrummaster_labels_blocker_resolved_early
+          .tr(),
       summary:
           'Authentication module blocker was resolved 2 days ahead of schedule.',
       impact: InsightImpact.positive,

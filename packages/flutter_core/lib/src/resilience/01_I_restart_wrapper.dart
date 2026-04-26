@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 
-/// A wrapper widget that allows the entire application tree to be 
+/// A wrapper widget that allows the entire application tree to be
 /// destroyed and recreated with a new state.
 class RestartWrapper extends StatefulWidget {
   final Widget child;
@@ -27,9 +27,6 @@ class _RestartWrapperState extends State<RestartWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return KeyedSubtree(
-      key: _key,
-      child: widget.child,
-    );
+    return KeyedSubtree(key: _key, child: widget.child);
   }
 }

@@ -32,16 +32,22 @@ class IntelligenceInsight {
     dynamic recommendation,
     this.category,
     this.relatedMetricId,
-  }) : title = title is PrimeCareLabel ? title : PrimeCareLabel(title as String),
-       summary = summary is PrimeCareLabel ? summary : PrimeCareLabel(summary as String),
-       recommendation = recommendation == null 
-           ? null 
-           : (recommendation is PrimeCareLabel ? recommendation : PrimeCareLabel(recommendation as String));
+  }) : title = title is PrimeCareLabel
+           ? title
+           : PrimeCareLabel(title as String),
+       summary = summary is PrimeCareLabel
+           ? summary
+           : PrimeCareLabel(summary as String),
+       recommendation = recommendation == null
+           ? null
+           : (recommendation is PrimeCareLabel
+                 ? recommendation
+                 : PrimeCareLabel(recommendation as String));
 
   factory IntelligenceInsight.fromJson(Map<String, dynamic> json) {
     return IntelligenceInsight(
       id: json['id'] as String,
-      title: json['title'] is Map 
+      title: json['title'] is Map
           ? PrimeCareLabel.fromJson(json['title'] as Map<String, dynamic>)
           : PrimeCareLabel(json['title'] as String? ?? ''),
       summary: json['summary'] is Map
@@ -55,11 +61,13 @@ class IntelligenceInsight {
         (e) => e.name == json['type'],
         orElse: () => InsightType.optimization,
       ),
-      recommendation: json['recommendation'] == null 
-          ? null 
+      recommendation: json['recommendation'] == null
+          ? null
           : (json['recommendation'] is Map
-              ? PrimeCareLabel.fromJson(json['recommendation'] as Map<String, dynamic>)
-              : PrimeCareLabel(json['recommendation'] as String)),
+                ? PrimeCareLabel.fromJson(
+                    json['recommendation'] as Map<String, dynamic>,
+                  )
+                : PrimeCareLabel(json['recommendation'] as String)),
       category: json['category'] as String?,
       relatedMetricId: json['relatedMetricId'] as String?,
     );
@@ -72,8 +80,8 @@ class IntelligenceInsight {
       summary: PrimeCareLabel(insight.description),
       impact: insight.impact ?? InsightImpact.info,
       type: _mapType(insight.type),
-      recommendation: insight.metadata?['recommendation'] != null 
-          ? PrimeCareLabel(insight.metadata!['recommendation'] as String) 
+      recommendation: insight.metadata?['recommendation'] != null
+          ? PrimeCareLabel(insight.metadata!['recommendation'] as String)
           : null,
       category: insight.type,
     );

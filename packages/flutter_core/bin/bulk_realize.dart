@@ -23,39 +23,63 @@ void main() {
     final match = RegExp(r'final\s+(\w+Provider)\s*=').firstMatch(content);
     if (match != null) {
       final fileName = file.path.split(Platform.pathSeparator).last;
-      final role = fileName.replaceAll('04_A_', '').replaceAll('_dashboard_adapter.dart', '').replaceAll('_adapter.dart', '');
+      final role = fileName
+          .replaceAll('04_A_', '')
+          .replaceAll('_dashboard_adapter.dart', '')
+          .replaceAll('_adapter.dart', '');
       roleToProvider[role] = match.group(1)!;
     }
   }
 
   // Pre-scan primecare_adapters.dart for ViewModel names
-  final adaptersExportFile = File('$adaptersLib/primecare_adapters.dart').readAsStringSync();
+  final adaptersExportFile = File(
+    '$adaptersLib/primecare_adapters.dart',
+  ).readAsStringSync();
   final Map<String, String> roleToViewModel = {};
-  
-  final vmMatches = RegExp(r"export '.*?/03_V_(.*?)_view_model\.dart';").allMatches(adaptersExportFile);
+
+  final vmMatches = RegExp(
+    r"export '.*?/03_V_(.*?)_view_model\.dart';",
+  ).allMatches(adaptersExportFile);
   for (final m in vmMatches) {
     final vmFileBase = m.group(1)!;
     final role = vmFileBase.replaceAll('_dashboard', '');
     final pascalRole = _toPascal(role);
-    
-    if (role == 'training_hub') roleToViewModel[role] = 'TrainingHubViewModel';
-    else if (role == 'course_architect') roleToViewModel[role] = 'CourseArchitectViewModel';
-    else if (role == 'system_verification') roleToViewModel[role] = 'SystemVerificationViewModel';
-    else if (role == 'architecture_planning') roleToViewModel[role] = 'ArchitecturePlanningViewModel';
-    else if (role == 'cx_director') roleToViewModel[role] = 'CxDirectorDashboardViewModel';
-    else roleToViewModel[role] = '${pascalRole}DashboardViewModel';
+
+    if (role == 'training_hub')
+      roleToViewModel[role] = 'TrainingHubViewModel';
+    else if (role == 'course_architect')
+      roleToViewModel[role] = 'CourseArchitectViewModel';
+    else if (role == 'system_verification')
+      roleToViewModel[role] = 'SystemVerificationViewModel';
+    else if (role == 'architecture_planning')
+      roleToViewModel[role] = 'ArchitecturePlanningViewModel';
+    else if (role == 'cx_director')
+      roleToViewModel[role] = 'CxDirectorDashboardViewModel';
+    else
+      roleToViewModel[role] = '${pascalRole}DashboardViewModel';
   }
 
   for (final file in adapterFiles) {
     final fileName = file.path.split(Platform.pathSeparator).last;
-    final role = fileName.replaceAll('04_A_', '').replaceAll('_dashboard_adapter.dart', '').replaceAll('_adapter.dart', '');
-    
-    if (role == 'dynamic' || role == 'primecare_form' || role == 'auth_layout' || role == 'auth_split_layout') continue;
+    final role = fileName
+        .replaceAll('04_A_', '')
+        .replaceAll('_dashboard_adapter.dart', '')
+        .replaceAll('_adapter.dart', '');
+
+    if (role == 'dynamic' ||
+        role == 'primecare_form' ||
+        role == 'auth_layout' ||
+        role == 'auth_split_layout')
+      continue;
 
     final rolePascal = _toPascal(role);
-    final providerName = roleToProvider[role] ?? '${_toCamel(role)}DashboardAdapterProvider';
-    final viewModelName = roleToViewModel[role] ?? 
-                         (role == 'architecture_planning' ? 'ArchitecturePlanningViewModel' : '${rolePascal}DashboardViewModel');
+    final providerName =
+        roleToProvider[role] ?? '${_toCamel(role)}DashboardAdapterProvider';
+    final viewModelName =
+        roleToViewModel[role] ??
+        (role == 'architecture_planning'
+            ? 'ArchitecturePlanningViewModel'
+            : '${rolePascal}DashboardViewModel');
 
     // Path definitions
     final featureDir = '$featuresRoot/${role}_dashboard';
@@ -89,7 +113,8 @@ void main() {
     if (role == 'family_member') roleEnum = 'PlatformRole.familyMember';
 
     // 3. Generate Intent
-    final intentContent = '''
+    final intentContent =
+        '''
 // Layer: 04_REGISTRY_INTENT
 import 'package:flutter/material.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -127,8 +152,12 @@ class ${rolePascal}DashboardIntent extends AppScreenIntent {
     File(intentFile).writeAsStringSync(intentContent);
 
     // 4. Generate Screen
-    if (!File(screenFile).existsSync() || File(screenFile).readAsStringSync().contains('Operational Insights Unified')) {
-      final screenContent = '''
+    if (!File(screenFile).existsSync() ||
+        File(
+          screenFile,
+        ).readAsStringSync().contains('Operational Insights Unified')) {
+      final screenContent =
+          '''
 // Layer: 05_UI_PRESENTATION
 import 'package:primecare_ui/primecare_ui.dart';
 

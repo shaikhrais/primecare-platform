@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -30,26 +31,34 @@ final familyMemberDashboardAdapterProvider =
             viewModel = FamilyMemberDashboardViewModel(
               metrics: DashboardMetrics(
                 kpis: [
-                  const KpiMetric(
-                    title: 'Visit Frequency',
+                  KpiMetric(
+                    title: LocaleKeys
+                        .dashboards_familymember_labels_visit_frequency
+                        .tr(),
                     value: '4/mo',
                     trend: 'up',
                     status: 'success',
                   ),
-                  const KpiMetric(
-                    title: 'Care Engagement',
+                  KpiMetric(
+                    title: LocaleKeys
+                        .dashboards_familymember_labels_care_engagement
+                        .tr(),
                     value: '92%',
                     trend: 'up',
                     status: 'success',
                   ),
-                  const KpiMetric(
-                    title: 'Upcoming Tasks',
+                  KpiMetric(
+                    title: LocaleKeys
+                        .dashboards_familymember_labels_upcoming_tasks
+                        .tr(),
                     value: '3',
                     trend: 'neutral',
                     status: 'info',
                   ),
-                  const KpiMetric(
-                    title: 'Wellness Score',
+                  KpiMetric(
+                    title: LocaleKeys
+                        .dashboards_familymember_labels_wellness_score
+                        .tr(),
                     value: '88%',
                     trend: 'up',
                     status: 'success',
@@ -59,13 +68,15 @@ final familyMemberDashboardAdapterProvider =
                 charts: [
                   AnalyticsChart(
                     id: 'engagement_trend',
-                    title: 'Engagement Trend',
+                    title: LocaleKeys
+                        .dashboards_familymember_labels_engagement_trend
+                        .tr(),
                     type: ChartType.line,
                     dataPoints: [
-                      const ChartDataPoint(label: 'W1', value: 82),
-                      const ChartDataPoint(label: 'W2', value: 85),
-                      const ChartDataPoint(label: 'W3', value: 88),
-                      const ChartDataPoint(label: 'W4', value: 92),
+                      ChartDataPoint(label: 'W1', value: 82),
+                      ChartDataPoint(label: 'W2', value: 85),
+                      ChartDataPoint(label: 'W3', value: 88),
+                      ChartDataPoint(label: 'W4', value: 92),
                     ],
                   ),
                 ],
@@ -113,7 +124,7 @@ List<IntelligenceInsight> _getFamilyMemberInsights() {
   return [
     IntelligenceInsight(
       id: 'family_member_insight_1',
-      title: 'Care Plan Milestone',
+      title: LocaleKeys.dashboards_familymember_labels_care_plan_milestone.tr(),
       summary:
           'Your loved one has successfully completed their 30-day mobility goal. Wellness levels are improving.',
       impact: InsightImpact.positive,
@@ -122,7 +133,8 @@ List<IntelligenceInsight> _getFamilyMemberInsights() {
     ),
     IntelligenceInsight(
       id: 'family_member_insight_2',
-      title: 'Upcoming Care Review',
+      title: LocaleKeys.dashboards_familymember_labels_upcoming_care_review
+          .tr(),
       summary:
           'The quarterly care planning session is scheduled for next Tuesday at 2 PM.',
       impact: InsightImpact.info,

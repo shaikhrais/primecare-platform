@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -37,7 +38,9 @@ final trainingDirectorCertInsightsProvider = FutureProvider<List<IntelligenceIns
   return [
     IntelligenceInsight(
       id: 'td_cert_1',
-      title: 'Compliance Anomaly Detected',
+      title: LocaleKeys
+          .dashboards_trainingdirectorcertificate_labels_compliance_anomaly_detected
+          .tr(),
       summary:
           'A 12% spike in expired certifications was detected in the Eastern region. Automated renewal prompts dispatched.',
       impact: InsightImpact.warning,
@@ -48,7 +51,9 @@ final trainingDirectorCertInsightsProvider = FutureProvider<List<IntelligenceIns
     ),
     IntelligenceInsight(
       id: 'td_cert_2',
-      title: 'Regulatory Optimization',
+      title: LocaleKeys
+          .dashboards_trainingdirectorcertificate_labels_regulatory_optimization
+          .tr(),
       summary:
           'Transitioning to digital-only verification reduced audit processing time by 40%.',
       impact: InsightImpact.positive,

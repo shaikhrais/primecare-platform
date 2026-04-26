@@ -17,11 +17,7 @@ class PrimeCareLabel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'en': en,
-      if (fr != null) 'fr': fr,
-      if (es != null) 'es': es,
-    };
+    return {'en': en, if (fr != null) 'fr': fr, if (es != null) 'es': es};
   }
 
   String get(String langCode) {
@@ -70,7 +66,7 @@ class KpiMetric {
   final String? trend;
   final String status;
 
-  const KpiMetric({
+  KpiMetric({
     required this.title,
     required this.value,
     this.subtitle,
@@ -107,7 +103,7 @@ class DashboardInsight {
   final Map<String, dynamic>? metadata;
   String get summary => description;
 
-  const DashboardInsight({
+  DashboardInsight({
     required this.title,
     required this.description,
     required this.type,
@@ -148,7 +144,7 @@ class DashboardActivity {
   final String icon;
   final String color;
 
-  const DashboardActivity({
+  DashboardActivity({
     required this.title,
     required this.subtitle,
     required this.timestamp,
@@ -211,7 +207,7 @@ class ChartDataPoint {
   final double value;
   final String? color;
 
-  const ChartDataPoint({required this.label, required this.value, this.color});
+  ChartDataPoint({required this.label, required this.value, this.color});
 
   factory ChartDataPoint.fromJson(Map<String, dynamic> json) {
     return ChartDataPoint(
@@ -264,7 +260,7 @@ class AnalyticsChart {
   final List<ChartDataPoint>? forecastDataPoints;
   final String? reportId;
 
-  const AnalyticsChart({
+  AnalyticsChart({
     required this.id,
     required this.title,
     required this.type,
@@ -306,15 +302,18 @@ class AnalyticsChart {
         (e) => e.name == (json['type'] as String? ?? 'bar').toLowerCase(),
         orElse: () => ChartType.bar,
       ),
-      dataPoints: (json['dataPoints'] as List?)
-              ?.map((e) => ChartDataPoint.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
+      dataPoints:
+          (dataPointsRaw as List<dynamic>)
+              .map((e) => ChartDataPoint.fromJson(e as Map<String, dynamic>))
+              .toList(),
       labels: labelsRaw.map((e) => e.toString()).toList(),
-      datasets: (json['datasets'] as List?)
-              ?.map((e) => AnalyticsChartDataset.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
+      datasets:
+          (datasetsRaw)
+              .map(
+                (e) =>
+                    AnalyticsChartDataset.fromJson(e as Map<String, dynamic>),
+              )
+              .toList(),
       forecastDataPoints: forecastRaw != null
           ? (forecastRaw as List)
                 .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))

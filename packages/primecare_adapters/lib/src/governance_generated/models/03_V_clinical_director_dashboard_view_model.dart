@@ -8,29 +8,43 @@ class ClinicalDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
     super.isOfflineFallback,
   });
 
-  factory ClinicalDirectorDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+  factory ClinicalDirectorDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
     return ClinicalDirectorDashboardViewModel(
       metrics: metrics,
       insights: const [],
     );
   }
 
-  factory ClinicalDirectorDashboardViewModel.fromJson(Map<String, dynamic> json) {
+  factory ClinicalDirectorDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return ClinicalDirectorDashboardViewModel(
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           const [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           const [],
       isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
     );
   }
 
-  factory ClinicalDirectorDashboardViewModel.empty({bool isOfflineFallback = false}) {
+  factory ClinicalDirectorDashboardViewModel.empty({
+    bool isOfflineFallback = false,
+  }) {
     return ClinicalDirectorDashboardViewModel(
       metrics: DashboardMetrics.empty(),
       insights: const [],
@@ -40,9 +54,9 @@ class ClinicalDirectorDashboardViewModel extends PrimeCareDashboardViewModel {
 
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-        'isOfflineFallback': isOfflineFallback,
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+    'isOfflineFallback': isOfflineFallback,
+  };
 }

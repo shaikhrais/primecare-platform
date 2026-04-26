@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -71,26 +72,31 @@ final architecturePlanningDashboardAdapterProvider =
 DashboardMetrics _generateStaticMetrics() {
   return DashboardMetrics(
     kpis: [
-      const KpiMetric(
-        title: 'System Stability',
+      KpiMetric(
+        title: LocaleKeys
+            .dashboards_architectureplanning_labels_system_stability
+            .tr(),
         value: '99.2%',
         trend: '+0.5%',
         status: 'success',
       ),
-      const KpiMetric(
-        title: 'API Coverage',
+      KpiMetric(
+        title: LocaleKeys.dashboards_architectureplanning_labels_api_coverage
+            .tr(),
         value: '94%',
         trend: '+2%',
         status: 'success',
       ),
-      const KpiMetric(
-        title: 'Flagged Gaps',
+      KpiMetric(
+        title: LocaleKeys.dashboards_architectureplanning_labels_flagged_gaps
+            .tr(),
         value: '8',
         trend: '-3',
         status: 'warning',
       ),
-      const KpiMetric(
-        title: 'C4 Compliance',
+      KpiMetric(
+        title: LocaleKeys.dashboards_architectureplanning_labels_c4_compliance
+            .tr(),
         value: '100%',
         trend: 'Stable',
         status: 'success',
@@ -99,22 +105,28 @@ DashboardMetrics _generateStaticMetrics() {
     charts: [
       AnalyticsChart(
         id: 'integrity-trend',
-        title: 'Architecture Integrity Trend',
+        title: LocaleKeys
+            .dashboards_architectureplanning_labels_architecture_integrity_trend
+            .tr(),
         type: ChartType.line,
         dataPoints: [
-          const ChartDataPoint(label: 'Jan', value: 85),
-          const ChartDataPoint(label: 'Feb', value: 88),
-          const ChartDataPoint(label: 'Mar', value: 92),
-          const ChartDataPoint(label: 'Apr', value: 94),
-          const ChartDataPoint(label: 'May', value: 96),
-          const ChartDataPoint(label: 'Jun', value: 99.2),
+          ChartDataPoint(label: 'Jan', value: 85),
+          ChartDataPoint(label: 'Feb', value: 88),
+          ChartDataPoint(label: 'Mar', value: 92),
+          ChartDataPoint(label: 'Apr', value: 94),
+          ChartDataPoint(label: 'May', value: 96),
+          ChartDataPoint(label: 'Jun', value: 99.2),
         ],
       ),
     ],
     recentActivity: [
       DashboardActivity(
-        title: 'Topology Verified',
-        subtitle: 'C4 models synchronized with sharding strategy',
+        title: LocaleKeys
+            .dashboards_architectureplanning_labels_topology_verified
+            .tr(),
+        subtitle: LocaleKeys
+            .dashboards_architectureplanning_labels_c4_models_synchronized_with_sharding_strategy
+            .tr(),
         timestamp: '1h ago',
         icon: 'shield-check',
         color: 'green',
@@ -151,7 +163,9 @@ final architecturePlanningInsightsProvider =
       return [
         IntelligenceInsight(
           id: 'arch_1',
-          title: 'Infrastructure Gap',
+          title: LocaleKeys
+              .dashboards_architectureplanning_labels_infrastructure_gap
+              .tr(),
           summary:
               '8 core functions lack documented API endpoints in the current registry sync.',
           impact: InsightImpact.critical,

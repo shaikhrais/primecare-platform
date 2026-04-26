@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -39,7 +40,9 @@ final customerSupportInsightsProvider = FutureProvider.autoDispose<List<Intellig
   return [
     IntelligenceInsight(
       id: 'support_insight_1',
-      title: 'High Resolution Velocity',
+      title: LocaleKeys
+          .dashboards_customersupport_labels_high_resolution_velocity
+          .tr(),
       summary:
           'AI-assisted resolution rates peaked at 72% today, reducing manual triage by 4 hours.',
       impact: InsightImpact.positive,
@@ -49,7 +52,8 @@ final customerSupportInsightsProvider = FutureProvider.autoDispose<List<Intellig
     ),
     IntelligenceInsight(
       id: 'support_insight_2',
-      title: 'Volume Surge Predicted',
+      title: LocaleKeys.dashboards_customersupport_labels_volume_surge_predicted
+          .tr(),
       summary:
           'Expected 20% increase in billing inquiries following the Q2 regional expansion.',
       impact: InsightImpact.warning,
@@ -60,7 +64,9 @@ final customerSupportInsightsProvider = FutureProvider.autoDispose<List<Intellig
     ),
     IntelligenceInsight(
       id: 'support_insight_3',
-      title: 'CSAT Sentiment Analysis',
+      title: LocaleKeys
+          .dashboards_customersupport_labels_csat_sentiment_analysis
+          .tr(),
       summary:
           'Positive sentiment up by 15% in clinical regions following the UI performance patch.',
       impact: InsightImpact.info,

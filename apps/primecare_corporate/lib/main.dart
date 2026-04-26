@@ -1,10 +1,8 @@
 import 'package:primecare_ui/primecare_ui.dart';
 // Triggering hot reload to refresh assets.
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_driver/driver_extension.dart';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_router.dart';
 
@@ -82,7 +80,7 @@ class PrimeCareCorporateApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Watch languageProvider to sync with EasyLocalization
     final langCode = ref.watch(languageProvider);
-    
+
     // Sync EasyLocalization if it differs from the provider's state
     // This handles initial load and cross-component updates
     if (context.locale.languageCode != langCode) {
@@ -99,4 +97,3 @@ class PrimeCareCorporateApp extends ConsumerWidget {
     );
   }
 }
-

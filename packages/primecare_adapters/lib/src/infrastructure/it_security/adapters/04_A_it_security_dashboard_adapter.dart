@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -69,7 +70,7 @@ final itSecurityInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'sec_1',
-      title: 'Threat Intel',
+      title: LocaleKeys.dashboards_itsecurity_labels_threat_intel.tr(),
       summary:
           'No active breaches detected. Aura Guard has neutralized 14 brute-force attempts from suspicious nodes.',
       impact: InsightImpact.info,
@@ -77,7 +78,7 @@ final itSecurityInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'sec_2',
-      title: 'Compliance',
+      title: LocaleKeys.dashboards_itsecurity_labels_compliance.tr(),
       summary:
           'System is 98.4% compliant with PHIPA security standards. 2 nodes require kernel updates.',
       impact: InsightImpact.warning,

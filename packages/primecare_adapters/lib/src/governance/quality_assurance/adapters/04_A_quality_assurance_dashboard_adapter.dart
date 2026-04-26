@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -63,7 +64,9 @@ List<IntelligenceInsight> _getSmartQaMocks() {
   return [
     IntelligenceInsight(
       id: 'qa_01',
-      title: 'Compliance Drift Detected',
+      title: LocaleKeys
+          .dashboards_qualityassurance_labels_compliance_drift_detected
+          .tr(),
       summary:
           'Documentation completion rates in Section B have dropped below 90% threshold.',
       impact: InsightImpact.warning,
@@ -73,7 +76,8 @@ List<IntelligenceInsight> _getSmartQaMocks() {
     ),
     IntelligenceInsight(
       id: 'qa_02',
-      title: 'Audit Readiness High',
+      title: LocaleKeys.dashboards_qualityassurance_labels_audit_readiness_high
+          .tr(),
       summary:
           'Accreditation prep score has reached 98% based on recent internal simulation.',
       impact: InsightImpact.positive,

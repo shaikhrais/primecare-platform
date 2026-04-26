@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -38,7 +39,9 @@ final generalManagerInsightsProvider =
       return [
         IntelligenceInsight(
           id: 'gm_01',
-          title: 'Capital Inefficiency Detected',
+          title: LocaleKeys
+              .dashboards_generalmanager_labels_capital_inefficiency_detected
+              .tr(),
           summary:
               'Equipment utilization at Facility B is underperforming by 30% against the quarterly benchmark.',
           impact: InsightImpact.warning,
@@ -48,7 +51,9 @@ final generalManagerInsightsProvider =
         ),
         IntelligenceInsight(
           id: 'gm_02',
-          title: 'Regional P&L Overperformance',
+          title: LocaleKeys
+              .dashboards_generalmanager_labels_regional_p_l_overperformance
+              .tr(),
           summary:
               'The Northern Region exceeded Q2 revenue targets by 12% due to optimized staffing ratios.',
           impact: InsightImpact.positive,

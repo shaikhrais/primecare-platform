@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -46,7 +47,7 @@ final qaInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>>
   return [
     IntelligenceInsight(
       id: 'qa_01',
-      title: 'Regulatory Drift Risk',
+      title: LocaleKeys.dashboards_qa_labels_regulatory_drift_risk.tr(),
       summary: '3 units are approaching quarterly audit expiry in < 14 days.',
       impact: InsightImpact.warning,
       type: InsightType.risk,
@@ -56,7 +57,7 @@ final qaInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>>
     ),
     IntelligenceInsight(
       id: 'qa_02',
-      title: 'Safety Achievement',
+      title: LocaleKeys.dashboards_qa_labels_safety_achievement.tr(),
       summary:
           'Medication safety scores reached 99.2% - a 15% YoY improvement.',
       impact: InsightImpact.positive,
@@ -67,7 +68,7 @@ final qaInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>>
     ),
     IntelligenceInsight(
       id: 'qa_03',
-      title: 'Documentation Gap',
+      title: LocaleKeys.dashboards_qa_labels_documentation_gap.tr(),
       summary: 'Digital charting completeness dropped by 8% in Sector 4.',
       impact: InsightImpact.info,
       type: InsightType.alert,

@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 /// Command Row action handler for the Head of Marketing.

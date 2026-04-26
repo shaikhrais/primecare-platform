@@ -5,7 +5,7 @@ import re
 # Paths
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../"))
 PAGE_INVENTORY = os.path.join(ROOT_DIR, ".agents/governance/page_inventory.yaml")
-FEATURES_DIR = os.path.join(ROOT_DIR, "packages/factory_system/primecare_ui/lib/src/features")
+FEATURES_DIR = os.path.join(ROOT_DIR, "packages/factory_system/primecare_ui/lib")
 ADAPTERS_DIR = os.path.join(ROOT_DIR, "packages/primecare_adapters/lib")
 LOCALE_KEYS_FILE = os.path.join(ROOT_DIR, "packages/primecare_adapters/lib/src/config/00_I_locale_keys.dart")
 TRANSLATIONS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -123,8 +123,8 @@ def scan_codebase_for_keys(en_translations):
                     with open(path, 'r', encoding='utf-8', errors='ignore') as f:
                         content = f.read()
                     
-                    # Match LocaleKeys.some_key_name.tr()
-                    matches = re.findall(r"LocaleKeys\.(\w+)\.tr\(", content)
+                    # Match LocaleKeys.some_key_name.tr() with optional whitespace anywhere
+                    matches = re.findall(r"LocaleKeys\s*\.\s*(\w+)\s*\.\s*tr\(", content)
                     for full_key in matches:
                         if full_key in processed_keys: continue
                         processed_keys.add(full_key)

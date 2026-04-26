@@ -11,7 +11,10 @@ void main() {
   for (final file in files) {
     String content = file.readAsStringSync();
     if (content.contains('const IntelligenceInsight(')) {
-      content = content.replaceAll('const IntelligenceInsight(', 'IntelligenceInsight(');
+      content = content.replaceAll(
+        'const IntelligenceInsight(',
+        'IntelligenceInsight(',
+      );
       file.writeAsStringSync(content);
       count++;
     }

@@ -40,15 +40,16 @@ void main() {
         final blueprints = (mockResponse['blueprints'] as List)
             .cast<Map<String, dynamic>>()
             .map((bp) {
-          if (bp['type'] == 'analytics_chart') {
-            return ChartBlueprint(
-              dataPayload: AnalyticsChart.fromJson(
-                bp['data'] as Map<String, dynamic>,
-              ),
-            );
-          }
-          return const ActivityFeedBlueprint(dataPayload: <dynamic>[]);
-        }).toList();
+              if (bp['type'] == 'analytics_chart') {
+                return ChartBlueprint(
+                  dataPayload: AnalyticsChart.fromJson(
+                    bp['data'] as Map<String, dynamic>,
+                  ),
+                );
+              }
+              return const ActivityFeedBlueprint(dataPayload: <dynamic>[]);
+            })
+            .toList();
 
         expect(blueprints.first, isA<ChartBlueprint>());
         final chartBp = blueprints.first as ChartBlueprint;

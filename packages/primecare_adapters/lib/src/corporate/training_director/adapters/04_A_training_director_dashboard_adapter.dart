@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -42,7 +43,9 @@ final trainingInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'td_01',
-      title: 'Compliance Risk in Southwest',
+      title: LocaleKeys
+          .dashboards_trainingdirector_labels_compliance_risk_in_southwest
+          .tr(),
       summary:
           'Certification expiration rates have increased by 15% in the Southwest territory.',
       impact: InsightImpact.warning,
@@ -53,7 +56,9 @@ final trainingInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'td_02',
-      title: 'New Curriculum Opportunity',
+      title: LocaleKeys
+          .dashboards_trainingdirector_labels_new_curriculum_opportunity
+          .tr(),
       summary:
           'High success rates in "Advanced Wound Care" suggest a potential for a Masterclass series.',
       impact: InsightImpact.positive,

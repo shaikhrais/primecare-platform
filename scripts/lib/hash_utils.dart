@@ -7,20 +7,16 @@ class HashUtils {
     final dir = Directory(path);
     if (!dir.existsSync()) return '';
 
-    final files = dir
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) {
-          final p = f.path.toLowerCase();
-          // Ignore hidden directories like .dart_tool, .idea, etc.
-          if (p.contains(RegExp(r'[\\/]\.(?!(github))'))) return false;
-          // Only include source-relevant extensions
-          return p.endsWith('.dart') || 
-                 p.endsWith('.yaml') || 
-                 p.endsWith('.json') || 
-                 p.endsWith('.lock');
-        })
-        .toList();
+    final files = dir.listSync(recursive: true).whereType<File>().where((f) {
+      final p = f.path.toLowerCase();
+      // Ignore hidden directories like .dart_tool, .idea, etc.
+      if (p.contains(RegExp(r'[\\/]\.(?!(github))'))) return false;
+      // Only include source-relevant extensions
+      return p.endsWith('.dart') ||
+          p.endsWith('.yaml') ||
+          p.endsWith('.json') ||
+          p.endsWith('.lock');
+    }).toList();
 
     // Sort files by path to ensure deterministic hashing
     files.sort((a, b) => a.path.compareTo(b.path));
@@ -54,7 +50,10 @@ class HashUtils {
       final bytes = raf.readSync(bytesToRead);
       raf.closeSync();
       // Return a simple hex representation of the sample
-      return bytes.take(16).map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+      return bytes
+          .take(16)
+          .map((b) => b.toRadixString(16).padLeft(2, '0'))
+          .join();
     } catch (_) {
       return '';
     }
@@ -71,7 +70,10 @@ class HashUtils {
       raf.setPositionSync(length - 1024);
       final bytes = raf.readSync(1024);
       raf.closeSync();
-      return bytes.take(16).map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+      return bytes
+          .take(16)
+          .map((b) => b.toRadixString(16).padLeft(2, '0'))
+          .join();
     } catch (_) {
       return '';
     }

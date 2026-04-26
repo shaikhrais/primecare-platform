@@ -74,7 +74,8 @@ class JwtDecoder {
 
       // Check standard backend objects
       if (payload['user'] != null && payload['user'] is Map) {
-        final Map<String, dynamic> userObj = payload['user'] as Map<String, dynamic>;
+        final Map<String, dynamic> userObj =
+            payload['user'] as Map<String, dynamic>;
         if (userObj['roles'] != null &&
             userObj['roles'] is List &&
             (userObj['roles'] as List).isNotEmpty) {
@@ -85,7 +86,8 @@ class JwtDecoder {
 
       // Supabase / identity provider standard metadata formats
       if (payload['app_metadata'] != null && payload['app_metadata'] is Map) {
-        final Map<String, dynamic> appMeta = payload['app_metadata'] as Map<String, dynamic>;
+        final Map<String, dynamic> appMeta =
+            payload['app_metadata'] as Map<String, dynamic>;
         if (appMeta['role'] != null) {
           return appMeta['role'].toString();
         }

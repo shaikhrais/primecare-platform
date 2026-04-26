@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -43,7 +44,9 @@ final trainingCoordInsightsProvider = FutureProvider<List<IntelligenceInsight>>(
   return [
     IntelligenceInsight(
       id: 'tc_1',
-      title: 'Course Efficiency Warning',
+      title: LocaleKeys
+          .dashboards_trainingcoordinator_labels_course_efficiency_warning
+          .tr(),
       summary:
           '"Cultural Sensitivity" course has a 40% drop-off rate at Module 3.',
       impact: InsightImpact.warning,
@@ -54,7 +57,9 @@ final trainingCoordInsightsProvider = FutureProvider<List<IntelligenceInsight>>(
     ),
     IntelligenceInsight(
       id: 'tc_2',
-      title: 'Credentialing Velocity',
+      title: LocaleKeys
+          .dashboards_trainingcoordinator_labels_credentialing_velocity
+          .tr(),
       summary:
           'Automated certificate issuance reduced admin time by 15 hours/week.',
       impact: InsightImpact.positive,
@@ -65,7 +70,9 @@ final trainingCoordInsightsProvider = FutureProvider<List<IntelligenceInsight>>(
     ),
     IntelligenceInsight(
       id: 'tc_3',
-      title: 'Compliance Expiry Risk',
+      title: LocaleKeys
+          .dashboards_trainingcoordinator_labels_compliance_expiry_risk
+          .tr(),
       summary:
           '15 staff members have HIPAA certifications expiring in < 30 days.',
       impact: InsightImpact.caution,

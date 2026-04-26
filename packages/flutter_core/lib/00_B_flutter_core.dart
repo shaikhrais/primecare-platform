@@ -7,7 +7,7 @@ export 'package:primecare_adapters/primecare_adapters.dart'
         databaseReportProvider,
         isOnlineProvider,
         ProviderTTL;
-export 'package:easy_localization/easy_localization.dart';
+export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 // export 'package:primecare_ui/primecare_ui.dart' hide AppTheme;
 
 export '01_I_adapter_providers.dart';

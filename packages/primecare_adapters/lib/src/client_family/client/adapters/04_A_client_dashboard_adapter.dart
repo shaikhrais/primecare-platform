@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -57,26 +58,26 @@ final clientDashboardAdapterProvider =
 DashboardMetrics _enhanceClientMetrics(DashboardMetrics original) {
   return DashboardMetrics(
     kpis: [
-      const KpiMetric(
-        title: 'Care Plan Progress',
+      KpiMetric(
+        title: LocaleKeys.dashboards_client_labels_care_plan_progress.tr(),
         value: '85%',
         trend: '+5%',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Vitals Status',
+      KpiMetric(
+        title: LocaleKeys.dashboards_client_labels_vitals_status.tr(),
         value: 'Optimal',
         trend: 'Stable',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Next Visit',
+      KpiMetric(
+        title: LocaleKeys.dashboards_client_labels_next_visit.tr(),
         value: 'Today, 2:00 PM',
         trend: 'Confirmed',
         status: 'neutral',
       ),
-      const KpiMetric(
-        title: 'Medication Adherence',
+      KpiMetric(
+        title: LocaleKeys.dashboards_client_labels_medication_adherence.tr(),
         value: '100%',
         trend: 'Perfect',
         status: 'positive',
@@ -85,7 +86,7 @@ DashboardMetrics _enhanceClientMetrics(DashboardMetrics original) {
     charts: [
       AnalyticsChart(
         id: 'wellness_trend',
-        title: 'Weekly Wellness Score',
+        title: LocaleKeys.dashboards_client_labels_weekly_wellness_score.tr(),
         type: ChartType.line,
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [
@@ -104,7 +105,7 @@ List<IntelligenceInsight> _generateClientInsights() {
   return [
     IntelligenceInsight(
       id: 'client_wellness',
-      title: 'Wellness Milestone',
+      title: LocaleKeys.dashboards_client_labels_wellness_milestone.tr(),
       summary:
           'You have maintained optimal vitals for 7 consecutive days. Great job!',
       type: InsightType.info,
@@ -112,7 +113,7 @@ List<IntelligenceInsight> _generateClientInsights() {
     ),
     IntelligenceInsight(
       id: 'client_nutrition',
-      title: 'Nutritional Tip',
+      title: LocaleKeys.dashboards_client_labels_nutritional_tip.tr(),
       summary:
           'Increasing hydration by 500ml today will help with your recovery goals.',
       type: InsightType.info,

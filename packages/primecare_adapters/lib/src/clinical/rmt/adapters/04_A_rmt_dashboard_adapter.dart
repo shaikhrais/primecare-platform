@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -13,26 +14,26 @@ final rmtDashboardAdapterProvider = FutureProvider<Result<RmtDashboardViewModel>
     // 1. Adaptive Telemetry Injection
     final metrics = DashboardMetrics(
       kpis: [
-        const KpiMetric(
-          title: 'Treatments',
+        KpiMetric(
+          title: LocaleKeys.dashboards_rmt_labels_treatments.tr(),
           value: '42',
           trend: 'up',
           status: 'success',
         ),
-        const KpiMetric(
-          title: 'Mobility Gain',
+        KpiMetric(
+          title: LocaleKeys.dashboards_rmt_labels_mobility_gain.tr(),
           value: '+15%',
           trend: 'up',
           status: 'success',
         ),
-        const KpiMetric(
-          title: 'Adherence',
+        KpiMetric(
+          title: LocaleKeys.dashboards_rmt_labels_adherence.tr(),
           value: '94%',
           trend: 'stable',
           status: 'success',
         ),
-        const KpiMetric(
-          title: 'Recovery Speed',
+        KpiMetric(
+          title: LocaleKeys.dashboards_rmt_labels_recovery_speed.tr(),
           value: 'High',
           trend: 'stable',
           status: 'success',
@@ -42,15 +43,17 @@ final rmtDashboardAdapterProvider = FutureProvider<Result<RmtDashboardViewModel>
       charts: [
         AnalyticsChart(
           id: 'mobility-index',
-          title: 'Mobility Recovery Index (Weekly)',
+          title: LocaleKeys
+              .dashboards_rmt_labels_mobility_recovery_index__weekly
+              .tr(),
           type: ChartType.line,
           labels: const ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
           datasets: [],
           dataPoints: [
-            const ChartDataPoint(label: 'Week 1', value: 65),
-            const ChartDataPoint(label: 'Week 2', value: 72),
-            const ChartDataPoint(label: 'Week 3', value: 78),
-            const ChartDataPoint(label: 'Week 4', value: 85),
+            ChartDataPoint(label: 'Week 1', value: 65),
+            ChartDataPoint(label: 'Week 2', value: 72),
+            ChartDataPoint(label: 'Week 3', value: 78),
+            ChartDataPoint(label: 'Week 4', value: 85),
           ],
         ),
       ],
@@ -59,7 +62,7 @@ final rmtDashboardAdapterProvider = FutureProvider<Result<RmtDashboardViewModel>
     final insights = [
       IntelligenceInsight(
         id: 'rmt_1',
-        title: 'Therapeutic Strategy Alert',
+        title: LocaleKeys.dashboards_rmt_labels_therapeutic_strategy_alert.tr(),
         summary:
             'Trigger point therapy combined with lymphatic drainage shows 20% faster recovery in orthopedic cases.',
         impact: InsightImpact.medium,
@@ -69,7 +72,7 @@ final rmtDashboardAdapterProvider = FutureProvider<Result<RmtDashboardViewModel>
       ),
       IntelligenceInsight(
         id: 'rmt_2',
-        title: 'Fatigue Trend Detection',
+        title: LocaleKeys.dashboards_rmt_labels_fatigue_trend_detection.tr(),
         summary:
             'Increased reporting of upper back fatigue among elderly patients detected this month.',
         impact: InsightImpact.low,

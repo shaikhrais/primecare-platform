@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -50,26 +51,27 @@ final courseArchitectAdapterProvider =
 DashboardMetrics _enhanceCurriculumMetrics() {
   return DashboardMetrics(
     kpis: [
-      const KpiMetric(
-        title: 'Avg. Pass Rate',
+      KpiMetric(
+        title: LocaleKeys.dashboards_coursearchitect_labels_avg__pass_rate.tr(),
         value: '94%',
         trend: '+2%',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Content Freshness',
+      KpiMetric(
+        title: LocaleKeys.dashboards_coursearchitect_labels_content_freshness
+            .tr(),
         value: '98%',
         trend: 'Stable',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Engagement',
+      KpiMetric(
+        title: LocaleKeys.dashboards_coursearchitect_labels_engagement.tr(),
         value: '4.8/5',
         trend: '+0.2',
         status: 'positive',
       ),
-      const KpiMetric(
-        title: 'Certifications',
+      KpiMetric(
+        title: LocaleKeys.dashboards_coursearchitect_labels_certifications.tr(),
         value: '1,240',
         trend: '+15%',
         status: 'positive',
@@ -78,7 +80,9 @@ DashboardMetrics _enhanceCurriculumMetrics() {
     charts: [
       AnalyticsChart(
         id: 'module_performance',
-        title: 'Module Completion Velocity',
+        title: LocaleKeys
+            .dashboards_coursearchitect_labels_module_completion_velocity
+            .tr(),
         type: ChartType.line,
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
         datasets: [
@@ -97,7 +101,8 @@ List<IntelligenceInsight> _generateCurriculumInsights() {
   return [
     IntelligenceInsight(
       id: 'curr_insight_1',
-      title: 'Module Optimization',
+      title: LocaleKeys.dashboards_coursearchitect_labels_module_optimization
+          .tr(),
       summary:
           'Module "Safety v2" has a 12% drop-off rate at Slide 15. Content may be too dense.',
       type: InsightType.optimization,
@@ -106,7 +111,8 @@ List<IntelligenceInsight> _generateCurriculumInsights() {
     ),
     IntelligenceInsight(
       id: 'curr_insight_2',
-      title: 'High Engagement Trend',
+      title: LocaleKeys.dashboards_coursearchitect_labels_high_engagement_trend
+          .tr(),
       summary:
           'Interactive video assessments are yielding 20% higher retention scores.',
       type: InsightType.growth,

@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 // -----------------------------------------------------------------------------
@@ -33,28 +33,28 @@ final cfoMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
               KpiMetric(
                 title: LocaleKeys.cfo_dashboard_labels_ebitda_ttm.tr(),
                 value: '\$1.24M',
-                subtitle: '+4.2',
+                subtitle: LocaleKeys.dashboards_cfo_labels_4_2.tr(),
                 trend: 'up',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.cfo_dashboard_labels_cash_on_hand.tr(),
                 value: '\$842.5K',
-                subtitle: '+2.1',
+                subtitle: LocaleKeys.dashboards_cfo_labels_2_1.tr(),
                 trend: 'up',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.cfo_dashboard_labels_net_margin.tr(),
                 value: '24.2%',
-                subtitle: '+1.5',
+                subtitle: LocaleKeys.dashboards_cfo_labels_1_5.tr(),
                 trend: 'up',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.cfo_dashboard_labels_operational_burn.tr(),
                 value: '\$118K/mo',
-                subtitle: '-2.1',
+                subtitle: LocaleKeys.dashboards_cfo_labels_2_1.tr(),
                 trend: 'down',
                 status: 'success',
               ),

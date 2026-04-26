@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -42,7 +43,9 @@ final franchiseOwnerInsightsProvider = FutureProvider<List<IntelligenceInsight>>
   return [
     IntelligenceInsight(
       id: 'fra_own_01',
-      title: 'Territory Expansion Opportunity',
+      title: LocaleKeys
+          .dashboards_franchiseowner_labels_territory_expansion_opportunity
+          .tr(),
       summary:
           'Adjacent postal code (L4B) shows 300% increase in private care searches.',
       impact: InsightImpact.positive,
@@ -53,7 +56,9 @@ final franchiseOwnerInsightsProvider = FutureProvider<List<IntelligenceInsight>>
     ),
     IntelligenceInsight(
       id: 'fra_own_02',
-      title: 'Retention Risk: Night Shift',
+      title: LocaleKeys
+          .dashboards_franchiseowner_labels_retention_risk__night_shift
+          .tr(),
       summary:
           'Turnover in the 11 PM - 7 AM slot is 15% higher than day shifts.',
       impact: InsightImpact.warning,
@@ -64,7 +69,9 @@ final franchiseOwnerInsightsProvider = FutureProvider<List<IntelligenceInsight>>
     ),
     IntelligenceInsight(
       id: 'fra_own_03',
-      title: 'Referral Pipeline Strength',
+      title: LocaleKeys
+          .dashboards_franchiseowner_labels_referral_pipeline_strength
+          .tr(),
       summary:
           'Strategic partnership with local hospital group contributing 40% of new intake.',
       impact: InsightImpact.info,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -43,7 +44,9 @@ final operationsInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'ops_01',
-      title: 'Predictive Staffing Gap',
+      title: LocaleKeys
+          .dashboards_operationsmanager_labels_predictive_staffing_gap
+          .tr(),
       summary:
           'High intake volume predicted for Tuesday afternoon (Sector 2). Staffing model suggests a 2-hour coverage deficit.',
       impact: InsightImpact.warning,
@@ -54,7 +57,9 @@ final operationsInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'ops_02',
-      title: 'Operational Cost Saving',
+      title: LocaleKeys
+          .dashboards_operationsmanager_labels_operational_cost_saving
+          .tr(),
       summary:
           'Transitioning to "Green-Care" energy mode in the Ontario West cluster saved \$1,200 this week.',
       impact: InsightImpact.positive,
@@ -65,7 +70,9 @@ final operationsInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'ops_03',
-      title: 'Facility Maintenance Trigger',
+      title: LocaleKeys
+          .dashboards_operationsmanager_labels_facility_maintenance_trigger
+          .tr(),
       summary:
           'Sector 4 HVAC diagnostic indicates 85% vibration threshold breach. Preventive maintenance recommended.',
       impact: InsightImpact.warning,

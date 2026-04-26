@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -47,7 +48,8 @@ final schedulerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
   return [
     IntelligenceInsight(
       id: 'sched_01',
-      title: 'Overtime Prevention Alert',
+      title: LocaleKeys.dashboards_scheduler_labels_overtime_prevention_alert
+          .tr(),
       summary:
           '3 PSWs are approaching 40-hour threshold with 2 days remaining in pay cycle.',
       impact: InsightImpact.high,
@@ -58,7 +60,9 @@ final schedulerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
     ),
     IntelligenceInsight(
       id: 'sched_02',
-      title: 'Travel Optimization Opportunity',
+      title: LocaleKeys
+          .dashboards_scheduler_labels_travel_optimization_opportunity
+          .tr(),
       summary:
           'Route grouping efficiency could be improved by 18% in the GTA cluster via clustering.',
       impact: InsightImpact.medium,
@@ -69,7 +73,7 @@ final schedulerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceIn
     ),
     IntelligenceInsight(
       id: 'sched_03',
-      title: 'Shift Coverage Gap',
+      title: LocaleKeys.dashboards_scheduler_labels_shift_coverage_gap.tr(),
       summary:
           'Projected 12% coverage deficit for upcoming weekend in high-acuity zones.',
       impact: InsightImpact.warning,

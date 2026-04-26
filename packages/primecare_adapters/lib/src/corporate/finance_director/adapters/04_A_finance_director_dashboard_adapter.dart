@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -43,7 +44,8 @@ final financeDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>
   return [
     IntelligenceInsight(
       id: 'finance_01',
-      title: 'Revenue Velocity Alert',
+      title: LocaleKeys.dashboards_financedirector_labels_revenue_velocity_alert
+          .tr(),
       summary:
           'Revenue realization has accelerated by 18.4% YoY. Average DSO (Days Sales Outstanding) dropped to 22 days.',
       impact: InsightImpact.positive,
@@ -54,7 +56,9 @@ final financeDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>
     ),
     IntelligenceInsight(
       id: 'finance_02',
-      title: 'EBITDA Margin Sensitivity',
+      title: LocaleKeys
+          .dashboards_financedirector_labels_ebitda_margin_sensitivity
+          .tr(),
       summary:
           'Operational margins in the Ontario region show sensitivity to rising labor costs. Estimated margin compression: 2.1%.',
       impact: InsightImpact.warning,
@@ -65,7 +69,9 @@ final financeDirectorInsightsProvider = FutureProvider<List<IntelligenceInsight>
     ),
     IntelligenceInsight(
       id: 'finance_03',
-      title: 'Double-Entry Integrity Audit',
+      title: LocaleKeys
+          .dashboards_financedirector_labels_double_entry_integrity_audit
+          .tr(),
       summary:
           'Automated ledger reconciliation completed with 99.98% match rate. 2 orphan transactions identified in legacy billing portal.',
       impact: InsightImpact.info,

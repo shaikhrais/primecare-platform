@@ -12,38 +12,50 @@ class FranchiseRefundsDashboardViewModel extends PrimeCareDashboardViewModel {
     super.isOfflineFallback,
   });
 
-  factory FranchiseRefundsDashboardViewModel.fromDashboardMetrics(DashboardMetrics metrics) {
+  factory FranchiseRefundsDashboardViewModel.fromDashboardMetrics(
+    DashboardMetrics metrics,
+  ) {
+    return FranchiseRefundsDashboardViewModel(metrics: metrics, insights: []);
+  }
+
+  factory FranchiseRefundsDashboardViewModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return FranchiseRefundsDashboardViewModel(
-      metrics: metrics,
-      insights: [],
+      metrics: DashboardMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>? ?? {},
+      ),
+      insights:
+          (json['insights'] as List<dynamic>?)
+              ?.map(
+                (e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
+      blueprints:
+          (json['blueprints'] as List<dynamic>?)
+              ?.map(
+                (e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
     );
   }
 
-  factory FranchiseRefundsDashboardViewModel.fromJson(Map<String, dynamic> json) {
-    return FranchiseRefundsDashboardViewModel(
-      metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>? ?? {}),
-      insights: (json['insights'] as List<dynamic>?)
-              ?.map((e) => IntelligenceInsight.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      blueprints: (json['blueprints'] as List<dynamic>?)
-              ?.map((e) => UIComponentBlueprint.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
-  }
-
-  factory FranchiseRefundsDashboardViewModel.empty({bool isOfflineFallback = false}) {
+  factory FranchiseRefundsDashboardViewModel.empty({
+    bool isOfflineFallback = false,
+  }) {
     return FranchiseRefundsDashboardViewModel(
       metrics: DashboardMetrics.empty(),
-      insights: [],      isOfflineFallback: isOfflineFallback,
+      insights: [],
+      isOfflineFallback: isOfflineFallback,
     );
   }
 
   @override
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'blueprints': blueprints.map((b) => b.toJson()).toList(),
+  };
 }

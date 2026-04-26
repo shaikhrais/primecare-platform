@@ -227,6 +227,11 @@
     "shareholder_intelligence": {
       "title": "Shareholder Intelligence",
       "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "common": {
+      "labels": {
+        "chart": "Chart"
+      }
     }
   },
   "common": {

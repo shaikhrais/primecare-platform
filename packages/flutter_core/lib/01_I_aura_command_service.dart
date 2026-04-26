@@ -163,17 +163,10 @@ class AuraCommandService {
 
   /// Provides suggested queries for the user, optionally filtered by context.
   List<String> getSuggestions({String? context}) {
-    final base = [
-      'Snooze alerts',
-      'Show me performance',
-    ];
+    final base = ['Snooze alerts', 'Show me performance'];
 
     if (context == null) {
-      return [
-        ...base,
-        'Show me finance',
-        'Check ward occupancy',
-      ];
+      return [...base, 'Show me finance', 'Check ward occupancy'];
     }
 
     final lowerContext = context.toLowerCase();
@@ -206,9 +199,6 @@ class AuraCommandService {
       ];
     }
 
-    return [
-      ...base,
-      'Show me $context details',
-    ];
+    return [...base, 'Show me $context details'];
   }
 }

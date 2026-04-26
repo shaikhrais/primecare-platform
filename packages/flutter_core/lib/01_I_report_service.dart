@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_adapters/primecare_adapters.dart';
 
-
 class ReportColumn {
   final String key;
   final String label;

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -30,31 +31,43 @@ final complianceMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
       // Add role-specific KPIs if empty or override for high-fidelity UI
       final enrichedKpis = metrics.kpis.isEmpty
           ? [
-              const KpiMetric(
-                title: 'Audit Completion',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_compliancemanager_labels_audit_completion
+                    .tr(),
                 value: '98.2%',
-                subtitle: '+1.5',
+                subtitle: LocaleKeys.dashboards_compliancemanager_labels_1_5
+                    .tr(),
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Risk Exposure',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_compliancemanager_labels_risk_exposure
+                    .tr(),
                 value: 'LOW',
-                subtitle: '0.0',
+                subtitle: LocaleKeys.dashboards_compliancemanager_labels_0_0
+                    .tr(),
                 trend: 'neutral',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Regulatory Alerts',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_compliancemanager_labels_regulatory_alerts
+                    .tr(),
                 value: '2',
-                subtitle: '-50.0',
+                subtitle: LocaleKeys.dashboards_compliancemanager_labels_50_0
+                    .tr(),
                 trend: 'down',
                 status: 'warning',
               ),
-              const KpiMetric(
-                title: 'Policy Review',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_compliancemanager_labels_policy_review
+                    .tr(),
                 value: '100%',
-                subtitle: '0.0',
+                subtitle: LocaleKeys.dashboards_compliancemanager_labels_0_0
+                    .tr(),
                 trend: 'neutral',
                 status: 'success',
               ),
@@ -84,7 +97,9 @@ final complianceInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'compliance_insight_1',
-      title: 'High Compliance: US-North',
+      title: LocaleKeys
+          .dashboards_compliancemanager_labels_high_compliance__us_north
+          .tr(),
       summary:
           'Clinical units in the US-North cluster achieved 100% audit completion for 3 consecutive months.',
       impact: InsightImpact.positive,
@@ -95,7 +110,9 @@ final complianceInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'compliance_insight_2',
-      title: 'Documentation Lag Detected',
+      title: LocaleKeys
+          .dashboards_compliancemanager_labels_documentation_lag_detected
+          .tr(),
       summary:
           'Electronic health record (EHR) signing delay increased by 14% in Unit 3B.',
       impact: InsightImpact.warning,
@@ -106,7 +123,9 @@ final complianceInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'compliance_insight_3',
-      title: 'Pending Policy Updates',
+      title: LocaleKeys
+          .dashboards_compliancemanager_labels_pending_policy_updates
+          .tr(),
       summary:
           'New provincial health guidelines for Q3 2026 require policy reconciliation.',
       impact: InsightImpact.info,

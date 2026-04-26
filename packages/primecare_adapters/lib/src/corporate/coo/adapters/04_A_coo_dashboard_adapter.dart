@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -39,7 +40,7 @@ final cooInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>
   return [
     IntelligenceInsight(
       id: 'coo_insight_1',
-      title: 'Supply Chain Optimization',
+      title: LocaleKeys.dashboards_coo_labels_supply_chain_optimization.tr(),
       summary:
           'Switching to "CareDirect" for wound care supplies could save 12% in procurement costs.',
       impact: InsightImpact.positive,
@@ -49,7 +50,7 @@ final cooInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>
     ),
     IntelligenceInsight(
       id: 'coo_insight_2',
-      title: 'Staffing Capacity Risk',
+      title: LocaleKeys.dashboards_coo_labels_staffing_capacity_risk.tr(),
       summary:
           'High clinical load in US East during weekend shifts is causing 12% burnout risk increase.',
       impact: InsightImpact.warning,
@@ -60,7 +61,7 @@ final cooInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsight>
     ),
     IntelligenceInsight(
       id: 'coo_insight_3',
-      title: 'Facility Expansion Velocity',
+      title: LocaleKeys.dashboards_coo_labels_facility_expansion_velocity.tr(),
       summary:
           'New facility onboarding time reduced by 15% via automated logistics hub.',
       impact: InsightImpact.info,

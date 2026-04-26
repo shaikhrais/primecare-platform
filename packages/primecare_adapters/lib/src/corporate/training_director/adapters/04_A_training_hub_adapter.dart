@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -42,7 +43,9 @@ final trainingHubInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'th_1',
-      title: 'High Engagement in Clinical Safety',
+      title: LocaleKeys
+          .dashboards_traininghub_labels_high_engagement_in_clinical_safety
+          .tr(),
       summary:
           'Clinical safety modules have seen a 25% increase in enrollment this week.',
       impact: InsightImpact.positive,
@@ -53,7 +56,9 @@ final trainingHubInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'th_2',
-      title: 'Resource Bottleneck Predicted',
+      title: LocaleKeys
+          .dashboards_traininghub_labels_resource_bottleneck_predicted
+          .tr(),
       summary:
           'Upcoming "Annual Compliance" spike may exceed current server capacity for video streaming.',
       impact: InsightImpact.warning,

@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 // -----------------------------------------------------------------------------
@@ -33,28 +33,28 @@ final ctoMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
               KpiMetric(
                 title: LocaleKeys.cto_dashboard_labels_global_uptime.tr(),
                 value: '99.99%',
-                subtitle: '+0.01%',
+                subtitle: LocaleKeys.dashboards_cto_labels_0_01.tr(),
                 trend: 'up',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.cto_dashboard_labels_api_latency.tr(),
                 value: '142ms',
-                subtitle: '-12.0ms',
+                subtitle: LocaleKeys.dashboards_cto_labels_12_0ms.tr(),
                 trend: 'down',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.cto_dashboard_labels_error_rate.tr(),
                 value: '0.04%',
-                subtitle: '-0.02%',
+                subtitle: LocaleKeys.dashboards_cto_labels_0_02.tr(),
                 trend: 'down',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.cto_dashboard_labels_deploys_day.tr(),
                 value: '12',
-                subtitle: '+2.0',
+                subtitle: LocaleKeys.dashboards_cto_labels_2_0.tr(),
                 trend: 'up',
                 status: 'success',
               ),

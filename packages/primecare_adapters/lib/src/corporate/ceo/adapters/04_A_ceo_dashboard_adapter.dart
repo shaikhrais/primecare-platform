@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
 // -----------------------------------------------------------------------------
@@ -33,28 +33,28 @@ final ceoMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
               KpiMetric(
                 title: LocaleKeys.ceo_dashboard_labels_strategic_growth.tr(),
                 value: '\$84.2M',
-                subtitle: '+14.8',
+                subtitle: LocaleKeys.dashboards_ceo_labels_14_8.tr(),
                 trend: 'up',
                 status: 'success',
               ),
               KpiMetric(
-                title: 'Global NPS',
+                title: LocaleKeys.dashboards_ceo_labels_global_nps.tr(),
                 value: '78',
-                subtitle: '+3.0',
+                subtitle: LocaleKeys.dashboards_ceo_labels_3_0.tr(),
                 trend: 'up',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.ceo_dashboard_labels_revenue_growth.tr(),
                 value: '22.4%',
-                subtitle: '+5.2',
+                subtitle: LocaleKeys.dashboards_ceo_labels_5_2.tr(),
                 trend: 'up',
                 status: 'success',
               ),
               KpiMetric(
                 title: LocaleKeys.ceo_dashboard_labels_market_expansion.tr(),
                 value: '18',
-                subtitle: '+2.0',
+                subtitle: LocaleKeys.dashboards_ceo_labels_2_0.tr(),
                 trend: 'up',
                 status: 'success',
               ),
@@ -83,7 +83,7 @@ final ceoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'ceo_1',
-      title: 'M&A Pipeline Velocity',
+      title: LocaleKeys.dashboards_ceo_labels_m_a_pipeline_velocity.tr(),
       summary:
           'Due diligence on "Pacific Care Group" shows 94% alignment with PrimeCare core quality standards.',
       impact: InsightImpact.positive,
@@ -94,7 +94,7 @@ final ceoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'ceo_2',
-      title: 'Regional Margin Sensitivity',
+      title: LocaleKeys.dashboards_ceo_labels_regional_margin_sensitivity.tr(),
       summary:
           'Expansion into the Florida market shows 4% higher operational friction than initially modeled.',
       impact: InsightImpact.warning,
@@ -105,7 +105,7 @@ final ceoInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'ceo_3',
-      title: 'Stakeholder Sentiment Surge',
+      title: LocaleKeys.dashboards_ceo_labels_stakeholder_sentiment_surge.tr(),
       summary:
           'Institutional investor sentiment has shifted to "Bullish" following the Q3 technology roadmap presentation.',
       impact: InsightImpact.info,

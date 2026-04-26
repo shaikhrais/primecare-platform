@@ -12,7 +12,7 @@ void main() {
   }
 
   final files = featureDir.listSync(recursive: true);
-  
+
   // Use a Set to avoid any physical duplicate exports
   final exports = <String>{};
 

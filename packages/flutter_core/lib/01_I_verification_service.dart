@@ -1,7 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_adapters/primecare_adapters.dart';
 
-
 /// Hardened Verification Service for PrimeCare Infrastructure audits.
 /// Handles architectural purpose reports and database integrity metrics.
 class VerificationService {

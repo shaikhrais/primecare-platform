@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -41,7 +42,8 @@ final cxDirectorInsightsProvider = FutureProvider.autoDispose<List<IntelligenceI
   return [
     IntelligenceInsight(
       id: 'cx_01',
-      title: 'Sentiment Surge Detected',
+      title: LocaleKeys.dashboards_cxdirector_labels_sentiment_surge_detected
+          .tr(),
       summary:
           'Community sentiment in the US-Northeast cluster has increased by 15% following the "Family Portal 2.0" launch.',
       impact: InsightImpact.positive,
@@ -52,7 +54,7 @@ final cxDirectorInsightsProvider = FutureProvider.autoDispose<List<IntelligenceI
     ),
     IntelligenceInsight(
       id: 'cx_02',
-      title: 'Churn Risk Volatility',
+      title: LocaleKeys.dashboards_cxdirector_labels_churn_risk_volatility.tr(),
       summary:
           '3 specific facilities show engagement drop in the private-pay segment. Predictive churn risk up by 0.8%.',
       impact: InsightImpact.warning,
@@ -63,7 +65,9 @@ final cxDirectorInsightsProvider = FutureProvider.autoDispose<List<IntelligenceI
     ),
     IntelligenceInsight(
       id: 'cx_03',
-      title: 'Response Latency Optimization',
+      title: LocaleKeys
+          .dashboards_cxdirector_labels_response_latency_optimization
+          .tr(),
       summary:
           'Automated triage reduced average response time to under 1 hour. First-contact resolution is at an all-time high.',
       impact: InsightImpact.info,
@@ -99,7 +103,8 @@ final cxDirectorDashboardAdapterProvider =
         final insights = await ref.watch(cxDirectorInsightsProvider.future);
 
         final viewModel = CXDirectorDashboardViewModel(
-          title: 'CX Director Dashboard',
+          title: LocaleKeys.dashboards_cxdirector_labels_cx_director_dashboard
+              .tr(),
           metrics: metrics,
           insights: insights,
           isOfflineFallback: false,

@@ -13,10 +13,9 @@ class AuraContextNotifier extends Notifier<String?> {
   void update(String? context) => state = context;
 }
 
-final auraContextProvider =
-    NotifierProvider<AuraContextNotifier, String?>(() {
-      return AuraContextNotifier();
-    });
+final auraContextProvider = NotifierProvider<AuraContextNotifier, String?>(() {
+  return AuraContextNotifier();
+});
 
 final auraPulseServiceProvider = Provider<AuraPulseService>((ref) {
   final service = AuraPulseService(ref);

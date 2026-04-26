@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -30,31 +31,37 @@ final socialWorkerMetricsProvider = StreamProvider<DashboardMetrics>((ref) {
       // Add role-specific KPIs if empty or override for high-fidelity UI
       final enrichedKpis = metrics.kpis.isEmpty
           ? [
-              const KpiMetric(
-                title: 'Active Caseload',
+              KpiMetric(
+                title: LocaleKeys.dashboards_socialworker_labels_active_caseload
+                    .tr(),
                 value: '34',
-                subtitle: '+2.0',
+                subtitle: LocaleKeys.dashboards_socialworker_labels_2_0.tr(),
                 trend: 'up',
                 status: 'neutral',
               ),
-              const KpiMetric(
-                title: 'Crisis Velocity',
+              KpiMetric(
+                title: LocaleKeys.dashboards_socialworker_labels_crisis_velocity
+                    .tr(),
                 value: '4',
-                subtitle: '+1.0',
+                subtitle: LocaleKeys.dashboards_socialworker_labels_1_0.tr(),
                 trend: 'up',
                 status: 'error',
               ),
-              const KpiMetric(
-                title: 'Intervention Rate',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_socialworker_labels_intervention_rate
+                    .tr(),
                 value: '92%',
-                subtitle: '+5.0',
+                subtitle: LocaleKeys.dashboards_socialworker_labels_5_0.tr(),
                 trend: 'up',
                 status: 'success',
               ),
-              const KpiMetric(
-                title: 'Community Linkage',
+              KpiMetric(
+                title: LocaleKeys
+                    .dashboards_socialworker_labels_community_linkage
+                    .tr(),
                 value: '88%',
-                subtitle: '+3.0',
+                subtitle: LocaleKeys.dashboards_socialworker_labels_3_0.tr(),
                 trend: 'up',
                 status: 'success',
               ),
@@ -84,7 +91,9 @@ final socialWorkerInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
   return [
     IntelligenceInsight(
       id: 'sw_01',
-      title: 'Psychosocial Crisis Detection',
+      title: LocaleKeys
+          .dashboards_socialworker_labels_psychosocial_crisis_detection
+          .tr(),
       summary:
           'Urgent psychosocial intervention required for Patient Sarah Miller. High risk of re-admission.',
       impact: InsightImpact.critical,
@@ -95,7 +104,9 @@ final socialWorkerInsightsProvider = FutureProvider<List<IntelligenceInsight>>((
     ),
     IntelligenceInsight(
       id: 'sw_02',
-      title: 'Regulatory Funding Opportunity',
+      title: LocaleKeys
+          .dashboards_socialworker_labels_regulatory_funding_opportunity
+          .tr(),
       summary:
           'New government subsidies available for home care equipment in Ontario. 12 patients eligible.',
       impact: InsightImpact.positive,

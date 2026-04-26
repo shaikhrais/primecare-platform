@@ -36,7 +36,10 @@ class MasterDashboardPageAdapter
 
     result.fold(
       (data) {
-        state = MasterDashboardPageViewModel(isLoading: false, data: data as Map<String, dynamic>?);
+        state = MasterDashboardPageViewModel(
+          isLoading: false,
+          data: data as Map<String, dynamic>?,
+        );
       },
       (error) {
         telemetry.failGate(
@@ -44,7 +47,10 @@ class MasterDashboardPageAdapter
           'MasterDashboard Result Error',
           error: error,
         );
-        state = MasterDashboardPageViewModel(isLoading: false, data: <String, dynamic>{});
+        state = MasterDashboardPageViewModel(
+          isLoading: false,
+          data: <String, dynamic>{},
+        );
       },
     );
   }

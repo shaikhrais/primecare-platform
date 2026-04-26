@@ -35,7 +35,10 @@ class MasterAppShellAdapter extends Notifier<MasterAppShellViewModel> {
 
     result.fold(
       (data) {
-        state = MasterAppShellViewModel(isLoading: false, data: data as Map<String, dynamic>?);
+        state = MasterAppShellViewModel(
+          isLoading: false,
+          data: data as Map<String, dynamic>?,
+        );
       },
       (error) {
         telemetry.failGate(
@@ -43,7 +46,10 @@ class MasterAppShellAdapter extends Notifier<MasterAppShellViewModel> {
           'MasterAppShell Result Error',
           error: error,
         );
-        state = MasterAppShellViewModel(isLoading: false, data: <String, dynamic>{});
+        state = MasterAppShellViewModel(
+          isLoading: false,
+          data: <String, dynamic>{},
+        );
       },
     );
   }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -19,26 +20,34 @@ final franchiseSalesManagerDashboardAdapterProvider =
       return metricsResult.fold(
         (metrics) {
           final hardenedKpis = [
-            const KpiMetric(
-              title: 'Pipeline Value',
+            KpiMetric(
+              title: LocaleKeys
+                  .dashboards_franchisesalesmanager_labels_pipeline_value
+                  .tr(),
               value: '\$12.4M',
               trend: '+15%',
               status: 'positive',
             ),
-            const KpiMetric(
-              title: 'Conversion Velocity',
+            KpiMetric(
+              title: LocaleKeys
+                  .dashboards_franchisesalesmanager_labels_conversion_velocity
+                  .tr(),
               value: '1.8x',
               trend: '+22%',
               status: 'positive',
             ),
-            const KpiMetric(
-              title: 'Active Leads',
+            KpiMetric(
+              title: LocaleKeys
+                  .dashboards_franchisesalesmanager_labels_active_leads
+                  .tr(),
               value: '428',
               trend: '+8%',
               status: 'positive',
             ),
-            const KpiMetric(
-              title: 'Closing Ratio',
+            KpiMetric(
+              title: LocaleKeys
+                  .dashboards_franchisesalesmanager_labels_closing_ratio
+                  .tr(),
               value: '24%',
               trend: '+4%',
               status: 'positive',
@@ -48,24 +57,28 @@ final franchiseSalesManagerDashboardAdapterProvider =
           final charts = [
             AnalyticsChart(
               id: 'sales-pipeline',
-              title: 'Franchise Sales Pipeline (30d)',
+              title: LocaleKeys
+                  .dashboards_franchisesalesmanager_labels_franchise_sales_pipeline__30d
+                  .tr(),
               type: ChartType.line,
               dataPoints: [
-                const ChartDataPoint(label: 'W1', value: 12),
-                const ChartDataPoint(label: 'W2', value: 18),
-                const ChartDataPoint(label: 'W3', value: 15),
-                const ChartDataPoint(label: 'W4', value: 24),
+                ChartDataPoint(label: 'W1', value: 12),
+                ChartDataPoint(label: 'W2', value: 18),
+                ChartDataPoint(label: 'W3', value: 15),
+                ChartDataPoint(label: 'W4', value: 24),
               ],
             ),
             AnalyticsChart(
               id: 'lead-source-breakdown',
-              title: 'Lead Source Distribution',
+              title: LocaleKeys
+                  .dashboards_franchisesalesmanager_labels_lead_source_distribution
+                  .tr(),
               type: ChartType.pie,
               dataPoints: [
-                const ChartDataPoint(label: 'Referral', value: 40),
-                const ChartDataPoint(label: 'Direct', value: 30),
-                const ChartDataPoint(label: 'Social', value: 20),
-                const ChartDataPoint(label: 'Other', value: 10),
+                ChartDataPoint(label: 'Referral', value: 40),
+                ChartDataPoint(label: 'Direct', value: 30),
+                ChartDataPoint(label: 'Social', value: 20),
+                ChartDataPoint(label: 'Other', value: 10),
               ],
             ),
           ];
@@ -75,8 +88,10 @@ final franchiseSalesManagerDashboardAdapterProvider =
             recentActivity: [],
             charts: charts,
             insights: [
-              const DashboardInsight(
-                title: 'Lead Velocity Spike',
+              DashboardInsight(
+                title: LocaleKeys
+                    .dashboards_franchisesalesmanager_labels_lead_velocity_spike
+                    .tr(),
                 description: 'Organic lead volume increased by 22% this week.',
                 type: 'SALES',
                 impact: InsightImpact.positive,
@@ -129,7 +144,9 @@ List<IntelligenceInsight> _getSmartFranchiseSalesMocks() {
   return [
     IntelligenceInsight(
       id: 'fsm_01',
-      title: 'Territory Saturation Alert',
+      title: LocaleKeys
+          .dashboards_franchisesalesmanager_labels_territory_saturation_alert
+          .tr(),
       summary:
           'Toronto West territory is reaching 95% franchise density. Remaining capacity: 1 unit.',
       impact: InsightImpact.warning,
@@ -140,7 +157,9 @@ List<IntelligenceInsight> _getSmartFranchiseSalesMocks() {
     ),
     IntelligenceInsight(
       id: 'fsm_02',
-      title: 'Conversion Velocity High',
+      title: LocaleKeys
+          .dashboards_franchisesalesmanager_labels_conversion_velocity_high
+          .tr(),
       summary:
           'Leads from the Recent Expo are converting 3x faster than digital channels.',
       impact: InsightImpact.positive,

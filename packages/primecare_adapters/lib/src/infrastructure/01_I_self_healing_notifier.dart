@@ -46,7 +46,7 @@ class SelfHealingNotifier extends StateNotifier<SelfHealingState> {
     if (state.isLockoutActive) return false;
 
     final currentRetries = state.retryCounts[routeId] ?? 0;
-    
+
     if (currentRetries >= maxRetries) {
       if (isCritical) {
         _triggerLockout(routeId);
@@ -56,7 +56,7 @@ class SelfHealingNotifier extends StateNotifier<SelfHealingState> {
 
     final updatedCounts = Map<String, int>.from(state.retryCounts);
     updatedCounts[routeId] = currentRetries + 1;
-    
+
     state = state.copyWith(retryCounts: updatedCounts);
     return true;
   }
@@ -73,22 +73,19 @@ class SelfHealingNotifier extends StateNotifier<SelfHealingState> {
   /// Manually clears the lockout state.
   void clearLockout() {
     state = state.copyWith(
-      isLockoutActive: false, 
+      isLockoutActive: false,
       failingRouteId: null,
       retryCounts: {}, // Clear all counts on manual reset
     );
   }
 
   void _triggerLockout(String routeId) {
-    state = state.copyWith(
-      isLockoutActive: true,
-      failingRouteId: routeId,
-    );
+    state = state.copyWith(isLockoutActive: true, failingRouteId: routeId);
   }
 }
 
 /// Provider for the [SelfHealingNotifier].
 final selfHealingProvider =
     StateNotifierProvider<SelfHealingNotifier, SelfHealingState>((ref) {
-  return SelfHealingNotifier(ref);
-});
+      return SelfHealingNotifier(ref);
+    });

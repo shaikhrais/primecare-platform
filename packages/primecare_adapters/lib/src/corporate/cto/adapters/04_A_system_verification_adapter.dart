@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -44,7 +45,9 @@ final systemVerificationInsightsProvider = FutureProvider<List<IntelligenceInsig
   return [
     IntelligenceInsight(
       id: 'sys_1',
-      title: 'Infrastructure Optimization',
+      title: LocaleKeys
+          .dashboards_systemverification_labels_infrastructure_optimization
+          .tr(),
       summary:
           'API response times increased by 12% on EU-WEST nodes due to traffic imbalance.',
       impact: InsightImpact.warning,
@@ -55,7 +58,8 @@ final systemVerificationInsightsProvider = FutureProvider<List<IntelligenceInsig
     ),
     IntelligenceInsight(
       id: 'sys_2',
-      title: 'Security Compliance',
+      title: LocaleKeys.dashboards_systemverification_labels_security_compliance
+          .tr(),
       summary:
           'SOC2 readiness audit passed 98% of checks across the platform core.',
       impact: InsightImpact.positive,

@@ -60,6 +60,6 @@ final List<RouteBase> corporateRoutes = [
   ),
   GoRoute(
     path: CorporateRoutes.ctoVerificationHub,
-    builder: (context, state) => const VerificationHub(),
+    builder: (context, state) => VerificationHub(),
   ),
 ];

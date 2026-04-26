@@ -15,10 +15,13 @@ class PermissionService {
     final cached = prefs.getString(_cacheKey);
     if (cached != null) {
       try {
-        final Map<String, dynamic> decoded = json.decode(cached) as Map<String, dynamic>;
+        final Map<String, dynamic> decoded =
+            json.decode(cached) as Map<String, dynamic>;
         final Map<String, List<String>> permissions = {};
         for (var key in decoded.keys) {
-          permissions[key] = (decoded[key] as List).map((e) => e.toString()).toList();
+          permissions[key] = (decoded[key] as List)
+              .map((e) => e.toString())
+              .toList();
         }
         RouteGuard.synchronizePermissions(permissions);
       } catch (e) {

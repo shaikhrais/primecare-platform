@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -57,7 +58,9 @@ List<IntelligenceInsight> _getSmartIntakeInsights() {
   return [
     IntelligenceInsight(
       id: 'intake_01',
-      title: 'High-Priority Triage Alert',
+      title: LocaleKeys
+          .dashboards_intakecoordinator_labels_high_priority_triage_alert
+          .tr(),
       summary:
           '3 pending referrals from North General Hospital are marked as urgent (High-Risk).',
       impact: InsightImpact.alert,
@@ -67,7 +70,9 @@ List<IntelligenceInsight> _getSmartIntakeInsights() {
     ),
     IntelligenceInsight(
       id: 'intake_02',
-      title: 'Provider Network Optimization',
+      title: LocaleKeys
+          .dashboards_intakecoordinator_labels_provider_network_optimization
+          .tr(),
       summary:
           'Home Care providers in Sector 7 have 20% available capacity for new admits.',
       impact: InsightImpact.positive,
@@ -77,7 +82,9 @@ List<IntelligenceInsight> _getSmartIntakeInsights() {
     ),
     IntelligenceInsight(
       id: 'intake_03',
-      title: 'Waitlist Efficiency Insight',
+      title: LocaleKeys
+          .dashboards_intakecoordinator_labels_waitlist_efficiency_insight
+          .tr(),
       summary:
           'Automated matching could reduce waitlist time for non-urgent cardiac cases by 15%.',
       impact: InsightImpact.growth,

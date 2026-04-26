@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 // Layer: 04_UI_ADAPTERS
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
@@ -40,7 +41,7 @@ final ownerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsigh
   return [
     IntelligenceInsight(
       id: 'own_01',
-      title: 'M&A Opportunity: GTA North',
+      title: LocaleKeys.dashboards_owner_labels_m_a_opportunity__gta_north.tr(),
       summary:
           'A competitor in the Vaughan cluster is showing signs of liquidity stress. Potential for strategic acquisition.',
       impact: InsightImpact.positive,
@@ -50,7 +51,9 @@ final ownerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsigh
     ),
     IntelligenceInsight(
       id: 'own_02',
-      title: 'Regulatory Change: Bill 124 Impact',
+      title: LocaleKeys
+          .dashboards_owner_labels_regulatory_change__bill_124_impact
+          .tr(),
       summary:
           'Projected 5% increase in labor costs due to recent provincial wage parity adjustments.',
       impact: InsightImpact.warning,
@@ -61,7 +64,7 @@ final ownerInsightsProvider = FutureProvider.autoDispose<List<IntelligenceInsigh
     ),
     IntelligenceInsight(
       id: 'own_03',
-      title: 'AI Operational Efficiency',
+      title: LocaleKeys.dashboards_owner_labels_ai_operational_efficiency.tr(),
       summary:
           'Aura scheduling optimization has reduced overtime spend by C\$420K YTD.',
       impact: InsightImpact.info,

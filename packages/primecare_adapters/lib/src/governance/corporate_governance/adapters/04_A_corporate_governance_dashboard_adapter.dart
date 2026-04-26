@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'package:primecare_adapters/primecare_adapters.dart';
 
@@ -44,27 +45,43 @@ class CorporateGovernanceDashboardAdapter
         metrics: DashboardMetrics(
           kpis: [
             KpiMetric(
-              title: 'Compliance Score',
+              title: LocaleKeys
+                  .dashboards_corporategovernance_labels_compliance_score
+                  .tr(),
               value: '98.4%',
-              subtitle: 'Optimal Integrity',
+              subtitle: LocaleKeys
+                  .dashboards_corporategovernance_labels_optimal_integrity
+                  .tr(),
               status: KpiStatus.success.name,
             ),
             KpiMetric(
-              title: 'Structural Drift',
+              title: LocaleKeys
+                  .dashboards_corporategovernance_labels_structural_drift
+                  .tr(),
               value: '12',
-              subtitle: 'Minor Anomalies',
+              subtitle: LocaleKeys
+                  .dashboards_corporategovernance_labels_minor_anomalies
+                  .tr(),
               status: KpiStatus.warning.name,
             ),
             KpiMetric(
-              title: 'Verified Routes',
+              title: LocaleKeys
+                  .dashboards_corporategovernance_labels_verified_routes
+                  .tr(),
               value: '1,240',
-              subtitle: 'Global Registry',
+              subtitle: LocaleKeys
+                  .dashboards_corporategovernance_labels_global_registry
+                  .tr(),
               status: KpiStatus.success.name,
             ),
             KpiMetric(
-              title: 'Policy Gaps',
+              title: LocaleKeys
+                  .dashboards_corporategovernance_labels_policy_gaps
+                  .tr(),
               value: '4',
-              subtitle: 'Next Audit Cycle',
+              subtitle: LocaleKeys
+                  .dashboards_corporategovernance_labels_next_audit_cycle
+                  .tr(),
               status: KpiStatus.neutral.name,
             ),
           ],
@@ -72,15 +89,17 @@ class CorporateGovernanceDashboardAdapter
           charts: [
             AnalyticsChart(
               id: 'governance-integrity',
-              title: 'Institutional Integrity Trend',
+              title: LocaleKeys
+                  .dashboards_corporategovernance_labels_institutional_integrity_trend
+                  .tr(),
               type: ChartType.line,
               dataPoints: [
-                const ChartDataPoint(label: 'Mon', value: 92),
-                const ChartDataPoint(label: 'Tue', value: 94),
-                const ChartDataPoint(label: 'Wed', value: 93),
-                const ChartDataPoint(label: 'Thu', value: 96),
-                const ChartDataPoint(label: 'Fri', value: 98),
-                const ChartDataPoint(label: 'Sat', value: 98.4),
+                ChartDataPoint(label: 'Mon', value: 92),
+                ChartDataPoint(label: 'Tue', value: 94),
+                ChartDataPoint(label: 'Wed', value: 93),
+                ChartDataPoint(label: 'Thu', value: 96),
+                ChartDataPoint(label: 'Fri', value: 98),
+                ChartDataPoint(label: 'Sat', value: 98.4),
               ],
             ),
           ],
@@ -88,7 +107,9 @@ class CorporateGovernanceDashboardAdapter
         insights: [
           IntelligenceInsight(
             id: 'integrity-001',
-            title: 'Blueprint Mismatch Detected',
+            title: LocaleKeys
+                .dashboards_corporategovernance_labels_blueprint_mismatch_detected
+                .tr(),
             summary:
                 '3 clinical screens in the UK cluster show minor structural drift from v4 blueprints.',
             category: 'Integrity',
@@ -98,7 +119,9 @@ class CorporateGovernanceDashboardAdapter
           ),
           IntelligenceInsight(
             id: 'arch-001',
-            title: 'Execution Gate Optimization',
+            title: LocaleKeys
+                .dashboards_corporategovernance_labels_execution_gate_optimization
+                .tr(),
             summary:
                 'Telemetry suggests 15% improvement in hydration speed by enabling aggressive caching for static registries.',
             category: 'Architecture',

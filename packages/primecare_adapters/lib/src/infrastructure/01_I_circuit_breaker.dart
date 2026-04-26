@@ -52,7 +52,7 @@ class CircuitBreakerInterceptor extends Interceptor {
   final CircuitBreaker _breaker;
 
   CircuitBreakerInterceptor([CircuitBreaker? breaker])
-      : _breaker = breaker ?? CircuitBreaker();
+    : _breaker = breaker ?? CircuitBreaker();
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {

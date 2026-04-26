@@ -14,8 +14,10 @@ class LanguageNotifier extends Notifier<String> {
   @override
   String build() {
     // Watch AuthProvider for source-of-truth language from the user profile
-    final authLanguage = ref.watch(authProvider.select((s) => s.preferredLanguage));
-    
+    final authLanguage = ref.watch(
+      authProvider.select((s) => s.preferredLanguage),
+    );
+
     if (authLanguage != null && authLanguage.isNotEmpty) {
       return authLanguage;
     }
@@ -28,20 +30,22 @@ class LanguageNotifier extends Notifier<String> {
 
   Future<void> setLanguage(String langCode) async {
     if (state == langCode) return;
-    
+
     // Update local state (this will notify listeners immediately)
     state = langCode;
-    
+
     // Persist and update the user profile via AuthProvider
     await ref.read(authProvider.notifier).updatePreferredLanguage(langCode);
-    
+
     // Also save to SharedPreferences for guest/persistent use
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_langKey, langCode);
   }
 }
 
-final languageProvider = NotifierProvider<LanguageNotifier, String>(LanguageNotifier.new);
+final languageProvider = NotifierProvider<LanguageNotifier, String>(
+  LanguageNotifier.new,
+);
 
 /// Extension on BuildContext to easily translate PrimeCareLabel using the native flutter Localizations locale.
 extension PrimeCareLabelTranslation on PrimeCareLabel {
