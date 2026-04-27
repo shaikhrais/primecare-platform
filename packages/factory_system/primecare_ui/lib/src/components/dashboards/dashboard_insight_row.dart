@@ -1,7 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/theme/primecare_theme.dart';
 
 /// A standard row widget for displaying dashboard insights with type indicators.
 class DashboardInsightRow extends StatelessWidget {

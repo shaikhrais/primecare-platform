@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../../config/resilience_config.dart';
 import '../../registry/governance_registry.dart';
 import 'system_recovery_mode.dart';

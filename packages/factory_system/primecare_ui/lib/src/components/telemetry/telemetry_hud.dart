@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:primecare_adapters/src/infrastructure/telemetry_service.dart';
+import 'package:primecare_ui/src/shared/src/infrastructure/telemetry_service.dart';
 import 'package:flutter_core/src/resilience/mechanical_repair_kit.dart';
 
 /// A high-fidelity diagnostic HUD that displays real-time execution gate telemetry.

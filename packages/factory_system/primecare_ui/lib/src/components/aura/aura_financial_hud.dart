@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_core/flutter_core.dart';
-import '../../theme/colors.dart';
 
 class AuraFinancialHud extends StatelessWidget {
   final List<IntelligenceInsight> insights;

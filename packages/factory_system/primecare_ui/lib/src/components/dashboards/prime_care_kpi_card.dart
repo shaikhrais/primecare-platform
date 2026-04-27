@@ -4,7 +4,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 // Telemetry and Infrastructure
-import 'package:primecare_adapters/src/infrastructure/telemetry_service.dart';
+import 'package:primecare_ui/src/shared/src/infrastructure/telemetry_service.dart';
 import '../../theme/colors.dart';
 
 class PrimeCareKpiCard extends ConsumerWidget {

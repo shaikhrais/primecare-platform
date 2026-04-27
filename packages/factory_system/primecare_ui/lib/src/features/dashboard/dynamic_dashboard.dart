@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
 
 // 1. The Data Provider (Simulates API Backend)
 final telemetryProvider = FutureProvider.family<Map<String, String>, UserRole>((ref, role) async {

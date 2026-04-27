@@ -1,6 +1,4 @@
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/components/primecare_card.dart';
 
 class IntelligenceInsightCard extends StatelessWidget {
   final IntelligenceInsight insight;

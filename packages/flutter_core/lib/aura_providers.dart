@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'aura_pulse_service.dart';
 import 'aura_command_service.dart';
 import 'src/models/aura_event.dart';

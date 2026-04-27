@@ -5,7 +5,7 @@ import '../features/features_manifest.dart';
 
 class GovernanceBootstrapper {
   static void bootstrap() {
-    GovernanceRegistry.register(ArchitecturePlanningDashboardIntent());
+    GovernanceRegistry.register(ArchitecturalPlanningIntent());
     GovernanceRegistry.register(BillingAdminDashboardIntent());
     GovernanceRegistry.register(CeoDashboardIntent());
     GovernanceRegistry.register(CfoDashboardIntent());
@@ -13,7 +13,7 @@ class GovernanceBootstrapper {
     GovernanceRegistry.register(ClinicDashboardIntent());
     GovernanceRegistry.register(ClinicalDirectorDashboardIntent());
     GovernanceRegistry.register(CommunityOutreachDashboardIntent());
-    GovernanceRegistry.register(ComplianceManagerDashboardIntent());
+    GovernanceRegistry.register(ComplianceHubIntent());
     GovernanceRegistry.register(CooDashboardIntent());
     GovernanceRegistry.register(CorporateGovernanceDashboardIntent());
     GovernanceRegistry.register(CourseArchitectDashboardIntent());
@@ -55,7 +55,9 @@ class GovernanceBootstrapper {
     GovernanceRegistry.register(const ShareholderIntelligenceDashboardIntent());
     GovernanceRegistry.register(SocialWorkerDashboardIntent());
     GovernanceRegistry.register(SupportDashboardIntent());
-    GovernanceRegistry.register(SystemVerificationDashboardIntent());
+    GovernanceRegistry.register(VerificationHubIntent());
+    GovernanceRegistry.register(RegionDashboardIntent());
+    GovernanceRegistry.register(SystemDashboardIntent());
     GovernanceRegistry.register(TerritoryExpansionManagerDashboardIntent());
     GovernanceRegistry.register(TerritorySalesManagerDashboardIntent());
     GovernanceRegistry.register(TrainingCoordinatorDashboardIntent());

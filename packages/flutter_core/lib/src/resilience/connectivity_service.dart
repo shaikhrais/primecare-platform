@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// Tracks device connectivity state to prevent pointless API calls when offline.
 ///

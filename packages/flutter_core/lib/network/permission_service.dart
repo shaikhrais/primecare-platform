@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../routes/route_guard.dart';
 
 /// Service responsible for fetching, caching, and disseminating dynamic

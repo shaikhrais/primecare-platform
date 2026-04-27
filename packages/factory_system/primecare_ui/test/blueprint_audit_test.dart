@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/registry/governance_bootstrapper.dart';
-import 'package:primecare_ui/src/registry/platform_governance_audit.dart';
 
 void main() {
   group('Auditor Blueprint Governance Tests', () {

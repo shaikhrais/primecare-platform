@@ -1,7 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 // Layer: 02_MODELS_FOUNDATION
 import 'package:flutter_core/config/offline_fallback_state.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
 
 class CommonFeatureViewModel implements OfflineFallbackState {
   @override

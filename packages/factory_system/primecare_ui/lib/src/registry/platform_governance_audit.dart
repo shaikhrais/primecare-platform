@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
-import 'governance_bootstrapper.dart';
 
 /// Programmatic Audit engine for the PrimeCare Platform.
 /// This class enables "Knowing Everything" by cross-referencing

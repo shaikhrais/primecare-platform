@@ -1,7 +1,5 @@
 import 'dart:ui';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/theme/colors.dart';
-import 'package:primecare_ui/src/theme/design_system.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AuthSplitLayout extends ConsumerWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_adapters/src/models/core/dashboard_models.dart';
+import 'package:primecare_ui/src/shared/src/models/core/dashboard_models.dart';
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:primecare_ui/src/components/aura/aura_briefing_panel.dart';
 import 'package:flutter_core/src/resilience/system_recovery_manager.dart';

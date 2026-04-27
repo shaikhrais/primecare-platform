@@ -1,79 +1,27 @@
 // AUTO-GENERATED FEATURES MANIFEST - DO NOT EDIT
 // Total Items: 458
 
-export 'architecture_planning_dashboard/presentation/widgets/architecture_planning_dashboard_screen.dart';
-export 'architecture_planning_dashboard/registry/architecture_planning_dashboard_intent.dart';
+export 'administrative_forms/administrative_forms_view.dart';
+export 'architectural_planning/architectural_planning_view.dart';
+
 export 'auditor_hud/presentation/widgets/governed_widget.dart';
 export 'billing_admin/presentation/widgets/billing_admin_screen.dart';
-export 'billing_admin_dashboard/presentation/widgets/billing_admin_dashboard_screen.dart';
-export 'billing_admin_dashboard/registry/billing_admin_dashboard_intent.dart';
-export 'ceo_dashboard/presentation/widgets/ceo_dashboard_screen.dart';
-export 'ceo_dashboard/presentation/widgets/ceo_widgets.dart';
-export 'ceo_dashboard/registry/ceo_dashboard_intent.dart';
-export 'cfo_dashboard/presentation/widgets/cfo_dashboard_screen.dart';
-export 'cfo_dashboard/presentation/widgets/cfo_widgets.dart';
-export 'cfo_dashboard/registry/cfo_dashboard_intent.dart';
-export 'client/presentation/widgets/client_screen.dart';
-export 'client_dashboard/presentation/widgets/client_dashboard_screen.dart';
-export 'client_dashboard/registry/client_dashboard_intent.dart';
-export 'clinic_dashboard/presentation/widgets/clinic_dashboard_screen.dart';
-export 'clinic_dashboard/presentation/widgets/clinic_widgets.dart';
-export 'clinic_dashboard/registry/clinic_dashboard_intent.dart';
-export 'clinical_director/presentation/widgets/clinical_director_screen.dart';
-export 'clinical_director_dashboard/presentation/widgets/clinical_director_dashboard_screen.dart';
-export 'clinical_director_dashboard/presentation/widgets/clinical_director_widgets.dart';
-export 'clinical_director_dashboard/registry/clinical_director_dashboard_intent.dart';
-export 'clinical_forms/presentation/widgets/approve_medication_refill_form_screen.dart';
-export 'clinical_forms/presentation/widgets/daily_vitals_card_form_screen.dart';
-export 'clinical_forms/presentation/widgets/log_clinical_incident_form_screen.dart';
-export 'clinical_forms/presentation/widgets/log_infection_control_form_screen.dart';
-export 'clinical_forms/presentation/widgets/review_care_plan_form_screen.dart';
-export 'clinical_forms/presentation/widgets/review_clinical_incident_form_screen.dart';
-export 'clinical_forms/presentation/widgets/review_medication_inventory_form_screen.dart';
-export 'clinical_forms/presentation/widgets/schedule_clinical_audit_form_screen.dart';
-export 'clinical_forms/presentation/widgets/submit_adl_checklist_form_screen.dart';
-export 'clinical_forms/presentation/widgets/submit_daily_census_form_screen.dart';
-export 'common_forms/presentation/widgets/approve_real_estate_form_screen.dart';
-export 'common_forms/presentation/widgets/approve_system_access_form_screen.dart';
-export 'common_forms/presentation/widgets/assign_care_pod_form_screen.dart';
-export 'common_forms/presentation/widgets/assign_training_module_form_screen.dart';
-export 'common_forms/presentation/widgets/audit_compliance_form_screen.dart';
-export 'common_forms/presentation/widgets/audit_global_education_form_screen.dart';
-export 'common_forms/presentation/widgets/audit_override_form_screen.dart';
-export 'common_forms/presentation/widgets/audit_royalty_payment_form_screen.dart';
-export 'common_forms/presentation/widgets/audit_security_compliance_form_screen.dart';
-export 'common_forms/presentation/widgets/audit_system_logs_form_screen.dart';
-export 'common_forms/presentation/widgets/base_form_screen.dart';
-export 'common_forms/presentation/widgets/care_plan_evaluation_form_screen.dart';
-export 'common_forms/presentation/widgets/create_canned_response_form_screen.dart';
-export 'common_forms/presentation/widgets/create_supply_order_form_screen.dart';
-export 'common_forms/presentation/widgets/discipline_log_form_screen.dart';
-export 'common_forms/presentation/widgets/firebase_sign_in_form_screen.dart';
-export 'common_forms/presentation/widgets/firebase_sign_up_form_screen.dart';
-export 'common_forms/presentation/widgets/franchise_onboarding_checklist_form_screen.dart';
-export 'common_forms/presentation/widgets/index_form_screen.dart';
-export 'common_forms/presentation/widgets/jwt_sign_in_form_screen.dart';
-export 'common_forms/presentation/widgets/jwt_sign_up_form_screen.dart';
-export 'common_forms/presentation/widgets/leave_request_form_screen.dart';
-export 'common_forms/presentation/widgets/log_inventory_spoilage_form_screen.dart';
-export 'common_forms/presentation/widgets/number_form_controller_screen.dart';
-export 'common_forms/presentation/widgets/override_global_schedule_form_screen.dart';
-export 'common_forms/presentation/widgets/patient_intake_form_screen.dart';
-export 'common_forms/presentation/widgets/radio_form_controller_screen.dart';
-export 'common_forms/presentation/widgets/register_corporate_risk_form_screen.dart';
-export 'common_forms/presentation/widgets/request_shift_adjustment_form_screen.dart';
-export 'common_forms/presentation/widgets/review_fleet_maintenance_form_screen.dart';
-export 'common_forms/presentation/widgets/review_legal_contract_form_screen.dart';
-export 'common_forms/presentation/widgets/review_onboarding_status_form_screen.dart';
-export 'common_forms/presentation/widgets/review_peer_performance_form_screen.dart';
-export 'common_forms/presentation/widgets/review_vendor_contracts_form_screen.dart';
-export 'common_forms/presentation/widgets/role_permissions_form_screen.dart';
-export 'common_forms/presentation/widgets/schedule_facility_maintenance_form_screen.dart';
-export 'common_forms/presentation/widgets/schedule_open_house_form_screen.dart';
-export 'common_forms/presentation/widgets/sign_in_page_form_screen.dart';
-export 'common_forms/presentation/widgets/single_input_form_screen.dart';
-export 'common_forms/presentation/widgets/submit_healthcare_claim_form_screen.dart';
-export 'common_forms/presentation/widgets/switch_form_controller_screen.dart';
+export 'billing_admin_dashboard/billing_admin_dashboard_view.dart';
+
+export 'ceo_dashboard/ceo_dashboard_view.dart';
+export 'cfo_dashboard/cfo_dashboard_view.dart';
+export 'client/client_view.dart';
+export 'client_dashboard/client_dashboard_view.dart';
+
+
+export 'clinic_dashboard/clinic_dashboard_view.dart';
+export 'clinical_director/clinical_director_view.dart';
+export 'clinical_director_dashboard/clinical_director_dashboard_view.dart';
+
+
+export 'clinical_forms/clinical_forms_view.dart';
+
+export 'common_forms/common_forms_view.dart';
 export 'common_ui/presentation/widgets/a_w_s_auth_context_screen.dart';
 export 'common_ui/presentation/widgets/a_w_s_authenticator_screen.dart';
 export 'common_ui/presentation/widgets/adjust_font_size_screen.dart';
@@ -231,135 +179,115 @@ export 'common_ui/presentation/widgets/use_user_screen.dart';
 export 'common_ui/presentation/widgets/user_menu_screen.dart';
 export 'common_ui/presentation/widgets/with_router_screen.dart';
 export 'common_ui/presentation/widgets/with_user_screen.dart';
-export 'community_outreach_dashboard/presentation/widgets/community_outreach_dashboard_screen.dart';
-export 'community_outreach_dashboard/presentation/widgets/community_outreach_widgets.dart';
-export 'community_outreach_dashboard/registry/community_outreach_dashboard_intent.dart';
-export 'compliance_manager/presentation/widgets/compliance_manager_screen.dart';
-export 'compliance_manager_dashboard/presentation/widgets/compliance_manager_dashboard_screen.dart';
-export 'compliance_manager_dashboard/presentation/widgets/compliance_widgets.dart';
-export 'compliance_manager_dashboard/registry/compliance_manager_dashboard_intent.dart';
-export 'coo_dashboard/presentation/widgets/coo_dashboard_screen.dart';
-export 'coo_dashboard/presentation/widgets/coo_widgets.dart';
-export 'coo_dashboard/registry/coo_dashboard_intent.dart';
-export 'corporate_governance_dashboard/presentation/widgets/corporate_governance_dashboard_screen.dart';
-export 'corporate_governance_dashboard/registry/corporate_governance_dashboard_intent.dart';
-export 'course_architect_dashboard/presentation/widgets/course_architect_dashboard_screen.dart';
-export 'course_architect_dashboard/registry/course_architect_dashboard_intent.dart';
-export 'crm_forms/presentation/widgets/add_franchise_lead_form_screen.dart';
-export 'crm_forms/presentation/widgets/approve_franchise_disclosure_form_screen.dart';
-export 'crm_forms/presentation/widgets/assign_lead_form_screen.dart';
-export 'crm_forms/presentation/widgets/create_ad_placement_form_screen.dart';
-export 'crm_forms/presentation/widgets/log_franchisee_vetting_call_form_screen.dart';
-export 'crm_forms/presentation/widgets/nurture_localized_lead_form_screen.dart';
-export 'crm_forms/presentation/widgets/review_lead_conversion_form_screen.dart';
-export 'crm_forms/presentation/widgets/review_market_share_form_screen.dart';
-export 'crm_forms/presentation/widgets/submit_marketing_budget_form_screen.dart';
-export 'cto_dashboard/presentation/widgets/cto_dashboard_screen.dart';
-export 'cto_dashboard/registry/cto_dashboard_intent.dart';
+export 'community_outreach_dashboard/community_outreach_dashboard_view.dart';
+
+export 'compliance_manager/compliance_manager_view.dart';
+
+export 'compliance_hub/compliance_hub_view.dart';
+export 'coo_dashboard/coo_dashboard_view.dart';
+export 'corporate_governance_dashboard/corporate_governance_dashboard_view.dart';
+
+
+export 'course_architect_dashboard/course_architect_dashboard_view.dart';
+
+
+export 'crm_forms/crm_forms_view.dart';
+
+export 'cto_dashboard/cto_dashboard_view.dart';
 export 'customer_support/presentation/widgets/customer_support_screen.dart';
-export 'customer_support_dashboard/presentation/widgets/customer_support_dashboard_screen.dart';
-export 'customer_support_dashboard/presentation/widgets/customer_support_widgets.dart';
-export 'customer_support_dashboard/registry/customer_support_dashboard_intent.dart';
-export 'cx_director_dashboard/presentation/widgets/cx_director_dashboard_screen.dart';
-export 'cx_director_dashboard/registry/cx_director_dashboard_intent.dart';
-export 'dynamic_screen_dashboard/presentation/widgets/dynamic_screen_dashboard_screen.dart';
-export 'dynamic_screen_dashboard/registry/dynamic_screen_dashboard_intent.dart';
-export 'family_dashboard/presentation/widgets/family_dashboard_screen.dart';
-export 'family_dashboard/registry/family_dashboard_intent.dart';
-export 'family_member/presentation/widgets/family_member_screen.dart';
-export 'family_member_dashboard/presentation/widgets/family_member_dashboard_screen.dart';
-export 'family_member_dashboard/registry/family_member_dashboard_intent.dart';
-export 'finance_director_dashboard/presentation/widgets/finance_director_dashboard_screen.dart';
-export 'finance_director_dashboard/registry/finance_director_dashboard_intent.dart';
-export 'financial_forms/presentation/widgets/approve_expense_reimbursement_form_screen.dart';
-export 'financial_forms/presentation/widgets/approve_payroll_run_form_screen.dart';
-export 'financial_forms/presentation/widgets/audit_payroll_discrepancy_form_screen.dart';
-export 'financial_forms/presentation/widgets/create_custom_invoice_form_screen.dart';
-export 'financial_forms/presentation/widgets/create_revenue_report_form_screen.dart';
-export 'financial_forms/presentation/widgets/log_petty_cash_form_screen.dart';
-export 'financial_forms/presentation/widgets/review_monthly_expenses_form_screen.dart';
-export 'franchise_owner_dashboard/presentation/widgets/franchise_owner_dashboard_screen.dart';
-export 'franchise_owner_dashboard/registry/franchise_owner_dashboard_intent.dart';
-export 'franchise_sales_manager_dashboard/presentation/widgets/franchise_sales_manager_dashboard_screen.dart';
-export 'franchise_sales_manager_dashboard/presentation/widgets/franchise_sales_widgets.dart';
-export 'franchise_sales_manager_dashboard/registry/franchise_sales_manager_dashboard_intent.dart';
+export 'customer_support_dashboard/customer_support_dashboard_view.dart';
+
+
+export 'cx_director_dashboard/cx_director_dashboard_view.dart';
+
+
+export 'dynamic_screen_dashboard/dynamic_screen_dashboard_view.dart';
+
+
+export 'family_dashboard/family_dashboard_view.dart';
+
+
+export 'family_member/family_member_view.dart';
+
+export 'family_member_dashboard/family_member_dashboard_view.dart';
+
+
+export 'finance_director_dashboard/finance_director_dashboard_view.dart';
+
+
+export 'financial_forms/financial_forms_view.dart';
+
+export 'franchise_owner_dashboard/franchise_owner_dashboard_view.dart';
+
+
+export 'franchise_sales_manager_dashboard/franchise_sales_manager_dashboard_view.dart';
+
 export 'fuse_splash/presentation/widgets/fuse_splash_screen.dart';
-export 'general_manager_dashboard/presentation/widgets/general_manager_dashboard_screen.dart';
-export 'general_manager_dashboard/presentation/widgets/general_manager_widgets.dart';
-export 'general_manager_dashboard/registry/general_manager_dashboard_intent.dart';
-export 'guest_dashboard/presentation/widgets/guest_dashboard_screen.dart';
-export 'guest_dashboard/registry/guest_dashboard_intent.dart';
-export 'head_of_bus_dev_dashboard/presentation/widgets/head_of_bus_dev_dashboard_screen.dart';
-export 'head_of_bus_dev_dashboard/presentation/widgets/head_of_bus_dev_widgets.dart';
-export 'head_of_bus_dev_dashboard/registry/head_of_bus_dev_dashboard_intent.dart';
-export 'head_of_marketing_dashboard/presentation/widgets/head_of_marketing_dashboard_screen.dart';
-export 'head_of_marketing_dashboard/presentation/widgets/marketing_widgets.dart';
-export 'head_of_marketing_dashboard/registry/head_of_marketing_dashboard_intent.dart';
-export 'hr_director_dashboard/presentation/widgets/hr_director_dashboard_screen.dart';
-export 'hr_director_dashboard/registry/hr_director_dashboard_intent.dart';
-export 'hr_forms/presentation/widgets/approve_leave_request_form_screen.dart';
-export 'hr_forms/presentation/widgets/log_employee_grievance_form_screen.dart';
-export 'hr_forms/presentation/widgets/new_employee_onboarding_form_screen.dart';
-export 'hr_forms/presentation/widgets/schedule_interview_form_screen.dart';
-export 'hr_forms/presentation/widgets/submit_exit_interview_form_screen.dart';
-export 'hr_hiring_dashboard/presentation/widgets/hr_hiring_dashboard_screen.dart';
-export 'hr_hiring_dashboard/registry/hr_hiring_dashboard_intent.dart';
-export 'hr_manager_dashboard/presentation/widgets/hr_manager_dashboard_screen.dart';
-export 'hr_manager_dashboard/presentation/widgets/hr_widgets.dart';
-export 'hr_manager_dashboard/registry/hr_manager_dashboard_intent.dart';
-export 'infection_control_dashboard/presentation/widgets/infection_control_dashboard_screen.dart';
-export 'infection_control_dashboard/presentation/widgets/infection_widgets.dart';
-export 'intake_coordinator/presentation/widgets/intake_coordinator_screen.dart';
-export 'intake_coordinator_dashboard/presentation/widgets/intake_coordinator_dashboard_screen.dart';
-export 'intake_coordinator_dashboard/presentation/widgets/intake_coordinator_widgets.dart';
-export 'intake_coordinator_dashboard/registry/intake_coordinator_dashboard_intent.dart';
-export 'intake_dashboard/presentation/widgets/intake_dashboard_screen.dart';
-export 'intake_dashboard/presentation/widgets/intake_widgets.dart';
-export 'intake_dashboard/registry/intake_dashboard_intent.dart';
-export 'it_security_dashboard/presentation/widgets/it_security_dashboard_screen.dart';
-export 'it_security_dashboard/registry/it_security_dashboard_intent.dart';
-export 'local_marketing_manager_dashboard/presentation/widgets/local_marketing_manager_dashboard_screen.dart';
-export 'local_marketing_manager_dashboard/registry/local_marketing_manager_dashboard_intent.dart';
-export 'marketing_manager/presentation/widgets/marketing_manager_screen.dart';
-export 'operations_manager_dashboard/presentation/widgets/operations_manager_dashboard_screen.dart';
-export 'operations_manager_dashboard/presentation/widgets/operations_widgets.dart';
-export 'operations_manager_dashboard/registry/operations_manager_dashboard_intent.dart';
-export 'owner_dashboard/presentation/widgets/owner_dashboard_screen.dart';
-export 'owner_dashboard/presentation/widgets/owner_widgets.dart';
-export 'owner_dashboard/registry/owner_dashboard_intent.dart';
-export 'partnership_manager_dashboard/presentation/widgets/partnership_manager_dashboard_screen.dart';
-export 'partnership_manager_dashboard/presentation/widgets/partnership_manager_widgets.dart';
-export 'partnership_manager_dashboard/registry/partnership_manager_dashboard_intent.dart';
-export 'patient_dashboard/presentation/widgets/patient_dashboard_screen.dart';
-export 'patient_dashboard/presentation/widgets/patient_widgets.dart';
-export 'patient_dashboard/registry/patient_dashboard_intent.dart';
-export 'psw_dashboard/presentation/widgets/psw_dashboard_screen.dart';
-export 'psw_dashboard/registry/psw_dashboard_intent.dart';
-export 'qa_dashboard/presentation/widgets/qa_dashboard_screen.dart';
-export 'qa_dashboard/presentation/widgets/qa_widgets.dart';
-export 'qa_dashboard/registry/qa_dashboard_intent.dart';
-export 'quality_assurance_dashboard/presentation/widgets/quality_assurance_dashboard_screen.dart';
-export 'quality_assurance_dashboard/registry/quality_assurance_dashboard_intent.dart';
-export 'receptionist_dashboard/presentation/widgets/receptionist_dashboard_screen.dart';
-export 'receptionist_dashboard/registry/receptionist_dashboard_intent.dart';
-export 'regional_bdm_dashboard/presentation/widgets/regional_bdm_dashboard_screen.dart';
-export 'regional_bdm_dashboard/presentation/widgets/regional_bdm_widgets.dart';
-export 'regional_bdm_dashboard/registry/regional_bdm_dashboard_intent.dart';
-export 'regional_manager/presentation/widgets/regional_manager_screen.dart';
-export 'regional_manager/presentation/widgets/regional_manager_widgets.dart';
-export 'regional_manager_ontario_dashboard/presentation/widgets/regional_manager_ontario_dashboard_screen.dart';
-export 'regional_manager_ontario_dashboard/registry/regional_manager_ontario_dashboard_intent.dart';
-export 'regional_manager_usa_dashboard/presentation/widgets/regional_manager_usa_dashboard_screen.dart';
-export 'regional_manager_usa_dashboard/registry/regional_manager_usa_dashboard_intent.dart';
-export 'rmt_dashboard/presentation/widgets/rmt_dashboard_screen.dart';
-export 'rmt_dashboard/registry/rmt_dashboard_intent.dart';
-export 'rn_dashboard/presentation/widgets/rn_dashboard_screen.dart';
-export 'rn_dashboard/registry/rn_dashboard_intent.dart';
+export 'general_manager_dashboard/general_manager_dashboard_view.dart';
+
+export 'guest_dashboard/guest_dashboard_view.dart';
+
+export 'head_of_bus_dev_dashboard/head_of_bus_dev_dashboard_view.dart';
+
+export 'head_of_marketing_dashboard/head_of_marketing_dashboard_view.dart';
+
+export 'hr_director_dashboard/hr_director_dashboard_view.dart';
+
+export 'hr_forms/hr_forms_view.dart';
+
+export 'hr_manager_dashboard/hr_manager_dashboard_view.dart';
+
+export 'infection_control_dashboard/infection_control_dashboard_view.dart';
+
+export 'intake_coordinator/intake_coordinator_view.dart';
+export 'intake_coordinator_dashboard/intake_coordinator_dashboard_view.dart';
+
+
+export 'intake_dashboard/intake_dashboard_view.dart';
+
+export 'it_security_dashboard/it_security_dashboard_view.dart';
+
+export 'local_marketing_manager_dashboard/local_marketing_manager_dashboard_view.dart';
+
+export 'marketing_manager/marketing_manager_view.dart';
+
+
+export 'operations_manager_dashboard/operations_manager_dashboard_view.dart';
+
+export 'owner_dashboard/owner_dashboard_view.dart';
+
+export 'partnership_manager_dashboard/partnership_manager_dashboard_view.dart';
+
+export 'patient_dashboard/patient_dashboard_view.dart';
+
+export 'psw_dashboard/psw_dashboard_view.dart';
+
+export 'qa_dashboard/qa_dashboard_view.dart';
+
+export 'quality_assurance_dashboard/quality_assurance_dashboard_view.dart';
+
+export 'receptionist_dashboard/receptionist_dashboard_view.dart';
+
+export 'regional_bdm_dashboard/regional_bdm_dashboard_view.dart';
+
+export 'regional_manager/regional_manager_dashboard_view.dart';
+
+export 'regional_manager_ontario_dashboard/regional_manager_ontario_dashboard_view.dart';
+export 'regional_manager_usa_dashboard/regional_manager_usa_dashboard_view.dart';
+
+export 'rmt_dashboard/rmt_dashboard_view.dart';
+
+export 'rn_dashboard/rn_dashboard_view.dart';
+
+export 'psw/psw_view.dart';
+export 'rn/rn_view.dart';
+export 'rpn/rpn_view.dart';
 export 'scheduler/presentation/widgets/scheduler_screen.dart';
-export 'scheduler_dashboard/presentation/widgets/scheduler_dashboard_screen.dart';
-export 'scheduler_dashboard/registry/scheduler_dashboard_intent.dart';
-export 'scrum_master_dashboard/presentation/widgets/scrum_master_dashboard_screen.dart';
-export 'scrum_master_dashboard/registry/scrum_master_dashboard_intent.dart';
+
+export 'scheduler_dashboard/scheduler_dashboard_view.dart';
+
+export 'scrum_master_dashboard/scrum_master_dashboard_view.dart';
+
 export 'shared/icons/presentation/widgets/align_center_icon_screen.dart';
 export 'shared/icons/presentation/widgets/align_justify_icon_screen.dart';
 export 'shared/icons/presentation/widgets/align_left_icon_screen.dart';
@@ -435,27 +363,42 @@ export 'shared/layouts/presentation/widgets/toolbar_layout1_screen.dart';
 export 'shared/layouts/presentation/widgets/toolbar_layout2_screen.dart';
 export 'shared/layouts/presentation/widgets/toolbar_layout3_screen.dart';
 export 'shared/layouts/presentation/widgets/use_fuse_layout_settings_screen.dart';
-export 'shareholder_intelligence/presentation/widgets/shareholder_intelligence_screen.dart';
-export 'shareholder_intelligence/registry/shareholder_intelligence_intent.dart';
-export 'social_worker_dashboard/presentation/widgets/social_worker_dashboard_screen.dart';
-export 'social_worker_dashboard/registry/social_worker_dashboard_intent.dart';
-export 'support_dashboard/presentation/widgets/support_dashboard_screen.dart';
-export 'support_dashboard/presentation/widgets/support_widgets.dart';
-export 'support_dashboard/registry/support_dashboard_intent.dart';
-export 'system_verification_dashboard/presentation/widgets/system_verification_dashboard_screen.dart';
-export 'system_verification_dashboard/registry/system_verification_dashboard_intent.dart';
-export 'territory_expansion_manager_dashboard/presentation/widgets/territory_expansion_manager_dashboard_screen.dart';
-export 'territory_expansion_manager_dashboard/presentation/widgets/territory_expansion_widgets.dart';
-export 'territory_expansion_manager_dashboard/registry/territory_expansion_manager_dashboard_intent.dart';
-export 'territory_sales_manager_dashboard/presentation/widgets/territory_sales_manager_dashboard_screen.dart';
-export 'territory_sales_manager_dashboard/registry/territory_sales_manager_dashboard_intent.dart';
-export 'training_coordinator_dashboard/presentation/widgets/training_coordinator_dashboard_screen.dart';
-export 'training_coordinator_dashboard/registry/training_coordinator_dashboard_intent.dart';
-export 'training_director_certificate_dashboard/presentation/widgets/training_director_certificate_dashboard_screen.dart';
-export 'training_director_certificate_dashboard/registry/training_director_certificate_dashboard_intent.dart';
-export 'training_director_dashboard/presentation/widgets/training_director_dashboard_screen.dart';
-export 'training_director_dashboard/registry/training_director_dashboard_intent.dart';
-export 'training_hub_dashboard/presentation/widgets/training_hub_dashboard_screen.dart';
-export 'training_hub_dashboard/registry/training_hub_dashboard_intent.dart';
-export 'volunteer_coordinator_dashboard/presentation/widgets/volunteer_coordinator_dashboard_screen.dart';
-export 'volunteer_coordinator_dashboard/registry/volunteer_coordinator_dashboard_intent.dart';
+export 'shareholder_intelligence/shareholder_intelligence_view.dart';
+
+export 'social_worker_dashboard/social_worker_dashboard_view.dart';
+
+export 'support_dashboard/support_dashboard_view.dart';
+
+export 'system_verification_dashboard/system_verification_dashboard_view.dart';
+
+export 'territory_expansion_manager_dashboard/territory_expansion_manager_dashboard_view.dart';
+
+export 'territory_sales_manager_dashboard/territory_sales_manager_dashboard_view.dart';
+
+export 'training_coordinator_dashboard/training_coordinator_dashboard_view.dart';
+
+export 'training_director_certificate_dashboard/training_director_certificate_dashboard_view.dart';
+
+export 'training_director_dashboard/training_director_dashboard_view.dart';
+
+export 'training_hub_dashboard/training_hub_dashboard_view.dart';
+
+export 'volunteer_coordinator_dashboard/volunteer_coordinator_dashboard_view.dart';
+
+export 'region_dashboard/region_dashboard_view.dart';
+export 'system_dashboard/system_dashboard_view.dart';
+export 'verification_hub/verification_hub_view.dart';
+export 'it_security_dashboard/it_security_dashboard_view.dart';
+export 'qa_dashboard/qa_dashboard_view.dart';
+export 'scrum_master_dashboard/scrum_master_dashboard_view.dart';
+export 'quality_assurance_dashboard/quality_assurance_dashboard_view.dart';
+export 'architecture_planning_dashboard/architecture_planning_dashboard_view.dart';
+export 'architectural_planning/architectural_planning_view.dart';
+export 'sign_in_view/sign_in_view.dart';
+export 'sign_up_view/sign_up_view.dart';
+export 'sign_out_view/sign_out_view.dart';
+export 'chiropractor/chiropractor_view.dart';
+export 'physiotherapist/physiotherapist_view.dart';
+export 'franchise_owner/franchise_owner_view.dart';
+
+

@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/theme.dart';
 
 /// AuraRoleTheme: Defines high-fidelity visual tokens (gradients, pulses, accents)
 /// mapped to specific platform roles for the "Aura Series" UI.

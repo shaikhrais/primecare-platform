@@ -12,11 +12,11 @@ import 'package:primecare_ui/src/components/layout/prime_responsive_grid.dart';
 import 'package:primecare_ui/src/assembly_line/assembly_line.dart';
 
 // Adapters - Granular Imports
-import 'package:primecare_adapters/src/models/dashboard_view_model.dart';
-import 'package:primecare_adapters/src/models/core/dashboard_models.dart';
-import 'package:primecare_adapters/src/models/core/ui_blueprint.dart';
-import 'package:primecare_adapters/src/infrastructure/result.dart';
-import 'package:primecare_adapters/src/infrastructure/telemetry_service.dart';
+import 'package:primecare_ui/src/shared/src/models/dashboard_view_model.dart';
+import 'package:primecare_ui/src/shared/src/models/core/dashboard_models.dart';
+import 'package:primecare_ui/src/shared/src/models/core/ui_blueprint.dart';
+import 'package:primecare_ui/src/shared/src/infrastructure/result.dart';
+import 'package:primecare_ui/src/shared/src/infrastructure/telemetry_service.dart';
 
 class PageTemplate extends ConsumerWidget {
   final String title;

@@ -1,6 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../../registry/platform_role.dart';
 
 /// Defines the recovery strategy for a screen when a critical failure occurs.

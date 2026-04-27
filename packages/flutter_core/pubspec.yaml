@@ -21,8 +21,6 @@ dependencies:
   fl_chart: ^1.2.0
   equatable: ^2.0.5
   riverpod_annotation: any
-  primecare_adapters:
-    path: ../primecare_adapters
   primecare_ui:
     path: ../factory_system/primecare_ui
   freezed_annotation: ^3.1.0

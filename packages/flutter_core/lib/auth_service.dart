@@ -10,7 +10,7 @@ import 'routes/groups/franchise_routes.dart';
 import 'routes/groups/marketing_routes.dart';
 import 'routes/groups/support_routes.dart';
 import 'routes/groups/common_routes.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class AuthState {
   final bool isAuthenticated;

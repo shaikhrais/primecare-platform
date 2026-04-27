@@ -1,7 +1,7 @@
 // Layer: 05_UI_PRESENTATION
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
 
 class HistoryLogsScreen extends ConsumerStatefulWidget {
   const HistoryLogsScreen({super.key});

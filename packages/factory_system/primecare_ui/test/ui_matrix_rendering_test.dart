@@ -3,8 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/components/layouts/master_layout.dart';
-import 'package:primecare_ui/src/screens/common/dynamic_role_dashboard_screen.dart';
 
 void main() {
   late SharedPreferences mockPrefs;

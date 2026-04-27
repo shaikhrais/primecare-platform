@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'src/utils/prime_logger.dart';
 import 'routes/groups/franchise_routes.dart';
 

@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'src/models/aura_event.dart';
 
 /// Tracks user behavioral interactions with Aura insights and suggestions.

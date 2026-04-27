@@ -1,7 +1,6 @@
 // Layer: 05_UI_PRESENTATION
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/theme/colors.dart';
 
 class AuthLayout extends ConsumerStatefulWidget {
   final Widget child;

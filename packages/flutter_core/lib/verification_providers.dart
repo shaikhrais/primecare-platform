@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'verification_service.dart';
 
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 final verificationServiceProvider = Provider<VerificationService>((ref) {
   final apiClient = ref.watch(apiClientProvider);

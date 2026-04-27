@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Internal granular imports
 import 'package:flutter_core/providers/portal_providers.dart';
 import 'package:flutter_core/aura_providers.dart';
-import 'package:primecare_adapters/src/infrastructure/telemetry_service.dart';
-import 'package:primecare_adapters/src/models/core/dashboard_models.dart';
+import 'package:primecare_ui/src/shared/src/infrastructure/telemetry_service.dart';
+import 'package:primecare_ui/src/shared/src/models/core/dashboard_models.dart';
 import 'package:primecare_ui/src/components/layouts/responsive_grid_layout.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/design_system/clinical_glass.dart';

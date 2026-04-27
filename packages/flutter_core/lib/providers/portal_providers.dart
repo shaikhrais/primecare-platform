@@ -4,7 +4,7 @@ import '../config/navigation_registry.dart';
 import 'navigation_item.dart';
 import '../config/screen_breakpoints.dart';
 import '../config/adaptive_scaling_config.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/widgets.dart';
 
 /// Provider that supplies the navigation menu items for the current user's role.

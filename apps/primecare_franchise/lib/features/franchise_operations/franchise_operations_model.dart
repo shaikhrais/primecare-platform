@@ -1,4 +1,4 @@
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class FranchiseDashboardModel {
   final DashboardMetrics metrics;

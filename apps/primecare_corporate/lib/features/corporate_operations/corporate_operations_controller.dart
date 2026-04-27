@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'corporate_operations_model.dart';
 
@@ -50,7 +50,7 @@ DashboardMetrics _enrichCorporateMetrics(DashboardMetrics metrics) {
       ? [
           KpiMetric(
             title: LocaleKeys.ceo_dashboard_labels_strategic_growth.tr(),
-            value: '$84.2M',
+            value: '\$84.2M',
             subtitle: LocaleKeys.dashboards_ceo_labels_14_8.tr(),
             trend: 'up',
             status: 'success',

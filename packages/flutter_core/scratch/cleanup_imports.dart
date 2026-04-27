@@ -23,7 +23,7 @@ void main() {
         '',
       );
       content = content.replaceAll(
-        "import 'package:primecare_adapters/primecare_adapters.dart';",
+        "import 'package:primecare_ui/primecare_ui.dart';",
         '',
       );
       content = content.replaceAll(

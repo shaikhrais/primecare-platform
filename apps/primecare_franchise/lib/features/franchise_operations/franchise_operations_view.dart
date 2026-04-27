@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'franchise_operations_controller.dart';
 
 class FranchiseOperationsView extends ConsumerWidget {

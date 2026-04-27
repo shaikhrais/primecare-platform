@@ -1,15 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
 import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
-import 'package:primecare_ui/src/components/aura/aura_dashboard_hud.dart';
-import 'package:primecare_ui/src/features/dashboard/dynamic_dashboard.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
-import 'package:primecare_ui/src/components/primecare_stat_card.dart';
-import 'package:primecare_ui/src/components/cards/primecare_chart_card.dart';
-import 'package:primecare_ui/src/components/charts/prime_care_line_chart.dart';
-import 'package:primecare_ui/src/components/analytics/ai_forecasting_dashlet.dart';
 
 class CommonComponentWarehouse extends BaseOfficeWarehouse {
   @override

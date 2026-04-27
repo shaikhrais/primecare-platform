@@ -30,8 +30,6 @@ dependencies:
   open_filex: ^4.7.0
   path: ^1.9.1
   path_provider: ^2.1.5
-  primecare_adapters:
-    path: ../../packages/primecare_adapters
   primecare_ui:
     path: ../../packages/factory_system/primecare_ui
   reactive_forms: ^18.2.2

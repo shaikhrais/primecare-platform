@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_adapters/src/infrastructure/telemetry_service.dart';
-import 'package:primecare_adapters/src/models/core/dashboard_models.dart';
+import 'package:primecare_ui/src/shared/src/infrastructure/telemetry_service.dart';
+import 'package:primecare_ui/src/shared/src/models/core/dashboard_models.dart';
 import 'package:primecare_ui/src/theme/colors.dart';
 import 'package:primecare_ui/src/components/primecare_card.dart';
 import 'package:primecare_ui/src/components/charts/prime_care_line_chart.dart';

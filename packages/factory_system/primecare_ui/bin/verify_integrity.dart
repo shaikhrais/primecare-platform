@@ -1,5 +1,4 @@
 import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/registry/governance_bootstrapper.dart';
 
 void main() {
   print('--- PrimeCare Architectural Integrity Audit ---');

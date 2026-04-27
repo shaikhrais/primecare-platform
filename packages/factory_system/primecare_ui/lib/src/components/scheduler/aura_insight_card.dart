@@ -5,7 +5,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_core/src/models/aura_event.dart';
 import 'package:flutter_core/providers/portal_providers.dart';
 import 'package:primecare_ui/src/theme/colors.dart';
-import 'package:primecare_adapters/src/models/core/dashboard_models.dart';
+import 'package:primecare_ui/src/shared/src/models/core/dashboard_models.dart';
 
 class AuraInsightCard extends ConsumerStatefulWidget {
   final AuraEvent event;

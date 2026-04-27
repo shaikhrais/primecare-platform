@@ -117,7 +117,7 @@ void main() {
         '''
 // Layer: 04_REGISTRY_INTENT
 import 'package:flutter/material.dart';
-import 'package:primecare_adapters/primecare_adapters.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../../../registry/platform_role.dart';
 import '../../../registry/intents/app_screen_intent.dart';
 import '../presentation/widgets/05_U_${role}_dashboard_screen.dart';

@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_adapters/src/infrastructure/self_healing_notifier.dart';
-import '../../theme/primecare_theme.dart';
+import 'package:primecare_ui/src/shared/src/infrastructure/self_healing_notifier.dart';
 import '../layouts/admin_layout.dart';
 import '../layouts/provider_layout.dart';
 import '../layouts/client_layout.dart';
